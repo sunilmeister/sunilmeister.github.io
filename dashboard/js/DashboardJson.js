@@ -2,8 +2,8 @@ var uiJson = {
   "version": 1,
   "allow_edit": false,
   "plugins": [
-    "dashboard/js/respimatic.dashboard.js",
-    "dashboard/css/respimatic.dashboard.css",
+    "https://sunilmeister.github.io/dashboard/js/respimatic.dashboard.js",
+    "https://sunilmeister.github.io/dashboard/css/respimatic.dashboard.css",
     null
   ],
   "panes": [
