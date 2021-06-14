@@ -510,7 +510,7 @@ var uiJson = {
         {
           "type": "picture",
           "settings": {
-            "src": "dashboard/img/logo.png",
+            "src": "https://github.com/sunilmeister/sunilmeister.github.io/dashboard/img/logo.png",
             "refresh": 5000
           }
         }
