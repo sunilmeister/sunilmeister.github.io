@@ -510,7 +510,7 @@ var uiJson = {
         {
           "type": "picture",
           "settings": {
-            "src": "http://respimatic.com/dashboard/img/logo.png",
+            "src": url("sunilmeister.github.io/dashboard/img/Logo.png"),
             "refresh": 5000
           }
         }
