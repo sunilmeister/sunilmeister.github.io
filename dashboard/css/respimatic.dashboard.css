@@ -1,0 +1,16 @@
+body {
+  background-color: #f7f9fa;
+}
+.disabled {
+  background: rgba(150,150,150,0.5);
+}
+.gridster .gs_w {
+  background-color: #0d3e51;
+}
+.gridster header {
+  background-color: #1c5d77;
+}
+.sub-section {
+  border-bottom: none;
+}
+
