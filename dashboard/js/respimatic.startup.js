@@ -97,7 +97,7 @@ function getRespimaticSysUID(){
   }
 
   sessionStorage.setItem(cookie_name, respimatic_uid);
-  //alert(cookie_name + " " + respimatic_uid);
+  alert(cookie_name + " " + respimatic_uid);
   window.location.assign("respimatic.dashboard.html");
 }
 
