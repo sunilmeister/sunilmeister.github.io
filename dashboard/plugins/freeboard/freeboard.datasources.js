@@ -284,7 +284,6 @@
 	var dweetioDatasource = function (settings, updateCallback) {
 		var self = this;
 		var currentSettings = settings;
-	        alert("thing_is: " + currentSettings.thing_id);
 
 		function onNewDweet(dweet) {
 			updateCallback(dweet);
@@ -322,7 +321,7 @@
 		"type_name": "dweet_io",
 		"display_name": "Dweet.io",
 		"external_scripts": [
-			"https://dweet.io/client/dweet.io.min.js"
+                    "https://github.com/buglabs/dweetio-client/blob/master/dweet.io.min.js"
 		],
 		"settings": [
 			{
