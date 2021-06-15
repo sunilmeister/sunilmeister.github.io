@@ -289,6 +289,7 @@
 			updateCallback(dweet);
 		}
 
+	  alert("thing_is: " + currentSettings.thing_id);
 		this.updateNow = function () {
 			dweetio.get_latest_dweet_for(currentSettings.thing_id, function (err, dweet) {
 				if (err) {
