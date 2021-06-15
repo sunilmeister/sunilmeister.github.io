@@ -2108,7 +2108,7 @@ $.extend(freeboard, jQuery.eventEmitter),
       type_name: "dweet_io",
       display_name: "Dweet.io",
       external_scripts: [
-        "http://dweet.io/client/dweet.io.min.js"
+        "https://dweet.io/client/dweet.io.min.js"
       ],
       settings: [{
         name: "thing_id",
