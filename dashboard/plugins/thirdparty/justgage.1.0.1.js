@@ -259,7 +259,7 @@ JustGage = function(config) {
   this.txtValue.attr({
     "font-size": this.params.valueFontSize,
     //"font-weight" : "bold",
-    "font-family": "Poppins",
+    "font-family": "consolas",
     "fill": this.config.valueFontColor,
     "fill-opacity": "0"
   });
