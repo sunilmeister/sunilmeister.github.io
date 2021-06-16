@@ -2397,7 +2397,7 @@ $.extend(freeboard, jQuery.eventEmitter),
       freeboard.addStyle(".tw-tc", "display:table-caption;"),
       freeboard.addStyle(".tw-td", "display:table-cell;"),
       freeboard.addStyle(".tw-value", f +
-        "font-family: consolas;overflow: hidden;display: inline-block;text-overflow: ellipsis;white-space: pre-wrap;"
+        "font-family: 'Fira Mono';overflow: hidden;display: inline-block;text-overflow: ellipsis;white-space: pre-wrap;"
         ),
       freeboard.addStyle(".tw-unit",
         "display: inline-block;padding-left: 10px;padding-bottom: 1.1em;vertical-align: bottom;"
