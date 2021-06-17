@@ -256,7 +256,7 @@ function FreeboardModel(a, b, c) {
               top: "0px"
             }, e),
             $("#board-content").animate({
-              top: f + 20 + "px"
+              top: "-25px"
             }, e),
             ($("#main-header").data().shown = !0),
             c.attachWidgetEditIcons($(".sub-section")),
@@ -270,7 +270,7 @@ function FreeboardModel(a, b, c) {
               top: "-" + f + "px"
             }, e),
             $("#board-content").animate({
-              top: "20"
+              top: "-25"
             }, e),
             ($("#main-header").data().shown = !1),
             $(".sub-section").unbind(),
