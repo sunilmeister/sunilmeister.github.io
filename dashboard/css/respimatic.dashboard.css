@@ -5,10 +5,10 @@ body {
   background: rgba(150,150,150,0.5);
 }
 .gridster .gs_w {
-  background-color: #00b3a0;
+  background-color: #323182;
 }
 .gridster header {
-  background-color: #323182;
+  background-color: #00b3a0;
 }
 .sub-section {
   border-bottom: none;
