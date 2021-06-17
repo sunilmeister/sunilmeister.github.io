@@ -1,4 +1,4 @@
-To enable editing of dashboard layout edit respimatic.dashboard.html and change 
+To enable editing of dashboard layout edit respimatic_dashboard.html and change 
 freeboard.setEditing(false) 	to 	freeboard.setEditing(true)
 
 
@@ -11,5 +11,5 @@ After changing the dashboard layout do the following
 2. Deserialize dashboard.json to create DashboardJson.js
 3. Edit DashboardJson.js to do the following
 	The first line, change "{" to "var uiJson = {"
-	Append the file AddPostfixToDashboardJs.txt to bottom of DashboardJson.js
+	Append the file DashboardJsonAdd.txt to bottom of DashboardJson.js
 	Copy DashboardJson.js to freeboard-master/js

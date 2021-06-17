@@ -260,7 +260,6 @@ JustGage = function(config) {
     "font-size": this.params.valueFontSize,
     //"font-weight" : "bold",
     "font-family": "Cousine",
-    "font-color": "#323182",
     "fill": this.config.valueFontColor,
     "fill-opacity": "0"
   });
@@ -273,7 +272,6 @@ JustGage = function(config) {
     "font-size": this.params.labelFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
-    "font-color": "#323182",
     "fill": this.config.labelFontColor,
     "fill-opacity": "0"
   });
@@ -286,7 +284,6 @@ JustGage = function(config) {
     "font-size": this.params.minFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
-    "font-color": "#323182",
     "fill": this.config.labelFontColor,
     "fill-opacity": (this.config.showMinMax == true) ? "1" : "0"
   });
@@ -299,7 +296,6 @@ JustGage = function(config) {
     "font-size": this.params.maxFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
-    "font-color": "#323182",
     "fill": this.config.labelFontColor,
     "fill-opacity": (this.config.showMinMax == true) ? "1" : "0"
   });

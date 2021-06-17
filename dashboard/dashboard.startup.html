@@ -1,88 +1,72 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>Select Respimatic 100</title>
-    <meta charset="UTF-8">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style"
-      content="black" />
-    <meta name="viewport"
-      content="width = device-width, initial-scale = 1, user-scalable = no" />
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1">
-    <script src="js/respimatic.startup.js"></script>
+<head>
+  <title>Select Respimatic 100</title>
+  <meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="js/respimatic.startup.js"></script>
 
-    <style>
-      .wrapper {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-family: sans-serif;
-        color: white;
-        background-color: #323182;
-        padding: 5px;
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-        transform: translate(-50%, -50%);
-        /* (x, y)  => position */
-        -ms-transform: translate(-50%, -50%);
-        /* IE 9 */
-        -webkit-transform: translate(-50%, -50%);
-        /* Chrome, Safari, Opera */
-      }
+  <style>
+    .wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-family: sans-serif; 
+      border: 8px outset #2e98bf;
+      background-color: #0d3e51 ;
+      color: white;
+      padding: 2px;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      transform: translate(-50%, -50%); /* (x, y)  => position */
+      -ms-transform: translate(-50%, -50%); /* IE 9 */
+      -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */    
+    }
+    .button {
+      background-color: #1c5d77;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-size: 20px;
+}
+   </style>
+</head>
 
-      .button {
-        background-color: #00b3a0;
-        border: none;
-        color: #323182;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 4px 2px;
-        cursor: pointer;
-        font-size: 24px;
-        font-weight: bold;
-      }
+<body>
+  <div class = "wrapper">
 
-    </style>
-  </head>
+    <center>
+      <img src="img/Logo.png" alt="Logos" width="320" height="80">
+      <br><br>
+      <div class="content" style="font-size: 1em">
+        <font size = "4">
+        <label>Establish WEB Connection</label>
+	<br>
+        <label>Select RESPIMATIC 100 SYSUID</label>
+	<br><br>
+	</font>
 
-  <body>
-    <div class="wrapper">
+	<input id="SYSUIDS_input" type="text" list="SYSUIDS" style="font-size: 1.2em;padding: 5px;width: 300px;text-align: center">
+	 <datalist id="SYSUIDS">
+         </datalist>
 
-      <center>
-        <img src="img/startup-title.png" alt="Logos" width="304"
-          height="90">
-        <br><br>
-        <div class="content" style="font-size: 1em">
-          <font size="5.5">
-            <label>Establish WEB Connection</label>
-            <br><br>
-            <label>Select SYSUID</label>
-            <br>
-          </font>
+	 <br><br><br>
+         <button class="button" onclick='getRespimaticSysUID()'>PROCEED</button>
+       </div>
+    </center>
 
-          <input id="SYSUIDS_input" type="text" list="SYSUIDS"
-            style="font-size: 1.2em;padding: 5px;width: 300px;text-align: center">
-          <datalist id="SYSUIDS">
-          </datalist>
+  </div>
+  </font>
 
-          <br><br><br>
-          <button class="button"
-            onclick='getRespimaticSysUID()'>PROCEED</button>
-        </div>
-        <br><br>
-        <img src="img/logo.png" alt="Logos" width="310"
-          height="45">
-      </center>
-
-    </div>
-    </font>
-
-  </body>
-
+</body>
 </html>
-

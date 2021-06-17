@@ -471,7 +471,6 @@ a:hover {
 h1 {
 	font-size: 2em;
 	margin: 0.67em 0;
-	color: white;
 }
 
 /**
@@ -771,7 +770,7 @@ html {
 
 body {
 	background-color: #101214;
-	color: #323182;
+	color: #8b8b8b;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	line-height: 20px;
@@ -1000,7 +999,7 @@ h6 {
 	font-family: inherit;
 	font-weight: bold;
 	line-height: 20px;
-	color: #323182;
+	color: #f5f5f5c4;
 	text-rendering: optimizelegibility;
 }
 
