@@ -256,7 +256,7 @@ function FreeboardModel(a, b, c) {
               top: "0px"
             }, e),
             $("#board-content").animate({
-              top: f + 20 + "px"
+              top: "-25px"
             }, e),
             ($("#main-header").data().shown = !0),
             c.attachWidgetEditIcons($(".sub-section")),
@@ -270,7 +270,7 @@ function FreeboardModel(a, b, c) {
               top: "-" + f + "px"
             }, e),
             $("#board-content").animate({
-              top: "20"
+              top: "-25px"
             }, e),
             ($("#main-header").data().shown = !1),
             $(".sub-section").unbind(),
@@ -2397,10 +2397,10 @@ $.extend(freeboard, jQuery.eventEmitter),
       freeboard.addStyle(".tw-tc", "display:table-caption;"),
       freeboard.addStyle(".tw-td", "display:table-cell;"),
       freeboard.addStyle(".tw-value", f +
-        "font-family: 'Cousine';overflow: hidden;display: inline-block;text-overflow: ellipsis;white-space: pre-wrap;"
+        "color: #323182; font-family: 'Cousine';overflow: hidden;display: inline-block;text-overflow: ellipsis;white-space: pre-wrap;"
         ),
       freeboard.addStyle(".tw-unit",
-        "display: inline-block;padding-left: 10px;padding-bottom: 1.1em;vertical-align: bottom;"
+        "color: #323182; display: inline-block;padding-left: 10px;padding-bottom: 1.1em;vertical-align: bottom;"
         ),
       freeboard.addStyle(".tw-value-wrapper",
         "position: relative;vertical-align: middle;height:100%;"),
