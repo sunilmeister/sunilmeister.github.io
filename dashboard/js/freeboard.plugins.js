@@ -2806,12 +2806,16 @@ $.extend(freeboard, jQuery.eventEmitter),
       function b() {
         if (i && h.on_text == "INITIAL State") {
           g[0].style.backgroundColor = "white";
+          document.body.style.backgroundColor = "#f7f9fa";
         } else if (i && h.on_text == "RUNNING State") {
           g[0].style.backgroundColor = "green";
+          document.body.style.backgroundColor = "#f7f9fa";
         } else if (i && h.on_text == "STANDBY State") {
           g[0].style.backgroundColor = "yellow";
+          document.body.style.backgroundColor = "#f7f9fa";
         } else if (i && h.on_text == "ERROR State") {
           g[0].style.backgroundColor = "red";
+          document.body.style.backgroundColor = "red";
         } else if (i && h.on_text == "MANDATORY") {
           g[0].style.backgroundColor = "green";
         } else if (i && h.on_text == "SPONTANEOUS") {
