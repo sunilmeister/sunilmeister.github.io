@@ -2815,7 +2815,7 @@ $.extend(freeboard, jQuery.eventEmitter),
 	  bgColorDependingOnState("#0d3e51");
         } else if (i && h.on_text == "ERROR State") {
           g[0].style.backgroundColor = "red";
-	  bgColorDependingOnState("#c2160a");
+	  bgColorDependingOnState("#ad1309");
         } else if (i && h.on_text == "MANDATORY") {
           g[0].style.backgroundColor = "green";
         } else if (i && h.on_text == "SPONTANEOUS") {
