@@ -7,9 +7,22 @@ uiJson.datasources.length=0;
 uiJson.datasources.push(dataSources["DUMMY"]);
 uiJson.datasources[0].settings.thing_id=respimatic_uid;
 
-function bgColorDependingOnState(clr) {
+var error_background = "#ad1309";
+var normal_background = "#0d3e51";
+var prev_background = normal_background;
+
+function set_error_background(errorState) {
+  var clr;
+  if (errorState) {
+    if (prev_background==normal_background) {
+      clr = error_background;
+    } else {
+      clr = normal_background;
+    }
+  } else clr = normal_background;
+  prev_background = clr;
+
   elements = document.getElementsByClassName("gs_w");
-  //alert("I am here #" + elements.length);
 
   if (elements.length==0) return;
   if (elements[0].style.backgroundColor == clr) return;
