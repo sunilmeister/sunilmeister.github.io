@@ -31,3 +31,9 @@ function set_error_background(errorState) {
     elements[i].style.backgroundColor=clr;
   }
 }
+
+function set_committed_background() {
+}
+
+function set_uncommitted_background() {
+}

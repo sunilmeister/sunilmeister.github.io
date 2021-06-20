@@ -1,13 +1,14 @@
 var uiJson = {
   "version": 1,
   "allow_edit": false,
+  "plugins": [],
   "panes": [{
       "title": "Measured Pressures",
       "width": 1,
       "row": {
         "3": 1,
         "4": 1,
-        "5": 11,
+        "5": 1,
         "6": 11,
         "7": 11
       },
@@ -57,12 +58,12 @@ var uiJson = {
       "row": {
         "3": 1,
         "4": 1,
-        "5": 7
+        "5": 1
       },
       "col": {
         "3": 2,
         "4": 2,
-        "5": 1
+        "5": 2
       },
       "col_width": 2,
       "widgets": [{
@@ -103,17 +104,19 @@ var uiJson = {
       ]
     },
     {
-      "title": "Volume Control Parameters",
+      "title": "Respimatic Control Parameters",
       "width": 1,
       "row": {
         "3": 11,
         "4": 1,
+        "5": 1,
         "6": 11,
         "7": 11
       },
       "col": {
-        "3": 3,
+        "3": 2,
         "4": 4,
+        "5": 4,
         "6": 3,
         "7": 3
       },
@@ -175,6 +178,35 @@ var uiJson = {
             "animate": true,
             "units": "cm H2O"
           }
+        },
+        {
+          "type": "text_widget",
+          "settings": {
+            "title": "Support Pressure (PS)",
+            "size": "regular",
+            "value": "datasources[\"RESPIMATIC100\"][\"PS\"]",
+            "animate": true,
+            "units": "cm H2O"
+          }
+        },
+        {
+          "type": "text_widget",
+          "settings": {
+            "title": "Support Pressure Duration (TPS)",
+            "size": "regular",
+            "value": "datasources[\"RESPIMATIC100\"][\"TPS\"]",
+            "animate": true,
+            "units": "secs"
+          }
+        },
+        {
+          "type": "indicator",
+          "settings": {
+            "title": "Control Parameters State",
+            "value": "datasources[\"RESPIMATIC100\"][\"PENDING\"]",
+            "on_text": "Uncommitted Changes",
+            "off_text": "Committed"
+          }
         }
       ]
     },
@@ -182,16 +214,16 @@ var uiJson = {
       "title": "System State",
       "width": 1,
       "row": {
-        "3": 29,
+        "3": 11,
         "4": 11,
-        "5": 1,
+        "5": 11,
         "6": 1,
         "7": 1
       },
       "col": {
         "3": 3,
-        "4": 3,
-        "5": 1,
+        "4": 2,
+        "5": 3,
         "6": 1,
         "7": 1
       },
@@ -234,16 +266,16 @@ var uiJson = {
       "title": "Breaths Detected Past Minute",
       "width": 1,
       "row": {
-        "3": 29,
-        "4": 15,
-        "5": 25,
+        "3": 21,
+        "4": 21,
+        "5": 21,
         "6": 25,
         "7": 25
       },
       "col": {
-        "3": 2,
-        "4": 2,
-        "5": 1,
+        "3": 1,
+        "4": 1,
+        "5": 2,
         "6": 1,
         "7": 1
       },
@@ -274,14 +306,16 @@ var uiJson = {
       "title": "Estimated Lung Compliance",
       "width": 1,
       "row": {
-        "3": 39,
-        "4": 21,
+        "3": 25,
+        "4": 15,
+        "5": 21,
         "6": 27,
         "7": 27
       },
       "col": {
-        "3": 2,
-        "4": 1,
+        "3": 3,
+        "4": 3,
+        "5": 1,
         "6": 2,
         "7": 2
       },
@@ -312,14 +346,16 @@ var uiJson = {
       "title": "System Parameters",
       "width": 1,
       "row": {
-        "3": 39,
+        "3": 27,
         "4": 21,
+        "5": 21,
         "6": 27,
         "7": 27
       },
       "col": {
         "3": 1,
-        "4": 4,
+        "4": 3,
+        "5": 4,
         "6": 1,
         "7": 1
       },
@@ -350,14 +386,16 @@ var uiJson = {
       "title": "Previous Breath Type",
       "width": 1,
       "row": {
-        "3": 45,
+        "3": 29,
         "4": 21,
+        "5": 21,
         "6": 11,
         "7": 11
       },
       "col": {
-        "3": 1,
-        "4": 3,
+        "3": 2,
+        "4": 2,
+        "5": 3,
         "6": 2,
         "7": 2
       },
@@ -384,14 +422,16 @@ var uiJson = {
       "title": "System Date and Time",
       "width": 1,
       "row": {
-        "3": 51,
+        "3": 31,
         "4": 11,
+        "5": 11,
         "6": 17,
         "7": 17
       },
       "col": {
-        "3": 1,
-        "4": 2,
+        "3": 3,
+        "4": 3,
+        "5": 2,
         "6": 2,
         "7": 2
       },
@@ -399,8 +439,9 @@ var uiJson = {
       "widgets": [{
         "type": "text_widget",
         "settings": {
+          "title": "",
           "size": "regular",
-          "value": "datasources[\"RESPIMATIC100\"][\"TIME\"]",
+          "value": "datasources[\"RESPIMATIC100\"][\"DATE\"]",
           "animate": true
         }
       }]
@@ -409,14 +450,16 @@ var uiJson = {
       "title": "Previous Breath Estimated Volumes",
       "width": 1,
       "row": {
-        "3": 55,
+        "3": 35,
         "4": 21,
+        "5": 15,
         "6": 21,
         "7": 21
       },
       "col": {
-        "3": 1,
-        "4": 2,
+        "3": 3,
+        "4": 4,
+        "5": 2,
         "6": 2,
         "7": 2
       },
@@ -439,44 +482,6 @@ var uiJson = {
             "value": "datasources[\"RESPIMATIC100\"][\"MVDEL\"]",
             "animate": true,
             "units": "litres / min"
-          }
-        }
-      ]
-    },
-    {
-      "title": "Support Pressure Parameters",
-      "width": 1,
-      "row": {
-        "3": 61,
-        "4": 15,
-        "6": 23,
-        "7": 23
-      },
-      "col": {
-        "3": 1,
-        "4": 4,
-        "6": 3,
-        "7": 3
-      },
-      "col_width": 1,
-      "widgets": [{
-          "type": "text_widget",
-          "settings": {
-            "title": "Support Pressure (PS)",
-            "size": "regular",
-            "value": "datasources[\"RESPIMATIC100\"][\"PS\"]\n",
-            "animate": true,
-            "units": "cm H2O"
-          }
-        },
-        {
-          "type": "text_widget",
-          "settings": {
-            "title": "Support Pressure Duration (TPS)",
-            "size": "regular",
-            "value": "datasources[\"RESPIMATIC100\"][\"TPS\"]",
-            "animate": true,
-            "units": "secs"
           }
         }
       ]

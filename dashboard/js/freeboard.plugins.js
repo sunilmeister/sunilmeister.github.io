@@ -2817,9 +2817,17 @@ $.extend(freeboard, jQuery.eventEmitter),
           g[0].style.backgroundColor = "red";
 	  set_error_background(true);
         } else if (i && h.on_text == "MANDATORY") {
-          g[0].style.backgroundColor = "green";
+          g[0].style.backgroundColor = "white";
         } else if (i && h.on_text == "SPONTANEOUS") {
-          g[0].style.backgroundColor = "yellow";
+          g[0].style.backgroundColor = "white";
+        } else if (h.off_text == "Committed") {
+	  if (i) {
+            g[0].style.backgroundColor = "yellow";
+	    set_uncommitted_background();
+	  } else {
+            g[0].style.backgroundColor = "green";
+	    set_committed_background();
+	  }
         } else {
           g[0].style.backgroundColor = "#222";
         }

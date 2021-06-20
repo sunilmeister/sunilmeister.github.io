@@ -1,4 +1,4 @@
-To enable editing of dashboard layout edit respimatic_dashboard.html and change 
+To enable editing of dashboard layout edit respimatic.dashboard.html and change 
 freeboard.setEditing(false) 	to 	freeboard.setEditing(true)
 
 
