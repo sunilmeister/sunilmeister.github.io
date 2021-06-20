@@ -2823,10 +2823,10 @@ $.extend(freeboard, jQuery.eventEmitter),
         } else if (h.off_text == "Committed") {
 	  if (i) {
             g[0].style.backgroundColor = "yellow";
-	    set_uncommitted_background();
+	    set_committed_background(false);
 	  } else {
             g[0].style.backgroundColor = "green";
-	    set_committed_background();
+	    set_committed_background(true);
 	  }
         } else {
           g[0].style.backgroundColor = "#222";
