@@ -447,7 +447,7 @@ var uiJson = {
         "settings": {
           "title": "Intervention Needed",
           "value": "datasources[\"RESPIMATIC100\"][\"ATTENTION\"]",
-          "on_text": "CALL ATTENDANT",
+          "on_text": "ACHTUNG !",
 	  "off_text": ""
         }
       }]

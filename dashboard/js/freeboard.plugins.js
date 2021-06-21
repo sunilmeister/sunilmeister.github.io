@@ -2839,7 +2839,7 @@ $.extend(freeboard, jQuery.eventEmitter),
           g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 
-        } else if (h.on_text == "ACHTUNG") {
+        } else if (h.on_text == "ACHTUNG !") {
 	    if (i) {
 	      if (error_state) {
                 g[0].style.backgroundColor = "red";
