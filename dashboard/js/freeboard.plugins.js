@@ -2823,18 +2823,22 @@ $.extend(freeboard, jQuery.eventEmitter),
           g[0].style.backgroundColor = "white";
         } else if (h.on_text == "ACHTUNG!!") {
 	    if (i) {
-              g[0].style.backgroundColor = "yellow";
+	      if (error_state) {
+                g[0].style.backgroundColor = "red";
+	      } else {
+                g[0].style.backgroundColor = "yellow";
+	      }
+              g[0].style.borderColor = "#FDF1DF";
+              g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	      enter_attention_state(true);
 	    } else {
               g[0].style.backgroundColor = "#222";
+              g[0].style.borderColor = "#3d3d3d";
+              g[0].style.boxShadow = "";
 	      enter_attention_state(false);
 	    }
-        } else if (h.off_text == "Committed") {
-	  if (i) {
-            g[0].style.backgroundColor = "yellow";
-	  } else {
-            g[0].style.backgroundColor = "green";
-	  }
+        } else if (i && h.on_text == "Uncommitted Changes") {
+          g[0].style.backgroundColor = "yellow";
         } else {
           g[0].style.backgroundColor = "#222";
         }

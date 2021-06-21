@@ -202,10 +202,9 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
-            "title": "Control Parameters State",
+            "title": "Parameter(s) Changed",
             "value": "datasources[\"RESPIMATIC100\"][\"PENDING\"]",
             "on_text": "Uncommitted Changes",
-            "off_text": "Committed"
           }
         }
       ]
