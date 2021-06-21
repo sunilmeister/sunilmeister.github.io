@@ -260,7 +260,8 @@ JustGage = function(config) {
     "font-size": this.params.valueFontSize,
     //"font-weight" : "bold",
     "font-family": "Cousine",
-    "fill": this.config.valueFontColor,
+    //"fill": this.config.valueFontColor,
+    "fill": "white",
     "fill-opacity": "0"
   });
   this.txtValue.id = this.config.id + "-txtvalue";
@@ -272,7 +273,9 @@ JustGage = function(config) {
     "font-size": this.params.labelFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
-    "fill": this.config.labelFontColor,
+    "color": "white",
+    //"fill": this.config.labelFontColor,
+    "fill": "white",
     "fill-opacity": "0"
   });
   this.txtLabel.id = this.config.id + "-txtlabel";
@@ -284,7 +287,8 @@ JustGage = function(config) {
     "font-size": this.params.minFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
-    "fill": this.config.labelFontColor,
+    //"fill": this.config.labelFontColor,
+    "fill": "white",
     "fill-opacity": (this.config.showMinMax == true) ? "1" : "0"
   });
   this.txtMin.id = this.config.id + "-txtmin";
@@ -296,7 +300,8 @@ JustGage = function(config) {
     "font-size": this.params.maxFontSize,
     "font-weight": "normal",
     "font-family": "Arial",
-    "fill": this.config.labelFontColor,
+    //"fill": this.config.labelFontColor,
+    "fill": "white",
     "fill-opacity": (this.config.showMinMax == true) ? "1" : "0"
   });
   this.txtMax.id = this.config.id + "-txtmax";

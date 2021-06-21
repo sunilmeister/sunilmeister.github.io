@@ -202,9 +202,10 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
-            "title": "Parameter(s) Changed",
+            "title": "Parameters Changing?",
             "value": "datasources[\"RESPIMATIC100\"][\"PENDING\"]",
-            "on_text": "Uncommitted Changes",
+            "on_text": "UNCOMMITTED CHANGES",
+            "off_text": "NO"
           }
         }
       ]
@@ -230,33 +231,33 @@ var uiJson = {
       "widgets": [{
           "type": "indicator",
           "settings": {
-            "title": "Initial",
             "value": "datasources[\"RESPIMATIC100\"][\"INITIAL\"]",
-            "on_text": "INITIAL State"
+            "on_text": "INITIAL",
+	    "off_text": ""
           }
         },
         {
           "type": "indicator",
           "settings": {
-            "title": "Standby",
             "value": "datasources[\"RESPIMATIC100\"][\"STANDBY\"]",
-            "on_text": "STANDBY State"
+            "on_text": "STANDBY",
+	    "off_text": ""
           }
         },
         {
           "type": "indicator",
           "settings": {
-            "title": "Running",
             "value": "datasources[\"RESPIMATIC100\"][\"RUNNING\"]",
-            "on_text": "RUNNING State"
+            "on_text": "RUNNING",
+	    "off_text": ""
           }
         },
         {
           "type": "indicator",
           "settings": {
-            "title": "Error",
             "value": "datasources[\"RESPIMATIC100\"][\"ERROR\"]",
-            "on_text": "ERROR State"
+            "on_text": "ERROR",
+	    "off_text": ""
           }
         }
       ]
@@ -402,17 +403,17 @@ var uiJson = {
       "widgets": [{
           "type": "indicator",
           "settings": {
-            "title": "Spontaneous Breath",
             "value": "datasources[\"RESPIMATIC100\"][\"SPONTANEOUS\"]",
-            "on_text": "SPONTANEOUS"
+            "on_text": "SPONTANEOUS",
+	    "off_text": ""
           }
         },
         {
           "type": "indicator",
           "settings": {
-            "title": "Mandatory Breath",
             "value": "datasources[\"RESPIMATIC100\"][\"MANDATORY\"]",
-            "on_text": "MANDATORY"
+            "on_text": "MANDATORY",
+	    "off_text": ""
           }
         }
       ]
@@ -439,12 +440,13 @@ var uiJson = {
         "type": "indicator",
         "settings": {
           "value": "datasources[\"RESPIMATIC100\"][\"ATTENTION\"]",
-          "on_text": "ACHTUNG!!"
+          "on_text": "ACHTUNG",
+	  "off_text": ""
         }
       }]
     },
     {
-      "title": "Previous Breath Estimated Volumes",
+      "title": "Estimated Delivered Volumes",
       "width": 1,
       "row": {
         "3": 35,

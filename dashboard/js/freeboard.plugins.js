@@ -2400,7 +2400,7 @@ $.extend(freeboard, jQuery.eventEmitter),
         "font-family: 'Cousine';overflow: hidden;display: inline-block;text-overflow: ellipsis;white-space: pre-wrap;"
         ),
       freeboard.addStyle(".tw-unit",
-        "display: inline-block;padding-left: 10px;padding-bottom: 1.1em;vertical-align: bottom;"
+        "color: white; display: inline-block;padding-left: 10px;padding-bottom: 1.1em;vertical-align: bottom;"
         ),
       freeboard.addStyle(".tw-value-wrapper",
         "position: relative;vertical-align: middle;height:100%;"),
@@ -2804,24 +2804,42 @@ $.extend(freeboard, jQuery.eventEmitter),
       freeboard.addStyle(".indicator-text", "margin-top:10px;");
     var m = function(a) {
       function b() {
-        if (i && h.on_text == "INITIAL State") {
+        if (i && h.on_text == "INITIAL") {
           g[0].style.backgroundColor = "white";
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_initial_state();
 	  set_error_background(false);
-        } else if (i && h.on_text == "RUNNING State") {
+
+        } else if (i && h.on_text == "RUNNING") {
           g[0].style.backgroundColor = "green";
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_running_state();
-        } else if (i && h.on_text == "STANDBY State") {
+
+        } else if (i && h.on_text == "STANDBY") {
           g[0].style.backgroundColor = "yellow";
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_standby_state();
-        } else if (i && h.on_text == "ERROR State") {
+
+        } else if (i && h.on_text == "ERROR") {
           g[0].style.backgroundColor = "red";
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_error_state();
+
         } else if (i && h.on_text == "MANDATORY") {
           g[0].style.backgroundColor = "white";
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
+
         } else if (i && h.on_text == "SPONTANEOUS") {
           g[0].style.backgroundColor = "white";
-        } else if (h.on_text == "ACHTUNG!!") {
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
+
+        } else if (h.on_text == "ACHTUNG") {
 	    if (i) {
 	      if (error_state) {
                 g[0].style.backgroundColor = "red";
@@ -2837,10 +2855,17 @@ $.extend(freeboard, jQuery.eventEmitter),
               g[0].style.boxShadow = "";
 	      enter_attention_state(false);
 	    }
-        } else if (i && h.on_text == "Uncommitted Changes") {
+
+        } else if (i && h.on_text == "UNCOMMITTED CHANGES") {
           g[0].style.backgroundColor = "yellow";
+          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.boxShadow = "0px 0px 15px #FF9900";
+
         } else {
           g[0].style.backgroundColor = "#222";
+          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.boxShadow = "";
+
         }
         g.toggleClass("on", i), i ? f.text(_.isUndefined(c) ? (_
             .isUndefined(h.on_text) ? "" : h.on_text) : c) : f
