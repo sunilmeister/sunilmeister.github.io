@@ -23,7 +23,7 @@ var uiJson = {
       "widgets": [{
           "type": "gauge",
           "settings": {
-            "title": "Measured Peak (PIP)",
+            "title": "PEAK",
             "value": "datasources[\"RESPIMATIC100\"][\"PIP\"]",
             "units": "cm H2O",
             "min_value": 0,
@@ -33,7 +33,7 @@ var uiJson = {
         {
           "type": "gauge",
           "settings": {
-            "title": "Measured Plateau (PLAT)",
+            "title": "PLATEAU",
             "value": "datasources[\"RESPIMATIC100\"][\"PLAT\"]",
             "units": "cm H2O",
             "min_value": 0,
@@ -43,7 +43,7 @@ var uiJson = {
         {
           "type": "gauge",
           "settings": {
-            "title": "Measured PEEP (PEEP)",
+            "title": "PEEP",
             "value": "datasources[\"RESPIMATIC100\"][\"MPEEP\"]",
             "units": "cm H2O",
             "min_value": 0,
