@@ -419,7 +419,7 @@ var uiJson = {
       ]
     },
     {
-      "title": "System Date and Time",
+      "title": "Attention",
       "width": 1,
       "row": {
         "3": 31,
@@ -437,12 +437,10 @@ var uiJson = {
       },
       "col_width": 1,
       "widgets": [{
-        "type": "text_widget",
+        "type": "indicator",
         "settings": {
-          "title": "",
-          "size": "regular",
-          "value": "datasources[\"RESPIMATIC100\"][\"DATE\"]",
-          "animate": true
+          "value": "datasources[\"RESPIMATIC100\"][\"ATTENTION\"]",
+          "on_text": "ACHTUNG!!"
         }
       }]
     },

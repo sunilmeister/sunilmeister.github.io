@@ -2806,27 +2806,34 @@ $.extend(freeboard, jQuery.eventEmitter),
       function b() {
         if (i && h.on_text == "INITIAL State") {
           g[0].style.backgroundColor = "white";
+	  enter_initial_state();
 	  set_error_background(false);
         } else if (i && h.on_text == "RUNNING State") {
           g[0].style.backgroundColor = "green";
-	  set_error_background(false);
+	  enter_running_state();
         } else if (i && h.on_text == "STANDBY State") {
           g[0].style.backgroundColor = "yellow";
-	  set_error_background(false);
+	  enter_standby_state();
         } else if (i && h.on_text == "ERROR State") {
           g[0].style.backgroundColor = "red";
-	  set_error_background(true);
+	  enter_error_state();
         } else if (i && h.on_text == "MANDATORY") {
           g[0].style.backgroundColor = "white";
         } else if (i && h.on_text == "SPONTANEOUS") {
           g[0].style.backgroundColor = "white";
+        } else if (h.on_text == "ACHTUNG!!") {
+	    if (i) {
+              g[0].style.backgroundColor = "yellow";
+	      enter_attention_state(true);
+	    } else {
+              g[0].style.backgroundColor = "#222";
+	      enter_attention_state(false);
+	    }
         } else if (h.off_text == "Committed") {
 	  if (i) {
             g[0].style.backgroundColor = "yellow";
-	    set_committed_background(false);
 	  } else {
             g[0].style.backgroundColor = "green";
-	    set_committed_background(true);
 	  }
         } else {
           g[0].style.backgroundColor = "#222";
