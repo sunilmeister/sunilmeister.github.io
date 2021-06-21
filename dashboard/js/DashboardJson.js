@@ -205,7 +205,7 @@ var uiJson = {
             "title": "Parameters Changing",
             "value": "datasources[\"RESPIMATIC100\"][\"PENDING\"]",
             "on_text": "UNCOMMITTED CHANGES",
-            "off_text": "NO"
+            "off_text": "NO (FULLY COMMITTED)"
           }
         }
       ]
@@ -231,7 +231,7 @@ var uiJson = {
       "widgets": [{
           "type": "indicator",
           "settings": {
-            "title": "Pre-use Checking",
+            "title": "Run Pre-use Checks",
             "value": "datasources[\"RESPIMATIC100\"][\"INITIAL\"]",
             "on_text": "INITIAL",
 	    "off_text": ""
@@ -240,7 +240,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
-            "title": "Parameter Setting",
+            "title": "Set Control Parameters",
             "value": "datasources[\"RESPIMATIC100\"][\"STANDBY\"]",
             "on_text": "STANDBY",
 	    "off_text": ""
@@ -249,7 +249,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
-            "title": "Breath Delivery",
+            "title": "Breath Delivery In Progress",
             "value": "datasources[\"RESPIMATIC100\"][\"RUNNING\"]",
             "on_text": "RUNNING",
 	    "off_text": ""
@@ -258,7 +258,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
-            "title": "ALARM - Maintenance Breaths",
+            "title": "ALARM (Maintenance Breaths)",
             "value": "datasources[\"RESPIMATIC100\"][\"ERROR\"]",
             "on_text": "ERROR",
 	    "off_text": ""
