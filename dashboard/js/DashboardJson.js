@@ -202,7 +202,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
-            "title": "Parameters Changing?",
+            "title": "Parameters Changing",
             "value": "datasources[\"RESPIMATIC100\"][\"PENDING\"]",
             "on_text": "UNCOMMITTED CHANGES",
             "off_text": "NO"
@@ -231,6 +231,7 @@ var uiJson = {
       "widgets": [{
           "type": "indicator",
           "settings": {
+            "title": "Pre-use Checking",
             "value": "datasources[\"RESPIMATIC100\"][\"INITIAL\"]",
             "on_text": "INITIAL",
 	    "off_text": ""
@@ -239,6 +240,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
+            "title": "Parameter Setting",
             "value": "datasources[\"RESPIMATIC100\"][\"STANDBY\"]",
             "on_text": "STANDBY",
 	    "off_text": ""
@@ -247,6 +249,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
+            "title": "Breath Delivery",
             "value": "datasources[\"RESPIMATIC100\"][\"RUNNING\"]",
             "on_text": "RUNNING",
 	    "off_text": ""
@@ -255,6 +258,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
+            "title": "ALARM - Maintenance Breaths",
             "value": "datasources[\"RESPIMATIC100\"][\"ERROR\"]",
             "on_text": "ERROR",
 	    "off_text": ""
@@ -403,6 +407,7 @@ var uiJson = {
       "widgets": [{
           "type": "indicator",
           "settings": {
+            "title": "Patient Initiated",
             "value": "datasources[\"RESPIMATIC100\"][\"SPONTANEOUS\"]",
             "on_text": "SPONTANEOUS",
 	    "off_text": ""
@@ -411,6 +416,7 @@ var uiJson = {
         {
           "type": "indicator",
           "settings": {
+            "title": "System Initiated",
             "value": "datasources[\"RESPIMATIC100\"][\"MANDATORY\"]",
             "on_text": "MANDATORY",
 	    "off_text": ""
@@ -439,8 +445,9 @@ var uiJson = {
       "widgets": [{
         "type": "indicator",
         "settings": {
+          "title": "Intervention Needed",
           "value": "datasources[\"RESPIMATIC100\"][\"ATTENTION\"]",
-          "on_text": "ACHTUNG",
+          "on_text": "CALL ATTENDANT",
 	  "off_text": ""
         }
       }]
