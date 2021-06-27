@@ -2808,46 +2808,47 @@ $.extend(freeboard, jQuery.eventEmitter),
         // g[0].style.borderColor = "#FDF1DF";
         if (i && h.on_text == "INITIAL") {
           g[0].style.backgroundColor = "white";
-          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_initial_state();
 
         } else if (i && h.on_text == "RUNNING") {
           g[0].style.backgroundColor = "green";
-          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_running_state();
 
         } else if (i && h.on_text == "STANDBY") {
           g[0].style.backgroundColor = "yellow";
-          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_standby_state();
 
         } else if (i && h.on_text == "ERROR") {
           g[0].style.backgroundColor = "red";
-          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_error_state();
 
         } else if (i && h.on_text == "MANDATORY") {
           g[0].style.backgroundColor = "white";
-          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 
         } else if (i && h.on_text == "SPONTANEOUS") {
           g[0].style.backgroundColor = "white";
-          g[0].style.borderColor = "#3d3d3d";
+          g[0].style.borderColor = "#FDF1DF";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 
         } else if (h.on_text == "ACHTUNG !") {
 	    if (i) {
 	      if (error_state) {
                 g[0].style.backgroundColor = "red";
+                g[0].style.borderColor = "#FDF1DF";
 	      } else {
                 g[0].style.backgroundColor = "yellow";
+                g[0].style.borderColor = "#3d3d3d";
 	      }
-              g[0].style.borderColor = "#3d3d3d";
               g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	      enter_attention_state();
 	    } else {
