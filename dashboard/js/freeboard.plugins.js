@@ -2804,39 +2804,40 @@ $.extend(freeboard, jQuery.eventEmitter),
       freeboard.addStyle(".indicator-text", "margin-top:10px;");
     var m = function(a) {
       function b() {
+	// Below is whiteish border
+        // g[0].style.borderColor = "#FDF1DF";
         if (i && h.on_text == "INITIAL") {
           g[0].style.backgroundColor = "white";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_initial_state();
-	  set_error_background(false);
 
         } else if (i && h.on_text == "RUNNING") {
           g[0].style.backgroundColor = "green";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_running_state();
 
         } else if (i && h.on_text == "STANDBY") {
           g[0].style.backgroundColor = "yellow";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_standby_state();
 
         } else if (i && h.on_text == "ERROR") {
           g[0].style.backgroundColor = "red";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 	  enter_error_state();
 
         } else if (i && h.on_text == "MANDATORY") {
           g[0].style.backgroundColor = "white";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 
         } else if (i && h.on_text == "SPONTANEOUS") {
           g[0].style.backgroundColor = "white";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 
         } else if (h.on_text == "ACHTUNG !") {
@@ -2846,19 +2847,19 @@ $.extend(freeboard, jQuery.eventEmitter),
 	      } else {
                 g[0].style.backgroundColor = "yellow";
 	      }
-              g[0].style.borderColor = "#FDF1DF";
+              g[0].style.borderColor = "#3d3d3d";
               g[0].style.boxShadow = "0px 0px 15px #FF9900";
-	      enter_attention_state(true);
+	      enter_attention_state();
 	    } else {
               g[0].style.backgroundColor = "#222";
               g[0].style.borderColor = "#3d3d3d";
               g[0].style.boxShadow = "";
-	      enter_attention_state(false);
+	      exit_attention_state();
 	    }
 
         } else if (i && h.on_text == "UNCOMMITTED CHANGES") {
           g[0].style.backgroundColor = "yellow";
-          g[0].style.borderColor = "#FDF1DF";
+          g[0].style.borderColor = "#3d3d3d";
           g[0].style.boxShadow = "0px 0px 15px #FF9900";
 
         } else {
