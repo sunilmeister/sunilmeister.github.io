@@ -84,8 +84,7 @@ function enter_initial_state() {
   error_state = false;
   background_before_error = initial_background;
 
-  if (attention_state) set_current_background(attention_background);
-  else set_initial_background();
+  set_initial_background();
 }
 
 function enter_standby_state() {

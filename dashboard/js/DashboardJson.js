@@ -192,11 +192,10 @@ var uiJson = {
         {
           "type": "text_widget",
           "settings": {
-            "title": "Support Pressure Duration (TPS)",
+            "title": "Support Pressure Termination (TPS)",
             "size": "regular",
             "value": "datasources[\"RESPIMATIC100\"][\"TPS\"]",
             "animate": true,
-            "units": "secs"
           }
         },
         {
