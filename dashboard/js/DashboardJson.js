@@ -306,7 +306,7 @@ var uiJson = {
       ]
     },
     {
-      "title": "Estimated Lung Compliance",
+      "title": "Instanteneous Lung Compliance",
       "width": 1,
       "row": {
         "3": 25,
@@ -326,7 +326,7 @@ var uiJson = {
       "widgets": [{
           "type": "text_widget",
           "settings": {
-            "title": "Estimated Static Lung Compliance",
+            "title": "Instantaneous Static Compliance",
             "size": "regular",
             "value": "datasources[\"RESPIMATIC100\"][\"STATIC\"]",
             "animate": true,
@@ -336,7 +336,7 @@ var uiJson = {
         {
           "type": "text_widget",
           "settings": {
-            "title": "Estimated Dynamic Lung Compliance",
+            "title": "Instantaneous Dynamic Compliance",
             "size": "regular",
             "value": "datasources[\"RESPIMATIC100\"][\"DYNAMIC\"]",
             "animate": true,
