@@ -5,6 +5,12 @@ freeboard.setEditing(false) 	to 	freeboard.setEditing(true)
 To enable editing of the admin-pane edit DashboardJson.js and change 
 "allow_edit": false    to     "allow_edit": true,
 
+Also temporarily change in freeboard.plugins.js
+           $("#board-content").animate({
+              top: "-25px"
+to
+           $("#board-content").animate({
+              top: "25px"
 
 After changing the dashboard layout do the following
 1. Export dashboard.json from the admin-pane

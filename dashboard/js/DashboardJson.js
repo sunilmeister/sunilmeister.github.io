@@ -490,6 +490,45 @@ var uiJson = {
           }
         }
       ]
+    },
+    {
+      "title": "Patient (Gender) Age",
+      "width": 1,
+      "row": {
+        "4": 27
+      },
+      "col": {
+        "4": 1
+      },
+      "col_width": 1,
+      "widgets": [{
+        "type": "text_widget",
+        "settings": {
+          "size": "regular",
+          "value": "datasources[\"RESPIMATIC100\"][\"PMISC\"]",
+          "animate": true,
+          "units": "yrs"
+        }
+      }]
+    },
+    {
+      "title": "Patient (ID) Name",
+      "width": 1,
+      "row": {
+        "4": 28
+      },
+      "col": {
+        "4": 2
+      },
+      "col_width": 3,
+      "widgets": [{
+        "type": "text_widget",
+        "settings": {
+          "size": "regular",
+          "value": "datasources[\"RESPIMATIC100\"][\"PNAME\"]",
+          "animate": true
+        }
+      }]
     }
   ],
   "datasources": [{
