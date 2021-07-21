@@ -492,15 +492,15 @@ var uiJson = {
       ]
     },
     {
-      "title": "Patient (Gender) Age",
+      "title": "Patient #ID (Gender) Age",
       "width": 1,
       "row": {
         "4": 27
       },
       "col": {
-        "4": 1
+        "4": 3
       },
-      "col_width": 1,
+      "col_width": 2,
       "widgets": [{
         "type": "text_widget",
         "settings": {
@@ -512,15 +512,15 @@ var uiJson = {
       }]
     },
     {
-      "title": "Patient (ID) Name",
+      "title": "Patient Name",
       "width": 1,
       "row": {
         "4": 28
       },
       "col": {
-        "4": 2
+        "4": 1
       },
-      "col_width": 3,
+      "col_width": 2,
       "widgets": [{
         "type": "text_widget",
         "settings": {
