@@ -5,6 +5,7 @@ var respimatic_uid =  sessionStorage.getItem(cookie_name);
 uiJson.datasources.length=0;
 uiJson.datasources.push(dataSources["DUMMY"]);
 uiJson.datasources[0].settings.thing_id=respimatic_uid;
+document.title = respimatic_uid + " (" + datasource_name + ")"
 
 var normal_background = "#0d3e51";
 var initial_background = "#0d3e51";
