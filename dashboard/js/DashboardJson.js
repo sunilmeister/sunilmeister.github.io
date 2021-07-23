@@ -492,7 +492,7 @@ var uiJson = {
       ]
     },
     {
-      "title": "Patient #ID (Gender) Age",
+      "title": "Patient [ID] (Gender) Age",
       "width": 1,
       "row": {
         "4": 27
