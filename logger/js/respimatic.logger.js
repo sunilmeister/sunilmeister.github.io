@@ -3,26 +3,27 @@ var cookie_name = "respimatic_uid";
 var respimatic_uid =  sessionStorage.getItem(cookie_name);
 document.title = respimatic_uid + " (LOGGER)"
 
+function stringify_dweet(d) {
+  var dweetBox = document.getElementById('dweetBox');
+
+  elm = document.createElement("div");
+  elm.innerText = elm.textContent = JSON.stringify(d,null,4) ;
+  elm.innerHTML = '<br><p style="font-size:8; text-align: left">' + elm.innerHTML;
+  dweetBox.appendChild(elm);
+}
+
 function process_dweet_content(d) {
-  var dweetBox = document.getElementById("dweetBox");
-  var newElement = document.createElement("div");
-  newElement.innerHTML = '<p style="text-align: left">' + d.created + ' {' ;
-  dweetBox.appendChild(newElement);
+  // extract all info from the dweet
+  // and then shove it into a database
 
-  var i = 0;
-  var keyValue = "";
+  created = d.created ;
+  sysUid = d.thing ;
 
-  for (let k in d.content) {
-    if (i!=0) keyValue = keyValue + ', ' ;
-    keyValue = keyValue +  '"' + k +'" : "' + d.content[k] + '"' ;
-    i++;
+  for (let key in d.content) {
+    // get key value pairs
+    value = d.content[key];
   }
 
-  newElement = document.createElement("div");
-  newElement.innerHTML = '<p style="text-align: left">' + keyValue + ' <br>';
-  newElement.innerHTML = newElement.innerHTML + 
-                         '<p style="text-align: left">' + '}' + ' <br>';
-  dweetBox.appendChild(newElement);
   return d;
 }
 
@@ -33,6 +34,7 @@ function wait_for_dweets() {
   }, 3000);
 
   dweetio.listen_for(respimatic_uid, function(d) {
-    process_dweet_content(d);
+    //process_dweet_content(d);
+    stringify_dweet(d);
   });
 }
