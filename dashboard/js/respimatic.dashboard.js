@@ -146,3 +146,13 @@ function exit_attention_state() {
   set_current_background(color);
 }
 
+function process_dweet_content(d) {
+  /*
+  alert(d.created);
+  for (let k in d.content) {
+    alert(k + ' is ' + '"' + d.content[k] + '"');
+  }
+  */
+  return d;
+}
+

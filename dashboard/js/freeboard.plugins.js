@@ -2091,7 +2091,8 @@ $.extend(freeboard, jQuery.eventEmitter),
       (this.updateNow = function() {
         dweetio.get_latest_dweet_for(e.thing_id, function(a,
         b) {
-          a || c(b[0].content);
+	  // Do not initialize with left-over dweets
+          //a || c(b[0].content);
         });
       }),
       (this.onDispose = function() {}),
@@ -2099,7 +2100,8 @@ $.extend(freeboard, jQuery.eventEmitter),
         dweetio.stop_listening_for(e.thing_id),
           (e = a),
           dweetio.listen_for(e.thing_id, function(a) {
-            c(a.content);
+	  a = process_dweet_content(a);
+          c(a.content);
           });
       }),
       d.onSettingsChanged(a);
