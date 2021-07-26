@@ -10,20 +10,22 @@
       content="black" />
     <meta name="viewport"
       content="width = device-width, initial-scale = 1, user-scalable = no" />
-    <link href="css/freeboard.css" rel="stylesheet" />
-    <link href="css/respimatic.dashboard.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet"> 
+    <script src="https://dweet.io/client/dweet.io.min.js"></script>
+    <script src="js/respimatic.logger.js"></script>
 
-    <center>
-      <img src="img/logger-title-logos.png" alt="Title" width="620" height="150">
-    </center>
   </head>
 
-  <body>
+  <body onload="wait_for_dweets()">
     <br>
-    <div>
-    </div>
+    <center>
+      <img src="img/logger-title-logos.png" alt="Title" width="620" height="150">
+      <br>
+      <div id="dweetBox" 
+	style="width:610px; height:650px; line-height:3em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'"> 
+      </div>
+    </center>
   </body>
 
 </html>
