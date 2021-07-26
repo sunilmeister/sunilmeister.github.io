@@ -1,20 +1,13 @@
+const mongo_user = "RespimaticUser";
+const mongo_pwd = "RespimaticUser_PARC";
+const mongo_db = "RSP_28CFE43C4D200184";
+const mongo_uri = "mongodb+srv://" + mongo_user + ":" + mongo_pwd +
+    "@respimatic.boazc.mongodb.net/" + mongo_db + "?retryWrites=true&w=majority";
+
 const { MongoClient } = require('mongodb');
 
 async function main() {
-    /**
-     * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
-     * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
-     */
-    const uri = "mongodb+srv://<username>:<password>@<your-cluster-url>/sample_airbnb?retryWrites=true&w=majority";
-
-    /**
-     * The Mongo Client you will use to interact with your database
-     * See https://mongodb.github.io/node-mongodb-native/3.6/api/MongoClient.html for more details
-     * In case: '[MONGODB DRIVER] Warning: Current Server Discovery and Monitoring engine is deprecated...'
-     * pass option { useUnifiedTopology: true } to the MongoClient constructor.
-     * const client =  new MongoClient(uri, {useUnifiedTopology: true})
-     */
-    const client = new MongoClient(uri);
+    const client = new MongoClient(mongo_uri);
 
     try {
         // Connect to the MongoDB cluster
@@ -33,14 +26,10 @@ async function main() {
 
 main().catch(console.error);
 
-/**
- * Print the names of all available databases
- * @param {MongoClient} client A MongoClient that is connected to a cluster
- */
+// Sample database actions
 async function listDatabases(client) {
     databasesList = await client.db().admin().listDatabases();
 
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
-
