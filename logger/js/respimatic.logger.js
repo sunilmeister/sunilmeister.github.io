@@ -7,7 +7,7 @@ function stringify_dweet(d) {
   var dweetBox = document.getElementById('dweetBox');
 
   elm = document.createElement("div");
-  elm.innerText = elm.textContent = JSON.stringify(d,null,4) ;
+  elm.innerText = elm.textContent = JSON.stringify(d,null,"::") ;
   elm.innerHTML = '<br><p style="font-size:8; text-align: left">' + elm.innerHTML;
   dweetBox.appendChild(elm);
 }
