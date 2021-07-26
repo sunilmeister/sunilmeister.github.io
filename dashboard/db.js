@@ -1,8 +1,11 @@
-const mongo_user = "RespimaticUser";
-const mongo_pwd = "RespimaticUser_PARC";
-const mongo_db = "RSP_28CFE43C4D200184";
-const mongo_uri = "mongodb+srv://" + mongo_user + ":" + mongo_pwd +
-    "@respimatic.boazc.mongodb.net/" + mongo_db + "?retryWrites=true&w=majority";
+const mongo_user       = "RespimaticUser";
+const mongo_pwd        = "RespimaticUser_PARC";
+const mongo_cluster    = "Respimatic";
+const mongo_db         = "RespimaticSystems";
+const mongo_collection = "RSP_28CFE43C4D200184";
+const mongo_uri        = "mongodb+srv://" + mongo_user + ":" + mongo_pwd +
+                         "@" + mongo_cluster + ".boazc.mongodb.net/" +
+                         mongo_db + "?retryWrites=true&w=majority";
 
 const { MongoClient } = require('mongodb');
 
