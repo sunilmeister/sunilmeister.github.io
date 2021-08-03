@@ -1,32 +1,99 @@
 <!DOCTYPE html>
 <html>
-
+  
   <head>
     <meta charset="UTF-8">
     <title>Respimatic 100</title>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style"
-      content="black" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport"
       content="width = device-width, initial-scale = 1, user-scalable = no" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet"> 
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap"
+      rel="stylesheet">
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="js/respimatic.logger.js"></script>
 
-  </head>
+    <style>
+      .tableButton {
+        background-color: #1d85ad;
+        border: white;
+        color: white;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        font-size: 12px;
+      }
 
-  <body onload="wait_for_dweets()">
+      .button {
+        background-color: #1d85ad;
+        border: white;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        font-size: 20px;
+      }
+
+      .row {
+        display: flex;
+      }
+
+      /* Create two equal columns that sits next to each other */
+      .column {
+        flex: 50%;
+        padding: 10px;
+      }
+
+      .dbTableStyle td {
+        padding:0 5px 0 0; /* Only right padding*/
+      }
+    </style>
+  </head>
+  
+  <body onload='manageDb()'>
     <br>
     <center>
       <img src="img/logger-title-logos.png" alt="Title" width="620" height="150">
+      <h1 id='SysUid' style="font-size:2em; font-family:verdana;" > </h1>
       <br>
-      <div style="width:610px; height:650px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'"> 
-        <p id=dweetBox style="font-size:8; text-align: left">
+      <div class="row">
+        <div class="column">
+          <div
+            style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+            <p id=dweetBox style="font-size:8; text-align: left">
+          </div>
+
+	  <br>
+          <button class="button" onclick='startLog()'>START LOG</button>
+          <button class="button" onclick='pauseLog()'>PAUSE LOG</button>
+        </div>
+        
+        <div class="column">
+          <div
+            style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+	    <br>
+	    <table id='dbTable' className="dbTableStyle">
+            </table>
+          </div>
+
+	  <br>
+          <button class="button" onclick='listAllDbs()'>SHOW EXISTING DATABASES</button>
+        </div>
+
       </div>
+
+        
     </center>
   </body>
-
+  
 </html>
 
