@@ -269,11 +269,13 @@ function manageDb() {
 }
 
 function startLog() {
+  if (doLog) return;
   doLog = true;
   alert("Log started ...");
 }
 
 function pauseLog() {
+  if (!doLog) return;
   doLog = false;
   alert("Log paused ...");
 }
