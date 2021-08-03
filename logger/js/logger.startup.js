@@ -22,6 +22,7 @@ function setCookie(cname, cvalue) {
   d.setFullYear(d.getFullYear() + 1);
   var expiry = d.toUTCString();
   document.cookie = cname + "=" + cvalue + "; expires=" + expiry;
+                   + ";path=/; SameSite=None; Secure";
 }
 
 function deleteCookie(cname) {

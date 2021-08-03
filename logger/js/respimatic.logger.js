@@ -1,8 +1,8 @@
+
+const creationTimeStamp = new Date();
 const cookieName = "respimatic_uid";
 const respimaticUid =  sessionStorage.getItem(cookieName);
-document.title = respimaticUid + " (LOGGER)" ;
 const dbNamePrefix = respimaticUid ;
-const dbName= dbNamePrefix + '#' + new Date() ;
 const dbVersion = 1;
 const dbObjStoreName = respimaticUid ;
 const tableName = respimaticUid ;
@@ -10,14 +10,18 @@ const localStorageDbName = "respimatic_dbs" ;
 var doLog = false;
 
 // check for browser capability
+document.title = respimaticUid + " (LOGGER)" ;
 if (!window.indexedDB) {
-    console.log("Your browser doesn't support a stable version of IndexedDB.");
-    alert("IndexedDB not available in your browser. Switch browsers");
+    alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
 
 // ///////////////////////////////////////////////////////
 // Open/Create Database 
 // ///////////////////////////////////////////////////////
+var dbNameSuffix = creationTimeStamp;
+//var dbName = dbNamePrefix + '#' + dbNameSuffix;
+var dbName = getNewDbName();
+
 var db;
 var dbReq = indexedDB.open(dbName, dbVersion);
 var dbReady = false;
@@ -62,6 +66,9 @@ dbReq.onsuccess = function(event) {
     localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
   }
  
+  ts = {"creationTimeStamp" : creationTimeStamp};
+  insertJsonData(db,ts);
+
   //alert("Created " + dbName);
 }
 
@@ -82,6 +89,42 @@ dbReq.onblocked = function(event) {
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
+function checkDbExists(dbName) {
+  var retrieved_dbs = localStorage.getItem(localStorageDbName);
+  var respimatic_dbs = [];
+  if (retrieved_dbs) {
+    respimatic_dbs = JSON.parse(retrieved_dbs);
+  } else return false;
+
+  var ix;
+  if (respimatic_dbs.length) {
+    ix = respimatic_dbs.indexOf(dbName);
+  } else {
+    ix = -1;
+  }
+
+  if (ix==-1) return false;
+
+  return true;
+}
+
+function getNewDbName() {
+  var name = "";
+  do {
+    var dbNameSuffix = prompt("Name the new LOG database", creationTimeStamp);
+    if (!dbNameSuffix) {
+      dbNameSuffix = creationTimeStamp;
+      alert("Using the following name for the new database\n" + dbNameSuffix);
+    }
+    name= dbNamePrefix + '#' + dbNameSuffix;
+    if (checkDbExists(name)) {
+      alert("Database already exists\n" + dbNameSuffix + "\nTry again");
+    } else break;
+  } while (true) ;
+
+  return name;
+}
+
 function listDb(item, index) {
   nameTm = parseDbName(item);
   alert(index + " " + nameTm[0] + "\nCreated:" + nameTm[1]);
@@ -169,7 +212,7 @@ function insertJsonData(db,jsonData) {
   let tx = db.transaction([dbObjStoreName], 'readwrite');
   let store = tx.objectStore(dbObjStoreName);  
   store.add(jsonData);  // Wait for the database transaction to complete
-  tx.oncomplete = function() { console.log('stored data!') }
+  tx.oncomplete = function() { }
   tx.onerror = function(event) {
     alert('error storing data! ' + event.target.errorCode);
   }
@@ -185,15 +228,17 @@ function parseDbName(name) {
 // Dweet Functions 
 // ///////////////////////////////////////////////////////
 
-function stringifyDweet(d) {
+function displayTweet(d) {
+  if (!doLog) return ;
   var dweetBox = document.getElementById('dweetBox');
   dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
 }
 
 function processDweet(d) {
-  // extract all info from the dweet
-  // and then shove it into a database
+  if (!doLog) return ;
+  insertJsonData(db,d);
 
+  /*
   created = d.created ;
   sysUid = d.thing ;
 
@@ -201,13 +246,14 @@ function processDweet(d) {
     // get key value pairs
     value = d.content[key];
   }
+  */
 
 }
 
 function waitForDweets() {
-  dweetio.listen_for(respimatic_uid, function(d) {
+  dweetio.listen_for(respimaticUid, function(d) {
     processDweet(d);
-    stringifyDweet(d);
+    displayTweet(d);
   });
 }
 
@@ -218,13 +264,17 @@ function waitForDweets() {
 function manageDb() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "LOG for " + respimaticUid;
+
+  waitForDweets();
 }
 
 function startLog() {
   doLog = true;
+  alert("Log started ...");
 }
 
 function pauseLog() {
   doLog = false;
+  alert("Log paused ...");
 }
 
