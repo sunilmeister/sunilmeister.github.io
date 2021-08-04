@@ -2,14 +2,14 @@
 <html>
 
 <head>
-  <title>Logger Respimatic 100</title>
+  <title>Respimatic 100 WebAPPS</title>
   <meta charset="UTF-8">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="js/logger.startup.js"></script>
+  <script src="js/respimatic.selector.js"></script>
 
   <style>
     .wrapper {
@@ -37,13 +37,14 @@
       margin: 4px 2px;
       cursor: pointer;
       font-size: 20px;
+      width:170px;
       border-radius: 15px;
-    }
-    .button:hover {background-color: #0a8a30}
-    .button:active {
-      background-color: #0a8a30;
-      box-shadow: 0 6px #1d85ad;
-      transform: translateY(6px);
+   }
+   .button:hover {background-color: #0a8a30}
+   .button:active {
+     background-color: #0a8a30;
+     box-shadow: 0 6px #1d85ad;
+     transform: translateY(6px);
    }
    </style>
 </head>
@@ -52,7 +53,7 @@
   <div class = "wrapper">
 
     <center>
-      <img src="img/logger-title.png" alt="Title" width="350" height="100">
+      <img src="img/Apps.png" alt="Title" width="350" height="100">
       <br><br>
       <div class="content" style="font-size: 1.5em">
         <font size = "5">
@@ -66,8 +67,10 @@
 	 <datalist id="SYSUIDS">
          </datalist>
 
-	 <br><br><br>
-         <button class="button" onclick='getRespimaticSysUID()'>PROCEED</button>
+	 <br><br>
+         <button class="button" onclick='launchDashboard()'>DASHBOARD</button>
+	 <br><br>
+         <button class="button" onclick='launchLogger()'>LOGGER</button>
        </div>
        <br><br>
       <img src="img/Logos.png" alt="Title" width="350" height="60">

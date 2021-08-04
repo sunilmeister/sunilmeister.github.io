@@ -1,7 +1,7 @@
 
 const creationTimeStamp = new Date();
 const cookieName = "respimatic_uid";
-const respimaticUid =  sessionStorage.getItem(cookieName);
+const respimaticUid =  getCookie(cookieName);
 const dbNamePrefix = respimaticUid ;
 const dbVersion = 1;
 const dbObjStoreName = respimaticUid ;
@@ -278,5 +278,21 @@ function pauseLog() {
   if (!doLog) return;
   doLog = false;
   alert("Log paused ...");
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
 
