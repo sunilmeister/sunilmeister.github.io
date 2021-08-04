@@ -8,9 +8,6 @@ if (!window.indexedDB) {
 // Database Functions 
 // ///////////////////////////////////////////////////////
 function listDbTableRow(item, index) {
-  // do not list current db
-  if (item==dbName) return;
-
   nameTm = parseDbName(item);
 
   // only list databases for the currently selected system
