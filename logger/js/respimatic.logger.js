@@ -15,19 +15,22 @@ if (!window.indexedDB) {
 // ///////////////////////////////////////////////////////
 function getNewDbName() {
   var name = "";
-  date = new Date();
-  creationTimeStamp = date.toString();
+  today = new Date();
+  creationTimeStamp = today.toString();
 
-  [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()];
-  [hour, minutes, seconds] = 
-                     [date.getHours(), date.getMinutes(), date.getSeconds()];
+  var dd = String(today. getDate()). padStart(2, '0');
+  var mm = String(today. getMonth() + 1). padStart(2, '0'); //January is 0!
+  var yyyy = today. getFullYear();
 
+  var hrs = String(today. getHours()). padStart(2, '0');
+  var min = String(today. getMinutes()). padStart(2, '0');
+  var sec = String(today. getSeconds()). padStart(2, '0');
 
-  dmy = String(day) + "-" + (month+1) + "-" + year;
-  nameTagTime = dmy + " " + hour + ":" + minutes + ":" + seconds;
+  dmy = dd + "-" + mm + "-" + yyyy;
+  nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
 
   do {
-    var dbNameSuffix = prompt("Name the new Session", creationTimeStamp);
+    var dbNameSuffix = prompt("Name the new Session","New Session");
     name= dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
     if (checkDbExists(name)) {
       alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
