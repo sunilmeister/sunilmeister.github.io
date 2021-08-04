@@ -54,7 +54,6 @@ function deleteDbRow(row) {
 window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "ANALYSIS for " + respimaticUid;
-  listAllDbs();
 }
 
 function listAllDbs() {
