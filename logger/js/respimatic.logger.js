@@ -196,7 +196,7 @@ function deleteDbRow(row) {
   // grab the creation field from the first cell in the same row
   var dName = respimaticUid + '#' + p.cells[0].innerHTML;
 
-  if (!confirm("Delete Database created on\n" + p.cells[0].innerHTML)) {
+  if (!confirm("Delete Database named\n" + p.cells[0].innerHTML)) {
     return;
   }
 
