@@ -1,5 +1,5 @@
 var datasource_name = "RESPIMATIC100";
-var cookie_name = "respimatic_uid";
+var cookie_name = "selectedUid";
 var respimatic_uid =  getCookie(cookie_name);
 
 uiJson.datasources.length=0;

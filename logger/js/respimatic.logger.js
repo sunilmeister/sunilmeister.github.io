@@ -1,6 +1,6 @@
 
 const creationTimeStamp = new Date();
-const cookieName = "respimatic_uid";
+const cookieName = "selectedUid";
 const respimaticUid =  getCookie(cookieName);
 const dbNamePrefix = respimaticUid ;
 const dbVersion = 1;

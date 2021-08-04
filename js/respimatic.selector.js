@@ -1,4 +1,4 @@
-var cookie_name = "respimatic_uid";
+var cookie_name = "selectedUid";
 var respimatic_uid =  "";
 
 function validUid() {
