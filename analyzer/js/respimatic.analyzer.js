@@ -18,11 +18,13 @@ function listDbTableRow(item, index) {
   var row = table.insertRow();
 
   var cell = row.insertCell();
+  cell.innerHTML = '<button class="tableButton" onclick="selectDbRow(this)">SELECT</button>' ;
+  cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
-  cell.innerHTML = '<button class="tableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
+  cell.innerHTML = nameTm[2];
   cell = row.insertCell();
-  cell.innerHTML = '<button class="tableButton" onclick="selectDbRow(this)">SELECT</button>' ;
+  cell.innerHTML = '<button class="tableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
 
 }
 
@@ -31,7 +33,7 @@ function selectDbRow(row) {
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '#' + p.cells[0].innerHTML;
+  dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
   alert("Selected " + dbName);
   return dbName;
 }
@@ -41,11 +43,7 @@ function deleteDbRow(row) {
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  name = respimaticUid + '#' + p.cells[0].innerHTML;
-
-  if (!confirm("Deleting Session named\n" + p.cells[0].innerHTML)) {
-    return;
-  }
+  name = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
 
   // Delete the actual database
   deleteDb(name);
@@ -87,7 +85,7 @@ function deleteAllDbs() {
   numRows = table.rows.length;
   for (i=0; i<numRows; i++) {
     row = table.rows[0];
-    name = respimaticUid + '#' + row.cells[0].innerHTML;
+    name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
     deleteDb(name);
     table.deleteRow(0);
   }

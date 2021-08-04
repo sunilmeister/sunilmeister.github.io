@@ -114,9 +114,75 @@ function deleteDb(dbName) {
 }
 
 function parseDbName(name) {
-  // dbNames are of the form RSP_XXXXXXXXXXXX:Date
-  arr = name.split('#');
+  // dbNames are of the form RSP_XXXXXXXXXXXX|name|Date
+  arr = name.split('|');
   return arr;
+}
+
+// ///////////////////////////////////////////////////////
+// Open/Create Database 
+// ///////////////////////////////////////////////////////
+
+function createOrOpenDb(name, timeStamp) {
+  var dbReq = indexedDB.open(name, dbVersion);
+
+  // Fires when the version of the database goes up, or the database is created
+  // for the first time
+  dbReq.onupgradeneeded = function(event) {
+    db = event.target.result;
+
+    // Object stores in databases are where data are stored.
+    let dbObjStore;
+    if (!db.objectStoreNames.contains(dbObjStoreName)) {
+      dbObjStore = db.createObjectStore(dbObjStoreName, {autoIncrement: true});
+    } else {
+      dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
+    }
+  }
+
+  // Fires once the database is opened (and onupgradeneeded completes, if
+  // onupgradeneeded was called)
+  dbReq.onsuccess = function(event) {
+    // Set the db variable to our database so we can use it!  
+    db = event.target.result;
+    dbReady = true;
+
+    // Keep track of databases currently existing
+    var retrieved_dbs = localStorage.getItem(localStorageDbName);
+    var respimatic_dbs = [];
+    if (retrieved_dbs) {
+      respimatic_dbs = JSON.parse(retrieved_dbs);
+    }
+
+    var ix;
+    if (respimatic_dbs.length) {
+      ix = respimatic_dbs.indexOf(dbName);
+    } else {
+      ix = -1;
+    }
+
+    if (ix==-1) {
+      respimatic_dbs.push(dbName);
+      localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
+    }
+ 
+    ts = {"creationTimeStamp" : timeStamp};
+    insertJsonData(db,ts);
+  }
+
+  // Fires when we can't open the database
+  dbReq.onerror = function(event) {
+    dbReady = false;
+    alert('Error opening session ' + event.target.errorCode);
+  }
+
+  // Fires when there's another open connection to the same database
+  dbReq.onblocked = function(event) {
+    dbReady = false;
+    db = event.target.result;
+    db.close();
+    alert("Database version updated, Close all LOGGER tabs, reload the page.");
+  }
 }
 
 

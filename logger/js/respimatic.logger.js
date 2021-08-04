@@ -1,5 +1,8 @@
-const creationTimeStamp = new Date();
 var doLog = false;
+var creationTimeStamp = "";
+var db;
+var dbName;
+var dbReady = false;
 
 // check for browser capability
 document.title = respimaticUid + " (LOGGER)" ;
@@ -8,86 +11,24 @@ if (!window.indexedDB) {
 }
 
 // ///////////////////////////////////////////////////////
-// Open/Create Database 
-// ///////////////////////////////////////////////////////
-var dbNameSuffix = creationTimeStamp;
-//var dbName = dbNamePrefix + '#' + dbNameSuffix;
-var dbName = getNewDbName();
-
-var db;
-var dbReq = indexedDB.open(dbName, dbVersion);
-var dbReady = false;
-
-// Fires when the version of the database goes up, or the database is created
-// for the first time
-dbReq.onupgradeneeded = function(event) {
-  db = event.target.result;
-
-  // Object stores in databases are where data are stored.
-  let dbObjStore;
-  if (!db.objectStoreNames.contains(dbObjStoreName)) {
-    dbObjStore = db.createObjectStore(dbObjStoreName, {autoIncrement: true});
-  } else {
-    dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
-  }
-}
-
-// Fires once the database is opened (and onupgradeneeded completes, if
-// onupgradeneeded was called)
-dbReq.onsuccess = function(event) {
-  // Set the db variable to our database so we can use it!  
-  db = event.target.result;
-  dbReady = true;
-
-  // Keep track of databases currently existing
-  var retrieved_dbs = localStorage.getItem(localStorageDbName);
-  var respimatic_dbs = [];
-  if (retrieved_dbs) {
-    respimatic_dbs = JSON.parse(retrieved_dbs);
-  }
-
-  var ix;
-  if (respimatic_dbs.length) {
-    ix = respimatic_dbs.indexOf(dbName);
-  } else {
-    ix = -1;
-  }
-
-  if (ix==-1) {
-    respimatic_dbs.push(dbName);
-    localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
-  }
- 
-  ts = {"creationTimeStamp" : creationTimeStamp};
-  insertJsonData(db,ts);
-}
-
-// Fires when we can't open the database
-dbReq.onerror = function(event) {
-  dbReady = false;
-  alert('Error opening session ' + event.target.errorCode);
-}
-
-// Fires when there's another open connection to the same database
-dbReq.onblocked = function(event) {
-  dbReady = false;
-  db = event.target.result;
-  db.close();
-  alert("Database version updated, Close all LOGGER tabs, reload the page.");
-}
-
-// ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
 function getNewDbName() {
   var name = "";
+  date = new Date();
+  creationTimeStamp = date.toString();
+
+  [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()];
+  [hour, minutes, seconds] = 
+                     [date.getHours(), date.getMinutes(), date.getSeconds()];
+
+
+  dmy = String(day) + "-" + (month+1) + "-" + year;
+  nameTagTime = dmy + " " + hour + ":" + minutes + ":" + seconds;
+
   do {
     var dbNameSuffix = prompt("Name the new Session", creationTimeStamp);
-    if (!dbNameSuffix) {
-      dbNameSuffix = creationTimeStamp;
-      alert("Using the following name for the new Session\n" + dbNameSuffix);
-    }
-    name= dbNamePrefix + '#' + dbNameSuffix;
+    name= dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
     if (checkDbExists(name)) {
       alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
     } else break;
@@ -112,6 +53,8 @@ function listDbTableRow(item, index) {
   var cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
+  cell.innerHTML = nameTm[2];
+  cell = row.insertCell();
   cell.innerHTML = '<button class="tableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
 
 }
@@ -121,7 +64,7 @@ function deleteDbRow(row) {
 
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
-  var dName = respimaticUid + '#' + p.cells[0].innerHTML;
+  var dName = respimaticUid + '|' + p.cells[0].innerHTML + "|" + p.cells[1].innerHTML;
 
   if (!confirm("Deleting Session named\n" + p.cells[0].innerHTML)) {
     return;
@@ -143,6 +86,37 @@ function insertJsonData(db,jsonData) {
   tx.onerror = function(event) {
     alert('error storing data! ' + event.target.errorCode);
   }
+}
+
+function listAllDbs() {
+  //clear any existing table being shown
+  var table = document.getElementById("dbTable");
+  table.innerHTML = "";
+
+  var retrieved_dbs = getAllDbs();
+  if (retrieved_dbs) {
+    retrieved_dbs.forEach(listDbTableRow);
+  }
+}
+
+function deleteAllDbs() {
+  if (!confirm("Deleting All Saved Sessions")) return;
+
+  //clear any existing table being shown
+  var table = document.getElementById("dbTable");
+
+  numRows = table.rows.length;
+  for (i=0; i<numRows; i++) {
+    row = table.rows[0];
+    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+    deleteDb(name);
+    table.deleteRow(0);
+  }
+}
+
+function createNewDb() {
+  dbName = getNewDbName();
+  createOrOpenDb(dbName, creationTimeStamp);
 }
 
 // ///////////////////////////////////////////////////////
@@ -190,32 +164,6 @@ function startLog() {
 function pauseLog() {
   if (!doLog) return;
   doLog = false;
-}
-
-function listAllDbs() {
-  //clear any existing table being shown
-  var table = document.getElementById("dbTable");
-  table.innerHTML = "";
-
-  var retrieved_dbs = getAllDbs();
-  if (retrieved_dbs) {
-    retrieved_dbs.forEach(listDbTableRow);
-  }
-}
-
-function deleteAllDbs() {
-  if (!confirm("Deleting All Saved Sessions")) return;
-
-  //clear any existing table being shown
-  var table = document.getElementById("dbTable");
-
-  numRows = table.rows.length;
-  for (i=0; i<numRows; i++) {
-    row = table.rows[0];
-    name = respimaticUid + '#' + row.cells[0].innerHTML;
-    deleteDb(name);
-    table.deleteRow(0);
-  }
 }
 
 window.onload = function() {
