@@ -26,11 +26,21 @@ function listDbTableRow(item, index) {
 
 }
 
+function selectDbRow(row) {
+  var p=row.parentNode.parentNode;
+
+  // reconstruct the dbName
+  // grab the tag field from the first cell in the same row
+  dbName = respimaticUid + '#' + p.cells[0].innerHTML;
+  alert("Selected " + dbName);
+  return dbName;
+}
+
 function deleteDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
-  // grab the creation field from the first cell in the same row
+  // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '#' + p.cells[0].innerHTML;
 
   if (!confirm("Delete Database named\n" + p.cells[0].innerHTML)) {
@@ -42,6 +52,9 @@ function deleteDbRow(row) {
 
   // remove from HTML table
   p.parentNode.removeChild(p);
+
+  // return the name just in case
+  return dbName;
 }
 
 // ///////////////////////////////////////////////////////
