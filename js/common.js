@@ -87,6 +87,7 @@ function getAllDbs() {
 
   str = localStorage.getItem(localStorageDbName);
   alert(str);
+  alert(str.length);
   retrieved_dbs = JSON.parse(str);
   alert(retrieved_dbs.length);
   return retrieved_dbs;
