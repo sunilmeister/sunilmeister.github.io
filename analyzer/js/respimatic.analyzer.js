@@ -29,17 +29,6 @@ function listDbTableRow(item, index) {
 
 }
 
-function listAllDbs() {
-  //clear any existing table being shown
-  var table = document.getElementById("dbTable");
-  table.innerHTML = "";
-
-  var retrieved_dbs = getAllDbs();
-  if (retrieved_dbs) {
-    retrieved_dbs.forEach(listDbTableRow);
-  }
-}
-
 function deleteDbRow(row) {
   var p=row.parentNode.parentNode;
 
@@ -66,5 +55,19 @@ window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "ANALYSIS for " + respimaticUid;
   listAllDbs();
+}
+
+function listAllDbs() {
+  alert(localStorageDbName);
+  alert(localStorage.getItem(localStorageDbName));
+
+  //clear any existing table being shown
+  var table = document.getElementById("dbTable");
+  table.innerHTML = "";
+
+  var retrieved_dbs = getAllDbs();
+  if (retrieved_dbs) {
+    retrieved_dbs.forEach(listDbTableRow);
+  }
 }
 
