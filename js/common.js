@@ -1,13 +1,23 @@
-var cookie_name = "selectedUid";
+const cookieName = "selectedUid";
+const localStorageDbName = "respimatic_dbs" ;
 
+var respimaticUid =  getCookie(cookieName);
+const dbNamePrefix = respimaticUid ;
+const dbVersion = 1;
+const dbObjStoreName = respimaticUid ;
+const tableName = respimaticUid ;
+
+// /////////////////////////////////////////////
+// UID functions
+// /////////////////////////////////////////////
 function validUid() {
-  var uid_length = respimatic_uid.length;
+  var uid_length = respimaticUid.length;
   if (uid_length!=20) return false;
 
-  var pos = respimatic_uid.indexOf("RSP_");
+  var pos = respimaticUid.indexOf("RSP_");
   if (pos!=0) return false;
 
-  var hex_str = respimatic_uid.substr(4);
+  var hex_str = respimaticUid.substr(4);
   //alert("hex_str = " + hex_str);
   var re = /[0-9A-Fa-f]{16}/g;
 
@@ -16,6 +26,9 @@ function validUid() {
   return false;
 }
 
+// /////////////////////////////////////////////
+// Cookie functions
+// /////////////////////////////////////////////
 function setCookie(cname, cvalue) {
   var d = new Date();
   d.setFullYear(d.getFullYear() + 1);
@@ -46,4 +59,63 @@ function getCookie(cname) {
   }
   return "";
 }
+
+// /////////////////////////////////////////////
+// Database functions
+// /////////////////////////////////////////////
+function checkDbExists(dbName) {
+  var retrieved_dbs = localStorage.getItem(localStorageDbName);
+  var respimatic_dbs = [];
+  if (retrieved_dbs) {
+    respimatic_dbs = JSON.parse(retrieved_dbs);
+  } else return false;
+
+  var ix;
+  if (respimatic_dbs.length) {
+    ix = respimatic_dbs.indexOf(dbName);
+  } else {
+    ix = -1;
+  }
+
+  if (ix==-1) return false;
+
+  return true;
+}
+
+function getAllDbs() {
+  var str = localStorage.getItem(localStorageDbName);
+  var retrieved_dbs = JSON.parse(str);
+  return retrieved_dbs;
+}
+
+function deleteDb(dbName) {
+  // Keep track of databases currently existing
+  var retrieved_dbs = localStorage.getItem(localStorageDbName);
+  var respimatic_dbs = [];
+  if (retrieved_dbs) {
+    respimatic_dbs = JSON.parse(retrieved_dbs);
+  }
+
+  var ix;
+  if (respimatic_dbs.length) {
+    ix = respimatic_dbs.indexOf(dbName);
+  } else {
+    ix = -1;
+  }
+
+  if (ix!=-1) {
+    respimatic_dbs.splice(ix, 1);
+    localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
+  }
+ 
+  var request = indexedDB.deleteDatabase(dbName);
+  return request;
+}
+
+function parseDbName(name) {
+  // dbNames are of the form RSP_XXXXXXXXXXXX:Date
+  arr = name.split('#');
+  return arr;
+}
+
 

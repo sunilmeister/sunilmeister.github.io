@@ -1,12 +1,4 @@
-
 const creationTimeStamp = new Date();
-const cookieName = "selectedUid";
-const respimaticUid =  getCookie(cookieName);
-const dbNamePrefix = respimaticUid ;
-const dbVersion = 1;
-const dbObjStoreName = respimaticUid ;
-const tableName = respimaticUid ;
-const localStorageDbName = "respimatic_dbs" ;
 var doLog = false;
 
 // check for browser capability
@@ -89,25 +81,6 @@ dbReq.onblocked = function(event) {
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
-function checkDbExists(dbName) {
-  var retrieved_dbs = localStorage.getItem(localStorageDbName);
-  var respimatic_dbs = [];
-  if (retrieved_dbs) {
-    respimatic_dbs = JSON.parse(retrieved_dbs);
-  } else return false;
-
-  var ix;
-  if (respimatic_dbs.length) {
-    ix = respimatic_dbs.indexOf(dbName);
-  } else {
-    ix = -1;
-  }
-
-  if (ix==-1) return false;
-
-  return true;
-}
-
 function getNewDbName() {
   var name = "";
   do {
@@ -123,17 +96,6 @@ function getNewDbName() {
   } while (true) ;
 
   return name;
-}
-
-function listDb(item, index) {
-  nameTm = parseDbName(item);
-  alert(index + " " + nameTm[0] + "\nCreated:" + nameTm[1]);
-}
-
-function getAllDbs() {
-  var str = localStorage.getItem(localStorageDbName);
-  var retrieved_dbs = JSON.parse(str);
-  return retrieved_dbs;
 }
 
 function listDbTableRow(item, index) {
@@ -154,39 +116,6 @@ function listDbTableRow(item, index) {
   cell = row.insertCell();
   cell.innerHTML = '<button class="tableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
 
-}
-
-function listAllDbs() {
-  //clear any existing table being shown
-  var table = document.getElementById("dbTable");
-  table.innerHTML = "";
-
-  var retrieved_dbs = getAllDbs();
-  retrieved_dbs.forEach(listDbTableRow);
-}
-
-function deleteDb(dbName) {
-  // Keep track of databases currently existing
-  var retrieved_dbs = localStorage.getItem(localStorageDbName);
-  var respimatic_dbs = [];
-  if (retrieved_dbs) {
-    respimatic_dbs = JSON.parse(retrieved_dbs);
-  }
-
-  var ix;
-  if (respimatic_dbs.length) {
-    ix = respimatic_dbs.indexOf(dbName);
-  } else {
-    ix = -1;
-  }
-
-  if (ix!=-1) {
-    respimatic_dbs.splice(ix, 1);
-    localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
-  }
- 
-  var request = indexedDB.deleteDatabase(dbName);
-  return request;
 }
 
 function deleteDbRow(row) {
@@ -216,12 +145,6 @@ function insertJsonData(db,jsonData) {
   tx.onerror = function(event) {
     alert('error storing data! ' + event.target.errorCode);
   }
-}
-
-function parseDbName(name) {
-  // dbNames are of the form RSP_XXXXXXXXXXXX:Date
-  arr = name.split('#');
-  return arr;
 }
 
 // ///////////////////////////////////////////////////////
@@ -261,13 +184,6 @@ function waitForDweets() {
 // MAIN function executed on window load
 // ///////////////////////////////////////////////////////
 
-function manageDb() {
-  var heading = document.getElementById("SysUid");
-  heading.innerHTML = "LOG for " + respimaticUid;
-
-  waitForDweets();
-}
-
 function startLog() {
   if (doLog) return;
   doLog = true;
@@ -280,19 +196,21 @@ function pauseLog() {
   alert("Log paused ...");
 }
 
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
+function listAllDbs() {
+  //clear any existing table being shown
+  var table = document.getElementById("dbTable");
+  table.innerHTML = "";
+
+  var retrieved_dbs = getAllDbs();
+  if (retrieved_dbs) {
+    retrieved_dbs.forEach(listDbTableRow);
   }
-  return "";
+}
+
+window.onload = function() {
+  var heading = document.getElementById("SysUid");
+  heading.innerHTML = "LOG for " + respimaticUid;
+
+  waitForDweets();
 }
 

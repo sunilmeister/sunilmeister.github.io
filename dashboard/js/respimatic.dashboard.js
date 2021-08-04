@@ -1,11 +1,9 @@
 var datasource_name = "RESPIMATIC100";
-var cookie_name = "selectedUid";
-var respimatic_uid =  getCookie(cookie_name);
 
 uiJson.datasources.length=0;
 uiJson.datasources.push(dataSources["DUMMY"]);
-uiJson.datasources[0].settings.thing_id=respimatic_uid;
-document.title = respimatic_uid + " (" + datasource_name + ")"
+uiJson.datasources[0].settings.thing_id=respimaticUid;
+document.title = respimaticUid + " (" + datasource_name + ")"
 
 var normal_background = "#0d3e51";
 var initial_background = "#0d3e51";
@@ -22,22 +20,6 @@ var standby_state = false;
 var running_state = false;
 var error_state = false;
 var attention_state = false;
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
 
 function set_current_background(color) {
   current_background = color;

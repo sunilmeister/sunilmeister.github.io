@@ -1,4 +1,4 @@
-var respimatic_uid =  "";
+var respimaticUid =  "";
 
 function createDropdownSelect(values) {
   var datalist = document.getElementById("SYSUIDS");
@@ -14,23 +14,23 @@ function createDropdownSelect(values) {
 }
 
 function getRespimaticSysUID(){
-  respimatic_uid = document.querySelector('#SYSUIDS_input').value.toUpperCase();
+  respimaticUid = document.querySelector('#SYSUIDS_input').value.toUpperCase();
 
-  //confirm("SELECTED RESPIMATIC 100 SysUID:\t" + respimatic_uid);
+  //confirm("SELECTED RESPIMATIC 100 SysUID:\t" + respimaticUid);
 
-  if ((respimatic_uid=="") || (respimatic_uid==null)) {
+  if ((respimaticUid=="") || (respimaticUid==null)) {
     alert("\tEnter RESPIMATIC 100 SysUID" +
       "\nMust be RSP_ followed by 16-digit HEX number\n\t\t\t\tTry again!");
     return false; 
   }
 
   if (!validUid()) {
-    alert("\tInvalid RESPIMATIC 100 SysUID:\t" + respimatic_uid + 
+    alert("\tInvalid RESPIMATIC 100 SysUID:\t" + respimaticUid + 
       "\nMust be RSP_ followed by 16-digit HEX number\n\t\t\t\tTry again!");
     return false;
   }
 
-  setCookie(cookie_name,respimatic_uid);
+  setCookie(cookieName,respimaticUid);
 
   var retrieved_uids = localStorage.getItem("respimatic_uids");
   var respimatic_uids = [];
@@ -40,18 +40,18 @@ function getRespimaticSysUID(){
 
   var ix;
   if (respimatic_uids.length) {
-    ix = respimatic_uids.indexOf(respimatic_uid);
+    ix = respimatic_uids.indexOf(respimaticUid);
   } else {
     ix = -1;
   }
 
   if (ix==-1) {
-    respimatic_uids.push(respimatic_uid);
+    respimatic_uids.push(respimaticUid);
     localStorage.setItem("respimatic_uids", JSON.stringify(respimatic_uids));
   }
 
-  sessionStorage.setItem(cookie_name, respimatic_uid);
-  //alert(cookie_name + ' ' + respimatic_uid);
+  sessionStorage.setItem(cookieName, respimaticUid);
+  //alert(cookieName + ' ' + respimaticUid);
   return true;
 }
 
@@ -69,6 +69,13 @@ function launchLogger() {
   window.location.assign("logger/respimatic.logger.html");
 }
 
+function launchAnalyzer() {
+  if (!getRespimaticSysUID()) {
+    return;
+  }
+  window.location.assign("analyzer/respimatic.analyzer.html");
+}
+
 window.onload = function() {
   var retrieved_uids = localStorage.getItem("respimatic_uids");
   var respimatic_uids = [];
@@ -76,9 +83,9 @@ window.onload = function() {
   respimatic_uids = JSON.parse(retrieved_uids);
   createDropdownSelect(respimatic_uids);
 
-  respimatic_uid = getCookie(cookie_name);
+  respimaticUid = getCookie(cookieName);
 
   var datalist = document.getElementById('SYSUIDS_input'); 
-  datalist.value = respimatic_uid; // set default value instead of html attribute
+  datalist.value = respimaticUid; // set default value instead of html attribute
   datalist.onfocus = function() { datalist.value =''; }; // on focus - clear input
 };
