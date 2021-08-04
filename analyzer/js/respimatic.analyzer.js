@@ -41,14 +41,14 @@ function deleteDbRow(row) {
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '#' + p.cells[0].innerHTML;
+  name = respimaticUid + '#' + p.cells[0].innerHTML;
 
-  if (!confirm("Delete Database named\n" + p.cells[0].innerHTML)) {
+  if (!confirm("Deleting Session named\n" + p.cells[0].innerHTML)) {
     return;
   }
 
   // Delete the actual database
-  deleteDb(dbName);
+  deleteDb(name);
 
   // remove from HTML table
   p.parentNode.removeChild(p);
@@ -64,6 +64,7 @@ function deleteDbRow(row) {
 window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "ANALYSIS for " + respimaticUid;
+  listAllDbs();
 }
 
 function listAllDbs() {
@@ -76,4 +77,20 @@ function listAllDbs() {
     retrieved_dbs.forEach(listDbTableRow);
   }
 }
+
+function deleteAllDbs() {
+  if (!confirm("Deleting All Saved Sessions")) return;
+
+  //clear any existing table being shown
+  var table = document.getElementById("dbTable");
+
+  numRows = table.rows.length;
+  for (i=0; i<numRows; i++) {
+    row = table.rows[0];
+    name = respimaticUid + '#' + row.cells[0].innerHTML;
+    deleteDb(name);
+    table.deleteRow(0);
+  }
+}
+
 

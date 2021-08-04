@@ -60,14 +60,12 @@ dbReq.onsuccess = function(event) {
  
   ts = {"creationTimeStamp" : creationTimeStamp};
   insertJsonData(db,ts);
-
-  //alert("Created " + dbName);
 }
 
 // Fires when we can't open the database
 dbReq.onerror = function(event) {
   dbReady = false;
-  alert('Error opening database ' + event.target.errorCode);
+  alert('Error opening session ' + event.target.errorCode);
 }
 
 // Fires when there's another open connection to the same database
@@ -75,7 +73,7 @@ dbReq.onblocked = function(event) {
   dbReady = false;
   db = event.target.result;
   db.close();
-  alert("Database is updated, Close all LOGGER tabs, reload the page.");
+  alert("Database version updated, Close all LOGGER tabs, reload the page.");
 }
 
 // ///////////////////////////////////////////////////////
@@ -84,14 +82,14 @@ dbReq.onblocked = function(event) {
 function getNewDbName() {
   var name = "";
   do {
-    var dbNameSuffix = prompt("Name the new LOG database", creationTimeStamp);
+    var dbNameSuffix = prompt("Name the new Session", creationTimeStamp);
     if (!dbNameSuffix) {
       dbNameSuffix = creationTimeStamp;
-      alert("Using the following name for the new database\n" + dbNameSuffix);
+      alert("Using the following name for the new Session\n" + dbNameSuffix);
     }
     name= dbNamePrefix + '#' + dbNameSuffix;
     if (checkDbExists(name)) {
-      alert("Database already exists\n" + dbNameSuffix + "\nTry again");
+      alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
     } else break;
   } while (true) ;
 
@@ -125,7 +123,7 @@ function deleteDbRow(row) {
   // grab the creation field from the first cell in the same row
   var dName = respimaticUid + '#' + p.cells[0].innerHTML;
 
-  if (!confirm("Delete Database named\n" + p.cells[0].innerHTML)) {
+  if (!confirm("Deleting Session named\n" + p.cells[0].innerHTML)) {
     return;
   }
 
@@ -187,13 +185,11 @@ function waitForDweets() {
 function startLog() {
   if (doLog) return;
   doLog = true;
-  alert("Log started ...");
 }
 
 function pauseLog() {
   if (!doLog) return;
   doLog = false;
-  alert("Log paused ...");
 }
 
 function listAllDbs() {
@@ -207,9 +203,25 @@ function listAllDbs() {
   }
 }
 
+function deleteAllDbs() {
+  if (!confirm("Deleting All Saved Sessions")) return;
+
+  //clear any existing table being shown
+  var table = document.getElementById("dbTable");
+
+  numRows = table.rows.length;
+  for (i=0; i<numRows; i++) {
+    row = table.rows[0];
+    name = respimaticUid + '#' + row.cells[0].innerHTML;
+    deleteDb(name);
+    table.deleteRow(0);
+  }
+}
+
 window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "LOG for " + respimaticUid;
+  listAllDbs();
 
   waitForDweets();
 }
