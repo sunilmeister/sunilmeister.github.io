@@ -31,14 +31,14 @@ function deleteDbRow(row) {
 
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
-  var dName = respimaticUid + '#' + p.cells[0].innerHTML;
+  dbName = respimaticUid + '#' + p.cells[0].innerHTML;
 
   if (!confirm("Delete Database named\n" + p.cells[0].innerHTML)) {
     return;
   }
 
   // Delete the actual database
-  deleteDb(dName);
+  deleteDb(dbName);
 
   // remove from HTML table
   p.parentNode.removeChild(p);
