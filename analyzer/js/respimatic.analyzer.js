@@ -58,9 +58,6 @@ window.onload = function() {
 }
 
 function listAllDbs() {
-  alert(localStorageDbName);
-  alert(localStorage.getItem(localStorageDbName));
-
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
   table.innerHTML = "";

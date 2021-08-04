@@ -83,6 +83,9 @@ function checkDbExists(dbName) {
 }
 
 function getAllDbs() {
+  alert(localStorageDbName);
+  alert(localStorage.getItem(localStorageDbName));
+
   var str = localStorage.getItem(localStorageDbName);
   var retrieved_dbs = JSON.parse(str);
   return retrieved_dbs;
