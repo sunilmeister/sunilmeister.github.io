@@ -95,22 +95,18 @@ function getAllDbs() {
 
 function deleteDb(dbName) {
   // Keep track of databases currently existing
-  var retrieved_dbs = localStorage.getItem(localStorageDbName);
-  var respimatic_dbs = [];
-  if (retrieved_dbs) {
-    respimatic_dbs = JSON.parse(retrieved_dbs);
-  }
+  var retrieved_dbs = getAllDbs();
 
   var ix;
-  if (respimatic_dbs.length) {
-    ix = respimatic_dbs.indexOf(dbName);
+  if (retrieved_dbs.length) {
+    ix = retrieved_dbs.indexOf(dbName);
   } else {
     ix = -1;
   }
 
   if (ix!=-1) {
-    respimatic_dbs.splice(ix, 1);
-    localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
+    retrieved_dbs.splice(ix, 1);
+    localStorage.setItem(localStorageDbName, JSON.stringify(retrieved_dbs));
   }
  
   var request = indexedDB.deleteDatabase(dbName);
