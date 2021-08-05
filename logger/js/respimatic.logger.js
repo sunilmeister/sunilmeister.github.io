@@ -16,7 +16,6 @@ function getNewDbName() {
   var name = "";
   today = new Date();
   creationTimeStamp = today;
-  alert(creationTimeStamp);
 
   var dd = String(today. getDate()). padStart(2, '0');
   var mm = String(today. getMonth() + 1). padStart(2, '0'); //January is 0!
@@ -131,7 +130,6 @@ function createNewDb() {
 // ///////////////////////////////////////////////////////
 
 function displayTweet(d) {
-  if (!doLog) return ;
   var dweetBox = document.getElementById('dweetBox');
   dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
 }
@@ -143,6 +141,12 @@ function processDweet(d) {
   // reduce size of storage
   delete d.thing;
   created = d.created ;
+
+  // Get ird of messages till we figure out how to reduce the bulk
+  delete d.content['L1'];
+  delete d.content['L2'];
+  delete d.content['L3'];
+  delete d.content['L4'];
 
   // prune the content if same as previous
   for (let key in d.content) {
@@ -160,8 +164,14 @@ function processDweet(d) {
     }
   }
 
-  insertJsonData(db,d);
-  displayTweet(d);
+  var dweetBox = document.getElementById('dweetBox');
+  if (Object.keys(d.content).length != 0) {
+    // No need to save the creation date for this dweet
+    insertJsonData(db,d);
+    dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
+  } else {
+    dweetBox.innerText = dweetBox.textContent = "<Record pruned>" ;
+  }
 }
 
 function waitForDweets() {
