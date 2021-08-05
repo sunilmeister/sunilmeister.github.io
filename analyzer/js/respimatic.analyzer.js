@@ -98,6 +98,7 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
+  alert("dbReady=" + dbReady + "  dbObjStore=" + dbObjStore);
   if (dbReady && dbObjStore) return true;
 
   if (!dbName) {
