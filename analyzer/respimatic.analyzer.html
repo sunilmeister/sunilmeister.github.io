@@ -17,84 +17,130 @@
     <script src="https://cdnjs.com/libraries/Chart.js"></script>
     <script src="../js/common.js"></script>
     <script src="js/respimatic.analyzer.js"></script>
-
+    
     <style>
-      .tableButton {
-        background-color: #1d85ad;
-        border: white;
-        color: white;
-        padding: 5px 5px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 4px 2px;
-        cursor: pointer;
-        font-size: 12px;
-        border-radius: 5px;
-      }
-      .tableButton:hover {background-color: #0a8a30}
-      .tableButton:active {
-        background-color: #0a8a30;
-        box-shadow: 0 6px #1d85ad;
-        transform: translateY(6px);
-      }
+.sidebar {
+  height: 100%;
+  width: 200px;
+  position: absolute;
+  left: 0;
+  top: 100;
+  padding-top: 40px;
+  background-color: lightblue;
+}
 
-      .button {
-        background-color: #1d85ad;
-        border: white;
-        color: white;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 4px 2px;
-        cursor: pointer;
-        font-size: 20px;
-        border-radius: 15px;
-      }
-      .button:hover {background-color: #0a8a30}
-      .button:active {
-        background-color: #0a8a30;
-        box-shadow: 0 6px #1d85ad;
-        transform: translateY(6px);
-      }
+.sidebar div {
+  padding: 4px;
+  font-size: 20px;
+  display: block;
+}
 
-      .row {
-        display: flex;
-      }
+.body-text {
+  margin-left: 200px;
+  font-size: 18px;
+}
 
-      /* Create two equal columns that sits next to each other */
-      .column {
-        flex: 50%;
-        padding: 10px;
-      }
+.tableButton {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 5px;
+}
 
-      .dbTableStyle td {
-        padding:0 5px 0 0; /* Only right padding*/
-      }
+.tableButton:hover {
+  background-color: #0a8a30
+}
+
+.tableButton:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
+
+.button {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 15px;
+}
+
+.button:hover {
+  background-color: #0a8a30
+}
+
+.button:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
+
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+}
+
+.dbTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
+}
+
     </style>
   </head>
   
   <body>
-    <br>
     <center>
-      <img src="img/analyzer-title-logos.png" alt="Title" width="620" height="150">
-      <h1 id='SysUid' style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;" > </h1>
-      <div id="selector">
-        <h1 style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">Select Session for Analysis</h1>
-        <div style="height:200px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
-          <br>
-          <table id='dbTable' className="dbTableStyle" style="width:100%">
-          </table>
-         </div>
-         <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED SESSIONS</button>
-	 
-        </div>
-      </div>
-      <div id="w1">
-        <h1 style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">Analysis Sandbox</h1>
-      </div>
+      <img src="img/analyzer-title-logos.png" alt="Title" width="620"
+        height="150">
+      <h1 id='SysUid'
+        style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+      </h1>
     </center>
+    <div class="sidebar">
+      <div><button id="btnSelect" class="button" onclick='selectSession()'>Select Session</button></div>
+      <div>Menu Item 2</div>
+      <div>Menu Item 3</div>
+    </div>
+    
+    <div class="body-text">
+      <center>
+        <div id="selectorDiv">
+          <h1
+            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+            Select Session for Analysis</h1>
+          <div
+            style="height:400px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+            <br>
+            <table id='dbTable' className="dbTableStyle" style="width:100%">
+            </table>
+          </div>
+	  <br>
+          <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED
+            SESSIONS</button>
+          
+        </div>
+        <div id="queryDiv">
+        </div>
+      </center>
+    </div>
   </body>
   
 </html>

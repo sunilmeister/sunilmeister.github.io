@@ -34,7 +34,11 @@ function selectDbRow(row) {
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
-  alert("Selected " + dbName);
+  
+  var heading = document.getElementById("SysUid");
+  heading.innerHTML = respimaticUid + 
+    ' [' + p.cells[1].innerHTML + ' ' + p.cells[2].innerHTML + ' ]';
+
   return dbName;
 }
 
@@ -58,12 +62,6 @@ function deleteDbRow(row) {
 // ///////////////////////////////////////////////////////
 // MAIN function executed on window load
 // ///////////////////////////////////////////////////////
-
-window.onload = function() {
-  var heading = document.getElementById("SysUid");
-  heading.innerHTML = "ANALYSIS for " + respimaticUid;
-  listAllDbs();
-}
 
 function listAllDbs() {
   //clear any existing table being shown
@@ -89,6 +87,18 @@ function deleteAllDbs() {
     deleteDb(name);
     table.deleteRow(0);
   }
+}
+
+function selectSession() {
+  document.getElementById("selectorDiv").style.display = "block";
+  listAllDbs();
+}
+
+window.onload = function() {
+  var heading = document.getElementById("SysUid");
+  heading.innerHTML = respimaticUid + " Session [ <...> ]";
+  //listAllDbs();
+  document.getElementById("selectorDiv").style.display = "none";
 }
 
 
