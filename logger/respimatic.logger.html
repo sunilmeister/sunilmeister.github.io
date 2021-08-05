@@ -16,107 +16,128 @@
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="../js/common.js"></script>
     <script src="js/respimatic.logger.js"></script>
-
+    
     <style>
-      .tableButton {
-        background-color: #1d85ad;
-        border: white;
-        color: white;
-        padding: 5px 5px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 6px 6px;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 5px;
-      }
-      .tableButton:hover {background-color: #0a8a30}
-      .tableButton:active {
-        background-color: #0a8a30;
-        box-shadow: 0 6px #1d85ad;
-        transform: translateY(6px);
-      }
+.tableButton {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 6px 6px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
 
-      .button {
-        background-color: #1d85ad;
-        border: white;
-        color: white;
-        padding: 10px 30px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        margin: 4px 2px;
-        cursor: pointer;
-        font-size: 20px;
-        border-radius: 15px;
-      }
-     .button:hover {background-color: #0a8a30}
-     .button:active {
-       background-color: #0a8a30;
-       box-shadow: 0 6px #1d85ad;
-       transform: translateY(6px);
-     }
+.tableButton:hover {
+  background-color: #0a8a30
+}
 
-     .row {
-       display: flex;
-     }
+.tableButton:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
 
-      /* Create two equal columns that sits next to each other */
-     .column {
-       flex: 50%;
-       padding: 10px;
-     }
+.button {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 10px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 15px;
+}
 
-     .dbTableStyle td {
-       padding:0 5px 0 0; /* Only right padding*/
-     }
+.button:hover {
+  background-color: #0a8a30
+}
+
+.button:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
+
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+}
+
+.dbTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
+}
+
     </style>
   </head>
   
   <body>
     <br>
     <center>
-      <img src="img/logger-title-logos.png" alt="Title" width="620" height="150">
-      <h1 id='SysUid' style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;" > </h1>
+      <img src="img/logger-title-logos.png" alt="Title" width="620"
+        height="150">
+      <h1 id='SysUid'
+        style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
+      </h1>
       <div class="row">
         <div class="column">
-          <p id="sessionName" style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">No Active Session
+          <p id="sessionName"
+            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+            No Active Session
           <div
             style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
             <p id=dweetBox style="font-size:8; text-align: left">
           </div>
-
-	  <br>
-	  <div id="btnNewSessionDiv">
-          <button id="btnNewSession" class="button" onclick='createNewDb()'>START NEW SESSION</button>
-	  </div>
-	  <div id="btnStartLogDiv">
-          <button id="btnStartLog" class="button" onclick='startLog()'>RESUME SESSION LOG</button>
-	  </div>
-	  <div id="btnPauseLogDiv">
-          <button id="btnPauseLog" class="button" onclick='pauseLog()'>PAUSE SESSION LOG</button>
-	  </div>
+          
+          <br>
+          <div id="btnNewSessionDiv">
+            <button id="btnNewSession" class="button"
+              onclick='createNewDb()'>START NEW SESSION</button>
+          </div>
+          <div id="btnStartLogDiv">
+            <button id="btnStartLog" class="button" onclick='startLog()'>RESUME
+              SESSION LOG</button>
+          </div>
+          <div id="btnPauseLogDiv">
+            <button id="btnPauseLog" class="button" onclick='pauseLog()'>PAUSE
+              SESSION LOG</button>
+          </div>
         </div>
         
         <div class="column">
-          <p style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">All Saved Sessions
+          <p
+            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+            All Saved Sessions
           <div
             style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
-	    <br>
-	    <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
+            <br>
+            <table id='dbTable' className="dbTableStyle"
+              style="font-size:20px; width:100%">
             </table>
           </div>
-
-	  <br>
-	  <div id="btnDeleteDiv">
-          <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED SESSIONS</button>
-	  </div>
+          
+          <br>
+          <div id="btnDeleteDiv">
+            <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED
+              SESSIONS</button>
+          </div>
         </div>
-
-      </div>
-
         
+      </div>
+      
     </center>
   </body>
   

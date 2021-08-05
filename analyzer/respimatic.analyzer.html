@@ -37,7 +37,7 @@
 
 .body-pane {
   margin-left: 200px;
-  font-size: 12px;
+  font-size: 20px;
   font-family: verdana;
 }
 
@@ -163,14 +163,13 @@
         <img src="img/analyzer-title-logos.png" alt="Title" width="620"
           height="140">
         <h1 id='SysUid'
-          style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
+          style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
         </h1>
       </center>
       
       <center>
         <div id="selectorDiv">
-          <h2
-            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Select Session for Analysis</h2>
           <div
             style="height:400px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
@@ -187,29 +186,17 @@
       
       <div id="statsDiv">
         <center>
-          <h2
-            style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Session Statistics</h2>
         </center>
         <div class="row">
-          <div id="staticStats" class="column" style="font-size: 16px">
+          <div id="staticStats" class="column" style="font-size: 20px">
             <center>
               <h2
-                style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-                Static Information</h2>
+                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                Parameter Settings Used</h2>
             </center>
-            <label>Patient Name</label>
-            <p id="pName">
-              <label>Patient Info</label>
-            <p id="pInfo">
-              <label>System Deployment Altitude</label>
-            <p id="altitude">
-              <center>
-                <h2
-                  style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-                  Parameter Settings Used</h2>
-              </center>
-              <label>Ventilation Mode </label>
+            <label>Ventilation Mode </label>
             <p id="vtList">
               <label>BPM </label>
             <p id="bpmList">
@@ -227,35 +214,47 @@
             <p id="tpsListFlow">
           </div>
           
-          <div id="stats-pane" class="column" style="font-size: 16px">
+          <div id="stats-pane" class="column" style="font-size: 20">
             <center>
               <h2
-                style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-                Parameters Measured</h2>
-	      	    <br>
-	    <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:20px; width:100%">
-	      <tr>
-    <th>Parameter</th>
-    <th>Units</th>
-    <th>Min</th>
-    <th>Max</th>
-  </tr>
+                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                Static Information</h2>
+            </center>
+            <label>Patient Name</label>
+            <p id="pName">
+              <label>Patient Info</label>
+            <p id="pInfo">
+              <label>System Deployment Altitude</label>
+            <p id="altitude">
+              <center>
+                <h2
+                  style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                  Parameters Measured</h2>
+              </center>
+            <table id='statsMinMaxTable' className="statsTableStyle"
+              style="font-size:20px; width:100%">
+              <tr>
+                <th style="background-color:lightgray; text-align:left">
+                  Parameter</th>
+                <th style="background-color:lightgray; text-align:left">Units
+                </th>
+                <th style="background-color:lightgray;">Min</th>
+                <th style="background-color:lightgray;">Max</th>
+              </tr>
             </table>
-
+            
             </center>
           </div>
         </div>
       </div>
       
       <div id="chartsDiv">
-        <h2
-          style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+        <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
           Select Charts for Analysis</h2>
       </div>
       
       <div id="rawDataDiv">
-        <h2
-          style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+        <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
           Dumping Raw Data for Session</h2>
       </div>
       
