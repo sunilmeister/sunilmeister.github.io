@@ -91,7 +91,6 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
-  return true;
   if (dbReady) return true;
 
   if (!dbName) {
@@ -120,6 +119,8 @@ function selectStats() {
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
+
+  constructStatMinMaxTable();
 }
 
 function selectCharts() {

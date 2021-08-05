@@ -49,9 +49,9 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 4px 2px;
+  margin: 6px 6px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 20;
   border-radius: 5px;
 }
 
@@ -126,6 +126,11 @@
 }
 
 .dbTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
+}
+
+.statsTableStyle td {
   padding: 0 5px 0 0;
   /* Only right padding*/
 }
@@ -227,6 +232,16 @@
               <h2
                 style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
                 Parameters Measured</h2>
+	      	    <br>
+	    <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:20px; width:100%">
+	      <tr>
+    <th>Parameter</th>
+    <th>Units</th>
+    <th>Min</th>
+    <th>Max</th>
+  </tr>
+            </table>
+
             </center>
           </div>
         </div>
