@@ -16,6 +16,7 @@
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="https://cdnjs.com/libraries/Chart.js"></script>
     <script src="../js/common.js"></script>
+    <script src="js/stats.table.js"></script>
     <script src="js/respimatic.analyzer.js"></script>
     
     <style>
@@ -34,9 +35,10 @@
   display: block;
 }
 
-.body-text {
+.body-pane {
   margin-left: 200px;
-  font-size: 18px;
+  font-size: 12px;
+  font-family: verdana;
 }
 
 .tableButton {
@@ -146,12 +148,12 @@
       <div><button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Raw Data</button></div>
     </div>
     
-    <div class="body-text">
+    <div class="body-pane">
       <center>
         <img src="img/analyzer-title-logos.png" alt="Title" width="620"
           height="140">
       <h1 id='SysUid'
-        style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+        style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
       </h1>
       </center>
 
@@ -171,11 +173,38 @@
             SESSIONS</button>
           
         </div>
+      </center>
 
         <div id="statsDiv">
+          <center>
           <h2
-            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+            style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
             Session Statistics</h2>
+          </center>
+<h2>Settings used during the Session<h2>
+    <label>Patient Name</label>
+    <p id="pName">
+    <label>Patient Info</label>
+    <p id="pInfo">
+    <label>System Deployment Altitude</label>
+    <p id="altitude">
+    <label>Ventilation Mode Settings used</label>
+    <p id="vtList">
+    <label>BPM Settings used</label>
+    <p id="bpmList">
+    <label>I:E Settings used</label>
+    <p id="ieList">
+    <label>PEEP Pressure Settings used (cmH20)</label>
+    <p id="peepList">
+    <label>Maximum Pressure Settings used (cmH20)</label>
+    <p id="pmaxList">
+    <label>Support Pressure Settings used (cmH20)</label>
+    <p id="psList">
+    <label>Support Pressure Time Termination Settings used (secs)</label>
+    <p id="tpsListTime">
+    <label>Support Pressure Flow Termination Settings used (% Peak Flow)</label>
+    <p id="tpsListFlow">
+	  
         </div>
 
         <div id="chartsDiv">
@@ -190,7 +219,6 @@
             Dumping Raw Data for Session</h2>
         </div>
 
-      </center>
     </div>
   </body>
   

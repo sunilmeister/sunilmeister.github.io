@@ -91,6 +91,7 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
+  return true;
   if (dbReady) return true;
 
   if (!dbName) {
