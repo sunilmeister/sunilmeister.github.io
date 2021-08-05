@@ -28,7 +28,7 @@ function listDbTableRow(item, index) {
 
 }
 
-function selectDbRow(row) {
+async function selectDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
@@ -40,6 +40,13 @@ function selectDbRow(row) {
     ' [' + p.cells[1].innerHTML + ' ' + p.cells[2].innerHTML + ' ]';
 
   createOrOpenDb(dbName);
+
+  while (!dbObjStore) {
+    await sleep(100);
+  }
+
+  alert("Ready!");
+
   return dbName;
 }
 
