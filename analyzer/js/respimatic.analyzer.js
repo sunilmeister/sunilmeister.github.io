@@ -98,8 +98,8 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
-  alert("dbReady=" + dbReady + "  dbObjStore=" + dbObjStore);
-  if (dbReady && dbObjStore) return true;
+  alert("dbReady=" + dbReady + "  db=" + db);
+  if (dbReady && db) return true;
 
   if (!dbName) {
     alert('No Session Selected\nPlease Select Session for Analysis');

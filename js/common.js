@@ -7,7 +7,7 @@ const dbNamePrefix = respimaticUid ;
 const dbVersion = 1;
 const dbObjStoreName = respimaticUid ;
 const dbPrimaryKey = 'created' ;
-var dbObjStore = null;
+var db = null;
 var dbReady = false;
 var dbName = "";
 
@@ -143,6 +143,7 @@ function createOrOpenDb(name, timeStamp) {
     db = event.target.result;
 
     // Object stores in databases are where data are stored.
+    let dbObjStore;
     if (!db.objectStoreNames.contains(dbObjStoreName)) {
       dbObjStore = db.createObjectStore(dbObjStoreName, {keyPath: dbPrimaryKey});
     } else {
