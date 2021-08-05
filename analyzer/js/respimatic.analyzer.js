@@ -39,6 +39,7 @@ function selectDbRow(row) {
   heading.innerHTML = respimaticUid + 
     ' [' + p.cells[1].innerHTML + ' ' + p.cells[2].innerHTML + ' ]';
 
+  createOrOpenDb(dbName);
   return dbName;
 }
 
@@ -89,6 +90,20 @@ function deleteAllDbs() {
   }
 }
 
+function checkDbReady() {
+  if (dbReady) return true;
+
+  if (!dbName) {
+    alert('No Session Selected\nPlease Select Session for Analysis');
+    return false;
+  }
+
+  nameTm = parseDbName(dbName);
+  sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]' ;
+  alert('Session ' + sessionName + '\nNot yet ready\nPlease try again');
+  return false;
+}
+
 function selectSession() {
   document.getElementById("selectorDiv").style.display = "block";
   document.getElementById("statsDiv").style.display = "none";
@@ -98,6 +113,8 @@ function selectSession() {
 }
 
 function selectStats() {
+  if (!checkDbReady()) return;
+
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("chartsDiv").style.display = "none";
@@ -105,6 +122,8 @@ function selectStats() {
 }
 
 function selectCharts() {
+  if (!checkDbReady()) return;
+
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "block";
@@ -112,6 +131,8 @@ function selectCharts() {
 }
 
 function selectRawData() {
+  if (!checkDbReady()) return;
+
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";

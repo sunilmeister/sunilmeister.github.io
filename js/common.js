@@ -7,6 +7,8 @@ const dbNamePrefix = respimaticUid ;
 const dbVersion = 1;
 const dbObjStoreName = respimaticUid ;
 const tableName = respimaticUid ;
+var dbReady = false;
+var dbName = "";
 
 // /////////////////////////////////////////////
 // UID functions
