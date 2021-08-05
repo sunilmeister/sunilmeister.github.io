@@ -20,6 +20,22 @@
     <script src="js/respimatic.analyzer.js"></script>
     
     <style>
+.staticStats {
+  height: 100%;
+  width: 500px;
+  position: absolute;
+  left: 200;
+  top: 150;
+  padding-top: 40px;
+}
+
+.statsTable-pane{
+  margin-top: 70px;
+  margin-left: 600px;
+  font-size: 16px;
+  font-family: verdana;
+}
+
 .sidebar {
   height: 100%;
   width: 200px;
@@ -181,30 +197,39 @@
             style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
             Session Statistics</h2>
           </center>
-<h2>Settings used during the Session<h2>
+	  <div class="staticStats" style="font-size: 16px">
     <label>Patient Name</label>
     <p id="pName">
     <label>Patient Info</label>
     <p id="pInfo">
     <label>System Deployment Altitude</label>
     <p id="altitude">
-    <label>Ventilation Mode Settings used</label>
+    <center>
+          <h2
+            style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
+            Parameter Settings Used</h2>
+    </center>
+    <label>Ventilation Mode </label>
     <p id="vtList">
-    <label>BPM Settings used</label>
+    <label>BPM </label>
     <p id="bpmList">
-    <label>I:E Settings used</label>
+    <label>I:E </label>
     <p id="ieList">
-    <label>PEEP Pressure Settings used (cmH20)</label>
+    <label>PEEP Pressure (cmH20)</label>
     <p id="peepList">
-    <label>Maximum Pressure Settings used (cmH20)</label>
+    <label>Maximum Pressure (cmH20)</label>
     <p id="pmaxList">
-    <label>Support Pressure Settings used (cmH20)</label>
+    <label>Support Pressure (cmH20)</label>
     <p id="psList">
-    <label>Support Pressure Time Termination Settings used (secs)</label>
+    <label>Support Pressure Time Termination (secs)</label>
     <p id="tpsListTime">
-    <label>Support Pressure Flow Termination Settings used (% Peak Flow)</label>
+    <label>Support Pressure Flow Termination (% Peak Flow)</label>
     <p id="tpsListFlow">
+	  </div>
 	  
+    <div class="statsTable-pane">
+      <p>Stats Table
+    </div>
         </div>
 
         <div id="chartsDiv">
