@@ -20,22 +20,6 @@
     <script src="js/respimatic.analyzer.js"></script>
     
     <style>
-.staticStats {
-  height: 100%;
-  width: 500px;
-  position: absolute;
-  left: 200;
-  top: 150;
-  padding-top: 40px;
-}
-
-.statsTable-pane{
-  margin-top: 70px;
-  margin-left: 600px;
-  font-size: 16px;
-  font-family: verdana;
-}
-
 .sidebar {
   height: 100%;
   width: 200px;
@@ -155,24 +139,28 @@
       <br><br><br>
       <br><br><br>
       <br><br>
-      <div><button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Select Session</button></div>
+      <div><button id="btnSelect" class="sidebarButton"
+          onclick='selectSession()'>Select Session</button></div>
       <br><br>
-      <div><button id="btnStat" class="sidebarButton" onclick='selectStats()'>Statistics</button></div>
+      <div><button id="btnStat" class="sidebarButton"
+          onclick='selectStats()'>Statistics</button></div>
       <br><br>
-      <div><button id="btnChart" class="sidebarButton" onclick='selectCharts()'>Charts</button></div>
+      <div><button id="btnChart" class="sidebarButton"
+          onclick='selectCharts()'>Charts</button></div>
       <br><br>
-      <div><button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Raw Data</button></div>
+      <div><button id="btnRaw" class="sidebarButton"
+          onclick='selectRawData()'>Raw Data</button></div>
     </div>
     
     <div class="body-pane">
       <center>
         <img src="img/analyzer-title-logos.png" alt="Title" width="620"
           height="140">
-      <h1 id='SysUid'
-        style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
-      </h1>
+        <h1 id='SysUid'
+          style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
+        </h1>
       </center>
-
+      
       <center>
         <div id="selectorDiv">
           <h2
@@ -184,66 +172,77 @@
             <table id='dbTable' className="dbTableStyle" style="width:100%">
             </table>
           </div>
-	  <br>
+          <br>
           <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED
             SESSIONS</button>
           
         </div>
       </center>
-
-        <div id="statsDiv">
-          <center>
+      
+      <div id="statsDiv">
+        <center>
           <h2
             style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
             Session Statistics</h2>
-          </center>
-	  <div class="staticStats" style="font-size: 16px">
-    <label>Patient Name</label>
-    <p id="pName">
-    <label>Patient Info</label>
-    <p id="pInfo">
-    <label>System Deployment Altitude</label>
-    <p id="altitude">
-    <center>
-          <h2
-            style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;">
-            Parameter Settings Used</h2>
-    </center>
-    <label>Ventilation Mode </label>
-    <p id="vtList">
-    <label>BPM </label>
-    <p id="bpmList">
-    <label>I:E </label>
-    <p id="ieList">
-    <label>PEEP Pressure (cmH20)</label>
-    <p id="peepList">
-    <label>Maximum Pressure (cmH20)</label>
-    <p id="pmaxList">
-    <label>Support Pressure (cmH20)</label>
-    <p id="psList">
-    <label>Support Pressure Time Termination (secs)</label>
-    <p id="tpsListTime">
-    <label>Support Pressure Flow Termination (% Peak Flow)</label>
-    <p id="tpsListFlow">
-	  </div>
-	  
-    <div class="statsTable-pane">
-      <p>Stats Table
-    </div>
+        </center>
+        <div class="row">
+          <div id="staticStats" class="column" style="font-size: 16px">
+            <center>
+              <h2
+                style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+                Static Information</h2>
+            </center>
+            <label>Patient Name</label>
+            <p id="pName">
+              <label>Patient Info</label>
+            <p id="pInfo">
+              <label>System Deployment Altitude</label>
+            <p id="altitude">
+              <center>
+                <h2
+                  style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+                  Parameter Settings Used</h2>
+              </center>
+              <label>Ventilation Mode </label>
+            <p id="vtList">
+              <label>BPM </label>
+            <p id="bpmList">
+              <label>I:E </label>
+            <p id="ieList">
+              <label>PEEP Pressure (cmH20)</label>
+            <p id="peepList">
+              <label>Maximum Pressure (cmH20)</label>
+            <p id="pmaxList">
+              <label>Support Pressure (cmH20)</label>
+            <p id="psList">
+              <label>Support Pressure Time Termination (secs)</label>
+            <p id="tpsListTime">
+              <label>Support Pressure Flow Termination (% Peak Flow)</label>
+            <p id="tpsListFlow">
+          </div>
+          
+          <div id="stats-pane" class="column" style="font-size: 16px">
+            <center>
+              <h2
+                style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+                Parameters Measured</h2>
+            </center>
+          </div>
         </div>
-
-        <div id="chartsDiv">
-          <h2
-            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-            Select Charts for Analysis</h2>
-        </div>
-
-        <div id="rawDataDiv">
-          <h2
-            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-            Dumping Raw Data for Session</h2>
-        </div>
-
+      </div>
+      
+      <div id="chartsDiv">
+        <h2
+          style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+          Select Charts for Analysis</h2>
+      </div>
+      
+      <div id="rawDataDiv">
+        <h2
+          style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+          Dumping Raw Data for Session</h2>
+      </div>
+      
     </div>
   </body>
   
