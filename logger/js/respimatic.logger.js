@@ -86,7 +86,7 @@ function insertJsonData(db,jsonData) {
   store.add(jsonData);  // Wait for the database transaction to complete
   tx.oncomplete = function() { }
   tx.onerror = function(event) {
-    alert('error storing data! ' + event.target.errorCode);
+    alert('Error storing data! ' + event.target.errorCode);
   }
 }
 

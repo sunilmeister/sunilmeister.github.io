@@ -6,7 +6,8 @@ var doLog = false;
 const dbNamePrefix = respimaticUid ;
 const dbVersion = 1;
 const dbObjStoreName = respimaticUid ;
-const tableName = respimaticUid ;
+const dbPrimaryKey = 'created' ;
+var dbObjStore = null;
 var dbReady = false;
 var dbName = "";
 
@@ -135,9 +136,8 @@ function createOrOpenDb(name, timeStamp) {
     db = event.target.result;
 
     // Object stores in databases are where data are stored.
-    let dbObjStore;
     if (!db.objectStoreNames.contains(dbObjStoreName)) {
-      dbObjStore = db.createObjectStore(dbObjStoreName, {autoIncrement: true});
+      dbObjStore = db.createObjectStore(dbObjStoreName, {keyPath: dbPrimaryKey});
     } else {
       dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
     }
@@ -169,7 +169,7 @@ function createOrOpenDb(name, timeStamp) {
       localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
     }
  
-    ts = {"creationTimeStamp" : timeStamp};
+    ts = {dbPrimaryKey : timeStamp};
     insertJsonData(db,ts);
     doLog = true;
   }

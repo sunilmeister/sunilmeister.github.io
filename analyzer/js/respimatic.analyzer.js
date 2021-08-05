@@ -91,7 +91,7 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
-  if (dbReady) return true;
+  if (dbReady && dbObjStore) return true;
 
   if (!dbName) {
     alert('No Session Selected\nPlease Select Session for Analysis');
@@ -110,6 +110,12 @@ function selectSession() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   listAllDbs();
+
+  var index = dbObjStore.index(dbPrimaryKey);
+  var getAllKeysRequest = index.getAllKeys();
+  getAllKeysRequest.onsuccess = function() {
+    alert("Number of keys=" + getAllKeysRequest.result.length);
+  }
 }
 
 function selectStats() {
