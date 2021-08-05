@@ -110,12 +110,6 @@ function selectSession() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   listAllDbs();
-
-  var index = dbObjStore.index(dbPrimaryKey);
-  var getAllKeysRequest = index.getAllKeys();
-  getAllKeysRequest.onsuccess = function() {
-    alert("Number of keys=" + getAllKeysRequest.result.length);
-  }
 }
 
 function selectStats() {
@@ -150,6 +144,7 @@ function selectRawData() {
 window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
+
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";

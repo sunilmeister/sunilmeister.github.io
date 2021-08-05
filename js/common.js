@@ -172,6 +172,13 @@ function createOrOpenDb(name, timeStamp) {
     ts = {dbPrimaryKey : timeStamp};
     insertJsonData(db,ts);
     doLog = true;
+
+    // get all keys
+    var index = dbObjStore.index(dbPrimaryKey);
+    var getAllKeysRequest = index.getAllKeys();
+    getAllKeysRequest.onsuccess = function() {
+      alert("Number of keys=" + getAllKeysRequest.result.length);
+    }
   }
 
   // Fires when we can't open the database
