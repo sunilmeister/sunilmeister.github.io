@@ -45,7 +45,9 @@ async function selectDbRow(row) {
     await sleep(100);
   }
 
-  alert("Ready!");
+  dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
+
+  alert("dbObjStore=" + dbObjStore);
 
   return dbName;
 }
@@ -98,8 +100,8 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
-  alert("dbReady=" + dbReady + "  db=" + db);
-  if (dbReady && db) return true;
+  //alert("dbReady=" + dbReady + "dbName=" + dbName + "  db=" + db);
+  if (dbReady && db && dbName) return true;
 
   if (!dbName) {
     alert('No Session Selected\nPlease Select Session for Analysis');
