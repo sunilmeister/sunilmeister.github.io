@@ -123,6 +123,10 @@ function createNewDb() {
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);
   sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
+
+  document.getElementById("btnNewSessionDiv").style.display = "none";
+  document.getElementById("btnStartLogDiv").style.display = "none";
+  document.getElementById("btnPauseLogDiv").style.display = "block";
 }
 
 // ///////////////////////////////////////////////////////
@@ -203,17 +207,29 @@ function waitForDweets() {
 function startLog() {
   if (doLog) return;
   doLog = true;
+
+  document.getElementById("btnNewSessionDiv").style.display = "none";
+  document.getElementById("btnStartLogDiv").style.display = "none";
+  document.getElementById("btnPauseLogDiv").style.display = "block";
 }
 
 function pauseLog() {
   if (!doLog) return;
   doLog = false;
+
+  document.getElementById("btnNewSessionDiv").style.display = "block";
+  document.getElementById("btnStartLogDiv").style.display = "block";
+  document.getElementById("btnPauseLogDiv").style.display = "none";
 }
 
 window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "LOG for " + respimaticUid;
   listAllDbs();
+
+  document.getElementById("btnNewSessionDiv").style.display = "block";
+  document.getElementById("btnStartLogDiv").style.display = "none";
+  document.getElementById("btnPauseLogDiv").style.display = "none";
 
   waitForDweets();
 }

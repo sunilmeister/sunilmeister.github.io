@@ -88,9 +88,15 @@
           </div>
 
 	  <br>
+	  <div id="btnNewSessionDiv">
           <button id="btnNewSession" class="button" onclick='createNewDb()'>START NEW SESSION</button>
-          <button id="btnStartLog" class="button" onclick='startLog()'>START SESSION LOG</button>
+	  </div>
+	  <div id="btnStartLogDiv">
+          <button id="btnStartLog" class="button" onclick='startLog()'>RESUME SESSION LOG</button>
+	  </div>
+	  <div id="btnPauseLogDiv">
           <button id="btnPauseLog" class="button" onclick='pauseLog()'>PAUSE SESSION LOG</button>
+	  </div>
         </div>
         
         <div class="column">
@@ -103,7 +109,9 @@
           </div>
 
 	  <br>
+	  <div id="btnDeleteDiv">
           <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED SESSIONS</button>
+	  </div>
         </div>
 
       </div>
