@@ -91,14 +91,40 @@ function deleteAllDbs() {
 
 function selectSession() {
   document.getElementById("selectorDiv").style.display = "block";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
   listAllDbs();
+}
+
+function selectStats() {
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "block";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+}
+
+function selectCharts() {
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "block";
+  document.getElementById("rawDataDiv").style.display = "none";
+}
+
+function selectRawData() {
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "block";
 }
 
 window.onload = function() {
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid + " Session [ <...> ]";
-  //listAllDbs();
+  heading.innerHTML = respimaticUid + " No Session Selected";
   document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
 }
 
 
