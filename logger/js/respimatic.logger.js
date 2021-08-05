@@ -135,18 +135,34 @@ function displayTweet(d) {
 }
 
 var prevContent = {}; 
+var attentionState = false;
+var initialState = false;
+
 function processDweet(d) {
   if (!doLog) return ;
 
-  // reduce size of storage
+  // We already have the UID
   delete d.thing;
-  created = d.created ;
 
-  // Get ird of messages till we figure out how to reduce the bulk
-  delete d.content['L1'];
-  delete d.content['L2'];
-  delete d.content['L3'];
-  delete d.content['L4'];
+  if (d.content['INITIAL'] == "1") {
+    initialState = true;
+  } else if (d.content['INITIAL'] == "0") {
+    initialState = false;
+  }
+
+  if (d.content['ATTENTION'] == "1") {
+    attentionState = true;
+  } else if (d.content['ATTENTION'] == "0") {
+    attentionState = false;
+  }
+
+  if (!attentionState && !initialState) {
+    // Get rid of messages except in INITIAL state or when the attention is ON
+    delete d.content['L1'];
+    delete d.content['L2'];
+    delete d.content['L3'];
+    delete d.content['L4'];
+  }
 
   // prune the content if same as previous
   for (let key in d.content) {
