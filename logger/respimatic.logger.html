@@ -51,26 +51,26 @@
         font-size: 20px;
         border-radius: 15px;
       }
-      .button:hover {background-color: #0a8a30}
-      .button:active {
-        background-color: #0a8a30;
-        box-shadow: 0 6px #1d85ad;
-        transform: translateY(6px);
-      }
+     .button:hover {background-color: #0a8a30}
+     .button:active {
+       background-color: #0a8a30;
+       box-shadow: 0 6px #1d85ad;
+       transform: translateY(6px);
+     }
 
-      .row {
-        display: flex;
-      }
+     .row {
+       display: flex;
+     }
 
       /* Create two equal columns that sits next to each other */
-      .column {
-        flex: 50%;
-        padding: 10px;
-      }
+     .column {
+       flex: 50%;
+       padding: 10px;
+     }
 
-      .dbTableStyle td {
-        padding:0 5px 0 0; /* Only right padding*/
-      }
+     .dbTableStyle td {
+       padding:0 5px 0 0; /* Only right padding*/
+     }
     </style>
   </head>
   
@@ -81,24 +81,24 @@
       <h1 id='SysUid' style="background-color:#0d3e51; color:white;font-size:2em; font-family:verdana;" > </h1>
       <div class="row">
         <div class="column">
-          <h1 style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">Session Data being logged</h1>
+          <p id="sessionName" style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">No Active Session
           <div
             style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
             <p id=dweetBox style="font-size:8; text-align: left">
           </div>
 
 	  <br>
-          <button class="button" onclick='createNewDb()'>START NEW SESSION</button>
-          <button class="button" onclick='startLog()'>START SESSION LOG</button>
-          <button class="button" onclick='pauseLog()'>PAUSE SESSION LOG</button>
+          <button id="btnNewSession" class="button" onclick='createNewDb()'>START NEW SESSION</button>
+          <button id="btnStartLog" class="button" onclick='startLog()'>START SESSION LOG</button>
+          <button id="btnPauseLog" class="button" onclick='pauseLog()'>PAUSE SESSION LOG</button>
         </div>
         
         <div class="column">
-          <h1 style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">All Saved Sessions</h1>
+          <p style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">All Saved Sessions
           <div
             style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
 	    <br>
-	    <table id='dbTable' className="dbTableStyle">
+	    <table id='dbTable' className="dbTableStyle" style="width:100%">
             </table>
           </div>
 

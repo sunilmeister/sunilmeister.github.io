@@ -120,6 +120,10 @@ function deleteAllDbs() {
 function createNewDb() {
   dbName = getNewDbName();
   createOrOpenDb(dbName, creationTimeStamp);
+
+  var sessionName = document.getElementById('sessionName');
+  arr = parseDbName(dbName);
+  sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
 }
 
 // ///////////////////////////////////////////////////////
@@ -132,26 +136,37 @@ function displayTweet(d) {
   dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
 }
 
+var prevContent = {}; 
 function processDweet(d) {
   if (!doLog) return ;
-  insertJsonData(db,d);
 
-  /*
+  // reduce size of storage
+  delete d.thing;
   created = d.created ;
-  sysUid = d.thing ;
 
+  // prune the content if same as previous
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
+    if (!prevContent.hasOwnProperty(key)) {
+      prevContent[key] = value;
+    } else {
+      prevValue = prevContent[key];
+      if (prevValue != value) {
+        prevContent[key] = value;
+      } else {
+        delete d.content[key];
+      }
+    }
   }
-  */
 
+  insertJsonData(db,d);
+  displayTweet(d);
 }
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
     processDweet(d);
-    displayTweet(d);
   });
 }
 
