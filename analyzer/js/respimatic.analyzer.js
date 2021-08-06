@@ -55,6 +55,15 @@ function getSessionDuration(dbName) {
       analysisStartTime = logStartTime;
       analysisEndTime = logEndTime;
 
+      updateSelectedDuration();
+      updateLogDuration();
+
+      elm = document.getElementById("startTime");
+      elm.value = dateToStr(logStartTime);
+
+      elm = document.getElementById("endTime");
+      elm.value = dateToStr(logEndTime);
+
     }
   }
 }
@@ -192,6 +201,17 @@ function checkValidAnalysisDuration() {
   else return true;
 }
 
+function updateLogDuration() {
+  var diff = logEndTime - logStartTime;
+
+  elm = document.getElementById("logTimeDuration");
+  if (diff>=0) {
+    elm.innerHTML = "Session Duration " + msToTime(diff);
+  } else {
+    elm.innerHTML = "Session Duration " + "NaN" ;
+  }
+}
+
 function updateSelectedDuration() {
   var diff = analysisEndTime - analysisStartTime;
 
@@ -223,16 +243,13 @@ function selectLogTimes() {
   if ((logStartTime!=analysisStartTime) || (logEndTime!=analysisEndTime)) {
     analysisStartTime = logStartTime;
     analysisEndTime = logEndTime;
+    updateSelectedDuration();
 
     elm = document.getElementById("startTime");
     elm.value = dateToStr(analysisStartTime);
 
     elm = document.getElementById("endTime");
     elm.value = dateToStr(analysisEndTime);
-
-    var diff = analysisEndTime - analysisStartTime;
-    elm = document.getElementById("selectedTimeDuration");
-    elm.innerHTML = "Selected Duration " + msToTime(diff);
 
     ResetAnalysisData();
   }
