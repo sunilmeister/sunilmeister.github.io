@@ -1,7 +1,7 @@
-var logStartTime ;
-var logEndTime ;
-var analysisStartTime ;
-var analysisEndTime ;
+var logStartTime = new Date();
+var logEndTime = new Date();
+var analysisStartTime = new Date();
+var analysisEndTime = new Date();
 
 // check for browser capability
 document.title = respimaticUid + " (ANALYZER)" ;
@@ -46,6 +46,7 @@ function getSessionDuration(dbName) {
 
     keyReq.onsuccess = function(event) {
       keys = event.target.result;
+      allDbKeys = keys;
       if (keys.length==0) {
         alert("Selected Session has no data");
       }
