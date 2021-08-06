@@ -38,8 +38,8 @@ function getSessionDuration(dbName) {
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
     alert("I am here store = " + store);
-    var index = store.index(dbPrimaryKey);
-    keys = index.getAllKeys();
+    //var index = store.index(dbPrimaryKey);
+    keys = store.getAllKeys();
     alert("Number of records = " + keys.length);
   }
 }
