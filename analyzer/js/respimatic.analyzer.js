@@ -67,9 +67,9 @@ function getSessionDuration(dbName) {
       elm.max = logEndTime.toISOString();
 
       elm = document.getElementById("logTimeDuration");
-      elm.innerHTML = msToTime(diff);
+      elm.innerHTML = "Session Duration " + msToTime(diff);
       elm = document.getElementById("selectedTimeDuration");
-      elm.innerHTML = msToTime(diff);
+      elm.innerHTML = "Selected Duration " + msToTime(diff);
     }
   }
 }
