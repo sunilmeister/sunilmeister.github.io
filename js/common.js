@@ -250,4 +250,19 @@ function createOrOpenDb(name, timeStamp) {
   }
 }
 
+function getDbJsonRecord(key) {
+  var req = indexedDB.open(dbName, dbVersion);
+  req.onsuccess = function(event) {
+    // Set the db variable to our database so we can use it!  
+    db = event.target.result;
+    dbReady = true;
 
+    tx = db.transaction(dbObjStoreName, 'readonly');
+    store = tx.objectStore(dbObjStoreName);
+    keyReq = store.get(key);
+    keyReq.onsuccess = function(event) {
+      jsonData = keyReq.result;
+      return jsonData;
+    }
+  }
+}
