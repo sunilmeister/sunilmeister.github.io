@@ -175,10 +175,10 @@ function createOrOpenDb(name, timeStamp) {
     if (ix==-1) {
       respimatic_dbs.push(dbName);
       localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
+      ts = {dbPrimaryKey : timeStamp};
+      insertJsonData(db,ts);
     }
  
-    ts = {dbPrimaryKey : timeStamp};
-    insertJsonData(db,ts);
     doLog = true;
   }
 
