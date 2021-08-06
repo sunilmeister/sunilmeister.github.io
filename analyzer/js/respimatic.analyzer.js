@@ -196,6 +196,21 @@ window.onload = function() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
+
+  //Date time pickers
+  instance = new dtsel.DTS('input[name="startTime"]',  {
+    direction: 'BOTTOM',
+    dateFormat: "yyyy-mm-dd",
+    showTime: true,
+    timeFormat: "HH:MM:SS"
+  });
+
+  instance = new dtsel.DTS('input[name="endTime"]',  {
+    direction: 'BOTTOM',
+    dateFormat: "yyyy-mm-dd",
+    showTime: true,
+    timeFormat: "HH:MM:SS"
+  });
 }
 
 

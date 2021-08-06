@@ -13,7 +13,9 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap"
       rel="stylesheet">
+    <link rel="stylesheet" href="../css/dtsel.css" />
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
+    <script src="../js/dtsel.js"></script>
     <script src="../js/common.js"></script>
     <script src="js/stats.table.js"></script>
     <script src="js/respimatic.analyzer.js"></script>
@@ -159,12 +161,10 @@
       <br><br><br>
       <div id=timeInterval>
         <label for="startTime">Choose Start time for Analysis</label>
-	<input type="datetime-local" id="startTime" name="startTime" 
-	       value="" min="" max="">
-
+	<input id="startTime" name="startTime" />
+        <br>
         <label for="endTime">Choose End time for Analysis</label>
-	<input type="datetime-local" id="endTime" name="endTime" 
-	       value="" min="" max="">
+	<input id="endTime" name="endTime" />
 	<br>
 	<p>Time Duration
 	<p id="timeDuration">
