@@ -28,6 +28,14 @@ function listDbTableRow(item, index) {
 
 }
 
+function getSessionDuration() {
+   var tx = db.transaction(dbObjStoreName, 'readonly');
+   var store = tx.objectStore(dbObjStoreName);
+   var index = store.index(primaryKeyName);
+   keys = indes.getAllKeys();
+   alert("Number of records = " + keys.length);
+}
+
 async function selectDbRow(row) {
   var p=row.parentNode.parentNode;
 
@@ -41,14 +49,7 @@ async function selectDbRow(row) {
 
   createOrOpenDb(dbName);
 
-  while (!dbObjStore) {
-    await sleep(100);
-  }
-
-  dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
-
-  alert("dbObjStore=" + dbObjStore);
-
+  getSessionDuration();
   return dbName;
 }
 
