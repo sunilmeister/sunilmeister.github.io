@@ -60,7 +60,7 @@ function getSessionDuration(dbName) {
       elm.min.innerHTML = logStartTime;
 
       elm = document.getElementById("endTime");
-      elm.value.innerHTML = logendTime;
+      elm.value.innerHTML = logEndTime;
       elm.min.innerHTML = logStartTime;
       elm.max.innerHTML = logEndTime;
     }
