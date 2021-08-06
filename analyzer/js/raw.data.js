@@ -32,6 +32,7 @@ function dumpRawData() {
 
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
+    if (!keyWithinAnalysisRange(key)) continue;
     dumpJsonRecord(key);
   }
 }

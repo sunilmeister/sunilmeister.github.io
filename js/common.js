@@ -11,9 +11,20 @@ var dbReady = false;
 var dbName = "";
 var allDbKeys = {};
 
+var logStartTime = new Date();
+var logEndTime = new Date();
+var analysisStartTime = new Date();
+var analysisEndTime = new Date();
+
 // /////////////////////////////////////////////
 // Misc functions
 // /////////////////////////////////////////////
+
+function keyWithinAnalysisRange(key) {
+  if (key<analysisStartTime) return false;
+  if (key>analysisEndTime) return false;
+  return true;
+}
 
 function convertMS( milliseconds ) {
     var day, hour, minute, seconds;

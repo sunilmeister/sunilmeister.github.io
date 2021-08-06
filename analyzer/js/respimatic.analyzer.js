@@ -1,8 +1,3 @@
-var logStartTime = new Date();
-var logEndTime = new Date();
-var analysisStartTime = new Date();
-var analysisEndTime = new Date();
-
 // check for browser capability
 document.title = respimaticUid + " (ANALYZER)" ;
 if (!window.indexedDB) {
