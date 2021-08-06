@@ -40,10 +40,11 @@ function getSessionDuration(dbName) {
     var keyReq = store.getAllKeys();
 
     keyReq.onsuccess = function(event) {
-      alert("I am here store=" + store + " key=" + store.keyPath);
-      //var index = store.index(dbPrimaryKey);
       keys = event.target.result;
       alert("Number of records = " + keys.length);
+      for (i=0; i<keys.length; i++) {
+	console.log(keys[i]);
+      }
     }
   }
 }
