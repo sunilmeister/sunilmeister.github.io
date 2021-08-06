@@ -29,11 +29,18 @@ function listDbTableRow(item, index) {
 }
 
 function getSessionDuration() {
-   var tx = db.transaction(dbObjStoreName, 'readonly');
-   var store = tx.objectStore(dbObjStoreName);
-   var index = store.index(primaryKeyName);
-   keys = indes.getAllKeys();
-   alert("Number of records = " + keys.length);
+  var req = indexedDB.open(name, dbVersion);
+  req.onsuccess = function(event) {
+    // Set the db variable to our database so we can use it!  
+    db = event.target.result;
+    dbReady = true;
+
+    var tx = db.transaction(dbObjStoreName, 'readonly');
+    var store = tx.objectStore(dbObjStoreName);
+    var index = store.index(primaryKeyName);
+    keys = indes.getAllKeys();
+    alert("Number of records = " + keys.length);
+  }
 }
 
 async function selectDbRow(row) {
