@@ -262,7 +262,9 @@ function getDbJsonRecord(key) {
     keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
       jsonData = keyReq.result;
+      alert(jsonData);
       return jsonData;
     }
   }
+  return null;
 }
