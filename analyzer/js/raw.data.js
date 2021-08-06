@@ -25,7 +25,7 @@ function dumpJsonRecord(key) {
 }
 
 function dumpRawData() {
-  if (allDbkeys.length==0) {
+  if (allDbKeys.length==0) {
     alert("Selected Session has no data");
     return;
   }
