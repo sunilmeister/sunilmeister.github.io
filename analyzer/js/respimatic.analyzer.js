@@ -56,13 +56,14 @@ function getSessionDuration(dbName) {
       analysisEndTime = logEndTime;
 
       var elm = document.getElementById("startTime");
-      elm.value.innerHTML = logStartTime;
-      elm.min.innerHTML = logStartTime;
+      elm.value = logStartTime.toISOString();
+      elm.min = logStartTime.toISOString();
+      elm.max = logEndTime.toISOString();
 
       elm = document.getElementById("endTime");
-      elm.value.innerHTML = logEndTime;
-      elm.min.innerHTML = logStartTime;
-      elm.max.innerHTML = logEndTime;
+      elm.value = logEndTime.toISOString();
+      elm.min = logStartTime.toISOString();
+      elm.max = logEndTime.toISOString();
     }
   }
 }
