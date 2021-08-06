@@ -14,6 +14,23 @@ var dbName = "";
 // Misc functions
 // /////////////////////////////////////////////
 
+function convertMS( milliseconds ) {
+    var day, hour, minute, seconds;
+    seconds = Math.floor(milliseconds / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+    return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        seconds: seconds
+    };
+}
+
 function strToDate(dtStr) {
   if (!dtStr) return null;
   dtStr = dtStr.replace(',','');
@@ -41,12 +58,15 @@ function dateToStr(date) {
   return dtStr;
 }
 
-function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+function msToTime(milliseconds) {
+  var d = convertMS(milliseconds);
 
+  days = d.day;
+  hours = d.hour;
+  minutes = d.minute;
+  seconds = d.seconds;
+
+  hours = days*24 + hours;
   hours = (hours < 10) ? "0" + hours : hours;
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
