@@ -41,10 +41,21 @@ function getSessionDuration(dbName) {
 
     keyReq.onsuccess = function(event) {
       keys = event.target.result;
-      alert("Number of records = " + keys.length);
+      if (keys.length==0) {
+        alert("Selected Session has no data");
+      }
+
+      var startTime = new Date(keys[0]);
+      var endTime = new Date(keys[keys.length-1]);
+      var diff = endTime - startTime;
+      alert("Start\t" + startTime);
+      alert("End\t" + startTime);
+      alert("Duration in ms\t" + diff);
+      /*
       for (i=0; i<keys.length; i++) {
 	console.log(keys[i]);
       }
+      */
     }
   }
 }
