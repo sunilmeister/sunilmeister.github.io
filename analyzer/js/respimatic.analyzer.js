@@ -1,3 +1,8 @@
+var logStartTime;
+var logEndTime;
+var analysisStartTime;
+var analysisEndTime;
+
 // check for browser capability
 document.title = respimaticUid + " (ANALYZER)" ;
 if (!window.indexedDB) {
@@ -45,17 +50,19 @@ function getSessionDuration(dbName) {
         alert("Selected Session has no data");
       }
 
-      var startTime = new Date(keys[0]);
-      var endTime = new Date(keys[keys.length-1]);
-      var diff = endTime - startTime;
-      alert("Start\t" + startTime);
-      alert("End\t" + startTime);
-      alert("Duration in ms\t" + diff);
-      /*
-      for (i=0; i<keys.length; i++) {
-	console.log(keys[i]);
-      }
-      */
+      logStartTime = new Date(keys[0]);
+      logEndTime = new Date(keys[keys.length-1]);
+      analysisStartTime = logStartTime;
+      analysisEndTime = logEndTime;
+
+      var elm = document.getElementById("startTime");
+      elm.value.innerHTML = logStartTime;
+      elm.min.innerHTML = logStartTime;
+
+      elm = document.getElementById("endTime");
+      elm.value.innerHTML = logendTime;
+      elm.min.innerHTML = logStartTime;
+      elm.max.innerHTML = logEndTime;
     }
   }
 }
