@@ -28,8 +28,8 @@ function listDbTableRow(item, index) {
 
 }
 
-function getSessionDuration() {
-  var req = indexedDB.open(name, dbVersion);
+function getSessionDuration(dbName) {
+  var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
     db = event.target.result;
@@ -56,7 +56,7 @@ async function selectDbRow(row) {
 
   createOrOpenDb(dbName);
 
-  getSessionDuration();
+  getSessionDuration(dbName);
   return dbName;
 }
 
