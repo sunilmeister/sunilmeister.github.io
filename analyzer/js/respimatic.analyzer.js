@@ -66,7 +66,9 @@ function getSessionDuration(dbName) {
       elm.min = logStartTime.toISOString();
       elm.max = logEndTime.toISOString();
 
-      elm = document.getElementById("timeDuration");
+      elm = document.getElementById("logTimeDuration");
+      elm.innerHTML = msToTime(diff);
+      elm = document.getElementById("selectedTimeDuration");
       elm.innerHTML = msToTime(diff);
     }
   }
@@ -188,6 +190,27 @@ function selectRawData() {
   document.getElementById("rawDataDiv").style.display = "block";
 }
 
+function ResetAnalysisData() {
+}
+
+function selectStartTime() {
+  var elm = document.getElementById("startTime");
+  alert("Start=" + elm.value);
+
+  ResetAnalysisData();
+}
+
+function selectEndTime() {
+  var elm = document.getElementById("endTime");
+  alert("End=" + elm.value);
+
+  ResetAnalysisData();
+}
+
+function selectLogTimes() {
+  ResetAnalysisData();
+}
+
 window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
@@ -200,14 +223,14 @@ window.onload = function() {
   //Date time pickers
   instance = new dtsel.DTS('input[name="startTime"]',  {
     direction: 'BOTTOM',
-    dateFormat: "yyyy-mm-dd",
+    dateFormat: "dd-mm-yyyy",
     showTime: true,
     timeFormat: "HH:MM:SS"
   });
 
   instance = new dtsel.DTS('input[name="endTime"]',  {
     direction: 'BOTTOM',
-    dateFormat: "yyyy-mm-dd",
+    dateFormat: "dd-mm-yyyy",
     showTime: true,
     timeFormat: "HH:MM:SS"
   });

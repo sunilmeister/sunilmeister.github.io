@@ -23,11 +23,13 @@
     <style>
 .sidebar {
   height: 100%;
-  width: 200px;
+  width: 220px;
   position: absolute;
   left: 0;
-  top: 150;
-  padding-top: 40px;
+  top: 0;
+  padding-top: 5;
+  font-size: 16px;
+  font-family: verdana;
 }
 
 .sidebar div {
@@ -37,7 +39,7 @@
 }
 
 .body-pane {
-  margin-left: 200px;
+  margin-left: 220px;
   font-size: 20px;
   font-family: verdana;
 }
@@ -141,37 +143,47 @@
   
   <body>
     <div class="sidebar">
-      <br><br><br>
-      <br><br><br>
-      <br><br><br>
-      <br><br><br>
-      <br><br>
-      <div><button id="btnSelect" class="sidebarButton"
-          onclick='selectSession()'>Select Session</button></div>
-      <br><br>
-      <div><button id="btnStat" class="sidebarButton"
-          onclick='selectStats()'>Statistics</button></div>
-      <br><br>
-      <div><button id="btnChart" class="sidebarButton"
-          onclick='selectCharts()'>Charts</button></div>
-      <br><br>
-      <div><button id="btnRaw" class="sidebarButton"
-          onclick='selectRawData()'>Raw Data</button></div>
-      <br><br><br>
-      <br><br><br>
-      <div id=timeInterval>
-        <label for="startTime">Choose Start time for Analysis</label>
-	<input id="startTime" name="startTime" />
-        <br>
-        <label for="endTime">Choose End time for Analysis</label>
-	<input id="endTime" name="endTime" />
-	<br>
-	<p>Time Duration
-	<p id="timeDuration">
+      <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+      <center>
+        <p id="logTimeDuration">Session Duration 00:00:00
+        <p id="selectedTimeDuration">Selected Duration 00:00:00
+      </center>
       </div>
-      
+      <br><br>
+      <br><br>
+      <button id="btnSelect" class="sidebarButton"
+          onclick='selectSession()'>Select Session</button>
+      <br><br>
+      <button id="btnStat" class="sidebarButton"
+          onclick='selectStats()'>Statistics</button>
+      <br><br>
+      <button id="btnChart" class="sidebarButton"
+          onclick='selectCharts()'>Charts</button>
+      <br><br>
+      <button id="btnRaw" class="sidebarButton"
+          onclick='selectRawData()'>Raw Data</button>
+
+      <br><br>
+      <br><br>
+      <br><br>
+      <button id="btnStartTime" class="sidebarButton"
+          onclick='selectStartTime()'>Analysis Start Time</button>
+      <br><br>
+      <input id="startTime" name="startTime" size="16" 
+	style="background-color:#0d3e51; color:white; font-size:18px; font-family:verdana;" />
+      <br><br>
+      <button id="btnEndTime" class="sidebarButton"
+          onclick='selectEndTime()'>Analysis End Time</button>
+      <br><br>
+      <input id="endTime" name="endTime" size="16" 
+	style="background-color:#0d3e51; color:white; font-size:18px; font-family:verdana;" />
+      <br><br>
+      <button id="btnResetTime" class="sidebarButton"
+          onclick='selectLogTimes()'>Analyze Entire Session Log</button>
+      <br><br>
+
     </div>
-    
+      
     <div class="body-pane">
       <center>
         <img src="img/analyzer-title-logos.png" alt="Title" width="620"
