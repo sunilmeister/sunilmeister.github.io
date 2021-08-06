@@ -191,7 +191,7 @@ function processDweet(d) {
     insertJsonData(db,d);
     dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
   } else {
-    dweetBox.innerText = dweetBox.textContent = "<Record pruned>" ;
+    dweetBox.innerText = dweetBox.textContent = "\n\n<Record pruned>" ;
   }
 }
 

@@ -50,8 +50,6 @@ function getSessionDuration(dbName) {
         alert("Selected Session has no data");
       }
 
-      var elm;
-
       logStartTime = new Date(keys[0]);
       logEndTime = new Date(keys[keys.length-1]);
       analysisStartTime = logStartTime;
@@ -178,6 +176,8 @@ function selectRawData() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "block";
+
+  dumpRawData(dbName);
 }
 
 function ResetAnalysisData() {
