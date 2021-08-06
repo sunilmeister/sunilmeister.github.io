@@ -1,7 +1,7 @@
-var logStartTime;
-var logEndTime;
-var analysisStartTime;
-var analysisEndTime;
+var logStartTime = new Date();
+var logEndTime = new Date();
+var analysisStartTime = new Date();
+var analysisEndTime = new Date();
 
 // check for browser capability
 document.title = respimaticUid + " (ANALYZER)" ;
@@ -161,6 +161,7 @@ function selectSession() {
 
 function selectStats() {
   if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "block";
@@ -172,6 +173,7 @@ function selectStats() {
 
 function selectCharts() {
   if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
@@ -181,6 +183,7 @@ function selectCharts() {
 
 function selectRawData() {
   if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
@@ -191,9 +194,12 @@ function selectRawData() {
 function ResetAnalysisData() {
 }
 
-function validAnalysisDuration() {
+function checkValidAnalysisDuration() {
   var diff = analysisEndTime - analysisStartTime;
-  if (diff<=0) return false;
+  if (diff<=0) {
+    alert("Analysis EndTime must be greater than StartTime");
+    return false;
+  }
   else return true;
 }
 
@@ -202,8 +208,6 @@ function selectStartTime() {
   analysisStartTime = strToDate(elm.value);
   var diff = analysisEndTime - analysisStartTime;
 
-  alert("S=" + analysisStartTime + "\tE=" + analysisEndTime);
-  alert("D=" + diff);
   if (diff<0) diff = 0;
 
   elm = document.getElementById("selectedTimeDuration");
@@ -225,7 +229,11 @@ function selectEndTime() {
 }
 
 function selectLogTimes() {
-  ResetAnalysisData();
+  if ((logStartTime!=analysisStartTime) || (logEndTime!=analysisEndTime)) {
+    analysisStartTime = logStartTime;
+    analysisEndTime = logEndTime;
+    ResetAnalysisData();
+  }
 }
 
 window.onload = function() {
@@ -251,6 +259,13 @@ window.onload = function() {
     showTime: true,
     timeFormat: "HH:MM:SS"
   });
+
+  elm = document.getElementById("startTime");
+  elm.value = dateToStr(logStartTime);
+
+  elm = document.getElementById("endTime");
+  elm.value = dateToStr(logEndTime);
+
 }
 
 
