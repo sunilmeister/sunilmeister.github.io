@@ -39,7 +39,7 @@ function getSessionDuration(dbName) {
     var store = tx.objectStore(dbObjStoreName);
     alert("I am here store = " + store);
     var index = store.index(dbPrimaryKey);
-    keys = indes.getAllKeys();
+    keys = index.getAllKeys();
     alert("Number of records = " + keys.length);
   }
 }
