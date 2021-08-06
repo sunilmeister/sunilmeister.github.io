@@ -57,17 +57,6 @@ function getSessionDuration(dbName) {
       analysisStartTime = logStartTime;
       analysisEndTime = logEndTime;
 
-      elm = document.getElementById("startTime");
-      elm.value = dateToStr(logStartTime);
-
-      elm = document.getElementById("endTime");
-      elm.value = dateToStr(logEndTime);
-
-      var diff = logEndTime - logStartTime;
-      elm = document.getElementById("logTimeDuration");
-      elm.innerHTML = "Session Duration " + msToTime(diff);
-      elm = document.getElementById("selectedTimeDuration");
-      elm.innerHTML = "Selected Duration " + msToTime(diff);
     }
   }
 }
@@ -203,15 +192,21 @@ function checkValidAnalysisDuration() {
   else return true;
 }
 
+function updateSelectedDuration() {
+  var diff = analysisEndTime - analysisStartTime;
+
+  elm = document.getElementById("selectedTimeDuration");
+  if (diff>=0) {
+    elm.innerHTML = "Selected Duration " + msToTime(diff);
+  } else {
+    elm.innerHTML = "Selected Duration " + "NaN" ;
+  }
+}
+
 function selectStartTime() {
   var elm = document.getElementById("startTime");
   analysisStartTime = strToDate(elm.value);
-  var diff = analysisEndTime - analysisStartTime;
-
-  if (diff<0) diff = 0;
-
-  elm = document.getElementById("selectedTimeDuration");
-  elm.innerHTML = "Selected Duration " + msToTime(diff);
+  updateSelectedDuration();
 
   ResetAnalysisData();
 }
@@ -219,11 +214,7 @@ function selectStartTime() {
 function selectEndTime() {
   var elm = document.getElementById("endTime");
   analysisEndTime = strToDate(elm.value);
-  var diff = analysisEndTime - analysisStartTime;
-  if (diff<0) diff = 0;
-
-  elm = document.getElementById("selectedTimeDuration");
-  elm.innerHTML = "Selected Duration " + msToTime(diff);
+  updateSelectedDuration();
 
   ResetAnalysisData();
 }
@@ -232,6 +223,17 @@ function selectLogTimes() {
   if ((logStartTime!=analysisStartTime) || (logEndTime!=analysisEndTime)) {
     analysisStartTime = logStartTime;
     analysisEndTime = logEndTime;
+
+    elm = document.getElementById("startTime");
+    elm.value = dateToStr(analysisStartTime);
+
+    elm = document.getElementById("endTime");
+    elm.value = dateToStr(analysisEndTime);
+
+    var diff = analysisEndTime - analysisStartTime;
+    elm = document.getElementById("selectedTimeDuration");
+    elm.innerHTML = "Selected Duration " + msToTime(diff);
+
     ResetAnalysisData();
   }
 }
