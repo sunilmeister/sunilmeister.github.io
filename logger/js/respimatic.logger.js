@@ -1,7 +1,7 @@
 var creationTimeStamp = "";
 var db;
 var dbName;
-var dbReady = false;
+var doLog = false;
 
 // check for browser capability
 document.title = respimaticUid + " (LOGGER)" ;
@@ -119,6 +119,7 @@ function deleteAllDbs() {
 function createNewDb() {
   dbName = getNewDbName();
   createOrOpenDb(dbName, creationTimeStamp);
+  doLog = true;
 
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);

@@ -2,7 +2,6 @@ const cookieName = "selectedUid";
 const localStorageDbName = "respimatic_dbs" ;
 
 var respimaticUid =  getCookie(cookieName);
-var doLog = false;
 const dbNamePrefix = respimaticUid ;
 const dbVersion = 1;
 const dbObjStoreName = respimaticUid ;
@@ -179,7 +178,6 @@ function createOrOpenDb(name, timeStamp) {
       insertJsonData(db,ts);
     }
  
-    doLog = true;
   }
 
   // Fires when we can't open the database
