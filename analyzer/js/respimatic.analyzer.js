@@ -54,6 +54,7 @@ function getSessionDuration(dbName) {
       logEndTime = new Date(keys[keys.length-1]);
       analysisStartTime = logStartTime;
       analysisEndTime = logEndTime;
+      var diff = logEndTime - logStartTime;
 
       var elm = document.getElementById("startTime");
       elm.value = logStartTime.toISOString();
@@ -64,6 +65,9 @@ function getSessionDuration(dbName) {
       elm.value = logEndTime.toISOString();
       elm.min = logStartTime.toISOString();
       elm.max = logEndTime.toISOString();
+
+      elm = document.getElementById("timeDuration");
+      elm.innerHTML = msToTime(diff);
     }
   }
 }
