@@ -37,9 +37,9 @@ function getSessionDuration(dbName) {
 
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
-    alert("I am here store=" + store + " key=" + store.keyPath);
 
     store.onsuccess = function(event) {
+      alert("I am here store=" + store + " key=" + store.keyPath);
       //var index = store.index(dbPrimaryKey);
       keys = store.getAllKeys();
       alert("Number of records = " + keys.length);
