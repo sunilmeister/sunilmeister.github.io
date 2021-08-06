@@ -50,22 +50,20 @@ function getSessionDuration(dbName) {
         alert("Selected Session has no data");
       }
 
+      var elm;
+
       logStartTime = new Date(keys[0]);
       logEndTime = new Date(keys[keys.length-1]);
       analysisStartTime = logStartTime;
       analysisEndTime = logEndTime;
-      var diff = logEndTime - logStartTime;
 
-      var elm = document.getElementById("startTime");
-      elm.value = logStartTime.toISOString();
-      elm.min = logStartTime.toISOString();
-      elm.max = logEndTime.toISOString();
+      elm = document.getElementById("startTime");
+      elm.value = dateToStr(logStartTime);
 
       elm = document.getElementById("endTime");
-      elm.value = logEndTime.toISOString();
-      elm.min = logStartTime.toISOString();
-      elm.max = logEndTime.toISOString();
+      elm.value = dateToStr(logEndTime);
 
+      var diff = logEndTime - logStartTime;
       elm = document.getElementById("logTimeDuration");
       elm.innerHTML = "Session Duration " + msToTime(diff);
       elm = document.getElementById("selectedTimeDuration");
@@ -193,16 +191,35 @@ function selectRawData() {
 function ResetAnalysisData() {
 }
 
+function validAnalysisDuration() {
+  var diff = analysisEndTime - analysisStartTime;
+  if (diff<=0) return false;
+  else return true;
+}
+
 function selectStartTime() {
   var elm = document.getElementById("startTime");
-  alert("Start=" + elm.value);
+  analysisStartTime = strToDate(elm.value);
+  var diff = analysisEndTime - analysisStartTime;
+
+  alert("S=" + analysisStartTime + "\tE=" + analysisEndTime);
+  alert("D=" + diff);
+  if (diff<0) diff = 0;
+
+  elm = document.getElementById("selectedTimeDuration");
+  elm.innerHTML = "Selected Duration " + msToTime(diff);
 
   ResetAnalysisData();
 }
 
 function selectEndTime() {
   var elm = document.getElementById("endTime");
-  alert("End=" + elm.value);
+  analysisEndTime = strToDate(elm.value);
+  var diff = analysisEndTime - analysisStartTime;
+  if (diff<0) diff = 0;
+
+  elm = document.getElementById("selectedTimeDuration");
+  elm.innerHTML = "Selected Duration " + msToTime(diff);
 
   ResetAnalysisData();
 }

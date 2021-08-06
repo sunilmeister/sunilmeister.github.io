@@ -13,6 +13,34 @@ var dbName = "";
 // /////////////////////////////////////////////
 // Misc functions
 // /////////////////////////////////////////////
+
+function strToDate(dtStr) {
+  if (!dtStr) return null;
+  dtStr = dtStr.replace(',','');
+  let dateParts = dtStr.split("-");
+  let timeParts = dateParts[2].split(" ")[1].split(":");
+  dateParts[2] = dateParts[2].split(" ")[0];
+  // month is 0-based, that's why we need dataParts[1] - 1
+  return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
+}
+
+function dateToStr(date) {
+  if (!date) return null;
+
+  var dd = String(date. getDate()). padStart(2, '0');
+  var mm = String(date. getMonth() + 1). padStart(2, '0'); //January is 0!
+  var yyyy = date. getFullYear();
+
+  var hrs = String(date. getHours()). padStart(2, '0');
+  var min = String(date. getMinutes()). padStart(2, '0');
+  var sec = String(date. getSeconds()). padStart(2, '0');
+
+  dmy = dd + "-" + mm + "-" + yyyy;
+  dtStr = dmy + ", " + hrs + ":" + min + ":" + sec;
+
+  return dtStr;
+}
+
 function msToTime(duration) {
   var milliseconds = parseInt((duration % 1000) / 100),
     seconds = Math.floor((duration / 1000) % 60),
