@@ -118,12 +118,6 @@
   transform: translateY(6px);
 }
 
-.scrollRawDataDiv {
-  overflow: scroll;
-  height: 400px;
-  font-size:16px; 
-  font-family:verdana;
-}
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;
@@ -294,7 +288,10 @@
       <div id="rawDataDiv">
         <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
           Dumping Raw Data for Session</h2>
-	<div id="scrollRawDataDiv" style="text-align: left; font-size:16px; font-family:verdana; left-justify">
+          <div style="height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+            <p id="scrollRawDataDiv" style="font-size:16; text-align: left">
+	  </div>
+
 	</div>
       </div>
       </center>

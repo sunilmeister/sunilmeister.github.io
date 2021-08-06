@@ -2,7 +2,7 @@ function dumpJsonRawData(jsonData) {
     var scrollbox = document.getElementById('scrollRawDataDiv');
 
     var newElement = document.createElement('p');
-    newElement.innerText = newElement.textContent = JSON.stringify(jsonData,null,". ") ;
+    newElement.innerText = newElement.textContent = JSON.stringify(jsonData);
 
     scrollbox.appendChild(newElement);
 }
