@@ -6,6 +6,7 @@ var numMandatory, numSpontaneous;
 var altitude = "";
 
 var modes = [];
+var vts = [];
 var bpms = [];
 var ies = [];
 var peeps = [];
@@ -23,6 +24,11 @@ var minSbpm, maxSbpm;
 var minScomp, maxScomp;
 var minDcomp, maxDcomp;
 var minTemp, maxTemp;
+
+var initialState = false;
+var standbyState = false;
+var runningState = false;
+var errorState = false;
 
 /////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
@@ -81,6 +87,7 @@ function constructStatParamTable() {
   var table = document.getElementById("statsParamTable");
 
   paramTableRow(table,"Ventilation Mode","","mode");
+  paramTableRow(table,"Tidal Volume","ml","vt");
   paramTableRow(table,"Breaths Per Minute","bpm","bpm");
   paramTableRow(table,"I:E Ratio","","ie");
   paramTableRow(table,"PEEP Pressure","cm H20","peep");
@@ -179,9 +186,25 @@ function gatherStats(jsonData) {
         } else if (ckey=="L3") {
         } else if (ckey=="L4") {
         } else if (ckey=="INITIAL") {
+	  initialState = true;
+	  standbyState = false;
+	  runningState = false;
+	  errorState = false;
         } else if (ckey=="STANDBY") {
+	  initialState = false;
+	  standbyState = true;
+	  runningState = false;
+	  errorState = false;
         } else if (ckey=="RUNNING") {
+	  initialState = false;
+	  standbyState = false;
+	  runningState = true;
+	  errorState = false;
         } else if (ckey=="ERROR") {
+	  initialState = false;
+	  standbyState = false;
+	  runningState = false;
+	  errorState = true;
         } else if (ckey=="MANDATORY") {
         } else if (ckey=="SPONTANEOUS") {
         } else if (ckey=="BTOG") {
@@ -196,7 +219,7 @@ function gatherStats(jsonData) {
         } else if (ckey=="PS") {
         } else if (ckey=="TPS") {
         } else if (ckey=="MBPM") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxMbpm < value) {
 	      maxMbpm = value;
 	    }
@@ -205,7 +228,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="SBPM") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxSbpm < value) {
 	      maxSbpm = value;
 	    }
@@ -214,7 +237,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="STATIC") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxScomp < value) {
 	      maxScomp = value;
 	    }
@@ -223,7 +246,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="DYNAMIC") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxDcomp < value) {
 	      maxDcomp = value;
 	    }
@@ -232,7 +255,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="VTDEL") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxVt < value) {
 	      maxVt = value;
 	    }
@@ -241,7 +264,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="MVDEL") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxMv < value) {
 	      maxMv = value;
 	    }
@@ -250,7 +273,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="PIP") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxPeak < value) {
 	      maxPeak = value;
 	    }
@@ -259,7 +282,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="PLAT") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxPlat < value) {
 	      maxPlat = value;
 	    }
@@ -268,7 +291,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="MPEEP") {
-	  if (value != "--") {
+	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxPeep < value) {
 	      maxPeep = value;
 	    }
@@ -335,6 +358,7 @@ function initStats() {
   altitude = 0;
   
   modes = [];
+  vts = [];
   bpms = [];
   ies = [];
   peeps = [];
