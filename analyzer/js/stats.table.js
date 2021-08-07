@@ -108,28 +108,28 @@ function displayUsedCombos() {
     row = table.insertRow();
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.mode);
+    cell.innerHTML = combo.mode;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.vt);
+    cell.innerHTML = combo.vt;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.rr);
+    cell.innerHTML = combo.rr;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.ie);
+    cell.innerHTML = combo.ie;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.peep);
+    cell.innerHTML = combo.peep;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.pmax);
+    cell.innerHTML = combo.pmax;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.ps);
+    cell.innerHTML = combo.ps;
 
     cell = row.insertCell();
-    cell.innerHTML = centerAlignCell(combo.tps);
+    cell.innerHTML = combo.tps;
   }
 }
 
@@ -230,70 +230,70 @@ function replaceDummyValue(value) {
 
 function displayStats() {
   el = document.getElementById("peakMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minPeak));
+  el.innerHTML = replaceDummyValue(minPeak);
   el = document.getElementById("peakMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxPeak));
+  el.innerHTML = replaceDummyValue(maxPeak);
   el = document.getElementById("platMin");
   if (minPeak==0) {
-    el.innerHTML = centerAlignCell("--" );
+    el.innerHTML = "--" ;
   } else {
-    el.innerHTML = centerAlignCell(replaceDummyValue(minPlat));
+    el.innerHTML = replaceDummyValue(minPlat);
   }
   el = document.getElementById("platMax");
   if (minPeak==0) {
-    el.innerHTML = centerAlignCell("--" );
+    el.innerHTML = "--" ;
   } else {
-    el.innerHTML = centerAlignCell(replaceDummyValue(maxPlat));
+    el.innerHTML = replaceDummyValue(maxPlat);
   }
   el = document.getElementById("peepMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minPeep));
+  el.innerHTML = replaceDummyValue(minPeep);
   el = document.getElementById("peepMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxPeep));
+  el.innerHTML = replaceDummyValue(maxPeep);
   el = document.getElementById("vtMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minVt));
+  el.innerHTML = replaceDummyValue(minVt);
   el = document.getElementById("vtMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxVt));
+  el.innerHTML = replaceDummyValue(maxVt);
   el = document.getElementById("mvMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minMv));
+  el.innerHTML = replaceDummyValue(minMv);
   el = document.getElementById("mvMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxMv));
+  el.innerHTML = replaceDummyValue(maxMv);
   el = document.getElementById("mbpmMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minMbpm));
+  el.innerHTML = replaceDummyValue(minMbpm);
   el = document.getElementById("mbpmMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxMbpm));
+  el.innerHTML = replaceDummyValue(maxMbpm);
   el = document.getElementById("sbpmMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minSbpm));
+  el.innerHTML = replaceDummyValue(minSbpm);
   el = document.getElementById("sbpmMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxSbpm));
+  el.innerHTML = replaceDummyValue(maxSbpm);
   el = document.getElementById("scMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minScomp));
+  el.innerHTML = replaceDummyValue(minScomp);
   el = document.getElementById("scMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxScomp));
+  el.innerHTML = replaceDummyValue(maxScomp);
   el = document.getElementById("dcMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minDcomp));
+  el.innerHTML = replaceDummyValue(minDcomp);
   el = document.getElementById("dcMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxDcomp));
+  el.innerHTML = replaceDummyValue(maxDcomp);
   el = document.getElementById("tempMin");
-  el.innerHTML = centerAlignCell(replaceDummyValue(minTemp));
+  el.innerHTML = replaceDummyValue(minTemp);
   el = document.getElementById("tempMax");
-  el.innerHTML = centerAlignCell(replaceDummyValue(maxTemp));
+  el.innerHTML = replaceDummyValue(maxTemp);
   
   el = document.getElementById("mode");
-  el.innerHTML=centerAlignCell(replaceDummyValue(modes));
+  el.innerHTML=replaceDummyValue(modes);
   el = document.getElementById("vt");
-  el.innerHTML=centerAlignCell(replaceDummyValue(vts));
+  el.innerHTML=replaceDummyValue(vts);
   el = document.getElementById("rr");
-  el.innerHTML=centerAlignCell(replaceDummyValue(rrs));
+  el.innerHTML=replaceDummyValue(rrs);
   el = document.getElementById("ie");
-  el.innerHTML=centerAlignCell(replaceDummyValue(ies));
+  el.innerHTML=replaceDummyValue(ies);
   el = document.getElementById("peep");
-  el.innerHTML=centerAlignCell(replaceDummyValue(peeps));
+  el.innerHTML=replaceDummyValue(peeps);
   el = document.getElementById("pmax");
-  el.innerHTML=centerAlignCell(replaceDummyValue(pmaxs));
+  el.innerHTML=replaceDummyValue(pmaxs);
   el = document.getElementById("ps");
-  el.innerHTML=centerAlignCell(replaceDummyValue(pss));
+  el.innerHTML=replaceDummyValue(pss);
   el = document.getElementById("tps");
-  el.innerHTML=centerAlignCell(replaceDummyValue(tpss));
+  el.innerHTML=replaceDummyValue(tpss);
 
   if (patientName) {
     el = document.getElementById("pName");
@@ -307,20 +307,20 @@ function displayStats() {
   el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(altitude);
 
   el = document.getElementById("numMandatory");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numMandatory));
+  el.innerHTML = replaceDummyValue(numMandatory);
   el = document.getElementById("numSpontaneous");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numSpontaneous));
+  el.innerHTML = replaceDummyValue(numSpontaneous);
 
   el = document.getElementById("numInitialEntry");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numInitialEntry));
+  el.innerHTML = replaceDummyValue(numInitialEntry);
   el = document.getElementById("numStandbyEntry");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numStandbyEntry));
+  el.innerHTML = replaceDummyValue(numStandbyEntry);
   el = document.getElementById("numRunningEntry");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numRunningEntry));
+  el.innerHTML = replaceDummyValue(numRunningEntry);
   el = document.getElementById("numErrorEntry");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numErrorEntry));
+  el.innerHTML = replaceDummyValue(numErrorEntry);
   el = document.getElementById("numWarnings");
-  el.innerHTML = centerAlignCell(replaceDummyValue(numWarnings));
+  el.innerHTML = replaceDummyValue(numWarnings);
 
   displayUsedCombos();
 }
