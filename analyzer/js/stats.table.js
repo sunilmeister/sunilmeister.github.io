@@ -171,6 +171,8 @@ function displayStats() {
   
   el = document.getElementById("mode");
   el.innerHTML=replaceDummyValue(modes);
+  el = document.getElementById("vt");
+  el.innerHTML=replaceDummyValue(vts);
   el = document.getElementById("bpm");
   el.innerHTML=replaceDummyValue(bpms);
   el = document.getElementById("ie");
@@ -220,29 +222,20 @@ function gatherStats(jsonData) {
         } else if (ckey=="L3") {
         } else if (ckey=="L4") {
         } else if (ckey=="INITIAL") {
-	  if (!initialState) numInitialEntry++ ;
-	  initialState = true;
-	  standbyState = false;
-	  runningState = false;
-	  errorState = false;
+	  if ((value==1) && !initialState) numInitialEntry++ ;
+	  initialState = (value==1);
         } else if (ckey=="STANDBY") {
-	  if (!initialState) numStandbyEntry++ ;
-	  initialState = false;
-	  standbyState = true;
-	  runningState = false;
-	  errorState = false;
+	  if ((value==1) && !standbyState) numStandbyEntry++ ;
+	  standbyState = (value==1);
         } else if (ckey=="RUNNING") {
-	  if (!initialState) numRunningEntry++ ;
-	  initialState = false;
-	  standbyState = false;
-	  runningState = true;
-	  errorState = false;
+	  if ((value==1) && !runningState) numRunningEntry++ ;
+	  runningState = (value==1);
         } else if (ckey=="ERROR") {
-	  if (!initialState) numErrorEntry++ ;
+	  if ((value==1) && !errorState) numErrorEntry++ ;
 	  initialState = false;
 	  standbyState = false;
 	  runningState = false;
-	  errorState = true;
+	  errorState = (value==1);
         } else if (ckey=="MANDATORY") {
 	  prevBreathMandatory = true;
         } else if (ckey=="SPONTANEOUS") {
