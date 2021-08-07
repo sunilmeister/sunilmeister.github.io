@@ -10,7 +10,7 @@ var altitude = "";
 
 var modes = [];
 var vts = [];
-var bpms = [];
+var rrs = [];
 var ies = [];
 var peeps = [];
 var pmaxs = [];
@@ -32,6 +32,8 @@ var initialState = false;
 var standbyState = false;
 var runningState = false;
 var errorState = false;
+var attentionState = false;
+var pendingChange = false;
 
 /////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
@@ -101,7 +103,7 @@ function constructStatParamTable() {
 
   paramTableRow(table,"Ventilation Mode","","mode");
   paramTableRow(table,"Tidal Volume","ml","vt");
-  paramTableRow(table,"Breaths Per Minute","bpm","bpm");
+  paramTableRow(table,"Respiration Rate","bpm","rr");
   paramTableRow(table,"I:E Ratio","","ie");
   paramTableRow(table,"PEEP Pressure","cm H20","peep");
   paramTableRow(table,"Maximum Pressure","cm H20","pmax");
@@ -173,8 +175,8 @@ function displayStats() {
   el.innerHTML=replaceDummyValue(modes);
   el = document.getElementById("vt");
   el.innerHTML=replaceDummyValue(vts);
-  el = document.getElementById("bpm");
-  el.innerHTML=replaceDummyValue(bpms);
+  el = document.getElementById("rr");
+  el.innerHTML=replaceDummyValue(rrs);
   el = document.getElementById("ie");
   el.innerHTML=replaceDummyValue(ies);
   el = document.getElementById("peep");
@@ -247,15 +249,57 @@ function gatherStats(jsonData) {
 	    numSpontaneous++ ;
 	  }
         } else if (ckey=="ATTENTION") {
+	  attentionState = value;
         } else if (ckey=="PENDING") {
+	  pendingChange = value;
         } else if (ckey=="MODE") {
+	  if (!pendingChange) {
+	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
+	      modes.push(value);
+	    }
+	  }
         } else if (ckey=="VT") {
+	  if (!pendingChange) {
+	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
+	      vts.push(value);
+	    }
+	  }
         } else if (ckey=="RR") {
+	  if (!pendingChange) {
+	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
+	      rrs.push(value);
+	    }
+	  }
         } else if (ckey=="EI") {
+	  if (!pendingChange) {
+	    if ((eis.length==0) || (eis.indexOf(value) == -1)) {
+	      eis.push(value);
+	    }
+	  }
         } else if (ckey=="IPEEP") {
+	  if (!pendingChange) {
+	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
+	      peeps.push(value);
+	    }
+	  }
         } else if (ckey=="PMAX") {
+	  if (!pendingChange) {
+	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
+	      pmaxs.push(value);
+	    }
+	  }
         } else if (ckey=="PS") {
+	  if (!pendingChange) {
+	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
+	      pss.push(value);
+	    }
+	  }
         } else if (ckey=="TPS") {
+	  if (!pendingChange) {
+	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
+	      tpss.push(value);
+	    }
+	  }
         } else if (ckey=="MBPM") {
 	  if ((runningState || errorState) && (value != "--")) {
 	    if (maxMbpm < value) {
@@ -402,7 +446,7 @@ function initStats() {
   
   modes = [];
   vts = [];
-  bpms = [];
+  rrs = [];
   ies = [];
   peeps = [];
   pmaxs = [];
