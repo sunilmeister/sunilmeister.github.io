@@ -192,12 +192,22 @@ function displayStats() {
     el = document.getElementById("pInfo");
     el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo) +"yrs";
   }
-  el = document.getElementById("mandatory");
-  el.innerHTML = "Number of Mandatory Breaths: " + replaceDummyValue(numMandatory);
-  el = document.getElementById("spontaneous");
-  el.innerHTML = "Number of Spontaneous Breaths: " + replaceDummyValue(numSpontaneous);
   el = document.getElementById("altitude");
   el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(altitude);
+
+  el = document.getElementById("numMandatory");
+  el.innerHTML = replaceDummyValue(numMandatory);
+  el = document.getElementById("numSpontaneous");
+  el.innerHTML = replaceDummyValue(numSpontaneous);
+
+  el = document.getElementById("numInitialEntry");
+  el.innerHTML = replaceDummyValue(numInitialEntry);
+  el = document.getElementById("numStandbyEntry");
+  el.innerHTML = replaceDummyValue(numStandbyEntry);
+  el = document.getElementById("numRunningEntry");
+  el.innerHTML = replaceDummyValue(numRunningEntry);
+  el = document.getElementById("numErrorEntry");
+  el.innerHTML = replaceDummyValue(numErrorEntry);
 }
 
 function gatherStats(jsonData) {
@@ -431,6 +441,7 @@ function initStats() {
 function collectStats() {
   constructStatMinMaxTable();
   constructStatParamTable();
+  constructStatMiscTable();
   gatherAndDisplayStats();
   displayStats();
 }
