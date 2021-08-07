@@ -169,11 +169,12 @@ function processDweet(d) {
     delete d.content['L4'];
   }
 
+  /*
   // prune the content if same as previous
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (!prevContent.hasOwnProperty(key)) {
+    if (prevContent[key] === null) {
       prevContent[key] = value;
     } else {
       prevValue = prevContent[key];
@@ -184,13 +185,19 @@ function processDweet(d) {
       }
     }
   }
+  */
+
+  var emptyContent = true;
+  for (let key in d.content) {
+    emptyContent = false;
+  }
 
   var dweetBox = document.getElementById('dweetBox');
-  if (d.content.length != 0) {
+  if (emptyContent) {
+    dweetBox.innerText = dweetBox.textContent = "\n\n<Record pruned>" ;
+  } else {
     insertJsonData(db,d);
     dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
-  } else {
-    dweetBox.innerText = dweetBox.textContent = "\n\n<Record pruned>" ;
   }
 }
 

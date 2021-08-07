@@ -3,6 +3,7 @@ const minDummyValue = 999999 ;
 var prevBreathMandatory = true;
 
 var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
+var numWarnings;
 
 var patientName, patientInfo;
 var numMandatory, numSpontaneous;
@@ -33,7 +34,7 @@ var standbyState = false;
 var runningState = false;
 var errorState = false;
 var attentionState = false;
-var pendingChange = false;
+var changePending = false;
 
 /////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
@@ -214,6 +215,10 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(numErrorEntry);
 }
 
+function pendingChange(value) {
+  return changePending;
+}
+
 function gatherStats(jsonData) {
   for (var key in jsonData) {
     if (key=='content') {
@@ -250,52 +255,53 @@ function gatherStats(jsonData) {
 	  }
         } else if (ckey=="ATTENTION") {
 	  attentionState = value;
+	  if (value==1) numWarnings++;
         } else if (ckey=="PENDING") {
-	  pendingChange = value;
+	  changePending = value;
         } else if (ckey=="MODE") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
 	      modes.push(value);
 	    }
 	  }
         } else if (ckey=="VT") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
 	      vts.push(value);
 	    }
 	  }
         } else if (ckey=="RR") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
 	      rrs.push(value);
 	    }
 	  }
         } else if (ckey=="EI") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((eis.length==0) || (eis.indexOf(value) == -1)) {
 	      eis.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
 	      peeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
 	      pmaxs.push(value);
 	    }
 	  }
         } else if (ckey=="PS") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
 	      pss.push(value);
 	    }
 	  }
         } else if (ckey=="TPS") {
-	  if (!pendingChange && (value!="--")) {
+	  if (!pendingChange(value) && (value!="--")) {
 	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
 	      tpss.push(value);
 	    }
@@ -437,6 +443,7 @@ function initStats() {
   numStandbyEntry = 0;
   numRunningEntry = 0;
   numErrorEntry = 0;
+  numWarnings = 0;
 
   patientName = ""
   patientInfo = ""
@@ -475,10 +482,15 @@ function initStats() {
   maxTemp = maxDummyValue;
 }
 
+var tablesContructed = false;;
 function collectStats() {
-  constructStatMinMaxTable();
-  constructStatParamTable();
-  constructStatMiscTable();
+  if (!tablesContructed) {
+    constructStatMinMaxTable();
+    constructStatParamTable();
+    constructStatMiscTable();
+    tablesContructed = true;
+  }
+
   gatherAndDisplayStats();
   displayStats();
 }
