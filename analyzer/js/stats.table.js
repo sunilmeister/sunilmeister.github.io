@@ -159,6 +159,9 @@ function displayStats() {
 }
 
 function gatherStats(jsonData) {
+  for (var key in jsonData) {
+    console.log( key + " : " + jsonData[key] );
+  }
 }
 
 function statsProcessJsonRecord(key, lastRecord) {
