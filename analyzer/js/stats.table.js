@@ -161,9 +161,9 @@ function displayStats() {
 function gatherStats(jsonData) {
   for (var key in jsonData) {
     console.log( key + " : " + jsonData[key] );
-    if (key=='contents') {
-      for (var ckey in jsonData.contents) {
-        console.log( "  " + ckey + " : " + jsonData.contents[ckey] );
+    if (key=='content') {
+      for (var ckey in jsonData.content) {
+        console.log( "  " + ckey + " : " + jsonData.content[ckey] );
       }
     }
   }
