@@ -160,10 +160,47 @@ function displayStats() {
 
 function gatherStats(jsonData) {
   for (var key in jsonData) {
-    console.log( key + " : " + jsonData[key] );
     if (key=='content') {
       for (var ckey in jsonData.content) {
-        console.log( "  " + ckey + " : " + jsonData.content[ckey] );
+	value = jsonData.content[ckey];
+        if (ckey=="L1") {
+        } else if (ckey=="L2") {
+        } else if (ckey=="L3") {
+        } else if (ckey=="L4") {
+        } else if (ckey=="INITIAL") {
+        } else if (ckey=="STANDBY") {
+        } else if (ckey=="RUNNING") {
+        } else if (ckey=="ERROR") {
+        } else if (ckey=="MANDATORY") {
+        } else if (ckey=="SPONTANEOUS") {
+        } else if (ckey=="BTOG") {
+        } else if (ckey=="ATTENTION") {
+        } else if (ckey=="PENDING") {
+        } else if (ckey=="MODE") {
+        } else if (ckey=="VT") {
+        } else if (ckey=="RR") {
+        } else if (ckey=="EI") {
+        } else if (ckey=="IPEEP") {
+        } else if (ckey=="PMAX") {
+        } else if (ckey=="PS") {
+        } else if (ckey=="TPS") {
+        } else if (ckey=="MBPM") {
+        } else if (ckey=="SBPM") {
+        } else if (ckey=="STATIC") {
+        } else if (ckey=="DYNAMIC") {
+        } else if (ckey=="VTDEL") {
+        } else if (ckey=="MVDEL") {
+        } else if (ckey=="PIP") {
+        } else if (ckey=="PLAT") {
+        } else if (ckey=="MPEEP") {
+        } else if (ckey=="TEMP") {
+        } else if (ckey=="ALT") {
+	    altitude = value;
+        } else if (ckey=="PNAME") {
+	    patientName = value;
+        } else if (ckey=="PMISC") {
+	    patientInfo = value;
+        }
       }
     }
   }
