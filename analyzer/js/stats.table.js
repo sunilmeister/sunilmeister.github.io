@@ -3,6 +3,7 @@ const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
 var prevBreathMandatory = true;
 var currBreathMandatory = true;
+var numBreathsCurrentCombo = 0;
 
 var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
 var numWarnings;
@@ -58,7 +59,8 @@ var prevParamCombo = {
   "peep" : "--",
   "pmax" : "--",
   "ps" : "--",
-  "tps" : "--"
+  "tps" : "--",
+  "numBreaths" : 0
 };
 
 
@@ -70,7 +72,8 @@ var currParamCombo = {
   "peep" : "--",
   "pmax" : "--",
   "ps" : "--",
-  "tps" : "--"
+  "tps" : "--",
+  "numBreaths" : 0
 };
 
 var usedParamCombos = [];
@@ -130,6 +133,9 @@ function displayUsedCombos() {
 
     cell = row.insertCell();
     cell.innerHTML = combo.tps;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.numBreaths;
   }
 }
 
@@ -203,9 +209,9 @@ function constructStatParamTable() {
   paramTableRow(table,"Tidal Volume","ml","vt");
   paramTableRow(table,"Respiration Rate","bpm","rr");
   paramTableRow(table,"I:E Ratio","ratio","ie");
-  paramTableRow(table,"PEEP Pressure","cm H20","peep");
-  paramTableRow(table,"Maximum Pressure","cm H20","pmax");
-  paramTableRow(table,"Support Pressure","cm H20","ps");
+  paramTableRow(table,"PEEP Pressure","cmH20","peep");
+  paramTableRow(table,"Maximum Pressure","cmH20","pmax");
+  paramTableRow(table,"Support Pressure","cmH20","ps");
   paramTableRow(table,"Support Pressure Termination","%flow,secs","tps");
 }
 
@@ -356,9 +362,12 @@ function gatherStats(jsonData) {
 	  } else {
 	    numMandatory++ ;
 	  }
+	  numBreathsCurrentCombo++;
 	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
+	    currParamCombo.numBreaths = numBreathsCurrentCombo;
 	    insertUsedParamCombos(currParamCombo);
 	    prevParamCombo = JSON.parse(JSON.stringify(currParamCombo));
+	    numBreathsCurrentCombo = 0;
 	  }
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
