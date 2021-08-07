@@ -245,18 +245,20 @@ function gatherStats(jsonData) {
 	  runningState = (value==1);
         } else if (ckey=="ERROR") {
 	  if ((value==1) && !errorState) numErrorEntry++ ;
-	  initialState = false;
-	  standbyState = false;
-	  runningState = false;
 	  errorState = (value==1);
         } else if (ckey=="MANDATORY") {
 	  prevBreathMandatory = true;
+	  console.log("M");
         } else if (ckey=="SPONTANEOUS") {
+	  console.log("S");
 	  prevBreathMandatory = false;
         } else if (ckey=="BTOG") {
+	  console.log("B");
 	  if (prevBreathMandatory) {
+	    console.log("M++");
 	    numMandatory++ ;
 	  } else {
+	    console.log("S++");
 	    numSpontaneous++ ;
 	  }
         } else if (ckey=="ATTENTION") {
