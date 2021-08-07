@@ -1,6 +1,10 @@
+const maxDummyValue = -999999 ;
+const minDummyValue = 999999 ;
+
 var patientName, patientInfo;
 var numMandatory, numSpontaneous;
-var altitude;
+var altitude = "";
+
 var modes = [];
 var bpms = [];
 var ies = [];
@@ -85,77 +89,84 @@ function constructStatParamTable() {
   paramTableRow(table,"Support Pressure Termination","","tps");
 }
 
+function replaceDummyValue(value) {
+  if (value == minDummyValue) str = "--";
+  else if (value == maxDummyValue) str = "--";
+  else str = String(value);
+  return str;
+}
+
 function displayStats() {
   el = document.getElementById("peakMin");
-  el.innerHTML = String(minPeak);
+  el.innerHTML = replaceDummyValue(minPeak);
   el = document.getElementById("peakMax");
-  el.innerHTML = String(maxPeak);
+  el.innerHTML = replaceDummyValue(maxPeak);
   el = document.getElementById("platMin");
-  el.innerHTML = String(minPlat);
+  el.innerHTML = replaceDummyValue(minPlat);
   el = document.getElementById("platMax");
-  el.innerHTML = String(maxPlat);
+  el.innerHTML = replaceDummyValue(maxPlat);
   el = document.getElementById("peepMin");
-  el.innerHTML = String(minPeep);
+  el.innerHTML = replaceDummyValue(minPeep);
   el = document.getElementById("peepMax");
-  el.innerHTML = String(maxPeep);
+  el.innerHTML = replaceDummyValue(maxPeep);
   el = document.getElementById("vtMin");
-  el.innerHTML = String(minVt);
+  el.innerHTML = replaceDummyValue(minVt);
   el = document.getElementById("vtMax");
-  el.innerHTML = String(maxVt);
+  el.innerHTML = replaceDummyValue(maxVt);
   el = document.getElementById("mvMin");
-  el.innerHTML = String(minMv);
+  el.innerHTML = replaceDummyValue(minMv);
   el = document.getElementById("mvMax");
-  el.innerHTML = String(maxMv);
+  el.innerHTML = replaceDummyValue(maxMv);
   el = document.getElementById("mbpmMin");
-  el.innerHTML = String(minMbpm);
+  el.innerHTML = replaceDummyValue(minMbpm);
   el = document.getElementById("mbpmMax");
-  el.innerHTML = String(maxMbpm);
+  el.innerHTML = replaceDummyValue(maxMbpm);
   el = document.getElementById("sbpmMin");
-  el.innerHTML = String(minSbpm);
+  el.innerHTML = replaceDummyValue(minSbpm);
   el = document.getElementById("sbpmMax");
-  el.innerHTML = String(maxMbpm);
+  el.innerHTML = replaceDummyValue(maxSbpm);
   el = document.getElementById("scMin");
-  el.innerHTML = String(minScomp);
+  el.innerHTML = replaceDummyValue(minScomp);
   el = document.getElementById("scMax");
-  el.innerHTML = String(maxScomp);
+  el.innerHTML = replaceDummyValue(maxScomp);
   el = document.getElementById("dcMin");
-  el.innerHTML = String(minDcomp);
+  el.innerHTML = replaceDummyValue(minDcomp);
   el = document.getElementById("dcMax");
-  el.innerHTML = String(maxDcomp);
+  el.innerHTML = replaceDummyValue(maxDcomp);
   el = document.getElementById("tempMin");
-  el.innerHTML = String(minTemp);
+  el.innerHTML = replaceDummyValue(minTemp);
   el = document.getElementById("tempMax");
-  el.innerHTML = String(minTemp);
+  el.innerHTML = replaceDummyValue(maxTemp);
   
   el = document.getElementById("mode");
-  el.innerHTML=String(modes);
+  el.innerHTML=replaceDummyValue(modes);
   el = document.getElementById("bpm");
-  el.innerHTML=String(bpms);
+  el.innerHTML=replaceDummyValue(bpms);
   el = document.getElementById("ie");
-  el.innerHTML=String(ies);
+  el.innerHTML=replaceDummyValue(ies);
   el = document.getElementById("peep");
-  el.innerHTML=String(peeps);
+  el.innerHTML=replaceDummyValue(peeps);
   el = document.getElementById("pmax");
-  el.innerHTML=String(pmaxs);
+  el.innerHTML=replaceDummyValue(pmaxs);
   el = document.getElementById("ps");
-  el.innerHTML=String(pss);
+  el.innerHTML=replaceDummyValue(pss);
   el = document.getElementById("tps");
-  el.innerHTML=String(tpss);
+  el.innerHTML=replaceDummyValue(tpss);
 
   if (patientName) {
     el = document.getElementById("pName");
-    el.innerHTML = "Patient Name: " + String(patientName);
+    el.innerHTML = "Patient Name: " + replaceDummyValue(patientName);
   }
   if (patientInfo) {
     el = document.getElementById("pInfo");
-    el.innerHTML = "Patient Info: " + String(patientInfo) +"yrs";
+    el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo) +"yrs";
   }
   el = document.getElementById("mandatory");
-  el.innerHTML = "Number of Mandatory Breaths: " + String(numMandatory);
+  el.innerHTML = "Number of Mandatory Breaths: " + replaceDummyValue(numMandatory);
   el = document.getElementById("spontaneous");
-  el.innerHTML = "Number of Spontaneous Breaths: " + String(numSpontaneous);
+  el.innerHTML = "Number of Spontaneous Breaths: " + replaceDummyValue(numSpontaneous);
   el = document.getElementById("altitude");
-  el.innerHTML = "System Deployment Altitude: " + String(altitude);
+  el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(altitude);
 }
 
 function gatherStats(jsonData) {
@@ -331,26 +342,26 @@ function initStats() {
   pss = [];
   tpss = [];
   
-  minPeak = 999999;
-  maxPeak = -999999;
-  minPlat = 999999;
-  maxPlat = -999999;
-  minPeep = 999999;
-  maxPeep = -999999;
-  minVt = 999999;
-  maxVt = -999999;
-  minMv = 999999;
-  maxMv = -999999;
-  minMbpm = 999999;
-  maxMbpm = -999999;
-  minSbpm = 999999;
-  maxSbpm = -999999;
-  minScomp = 999999;
-  maxScomp = -999999;
-  minDcomp = 999999;
-  maxDcomp = -999999;
-  minTemp = 999999;
-  maxTemp = -999999;
+  minPeak = minDummyValue;
+  maxPeak = maxDummyValue;
+  minPlat = minDummyValue;
+  maxPlat = maxDummyValue;
+  minPeep = minDummyValue;
+  maxPeep = maxDummyValue;
+  minVt = minDummyValue;
+  maxVt = maxDummyValue;
+  minMv = minDummyValue;
+  maxMv = maxDummyValue;
+  minMbpm = minDummyValue;
+  maxMbpm = maxDummyValue;
+  minSbpm = minDummyValue;
+  maxSbpm = maxDummyValue;
+  minScomp = minDummyValue;
+  maxScomp = maxDummyValue;
+  minDcomp = minDummyValue;
+  maxDcomp = maxDummyValue;
+  minTemp = minDummyValue;
+  maxTemp = maxDummyValue;
 }
 
 function collectStats() {
