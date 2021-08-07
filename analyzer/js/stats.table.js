@@ -105,6 +105,7 @@ function insertUsedParamCombos(combo) {
 
 function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
+  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
   for (i=0; i<usedParamCombos.length; i++) {
     combo = usedParamCombos[i];
