@@ -75,7 +75,23 @@ var currParamCombo = {
 var usedParamCombos = [];
 
 function equalParamCombos(curr, prev) {
-  return (JSON.stringify(curr) == JSON.stringify(prev));
+  console.log("comparing");
+  if (
+    (curr.mode==prev.mode) &&
+    (curr.vt==prev.vt) &&
+    (curr.rr==prev.rr) &&
+    (curr.ie==prev.ie) &&
+    (curr.peep==prev.peep) &&
+    (curr.pmax==prev.pmax) &&
+    (curr.ps==prev.ps) &&
+    (curr.tps==prev.tps)
+  ) {
+    console.log("equal");
+    return true;
+  }
+
+  console.log("unequal");
+  return false;
 }
 
 function insertUsedParamCombos(combo) {
@@ -346,8 +362,8 @@ function gatherStats(jsonData) {
 	    numMandatory++ ;
 	  }
 	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
-	    prevParamCombo = currParamCombo;
 	    insertUsedParamCombos(currParamCombo);
+	    prevParamCombo = currParamCombo;
 	  }
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
