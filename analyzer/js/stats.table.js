@@ -136,9 +136,17 @@ function displayStats() {
   el = document.getElementById("peakMax");
   el.innerHTML = replaceDummyValue(maxPeak);
   el = document.getElementById("platMin");
-  el.innerHTML = replaceDummyValue(minPlat);
+  if (minPeak==0) {
+    el.innerHTML = "--" ;
+  } else {
+    el.innerHTML = replaceDummyValue(minPlat);
+  }
   el = document.getElementById("platMax");
-  el.innerHTML = replaceDummyValue(maxPlat);
+  if (minPeak==0) {
+    el.innerHTML = "--" ;
+  } else {
+    el.innerHTML = replaceDummyValue(maxPlat);
+  }
   el = document.getElementById("peepMin");
   el.innerHTML = replaceDummyValue(minPeep);
   el = document.getElementById("peepMax");
@@ -244,7 +252,7 @@ function gatherStats(jsonData) {
         } else if (ckey=="MANDATORY") {
 	  prevBreathMandatory = true;
         } else if (ckey=="SPONTANEOUS") {
-	  prevBreathMandatory = true;
+	  prevBreathMandatory = false;
         } else if (ckey=="BTOG") {
 	  if (prevBreathMandatory) {
 	    numMandatory++ ;

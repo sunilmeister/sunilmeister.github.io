@@ -169,7 +169,6 @@ function processDweet(d) {
     delete d.content['L4'];
   }
 
-  /*
   // prune the content if same as previous
   for (let key in d.content) {
     // get key value pairs
@@ -185,7 +184,6 @@ function processDweet(d) {
       }
     }
   }
-  */
 
   var emptyContent = true;
   for (let key in d.content) {
