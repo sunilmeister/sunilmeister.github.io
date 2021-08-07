@@ -247,18 +247,13 @@ function gatherStats(jsonData) {
 	  if ((value==1) && !errorState) numErrorEntry++ ;
 	  errorState = (value==1);
         } else if (ckey=="MANDATORY") {
-	  prevBreathMandatory = true;
-	  console.log("M");
+	  prevBreathMandatory = (value==1);
         } else if (ckey=="SPONTANEOUS") {
-	  console.log("S");
-	  prevBreathMandatory = false;
+	  prevBreathMandatory = (value==1);
         } else if (ckey=="BTOG") {
-	  console.log("B");
 	  if (prevBreathMandatory) {
-	    console.log("M++");
 	    numMandatory++ ;
 	  } else {
-	    console.log("S++");
 	    numSpontaneous++ ;
 	  }
         } else if (ckey=="ATTENTION") {
