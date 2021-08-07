@@ -34,7 +34,6 @@ var standbyState = false;
 var runningState = false;
 var errorState = false;
 var attentionState = false;
-var changePending = false;
 
 /////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
@@ -121,6 +120,7 @@ function constructStatMiscTable() {
   miscTableRow(table,"Number of entries into STANDBY state","numStandbyEntry");
   miscTableRow(table,"Number of entries into RUNNING state","numRunningEntry");
   miscTableRow(table,"Number of entries into ERROR state","numErrorEntry");
+  miscTableRow(table,"Number of WARNINGs","numWarnings");
 }
 
 function replaceDummyValue(value) {
@@ -213,10 +213,8 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(numRunningEntry);
   el = document.getElementById("numErrorEntry");
   el.innerHTML = replaceDummyValue(numErrorEntry);
-}
-
-function pendingChange(value) {
-  return changePending;
+  el = document.getElementById("numWarnings");
+  el.innerHTML = replaceDummyValue(numWarnings);
 }
 
 function gatherStats(jsonData) {
@@ -254,54 +252,52 @@ function gatherStats(jsonData) {
 	    numSpontaneous++ ;
 	  }
         } else if (ckey=="ATTENTION") {
-	  attentionState = value;
-	  if (value==1) numWarnings++;
-        } else if (ckey=="PENDING") {
-	  changePending = value;
+	  if (!attentionState && (value==1)) numWarnings++;
+	  attentionState = (value == 1);
         } else if (ckey=="MODE") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
 	      modes.push(value);
 	    }
 	  }
         } else if (ckey=="VT") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
 	      vts.push(value);
 	    }
 	  }
         } else if (ckey=="RR") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
 	      rrs.push(value);
 	    }
 	  }
         } else if (ckey=="EI") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((ies.length==0) || (ies.indexOf(value) == -1)) {
 	      ies.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
 	      peeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
 	      pmaxs.push(value);
 	    }
 	  }
         } else if (ckey=="PS") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
 	      pss.push(value);
 	    }
 	  }
         } else if (ckey=="TPS") {
-	  if (!pendingChange(value) && (value!="--")) {
+	  if (value != "--") {
 	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
 	      tpss.push(value);
 	    }
