@@ -101,7 +101,7 @@ function insertUsedParamCombos(combo) {
     console.log("i=" + i);
     if (equalParamCombos(combo,c)) return;
   }
-  usedParamCombos.push(combo);
+  usedParamCombos.push(JSON.parse(JSON.stringify(combo)));
   console.log("combo inserted");
 }
 
