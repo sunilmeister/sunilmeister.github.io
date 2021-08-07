@@ -253,49 +253,49 @@ function gatherStats(jsonData) {
         } else if (ckey=="PENDING") {
 	  pendingChange = value;
         } else if (ckey=="MODE") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
 	      modes.push(value);
 	    }
 	  }
         } else if (ckey=="VT") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
 	      vts.push(value);
 	    }
 	  }
         } else if (ckey=="RR") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
 	      rrs.push(value);
 	    }
 	  }
         } else if (ckey=="EI") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((eis.length==0) || (eis.indexOf(value) == -1)) {
 	      eis.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
 	      peeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
 	      pmaxs.push(value);
 	    }
 	  }
         } else if (ckey=="PS") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
 	      pss.push(value);
 	    }
 	  }
         } else if (ckey=="TPS") {
-	  if (!pendingChange) {
+	  if (!pendingChange && (value!="--")) {
 	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
 	      tpss.push(value);
 	    }
