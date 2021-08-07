@@ -291,7 +291,7 @@ window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
 
-  document.getElementById("selectorDiv").style.display = "block";
+  document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
@@ -313,6 +313,7 @@ window.onload = function() {
   });
 
   initStats();
+  selectSession();
 }
 
 
