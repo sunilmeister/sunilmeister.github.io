@@ -47,6 +47,79 @@ function validParamValue(str) {
 }
 
 /////////////////////////////////////////////////////////////////
+// Keep track of all parameter combinations used
+/////////////////////////////////////////////////////////////////
+var prevParamCombo = {
+  "mode" : "--",
+  "vt" : "--",
+  "rr" : "--",
+  "ie" : "--",
+  "peep" : "--",
+  "pmax" : "--",
+  "ps" : "--",
+  "tps" : "--"
+};
+
+
+var currParamCombo = {
+  "mode" : "--",
+  "vt" : "--",
+  "rr" : "--",
+  "ie" : "--",
+  "peep" : "--",
+  "pmax" : "--",
+  "ps" : "--",
+  "tps" : "--"
+};
+
+var usedParamCombos = [];
+
+function equalParamCombos(curr, prev) {
+  return (JSON.stringify(curr) === JSON.stringify(prev));
+}
+
+function insertUsedParamCombos(combo) {
+  for (i=0; i<usedParamCombos.length; i++) {
+    c = usedParamCombos[i];
+    if (equalParamCombos(combo,c)) return;
+  }
+  usedParamCombos.push(combo);
+}
+
+function displayUsedCombos() {
+  var table = document.getElementById("statsComboTable");
+
+  for (i=0; i<usedParamCombos.length; i++) {
+    combo = usedParamCombos[i];
+    row = table.insertRow();
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.mode;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.vt;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.rr;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.ie;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.peep;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.pmax;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.ps;
+
+    cell = row.insertCell();
+    cell.innerHTML = combo.tps;
+  }
+}
+
+/////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
 /////////////////////////////////////////////////////////////////
 function miscTableRow(table,field,value) {
@@ -112,14 +185,14 @@ function constructStatMinMaxTable() {
 function constructStatParamTable() {
   var table = document.getElementById("statsParamTable");
 
-  paramTableRow(table,"Ventilation Mode","","mode");
+  paramTableRow(table,"Ventilation Mode","mode","mode");
   paramTableRow(table,"Tidal Volume","ml","vt");
   paramTableRow(table,"Respiration Rate","bpm","rr");
-  paramTableRow(table,"I:E Ratio","","ie");
+  paramTableRow(table,"I:E Ratio","ratio","ie");
   paramTableRow(table,"PEEP Pressure","cm H20","peep");
   paramTableRow(table,"Maximum Pressure","cm H20","pmax");
   paramTableRow(table,"Support Pressure","cm H20","ps");
-  paramTableRow(table,"Support Pressure Termination","","tps");
+  paramTableRow(table,"Support Pressure Termination","%flow,secs","tps");
 }
 
 function constructStatMiscTable() {
@@ -234,6 +307,8 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(numErrorEntry);
   el = document.getElementById("numWarnings");
   el.innerHTML = replaceDummyValue(numWarnings);
+
+  displayUsedCombos();
 }
 
 function gatherStats(jsonData) {
@@ -267,11 +342,16 @@ function gatherStats(jsonData) {
 	  } else {
 	    numMandatory++ ;
 	  }
+	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
+	    prevParamCombo = currParamCombo;
+	    insertUsedParamCombos(currParamCombo);
+	  }
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
 	  attentionState = (value == 1);
         } else if (ckey=="MODE") {
 	  if (validParamValue(value)) {
+	    currParamCombo.mode = value;
 	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
 	      modes.push(value);
 	    }
@@ -284,36 +364,42 @@ function gatherStats(jsonData) {
 	  }
         } else if (ckey=="RR") {
 	  if (validParamValue(value)) {
+	    currParamCombo.rr = value;
 	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
 	      rrs.push(value);
 	    }
 	  }
         } else if (ckey=="EI") {
 	  if (validParamValue(value)) {
+	    currParamCombo.ie = value;
 	    if ((ies.length==0) || (ies.indexOf(value) == -1)) {
 	      ies.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
 	  if (validParamValue(value)) {
+	    currParamCombo.peep = value;
 	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
 	      peeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
 	  if (validParamValue(value)) {
+	    currParamCombo.pmax = value;
 	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
 	      pmaxs.push(value);
 	    }
 	  }
         } else if (ckey=="PS") {
 	  if (validParamValue(value)) {
+	    currParamCombo.ps = value;
 	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
 	      pss.push(value);
 	    }
 	  }
         } else if (ckey=="TPS") {
 	  if (validParamValue(value)) {
+	    currParamCombo.tps = value;
 	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
 	      tpss.push(value);
 	    }
@@ -463,6 +549,7 @@ function initStats() {
   numSpontaneous = 0;
   altitude = "";
   
+  usedParamCombos = [];
   modes = [];
   vts = [];
   rrs = [];
