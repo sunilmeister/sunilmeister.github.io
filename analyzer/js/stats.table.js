@@ -185,15 +185,75 @@ function gatherStats(jsonData) {
         } else if (ckey=="PS") {
         } else if (ckey=="TPS") {
         } else if (ckey=="MBPM") {
+	  if (maxMbpm < value) {
+	    maxMbpm = value;
+	  }
+	  if (minMbpm > value) {
+	    minMbpm = value;
+	  }
         } else if (ckey=="SBPM") {
+	  if (maxSbpm < value) {
+	    maxSbpm = value;
+	  }
+	  if (minSbpm > value) {
+	    minSbpm = value;
+	  }
         } else if (ckey=="STATIC") {
+	  if (maxScomp < value) {
+	    maxScomp = value;
+	  }
+	  if (minScomp > value) {
+	    minScomp = value;
+	  }
         } else if (ckey=="DYNAMIC") {
+	  if (maxDcomp < value) {
+	    maxDcomp = value;
+	  }
+	  if (minDcomp > value) {
+	    minDcomp = value;
+	  }
         } else if (ckey=="VTDEL") {
+	  if (maxVt < value) {
+	    maxVt = value;
+	  }
+	  if (minVt > value) {
+	    minVt = value;
+	  }
         } else if (ckey=="MVDEL") {
+	  if (maxMv < value) {
+	    maxMv = value;
+	  }
+	  if (minMv > value) {
+	    minMv = value;
+	  }
         } else if (ckey=="PIP") {
+	  if (maxPeak < value) {
+	    maxPeak = value;
+	  }
+	  if (minPeak > value) {
+	    minPeak = value;
+	  }
         } else if (ckey=="PLAT") {
+	  if (maxPlat < value) {
+	    maxPlat = value;
+	  }
+	  if (minPlat > value) {
+	    minPlat = value;
+	  }
         } else if (ckey=="MPEEP") {
+	  if (maxPeep < value) {
+	    maxPeep = value;
+	  }
+	  if (minPeep > value) {
+	    minPeep = value;
+	  }
         } else if (ckey=="TEMP") {
+	  if (maxTemp < value) {
+	    maxTemp = value;
+	  }
+	  if (minTemp > value) {
+	    minTemp = value;
+	  }
         } else if (ckey=="ALT") {
 	    altitude = value;
         } else if (ckey=="PNAME") {
@@ -253,25 +313,25 @@ function initStats() {
   pss = [];
   tpss = [];
   
-  minPeak = 0;
+  minPeak = 999999;
   maxPeak = 0;
-  minPlat = 0;
+  minPlat = 999999;
   maxPlat = 0;
-  minPeep = 0;
+  minPeep = 999999;
   maxPeep = 0;
-  minVt = 0;
+  minVt = 999999;
   maxVt = 0;
-  minMv = 0;
+  minMv = 999999;
   maxMv = 0;
-  minMbpm = 0;
+  minMbpm = 999999;
   maxMbpm = 0;
-  minSbpm = 0;
+  minSbpm = 999999;
   maxSbpm = 0;
-  minScomp = 0;
+  minScomp = 999999;
   maxScomp = 0;
-  minDcomp = 0;
+  minDcomp = 999999;
   maxDcomp = 0;
-  minTemp = 0;
+  minTemp = 999999;
   maxTemp = 0;
 }
 
