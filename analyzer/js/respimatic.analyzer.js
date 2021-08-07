@@ -170,6 +170,7 @@ function selectStats() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
 
+  collectStats();
   constructStatMinMaxTable();
 }
 
@@ -195,7 +196,8 @@ function selectRawData() {
   dumpRawData();
 }
 
-function ResetAnalysisData() {
+function resetAnalysisData() {
+  initStats();
 }
 
 function checkValidAnalysisDuration() {
@@ -237,7 +239,7 @@ function selectTimeInterval() {
   analysisEndTime = strToDate(elm.value);
 
   updateSelectedDuration();
-  ResetAnalysisData();
+  resetAnalysisData();
 }
 
 function selectLogTimes() {
@@ -252,7 +254,7 @@ function selectLogTimes() {
     elm = document.getElementById("endTime");
     elm.value = dateToStr(analysisEndTime);
 
-    ResetAnalysisData();
+    resetAnalysisData();
   }
 }
 
