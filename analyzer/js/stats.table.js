@@ -75,7 +75,7 @@ var currParamCombo = {
 var usedParamCombos = [];
 
 function equalParamCombos(curr, prev) {
-  return (JSON.stringify(curr) === JSON.stringify(prev));
+  return (JSON.stringify(curr) == JSON.stringify(prev));
 }
 
 function insertUsedParamCombos(combo) {
