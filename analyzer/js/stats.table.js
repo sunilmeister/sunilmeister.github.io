@@ -278,8 +278,8 @@ function gatherStats(jsonData) {
 	  }
         } else if (ckey=="EI") {
 	  if (!pendingChange(value) && (value!="--")) {
-	    if ((eis.length==0) || (eis.indexOf(value) == -1)) {
-	      eis.push(value);
+	    if ((ies.length==0) || (ies.indexOf(value) == -1)) {
+	      ies.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
