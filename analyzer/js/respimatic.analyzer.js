@@ -129,8 +129,6 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
-  return true;
-  //alert("dbReady=" + dbReady + "dbName=" + dbName + "  db=" + db);
   if (dbReady && db && dbName) return true;
 
   if (!dbName) {
@@ -153,12 +151,14 @@ function selectSession() {
 }
 
 function selectImport() {
+  alert("Not yet implemented\nWork In Progress...");
 }
 
 function selectExport() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
+  alert("Not yet implemented\nWork In Progress...");
 }
 
 function selectStats() {
@@ -171,12 +171,12 @@ function selectStats() {
   document.getElementById("rawDataDiv").style.display = "none";
 
   collectStats();
-  constructStatMinMaxTable();
 }
 
 function selectCharts() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
+  alert("Not yet implemented\nWork In Progress...");
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
@@ -201,7 +201,6 @@ function resetAnalysisData() {
 }
 
 function checkValidAnalysisDuration() {
-  return true;
   var diff = analysisEndTime - analysisStartTime;
   if (diff<=0) {
     alert("Analysis EndTime must be greater than StartTime");
@@ -295,6 +294,7 @@ window.onload = function() {
     timeFormat: "HH:MM:SS"
   });
 
+  initStats();
 }
 
 
