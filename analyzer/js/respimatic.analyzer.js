@@ -129,6 +129,7 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
+  return true;
   //alert("dbReady=" + dbReady + "dbName=" + dbName + "  db=" + db);
   if (dbReady && db && dbName) return true;
 
@@ -149,6 +150,15 @@ function selectSession() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   listAllDbs();
+}
+
+function selectImport() {
+}
+
+function selectExport() {
+  if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
+
 }
 
 function selectStats() {
@@ -189,6 +199,7 @@ function ResetAnalysisData() {
 }
 
 function checkValidAnalysisDuration() {
+  return true;
   var diff = analysisEndTime - analysisStartTime;
   if (diff<=0) {
     alert("Analysis EndTime must be greater than StartTime");
@@ -219,19 +230,13 @@ function updateSelectedDuration() {
   }
 }
 
-function selectStartTime() {
+function selectTimeInterval() {
   var elm = document.getElementById("startTime");
   analysisStartTime = strToDate(elm.value);
-  updateSelectedDuration();
-
-  ResetAnalysisData();
-}
-
-function selectEndTime() {
-  var elm = document.getElementById("endTime");
+  elm = document.getElementById("endTime");
   analysisEndTime = strToDate(elm.value);
-  updateSelectedDuration();
 
+  updateSelectedDuration();
   ResetAnalysisData();
 }
 

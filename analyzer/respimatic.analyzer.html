@@ -24,7 +24,7 @@
     <style>
 .sidebar {
   height: 100%;
-  width: 220px;
+  width: 225px;
   position: absolute;
   left: 0;
   top: 0;
@@ -105,7 +105,7 @@
   cursor: pointer;
   font-size: 20px;
   border-radius: 15px;
-  width: 220px;
+  width: 210px;
 }
 
 .sidebarButton:hover {
@@ -150,12 +150,14 @@
         <p id="selectedTimeDuration">Selected Duration 00:00:00
       </center>
       </div>
-      <br><br>
+      <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+      <br>
+      </div>
+      <br>
+      <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
       <br><br>
       <button id="btnSelect" class="sidebarButton"
           onclick='selectSession()'>Select Session</button>
-      <br><br>
-      <br><br>
       <br><br>
       <button id="btnStat" class="sidebarButton"
           onclick='selectStats()'>Statistics</button>
@@ -165,25 +167,29 @@
       <br><br>
       <button id="btnRaw" class="sidebarButton"
           onclick='selectRawData()'>Raw Data</button>
+      <br><br><br>
+      </div>
+      <br>
 
+      <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
       <br><br>
+      <button id="btnInterval" class="sidebarButton"
+          onclick='selectTimeInterval()'>Analysis Interval</button>
       <br><br>
-      <br><br>
-      <button id="btnStartTime" class="sidebarButton"
-          onclick='selectStartTime()'>Select Analysis Start Time</button>
-      <br><br>
+      <center>
+      <label>Start Time</label>
       <input id="startTime" name="startTime" 
-	style="margin-left: 5px; padding: 5px; width: 205px; background-color:#0d3e51; color:white; font-size:16px; font-family:verdana;" />
+	style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:16px; font-family:verdana;" />
       <br><br>
-      <button id="btnEndTime" class="sidebarButton"
-          onclick='selectEndTime()'>Select Analysis End Time</button>
-      <br><br>
+      <label>End Time</label>
       <input id="endTime" name="endTime" 
-	style="margin-left: 5px; padding: 5px; width: 205px; background-color:#0d3e51; color:white; font-size:16px; font-family:verdana;" />
+	style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:16px; font-family:verdana;" />
       <br><br>
       <button id="btnResetTime" class="sidebarButton"
-          onclick='selectLogTimes()'>Analyze Entire Session Log</button>
-      <br><br>
+          onclick='selectLogTimes()'>Reset Interval</button>
+      <br><br><br>
+      </center>
+      </div>
 
     </div>
       
