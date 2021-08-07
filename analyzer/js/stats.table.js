@@ -210,14 +210,14 @@ function statsProcessJsonRecord(key, lastRecord) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
-    db = event.target.result;
+    var db = event.target.result;
     dbReady = true;
 
-    tx = db.transaction(dbObjStoreName, 'readonly');
-    store = tx.objectStore(dbObjStoreName);
-    keyReq = store.get(key);
+    var tx = db.transaction(dbObjStoreName, 'readonly');
+    var store = tx.objectStore(dbObjStoreName);
+    var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
-      jsonData = keyReq.result;
+      var jsonData = keyReq.result;
       gatherStats(jsonData);
       if (lastRecord) displayStats();
     }

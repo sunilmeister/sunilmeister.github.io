@@ -32,7 +32,7 @@ function getSessionDuration(dbName) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
-    db = event.target.result;
+    var db = event.target.result;
     dbReady = true;
 
     var tx = db.transaction(dbObjStoreName, 'readonly');
@@ -40,7 +40,7 @@ function getSessionDuration(dbName) {
     var keyReq = store.getAllKeys();
 
     keyReq.onsuccess = function(event) {
-      keys = event.target.result;
+      var keys = event.target.result;
       allDbKeys = keys;
       if (keys.length==0) {
         alert("Selected Session has no data");
