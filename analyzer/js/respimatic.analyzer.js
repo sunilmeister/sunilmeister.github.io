@@ -1,4 +1,4 @@
-// check for browser capability
+
 document.title = respimaticUid + " (ANALYZER)" ;
 if (!window.indexedDB) {
     alert("IndexedDB not available in your browser.\nSwitch browsers");
@@ -291,7 +291,7 @@ window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
 
-  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("selectorDiv").style.display = "block";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
