@@ -234,9 +234,22 @@ function updateSelectedDuration() {
 
 function selectTimeInterval() {
   var elm = document.getElementById("startTime");
-  analysisStartTime = strToDate(elm.value);
+  st = strToDate(elm.value);
   elm = document.getElementById("endTime");
-  analysisEndTime = strToDate(elm.value);
+  et = strToDate(elm.value);
+
+  if (st<logStartTime) {
+    alert("Start Time is before the Session Start Time\nUsing Session Start Time");
+    st = logStartTime;
+  }
+
+  if (et>logEndTime) {
+    alert("End Time is after the Session End Time\nUsing Session End Time");
+    et = logEndTime;
+  }
+
+  analysisStartTime = st;
+  analysisEndTime = et;
 
   updateSelectedDuration();
   resetAnalysisData();
@@ -281,12 +294,6 @@ window.onload = function() {
     showTime: true,
     timeFormat: "HH:MM:SS"
   });
-
-  elm = document.getElementById("startTime");
-  elm.value = dateToStr(logStartTime);
-
-  elm = document.getElementById("endTime");
-  elm.value = dateToStr(logEndTime);
 
 }
 
