@@ -186,8 +186,7 @@ function processDweet(d) {
   }
 
   var dweetBox = document.getElementById('dweetBox');
-  if (Object.keys(d.content).length != 0) {
-    // No need to save the creation date for this dweet
+  if (d.content.length != 0) {
     insertJsonData(db,d);
     dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
   } else {
