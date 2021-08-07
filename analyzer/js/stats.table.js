@@ -363,7 +363,7 @@ function gatherStats(jsonData) {
 	  }
 	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
 	    insertUsedParamCombos(currParamCombo);
-	    prevParamCombo = currParamCombo;
+	    prevParamCombo = JSON.parse(JSON.stringify(currParamCombo));
 	  }
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
