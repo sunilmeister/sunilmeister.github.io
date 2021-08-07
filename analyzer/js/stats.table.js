@@ -42,7 +42,7 @@ var attentionState = false;
 /////////////////////////////////////////////////////////////////
 function validParamValue(str) {
   if (str=="--") return false;
-  ix = str.search(ARROW);
+  ix = String(str).search(ARROW);
   return (ix == -1);
 }
 
