@@ -1,6 +1,8 @@
+const ARROW = "\\u27AD";
 const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
 var prevBreathMandatory = true;
+var currBreathMandatory = true;
 
 var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
 var numWarnings;
@@ -34,6 +36,15 @@ var standbyState = false;
 var runningState = false;
 var errorState = false;
 var attentionState = false;
+
+/////////////////////////////////////////////////////////////////
+// Changing parameters have an arrow embedded in the string
+/////////////////////////////////////////////////////////////////
+function validParamValue(str) {
+  if (str=="--) return false;
+  ix = str.search(ARROW);
+  return (ix != -1);
+}
 
 /////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
@@ -260,49 +271,49 @@ function gatherStats(jsonData) {
 	  if (!attentionState && (value==1)) numWarnings++;
 	  attentionState = (value == 1);
         } else if (ckey=="MODE") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
 	      modes.push(value);
 	    }
 	  }
         } else if (ckey=="VT") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
 	      vts.push(value);
 	    }
 	  }
         } else if (ckey=="RR") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
 	      rrs.push(value);
 	    }
 	  }
         } else if (ckey=="EI") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((ies.length==0) || (ies.indexOf(value) == -1)) {
 	      ies.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
 	      peeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
 	      pmaxs.push(value);
 	    }
 	  }
         } else if (ckey=="PS") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
 	      pss.push(value);
 	    }
 	  }
         } else if (ckey=="TPS") {
-	  if (value != "--") {
+	  if (validParamValue(value)) {
 	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
 	      tpss.push(value);
 	    }
