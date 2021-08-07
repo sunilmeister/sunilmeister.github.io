@@ -1,5 +1,8 @@
 const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
+var prevBreathMandatory = true;
+
+var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
 
 var patientName, patientInfo;
 var numMandatory, numSpontaneous;
@@ -33,6 +36,16 @@ var errorState = false;
 /////////////////////////////////////////////////////////////////
 // Construct the tables required for reporting statistics
 /////////////////////////////////////////////////////////////////
+function miscTableRow(table,field,value) {
+  row = table.insertRow();
+
+  cell = row.insertCell();
+  cell.innerHTML = field;
+
+  cell = row.insertCell();
+  cell.innerHTML = '<div id=' + value + '>----</div>';
+}
+
 function paramTableRow(table,field,units,value) {
   row = table.insertRow();
 
@@ -94,6 +107,17 @@ function constructStatParamTable() {
   paramTableRow(table,"Maximum Pressure","cm H20","pmax");
   paramTableRow(table,"Support Pressure","cm H20","ps");
   paramTableRow(table,"Support Pressure Termination","","tps");
+}
+
+function constructStatMiscTable() {
+  var table = document.getElementById("statsMiscTable");
+
+  miscTableRow(table,"Number of Mandatory Breaths","numMandatory");
+  miscTableRow(table,"Number of Spontaneous Breaths","numSpontaneous");
+  miscTableRow(table,"Number of entries into INITIAL state","numInitialEntry");
+  miscTableRow(table,"Number of entries into STANDBY state","numStandbyEntry");
+  miscTableRow(table,"Number of entries into RUNNING state","numRunningEntry");
+  miscTableRow(table,"Number of entries into ERROR state","numErrorEntry");
 }
 
 function replaceDummyValue(value) {
@@ -186,28 +210,39 @@ function gatherStats(jsonData) {
         } else if (ckey=="L3") {
         } else if (ckey=="L4") {
         } else if (ckey=="INITIAL") {
+	  if (!initialState) numInitialEntry++ ;
 	  initialState = true;
 	  standbyState = false;
 	  runningState = false;
 	  errorState = false;
         } else if (ckey=="STANDBY") {
+	  if (!initialState) numStandbyEntry++ ;
 	  initialState = false;
 	  standbyState = true;
 	  runningState = false;
 	  errorState = false;
         } else if (ckey=="RUNNING") {
+	  if (!initialState) numRunningEntry++ ;
 	  initialState = false;
 	  standbyState = false;
 	  runningState = true;
 	  errorState = false;
         } else if (ckey=="ERROR") {
+	  if (!initialState) numErrorEntry++ ;
 	  initialState = false;
 	  standbyState = false;
 	  runningState = false;
 	  errorState = true;
         } else if (ckey=="MANDATORY") {
+	  prevBreathMandatory = true;
         } else if (ckey=="SPONTANEOUS") {
+	  prevBreathMandatory = true;
         } else if (ckey=="BTOG") {
+	  if (prevBreathMandatory) {
+	    numMandatory++ ;
+	  } else {
+	    numSpontaneous++ ;
+	  }
         } else if (ckey=="ATTENTION") {
         } else if (ckey=="PENDING") {
         } else if (ckey=="MODE") {
@@ -307,7 +342,7 @@ function gatherStats(jsonData) {
 	    minTemp = value;
 	  }
         } else if (ckey=="ALT") {
-	    altitude = value;
+	    altitude = value + " ft(m)";
         } else if (ckey=="PNAME") {
 	    patientName = value;
         } else if (ckey=="PMISC") {
@@ -351,11 +386,16 @@ function gatherAndDisplayStats() {
 }
 
 function initStats() {
+  numInitialEntry = 0;
+  numStandbyEntry = 0;
+  numRunningEntry = 0;
+  numErrorEntry = 0;
+
   patientName = ""
   patientInfo = ""
   numMandatory = 0;
   numSpontaneous = 0;
-  altitude = 0;
+  altitude = "";
   
   modes = [];
   vts = [];
