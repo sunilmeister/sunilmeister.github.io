@@ -147,6 +147,8 @@ function selectSession() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
+
   listAllDbs();
 }
 
@@ -169,8 +171,21 @@ function selectStats() {
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
 
   collectStats();
+}
+
+function selectErrorWarnings() {
+  if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
+  alert("Not yet implemented\nWork In Progress...");
+
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "block";
 }
 
 function selectCharts() {
@@ -182,6 +197,7 @@ function selectCharts() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
 }
 
 function selectRawData() {
@@ -192,6 +208,7 @@ function selectRawData() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "block";
+  document.getElementById("errorWarningDiv").style.display = "none";
 
   dumpRawData();
 }
@@ -278,6 +295,7 @@ window.onload = function() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
 
   //Date time pickers
   instance = new dtsel.DTS('input[name="startTime"]',  {

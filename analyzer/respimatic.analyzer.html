@@ -196,6 +196,9 @@
         <button id="btnStat" class="sidebarButton"
           onclick='selectStats()'>Statistics</button>
         <br><br>
+        <button id="btnErrorWarning" class="sidebarButton"
+          onclick='selectErrorWarnings()'>Errors & Warnings</button>
+        <br><br>
         <button id="btnChart" class="sidebarButton"
           onclick='selectCharts()'>Charts</button>
         <br><br>
@@ -223,7 +226,8 @@
           <div
             style="height:400px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
             <br>
-            <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
+            <table id='dbTable' className="dbTableStyle"
+              style="font-size:20px; width:100%">
             </table>
           </div>
           <br>
@@ -241,21 +245,23 @@
         <div class="row">
           
           <div id="measured-pane" class="column" style="font-size: 20">
-	    <center>
-            <h2
-              style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
-              Parameters Measured</h2>
+            <center>
+              <h2
+                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                Parameters Measured</h2>
             </center>
             <table id='statsMinMaxTable' className="statsTableStyle"
               style="font-size:20px; width:100%">
               <tr>
-                <th style="background-color:lightgray; text-align:left">Parameter</th>
-                <th style="background-color:lightgray; text-align:left">Units</th>
+                <th style="background-color:lightgray; text-align:left">
+                  Parameter</th>
+                <th style="background-color:lightgray; text-align:left">Units
+                </th>
                 <th style="background-color:lightgray;">Min</th>
                 <th style="background-color:lightgray;">Max</th>
               </tr>
             </table>
-
+            
             <h2
               style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
               Miscellaneous Information</h2>
@@ -265,11 +271,12 @@
               <tr>
                 <th style="background-color:lightgray; text-align:left">
                   Information</th>
-                <th style="background-color:lightgray; text-align:left">Value</th>
+                <th style="background-color:lightgray; text-align:left">Value
+                </th>
               </tr>
             </table>
           </div>
-
+          
           <div id="stats-pane" class="column" style="font-size: 20">
             <center>
               <h2
@@ -278,7 +285,7 @@
             </center>
             <p id="pName">
             <p id="pInfo">
-	    <br>
+              <br>
             <p id="altitude">
               <center>
                 <div id="staticStats" style="font-size: 20px">
@@ -287,7 +294,7 @@
                       style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
                       Parameter Settings Used</h2>
                   </center>
-
+                  
                   <center>
                     <table id='statsParamTable' className="statsTableStyle"
                       style="font-size:20px; width:100%">
@@ -301,7 +308,7 @@
                       </tr>
                     </table>
                   </center>
-                    
+                  
                 </div>
                 
               </center>
@@ -313,6 +320,32 @@
         <div id="chartsDiv">
           <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Select Charts for Analysis</h2>
+        </div>
+      </center>
+      
+      <center>
+        <div id="errorWarningDiv">
+          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
+            Session Errors and Warnings</h2>
+          
+          <div class="row">
+            <div id="errorsDiv" class="column" style="font-size: 20">
+              <center>
+                <h2
+                  style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                  Session Errors</h2>
+              </center>
+            </div>
+            
+            <div id="warningsDiv" class="column" style="font-size: 20">
+              <center>
+                <h2
+                  style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                  Session Warnings</h2>
+              </center>
+            </div>
+            
+          </div>
         </div>
       </center>
       
