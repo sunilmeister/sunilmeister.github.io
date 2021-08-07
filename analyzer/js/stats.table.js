@@ -41,7 +41,7 @@ var attentionState = false;
 // Changing parameters have an arrow embedded in the string
 /////////////////////////////////////////////////////////////////
 function validParamValue(str) {
-  if (str=="--) return false;
+  if (str=="--") return false;
   ix = str.search(ARROW);
   return (ix != -1);
 }
