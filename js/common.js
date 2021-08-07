@@ -20,10 +20,6 @@ var analysisEndTime = new Date();
 // Misc functions
 // /////////////////////////////////////////////
 
-function centerAlignCell(str) {
-  return "<td style='text-align:center'>" + str + "</td>";
-}
-
 function keyWithinAnalysisRange(key) {
   if (key<analysisStartTime) return false;
   if (key>analysisEndTime) return false;
