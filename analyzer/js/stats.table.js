@@ -358,6 +358,7 @@ function gatherStats(jsonData) {
 	  }
         } else if (ckey=="VT") {
 	  if (validParamValue(value)) {
+	    currParamCombo.vt = value;
 	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
 	      vts.push(value);
 	    }
