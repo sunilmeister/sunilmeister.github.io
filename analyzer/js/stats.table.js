@@ -79,13 +79,14 @@ function equalParamCombos(curr, prev) {
 }
 
 function insertUsedParamCombos(combo) {
+  console.log("insert combo");
   for (i=0; i<usedParamCombos.length; i++) {
     c = usedParamCombos[i];
     console.log("i=" + i);
     if (equalParamCombos(combo,c)) return;
   }
   usedParamCombos.push(combo);
-  console.log("combo");
+  console.log("combo inserted");
 }
 
 function displayUsedCombos() {
