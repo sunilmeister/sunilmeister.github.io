@@ -84,6 +84,7 @@ function insertUsedParamCombos(combo) {
     if (equalParamCombos(combo,c)) return;
   }
   usedParamCombos.push(combo);
+  console.log("combo");
 }
 
 function displayUsedCombos() {
