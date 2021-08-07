@@ -568,6 +568,9 @@ function initStats() {
   numErrorEntry = 0;
   numWarnings = 0;
 
+  numMandatory = 0;
+  numSpontaneous = 0;
+
   patientName = ""
   patientInfo = ""
   numMandatory = 0;
@@ -606,8 +609,9 @@ function initStats() {
   maxTemp = maxDummyValue;
 }
 
-var tablesContructed = false;;
+var tablesContructed = false;
 function collectStats() {
+  initStats();
   if (!tablesContructed) {
     constructStatMinMaxTable();
     constructStatParamTable();
