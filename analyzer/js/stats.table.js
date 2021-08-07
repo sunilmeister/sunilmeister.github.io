@@ -185,67 +185,85 @@ function gatherStats(jsonData) {
         } else if (ckey=="PS") {
         } else if (ckey=="TPS") {
         } else if (ckey=="MBPM") {
-	  if (maxMbpm < value) {
-	    maxMbpm = value;
-	  }
-	  if (minMbpm > value) {
-	    minMbpm = value;
+	  if (value != "--") {
+	    if (maxMbpm < value) {
+	      maxMbpm = value;
+	    }
+	    if (minMbpm > value) {
+	      minMbpm = value;
+	    }
 	  }
         } else if (ckey=="SBPM") {
-	  if (maxSbpm < value) {
-	    maxSbpm = value;
-	  }
-	  if (minSbpm > value) {
-	    minSbpm = value;
+	  if (value != "--") {
+	    if (maxSbpm < value) {
+	      maxSbpm = value;
+	    }
+	    if (minSbpm > value) {
+	      minSbpm = value;
+	    }
 	  }
         } else if (ckey=="STATIC") {
-	  if (maxScomp < value) {
-	    maxScomp = value;
-	  }
-	  if (minScomp > value) {
-	    minScomp = value;
+	  if (value != "--") {
+	    if (maxScomp < value) {
+	      maxScomp = value;
+	    }
+	    if (minScomp > value) {
+	      minScomp = value;
+	    }
 	  }
         } else if (ckey=="DYNAMIC") {
-	  if (maxDcomp < value) {
-	    maxDcomp = value;
-	  }
-	  if (minDcomp > value) {
-	    minDcomp = value;
+	  if (value != "--") {
+	    if (maxDcomp < value) {
+	      maxDcomp = value;
+	    }
+	    if (minDcomp > value) {
+	      minDcomp = value;
+	    }
 	  }
         } else if (ckey=="VTDEL") {
-	  if (maxVt < value) {
-	    maxVt = value;
-	  }
-	  if (minVt > value) {
-	    minVt = value;
+	  if (value != "--") {
+	    if (maxVt < value) {
+	      maxVt = value;
+	    }
+	    if (minVt > value) {
+	      minVt = value;
+	    }
 	  }
         } else if (ckey=="MVDEL") {
-	  if (maxMv < value) {
-	    maxMv = value;
-	  }
-	  if (minMv > value) {
-	    minMv = value;
+	  if (value != "--") {
+	    if (maxMv < value) {
+	      maxMv = value;
+	    }
+	    if (minMv > value) {
+	      minMv = value;
+	    }
 	  }
         } else if (ckey=="PIP") {
-	  if (maxPeak < value) {
-	    maxPeak = value;
-	  }
-	  if (minPeak > value) {
-	    minPeak = value;
+	  if (value != "--") {
+	    if (maxPeak < value) {
+	      maxPeak = value;
+	    }
+	    if (minPeak > value) {
+	      minPeak = value;
+	    }
 	  }
         } else if (ckey=="PLAT") {
-	  if (maxPlat < value) {
-	    maxPlat = value;
-	  }
-	  if (minPlat > value) {
-	    minPlat = value;
+	  if (value != "--") {
+	    if (maxPlat < value) {
+	      maxPlat = value;
+	    }
+	    if (minPlat > value) {
+	      minPlat = value;
+	    }
 	  }
         } else if (ckey=="MPEEP") {
-	  if (maxPeep < value) {
-	    maxPeep = value;
-	  }
-	  if (minPeep > value) {
-	    minPeep = value;
+	  if (value != "--") {
+	    if (maxPeep < value) {
+	      maxPeep = value;
+	    }
+	    if (minPeep > value) {
+	      minPeep = value;
+	    }
 	  }
         } else if (ckey=="TEMP") {
 	  if (maxTemp < value) {
@@ -314,25 +332,25 @@ function initStats() {
   tpss = [];
   
   minPeak = 999999;
-  maxPeak = 0;
+  maxPeak = -999999;
   minPlat = 999999;
-  maxPlat = 0;
+  maxPlat = -999999;
   minPeep = 999999;
-  maxPeep = 0;
+  maxPeep = -999999;
   minVt = 999999;
-  maxVt = 0;
+  maxVt = -999999;
   minMv = 999999;
-  maxMv = 0;
+  maxMv = -999999;
   minMbpm = 999999;
-  maxMbpm = 0;
+  maxMbpm = -999999;
   minSbpm = 999999;
-  maxSbpm = 0;
+  maxSbpm = -999999;
   minScomp = 999999;
-  maxScomp = 0;
+  maxScomp = -999999;
   minDcomp = 999999;
-  maxDcomp = 0;
+  maxDcomp = -999999;
   minTemp = 999999;
-  maxTemp = 0;
+  maxTemp = -999999;
 }
 
 function collectStats() {
