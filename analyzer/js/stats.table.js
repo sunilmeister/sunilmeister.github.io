@@ -252,9 +252,9 @@ function gatherStats(jsonData) {
 	  prevBreathMandatory = (value==1);
         } else if (ckey=="BTOG") {
 	  if (prevBreathMandatory) {
-	    numMandatory++ ;
-	  } else {
 	    numSpontaneous++ ;
+	  } else {
+	    numMandatory++ ;
 	  }
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
