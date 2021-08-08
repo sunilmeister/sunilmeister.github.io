@@ -87,6 +87,49 @@ function msToTime(milliseconds) {
 }
 
 // /////////////////////////////////////////////
+// Valid Parameter Check functions
+// /////////////////////////////////////////////
+const modeOptions = ["CMV","ACV","SIMV","PSV"];
+function modeValid(str) {
+  return modeOptions.indexOf(str) != -1 ;
+}
+
+const vtOptions = [200,250,300,350,400,450,500,550,600];
+function vtValid(str) {
+  return vtOptions.indexOf(str) != -1 ;
+}
+
+const rrOptions = [10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
+function rrValid(str) {
+  return rrOptions.indexOf(str) != -1 ;
+}
+
+const ieOptions = ["1:1","1:2","1:3"];
+function ieValid(str) {
+  return ieOptions.indexOf(str) != -1 ;
+}
+
+const peepOptions = [3,4,5,6,7,8,9,10,11,12,13];
+function peepValid(str) {
+  return peepOptions.indexOf(str) != -1 ;
+}
+
+const pmaxOptions = [20,25,30,35,40,45,50,55,60,65,70];
+function pmaxValid(str) {
+  return pmaxOptions.indexOf(str) != -1 ;
+}
+
+const psOptions = [10,15,20,25,30,35,40];
+function psValid(str) {
+  return psOptions.indexOf(str) != -1 ;
+}
+
+const tpsOptions = ["\\u21A110","\\u21A120","\\u21A130","\\u23F11.0","\\u23F11.5","\\u23F12.0","\\u23F12.5","\\u23F13.0"];
+function tpsValid(str) {
+  return tpsOptions.indexOf(str) != -1 ;
+}
+
+// /////////////////////////////////////////////
 // UID functions
 // /////////////////////////////////////////////
 function validUid() {

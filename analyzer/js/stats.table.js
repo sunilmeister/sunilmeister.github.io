@@ -374,56 +374,56 @@ function gatherStats(jsonData) {
 	  if (!attentionState && (value==1)) numWarnings++;
 	  attentionState = (value == 1);
         } else if (ckey=="MODE") {
-	  if (validParamValue(value)) {
+	  if (modeValid(value)) {
 	    currParamCombo.mode = value;
 	    if ((modes.length==0) || (modes.indexOf(value) == -1)) {
 	      modes.push(value);
 	    }
 	  }
         } else if (ckey=="VT") {
-	  if (validParamValue(value)) {
+	  if (vtValid(value)) {
 	    currParamCombo.vt = value;
 	    if ((vts.length==0) || (vts.indexOf(value) == -1)) {
 	      vts.push(value);
 	    }
 	  }
         } else if (ckey=="RR") {
-	  if (validParamValue(value)) {
+	  if (rrValid(value)) {
 	    currParamCombo.rr = value;
 	    if ((rrs.length==0) || (rrs.indexOf(value) == -1)) {
 	      rrs.push(value);
 	    }
 	  }
         } else if (ckey=="EI") {
-	  if (validParamValue(value)) {
+	  if (ieValid(value)) {
 	    currParamCombo.ie = value;
 	    if ((ies.length==0) || (ies.indexOf(value) == -1)) {
 	      ies.push(value);
 	    }
 	  }
         } else if (ckey=="IPEEP") {
-	  if (validParamValue(value)) {
+	  if (peepValid(value)) {
 	    currParamCombo.peep = value;
 	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
 	      peeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
-	  if (validParamValue(value)) {
+	  if (pmaxValid(value)) {
 	    currParamCombo.pmax = value;
 	    if ((pmaxs.length==0) || (pmaxs.indexOf(value) == -1)) {
 	      pmaxs.push(value);
 	    }
 	  }
         } else if (ckey=="PS") {
-	  if (validParamValue(value)) {
+	  if (psValid(value)) {
 	    currParamCombo.ps = value;
 	    if ((pss.length==0) || (pss.indexOf(value) == -1)) {
 	      pss.push(value);
 	    }
 	  }
         } else if (ckey=="TPS") {
-	  if (validParamValue(value)) {
+	  if (tpsValid(value)) {
 	    currParamCombo.tps = value;
 	    if ((tpss.length==0) || (tpss.indexOf(value) == -1)) {
 	      tpss.push(value);
