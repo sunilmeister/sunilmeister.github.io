@@ -20,6 +20,7 @@ var nextColor = 0;
 function getNextColor() {
   color = graphColors[nextColor++];
   if (nextColor==graphColors.length) nextColor = 0;
+  return color;
 }
 
 var chartTemplate = {
