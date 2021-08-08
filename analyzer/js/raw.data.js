@@ -34,7 +34,6 @@ function dumpRawData() {
     key = allDbKeys[i];
     if (!keyWithinAnalysisRange(key)) continue;
     dumpJsonRecord(key);
-    dumped++;
   }
 }
 
