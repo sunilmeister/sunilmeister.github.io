@@ -26,6 +26,7 @@ var chartTemplate = {
   title:{ text: "" },
   axisX:{ title: "", },
   axisY:[],
+  toolTip: { shared: true },
   legend: { 
     cursor: "pointer", 
     itemclick: toggleDataSeries
