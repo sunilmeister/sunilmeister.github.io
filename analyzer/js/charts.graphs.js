@@ -103,7 +103,7 @@ function createCanvasChartData(valueArray, timeBased) {
   yDatapoints = createDatapoints(valueArray);
   for (i=0; i<numPoints; i++) {
     if (timeBased) {
-      xyPoints.push({"x":breathTimes[i], "y":yDatapoints[i]});
+      xyPoints.push({"x":new Date(breathTimes[i]), "y":yDatapoints[i]});
     } else {
       xyPoints.push({"x":i, "y":yDatapoints[i]});
     }
@@ -114,7 +114,7 @@ function createCanvasChartData(valueArray, timeBased) {
     "name": "",
     "color": "",
     "showInLegend": true,
-    "axisYIndex": 1,
+    "axisYIndex": 0,
     "dataPoints" : xyPoints
   };
 
@@ -302,18 +302,18 @@ function createNewChart() {
     return;
   }
 
-  nextYaxisNum = 1;
+  nextYaxisNum = 0;
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
   chartJson.axisX.title = timeBased ? "Time" : "Breath Number" ;
 
-  pressureYaxisNum = 0;
+  pressureYaxisNum = -1;
   if (peakYes) {
     paramData = createCanvasChartData(peakValues,timeBased);
     if (paramData) {
       paramData.name = "Peak Pressure";
       paramData.color = getNextColor();
-      if (!pressureYaxisNum) {
+      if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
 	yaxis = createPressureYaxis(pressureYaxisNum);
 	chartJson.axisY.push(yaxis);
