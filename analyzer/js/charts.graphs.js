@@ -1,8 +1,8 @@
 const graphColors = [
   "Black",
   "Maroon",
-  "Gray",
   "Yellow",
+  "Gray",
   "Red",
   "Yellow",
   "Olive",
