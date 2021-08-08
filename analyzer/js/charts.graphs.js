@@ -60,7 +60,7 @@ function createDatapoints(transitions) {
     if (curIx==transitions.length-1) {
       datapoints.push(curValue);
     } else {
-      if (breathTimes[i] >= transitions[curIx+1] ) {
+      if (breathTimes[i] >= transitions[curIx+1].time ) {
 	curValue = transitions[curIx++].value;
         datapoints.push(curValue);
       } else {
