@@ -14,7 +14,6 @@
       href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap"
       rel="stylesheet">
     <link rel="stylesheet" href="../css/dtsel.css" />
-    <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../js/dtsel.js"></script>
     <script src="../js/download.js"></script>
@@ -363,7 +362,7 @@
 
 	  <div style="background-color:#0d3e51; color:white;font-size:20px; font-family:verdana;">
 	    <br>
-
+          Y-Axis:
           <input id="peak" style="width:20px;height:20px;" type="checkbox"> Peak
           <input id="plat" style="width:20px;height:20px;" type="checkbox"> Plateau
           <input id="peep" style="width:20px;height:20px;" type="checkbox"> PEEP
@@ -371,15 +370,17 @@
           <input id="mvdel" style="width:20px;height:20px;" type="checkbox"> Minute Volume
           <input id="mbpm" style="width:20px;height:20px;" type="checkbox"> Mandatory BPM
           <input id="sbpm" style="width:20px;height:20px;" type="checkbox"> Spontaneous BPM
-	  <input id="xaxis" type="text" list="X_AXIS" 
-	    style="font-size: 16px;padding: 5px;width: 150;text-align: center"
-	    pattern="Breath Number|Time"> X-axis
-	  <datalist id="X_AXIS">
-	    <option value="Breath Number"></option>
-            <option value="Time"></option>
-          </datalist>
 
-          <br>
+	  <br><br>
+	  X-Axis:
+	  <input id="breathNum" type="radio" name="xaxis" checked 
+	    style="font-size: 16px;width: 20px; height: 20px" >
+          <label for="breathNum">Breath Number</label>
+	  <input id="timeBased" type="radio" name="xaxis" 
+	    style="font-size: 16px;width: 20px; height: 20px" >
+          <label for="timeBased">Elapsed Time</label>
+
+	  <br><br>
 	  <input id="chartTitle" type="text" style="font-size: 16px;padding: 5px;width: 150;text-align: center"> Chart Title
           <button class="button" onclick='createNewChart()'>CREATE CHART</button>
 	  <br><br>

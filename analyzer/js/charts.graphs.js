@@ -309,8 +309,8 @@ function createNewChart() {
   elm = document.getElementById("sbpm");
   sbpmYes = elm.checked;
 
-  elm = document.getElementById("xaxis");
-  timeBased = (elm.value=="Time");
+  elm = document.getElementById("timeBased");
+  timeBased = elm.checked;
 
   if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes)) {
     alert("Please select Parameter(s) to Chart");
@@ -320,7 +320,7 @@ function createNewChart() {
   nextYaxisNum = 0;
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
-  chartJson.axisX.title = timeBased ? "Time" : "Breath Number" ;
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
 
   pressureYaxisNum = -1;
   if (peakYes) {
@@ -346,7 +346,4 @@ function createNewChart() {
 function createCharts() {
   if (chartsDataGathered) return;
   gatherChartData();
-
-  elm = document.getElementById("xaxis");
-  elm.value = "Breath Number" ;
 }
