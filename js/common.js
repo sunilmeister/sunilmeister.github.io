@@ -126,7 +126,6 @@ function psValid(str) {
 
 const tpsOptions = ["\u21A110\uFE6A","\u21A120\uFE6A","\u21A130\uFE6A","\u23F11.0","\u23F11.5","\u23F12.0","\u23F12.5","\u23F13.0"];
 function tpsValid(str) {
-  console.log(str);
   return tpsOptions.indexOf(str) != -1 ;
 }
 
