@@ -288,6 +288,7 @@ function selectLogTimes() {
 }
 
 window.onload = function() {
+  console.log(tpsOptions);
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
 
