@@ -116,7 +116,9 @@ function createCanvasChartData(valueArray, timeBased) {
   yDatapoints = createDatapoints(valueArray);
   for (i=0; i<numPoints; i++) {
     if (timeBased) {
-      xyPoints.push({"x":new Date(breathTimes[i]), "y":yDatapoints[i]});
+      ms = breathTimes[i] - breathTimes[0];
+      ms = Math.round(ms/1000);
+      xyPoints.push({"x":ms, "y":yDatapoints[i]});
     } else {
       xyPoints.push({"x":i, "y":yDatapoints[i]});
     }
