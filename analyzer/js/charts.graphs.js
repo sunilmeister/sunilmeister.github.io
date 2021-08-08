@@ -3,12 +3,12 @@ var chartTemplate = {
 		text: "Peak Pressure per Breath"
 	},
 	axisY:[{
-		title: "cm H20",
+		title: "Pressure",
 		lineColor: "#C24642",
 		tickColor: "#C24642",
 		labelFontColor: "#C24642",
 		titleFontColor: "#C24642",
-		suffix: "k"
+		suffix: "cmH20"
 	
 	}],
 	legend: {
@@ -69,6 +69,8 @@ function createDatapoints(transitions) {
     }
   }
 
+  console.log("#transitions=" + transitions.length);
+  console.log("#datapoints=" + datapoints.length);
   return datapoints;
 }
 
