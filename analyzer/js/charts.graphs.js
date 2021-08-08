@@ -23,16 +23,10 @@ function getNextColor() {
 }
 
 var chartTemplate = {
-  title:{
-    text: ""
-  },
-  axisX:{
-    title: "",
-  },
+  title:{ text: "" },
+  axisX:{ title: "", },
   axisY:[],
-  legend: {
-    cursor: "pointer",
-  },
+  legend: { cursor: "pointer", },
   data: []
 };
 
@@ -310,7 +304,7 @@ function createNewChart() {
 
   nextYaxisNum = 1;
   var chartJson = createNewInstance(chartTemplate);
-  chartJson.title = title;
+  chartJson.title.text = title;
   chartJson.axisX.title = timeBased ? "Time" : "Breath Number" ;
 
   pressureYaxisNum = 0;
