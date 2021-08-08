@@ -3,13 +3,12 @@ const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
 var prevBreathMandatory = true;
 var currBreathMandatory = true;
-var numBreathsCurrentCombo = 0;
 
 var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
 var numWarnings;
 
 var patientName, patientInfo;
-var numMandatory, numSpontaneous;
+var numMandatory, numSpontaneous, numMaintenance;
 var altitude = "";
 
 var modes = [];
@@ -221,6 +220,7 @@ function constructStatMiscTable() {
 
   miscTableRow(table,"Number of Mandatory Breaths","numMandatory");
   miscTableRow(table,"Number of Spontaneous Breaths","numSpontaneous");
+  miscTableRow(table,"Number of Maintenance Breaths","numMaintenance");
   miscTableRow(table,"Number of entries into INITIAL state","numInitialEntry");
   miscTableRow(table,"Number of entries into STANDBY state","numStandbyEntry");
   miscTableRow(table,"Number of entries into RUNNING state","numRunningEntry");
@@ -317,6 +317,8 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(numMandatory);
   el = document.getElementById("numSpontaneous");
   el.innerHTML = replaceDummyValue(numSpontaneous);
+  el = document.getElementById("numMaintenance");
+  el.innerHTML = replaceDummyValue(numMaintenance);
 
   el = document.getElementById("numInitialEntry");
   el.innerHTML = replaceDummyValue(numInitialEntry);
@@ -363,12 +365,12 @@ function gatherStats(jsonData) {
 	  } else {
 	    numMandatory++ ;
 	  }
-	  numBreathsCurrentCombo++;
+	  if (errorState) numMaintenance++;
+          currParamCombo.numBreaths++;
 	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
-	    currParamCombo.numBreaths = numBreathsCurrentCombo;
 	    insertUsedParamCombos(currParamCombo);
 	    prevParamCombo = JSON.parse(JSON.stringify(currParamCombo));
-	    numBreathsCurrentCombo = 0;
+            currParamCombo.numBreaths=0;
 	  }
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
@@ -570,11 +572,10 @@ function initStats() {
 
   numMandatory = 0;
   numSpontaneous = 0;
+  numMaintenance = 0;
 
   patientName = ""
   patientInfo = ""
-  numMandatory = 0;
-  numSpontaneous = 0;
   altitude = "";
   
   usedParamCombos = [];
