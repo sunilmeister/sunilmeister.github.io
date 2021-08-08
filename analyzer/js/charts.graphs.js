@@ -1,25 +1,42 @@
+const graphColors = [
+  "Black",
+  "Maroon",
+  "Gray",
+  "Yellow",
+  "Red",
+  "Yellow",
+  "Olive",
+  "Lime",
+  "Green",
+  "Aqua",
+  "Blue",
+  "Navy",
+  "Fuchsia",
+  "Purple",
+  "Silver",
+];
+var nextColor = 0;
+
+function getNextColor() {
+  color = graphColors[nextColor++];
+  if (nextColor==graphColors.length) nextColor = 0;
+}
+
 var chartTemplate = {
   title:{
-    text: "Peak Pressure per Breath"
+    text: ""
   },
   axisX:{
-    title: "Breath Number",
+    title: "",
   },
-
-  axisY:[{
-    title: "Pressure",
-    lineColor: "#C24642",
-    tickColor: "#C24642",
-    labelFontColor: "#C24642",
-    titleFontColor: "#C24642",
-    suffix: " (cm H20)"
-  }],
+  axisY:[],
   legend: {
     cursor: "pointer",
   },
   data: []
 };
 
+var allCharts = [];
 var breathTimes = [];
 
 var vtdelValues = [];
@@ -35,9 +52,12 @@ var peepValues = [];
 
 var tempValues = [];
 
-var chartsConstructed;
+var chartsDataGathered = false;
+
 function initCharts() {
-  chartsConstructed = false;
+  chartsDataGathered = false;
+  allCharts = [];
+
   breathTimes = [];
   vtdelValues = [];
   mvdelValues = [];
@@ -77,29 +97,39 @@ function createDatapoints(transitions) {
   return datapoints;
 }
 
-function renderCharts() {
+function createCanvasChartData(valueArray, timeBased) {
+  if (valueArray.length == 0) return null;
+
   var yDatapoints = [];
   var xyPoints = [];
 
   numPoints = breathTimes.length;
 
   xyPoints.length = 0;
-  yDatapoints = createDatapoints(peakValues);
+  yDatapoints = createDatapoints(valueArray);
   for (i=0; i<numPoints; i++) {
-    xyPoints.push({"x":i, "y":yDatapoints[i]});
-    //xyPoints.push({"x":breathTimes[i], "y":yDatapoints[i]});
+    if (timeBased) {
+      xyPoints.push({"x":breathTimes[i], "y":yDatapoints[i]});
+    } else {
+      xyPoints.push({"x":i, "y":yDatapoints[i]});
+    }
   }
 
   var chartData = {
     "type": "line",
-    "name": "PEAK PRESSURE",
-    "color": "#369EAD",
+    "name": "",
+    "color": "",
     "showInLegend": true,
     "axisYIndex": 1,
-    "dataPoints" : xyPoints,
+    "dataPoints" : xyPoints
   };
-  chartTemplate.data.push(chartData);
-  var chart = new CanvasJS.Chart("chartContainer", chartTemplate);
+
+  return createNewInstance(chartData);
+}
+
+function renderNewChart(chartJson) {
+  var chart = new CanvasJS.Chart("chartContainer", chartJson);
+  allCharts.push(chart);
   chart.render();
 }
 
@@ -167,7 +197,7 @@ function chartProcessData(jsonData) {
 	    vtdelValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="MVDEL") {
-	  if (validDecimalInteger(value)) {
+	  if (validFloatNumber(value)) {
 	    mvdelValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="PIP") {
@@ -208,9 +238,7 @@ function chartProcessJsonRecord(key, lastRecord) {
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
       chartProcessData(jsonData);
-      if (lastRecord) {
-	renderCharts();
-      }
+      chartsDataGathered = lastRecord;
     }
   }
 }
@@ -229,8 +257,87 @@ function gatherChartData() {
   }
 }
 
+function createPressureYaxis(num) {
+  var color = getNextColor();
+  var yaxis = {
+    title: "Pressure",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    suffix: " (cm H20)"
+  };
+  return createNewInstance(yaxis);
+}
+
+function createNewChart() {
+  var elm;
+  elm = document.getElementById("chartTitle");
+  title = elm.value;
+  if (!title) {
+    alert("Please enter a Title for the new Chart");
+    return;
+  }
+
+  elm = document.getElementById("peak");
+  peakYes = elm.checked;
+
+  elm = document.getElementById("plat");
+  platYes = elm.checked;
+
+  elm = document.getElementById("peep");
+  peepYes = elm.checked;
+
+  elm = document.getElementById("vtdel");
+  vtdelYes = elm.checked;
+
+  elm = document.getElementById("mvdel");
+  mvdelYes = elm.checked;
+
+  elm = document.getElementById("mbpm");
+  mbpmYes = elm.checked;
+
+  elm = document.getElementById("sbpm");
+  sbpmYes = elm.checked;
+
+  elm = document.getElementById("xaxis");
+  timeBased = (elm.value=="Time");
+
+  if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes)) {
+    alert("Please select Parameter(s) to Chart");
+    return;
+  }
+
+  nextYaxisNum = 1;
+  var chartJson = createNewInstance(chartTemplate);
+  chartJson.title = title;
+  chartJson.axisX.title = timeBased ? "Time" : "Breath Number" ;
+
+  pressureYaxisNum = 0;
+  if (peakYes) {
+    paramData = createCanvasChartData(peakValues,timeBased);
+    if (paramData) {
+      paramData.name = "Peak Pressure";
+      paramData.color = getNextColor();
+      if (!pressureYaxisNum) {
+	pressureYaxisNum = nextYaxisNum++;
+	yaxis = createPressureYaxis(pressureAxisNum);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = pressureYaxis;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Peak pressures\nNo data points found!");
+    }
+  }
+
+  renderNewChart(chartJson);
+}
+
 function createCharts() {
-  if (chartsConstructed) return;
+  if (chartsDataGathered) return;
   gatherChartData();
-  chartsConstructed = true;
+
+  elm = document.getElementById("xaxis");
+  elm.value = "Breath Number" ;
 }

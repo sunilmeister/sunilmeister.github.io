@@ -25,7 +25,9 @@ function dumpJsonRecord(key) {
 }
 
 var dataDumped = false;
-function initRawData() {
+function initRawDump() {
+  var scrollbox = document.getElementById('scrollRawDataDiv');
+  scrollbox.innerHTML = "" ;
   dataDumped = false;
 }
 

@@ -26,6 +26,12 @@ function validDecimalInteger(num) {
   return false;
 }
 
+function validFloatNumber(num) {
+  str = String(num);
+  if (str.match(/^-?\d+\.?\d+$/)) return true;
+  return false;
+}
+
 function createNewInstance(obj) {
   return JSON.parse(JSON.stringify(obj));
 }

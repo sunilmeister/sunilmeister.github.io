@@ -359,6 +359,32 @@
         <div id="chartsDiv" disable="none">
           <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Select Charts for Analysis</h2>
+
+
+	  <div style="background-color:#0d3e51; color:white;font-size:20px; font-family:verdana;">
+	    <br>
+
+          <input id="peak" style="width:20px;height:20px;" type="checkbox"> Peak
+          <input id="plat" style="width:20px;height:20px;" type="checkbox"> Plateau
+          <input id="peep" style="width:20px;height:20px;" type="checkbox"> PEEP
+	  <input id="vtdel" style="width:20px;height:20px;" type="checkbox"> Tidal Volume
+          <input id="mvdel" style="width:20px;height:20px;" type="checkbox"> Minute Volume
+          <input id="mbpm" style="width:20px;height:20px;" type="checkbox"> Mandatory BPM
+          <input id="sbpm" style="width:20px;height:20px;" type="checkbox"> Spontaneous BPM
+	  <input id="xaxis" type="text" list="X_AXIS" 
+	    style="font-size: 16px;padding: 5px;width: 150;text-align: center"
+	    pattern="Breath Number|Time"> X-axis
+	  <datalist id="X_AXIS">
+	    <option value="Breath Number"></option>
+            <option value="Time"></option>
+          </datalist>
+
+          <br>
+	  <input id="chartTitle" type="text" style="font-size: 16px;padding: 5px;width: 150;text-align: center"> Chart Title
+          <button class="button" onclick='createNewChart()'>CREATE CHART</button>
+	  <br><br>
+	  </div>
+
 	  <div id="chartContainer">
           </div>
         </div>

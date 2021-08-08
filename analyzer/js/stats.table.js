@@ -499,7 +499,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="MVDEL") {
-	  if (validDecimalInteger(value)) {
+	  if (validFloatNumber(value)) {
 	    if ((runningState || errorState)) {
 	      if (maxMv < value) {
 	        maxMv = value;

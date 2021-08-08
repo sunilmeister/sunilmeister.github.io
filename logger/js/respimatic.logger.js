@@ -30,6 +30,7 @@ function getNewDbName() {
 
   do {
     var dbNameSuffix = prompt("Name the new Session","New Session");
+    if (!dbNameSuffix) return "" ;
     name= dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
     if (checkDbExists(name)) {
       alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
@@ -118,6 +119,8 @@ function deleteAllDbs() {
 
 function createNewDb() {
   dbName = getNewDbName();
+  if (!dbName) return;
+
   createOrOpenDb(dbName, creationTimeStamp);
   doLog = true;
 
