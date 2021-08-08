@@ -11,12 +11,12 @@ function dumpJsonRecord(key) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
-    db = event.target.result;
+    var db = event.target.result;
     dbReady = true;
 
-    tx = db.transaction(dbObjStoreName, 'readonly');
-    store = tx.objectStore(dbObjStoreName);
-    keyReq = store.get(key);
+    var tx = db.transaction(dbObjStoreName, 'readonly');
+    var store = tx.objectStore(dbObjStoreName);
+    var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
       jsonData = keyReq.result;
       dumpJsonRawData(jsonData);
@@ -30,17 +30,12 @@ function dumpRawData() {
     return;
   }
 
-  console.log("Number of records found=" + allDbKeys.length);
-
-  var dumped = 0;
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (!keyWithinAnalysisRange(key)) continue;
     dumpJsonRecord(key);
     dumped++;
   }
-
-  console.log("Number of records dumped=" + dumped);
 }
 
 
