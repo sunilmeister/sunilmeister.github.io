@@ -324,7 +324,7 @@ function createNewChart() {
 	yaxis = createPressureYaxis(pressureYaxisNum);
 	chartJson.axisY.push(yaxis);
       }
-      paramData.axisYIndex = pressureYaxis;
+      paramData.axisYIndex = pressureYaxisNum;
       chartJson.data.push(paramData);
     } else {
       alert("Cannot plot Peak pressures\nNo data points found!");
