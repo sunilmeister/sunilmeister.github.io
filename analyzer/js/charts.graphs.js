@@ -339,6 +339,40 @@ function createNewChart() {
     }
   }
 
+  if (platYes) {
+    paramData = createCanvasChartData(platValues,timeBased);
+    if (paramData) {
+      paramData.name = "Plateau Pressure";
+      paramData.color = getNextColor();
+      if (pressureYaxisNum == -1) {
+	pressureYaxisNum = nextYaxisNum++;
+	yaxis = createPressureYaxis(pressureYaxisNum);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = pressureYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Plateau pressures\nNo data points found!");
+    }
+  }
+
+  if (peepYes) {
+    paramData = createCanvasChartData(peepValues,timeBased);
+    if (paramData) {
+      paramData.name = "Peep Pressure";
+      paramData.color = getNextColor();
+      if (pressureYaxisNum == -1) {
+	pressureYaxisNum = nextYaxisNum++;
+	yaxis = createPressureYaxis(pressureYaxisNum);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = pressureYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Peep pressures\nNo data points found!");
+    }
+  }
+
   renderNewChart(chartJson);
 }
 
