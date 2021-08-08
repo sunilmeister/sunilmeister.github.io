@@ -26,9 +26,21 @@ var chartTemplate = {
   title:{ text: "" },
   axisX:{ title: "", },
   axisY:[],
-  legend: { cursor: "pointer", },
+  legend: { 
+    cursor: "pointer", 
+    itemclick: toggleDataSeries
+  },
   data: []
 };
+
+function toggleDataSeries(e) {
+  if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+    e.dataSeries.visible = false;
+  } else {
+    e.dataSeries.visible = true;
+  }
+  e.chart.render();
+}
 
 var allCharts = [];
 var breathTimes = [];
