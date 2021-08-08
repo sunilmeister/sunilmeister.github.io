@@ -30,11 +30,17 @@ function dumpRawData() {
     return;
   }
 
+  console.log("Number of records found=" + allDbKeys.length);
+
+  var dumped = 0;
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (!keyWithinAnalysisRange(key)) continue;
     dumpJsonRecord(key);
+    dumped++;
   }
+
+  console.log("Number of records dumped=" + dumped);
 }
 
 

@@ -374,12 +374,12 @@ function gatherStats(jsonData) {
 	  }
 	  if (errorState) numMaintenance++;
 
-          currParamCombo.numBreaths++;
 	  if (!firstBreath && !equalParamCombos(currParamCombo, prevParamCombo)) {
 	    insertUsedParamCombos(currParamCombo);
 	    prevParamCombo = JSON.parse(JSON.stringify(currParamCombo));
             currParamCombo.numBreaths=0;
 	  }
+          currParamCombo.numBreaths++;
 
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
