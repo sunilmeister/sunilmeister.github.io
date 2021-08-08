@@ -69,8 +69,6 @@ function createDatapoints(transitions) {
     }
   }
 
-  console.log("#transitions=" + transitions.length);
-  console.log("#datapoints=" + datapoints.length);
   return datapoints;
 }
 
@@ -83,7 +81,8 @@ function renderCharts() {
   xyPoints.length = 0;
   yDatapoints = createDatapoints(peakValues);
   for (i=0; i<numPoints; i++) {
-    xyPoints.push({"x":breathTimes[i], "y":yDatapoints[i]});
+    xyPoints.push({"x":i, "y":yDatapoints[i]});
+    //xyPoints.push({"x":breathTimes[i], "y":yDatapoints[i]});
   }
 
   var chartData = {
@@ -94,7 +93,6 @@ function renderCharts() {
     "axisYIndex": 1,
     "dataPoints" : xyPoints,
   };
-  console.log("About to render");
   chartTemplate.data.push(chartData);
   var chart = new CanvasJS.Chart("chartContainer", chartTemplate);
   chart.render();
