@@ -101,12 +101,11 @@ function insertUsedParamCombos(combo) {
     if (equalParamCombos(combo,c)) return;
   }
   */
-  usedParamCombos.push(JSON.parse(JSON.stringify(combo)));
+  usedParamCombos.push(createNewInstance(combo));
 }
 
 function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
   for (i=0; i<usedParamCombos.length; i++) {
     combo = usedParamCombos[i];
@@ -380,7 +379,7 @@ function gatherStats(jsonData) {
 
 	  if (!firstBreath && !equalParamCombos(currParamCombo, prevParamCombo)) {
 	    insertUsedParamCombos(currParamCombo);
-	    prevParamCombo = JSON.parse(JSON.stringify(currParamCombo));
+	    prevParamCombo = createNewInstance(currParamCombo);
             currParamCombo.numBreaths=0;
 	  }
           currParamCombo.numBreaths++;
@@ -599,7 +598,22 @@ function gatherAndDisplayStats() {
   }
 }
 
+var tablesContructed = false;
 function initStats() {
+  table = document.getElementById("statsComboTable");
+  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
+
+  table = document.getElementById("statsMinMaxTable");
+  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
+
+  table = document.getElementById("statsParamTable");
+  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
+
+  table = document.getElementById("statsMiscTable");
+  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
+
+  tablesConstructed = false;
+
   numInitialEntry = 0;
   numStandbyEntry = 0;
   numRunningEntry = 0;
@@ -646,16 +660,16 @@ function initStats() {
   maxTemp = maxDummyValue;
 }
 
-var tablesContructed = false;
 function collectStats() {
-  initStats();
-  if (!tablesContructed) {
-    constructStatMinMaxTable();
-    constructStatParamTable();
-    constructStatMiscTable();
-    tablesContructed = true;
-  }
+  if (tablesConstructed) return;
+
+  constructStatMinMaxTable();
+  constructStatParamTable();
+  constructStatMiscTable();
+  tablesContructed = true;
 
   gatherAndDisplayStats();
   displayStats();
+
+  tablesConstructed = true;
 }

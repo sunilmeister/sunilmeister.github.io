@@ -24,7 +24,13 @@ function dumpJsonRecord(key) {
   }
 }
 
+var dataDumped = false;
+function initRawData() {
+  dataDumped = false;
+}
+
 function dumpRawData() {
+  if (dataDumped) return;
   if (allDbKeys.length==0) {
     alert("Selected Session has no data");
     return;
@@ -35,6 +41,8 @@ function dumpRawData() {
     if (!keyWithinAnalysisRange(key)) continue;
     dumpJsonRecord(key);
   }
+
+  dataDumped = true;
 }
 
 

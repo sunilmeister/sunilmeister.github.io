@@ -35,7 +35,9 @@ var peepValues = [];
 
 var tempValues = [];
 
+var chartsConstructed;
 function initCharts() {
+  chartsConstructed = false;
   breathTimes = [];
   vtdelValues = [];
   mvdelValues = [];
@@ -228,6 +230,7 @@ function gatherChartData() {
 }
 
 function createCharts() {
-  initCharts();
+  if (chartsConstructed) return;
   gatherChartData();
+  chartsConstructed = true;
 }

@@ -26,6 +26,10 @@ function validDecimalInteger(num) {
   return false;
 }
 
+function createNewInstance(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 function keyWithinAnalysisRange(key) {
   if (key<analysisStartTime) return false;
   if (key>analysisEndTime) return false;
@@ -260,7 +264,7 @@ function createOrOpenDb(name, timeStamp) {
     db = event.target.result;
 
     // Object stores in databases are where data are stored.
-    let dbObjStore;
+    var dbObjStore;
     if (!db.objectStoreNames.contains(dbObjStoreName)) {
       dbObjStore = db.createObjectStore(dbObjStoreName, {keyPath: dbPrimaryKey});
     } else {
