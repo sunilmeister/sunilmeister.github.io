@@ -1,20 +1,23 @@
 var chartTemplate = {
-	title:{
-		text: "Peak Pressure per Breath"
-	},
-	axisY:[{
-		title: "Pressure",
-		lineColor: "#C24642",
-		tickColor: "#C24642",
-		labelFontColor: "#C24642",
-		titleFontColor: "#C24642",
-		suffix: "cmH20"
-	
-	}],
-	legend: {
-		cursor: "pointer",
-	},
-	data: []
+  title:{
+    text: "Peak Pressure per Breath"
+  },
+  axisX:{
+    title: "Breath Number",
+  },
+
+  axisY:[{
+    title: "Pressure",
+    lineColor: "#C24642",
+    tickColor: "#C24642",
+    labelFontColor: "#C24642",
+    titleFontColor: "#C24642",
+    suffix: " (cm H20)"
+  }],
+  legend: {
+    cursor: "pointer",
+  },
+  data: []
 };
 
 var breathTimes = [];
