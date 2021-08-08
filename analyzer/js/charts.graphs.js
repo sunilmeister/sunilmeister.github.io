@@ -174,8 +174,8 @@ function renderCharts() {
     "dataPoints" : xyPoints,
   };
   console.log("About to render");
+  chartTemplate.data.push(chartData);
   var chart = new CanvasJS.Chart("chartContainer", chartTemplate);
-  chart.data.push(chartData);
   chart.render();
 }
 
