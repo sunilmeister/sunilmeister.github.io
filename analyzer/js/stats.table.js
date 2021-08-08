@@ -304,13 +304,17 @@ function displayStats() {
   el = document.getElementById("tps");
   el.innerHTML=replaceDummyValue(tpss);
 
+  el = document.getElementById("pName");
   if (patientName) {
-    el = document.getElementById("pName");
     el.innerHTML = "Patient Name: " + replaceDummyValue(patientName);
+  } else {
+    el.innerHTML = "Patient Name: UNKNOWN";
   }
+  el = document.getElementById("pInfo");
   if (patientInfo) {
-    el = document.getElementById("pInfo");
     el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo) +"yrs";
+  } else {
+    el.innerHTML = "Patient Info: UNKNOWN";
   }
   el = document.getElementById("altitude");
   el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(altitude);
@@ -441,92 +445,112 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="MBPM") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxMbpm < value) {
-	      maxMbpm = value;
-	    }
-	    if (minMbpm > value) {
-	      minMbpm = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxMbpm < value) {
+	        maxMbpm = value;
+	      }
+	      if (minMbpm > value) {
+	        minMbpm = value;
+	      }
 	    }
 	  }
         } else if (ckey=="SBPM") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxSbpm < value) {
-	      maxSbpm = value;
-	    }
-	    if (minSbpm > value) {
-	      minSbpm = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxSbpm < value) {
+	        maxSbpm = value;
+	      }
+	      if (minSbpm > value) {
+	        minSbpm = value;
+	      }
 	    }
 	  }
         } else if (ckey=="STATIC") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxScomp < value) {
-	      maxScomp = value;
-	    }
-	    if (minScomp > value) {
-	      minScomp = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxScomp < value) {
+	        maxScomp = value;
+	      }
+	      if (minScomp > value) {
+	        minScomp = value;
+	      }
 	    }
 	  }
         } else if (ckey=="DYNAMIC") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxDcomp < value) {
-	      maxDcomp = value;
-	    }
-	    if (minDcomp > value) {
-	      minDcomp = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxDcomp < value) {
+	        maxDcomp = value;
+	      }
+	      if (minDcomp > value) {
+	        minDcomp = value;
+	      }
 	    }
 	  }
         } else if (ckey=="VTDEL") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxVt < value) {
-	      maxVt = value;
-	    }
-	    if (minVt > value) {
-	      minVt = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxVt < value) {
+	        maxVt = value;
+	      }
+	      if (minVt > value) {
+	        minVt = value;
+	      }
 	    }
 	  }
         } else if (ckey=="MVDEL") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxMv < value) {
-	      maxMv = value;
-	    }
-	    if (minMv > value) {
-	      minMv = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxMv < value) {
+	        maxMv = value;
+	      }
+	      if (minMv > value) {
+	        minMv = value;
+	      }
 	    }
 	  }
         } else if (ckey=="PIP") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxPeak < value) {
-	      maxPeak = value;
-	    }
-	    if (minPeak > value) {
-	      minPeak = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxPeak < value) {
+	        maxPeak = value;
+	      }
+	      if (minPeak > value) {
+	        minPeak = value;
+	      }
 	    }
 	  }
         } else if (ckey=="PLAT") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxPlat < value) {
-	      maxPlat = value;
-	    }
-	    if (minPlat > value) {
-	      minPlat = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxPlat < value) {
+	        maxPlat = value;
+	      }
+	      if (minPlat > value) {
+	        minPlat = value;
+	      }
 	    }
 	  }
         } else if (ckey=="MPEEP") {
-	  if ((runningState || errorState) && (value != "--")) {
-	    if (maxPeep < value) {
-	      maxPeep = value;
-	    }
-	    if (minPeep > value) {
-	      minPeep = value;
+	  if (validDecimalInteger(value)) {
+	    if ((runningState || errorState)) {
+	      if (maxPeep < value) {
+	        maxPeep = value;
+	      }
+	      if (minPeep > value) {
+	        minPeep = value;
+	      }
 	    }
 	  }
         } else if (ckey=="TEMP") {
-	  if (maxTemp < value) {
-	    maxTemp = value;
-	  }
-	  if (minTemp > value) {
-	    minTemp = value;
+	  if (validDecimalInteger(value)) {
+	    if (maxTemp < value) {
+	      maxTemp = value;
+	    }
+	    if (minTemp > value) {
+	      minTemp = value;
+	    }
 	  }
         } else if (ckey=="ALT") {
 	    altitude = value + " ft(m)";

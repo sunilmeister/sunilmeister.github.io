@@ -20,6 +20,12 @@ var analysisEndTime = new Date();
 // Misc functions
 // /////////////////////////////////////////////
 
+function validDecimalInteger(num) {
+  str = String(num);
+  if (str.match(/^-?\d+$/)) return true;
+  return false;
+}
+
 function keyWithinAnalysisRange(key) {
   if (key<analysisStartTime) return false;
   if (key>analysisEndTime) return false;

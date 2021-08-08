@@ -191,13 +191,14 @@ function selectErrorWarnings() {
 function selectCharts() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-  alert("Not yet implemented\nWork In Progress...");
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
+
+  createCharts();
 }
 
 function selectRawData() {
