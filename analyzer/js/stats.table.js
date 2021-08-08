@@ -95,10 +95,12 @@ function equalParamCombos(curr, prev) {
 }
 
 function insertUsedParamCombos(combo) {
+  /* insert the sequence as it was found
   for (i=0; i<usedParamCombos.length; i++) {
     c = usedParamCombos[i];
     if (equalParamCombos(combo,c)) return;
   }
+  */
   usedParamCombos.push(JSON.parse(JSON.stringify(combo)));
 }
 
@@ -360,18 +362,25 @@ function gatherStats(jsonData) {
         } else if (ckey=="SPONTANEOUS") {
 	  prevBreathMandatory = (value==1);
         } else if (ckey=="BTOG") {
+
+	  var firstBreath = false;
+	  if ((numMandatory==0) && (numSpontaneous==0)) firstBreath = true;
+	  else firstBreath = false;
+
 	  if (prevBreathMandatory) {
 	    numSpontaneous++ ;
 	  } else {
 	    numMandatory++ ;
 	  }
 	  if (errorState) numMaintenance++;
+
           currParamCombo.numBreaths++;
-	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
+	  if (!firstBreath && !equalParamCombos(currParamCombo, prevParamCombo)) {
 	    insertUsedParamCombos(currParamCombo);
 	    prevParamCombo = JSON.parse(JSON.stringify(currParamCombo));
             currParamCombo.numBreaths=0;
 	  }
+
         } else if (ckey=="ATTENTION") {
 	  if (!attentionState && (value==1)) numWarnings++;
 	  attentionState = (value == 1);
@@ -544,7 +553,10 @@ function statsProcessJsonRecord(key, lastRecord) {
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
       gatherStats(jsonData);
-      if (lastRecord) displayStats();
+      if (lastRecord) {
+        insertUsedParamCombos(currParamCombo);
+	displayStats();
+      }
     }
   }
 }
