@@ -321,7 +321,7 @@ function createNewChart() {
       paramData.color = getNextColor();
       if (!pressureYaxisNum) {
 	pressureYaxisNum = nextYaxisNum++;
-	yaxis = createPressureYaxis(pressureAxisNum);
+	yaxis = createPressureYaxis(pressureYaxisNum);
 	chartJson.axisY.push(yaxis);
       }
       paramData.axisYIndex = pressureYaxis;
