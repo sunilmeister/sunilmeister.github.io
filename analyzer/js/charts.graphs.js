@@ -1,5 +1,4 @@
-function createLineChart() {
-	var chart = new CanvasJS.Chart("chartContainer", {
+var chartTemplate = {
 	title:{
 		text: "Weekly Revenue Analysis for First Quarter"
 	},
@@ -33,7 +32,6 @@ function createLineChart() {
 	},
 	legend: {
 		cursor: "pointer",
-		itemclick: toggleDataSeries
 	},
 	data: [{
 		type: "line",
@@ -98,32 +96,87 @@ function createLineChart() {
 			{ x: new Date(2017, 02, 25), y: 54.2 }
 		]
 	}]
-});
-chart.render();
-
-function toggleDataSeries(e) {
-	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	} else {
-		e.dataSeries.visible = true;
-	}
-	e.chart.render();
-}
-
-}
+};
 
 var breathTimes = [];
+
+var vtdelValues = [];
+var mvdelValues = [];
+var sbpmValues = [];
+var mbpmValues = [];
+var scompValues = [];
+var dcompValues = [];
+
 var peakValues = [];
 var platValues = [];
 var peepValues = [];
+
 var tempValues = [];
 
 function initCharts() {
   breathTimes = [];
+  vtdelValues = [];
+  mvdelValues = [];
+  sbpmValues = [];
+  mbpmValues = [];
+  scompValues = [];
+  dcompValues = [];
   peakValues = [];
   platValues = [];
   peepValues = [];
   tempValues = [];
+}
+
+function createDatapoints(transitions) {
+  var curValue = 0;
+  var curIx = -1;
+
+  if (transitions.length>0) {
+    curValue = transitions[0].value;
+    curIx = 0;
+  }
+
+  var datapoints = [];
+  for (i=0; i<breathTimes.length; i++) {
+    if (curIx==transitions.length-1) {
+      datapoints.push(curValue);
+    } else {
+      if (breathTimes[i] >= transitions[curIx+1] ) {
+	curValue = transitions[curIx++].value;
+        datapoints.push(curValue);
+      } else {
+	datapoints.push(curValue);
+      }
+    }
+  }
+
+  return datapoints;
+}
+
+function renderCharts() {
+  var yDatapoints = [];
+  var xyPoints = [];
+
+  numPoints = breathTimes.length;
+
+  xyPoints.length = 0;
+  yDatapoints = createDatapoints(peakValues);
+  for (i=0; i<numPoints; i++) {
+    xyPoints.push({"x":breathTimes[i], "y":yDatapoints[i]});
+  }
+
+  var chartData = {
+    "type": "line",
+    "name": "PEAK PRESSURE",
+    "color": "#369EAD",
+    "showInLegend": true,
+    "axisYIndex": 1,
+    "dataPoints" : xyPoints,
+  };
+  console.log("About to render");
+  var chart = new CanvasJS.Chart("chartContainer", chartTemplate);
+  chart.data.push(chartData);
+  chart.render();
 }
 
 function chartProcessData(jsonData) {
@@ -171,21 +224,27 @@ function chartProcessData(jsonData) {
 	  }
         } else if (ckey=="MBPM") {
 	  if (validDecimalInteger(value)) {
+	    mbpmValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="SBPM") {
 	  if (validDecimalInteger(value)) {
+	    sbpmValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="STATIC") {
 	  if (validDecimalInteger(value)) {
+	    scompValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="DYNAMIC") {
 	  if (validDecimalInteger(value)) {
+	    dcompValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="VTDEL") {
 	  if (validDecimalInteger(value)) {
+	    vtdelValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="MVDEL") {
 	  if (validDecimalInteger(value)) {
+	    mvdelValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="PIP") {
 	  if (validDecimalInteger(value)) {
@@ -226,6 +285,7 @@ function chartProcessJsonRecord(key, lastRecord) {
       var jsonData = keyReq.result;
       chartProcessData(jsonData);
       if (lastRecord) {
+	renderCharts();
       }
     }
   }
