@@ -43,7 +43,7 @@ function toggleDataSeries(e) {
   e.chart.render();
 }
 
-var allCharts = [];
+var chart = null;
 var breathTimes = [];
 
 var vtdelValues = [];
@@ -63,7 +63,7 @@ var chartsDataGathered = false;
 
 function initCharts() {
   chartsDataGathered = false;
-  allCharts = [];
+  chart = null;
 
   breathTimes = [];
   vtdelValues = [];
@@ -137,8 +137,7 @@ function createCanvasChartData(valueArray, timeBased) {
 }
 
 function renderNewChart(chartJson) {
-  var chart = new CanvasJS.Chart("chartContainer", chartJson);
-  allCharts.push(chart);
+  chart = new CanvasJS.Chart("chartContainer", chartJson);
   chart.render();
 }
 
