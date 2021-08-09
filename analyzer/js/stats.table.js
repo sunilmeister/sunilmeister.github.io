@@ -377,6 +377,7 @@ function gatherStats(jsonData) {
 	    }
 	    expectWarningMsg = false;
 	    expectErrorMsg = false;
+	    l1 = l2 = l3 = l4 = "";
 	  }
 	}
 
