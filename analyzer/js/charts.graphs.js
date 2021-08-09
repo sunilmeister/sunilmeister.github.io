@@ -115,8 +115,8 @@ function createCanvasChartData(valueArray, timeBased) {
   for (i=0; i<numPoints; i++) {
     if (timeBased) {
       ms = breathTimes[i] - breathTimes[0];
-      ms = Math.round(ms/1000);
-      xyPoints.push({"x":ms, "y":yDatapoints[i]});
+      sec = Math.round(ms/1000);
+      xyPoints.push({"x":sec, "y":yDatapoints[i]});
     } else {
       xyPoints.push({"x":i, "y":yDatapoints[i]});
     }
@@ -276,7 +276,38 @@ function createPressureYaxis(num) {
   return createNewInstance(yaxis);
 }
 
+function createVtYaxis(num) {
+  var color = getNextColor();
+  var yaxis = {
+    title: "Tidal Volume",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    suffix: " (ml)"
+  };
+  return createNewInstance(yaxis);
+}
+
+function createMvYaxis(num) {
+  var color = getNextColor();
+  var yaxis = {
+    title: "Minute Volume",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    suffix: " (l/min)"
+  };
+  return createNewInstance(yaxis);
+}
+
 function createNewChart() {
+  if (!chartsDataGathered) {
+    alert("Data Gathering in progressing\nPlease try again in a short while");
+    return;
+  }
+
   var elm;
   elm = document.getElementById("chartTitle");
   title = elm.value;
@@ -315,11 +346,15 @@ function createNewChart() {
   }
 
   nextYaxisNum = 0;
+  pressureYaxisNum = -1;
+  vtYaxisNum = -1;
+  mvYaxisNum = -1;
+  bpmYaxisNum = -1;
+
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
 
-  pressureYaxisNum = -1;
   if (peakYes) {
     paramData = createCanvasChartData(peakValues,timeBased);
     if (paramData) {
@@ -371,7 +406,26 @@ function createNewChart() {
     }
   }
 
-  renderNewChart(chartJson);
+  if (vtdelYes) {
+    paramData = createCanvasChartData(vtdelValues,timeBased);
+    if (paramData) {
+      paramData.name = "Tidal Volume";
+      paramData.color = getNextColor();
+      if (vtYaxisNum == -1) {
+	vtYaxisNum = nextYaxisNum++;
+	yaxis = createVtYaxis(vtYaxisNum);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = vtYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Peep pressures\nNo data points found!");
+    }
+  }
+
+  if ((pressureYaxisNum != -1) || (vtYaxisNum != -1) || (mvYaxisNum != -1) || (bpmYaxisNum != -1)) {
+    renderNewChart(chartJson);
+  }
 }
 
 function createCharts() {
