@@ -191,10 +191,10 @@ function processDweet(d) {
   }
 
   if (expectWarningMsg || expectErrorMsg) {
-    if (d.content['L1']) l1 = d.content['L1'];
-    if (d.content['L2']) l2 = d.content['L2'];
-    if (d.content['L3']) l3 = d.content['L3'];
-    if (d.content['L4']) l4 = d.content['L4'];
+    if (d.content['L1']) l1 = new String(d.content['L1']);
+    if (d.content['L2']) l2 = new String(d.content['L2']);
+    if (d.content['L3']) l3 = new String(d.content['L3']);
+    if (d.content['L4']) l4 = new String(d.content['L4']);
   }
 
   if (!expectWarningMsg && !expectErrorMsg && !initialState) {
