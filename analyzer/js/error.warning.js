@@ -1,6 +1,6 @@
 function displayJsonErrorWarning(scrollbox, jsonData) {
   var newElement = document.createElement('p');
-  newElement.innerHTML = jsonData.created.toString();
+  newElement.innerHTML = jsonData.created.toLocaleDateString();
   scrollbox.appendChild(newElement);
 
   if (jsonData.L1) {
