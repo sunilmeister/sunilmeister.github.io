@@ -581,6 +581,7 @@ function gatherStats(jsonData) {
 	    }
 	  }
         } else if (ckey=="MPEEP") {
+	  console.log("Found MPEEP=" + value);
 	  if (validDecimalInteger(value)) {
 	    if ((runningState || errorState)) {
 	      if (maxPeep < value) {
