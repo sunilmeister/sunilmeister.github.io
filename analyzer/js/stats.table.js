@@ -40,8 +40,6 @@ var attentionState = false;
 // collect error and warning messages
 var expectWarningMsg = false;
 var expectErrorMsg = false;
-var gatherWarningMsg = false;
-var gatherErrorMsg = false;
 var l1 = "";
 var l2 = "";
 var l3 = "";
@@ -363,7 +361,7 @@ function gatherStats(jsonData) {
       for (var ckey in jsonData.content) {
 	value = jsonData.content[ckey];
         if ((ckey!="L1") || (ckey!='L2')|| (ckey!='L3')|| (ckey!='L4')) {
-	  if (gatherErrorMsg || gatherWarningMsg) {
+	  if (expectErrorMsg || expectWarningMsg) {
 	    var msg = {
 	      'created' : jsonData.created,
 	      'L1' : l1,
@@ -374,13 +372,11 @@ function gatherStats(jsonData) {
 	    console.log("Storing");
 	    console.log(msg);
 
-	    if (gatherWarningMsg) {
+	    if (expectWarningMsg) {
 	      warningMsgs.push(createNewInstance(msg));
 	    } else {
 	      errorngMsgs.push(createNewInstance(msg));
 	    }
-	    gatherWarningMsg = false;
-	    gatherErrorMsg = false;
 	    expectWarningMsg = false;
 	    expectErrorMsg = false;
 	  }
@@ -389,26 +385,18 @@ function gatherStats(jsonData) {
         if (ckey=="L1") {
 	  if (expectWarningMsg || expectErrorMsg) {
 	    l1 = jsonData.content['L1'];
-	    gatherWarningMsg = expectWarningMsg;
-	    gatherErrorMsg = expectErrorMsg;
 	  }
         } else if (ckey=="L2") {
 	  if (expectWarningMsg || expectErrorMsg) {
 	    l2 = jsonData.content['L2'];
-	    gatherWarningMsg = expectWarningMsg;
-	    gatherErrorMsg = expectErrorMsg;
 	  }
         } else if (ckey=="L3") {
 	  if (expectWarningMsg || expectErrorMsg) {
 	    l3 = jsonData.content['L3'];
-	    gatherWarningMsg = expectWarningMsg;
-	    gatherErrorMsg = expectErrorMsg;
 	  }
         } else if (ckey=="L4") {
 	  if (expectWarningMsg || expectErrorMsg) {
 	    l4 = jsonData.content['L4'];
-	    gatherWarningMsg = expectWarningMsg;
-	    gatherErrorMsg = expectErrorMsg;
 	  }
         } else if (ckey=="INITIAL") {
 	  if ((value==1) && !initialState) numInitialEntry++ ;
@@ -726,8 +714,6 @@ function initStats() {
 
   expectWarningMsg = false;
   expectErrorMsg = false;
-  gatherWarningMsg = false;
-  gatherErrorMsg = false;
   l1 = "";
   l2 = "";
   l3 = "";
