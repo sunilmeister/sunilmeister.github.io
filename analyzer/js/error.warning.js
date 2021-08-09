@@ -1,6 +1,6 @@
 function displayJsonErrorWarning(scrollbox, jsonData) {
   var newElement = document.createElement('p');
-  newElement.innerHTML = "DateTime < " dateToStr(jsonData.created) " >";
+  newElement.innerHTML = "DateTime < " + dateToStr(jsonData.created) + " >";
   scrollbox.appendChild(newElement);
 
   if (jsonData.L1) {
