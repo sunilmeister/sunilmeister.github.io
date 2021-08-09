@@ -197,14 +197,6 @@ function processDweet(d) {
     if (d.content['L4']) l4 = true;
   }
 
-  if (!expectWarningMsg && !expectErrorMsg && !initialState) {
-    // Get rid of messages except in INITIAL state or when the attention is ON
-    delete d.content['L1'];
-    delete d.content['L2'];
-    delete d.content['L3'];
-    delete d.content['L4'];
-  }
-
   if (expectWarningMsg || expectErrorMsg) {
     if (l1 && l2 && l3 && l4) {
       expectWarningMsg = false;
@@ -213,6 +205,13 @@ function processDweet(d) {
     }
   }
 
+  if (!expectWarningMsg && !expectErrorMsg && !initialState) {
+    // Get rid of messages except in INITIAL state or when the attention is ON
+    delete d.content['L1'];
+    delete d.content['L2'];
+    delete d.content['L3'];
+    delete d.content['L4'];
+  }
 
   // prune the content if same as previous
   for (let key in d.content) {
