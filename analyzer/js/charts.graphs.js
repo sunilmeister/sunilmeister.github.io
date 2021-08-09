@@ -1,5 +1,4 @@
 const graphColors = [
-  "Black",
   "Maroon",
   "Purple",
   "Red",

@@ -494,106 +494,85 @@ function gatherStats(jsonData) {
 	  }
         } else if (ckey=="MBPM") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxMbpm < value) {
-	        maxMbpm = value;
-	      }
-	      if (minMbpm > value) {
-	        minMbpm = value;
-	      }
+	    if (maxMbpm < value) {
+	      maxMbpm = value;
+	    }
+	    if (minMbpm > value) {
+	      minMbpm = value;
 	    }
 	  }
         } else if (ckey=="SBPM") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxSbpm < value) {
-	        maxSbpm = value;
-	      }
-	      if (minSbpm > value) {
-	        minSbpm = value;
-	      }
+	    if (maxSbpm < value) {
+	      maxSbpm = value;
+	    }
+	    if (minSbpm > value) {
+	      minSbpm = value;
 	    }
 	  }
         } else if (ckey=="STATIC") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxScomp < value) {
-	        maxScomp = value;
-	      }
-	      if (minScomp > value) {
-	        minScomp = value;
-	      }
+	    if (maxScomp < value) {
+	      maxScomp = value;
+	    }
+	    if (minScomp > value) {
+	      minScomp = value;
 	    }
 	  }
         } else if (ckey=="DYNAMIC") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxDcomp < value) {
-	        maxDcomp = value;
-	      }
-	      if (minDcomp > value) {
-	        minDcomp = value;
-	      }
+	    if (maxDcomp < value) {
+	      maxDcomp = value;
+	    }
+	    if (minDcomp > value) {
+	      minDcomp = value;
 	    }
 	  }
         } else if (ckey=="VTDEL") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxVt < value) {
-	        maxVt = value;
-	      }
-	      if (minVt > value) {
-	        minVt = value;
-	      }
+	    if (maxVt < value) {
+	      maxVt = value;
+	    }
+	    if (minVt > value) {
+	      minVt = value;
 	    }
 	  }
         } else if (ckey=="MVDEL") {
 	  if (validFloatNumber(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxMv < value) {
-	        maxMv = value;
-	      }
-	      if (minMv > value) {
-	        minMv = value;
-	      }
+	    if (maxMv < value) {
+	      maxMv = value;
+	    }
+	    if (minMv > value) {
+	      minMv = value;
 	    }
 	  }
         } else if (ckey=="PIP") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxPeak < value) {
-	        maxPeak = value;
-	      }
-	      if (minPeak > value) {
-	        minPeak = value;
-	      }
+	    if (maxPeak < value) {
+	      maxPeak = value;
+	    }
+	    if (minPeak > value) {
+	      minPeak = value;
 	    }
 	  }
         } else if (ckey=="PLAT") {
 	  if (validDecimalInteger(value)) {
-	    if ((runningState || errorState)) {
-	      if (maxPlat < value) {
-	        maxPlat = value;
-	      }
-	      if (minPlat > value) {
-	        minPlat = value;
-	      }
+	    if (maxPlat < value) {
+	      maxPlat = value;
+	    }
+	    if (minPlat > value) {
+	      minPlat = value;
 	    }
 	  }
         } else if (ckey=="MPEEP") {
-	  console.log("Found MPEEP=" + value);
 	  if (validDecimalInteger(value)) {
-	    console.log("Valid MPEEP value");
-	    if ((runningState || errorState)) {
-	      if (maxPeep < value) {
-	        maxPeep = value;
-	      }
-	      if (minPeep > value) {
-	        minPeep = value;
-	      }
+	    if (maxPeep < value) {
+	      maxPeep = value;
+	    }
+	    if (minPeep > value) {
+	      minPeep = value;
 	    }
 	  }
-	  console.log("Set MPEEP=" + maxPeep + " " + minPeep);
         } else if (ckey=="TEMP") {
 	  if (validDecimalInteger(value)) {
 	    if (maxTemp < value) {
