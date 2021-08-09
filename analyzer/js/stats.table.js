@@ -601,7 +601,7 @@ function statsProcessJsonRecord(key, lastRecord) {
       gatherStats(jsonData);
       if (lastRecord) {
         if (!equalParamCombos(currParamCombo, prevParamCombo)) {
-          insertUsedParamCombos(currParamCombo);
+          insertUsedParamCombos(prevParamCombo);
 	}
 	displayStats();
       }
