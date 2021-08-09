@@ -117,12 +117,20 @@ function deleteAllDbs() {
   }
 }
 
+function initState() {
+  prevContent = {}; 
+  initialState = false;
+  expectErrorMsg = false;
+  expectWarningMsg = false;
+}
+
 function createNewDb() {
   dbName = getNewDbName();
   if (!dbName) return;
 
   createOrOpenDb(dbName, creationTimeStamp);
   doLog = true;
+  initState();
 
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);
