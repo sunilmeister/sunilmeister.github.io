@@ -612,7 +612,7 @@ function statsProcessJsonRecord(key, lastRecord) {
       var jsonData = keyReq.result;
       gatherStats(jsonData);
       if (lastRecord) {
-	if (currParamCombo.numBreaths) {
+        if (!equalParamCombos(currParamCombo, prevParamCombo)) {
           insertUsedParamCombos(currParamCombo);
 	}
 	displayStats();
