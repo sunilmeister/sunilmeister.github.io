@@ -122,6 +122,7 @@ function initState() {
   initialState = false;
   expectErrorMsg = false;
   expectWarningMsg = false;
+  l1 = l2 = l3 = l4 = "" ;
 }
 
 function createNewDb() {
@@ -154,6 +155,10 @@ var prevContent = {};
 var initialState = false;
 var expectErrorMsg = false;
 var expectWarningMsg = false;
+var l1 = "";
+var l2 = "";
+var l3 = "";
+var l4 = "";
 
 function processDweet(d) {
   if (!doLog) return ;
@@ -168,22 +173,14 @@ function processDweet(d) {
   }
 
   if (expectWarningMsg || expectErrorMsg) {
-    console.log("Expecting WMSG");
-    console.log(d);
-    if (!(d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4'])) {
-      prevContent['L1'] = "" ;
-      prevContent['L2'] = "" ;
-      prevContent['L3'] = "" ;
-      prevContent['L4'] = "" ;
-      expectWarningMsg = false;
-      expectErrorMsg = false;
-    }
+    if (d.content['L1']) l1 = d.content['L1'];
+    if (d.content['L2']) l2 = d.content['L2'];
+    if (d.content['L3']) l3 = d.content['L3'];
+    if (d.content['L4']) l4 = d.content['L4'];
   }
 
   if (d.content['WMSG']) {
     expectWarningMsg = true;
-    console.log("Found WMSG");
-    console.log(d);
   }
 
   if (d.content['EMSG']) {
@@ -196,6 +193,19 @@ function processDweet(d) {
     delete d.content['L2'];
     delete d.content['L3'];
     delete d.content['L4'];
+  }
+
+  if (expectWarningMsg || expectErrorMsg) {
+    if (l1 && l2 && l3 && l4) {
+      prevContent['L1'] = "" ;
+      prevContent['L2'] = "" ;
+      prevContent['L3'] = "" ;
+      prevContent['L4'] = "" ;
+      l1 = l2 = l3 = l4 = "" ;
+
+      expectWarningMsg = false;
+      expectErrorMsg = false;
+    }
   }
 
   // prune the content if same as previous
