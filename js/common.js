@@ -70,7 +70,7 @@ function strToDate(dtStr) {
 }
 
 function dateToStr(d) {
-  if (!date) return null;
+  if (!d) return null;
   date = Date(d);
 
   var dd = String(date. getDate()). padStart(2, '0');
