@@ -122,7 +122,7 @@ function initState() {
   initialState = false;
   expectErrorMsg = false;
   expectWarningMsg = false;
-  l1 = l2 = l3 = l4 = "" ;
+  l1 = l2 = l3 = l4 = false ;
 }
 
 function createNewDb() {
@@ -155,10 +155,10 @@ var prevContent = {};
 var initialState = false;
 var expectErrorMsg = false;
 var expectWarningMsg = false;
-var l1 = "";
-var l2 = "";
-var l3 = "";
-var l4 = "";
+var l1 = false;
+var l2 = false;
+var l3 = false;
+var l4 = false;
 
 function processDweet(d) {
   if (!doLog) return ;
@@ -178,7 +178,7 @@ function processDweet(d) {
     prevContent['L2'] = "" ;
     prevContent['L3'] = "" ;
     prevContent['L4'] = "" ;
-    l1 = l2 = l3 = l4 = "" ;
+    l1 = l2 = l3 = l4 = false ;
   }
 
   if (d.content['EMSG'] !==null) {
@@ -187,14 +187,14 @@ function processDweet(d) {
     prevContent['L2'] = "" ;
     prevContent['L3'] = "" ;
     prevContent['L4'] = "" ;
-    l1 = l2 = l3 = l4 = "" ;
+    l1 = l2 = l3 = l4 = false ;
   }
 
   if (expectWarningMsg || expectErrorMsg) {
-    if (d.content['L1']) l1 = new String(d.content['L1']);
-    if (d.content['L2']) l2 = new String(d.content['L2']);
-    if (d.content['L3']) l3 = new String(d.content['L3']);
-    if (d.content['L4']) l4 = new String(d.content['L4']);
+    if (d.content['L1']) l1 = true;
+    if (d.content['L2']) l2 = true;
+    if (d.content['L3']) l3 = true;
+    if (d.content['L4']) l4 = true;
   }
 
   if (!expectWarningMsg && !expectErrorMsg && !initialState) {
@@ -209,6 +209,7 @@ function processDweet(d) {
     if (l1 && l2 && l3 && l4) {
       expectWarningMsg = false;
       expectErrorMsg = false;
+      l1 = l2 = l3 = l4 = false ;
     }
   }
 
