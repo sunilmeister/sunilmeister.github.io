@@ -263,8 +263,7 @@ function gatherChartData() {
   }
 }
 
-function createPressureYaxis(num) {
-  var color = getNextColor();
+function createPressureYaxis(num, color) {
   var yaxis = {
     title: "Pressure",
     lineColor: color,
@@ -276,8 +275,7 @@ function createPressureYaxis(num) {
   return createNewInstance(yaxis);
 }
 
-function createVtYaxis(num) {
-  var color = getNextColor();
+function createVtYaxis(num, color) {
   var yaxis = {
     title: "Tidal Volume",
     lineColor: color,
@@ -289,8 +287,7 @@ function createVtYaxis(num) {
   return createNewInstance(yaxis);
 }
 
-function createMvYaxis(num) {
-  var color = getNextColor();
+function createMvYaxis(num, color) {
   var yaxis = {
     title: "Minute Volume",
     lineColor: color,
@@ -362,7 +359,7 @@ function createNewChart() {
       paramData.color = getNextColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
-	yaxis = createPressureYaxis(pressureYaxisNum);
+	yaxis = createPressureYaxis(pressureYaxisNum, paramData.color);
 	chartJson.axisY.push(yaxis);
       }
       paramData.axisYIndex = pressureYaxisNum;
@@ -379,7 +376,7 @@ function createNewChart() {
       paramData.color = getNextColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
-	yaxis = createPressureYaxis(pressureYaxisNum);
+	yaxis = createPressureYaxis(pressureYaxisNum, paramData.color);
 	chartJson.axisY.push(yaxis);
       }
       paramData.axisYIndex = pressureYaxisNum;
@@ -396,7 +393,7 @@ function createNewChart() {
       paramData.color = getNextColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
-	yaxis = createPressureYaxis(pressureYaxisNum);
+	yaxis = createPressureYaxis(pressureYaxisNum, paramData.color);
 	chartJson.axisY.push(yaxis);
       }
       paramData.axisYIndex = pressureYaxisNum;
@@ -413,13 +410,64 @@ function createNewChart() {
       paramData.color = getNextColor();
       if (vtYaxisNum == -1) {
 	vtYaxisNum = nextYaxisNum++;
-	yaxis = createVtYaxis(vtYaxisNum);
+	yaxis = createVtYaxis(vtYaxisNum, paramData.color);
 	chartJson.axisY.push(yaxis);
       }
       paramData.axisYIndex = vtYaxisNum;
       chartJson.data.push(paramData);
     } else {
-      alert("Cannot plot Peep pressures\nNo data points found!");
+      alert("Cannot plot Tidal Volume\nNo data points found!");
+    }
+  }
+
+  if (mvdelYes) {
+    paramData = createCanvasChartData(mvdelValues,timeBased);
+    if (paramData) {
+      paramData.name = "Minute Volume";
+      paramData.color = getNextColor();
+      if (mvYaxisNum == -1) {
+	mvYaxisNum = nextYaxisNum++;
+	yaxis = createMvYaxis(mvYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = mvYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Minute Volume\nNo data points found!");
+    }
+  }
+
+  if (mbpmYes) {
+    paramData = createCanvasChartData(mbpmValues,timeBased);
+    if (paramData) {
+      paramData.name = "Mandatory BPM";
+      paramData.color = getNextColor();
+      if (bpmYaxisNum == -1) {
+	bpmYaxisNum = nextYaxisNum++;
+	yaxis = createBpmYaxis(bpmYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = bpmYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Mandatory BPM\nNo data points found!");
+    }
+  }
+
+  if (sbpmYes) {
+    paramData = createCanvasChartData(sbpmValues,timeBased);
+    if (paramData) {
+      paramData.name = "Spontaneous BPM";
+      paramData.color = getNextColor();
+      if (bpmYaxisNum == -1) {
+	bpmYaxisNum = nextYaxisNum++;
+	yaxis = createBpmYaxis(bpmYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = bpmYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Spontaneous BPM\nNo data points found!");
     }
   }
 
