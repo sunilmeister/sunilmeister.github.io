@@ -360,7 +360,7 @@ function gatherStats(jsonData) {
     if (key=='content') {
       for (var ckey in jsonData.content) {
 	value = jsonData.content[ckey];
-        if ((ckey!="L1") || (ckey!='L2')|| (ckey!='L3')|| (ckey!='L4')) {
+        if (l1 && l2 && l3 && l4) {
 	  if (expectErrorMsg || expectWarningMsg) {
 	    var msg = {
 	      'created' : jsonData.created,
@@ -384,19 +384,19 @@ function gatherStats(jsonData) {
 
         if (ckey=="L1") {
 	  if (expectWarningMsg || expectErrorMsg) {
-	    l1 = jsonData.content['L1'];
+	    if (!l1) l1 = jsonData.content['L1'];
 	  }
         } else if (ckey=="L2") {
 	  if (expectWarningMsg || expectErrorMsg) {
-	    l2 = jsonData.content['L2'];
+	    if (!l2) l2 = jsonData.content['L2'];
 	  }
         } else if (ckey=="L3") {
 	  if (expectWarningMsg || expectErrorMsg) {
-	    l3 = jsonData.content['L3'];
+	    if (!l3) l3 = jsonData.content['L3'];
 	  }
         } else if (ckey=="L4") {
 	  if (expectWarningMsg || expectErrorMsg) {
-	    l4 = jsonData.content['L4'];
+	    if (!l4) l4 = jsonData.content['L4'];
 	  }
         } else if (ckey=="INITIAL") {
 	  if ((value==1) && !initialState) numInitialEntry++ ;
