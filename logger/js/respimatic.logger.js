@@ -172,7 +172,7 @@ function processDweet(d) {
     initialState = false;
   }
 
-  if (d.content['WMSG']) {
+  if (d.content['WMSG'] !== null) {
     expectWarningMsg = true;
     prevContent['L1'] = "" ;
     prevContent['L2'] = "" ;
@@ -181,7 +181,7 @@ function processDweet(d) {
     l1 = l2 = l3 = l4 = "" ;
   }
 
-  if (d.content['EMSG']) {
+  if (d.content['EMSG'] !==null) {
     expectErrorMsg = true;
     prevContent['L1'] = "" ;
     prevContent['L2'] = "" ;
