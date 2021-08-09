@@ -42,9 +42,9 @@ function toggleDataSeries(e) {
 }
 
 var allCharts = [];
-var chart = null;
-var breathTimes = [];
+var chartNum = 1;
 
+var breathTimes = [];
 var vtdelValues = [];
 var mvdelValues = [];
 var sbpmValues = [];
@@ -62,8 +62,8 @@ var chartsDataGathered = false;
 
 function initCharts() {
   chartsDataGathered = false;
-  chart = null;
   allCharts = [];
+  chartNum = 1;
 
   breathTimes = [];
   vtdelValues = [];
@@ -140,7 +140,16 @@ function createCanvasChartData(valueArray, timeBased) {
 }
 
 function renderNewChart(chartJson) {
-  chart = new CanvasJS.Chart("chartContainer", chartJson);
+  chartDivId = "chart" + chartNum++;
+  chartDiv = document.createElement("div");
+  chartDiv.id = chartDivId;
+  chartDiv.height = "400px" ;
+
+  container = document.getElementById("chartContainer");
+  container.appendChild(chartDiv);
+
+  var chart = new CanvasJS.Chart(chartDiv, chartJson);
+  allCharts.push(chart);
   chart.render();
 }
 
