@@ -414,9 +414,10 @@ function gatherStats(jsonData) {
 	  prevBreathMandatory = (value==1);
         } else if (ckey=="BTOG") {
 
-	  var firstBreath = false;
-	  if ((numMandatory==0) && (numSpontaneous==0)) firstBreath = true;
-	  else firstBreath = false;
+	  var firstBreath = ((numMandatory==0) && (numSpontaneous==0));
+	  if (firstBreath) {
+	    prevParamCombo = createNewInstance(currParamCombo);
+	  }
 
 	  if (prevBreathMandatory) {
 	    numSpontaneous++ ;
@@ -425,7 +426,7 @@ function gatherStats(jsonData) {
 	  }
 	  if (errorState) numMaintenance++;
 
-	  if (!firstBreath && !equalParamCombos(currParamCombo, prevParamCombo)) {
+	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
 	    insertUsedParamCombos(currParamCombo);
 	    prevParamCombo = createNewInstance(currParamCombo);
             currParamCombo.numBreaths=0;
