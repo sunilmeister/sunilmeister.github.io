@@ -299,6 +299,18 @@ function createMvYaxis(num, color) {
   return createNewInstance(yaxis);
 }
 
+function createBpmYaxis(num, color) {
+  var yaxis = {
+    title: "Breaths per Min",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    suffix: " (bpm)"
+  };
+  return createNewInstance(yaxis);
+}
+
 function createNewChart() {
   if (!chartsDataGathered) {
     alert("Data Gathering in progressing\nPlease try again in a short while");
