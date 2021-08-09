@@ -69,8 +69,9 @@ function strToDate(dtStr) {
   return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
 }
 
-function dateToStr(date) {
+function dateToStr(d) {
   if (!date) return null;
+  date = Date(d);
 
   var dd = String(date. getDate()). padStart(2, '0');
   var mm = String(date. getMonth() + 1). padStart(2, '0'); //January is 0!

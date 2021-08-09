@@ -369,8 +369,6 @@ function gatherStats(jsonData) {
 	      'L3' : l3,
 	      'L4' : l4
 	    };
-	    console.log("Storing");
-	    console.log(msg);
 
 	    if (expectWarningMsg) {
 	      warningMsgs.push(createNewInstance(msg));
