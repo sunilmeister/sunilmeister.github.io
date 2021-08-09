@@ -373,7 +373,7 @@ function gatherStats(jsonData) {
 	    if (expectWarningMsg) {
 	      warningMsgs.push(createNewInstance(msg));
 	    } else {
-	      errorngMsgs.push(createNewInstance(msg));
+	      errorMsgs.push(createNewInstance(msg));
 	    }
 	    expectWarningMsg = false;
 	    expectErrorMsg = false;
