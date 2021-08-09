@@ -1,7 +1,8 @@
 function displayJsonErrorWarning(scrollbox, jsonData) {
   var newElement = document.createElement('p');
   newElement.innerHTML = "DateTime: " + dateToStr(jsonData.created);
-  newElement.style.fontSize = "large" ;
+  newElement.style.backgroundColor = "#1d85ad" ;
+  newElement.style.color = "white" ;
   scrollbox.appendChild(newElement);
 
   if (jsonData.L1) {
