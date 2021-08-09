@@ -1,4 +1,4 @@
-function dumpJsonRawData(jsonData) {
+function displayJsonRawData(jsonData) {
     var scrollbox = document.getElementById('scrollRawDataDiv');
 
     var newElement = document.createElement('p');
@@ -7,7 +7,7 @@ function dumpJsonRawData(jsonData) {
     scrollbox.appendChild(newElement);
 }
 
-function dumpJsonRecord(key) {
+function displayJsonRecord(key) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
@@ -19,20 +19,20 @@ function dumpJsonRecord(key) {
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
       jsonData = keyReq.result;
-      dumpJsonRawData(jsonData);
+      displayJsonRawData(jsonData);
     }
   }
 }
 
-var dataDumped = false;
+var dataDisplayed = false;
 function initRawDump() {
   var scrollbox = document.getElementById('scrollRawDataDiv');
   scrollbox.innerHTML = "" ;
-  dataDumped = false;
+  dataDisplayed = false;
 }
 
-function dumpRawData() {
-  if (dataDumped) return;
+function displayRawData() {
+  if (dataDisplayed) return;
   if (allDbKeys.length==0) {
     alert("Selected Session has no data");
     return;
@@ -41,10 +41,10 @@ function dumpRawData() {
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (!keyWithinAnalysisRange(key)) continue;
-    dumpJsonRecord(key);
+    displayJsonRecord(key);
   }
 
-  dataDumped = true;
+  dataDisplayed = true;
 }
 
 

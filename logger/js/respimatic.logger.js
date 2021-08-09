@@ -143,8 +143,9 @@ function displayTweet(d) {
 }
 
 var prevContent = {}; 
-var attentionState = false;
 var initialState = false;
+var expectErrorMsg = false;
+var expectWarningMsg = false;
 
 function processDweet(d) {
   if (!doLog) return ;
@@ -158,18 +159,27 @@ function processDweet(d) {
     initialState = false;
   }
 
-  if (d.content['ATTENTION'] == "1") {
-    attentionState = true;
-  } else if (d.content['ATTENTION'] == "0") {
-    attentionState = false;
+  if (d.content['WMSG']) {
+    expectWarningMsg = true;
   }
 
-  if (!attentionState && !initialState) {
+  if (d.content['EMSG']) {
+    expectErrorMsg = true;
+  }
+
+  if (!expectWarningMsg && !expectErrorMsg && !initialState) {
     // Get rid of messages except in INITIAL state or when the attention is ON
     delete d.content['L1'];
     delete d.content['L2'];
     delete d.content['L3'];
     delete d.content['L4'];
+  }
+
+  if (expectingWarningMsg || expectingErrorMsg) {
+    if ( d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4']) {
+      expectWarningMsg = false;
+      expectErrorMsg = false;
+    }
   }
 
   // prune the content if same as previous

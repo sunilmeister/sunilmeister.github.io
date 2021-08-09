@@ -129,6 +129,7 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
+//return true;
   if (dbReady && db && dbName) return true;
 
   if (!dbName) {
@@ -179,13 +180,14 @@ function selectStats() {
 function selectErrorWarnings() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-  alert("Not yet implemented\nWork In Progress...");
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "block";
+
+  displayErrorWarning();
 }
 
 function selectCharts() {
@@ -211,14 +213,18 @@ function selectRawData() {
   document.getElementById("rawDataDiv").style.display = "block";
   document.getElementById("errorWarningDiv").style.display = "none";
 
-  dumpRawData();
+  displayRawData();
 }
 
 function resetAnalysisData() {
   initStats();
+  initCharts();
+  initRawDump();
+  initErrorWarning();
 }
 
 function checkValidAnalysisDuration() {
+//return true;
   var diff = analysisEndTime - analysisStartTime;
   if (diff<=0) {
     alert("Analysis EndTime must be greater than StartTime");
@@ -313,7 +319,7 @@ window.onload = function() {
     timeFormat: "HH:MM:SS"
   });
 
-  initStats();
+  resetAnalysisData();
   selectSession();
 }
 

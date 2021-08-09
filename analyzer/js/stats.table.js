@@ -5,7 +5,7 @@ var prevBreathMandatory = true;
 var currBreathMandatory = true;
 
 var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
-var numWarnings;
+var numWarnings, numErrors;
 
 var patientName, patientInfo;
 var numMandatory, numSpontaneous, numMaintenance;
@@ -36,6 +36,18 @@ var standbyState = false;
 var runningState = false;
 var errorState = false;
 var attentionState = false;
+
+// collect error and warning messages
+var expectWarningMsg = false;
+var expectErrorMsg = false;
+var gatherWarningMsg = false;
+var gatherErrorMsg = false;
+var l1 = "";
+var l2 = "";
+var l3 = "";
+var l4 = "";
+var errorMsgs = [];
+var warningMsgs = [];
 
 /////////////////////////////////////////////////////////////////
 // Miscellaneous
@@ -227,6 +239,7 @@ function constructStatMiscTable() {
   miscTableRow(table,"Number of entries into RUNNING state","numRunningEntry");
   miscTableRow(table,"Number of entries into ERROR state","numErrorEntry");
   miscTableRow(table,"Number of WARNINGs","numWarnings");
+  miscTableRow(table,"Number of ERRORs","numErrors");
 }
 
 function replaceDummyValue(value) {
@@ -237,6 +250,9 @@ function replaceDummyValue(value) {
 }
 
 function displayStats() {
+  numWarnings = warningMsgs.length;
+  numErrors = errorMsgs.length;
+
   el = document.getElementById("peakMin");
   el.innerHTML = replaceDummyValue(minPeak);
   el = document.getElementById("peakMax");
@@ -335,6 +351,8 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(numErrorEntry);
   el = document.getElementById("numWarnings");
   el.innerHTML = replaceDummyValue(numWarnings);
+  el = document.getElementById("numErrors");
+  el.innerHTML = replaceDummyValue(numErrors);
 
   displayUsedCombos();
 }
@@ -344,10 +362,51 @@ function gatherStats(jsonData) {
     if (key=='content') {
       for (var ckey in jsonData.content) {
 	value = jsonData.content[ckey];
+        if ((ckey!="L1") || (ckey!='L2')|| (ckey!='L3')|| (ckey!='L4')) {
+	  if (gatherErrorMsg || gatherWarningMsg) {
+	    var msg = {
+	      'created' : jsonData.created,
+	      'L1' : l1,
+	      'L2' : l2,
+	      'L3' : l3,
+	      'L4' : l4
+	    };
+	    if (gatherWarningMsg) {
+	      warningMsgs.push(createNewInstance(msg));
+	    } else {
+	      errorngMsgs.push(createNewInstance(msg));
+	    }
+	    gatherWarningMsg = false;
+	    gatherErrorMsg = false;
+	    expectWarningMsg = false;
+	    expectErrorMsg = false;
+	  }
+	}
+
         if (ckey=="L1") {
+	  if (expectWarningMsg || expectErrorMsg) {
+	    l1 = jsonData.content['L1'];
+	    gatherWarningMsg = expectWarningMsg;
+	    gatherErrorMsg = expectErrorMsg;
+	  }
         } else if (ckey=="L2") {
+	  if (expectWarningMsg || expectErrorMsg) {
+	    l2 = jsonData.content['L2'];
+	    gatherWarningMsg = expectWarningMsg;
+	    gatherErrorMsg = expectErrorMsg;
+	  }
         } else if (ckey=="L3") {
+	  if (expectWarningMsg || expectErrorMsg) {
+	    l3 = jsonData.content['L3'];
+	    gatherWarningMsg = expectWarningMsg;
+	    gatherErrorMsg = expectErrorMsg;
+	  }
         } else if (ckey=="L4") {
+	  if (expectWarningMsg || expectErrorMsg) {
+	    l4 = jsonData.content['L4'];
+	    gatherWarningMsg = expectWarningMsg;
+	    gatherErrorMsg = expectErrorMsg;
+	  }
         } else if (ckey=="INITIAL") {
 	  if ((value==1) && !initialState) numInitialEntry++ ;
 	  initialState = (value==1);
@@ -385,7 +444,6 @@ function gatherStats(jsonData) {
           currParamCombo.numBreaths++;
 
         } else if (ckey=="ATTENTION") {
-	  if (!attentionState && (value==1)) numWarnings++;
 	  attentionState = (value == 1);
         } else if (ckey=="MODE") {
 	  if (modeValid(value)) {
@@ -557,6 +615,10 @@ function gatherStats(jsonData) {
 	    patientName = value;
         } else if (ckey=="PMISC") {
 	    patientInfo = value;
+        } else if (ckey=="WMSG") {
+	  expectWarningMsg = true;
+        } else if (ckey=="EMSG") {
+	  expectErrorMsg = true;
         }
       }
     }
@@ -658,6 +720,18 @@ function initStats() {
   maxDcomp = maxDummyValue;
   minTemp = minDummyValue;
   maxTemp = maxDummyValue;
+
+  expectWarningMsg = false;
+  expectErrorMsg = false;
+  gatherWarningMsg = false;
+  gatherErrorMsg = false;
+  l1 = "";
+  l2 = "";
+  l3 = "";
+  l4 = "";
+  errorMsgs = [];
+  warningMsgs = [];
+
 }
 
 function collectStats() {
@@ -669,7 +743,6 @@ function collectStats() {
   tablesContructed = true;
 
   gatherAndDisplayStats();
-  displayStats();
 
   tablesConstructed = true;
 }
