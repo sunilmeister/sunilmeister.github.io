@@ -1,4 +1,4 @@
-function displayJsonErrorWarning(scrollBox, jsonData) {
+function displayJsonErrorWarning(scrollbox, jsonData) {
   var newElement = document.createElement('p');
   newElement.innerHTML = jsonData.created;
   scrollbox.appendChild(newElement);
