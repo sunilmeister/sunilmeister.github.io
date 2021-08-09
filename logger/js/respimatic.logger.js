@@ -181,10 +181,20 @@ function processDweet(d) {
 
   if (d.content['WMSG']) {
     expectWarningMsg = true;
+    prevContent['L1'] = "" ;
+    prevContent['L2'] = "" ;
+    prevContent['L3'] = "" ;
+    prevContent['L4'] = "" ;
+    l1 = l2 = l3 = l4 = "" ;
   }
 
   if (d.content['EMSG']) {
     expectErrorMsg = true;
+    prevContent['L1'] = "" ;
+    prevContent['L2'] = "" ;
+    prevContent['L3'] = "" ;
+    prevContent['L4'] = "" ;
+    l1 = l2 = l3 = l4 = "" ;
   }
 
   if (!expectWarningMsg && !expectErrorMsg && !initialState) {
@@ -197,12 +207,6 @@ function processDweet(d) {
 
   if (expectWarningMsg || expectErrorMsg) {
     if (l1 && l2 && l3 && l4) {
-      prevContent['L1'] = "" ;
-      prevContent['L2'] = "" ;
-      prevContent['L3'] = "" ;
-      prevContent['L4'] = "" ;
-      l1 = l2 = l3 = l4 = "" ;
-
       expectWarningMsg = false;
       expectErrorMsg = false;
     }
