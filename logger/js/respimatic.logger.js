@@ -175,8 +175,8 @@ function processDweet(d) {
     delete d.content['L4'];
   }
 
-  if (expectingWarningMsg || expectingErrorMsg) {
-    if ( d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4']) {
+  if (expectWarningMsg || expectErrorMsg) {
+    if (d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4']) {
       expectWarningMsg = false;
       expectErrorMsg = false;
     }
@@ -214,6 +214,7 @@ function processDweet(d) {
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
+    //console.log("processDweet");
     processDweet(d);
   });
 }
