@@ -147,6 +147,7 @@ function displayUsedCombos() {
 
     cell = row.insertCell();
     cell.innerHTML = combo.numBreaths;
+    combo.numBreaths = 0;
   }
 }
 
@@ -612,7 +613,9 @@ function statsProcessJsonRecord(key, lastRecord) {
       var jsonData = keyReq.result;
       gatherStats(jsonData);
       if (lastRecord) {
-        insertUsedParamCombos(currParamCombo);
+	if (currParamCombo.numBreaths) {
+          insertUsedParamCombos(currParamCombo);
+	}
 	displayStats();
       }
     }
