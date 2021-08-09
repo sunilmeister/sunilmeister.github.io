@@ -75,8 +75,8 @@ async function selectDbRow(row) {
   heading.innerHTML = respimaticUid + 
     ' [' + p.cells[1].innerHTML + ' ' + p.cells[2].innerHTML + ' ]';
 
+  resetAnalysisData();
   createOrOpenDb(dbName);
-
   getSessionDuration(dbName);
   return dbName;
 }
