@@ -160,6 +160,8 @@ function processDweet(d) {
   }
 
   if (expectWarningMsg || expectErrorMsg) {
+    console.log("Expecting WMSG");
+    console.log(d);
     if (!(d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4'])) {
       prevContent['L1'] = "" ;
       prevContent['L2'] = "" ;
@@ -172,6 +174,8 @@ function processDweet(d) {
 
   if (d.content['WMSG']) {
     expectWarningMsg = true;
+    console.log("Found WMSG");
+    console.log(d);
   }
 
   if (d.content['EMSG']) {
