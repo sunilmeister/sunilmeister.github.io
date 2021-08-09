@@ -60,18 +60,7 @@ function validParamValue(str) {
 /////////////////////////////////////////////////////////////////
 // Keep track of all parameter combinations used
 /////////////////////////////////////////////////////////////////
-var prevParamCombo = {
-  "mode" : "--",
-  "vt" : "--",
-  "rr" : "--",
-  "ie" : "--",
-  "peep" : "--",
-  "pmax" : "--",
-  "ps" : "--",
-  "tps" : "--",
-  "numBreaths" : 0
-};
-
+var prevParamCombo = {};
 
 var currParamCombo = {
   "mode" : "--",
@@ -99,9 +88,7 @@ function equalParamCombos(curr, prev) {
     (curr.tps==prev.tps)
   ) {
     return true;
-  }
-
-  return false;
+  } else return false;
 }
 
 function insertUsedParamCombos(combo) {
@@ -428,11 +415,12 @@ function gatherStats(jsonData) {
 	  if (errorState) numMaintenance++;
 
 	  if (!equalParamCombos(currParamCombo, prevParamCombo)) {
-	    insertUsedParamCombos(currParamCombo);
+	    insertUsedParamCombos(prevParamCombo);
 	    prevParamCombo = createNewInstance(currParamCombo);
-            currParamCombo.numBreaths=0;
+            prevParamCombo.numBreaths=0;
+	  } else {
+            prevParamCombo.numBreaths++;
 	  }
-          currParamCombo.numBreaths++;
 
         } else if (ckey=="ATTENTION") {
 	  attentionState = (value == 1);
