@@ -1,6 +1,6 @@
 function displayJsonErrorWarning(scrollbox, jsonData) {
   var newElement = document.createElement('p');
-  newElement.innerHTML = jsonData.created;
+  newElement.innerHTML = jsonData.created.toString();
   scrollbox.appendChild(newElement);
 
   if (jsonData.L1) {
@@ -23,6 +23,9 @@ function displayJsonErrorWarning(scrollbox, jsonData) {
     newElement.innerText = newElement.textContent = jsonData.L4;
     scrollbox.appendChild(newElement);
   }
+
+  var newElement = document.createElement('hr');
+  scrollbox.appendChild(newElement);
 }
 
 var errorWarningDisplayed = false;
