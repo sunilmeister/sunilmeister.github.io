@@ -592,6 +592,7 @@ function gatherStats(jsonData) {
 	      }
 	    }
 	  }
+	  console.log("Set MPEEP=" + maxPeep + " " + minPeep);
         } else if (ckey=="TEMP") {
 	  if (validDecimalInteger(value)) {
 	    if (maxTemp < value) {
