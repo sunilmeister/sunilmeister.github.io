@@ -401,6 +401,7 @@ function gatherStats(jsonData) {
         } else if (ckey=="SPONTANEOUS") {
 	  prevBreathMandatory = (value==1);
         } else if (ckey=="BTOG") {
+	  var firstBreath = ((numMandatory==0) && (numSpontaneous==0));
 	  if (prevBreathMandatory) {
 	    numSpontaneous++ ;
 	  } else {
@@ -408,7 +409,6 @@ function gatherStats(jsonData) {
 	  }
 	  if (errorState) numMaintenance++;
 
-	  var firstBreath = ((numMandatory==0) && (numSpontaneous==0));
 	  if (firstBreath) {
 	    prevParamCombo = createNewInstance(currParamCombo);
 	    console.log("First prev=" + prevParamCombo);
