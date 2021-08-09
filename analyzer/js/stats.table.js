@@ -652,6 +652,19 @@ function initStats() {
   altitude = "";
   
   usedParamCombos = [];
+  prevParamCombo = {};
+  currParamCombo = {
+    "mode" : "--",
+    "vt" : "--",
+    "rr" : "--",
+    "ie" : "--",
+    "peep" : "--",
+    "pmax" : "--",
+    "ps" : "--",
+    "tps" : "--",
+    "numBreaths" : 0
+  };
+
   modes = [];
   vts = [];
   rrs = [];
