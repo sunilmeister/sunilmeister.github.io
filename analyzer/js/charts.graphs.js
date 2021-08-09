@@ -1,16 +1,16 @@
 const graphColors = [
   "Black",
   "Maroon",
-  "Gray",
+  "Purple",
   "Red",
+  "Blue",
   "Olive",
   "Aqua",
   "Green",
-  "Blue",
   "Fuchsia",
   "Navy",
-  "Purple",
   "Silver",
+  "Gray",
 ];
 var nextColor = 0;
 
@@ -41,6 +41,7 @@ function toggleDataSeries(e) {
   e.chart.render();
 }
 
+var allCharts = [];
 var chart = null;
 var breathTimes = [];
 
@@ -62,6 +63,7 @@ var chartsDataGathered = false;
 function initCharts() {
   chartsDataGathered = false;
   chart = null;
+  allCharts = [];
 
   breathTimes = [];
   vtdelValues = [];
@@ -74,6 +76,9 @@ function initCharts() {
   platValues = [];
   peepValues = [];
   tempValues = [];
+
+  elm = document.getElementById("chartContainer");
+  elm.innerHTML = "";
 }
 
 function createDatapoints(transitions) {
@@ -320,10 +325,6 @@ function createNewChart() {
   var elm;
   elm = document.getElementById("chartTitle");
   title = elm.value;
-  if (!title) {
-    alert("Please enter a Title for the new Chart");
-    return;
-  }
 
   elm = document.getElementById("peak");
   peakYes = elm.checked;
