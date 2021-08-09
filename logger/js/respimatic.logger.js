@@ -159,6 +159,17 @@ function processDweet(d) {
     initialState = false;
   }
 
+  if (expectWarningMsg || expectErrorMsg) {
+    if (!(d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4'])) {
+      prevContent['L1'] = "" ;
+      prevContent['L2'] = "" ;
+      prevContent['L3'] = "" ;
+      prevContent['L4'] = "" ;
+      expectWarningMsg = false;
+      expectErrorMsg = false;
+    }
+  }
+
   if (d.content['WMSG']) {
     expectWarningMsg = true;
   }
@@ -173,13 +184,6 @@ function processDweet(d) {
     delete d.content['L2'];
     delete d.content['L3'];
     delete d.content['L4'];
-  }
-
-  if (expectWarningMsg || expectErrorMsg) {
-    if (d.content['L1'] || d.content['L2'] || d.content['L3'] || d.content['L4']) {
-      expectWarningMsg = false;
-      expectErrorMsg = false;
-    }
   }
 
   // prune the content if same as previous
