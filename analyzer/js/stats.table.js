@@ -583,6 +583,7 @@ function gatherStats(jsonData) {
         } else if (ckey=="MPEEP") {
 	  console.log("Found MPEEP=" + value);
 	  if (validDecimalInteger(value)) {
+	    console.log("Valid MPEEP value");
 	    if ((runningState || errorState)) {
 	      if (maxPeep < value) {
 	        maxPeep = value;
