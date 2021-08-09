@@ -147,7 +147,6 @@ function displayUsedCombos() {
 
     cell = row.insertCell();
     cell.innerHTML = combo.numBreaths;
-    combo.numBreaths = 0;
   }
 }
 
