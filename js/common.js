@@ -71,7 +71,7 @@ function strToDate(dtStr) {
 
 function dateToStr(d) {
   if (!d) return null;
-  date = Date(d);
+  date = new Date(d);
 
   var dd = String(date. getDate()). padStart(2, '0');
   var mm = String(date. getMonth() + 1). padStart(2, '0'); //January is 0!
