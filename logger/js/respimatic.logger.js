@@ -179,7 +179,6 @@ function processDweet(d) {
     prevContent['L3'] = "" ;
     prevContent['L4'] = "" ;
     l1 = l2 = l3 = l4 = false ;
-    console.log("Found WMSG");
   }
 
   if (typeof d.content['EMSG'] != 'undefined') {
@@ -204,8 +203,6 @@ function processDweet(d) {
     if (typeof d.content['L2'] != 'undefined') l2 = true;
     if (typeof d.content['L3'] != 'undefined') l3 = true;
     if (typeof d.content['L4'] != 'undefined') l4 = true;
-    console.log("Found expectWarning");
-    console.log("l1=" + l1 + " l2=" + l2 + " l3=" + l3 + " l4=" + l4);
   }
 
   if (!expectWarningMsg && !expectErrorMsg && !initialState) {
@@ -248,7 +245,6 @@ function processDweet(d) {
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
-    //console.log("processDweet");
     processDweet(d);
   });
 }
