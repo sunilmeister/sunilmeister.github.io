@@ -172,8 +172,7 @@ function processDweet(d) {
     initialState = false;
   }
 
-  console.log("d.content[WMSG]=" + d.content['WMSG']);
-  if (d.content['WMSG'] !== null) {
+  if (typeof d.content['WMSG'] != 'undefined') {
     expectWarningMsg = true;
     prevContent['L1'] = "" ;
     prevContent['L2'] = "" ;
@@ -183,7 +182,7 @@ function processDweet(d) {
     console.log("Found WMSG");
   }
 
-  if (d.content['EMSG'] !==null) {
+  if (typeof d.content['EMSG'] != 'undefined') {
     expectErrorMsg = true;
     prevContent['L1'] = "" ;
     prevContent['L2'] = "" ;
@@ -201,10 +200,10 @@ function processDweet(d) {
   }
 
   if (expectWarningMsg || expectErrorMsg) {
-    if (d.content['L1'] !==null) l1 = true;
-    if (d.content['L2'] !==null) l2 = true;
-    if (d.content['L3'] !==null) l3 = true;
-    if (d.content['L4'] !==null) l4 = true;
+    if (typeof d.content['L1'] != 'undefined') l1 = true;
+    if (typeof d.content['L2'] != 'undefined') l2 = true;
+    if (typeof d.content['L3'] != 'undefined') l3 = true;
+    if (typeof d.content['L4'] != 'undefined') l4 = true;
     console.log("Found expectWarning");
     console.log("l1=" + l1 + " l2=" + l2 + " l3=" + l3 + " l4=" + l4);
   }
@@ -221,7 +220,7 @@ function processDweet(d) {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (prevContent[key] === null) {
+    if (typeof prevContent[key] == 'undefined') {
       prevContent[key] = value;
     } else {
       prevValue = prevContent[key];
