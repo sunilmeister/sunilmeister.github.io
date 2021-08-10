@@ -340,7 +340,7 @@ function createNewChart() {
   elm = document.getElementById("plat");
   platYes = elm.checked;
 
-  elm = document.getElementById("peep");
+  elm = document.getElementById("peepP");
   peepYes = elm.checked;
 
   elm = document.getElementById("vtdel");

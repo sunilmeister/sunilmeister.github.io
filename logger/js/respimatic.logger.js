@@ -191,10 +191,10 @@ function processDweet(d) {
   }
 
   if (expectWarningMsg || expectErrorMsg) {
-    if (d.content['L1']) l1 = true;
-    if (d.content['L2']) l2 = true;
-    if (d.content['L3']) l3 = true;
-    if (d.content['L4']) l4 = true;
+    if (d.content['L1'] !==null) l1 = true;
+    if (d.content['L2'] !==null) l2 = true;
+    if (d.content['L3'] !==null) l3 = true;
+    if (d.content['L4'] !==null) l4 = true;
   }
 
   if (expectWarningMsg || expectErrorMsg) {
