@@ -2,7 +2,6 @@ const ARROW = "\\u27AD";
 const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
 var prevBreathMandatory = true;
-var currBreathMandatory = true;
 
 var numInitialEntry, numStandbyEntry, numRunningEntry, numErrorEntry;
 var numWarnings, numErrors;
@@ -399,7 +398,7 @@ function gatherStats(jsonData) {
         } else if (ckey=="MANDATORY") {
 	  prevBreathMandatory = (value==1);
         } else if (ckey=="SPONTANEOUS") {
-	  prevBreathMandatory = (value==1);
+	  prevBreathMandatory = !(value==1);
         } else if (ckey=="BTOG") {
 	  var firstBreath = ((numMandatory==0) && (numSpontaneous==0));
 	  if (prevBreathMandatory) {
