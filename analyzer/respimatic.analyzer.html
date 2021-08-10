@@ -169,11 +169,11 @@
         <center>
           <label>Start Time</label>
           <input id="startTime" name="startTime"
-            style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:16px; font-family:verdana;" />
+            style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:14px; font-family:verdana;" />
           <br><br>
           <label>End Time</label>
           <input id="endTime" name="endTime"
-            style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:16px; font-family:verdana;" />
+            style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:14px; font-family:verdana;" />
           <br><br>
           <button id="btnResetTime" class="sidebarButton"
             onclick='selectLogTimes()'>Reset Window</button>
@@ -194,6 +194,9 @@
         <button id="btnImport" class="sidebarButton"
           onclick='selectImport()'>Import Session</button>
         <br><br>
+        <button id="btnDeleteAll" class="sidebarButton" style="background-color: red;"
+          onclick='deleteAllDbs()'>Delete All Sessions</button>
+        <br><br>
       </div>
       <br>
       <div
@@ -202,11 +205,11 @@
         <button id="btnStat" class="sidebarButton"
           onclick='selectStats()'>Statistics</button>
         <br><br>
-        <button id="btnErrorWarning" class="sidebarButton"
-          onclick='selectErrorWarnings()'>Errors & Warnings</button>
-        <br><br>
         <button id="btnChart" class="sidebarButton"
           onclick='selectCharts()'>Charts</button>
+        <br><br>
+        <button id="btnErrorWarning" class="sidebarButton"
+          onclick='selectErrorWarnings()'>Errors & Warnings</button>
         <br><br>
         <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Raw
           Data</button>
@@ -236,9 +239,6 @@
               style="font-size:20px; width:100%">
             </table>
           </div>
-          <br>
-          <button class="button" onclick='deleteAllDbs()'>DELETE ALL SAVED
-            SESSIONS</button>
           
         </div>
       </center>
