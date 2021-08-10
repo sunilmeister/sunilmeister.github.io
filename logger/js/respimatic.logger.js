@@ -4,7 +4,7 @@ var dbName;
 var doLog = false;
 
 var prevContent = {}; 
-var initialState = false;
+var initialState = true;
 var expectErrorMsg = false;
 var expectWarningMsg = false;
 var l1 = false;
@@ -128,7 +128,7 @@ function deleteAllDbs() {
 
 function initState() {
   prevContent = {}; 
-  initialState = false;
+  initialState = true;
   expectErrorMsg = false;
   expectWarningMsg = false;
   l1 = l2 = l3 = l4 = false ;
@@ -166,11 +166,10 @@ function processDweet(d) {
   // We already have the UID
   delete d.thing;
 
-  if (d.content['INITIAL'] == "1") {
-    initialState = true;
-  } else if (d.content['INITIAL'] == "0") {
-    initialState = false;
-  }
+  if (d.content['INITIAL'] == "1") initialState = true;
+  if (d.content['STANDBY'] == "1") initialState = false;
+  if (d.content['RUNNING'] == "1") initialState = false;
+  if (d.content['ERROR'] == "1") initialState = false;
 
   if (typeof d.content['WMSG'] != 'undefined') {
     expectWarningMsg = true;
