@@ -172,6 +172,7 @@ function processDweet(d) {
     initialState = false;
   }
 
+  console.log("d.content[WMSG]=" + d.content['WMSG']);
   if (d.content['WMSG'] !== null) {
     expectWarningMsg = true;
     prevContent['L1'] = "" ;
