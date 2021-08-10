@@ -62,7 +62,10 @@ function listDbTableRow(item, index) {
 
   var row = table.insertRow();
 
-  var cell = row.insertCell();
+  var cell;
+  cell = row.insertCell();
+  cell.innerHTML = '<button class="tableButton" onclick="exportDbRow(this)">EXPORT</button>' ;
+  cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
@@ -71,14 +74,24 @@ function listDbTableRow(item, index) {
 
 }
 
+function exportDbRow(row) {
+  var p=row.parentNode.parentNode;
+
+  // reconstruct the dbName
+  // grab the creation field from the first cell in the same row
+  var dName = respimaticUid + '|' + p.cells[1].innerHTML + "|" + p.cells[2].innerHTML;
+  alert("Not yet implemented:Exporting " + dName);
+
+}
+
 function deleteDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
-  var dName = respimaticUid + '|' + p.cells[0].innerHTML + "|" + p.cells[1].innerHTML;
+  var dName = respimaticUid + '|' + p.cells[1].innerHTML + "|" + p.cells[2].innerHTML;
 
-  if (!confirm("Deleting Session named\n" + p.cells[0].innerHTML)) {
+  if (!confirm("Deleting Session named\n" + p.cells[1].innerHTML)) {
     return;
   }
 
@@ -120,7 +133,7 @@ function deleteAllDbs() {
   numRows = table.rows.length;
   for (i=0; i<numRows; i++) {
     row = table.rows[0];
-    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+    name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
     deleteDb(name);
     table.deleteRow(0);
   }

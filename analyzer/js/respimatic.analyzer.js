@@ -17,8 +17,11 @@ function listDbTableRow(item, index) {
 
   var row = table.insertRow();
 
-  var cell = row.insertCell();
+  var cell;
+  cell = row.insertCell();
   cell.innerHTML = '<button class="dbTableButton" onclick="selectDbRow(this)">SELECT</button>' ;
+  cell = row.insertCell();
+  cell.innerHTML = '<button class="dbTableButton" onclick="exportDbRow(this)">EXPORT</button>' ;
   cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
@@ -64,16 +67,26 @@ function getSessionDuration(dbName) {
   }
 }
 
+async function exportDbRow(row) {
+  var p=row.parentNode.parentNode;
+
+  // reconstruct the dbName
+  // grab the tag field from the first cell in the same row
+  dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
+  alert("Not yet implemented:Exporting " + dbName);
+  
+}
+
 async function selectDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
+  dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
   
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + 
-    ' [' + p.cells[1].innerHTML + ' ' + p.cells[2].innerHTML + ' ]';
+    ' [' + p.cells[2].innerHTML + ' ' + p.cells[3].innerHTML + ' ]';
 
   resetAnalysisData();
   createOrOpenDb(dbName);
@@ -86,7 +99,7 @@ function deleteDbRow(row) {
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  name = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
+  name = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
 
   // Delete the actual database
   deleteDb(name);
@@ -122,7 +135,7 @@ function deleteAllDbs() {
   numRows = table.rows.length;
   for (i=0; i<numRows; i++) {
     row = table.rows[0];
-    name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+    name = respimaticUid + '|' + row.cells[2].innerHTML + '|' + row.cells[3].innerHTML;
     deleteDb(name);
     table.deleteRow(0);
   }
