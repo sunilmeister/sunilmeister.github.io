@@ -333,4 +333,7 @@ window.onload = function() {
   selectSession();
 }
 
+function selectExit() {
+  window.location.assign("../index.html");
+}
 

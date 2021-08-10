@@ -1,0 +1,119 @@
+.sidebar {
+  height: 100%;
+  width: 225px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 5;
+  font-size: 16px;
+  font-family: verdana;
+}
+
+.sidebar div {
+  padding: 4px;
+  font-size: 20px;
+  display: block;
+}
+
+.body-pane {
+  margin-left: 220px;
+  font-size: 20px;
+  font-family: verdana;
+}
+
+.dbTableButton {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 6px 6px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.dbTableButton:hover {
+  opacity: 1;
+}
+
+.dbTableButton:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
+
+.button {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 20px;
+  opacity: 0.8;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
+
+.sidebarButton {
+  background-color: #1d85ad;
+  border: white;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 210px;
+  opacity: 0.8;
+}
+
+.sidebarButton:hover {
+  opacity: 1;
+}
+
+.sidebarButton:active {
+  background-color: #0a8a30;
+  box-shadow: 0 6px #1d85ad;
+  transform: translateY(6px);
+}
+
+/* A row of equal columns that sits next to each other */
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+}
+
+.dbTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
+}
+
+.statsTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
+}
