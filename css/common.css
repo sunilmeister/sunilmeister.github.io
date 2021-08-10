@@ -108,6 +108,9 @@
   padding: 10px;
 }
 
+.dbTableStyle tr:nth-child(even) {
+  background-color: #0a8a30;
+}
 .dbTableStyle td {
   padding: 0 5px 0 0;
   /* Only right padding*/
