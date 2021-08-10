@@ -402,9 +402,9 @@ function gatherStats(jsonData) {
         } else if (ckey=="BTOG") {
 	  var firstBreath = ((numMandatory==0) && (numSpontaneous==0));
 	  if (prevBreathMandatory) {
-	    numSpontaneous++ ;
-	  } else {
 	    numMandatory++ ;
+	  } else {
+	    numSpontaneous++ ;
 	  }
 	  if (errorState) numMaintenance++;
 
