@@ -3,6 +3,15 @@ var db;
 var dbName;
 var doLog = false;
 
+var prevContent = {}; 
+var initialState = true;
+var expectErrorMsg = false;
+var expectWarningMsg = false;
+var l1 = false;
+var l2 = false;
+var l3 = false;
+var l4 = false;
+
 // check for browser capability
 document.title = respimaticUid + " (LOGGER)" ;
 if (!window.indexedDB) {
@@ -119,7 +128,7 @@ function deleteAllDbs() {
 
 function initState() {
   prevContent = {}; 
-  initialState = false;
+  initialState = true;
   expectErrorMsg = false;
   expectWarningMsg = false;
   l1 = l2 = l3 = l4 = false ;
@@ -151,15 +160,6 @@ function displayTweet(d) {
   dweetBox.innerText = dweetBox.textContent = JSON.stringify(d,null,". ") ;
 }
 
-var prevContent = {}; 
-var initialState = false;
-var expectErrorMsg = false;
-var expectWarningMsg = false;
-var l1 = false;
-var l2 = false;
-var l3 = false;
-var l4 = false;
-
 function processDweet(d) {
   if (!doLog) return ;
 
@@ -179,6 +179,7 @@ function processDweet(d) {
     prevContent['L3'] = "" ;
     prevContent['L4'] = "" ;
     l1 = l2 = l3 = l4 = false ;
+    console.log("Found WMSG");
   }
 
   if (d.content['EMSG'] !==null) {
@@ -191,18 +192,20 @@ function processDweet(d) {
   }
 
   if (expectWarningMsg || expectErrorMsg) {
-    if (d.content['L1'] !==null) l1 = true;
-    if (d.content['L2'] !==null) l2 = true;
-    if (d.content['L3'] !==null) l3 = true;
-    if (d.content['L4'] !==null) l4 = true;
-  }
-
-  if (expectWarningMsg || expectErrorMsg) {
     if (l1 && l2 && l3 && l4) {
       expectWarningMsg = false;
       expectErrorMsg = false;
       l1 = l2 = l3 = l4 = false ;
     }
+  }
+
+  if (expectWarningMsg || expectErrorMsg) {
+    if (d.content['L1'] !==null) l1 = true;
+    if (d.content['L2'] !==null) l2 = true;
+    if (d.content['L3'] !==null) l3 = true;
+    if (d.content['L4'] !==null) l4 = true;
+    console.log("Found expectWarning");
+    console.log("l1=" + l1 + " l2=" + l2 + " l3=" + l3 + " l4=" + l4);
   }
 
   if (!expectWarningMsg && !expectErrorMsg && !initialState) {
