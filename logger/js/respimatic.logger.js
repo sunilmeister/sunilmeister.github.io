@@ -4,7 +4,7 @@ var dbName;
 var doLog = false;
 
 var prevContent = {}; 
-var initialState = true;
+var initialState = false;
 var expectErrorMsg = false;
 var expectWarningMsg = false;
 var l1 = false;
@@ -128,7 +128,7 @@ function deleteAllDbs() {
 
 function initState() {
   prevContent = {}; 
-  initialState = true;
+  initialState = false;
   expectErrorMsg = false;
   expectWarningMsg = false;
   l1 = l2 = l3 = l4 = false ;
