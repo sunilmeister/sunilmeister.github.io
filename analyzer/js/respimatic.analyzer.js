@@ -171,10 +171,7 @@ function selectImport() {
 }
 
 function selectExport() {
-  if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
-
-  alert("Not yet implemented\nWork In Progress...");
+  selectSession();
 }
 
 function selectStats() {
