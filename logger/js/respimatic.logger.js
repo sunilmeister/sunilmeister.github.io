@@ -64,13 +64,13 @@ function listDbTableRow(item, index) {
 
   var cell;
   cell = row.insertCell();
-  cell.innerHTML = '<button class="tableButton" onclick="exportDbRow(this)">EXPORT</button>' ;
+  cell.innerHTML = '<button class="dbTableButton" onclick="exportDbRow(this)">EXPORT</button>' ;
   cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
   cell = row.insertCell();
-  cell.innerHTML = '<button class="tableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
+  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
 
 }
 
@@ -293,5 +293,14 @@ window.onload = function() {
   document.getElementById("btnPauseLogDiv").style.display = "none";
 
   waitForDweets();
+}
+
+function selectExit() {
+  if (doLog) {
+    if (!confirm("Logging will STOP")) {
+      return;
+    }
+  }
+  window.location.assign("../index.html");
 }
 
