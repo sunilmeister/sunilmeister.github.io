@@ -352,7 +352,7 @@ function exportDb(dbName) {
         getAll.push(cursor.value);
         cursor.continue();
       } else {
-	download(JSON.stringify(getAll,null,1), "respimaticSession.txt", "text/plain");
+	download(JSON.stringify(getAll,null,1), "respimatic.session", "text/plain");
       }
     }
   }
