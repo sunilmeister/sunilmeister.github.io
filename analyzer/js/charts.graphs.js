@@ -283,7 +283,7 @@ function createPressureYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
-    suffix: " (cm H20)"
+    suffix: ""
   };
   return createNewInstance(yaxis);
 }
@@ -295,7 +295,7 @@ function createVtYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
-    suffix: " (ml)"
+    suffix: ""
   };
   return createNewInstance(yaxis);
 }
@@ -307,7 +307,7 @@ function createMvYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
-    suffix: " (l/min)"
+    suffix: ""
   };
   return createNewInstance(yaxis);
 }
@@ -319,7 +319,7 @@ function createBpmYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
-    suffix: " (bpm)"
+    suffix: ""
   };
   return createNewInstance(yaxis);
 }
@@ -376,7 +376,7 @@ function createNewChart() {
   if (peakYes) {
     paramData = createCanvasChartData(peakValues,timeBased);
     if (paramData) {
-      paramData.name = "Peak Pressure";
+      paramData.name = "Peak Pressure (cm H20)";
       paramData.color = getNextColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
@@ -393,7 +393,7 @@ function createNewChart() {
   if (platYes) {
     paramData = createCanvasChartData(platValues,timeBased);
     if (paramData) {
-      paramData.name = "Plateau Pressure";
+      paramData.name = "Plateau Pressure (cm H20)";
       paramData.color = getNextColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
@@ -410,7 +410,7 @@ function createNewChart() {
   if (peepYes) {
     paramData = createCanvasChartData(peepValues,timeBased);
     if (paramData) {
-      paramData.name = "Peep Pressure";
+      paramData.name = "Peep Pressure (cm H20)";
       paramData.color = getNextColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
@@ -427,7 +427,7 @@ function createNewChart() {
   if (vtdelYes) {
     paramData = createCanvasChartData(vtdelValues,timeBased);
     if (paramData) {
-      paramData.name = "Tidal Volume";
+      paramData.name = "Tidal Volume (ml)";
       paramData.color = getNextColor();
       if (vtYaxisNum == -1) {
 	vtYaxisNum = nextYaxisNum++;
@@ -444,7 +444,7 @@ function createNewChart() {
   if (mvdelYes) {
     paramData = createCanvasChartData(mvdelValues,timeBased);
     if (paramData) {
-      paramData.name = "Minute Volume";
+      paramData.name = "Minute Volume (litres/min)";
       paramData.color = getNextColor();
       if (mvYaxisNum == -1) {
 	mvYaxisNum = nextYaxisNum++;
@@ -461,7 +461,7 @@ function createNewChart() {
   if (mbpmYes) {
     paramData = createCanvasChartData(mbpmValues,timeBased);
     if (paramData) {
-      paramData.name = "Mandatory BPM";
+      paramData.name = "Mandatory BPM (bpm)";
       paramData.color = getNextColor();
       if (bpmYaxisNum == -1) {
 	bpmYaxisNum = nextYaxisNum++;
@@ -478,7 +478,7 @@ function createNewChart() {
   if (sbpmYes) {
     paramData = createCanvasChartData(sbpmValues,timeBased);
     if (paramData) {
-      paramData.name = "Spontaneous BPM";
+      paramData.name = "Spontaneous BPM (bpm)";
       paramData.color = getNextColor();
       if (bpmYaxisNum == -1) {
 	bpmYaxisNum = nextYaxisNum++;
