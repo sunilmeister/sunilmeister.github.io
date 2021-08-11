@@ -335,3 +335,25 @@ function createOrOpenDb(name, timeStamp) {
   }
 }
 
+function exportDb(dbName) {
+  var getAll = [];
+
+  var req = indexedDB.open(dbName, dbVersion);
+  req.onsuccess = function(event) {
+    // Set the db variable to our database so we can use it!  
+    var db = event.target.result;
+
+    var tx = db.transaction(dbObjStoreName, 'readonly');
+    var store = tx.objectStore(dbObjStoreName);
+
+    store.openCursor().onsuccess = function(evt) {
+      var cursor = evt.target.result;
+      if (cursor) {
+        getAll.push(cursor.value);
+        cursor.continue();
+      } else {
+	download(JSON.stringify(getAll,null,1), "respimaticSession.txt", "text/plain");
+      }
+    }
+  }
+}

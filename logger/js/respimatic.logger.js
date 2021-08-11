@@ -81,9 +81,8 @@ function exportDbRow(row) {
 
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
-  var dName = respimaticUid + '|' + p.cells[1].innerHTML + "|" + p.cells[2].innerHTML;
-  alert("Not yet implemented:Exporting " + dName);
-
+  var dbName = respimaticUid + '|' + p.cells[1].innerHTML + "|" + p.cells[2].innerHTML;
+  exportDb(dbName);
 }
 
 function deleteDbRow(row) {
