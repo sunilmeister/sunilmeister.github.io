@@ -283,6 +283,7 @@ function createPressureYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    minimum: 0,
     suffix: ""
   };
   return createNewInstance(yaxis);
@@ -295,6 +296,7 @@ function createVtYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    minimum: 0,
     suffix: ""
   };
   return createNewInstance(yaxis);
@@ -307,6 +309,7 @@ function createMvYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    minimum: 0,
     suffix: ""
   };
   return createNewInstance(yaxis);
@@ -319,6 +322,7 @@ function createBpmYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    minimum: 0,
     suffix: ""
   };
   return createNewInstance(yaxis);
