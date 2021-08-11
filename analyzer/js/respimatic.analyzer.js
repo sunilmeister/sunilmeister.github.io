@@ -73,9 +73,8 @@ async function exportDbRow(row) {
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
+  var dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
   exportDb(dbName);
-  
 }
 
 async function selectDbRow(row) {
