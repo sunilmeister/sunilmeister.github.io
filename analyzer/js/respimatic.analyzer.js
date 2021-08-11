@@ -175,9 +175,33 @@ function doImport(file, fileName, dbName) {
   reader.onload = function (evt) {
     importJsonArray = JSON.parse(evt.target.result);
     //console.log(importJsonArray);
-  }
-  reader.onerror = function (evt) {
-    alert("Error reading file\n'" + fileName + "'");
+
+    var dbReq = window.indexedDB.open(dbName, dbVersion);
+
+    dbReq.onupgradeneeded = function(event) {
+      // Save the IDBDatabase interface
+      var db = event.target.result;
+      var dbObjStore;
+      if (!db.objectStoreNames.contains(dbObjStoreName)) {
+        dbObjStore = db.createObjectStore(dbObjStoreName, {keyPath: dbPrimaryKey});
+      } else {
+        dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
+      }
+    };
+
+    dbReq.onsuccess = function(event) {
+      var db = event.target.result;
+      for (i=0; i<importJsonArray.length; i++) {
+        jsonData = importJsonArray[i];
+        var tx = db.transaction([dbObjStoreName], 'readwrite');
+        var store = tx.objectStore(dbObjStoreName);  
+        store.add(jsonData);  
+      }
+      // free up memory ASAP
+      importJsonArray = [];
+      registerDbName(dbName);
+      listAllDbs();
+    }
   }
 }
 
@@ -185,7 +209,6 @@ function importFile() {
   elm = document.getElementById("fileSelector");
   var fileName = elm.value;
   var file = elm.files[0];
-  console.log("file " + typeof file);
   elm = document.getElementById("importSessionName");
   sessionName = elm.value;
 
@@ -212,8 +235,6 @@ function importFile() {
   } while (true) ;
 
   doImport(file, fileName, dbName);
-
-  alert("Import File" + fileName + "\n-> " + dbName + "\nNot yet Implemented");
 }
 
 function selectImport() {

@@ -298,25 +298,8 @@ function createOrOpenDb(name, timeStamp) {
     // Set the db variable to our database so we can use it!  
     db = event.target.result;
     dbReady = true;
+    registerDbName(dbName);
 
-    // Keep track of databases currently existing
-    var retrieved_dbs = localStorage.getItem(localStorageDbName);
-    var respimatic_dbs = [];
-    if (retrieved_dbs) {
-      respimatic_dbs = JSON.parse(retrieved_dbs);
-    }
-
-    var ix;
-    if (respimatic_dbs.length) {
-      ix = respimatic_dbs.indexOf(dbName);
-    } else {
-      ix = -1;
-    }
-
-    if (ix==-1) {
-      respimatic_dbs.push(dbName);
-      localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
-    }
  
   }
 
@@ -352,8 +335,29 @@ function exportDb(dbName) {
         getAll.push(cursor.value);
         cursor.continue();
       } else {
-	download(JSON.stringify(getAll,null,1), "respimatic.session", "text/plain");
+	download(JSON.stringify(getAll,null,1), "respimatic.session.txt", "text/plain");
       }
     }
+  }
+}
+
+function registerDbName(dbName) {
+  // Keep track of databases currently existing
+  var retrieved_dbs = localStorage.getItem(localStorageDbName);
+  var respimatic_dbs = [];
+  if (retrieved_dbs) {
+    respimatic_dbs = JSON.parse(retrieved_dbs);
+  }
+
+  var ix;
+  if (respimatic_dbs.length) {
+    ix = respimatic_dbs.indexOf(dbName);
+  } else {
+    ix = -1;
+  }
+
+  if (ix==-1) {
+    respimatic_dbs.push(dbName);
+    localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
   }
 }

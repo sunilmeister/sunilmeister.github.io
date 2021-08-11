@@ -105,8 +105,8 @@ function deleteDbRow(row) {
 
 function insertJsonData(db,jsonData) {
   // Start a database transaction and get the notes object store
-  let tx = db.transaction([dbObjStoreName], 'readwrite');
-  let store = tx.objectStore(dbObjStoreName);  
+  var tx = db.transaction([dbObjStoreName], 'readwrite');
+  var store = tx.objectStore(dbObjStoreName);  
   store.add(jsonData);  // Wait for the database transaction to complete
   tx.oncomplete = function() { }
   tx.onerror = function(event) {
