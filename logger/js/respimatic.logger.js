@@ -281,7 +281,6 @@ function startLog() {
   if (doLog) return;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = "Recording In-Progress for " + respimaticUid;
-  doLog = true;
 }
 
 function pauseLog() {
