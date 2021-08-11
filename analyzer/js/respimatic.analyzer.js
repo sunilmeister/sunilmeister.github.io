@@ -173,7 +173,6 @@ function doImport(file, fileName, dbName) {
   reader.readAsText(file, "UTF-8");
   reader.onload = function (evt) {
     importJsonArray = JSON.parse(evt.target.result);
-    //console.log(importJsonArray);
 
     var dbReq = window.indexedDB.open(dbName, dbVersion);
 
@@ -307,7 +306,10 @@ function selectRawData() {
 
 function resetAnalysisData() {
   initStats();
+
   initCharts();
+  gatherChartData();
+
   initRawDump();
   initErrorWarning();
 

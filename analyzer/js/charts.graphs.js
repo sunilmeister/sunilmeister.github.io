@@ -1,12 +1,12 @@
 const graphColors = [
   "Maroon",
-  "Purple",
   "Red",
+  "Purple",
   "Blue",
   "Olive",
-  "Aqua",
   "Green",
   "Fuchsia",
+  "Aqua",
   "Navy",
   "Silver",
   "Gray",
@@ -118,7 +118,7 @@ function createCanvasChartData(valueArray, timeBased) {
   yDatapoints = createDatapoints(valueArray);
   for (i=0; i<numPoints; i++) {
     if (timeBased) {
-      ms = breathTimes[i] - breathTimes[0];
+      ms = new Date(breathTimes[i]) - new Date(breathTimes[0]);
       sec = Math.round(ms/1000);
       xyPoints.push({"x":sec, "y":yDatapoints[i]});
     } else {
@@ -255,22 +255,23 @@ function chartProcessJsonRecord(key, lastRecord) {
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
-      var jsonData = keyReq.result;
-      chartProcessData(jsonData);
+      if (keyWithinAnalysisRange(key)) {
+        var jsonData = keyReq.result;
+        chartProcessData(jsonData);
+      }
       chartsDataGathered = lastRecord;
     }
   }
 }
 
 function gatherChartData() {
-    if (allDbKeys.length==0) {
+  if (allDbKeys.length==0) {
     alert("Selected Session has no data");
     return;
   }
 
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
-    if (!keyWithinAnalysisRange(key)) continue;
     lastRecord = (i==(allDbKeys.length-1));
     chartProcessJsonRecord(key, lastRecord);
   }
@@ -278,7 +279,7 @@ function gatherChartData() {
 
 function createPressureYaxis(num, color) {
   var yaxis = {
-    title: "Pressure",
+    title: "Pressure (cm H20)",
     lineColor: color,
     tickColor: color,
     labelFontColor: color,
@@ -291,7 +292,7 @@ function createPressureYaxis(num, color) {
 
 function createVtYaxis(num, color) {
   var yaxis = {
-    title: "Tidal Volume",
+    title: "Tidal Volume (ml)",
     lineColor: color,
     tickColor: color,
     labelFontColor: color,
@@ -304,7 +305,7 @@ function createVtYaxis(num, color) {
 
 function createMvYaxis(num, color) {
   var yaxis = {
-    title: "Minute Volume",
+    title: "Minute Volume (litres/min)",
     lineColor: color,
     tickColor: color,
     labelFontColor: color,
@@ -317,7 +318,7 @@ function createMvYaxis(num, color) {
 
 function createBpmYaxis(num, color) {
   var yaxis = {
-    title: "Breaths per Min",
+    title: "Breaths per Min (bpm)",
     lineColor: color,
     tickColor: color,
     labelFontColor: color,

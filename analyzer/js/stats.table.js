@@ -594,8 +594,10 @@ function statsProcessJsonRecord(key, lastRecord) {
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
-      var jsonData = keyReq.result;
-      gatherStats(jsonData);
+      if (keyWithinAnalysisRange(key)) {
+        var jsonData = keyReq.result;
+        gatherStats(jsonData);
+      }
       if (lastRecord) {
         insertUsedParamCombos(prevParamCombo);
 	displayStats();
@@ -612,7 +614,6 @@ function gatherAndDisplayStats() {
 
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
-    if (!keyWithinAnalysisRange(key)) continue;
     lastRecord = (i==(allDbKeys.length-1));
     statsProcessJsonRecord(key, lastRecord);
   }
