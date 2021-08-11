@@ -162,12 +162,26 @@ function selectSession() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   listAllDbs();
 }
 
+function importFile() {
+  elm = document.getElementById("fileSelector");
+  fileName = elm.value;
+  elm = document.getElementById("importSessionName");
+  sessionName = elm.value;
+  alert("Import " + fileName + " -> " + sessionName + "\nNot yet Implemented");
+}
+
 function selectImport() {
-  alert("Not yet implemented\nWork In Progress...");
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "block";
 }
 
 function selectExport() {
@@ -183,6 +197,7 @@ function selectStats() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   collectStats();
 }
@@ -196,6 +211,7 @@ function selectErrorWarnings() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "block";
+  document.getElementById("importDiv").style.display = "none";
 
   displayErrorWarning();
 }
@@ -209,6 +225,7 @@ function selectCharts() {
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   createCharts();
 }
@@ -222,6 +239,7 @@ function selectRawData() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "block";
   document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   displayRawData();
 }
@@ -313,6 +331,7 @@ window.onload = function() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   //Date time pickers
   instance = new dtsel.DTS('input[name="startTime"]',  {

@@ -38,9 +38,11 @@
       </div>
       
       <center>
-      <button id="btnExit" class="sidebarButton" style="background-color:firebrick" onclick='selectExit()'>STOP & EXIT</button>
+        <button id="btnExit" class="sidebarButton"
+          style="background-color:firebrick" onclick='selectExit()'>STOP &
+          EXIT</button>
       </center>
-
+      
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
         <br>
@@ -62,6 +64,7 @@
         </center>
         
       </div>
+
       <br>
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
@@ -75,10 +78,11 @@
         <button id="btnImport" class="sidebarButton"
           onclick='selectImport()'>Import Session</button>
         <br><br>
-        <button id="btnDeleteAll" class="sidebarButton" 
+        <button id="btnDeleteAll" class="sidebarButton"
           onclick='deleteAllDbs()'>Delete All Sessions</button>
         <br><br>
       </div>
+
       <br>
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
@@ -96,7 +100,6 @@
           Data</button>
         <br><br>
       </div>
-      <br>
       
     </div>
     
@@ -110,7 +113,7 @@
       </center>
       
       <center>
-        <div id="selectorDiv" display="none">
+        <div id="selectorDiv" style="display: none">
           <h2 style="color:#0d3e51; font-size:2emm; font-family:verdana;">
             Select Session for Analysis</h2>
           <div
@@ -124,7 +127,7 @@
         </div>
       </center>
       
-      <div id="statsDiv" display="none">
+      <div id="statsDiv" style="display: none">
         <center>
           <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Session Statistics</h2>
@@ -149,10 +152,10 @@
               </tr>
             </table>
             
-	    <center>
-            <h2
-              style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
-              Miscellaneous Information</h2>
+            <center>
+              <h2
+                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                Miscellaneous Information</h2>
             </center>
             <table id='statsMiscTable' className="statsTableStyle"
               style="font-size:20px; width:100%">
@@ -192,7 +195,8 @@
                         <th align="left" style="background-color:lightgray; ">
                           Units
                         </th>
-                        <th align="left" style="background-color:lightgray;">Values</th>
+                        <th align="left" style="background-color:lightgray;">
+                          Values</th>
                       </tr>
                     </table>
                   </center>
@@ -212,19 +216,19 @@
                         <th align="left" style="background-color:lightgray;">
                           VT </th>
                         <th align="left" style="background-color:lightgray;">
-			  RR</th>
+                          RR</th>
                         <th align="left" style="background-color:lightgray;">
-			  I:E</th>
+                          I:E</th>
                         <th align="left" style="background-color:lightgray;">
-			  PEEP</th>
+                          PEEP</th>
                         <th align="left" style="background-color:lightgray;">
-			  PMAX</th>
+                          PMAX</th>
                         <th align="left" style="background-color:lightgray;">
-			  PS</th>
+                          PS</th>
                         <th align="left" style="background-color:lightgray;">
-			  TPS</th>
+                          TPS</th>
                         <th align="left" style="background-color:lightgray;">
-			  #BREATHS</th>
+                          #BREATHS</th>
                       </tr>
                     </table>
                   </center>
@@ -237,45 +241,55 @@
       </div>
       
       <center>
-        <div id="chartsDiv" display="none">
+        <div id="chartsDiv" style="display: none">
           <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Select Charts for Analysis</h2>
-
-
-	  <div style="background-color:#0d3e51; color:white;font-size:20px; font-family:verdana;">
-	    <br>
-          Y-Axis:
-          <input id="peak" style="width:20px;height:20px;" type="checkbox"> Peak
-          <input id="plat" style="width:20px;height:20px;" type="checkbox"> Plateau
-          <input id="peepP" style="width:20px;height:20px;" type="checkbox"> PEEP
-	  <input id="vtdel" style="width:20px;height:20px;" type="checkbox"> Tidal Volume
-          <input id="mvdel" style="width:20px;height:20px;" type="checkbox"> Minute Volume
-          <input id="mbpm" style="width:20px;height:20px;" type="checkbox"> Mandatory BPM
-          <input id="sbpm" style="width:20px;height:20px;" type="checkbox"> Spontaneous BPM
-
-	  <br><br>
-	  X-Axis:
-	  <input id="breathNum" type="radio" name="xaxis" checked 
-	    style="font-size: 16px;width: 20px; height: 20px" >
-          <label for="breathNum">Breath Number</label>
-	  <input id="timeBased" type="radio" name="xaxis" 
-	    style="font-size: 16px;width: 20px; height: 20px" >
-          <label for="timeBased">Elapsed Time</label>
-
-	  <br><br>
-	  <input id="chartTitle" type="text" style="font-size: 16px;padding: 5px;width: 150;text-align: center"> Chart Title
-          <button class="button" onclick='createNewChart()'>CREATE CHART</button>
-	  <br><br>
-	  </div>
-
-	  <br><br>
-	  <div id="chartContainer" height=400px>
+          
+          <div
+            style="background-color:#0d3e51; color:white;font-size:20px; font-family:verdana;">
+            <br>
+            Y-Axis:
+            <input id="peak" style="width:20px;height:20px;" type="checkbox">
+            Peak
+            <input id="plat" style="width:20px;height:20px;" type="checkbox">
+            Plateau
+            <input id="peepP" style="width:20px;height:20px;" type="checkbox">
+            PEEP
+            <input id="vtdel" style="width:20px;height:20px;" type="checkbox">
+            Tidal Volume
+            <input id="mvdel" style="width:20px;height:20px;" type="checkbox">
+            Minute Volume
+            <input id="mbpm" style="width:20px;height:20px;" type="checkbox">
+            Mandatory BPM
+            <input id="sbpm" style="width:20px;height:20px;" type="checkbox">
+            Spontaneous BPM
+            
+            <br><br>
+            X-Axis:
+            <input id="breathNum" type="radio" name="xaxis" checked
+              style="font-size: 16px;width: 20px; height: 20px">
+            <label for="breathNum">Breath Number</label>
+            <input id="timeBased" type="radio" name="xaxis"
+              style="font-size: 16px;width: 20px; height: 20px">
+            <label for="timeBased">Elapsed Time</label>
+            
+            <br><br>
+            <input id="chartTitle" type="text"
+              style="font-size: 16px;padding: 5px;width: 150;text-align: center">
+            Chart Title
+            <button class="button" onclick='createNewChart()'>CREATE
+              CHART</button>
+            <br><br>
+          </div>
+          
+          <br><br>
+          <div id="chartContainer" height=400px>
           </div>
         </div>
       </center>
       
       <center>
-        <div id="errorWarningDiv" display="none">
+        <div id="errorWarningDiv" style="display: none">
           <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Session Errors and Warnings</h2>
           
@@ -309,7 +323,7 @@
       </center>
       
       <center>
-        <div id="rawDataDiv" display="none">
+        <div id="rawDataDiv" style="display: none">
           <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
             Dumping Raw Data for Session</h2>
           <div
@@ -318,8 +332,30 @@
           </div>
           
         </div>
-    </div>
-    </center>
+      </center>
+      
+      <center>
+        <div id="importDiv" style="display: none">
+          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
+            Import Session</h2>
+          <div
+            style="margin-left:10px; height:350px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-size: 30px; font-family: 'verdana'">
+            <br><br>
+            <label for="fileSelector">Session File to Import</label>
+            <input type="file" id="fileSelector" 
+              style="width: 190; background-color:#0d3e51; color:white; font-size:30px; font-family:verdana;" />
+            <br><br>
+            <label for="importSessionName">Session Name to Create</label>
+            <input id="importSessionName"
+              style="width: 190; background-color:#0d3e51; color:white; font-size:30px; font-family:verdana;" />
+            <br><br>
+            <button class="button" onclick='importFile()'>IMPORT</button>
+            <br><br>
+            
+          </div>
+          
+        </div>
+      </center>
     
     </div>
   </body>
