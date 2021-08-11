@@ -32,85 +32,89 @@
       </div>
       
       <center>
-      <button id="btnExit" class="sidebarButton" style="background-color:firebrick" onclick='selectExit()'>STOP & EXIT</button>
+        <button id="btnExit" class="sidebarButton"
+          style="background-color:firebrick" onclick='selectExit()'>STOP &
+          EXIT</button>
       </center>
-
-
+      
       <center>
-      <div
-        style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
-	<br>
-	<br><br>
-	<div id="btnNewSessionDiv">
-	  <br>
-        <button id="btnNewSessionDiv" class="sidebarButton"
+        <div
+          style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+          <br>
+          <br><br>
+          <div id="btnNewSessionDiv">
+            <br>
+            <button id="btnNewSessionDiv" class="sidebarButton"
               onclick='createNewDb()'>Start New Session</button>
-	</div>
-
-        <div id="btnStartLogDiv">
-	<br><br>
-	<br><br>
-        <button id="btnStartLog" class="sidebarButton" onclick='startLog()'>Resume
+          </div>
+          
+          <div id="btnStartLogDiv">
+            <br><br>
+            <br><br>
+            <button id="btnStartLog" class="sidebarButton"
+              onclick='startLog()'>Resume
               Recording</button>
-        </div>
-	  `
-        <div id="btnPauseLogDiv">
-	<br>
-	<br><br>
-        <button id="btnPauseLog" class="sidebarButton" onclick='pauseLog()'>Pause
+          </div>
+          `
+          <div id="btnPauseLogDiv">
+            <br>
+            <br><br>
+            <button id="btnPauseLog" class="sidebarButton"
+              onclick='pauseLog()'>Pause
               Recording</button>
+          </div>
+          
+          <div id="btnDeleteDiv">
+            <br><br>
+            <br><br>
+            <button id="btnDeleteAll" class="sidebarButton"
+              onclick='deleteAllDbs()'>Delete All
+              Sessions</button>
+            <br><br><br><br><br>
+          </div>
+          
         </div>
-
-        <div id="btnDeleteDiv">
-	<br><br>
-	<br><br>
-        <button id="btnDeleteAll"class="sidebarButton" onclick='deleteAllDbs()'>Delete All 
-	   Sessions</button>
-	 <br><br><br><br><br>
-	</div>
-
-      </div>
       </center>
       
     </div>
     
     <div class="body-pane">
-    
-    <center>
-      <img src="img/logger-title-logos.png" alt="Title" width="620"
-        height="140">
-      <h1 id='SysUid'
-        style="background-color:#0d3e51; color:white;font-size:1.5em ; font-family:verdana;">
-      </h1>
-      <div class="row">
-        <div class="column">
-          <p id="sessionName"
-            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-            No Active Session
-          <div
-            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
-            <p id=dweetBox style="font-size:8; text-align: left">
-          </div>
-          
-        </div>
-        
-        <div class="column">
-          <p
-            style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
-            All Saved Sessions
-          <div
-            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
-            <br>
-            <table id='dbTable' className="dbTableStyle"
-              style="font-size:20px; width:100%">
-            </table>
-          </div>
-          
-        </div>
-        
-      </div>
-    </div>
       
+      <center>
+        <img src="img/logger-title-logos.png" alt="Title" width="620"
+          height="140">
+        <h1 id='SysUid'
+          style="background-color:#0d3e51; color:white;font-size:1.5em ; font-family:verdana;">
+        </h1>
+        <div class="row">
+          <div class="column">
+            <p id="sessionName"
+              style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+              No Active Session
+            <div
+              style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+              <p id=dweetBox style="font-size:8; text-align: left">
+            </div>
+            
+          </div>
+          
+          <div class="column">
+            <p
+              style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+              All Saved Sessions
+            <div
+              style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+              <br>
+              <table id='dbTable' className="dbTableStyle"
+                style="font-size:20px; width:100%">
+              </table>
+            </div>
+            
+          </div>
+          
+        </div>
+    </div>
+    
     </center>
   </body>
   

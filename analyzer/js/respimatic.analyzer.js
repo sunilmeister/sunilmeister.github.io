@@ -1,3 +1,4 @@
+var importJsonArray = [];
 
 document.title = respimaticUid + " (ANALYZER)" ;
 if (!window.indexedDB) {
@@ -167,12 +168,52 @@ function selectSession() {
   listAllDbs();
 }
 
+function doImport(file, fileName, dbName) {
+
+  var reader = new FileReader();
+  reader.readAsText(file, "UTF-8");
+  reader.onload = function (evt) {
+    importJsonArray = JSON.parse(evt.target.result);
+    //console.log(importJsonArray);
+  }
+  reader.onerror = function (evt) {
+    alert("Error reading file\n'" + fileName + "'");
+  }
+}
+
 function importFile() {
   elm = document.getElementById("fileSelector");
-  fileName = elm.value;
+  var fileName = elm.value;
+  var file = elm.files[0];
+  console.log("file " + typeof file);
   elm = document.getElementById("importSessionName");
   sessionName = elm.value;
-  alert("Import " + fileName + " -> " + sessionName + "\nNot yet Implemented");
+
+  var name = "";
+  today = new Date();
+  creationTimeStamp = today;
+
+  var dd = String(today. getDate()). padStart(2, '0');
+  var mm = String(today. getMonth() + 1). padStart(2, '0'); //January is 0!
+  var yyyy = today. getFullYear();
+
+  var hrs = String(today. getHours()). padStart(2, '0');
+  var min = String(today. getMinutes()). padStart(2, '0');
+  var sec = String(today. getSeconds()). padStart(2, '0');
+
+  dmy = dd + "-" + mm + "-" + yyyy;
+  nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
+
+  do {
+    dbName= respimaticUid + '|' + sessionName + "|" + nameTagTime;
+    if (checkDbExists(dbName)) {
+      alert("Session name already exists\n" + sessionName + "\nTry again");
+    } else break;
+  } while (true) ;
+
+  doImport(file, fileName, dbName);
+
+  alert("Import File" + fileName + "\n-> " + dbName + "\nNot yet Implemented");
 }
 
 function selectImport() {
@@ -249,6 +290,8 @@ function resetAnalysisData() {
   initCharts();
   initRawDump();
   initErrorWarning();
+
+  importJsonArray = [];
 }
 
 function checkValidAnalysisDuration() {
