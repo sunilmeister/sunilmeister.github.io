@@ -1,6 +1,6 @@
 .sidebar {
   height: 100%;
-  width: 225px;
+  width: 230px;
   position: absolute;
   left: 0;
   top: 0;
@@ -16,7 +16,7 @@
 }
 
 .body-pane {
-  margin-left: 220px;
+  margin-left: 230px;
   font-size: 20px;
   font-family: verdana;
 }

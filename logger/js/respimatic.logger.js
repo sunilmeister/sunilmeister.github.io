@@ -3,6 +3,8 @@ var db;
 var dbName;
 var doLog = false;
 
+var firstDweet = true;
+var startDate = new Date();
 var prevContent = {}; 
 var initialState = true;
 var expectErrorMsg = false;
@@ -13,7 +15,7 @@ var l3 = false;
 var l4 = false;
 
 // check for browser capability
-document.title = respimaticUid + " (LOGGER)" ;
+document.title = respimaticUid + " (RECORDER)" ;
 if (!window.indexedDB) {
     alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
@@ -140,6 +142,8 @@ function deleteAllDbs() {
 }
 
 function initState() {
+  firstDweet = true;
+  startDate = new Date();
   prevContent = {}; 
   initialState = true;
   expectErrorMsg = false;
@@ -158,10 +162,6 @@ function createNewDb() {
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);
   sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
-
-  document.getElementById("btnNewSessionDiv").style.display = "none";
-  document.getElementById("btnStartLogDiv").style.display = "none";
-  document.getElementById("btnPauseLogDiv").style.display = "block";
 }
 
 // ///////////////////////////////////////////////////////
@@ -176,6 +176,19 @@ function displayTweet(d) {
 function processDweet(d) {
   if (!doLog) return ;
 
+  if (firstDweet) {
+    firstDweet = false;
+    startDate = d.created;
+
+    elm = document.getElementById("startTime");
+    elm.innerHTML = "Starting Time " + timeToStr(d.created);
+  } else {
+    curDate = d.created;
+    var diff = curDate - startDate;
+
+    elm = document.getElementById("logTimeDuration");
+    elm.innerHTML = "Session Duration " + msToTime(diff);
+  }
   // We already have the UID
   delete d.thing;
 
@@ -267,37 +280,27 @@ function waitForDweets() {
 
 function startLog() {
   if (doLog) return;
+  var heading = document.getElementById("SysUid");
+  heading.innerHTML = "Recording In-Progress for " + respimaticUid;
   doLog = true;
-
-  document.getElementById("btnNewSessionDiv").style.display = "none";
-  document.getElementById("btnStartLogDiv").style.display = "none";
-  document.getElementById("btnPauseLogDiv").style.display = "block";
 }
 
 function pauseLog() {
   if (!doLog) return;
+  var heading = document.getElementById("SysUid");
+  heading.innerHTML = "Recording Paused for " + respimaticUid;
   doLog = false;
-
-  document.getElementById("btnNewSessionDiv").style.display = "block";
-  document.getElementById("btnStartLogDiv").style.display = "block";
-  document.getElementById("btnPauseLogDiv").style.display = "none";
 }
 
 window.onload = function() {
-  var heading = document.getElementById("SysUid");
-  heading.innerHTML = "LOG for " + respimaticUid;
+  startLog();
   listAllDbs();
-
-  document.getElementById("btnNewSessionDiv").style.display = "block";
-  document.getElementById("btnStartLogDiv").style.display = "none";
-  document.getElementById("btnPauseLogDiv").style.display = "none";
-
   waitForDweets();
 }
 
 function selectExit() {
   if (doLog) {
-    if (!confirm("Logging will STOP")) {
+    if (!confirm("Recording will STOP")) {
       return;
     }
   }

@@ -87,6 +87,19 @@ function dateToStr(d) {
   return dtStr;
 }
 
+function timeToStr(d) {
+  if (!d) return null;
+  date = new Date(d);
+
+  var hrs = String(date. getHours()). padStart(2, '0');
+  var min = String(date. getMinutes()). padStart(2, '0');
+  var sec = String(date. getSeconds()). padStart(2, '0');
+
+  tmStr = hrs + ":" + min + ":" + sec;
+
+  return tmStr;
+}
+
 function msToTime(milliseconds) {
   var d = convertMS(milliseconds);
 
