@@ -318,6 +318,12 @@ function resetAnalysisData() {
   initErrorWarnings();
 
   importJsonArray = [];
+
+  elm = document.getElementById("startTime");
+  elm.value = "";
+
+  elm = document.getElementById("endTime");
+  elm.value = "";
 }
 
 function checkValidAnalysisDuration() {

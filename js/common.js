@@ -61,6 +61,8 @@ function convertMS( milliseconds ) {
 
 function strToDate(dtStr) {
   if (!dtStr) return null;
+  if (typeof dtStr == 'Date') return dtStr;
+
   dtStr = dtStr.replace(',','');
   let dateParts = dtStr.split("-");
   let timeParts = dateParts[2].split(" ")[1].split(":");

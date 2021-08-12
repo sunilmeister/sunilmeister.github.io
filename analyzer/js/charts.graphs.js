@@ -186,28 +186,28 @@ function createNewChart() {
   elm = document.getElementById("chartTitle");
   title = elm.value;
 
-  elm = document.getElementById("peak");
+  elm = document.getElementById("peakTick");
   peakYes = elm.checked;
 
-  elm = document.getElementById("plat");
+  elm = document.getElementById("platTick");
   platYes = elm.checked;
 
-  elm = document.getElementById("peepP");
+  elm = document.getElementById("peepTick");
   peepYes = elm.checked;
 
-  elm = document.getElementById("vtdel");
+  elm = document.getElementById("vtdelTick");
   vtdelYes = elm.checked;
 
-  elm = document.getElementById("mvdel");
+  elm = document.getElementById("mvdelTick");
   mvdelYes = elm.checked;
 
-  elm = document.getElementById("mbpm");
+  elm = document.getElementById("mbpmTick");
   mbpmYes = elm.checked;
 
-  elm = document.getElementById("sbpm");
+  elm = document.getElementById("sbpmTick");
   sbpmYes = elm.checked;
 
-  elm = document.getElementById("timeBased");
+  elm = document.getElementById("timeTick");
   timeBased = elm.checked;
 
   if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes)) {

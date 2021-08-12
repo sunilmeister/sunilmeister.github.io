@@ -22,6 +22,17 @@ var platValues = [];
 var peepValues = [];
 var tempValues = [];
 
+var vtdelPrev;
+var mvdelPrev;
+var sbpmPrev;
+var mbpmPrev;
+var scompPrev;
+var dcompPrev;
+var peakPrev;
+var platPrev;
+var peepPrev;
+var tempPrev;
+
 // Misc data
 var patientName;
 var patientInfo;
@@ -94,6 +105,17 @@ function initGlobalData() {
   platValues = [];
   peepValues = [];
   tempValues = [];
+
+  vtdelPrev = 0;
+  mvdelPrev = 0;
+  sbpmPrev = 0;
+  mbpmPrev = 0;
+  scompPrev = 0;
+  dcompPrev = 0;
+  peakPrev = 0;
+  platPrev = 0;
+  peepPrev = 0;
+  tempPrev = 0;
 
   numInitialEntry = 0;
   numStandbyEntry = 0;
