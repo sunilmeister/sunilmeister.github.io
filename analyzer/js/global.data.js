@@ -1,3 +1,7 @@
+// currently open session
+var sessionDbName = "";
+var sessionDbReady = false;
+
 // useful for params that have an undefined value sometimes
 const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
@@ -53,8 +57,18 @@ var minTemp, maxTemp;
 // error and warning messages
 var errorMsgs = [];
 var warningMsgs = [];
+var expectWarningMsg;
+var expectErrorMsg;
+var l1;
+var l2;
+var l3;
+var l4;
 
 // state transitions
+var initialState;
+var standbyState;
+var runningState;
+var errorState;
 var numInitialEntry;
 var numStandbyEntry;
 var numRunningEntry;
@@ -66,6 +80,7 @@ var numSpontaneous;
 var numMaintenance;
 
 function initGlobalData() {
+  console.log("initGlobalData");
   globalDataValid = false;
 
   breathTimes = [];
@@ -79,11 +94,16 @@ function initGlobalData() {
   platValues = [];
   peepValues = [];
   tempValues = [];
+
   numInitialEntry = 0;
   numStandbyEntry = 0;
   numRunningEntry = 0;
   numErrorEntry = 0;
   numWarnings = 0;
+  initialState = false;
+  standbyState = false;
+  runningState = false;
+  errorState = false;
 
   numMandatory = 0;
   numSpontaneous = 0;
@@ -141,6 +161,12 @@ function initGlobalData() {
 
   errorMsgs = [];
   warningMsgs = [];
+  expectWarningMsg = false;
+  expectErrorMsg = false;
+  l1 = "";
+  l2 = "";
+  l3 = "";
+  l4 = "";
 
 // state transitions
   numInitialEntry = 0; 
@@ -154,7 +180,24 @@ function initGlobalData() {
   numMaintenance = 0;
 }
 
+function equalParamCombos(curr, prev) {
+  if (
+    (curr.mode==prev.mode) &&
+    (curr.vt==prev.vt) &&
+    (curr.rr==prev.rr) &&
+    (curr.ie==prev.ie) &&
+    (curr.peep==prev.peep) &&
+    (curr.pmax==prev.pmax) &&
+    (curr.ps==prev.ps) &&
+    (curr.tps==prev.tps)
+  ) {
+    return true;
+  } else return false;
+}
+
 function globalProcessJsonRecord(jsonData) {
+  curTime = new Date(jsonData.created);
+
   for (var key in jsonData) {
     if (key=='content') {
       for (var ckey in jsonData.content) {
@@ -412,7 +455,7 @@ function globalProcessAllJsonRecords(key, lastRecord) {
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    dbReady = true;
+    sessionDbReady = true;
 
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
@@ -435,6 +478,7 @@ function globalLastRecord() {
 }
 
 function gatherGlobalData() {
+  console.log("gatherGlobalData");
   if (globalDataValid) return;
 
   if (allDbKeys.length==0) {

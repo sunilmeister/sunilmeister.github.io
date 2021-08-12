@@ -43,38 +43,10 @@ function toggleDataSeries(e) {
 var allCharts = [];
 var chartNum = 1;
 
-var breathTimes = [];
-var vtdelValues = [];
-var mvdelValues = [];
-var sbpmValues = [];
-var mbpmValues = [];
-var scompValues = [];
-var dcompValues = [];
-
-var peakValues = [];
-var platValues = [];
-var peepValues = [];
-
-var tempValues = [];
-
-var chartsDataGathered = false;
-
 function initCharts() {
-  chartsDataGathered = false;
+  console.log("initCharts");
   allCharts = [];
   chartNum = 1;
-
-  breathTimes = [];
-  vtdelValues = [];
-  mvdelValues = [];
-  sbpmValues = [];
-  mbpmValues = [];
-  scompValues = [];
-  dcompValues = [];
-  peakValues = [];
-  platValues = [];
-  peepValues = [];
-  tempValues = [];
 
   elm = document.getElementById("chartContainer");
   elm.innerHTML = "";
@@ -152,131 +124,6 @@ function renderNewChart(chartJson) {
   chart.render();
 }
 
-function chartProcessData(jsonData) {
-  curTime = jsonData.created;
-  for (var key in jsonData) {
-    if (key=='content') {
-      for (var ckey in jsonData.content) {
-	value = jsonData.content[ckey];
-        if (ckey=="L1") {
-        } else if (ckey=="L2") {
-        } else if (ckey=="L3") {
-        } else if (ckey=="L4") {
-        } else if (ckey=="INITIAL") {
-        } else if (ckey=="STANDBY") {
-        } else if (ckey=="RUNNING") {
-        } else if (ckey=="ERROR") {
-        } else if (ckey=="MANDATORY") {
-        } else if (ckey=="SPONTANEOUS") {
-        } else if (ckey=="BTOG") {
-	  breathTimes.push(curTime);
-        } else if (ckey=="ATTENTION") {
-        } else if (ckey=="MODE") {
-	  if (modeValid(value)) {
-	  }
-        } else if (ckey=="VT") {
-	  if (vtValid(value)) {
-	  }
-        } else if (ckey=="RR") {
-	  if (rrValid(value)) {
-	  }
-        } else if (ckey=="EI") {
-	  if (ieValid(value)) {
-	  }
-        } else if (ckey=="IPEEP") {
-	  if (peepValid(value)) {
-	  }
-        } else if (ckey=="PMAX") {
-	  if (pmaxValid(value)) {
-	  }
-        } else if (ckey=="PS") {
-	  if (psValid(value)) {
-	  }
-        } else if (ckey=="TPS") {
-	  if (tpsValid(value)) {
-	  }
-        } else if (ckey=="MBPM") {
-	  if (validDecimalInteger(value)) {
-	    mbpmValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="SBPM") {
-	  if (validDecimalInteger(value)) {
-	    sbpmValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="STATIC") {
-	  if (validDecimalInteger(value)) {
-	    scompValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="DYNAMIC") {
-	  if (validDecimalInteger(value)) {
-	    dcompValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="VTDEL") {
-	  if (validDecimalInteger(value)) {
-	    vtdelValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="MVDEL") {
-	  if (validFloatNumber(value)) {
-	    mvdelValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="PIP") {
-	  if (validDecimalInteger(value)) {
-	    peakValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="PLAT") {
-	  if (validDecimalInteger(value)) {
-	    platValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="MPEEP") {
-	  if (validDecimalInteger(value)) {
-	    peepValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="TEMP") {
-	  if (validDecimalInteger(value)) {
-	    tempValues.push({"time":curTime,"value":value});
-	  }
-        } else if (ckey=="ALT") {
-        } else if (ckey=="PNAME") {
-        } else if (ckey=="PMISC") {
-        }
-      }
-    }
-  }
-}
-
-function chartProcessJsonRecord(key, lastRecord) {
-  var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function(event) {
-    // Set the db variable to our database so we can use it!  
-    var db = event.target.result;
-    dbReady = true;
-
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
-    var keyReq = store.get(key);
-    keyReq.onsuccess = function(event) {
-      if (keyWithinAnalysisRange(key)) {
-        var jsonData = keyReq.result;
-        chartProcessData(jsonData);
-      }
-      chartsDataGathered = lastRecord;
-    }
-  }
-}
-
-function gatherChartData() {
-  if (allDbKeys.length==0) {
-    alert("Selected Session has no data");
-    return;
-  }
-
-  for (i=0; i<allDbKeys.length; i++) {
-    key = allDbKeys[i];
-    lastRecord = (i==(allDbKeys.length-1));
-    chartProcessJsonRecord(key, lastRecord);
-  }
-}
-
 function createPressureYaxis(num, color) {
   var yaxis = {
     title: "Pressure (cm H20)",
@@ -330,8 +177,8 @@ function createBpmYaxis(num, color) {
 }
 
 function createNewChart() {
-  if (!chartsDataGathered) {
-    alert("Data Gathering in progressing\nPlease try again in a short while");
+  if (!globalDataValid) {
+    alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
 
@@ -502,7 +349,10 @@ function createNewChart() {
   }
 }
 
-function createCharts() {
-  if (chartsDataGathered) return;
-  gatherChartData();
+function displayCharts() {
+  console.log("displayCharts");
+  if (!globalDataValid) {
+    alert("Data Gathering in process\nGive us a second and try again");
+    return;
+  }
 }

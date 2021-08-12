@@ -31,7 +31,8 @@ function displayJsonErrorWarning(scrollbox, jsonData) {
 }
 
 var errorWarningDisplayed = false;
-function initErrorWarning() {
+function initErrorWarnings() {
+  console.log("initErrorWarnings");
   errorWarningDisplayed = false;
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "" ;
@@ -39,12 +40,14 @@ function initErrorWarning() {
   scrollbox.innerHTML = "" ;
 }
 
-function displayErrorWarning() {
-  if (errorWarningDisplayed) return;
-  if (!tablesConstructed) {
-    alert("Must display Statistics first\nTo gather data from the Session");
+function displayErrorWarnings() {
+  console.log("displayErrorWarnings");
+  if (!globalDataValid) {
+    alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
+
+  if (errorWarningDisplayed) return;
 
   var scrollbox = document.getElementById('scrollErrorDiv');
   for (i=0; i<errorMsgs.length; i++) {

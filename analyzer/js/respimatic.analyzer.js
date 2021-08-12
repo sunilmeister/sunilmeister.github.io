@@ -32,43 +32,7 @@ function listDbTableRow(item, index) {
 
 }
 
-function getSessionDuration(dbName) {
-  var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function(event) {
-    // Set the db variable to our database so we can use it!  
-    var db = event.target.result;
-    dbReady = true;
-
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
-    var keyReq = store.getAllKeys();
-
-    keyReq.onsuccess = function(event) {
-      var keys = event.target.result;
-      allDbKeys = keys;
-      if (keys.length==0) {
-        alert("Selected Session has no data");
-      }
-
-      logStartTime = new Date(keys[0]);
-      logEndTime = new Date(keys[keys.length-1]);
-      analysisStartTime = logStartTime;
-      analysisEndTime = logEndTime;
-
-      updateSelectedDuration();
-      updateLogDuration();
-
-      elm = document.getElementById("startTime");
-      elm.value = dateToStr(logStartTime);
-
-      elm = document.getElementById("endTime");
-      elm.value = dateToStr(logEndTime);
-
-    }
-  }
-}
-
-async function exportDbRow(row) {
+function exportDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
@@ -77,20 +41,19 @@ async function exportDbRow(row) {
   exportDb(dbName);
 }
 
-async function selectDbRow(row) {
+function selectDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
+  sessionDbName = dbName;
   
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + 
     ' [' + p.cells[2].innerHTML + ' ' + p.cells[3].innerHTML + ' ]';
 
-  resetAnalysisData();
-  createOrOpenDb(dbName);
-  getSessionDuration(dbName);
+  initSession(dbName);
   return dbName;
 }
 
@@ -143,7 +106,7 @@ function deleteAllDbs() {
 
 function checkDbReady() {
 //return true;
-  if (dbReady && db && dbName) return true;
+  if (sessionDbReady && sessionDbName) return true;
 
   if (!dbName) {
     alert('No Session Selected\nPlease Select Session for Analysis');
@@ -259,7 +222,7 @@ function selectStats() {
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 
-  collectStats();
+  displayStats();
 }
 
 function selectErrorWarnings() {
@@ -273,7 +236,7 @@ function selectErrorWarnings() {
   document.getElementById("errorWarningDiv").style.display = "block";
   document.getElementById("importDiv").style.display = "none";
 
-  displayErrorWarning();
+  displayErrorWarnings();
 }
 
 function selectCharts() {
@@ -287,7 +250,7 @@ function selectCharts() {
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 
-  createCharts();
+  displayCharts();
 }
 
 function selectRawData() {
@@ -304,14 +267,55 @@ function selectRawData() {
   displayRawData();
 }
 
+function initSession() {
+  if (!sessionDbName) {
+    alert("Please Select Session");
+    return;
+  }
+  resetAnalysisData();
+  var req = indexedDB.open(dbName, dbVersion);
+  req.onsuccess = function(event) {
+    // Set the db variable to our database so we can use it!  
+    var db = event.target.result;
+    sessionDbReady = true;
+
+    var tx = db.transaction(dbObjStoreName, 'readonly');
+    var store = tx.objectStore(dbObjStoreName);
+    var keyReq = store.getAllKeys();
+
+    keyReq.onsuccess = function(event) {
+      var keys = event.target.result;
+      allDbKeys = keys;
+      if (keys.length==0) {
+        alert("Selected Session has no data");
+      }
+
+      logStartTime = new Date(keys[0]);
+      logEndTime = new Date(keys[keys.length-1]);
+      analysisStartTime = logStartTime;
+      analysisEndTime = logEndTime;
+
+      updateSelectedDuration();
+      updateLogDuration();
+
+      elm = document.getElementById("startTime");
+      elm.value = dateToStr(logStartTime);
+
+      elm = document.getElementById("endTime");
+      elm.value = dateToStr(logEndTime);
+
+      gatherGlobalData();
+    }
+  }
+}
+
 function resetAnalysisData() {
+  initGlobalData();
+
   initStats();
-
   initCharts();
-  gatherChartData();
-
   initRawDump();
-  initErrorWarning();
+  initErrorWarnings();
 
   importJsonArray = [];
 }
@@ -369,6 +373,7 @@ function selectTimeInterval() {
 
   updateSelectedDuration();
   resetAnalysisData();
+  gatherGlobalData();
 }
 
 function selectLogTimes() {
@@ -384,10 +389,13 @@ function selectLogTimes() {
     elm.value = dateToStr(analysisEndTime);
 
     resetAnalysisData();
+    gatherGlobalData();
   }
 }
 
 window.onload = function() {
+  sessionDbName = "" ;
+  sessionDbReady = false ;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
 

@@ -12,7 +12,7 @@ function displayJsonRecord(key) {
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    dbReady = true;
+    sessionDbReady = true;
 
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
@@ -26,12 +26,19 @@ function displayJsonRecord(key) {
 
 var dataDisplayed = false;
 function initRawDump() {
+  console.log("initRawData");
   var scrollbox = document.getElementById('scrollRawDataDiv');
   scrollbox.innerHTML = "" ;
   dataDisplayed = false;
 }
 
 function displayRawData() {
+  console.log("displayRawData");
+  if (!globalDataValid) {
+    alert("Data Gathering in process\nGive us a second and try again");
+    return;
+  }
+
   if (dataDisplayed) return;
   if (allDbKeys.length==0) {
     alert("Selected Session has no data");
