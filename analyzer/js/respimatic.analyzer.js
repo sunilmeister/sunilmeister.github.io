@@ -309,21 +309,19 @@ function initSession() {
       elm = document.getElementById("endTime");
       elm.value = dateToStr(logEndTime);
 
+      initGlobalData();
       gatherGlobalData();
     }
   }
 }
 
 function resetAnalysisData() {
-  initGlobalData();
-
   initStats();
   initCharts();
   initRawDump();
   initErrorWarnings();
 
   importJsonArray = [];
-
 }
 
 function checkValidAnalysisDuration() {
@@ -448,8 +446,8 @@ function setTimeInterval() {
   elm.value= dateToTimeStr(analysisEndTime);
 
   updateSelectedDuration();
-  resetAnalysisData();
-  gatherGlobalData();
+  //resetAnalysisData();
+  alert("Analysis Interval Implementation in progress...");
 }
 
 function resetTimeInterval() {
@@ -468,7 +466,6 @@ function resetTimeInterval() {
 
   updateSelectedDuration();
   resetAnalysisData();
-  gatherGlobalData();
 }
 
 window.onload = function() {

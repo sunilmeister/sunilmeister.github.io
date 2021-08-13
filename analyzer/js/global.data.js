@@ -483,10 +483,8 @@ function globalProcessAllJsonRecords(key, lastRecord) {
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
-      if (keyWithinAnalysisRange(key)) {
-        var jsonData = keyReq.result;
-        globalProcessJsonRecord(jsonData);
-      }
+      var jsonData = keyReq.result;
+      globalProcessJsonRecord(jsonData);
       if (lastRecord) {
 	globalLastRecord();
       }
