@@ -36,9 +36,22 @@ function createNewInstance(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+function keyMoreThanAnalysisRangeMax(key) {
+  d = new Date(key);
+  if (d>analysisEndTime) return true;
+  return false;
+}
+
+function keyLessThanAnalysisRangeMin(key) {
+  d = new Date(key);
+  if (d<analysisStartTime) return true;
+  return false;
+}
+
 function keyWithinAnalysisRange(key) {
-  if (key<analysisStartTime) return false;
-  if (key>analysisEndTime) return false;
+  d = new Date(key);
+  if (d<analysisStartTime) return false;
+  if (d>analysisEndTime) return false;
   return true;
 }
 
