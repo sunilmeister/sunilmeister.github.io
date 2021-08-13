@@ -173,6 +173,7 @@ function displayTweet(d) {
 }
 
 function processDweet(d) {
+  //console.log("processDweet doLog=" + doLog);
   if (!doLog) return ;
 
   if (firstDweet) {
@@ -180,13 +181,13 @@ function processDweet(d) {
     startDate = d.created;
 
     elm = document.getElementById("startTime");
-    elm.innerHTML = "Starting Time " + timeToStr(d.created);
+    elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
   } else {
     curDate = d.created;
     var diff = curDate - startDate;
 
     elm = document.getElementById("logTimeDuration");
-    elm.innerHTML = "Session Duration " + msToTime(diff);
+    elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
   // We already have the UID
   delete d.thing;
