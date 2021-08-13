@@ -59,18 +59,6 @@ function convertMS( milliseconds ) {
     };
 }
 
-function strToDate(dtStr) {
-  if (!dtStr) return null;
-  if (typeof dtStr == 'Date') return dtStr;
-
-  dtStr = dtStr.replace(',','');
-  let dateParts = dtStr.split("-");
-  let timeParts = dateParts[2].split(" ")[1].split(":");
-  dateParts[2] = dateParts[2].split(" ")[0];
-  // month is 0-based, that's why we need dataParts[1] - 1
-  return dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
-}
-
 function dateToStr(d) {
   if (!d) return null;
   date = new Date(d);
@@ -89,7 +77,20 @@ function dateToStr(d) {
   return dtStr;
 }
 
-function timeToStr(d) {
+function dateToDateStr(d) {
+  if (!d) return null;
+  date = new Date(d);
+
+  var dd = String(date. getDate()). padStart(2, '0');
+  var mm = String(date. getMonth() + 1). padStart(2, '0'); //January is 0!
+  var yyyy = date. getFullYear();
+
+  dtStr = dd + "-" + mm + "-" + yyyy;
+
+  return dtStr;
+}
+
+function dateToTimeStr(d) {
   if (!d) return null;
   date = new Date(d);
 
@@ -102,7 +103,7 @@ function timeToStr(d) {
   return tmStr;
 }
 
-function msToTime(milliseconds) {
+function msToTimeStr(milliseconds) {
   var d = convertMS(milliseconds);
 
   days = d.day;
@@ -116,6 +117,34 @@ function msToTime(milliseconds) {
   seconds = (seconds < 10) ? "0" + seconds : seconds;
 
   return hours + ":" + minutes + ":" + seconds;
+}
+
+function strToDate(dateStr, timeStr) {
+  if (!dateStr || !timeStr) return null;
+
+  const dateArr = dateStr.split("-");
+  //console.log("date " + dateArr);
+  if (dateArr.length!=3) return null;
+  dd = dateArr[0];
+  mm = dateArr[1]-1;
+  yyyy = dateArr[2];
+
+  const timeArr = timeStr.split(":");
+  //console.log("time " + timeArr);
+  if (timeArr.length!=3) return null;
+  hh = timeArr[0];
+  mn = timeArr[1];
+  ss = timeArr[2];
+
+  date = new Date();
+  date.setDate(dd);
+  date.setMonth(mm);
+  date.setFullYear(yyyy);
+  date.setHours(hh);
+  date.setMinutes(mn);
+  date.setSeconds(ss);
+
+  return date;
 }
 
 // /////////////////////////////////////////////

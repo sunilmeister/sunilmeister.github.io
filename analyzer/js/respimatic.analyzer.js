@@ -126,6 +126,7 @@ function selectSession() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisDiv").style.display = "none";
 
   listAllDbs();
 }
@@ -205,6 +206,7 @@ function selectImport() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "block";
+  document.getElementById("analysisDiv").style.display = "none";
 }
 
 function selectExport() {
@@ -221,6 +223,7 @@ function selectStats() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisDiv").style.display = "none";
 
   displayStats();
 }
@@ -249,6 +252,7 @@ function selectCharts() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisDiv").style.display = "none";
 
   displayCharts();
 }
@@ -263,6 +267,7 @@ function selectRawData() {
   document.getElementById("rawDataDiv").style.display = "block";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisDiv").style.display = "none";
 
   displayRawData();
 }
@@ -319,11 +324,6 @@ function resetAnalysisData() {
 
   importJsonArray = [];
 
-  elm = document.getElementById("startTime");
-  elm.value = "";
-
-  elm = document.getElementById("endTime");
-  elm.value = "";
 }
 
 function checkValidAnalysisDuration() {
@@ -341,62 +341,134 @@ function updateLogDuration() {
 
   elm = document.getElementById("logTimeDuration");
   if (diff>=0) {
-    elm.innerHTML = "Session Duration " + msToTime(diff);
+    elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   } else {
     elm.innerHTML = "Session Duration " + "NaN" ;
   }
 }
 
 function updateSelectedDuration() {
-  var diff = analysisEndTime - analysisStartTime;
 
+  table = document.getElementById("selectTimesTable");
   elm = document.getElementById("selectedTimeDuration");
+
+  var diff = analysisEndTime - analysisStartTime;
+  diff = analysisEndTime - analysisStartTime;
   if (diff>=0) {
-    elm.innerHTML = "Selected Duration " + msToTime(diff);
+    table.rows[2].cells[3].innerHTML = msToTimeStr(diff);
   } else {
-    elm.innerHTML = "Selected Duration " + "NaN" ;
+    table.rows[2].cells[3].innerHTML = "NaN" ;
   }
 }
 
-function selectTimeInterval() {
-  var elm = document.getElementById("startTime");
-  st = strToDate(elm.value);
-  elm = document.getElementById("endTime");
-  et = strToDate(elm.value);
+function selectAnalysisWindow() {
+  if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
 
-  if (st<logStartTime) {
-    alert("Start Time is before the Session Start Time\nUsing Session Start Time");
-    st = logStartTime;
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisDiv").style.display = "block";
+
+  table = document.getElementById("selectTimesTable");
+  table.rows[1].cells[1].innerHTML = logStartTime;
+  table.rows[1].cells[2].innerHTML = logEndTime;
+
+  var diff = logEndTime - logStartTime;
+  if (diff>=0) {
+    table.rows[1].cells[3].innerHTML = msToTimeStr(diff);
+  } else {
+    table.rows[1].cells[3].innerHTML = "NaN" ;
   }
 
-  if (et>logEndTime) {
-    alert("End Time is after the Session End Time\nUsing Session End Time");
+  elm = document.getElementById("startDate");
+  elm.value= dateToDateStr(logStartTime);
+  elm = document.getElementById("startTime");
+  elm.value= dateToTimeStr(logStartTime);
+
+  elm = document.getElementById("endDate");
+  elm.value= dateToDateStr(logEndTime);
+  elm = document.getElementById("endTime");
+  elm.value= dateToTimeStr(logEndTime);
+
+  var diff = analysisEndTime - analysisStartTime;
+  if (diff>=0) {
+    table.rows[2].cells[3].innerHTML = msToTimeStr(diff);
+  } else {
+    table.rows[2].cells[3].innerHTML = "NaN" ;
+  }
+}
+
+function setTimeInterval() {
+  elm = document.getElementById("startDate");
+  dStr = elm.value;
+  elm = document.getElementById("startTime");
+  tStr = elm.value;
+  st = strToDate(dStr, tStr);
+  if (!st) {
+    alert("Badly formed Start Date/Time");
+    return;
+  }
+
+  elm = document.getElementById("endDate");
+  dStr = elm.value;
+  elm = document.getElementById("endTime");
+  tStr = elm.value;
+  et = strToDate(dStr, tStr);
+  if (!et) {
+    alert("Badly formed End Date/Time");
+    return;
+  }
+
+  //console.log("st=" + st);
+  //console.log("et=" + et);
+  if ((st < logStartTime) || (st > logEndTime)) {
+    alert("Start Date/Time out of bounds\nUsing Session Start Date/Time");
+    st = logStartTime;
+  }
+  if ((et < logStartTime) || (et > logEndTime)) {
+    alert("End Date/Time out of bounds\nUsing Session End Date/Time");
     et = logEndTime;
   }
 
   analysisStartTime = st;
   analysisEndTime = et;
 
+  elm = document.getElementById("startDate");
+  elm.value= dateToDateStr(analysisStartTime);
+  elm = document.getElementById("startTime");
+  elm.value= dateToTimeStr(analysisStartTime);
+
+  elm = document.getElementById("endDate");
+  elm.value= dateToDateStr(analysisEndTime);
+  elm = document.getElementById("endTime");
+  elm.value= dateToTimeStr(analysisEndTime);
+
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
 }
 
-function selectLogTimes() {
-  if ((logStartTime!=analysisStartTime) || (logEndTime!=analysisEndTime)) {
-    analysisStartTime = logStartTime;
-    analysisEndTime = logEndTime;
-    updateSelectedDuration();
+function resetTimeInterval() {
+  analysisStartTime = logStartTime;
+  analysisEndTime = logEndTime;
 
-    elm = document.getElementById("startTime");
-    elm.value = dateToStr(analysisStartTime);
+  elm = document.getElementById("startDate");
+  elm.value= dateToDateStr(analysisStartTime);
+  elm = document.getElementById("startTime");
+  elm.value= dateToTimeStr(analysisStartTime);
 
-    elm = document.getElementById("endTime");
-    elm.value = dateToStr(analysisEndTime);
+  elm = document.getElementById("endDate");
+  elm.value= dateToDateStr(analysisEndTime);
+  elm = document.getElementById("endTime");
+  elm.value= dateToTimeStr(analysisEndTime);
 
-    resetAnalysisData();
-    gatherGlobalData();
-  }
+  updateSelectedDuration();
+  resetAnalysisData();
+  gatherGlobalData();
 }
 
 window.onload = function() {
@@ -411,21 +483,13 @@ window.onload = function() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisDiv").style.display = "none";
 
-  //Date time pickers
-  instance = new dtsel.DTS('input[name="startTime"]',  {
-    direction: 'BOTTOM',
-    dateFormat: "dd-mm-yyyy",
-    showTime: true,
-    timeFormat: "HH:MM:SS"
-  });
+  elm = document.getElementById("startTime");
+  elm.value = "";
 
-  instance = new dtsel.DTS('input[name="endTime"]',  {
-    direction: 'BOTTOM',
-    dateFormat: "dd-mm-yyyy",
-    showTime: true,
-    timeFormat: "HH:MM:SS"
-  });
+  elm = document.getElementById("endTime");
+  elm.value = "";
 
   resetAnalysisData();
   selectSession();

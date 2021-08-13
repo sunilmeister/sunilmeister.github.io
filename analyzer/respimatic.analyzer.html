@@ -13,10 +13,8 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap"
       rel="stylesheet">
-    <link rel="stylesheet" href="../css/dtsel.css" />
     <link rel="stylesheet" href="../css/common.css" />
     <script src="../canvasjs/canvasjs.min.js"></script>
-    <script src="../js/dtsel.js"></script>
     <script src="../js/download.js"></script>
     <script src="../js/common.js"></script>
     <script src="js/global.data.js"></script>
@@ -46,24 +44,12 @@
       
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+      <center>
         <br>
         <button id="btnInterval" class="sidebarButton"
-          onclick='selectTimeInterval()'>Analysis Window</button>
-        <br><br>
-        <center>
-          <label>Start Time</label>
-          <input id="startTime" name="startTime"
-            style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:14px; font-family:verdana;" />
-          <br><br>
-          <label>End Time</label>
-          <input id="endTime" name="endTime"
-            style="margin-left: 2px; padding: 5px; width: 190; background-color:#0d3e51; color:white; font-size:14px; font-family:verdana;" />
-          <br><br>
-          <button id="btnResetTime" class="sidebarButton"
-            onclick='selectLogTimes()'>Reset Window</button>
-          <br><br>
-        </center>
-        
+          onclick='selectAnalysisWindow()'>Analysis Window</button>
+	<br><br>
+      </center>
       </div>
 
       <br>
@@ -354,7 +340,54 @@
             <br>
             
           </div>
+	</div>
+      </center>
           
+      <center>
+        <div id="analysisDiv" style="display: none">
+          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
+            Setup Analysis Window</h2>
+          <div
+            style="margin-left:10px; height:260px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-size: 25px; font-family: 'verdana'">
+
+            <table id='selectTimesTable' className="statsTableStyle"
+              style="font-size:25px; font-family: 'verdana'; width:100%;">
+	      <tr>
+                <th align="left" style="padding:15px; background-color:lightgray; color: black;"> Parameter </th>
+                <th align="center" style="padding:15px; background-color:lightgray; color: black;"> Start Time </th>
+                <th align="center" style="padding:15px; background-color:lightgray; color: black;"> End Time </th>
+                <th align="center" style="padding:15px; background-color:lightgray; color: black;"> Duration </th>
+		</tr>
+
+		<tr>
+		  <td style="padding: 15px;" >Selected Session Window</td>
+		  <td align="center" style="padding: 15px;" >----</td>
+		  <td align="center" style="padding: 15px;" >----</td>
+		  <td align="center" style="padding: 15px;" >00:00:00</td>
+		</tr>
+
+		<tr>
+		  <td style="padding: 15px;" >Selected Analysis Window</td>
+		  <td align="center" style="padding: 15px;" >
+                    <input type="text" id="startDate" style="width: 160px; font-size: 25px; font-family:verdana;" value="">
+                    <span></span>
+                    <input type="text" id="startTime" style="width: 130px; font-size: 25px; font-family:verdana;" value="">
+		  </td>
+		  <td align="center" style="padding: 15px;" >
+                    <input type="text" id="endDate" style="width:160px; font-size: 25px; font-family:verdana;" value="">
+                    <span></span>
+                    <input type="text" id="endTime" style="width: 130px; font-size: 25px; font-family:verdana;" value="">
+		  </td>
+		  <td align="center" style="padding: 15px;" >00:00:00</td>
+		</tr>
+            </table>
+	    <br><br>
+            <button class="button" onclick='setTimeInterval()'>SET ANALYSIS
+              INTERVAL</button>
+            <button class="button" onclick='resetTimeInterval()'>RESET ANALYSIS
+              INTERVAL</button>
+          </div>
+	  
         </div>
       </center>
     
