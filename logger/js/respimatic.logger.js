@@ -155,8 +155,8 @@ function createNewDb() {
   if (!dbName) return;
 
   createOrOpenDb(dbName, creationTimeStamp);
-  doLog = true;
   initState();
+  doLog = true;
 
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);
