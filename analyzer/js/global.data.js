@@ -8,6 +8,7 @@ const minDummyValue = 999999 ;
 
 // valid or not
 var globalDataValid = false;
+var firstRecord = true;
 
 // value transitions
 var breathTimes = [];
@@ -19,19 +20,30 @@ var scompValues = [];
 var dcompValues = [];
 var peakValues = [];
 var platValues = [];
-var peepValues = [];
+var mpeepValues = [];
 var tempValues = [];
 
-var vtdelPrev;
-var mvdelPrev;
-var sbpmPrev;
-var mbpmPrev;
-var scompPrev;
-var dcompPrev;
-var peakPrev;
-var platPrev;
-var peepPrev;
-var tempPrev;
+// before Analysis starts
+var breathTimeInitial;
+var vtdelInitial;
+var mvdelInitial;
+var sbpmInitial;
+var mbpmInitial;
+var scompInitial;
+var dcompInitial;
+var peakInitial;
+var platInitial;
+var ipeepInitial;
+var tempInitial;
+
+var modeInitial;
+var vtInitial;
+var rrInitial;
+var ieInitial;
+var ipeepInitial;
+var pmaxInitial;
+var psInitial;
+var tpsInitial;
 
 // Misc data
 var patientName;
@@ -43,7 +55,7 @@ var modes = [];
 var vts = [];
 var rrs = [];
 var ies = [];
-var peeps = [];
+var ipeeps = [];
 var pmaxs = [];
 var pss = [];
 var tpss = [];
@@ -93,6 +105,7 @@ var numMaintenance;
 function initGlobalData() {
   console.log("initGlobalData");
   globalDataValid = false;
+  firstRecord = true;
 
   breathTimes = [];
   vtdelValues = [];
@@ -103,19 +116,20 @@ function initGlobalData() {
   dcompValues = [];
   peakValues = [];
   platValues = [];
-  peepValues = [];
+  mpeepValues = [];
   tempValues = [];
 
-  vtdelPrev = 0;
-  mvdelPrev = 0;
-  sbpmPrev = 0;
-  mbpmPrev = 0;
-  scompPrev = 0;
-  dcompPrev = 0;
-  peakPrev = 0;
-  platPrev = 0;
-  peepPrev = 0;
-  tempPrev = 0;
+  breathTimeInitial = 0;
+  vtdelInitial = 0;
+  mvdelInitial = 0;
+  sbpmInitial = 0;
+  mbpmInitial = 0;
+  scompInitial = 0;
+  dcompInitial = 0;
+  peakInitial = 0;
+  platInitial = 0;
+  ipeepInitial = 0;
+  tempInitial = 0;
 
   numInitialEntry = 0;
   numStandbyEntry = 0;
@@ -140,7 +154,7 @@ function initGlobalData() {
   vts = [];
   rrs = [];
   ies = [];
-  peeps = [];
+  ipeeps = [];
   pmaxs = [];
   pss = [];
   tpss = [];
@@ -152,7 +166,7 @@ function initGlobalData() {
     "vt" : "--",
     "rr" : "--",
     "ie" : "--",
-    "peep" : "--",
+    "ipeep" : "--",
     "pmax" : "--",
     "ps" : "--",
     "tps" : "--",
@@ -208,7 +222,7 @@ function equalParamCombos(curr, prev) {
     (curr.vt==prev.vt) &&
     (curr.rr==prev.rr) &&
     (curr.ie==prev.ie) &&
-    (curr.peep==prev.peep) &&
+    (curr.ipeep==prev.ipeep) &&
     (curr.pmax==prev.pmax) &&
     (curr.ps==prev.ps) &&
     (curr.tps==prev.tps)
@@ -217,8 +231,143 @@ function equalParamCombos(curr, prev) {
   } else return false;
 }
 
+function globalTrackJsonRecord() {
+  for (var key in jsonData) {
+    if (key=='content') {
+      for (var ckey in jsonData.content) {
+	value = jsonData.content[ckey];
+
+        if (ckey=="L1") {
+        } else if (ckey=="L2") {
+        } else if (ckey=="L3") {
+        } else if (ckey=="L4") {
+        } else if (ckey=="INITIAL") {
+	  initialState = (value==1);
+        } else if (ckey=="STANDBY") {
+	  standbyState = (value==1);
+        } else if (ckey=="RUNNING") {
+	  runningState = (value==1);
+        } else if (ckey=="ERROR") {
+	  errorState = (value==1);
+        } else if (ckey=="MANDATORY") {
+	  prevBreathMandatory = (value==1);
+        } else if (ckey=="SPONTANEOUS") {
+	  prevBreathMandatory = !(value==1);
+        } else if (ckey=="BTOG") {
+        } else if (ckey=="ATTENTION") {
+	  attentionState = (value == 1);
+        } else if (ckey=="MODE") {
+	  if (modeValid(value)) {
+	    modeInitial = value;
+	  }
+        } else if (ckey=="VT") {
+	  if (vtValid(value)) {
+	    vtInitial = value;
+	  }
+        } else if (ckey=="RR") {
+	  if (rrValid(value)) {
+	    rrInitial = value;
+	  }
+        } else if (ckey=="EI") {
+	  if (ieValid(value)) {
+	    ieInitial = value;
+	  }
+        } else if (ckey=="IPEEP") {
+	  if (peepValid(value)) {
+	    ipeepInitial = value;
+	  }
+        } else if (ckey=="PMAX") {
+	  if (pmaxValid(value)) {
+	    pmaxInitial = value;
+	  }
+        } else if (ckey=="PS") {
+	  if (psValid(value)) {
+	    psInitial = value;
+	  }
+        } else if (ckey=="TPS") {
+	  if (tpsValid(value)) {
+	    tpsInitial = value;
+	  }
+        } else if (ckey=="MBPM") {
+	  if (validDecimalInteger(value)) {
+	    mbpmInitial = value;
+	  }
+        } else if (ckey=="SBPM") {
+	  if (validDecimalInteger(value)) {
+	    sbpmInitial = value;
+	  }
+        } else if (ckey=="STATIC") {
+	  if (validDecimalInteger(value)) {
+	    scompInitial = value;
+	  }
+        } else if (ckey=="DYNAMIC") {
+	  if (validDecimalInteger(value)) {
+	    dcompInitial = value;
+	  }
+        } else if (ckey=="VTDEL") {
+	  if (validDecimalInteger(value)) {
+	    vtdelInitial = value;
+	  }
+        } else if (ckey=="MVDEL") {
+	  if (validFloatNumber(value)) {
+	    mvdelInitial = value;
+	  }
+        } else if (ckey=="PIP") {
+	  if (validDecimalInteger(value)) {
+	    peakInitial = value;
+	  }
+        } else if (ckey=="PLAT") {
+	  if (validDecimalInteger(value)) {
+	    platInitial = value;
+	  }
+        } else if (ckey=="MPEEP") {
+	  if (validDecimalInteger(value)) {
+	    ipeepInitial = value;
+	  }
+        } else if (ckey=="TEMP") {
+	  if (validDecimalInteger(value)) {
+	    tempInitial = value;
+	  }
+        } else if (ckey=="ALT") {
+	    altitude = value + " ft(m)";
+        } else if (ckey=="PNAME") {
+	    patientName = value;
+        } else if (ckey=="PMISC") {
+	    patientInfo = value;
+        } else if (ckey=="WMSG") {
+        } else if (ckey=="EMSG") {
+        }
+      }
+    }
+  }
+}
+
 function globalProcessJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
+  if (firstRecord) {
+    firstRecord = false;
+    breathTimes = [breathTimeInitial];
+    vtdelValues = [{"time":0,"value":vtdelInitial}];
+    mvdelValues = [{"time":0,"value":mvdelInitial}];
+    sbpmValues = [{"time":0,"value":sbpmInitial}];
+    mbpmValues = [{"time":0,"value":mbpmInitial}];
+    scompValues = [{"time":0,"value":scompInitial}];
+    dcompValues = [{"time":0,"value":dcompInitial}];
+    peakValues = [{"time":0,"value":peakInitial}];
+    platValues = [{"time":0,"value":platInitial}];
+    ipeepValues = [{"time":0,"value":ipeepInitial}];
+    tempValues = [{"time":0,"value":tempInitial}];
+
+    currParamCombo.mode = modeInitial;
+    currParamCombo.vt = vtInitial;
+    currParamCombo.rr = rrInitial;
+    currParamCombo.ie = ieInitial;
+    currParamCombo.ipeep = ipeepInitial;
+    currParamCombo.pmax = pmaxInitial;
+    currParamCombo.ps = psInitial;
+    currParamCombo.tps = tpsInitial;
+    prevParamCombo = createNewInstance(currParamCombo);
+  }
 
   for (var key in jsonData) {
     if (key=='content') {
@@ -279,7 +428,6 @@ function globalProcessJsonRecord(jsonData) {
 	  prevBreathMandatory = !(value==1);
         } else if (ckey=="BTOG") {
 	  breathTimes.push(curTime);
-	  var firstBreath = ((numMandatory==0) && (numSpontaneous==0));
 	  if (prevBreathMandatory) {
 	    numMandatory++ ;
 	  } else {
@@ -287,10 +435,7 @@ function globalProcessJsonRecord(jsonData) {
 	  }
 	  if (errorState) numMaintenance++;
 
-	  if (firstBreath) {
-	    prevParamCombo = createNewInstance(currParamCombo);
-            prevParamCombo.numBreaths=1;
-	  } else if (!equalParamCombos(currParamCombo, prevParamCombo)) {
+          if (!equalParamCombos(currParamCombo, prevParamCombo)) {
             usedParamCombos.push(createNewInstance(prevParamCombo));
 	    prevParamCombo = createNewInstance(currParamCombo);
             prevParamCombo.numBreaths=1;
@@ -330,9 +475,9 @@ function globalProcessJsonRecord(jsonData) {
 	  }
         } else if (ckey=="IPEEP") {
 	  if (peepValid(value)) {
-	    currParamCombo.peep = value;
-	    if ((peeps.length==0) || (peeps.indexOf(value) == -1)) {
-	      peeps.push(value);
+	    currParamCombo.ipeep = value;
+	    if ((ipeeps.length==0) || (ipeeps.indexOf(value) == -1)) {
+	      ipeeps.push(value);
 	    }
 	  }
         } else if (ckey=="PMAX") {
@@ -444,7 +589,7 @@ function globalProcessJsonRecord(jsonData) {
 	    if (minPeep > value) {
 	      minPeep = value;
 	    }
-	    peepValues.push({"time":curTime,"value":value});
+	    mpeepValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="TEMP") {
 	  if (validDecimalInteger(value)) {
@@ -484,7 +629,12 @@ function globalProcessAllJsonRecords(key, lastRecord) {
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
-      globalProcessJsonRecord(jsonData);
+      // It will never get here is keyMoreThanAnalysisRangeMax
+      if (keyLessThanAnalysisRangeMin(jsonData.created)) {
+        globalTrackJsonRecord(jsonData);
+      } else {
+        globalProcessJsonRecord(jsonData);
+      }
       if (lastRecord) {
 	globalLastRecord();
       }
@@ -506,9 +656,16 @@ function gatherGlobalData() {
     return;
   }
 
+  var lastRecord = false;
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
-    lastRecord = (i==(allDbKeys.length-1));
+    if (keyMoreThanAnalysisRangeMax(allDbKeys[i])) {
+      break;
+    } else if (i==(allDbKeys.length-1)) {
+      lastRecord = true;
+    } else if (keyMoreThanAnalysisRangeMax(allDbKeys[i+1])) {
+      lastRecord = true;
+    }
     globalProcessAllJsonRecords(key, lastRecord);
   }
 }

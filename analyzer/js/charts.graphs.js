@@ -56,13 +56,13 @@ function createDatapoints(transitions) {
   var curValue = 0;
   var curIx = -1;
 
-  if (transitions.length>0) {
+  if (transitions.length>1) {
     curValue = transitions[0].value;
-    curIx = 0;
+    curIx = 1;
   }
 
   var datapoints = [];
-  for (i=0; i<breathTimes.length; i++) {
+  for (i=1; i<breathTimes.length; i++) {
     if (curIx==transitions.length-1) {
       datapoints.push(curValue);
     } else {
@@ -88,9 +88,9 @@ function createCanvasChartData(valueArray, timeBased) {
 
   xyPoints.length = 0;
   yDatapoints = createDatapoints(valueArray);
-  for (i=0; i<numPoints; i++) {
+  for (i=1; i<numPoints; i++) {
     if (timeBased) {
-      ms = new Date(breathTimes[i]) - new Date(breathTimes[0]);
+      ms = new Date(breathTimes[i]) - new Date(breathTimes[1]);
       sec = Math.round(ms/1000);
       xyPoints.push({"x":sec, "y":yDatapoints[i]});
     } else {
@@ -260,7 +260,7 @@ function createNewChart() {
   }
 
   if (peepYes) {
-    paramData = createCanvasChartData(peepValues,timeBased);
+    paramData = createCanvasChartData(mpeepValues,timeBased);
     if (paramData) {
       paramData.name = "Peep Pressure (cm H20)";
       paramData.color = getNextColor();

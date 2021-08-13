@@ -5,7 +5,9 @@ function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
 
   for (i=0; i<usedParamCombos.length; i++) {
+
     combo = usedParamCombos[i];
+    if (combo.numBreaths==0) continue;
     row = table.insertRow();
 
     cell = row.insertCell();
@@ -208,7 +210,7 @@ function displayStats() {
   el = document.getElementById("ie");
   el.innerHTML=replaceDummyValue(ies);
   el = document.getElementById("peep");
-  el.innerHTML=replaceDummyValue(peeps);
+  el.innerHTML=replaceDummyValue(ipeeps);
   el = document.getElementById("pmax");
   el.innerHTML=replaceDummyValue(pmaxs);
   el = document.getElementById("ps");
