@@ -231,7 +231,8 @@ function equalParamCombos(curr, prev) {
   } else return false;
 }
 
-function globalTrackJsonRecord() {
+function globalTrackJsonRecord(jsonData) {
+  //console.log("Tracking globalData");
   for (var key in jsonData) {
     if (key=='content') {
       for (var ckey in jsonData.content) {
@@ -358,6 +359,15 @@ function globalProcessJsonRecord(jsonData) {
     ipeepValues = [{"time":0,"value":ipeepInitial}];
     tempValues = [{"time":0,"value":tempInitial}];
 
+    if (modeValid(modeInitial)) modes = [modeInitial];
+    if (vtValid(vtInitial)) vts = [vtInitial];
+    if (rrValid(rrInitial)) rrs = [rrInitial];
+    if (ieValid(ieInitial)) ies = [ieInitial];
+    if (peepValid(ipeepInitial)) ipeeps = [ipeepInitial];
+    if (pmaxValid(pmaxInitial)) pmaxs = [pmaxInitial];
+    if (psValid(psInitial)) pss = [psInitial];
+    if (tpsValid(tpsInitial)) tpss = [tpsInitial];
+
     currParamCombo.mode = modeInitial;
     currParamCombo.vt = vtInitial;
     currParamCombo.rr = rrInitial;
@@ -366,7 +376,9 @@ function globalProcessJsonRecord(jsonData) {
     currParamCombo.pmax = pmaxInitial;
     currParamCombo.ps = psInitial;
     currParamCombo.tps = tpsInitial;
+    currParamCombo.numBreaths = 0;
     prevParamCombo = createNewInstance(currParamCombo);
+    console.log(prevParamCombo);
   }
 
   for (var key in jsonData) {
@@ -644,12 +656,13 @@ function globalProcessAllJsonRecords(key, lastRecord) {
 
 function globalLastRecord() {
   usedParamCombos.push(createNewInstance(prevParamCombo));
+  console.log("LastRecord prevCombo = " + prevParamCombo);
   globalDataValid = true;
 }
 
 function gatherGlobalData() {
-  console.log("gatherGlobalData");
   if (globalDataValid) return;
+  console.log("gatherGlobalData");
 
   if (allDbKeys.length==0) {
     alert("Selected Session has no data");
@@ -657,6 +670,8 @@ function gatherGlobalData() {
   }
 
   var lastRecord = false;
+  //console.log("analysisStart=" + analysisStartTime);
+  //console.log("analysisEnd=" + analysisEndTime);
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (keyMoreThanAnalysisRangeMax(allDbKeys[i])) {

@@ -23,7 +23,7 @@ function displayUsedCombos() {
     cell.innerHTML = combo.ie;
 
     cell = row.insertCell();
-    cell.innerHTML = combo.peep;
+    cell.innerHTML = combo.ipeep;
 
     cell = row.insertCell();
     cell.innerHTML = combo.pmax;
@@ -88,7 +88,7 @@ function constructStatMinMaxTable() {
 
   minMaxTableRow(table,"Peak Pressure","cmH20","peakMin","peakMax");
   minMaxTableRow(table,"Plateau Pressure","cmH20","platMin","platMax");
-  minMaxTableRow(table,"PEEP Pressure","cmH20","peepMin","peepMax");
+  minMaxTableRow(table,"PEEP Pressure","cmH20","mpeepMin","mpeepMax");
 
   minMaxTableRow(table,"Tidal Volume Delivered","ml","vtMin","vtMax");
   minMaxTableRow(table,"Minute Volume Delivered","litres / min","mvMin","mvMax");
@@ -109,7 +109,7 @@ function constructStatParamTable() {
   paramTableRow(table,"Tidal Volume","ml","vt");
   paramTableRow(table,"Respiration Rate","bpm","rr");
   paramTableRow(table,"I:E Ratio","ratio","ie");
-  paramTableRow(table,"PEEP Pressure","cmH20","peep");
+  paramTableRow(table,"PEEP Pressure","cmH20","ipeeps");
   paramTableRow(table,"Maximum Pressure","cmH20","pmax");
   paramTableRow(table,"Support Pressure","cmH20","ps");
   paramTableRow(table,"Support Pressure Termination","%flow,secs","tps");
@@ -143,6 +143,7 @@ function displayStats() {
     return;
   }
   if (!tablesConstructed) {
+    //console.log("Constructing Tables");
     constructStatMinMaxTable();
     constructStatParamTable();
     constructStatMiscTable();
@@ -168,9 +169,9 @@ function displayStats() {
   } else {
     el.innerHTML = replaceDummyValue(maxPlat);
   }
-  el = document.getElementById("peepMin");
+  el = document.getElementById("mpeepMin");
   el.innerHTML = replaceDummyValue(minPeep);
-  el = document.getElementById("peepMax");
+  el = document.getElementById("mpeepMax");
   el.innerHTML = replaceDummyValue(maxPeep);
   el = document.getElementById("vtMin");
   el.innerHTML = replaceDummyValue(minVt);
@@ -209,7 +210,7 @@ function displayStats() {
   el.innerHTML=replaceDummyValue(rrs);
   el = document.getElementById("ie");
   el.innerHTML=replaceDummyValue(ies);
-  el = document.getElementById("peep");
+  el = document.getElementById("ipeeps");
   el.innerHTML=replaceDummyValue(ipeeps);
   el = document.getElementById("pmax");
   el.innerHTML=replaceDummyValue(pmaxs);
@@ -260,6 +261,8 @@ function displayStats() {
 
 function initStats() {
   console.log("initStats");
+  tablesConstructed = false;
+
   table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
@@ -272,6 +275,5 @@ function initStats() {
   table = document.getElementById("statsMiscTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
-  tablesContructed = false;
 }
 

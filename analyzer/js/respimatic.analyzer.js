@@ -297,8 +297,8 @@ function initSession() {
 
       logStartTime = new Date(keys[0]);
       logEndTime = new Date(keys[keys.length-1]);
-      analysisStartTime = logStartTime;
-      analysisEndTime = logEndTime;
+      analysisStartTime = new Date(logStartTime);
+      analysisEndTime = new Date(logEndTime);
 
       updateSelectedDuration();
       updateLogDuration();
@@ -309,13 +309,13 @@ function initSession() {
       elm = document.getElementById("endTime");
       elm.value = dateToStr(logEndTime);
 
-      initGlobalData();
       gatherGlobalData();
     }
   }
 }
 
 function resetAnalysisData() {
+  initGlobalData();
   initStats();
   initCharts();
   initRawDump();
@@ -346,16 +346,16 @@ function updateLogDuration() {
 }
 
 function updateSelectedDuration() {
-
   table = document.getElementById("selectTimesTable");
   elm = document.getElementById("selectedTimeDuration");
 
   var diff = analysisEndTime - analysisStartTime;
-  diff = analysisEndTime - analysisStartTime;
   if (diff>=0) {
     table.rows[2].cells[3].innerHTML = msToTimeStr(diff);
+    elm.innerHTML = msToTimeStr(diff);
   } else {
     table.rows[2].cells[3].innerHTML = "NaN" ;
+    elm.innerHTML = "NaN" ;
   }
 }
 
@@ -405,7 +405,7 @@ function setTimeInterval() {
   dStr = elm.value;
   elm = document.getElementById("startTime");
   tStr = elm.value;
-  st = strToDate(dStr, tStr);
+  var st = strToDate(dStr, tStr);
   if (!st) {
     alert("Badly formed Start Date/Time");
     return;
@@ -415,7 +415,7 @@ function setTimeInterval() {
   dStr = elm.value;
   elm = document.getElementById("endTime");
   tStr = elm.value;
-  et = strToDate(dStr, tStr);
+  var et = strToDate(dStr, tStr);
   if (!et) {
     alert("Badly formed End Date/Time");
     return;
@@ -432,8 +432,8 @@ function setTimeInterval() {
     et = logEndTime;
   }
 
-  analysisStartTime = st;
-  analysisEndTime = et;
+  analysisStartTime = new Date(st);
+  analysisEndTime = new Date(et);
 
   elm = document.getElementById("startDate");
   elm.value= dateToDateStr(analysisStartTime);
@@ -446,8 +446,8 @@ function setTimeInterval() {
   elm.value= dateToTimeStr(analysisEndTime);
 
   updateSelectedDuration();
-  //resetAnalysisData();
-  alert("Analysis Interval Implementation in progress...");
+  resetAnalysisData();
+  gatherGlobalData();
 }
 
 function resetTimeInterval() {
@@ -466,6 +466,7 @@ function resetTimeInterval() {
 
   updateSelectedDuration();
   resetAnalysisData();
+  gatherGlobalData();
 }
 
 window.onload = function() {

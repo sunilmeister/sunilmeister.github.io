@@ -44,6 +44,7 @@ function keyMoreThanAnalysisRangeMax(key) {
 
 function keyLessThanAnalysisRangeMin(key) {
   d = new Date(key);
+  //console.log("d=" + d + " analysisStart=" + analysisStartTime);
   if (d<analysisStartTime) return true;
   return false;
 }
