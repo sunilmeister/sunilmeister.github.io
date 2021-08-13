@@ -126,7 +126,7 @@ function strToDate(dateStr, timeStr) {
   //console.log("date " + dateArr);
   if (dateArr.length!=3) return null;
   dd = dateArr[0];
-  mm = dateArr[1]-1;
+  mm = dateArr[1];
   yyyy = dateArr[2];
 
   const timeArr = timeStr.split(":");
@@ -136,14 +136,16 @@ function strToDate(dateStr, timeStr) {
   mn = timeArr[1];
   ss = timeArr[2];
 
-  date = new Date();
-  date.setDate(dd);
-  date.setMonth(mm);
-  date.setFullYear(yyyy);
-  date.setHours(hh);
-  date.setMinutes(mn);
-  date.setSeconds(ss);
+  isoString = yyyy + '/' + mm + '/' + dd;
+  isoString = isoString + ' ' + hh + ':' + mn + ':' + ss;
+  valid = Date.parse(isoString);
+  if (isNaN(valid)) {
+    return null;
+  }
 
+  date = new Date(isoString);
+  //console.log("isoString=" + isoString);
+  //console.log("Date=" + date);
   return date;
 }
 
