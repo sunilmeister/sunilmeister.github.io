@@ -53,7 +53,7 @@ function selectDbRow(row) {
   
   var heading = document.getElementById("SysUid");
   heading.innerText = respimaticUid + 
-    '\n\n' + p.cells[2].innerHTML + '\n\nCreation Date\n' + p.cells[3].innerHTML;
+    '\n\nSession Name\n' + p.cells[2].innerHTML + '\n\nCreation Date\n' + p.cells[3].innerHTML;
 
   initSession(dbName);
   return dbName;

@@ -44,9 +44,11 @@
           EXIT</button>
       </center>
       
+      <center>
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
-        <br>
+        <p>Session Actions
+	<br><br>
         <button id="btnSelect" class="sidebarButton"
           onclick='selectSession()'>Select Session</button>
         <br><br>
@@ -59,12 +61,18 @@
         <button id="btnDeleteAll" class="sidebarButton"
           onclick='deleteAllDbs()'>Delete All Sessions</button>
         <br><br>
+        <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Display Raw
+          Data</button>
+        <br><br>
       </div>
+      </center>
 
       <br>
+      <center>
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
-        <br>
+        <p>Window Actions
+	<br><br>
         <button id="btnStat" class="sidebarButton"
           onclick='selectStats()'>Statistics</button>
         <br><br>
@@ -74,15 +82,17 @@
         <button id="btnErrorWarning" class="sidebarButton"
           onclick='selectErrorWarnings()'>Errors & Warnings</button>
         <br><br>
-        <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Raw
-          Data</button>
+        <button id="btnExportWindow" class="sidebarButton" onclick='selectExportWindow()'>Export Window </button>
         <br><br>
       </div>
+      </center>
       
       <br>
       <div
         style="background-color:#0d3e51; color:white; font-family:verdana;">
 	<center>
+          <p>Current Session
+	  <br>
 	  <p id='SysUid' style="font-size:16px;" >
         </center>
       </div>
@@ -112,9 +122,8 @@
         <div id="selectorDiv" style="display: none">
           <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Select Session for Analysis</h2>
-          <div
-            style="height:610px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
-            <br>
+           <div style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine';max-width: 1100px;">
+	   <br>
             <table id='dbTable' className="dbTableStyle"
               style="font-size:20px; width:100%">
             </table>
