@@ -54,7 +54,7 @@ function initCharts() {
 
 function createDatapoints(transitions) {
   var curValue = 0;
-  var curIx = -1;
+  var curIx = 0;
 
   if (transitions.length>1) {
     curValue = transitions[0].value;
