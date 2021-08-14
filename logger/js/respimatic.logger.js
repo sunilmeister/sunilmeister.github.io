@@ -156,7 +156,7 @@ function createNewDb() {
 
   createOrOpenDb(dbName, creationTimeStamp);
   initState();
-  doLog = true;
+  startLog();
 
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);
@@ -173,7 +173,6 @@ function displayTweet(d) {
 }
 
 function processDweet(d) {
-  //console.log("processDweet doLog=" + doLog);
   if (!doLog) return ;
 
   if (firstDweet) {
@@ -281,18 +280,21 @@ function waitForDweets() {
 function startLog() {
   if (doLog) return;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = "Recording In-Progress for " + respimaticUid;
+  heading.innerText = "Recording In-progress for\n\n" + respimaticUid;
+  doLog = true;
 }
 
 function pauseLog() {
   if (!doLog) return;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = "Recording Paused for " + respimaticUid;
+  heading.innerText = "Recording Paused for\n\n" + respimaticUid;
   doLog = false;
 }
 
 window.onload = function() {
-  startLog();
+  var heading = document.getElementById("SysUid");
+  heading.innerText = "Ready to Record for\n\n" + respimaticUid;
+
   listAllDbs();
   waitForDweets();
 }

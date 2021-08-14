@@ -52,8 +52,8 @@ function selectDbRow(row) {
   sessionDbName = dbName;
   
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid + 
-    ' [' + p.cells[2].innerHTML + ' ' + p.cells[3].innerHTML + ' ]';
+  heading.innerText = respimaticUid + 
+    '\n\n' + p.cells[2].innerHTML + '\n\nCreation Date\n' + p.cells[3].innerHTML;
 
   initSession(dbName);
   return dbName;
@@ -356,7 +356,7 @@ function updateSelectedDuration() {
 
   var diff = analysisEndTime - analysisStartTime;
   if (diff>=0) {
-    elm.innerHTML = msToTimeStr(diff);
+    elm.innerHTML = "Window Duration " + msToTimeStr(diff);
   } else {
     elm.innerHTML = "NaN" ;
   }
@@ -389,7 +389,7 @@ window.onload = function() {
   sessionDbName = "" ;
   sessionDbReady = false ;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid + " No Session Selected";
+  heading.innerHTML = respimaticUid + "\nNo Session Selected";
 
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
