@@ -363,9 +363,18 @@ function updateSelectedDuration() {
 }
 
 function setTimeInterval() {
+  unflashAnalysisWindowButtons();
   values = rangeSlider.get();
-  analysisStartTime = new Date(Number(values[0]));
-  analysisEndTime = new Date(Number(values[1]));
+  st = new Date(Number(values[0]));
+  st.setMilliseconds(0);
+  et = new Date(Number(values[1]));
+  et.setMilliseconds(0);
+
+  if ((st.getTime()==analysisStartTime.getTime()) 
+    && (et.getTime()==analysisEndTime.getTime())) return;
+
+  analysisStartTime = new Date(st);
+  analysisEndTime = new Date(et);
 
   updateSelectedDuration();
   resetAnalysisData();
@@ -373,6 +382,10 @@ function setTimeInterval() {
 }
 
 function resetTimeInterval() {
+  unflashAnalysisWindowButtons();
+  if ((logStartTime.getTime()==analysisStartTime.getTime()) 
+    && (logEndTime.getTime()==analysisEndTime.getTime())) return;
+
   analysisStartTime = logStartTime;
   analysisEndTime = logEndTime;
 
@@ -394,6 +407,11 @@ window.onload = function() {
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
+  rangeSlider.on('end', function () {
+    flashAnalysisWindowButtons();
+  });
+
+  unflashAnalysisWindowButtons();
 
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
@@ -439,5 +457,21 @@ function createAnalysisRangeSlider() {
       }
     ]  
   });
+}
+
+function flashAnalysisWindowButtons() {
+  el = document.getElementById("btnSetInterval");
+  el.style.animationPlayState = 'running';
+
+  el = document.getElementById("btnResetInterval");
+  el.style.animationPlayState = 'running';
+}
+
+function unflashAnalysisWindowButtons() {
+  el = document.getElementById("btnSetInterval");
+  el.style.animationPlayState = 'paused';
+
+  el = document.getElementById("btnResetInterval");
+  el.style.animationPlayState = 'paused';
 }
 
