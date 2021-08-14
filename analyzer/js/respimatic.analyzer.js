@@ -128,6 +128,8 @@ function selectSession() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "none";
+  document.getElementById("exportWindowDiv").style.display = "none";
 
   listAllDbs();
 }
@@ -207,6 +209,8 @@ function selectImport() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "block";
+  document.getElementById("analysisWindowDiv").style.display = "none";
+  document.getElementById("exportWindowDiv").style.display = "none";
 }
 
 function selectExport() {
@@ -223,6 +227,8 @@ function selectStats() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("exportWindowDiv").style.display = "none";
 
   displayStats();
 }
@@ -237,6 +243,8 @@ function selectErrorWarnings() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "block";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("exportWindowDiv").style.display = "none";
 
   displayErrorWarnings();
 }
@@ -251,8 +259,27 @@ function selectCharts() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportWindowDiv").style.display = "none";
 
   displayCharts();
+}
+
+function selectExportWindow() {
+  if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
+
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("exportWindowDiv").style.display = "block";
+
+  displayStats();
 }
 
 function selectRawData() {
@@ -265,6 +292,8 @@ function selectRawData() {
   document.getElementById("rawDataDiv").style.display = "block";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "none";
+  document.getElementById("exportWindowDiv").style.display = "none";
 
   displayRawData();
 }
@@ -303,8 +332,6 @@ function initSession() {
       updateLogDuration();
 
       gatherGlobalData();
-      slider = document.getElementById("analysisWindowDiv");
-      slider.style.display = "block";
     }
   }
 }
@@ -419,6 +446,8 @@ window.onload = function() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "none";
+  document.getElementById("exportWindowDiv").style.display = "none";
 
   resetAnalysisData();
   selectSession();
