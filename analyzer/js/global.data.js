@@ -69,8 +69,8 @@ var usedParamCombos = [];
 var minPeak, maxPeak;
 var minPlat, maxPlat;
 var minPeep, maxPeep;
-var minVt, maxVt;
-var minMv, maxMv;
+var minVtdel, maxVtdel;
+var minMvdel, maxMvdel;
 var minMbpm, maxMbpm;
 var minSbpm, maxSbpm;
 var minScomp, maxScomp;
@@ -120,16 +120,16 @@ function initGlobalData() {
   tempValues = [];
 
   breathTimeInitial = 0;
-  vtdelInitial = 0;
-  mvdelInitial = 0;
-  sbpmInitial = 0;
-  mbpmInitial = 0;
-  scompInitial = 0;
-  dcompInitial = 0;
-  peakInitial = 0;
-  platInitial = 0;
-  ipeepInitial = 0;
-  tempInitial = 0;
+  vtdelInitial = "--";
+  mvdelInitial = "--";
+  sbpmInitial = "--";
+  mbpmInitial = "--";
+  scompInitial = "--";
+  dcompInitial = "--";
+  peakInitial = "--";
+  platInitial = "--";
+  mpeepInitial = "--";
+  tempInitial = "--";
 
   numInitialEntry = 0;
   numStandbyEntry = 0;
@@ -180,10 +180,10 @@ function initGlobalData() {
   maxPlat = maxDummyValue;
   minPeep = minDummyValue;
   maxPeep = maxDummyValue;
-  minVt = minDummyValue;
-  maxVt = maxDummyValue;
-  minMv = minDummyValue;
-  maxMv = maxDummyValue;
+  minVtdel = minDummyValue;
+  maxVtdel = maxDummyValue;
+  minMvdel = minDummyValue;
+  maxMvdel = maxDummyValue;
   minMbpm = minDummyValue;
   maxMbpm = maxDummyValue;
   minSbpm = minDummyValue;
@@ -343,10 +343,7 @@ function globalTrackJsonRecord(jsonData) {
   }
 }
 
-function globalProcessJsonRecord(jsonData) {
-  curTime = new Date(jsonData.created);
-  if (firstRecord) {
-    firstRecord = false;
+function setFirstRecordData() {
     breathTimes = [breathTimeInitial];
     vtdelValues = [{"time":0,"value":vtdelInitial}];
     mvdelValues = [{"time":0,"value":mvdelInitial}];
@@ -368,6 +365,37 @@ function globalProcessJsonRecord(jsonData) {
     if (psValid(psInitial)) pss = [psInitial];
     if (tpsValid(tpsInitial)) tpss = [tpsInitial];
 
+    // min max
+    if (validDecimalInteger(peakInitial)) minPeak = maxPeak = peakInitial;
+    else {minPeak = minDummyValue; maxPeak = maxDummyValue; }
+
+    if (validDecimalInteger(platInitial)) minPlat = maxPlat = platInitial;
+    else {minPlat = minDummyValue; maxPlat = maxDummyValue; }
+
+    if (validDecimalInteger(mpeepInitial)) minPeep = maxPeep = mpeepInitial;
+    else {minPeep = minDummyValue; maxPeep = maxDummyValue; }
+
+    if (validDecimalInteger(vtdelInitial)) minVt = maxVt = vtdelInitial;
+    else {minVt = minDummyValue; maxVt = maxDummyValue; }
+
+    if (validFloatNumber(mvdelInitial)) minMv = maxMv = mvdelInitial;
+    else {minMv = minDummyValue; maxMv = maxDummyValue; }
+
+    if (validDecimalInteger(mbpmInitial)) minMbpm = maxMbpm = mbpmInitial;
+    else {minMbpm = minDummyValue; maxMbpm = maxDummyValue; }
+
+    if (validDecimalInteger(sbpmInitial)) minSbpm = maxSbpm = sbpmInitial;
+    else {minSbpm = minDummyValue; maxSbpm = maxDummyValue; }
+
+    if (validDecimalInteger(scompInitial)) minScomp = maxScomp = scompInitial;
+    else {minScomp = minDummyValue; maxScomp = maxDummyValue; }
+
+    if (validDecimalInteger(dcompInitial)) minDcomp = maxDcomp = dcompInitial;
+    else {minDcomp = minDummyValue; maxDcomp = maxDummyValue; }
+
+    if (validDecimalInteger(tempInitial)) minTemp = maxTemp = tempInitial;
+    else {minTemp = minDummyValue; maxTemp = maxDummyValue; }
+
     currParamCombo.mode = modeInitial;
     currParamCombo.vt = vtInitial;
     currParamCombo.rr = rrInitial;
@@ -378,7 +406,13 @@ function globalProcessJsonRecord(jsonData) {
     currParamCombo.tps = tpsInitial;
     currParamCombo.numBreaths = 0;
     prevParamCombo = createNewInstance(currParamCombo);
-    console.log(prevParamCombo);
+}
+
+function globalProcessJsonRecord(jsonData) {
+  curTime = new Date(jsonData.created);
+  if (firstRecord) {
+    setFirstRecordData();
+    firstRecord = false;
   }
 
   for (var key in jsonData) {
@@ -555,21 +589,21 @@ function globalProcessJsonRecord(jsonData) {
 	  }
         } else if (ckey=="VTDEL") {
 	  if (validDecimalInteger(value)) {
-	    if (maxVt < value) {
-	      maxVt = value;
+	    if (maxVtdel < value) {
+	      maxVtdel = value;
 	    }
-	    if (minVt > value) {
-	      minVt = value;
+	    if (minVtdel > value) {
+	      minVtdel = value;
 	    }
 	    vtdelValues.push({"time":curTime,"value":value});
 	  }
         } else if (ckey=="MVDEL") {
 	  if (validFloatNumber(value)) {
-	    if (maxMv < value) {
-	      maxMv = value;
+	    if (maxMvdel < value) {
+	      maxMvdel = value;
 	    }
-	    if (minMv > value) {
-	      minMv = value;
+	    if (minMvdel > value) {
+	      minMvdel = value;
 	    }
 	    mvdelValues.push({"time":curTime,"value":value});
 	  }
@@ -656,7 +690,7 @@ function globalProcessAllJsonRecords(key, lastRecord) {
 
 function globalLastRecord() {
   usedParamCombos.push(createNewInstance(prevParamCombo));
-  console.log("LastRecord prevCombo = " + prevParamCombo);
+  //console.log("LastRecord prevCombo = " + prevParamCombo);
   globalDataValid = true;
 }
 

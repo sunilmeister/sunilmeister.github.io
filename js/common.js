@@ -158,6 +158,7 @@ function strToDate(dateStr, timeStr) {
   }
 
   date = new Date(isoString);
+  date.setMilliseconds(0);
   //console.log("isoString=" + isoString);
   //console.log("Date=" + date);
   return date;

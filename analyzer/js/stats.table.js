@@ -174,13 +174,13 @@ function displayStats() {
   el = document.getElementById("mpeepMax");
   el.innerHTML = replaceDummyValue(maxPeep);
   el = document.getElementById("vtMin");
-  el.innerHTML = replaceDummyValue(minVt);
+  el.innerHTML = replaceDummyValue(minVtdel);
   el = document.getElementById("vtMax");
-  el.innerHTML = replaceDummyValue(maxVt);
+  el.innerHTML = replaceDummyValue(maxVtdel);
   el = document.getElementById("mvMin");
-  el.innerHTML = replaceDummyValue(minMv);
+  el.innerHTML = replaceDummyValue(minMvdel);
   el = document.getElementById("mvMax");
-  el.innerHTML = replaceDummyValue(maxMv);
+  el.innerHTML = replaceDummyValue(maxMvdel);
   el = document.getElementById("mbpmMin");
   el.innerHTML = replaceDummyValue(minMbpm);
   el = document.getElementById("mbpmMax");

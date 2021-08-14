@@ -296,7 +296,9 @@ function initSession() {
       }
 
       logStartTime = new Date(keys[0]);
+      logStartTime.setMilliseconds(0);
       logEndTime = new Date(keys[keys.length-1]);
+      logEndTime.setMilliseconds(0);
       analysisStartTime = new Date(logStartTime);
       analysisEndTime = new Date(logEndTime);
 
@@ -421,8 +423,8 @@ function setTimeInterval() {
     return;
   }
 
-  //console.log("st=" + st);
-  //console.log("et=" + et);
+  console.log("st=" + st);
+  console.log("et=" + et);
   if ((st < logStartTime) || (st > logEndTime)) {
     alert("Start Date/Time out of bounds\nUsing Session Start Date/Time");
     st = logStartTime;
