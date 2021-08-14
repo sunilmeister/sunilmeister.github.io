@@ -1,4 +1,6 @@
 var importJsonArray = [];
+var analysisRangeSliderDiv = null;
+var rangeSlider = null;
 
 document.title = respimaticUid + " (ANALYZER)" ;
 if (!window.indexedDB) {
@@ -126,7 +128,6 @@ function selectSession() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("analysisDiv").style.display = "none";
 
   listAllDbs();
 }
@@ -206,7 +207,6 @@ function selectImport() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "block";
-  document.getElementById("analysisDiv").style.display = "none";
 }
 
 function selectExport() {
@@ -223,7 +223,6 @@ function selectStats() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("analysisDiv").style.display = "none";
 
   displayStats();
 }
@@ -252,7 +251,6 @@ function selectCharts() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("analysisDiv").style.display = "none";
 
   displayCharts();
 }
@@ -267,7 +265,6 @@ function selectRawData() {
   document.getElementById("rawDataDiv").style.display = "block";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("analysisDiv").style.display = "none";
 
   displayRawData();
 }
@@ -305,13 +302,9 @@ function initSession() {
       updateSelectedDuration();
       updateLogDuration();
 
-      elm = document.getElementById("startTime");
-      elm.value = dateToStr(logStartTime);
-
-      elm = document.getElementById("endTime");
-      elm.value = dateToStr(logEndTime);
-
       gatherGlobalData();
+      slider = document.getElementById("analysisWindowDiv");
+      slider.style.display = "block";
     }
   }
 }
@@ -337,6 +330,17 @@ function checkValidAnalysisDuration() {
 }
 
 function updateLogDuration() {
+  rangeSlider.updateOptions({
+    range: {
+      'min': logStartTime.getTime(),
+      'max': logEndTime.getTime()
+    },
+    start: [
+      analysisStartTime.getTime(), 
+      analysisEndTime.getTime()
+    ],
+  });
+
   var diff = logEndTime - logStartTime;
 
   elm = document.getElementById("logTimeDuration");
@@ -348,104 +352,20 @@ function updateLogDuration() {
 }
 
 function updateSelectedDuration() {
-  table = document.getElementById("selectTimesTable");
   elm = document.getElementById("selectedTimeDuration");
 
   var diff = analysisEndTime - analysisStartTime;
   if (diff>=0) {
-    table.rows[2].cells[3].innerHTML = msToTimeStr(diff);
     elm.innerHTML = msToTimeStr(diff);
   } else {
-    table.rows[2].cells[3].innerHTML = "NaN" ;
     elm.innerHTML = "NaN" ;
   }
 }
 
-function selectAnalysisWindow() {
-  if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
-
-  document.getElementById("selectorDiv").style.display = "none";
-  document.getElementById("statsDiv").style.display = "none";
-  document.getElementById("chartsDiv").style.display = "none";
-  document.getElementById("rawDataDiv").style.display = "none";
-  document.getElementById("errorWarningDiv").style.display = "none";
-  document.getElementById("importDiv").style.display = "none";
-  document.getElementById("analysisDiv").style.display = "block";
-
-  table = document.getElementById("selectTimesTable");
-  table.rows[1].cells[1].innerHTML = logStartTime;
-  table.rows[1].cells[2].innerHTML = logEndTime;
-
-  var diff = logEndTime - logStartTime;
-  if (diff>=0) {
-    table.rows[1].cells[3].innerHTML = msToTimeStr(diff);
-  } else {
-    table.rows[1].cells[3].innerHTML = "NaN" ;
-  }
-
-  elm = document.getElementById("startDate");
-  elm.value= dateToDateStr(logStartTime);
-  elm = document.getElementById("startTime");
-  elm.value= dateToTimeStr(logStartTime);
-
-  elm = document.getElementById("endDate");
-  elm.value= dateToDateStr(logEndTime);
-  elm = document.getElementById("endTime");
-  elm.value= dateToTimeStr(logEndTime);
-
-  var diff = analysisEndTime - analysisStartTime;
-  if (diff>=0) {
-    table.rows[2].cells[3].innerHTML = msToTimeStr(diff);
-  } else {
-    table.rows[2].cells[3].innerHTML = "NaN" ;
-  }
-}
-
 function setTimeInterval() {
-  elm = document.getElementById("startDate");
-  dStr = elm.value;
-  elm = document.getElementById("startTime");
-  tStr = elm.value;
-  var st = strToDate(dStr, tStr);
-  if (!st) {
-    alert("Badly formed Start Date/Time");
-    return;
-  }
-
-  elm = document.getElementById("endDate");
-  dStr = elm.value;
-  elm = document.getElementById("endTime");
-  tStr = elm.value;
-  var et = strToDate(dStr, tStr);
-  if (!et) {
-    alert("Badly formed End Date/Time");
-    return;
-  }
-
-  console.log("st=" + st);
-  console.log("et=" + et);
-  if ((st < logStartTime) || (st > logEndTime)) {
-    alert("Start Date/Time out of bounds\nUsing Session Start Date/Time");
-    st = logStartTime;
-  }
-  if ((et < logStartTime) || (et > logEndTime)) {
-    alert("End Date/Time out of bounds\nUsing Session End Date/Time");
-    et = logEndTime;
-  }
-
-  analysisStartTime = new Date(st);
-  analysisEndTime = new Date(et);
-
-  elm = document.getElementById("startDate");
-  elm.value= dateToDateStr(analysisStartTime);
-  elm = document.getElementById("startTime");
-  elm.value= dateToTimeStr(analysisStartTime);
-
-  elm = document.getElementById("endDate");
-  elm.value= dateToDateStr(analysisEndTime);
-  elm = document.getElementById("endTime");
-  elm.value= dateToTimeStr(analysisEndTime);
+  values = rangeSlider.get();
+  analysisStartTime = new Date(Number(values[0]));
+  analysisEndTime = new Date(Number(values[1]));
 
   updateSelectedDuration();
   resetAnalysisData();
@@ -456,15 +376,9 @@ function resetTimeInterval() {
   analysisStartTime = logStartTime;
   analysisEndTime = logEndTime;
 
-  elm = document.getElementById("startDate");
-  elm.value= dateToDateStr(analysisStartTime);
-  elm = document.getElementById("startTime");
-  elm.value= dateToTimeStr(analysisStartTime);
-
-  elm = document.getElementById("endDate");
-  elm.value= dateToDateStr(analysisEndTime);
-  elm = document.getElementById("endTime");
-  elm.value= dateToTimeStr(analysisEndTime);
+  st = logStartTime.getTime();
+  et = logEndTime.getTime();
+  rangeSlider.set([st,et]);
 
   updateSelectedDuration();
   resetAnalysisData();
@@ -477,19 +391,16 @@ window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + " No Session Selected";
 
+  // Create analysis range slider
+  analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
+  createAnalysisRangeSlider();
+
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("errorWarningDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("analysisDiv").style.display = "none";
-
-  elm = document.getElementById("startTime");
-  elm.value = "";
-
-  elm = document.getElementById("endTime");
-  elm.value = "";
 
   resetAnalysisData();
   selectSession();
@@ -497,5 +408,36 @@ window.onload = function() {
 
 function selectExit() {
   window.location.assign("../index.html");
+}
+
+function createAnalysisRangeSlider() {
+  rangeSlider = noUiSlider.create(analysisRangeSliderDiv, {
+    // Create two timestamps to define a range.
+    range: {
+        min: logStartTime.getTime(),
+        max: logEndTime.getTime()+10000
+    },
+    // Steps of one second
+    step: 1000,
+    // Two more timestamps indicate the handle starting positions.
+    start: [
+      analysisStartTime.getTime(), 
+      analysisEndTime.getTime()+10000
+    ],
+    //some formatting
+    padding: [1000, 1000],
+    connect: [false, true, false],
+    // handle labels
+    tooltips: [
+      {
+        to: function(ms) { return msToDateStr(ms); },
+        from: function(dt) { return dateStrToMs(dt); }
+      },
+      {
+        to: function(ms) { return msToDateStr(ms); },
+        from: function(dt) { return dateStrToMs(dt); }
+      }
+    ]  
+  });
 }
 

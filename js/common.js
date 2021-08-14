@@ -17,6 +17,20 @@ var analysisStartTime = new Date();
 var analysisEndTime = new Date();
 
 // /////////////////////////////////////////////
+// milliseconds to dates
+// /////////////////////////////////////////////
+function msToDateStr(ms) {
+  d = new Date();
+  d.setTime(ms);
+  return dateToStr(d);
+}
+
+function dateStrToMs(dStr) {
+  d = strToDate(dStr);
+  return d.getTime();
+}
+
+// /////////////////////////////////////////////
 // Misc functions
 // /////////////////////////////////////////////
 
@@ -86,7 +100,7 @@ function dateToStr(d) {
   var sec = String(date. getSeconds()). padStart(2, '0');
 
   dmy = dd + "-" + mm + "-" + yyyy;
-  dtStr = dmy + ", " + hrs + ":" + min + ":" + sec;
+  dtStr = '[' + dmy + ']' + hrs + ":" + min + ":" + sec;
 
   return dtStr;
 }

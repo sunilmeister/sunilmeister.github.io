@@ -108,9 +108,13 @@
   padding: 10px;
 }
 
+table, tr{
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
 .dbTableStyle td {
   padding: 0 5px 0 0;
-  /* Only right padding*/
 }
 
 .statsTableStyle td {

@@ -13,7 +13,9 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap"
       rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
     <link rel="stylesheet" href="../css/common.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../js/download.js"></script>
     <script src="../js/common.js"></script>
@@ -42,17 +44,6 @@
           EXIT</button>
       </center>
       
-      <div
-        style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
-      <center>
-        <br>
-        <button id="btnInterval" class="sidebarButton"
-          onclick='selectAnalysisWindow()'>Analysis Window</button>
-	<br><br>
-      </center>
-      </div>
-
-      <br>
       <div
         style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
         <br>
@@ -95,16 +86,31 @@
         <img src="img/analyzer-title-logos.png" alt="Title" width="620"
           height="140">
         <h1 id='SysUid'
-          style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+          style="color:#0d3e51;font-size:1.5em; font-family:verdana;">
         </h1>
       </center>
       
       <center>
+        <div id="analysisWindowDiv" style="background-color:#0d3e51; font-size:20px; font-family:verdana; display: none; ">
+	  <hr>
+	  <br>
+	  <div id="analysisRangeSliderDiv" style="margin-left: 20px; margin-right: 20px;">
+	  </div>
+	  <p style="color:white; font-size:30px; font-family:verdana;">Use Sliders to select Analysis Window
+          <button id="btnSetInterval" class="sidebarButton"
+            onclick='setTimeInterval()'>Set Window</button>
+          <button id="btnResetInterval" class="sidebarButton"
+            onclick='resetTimeInterval()'>Reset Window</button>
+	  <hr>
+        </div>
+      </center>
+
+      <center>
         <div id="selectorDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:2emm; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Select Session for Analysis</h2>
           <div
-            style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+            style="height:610px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
             <br>
             <table id='dbTable' className="dbTableStyle"
               style="font-size:20px; width:100%">
@@ -116,7 +122,7 @@
       
       <div id="statsDiv" style="display: none">
         <center>
-          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Session Statistics</h2>
         </center>
         <div class="row">
@@ -124,7 +130,7 @@
           <div id="measured-pane" class="column" style="font-size: 20">
             <center>
               <h2
-                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                 Parameters Measured</h2>
             </center>
             <table id='statsMinMaxTable' className="statsTableStyle"
@@ -141,7 +147,7 @@
             
             <center>
               <h2
-                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                 Miscellaneous Information</h2>
             </center>
             <table id='statsMiscTable' className="statsTableStyle"
@@ -158,7 +164,7 @@
           <div id="stats-pane" class="column" style="font-size: 20">
             <center>
               <h2
-                style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                 Static Information</h2>
             </center>
             <p id="pName">
@@ -169,7 +175,7 @@
                 <div id="staticStats" style="font-size: 20px">
                   <center>
                     <h2
-                      style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                      style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                       Parameter Settings Used</h2>
                   </center>
                   
@@ -190,7 +196,7 @@
                   
                   <center>
                     <h2
-                      style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                      style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                       Sequence of Parameter Combinations Used</h2>
                   </center>
                   
@@ -229,7 +235,7 @@
       
       <center>
         <div id="chartsDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Select Charts for Analysis</h2>
           
           <div
@@ -277,14 +283,14 @@
       
       <center>
         <div id="errorWarningDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Session Errors and Warnings</h2>
           
           <div class="row">
             <div id="errorColDiv" class="column" style="font-size: 20">
               <center>
                 <h2
-                  style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                  style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                   Session Errors</h2>
               </center>
               <div id="errorDiv"
@@ -296,7 +302,7 @@
             <div id="warningColDiv" class="column" style="font-size: 20">
               <center>
                 <h2
-                  style="background-color:#0d3e51; color:white;font-size:1.2em; font-family:verdana;">
+                  style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
                   Session Warnings</h2>
               </center>
               <div id="warningDiv"
@@ -311,7 +317,7 @@
       
       <center>
         <div id="rawDataDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.2em; font-family:verdana;">
+          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Dumping Raw Data for Session</h2>
           <div
             style="margin-left:10px; height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-family: 'Cousine'">
@@ -343,54 +349,6 @@
 	</div>
       </center>
           
-      <center>
-        <div id="analysisDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
-            Setup Analysis Window</h2>
-          <div
-            style="margin-left:10px; height:260px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-size: 25px; font-family: 'verdana'">
-
-            <table id='selectTimesTable' className="statsTableStyle"
-              style="font-size:25px; font-family: 'verdana'; width:100%;">
-	      <tr>
-                <th align="left" style="padding:15px; background-color:lightgray; color: black;"> Parameter </th>
-                <th align="center" style="padding:15px; background-color:lightgray; color: black;"> Start Time </th>
-                <th align="center" style="padding:15px; background-color:lightgray; color: black;"> End Time </th>
-                <th align="center" style="padding:15px; background-color:lightgray; color: black;"> Duration </th>
-		</tr>
-
-		<tr>
-		  <td style="padding: 15px;" >Selected Session Window</td>
-		  <td align="center" style="padding: 15px;" >----</td>
-		  <td align="center" style="padding: 15px;" >----</td>
-		  <td align="center" style="padding: 15px;" >00:00:00</td>
-		</tr>
-
-		<tr>
-		  <td style="padding: 15px;" >Selected Analysis Window</td>
-		  <td align="center" style="padding: 15px;" >
-                    <input type="text" id="startDate" style="width: 160px; font-size: 25px; font-family:verdana;" value="">
-                    <span></span>
-                    <input type="text" id="startTime" style="width: 130px; font-size: 25px; font-family:verdana;" value="">
-		  </td>
-		  <td align="center" style="padding: 15px;" >
-                    <input type="text" id="endDate" style="width:160px; font-size: 25px; font-family:verdana;" value="">
-                    <span></span>
-                    <input type="text" id="endTime" style="width: 130px; font-size: 25px; font-family:verdana;" value="">
-		  </td>
-		  <td align="center" style="padding: 15px;" >00:00:00</td>
-		</tr>
-            </table>
-	    <br><br>
-            <button class="button" onclick='setTimeInterval()'>SET ANALYSIS
-              INTERVAL</button>
-            <button class="button" onclick='resetTimeInterval()'>RESET ANALYSIS
-              INTERVAL</button>
-          </div>
-	  
-        </div>
-      </center>
-    
     </div>
   </body>
   
