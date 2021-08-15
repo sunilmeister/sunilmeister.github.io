@@ -1,5 +1,6 @@
 var analysisRangeSliderDiv = null;
 var rangeSlider = null;
+var sliderCommitPending = false;
 
 document.title = respimaticUid + " (ANALYZER)" ;
 if (!window.indexedDB) {
@@ -323,7 +324,9 @@ function updateSelectedDuration() {
 }
 
 function setTimeInterval() {
+  sliderCommitPending = false;
   unflashAnalysisWindowButtons();
+
   values = rangeSlider.get();
   st = new Date(Number(values[0]));
   st.setMilliseconds(0);
@@ -342,7 +345,9 @@ function setTimeInterval() {
 }
 
 function resetTimeInterval() {
+  sliderCommitPending = false;
   unflashAnalysisWindowButtons();
+
   if ((logStartTime.getTime()==analysisStartTime.getTime()) 
     && (logEndTime.getTime()==analysisEndTime.getTime())) return;
 
@@ -369,6 +374,7 @@ window.onload = function() {
   createAnalysisRangeSlider();
   rangeSlider.on('end', function () {
     flashAnalysisWindowButtons();
+    sliderCommitPending = true;
   });
 
   unflashAnalysisWindowButtons();
@@ -421,19 +427,35 @@ function createAnalysisRangeSlider() {
   });
 }
 
+var intervalId = setInterval(function() {
+  blinkAnalysisWindowButtons();
+}, 1000);
+
+var analysisButtonsFlashed = false;
+function blinkAnalysisWindowButtons() {
+  if (!sliderCommitPending) return;
+  if (analysisButtonsFlashed) {
+    unflashAnalysisWindowButtons();
+  } else {
+    flashAnalysisWindowButtons();
+  }
+}
+
 function flashAnalysisWindowButtons() {
+  analysisButtonsFlashed = true;
   el = document.getElementById("btnSetInterval");
-  el.style.animationPlayState = 'running';
+  el.style.backgroundColor = 'firebrick';
 
   el = document.getElementById("btnResetInterval");
-  el.style.animationPlayState = 'running';
+  el.style.backgroundColor = 'firebrick';
 }
 
 function unflashAnalysisWindowButtons() {
+  analysisButtonsFlashed = false;
   el = document.getElementById("btnSetInterval");
-  el.style.animationPlayState = 'paused';
+  el.style.backgroundColor = '#1d85ad';
 
   el = document.getElementById("btnResetInterval");
-  el.style.animationPlayState = 'paused';
+  el.style.backgroundColor = '#1d85ad';
 }
 
