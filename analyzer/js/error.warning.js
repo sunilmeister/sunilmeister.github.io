@@ -1,3 +1,7 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
 function displayJsonErrorWarning(scrollbox, jsonData) {
   var newElement = document.createElement('p');
   newElement.innerHTML = "DateTime: " + dateToStr(jsonData.created);
