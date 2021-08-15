@@ -18,6 +18,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../js/download.js"></script>
+    <script src="../js/db.schema.js"></script>
     <script src="../js/common.js"></script>
     <script src="js/global.data.js"></script>
     <script src="js/import.export.js"></script>
@@ -123,7 +124,7 @@
         <div id="selectorDiv" style="display: none">
           <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
             Select Session for Analysis</h2>
-           <div style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine';max-width: 1100px;">
+           <div style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine';max-width: 1000px;">
 	   <br>
             <table id='dbTable' className="dbTableStyle"
               style="font-size:20px; width:100%">
@@ -358,6 +359,19 @@
             <button class="button" onclick='importFile()'>IMPORT</button>
             <br>
             
+          </div>
+	</div>
+      </center>
+
+      <center>
+        <div id="exportSessionDiv" style="display: none">
+          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
+            Export Selected Session</h2>
+           <div style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine';max-width: 1000px;">
+	   <br>
+            <table id='dbExportTable' className="dbTableStyle"
+              style="font-size:20px; width:100%">
+            </table>
           </div>
 	</div>
       </center>

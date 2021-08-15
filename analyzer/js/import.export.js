@@ -5,6 +5,75 @@ function initImportExport() {
   importJsonArray = [];
 }
 
+function listDbExportTableRow(item, index) {
+  nameTm = parseDbName(item);
+
+  // only list databases for the currently selected system
+  if (nameTm[0] != respimaticUid) return;
+
+  var table = document.getElementById("dbExportTable");
+
+  var row = table.insertRow();
+
+  var cell;
+  cell = row.insertCell();
+  cell.innerHTML = '<button class="dbTableButton" onclick="exportDbRow(this)">EXPORT</button>' ;
+  cell = row.insertCell();
+  cell.innerHTML = nameTm[1];
+  cell = row.insertCell();
+  cell.innerHTML = nameTm[2];
+  cell = row.insertCell();
+  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
+}
+
+function exportDbRow(row) {
+  var p=row.parentNode.parentNode;
+
+  // reconstruct the dbName
+  // grab the tag field from the first cell in the same row
+  var dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
+  exportDb(dbName);
+}
+
+function doExportWindow(dbName) {
+  console.log("exportWindow dbName=" + dbName);
+  var getAll = [];
+  getAll.push(formInitialJsonRecord());
+
+  var req = indexedDB.open(dbName, dbVersion);
+  req.onsuccess = function(event) {
+    // Set the db variable to our database so we can use it!  
+    var db = event.target.result;
+
+    var tx = db.transaction(dbObjStoreName, 'readonly');
+    var store = tx.objectStore(dbObjStoreName);
+
+    store.openCursor().onsuccess = function(evt) {
+      var cursor = evt.target.result;
+      if (cursor) {
+	record = cursor.value;
+	if (keyWithinAnalysisRange(record.created)) {
+          getAll.push(record);
+	}
+        cursor.continue();
+      } else {
+	download(JSON.stringify(getAll,null,1), "respimatic.session.txt", "text/plain");
+      }
+    }
+  }
+}
+
+function listAllExportDbs() {
+  //clear any existing table being shown
+  var table = document.getElementById("dbExportTable");
+  table.innerHTML = "";
+
+  var retrieved_dbs = getAllDbs();
+  if (retrieved_dbs) {
+    retrieved_dbs.forEach(listDbExportTableRow);
+  }
+}
+
 function doImport(file, fileName, dbName) {
   var reader = new FileReader();
   reader.readAsText(file, "UTF-8");
@@ -73,4 +142,5 @@ function importFile() {
 }
 
 function exportWindow() {
+  doExportWindow(sessionDbName);
 }

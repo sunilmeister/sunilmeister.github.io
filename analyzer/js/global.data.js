@@ -2,6 +2,9 @@
 var sessionDbName = "";
 var sessionDbReady = false;
 
+// before Analysis starts
+var initialJsonRecord = null;
+
 // useful for params that have an undefined value sometimes
 const maxDummyValue = -999999 ;
 const minDummyValue = 999999 ;
@@ -22,28 +25,6 @@ var peakValues = [];
 var platValues = [];
 var mpeepValues = [];
 var tempValues = [];
-
-// before Analysis starts
-var breathTimeInitial;
-var vtdelInitial;
-var mvdelInitial;
-var sbpmInitial;
-var mbpmInitial;
-var scompInitial;
-var dcompInitial;
-var peakInitial;
-var platInitial;
-var ipeepInitial;
-var tempInitial;
-
-var modeInitial;
-var vtInitial;
-var rrInitial;
-var ieInitial;
-var ipeepInitial;
-var pmaxInitial;
-var psInitial;
-var tpsInitial;
 
 // Misc data
 var patientName;
@@ -118,18 +99,6 @@ function initGlobalData() {
   platValues = [];
   mpeepValues = [];
   tempValues = [];
-
-  breathTimeInitial = 0;
-  vtdelInitial = "--";
-  mvdelInitial = "--";
-  sbpmInitial = "--";
-  mbpmInitial = "--";
-  scompInitial = "--";
-  dcompInitial = "--";
-  peakInitial = "--";
-  platInitial = "--";
-  mpeepInitial = "--";
-  tempInitial = "--";
 
   numInitialEntry = 0;
   numStandbyEntry = 0;
@@ -232,187 +201,40 @@ function equalParamCombos(curr, prev) {
 }
 
 function globalTrackJsonRecord(jsonData) {
-  //console.log("Tracking globalData");
   for (var key in jsonData) {
+    initialJsonRecord.created = jsonData.created;
     if (key=='content') {
       for (var ckey in jsonData.content) {
 	value = jsonData.content[ckey];
-
-        if (ckey=="L1") {
-        } else if (ckey=="L2") {
-        } else if (ckey=="L3") {
-        } else if (ckey=="L4") {
-        } else if (ckey=="INITIAL") {
-	  initialState = (value==1);
-        } else if (ckey=="STANDBY") {
-	  standbyState = (value==1);
-        } else if (ckey=="RUNNING") {
-	  runningState = (value==1);
-        } else if (ckey=="ERROR") {
-	  errorState = (value==1);
-        } else if (ckey=="MANDATORY") {
-	  prevBreathMandatory = (value==1);
-        } else if (ckey=="SPONTANEOUS") {
-	  prevBreathMandatory = !(value==1);
-        } else if (ckey=="BTOG") {
-        } else if (ckey=="ATTENTION") {
-	  attentionState = (value == 1);
-        } else if (ckey=="MODE") {
-	  if (modeValid(value)) {
-	    modeInitial = value;
-	  }
-        } else if (ckey=="VT") {
-	  if (vtValid(value)) {
-	    vtInitial = value;
-	  }
-        } else if (ckey=="RR") {
-	  if (rrValid(value)) {
-	    rrInitial = value;
-	  }
-        } else if (ckey=="EI") {
-	  if (ieValid(value)) {
-	    ieInitial = value;
-	  }
-        } else if (ckey=="IPEEP") {
-	  if (peepValid(value)) {
-	    ipeepInitial = value;
-	  }
-        } else if (ckey=="PMAX") {
-	  if (pmaxValid(value)) {
-	    pmaxInitial = value;
-	  }
-        } else if (ckey=="PS") {
-	  if (psValid(value)) {
-	    psInitial = value;
-	  }
-        } else if (ckey=="TPS") {
-	  if (tpsValid(value)) {
-	    tpsInitial = value;
-	  }
-        } else if (ckey=="MBPM") {
-	  if (validDecimalInteger(value)) {
-	    mbpmInitial = value;
-	  }
-        } else if (ckey=="SBPM") {
-	  if (validDecimalInteger(value)) {
-	    sbpmInitial = value;
-	  }
-        } else if (ckey=="STATIC") {
-	  if (validDecimalInteger(value)) {
-	    scompInitial = value;
-	  }
-        } else if (ckey=="DYNAMIC") {
-	  if (validDecimalInteger(value)) {
-	    dcompInitial = value;
-	  }
-        } else if (ckey=="VTDEL") {
-	  if (validDecimalInteger(value)) {
-	    vtdelInitial = value;
-	  }
-        } else if (ckey=="MVDEL") {
-	  if (validFloatNumber(value)) {
-	    mvdelInitial = value;
-	  }
-        } else if (ckey=="PIP") {
-	  if (validDecimalInteger(value)) {
-	    peakInitial = value;
-	  }
-        } else if (ckey=="PLAT") {
-	  if (validDecimalInteger(value)) {
-	    platInitial = value;
-	  }
-        } else if (ckey=="MPEEP") {
-	  if (validDecimalInteger(value)) {
-	    ipeepInitial = value;
-	  }
-        } else if (ckey=="TEMP") {
-	  if (validDecimalInteger(value)) {
-	    tempInitial = value;
-	  }
-        } else if (ckey=="ALT") {
-	    altitude = value + " ft(m)";
-        } else if (ckey=="PNAME") {
-	    patientName = value;
-        } else if (ckey=="PMISC") {
-	    patientInfo = value;
-        } else if (ckey=="WMSG") {
-        } else if (ckey=="EMSG") {
-        }
+        initialJsonRecord.content[ckey] = value;
+        if (ckey=="BTOG") {
+	  breathTimes = [initialJsonRecord.created]
+	}
       }
     }
   }
+
+  // delete signalling messages
+  delete initialJsonRecord.content["BTOG"];
+  delete initialJsonRecord.content["WMSG"];
+  delete initialJsonRecord.content["EMSG"];
 }
 
-function setFirstRecordData() {
-    breathTimes = [breathTimeInitial];
-    vtdelValues = [{"time":0,"value":vtdelInitial}];
-    mvdelValues = [{"time":0,"value":mvdelInitial}];
-    sbpmValues = [{"time":0,"value":sbpmInitial}];
-    mbpmValues = [{"time":0,"value":mbpmInitial}];
-    scompValues = [{"time":0,"value":scompInitial}];
-    dcompValues = [{"time":0,"value":dcompInitial}];
-    peakValues = [{"time":0,"value":peakInitial}];
-    platValues = [{"time":0,"value":platInitial}];
-    ipeepValues = [{"time":0,"value":ipeepInitial}];
-    tempValues = [{"time":0,"value":tempInitial}];
+function processFirstRecordData() {
+  // delete signalling messages
+  delete initialJsonRecord.content["BTOG"];
+  delete initialJsonRecord.content["WMSG"];
+  delete initialJsonRecord.content["EMSG"];
 
-    if (modeValid(modeInitial)) modes = [modeInitial];
-    if (vtValid(vtInitial)) vts = [vtInitial];
-    if (rrValid(rrInitial)) rrs = [rrInitial];
-    if (ieValid(ieInitial)) ies = [ieInitial];
-    if (peepValid(ipeepInitial)) ipeeps = [ipeepInitial];
-    if (pmaxValid(pmaxInitial)) pmaxs = [pmaxInitial];
-    if (psValid(psInitial)) pss = [psInitial];
-    if (tpsValid(tpsInitial)) tpss = [tpsInitial];
-
-    // min max
-    if (validDecimalInteger(peakInitial)) minPeak = maxPeak = peakInitial;
-    else {minPeak = minDummyValue; maxPeak = maxDummyValue; }
-
-    if (validDecimalInteger(platInitial)) minPlat = maxPlat = platInitial;
-    else {minPlat = minDummyValue; maxPlat = maxDummyValue; }
-
-    if (validDecimalInteger(mpeepInitial)) minPeep = maxPeep = mpeepInitial;
-    else {minPeep = minDummyValue; maxPeep = maxDummyValue; }
-
-    if (validDecimalInteger(vtdelInitial)) minVt = maxVt = vtdelInitial;
-    else {minVt = minDummyValue; maxVt = maxDummyValue; }
-
-    if (validFloatNumber(mvdelInitial)) minMv = maxMv = mvdelInitial;
-    else {minMv = minDummyValue; maxMv = maxDummyValue; }
-
-    if (validDecimalInteger(mbpmInitial)) minMbpm = maxMbpm = mbpmInitial;
-    else {minMbpm = minDummyValue; maxMbpm = maxDummyValue; }
-
-    if (validDecimalInteger(sbpmInitial)) minSbpm = maxSbpm = sbpmInitial;
-    else {minSbpm = minDummyValue; maxSbpm = maxDummyValue; }
-
-    if (validDecimalInteger(scompInitial)) minScomp = maxScomp = scompInitial;
-    else {minScomp = minDummyValue; maxScomp = maxDummyValue; }
-
-    if (validDecimalInteger(dcompInitial)) minDcomp = maxDcomp = dcompInitial;
-    else {minDcomp = minDummyValue; maxDcomp = maxDummyValue; }
-
-    if (validDecimalInteger(tempInitial)) minTemp = maxTemp = tempInitial;
-    else {minTemp = minDummyValue; maxTemp = maxDummyValue; }
-
-    currParamCombo.mode = modeInitial;
-    currParamCombo.vt = vtInitial;
-    currParamCombo.rr = rrInitial;
-    currParamCombo.ie = ieInitial;
-    currParamCombo.ipeep = ipeepInitial;
-    currParamCombo.pmax = pmaxInitial;
-    currParamCombo.ps = psInitial;
-    currParamCombo.tps = tpsInitial;
-    currParamCombo.numBreaths = 0;
-    prevParamCombo = createNewInstance(currParamCombo);
+  prevParamCombo = createNewInstance(currParamCombo);
+  globalProcessJsonRecord(initialJsonRecord);
 }
 
 function globalProcessJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
   if (firstRecord) {
-    setFirstRecordData();
     firstRecord = false;
+    processFirstRecordData();
   }
 
   for (var key in jsonData) {
@@ -697,6 +519,7 @@ function globalLastRecord() {
 function gatherGlobalData() {
   if (globalDataValid) return;
   console.log("gatherGlobalData");
+  initialJsonRecord = createNewInstance(jsonRecordSchema);
 
   if (allDbKeys.length==0) {
     alert("Selected Session has no data");
@@ -719,3 +542,6 @@ function gatherGlobalData() {
   }
 }
 
+function formInitialJsonRecord() {
+  return initialJsonRecord;
+}

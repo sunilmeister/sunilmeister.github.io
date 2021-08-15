@@ -23,8 +23,6 @@ function listDbTableRow(item, index) {
   cell = row.insertCell();
   cell.innerHTML = '<button class="dbTableButton" onclick="selectDbRow(this)">SELECT</button>' ;
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="exportDbRow(this)">EXPORT</button>' ;
-  cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
@@ -33,26 +31,17 @@ function listDbTableRow(item, index) {
 
 }
 
-function exportDbRow(row) {
-  var p=row.parentNode.parentNode;
-
-  // reconstruct the dbName
-  // grab the tag field from the first cell in the same row
-  var dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
-  exportDb(dbName);
-}
-
 function selectDbRow(row) {
   var p=row.parentNode.parentNode;
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
+  dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
   sessionDbName = dbName;
   
   var heading = document.getElementById("SysUid");
   heading.innerText = respimaticUid + 
-    '\n\nSession Name\n' + p.cells[2].innerHTML + '\n\nCreation Date\n' + p.cells[3].innerHTML;
+    '\n\nSession Name\n' + p.cells[1].innerHTML + '\n\nCreation Date\n' + p.cells[2].innerHTML;
 
   initSession(dbName);
   return dbName;
@@ -63,7 +52,7 @@ function deleteDbRow(row) {
 
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  name = respimaticUid + '|' + p.cells[2].innerHTML + '|' + p.cells[3].innerHTML;
+  name = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
 
   // Delete the actual database
   deleteDb(name);
@@ -99,7 +88,7 @@ function deleteAllDbs() {
   numRows = table.rows.length;
   for (i=0; i<numRows; i++) {
     row = table.rows[0];
-    name = respimaticUid + '|' + row.cells[2].innerHTML + '|' + row.cells[3].innerHTML;
+    name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
     deleteDb(name);
     table.deleteRow(0);
   }
@@ -129,6 +118,7 @@ function selectSession() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
 
   listAllDbs();
 }
@@ -142,10 +132,21 @@ function selectImport() {
   document.getElementById("importDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
 }
 
 function selectExport() {
-  selectSession();
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "none";
+  document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "block";
+
+  listAllExportDbs();
 }
 
 function selectStats() {
@@ -160,6 +161,7 @@ function selectStats() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
 
   displayStats();
 }
@@ -176,6 +178,7 @@ function selectErrorWarnings() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
 
   displayErrorWarnings();
 }
@@ -192,7 +195,7 @@ function selectCharts() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
-  document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
 
   displayCharts();
 }
@@ -209,8 +212,7 @@ function selectExportWindow() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "block";
-
-  displayStats();
+  document.getElementById("exportSessionDiv").style.display = "none";
 }
 
 function selectRawData() {
@@ -263,6 +265,7 @@ function initSession() {
       updateLogDuration();
 
       gatherGlobalData();
+      document.getElementById("analysisWindowDiv").style.display = "block";
     }
   }
 }
