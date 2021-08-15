@@ -2,9 +2,9 @@ var analysisRangeSliderDiv = null;
 var rangeSlider = null;
 var sliderCommitPending = false;
 
-document.title = respimaticUid + " (ANALYZER)" ;
+document.title = respimaticUid + " (ANALYZER)";
 if (!window.indexedDB) {
-    alert("IndexedDB not available in your browser.\nSwitch browsers");
+  alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
 
 // ///////////////////////////////////////////////////////
@@ -12,68 +12,53 @@ if (!window.indexedDB) {
 // ///////////////////////////////////////////////////////
 function listDbTableRow(item, index) {
   nameTm = parseDbName(item);
-
   // only list databases for the currently selected system
   if (nameTm[0] != respimaticUid) return;
-
   var table = document.getElementById("dbTable");
-
   var row = table.insertRow();
-
   var cell;
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="selectDbRow(this)">SELECT</button>' ;
+  cell.innerHTML = '<button class="dbTableButton" onclick="selectDbRow(this)">SELECT</button>';
   cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>' ;
-
+  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>';
 }
 
 function selectDbRow(row) {
-  var p=row.parentNode.parentNode;
-
+  var p = row.parentNode.parentNode;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
   sessionDbName = dbName;
-  
   var heading = document.getElementById("SysUid");
-  heading.innerText = respimaticUid + 
+  heading.innerText = respimaticUid +
     '\n\nSession Name\n' + p.cells[1].innerHTML + '\n\nCreation Date\n' + p.cells[2].innerHTML;
-
   initSession(dbName);
   return dbName;
 }
 
 function deleteDbRow(row) {
-  var p=row.parentNode.parentNode;
-
+  var p = row.parentNode.parentNode;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   name = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
-
   // Delete the actual database
   deleteDb(name);
-
   // remove from HTML table
   p.parentNode.removeChild(p);
-
   // return the name just in case
   return dbName;
 }
-
 // ///////////////////////////////////////////////////////
 // MAIN function executed on window load
 // ///////////////////////////////////////////////////////
-
 function listAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
   table.innerHTML = "";
-
   var retrieved_dbs = getAllDbs();
   if (retrieved_dbs) {
     retrieved_dbs.forEach(listDbTableRow);
@@ -82,12 +67,10 @@ function listAllDbs() {
 
 function deleteAllDbs() {
   if (!confirm("Deleting All Saved Sessions")) return;
-
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
-
   numRows = table.rows.length;
-  for (i=0; i<numRows; i++) {
+  for (i = 0; i < numRows; i++) {
     row = table.rows[0];
     name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
     deleteDb(name);
@@ -96,16 +79,14 @@ function deleteAllDbs() {
 }
 
 function checkDbReady() {
-//return true;
+  //return true;
   if (sessionDbReady && sessionDbName) return true;
-
   if (!dbName) {
     alert('No Session Selected\nPlease Select Session for Analysis');
     return false;
   }
-
   nameTm = parseDbName(dbName);
-  sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]' ;
+  sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
   alert('Session ' + sessionName + '\nNot yet ready\nPlease try again');
   return false;
 }
@@ -120,7 +101,6 @@ function selectSession() {
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
-
   listAllDbs();
 }
 
@@ -146,14 +126,12 @@ function selectExport() {
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "block";
-
   listAllExportDbs();
 }
 
 function selectStats() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("chartsDiv").style.display = "none";
@@ -163,14 +141,12 @@ function selectStats() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
-
   displayStats();
 }
 
 function selectErrorWarnings() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
@@ -180,14 +156,12 @@ function selectErrorWarnings() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
-
   displayErrorWarnings();
 }
 
 function selectCharts() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "block";
@@ -197,14 +171,12 @@ function selectCharts() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
-
   displayCharts();
 }
 
 function selectExportWindow() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
@@ -219,7 +191,6 @@ function selectExportWindow() {
 function selectRawData() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
-
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
@@ -228,7 +199,6 @@ function selectRawData() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
-
   displayRawData();
 }
 
@@ -239,32 +209,27 @@ function initSession() {
   }
   resetAnalysisData();
   var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function(event) {
+  req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
     sessionDbReady = true;
-
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.getAllKeys();
-
-    keyReq.onsuccess = function(event) {
+    keyReq.onsuccess = function (event) {
       var keys = event.target.result;
       allDbKeys = keys;
-      if (keys.length==0) {
+      if (keys.length == 0) {
         alert("Selected Session has no data");
       }
-
       logStartTime = new Date(keys[0]);
       logStartTime.setMilliseconds(0);
-      logEndTime = new Date(keys[keys.length-1]);
+      logEndTime = new Date(keys[keys.length - 1]);
       logEndTime.setMilliseconds(0);
       analysisStartTime = new Date(logStartTime);
       analysisEndTime = new Date(logEndTime);
-
       updateSelectedDuration();
       updateLogDuration();
-
       gatherGlobalData();
       document.getElementById("analysisWindowDiv").style.display = "block";
     }
@@ -281,13 +246,12 @@ function resetAnalysisData() {
 }
 
 function checkValidAnalysisDuration() {
-//return true;
+  //return true;
   var diff = analysisEndTime - analysisStartTime;
-  if (diff<=0) {
+  if (diff <= 0) {
     alert("Analysis EndTime must be greater than StartTime");
     return false;
-  }
-  else return true;
+  } else return true;
 }
 
 function updateLogDuration() {
@@ -297,48 +261,41 @@ function updateLogDuration() {
       'max': logEndTime.getTime()
     },
     start: [
-      analysisStartTime.getTime(), 
+      analysisStartTime.getTime(),
       analysisEndTime.getTime()
     ],
   });
-
   var diff = logEndTime - logStartTime;
-
   elm = document.getElementById("logTimeDuration");
-  if (diff>=0) {
+  if (diff >= 0) {
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   } else {
-    elm.innerHTML = "Session Duration " + "NaN" ;
+    elm.innerHTML = "Session Duration " + "NaN";
   }
 }
 
 function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
-
   var diff = analysisEndTime - analysisStartTime;
-  if (diff>=0) {
+  if (diff >= 0) {
     elm.innerHTML = "Window Duration " + msToTimeStr(diff);
   } else {
-    elm.innerHTML = "NaN" ;
+    elm.innerHTML = "NaN";
   }
 }
 
 function setTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-
   values = rangeSlider.get();
   st = new Date(Number(values[0]));
   st.setMilliseconds(0);
   et = new Date(Number(values[1]));
   et.setMilliseconds(0);
-
-  if ((st.getTime()==analysisStartTime.getTime()) 
-    && (et.getTime()==analysisEndTime.getTime())) return;
-
+  if ((st.getTime() == analysisStartTime.getTime()) &&
+    (et.getTime() == analysisEndTime.getTime())) return;
   analysisStartTime = new Date(st);
   analysisEndTime = new Date(et);
-
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
@@ -347,28 +304,23 @@ function setTimeInterval() {
 function resetTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-
-  if ((logStartTime.getTime()==analysisStartTime.getTime()) 
-    && (logEndTime.getTime()==analysisEndTime.getTime())) return;
-
+  if ((logStartTime.getTime() == analysisStartTime.getTime()) &&
+    (logEndTime.getTime() == analysisEndTime.getTime())) return;
   analysisStartTime = logStartTime;
   analysisEndTime = logEndTime;
-
   st = logStartTime.getTime();
   et = logEndTime.getTime();
-  rangeSlider.set([st,et]);
-
+  rangeSlider.set([st, et]);
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
 }
 
-window.onload = function() {
-  sessionDbName = "" ;
-  sessionDbReady = false ;
+window.onload = function () {
+  sessionDbName = "";
+  sessionDbReady = false;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "\nNo Session Selected";
-
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
@@ -376,9 +328,7 @@ window.onload = function() {
     flashAnalysisWindowButtons();
     sliderCommitPending = true;
   });
-
   unflashAnalysisWindowButtons();
-
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
@@ -387,7 +337,6 @@ window.onload = function() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
-
   resetAnalysisData();
   selectSession();
 }
@@ -400,15 +349,15 @@ function createAnalysisRangeSlider() {
   rangeSlider = noUiSlider.create(analysisRangeSliderDiv, {
     // Create two timestamps to define a range.
     range: {
-        min: logStartTime.getTime(),
-        max: logEndTime.getTime()+10000
+      min: logStartTime.getTime(),
+      max: logEndTime.getTime() + 10000
     },
     // Steps of one second
     step: 1000,
     // Two more timestamps indicate the handle starting positions.
     start: [
-      analysisStartTime.getTime(), 
-      analysisEndTime.getTime()+10000
+      analysisStartTime.getTime(),
+      analysisEndTime.getTime() + 10000
     ],
     //some formatting
     padding: [1000, 1000],
@@ -416,22 +365,23 @@ function createAnalysisRangeSlider() {
     // handle labels
     tooltips: [
       {
-        to: function(ms) { return msToDateStr(ms); },
-        from: function(dt) { return dateStrToMs(dt); }
+        to: function (ms) { return msToDateStr(ms); },
+        from: function (dt) { return dateStrToMs(dt); }
       },
       {
-        to: function(ms) { return msToDateStr(ms); },
-        from: function(dt) { return dateStrToMs(dt); }
+        to: function (ms) { return msToDateStr(ms); },
+        from: function (dt) { return dateStrToMs(dt); }
       }
-    ]  
+    ],
+    //pips: {mode: 'count', values: 5},
   });
 }
 
-var intervalId = setInterval(function() {
+var intervalId = setInterval(function () {
   blinkAnalysisWindowButtons();
 }, 1000);
-
 var analysisButtonsFlashed = false;
+
 function blinkAnalysisWindowButtons() {
   if (!sliderCommitPending) return;
   if (analysisButtonsFlashed) {
@@ -445,7 +395,6 @@ function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = 'firebrick';
-
   el = document.getElementById("btnResetInterval");
   el.style.backgroundColor = 'firebrick';
 }
@@ -454,7 +403,6 @@ function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = '#1d85ad';
-
   el = document.getElementById("btnResetInterval");
   el.style.backgroundColor = '#1d85ad';
 }

@@ -96,6 +96,7 @@
   box-shadow: 0 6px #1d85ad;
   transform: translateY(6px);
 }
+
 .glowingButton {
   background-color: #1d85ad;
   border: white;
@@ -126,10 +127,12 @@
     background-color: #1d85ad;
     box-shadow: 0 0 20px white;
   }
+  
   50% {
     background-color: #1d85ad;
     box-shadow: 0 0 20px #0d3e51;
   }
+  
   100% {
     background-color: #1d85ad;
     box-shadow: 0 0 20px white;
@@ -151,7 +154,8 @@
   padding: 10px;
 }
 
-table, tr{
+table,
+tr {
   border: 1px solid white;
   border-collapse: collapse;
 }
@@ -171,3 +175,12 @@ span {
   margin-left: 0px;
   border-right: 0px solid white;
 }
+
+.noUi-tooltip {
+  display: none;
+}
+
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
