@@ -274,6 +274,21 @@ function updateLogDuration() {
   }
 }
 
+function updateSliderDuration() {
+  values = rangeSlider.get();
+  st = new Date(Number(values[0]));
+  st.setMilliseconds(0);
+  et = new Date(Number(values[1]));
+  et.setMilliseconds(0);
+  var diff = et - st;
+  elm = document.getElementById("intervalStart");
+  elm.value = dateToStr(st);
+  elm = document.getElementById("intervalEnd");
+  elm.value = dateToStr(et);
+  elm = document.getElementById("intervalDuration");
+  elm.value = msToTimeStr(diff);
+}
+
 function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
   var diff = analysisEndTime - analysisStartTime;
@@ -282,6 +297,12 @@ function updateSelectedDuration() {
   } else {
     elm.innerHTML = "NaN";
   }
+  elm = document.getElementById("intervalStart");
+  elm.value = dateToStr(analysisStartTime);
+  elm = document.getElementById("intervalEnd");
+  elm.value = dateToStr(analysisEndTime);
+  elm = document.getElementById("intervalDuration");
+  elm.value = msToTimeStr(diff);
 }
 
 function setTimeInterval() {
@@ -307,6 +328,7 @@ function cancelTimeInterval() {
   st = analysisStartTime.getTime();
   et = analysisEndTime.getTime();
   rangeSlider.set([st, et]);
+  updateSelectedDuration();
 }
 
 function resetTimeInterval() {
@@ -334,6 +356,7 @@ window.onload = function () {
   createAnalysisRangeSlider();
   rangeSlider.on('end', function () {
     flashAnalysisWindowButtons();
+    updateSliderDuration();
     sliderCommitPending = true;
   });
   unflashAnalysisWindowButtons();
