@@ -36,6 +36,9 @@ function displayUsedCombos() {
 
     cell = row.insertCell();
     cell.innerHTML = combo.numBreaths;
+
+    cell = row.insertCell();
+    cell.innerHTML = dateToStr(combo.start);
   }
 }
 

@@ -139,7 +139,8 @@ function initGlobalData() {
     "pmax" : "--",
     "ps" : "--",
     "tps" : "--",
-    "numBreaths" : 0
+    "numBreaths" : 0,
+    "start" : 0
   };
   usedParamCombos = [];
   
@@ -227,6 +228,7 @@ function processFirstRecordData() {
   delete initialJsonRecord.content["EMSG"];
 
   prevParamCombo = createNewInstance(currParamCombo);
+  prevParamCombo.start = initialJsonRecord.created;
   globalProcessJsonRecord(initialJsonRecord);
 }
 
@@ -307,6 +309,7 @@ function globalProcessJsonRecord(jsonData) {
             usedParamCombos.push(createNewInstance(prevParamCombo));
 	    prevParamCombo = createNewInstance(currParamCombo);
             prevParamCombo.numBreaths=1;
+            prevParamCombo.start = jsonData.created;
 	  } else {
             prevParamCombo.numBreaths++;
 	  }
