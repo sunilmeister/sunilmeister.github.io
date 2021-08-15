@@ -301,6 +301,14 @@ function setTimeInterval() {
   gatherGlobalData();
 }
 
+function cancelTimeInterval() {
+  sliderCommitPending = false;
+  unflashAnalysisWindowButtons();
+  st = analysisStartTime.getTime();
+  et = analysisEndTime.getTime();
+  rangeSlider.set([st, et]);
+}
+
 function resetTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
@@ -395,7 +403,7 @@ function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = 'firebrick';
-  el = document.getElementById("btnResetInterval");
+  el = document.getElementById("btnCancelInterval");
   el.style.backgroundColor = 'firebrick';
 }
 
@@ -403,7 +411,7 @@ function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = '#1d85ad';
-  el = document.getElementById("btnResetInterval");
+  el = document.getElementById("btnCancelInterval");
   el.style.backgroundColor = '#1d85ad';
 }
 
