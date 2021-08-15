@@ -324,6 +324,7 @@ function setTimeInterval() {
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
+  resetDivs();
 }
 
 function cancelTimeInterval() {
@@ -348,6 +349,7 @@ function resetTimeInterval() {
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
+  resetDivs();
 }
 
 window.onload = function () {
@@ -442,3 +444,14 @@ function unflashAnalysisWindowButtons() {
   el.style.backgroundColor = '#1d85ad';
 }
 
+function resetDivs() {
+  document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("statsDiv").style.display = "none";
+  document.getElementById("chartsDiv").style.display = "none";
+  document.getElementById("rawDataDiv").style.display = "none";
+  document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
+}
