@@ -32,6 +32,7 @@ var chartTemplate = {
     cursor: "pointer", 
     itemclick: toggleDataSeries
   },
+  height: 500,
   data: []
 };
 
@@ -118,7 +119,7 @@ function renderNewChart(chartJson) {
   chartDivId = "chart" + chartNum++;
   chartDiv = document.createElement("div");
   chartDiv.id = chartDivId;
-  chartDiv.height = "400px" ;
+  chartDiv.height = "550" ;
 
   container = document.getElementById("chartContainer");
   container.appendChild(chartDiv);
