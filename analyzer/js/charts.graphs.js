@@ -45,15 +45,10 @@ function toggleDataSeries(e) {
   e.chart.render();
 }
 
-var allCharts = [];
-var chartNum = 1;
-
 function initCharts() {
   console.log("initCharts");
-  allCharts = [];
-  chartNum = 1;
 
-  elm = document.getElementById("chartContainer");
+  elm = document.getElementById("chartContainerDiv");
   elm.innerHTML = "";
 }
 
@@ -116,16 +111,9 @@ function createCanvasChartData(valueArray, timeBased) {
 }
 
 function renderNewChart(chartJson) {
-  chartDivId = "chart" + chartNum++;
-  chartDiv = document.createElement("div");
-  chartDiv.id = chartDivId;
-  chartDiv.height = "550" ;
+  container = document.getElementById("chartContainerDiv");
 
-  container = document.getElementById("chartContainer");
-  container.appendChild(chartDiv);
-
-  var chart = new CanvasJS.Chart(chartDiv, chartJson);
-  allCharts.push(chart);
+  chart = new CanvasJS.Chart(container, chartJson);
   chart.render();
 }
 
