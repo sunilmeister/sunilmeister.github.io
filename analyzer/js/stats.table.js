@@ -233,7 +233,7 @@ function displayStats() {
   }
   el = document.getElementById("pInfo");
   if (patientInfo) {
-    el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo) +"yrs";
+    el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo);
   } else {
     el.innerHTML = "Patient Info: UNKNOWN";
   }

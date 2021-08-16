@@ -16,6 +16,7 @@
     <meta name="viewport" content="width = device-width, initial-scale = 1, user-scalable = no" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/colors.css" />
     <link rel="stylesheet" href="../css/common.css" />
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="../js/download.js"></script>
@@ -26,7 +27,7 @@
   <body>
     <div class="sidebar">
       
-      <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+      <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
         <center>
           <p id="logTimeDuration">Session Duration 00:00:00
           <p id="startTime">Starting Time 00:00:00
@@ -34,12 +35,12 @@
       </div>
       
       <center>
-        <button id="btnExit" class="sidebarButton" style="background-color:firebrick" onclick='selectExit()'>STOP &
+        <button id="btnExit" class="sidebarButton" style="background-color:var(--rsp_darkred)" onclick='selectExit()'>STOP &
           EXIT</button>
       </center>
       
       <center>
-        <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+        <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <div id="btnNewSessionDiv">
             <br>
             <button id="btnNewSessionDiv" class="sidebarButton" onclick='createNewDb()'>Start New Session</button>
@@ -67,7 +68,7 @@
       </center>
       
       <br>
-      <div style="background-color:#0d3e51; color:white; font-family:verdana;">
+      <div style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
         <center>
           <p id='SysUid' style="font-size:16px;">
         </center>
@@ -81,20 +82,20 @@
         <img src="img/logger-title-logos.png" alt="Title" width="620" height="140">
         <div class="row">
           <div class="column">
-            <p id="sessionName" style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+            <p id="sessionName" style="background-color:var(--rsp_darkblue); color:white;font-size:1.5em; font-family:verdana;">
               No Active Session
             <div
-              style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+              style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=dweetBox style="font-size:20px; text-align: left">
             </div>
             
           </div>
           
           <div class="column">
-            <p style="background-color:#0d3e51; color:white;font-size:1.5em; font-family:verdana;">
+            <p style="background-color:var(--rsp_darkblue); color:white;font-size:1.5em; font-family:verdana;">
               All Saved Sessions
             <div
-              style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine'">
+              style="height:600px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
               <br>
               <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
               </table>

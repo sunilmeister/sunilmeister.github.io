@@ -5,14 +5,14 @@ uiJson.datasources.push(dataSources["DUMMY"]);
 uiJson.datasources[0].settings.thing_id=respimaticUid;
 document.title = respimaticUid + " (" + datasource_name + ")"
 
-var normal_background = "#0d3e51";
-var initial_background = "#0d3e51";
-var standby_background = "#0d3e51";
-var error_background = "#ad1309";
-var running_background = "#0b5e2b";
-var attention_background = "#c45a1b";
-var current_background = normal_background;
-var background_before_error = initial_background;
+var normal_background;
+var initial_background;
+var standby_background;
+var error_background;
+var running_background;
+var attention_background;
+var current_background;
+var background_before_error;
 var gsw_elements = [];
 
 var initial_state = false;
@@ -154,3 +154,15 @@ function process_dweet_content(d) {
   return d;
 }
 
+window.onload = function () {
+  var style = getComputedStyle(document.body)
+
+  normal_background = style.getPropertyValue('--rsp_darkblue');
+  initial_background = normal_background;
+  standby_background = normal_background;
+  error_background = style.getPropertyValue('--rsp_darkred');
+  running_background = style.getPropertyValue('--rsp_green');
+  attention_background = style.getPropertyValue('--rsp_orange');
+  current_background = normal_background;
+  background_before_error = initial_background;
+}

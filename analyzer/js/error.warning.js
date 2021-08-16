@@ -3,9 +3,12 @@
 // ////////////////////////////////////////////////////
 
 function displayJsonErrorWarning(scrollbox, jsonData) {
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_blue');
+
   var newElement = document.createElement('p');
   newElement.innerHTML = "DateTime: " + dateToStr(jsonData.created);
-  newElement.style.backgroundColor = "#1d85ad" ;
+  newElement.style.backgroundColor = bgd;
   newElement.style.color = "white" ;
   scrollbox.appendChild(newElement);
 

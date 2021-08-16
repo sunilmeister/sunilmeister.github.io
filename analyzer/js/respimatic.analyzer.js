@@ -430,18 +430,25 @@ function blinkAnalysisWindowButtons() {
 
 function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_darkred');
+
   el = document.getElementById("btnSetInterval");
-  el.style.backgroundColor = 'firebrick';
+  el.style.backgroundColor = bgd;
   el = document.getElementById("btnCancelInterval");
-  el.style.backgroundColor = 'firebrick';
+  el.style.backgroundColor = bgd;
 }
 
 function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
+
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_blue');
+
   el = document.getElementById("btnSetInterval");
-  el.style.backgroundColor = '#1d85ad';
+  el.style.backgroundColor = bgd;
   el = document.getElementById("btnCancelInterval");
-  el.style.backgroundColor = '#1d85ad';
+  el.style.backgroundColor = bgd;
 }
 
 function resetDivs() {

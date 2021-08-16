@@ -17,6 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
+    <link rel="stylesheet" href="../css/colors.css" />
     <link rel="stylesheet" href="../css/common.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js">
     </script>
@@ -36,7 +37,7 @@
   <body>
     <div class="sidebar">
       
-      <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+      <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
         <center>
           <p id="logTimeDuration">Session Duration 00:00:00
           <p id="selectedTimeDuration">Window Duration 00:00:00
@@ -44,12 +45,12 @@
       </div>
       
       <center>
-        <button id="btnExit" class="sidebarButton" style="background-color:firebrick" onclick='selectExit()'>STOP &
+        <button id="btnExit" class="sidebarButton" style="background-color:var(--rsp_darkred)" onclick='selectExit()'>STOP &
           EXIT</button>
       </center>
       
       <center>
-        <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+        <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <p>Session Actions
             <br>
             <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Select Session</button>
@@ -68,7 +69,7 @@
       
       <br>
       <center>
-        <div style="background-color:#0d3e51; color:white; font-size:20px; font-family:verdana;">
+        <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <p>Window Actions
             <br>
             <button id="btnStat" class="sidebarButton" onclick='selectStats()'>Statistics</button>
@@ -84,7 +85,7 @@
       </center>
       
       <br>
-      <div style="background-color:#0d3e51; color:white; font-family:verdana;">
+      <div style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
         <center>
           <p>Current Session
             <br>
@@ -100,7 +101,7 @@
       
       <center>
         <div id="analysisWindowDiv"
-          style="background-color:#0d3e51; font-size:20px; font-family:verdana; display: none; ">
+          style="background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display: none; ">
           <br><br>
           <div id="analysisRangeSliderDiv" style="margin-left: 20px; margin-right: 20px;">
           </div>
@@ -118,10 +119,10 @@
       
       <center>
         <div id="selectorDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Select Session for Analysis</h2>
           <div
-            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine';max-width: 1000px;">
+            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
             <br>
             <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
             </table>
@@ -132,14 +133,14 @@
       
       <div id="statsDiv" style="display: none">
         <center>
-          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Session Statistics</h2>
         </center>
         <div class="row">
           
           <div id="measured-pane" class="column" style="font-size: 20">
             <center>
-              <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+              <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                 Parameters Measured</h2>
             </center>
             <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:20px; width:100%">
@@ -154,7 +155,7 @@
             </table>
             
             <center>
-              <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+              <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                 Miscellaneous Information</h2>
             </center>
             <table id='statsMiscTable' className="statsTableStyle" style="font-size:20px; width:100%">
@@ -169,7 +170,7 @@
           
           <div id="stats-pane" class="column" style="font-size: 20">
             <center>
-              <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+              <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                 Static Information</h2>
             </center>
             <p id="pName">
@@ -179,7 +180,7 @@
               <center>
                 <div id="staticStats" style="font-size: 20px">
                   <center>
-                    <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+                    <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                       Parameter Settings Used</h2>
                   </center>
                   
@@ -198,7 +199,7 @@
                   </center>
                   
                   <center>
-                    <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+                    <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                       Sequence of Parameter Combinations Used</h2>
                   </center>
                   
@@ -238,10 +239,10 @@
       
       <center>
         <div id="chartsDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Select Charts for Analysis</h2>
           
-          <div style="background-color:#0d3e51; color:white;font-size:20px; font-family:verdana;">
+          <div style="background-color:var(--rsp_darkblue); color:white;font-size:20px; font-family:verdana;">
             <br>
             Y-Axis:
             <input id="peakTick" style="width:20px;height:20px;" type="checkbox">
@@ -282,28 +283,28 @@
       
       <center>
         <div id="errorWarningDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Session Errors and Warnings</h2>
           
           <div class="row">
             <div id="errorColDiv" class="column" style="font-size: 20">
               <center>
-                <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+                <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                   Session Errors</h2>
               </center>
               <div id="errorDiv"
-                style="margin-left:10px; height:800px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-family: 'Cousine'">
+                style="margin-left:10px; height:800px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollErrorDiv" style="font-size:16; text-align: left">
               </div>
             </div>
             
             <div id="warningColDiv" class="column" style="font-size: 20">
               <center>
-                <h2 style="background-color:#0d3e51; color:white;font-size:1.3em; font-family:verdana;">
+                <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                   Session Warnings</h2>
               </center>
               <div id="warningDiv"
-                style="margin-left:10px; height:800px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-family: 'Cousine'">
+                style="margin-left:10px; height:800px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollWarningDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -314,10 +315,10 @@
       
       <center>
         <div id="rawDataDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.3em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Dumping Raw Data for Session</h2>
           <div
-            style="margin-left:10px; height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-family: 'Cousine'">
+            style="margin-left:10px; height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id="scrollRawDataDiv" style="font-size:16; text-align: left">
           </div>
           
@@ -326,18 +327,18 @@
       
       <center>
         <div id="importDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Import Session</h2>
           <div
-            style="margin-left:10px; height:350px; background-color:#0d3e51; color:white; border:10px #1d85ad; font-size: 25px; font-family: 'verdana'">
+            style="margin-left:10px; height:350px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
             <br><br>
             <label for="fileSelector">Session File to Import</label>
             <input type="file" id="fileSelector" accept=".txt"
-              style="width: 200; border-radius: 10px; background-color:white; color:#0d3e51; font-size:25px; font-family:verdana;" />
+              style="width: 200; border-radius: 10px; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
             <br><br>
             <label for="importSessionName">Session Name to Create</label>
             <input id="importSessionName"
-              style="width: 200; border-radius: 10px; background-color:white; color:#0d3e51; font-size:25px; font-family:verdana;" />
+              style="width: 200; border-radius: 10px; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
             <br><br><br>
             <button class="button" onclick='importFile()'>IMPORT</button>
             <br>
@@ -348,10 +349,10 @@
       
       <center>
         <div id="exportSessionDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Export Selected Session</h2>
           <div
-            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:#0d3e51; color:white; border:4px #1d85ad; font-family: 'Cousine';max-width: 1000px;">
+            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
             <br>
             <table id='dbExportTable' className="dbTableStyle" style="font-size:20px; width:100%">
             </table>
@@ -361,7 +362,7 @@
       
       <center>
         <div id="exportWindowDiv" style="display: none">
-          <h2 style="color:#0d3e51; font-size:1.5em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Export Analysis Window</h2>
           <button class="button" onclick='exportWindow()'>Export Analysis Window
             as a Session</button>

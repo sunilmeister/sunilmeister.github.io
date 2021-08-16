@@ -290,7 +290,7 @@ var uiJson = {
             "size": "regular",
             "value": "datasources[\"RESPIMATIC100\"][\"MBPM\"]",
             "animate": true,
-            "units": ""
+            "units": "bpm"
           }
         },
         {
@@ -300,7 +300,7 @@ var uiJson = {
             "size": "regular",
             "value": "datasources[\"RESPIMATIC100\"][\"SBPM\"]",
             "animate": true,
-            "units": ""
+            "units": "bpm"
           }
         }
       ]
@@ -507,7 +507,7 @@ var uiJson = {
           "size": "regular",
           "value": "datasources[\"RESPIMATIC100\"][\"PMISC\"]",
           "animate": true,
-          "units": "yrs"
+          "units": ""
         }
       }]
     },

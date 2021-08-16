@@ -16,6 +16,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/colors.css" />
   <script src="js/common.js"></script>
   <script src="js/respimatic.selector.js"></script>
 
@@ -25,7 +26,7 @@
       top: 50%;
       left: 50%;
       font-family: Arial; 
-      background-color: #0d3e51 ;
+      background-color: var(--rsp_darkblue);
       color: white;
       padding: 8px;
       -ms-text-size-adjust: 100%;
@@ -35,7 +36,7 @@
       -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */    
     }
     .button {
-      background-color: #1d85ad;
+      background-color: var(--rsp_blue);
       border: white;
       color: white;
       padding: 15px 32px;
@@ -53,8 +54,8 @@
      opacity: 1;
    }
    .button:active {
-     background-color: #0a8a30;
-     box-shadow: 0 6px #1d85ad;
+     background-color: var(--rsp_green);
+     box-shadow: 0 6px var(--rsp_lightblue);
      transform: translateY(6px);
    }
    </style>
