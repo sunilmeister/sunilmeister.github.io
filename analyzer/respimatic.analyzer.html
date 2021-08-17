@@ -37,6 +37,7 @@
   <body>
     <div class="sidebar">
       
+      <br>
       <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
         <center>
           <p id="logTimeDuration">Session Duration 00:00:00
@@ -94,13 +95,10 @@
     </div>
     
     <div class="body-pane">
-      <center>
-        <img src="img/analyzer-title-logos.png" alt="Title" width="620" height="140">
-      </center>
       
       <center>
         <div id="analysisWindowDiv"
-          style="background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display: none; ">
+          style="margin-top:20px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display: none; margin-left: 10px;">
           <br><br>
           <div id="analysisRangeSliderDiv" style="margin-left: 20px; margin-right: 20px;">
           </div>
@@ -290,7 +288,7 @@
                   Session Errors</h2>
               </center>
               <div id="errorDiv"
-                style="margin-left:10px; height:800px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                style="margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollErrorDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -301,7 +299,7 @@
                   Session Warnings</h2>
               </center>
               <div id="warningDiv"
-                style="margin-left:10px; height:800px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                style="margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollWarningDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -315,7 +313,7 @@
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Dumping Raw Data for Session</h2>
           <div
-            style="margin-left:10px; height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            style="margin-left:10px; height:1025px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id="scrollRawDataDiv" style="font-size:16; text-align: left">
           </div>
           
@@ -366,7 +364,13 @@
         </div>
       </center>
       
+      <center>
+	<div id="logosDiv">
+          <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px" width="620" height="140">
+	</div>
+      </center>
     </div>
+
   </body>
   
 </html>
