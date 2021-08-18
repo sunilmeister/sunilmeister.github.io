@@ -159,6 +159,32 @@ function createBpmYaxis(num, color) {
   return createNewInstance(yaxis);
 }
 
+function createComplianceYaxis(num, color) {
+  var yaxis = {
+    title: "Lung Compliance (ml / cm H20)",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    minimum: 0,
+    suffix: ""
+  };
+  return createNewInstance(yaxis);
+}
+
+function createTempYaxis(num, color) {
+  var yaxis = {
+    title: "System Temperature (deg C)",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    minimum: 0,
+    suffix: ""
+  };
+  return createNewInstance(yaxis);
+}
+
 function createNewChart() {
   if (!globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
@@ -196,6 +222,15 @@ function createNewChart() {
   elm = document.getElementById("warningTick");
   warningYes = elm.checked;
 
+  elm = document.getElementById("scompTick");
+  scompYes = elm.checked;
+
+  elm = document.getElementById("dcompTick");
+  dcompYes = elm.checked;
+
+  elm = document.getElementById("tempTick");
+  tempYes = elm.checked;
+
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
 
@@ -210,6 +245,8 @@ function createNewChart() {
   mvYaxisNum = -1;
   bpmYaxisNum = -1;
   errorWarningYaxisNum = -1;
+  compYaxisNum = -1;
+  tempYaxisNum = -1;
 
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
@@ -342,6 +379,63 @@ function createNewChart() {
 	chartJson.axisY.push(yaxis);
       }
       paramData.axisYIndex = bpmYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Spontaneous BPM\nNo data points found!");
+    }
+  }
+
+  if (scompYes) {
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(scompValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      paramData.name = "Instantaneous Static Compliance (ml / cm H20)";
+      paramData.color = getNextChartColor();
+      if (compYaxisNum == -1) {
+	compYaxisNum = nextYaxisNum++;
+	yaxis = createComplianceYaxis(compYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = compYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Spontaneous BPM\nNo data points found!");
+    }
+  }
+
+  if (dcompYes) {
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(dcompValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      paramData.name = "Instantaneous Dynamic Compliance (ml / cm H20)";
+      paramData.color = getNextChartColor();
+      if (compYaxisNum == -1) {
+	compYaxisNum = nextYaxisNum++;
+	yaxis = createComplianceYaxis(compYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = compYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot Spontaneous BPM\nNo data points found!");
+    }
+  }
+
+  if (tempYes) {
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(tempValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      paramData.name = "System Temperature (deg C)";
+      paramData.color = getNextChartColor();
+      if (tempYaxisNum == -1) {
+	tempYaxisNum = nextYaxisNum++;
+	yaxis = createTempYaxis(tempYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = tempYaxisNum;
       chartJson.data.push(paramData);
     } else {
       alert("Cannot plot Spontaneous BPM\nNo data points found!");
