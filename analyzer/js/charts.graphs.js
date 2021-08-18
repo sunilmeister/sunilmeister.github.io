@@ -161,7 +161,7 @@ function createBpmYaxis(num, color) {
 
 function createComplianceYaxis(num, color) {
   var yaxis = {
-    title: "Lung Compliance (ml / cm H20)",
+    title: "Compliance (ml / cm H20)",
     lineColor: color,
     tickColor: color,
     labelFontColor: color,
