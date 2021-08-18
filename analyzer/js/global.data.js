@@ -412,6 +412,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minMbpm = value;
 	    }
 	    mbpmValues.push({"time":curTime,"value":value});
+	  } else {
+	    mbpmValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="SBPM") {
 	  if (validDecimalInteger(value)) {
@@ -422,6 +424,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minSbpm = value;
 	    }
 	    sbpmValues.push({"time":curTime,"value":value});
+	  } else {
+	    sbpmValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="STATIC") {
 	  if (validDecimalInteger(value)) {
@@ -432,6 +436,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minScomp = value;
 	    }
 	    scompValues.push({"time":curTime,"value":value});
+	  } else {
+	    scompValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="DYNAMIC") {
 	  if (validDecimalInteger(value)) {
@@ -442,6 +448,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minDcomp = value;
 	    }
 	    dcompValues.push({"time":curTime,"value":value});
+	  } else {
+	    dcompValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="VTDEL") {
 	  if (validDecimalInteger(value)) {
@@ -452,6 +460,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minVtdel = value;
 	    }
 	    vtdelValues.push({"time":curTime,"value":value});
+	  } else {
+	    vtdelValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="MVDEL") {
 	  if (validFloatNumber(value)) {
@@ -462,6 +472,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minMvdel = value;
 	    }
 	    mvdelValues.push({"time":curTime,"value":value});
+	  } else {
+	    mvdelValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="PIP") {
 	  if (validDecimalInteger(value)) {
@@ -472,6 +484,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minPeak = value;
 	    }
 	    peakValues.push({"time":curTime,"value":value});
+	  } else {
+	    peakValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="PLAT") {
 	  if (validDecimalInteger(value)) {
@@ -482,6 +496,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minPlat = value;
 	    }
 	    platValues.push({"time":curTime,"value":value});
+	  } else {
+	    platValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="MPEEP") {
 	  if (validDecimalInteger(value)) {
@@ -492,6 +508,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minPeep = value;
 	    }
 	    mpeepValues.push({"time":curTime,"value":value});
+	  } else {
+	    mpeepValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="TEMP") {
 	  if (validDecimalInteger(value)) {
@@ -502,6 +520,8 @@ function globalProcessJsonRecord(jsonData) {
 	      minTemp = value;
 	    }
 	    tempValues.push({"time":curTime,"value":value});
+	  } else {
+	    tempValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="ALT") {
 	    altitude = value + " ft(m)";
