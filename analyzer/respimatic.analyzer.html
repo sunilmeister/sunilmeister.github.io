@@ -25,6 +25,7 @@
     <script src="../js/download.js"></script>
     <script src="../js/db.schema.js"></script>
     <script src="../js/common.js"></script>
+    <script src="../js/charts.common.js"></script>
     <script src="js/global.data.js"></script>
     <script src="js/import.export.js"></script>
     <script src="js/stats.table.js"></script>
@@ -239,7 +240,7 @@
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Select Charts for Analysis</h2>
           
-          <div style="background-color:var(--rsp_darkblue); color:white;font-size:20px; font-family:verdana;">
+          <div style="background-color:var(--rsp_darkblue); color:white;font-size:20px; font-family:verdana; margin-left:10px">
             <br>
             Y-Axis:
             <input id="peakTick" style="width:20px;height:20px;" type="checkbox">
@@ -256,6 +257,10 @@
             Mandatory BPM
             <input id="sbpmTick" style="width:20px;height:20px;" type="checkbox">
             Spontaneous BPM
+            <input id="warningTick" style="width:20px;height:20px;" type="checkbox">
+            Warning
+            <input id="errorTick" style="width:20px;height:20px;" type="checkbox">
+            Error
             
             <br><br>
             X-Axis:
@@ -269,9 +274,10 @@
             Chart Title
             <button class="button" onclick='createNewChart()'>CREATE
               CHART</button>
+	    <br><br>
           </div>
           
-          <div id="chartContainerDiv" height=550px>
+          <div id="chartContainerDiv" height=550px style="margin-left:10px; margin-top:20px">
           </div>
         </div>
       </center>

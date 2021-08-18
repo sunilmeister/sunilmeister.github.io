@@ -156,9 +156,6 @@ function displayStats() {
   }
   tablesConstructed = true;
 
-  numWarnings = warningMsgs.length;
-  numErrors = errorMsgs.length;
-
   el = document.getElementById("peakMin");
   el.innerHTML = replaceDummyValue(minPeak);
   el = document.getElementById("peakMax");
@@ -256,9 +253,9 @@ function displayStats() {
   el = document.getElementById("numErrorEntry");
   el.innerHTML = replaceDummyValue(numErrorEntry);
   el = document.getElementById("numWarnings");
-  el.innerHTML = replaceDummyValue(numWarnings);
+  el.innerHTML = replaceDummyValue(warningNum);
   el = document.getElementById("numErrors");
-  el.innerHTML = replaceDummyValue(numErrors);
+  el.innerHTML = replaceDummyValue(errorNum);
 
   table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;

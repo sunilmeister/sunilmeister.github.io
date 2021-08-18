@@ -29,6 +29,11 @@ var peakValues = [];
 var platValues = [];
 var mpeepValues = [];
 var tempValues = [];
+var warningValues = [];
+var errorValues = [];
+
+var warningNum = 0;
+var errorNum = 0;
 
 // Misc data
 var patientName;
@@ -103,12 +108,16 @@ function initGlobalData() {
   platValues = [];
   mpeepValues = [];
   tempValues = [];
+  warningValues = [];
+  errorValues = [];
+
+  warningNum = 0;
+  errorNum = 0;
 
   numInitialEntry = 0;
   numStandbyEntry = 0;
   numRunningEntry = 0;
   numErrorEntry = 0;
-  numWarnings = 0;
   initialState = false;
   standbyState = false;
   runningState = false;
@@ -205,6 +214,22 @@ function equalParamCombos(curr, prev) {
   } else return false;
 }
 
+function initGraphStartValues() {
+ if (breathTimes.length==0) breathTimes = [0];
+ if (peakValues.length==0) peakValues.push({"time":0,"value":0});
+ if (platValues.length==0) platValues.push({"time":0,"value":0});
+ if (mpeepValues.length==0) mpeepValues.push({"time":0,"value":0});
+ if (vtdelValues.length==0) vtdelValues.push({"time":0,"value":0});
+ if (mvdelValues.length==0) mvdelValues.push({"time":0,"value":0});
+ if (scompValues.length==0) scompValues.push({"time":0,"value":0});
+ if (dcompValues.length==0) dcompValues.push({"time":0,"value":0});
+ if (mbpmValues.length==0) mbpmValues.push({"time":0,"value":0});
+ if (sbpmValues.length==0) sbpmValues.push({"time":0,"value":0});
+ if (tempValues.length==0) tempValues.push({"time":0,"value":0});
+ if (errorValues.length==0) errorValues.push({"time":0,"value":0});
+ if (warningValues.length==0) warningValues.push({"time":0,"value":0});
+}
+
 function globalTrackJsonRecord(jsonData) {
   for (var key in jsonData) {
     initialJsonRecord.created = jsonData.created;
@@ -233,7 +258,9 @@ function processFirstRecordData() {
 
   prevParamCombo = createNewInstance(currParamCombo);
   prevParamCombo.start = initialJsonRecord.created;
+
   globalProcessJsonRecord(initialJsonRecord);
+  initGraphStartValues();
 }
 
 function globalProcessJsonRecord(jsonData) {
@@ -484,8 +511,10 @@ function globalProcessJsonRecord(jsonData) {
 	    patientInfo = value;
         } else if (ckey=="WMSG") {
 	  expectWarningMsg = true;
+          warningValues.push({"time":curTime,"value":++warningNum});
         } else if (ckey=="EMSG") {
 	  expectErrorMsg = true;
+          errorValues.push({"time":curTime,"value":++errorNum});
         }
       }
     }
@@ -519,7 +548,6 @@ function globalProcessAllJsonRecords(key, lastRecord) {
 
 function globalLastRecord() {
   usedParamCombos.push(createNewInstance(prevParamCombo));
-  //console.log("LastRecord prevCombo = " + prevParamCombo);
   globalDataValid = true;
 }
 
@@ -534,8 +562,6 @@ function gatherGlobalData() {
   }
 
   var lastRecord = false;
-  //console.log("analysisStart=" + analysisStartTime);
-  //console.log("analysisEnd=" + analysisEndTime);
   for (i=0; i<allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (keyMoreThanAnalysisRangeMax(allDbKeys[i])) {

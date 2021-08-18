@@ -2,49 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-const graphColors = [
-  "Maroon",
-  "Red",
-  "Purple",
-  "Blue",
-  "Olive",
-  "Green",
-  "Fuchsia",
-  "Aqua",
-  "Navy",
-  "Silver",
-  "Gray",
-];
-var nextColor = 0;
-
-function getNextColor() {
-  color = graphColors[nextColor++];
-  if (nextColor==graphColors.length) nextColor = 0;
-  return color;
-}
-
-var chartTemplate = {
-  title:{ text: "" },
-  axisX:{ title: "", },
-  axisY:[],
-  toolTip: { shared: true },
-  legend: { 
-    cursor: "pointer", 
-    itemclick: toggleDataSeries
-  },
-  height: 500,
-  data: []
-};
-
-function toggleDataSeries(e) {
-  if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-    e.dataSeries.visible = false;
-  } else {
-    e.dataSeries.visible = true;
-  }
-  e.chart.render();
-}
-
 function initCharts() {
   console.log("initCharts");
 
@@ -55,30 +12,26 @@ function initCharts() {
 function createDatapoints(transitions) {
   var curValue = 0;
   var curIx = 0;
-
-  if (transitions.length>1) {
-    curValue = transitions[0].value;
-    curIx = 1;
-  }
+  var curValue = transitions[0].value; // guaranteed to have at least one entry
 
   var datapoints = [];
-  for (i=1; i<breathTimes.length; i++) {
+  //console.log("trans=" + transitions.length);
+  for (i=0; i<breathTimes.length; i++) {
     if (curIx==transitions.length-1) {
-      datapoints.push(curValue);
+      curValue = transitions[curIx].value;
     } else {
       if (breathTimes[i] >= transitions[curIx+1].time ) {
-	curValue = transitions[curIx++].value;
+	curValue = transitions[++curIx].value;
         datapoints.push(curValue);
-      } else {
-	datapoints.push(curValue);
       }
     }
+    datapoints.push(curValue);
   }
 
   return datapoints;
 }
 
-function createCanvasChartData(valueArray, timeBased) {
+function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
   if (valueArray.length == 0) return null;
 
   var yDatapoints = [];
@@ -88,21 +41,45 @@ function createCanvasChartData(valueArray, timeBased) {
 
   xyPoints.length = 0;
   yDatapoints = createDatapoints(valueArray);
+  var xval;
   for (i=1; i<numPoints; i++) {
     if (timeBased) {
       ms = new Date(breathTimes[i]) - new Date(breathTimes[1]);
       sec = Math.round(ms/1000);
-      xyPoints.push({"x":sec, "y":yDatapoints[i]});
+      xval = sec;
     } else {
-      xyPoints.push({"x":i, "y":yDatapoints[i]});
+      xval = i;
+    }
+
+    if (!flagError && !flagWarning) {
+      xyPoints.push({"x":xval, "y":yDatapoints[i]});
+    } else {
+      if (yDatapoints[i] != yDatapoints[i-1]) {
+        if (flagError) {
+	  label = "E";
+	  marker = "cross" ;
+	  color = "red";
+        } else {
+	  label = "W";
+	  marker = "triangle" ;
+	  color = "orange";
+	}
+        xyPoints.push({"x":xval, "y":yDatapoints[i], 
+	  indexLabel: label, markerType: marker, markerColor: color, markerSize: 16});
+      } else {
+        xyPoints.push({"x":xval, "y":null});
+      }
     }
   }
+
+  if (flagError || flagWarning) noLegend = true;
+  else noLegend = false;
 
   var chartData = {
     "type": "line",
     "name": "",
     "color": "",
-    "showInLegend": true,
+    "showInLegend": !noLegend,
     "axisYIndex": 0,
     "dataPoints" : xyPoints
   };
@@ -115,6 +92,19 @@ function renderNewChart(chartJson) {
 
   chart = new CanvasJS.Chart(container, chartJson);
   chart.render();
+}
+
+function createErrorWarningYaxis(num, color) {
+  var yaxis = {
+    title: "Errors & Warnings",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    minimum: 0,
+    suffix: ""
+  };
+  return createNewInstance(yaxis);
 }
 
 function createPressureYaxis(num, color) {
@@ -200,10 +190,16 @@ function createNewChart() {
   elm = document.getElementById("sbpmTick");
   sbpmYes = elm.checked;
 
+  elm = document.getElementById("errorTick");
+  errorYes = elm.checked;
+
+  elm = document.getElementById("warningTick");
+  warningYes = elm.checked;
+
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
 
-  if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes)) {
+  if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes || errorTick || warningTick)) {
     alert("Please select Parameter(s) to Chart");
     return;
   }
@@ -213,16 +209,19 @@ function createNewChart() {
   vtYaxisNum = -1;
   mvYaxisNum = -1;
   bpmYaxisNum = -1;
+  errorWarningYaxisNum = -1;
 
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
 
   if (peakYes) {
-    paramData = createCanvasChartData(peakValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(peakValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Peak Pressure (cm H20)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
 	yaxis = createPressureYaxis(pressureYaxisNum, paramData.color);
@@ -236,10 +235,12 @@ function createNewChart() {
   }
 
   if (platYes) {
-    paramData = createCanvasChartData(platValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(platValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Plateau Pressure (cm H20)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
 	yaxis = createPressureYaxis(pressureYaxisNum, paramData.color);
@@ -253,10 +254,12 @@ function createNewChart() {
   }
 
   if (peepYes) {
-    paramData = createCanvasChartData(mpeepValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(mpeepValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Peep Pressure (cm H20)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (pressureYaxisNum == -1) {
 	pressureYaxisNum = nextYaxisNum++;
 	yaxis = createPressureYaxis(pressureYaxisNum, paramData.color);
@@ -270,10 +273,12 @@ function createNewChart() {
   }
 
   if (vtdelYes) {
-    paramData = createCanvasChartData(vtdelValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(vtdelValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Tidal Volume (ml)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (vtYaxisNum == -1) {
 	vtYaxisNum = nextYaxisNum++;
 	yaxis = createVtYaxis(vtYaxisNum, paramData.color);
@@ -287,10 +292,12 @@ function createNewChart() {
   }
 
   if (mvdelYes) {
-    paramData = createCanvasChartData(mvdelValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(mvdelValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Minute Volume (litres/min)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (mvYaxisNum == -1) {
 	mvYaxisNum = nextYaxisNum++;
 	yaxis = createMvYaxis(mvYaxisNum, paramData.color);
@@ -304,10 +311,12 @@ function createNewChart() {
   }
 
   if (mbpmYes) {
-    paramData = createCanvasChartData(mbpmValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(mbpmValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Mandatory BPM (bpm)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (bpmYaxisNum == -1) {
 	bpmYaxisNum = nextYaxisNum++;
 	yaxis = createBpmYaxis(bpmYaxisNum, paramData.color);
@@ -321,10 +330,12 @@ function createNewChart() {
   }
 
   if (sbpmYes) {
-    paramData = createCanvasChartData(sbpmValues,timeBased);
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(sbpmValues,timeBased,flagError,flagWarning);
     if (paramData) {
       paramData.name = "Spontaneous BPM (bpm)";
-      paramData.color = getNextColor();
+      paramData.color = getNextChartColor();
       if (bpmYaxisNum == -1) {
 	bpmYaxisNum = nextYaxisNum++;
 	yaxis = createBpmYaxis(bpmYaxisNum, paramData.color);
@@ -337,7 +348,39 @@ function createNewChart() {
     }
   }
 
-  if ((pressureYaxisNum != -1) || (vtYaxisNum != -1) || (mvYaxisNum != -1) || (bpmYaxisNum != -1)) {
+  if (warningYes) {
+    flagError = false;
+    flagWarning = true;
+    paramData = createCanvasChartData(warningValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      paramData.name = "Warnings";
+      if (errorWarningYaxisNum == -1) {
+	errorWarningYaxisNum = nextYaxisNum++;
+	yaxis = createErrorWarningYaxis(errorWarningYaxisNum, getNextChartColor());
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = errorWarningYaxisNum;
+      chartJson.data.push(paramData);
+    }
+  }
+
+  if (errorYes) {
+    flagError = true;
+    flagWarning = false;
+    paramData = createCanvasChartData(errorValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      paramData.name = "Errors";
+      if (errorWarningYaxisNum == -1) {
+	errorWarningYaxisNum = nextYaxisNum++;
+	yaxis = createErrorWarningYaxis(errorWarningYaxisNum, getNextChartColor());
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = errorWarningYaxisNum;
+      chartJson.data.push(paramData);
+    }
+  }
+
+  if ((pressureYaxisNum != -1) || (vtYaxisNum != -1) || (mvYaxisNum != -1) || (bpmYaxisNum != -1) || (errorWarningYaxisNum != -1)) {
     renderNewChart(chartJson);
   }
 }
