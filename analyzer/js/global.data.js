@@ -272,6 +272,15 @@ function globalProcessJsonRecord(jsonData) {
 
   for (var key in jsonData) {
     if (key=='content') {
+      if (typeof jsonData.content["WMSG"] != 'undefined') {
+        expectWarningMsg = true;
+        warningValues.push({"time":curTime,"value":++warningNum});
+      } 
+      if (typeof jsonData.content["EMSG"] != 'undefined') {
+        expectErrorMsg = true;
+        errorValues.push({"time":curTime,"value":++errorNum});
+      }
+
       for (var ckey in jsonData.content) {
 	value = jsonData.content[ckey];
         if (l1 && l2 && l3 && l4) {
@@ -529,12 +538,6 @@ function globalProcessJsonRecord(jsonData) {
 	    patientName = value;
         } else if (ckey=="PMISC") {
 	    patientInfo = value;
-        } else if (ckey=="WMSG") {
-	  expectWarningMsg = true;
-          warningValues.push({"time":curTime,"value":++warningNum});
-        } else if (ckey=="EMSG") {
-	  expectErrorMsg = true;
-          errorValues.push({"time":curTime,"value":++errorNum});
         }
       }
     }
