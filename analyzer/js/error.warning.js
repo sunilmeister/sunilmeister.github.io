@@ -2,12 +2,12 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function displayJsonErrorWarning(scrollbox, jsonData) {
+function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_blue');
 
   var newElement = document.createElement('p');
-  newElement.innerHTML = "DateTime: " + dateToStr(jsonData.created);
+  newElement.innerHTML = prefix + "DateTime: " + dateToStr(jsonData.created);
   newElement.style.backgroundColor = bgd;
   newElement.style.color = "white" ;
   scrollbox.appendChild(newElement);
@@ -58,12 +58,14 @@ function displayErrorWarnings() {
 
   var scrollbox = document.getElementById('scrollErrorDiv');
   for (i=0; i<errorMsgs.length; i++) {
-    displayJsonErrorWarning(scrollbox, errorMsgs[i]);
+    prefix = "ERROR #" + (i+1) + " ";
+    displayJsonErrorWarning(prefix, scrollbox, errorMsgs[i]);
   }
 
   var scrollbox = document.getElementById('scrollWarningDiv');
   for (i=0; i<warningMsgs.length; i++) {
-    displayJsonErrorWarning(scrollbox, warningMsgs[i]);
+    prefix = "WARNING #" + (i+1) + " ";
+    displayJsonErrorWarning(prefix, scrollbox, warningMsgs[i]);
   }
 
   errorWarningDisplayed = true;

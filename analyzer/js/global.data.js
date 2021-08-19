@@ -216,18 +216,18 @@ function equalParamCombos(curr, prev) {
 
 function initGraphStartValues() {
  if (breathTimes.length==0) breathTimes = [0];
- if (peakValues.length==0) peakValues.push({"time":0,"value":0});
- if (platValues.length==0) platValues.push({"time":0,"value":0});
- if (mpeepValues.length==0) mpeepValues.push({"time":0,"value":0});
- if (vtdelValues.length==0) vtdelValues.push({"time":0,"value":0});
- if (mvdelValues.length==0) mvdelValues.push({"time":0,"value":0});
- if (scompValues.length==0) scompValues.push({"time":0,"value":0});
- if (dcompValues.length==0) dcompValues.push({"time":0,"value":0});
- if (mbpmValues.length==0) mbpmValues.push({"time":0,"value":0});
- if (sbpmValues.length==0) sbpmValues.push({"time":0,"value":0});
- if (tempValues.length==0) tempValues.push({"time":0,"value":0});
- if (errorValues.length==0) errorValues.push({"time":0,"value":0});
- if (warningValues.length==0) warningValues.push({"time":0,"value":0});
+ if (peakValues.length==0) peakValues.push({"time":0,"value":null});
+ if (platValues.length==0) platValues.push({"time":0,"value":null});
+ if (mpeepValues.length==0) mpeepValues.push({"time":0,"value":null});
+ if (vtdelValues.length==0) vtdelValues.push({"time":0,"value":null});
+ if (mvdelValues.length==0) mvdelValues.push({"time":0,"value":null});
+ if (scompValues.length==0) scompValues.push({"time":0,"value":null});
+ if (dcompValues.length==0) dcompValues.push({"time":0,"value":null});
+ if (mbpmValues.length==0) mbpmValues.push({"time":0,"value":null});
+ if (sbpmValues.length==0) sbpmValues.push({"time":0,"value":null});
+ if (tempValues.length==0) tempValues.push({"time":0,"value":null});
+ if (errorValues.length==0) errorValues.push({"time":0,"value":null});
+ if (warningValues.length==0) warningValues.push({"time":0,"value":null});
 }
 
 function globalTrackJsonRecord(jsonData) {
