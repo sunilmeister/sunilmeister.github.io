@@ -9,11 +9,16 @@ function initCharts() {
   elm.innerHTML = "";
 }
 
+var analyzerChart = null;
 function renderNewChart(chartJson) {
   container = document.getElementById("chartContainerDiv");
 
-  chart = new CanvasJS.Chart(container, chartJson);
-  chart.render();
+  if (analyzerChart) {
+    analyzerChart.destroy();
+    analyzerChart = null;
+  }
+  analyzerChart = new CanvasJS.Chart(container, chartJson);
+  analyzerChart.render();
 }
 
 function createNewChart() {
