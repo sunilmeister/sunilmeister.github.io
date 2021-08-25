@@ -11,13 +11,16 @@
     <meta name="viewport"
       content="width = device-width, initial-scale = 1, user-scalable = no" />
     <link href="../css/colors.css" rel="stylesheet" />
+    <link href="../css/common.css" rel="stylesheet" />
     <link href="css/freeboard.css" rel="stylesheet" />
     <link href="css/respimatic.dashboard.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet"> 
     <script src="js/freeboard.thirdparty.min.js"></script>
     <script src="js/DashboardJson.js"></script>
+    <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../js/common.js"></script>
+    <script src="../js/charts.common.js"></script>
     <script src="js/respimatic.dashboard.js"></script>
     <script type="text/javascript">
       head.js("js/freeboard.plugins.js",
@@ -40,9 +43,50 @@
   <body>
     <br>
     <div>
+      <center>
+	<button id="btnViewChange" class="sidebarButton" style="width:600px" onclick='toggleDashboardView()'>Switch to Charts View</button>
+	<br><br>
+      </center>
     </div>
-    <div id="board-content">
-      <img id="dash-logo"
+
+    <div id="chart-content" style="display:none">
+      <center>
+
+      <div id="chartPressureDiv" height=350px style="margin-left:10px; ">
+      </div>
+
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <div id="chartVolumeDiv" height=350px style="margin-left:10px; ">
+      </div>
+
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <div id="chartBpmDiv" height=350px style="margin-left:10px; ">
+      </div>
+
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <div id="chartMiscDiv" height=350px style="margin-left:10px; ">
+      </div>
+
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br><br><br>
+      <br><br>
+
+      </center>
+    </div>
+
+    <div id="board-content" style="display:block">
+      <img id="dash-logo" 
         data-bind="attr:{src: header_image}, visible:header_image()">
       <div class="gridster responsive-column-width">
         <ul data-bind="grid: true">

@@ -145,15 +145,12 @@ function exit_attention_state() {
 }
 
 function process_dweet_content(d) {
-  /*
-  alert(d.created);
-  for (let k in d.content) {
-    alert(k + ' is ' + '"' + d.content[k] + '"');
-  }
-  */
+  chartProcessJsonRecord(d);
+  createDashboardCharts();
   return d;
 }
 
+var currentViewIsSnapshot = true;
 window.onload = function () {
   var style = getComputedStyle(document.body)
 
@@ -165,4 +162,196 @@ window.onload = function () {
   attention_background = style.getPropertyValue('--rsp_orange');
   current_background = normal_background;
   background_before_error = initial_background;
+
+  currentViewIsSnapshot = true;
+  btn = document.getElementById("btnViewChange");
+  snapshot = document.getElementById("board-content");
+  charts = document.getElementById("chart-content");
+  btn.textContent = "Switch to Charts View" ;
+  snapshot.style.display = "block";
+  charts.style.display = "none";
+}
+
+function toggleDashboardView() {
+  btn = document.getElementById("btnViewChange");
+  snapshot = document.getElementById("board-content");
+  charts = document.getElementById("chart-content");
+  if (currentViewIsSnapshot) {
+    currentViewIsSnapshot = false;
+    snapshot.style.display = "none";
+    charts.style.display = "block";
+    btn.textContent = "Switch to Snapshot View" ;
+  } else {
+    snapshot.style.display = "block";
+    charts.style.display = "none";
+    currentViewIsSnapshot = true;
+    btn.textContent = "Switch to Charts View" ;
+  }
+}
+
+function renderDashboardChart(containerName, chartJson) {
+  container = document.getElementById(containerName);
+  chartJson.backgroundColor = "lightgrey" ;
+  chart = new CanvasJS.Chart(container, chartJson);
+  chart.render();
+}
+
+var timeBased = false;
+function createDashboardCharts() {
+  createDashboardPressureCharts();
+  createDashboardVolumeCharts();
+  createDashboardBpmCharts();
+  createDashboardMiscCharts();
+}
+
+function createDashboardPressureCharts() {
+  var chartJson ;
+  chartJson = createNewInstance(chartTemplate);
+  chartJson.title.text = "Pressures";
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.height = 300;
+  flagError = false;
+  flagWarning = false;
+
+  paramData = createCanvasChartData(peakValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[0];
+  yaxis = createPressureYaxis(0, chartColor);
+  chartJson.axisY.push(yaxis);
+  chartJson.axisY2 = createNewInstance(yaxis);
+  if (paramData) {
+    paramData.color = chartColor;
+    paramData.name = "Peak Pressure (cm H20)";
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(platValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[1];
+  if (paramData) {
+    paramData.name = "Plateau Pressure (cm H20)";
+    paramData.color = chartColor;
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(mpeepValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[2];
+  if (paramData) {
+    paramData.name = "PEEP Pressure (cm H20)";
+    paramData.color = chartColor;
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  renderDashboardChart("chartPressureDiv",chartJson);
+}
+
+function createDashboardVolumeCharts() {
+  var chartJson ;
+  chartJson = createNewInstance(chartTemplate);
+  chartJson.title.text = "Volumes";
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.height = 300;
+  flagError = false;
+  flagWarning = false;
+
+  paramData = createCanvasChartData(vtdelValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[0];
+  yaxis = createVtYaxis(0, chartColor);
+  chartJson.axisY.push(yaxis);
+  if (paramData) {
+    paramData.color = chartColor;
+    paramData.name = "Delivered Tidal Volume (ml)";
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(mvdelValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[1];
+  yaxis = createMvYaxis(1, chartColor);
+  chartJson.axisY2 = createNewInstance(yaxis);
+  if (paramData) {
+    paramData.name = "Delivered Minute Volume (litres/min)";
+    paramData.color = chartColor;
+    paramData.axisYType = "secondary";
+    chartJson.data.push(paramData);
+  }
+
+  renderDashboardChart("chartVolumeDiv",chartJson);
+}
+
+function createDashboardMiscCharts() {
+  var chartJson ;
+  chartJson = createNewInstance(chartTemplate);
+  chartJson.title.text = "Miscellaneous";
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.height = 300;
+  flagError = false;
+  flagWarning = false;
+
+  paramData = createCanvasChartData(tempValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[0];
+  yaxis = createTempYaxis(0, chartColor);
+  chartJson.axisY.push(yaxis);
+  if (paramData) {
+    paramData.color = chartColor;
+    paramData.name = "System Temperature (deg C)";
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(warningValues,timeBased,false,true);
+  chartColor = graphColors[1];
+  yaxis = createErrorWarningYaxis(0, chartColor);
+  chartJson.axisY2 = createNewInstance(yaxis);
+  if (paramData) {
+    paramData.name = "Warnings";
+    paramData.color = chartColor;
+    paramData.axisYType = "secondary";
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(errorValues,timeBased,true,false);
+  chartColor = graphColors[2];
+  if (paramData) {
+    paramData.name = "Errors";
+    paramData.color = chartColor;
+    paramData.axisYType = "secondary";
+    chartJson.data.push(paramData);
+  }
+
+  renderDashboardChart("chartMiscDiv",chartJson);
+}
+
+function createDashboardBpmCharts() {
+  var chartJson ;
+  chartJson = createNewInstance(chartTemplate);
+  chartJson.title.text = "Breaths per Minute";
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.height = 300;
+  flagError = false;
+  flagWarning = false;
+
+  paramData = createCanvasChartData(sbpmValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[0];
+  yaxis = createBpmYaxis(0, chartColor);
+  chartJson.axisY.push(yaxis);
+  chartJson.axisY2 = createNewInstance(yaxis);
+  if (paramData) {
+    paramData.color = chartColor;
+    paramData.name = "Spontaneous Breaths (bpm)";
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(mbpmValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[1];
+  if (paramData) {
+    paramData.name = "Mandatory Breaths (bpm)";
+    paramData.color = chartColor;
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  renderDashboardChart("chartBpmDiv",chartJson);
 }
