@@ -189,12 +189,10 @@ function toggleDashboardView() {
   }
 }
 
-function renderDashboardChart(containerName, chartJson) {
-  container = document.getElementById(containerName);
-  chartJson.backgroundColor = "lightgrey" ;
-  chart = new CanvasJS.Chart(container, chartJson);
-  chart.render();
-}
+var pressureChart = null;
+var volumeChart = null;
+var bpmChart = null;
+var miscChart = null;
 
 var timeBased = false;
 function createDashboardCharts() {
@@ -243,7 +241,14 @@ function createDashboardPressureCharts() {
     chartJson.data.push(paramData);
   }
 
-  renderDashboardChart("chartPressureDiv",chartJson);
+  container = document.getElementById("chartPressureDiv");
+  chartJson.backgroundColor = "lightgrey" ;
+  if (pressureChart) {
+    pressureChart.destroy();
+    pressureChart = null;
+  }
+  pressureChart = new CanvasJS.Chart(container, chartJson);
+  pressureChart.render();
 }
 
 function createDashboardVolumeCharts() {
@@ -277,7 +282,14 @@ function createDashboardVolumeCharts() {
     chartJson.data.push(paramData);
   }
 
-  renderDashboardChart("chartVolumeDiv",chartJson);
+  container = document.getElementById("chartVolumeDiv");
+  chartJson.backgroundColor = "lightgrey" ;
+  if (volumeChart) {
+    volumeChart.destroy();
+    volumeChart = null;
+  }
+  volumeChart = new CanvasJS.Chart(container, chartJson);
+  volumeChart.render();
 }
 
 function createDashboardMiscCharts() {
@@ -320,7 +332,14 @@ function createDashboardMiscCharts() {
     chartJson.data.push(paramData);
   }
 
-  renderDashboardChart("chartMiscDiv",chartJson);
+  container = document.getElementById("chartMiscDiv");
+  chartJson.backgroundColor = "lightgrey" ;
+  if (miscChart) {
+    miscChart.destroy();
+    miscChart = null;
+  }
+  miscChart = new CanvasJS.Chart(container, chartJson);
+  miscChart.render();
 }
 
 function createDashboardBpmCharts() {
@@ -353,5 +372,12 @@ function createDashboardBpmCharts() {
     chartJson.data.push(paramData);
   }
 
-  renderDashboardChart("chartBpmDiv",chartJson);
+  container = document.getElementById("chartBpmDiv");
+  chartJson.backgroundColor = "lightgrey" ;
+  if (bpmChart) {
+    bpmChart.destroy();
+    bpmChart = null;
+  }
+  bpmChart = new CanvasJS.Chart(container, chartJson);
+  bpmChart.render();
 }
