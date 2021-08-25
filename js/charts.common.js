@@ -3,17 +3,17 @@
 // ////////////////////////////////////////////////////
 
 const graphColors = [
-  "Maroon",
+  "Crimson",
   "Blue",
   "Green",
   "Indigo",
   "Purple",
   "Olive",
   "Fuchsia",
+  "Maroon",
   "Aqua",
   "Navy",
   "Silver",
-  "Crimson",
   "Slategrey",
   "Violet",
   "SteelBlue",
