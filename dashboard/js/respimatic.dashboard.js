@@ -144,13 +144,13 @@ function exit_attention_state() {
   set_current_background(color);
 }
 
+var currentViewIsSnapshot = true;
 function process_dweet_content(d) {
   chartProcessJsonRecord(d);
-  createDashboardCharts();
+  if (!currentViewIsSnapshot) createDashboardCharts();
   return d;
 }
 
-var currentViewIsSnapshot = true;
 window.onload = function () {
   var style = getComputedStyle(document.body)
 

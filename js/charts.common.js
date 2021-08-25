@@ -157,9 +157,9 @@ function chartProcessJsonRecord(jsonData) {
 	    };
 
 	    if (expectWarningMsg) {
-	      warningMsgs.push(createNewInstance(msg));
+	      warningMsgs.push((msg));
 	    } else {
-	      errorMsgs.push(createNewInstance(msg));
+	      errorMsgs.push((msg));
 	    }
 	    expectWarningMsg = false;
 	    expectErrorMsg = false;
@@ -260,7 +260,7 @@ function createErrorWarningYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 function createPressureYaxis(num, color) {
@@ -273,7 +273,7 @@ function createPressureYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 function createVtYaxis(num, color) {
@@ -286,7 +286,7 @@ function createVtYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 function createMvYaxis(num, color) {
@@ -299,7 +299,7 @@ function createMvYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 function createBpmYaxis(num, color) {
@@ -312,7 +312,7 @@ function createBpmYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 function createComplianceYaxis(num, color) {
@@ -325,7 +325,7 @@ function createComplianceYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 function createTempYaxis(num, color) {
@@ -338,7 +338,7 @@ function createTempYaxis(num, color) {
     minimum: 0,
     suffix: ""
   };
-  return createNewInstance(yaxis);
+  return (yaxis);
 }
 
 
@@ -417,6 +417,6 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
     "dataPoints" : xyPoints
   };
 
-  return createNewInstance(chartData);
+  return (chartData);
 }
 
