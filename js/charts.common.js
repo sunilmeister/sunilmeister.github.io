@@ -342,20 +342,27 @@ function createTempYaxis(num, color) {
 }
 
 
+var doingSbpm = false;
 function createDatapoints(transitions) {
   var curValue = 0;
   var curIx = 0;
   var curValue = transitions[0].value; // guaranteed to have at least one entry
 
   var datapoints = [];
-  //console.log("trans=" + transitions.length);
+  /*
+  if (doingSbpm) {
+    console.log("sbpm trans length =" + transitions.length);
+    console.log("sbpm last =" + transitions[transitions.length-1].value);
+  }
+  */
   for (i=0; i<breathTimes.length; i++) {
     if (curIx==transitions.length-1) {
       curValue = transitions[curIx].value;
     } else {
       if (breathTimes[i] >= transitions[curIx+1].time ) {
 	curValue = transitions[++curIx].value;
-        datapoints.push(curValue);
+      } else {
+	curValue = transitions[curIx].value;
       }
     }
     datapoints.push(curValue);

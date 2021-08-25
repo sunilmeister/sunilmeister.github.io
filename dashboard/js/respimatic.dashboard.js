@@ -147,6 +147,8 @@ function exit_attention_state() {
 var currentViewIsSnapshot = true;
 function process_dweet_content(d) {
   chartProcessJsonRecord(d);
+  if (typeof d.content["BTOG"] == "undefined") return d;
+
   if (!currentViewIsSnapshot) createDashboardCharts();
   return d;
 }
