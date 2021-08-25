@@ -270,7 +270,7 @@ function FreeboardModel(a, b, c) {
               top: "-" + f + "px"
             }, e),
             $("#board-content").animate({
-              top: "-25"
+              top: "-25px"
             }, e),
             ($("#main-header").data().shown = !1),
             $(".sub-section").unbind(),
