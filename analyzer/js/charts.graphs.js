@@ -71,7 +71,8 @@ function createNewChart() {
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
 
-  if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes || errorTick || warningTick)) {
+  if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes 
+    || errorYes || warningYes || scompYes || dcompYes || tempYes)) {
     alert("Please select Parameter(s) to Chart");
     return;
   }
@@ -311,7 +312,8 @@ function createNewChart() {
     }
   }
 
-  if ((pressureYaxisNum != -1) || (vtYaxisNum != -1) || (mvYaxisNum != -1) || (bpmYaxisNum != -1) || (errorWarningYaxisNum != -1)) {
+  if ((pressureYaxisNum != -1) || (vtYaxisNum != -1) || (mvYaxisNum != -1) || 
+    (bpmYaxisNum != -1) || (errorWarningYaxisNum != -1) || (compYaxisNum != -1) || (tempYaxisNum != -1)) {
     renderNewChart(chartJson);
   }
 }
