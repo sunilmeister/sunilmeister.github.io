@@ -147,6 +147,7 @@ function exit_attention_state() {
 var currentViewIsSnapshot = true;
 var firstDweet = true;
 var numBreaths = 0;
+var chartsPaused = false;
 function process_dweet_content(d) {
   if (firstDweet) {
     firstDweet = false;
@@ -167,7 +168,7 @@ function process_dweet_content(d) {
   elm = document.getElementById("numBreaths");
   elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths ;
 
-  if (!currentViewIsSnapshot) createDashboardCharts();
+  if (!currentViewIsSnapshot && !chartsPaused) createDashboardCharts();
   return d;
 }
 
@@ -190,12 +191,14 @@ window.onload = function () {
   btn = document.getElementById("btnViewChange");
   snapshot = document.getElementById("board-content");
   charts = document.getElementById("chart-content");
-  btn.textContent = "Switch to Charts" ;
+  btn.textContent = "Charts View" ;
   snapshot.style.display = "block";
   charts.style.display = "none";
 
   var heading = document.getElementById("SysUid");
-  heading.innerText = "Dashboard for\n\n" + respimaticUid;
+  heading.innerText = respimaticUid;
+
+  installFiO2Knob();
 }
 
 function toggleDashboardView() {
@@ -206,12 +209,14 @@ function toggleDashboardView() {
     currentViewIsSnapshot = false;
     snapshot.style.display = "none";
     charts.style.display = "block";
-    btn.textContent = "Switch to Snapshots" ;
+    btn.textContent = "Snapshots View" ;
+    if (chartsPaused) selectTogglePause();
   } else {
     snapshot.style.display = "block";
     charts.style.display = "none";
     currentViewIsSnapshot = true;
-    btn.textContent = "Switch to Charts" ;
+    btn.textContent = "Charts View" ;
+    if (!chartsPaused) selectTogglePause();
   }
 }
 
@@ -408,7 +413,52 @@ function createDashboardBpmCharts() {
   bpmChart.render();
 }
 
+function selectTogglePause() {
+  elm = document.getElementById("btnPauseCharts");
+  if (chartsPaused) {
+    elm.textContent = "Pause Charts";
+    chartsPaused = false;
+  } else {
+    elm.textContent = "Resume Charts";
+    chartsPaused = true;
+  }
+}
+
 function selectExit() {
   window.location.assign("../index.html");
+}
+
+/*
+ * Knob Event listener.
+ *
+ * Parameter 'knob' is the knob object which was
+ * actuated. Allows you to associate data with
+ * it to discern which of your knobs was actuated.
+ *
+ * Parameter 'value' is the value which was set
+ * by the user.
+ */
+const fiO2KnobListener = function (knob, value) {
+  console.log(value);
+};
+
+function installFiO2Knob() {
+  // Create knob element, 175 x 175 px in size.
+  const knob = pureknob.createKnob(175, 175);
+  // Set properties.
+  knob.setProperty('angleStart', -0.75 * Math.PI);
+  knob.setProperty('angleEnd', 0.75 * Math.PI);
+  knob.setProperty('colorFG', '#88ff88');
+  knob.setProperty('trackWidth', 0.4);
+  knob.setProperty('valMin', 20);
+  knob.setProperty('valMax', 100);
+  // Set initial value.
+  knob.setValue(50);
+  knob.addListener(fiO2KnobListener);
+  // Create element node.
+  const node = knob.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('fiO2Div');
+  elem.appendChild(node);
 }
 

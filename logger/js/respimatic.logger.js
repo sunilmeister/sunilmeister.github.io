@@ -244,8 +244,10 @@ function waitForDweets() {
 // ///////////////////////////////////////////////////////
 function startLog() {
   if (doLog) return;
-  var heading = document.getElementById("SysUid");
-  heading.innerText = "Recording In-progress for\n\n" + respimaticUid;
+  heading = document.getElementById("SysUidMsg");
+  heading.innerText = "Recording In-progress";
+  heading = document.getElementById("SysUid");
+  heading.innerText = "\n" + respimaticUid;
   doLog = true;
 
   elm = document.getElementById("activeSessionDiv");
@@ -255,8 +257,10 @@ function startLog() {
 
 function pauseLog() {
   if (!doLog) return;
-  var heading = document.getElementById("SysUid");
-  heading.innerText = "Recording Paused for\n\n" + respimaticUid;
+  heading = document.getElementById("SysUidMsg");
+  heading.innerText = "Recording Paused";
+  heading = document.getElementById("SysUid");
+  heading.innerText = "\n" + respimaticUid;
   doLog = false;
 
   elm = document.getElementById("activeSessionDiv");
@@ -265,8 +269,10 @@ function pauseLog() {
 }
 
 window.onload = function () {
-  var heading = document.getElementById("SysUid");
-  heading.innerText = "Ready to Record for\n\n" + respimaticUid;
+  heading = document.getElementById("SysUidMsg");
+  heading.innerText = "Ready to Record";
+  heading = document.getElementById("SysUid");
+  heading.innerText = "\n" + respimaticUid;
   listAllDbs();
   waitForDweets();
 }

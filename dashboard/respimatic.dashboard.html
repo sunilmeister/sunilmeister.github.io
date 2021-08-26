@@ -19,6 +19,7 @@
     <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/charts.common.js"></script>
+    <script src="../pure-knob-master/pureknob.js"></script>
     <script src="js/respimatic.dashboard.js"></script>
     <script type="text/javascript">
       head.js("js/freeboard.plugins.js",
@@ -51,27 +52,39 @@
       </div>
       
       <center>
-        <br>
         <button id="btnExit" class="sidebarButton" style="background-color:var(--rsp_darkred)"
           onclick='selectExit()'>STOP &
           EXIT</button>
-        <br><br>
       </center>
       
       <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
         <center>
           <div>
-            <br>
-            <center>
-              <button id="btnViewChange" class="sidebarButton" onclick='toggleDashboardView()'>Switch to Charts</button>
-              <br><br>
-            </center>
-          </div>
+            <button id="btnViewChange" class="sidebarButton" onclick='toggleDashboardView()'>Charts View</button>
+	  </div>
+
+	  <div id="pauseChartsDiv">
+            <button id="btnPauseCharts" class="sidebarButton" onclick='selectTogglePause()'>Pause Charts</button>
+	  </div>
+        </center>
           
       </div>
-      <br><br>
+
+      <center>
+      <br>
+      <div id="fiO2Calc" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+        <div id="fiO2Div" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+	  <p>Desired FiO2 Percent
+        </div>
+        <p>Required O2 Flow Rate
+        <p id="o2FlowRate">0.0 litres/min
+      </div>
+      </center>
+      
+      <br>
       <div style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
         <center>
+	  <p>Dashboard for
           <p id='SysUid' style="font-size:16px;">
         </center>
       </div>
