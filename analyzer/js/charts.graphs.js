@@ -26,6 +26,7 @@ function createNewChart() {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
+  initChartColor();
 
   var elm;
   elm = document.getElementById("chartTitle");

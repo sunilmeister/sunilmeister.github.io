@@ -349,12 +349,6 @@ function createDatapoints(transitions) {
   var curValue = transitions[0].value; // guaranteed to have at least one entry
 
   var datapoints = [];
-  /*
-  if (doingSbpm) {
-    console.log("sbpm trans length =" + transitions.length);
-    console.log("sbpm last =" + transitions[transitions.length-1].value);
-  }
-  */
   for (i=0; i<breathTimes.length; i++) {
     if (curIx==transitions.length-1) {
       curValue = transitions[curIx].value;

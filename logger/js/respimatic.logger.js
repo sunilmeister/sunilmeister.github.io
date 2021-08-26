@@ -247,6 +247,10 @@ function startLog() {
   var heading = document.getElementById("SysUid");
   heading.innerText = "Recording In-progress for\n\n" + respimaticUid;
   doLog = true;
+
+  elm = document.getElementById("activeSessionDiv");
+  style = getComputedStyle(document.body)
+  elm.style.backgroundColor = style.getPropertyValue('--rsp_green');
 }
 
 function pauseLog() {
@@ -254,6 +258,10 @@ function pauseLog() {
   var heading = document.getElementById("SysUid");
   heading.innerText = "Recording Paused for\n\n" + respimaticUid;
   doLog = false;
+
+  elm = document.getElementById("activeSessionDiv");
+  style = getComputedStyle(document.body)
+  elm.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
 }
 
 window.onload = function () {
