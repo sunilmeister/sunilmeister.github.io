@@ -145,15 +145,36 @@ function exit_attention_state() {
 }
 
 var currentViewIsSnapshot = true;
+var firstDweet = true;
+var numBreaths = 0;
 function process_dweet_content(d) {
+  if (firstDweet) {
+    firstDweet = false;
+    startDate = d.created;
+    elm = document.getElementById("startTime");
+    elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
+  } else {
+    curDate = d.created;
+    var diff = curDate - startDate;
+    elm = document.getElementById("logTimeDuration");
+    elm.innerHTML = "Session Duration " + msToTimeStr(diff);
+  }
+
   chartProcessJsonRecord(d);
   if (typeof d.content["BTOG"] == "undefined") return d;
+
+  numBreaths++;
+  elm = document.getElementById("numBreaths");
+  elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths ;
 
   if (!currentViewIsSnapshot) createDashboardCharts();
   return d;
 }
 
 window.onload = function () {
+  firstDweet = true;
+  numBreaths = 0;
+
   var style = getComputedStyle(document.body)
 
   normal_background = style.getPropertyValue('--rsp_darkblue');
@@ -169,9 +190,12 @@ window.onload = function () {
   btn = document.getElementById("btnViewChange");
   snapshot = document.getElementById("board-content");
   charts = document.getElementById("chart-content");
-  btn.textContent = "Switch to Charts View" ;
+  btn.textContent = "Switch to Charts" ;
   snapshot.style.display = "block";
   charts.style.display = "none";
+
+  var heading = document.getElementById("SysUid");
+  heading.innerText = "Dashboard for\n\n" + respimaticUid;
 }
 
 function toggleDashboardView() {
@@ -182,12 +206,12 @@ function toggleDashboardView() {
     currentViewIsSnapshot = false;
     snapshot.style.display = "none";
     charts.style.display = "block";
-    btn.textContent = "Switch to Snapshot View" ;
+    btn.textContent = "Switch to Snapshots" ;
   } else {
     snapshot.style.display = "block";
     charts.style.display = "none";
     currentViewIsSnapshot = true;
-    btn.textContent = "Switch to Charts View" ;
+    btn.textContent = "Switch to Charts" ;
   }
 }
 
@@ -383,3 +407,8 @@ function createDashboardBpmCharts() {
   bpmChart = new CanvasJS.Chart(container, chartJson);
   bpmChart.render();
 }
+
+function selectExit() {
+  window.location.assign("../index.html");
+}
+

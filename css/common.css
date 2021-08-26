@@ -28,6 +28,11 @@
   font-family: verdana;
 }
 
+.dashboard-pane {
+  margin-left: 270px;
+  margin-right: 20px;
+}
+
 .dbTableButton {
   background-color: var(--rsp_blue);
   border: white;

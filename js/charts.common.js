@@ -31,11 +31,12 @@ function initChartColor() {
 }
 
 var chartTemplate = {
+  zoomEnabled: true, 
+  zoomType: "x",
   title:{ text: "" },
   axisX:{ title: "", },
   axisY:[],
   toolTip: { shared: true },
-  zoomEnabled: true, 
   legend: { 
     cursor: "pointer", 
     itemclick: toggleDataSeries
