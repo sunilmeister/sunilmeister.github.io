@@ -73,8 +73,8 @@ function listAllExportDbs() {
   table.innerHTML = "";
 
   var retrieved_dbs = getAllDbs();
-  if (retrieved_dbs) {
-    retrieved_dbs.forEach(listDbExportTableRow);
+  for (i=retrieved_dbs.length-1; i>=0; i--) {
+    listDbExportTableRow(retrieved_dbs[i],i);
   }
 }
 

@@ -105,8 +105,8 @@ function listAllDbs() {
   var table = document.getElementById("dbTable");
   table.innerHTML = "";
   var retrieved_dbs = getAllDbs();
-  if (retrieved_dbs) {
-    retrieved_dbs.forEach(listDbTableRow);
+  for (i=retrieved_dbs.length-1; i>=0; i--) {
+    listDbTableRow(retrieved_dbs[i],i);
   }
 }
 
