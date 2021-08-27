@@ -148,6 +148,39 @@ var currentViewIsSnapshot = true;
 var firstDweet = true;
 var numBreaths = 0;
 var chartsPaused = false;
+var desiredFiO2 = 21;
+var desiredVt = 200;
+var desiredRr = 10;
+
+function updateFiO2Calculation(vt, rr, fiO2) {
+  console.log("vt=" + vt + " rr=" + rr + " fiO2=" + fiO2);
+}
+
+function checkFiO2Calculation(d) {
+  var newRr = desiredRr;
+  var newVt = desiredVt;
+
+  value = d.content["RR"];
+  if (typeof value != "undefined") {
+    if (rrValid(value)) {
+      newRr = value;
+    }
+  }
+  value = d.content["VT"];
+  if (typeof value != "undefined") {
+    if (vtValid(value)) {
+      newVt = value;
+    }
+  }
+
+  if ((newRr!=desiredRr) || (newVt!=desiredVt)) {
+    // something changed
+    updateFiO2Calculation(newVt, newRr, desiredFiO2);
+  }
+  desiredRr = newRr;
+  desiredVt = newVt;
+}
+
 function process_dweet_content(d) {
   if (firstDweet) {
     firstDweet = false;
@@ -160,6 +193,7 @@ function process_dweet_content(d) {
     elm = document.getElementById("logTimeDuration");
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
+  checkFiO2Calculation(d);
 
   chartProcessJsonRecord(d);
   if (typeof d.content["BTOG"] == "undefined") return d;
@@ -439,7 +473,9 @@ function selectExit() {
  * by the user.
  */
 const fiO2KnobListener = function (knob, value) {
-  console.log(value);
+  desiredFiO2 = value;
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2);
+  //console.log(value);
 };
 
 function installFiO2Knob() {
@@ -453,7 +489,7 @@ function installFiO2Knob() {
   knob.setProperty('valMin', 20);
   knob.setProperty('valMax', 100);
   // Set initial value.
-  knob.setValue(50);
+  knob.setValue(21);
   knob.addListener(fiO2KnobListener);
   // Create element node.
   const node = knob.node();
