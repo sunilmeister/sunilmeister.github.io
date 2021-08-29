@@ -492,7 +492,7 @@ function installFiO2Knob() {
   knob.setProperty('angleEnd', 0.75 * Math.PI);
   knob.setProperty('colorFG', '#88ff88');
   knob.setProperty('trackWidth', 0.4);
-  knob.setProperty('valMin', 20);
+  knob.setProperty('valMin', 21);
   knob.setProperty('valMax', 100);
   // Set initial value.
   knob.setValue(21);

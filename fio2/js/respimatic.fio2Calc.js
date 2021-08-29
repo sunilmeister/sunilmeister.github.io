@@ -14,8 +14,8 @@ const vtKnobListener = function (knob, value) {
 };
 
 function installVtKnob() {
-  // Create knob element, 175 x 175 px in size.
-  const knob = pureknob.createKnob(175, 175);
+  // Create knob element, 125 x 125 px in size.
+  const knob = pureknob.createKnob(125, 125);
   // Set properties.
   knob.setProperty('angleStart', -0.75 * Math.PI);
   knob.setProperty('angleEnd', 0.75 * Math.PI);
@@ -32,7 +32,7 @@ function installVtKnob() {
   });
 
   // Set initial value.
-  knob.setValue(400);
+  knob.setValue(4);
   knob.addListener(vtKnobListener);
   // Create element node.
   const node = knob.node();
@@ -47,8 +47,8 @@ const rrKnobListener = function (knob, value) {
 };
 
 function installRrKnob() {
-  // Create knob element, 175 x 175 px in size.
-  const knob = pureknob.createKnob(175, 175);
+  // Create knob element, 125 x 125 px in size.
+  const knob = pureknob.createKnob(125, 125);
   // Set properties.
   knob.setProperty('angleStart', -0.75 * Math.PI);
   knob.setProperty('angleEnd', 0.75 * Math.PI);
@@ -72,14 +72,14 @@ const fiO2KnobListener = function (knob, value) {
 };
 
 function installFiO2Knob() {
-  // Create knob element, 175 x 175 px in size.
-  const knob = pureknob.createKnob(175, 175);
+  // Create knob element, 125 x 125 px in size.
+  const knob = pureknob.createKnob(125, 125);
   // Set properties.
   knob.setProperty('angleStart', -0.75 * Math.PI);
   knob.setProperty('angleEnd', 0.75 * Math.PI);
   knob.setProperty('colorFG', '#88ff88');
   knob.setProperty('trackWidth', 0.4);
-  knob.setProperty('valMin', 20);
+  knob.setProperty('valMin', 21);
   knob.setProperty('valMax', 100);
   // Set initial value.
   knob.setValue(21);
@@ -97,6 +97,11 @@ function updateFiO2Calculation(vt, rr, fiO2) {
   mv = vt * rr;
   f = (mv * (fiO2 - 21)) / (100 - 21);
   elm = document.getElementById("o2FlowRate");
-  elm.innerHTML = "<font size=7><b>" + parseFloat(f/1000).toFixed(1) + " (litres/min)</b></font>" ;
+  elm.innerHTML = "<font size=6><b>" + parseFloat(f/1000).toFixed(1) 
+    + " (litres/min)</b></font>" ;
+
+  //console.log("desiredVt=" + desiredVt);
+  //console.log("desiredRr=" + desiredRr);
+  //console.log("desiredFiO2=" + desiredFiO2);
 }
 
