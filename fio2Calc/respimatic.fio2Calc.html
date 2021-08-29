@@ -1,0 +1,84 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Respimatic 100 WebAPPS</title>
+  <meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/colors.css" />
+  <script src="../pure-knob-master/pureknob.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="js/respimatic.fio2Calc.js"></script>
+
+  <style>
+    .wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-family: Arial; 
+      background-color: var(--rsp_darkblue);
+      color: white;
+      padding: 8px;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      transform: translate(-50%, -50%); /* (x, y)  => position */
+      -ms-transform: translate(-50%, -50%); /* IE 9 */
+      -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */    
+    }
+   </style>
+</head>
+
+<body>
+  <div class = "wrapper">
+
+    <center>
+      <img src="img/FiO2.png" alt="Title" width="550" height="150">
+      <div class="content" style="font-size: 1.5em; border-style: solid; border-coloor:white; background-color:var(--rsp_blue); color:white; margin-left: 8px; margin-right: 8px;">
+        <font size = "6.5">
+	  <b>
+	  <label>Required Incoming O<sub>2</sub> Flow</label>
+          <font size = "7.5">
+	  <p id="o2FlowRate">0.0 (litres/min)
+	  </font>
+	  </b>
+	</font>
+       </div>
+       <br>
+
+       <div id="vtDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+        <font size = "5">
+	  <p>Desired Tidal Volume (ml)
+	</font>
+        </div>
+
+       <div id="rrDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+        <font size = "5">
+	  <p>Desired Respiration Rate (bpm)
+	</font>
+        </div>
+
+       <div id="fio2Div" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+        <font size = "5">
+	  <p>Desired FiO<sub>2</sub> (percentage)
+	</font>
+        </div>
+
+      <img src="../img/Logos.png" alt="Title" width="550" height="100">
+    </center>
+
+  </div>
+
+</body>
+</html>
+
