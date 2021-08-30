@@ -80,6 +80,10 @@ function launchAnalyzer() {
   window.location.assign("analyzer/respimatic.analyzer.html");
 }
 
+function launchFiO2() {
+  window.location.assign("fio2/respimatic.fio2Calc.html");
+}
+
 window.onload = function() {
   var retrieved_uids = localStorage.getItem("respimatic_uids");
   var respimatic_uids = [];
