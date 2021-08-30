@@ -153,11 +153,8 @@ var desiredVt = 200;
 var desiredRr = 10;
 
 function updateFiO2Calculation(vt, rr, fiO2) {
-  console.log("vt=" + vt + " rr=" + rr + " fiO2=" + fiO2);
-  if (fiO2<21) fiO2 = 21;
+  f = lookupO2FlowRate(vt,rr,fiO2);
 
-  mv = vt * rr;
-  f = (mv * (fiO2 - 21)) / (100 - 21);
   elm = document.getElementById("o2FlowRate");
   elm.innerHTML = parseFloat(f/1000).toFixed(1) + " (litres/min)" ;
 }

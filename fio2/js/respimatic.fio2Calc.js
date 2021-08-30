@@ -92,16 +92,10 @@ function installFiO2Knob() {
 }
 
 function updateFiO2Calculation(vt, rr, fiO2) {
-  if (fiO2<21) fiO2 = 21;
+  f = lookupO2FlowRate(vt,rr,fiO2);
 
-  mv = vt * rr;
-  f = (mv * (fiO2 - 21)) / (100 - 21);
   elm = document.getElementById("o2FlowRate");
   elm.innerHTML = "<font size=6><b>" + parseFloat(f/1000).toFixed(1) 
     + " (litres/min)</b></font>" ;
-
-  //console.log("desiredVt=" + desiredVt);
-  //console.log("desiredRr=" + desiredRr);
-  //console.log("desiredFiO2=" + desiredFiO2);
 }
 
