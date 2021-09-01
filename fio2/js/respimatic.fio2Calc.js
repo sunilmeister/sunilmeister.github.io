@@ -14,8 +14,8 @@ const vtKnobListener = function (knob, value) {
 };
 
 function installVtKnob() {
-  // Create knob element, 125 x 125 px in size.
-  const knob = pureknob.createKnob(125, 125);
+  // Create knob element, 150 x 150 px in size.
+  const knob = pureknob.createKnob(150, 150);
   // Set properties.
   knob.setProperty('angleStart', -0.75 * Math.PI);
   knob.setProperty('angleEnd', 0.75 * Math.PI);
@@ -37,7 +37,7 @@ function installVtKnob() {
   // Create element node.
   const node = knob.node();
   // Add it to the DOM.
-  const elem = document.getElementById('vtDiv');
+  const elem = document.getElementById('vtRrDiv');
   elem.appendChild(node);
 }
 
@@ -47,8 +47,8 @@ const rrKnobListener = function (knob, value) {
 };
 
 function installRrKnob() {
-  // Create knob element, 125 x 125 px in size.
-  const knob = pureknob.createKnob(125, 125);
+  // Create knob element, 150 x 150 px in size.
+  const knob = pureknob.createKnob(150, 150);
   // Set properties.
   knob.setProperty('angleStart', -0.75 * Math.PI);
   knob.setProperty('angleEnd', 0.75 * Math.PI);
@@ -62,7 +62,7 @@ function installRrKnob() {
   // Create element node.
   const node = knob.node();
   // Add it to the DOM.
-  const elem = document.getElementById('rrDiv');
+  const elem = document.getElementById('vtRrDiv');
   elem.appendChild(node);
 }
 
@@ -72,8 +72,8 @@ const fiO2KnobListener = function (knob, value) {
 };
 
 function installFiO2Knob() {
-  // Create knob element, 125 x 125 px in size.
-  const knob = pureknob.createKnob(125, 125);
+  // Create knob element, 150 x 150 px in size.
+  const knob = pureknob.createKnob(150, 150);
   // Set properties.
   knob.setProperty('angleStart', -0.75 * Math.PI);
   knob.setProperty('angleEnd', 0.75 * Math.PI);
