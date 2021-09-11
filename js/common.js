@@ -428,16 +428,19 @@ function registerDbName(dbName) {
   }
 }
 
-function lookupO2FlowRate(vt, rr, fiO2) {
+function lookupO2FlowRate(vt, rr, fiO2, purity) {
   if (fiO2<21) fiO2 = 21;
 
   mv = vt * rr;
-  f = (mv * (fiO2 - 21)) / (100 - 21);
+  if (fiO2 > purity) fiO2 = purity;
+  f = (mv * (fiO2 - 21)) / (purity - 21);
   
   //console.log("desiredVt=" + desiredVt);
   //console.log("desiredRr=" + desiredRr);
   //console.log("desiredFiO2=" + desiredFiO2);
+  //console.log("purity=" + purity);
   //console.log("O2 Flow Rate=" + f);
 
   return f;
 }
+
