@@ -72,6 +72,9 @@ var mpeepValues = [];
 var tempValues = [];
 var warningValues = [];
 var errorValues = [];
+var fiO2Values = [];
+var o2PurityValues = [];
+var o2FlowValues = [];
 
 var warningNum = 0;
 var errorNum = 0;
@@ -103,6 +106,9 @@ function initChartData() {
   tempValues = [];
   warningValues = [];
   errorValues = [];
+  fiO2Values = [];
+  o2PurityValues = [];
+  o2FlowValues = [];
 
   warningNum = 0;
   errorNum = 0;
@@ -129,8 +135,11 @@ function initGraphStartValues() {
  if (mbpmValues.length==0) mbpmValues.push({"time":0,"value":null});
  if (sbpmValues.length==0) sbpmValues.push({"time":0,"value":null});
  if (tempValues.length==0) tempValues.push({"time":0,"value":null});
- if (errorValues.length==0) errorValues.push({"time":0,"value":null});
  if (warningValues.length==0) warningValues.push({"time":0,"value":null});
+ if (errorValues.length==0) errorValues.push({"time":0,"value":null});
+ if (fiO2Values.length==0) fiO2Values.push({"time":0,"value":null});
+ if (o2PurityValues.length==0) o2PurityValues.push({"time":0,"value":null});
+ if (o2FlowValues.length==0) o2FlowValues.push({"time":0,"value":null});
 }
 
 function chartProcessJsonRecord(jsonData) {
@@ -187,6 +196,24 @@ function chartProcessJsonRecord(jsonData) {
 	  }
         } else if (ckey=="BTOG") {
 	  breathTimes.push(curTime);
+        } else if (ckey=="FIO2") {
+	  if (validDecimalInteger(value) && (value<=100)) {
+	    fiO2Values.push({"time":curTime,"value":value});
+	  } else {
+	    fiO2Values.push({"time":curTime,"value":null});
+	  }
+        } else if (ckey=="O2PURITY") {
+	  if (validDecimalInteger(value) && (value<=100)) {
+	    o2PurityValues.push({"time":curTime,"value":value});
+	  } else {
+	    o2PurityValues.push({"time":curTime,"value":null});
+	  }
+        } else if (ckey=="O2FLOW") {
+	  if (validDecimalInteger(value)) {
+	    o2FlowValues.push({"time":curTime,"value":value});
+	  } else {
+	    o2FlowValues.push({"time":curTime,"value":null});
+	  }
         } else if (ckey=="MBPM") {
 	  if (validDecimalInteger(value)) {
 	    mbpmValues.push({"time":curTime,"value":value});
@@ -252,6 +279,33 @@ function chartProcessJsonRecord(jsonData) {
     }
   }
 }
+
+function createO2FlowYaxis(num, color) {
+  var yaxis = {
+    title: "O2 Flow (litres/min)",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    minimum: 0,
+    suffix: ""
+  };
+  return (yaxis);
+}
+
+function createPercentYaxis(num, color) {
+  var yaxis = {
+    title: "Percentage (%)",
+    lineColor: color,
+    tickColor: color,
+    labelFontColor: color,
+    titleFontColor: color,
+    minimum: 0,
+    suffix: ""
+  };
+  return (yaxis);
+}
+
 function createErrorWarningYaxis(num, color) {
   var yaxis = {
     title: "Errors & Warnings",
@@ -319,7 +373,7 @@ function createBpmYaxis(num, color) {
 
 function createComplianceYaxis(num, color) {
   var yaxis = {
-    title: "Compliance (ml / cm H20)",
+    title: "Compliance (ml/cm H20)",
     lineColor: color,
     tickColor: color,
     labelFontColor: color,

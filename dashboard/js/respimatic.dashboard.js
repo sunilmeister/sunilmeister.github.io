@@ -149,41 +149,54 @@ var firstDweet = true;
 var numBreaths = 0;
 var chartsPaused = false;
 var desiredFiO2 = 21;
-var desiredVt = 200;
-var desiredRr = 10;
-var desiredRr = 10;
 var o2Purity = 100;
+var reqO2Flow = 0;
+var fiO2Knob = null;
+var purityKnob = null;
 
-function updateFiO2Calculation(vt, rr, fiO2, o2Purity) {
-  f = lookupO2FlowRate(vt,rr,fiO2, o2Purity);
+function updateFiO2Display(fiO2, o2Purity, o2Flow) {
+  fiO2Knob.setValue(fiO2);
+  purityKnob.setValue(o2Purity);
 
   elm = document.getElementById("o2FlowRate");
-  elm.innerHTML = parseFloat(f/1000).toFixed(1) + " (litres/min)" ;
+  elm.innerHTML = parseFloat(o2Flow/10).toFixed(1) + " (litres/min)" ;
 }
 
 function checkFiO2Calculation(d) {
-  var newRr = desiredRr;
-  var newVt = desiredVt;
+  var newFiO2 = desiredFiO2;
+  var newPurity = o2Purity;
+  var newO2Flow = reqO2Flow;
+  var change = false;
 
-  value = d.content["RR"];
+  value = d.content["FIO2"];
   if (typeof value != "undefined") {
-    if (rrValid(value)) {
-      newRr = value;
+    if (percentValid(value)) {
+      newFiO2 = value;
+      change = true;
     }
   }
-  value = d.content["VT"];
+  value = d.content["O2PURITY"];
   if (typeof value != "undefined") {
-    if (vtValid(value)) {
-      newVt = value;
+    if (percentValid(value)) {
+      newPurity = value;
+      change = true;
     }
   }
 
-  if ((newRr!=desiredRr) || (newVt!=desiredVt)) {
-    // something changed
-    updateFiO2Calculation(newVt, newRr, desiredFiO2, o2Purity);
+  value = d.content["O2FLOWX10"];
+  if (typeof value != "undefined") {
+    if (o2FlowValid(value)) {
+      newO2Flow = value;
+      change = true;
+    }
   }
-  desiredRr = newRr;
-  desiredVt = newVt;
+
+  if (change) {
+    updateFiO2Display(newFiO2, newPurity, newO2Flow);
+    desiredFiO2 = newFiO2;
+    o2Purity = newPurity;
+    reqO2Flow = newO2Flow;
+  }
 }
 
 function process_dweet_content(d) {
@@ -468,15 +481,6 @@ function selectExit() {
   window.location.assign("../index.html");
 }
 
-var fiO2Knob = null;
-function adjustFiO2Max() {
-  if (o2Purity<desiredFiO2) {
-    desiredFiO2 = o2Purity;
-    //fiO2Knob.setProperty('valMax', o2Purity);
-    fiO2Knob.setValue(o2Purity);
-  }
-}
-
 /*
  * Knob Event listener.
  *
@@ -488,10 +492,10 @@ function adjustFiO2Max() {
  * by the user.
  */
 const fiO2KnobListener = function (knob, value) {
-  desiredFiO2 = value;
-  adjustFiO2Max();
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
-  //console.log(value);
+  // do not allow the user to change it on the dashboard
+  if (value==desiredFiO2) return;
+  alert("FiO2 parameter can only be changed\nfrom the RESPIMATIC Front Panel");
+  knob.setValue(desiredFiO2);
 };
 
 function installFiO2Knob() {
@@ -515,26 +519,27 @@ function installFiO2Knob() {
 }
 
 const purityKnobListener = function (knob, value) {
-  o2Purity = value;
-  adjustFiO2Max();
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
+  // do not allow the user to change it on the dashboard
+  if (value==o2Purity) return;
+  alert("O2Purity parameter can only be changed\nfrom the RESPIMATIC Front Panel");
+  knob.setValue(o2Purity);
 };
 
 function installPurityKnob() {
   // Create knob element, 125 x 125 px in size.
-  const knob = pureknob.createKnob(125, 125);
+  purityKnob = pureknob.createKnob(125, 125);
   // Set properties.
-  knob.setProperty('angleStart', -0.75 * Math.PI);
-  knob.setProperty('angleEnd', 0.75 * Math.PI);
-  knob.setProperty('colorFG', '#88ff88');
-  knob.setProperty('trackWidth', 0.4);
-  knob.setProperty('valMin', 21);
-  knob.setProperty('valMax', 100);
+  purityKnob.setProperty('angleStart', -0.75 * Math.PI);
+  purityKnob.setProperty('angleEnd', 0.75 * Math.PI);
+  purityKnob.setProperty('colorFG', '#88ff88');
+  purityKnob.setProperty('trackWidth', 0.4);
+  purityKnob.setProperty('valMin', 21);
+  purityKnob.setProperty('valMax', 100);
   // Set initial value.
-  knob.setValue(100);
-  knob.addListener(purityKnobListener);
+  purityKnob.setValue(100);
+  purityKnob.addListener(purityKnobListener);
   // Create element node.
-  const node = knob.node();
+  const node = purityKnob.node();
   // Add it to the DOM.
   const elem = document.getElementById('purityDiv');
   elem.appendChild(node);

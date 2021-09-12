@@ -28,7 +28,9 @@ function createNewChart() {
   }
   initChartColor();
 
+  var somethingToRender = false;
   var elm;
+
   elm = document.getElementById("chartTitle");
   title = elm.value;
 
@@ -68,14 +70,17 @@ function createNewChart() {
   elm = document.getElementById("tempTick");
   tempYes = elm.checked;
 
+  elm = document.getElementById("fiO2Tick");
+  fiO2Yes = elm.checked;
+
+  elm = document.getElementById("o2PurityTick");
+  o2PurityYes = elm.checked;
+
+  elm = document.getElementById("o2FlowTick");
+  o2FlowYes = elm.checked;
+
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
-
-  if (!(peakYes || platYes || peepYes || vtdelYes || mvdelYes || mbpmYes || sbpmYes 
-    || errorYes || warningYes || scompYes || dcompYes || tempYes)) {
-    alert("Please select Parameter(s) to Chart");
-    return;
-  }
 
   nextYaxisNum = 0;
   pressureYaxisNum = -1;
@@ -85,6 +90,8 @@ function createNewChart() {
   errorWarningYaxisNum = -1;
   compYaxisNum = -1;
   tempYaxisNum = -1;
+  percentYaxisNum = -1;
+  o2FlowYaxisNum = -1;
 
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
@@ -95,6 +102,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(peakValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Peak Pressure (cm H20)";
       paramData.color = getNextChartColor();
       if (pressureYaxisNum == -1) {
@@ -114,6 +122,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(platValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Plateau Pressure (cm H20)";
       paramData.color = getNextChartColor();
       if (pressureYaxisNum == -1) {
@@ -133,6 +142,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(mpeepValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Peep Pressure (cm H20)";
       paramData.color = getNextChartColor();
       if (pressureYaxisNum == -1) {
@@ -152,6 +162,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(vtdelValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Tidal Volume (ml)";
       paramData.color = getNextChartColor();
       if (vtYaxisNum == -1) {
@@ -171,6 +182,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(mvdelValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Minute Volume (litres/min)";
       paramData.color = getNextChartColor();
       if (mvYaxisNum == -1) {
@@ -190,6 +202,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(mbpmValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Mandatory BPM (bpm)";
       paramData.color = getNextChartColor();
       if (bpmYaxisNum == -1) {
@@ -209,6 +222,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(sbpmValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Spontaneous BPM (bpm)";
       paramData.color = getNextChartColor();
       if (bpmYaxisNum == -1) {
@@ -228,6 +242,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(scompValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Instantaneous Static Compliance (ml / cm H20)";
       paramData.color = getNextChartColor();
       if (compYaxisNum == -1) {
@@ -239,7 +254,7 @@ function createNewChart() {
       chartJson.data.push(paramData);
     } else {
       alert("Cannot plot Spontaneous BPM\nNo data points found!");
-    }
+    }somethingToRender
   }
 
   if (dcompYes) {
@@ -247,6 +262,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(dcompValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Instantaneous Dynamic Compliance (ml / cm H20)";
       paramData.color = getNextChartColor();
       if (compYaxisNum == -1) {
@@ -266,6 +282,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(tempValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "System Temperature (deg C)";
       paramData.color = getNextChartColor();
       if (tempYaxisNum == -1) {
@@ -285,6 +302,7 @@ function createNewChart() {
     flagWarning = true;
     paramData = createCanvasChartData(warningValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Warnings";
       if (errorWarningYaxisNum == -1) {
 	errorWarningYaxisNum = nextYaxisNum++;
@@ -301,6 +319,7 @@ function createNewChart() {
     flagWarning = false;
     paramData = createCanvasChartData(errorValues,timeBased,flagError,flagWarning);
     if (paramData) {
+      somethingToRender = true;
       paramData.name = "Errors";
       if (errorWarningYaxisNum == -1) {
 	errorWarningYaxisNum = nextYaxisNum++;
@@ -312,9 +331,70 @@ function createNewChart() {
     }
   }
 
-  if ((pressureYaxisNum != -1) || (vtYaxisNum != -1) || (mvYaxisNum != -1) || 
-    (bpmYaxisNum != -1) || (errorWarningYaxisNum != -1) || (compYaxisNum != -1) || (tempYaxisNum != -1)) {
+  if (fiO2Yes) {
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(fiO2Values,timeBased,flagError,flagWarning);
+    if (paramData) {
+      somethingToRender = true;
+      paramData.name = "FiO2 (%)";
+      paramData.color = getNextChartColor();
+      if (percentYaxisNum == -1) {
+	percentYaxisNum = nextYaxisNum++;
+	yaxis = createPercentYaxis(percentYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = percentYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot FiO2\nNo data points found!");
+    }
+  }
+
+  if (o2PurityYes) {
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(o2PurityValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      somethingToRender = true;
+      paramData.name = "O2 Purity (%)";
+      paramData.color = getNextChartColor();
+      if (percentYaxisNum == -1) {
+	percentYaxisNum = nextYaxisNum++;
+	yaxis = createPercentYaxis(percentYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = percentYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot O2 Purity\nNo data points found!");
+    }
+  }
+
+  if (o2FlowYes) {
+    flagError = false;
+    flagWarning = false;
+    paramData = createCanvasChartData(o2FlowValues,timeBased,flagError,flagWarning);
+    if (paramData) {
+      somethingToRender = true;
+      paramData.name = "O2 Flow Rate (litres/min)";
+      paramData.color = getNextChartColor();
+      if (o2FlowYaxisNum == -1) {
+	o2FlowYaxisNum = nextYaxisNum++;
+	yaxis = createO2FlowYaxis(o2FlowYaxisNum, paramData.color);
+	chartJson.axisY.push(yaxis);
+      }
+      paramData.axisYIndex = o2FlowYaxisNum;
+      chartJson.data.push(paramData);
+    } else {
+      alert("Cannot plot O2 Flow Rate\nNo data points found!");
+    }
+  }
+
+  if (somethingToRender) {
     renderNewChart(chartJson);
+  } else {
+    alert("Please select Parameter(s) to Chart");
   }
 }
 
