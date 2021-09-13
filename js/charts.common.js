@@ -208,7 +208,7 @@ function chartProcessJsonRecord(jsonData) {
 	  } else {
 	    o2PurityValues.push({"time":curTime,"value":null});
 	  }
-        } else if (ckey=="O2FLOW") {
+        } else if (ckey=="O2FLOWX10") {
 	  if (validDecimalInteger(value)) {
 	    o2FlowValues.push({"time":curTime,"value":value});
 	  } else {

@@ -17,24 +17,6 @@ const minDummyValue = 999999 ;
 var globalDataValid = false;
 var firstRecord = true;
 
-// value transitions
-var breathTimes = [];
-var vtdelValues = [];
-var mvdelValues = [];
-var sbpmValues = [];
-var mbpmValues = [];
-var scompValues = [];
-var dcompValues = [];
-var peakValues = [];
-var platValues = [];
-var mpeepValues = [];
-var tempValues = [];
-var warningValues = [];
-var errorValues = [];
-
-var warningNum = 0;
-var errorNum = 0;
-
 // Misc data
 var patientName;
 var patientInfo;
@@ -49,6 +31,7 @@ var ipeeps = [];
 var pmaxs = [];
 var pss = [];
 var tpss = [];
+var fiO2s = [];
 
 // Combinations of settings
 var prevParamCombo = {};
@@ -63,6 +46,7 @@ var minVtdel, maxVtdel;
 var minMvdel, maxMvdel;
 var minMbpm, maxMbpm;
 var minSbpm, maxSbpm;
+var minFiO2, maxFiO2;
 var minScomp, maxScomp;
 var minDcomp, maxDcomp;
 var minTemp, maxTemp;
@@ -124,6 +108,7 @@ function initGlobalData() {
   pmaxs = [];
   pss = [];
   tpss = [];
+  fiO2s = [];
 
   // Settings combinations
   prevParamCombo = {};
@@ -136,6 +121,7 @@ function initGlobalData() {
     "pmax" : "--",
     "ps" : "--",
     "tps" : "--",
+    "fiO2" : "--",
     "numBreaths" : 0,
     "start" : 0
   };
@@ -155,6 +141,8 @@ function initGlobalData() {
   maxMbpm = maxDummyValue;
   minSbpm = minDummyValue;
   maxSbpm = maxDummyValue;
+  minFiO2 = minDummyValue;
+  maxFiO2 = maxDummyValue;
   minScomp = minDummyValue;
   maxScomp = maxDummyValue;
   minDcomp = minDummyValue;
@@ -408,6 +396,15 @@ function globalProcessJsonRecord(jsonData) {
 	    }
 	    if (minPeep > value) {
 	      minPeep = value;
+	    }
+	  }
+        } else if (ckey=="FIO2") {
+	  if (validDecimalInteger(value) && (value <=100)) {
+	    if (maxFiO2 < value) {
+	      maxFiO2 = value;
+	    }
+	    if (minFiO2 > value) {
+	      minFiO2 = value;
 	    }
 	  }
         } else if (ckey=="TEMP") {

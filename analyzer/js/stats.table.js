@@ -38,6 +38,9 @@ function displayUsedCombos() {
     cell.innerHTML = combo.tps;
 
     cell = row.insertCell();
+    cell.innerHTML = combo.fiO2;
+
+    cell = row.insertCell();
     cell.innerHTML = combo.numBreaths;
 
     cell = row.insertCell();
@@ -102,6 +105,8 @@ function constructStatMinMaxTable() {
   minMaxTableRow(table,"Mandatory BPM","bpm","mbpmMin","mbpmMax");
   minMaxTableRow(table,"Spontaneous BPM","bpm","sbpmMin","sbpmMax");
 
+  minMaxTableRow(table,"FiO2","%","fiO2Min","fiO2Max");
+
   minMaxTableRow(table,"Instantaneous Static Compliance","ml / cmH20","scMin","scMax");
   minMaxTableRow(table,"Instantaneous Dynamic Compliance","ml / cmH20","dcMin","dcMax");
 
@@ -119,6 +124,7 @@ function constructStatParamTable() {
   paramTableRow(table,"Maximum Pressure","cmH20","pmax");
   paramTableRow(table,"Support Pressure","cmH20","ps");
   paramTableRow(table,"Support Pressure Termination","%flow,secs","tps");
+  paramTableRow(table,"FiO2","%","fiO2");
 }
 
 function constructStatMiscTable() {
@@ -192,6 +198,10 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(minSbpm);
   el = document.getElementById("sbpmMax");
   el.innerHTML = replaceDummyValue(maxSbpm);
+  el = document.getElementById("fiO2Min");
+  el.innerHTML = replaceDummyValue(minFiO2);
+  el = document.getElementById("fiO2Max");
+  el.innerHTML = replaceDummyValue(maxFiO2);
   el = document.getElementById("scMin");
   el.innerHTML = replaceDummyValue(minScomp);
   el = document.getElementById("scMax");
@@ -221,6 +231,8 @@ function displayStats() {
   el.innerHTML=replaceDummyValue(pss);
   el = document.getElementById("tps");
   el.innerHTML=replaceDummyValue(tpss);
+  el = document.getElementById("fiO2");
+  el.innerHTML=replaceDummyValue(fiO2s);
 
   el = document.getElementById("pName");
   if (patientName) {

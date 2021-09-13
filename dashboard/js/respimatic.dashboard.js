@@ -149,7 +149,7 @@ var firstDweet = true;
 var numBreaths = 0;
 var chartsPaused = false;
 var desiredFiO2 = 21;
-var o2Purity = 100;
+var o2Purity = 21;
 var reqO2Flow = 0;
 var fiO2Knob = null;
 var purityKnob = null;
@@ -170,32 +170,34 @@ function checkFiO2Calculation(d) {
 
   value = d.content["FIO2"];
   if (typeof value != "undefined") {
-    if (percentValid(value)) {
+    if (validDecimalInteger(value) && (value<=100)) {
       newFiO2 = value;
       change = true;
     }
   }
   value = d.content["O2PURITY"];
   if (typeof value != "undefined") {
-    if (percentValid(value)) {
+    if (validDecimalInteger(value) && (value<=100)) {
       newPurity = value;
+      //console.log("Purity=" + newPurity);
       change = true;
     }
   }
 
   value = d.content["O2FLOWX10"];
   if (typeof value != "undefined") {
-    if (o2FlowValid(value)) {
+    if (validDecimalInteger(value)) {
       newO2Flow = value;
+      //console.log("Flow=" + newO2Flow);
       change = true;
     }
   }
 
   if (change) {
-    updateFiO2Display(newFiO2, newPurity, newO2Flow);
     desiredFiO2 = newFiO2;
     o2Purity = newPurity;
     reqO2Flow = newO2Flow;
+    updateFiO2Display(newFiO2, newPurity, newO2Flow);
   }
 }
 
@@ -276,6 +278,7 @@ function toggleDashboardView() {
 var pressureChart = null;
 var volumeChart = null;
 var bpmChart = null;
+var fiO2Chart = null;
 var miscChart = null;
 
 var timeBased = false;
@@ -283,6 +286,7 @@ function createDashboardCharts() {
   createDashboardPressureCharts();
   createDashboardVolumeCharts();
   createDashboardBpmCharts();
+  createDashboardFiO2Charts();
   createDashboardMiscCharts();
 }
 
@@ -374,6 +378,56 @@ function createDashboardVolumeCharts() {
   }
   volumeChart = new CanvasJS.Chart(container, chartJson);
   volumeChart.render();
+}
+
+function createDashboardFiO2Charts() {
+  var chartJson ;
+  chartJson = createNewInstance(chartTemplate);
+  chartJson.title.text = "FiO2";
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.height = 300;
+  flagError = false;
+  flagWarning = false;
+
+  paramData = createCanvasChartData(fiO2Values,timeBased,flagError,flagWarning);
+  chartColor = graphColors[0];
+  yaxis = createPercentYaxis(0, chartColor);
+  chartJson.axisY.push(yaxis);
+  if (paramData) {
+    paramData.color = chartColor;
+    paramData.name = "FiO2 (%)";
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(o2PurityValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[1];
+  if (paramData) {
+    paramData.name = "O2 Purity (%)";
+    paramData.color = chartColor;
+    paramData.axisYIndex = 0;
+    chartJson.data.push(paramData);
+  }
+
+  paramData = createCanvasChartData(o2FlowValues,timeBased,flagError,flagWarning);
+  chartColor = graphColors[2];
+  yaxis = createO2FlowYaxis(0, chartColor);
+  chartJson.axisY2 = createNewInstance(yaxis);
+  if (paramData) {
+    paramData.name = "O2 Flow (litres/min)";
+    paramData.color = chartColor;
+    paramData.axisYType = "secondary";
+    chartJson.data.push(paramData);
+  }
+
+  container = document.getElementById("chartFiO2Div");
+  chartJson.backgroundColor = "lightgrey" ;
+  if (fiO2Chart) {
+    fiO2Chart.destroy();
+    fiO2Chart = null;
+  }
+  fiO2Chart = new CanvasJS.Chart(container, chartJson);
+  fiO2Chart.render();
 }
 
 function createDashboardMiscCharts() {
@@ -509,7 +563,7 @@ function installFiO2Knob() {
   fiO2Knob.setProperty('valMin', 21);
   fiO2Knob.setProperty('valMax', 100);
   // Set initial value.
-  fiO2Knob.setValue(21);
+  fiO2Knob.setValue(desiredFiO2);
   fiO2Knob.addListener(fiO2KnobListener);
   // Create element node.
   const node = fiO2Knob.node();
@@ -536,7 +590,7 @@ function installPurityKnob() {
   purityKnob.setProperty('valMin', 21);
   purityKnob.setProperty('valMax', 100);
   // Set initial value.
-  purityKnob.setValue(100);
+  purityKnob.setValue(o2Purity);
   purityKnob.addListener(purityKnobListener);
   // Create element node.
   const node = purityKnob.node();
