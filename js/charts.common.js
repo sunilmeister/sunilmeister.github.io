@@ -210,7 +210,7 @@ function chartProcessJsonRecord(jsonData) {
 	  }
         } else if (ckey=="O2FLOWX10") {
 	  if (validDecimalInteger(value)) {
-	    o2FlowValues.push({"time":curTime,"value":value});
+	    o2FlowValues.push({"time":curTime,"value":(value/10)});
 	  } else {
 	    o2FlowValues.push({"time":curTime,"value":null});
 	  }
