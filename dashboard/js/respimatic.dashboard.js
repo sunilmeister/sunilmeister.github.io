@@ -81,6 +81,7 @@ function enter_initial_state() {
   standby_state = false;
   running_state = false;
   error_state = false;
+  attention_state = false;
   background_before_error = initial_background;
 
   set_initial_background();
