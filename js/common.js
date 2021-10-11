@@ -429,16 +429,16 @@ function registerDbName(dbName) {
   }
 }
 
-const FIO2_DEGRADATION_PERCENT=93;
+const PURITY_DEGRADATION_PERCENT=92;
 
-function DegradedFiO2(f) {
-  var maxFiO2 = (FIO2_DEGRADATION_PERCENT*f)/100;
-  return maxFiO2;
+function DegradedPurity(p) {
+  var maxPurity = (PURITY_DEGRADATION_PERCENT*p)/100;
+  return maxPurity;
 }
 
 function lookupO2FlowRate(vt, rr, fiO2, purity) {
   if (fiO2<21) fiO2 = 21;
-  degradedPurity = DegradedFiO2(purity);
+  degradedPurity = DegradedPurity(purity);
 
   mv = vt * rr;
 

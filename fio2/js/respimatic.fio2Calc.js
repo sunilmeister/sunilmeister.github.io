@@ -70,10 +70,11 @@ function installRrKnob() {
 
 var fiO2Knob = null;
 function adjustFiO2Max() {
-  if (o2Purity<desiredFiO2) {
-    desiredFiO2 = o2Purity;
+  degradedPurity = DegradedPurity(o2Purity);
+  if (degradedPurity<desiredFiO2) {
+    desiredFiO2 = degradedPurity;
     //fiO2Knob.setProperty('valMax', o2Purity);
-    fiO2Knob.setValue(o2Purity);
+    fiO2Knob.setValue(degradedPurity);
   }
 }
 
