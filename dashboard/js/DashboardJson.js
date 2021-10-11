@@ -27,7 +27,7 @@ var uiJson = {
             "value": "datasources[\"RESPIMATIC100\"][\"PIP\"]",
             "units": "cm H2O",
             "min_value": 0,
-            "max_value": "60"
+            "max_value": "70"
           }
         },
         {
@@ -37,7 +37,7 @@ var uiJson = {
             "value": "datasources[\"RESPIMATIC100\"][\"PLAT\"]",
             "units": "cm H2O",
             "min_value": 0,
-            "max_value": "60"
+            "max_value": "70"
           }
         },
         {
@@ -47,7 +47,7 @@ var uiJson = {
             "value": "datasources[\"RESPIMATIC100\"][\"MPEEP\"]",
             "units": "cm H2O",
             "min_value": 0,
-            "max_value": "60"
+            "max_value": "70"
           }
         }
       ]
