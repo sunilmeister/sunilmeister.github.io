@@ -433,6 +433,7 @@ const PURITY_DEGRADATION_PERCENT=92;
 
 function DegradedPurity(p) {
   var maxPurity = (PURITY_DEGRADATION_PERCENT*p)/100;
+  if (maxPurity<21) return 21;
   return maxPurity;
 }
 
