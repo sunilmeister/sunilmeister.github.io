@@ -41,7 +41,9 @@ function getNewDbName() {
     var dbNameSuffix = prompt("Name the new Session", "New Session");
     if (!dbNameSuffix) return "";
     name = dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
-    if (checkDbExists(name)) {
+    if (!isValidDatabaseName(dbNameSuffix)) {
+      alert("Invalid Session name\n" + dbNameSuffix + "\nTry again");
+    } else if (checkDbExists(name)) {
       alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
     } else break;
   } while (true);

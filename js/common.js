@@ -342,6 +342,16 @@ function parseDbName(name) {
 // Open/Create Database 
 // ///////////////////////////////////////////////////////
 
+function isValidDatabaseName(dname) { 
+  var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+
+  if(format.test(dname)){
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function createOrOpenDb(name, timeStamp) {
   var dbReq = indexedDB.open(name, dbVersion);
 
