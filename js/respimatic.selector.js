@@ -66,11 +66,11 @@ function launchDashboard() {
    window.location.assign("dashboard/respimatic.dashboard.html");
 }
 
-function launchLogger() {
+function launchRecorder() {
   if (!getRespimaticSysUID()) {
     return;
   }
-  window.location.assign("logger/respimatic.logger.html");
+  window.location.assign("recorder/respimatic.recorder.html");
 }
 
 function launchAnalyzer() {
