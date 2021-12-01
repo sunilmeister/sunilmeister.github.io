@@ -12,7 +12,7 @@
 .Messages {
     grid-area: 1 / 1 / 5 / 8;
     font-family: monospace;
-    font-size: 2.8em;
+    font-size: 3.8em;
     color: white;
     background-color: var(--rsp_darkblue);
 
@@ -28,11 +28,12 @@
     grid-area: 3 / 8 / 5 / 11;
     background-color: var(--rsp_darkblue);
     font-size: 2em;
+    color: white;
 }
 
 .Patient {
     grid-area: 1 / 11 / 5 / 17;
-    font-size: 2.1em;
+    font-size: 3em;
     color: white;
     background-color: var(--rsp_darkblue);
 
@@ -42,7 +43,7 @@
     grid-area: 5 / 1 / 6 / 8;
     color: white;
     background-color: var(--rsp_blue);
-    font-size: 1.4em;
+    font-size: 2em;
 
 }
 
@@ -79,6 +80,7 @@
 .Compliance {
     grid-area: 12 / 4 / 13 / 8;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
@@ -98,6 +100,7 @@
     grid-area: 9 / 4 / 10 / 8;
     background-color: var(--rsp_darkblue);
     font-size: 2em;
+    color: white;
 }
 
 .Tidal {
@@ -115,6 +118,7 @@
 .Volume {
     grid-area: 6 / 4 / 7 / 8;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
@@ -123,7 +127,7 @@
     grid-area: 5 / 8 / 6 / 11;
     color: white;
     background-color: var(--rsp_blue);
-    font-size: 1.4em;
+    font-size: 2em;
 
 }
 
@@ -143,14 +147,13 @@
     grid-area: 5 / 11 / 6 / 17;
     color: white;
     background-color: var(--rsp_blue);
-    font-size: 1.4em;
+    font-size: 2em;
 }
 
 .Mode {
     grid-area: 6 / 11 / 8 / 14;
     color: white;
     background-color: var(--rsp_blue);
-
 }
 
 .VT {
@@ -198,5 +201,6 @@
 .Pending {
     grid-area: 14 / 11 / 15 / 17;
     background-color: var(--rsp_blue);
+    color: white;
     font-size: 2em;
 }

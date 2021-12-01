@@ -19,8 +19,15 @@
             <p id=Mline3>Message Line 3
             <p id=Mline4>Message Line 4
         </div>
-        <div class="Alarm"></div>
-        <div class="State"></div>
+
+        <div class="Alarm">
+	  <img src="img/OK.png" alt="Alarm" style="margin-top:1.5em">
+	</div>
+        <div class="State">
+	  <img src="img/WhiteDot.png" alt="LED" style="margin-top:1.5em" width="70em" height="70em">
+	  <p id=State font-size=2em>System State: <b>PRE-USE</b>
+	</div>
+
         <div class="Patient">
             <p id=Pline1>Patient Line 1
             <p id=Pline2>Patient Line 2
@@ -31,18 +38,28 @@
         <div class="Measurements">
             <p>Measured Patient Parameters
         </div>
+
         <div class="Peak"></div>
         <div class="Plateau"></div>
         <div class="Peep"></div>
-        <div class="Dynamic"></div>
-        <div class="Static"></div>
-        <div class="Compliance"></div>
-        <div class="MBPM"></div>
-        <div class="SBPM"></div>
-        <div class="BPM"></div>
+
+        <div class="Volume">
+            <p>Delivered Volumes (ml)
+	</div>
         <div class="Tidal"></div>
         <div class="Minute"></div>
-        <div class="Volume"></div>
+
+        <div class="Compliance">
+	  <p>Instant Compliance (ml/cm H<sub>2</sub>O)
+	</div>
+        <div class="Dynamic"></div>
+        <div class="Static"></div>
+
+        <div class="BPM">
+	  <p>Breaths per Minute (bpm)
+	</div>
+        <div class="MBPM"></div>
+        <div class="SBPM"></div>
 
         <div class="Environment">
             <p>System Environment
@@ -54,45 +71,47 @@
             <p>Input System Parameters
         </div>
         <div class="Mode">
-            <p style="font-size:1.5em;">MODE
-            <p id=Mode style="font-size:2em; font-weight:bold;">SIMV
+            <p style="font-size:2em;">MODE
+            <p id=Mode style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">SIMV
         </div>
         <div class="VT">
-            <p style="font-size:1.5em;">VT
-            <p id=VT style="font-size:2em; font-weight:bold;">400
-            <p style="font-size:1em;">(ml)
+            <p style="font-size:2em;">VT
+            <p id=VT style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">400
+            <p style="font-size:1.5em;">(ml)
         </div>
         <div class="RR">
-            <p style="font-size:1.5em;">RR
-            <p id=RR style="font-size:2em; font-weight:bold;">20
-            <p style="font-size:0.7em;">(bpm)
+            <p style="font-size:2em;">RR
+            <p id=RR style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">20
+            <p style="font-size:1.5em;">(bpm)
         </div>
         <div class="IE">
-            <p style="font-size:1.5em;">I:E
-            <p id=IE style="font-size:2em; font-weight:bold;">1.5
-            <p style="font-size:0.7em;">(ratio)
+            <p style="font-size:2em;">I:E
+            <p id=IE style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">1:2
+            <p style="font-size:1.5em;">(ratio)
         </div>
         <div class="IPeep">
-            <p style="font-size:1.5em;">PEEP
-            <p id=PEEP style="font-size:2em; font-weight:bold;">5
-            <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
+            <p style="font-size:2em;">PEEP
+            <p id=IPEEP style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">5
+            <p style="font-size:1.5em;">(cm H<sub>2</sub>O)
         </div>
         <div class="PMAX">
-            <p style="font-size:1.5em;">PMAX
-            <p id=PMAX style="font-size:2em; font-weight:bold;">40
-            <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
+            <p style="font-size:2em;">PMAX
+            <p id=PMAX style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">40
+            <p style="font-size:1.5em;">(cm H<sub>2</sub>O)
         </div>
         <div class="PS">
-            <p style="font-size:1.5em;">PS
-            <p id=PS style="font-size:2em; font-weight:bold;">25
-            <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
+            <p style="font-size:2em;">PS
+            <p id=PS style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">25
+            <p style="font-size:1.5em;">(cm H<sub>2</sub>O)
         </div>
         <div class="TPS">
-            <p style="font-size:1.5em;">TPS
-            <p id=TPS style="font-size:2em; font-weight:bold;">1.5
-            <p style="font-size:0.7em;">(secs)
+            <p style="font-size:2em;">TPS
+            <p id=TPS style="margin-top:5px; margin-bottom:5px; font-size:3em; font-weight:bold;">2.5
+            <p id=TPS_UNITS style="font-size:1.5em;">(secs)
         </div>
-        <div class="Pending"></div>
+        <div class="Pending">
+	  <p id=Pending>No Uncommitted changes
+        </div>
     </div>
 
 </body>
