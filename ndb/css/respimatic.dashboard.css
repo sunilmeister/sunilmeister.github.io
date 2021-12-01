@@ -36,15 +36,14 @@
     font-size: 3em;
     color: white;
     background-color: var(--rsp_darkblue);
-
 }
 
 .Measurements {
     grid-area: 5 / 1 / 6 / 8;
     color: white;
     background-color: var(--rsp_blue);
-    font-size: 2em;
-
+    font-size: 2.0em;
+    font-weight: bold;
 }
 
 .Peak {
@@ -68,12 +67,14 @@
 .Dynamic {
     grid-area: 13 / 4 / 15 / 6;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
 .Static {
     grid-area: 13 / 6 / 15 / 8;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
@@ -87,11 +88,13 @@
 .MBPM {
     grid-area: 10 / 4 / 12 / 6;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
 .SBPM {
     grid-area: 10 / 6 / 12 / 8;
+    color: white;
     background-color: var(--rsp_darkblue);
     font-size: 2em;
 }
@@ -106,12 +109,14 @@
 .Tidal {
     grid-area: 7 / 4 / 9 / 6;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
 .Minute {
     grid-area: 7 / 6 / 9 / 8;
     background-color: var(--rsp_darkblue);
+    color: white;
     font-size: 2em;
 }
 
@@ -127,8 +132,8 @@
     grid-area: 5 / 8 / 6 / 11;
     color: white;
     background-color: var(--rsp_blue);
-    font-size: 2em;
-
+    font-size: 2.0em;
+    font-weight: bold;
 }
 
 .Temp {
@@ -147,7 +152,8 @@
     grid-area: 5 / 11 / 6 / 17;
     color: white;
     background-color: var(--rsp_blue);
-    font-size: 2em;
+    font-size: 2.0em;
+    font-weight: bold;
 }
 
 .Mode {
