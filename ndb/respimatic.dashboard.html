@@ -1,98 +1,100 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="viewport" content = "width = device-width, initial-scale = 0.9, user-scalable = yes" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
     <link rel="stylesheet" href="../css/colors.css" />
     <link rel="stylesheet" href="css/respimatic.dashboard.css" />
-  </head>
-  <body>
-<div class="container">
-	<div class="Measurements">
-	  <p>Measured Patient Parameters
-	</div>
-	<div class="Messages">
-	  <p id=Mline1>Message Line 1
-	  <p id=Mline2>Message Line 2
-	  <p id=Mline3>Message Line 3
-	  <p id=Mline4>Message Line 4
-	</div>
-	<div class="Peak"></div>
-	<div class="Plateau"></div>
-	<div class="Peep"></div>
-	<div class="Dynamic"></div>
-	<div class="Static"></div>
-	<div class="Compliance"></div>
-	<div class="MBPM"></div>
-	<div class="SBPM"></div>
-	<div class="BPM"></div>
-	<div class="Tidal"></div>
-	<div class="Minute"></div>
-	<div class="Volume"></div>
-	<div class="Alarm"></div>
-	<div class="State"></div>
-	<div class="Patient">
-	  <p id=Pline1>Patient Line 1
-	  <p id=Pline2>Patient Line 2
-	  <p id=Pline3>Patient Line 3
-	  <p id=Pline4>Patient Line 4
-	</div>
-	<div class="Temp"></div>
-	<div class="Environment">
-	  <p>System Environment
-	</div>
+</head>
 
-	<div class="Mode">
-	  <p style="font-size:1.5em;">MODE
-	  <p id=Mode style="font-size:2em; font-weight:bold;">SIMV
-	</div>
-	<div class="VT">
-	  <p style="font-size:1.5em;">VT
-	  <p id=VT style="font-size:2em; font-weight:bold;">400
-	  <p style="font-size:1em;">(ml)
-	</div>
-	<div class="RR">
-	  <p style="font-size:1.5em;">RR
-	  <p id=RR style="font-size:2em; font-weight:bold;">20
-	  <p style="font-size:0.7em;">(bpm)
-	</div>
-	<div class="IE">
-	  <p style="font-size:1.5em;">I:E
-	  <p id=IE style="font-size:2em; font-weight:bold;">1.5
-	  <p style="font-size:0.7em;">(ratio)
-	</div>
-	<div class="IPeep">
-	  <p style="font-size:1.5em;">PEEP
-	  <p id=PEEP style="font-size:2em; font-weight:bold;">5
-	  <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
-	</div>
-	<div class="PMAX">
-	  <p style="font-size:1.5em;">PMAX
-	  <p id=PMAX style="font-size:2em; font-weight:bold;">40
-	  <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
-	</div>
-	<div class="PS">
-	  <p style="font-size:1.5em;">PS
-	  <p id=PS style="font-size:2em; font-weight:bold;">25
-	  <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
-	</div>
-	<div class="TPS">
-	  <p style="font-size:1.5em;">TPS
-	  <p id=TPS style="font-size:2em; font-weight:bold;">1.5
-	  <p style="font-size:0.7em;">(secs)
-	</div>
+<body>
+    <div class="container">
+        <div class="Messages">
+            <p id=Mline1>Message Line 1
+            <p id=Mline2>Message Line 2
+            <p id=Mline3>Message Line 3
+            <p id=Mline4>Message Line 4
+        </div>
+        <div class="Alarm"></div>
+        <div class="State"></div>
+        <div class="Patient">
+            <p id=Pline1>Patient Line 1
+            <p id=Pline2>Patient Line 2
+            <p id=Pline3>Patient Line 3
+            <p id=Pline4>Patient Line 4
+        </div>
 
-	<div class="Parameters">
-	  <p>Input System Parameters
-	</div>
+        <div class="Measurements">
+            <p>Measured Patient Parameters
+        </div>
+        <div class="Peak"></div>
+        <div class="Plateau"></div>
+        <div class="Peep"></div>
+        <div class="Dynamic"></div>
+        <div class="Static"></div>
+        <div class="Compliance"></div>
+        <div class="MBPM"></div>
+        <div class="SBPM"></div>
+        <div class="BPM"></div>
+        <div class="Tidal"></div>
+        <div class="Minute"></div>
+        <div class="Volume"></div>
 
-	<div class="Altitude"></div>
-	<div class="Pending"></div>
-</div>
-    
-  </body>
+        <div class="Environment">
+            <p>System Environment
+        </div>
+        <div class="Temp"></div>
+        <div class="Altitude"></div>
+
+        <div class="Parameters">
+            <p>Input System Parameters
+        </div>
+        <div class="Mode">
+            <p style="font-size:1.5em;">MODE
+            <p id=Mode style="font-size:2em; font-weight:bold;">SIMV
+        </div>
+        <div class="VT">
+            <p style="font-size:1.5em;">VT
+            <p id=VT style="font-size:2em; font-weight:bold;">400
+            <p style="font-size:1em;">(ml)
+        </div>
+        <div class="RR">
+            <p style="font-size:1.5em;">RR
+            <p id=RR style="font-size:2em; font-weight:bold;">20
+            <p style="font-size:0.7em;">(bpm)
+        </div>
+        <div class="IE">
+            <p style="font-size:1.5em;">I:E
+            <p id=IE style="font-size:2em; font-weight:bold;">1.5
+            <p style="font-size:0.7em;">(ratio)
+        </div>
+        <div class="IPeep">
+            <p style="font-size:1.5em;">PEEP
+            <p id=PEEP style="font-size:2em; font-weight:bold;">5
+            <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
+        </div>
+        <div class="PMAX">
+            <p style="font-size:1.5em;">PMAX
+            <p id=PMAX style="font-size:2em; font-weight:bold;">40
+            <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
+        </div>
+        <div class="PS">
+            <p style="font-size:1.5em;">PS
+            <p id=PS style="font-size:2em; font-weight:bold;">25
+            <p style="font-size:0.7em;">(cm H<sub>2</sub>O)
+        </div>
+        <div class="TPS">
+            <p style="font-size:1.5em;">TPS
+            <p id=TPS style="font-size:2em; font-weight:bold;">1.5
+            <p style="font-size:0.7em;">(secs)
+        </div>
+        <div class="Pending"></div>
+    </div>
+
+</body>
+
 </html>
-
