@@ -1,742 +1,197 @@
 .container {
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  grid-template-rows: repeat(2, 1fr) 0.5fr 1.5fr repeat(3, 1fr) 1.5fr 0.5fr 1fr;
-  gap: 20px 20px;
-  grid-auto-flow: row dense;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-gap: 1em 1em;
+	place-content: center center;
+	text-align: center;
+	font-family: verdana;
+	font-size: 1.4em;
+
 }
 
-.Alarms {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: 1 / 7 / 3 / 9;
+.Measurements {
+	grid-area: 5 / 1 / 6 / 8;
+	color:white;
+	background-color:var(--rsp_blue); 
 }
-
-.Patient {
-  display: grid;
-  grid-template-rows: repeat(4, 1fr);
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: 1 / 9 / 3 / 12;
-}
-
-.PLine-1 { grid-area: 1 / 1 / 2 / 2; }
-
-.Pline-2 { grid-area: 2 / 1 / 3 / 2; }
-
-.PLine-3 { grid-area: 3 / 1 / 4 / 2; }
-
-.PLine-4 { grid-area: 4 / 1 / 5 / 2; }
 
 .Messages {
-  display: grid;
-  grid-template-rows: repeat(4, 1fr);
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: 1 / 1 / 3 / 7;
+	grid-area: 1 / 1 / 5 / 8;
+	font-family: monospace;
+	font-size: 2.8em;
+	color:white;
+	background-color:var(--rsp_darkblue); 
 }
 
-.MLine-1 { grid-area: 1 / 1 / 2 / 2; }
-
-.MLine-2 { grid-area: 2 / 1 / 3 / 2; }
-
-.MLine-3 { grid-area: 3 / 1 / 4 / 2; }
-
-.MLine-4 { grid-area: 4 / 1 / 5 / 2; }
-
-.Measurements { grid-area: 3 / 1 / 11 / 7; }
-
-.Parameters { grid-area: 3 / 9 / 11 / 12; }
-
-.State-Header {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: 3 / 7 / 4 / 9;
+.Peak {
+	grid-area: 6 / 1 / 9 / 4;
 }
 
-.Parameter-Header {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: 3 / 9 / 4 / 12;
+.Plateau {
+	grid-area: 9 / 1 / 12 / 4;
 }
 
-.Measurement-Header {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: 3 / 1 / 4 / 7;
-}
-
-.Params {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(8, 1fr);
-  gap: 20px 20px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Mode Mode PEEP PEEP"
-    "Mode Mode PEEP PEEP"
-    "VT VT PMAX PMAX"
-    "VT VT PMAX PMAX"
-    "RR RR PS PS"
-    "RR RR PS PS"
-    "IE IE TPS TPS"
-    "IE IE TPS TPS";
-  grid-area: 4 / 9 / 11 / 12;
-}
-
-.VT {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "VT-Legend VT-Legend VT-Legend VT-Legend"
-    "VT-Param VT-Param VT-Param VT-Param"
-    "VT-Param VT-Param VT-Param VT-Param"
-    "VT-Units VT-Units VT-Units VT-Units";
-  grid-area: VT;
-}
-
-.VT-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: VT-Legend;
-}
-
-.VT-Units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: VT-Units;
-}
-
-.VT-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: VT-Param;
-}
-
-.Mode {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Mode-Legend Mode-Legend Mode-Legend Mode-Legend Mode-Legend"
-    "Mode-Param Mode-Param Mode-Param Mode-Param Mode-Param"
-    "Mode-Param Mode-Param Mode-Param Mode-Param Mode-Param"
-    "Mode-Param Mode-Param Mode-Param Mode-Param Mode-Param";
-  grid-area: Mode;
-}
-
-.Mode-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Mode-Legend;
-}
-
-.Mode-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Mode-Param;
-}
-
-.RR {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "RR-Legend RR-Legend RR-Legend RR-Legend"
-    "RR-Param RR-Param RR-Param RR-Param"
-    "RR-Param RR-Param RR-Param RR-Param"
-    "RR-Units RR-Units RR-Units RR-Units";
-  grid-area: RR;
-}
-
-.RR-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: RR-Legend;
-}
-
-.RR-Units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: RR-Units;
-}
-
-.RR-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: RR-Param;
-}
-
-.PEEP {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "PEEP-Legend PEEP-Legend PEEP-Legend PEEP-Legend"
-    "PEEP-Param PEEP-Param PEEP-Param PEEP-Param"
-    "PEEP-Param PEEP-Param PEEP-Param PEEP-Param"
-    "PEEP-units PEEP-units PEEP-units PEEP-units";
-  grid-area: PEEP;
-}
-
-.PEEP-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PEEP-Legend;
-}
-
-.PEEP-units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PEEP-units;
-}
-
-.PEEP-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PEEP-Param;
-}
-
-.PMAX {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "PMAX-Legend PMAX-Legend PMAX-Legend PMAX-Legend"
-    "PMAX-Param PMAX-Param PMAX-Param PMAX-Param"
-    "PMAX-Param PMAX-Param PMAX-Param PMAX-Param"
-    "PMAX-Units PMAX-Units PMAX-Units PMAX-Units";
-  grid-area: PMAX;
-}
-
-.PMAX-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PMAX-Legend;
-}
-
-.PMAX-Units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PMAX-Units;
-}
-
-.PMAX-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PMAX-Param;
-}
-
-.PS {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "PS-Legend PS-Legend PS-Legend PS-Legend"
-    "PS-Param PS-Param PS-Param PS-Param"
-    "PS-Param PS-Param PS-Param PS-Param"
-    "PS-Units PS-Units PS-Units PS-Units";
-  grid-area: PS;
-}
-
-.PS-Units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PS-Units;
-}
-
-.PS-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PS-Param;
-}
-
-.PS-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PS-Legend;
-}
-
-.TPS {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "TPS-Legend TPS-Legend TPS-Legend TPS-Legend"
-    "TPS-Param TPS-Param TPS-Param TPS-Param"
-    "TPS-Param TPS-Param TPS-Param TPS-Param"
-    "TPS-Units TPS-Units TPS-Units TPS-Units";
-  grid-area: TPS;
-}
-
-.TPS-Units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: TPS-Units;
-}
-
-.TPS-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: TPS-Param;
-}
-
-.TPS-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: TPS-Legend;
-}
-
-.IE {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "IE-Legend IE-Legend IE-Legend IE-Legend"
-    "IE-Param IE-Param IE-Param IE-Param"
-    "IE-Param IE-Param IE-Param IE-Param"
-    "IE-Units IE-Units IE-Units IE-Units";
-  grid-area: IE;
-}
-
-.IE-Units {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: IE-Units;
-}
-
-.IE-Param {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: IE-Param;
-}
-
-.IE-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: IE-Legend;
-}
-
-.Gauges {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 20px 20px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "PEAK PEAK PEAK Volumes Volumes Volumes Volumes"
-    "PLATEAU PLATEAU PLATEAU Bpms Bpms Bpms Bpms"
-    "MPEEP MPEEP MPEEP Compliances Compliances Compliances Compliances";
-  grid-area: 4 / 1 / 11 / 7;
-}
-
-.PLATEAU {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PLATEAU;
-}
-
-.MPEEP {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: MPEEP;
-}
-
-.Volumes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Volumes-Legend Volumes-Legend Volumes-Legend"
-    "Volume-Gauges Volume-Gauges Volume-Gauges"
-    "Volume-Gauges Volume-Gauges Volume-Gauges"
-    "Volume-Gauges Volume-Gauges Volume-Gauges"
-    "Volume-Gauges Volume-Gauges Volume-Gauges"
-    "Volume-Gauges Volume-Gauges Volume-Gauges";
-  grid-area: Volumes;
-}
-
-.Volumes-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Volumes-Legend;
-}
-
-.Volume-Gauges {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 0px 20px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Tidal Tidal Minute Minute"
-    "Tidal Tidal Minute Minute"
-    "Tidal Tidal Minute Minute"
-    "Tidal Tidal Minute Minute"
-    "Tidal Tidal Minute Minute";
-  grid-area: Volume-Gauges;
-}
-
-.Tidal {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Tidal;
-}
-
-.Minute {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Minute;
-}
-
-.Bpms {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "BPM-Legend BPM-Legend BPM-Legend"
-    "BPM-Gauges BPM-Gauges BPM-Gauges"
-    "BPM-Gauges BPM-Gauges BPM-Gauges"
-    "BPM-Gauges BPM-Gauges BPM-Gauges"
-    "BPM-Gauges BPM-Gauges BPM-Gauges"
-    "BPM-Gauges BPM-Gauges BPM-Gauges";
-  grid-area: Bpms;
-}
-
-.BPM-Gauges {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 0px 20px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Mandatory Mandatory Spontaneous Spontaneous"
-    "Mandatory Mandatory Spontaneous Spontaneous"
-    "Mandatory Mandatory Spontaneous Spontaneous"
-    "Mandatory Mandatory Spontaneous Spontaneous"
-    "Mandatory Mandatory Spontaneous Spontaneous";
-  grid-area: BPM-Gauges;
-}
-
-.Mandatory {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Mandatory;
-}
-
-.Spontaneous {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Spontaneous;
-}
-
-.BPM-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: BPM-Legend;
-}
-
-.Compliances {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Compliance-Legend Compliance-Legend Compliance-Legend"
-    "Compliance-Gauges Compliance-Gauges Compliance-Gauges"
-    "Compliance-Gauges Compliance-Gauges Compliance-Gauges"
-    "Compliance-Gauges Compliance-Gauges Compliance-Gauges"
-    "Compliance-Gauges Compliance-Gauges Compliance-Gauges"
-    "Compliance-Gauges Compliance-Gauges Compliance-Gauges";
-  grid-area: Compliances;
-}
-
-.Compliance-Gauges {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 0px 20px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Dynamic Dynamic Static Static"
-    "Dynamic Dynamic Static Static"
-    "Dynamic Dynamic Static Static"
-    "Dynamic Dynamic Static Static"
-    "Dynamic Dynamic Static Static";
-  grid-area: Compliance-Gauges;
+.Peep {
+	grid-area: 12 / 1 / 15 / 4;
 }
 
 .Dynamic {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Dynamic;
+	grid-area: 13 / 4 / 15 / 6;
 }
 
 .Static {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Static;
+	grid-area: 13 / 6 / 15 / 8;
 }
 
-.Compliance-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Compliance-Legend;
+.Compliance {
+	grid-area: 12 / 4 / 13 / 8;
 }
 
-.PEAK {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "";
-  grid-area: PEAK;
+.MBPM {
+	grid-area: 10 / 4 / 12 / 6;
 }
 
-.State { grid-area: 4 / 7 / 8 / 9; }
+.SBPM {
+	grid-area: 10 / 6 / 12 / 8;
+}
+
+.BPM {
+	grid-area: 9 / 4 / 10 / 8;
+}
+
+.Tidal {
+	grid-area: 7 / 4 / 9 / 6;
+}
+
+.Minute {
+	grid-area: 7 / 6 / 9 / 8;
+}
+
+.Volume {
+	grid-area: 6 / 4 / 7 / 8;
+}
+
+.Alarm {
+	grid-area: 1 / 8 / 3 / 12;
+}
+
+.Date {
+	grid-area: 3 / 8 / 5 / 12;
+}
+
+.Patient {
+	grid-area: 1 / 12 / 5 / 18;
+	font-size: 2.1em;
+	color:white;
+	background-color:var(--rsp_darkblue); 
+}
 
 .Temp {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 10px 10px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Temp-Header Temp-Header Temp-Header"
-    "Temp-Gauge Temp-Gauge Temp-Gauge"
-    "Temp-Gauge Temp-Gauge Temp-Gauge"
-    "Temp-Gauge Temp-Gauge Temp-Gauge";
-  grid-area: 4 / 7 / 8 / 8;
-}
-
-.Temp-Header {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Temp-Header;
-}
-
-.Temp-Gauge {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Temp-Gauge;
-}
-
-.LED {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 10px 10px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "PreUse PreUse PreUse"
-    "Standby Standby Standby"
-    "Active Active Active"
-    "Error Error Error";
-  grid-area: 4 / 8 / 8 / 9;
+	grid-area: 6 / 8 / 12 / 10;
 }
 
 .PreUse {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: PreUse;
+	grid-area: 6 / 10 / 8 / 12;
 }
 
 .Standby {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Standby;
+	grid-area: 8 / 10 / 10 / 12;
 }
 
 .Active {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Active;
+	grid-area: 10 / 10 / 12 / 12;
 }
 
 .Error {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Error;
+	grid-area: 12 / 10 / 14 / 12;
 }
 
-.Breath {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Breath-Legend Breath-Legend Breath-Legend"
-    "Breath-LEDs Breath-LEDs Breath-LEDs"
-    "Breath-LEDs Breath-LEDs Breath-LEDs"
-    "Breath-LEDs Breath-LEDs Breath-LEDs";
-  grid-area: 9 / 7 / 11 / 9;
+.State {
+	grid-area: 5 / 8 / 6 / 12;
+	color:white;
+	background-color:var(--rsp_blue); 
 }
 
-.Breath-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Breath-Legend;
+.Mode {
+	grid-area: 6 / 12 / 8 / 15;
+	color:white;
+	background-color:var(--rsp_blue); 
 }
 
-.Breath-LEDs {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Breath-LEDs;
+.VT {
+	grid-area: 8 / 12 / 10 / 15;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.RR {
+	grid-area: 10 / 12 / 12 / 15;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.IE {
+	grid-area: 12 / 12 / 14 / 15;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.IPeep {
+	grid-area: 6 / 15 / 8 / 18;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.PMAX {
+	grid-area: 8 / 15 / 10 / 18;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.PS {
+	grid-area: 10 / 15 / 12 / 18;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.TPS {
+	grid-area: 12 / 15 / 14 / 18;
+	color:white;
+	background-color:var(--rsp_blue); 
+}
+
+.Parameters {
+	grid-area: 5 / 12 / 6 / 18;
+	color:white;
+	background-color:var(--rsp_blue); 
 }
 
 .Altitude {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "Altitude-Legend Altitude-Legend Altitude-Legend"
-    "Altitude-Gauge Altitude-Gauge Altitude-Gauge"
-    "Altitude-Gauge Altitude-Gauge Altitude-Gauge"
-    "Altitude-Gauge Altitude-Gauge Altitude-Gauge";
-  grid-area: 8 / 7 / 9 / 9;
+	grid-area: 12 / 8 / 15 / 10;
 }
 
-.Altitude-Legend {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Altitude-Legend;
+.Logo {
+	grid-area: 14 / 10 / 15 / 18;
 }
 
-.Altitude-Gauge {
-  display: grid;
-  grid-auto-columns: 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-area: Altitude-Gauge;
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
+p.normal {
+  font-weight: normal;
+}
 
-html, body , .container {
-  height: 100%;
-  margin: 0;
+p.light {
+  font-weight: lighter;
+}
+
+p.thick {
+  font-weight: bold;
 }
 
 /* For presentation only, no need to copy the code below */
@@ -747,8 +202,10 @@ html, body , .container {
 }
 
 .container *:after {
+  /*
   content:attr(class);
   position: absolute;
+  */
   top: 0;
   left: 0;
   width: 100%;
@@ -757,5 +214,4 @@ html, body , .container {
   align-items: center;
   justify-content: center;
 }
-
 
