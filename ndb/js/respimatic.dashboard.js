@@ -255,9 +255,6 @@ window.onload = function () {
   btn.textContent = "Charts View" ;
   */
 
-  var heading = document.getElementById("SysUid");
-  heading.innerText = respimaticUid;
-
   installPurityKnob();
   installFiO2Knob();
 
@@ -566,7 +563,7 @@ const fiO2KnobListener = function (knob, value) {
 
 function installFiO2Knob() {
   // Create knob element, 250 x 250 px in size.
-  fiO2Knob = pureknob.createKnob(250, 250);
+  fiO2Knob = pureknob.createKnob(260, 260);
   // Set properties.
   fiO2Knob.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Knob.setProperty('angleEnd', 0.75 * Math.PI);
@@ -596,7 +593,7 @@ const purityKnobListener = function (knob, value) {
 
 function installPurityKnob() {
   // Create knob element, 250 x 250 px in size.
-  purityKnob = pureknob.createKnob(250, 250);
+  purityKnob = pureknob.createKnob(260, 260);
   // Set properties.
   purityKnob.setProperty('angleStart', -0.75 * Math.PI);
   purityKnob.setProperty('angleEnd', 0.75 * Math.PI);
