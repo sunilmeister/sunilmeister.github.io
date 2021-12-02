@@ -1,84 +1,18 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
+
+<head>
     <meta charset="UTF-8">
-    <title>Respimatic 100</title>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
-    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <link rel="stylesheet" href="../css/colors.css" />
+    <link rel="stylesheet" href="css/respimatic.dashboard.css" />
+</head>
 
-    <link href="../css/colors.css" rel="stylesheet" />
-    <link href="css/sidebar.css" rel="stylesheet" />
-    <link href="css/respimatic.dashboard.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
-    <script src="../canvasjs/canvasjs.min.js"></script>
-    <script src="../js/common.js"></script>
-    <script src="../js/charts.common.js"></script>
-    <script src="../pure-knob-master/pureknob.js"></script>
-    <script src="js/respimatic.dashboard.js"></script>
-  </head>
-  
-  <body>
-    <div class="sidebar">
-      
-      <br>
-      <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.15em; font-family:verdana;">
-        <center>
-          <p id="logTimeDuration">Session Duration 00:00:00
-          <p id="startTime">Starting Time 00:00:00
-          <p id="numBreaths">Number of Breaths 0000
-        </center>
-      </div>
-      
-      <center>
-        <button id="btnExit" class="sidebarButton" style="background-color:var(--rsp_darkred)"
-          onclick='selectExit()'>STOP & EXIT</button>
-      </center>
-      
-      <div style="background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
-        <center>
-          <div>
-            <button id="btnViewChange" class="sidebarButton" onclick='toggleDashboardView()'>Charts View</button>
-	  </div>
-
-	  <div id="pauseChartsDiv">
-            <button id="btnPauseCharts" class="sidebarButton" onclick='selectTogglePause()'>Pause Charts</button>
-	  </div>
-        </center>
-          
-      </div>
-
-      <center>
-      <br>
-      <div id="fiO2Calc" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-        <div id="purityDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-	  <p>O<sub>2</sub> Source Purity (%)
-        </div>
-        <div id="fiO2Div" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-	  <p>Desired FiO<sub>2</sub> (%)
-        </div>
-        <div id="flowDiv" style="background-color:var(--rsp_blue); color:white; font-family:verdana;">
-	  <p style="font-size:1em">Set O<sub>2</sub> Flow Rate at
-        <p id="o2FlowRate" style="font-size:1em">0.0 (litres/min)
-        </div>
-      </div>
-      </center>
-      
-      <br>
-      <div style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-        <center>
-	  <p>Dashboard for
-          <p id='SysUid' style="font-size:1em;">
-        </center>
-      </div>
-      
-    </div>
-    
-   <div class="dashboard-pane">
+<body>
+    <div class="container">
         <div class="Messages">
   	    <p id=Mline1 style="margin-top:40px; margin-bottom:0px;">Message Line 1
   	    <p id=Mline2 style="margin-top:40px; margin-bottom:0px;">Message Line 2
@@ -158,7 +92,7 @@
 	</div>
 
         <div class="Environment">
-          <p style="margin-top:4px; margin-bottom:5px;">Environment
+            <p style="margin-top:4px; margin-bottom:5px;">System Environment
         </div>
         <div class="Temp"></div>
         <div class="Altitude"></div>
@@ -208,14 +142,8 @@
         <div class="Pending">
             <p id=Pending style="margin-top:22px; margin-bottom:0px;">No Uncommitted changes
         </div>
+    </div>
 
-   </div>
+</body>
 
-      <center>
-        <img src="img/dashboard-title-logos.png" alt="Title" style="margin-top:1em" width=950em height=250em>
-      </center>
-
-  </body>
-  
 </html>
-
