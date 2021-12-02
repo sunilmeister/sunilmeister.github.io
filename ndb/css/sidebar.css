@@ -6,7 +6,7 @@
 
 .sidebar {
   height: 100%;
-  width: 13em;
+  width: 14em;
   position: absolute;
   left: 0;
   top: 0;
@@ -34,7 +34,7 @@
 
 .dashboard-pane {
   margin-top: 2.2em;
-  margin-left: 30em;
+  margin-left: 32em;
   margin-right: 2em;
 }
 
