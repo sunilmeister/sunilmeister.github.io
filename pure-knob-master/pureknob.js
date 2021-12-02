@@ -320,7 +320,7 @@
 			input.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 			input.style.border = 'none';
 			input.style.color = '#ff8800';
-			input.style.fontFamily = 'sans-serif';
+			input.style.fontFamily = 'verdana';
 			input.style.fontSize = fontSizeString + 'px';
 			input.style.height = heightString + 'px';
 			input.style.margin = 'auto';
@@ -540,7 +540,7 @@
 					/*
 					 * Draw the number.
 					 */
-					ctx.font = fontSizeString + 'px sans-serif';
+					ctx.font = "bold " + fontSizeString + 'px verdana';
 					ctx.fillStyle = colorFilling;
 					ctx.textAlign = 'center';
 					ctx.textBaseline = 'middle';
@@ -550,7 +550,7 @@
 					 * Draw the label
 					 */
 					if (label !== null) {
-						ctx.font = labelSizeString + 'px sans-serif';
+						ctx.font = "bold " + labelSizeString + 'px verdana';
 						ctx.fillStyle = colorLabel;
 						ctx.textAlign = 'center';
 						ctx.textBaseline = 'middle';

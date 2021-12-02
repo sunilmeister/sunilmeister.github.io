@@ -149,8 +149,12 @@ var chartsPaused = false;
 var desiredFiO2 = 21;
 var o2Purity = 21;
 var reqO2Flow = 0;
+
 var fiO2Knob = null;
 var purityKnob = null;
+var peakKnob = null;
+var platKnob = null;
+var peepKnob = null;
 
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   fiO2Knob.setValue(fiO2);
@@ -256,6 +260,10 @@ window.onload = function () {
 
   installPurityKnob();
   installFiO2Knob();
+
+  installPeakKnob();
+  installPlatKnob();
+  installPeepKnob();
 }
 
 function toggleDashboardView() {
@@ -552,7 +560,7 @@ function selectExit() {
 const fiO2KnobListener = function (knob, value) {
   // do not allow the user to change it on the dashboard
   if (value==desiredFiO2) return;
-  alert("FiO2 parameter can only be changed\nfrom the RESPIMATIC Front Panel");
+  //alert("FiO2 parameter can only be changed\nfrom the RESPIMATIC Front Panel");
   knob.setValue(desiredFiO2);
 };
 
@@ -562,10 +570,13 @@ function installFiO2Knob() {
   // Set properties.
   fiO2Knob.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Knob.setProperty('angleEnd', 0.75 * Math.PI);
-  fiO2Knob.setProperty('colorFG', '#88ff88');
+  fiO2Knob.setProperty('colorFG', 'white');
   fiO2Knob.setProperty('trackWidth', 0.4);
   fiO2Knob.setProperty('valMin', 21);
   fiO2Knob.setProperty('valMax', 100);
+  fiO2Knob.setProperty('needle', true);
+  fiO2Knob.setProperty('readonly', true);
+  fiO2Knob.setProperty('textScale', 1);
   // Set initial value.
   fiO2Knob.setValue(desiredFiO2);
   fiO2Knob.addListener(fiO2KnobListener);
@@ -579,7 +590,7 @@ function installFiO2Knob() {
 const purityKnobListener = function (knob, value) {
   // do not allow the user to change it on the dashboard
   if (value==o2Purity) return;
-  alert("O2Purity parameter can only be changed\nfrom the RESPIMATIC Front Panel");
+  //alert("O2Purity parameter can only be changed\nfrom the RESPIMATIC Front Panel");
   knob.setValue(o2Purity);
 };
 
@@ -589,10 +600,13 @@ function installPurityKnob() {
   // Set properties.
   purityKnob.setProperty('angleStart', -0.75 * Math.PI);
   purityKnob.setProperty('angleEnd', 0.75 * Math.PI);
-  purityKnob.setProperty('colorFG', '#88ff88');
+  purityKnob.setProperty('colorFG', 'white');
   purityKnob.setProperty('trackWidth', 0.4);
   purityKnob.setProperty('valMin', 21);
   purityKnob.setProperty('valMax', 100);
+  purityKnob.setProperty('needle', true);
+  purityKnob.setProperty('readonly', true);
+  purityKnob.setProperty('textScale', 1);
   // Set initial value.
   purityKnob.setValue(o2Purity);
   purityKnob.addListener(purityKnobListener);
@@ -603,4 +617,76 @@ function installPurityKnob() {
   elem.appendChild(node);
 }
 
+
+function installPeakKnob() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 250 x 250 px in size.
+  peakKnob = pureknob.createKnob(260, 260);
+  // Set properties.
+  peakKnob.setProperty('angleStart', -0.75 * Math.PI);
+  peakKnob.setProperty('angleEnd', 0.75 * Math.PI);
+  peakKnob.setProperty('colorFG', 'white');
+  peakKnob.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  peakKnob.setProperty('trackWidth', 0.5);
+  peakKnob.setProperty('valMin', 0);
+  peakKnob.setProperty('valMax', 70);
+  peakKnob.setProperty('needle', true);
+  peakKnob.setProperty('readonly', true);
+  peakKnob.setProperty('textScale', 1.75);
+  // Set initial value.
+  peakKnob.setValue(0);
+  // Create element node.
+  const node = peakKnob.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('PeakGauge');
+  elem.appendChild(node);
+}
+
+function installPlatKnob() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 250 x 250 px in size.
+  platKnob = pureknob.createKnob(260, 260);
+  // Set properties.
+  platKnob.setProperty('angleStart', -0.75 * Math.PI);
+  platKnob.setProperty('angleEnd', 0.75 * Math.PI);
+  platKnob.setProperty('colorFG', 'white');
+  platKnob.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  platKnob.setProperty('trackWidth', 0.5);
+  platKnob.setProperty('valMin', 0);
+  platKnob.setProperty('valMax', 70);
+  platKnob.setProperty('needle', true);
+  platKnob.setProperty('readonly', true);
+  platKnob.setProperty('textScale', 1.75);
+  // Set initial value.
+  platKnob.setValue(0);
+  // Create element node.
+  const node = platKnob.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('PlatGauge');
+  elem.appendChild(node);
+}
+
+function installPeepKnob() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 250 x 250 px in size.
+  peepKnob = pureknob.createKnob(260, 260);
+  // Set properties.
+  peepKnob.setProperty('angleStart', -0.75 * Math.PI);
+  peepKnob.setProperty('angleEnd', 0.75 * Math.PI);
+  peepKnob.setProperty('colorFG', 'white');
+  peepKnob.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  peepKnob.setProperty('trackWidth', 0.5);
+  peepKnob.setProperty('valMin', 0);
+  peepKnob.setProperty('valMax', 70);
+  peepKnob.setProperty('needle', true);
+  peepKnob.setProperty('readonly', true);
+  peepKnob.setProperty('textScale', 1.75);
+  // Set initial value.
+  peepKnob.setValue(0);
+  // Create element node.
+  const node = peepKnob.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('PeepGauge');
+  elem.appendChild(node);
+}
 
