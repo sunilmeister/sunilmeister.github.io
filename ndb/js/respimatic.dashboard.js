@@ -554,20 +554,15 @@ function selectExit() {
  * Parameter 'value' is the value which was set
  * by the user.
  */
-const fiO2KnobListener = function (knob, value) {
-  // do not allow the user to change it on the dashboard
-  if (value==desiredFiO2) return;
-  //alert("FiO2 parameter can only be changed\nfrom the RESPIMATIC Front Panel");
-  knob.setValue(desiredFiO2);
-};
-
 function installFiO2Knob() {
-  // Create knob element, 250 x 250 px in size.
+  var style = getComputedStyle(document.body)
+  // Create knob element, 260 x 260 px in size.
   fiO2Knob = pureknob.createKnob(260, 260);
   // Set properties.
   fiO2Knob.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Knob.setProperty('angleEnd', 0.75 * Math.PI);
   fiO2Knob.setProperty('colorFG', 'white');
+  fiO2Knob.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
   fiO2Knob.setProperty('trackWidth', 0.4);
   fiO2Knob.setProperty('valMin', 21);
   fiO2Knob.setProperty('valMax', 100);
@@ -576,7 +571,6 @@ function installFiO2Knob() {
   fiO2Knob.setProperty('textScale', 1);
   // Set initial value.
   fiO2Knob.setValue(desiredFiO2);
-  fiO2Knob.addListener(fiO2KnobListener);
   // Create element node.
   const node = fiO2Knob.node();
   // Add it to the DOM.
@@ -584,20 +578,15 @@ function installFiO2Knob() {
   elem.appendChild(node);
 }
 
-const purityKnobListener = function (knob, value) {
-  // do not allow the user to change it on the dashboard
-  if (value==o2Purity) return;
-  //alert("O2Purity parameter can only be changed\nfrom the RESPIMATIC Front Panel");
-  knob.setValue(o2Purity);
-};
-
 function installPurityKnob() {
+  var style = getComputedStyle(document.body)
   // Create knob element, 250 x 250 px in size.
   purityKnob = pureknob.createKnob(260, 260);
   // Set properties.
   purityKnob.setProperty('angleStart', -0.75 * Math.PI);
   purityKnob.setProperty('angleEnd', 0.75 * Math.PI);
   purityKnob.setProperty('colorFG', 'white');
+  purityKnob.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
   purityKnob.setProperty('trackWidth', 0.4);
   purityKnob.setProperty('valMin', 21);
   purityKnob.setProperty('valMax', 100);
@@ -606,7 +595,6 @@ function installPurityKnob() {
   purityKnob.setProperty('textScale', 1);
   // Set initial value.
   purityKnob.setValue(o2Purity);
-  purityKnob.addListener(purityKnobListener);
   // Create element node.
   const node = purityKnob.node();
   // Add it to the DOM.
