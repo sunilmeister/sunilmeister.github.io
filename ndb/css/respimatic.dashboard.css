@@ -86,9 +86,9 @@
 
 .Compliance {
     grid-area: 12 / 4 / 13 / 8;
-    background-color: var(--rsp_blue);
+    background-color: var(--rsp_darkblue);
     color: white;
-    font-size: 2em;
+    font-size: 2.5em;
 }
 
 .MBPM {
@@ -107,8 +107,8 @@
 
 .BPM {
     grid-area: 9 / 4 / 10 / 8;
-    background-color: var(--rsp_blue);
-    font-size: 2em;
+    background-color: var(--rsp_darkblue);
+    font-size: 2.5em;
     color: white;
 }
 
@@ -128,9 +128,9 @@
 
 .Volume {
     grid-area: 6 / 4 / 7 / 8;
-    background-color: var(--rsp_blue);
+    background-color: var(--rsp_darkblue);
     color: white;
-    font-size: 2em;
+    font-size: 2.5em;
 }
 
 
@@ -218,5 +218,6 @@
     grid-area: 14 / 11 / 15 / 17;
     background-color: var(--rsp_darkblue);
     color: white;
-    font-size: 2em;
+    font-size: 2.5em;
+    font-weight: bold;
 }
