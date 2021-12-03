@@ -42,12 +42,11 @@
   border-radius: 40px;
   font-size: 3em;
   color: white;
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_blue);
 }
 
 .Measurements {
   grid-area: 5 / 1 / 6 / 8;
-  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
   font-size: 2.5em;
@@ -99,8 +98,8 @@
 .Compliance {
   grid-area: 12 / 4 / 13 / 8;
   border-radius: 40px;
-  background-color: var(--rsp_darkblue);
-  color: white;
+  color: var(--rsp_darkblue);
+  background-color: white;
   font-size: 2.5em;
 }
 
@@ -123,9 +122,9 @@
 .BPM {
   grid-area: 9 / 4 / 10 / 8;
   border-radius: 40px;
-  background-color: var(--rsp_darkblue);
+  background-color: white;
+  color: var(--rsp_darkblue);
   font-size: 2.5em;
-  color: white;
 }
 
 .Tidal {
@@ -147,16 +146,15 @@
 .Volume {
   grid-area: 6 / 4 / 7 / 8;
   border-radius: 40px;
-  background-color: var(--rsp_darkblue);
-  color: white;
+  color: var(--rsp_darkblue);
+  background-color: white;
   font-size: 2.5em;
 }
 
 .Environment {
   grid-area: 5 / 8 / 6 / 11;
-  border-radius: 40px;
-  color: white;
   background-color: var(--rsp_blue);
+  color: white;
   font-size: 2.5em;
   font-weight: bold;
   margin-top: 0px;
@@ -189,7 +187,6 @@
 
 .Parameters {
   grid-area: 5 / 11 / 6 / 17;
-  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
   font-size: 2.5em;
@@ -256,7 +253,6 @@
 
 .Pending {
   grid-area: 14 / 11 / 15 / 17;
-  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2.5em;

@@ -6,12 +6,12 @@
 
 .sidebar {
   height: 100%;
-  width: 12em;
+  width: 14em;
   position: absolute;
   left: 0;
   top: 0;
   padding-top: 0em;
-  font-size: 2em;
+  font-size: 2.2em;
   font-family: verdana;
   margin-left: 1em;
 }
@@ -42,9 +42,9 @@
   display: inline-block;
   margin: 0.3em 0.3em;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.2em;
   border-radius: 1em;
-  width: 11em;
+  width: 10em;
   opacity: 0.8;
 }
 

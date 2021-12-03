@@ -33,7 +33,7 @@
 
     <br>
     <div
-      style="background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
+      style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
       <center>
         <p id="logTimeDuration">Session Duration 00:00:00
         <p id="startTime">Starting Time 00:00:00
@@ -43,20 +43,19 @@
 
     <center>
       <button id="btnExit" class="sidebarButton"
-        style="background-color:var(--rsp_darkred)"
-        onclick='selectExit()'>STOP
-        & EXIT</button>
+        style="margin-top:1em; background-color:var(--rsp_darkred)"
+        onclick='selectExit()'>STOP & EXIT</button>
     </center>
 
     <div
-      style="background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
+      style="margin-top:1em; border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
       <center>
-        <div>
+        <div style="margin-top:1em;">
           <button id="btnViewChange" class="sidebarButton"
             onclick='toggleDashboardView()'>Charts View</button>
         </div>
 
-        <div id="pauseChartsDiv">
+        <div id="pauseChartsDiv" style="margin-top:0.6em; margin-bottom:1em;">
           <button id="btnPauseCharts" class="sidebarButton"
             onclick='selectTogglePause()'>Pause Charts</button>
         </div>
@@ -65,10 +64,8 @@
     </div>
 
     <center>
-      <br>
       <div id="fiO2Calc"
-        style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-        <div id="purityDiv"
+        style="margin-top:1.5em; border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;"> <div id="purityDiv"
           style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
           <p>O<sub>2</sub> Source Purity (%)
         </div>
@@ -179,13 +176,13 @@
       <div class="Peak">
         <p
           style="margin-top:0px; margin-bottom:30px; font-size:1.5em;background-color:var(--rsp_darkblue);">
-          Peak <small><small>(cm H<sub>2</sub>O)</small></small>
+          PEAK <small><small>(cm H<sub>2</sub>O)</small></small>
         <div id=PeakGauge> </div>
       </div>
       <div class="Plateau">
         <p
           style="margin-top:0px; margin-bottom:30px; font-size:1.5em;background-color:var(--rsp_darkblue);">
-          Plateau <small><small>(cm H<sub>2</sub>O)</small></small>
+          PLAT <small><small>(cm H<sub>2</sub>O)</small></small>
         <div id=PlatGauge> </div>
       </div>
       <div class="Peep">
