@@ -159,6 +159,13 @@
     font-size: 2em;
 }
 
+.Breath {
+    grid-area: 12 / 8 / 15 / 11;
+    background-color: var(--rsp_blue);
+    color: white;
+    font-size: 2em;
+}
+
 .Parameters {
     grid-area: 5 / 11 / 6 / 17;
     color: white;
