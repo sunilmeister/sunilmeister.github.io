@@ -146,15 +146,16 @@
 }
 
 .Temp {
-    grid-area: 6 / 8 / 10 / 11;
+    grid-area: 6 / 8 / 9 / 11;
     background-color: var(--rsp_blue);
     color: white;
-    font-size: 1.5em;
+    font-size: 2em;
 }
 
 .Altitude {
-    grid-area: 11 / 8 / 15 / 11;
-    background-color: var(--rsp_darkblue);
+    grid-area: 9 / 8 / 12 / 11;
+    background-color: var(--rsp_blue);
+    color: white;
     font-size: 2em;
 }
 

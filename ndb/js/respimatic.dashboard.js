@@ -670,8 +670,8 @@ function installPeepGauge() {
 
 function installTempGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 275 x 275 px in size.
-  tempGauge = pureknob.createKnob(275, 275);
+  // Create knob element, 200 x 200 px in size.
+  tempGauge = pureknob.createKnob(200, 200);
   // Set properties.
   tempGauge.setProperty('angleStart', -0.75 * Math.PI);
   tempGauge.setProperty('angleEnd', 0.75 * Math.PI);
