@@ -244,17 +244,15 @@ window.onload = function () {
   current_background = normal_background;
   background_before_error = initial_background;
 
-  /*
   currentViewIsSnapshot = true;
-  snapshot = document.getElementById("board-content");
-  snapshot.style.display = "block";
+  snapshot = document.getElementById("snapshot-pane");
+  snapshot.style.display = "inline-grid";
 
-  charts = document.getElementById("chart-content");
+  charts = document.getElementById("chart-pane");
   charts.style.display = "none";
 
   btn = document.getElementById("btnViewChange");
   btn.textContent = "Charts View" ;
-  */
 
   installPurityGauge();
   installFiO2Gauge();
@@ -267,10 +265,9 @@ window.onload = function () {
 }
 
 function toggleDashboardView() {
-  /*
   btn = document.getElementById("btnViewChange");
-  snapshot = document.getElementById("board-content");
-  charts = document.getElementById("chart-content");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
   if (currentViewIsSnapshot) {
     currentViewIsSnapshot = false;
     snapshot.style.display = "none";
@@ -278,13 +275,12 @@ function toggleDashboardView() {
     btn.textContent = "Snapshots View" ;
     if (chartsPaused) selectTogglePause();
   } else {
-    snapshot.style.display = "block";
+    snapshot.style.display = "inline-grid";
     charts.style.display = "none";
     currentViewIsSnapshot = true;
     btn.textContent = "Charts View" ;
     if (!chartsPaused) selectTogglePause();
   }
-  */
 }
 
 var pressureChart = null;
