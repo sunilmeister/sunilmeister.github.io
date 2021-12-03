@@ -2,145 +2,17 @@ var datasource_name = "RESPIMATIC100";
 
 document.title = respimaticUid + " (" + datasource_name + ")"
 
-var normal_background;
-var initial_background;
-var standby_background;
-var error_background;
-var running_background;
-var attention_background;
-var current_background;
-var background_before_error;
-var gsw_elements = [];
+var blueColor;
+var darkblueColor;
+var darkredColor;
+var greenColor;
+var orangeColor;
 
 var initialState = false;
 var standbyState = false;
 var runningState = false;
 var errorState = false;
 var attentionState = false;
-
-function set_current_background(color) {
-  current_background = color;
-  if (gsw_elements.length == 0) {
-    gsw_elements = document.getElementsByClassName("gs_w");
-  }
-  if (gsw_elements[0].style.backgroundColor == color) return;
-
-  for (var i = 0; i < gsw_elements.length; i++) {
-    gsw_elements[i].style.backgroundColor=color;
-  }
-}
-
-function set_normal_background() {
-  set_current_background(normal_background);
-}
-
-function set_initial_background() {
-  set_current_background(initial_background);
-}
-
-function set_standby_background() {
-  set_current_background(standby_background);
-}
-
-function set_running_background() {
-  set_current_background(running_background);
-}
-
-function set_attention_background() {
-  var color = current_background;
-
-  if (current_background==attention_background) {
-    if (initialState) color = initial_background;
-    else if (standbyState) color = standby_background;
-    else if (runningState) color = running_background;
-    else if (errorState) color = error_background;
-  } else {
-    color = attention_background;
-  }
-
-  set_current_background(color);
-}
-
-function set_error_background() {
-  var color = current_background;
-
-  if (current_background==error_background) {
-    color = background_before_error;
-  } else {
-    color = error_background;
-  }
-
-  set_current_background(color);
-}
-
-function enterInitialState() {
-  initialState = true;
-  standbyState = false;
-  runningState = false;
-  errorState = false;
-  attentionState = false;
-  background_before_error = initial_background;
-
-  set_initial_background();
-}
-
-function enterStandbyState() {
-  initialState = false;
-  standbyState = true;
-  runningState = false;
-  errorState = false;
-  background_before_error = standby_background;
-
-  if (attentionState) set_current_background(attention_background);
-  else set_standby_background();
-}
-
-function enterRunningState() {
-  initialState = false;
-  standbyState = false;
-  runningState = true;
-  errorState = false;
-  background_before_error = running_background;
-
-  if (attentionState) set_attention_background();
-  else set_running_background();
-}
-
-function enterErrorState() {
-  attentionState = false;
-
-  initialState = false;
-  standbyState = false;
-  runningState = false;
-  errorState = true;
-
-  set_error_background();
-}
-
-function exitErrorState() {
-}
-
-function enterAttentionState() {
-  if (errorState) {
-    attentionState = false;
-    set_error_background();
-  } else {
-    attentionState = true;
-    set_attention_background();
-  }
-}
-
-function exitAttentionState() {
-  attentionState = false;
-  var color = normal_background;
-
-  if (initialState) color = initial_background;
-  else if (standbyState) color = standby_background;
-  else if (runningState) color = running_background;
-  else if (errorState) color = error_background;
-
-  set_current_background(color);
-}
 
 var currentViewIsSnapshot = true;
 var firstDweet = true;
@@ -243,14 +115,11 @@ window.onload = function () {
 
   var style = getComputedStyle(document.body)
 
-  normal_background = style.getPropertyValue('--rsp_darkblue');
-  initial_background = normal_background;
-  standby_background = normal_background;
-  error_background = style.getPropertyValue('--rsp_darkred');
-  running_background = style.getPropertyValue('--rsp_green');
-  attention_background = style.getPropertyValue('--rsp_orange');
-  current_background = normal_background;
-  background_before_error = initial_background;
+  blueColor = style.getPropertyValue('--rsp_blue');
+  darkblueColor = style.getPropertyValue('--rsp_darkblue');
+  darkredColor = style.getPropertyValue('--rsp_darkred');
+  greenColor = style.getPropertyValue('--rsp_green');
+  orangeColor = style.getPropertyValue('--rsp_orange');
 
   currentViewIsSnapshot = true;
   snapshot = document.getElementById("snapshot-pane");
@@ -719,7 +588,7 @@ function updateSnapshot(d) {
     if (key=='INITIAL') { 
       if (value == "1") {
         elm = document.getElementById("State");
-        elm.innerHTML = "<b>PRE-USE</b>";
+        elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
         document.getElementById("AlertImg").src = "img/OK.png";
       }
@@ -846,13 +715,13 @@ function updateSnapshot(d) {
     else if (key=='PENDING') { 
       if (value==1) {
         elm = document.getElementById("PendingDiv");
-	elm.style.backgroundColor = attention_background;
+	elm.style.backgroundColor = orangeColor;
         elm = document.getElementById("Pending");
         elm.innerHTML = "Pending Uncommitted Changes";
       }
       else {
         elm = document.getElementById("PendingDiv");
-	elm.style.backgroundColor = normal_background;
+	elm.style.backgroundColor = blueColor;
         elm = document.getElementById("Pending");
         elm.innerHTML = "No Uncommitted Changes";
       }
