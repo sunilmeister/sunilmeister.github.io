@@ -563,7 +563,7 @@ function installFiO2Gauge() {
   fiO2Gauge.setProperty('readonly', true);
   fiO2Gauge.setProperty('textScale', 1);
   // Set initial value.
-  fiO2Gauge.setValue(desiredFiO2);
+  fiO2Gauge.setValue();
   // Create element node.
   const node = fiO2Gauge.node();
   // Add it to the DOM.
@@ -573,7 +573,7 @@ function installFiO2Gauge() {
 
 function installPurityGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 250 x 250 px in size.
+  // Create knob element, 260 x 260 px in size.
   purityGauge = pureknob.createKnob(260, 260);
   // Set properties.
   purityGauge.setProperty('angleStart', -0.75 * Math.PI);
@@ -587,7 +587,7 @@ function installPurityGauge() {
   purityGauge.setProperty('readonly', true);
   purityGauge.setProperty('textScale', 1);
   // Set initial value.
-  purityGauge.setValue(o2Purity);
+  purityGauge.setValue();
   // Create element node.
   const node = purityGauge.node();
   // Add it to the DOM.
@@ -598,7 +598,7 @@ function installPurityGauge() {
 
 function installPeakGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 250 x 250 px in size.
+  // Create knob element, 260 x 260 px in size.
   peakGauge = pureknob.createKnob(260, 260);
   // Set properties.
   peakGauge.setProperty('angleStart', -0.75 * Math.PI);
@@ -612,7 +612,7 @@ function installPeakGauge() {
   peakGauge.setProperty('readonly', true);
   peakGauge.setProperty('textScale', 1.75);
   // Set initial value.
-  peakGauge.setValue(0);
+  peakGauge.setValue();
   // Create element node.
   const node = peakGauge.node();
   // Add it to the DOM.
@@ -622,7 +622,7 @@ function installPeakGauge() {
 
 function installPlatGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 250 x 250 px in size.
+  // Create knob element, 260 x 260 px in size.
   platGauge = pureknob.createKnob(260, 260);
   // Set properties.
   platGauge.setProperty('angleStart', -0.75 * Math.PI);
@@ -636,7 +636,7 @@ function installPlatGauge() {
   platGauge.setProperty('readonly', true);
   platGauge.setProperty('textScale', 1.75);
   // Set initial value.
-  platGauge.setValue(0);
+  platGauge.setValue();
   // Create element node.
   const node = platGauge.node();
   // Add it to the DOM.
@@ -646,7 +646,7 @@ function installPlatGauge() {
 
 function installPeepGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 250 x 250 px in size.
+  // Create knob element, 260 x 260 px in size.
   peepGauge = pureknob.createKnob(260, 260);
   // Set properties.
   peepGauge.setProperty('angleStart', -0.75 * Math.PI);
@@ -660,7 +660,7 @@ function installPeepGauge() {
   peepGauge.setProperty('readonly', true);
   peepGauge.setProperty('textScale', 1.75);
   // Set initial value.
-  peepGauge.setValue(0);
+  peepGauge.setValue();
   // Create element node.
   const node = peepGauge.node();
   // Add it to the DOM.
@@ -670,21 +670,21 @@ function installPeepGauge() {
 
 function installTempGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 250 x 250 px in size.
-  tempGauge = pureknob.createKnob(260, 260);
+  // Create knob element, 275 x 275 px in size.
+  tempGauge = pureknob.createKnob(275, 275);
   // Set properties.
   tempGauge.setProperty('angleStart', -0.75 * Math.PI);
   tempGauge.setProperty('angleEnd', 0.75 * Math.PI);
   tempGauge.setProperty('colorFG', 'white');
   tempGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
   tempGauge.setProperty('trackWidth', 0.5);
-  tempGauge.setProperty('valMin', 0);
+  tempGauge.setProperty('valMin', -20);
   tempGauge.setProperty('valMax', 70);
   tempGauge.setProperty('needle', true);
   tempGauge.setProperty('readonly', true);
   tempGauge.setProperty('textScale', 1.75);
   // Set initial value.
-  tempGauge.setValue(0);
+  tempGauge.setValue();
   // Create element node.
   const node = tempGauge.node();
   // Add it to the DOM.
