@@ -10,21 +10,28 @@
 
 .Messages {
   grid-area: 1 / 1 / 5 / 8;
+  border-radius: 40px;
   font-family: monospace;
-  font-size: 4em;
-  color: white;
-  background-color: var(--rsp_darkblue);
+  font-size: 4.5em;
+  font-weight: bold;
+  background-color: white;
+  color: var(--rsp_darkblue);
+  border-color: var(--rsp_darkblue);
+  border-style: solid;
+  border-width: thick;
 }
 
 .Alarm {
   grid-area: 1 / 8 / 3 / 11;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
-  font-size: 2em;
+  font-size: 3em;
 }
 
 .State {
   grid-area: 3 / 8 / 5 / 11;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   font-size: 2em;
   color: white;
@@ -32,6 +39,7 @@
 
 .Patient {
   grid-area: 1 / 11 / 5 / 17;
+  border-radius: 40px;
   font-size: 3em;
   color: white;
   background-color: var(--rsp_darkblue);
@@ -39,6 +47,7 @@
 
 .Measurements {
   grid-area: 5 / 1 / 6 / 8;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
   font-size: 2.5em;
@@ -49,6 +58,7 @@
 
 .Peak {
   grid-area: 6 / 1 / 9 / 4;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
   font-size: 2em;
@@ -56,6 +66,7 @@
 
 .Plateau {
   grid-area: 9 / 1 / 12 / 4;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
   font-size: 2em;
@@ -63,6 +74,7 @@
 
 .Peep {
   grid-area: 12 / 1 / 15 / 4;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
   font-size: 2em;
@@ -70,6 +82,7 @@
 
 .Dynamic {
   grid-area: 13 / 4 / 15 / 6;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2em;
@@ -77,6 +90,7 @@
 
 .Static {
   grid-area: 13 / 6 / 15 / 8;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2em;
@@ -84,6 +98,7 @@
 
 .Compliance {
   grid-area: 12 / 4 / 13 / 8;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2.5em;
@@ -91,6 +106,7 @@
 
 .MBPM {
   grid-area: 10 / 4 / 12 / 6;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2em;
@@ -98,6 +114,7 @@
 
 .SBPM {
   grid-area: 10 / 6 / 12 / 8;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_darkblue);
   font-size: 2em;
@@ -105,6 +122,7 @@
 
 .BPM {
   grid-area: 9 / 4 / 10 / 8;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   font-size: 2.5em;
   color: white;
@@ -112,6 +130,7 @@
 
 .Tidal {
   grid-area: 7 / 4 / 9 / 6;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2em;
@@ -119,6 +138,7 @@
 
 .Minute {
   grid-area: 7 / 6 / 9 / 8;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2em;
@@ -126,6 +146,7 @@
 
 .Volume {
   grid-area: 6 / 4 / 7 / 8;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2.5em;
@@ -133,6 +154,7 @@
 
 .Environment {
   grid-area: 5 / 8 / 6 / 11;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
   font-size: 2.5em;
@@ -143,6 +165,7 @@
 
 .Temp {
   grid-area: 6 / 8 / 9 / 11;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
   font-size: 2em;
@@ -150,6 +173,7 @@
 
 .Altitude {
   grid-area: 9 / 8 / 12 / 11;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
   font-size: 2em;
@@ -157,6 +181,7 @@
 
 .Breath {
   grid-area: 12 / 8 / 15 / 11;
+  border-radius: 40px;
   background-color: var(--rsp_blue);
   color: white;
   font-size: 2em;
@@ -164,6 +189,7 @@
 
 .Parameters {
   grid-area: 5 / 11 / 6 / 17;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
   font-size: 2.5em;
@@ -174,54 +200,63 @@
 
 .Mode {
   grid-area: 6 / 11 / 8 / 14;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .VT {
   grid-area: 8 / 11 / 10 / 14;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .RR {
   grid-area: 10 / 11 / 12 / 14;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .IE {
   grid-area: 12 / 11 / 14 / 14;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .IPeep {
   grid-area: 6 / 14 / 8 / 17;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .PMAX {
   grid-area: 8 / 14 / 10 / 17;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .PS {
   grid-area: 10 / 14 / 12 / 17;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .TPS {
   grid-area: 12 / 14 / 14 / 17;
+  border-radius: 40px;
   color: white;
   background-color: var(--rsp_blue);
 }
 
 .Pending {
   grid-area: 14 / 11 / 15 / 17;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2.5em;

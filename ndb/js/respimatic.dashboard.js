@@ -12,11 +12,11 @@ var current_background;
 var background_before_error;
 var gsw_elements = [];
 
-var initial_state = false;
-var standby_state = false;
-var running_state = false;
-var error_state = false;
-var attention_state = false;
+var initialState = false;
+var standbyState = false;
+var runningState = false;
+var errorState = false;
+var attentionState = false;
 
 function set_current_background(color) {
   current_background = color;
@@ -50,10 +50,10 @@ function set_attention_background() {
   var color = current_background;
 
   if (current_background==attention_background) {
-    if (initial_state) color = initial_background;
-    else if (standby_state) color = standby_background;
-    else if (running_state) color = running_background;
-    else if (error_state) color = error_background;
+    if (initialState) color = initial_background;
+    else if (standbyState) color = standby_background;
+    else if (runningState) color = running_background;
+    else if (errorState) color = error_background;
   } else {
     color = attention_background;
   }
@@ -73,71 +73,71 @@ function set_error_background() {
   set_current_background(color);
 }
 
-function enter_initial_state() {
-  initial_state = true;
-  standby_state = false;
-  running_state = false;
-  error_state = false;
-  attention_state = false;
+function enterInitialState() {
+  initialState = true;
+  standbyState = false;
+  runningState = false;
+  errorState = false;
+  attentionState = false;
   background_before_error = initial_background;
 
   set_initial_background();
 }
 
-function enter_standby_state() {
-  initial_state = false;
-  standby_state = true;
-  running_state = false;
-  error_state = false;
+function enterStandbyState() {
+  initialState = false;
+  standbyState = true;
+  runningState = false;
+  errorState = false;
   background_before_error = standby_background;
 
-  if (attention_state) set_current_background(attention_background);
+  if (attentionState) set_current_background(attention_background);
   else set_standby_background();
 }
 
-function enter_running_state() {
-  initial_state = false;
-  standby_state = false;
-  running_state = true;
-  error_state = false;
+function enterRunningState() {
+  initialState = false;
+  standbyState = false;
+  runningState = true;
+  errorState = false;
   background_before_error = running_background;
 
-  if (attention_state) set_attention_background();
+  if (attentionState) set_attention_background();
   else set_running_background();
 }
 
-function enter_error_state() {
-  attention_state = false;
+function enterErrorState() {
+  attentionState = false;
 
-  initial_state = false;
-  standby_state = false;
-  running_state = false;
-  error_state = true;
+  initialState = false;
+  standbyState = false;
+  runningState = false;
+  errorState = true;
 
   set_error_background();
 }
 
-function exit_error_state() {
+function exitErrorState() {
 }
 
-function enter_attention_state() {
-  if (error_state) {
-    attention_state = false;
+function enterAttentionState() {
+  if (errorState) {
+    attentionState = false;
     set_error_background();
   } else {
-    attention_state = true;
+    attentionState = true;
     set_attention_background();
   }
 }
 
-function exit_attention_state() {
-  attention_state = false;
+function exitAttentionState() {
+  attentionState = false;
   var color = normal_background;
 
-  if (initial_state) color = initial_background;
-  else if (standby_state) color = standby_background;
-  else if (running_state) color = running_background;
-  else if (error_state) color = error_background;
+  if (initialState) color = initial_background;
+  else if (standbyState) color = standby_background;
+  else if (runningState) color = running_background;
+  else if (errorState) color = error_background;
 
   set_current_background(color);
 }
@@ -204,7 +204,13 @@ function checkFiO2Calculation(d) {
   }
 }
 
-function process_dweet_content(d) {
+function waitForDweets() {
+  dweetio.listen_for(respimaticUid, function (d) {
+    processDweet(d);
+  });
+}
+
+function processDweet(d) {
   if (firstDweet) {
     firstDweet = false;
     startDate = d.created;
@@ -217,6 +223,8 @@ function process_dweet_content(d) {
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
   checkFiO2Calculation(d);
+
+  updateSnapshot(d);
 
   chartProcessJsonRecord(d);
   if (typeof d.content["BTOG"] == "undefined") return d;
@@ -262,6 +270,9 @@ window.onload = function () {
   installPeepGauge();
 
   installTempGauge();
+
+  // now wait for dweets and act accordingly
+  waitForDweets();
 }
 
 function toggleDashboardView() {
@@ -688,3 +699,186 @@ function installTempGauge() {
   elem.appendChild(node);
 }
 
+function parseAltitude(str) {
+  // return [ft,meters]
+  return str.split(' ');
+}
+
+function formMessageLine(str) {
+  value = str.trim();
+  mvalue = value.replace(/ /g, "&nbsp");
+  return mvalue;
+}
+
+function updateSnapshot(d) {
+  for (let key in d.content) {
+    // get key value pairs
+    value = d.content[key];
+
+    // System State
+    if (key=='INITIAL') { 
+      if (value == "1") {
+        elm = document.getElementById("State");
+        elm.innerHTML = "<b>PRE-USE</b>";
+        document.getElementById("StateImg").src = "img/WhiteDot.png";
+        document.getElementById("AlertImg").src = "img/OK.png";
+      }
+    } 
+    else if (key=='STANDBY') { 
+      if (value == "1") {
+        elm = document.getElementById("State");
+        elm.innerHTML = "<b>STANDBY</b>";
+        document.getElementById("StateImg").src = "img/YellowDot.png";
+        document.getElementById("AlertImg").src = "img/OK.png";
+      }
+    } 
+    else if (key=='RUNNING') { 
+      if (value == "1") {
+        elm = document.getElementById("State");
+        elm.innerHTML = "<b>ACTIVE</b>";
+        document.getElementById("StateImg").src = "img/GreenDot.png";
+        document.getElementById("AlertImg").src = "img/OK.png";
+      }
+    } 
+    else if (key=='ERROR') { 
+      if (value == "1") {
+        elm = document.getElementById("State");
+        elm.innerHTML = "<b>ERROR</b>";
+        document.getElementById("StateImg").src = "img/RedDot.png";
+        document.getElementById("AlertImg").src = "img/Error.svg";
+      }
+    }
+
+    // Message lines
+    else if (key=='L1') { 
+      elm = document.getElementById("Mline1");
+      mvalue = formMessageLine(value);
+      elm.innerHTML = mvalue;
+    }
+    else if (key=='L2') { 
+      elm = document.getElementById("Mline2");
+      mvalue = formMessageLine(value);
+      elm.innerHTML = mvalue;
+    }
+    else if (key=='L3') { 
+      elm = document.getElementById("Mline3");
+      mvalue = formMessageLine(value);
+      elm.innerHTML = mvalue;
+    }
+    else if (key=='L4') { 
+      elm = document.getElementById("Mline4");
+      mvalue = formMessageLine(value);
+      elm.innerHTML = mvalue;
+    }
+
+    // bpm
+    else if (key=='SBPM') { 
+      elm = document.getElementById("SBPM");
+      elm.innerHTML = value;
+    }
+    else if (key=='MBPM') { 
+      elm = document.getElementById("MBPM");
+      elm.innerHTML = value;
+    }
+
+    // Volumes
+    else if (key=='VTDEL') { 
+      elm = document.getElementById("VTDEL");
+      elm.innerHTML = value;
+    }
+    else if (key=='MVDEL') { 
+      elm = document.getElementById("MVDEL");
+      elm.innerHTML = value;
+    }
+
+    // Compliances
+    else if (key=='STATIC') { 
+      elm = document.getElementById("SCOMP");
+      elm.innerHTML = value;
+    }
+    else if (key=='DYNAMIC') { 
+      elm = document.getElementById("DCOMP");
+      elm.innerHTML = value;
+    }
+
+    // Altitude
+    else if (key=='ALT') { 
+      [ft,m] = parseAltitude(value);
+      elm = document.getElementById("AltF");
+      elm.innerHTML = ft + " <small><small>ft</small></small>";
+      elm = document.getElementById("AltM");
+      elm.innerHTML = m + " <small><small>m</small></small>";
+    }
+
+    // Breath Type
+    else if (key=='MANDATORY') { 
+      if (value==1) {
+        document.getElementById("ImgBreath").src = "img/GreenDot.png";
+        elm = document.getElementById("BreathType");
+        elm.innerHTML = "Mandatory";
+      }
+    }
+    else if (key=='SPONTANEOUS') { 
+      if (value==1) {
+        document.getElementById("ImgBreath").src = "img/YellowDot.png";
+        elm = document.getElementById("BreathType");
+        elm.innerHTML = "Spontaneous";
+      }
+    }
+
+    // Pressures
+    else if (key=='PIP') { 
+      peakGauge.setValue(value);
+    }
+    else if (key=='PLAT') { 
+      platGauge.setValue(value);
+    }
+    else if (key=='MPEEP') { 
+      peepGauge.setValue(value);
+    }
+
+    // Temperature
+    else if (key=='TEMP') { 
+      tempGauge.setValue(value);
+    }
+
+    // Pending settings change
+    else if (key=='PENDING') { 
+      if (value==1) {
+        elm = document.getElementById("PendingDiv");
+	elm.style.backgroundColor = attention_background;
+        elm = document.getElementById("Pending");
+        elm.innerHTML = "Pending Uncommitted Changes";
+      }
+      else {
+        elm = document.getElementById("PendingDiv");
+	elm.style.backgroundColor = normal_background;
+        elm = document.getElementById("Pending");
+        elm.innerHTML = "No Uncommitted Changes";
+      }
+    }
+
+    // Patient info
+    else if (key=='PNAME') { 
+      elm = document.getElementById("Pline1");
+      elm.innerText = value;
+    }
+    else if (key=='PMISC') { 
+      elm = document.getElementById("Pline2");
+      elm.innerText = value;
+    }
+    else if (key=='PID') { 
+      elm = document.getElementById("Pline3");
+      elm.innerText = value;
+    }
+  }
+
+  // Warnings and Errors
+  if (typeof d.content['WMSG'] != 'undefined') {
+    document.getElementById("AlertImg").src = "img/Warning.svg";
+  }
+  if (typeof d.content['EMSG'] != 'undefined') {
+    document.getElementById("AlertImg").src = "img/Error.svg";
+  }
+
+}
