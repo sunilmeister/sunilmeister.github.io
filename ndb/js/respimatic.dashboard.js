@@ -116,6 +116,7 @@ window.onload = function () {
   var style = getComputedStyle(document.body)
 
   blueColor = style.getPropertyValue('--rsp_blue');
+  mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
   darkblueColor = style.getPropertyValue('--rsp_darkblue');
   darkredColor = style.getPropertyValue('--rsp_darkred');
   greenColor = style.getPropertyValue('--rsp_green');
@@ -431,7 +432,7 @@ function installFiO2Gauge() {
   fiO2Gauge.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Gauge.setProperty('angleEnd', 0.75 * Math.PI);
   fiO2Gauge.setProperty('colorFG', 'white');
-  fiO2Gauge.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
+  fiO2Gauge.setProperty('colorBG', style.getPropertyValue('--rsp_mediumblue'));
   fiO2Gauge.setProperty('trackWidth', 0.4);
   fiO2Gauge.setProperty('valMin', 21);
   fiO2Gauge.setProperty('valMax', 100);
@@ -455,7 +456,7 @@ function installPurityGauge() {
   purityGauge.setProperty('angleStart', -0.75 * Math.PI);
   purityGauge.setProperty('angleEnd', 0.75 * Math.PI);
   purityGauge.setProperty('colorFG', 'white');
-  purityGauge.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
+  purityGauge.setProperty('colorBG', style.getPropertyValue('--rsp_mediumblue'));
   purityGauge.setProperty('trackWidth', 0.4);
   purityGauge.setProperty('valMin', 21);
   purityGauge.setProperty('valMax', 100);
@@ -721,7 +722,7 @@ function updateSnapshot(d) {
       }
       else {
         elm = document.getElementById("PendingDiv");
-	elm.style.backgroundColor = blueColor;
+	elm.style.backgroundColor = mediumblueColor;
         elm = document.getElementById("Pending");
         elm.innerHTML = "No Uncommitted Changes";
       }
