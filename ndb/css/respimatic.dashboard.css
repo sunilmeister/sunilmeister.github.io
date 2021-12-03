@@ -1,7 +1,7 @@
 .Snapshot {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1em 1em;
   place-content: center center;
   text-align: center;
@@ -253,6 +253,16 @@
 
 .Pending {
   grid-area: 14 / 11 / 15 / 17;
+  border-radius: 40px;
+  background-color: var(--rsp_blue);
+  color: white;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.Logo {
+  grid-area: 15 / 1 / 17 / 17;
+  border-radius: 40px;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2.5em;
