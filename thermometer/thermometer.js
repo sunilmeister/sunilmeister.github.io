@@ -65,7 +65,7 @@ function drawThermometer(container, valueC, axisColorC, axisColorF) {
     ]);
 
     // Merge cells in layout table where needed
-    thermoTable.getCell(0, 0).colSpan(3);
+    thermoTable.getCell(0, 0).colSpan(8);
 
     // Set container id and initiate drawing
     thermoTable.container(container);
