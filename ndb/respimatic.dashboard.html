@@ -19,6 +19,16 @@
     <script src="../js/common.js"></script>
     <script src="../js/charts.common.js"></script>
     <script src="../pure-knob-master/pureknob.js"></script>
+
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-ui.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-exports.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-linear-gauge.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-table.min.js"></script>
+    <link href="https://cdn.anychart.com/releases/v8/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/v8/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+
+    <script src="../thermometer/thermometer.js"></script>
     <script src="js/respimatic.dashboard.js"></script>
   </head>
   
@@ -159,7 +169,10 @@
         <div class="Environment">
           <p style="margin-top:4px; margin-bottom:5px;">Environment
         </div>
-        <div class="Temp"></div>
+        <div class="Temp">
+	  <p>Temperature</p>
+          <div id="thermo"></div>
+	</div>
         <div class="Altitude"></div>
 
         <div class="Parameters">

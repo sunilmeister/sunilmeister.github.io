@@ -6,7 +6,7 @@
 
 .sidebar {
   height: 100%;
-  width: 14em;
+  width: 12em;
   position: absolute;
   left: 0;
   top: 0;
@@ -26,66 +26,10 @@
   padding-right: 0.1em;
 }
 
-.body-pane {
-  margin-left: 30em;
-  font-size: 1em;
-  font-family: verdana;
-}
-
 .dashboard-pane {
   margin-top: 2.2em;
-  margin-left: 32em;
+  margin-left: 28em;
   margin-right: 2em;
-}
-
-.dbTableButton {
-  background-color: var(--rsp_blue);
-  border: white;
-  color: white;
-  padding: 5px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 6px 6px;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 15px;
-  opacity: 0.8;
-}
-
-.dbTableButton:hover {
-  opacity: 1;
-}
-
-.dbTableButton:active {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_blue);
-  transform: translateY(6px);
-}
-
-.button {
-  background-color: var(--rsp_blue);
-  border: white;
-  color: white;
-  padding: 10px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: 1em;
-  border-radius: 20px;
-  opacity: 0.8;
-}
-
-.button:hover {
-  opacity: 1;
-}
-
-.button:active {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
 }
 
 .sidebarButton {

@@ -21,6 +21,7 @@
 .Alarm {
     grid-area: 1 / 8 / 3 / 11;
     background-color: var(--rsp_blue);
+    color: white;
     font-size: 2em;
 }
 
@@ -146,8 +147,9 @@
 
 .Temp {
     grid-area: 6 / 8 / 11 / 11;
-    background-color: var(--rsp_darkblue);
-    font-size: 2em;
+    background-color: var(--rsp_blue);
+    color: white;
+    font-size: 3em;
 }
 
 .Altitude {
