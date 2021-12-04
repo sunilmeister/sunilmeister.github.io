@@ -1,0 +1,102 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Respimatic 100 WebAPPS</title>
+  <meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="viewport" content = "width = device-width, initial-scale = 0.9, user-scalable = yes" />
+  <link rel="stylesheet" href="css/colors.css" />
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  
+  <script src="js/common.js"></script>
+  <script src="js/respimatic.selector.js"></script>
+
+  <style>
+    .wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 25px;
+      font-family: Arial; 
+      background-color: var(--rsp_darkblue);
+      color: white;
+      padding: 8px;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      transform: translate(-50%, -50%); /* (x, y)  => position */
+      -ms-transform: translate(-50%, -50%); /* IE 9 */
+      -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */    
+    }
+    .button {
+      background-color: var(--rsp_mediumblue);
+      border: white;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-size: 20px;
+      width:170px;
+      border-radius: 25px;
+      opacity: 0.8;
+   }
+   .button:hover {
+     opacity: 1;
+   }
+   .button:active {
+     background-color: var(--rsp_green);
+     box-shadow: 0 6px var(--rsp_lightblue);
+     transform: translateY(6px);
+   }
+   </style>
+</head>
+
+<body>
+  <div class = "wrapper">
+
+    <center>
+      <br>
+      <img src="img/Apps.png" alt="Title" width="350" height="100">
+      <br>
+      <div class="content" style="font-size: 1.5em">
+        <font size = "5">
+	  <button class="button" style="width:220px" onclick='launchFiO2()'>FiO<sub>2</sub> Calculator</button>
+	  <br><br>
+        <label>Establish WEB Connection</label>
+	<br><br>
+        <label>Select RESPIMATIC 100 SYSUID</label>
+	<br><br>
+	</font>
+
+	<input id="SYSUIDS_input" type="text" list="SYSUIDS" style="border-radius:40px; font-size: 1em;padding: 5px;width: 340px;text-align: center">
+	 <datalist id="SYSUIDS">
+         </datalist>
+
+	 <br><br>
+         <button class="button" style="width:220px" onclick='launchDashboard()'>Dashboard</button>
+	 <br>
+         <button class="button" style="width:220px" onclick='launchRecorder()'>Recorder</button>
+	 <br>
+         <button class="button" style="width:220px" onclick='launchAnalyzer()'>Analyzer</button>
+       </div>
+       <br><br>
+      <img src="img/Logos.png" alt="Title" width="350" height="60">
+    </center>
+
+  </div>
+
+</body>
+</html>
+

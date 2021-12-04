@@ -1,0 +1,149 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+.sidebar {
+  border-radius: 40px;
+  height: 100%;
+  width: 240px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding-top: 5;
+  font-size: 16px;
+  font-family: verdana;
+  margin-left: 20px;
+}
+
+.sidebar div {
+  padding: 4px;
+  font-size: 20px;
+  display: block;
+}
+
+.body-pane {
+  border-radius: 40px;
+  margin-left: 300px;
+  font-size: 20px;
+  font-family: verdana;
+}
+
+.dbTableButton {
+  background-color: var(--rsp_mediumblue);
+  border: white;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 6px 6px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 15px;
+  opacity: 0.8;
+}
+
+.dbTableButton:hover {
+  opacity: 1;
+}
+
+.dbTableButton:active {
+  background-color: var(--rsp_green);
+  box-shadow: 0 6px var(--rsp_mediumblue);
+  transform: translateY(6px);
+}
+
+.button {
+  background-color: var(--rsp_mediumblue);
+  border: white;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 20px;
+  opacity: 0.8;
+}
+
+.button:hover {
+  opacity: 1;
+}
+
+.button:active {
+  background-color: var(--rsp_green);
+  box-shadow: 0 6px var(--rsp_lightblue);
+  transform: translateY(6px);
+}
+
+.sidebarButton {
+  background-color: var(--rsp_mediumblue);
+  border: white;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 210px;
+  opacity: 0.8;
+}
+
+.sidebarButton:hover {
+  opacity: 1;
+}
+
+.sidebarButton:active {
+  background-color: var(--rsp_green);
+  box-shadow: 0 6px var(--rsp_lightblue);
+  transform: translateY(6px);
+}
+
+/* A row of equal columns that sits next to each other */
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
+}
+
+table,
+tr {
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.dbTableStyle td {
+  padding: 0 5px 0 0;
+}
+
+.statsTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
+}
+
+span {
+  height: 1rem;
+  margin-right: 0px;
+  margin-left: 0px;
+  border-right: 0px solid white;
+}
+
+.noUi-tooltip {
+  display: none;
+}
+
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
