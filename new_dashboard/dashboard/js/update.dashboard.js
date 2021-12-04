@@ -2,11 +2,14 @@
 //  returns [gender, age, pid]
 function parsePatientInfo(str) {
   tokens = str.split('[');
+
   tokens = tokens[1].split(']');
   pid = tokens[0].trim();
+
   tokens = tokens[1].split(' ');
-  age = tokens[1];
-  tokens = tokens[0].split('(');
+  age = tokens[2];
+
+  tokens = tokens[1].split('(');
   tokens = tokens[1].split(')');
   gender = tokens[0];
   return [gender, age, pid];
@@ -282,17 +285,19 @@ function updateSnapshot(d) {
 
     // Patient info
     else if (key=='PNAME') { 
-      elm = document.getElementById("Pline1");
+      elm = document.getElementById("Pline2");
       elm.innerHTML = value;
     }
     else if (key=='PMISC') { 
       [gender, age, pid] = parsePatientInfo(value);
-      elm = document.getElementById("Pline2");
-      elm.innerHTML = gender;
       elm = document.getElementById("Pline3");
-      elm.innerHTML = age;
+      if (gender=="M") {
+        elm.innerHTML = "Male " + "(" + age + " years)" ;
+      } else {
+        elm.innerHTML = "Female " + "(" + age + " years)" ;
+      }
       elm = document.getElementById("Pline4");
-      elm.innerHTML = pid;
+      elm.innerHTML = "ID: " + pid;
     }
 
     // Input Settings
