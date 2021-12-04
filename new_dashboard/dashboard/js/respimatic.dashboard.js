@@ -91,6 +91,9 @@ window.onload = function () {
   greenColor = style.getPropertyValue('--rsp_green');
   orangeColor = style.getPropertyValue('--rsp_orange');
 
+  alertImage = "OK";
+  alertBackground = "MEDIUMBLUE";
+
   currentViewIsSnapshot = true;
   snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";

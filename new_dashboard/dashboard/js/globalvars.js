@@ -6,6 +6,9 @@ var darkredColor;
 var greenColor;
 var orangeColor;
 
+var alertImage;
+var alertBackground;
+
 var initialState = false;
 var standbyState = false;
 var activeState = false;

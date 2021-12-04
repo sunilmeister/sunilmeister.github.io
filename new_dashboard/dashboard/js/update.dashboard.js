@@ -45,17 +45,42 @@ function updatePending(yes) {
   }
 }
 
-function updateAlert() {
+function updateAlertDiv() {
   elm = document.getElementById("AlertDiv");
+
   if (errorState) {
-    elm.style.backgroundColor = darkredCOlor;
-    document.getElementById("AlertImg").src = "img/Error.svg";
+    if (alertBackground!="DARKRED") {
+      elm.style.backgroundColor = darkredColor;
+      alertBackground = "DARKRED";
+    } else {
+      elm.style.backgroundColor = mediumblueColor;
+      alertBackground = "MEDIUMBLUE";
+    }
+    if (alertImage != "ERROR") {
+      document.getElementById("AlertImg").src = "img/Error.svg";
+      alertImage = "ERROR";
+    }
   } else if (attentionState) {
-    elm.style.backgroundColor = orangeColor;
-    document.getElementById("AlertImg").src = "img/Warning.svg";
+    if (alertBackground!="ORANGE") {
+      elm.style.backgroundColor = orangeColor;
+      alertBackground = "ORANGE";
+    } else {
+      elm.style.backgroundColor = mediumblueColor;
+      alertBackground = "MEDIUMBLUE";
+    }
+    if (alertImage != "WARNING") {
+      document.getElementById("AlertImg").src = "img/Warning.svg";
+      alertImage = "WARNING";
+    }
   } else {
-    elm.style.backgroundColor = mediumblueColor;
-    document.getElementById("AlertImg").src = "img/OK.png";
+    if (alertBackground!="MEDIUMBLUE") {
+      elm.style.backgroundColor = mediumblueColor;
+      alertBackground = "MEDIUMBLUE";
+    }
+    if (alertImage != "OK") {
+      document.getElementById("AlertImg").src = "img/OK.png";
+      alertImage = "OK";
+    }
   }
 }
 
@@ -96,7 +121,7 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
-	updateAlert();
+	updateAlertDiv();
       }
     } 
     else if (key=='STANDBY') { 
@@ -106,7 +131,7 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>STANDBY</b>";
         document.getElementById("StateImg").src = "img/YellowDot.png";
-	updateAlert();
+	updateAlertDiv();
       }
     } 
     else if (key=='RUNNING') { 
@@ -116,7 +141,7 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ACTIVE</b>";
         document.getElementById("StateImg").src = "img/GreenDot.png";
-	updateAlert();
+	updateAlertDiv();
       }
     } 
     else if (key=='ERROR') { 
@@ -126,16 +151,16 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ERROR</b>";
         document.getElementById("StateImg").src = "img/RedDot.png";
-	updateAlert();
+	updateAlertDiv();
       }
     }
     else if (key=='ATTENTION') { 
       if (value == "1") {
         attentionState = true;
-	updateAlert();
+	updateAlertDiv();
       } else {
         attentionState = false;
-	updateAlert();
+	updateAlertDiv();
       }
     }
 
@@ -362,3 +387,8 @@ function updateSnapshot(d) {
     }
   }
 }
+
+var periodicIntervalId = setInterval(function() {
+  updateAlertDiv();
+}, 1500);
+
