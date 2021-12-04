@@ -64,11 +64,11 @@ var l4;
 // state transitions
 var initialState;
 var standbyState;
-var runningState;
+var activeState;
 var errorState;
 var numInitialEntry;
 var numStandbyEntry;
-var numRunningEntry;
+var numActiveEntry;
 var numErrorEntry;
 
 // Breath types
@@ -84,11 +84,11 @@ function initGlobalData() {
 
   numInitialEntry = 0;
   numStandbyEntry = 0;
-  numRunningEntry = 0;
+  numActiveEntry = 0;
   numErrorEntry = 0;
   initialState = false;
   standbyState = false;
-  runningState = false;
+  activeState = false;
   errorState = false;
 
   numMandatory = 0;
@@ -153,7 +153,7 @@ function initGlobalData() {
 // state transitions
   numInitialEntry = 0; 
   numStandbyEntry = 0; 
-  numRunningEntry = 0; 
+  numActiveEntry = 0; 
   numErrorEntry = 0;
 
 // Breath types
@@ -233,8 +233,8 @@ function globalProcessJsonRecord(jsonData) {
 	  if ((value==1) && !standbyState) numStandbyEntry++ ;
 	  standbyState = (value==1);
         } else if (ckey=="RUNNING") {
-	  if ((value==1) && !runningState) numRunningEntry++ ;
-	  runningState = (value==1);
+	  if ((value==1) && !activeState) numActiveEntry++ ;
+	  activeState = (value==1);
         } else if (ckey=="ERROR") {
 	  if ((value==1) && !errorState) numErrorEntry++ ;
 	  errorState = (value==1);
