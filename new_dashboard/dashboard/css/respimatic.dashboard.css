@@ -31,12 +31,10 @@
 
 .Space1  {
   grid-area: 1 / 8 / 15 / 9;
-  background-color: var(--rsp_lightblue);
 }
 
 .Space2  {
   grid-area: 1 / 12 / 15 / 13;
-  background-color: var(--rsp_lightblue);
 }
 
 .State {

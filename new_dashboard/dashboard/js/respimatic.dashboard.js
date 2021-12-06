@@ -157,7 +157,7 @@ function createDashboardPressureCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Pressures";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
   flagError = false;
   flagWarning = false;
 
@@ -206,7 +206,7 @@ function createDashboardVolumeCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Volumes";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
   flagError = false;
   flagWarning = false;
 
@@ -247,7 +247,7 @@ function createDashboardFiO2Charts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "FiO2";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
   flagError = false;
   flagWarning = false;
 
@@ -297,7 +297,7 @@ function createDashboardMiscCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Miscellaneous";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
   flagError = false;
   flagWarning = false;
 
@@ -347,7 +347,7 @@ function createDashboardBpmCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Breaths per Minute";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
   flagError = false;
   flagWarning = false;
 
