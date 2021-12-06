@@ -20,6 +20,8 @@ const graphColors = [
 ];
 var nextChartColor = 0;
 
+var horizontalGridColor = "#8f99fb";
+
 function getNextChartColor() {
   color = graphColors[nextChartColor++];
   if (nextChartColor==graphColors.length) nextChartColor = 0;
@@ -42,6 +44,7 @@ var chartTemplate = {
     itemclick: toggleDataSeries
   },
   height: 500,
+  backgroundColor: "#D5F3FE",
   data: []
 };
 
@@ -287,6 +290,7 @@ function createO2FlowYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -300,6 +304,7 @@ function createPercentYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -313,6 +318,7 @@ function createErrorWarningYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -326,6 +332,7 @@ function createPressureYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -339,6 +346,7 @@ function createVtYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -352,6 +360,7 @@ function createMvYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -365,6 +374,7 @@ function createBpmYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -378,6 +388,7 @@ function createComplianceYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
@@ -391,6 +402,7 @@ function createTempYaxis(num, color) {
     tickColor: color,
     labelFontColor: color,
     titleFontColor: color,
+    gridColor: horizontalGridColor,
     minimum: 0,
     suffix: ""
   };
