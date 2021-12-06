@@ -145,6 +145,8 @@ function importFile() {
   } while (true) ;
 
   doImport(file, fileName, dbName);
+  alert("Successfully imported Session name\n" + sessionName);
+  
 }
 
 function exportWindow() {
