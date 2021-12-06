@@ -40,7 +40,7 @@
 .State {
   grid-area: 3 / 9 / 5 / 12;
   border-radius: 25px;
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_mediumblue);
   font-size: 2em;
   color: white;
 }
