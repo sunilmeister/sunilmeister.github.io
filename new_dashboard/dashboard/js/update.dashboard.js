@@ -47,28 +47,66 @@ function parseInputParam(val) {
   return [oldP,newP];
 }
 
-function updatePending(yes) {
-  if (yes) {
-    elm = document.getElementById("PendingDiv");
-    elm.style.backgroundColor = orangeColor;
+function updatePendingIndividualSetting(blink,div,pendingSetting) {
+  elm = document.getElementById(div);
+  if (pendingState) {
+    if (pendingSetting && blink) {
+      if (pendingBackground != "ORANGE") {
+        elm.style.backgroundColor = orangeColor;
+      } else {
+        elm.style.backgroundColor = mediumblueColor;
+      }
+    }
+  } else if (pendingBackground != "MEDIUMBLUE") {
+    elm.style.backgroundColor = mediumblueColor;
+  }
+}
+
+function updatePendingSettings(blink) {
+  updatePendingIndividualSetting(blink, "MODEDiv", pendingMODE);
+  updatePendingIndividualSetting(blink, "VTDiv", pendingVT);
+  updatePendingIndividualSetting(blink, "RRDiv", pendingRR);
+  updatePendingIndividualSetting(blink, "IEDiv", pendingIE);
+  updatePendingIndividualSetting(blink, "IPEEPDiv", pendingIPEEP);
+  updatePendingIndividualSetting(blink, "PMAXDiv", pendingPMAX);
+  updatePendingIndividualSetting(blink, "PSDiv", pendingPS);
+  updatePendingIndividualSetting(blink, "TPSDiv", pendingTPS);
+}
+
+function updatePending(blink) {
+  updatePendingSettings(blink);
+
+  if (pendingState) {
     elm = document.getElementById("Pending");
     elm.innerHTML = "Pending Uncommitted Changes";
-  } else {
+
+    if (pendingBackground != "ORANGE") {
+      elm = document.getElementById("PendingDiv");
+      elm.style.backgroundColor = orangeColor;
+      pendingBackground = "ORANGE";
+    } else if (blink) {
+      elm = document.getElementById("PendingDiv");
+      elm.style.backgroundColor = mediumblueColor;
+      pendingBackground = "MEDIUMBLUE";
+    }
+
+  } else if (pendingBackground != "MEDIUMBLUE") {
     elm = document.getElementById("PendingDiv");
     elm.style.backgroundColor = mediumblueColor;
     elm = document.getElementById("Pending");
     elm.innerHTML = "No Uncommitted Changes";
+    pendingBackground = "MEDIUMBLUE";
   }
 }
 
-function updateAlertDiv() {
+function updateAlert(blink) {
   elm = document.getElementById("AlertDiv");
 
   if (errorState) {
     if (alertBackground!="DARKRED") {
       elm.style.backgroundColor = darkredColor;
       alertBackground = "DARKRED";
-    } else {
+    } else if (blink) {
       elm.style.backgroundColor = mediumblueColor;
       alertBackground = "MEDIUMBLUE";
     }
@@ -80,7 +118,7 @@ function updateAlertDiv() {
     if (alertBackground!="ORANGE") {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
-    } else {
+    } else if (blink) {
       elm.style.backgroundColor = mediumblueColor;
       alertBackground = "MEDIUMBLUE";
     }
@@ -89,9 +127,9 @@ function updateAlertDiv() {
       alertImage = "WARNING";
     }
   } else {
-    if (alertBackground!="MEDIUMBLUE") {
-      elm.style.backgroundColor = mediumblueColor;
-      alertBackground = "MEDIUMBLUE";
+    if (alertBackground!="GREEN") {
+      elm.style.backgroundColor = greenColor;
+      alertBackground = "GREEN";
     }
     if (alertImage != "OK") {
       document.getElementById("AlertImg").src = "img/OK.png";
@@ -124,6 +162,25 @@ function parseInputTPS(str) {
   return [str, ""];
 }
 
+function updateSettingValue(str, containerDiv, valueDiv) {
+  var pending = false;
+  [prev,curr] = parseInputParam(str);
+  if (prev != curr) {
+    pendingState = true;
+    pending = true;
+    updatePending(false);
+    elm = document.getElementById(containerDiv);
+    elm.style.backgroundColor = orangeColor;
+  } else {
+    pending = false;
+    elm = document.getElementById(containerDiv);
+    elm.style.backgroundColor = mediumblueColor;
+  }
+  elm = document.getElementById(valueDiv);
+  elm.innerHTML = curr;
+  return pending;
+}
+
 function updateSnapshot(d) {
   for (let key in d.content) {
     // get key value pairs
@@ -137,7 +194,7 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
-	updateAlertDiv();
+	updateAlert(false);
       }
     } 
     else if (key=='STANDBY') { 
@@ -147,7 +204,7 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>STANDBY</b>";
         document.getElementById("StateImg").src = "img/YellowDot.png";
-	updateAlertDiv();
+	updateAlert(false);
       }
     } 
     else if (key=='RUNNING') { 
@@ -157,7 +214,7 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ACTIVE</b>";
         document.getElementById("StateImg").src = "img/GreenDot.png";
-	updateAlertDiv();
+	updateAlert(false);
       }
     } 
     else if (key=='ERROR') { 
@@ -167,16 +224,16 @@ function updateSnapshot(d) {
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ERROR</b>";
         document.getElementById("StateImg").src = "img/RedDot.png";
-	updateAlertDiv();
+	updateAlert(false);
       }
     }
     else if (key=='ATTENTION') { 
       if (value == "1") {
         attentionState = true;
-	updateAlertDiv();
+	updateAlert(false);
       } else {
         attentionState = false;
-	updateAlertDiv();
+	updateAlert(false);
       }
     }
 
@@ -276,133 +333,58 @@ function updateSnapshot(d) {
     // Pending settings change
     else if (key=='PENDING') { 
       if (value==1) {
-	updatePending(true);
+	pendingState = true;
+	updatePending(false);
       }
       else {
+	pendingState = false;
 	updatePending(false);
       }
     }
 
     // Patient info
     else if (key=='PNAME') { 
-      elm = document.getElementById("Pline2");
+      elm = document.getElementById("Pline1");
       elm.innerHTML = value;
     }
     else if (key=='PMISC') { 
       [gender, age, pid] = parsePatientInfo(value);
-      elm = document.getElementById("Pline3");
+      elm = document.getElementById("Pline2");
       if (gender=="M") {
         elm.innerHTML = "Male " + "(" + age + " years)" ;
       } else {
         elm.innerHTML = "Female " + "(" + age + " years)" ;
       }
-      elm = document.getElementById("Pline4");
+      elm = document.getElementById("Pline3");
       elm.innerHTML = "ID: " + pid;
     }
 
     // Input Settings
     else if (key=='MODE') { 
-      [oldMODE,newMODE] = parseInputParam(value);
-      if (newMODE != oldMODE) {
-	updatePending(true);
-        elm = document.getElementById("MODEDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("MODEDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("MODE");
-      elm.innerHTML = newMODE;
+      pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
     }
     else if (key=='VT') { 
-      [oldVT,newVT] = parseInputParam(value);
-      if (newVT != oldVT) {
-	updatePending(true);
-        elm = document.getElementById("VTDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("VTDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("VT");
-      elm.innerHTML = newVT;
+      pendingVT = updateSettingValue(value, "VTDiv", "VT");
     }
     else if (key=='RR') { 
-      [oldRR,newRR] = parseInputParam(value);
-      if (newRR != oldRR) {
-	updatePending(true);
-        elm = document.getElementById("RRDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("RRDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("RR");
-      elm.innerHTML = newRR;
+      pendingRR = updateSettingValue(value, "RRDiv", "RR");
     }
     else if (key=='EI') { 
-      [oldIE,newIE] = parseInputParam(value);
-      if (newIE != oldIE) {
-	updatePending(true);
-        elm = document.getElementById("IEDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("IEDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("IE");
-      elm.innerHTML = newIE;
+      pendingIE = updateSettingValue(value, "IEDiv", "IE");
     }
     else if (key=='IPEEP') { 
-      [oldIPEEP,newIPEEP] = parseInputParam(value);
-      if (newIPEEP != oldIPEEP) {
-	updatePending(true);
-        elm = document.getElementById("IPEEPDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("IPEEPDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("IPEEP");
-      elm.innerHTML = newIPEEP;
+      pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
     }
     else if (key=='PMAX') { 
-      [oldPMAX,newPMAX] = parseInputParam(value);
-      if (newPMAX != oldPMAX) {
-	updatePending(true);
-        elm = document.getElementById("PMAXDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("PMAXDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("PMAX");
-      elm.innerHTML = newPMAX;
+      pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
     }
     else if (key=='PS') { 
-      [oldPS,newPS] = parseInputParam(value);
-      if (newPS != oldPS) {
-	updatePending(true);
-        elm = document.getElementById("PSDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("PSDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      elm = document.getElementById("PS");
-      elm.innerHTML = newPS;
+      pendingPS = updateSettingValue(value, "PSDiv", "PS");
     }
     else if (key=='TPS') { 
-      [oldTPS,newTPS] = parseInputParam(value);
-      if (newTPS != oldTPS) {
-	updatePending(true);
-        elm = document.getElementById("TPSDiv");
-        elm.style.backgroundColor = orangeColor;
-      } else {
-        elm = document.getElementById("TPSDiv");
-        elm.style.backgroundColor = mediumblueColor;
-      }
-      [tps, units] = parseInputTPS(newTPS);
+      pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
+      [tps, units] = parseInputTPS(document.getElementById("TPS").innerText);
+
       elm = document.getElementById("TPS");
       elm.innerHTML = tps;
       elm = document.getElementById("TPS_UNITS");
@@ -412,6 +394,7 @@ function updateSnapshot(d) {
 }
 
 var periodicIntervalId = setInterval(function() {
-  updateAlertDiv();
+  updateAlert(true);
+  updatePending(true);
 }, 1500);
 

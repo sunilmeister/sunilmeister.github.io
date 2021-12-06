@@ -92,7 +92,8 @@ window.onload = function () {
   orangeColor = style.getPropertyValue('--rsp_orange');
 
   alertImage = "OK";
-  alertBackground = "MEDIUMBLUE";
+  alertBackground = "GREEN";
+  pendingBackground = "MEDIUMBLUE";
 
   currentViewIsSnapshot = true;
   snapshot = document.getElementById("snapshot-pane");
@@ -524,8 +525,8 @@ function installTempGauge() {
   // Set properties.
   tempGauge.setProperty('angleStart', -0.75 * Math.PI);
   tempGauge.setProperty('angleEnd', 0.75 * Math.PI);
-  tempGauge.setProperty('colorFG', 'white');
-  tempGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  tempGauge.setProperty('colorFG', style.getPropertyValue('--rsp_darkblue'));
+  tempGauge.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
   tempGauge.setProperty('trackWidth', 0.5);
   tempGauge.setProperty('valMin', -20);
   tempGauge.setProperty('valMax', 70);

@@ -9,11 +9,22 @@ var orangeColor;
 var alertImage;
 var alertBackground;
 
+var pendingBackground;
+var pendingMODE = false;
+var pendingVT = false;
+var pendingRR = false;
+var pendingIE = false;
+var pendingIPEEP = false;
+var pendingPMAX = false;
+var pendingPS = false;
+var pendingTPS = false;
+
 var initialState = false;
 var standbyState = false;
 var activeState = false;
 var errorState = false;
 var attentionState = false;
+var pendingState = false;
 
 var currentViewIsSnapshot = true;
 var firstDweet = true;

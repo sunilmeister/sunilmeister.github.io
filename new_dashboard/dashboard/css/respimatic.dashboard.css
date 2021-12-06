@@ -1,6 +1,6 @@
 .Snapshot {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1em 1em;
   place-content: center center;
@@ -10,7 +10,7 @@
 
 .Messages {
   grid-area: 1 / 1 / 5 / 8;
-  border-radius: 40px;
+  border-radius: 25px;
   font-family: monospace;
   font-size: 3.7em;
   font-weight: bold;
@@ -21,25 +21,35 @@
   border-width: thick;
 }
 
-.Alarm {
-  grid-area: 1 / 8 / 3 / 11;
-  border-radius: 40px;
-  background-color: var(--rsp_mediumblue);
+.Alert {
+  grid-area: 1 / 9 / 3 / 12;
+  border-radius: 25px;
+  background-color: var(--rsp_green);
   color: white;
   font-size: 3em;
 }
 
+.Space1  {
+  grid-area: 1 / 8 / 15 / 9;
+  background-color: var(--rsp_lightblue);
+}
+
+.Space2  {
+  grid-area: 1 / 12 / 15 / 13;
+  background-color: var(--rsp_lightblue);
+}
+
 .State {
-  grid-area: 3 / 8 / 5 / 11;
-  border-radius: 40px;
+  grid-area: 3 / 9 / 5 / 12;
+  border-radius: 25px;
   background-color: var(--rsp_darkblue);
   font-size: 2em;
   color: white;
 }
 
 .Patient {
-  grid-area: 1 / 11 / 5 / 17;
-  border-radius: 40px;
+  grid-area: 1 / 13 / 5 / 19;
+  border-radius: 25px;
   font-size: 3em;
   color: white;
   background-color: var(--rsp_mediumblue);
@@ -57,7 +67,7 @@
 
 .Peak {
   grid-area: 6 / 1 / 9 / 4;
-  border-radius: 40px;
+  border-radius: 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
@@ -65,7 +75,7 @@
 
 .Plateau {
   grid-area: 9 / 1 / 12 / 4;
-  border-radius: 40px;
+  border-radius: 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
@@ -73,7 +83,7 @@
 
 .Peep {
   grid-area: 12 / 1 / 15 / 4;
-  border-radius: 40px;
+  border-radius: 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
@@ -81,23 +91,25 @@
 
 .Dynamic {
   grid-area: 13 / 4 / 15 / 6;
-  border-radius: 40px;
-  background-color: var(--rsp_darkblue);
+  border-radius: 25px;
+  background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
 }
 
 .Static {
   grid-area: 13 / 6 / 15 / 8;
-  border-radius: 40px;
-  background-color: var(--rsp_darkblue);
+  border-radius: 25px;
+  background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
 }
 
 .Compliance {
   grid-area: 12 / 4 / 13 / 8;
-  border-radius: 40px;
+  border-style: solid;
+  border-color: var(--rsp_darkblue);
+  border-width: thick;
   color: var(--rsp_darkblue);
   background-color: white;
   font-size: 2.5em;
@@ -105,23 +117,25 @@
 
 .MBPM {
   grid-area: 10 / 4 / 12 / 6;
-  border-radius: 40px;
-  background-color: var(--rsp_darkblue);
+  border-radius: 25px;
+  background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
 }
 
 .SBPM {
   grid-area: 10 / 6 / 12 / 8;
-  border-radius: 40px;
+  border-radius: 25px;
   color: white;
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_mediumblue);
   font-size: 2em;
 }
 
 .BPM {
   grid-area: 9 / 4 / 10 / 8;
-  border-radius: 40px;
+  border-style: solid;
+  border-color: var(--rsp_darkblue);
+  border-width: thick;
   background-color: white;
   color: var(--rsp_darkblue);
   font-size: 2.5em;
@@ -129,30 +143,32 @@
 
 .Tidal {
   grid-area: 7 / 4 / 9 / 6;
-  border-radius: 40px;
-  background-color: var(--rsp_darkblue);
+  border-radius: 25px;
+  background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
 }
 
 .Minute {
   grid-area: 7 / 6 / 9 / 8;
-  border-radius: 40px;
-  background-color: var(--rsp_darkblue);
+  border-radius: 25px;
+  background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
 }
 
 .Volume {
   grid-area: 6 / 4 / 7 / 8;
-  border-radius: 40px;
   color: var(--rsp_darkblue);
+  border-style: solid;
+  border-color: var(--rsp_darkblue);
+  border-width: thick;
   background-color: white;
   font-size: 2.5em;
 }
 
 .Environment {
-  grid-area: 5 / 8 / 6 / 11;
+  grid-area: 5 / 9 / 6 / 12;
   background-color: var(--rsp_darkblue);
   color: white;
   font-size: 2.5em;
@@ -162,31 +178,35 @@
 }
 
 .Temp {
-  grid-area: 6 / 8 / 9 / 11;
-  border-radius: 40px;
-  background-color: var(--rsp_mediumblue);
+  grid-area: 6 / 9 / 9 / 12;
+  border-style: solid;
+  border-color: var(--rsp_darkblue);
+  border-width: thick;
   color: white;
   font-size: 2em;
 }
 
 .Altitude {
-  grid-area: 9 / 8 / 12 / 11;
-  border-radius: 40px;
-  background-color: var(--rsp_mediumblue);
-  color: white;
-  font-size: 1.5em;
-}
-
-.Breath {
-  grid-area: 12 / 8 / 15 / 11;
-  border-radius: 40px;
-  background-color: var(--rsp_mediumblue);
+  grid-area: 9 / 9 / 12 / 12;
+  border-style: solid;
+  border-color: var(--rsp_darkblue);
+  border-width: thick;
   color: white;
   font-size: 2em;
 }
 
+.Breath {
+  grid-area: 12 / 9 / 15 / 12;
+  border-style: solid;
+  border-color: var(--rsp_darkblue);
+  border-width: thick;
+  color: var(--rsp_darkblue);
+  background-color: white;
+  font-size: 2em;
+}
+
 .Parameters {
-  grid-area: 5 / 11 / 6 / 17;
+  grid-area: 5 / 13 / 6 / 19;
   color: white;
   background-color: var(--rsp_darkblue);
   font-size: 2.5em;
@@ -196,64 +216,64 @@
 }
 
 .Mode {
-  grid-area: 6 / 11 / 8 / 14;
-  border-radius: 40px;
+  grid-area: 6 / 13 / 8 / 16;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .VT {
-  grid-area: 8 / 11 / 10 / 14;
-  border-radius: 40px;
+  grid-area: 8 / 13 / 10 / 16;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .RR {
-  grid-area: 10 / 11 / 12 / 14;
-  border-radius: 40px;
+  grid-area: 10 / 13 / 12 / 16;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .IE {
-  grid-area: 12 / 11 / 14 / 14;
-  border-radius: 40px;
+  grid-area: 12 / 13 / 14 / 16;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .IPeep {
-  grid-area: 6 / 14 / 8 / 17;
-  border-radius: 40px;
+  grid-area: 6 / 16 / 8 / 19;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .PMAX {
-  grid-area: 8 / 14 / 10 / 17;
-  border-radius: 40px;
+  grid-area: 8 / 16 / 10 / 19;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .PS {
-  grid-area: 10 / 14 / 12 / 17;
-  border-radius: 40px;
+  grid-area: 10 / 16 / 12 / 19;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .TPS {
-  grid-area: 12 / 14 / 14 / 17;
-  border-radius: 40px;
+  grid-area: 12 / 16 / 14 / 19;
+  border-radius: 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
 }
 
 .Pending {
-  grid-area: 14 / 11 / 15 / 17;
-  border-radius: 40px;
+  grid-area: 14 / 13 / 15 / 19;
+  border-radius: 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2.5em;
@@ -261,10 +281,17 @@
 }
 
 .Logo {
-  grid-area: 15 / 1 / 17 / 17;
-  border-radius: 40px;
+  grid-area: 15 / 1 / 17 / 19;
+  border-radius: 25px;
   background-color: var(--rsp_darkblue);
   color: white;
-  font-size: 2.5em;
-  font-weight: bold;
+}
+
+.VerticalLine {
+  border-left: 6px solid var(--rsp_darkblue);
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 0;
 }

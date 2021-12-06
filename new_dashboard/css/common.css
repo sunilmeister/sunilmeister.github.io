@@ -5,7 +5,7 @@
 */
 
 .sidebar {
-  border-radius: 40px;
+  border-radius: 25px;
   height: 100%;
   width: 240px;
   position: absolute;
@@ -24,7 +24,7 @@
 }
 
 .body-pane {
-  border-radius: 40px;
+  border-radius: 25px;
   margin-left: 300px;
   font-size: 20px;
   font-family: verdana;
