@@ -399,8 +399,8 @@ function selectExit() {
 
 function installFiO2Gauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 260 x 260 px in size.
-  fiO2Gauge = pureknob.createKnob(260, 260);
+  // Create knob element, 275 x 275 px in size.
+  fiO2Gauge = pureknob.createKnob(275, 275);
   // Set properties.
   fiO2Gauge.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Gauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -423,8 +423,8 @@ function installFiO2Gauge() {
 
 function installPurityGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 260 x 260 px in size.
-  purityGauge = pureknob.createKnob(260, 260);
+  // Create knob element, 275 x 275 px in size.
+  purityGauge = pureknob.createKnob(275, 275);
   // Set properties.
   purityGauge.setProperty('angleStart', -0.75 * Math.PI);
   purityGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -448,8 +448,8 @@ function installPurityGauge() {
 
 function installPeakGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 260 x 260 px in size.
-  peakGauge = pureknob.createKnob(260, 260);
+  // Create knob element, 275 x 275 px in size.
+  peakGauge = pureknob.createKnob(275, 275);
   // Set properties.
   peakGauge.setProperty('angleStart', -0.75 * Math.PI);
   peakGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -472,8 +472,8 @@ function installPeakGauge() {
 
 function installPlatGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 260 x 260 px in size.
-  platGauge = pureknob.createKnob(260, 260);
+  // Create knob element, 275 x 275 px in size.
+  platGauge = pureknob.createKnob(275, 275);
   // Set properties.
   platGauge.setProperty('angleStart', -0.75 * Math.PI);
   platGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -496,8 +496,8 @@ function installPlatGauge() {
 
 function installPeepGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 260 x 260 px in size.
-  peepGauge = pureknob.createKnob(260, 260);
+  // Create knob element, 275 x 275 px in size.
+  peepGauge = pureknob.createKnob(275, 275);
   // Set properties.
   peepGauge.setProperty('angleStart', -0.75 * Math.PI);
   peepGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -520,8 +520,8 @@ function installPeepGauge() {
 
 function installTempGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 200 x 200 px in size.
-  tempGauge = pureknob.createKnob(200, 200);
+  // Create knob element, 225 x 225 px in size.
+  tempGauge = pureknob.createKnob(225, 225);
   // Set properties.
   tempGauge.setProperty('angleStart', -0.75 * Math.PI);
   tempGauge.setProperty('angleEnd', 0.75 * Math.PI);

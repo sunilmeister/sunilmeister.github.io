@@ -157,9 +157,9 @@
           height=150em; width=150em;>
       </div>
       <div class="State">
-        <img id=StateImg src="img/WhiteDot.png" alt="LED" style="margin-top:1.0em"
+        <img id=StateImg src="img/WhiteDot.png" alt="LED" style="margin-top:1.5em"
           width="70em" height="70em">
-        <p id=State font-size=3.5em><b>INITIALIZE</b>
+        <p id=State style="font-size:1.5em;"><b>INITIALIZE</b>
       </div>
 
       <div class="Patient">
@@ -177,37 +177,37 @@
       </div>
 
       <div class="Measurements">
-        <p style="margin-top:4px; margin-bottom:5px;">Patient Parameters
+        <p style="margin-top:4px; margin-bottom:5px;">Measured Patient Parameters
       </div>
 
       <div class="Peak">
         <p
           style="margin-top:0px; margin-bottom:30px; font-size:1.5em;background-color:var(--rsp_darkblue);">
-          PEAK <small><small>(cm H<sub>2</sub>O)</small></small>
+	PEAK Pressure<br><small><small>(cm H<sub>2</sub>O)</small></small>
         <div id=PeakGauge> </div>
       </div>
       <div class="Plateau">
         <p
           style="margin-top:0px; margin-bottom:30px; font-size:1.5em;background-color:var(--rsp_darkblue);">
-          PLAT <small><small>(cm H<sub>2</sub>O)</small></small>
+	PLATEAU Pressure<br><small><small>(cm H<sub>2</sub>O)</small></small>
         <div id=PlatGauge> </div>
       </div>
       <div class="Peep">
         <p
           style="margin-top:0px; margin-bottom:30px; font-size:1.5em;background-color:var(--rsp_darkblue);">
-          PEEP <small><small>(cm H<sub>2</sub>O)</small></small>
+	PEEP Pressure<br><small><small>(cm H<sub>2</sub>O)</small></small>
         <div id=PeepGauge></div>
       </div>
 
       <div class="Volume">
-        <p style="margin-top:30px; margin-bottom:0px;">Estimated Volumes
+        <p style="margin-top:30px; margin-bottom:0px;">Estimated Delivered Volumes
       </div>
       <div class="Tidal">
         <p
           style="background-color:var(--rsp_darkblue); margin-top:0px; margin-bottom:0px; font-size:1.2em;">
           Tidal Vol.
         <p id=VTDEL
-          style="margin-top:20px; margin-bottom:10px; font-size:2em; font-weight:bold;">
+          style="margin-top:20px; margin-bottom:10px; font-size:3em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:1em;">
           (ml)
@@ -217,21 +217,21 @@
           style="background-color:var(--rsp_darkblue); margin-top:0px; margin-bottom:0px; font-size:1.2em;">
           Minute Vol.
         <p id=MVDEL
-          style="margin-top:20px; margin-bottom:10px; font-size:2em; font-weight:bold;">
+          style="margin-top:20px; margin-bottom:10px; font-size:3em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:1em;">
           (l/min)
       </div>
 
       <div class="Compliance">
-        <p style="margin-top:5px; margin-bottom:0px;">Estimated Compliances
+        <p style="margin-top:30px; margin-bottom:0px;">Estimated Instant Compliances
       </div>
       <div class="Dynamic">
         <p
           style="background-color:var(--rsp_darkblue); margin-top:0px; margin-bottom:0px; font-size:1.2em;">
           Dynamic
         <p id=DCOMP
-          style="margin-top:20px; margin-bottom:10px; font-size:2em; font-weight:bold;">
+          style="margin-top:20px; margin-bottom:10px; font-size:3em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:5px; font-size:1em;">
           (ml/cm H<sub>2</sub>O)
@@ -241,7 +241,7 @@
           style="background-color:var(--rsp_darkblue); margin-top:0px; margin-bottom:0px; font-size:1.2em;">
           Static
         <p id=SCOMP
-          style="margin-top:20px; margin-bottom:10px; font-size:2em; font-weight:bold;">
+          style="margin-top:20px; margin-bottom:10px; font-size:3em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:5px; font-size:1em;">
           (ml/cm H<sub>2</sub>O)
@@ -256,7 +256,7 @@
           style="background-color:var(--rsp_darkblue); margin-top:0px; margin-bottom:0px; font-size:1.2em;">
           Mandatory
         <p id=MBPM
-          style="margin-top:20px; margin-bottom:10px; font-size:2em; font-weight:bold;">
+          style="margin-top:20px; margin-bottom:10px; font-size:3em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:5px; font-size:1em;">
           (bpm)
@@ -266,14 +266,14 @@
           style="background-color:var(--rsp_darkblue); margin-top:0px; margin-bottom:0px; font-size:1.2em;">
           Patient
         <p id=SBPM
-          style="margin-top:20px; margin-bottom:10px; font-size:2em; font-weight:bold;">
+          style="margin-top:20px; margin-bottom:10px; font-size:3em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:5px; font-size:1em;">
           (bpm)
       </div>
 
       <div class="Environment">
-        <p style="margin-top:4px; margin-bottom:5px;">Misc
+        <p style="margin-top:4px; margin-bottom:5px;">Miscellaneous
       </div>
       <div class="Temp">
         <p
@@ -292,11 +292,11 @@
           style="margin-top:0px; margin-bottom:40px; font-size:1.5em;background-color:var(--rsp_darkblue);">
           <small><small>ft (m)</small></small>
         <p id=AltF
-          style="margin-top:40px; margin-bottom:5px; font-size:1.5em; font-weight:bold;color:var(--rsp_darkblue);">
+          style="margin-top:40px; margin-bottom:5px; font-size:2em; font-weight:bold;color:var(--rsp_darkblue);">
           __
 	  <br>
         <p id=AltM
-          style="margin-top:40px; margin-bottom:5px; font-size:1.5em; font-weight:bold;color:var(--rsp_darkblue);">
+          style="margin-top:40px; margin-bottom:5px; font-size:2em; font-weight:bold;color:var(--rsp_darkblue);">
           __
       </div>
 
@@ -308,24 +308,24 @@
           style="margin-top:0px; margin-bottom:0px; color:white; font-size:1.5em;background-color:var(--rsp_darkblue);">
           Breath
         <p id=BreathType
-          style="margin-top:40px; margin-bottom:0px; font-size:1.5em; font-weight: bold;">
+          style="margin-top:50px; margin-bottom:0px; font-size:1.8em; font-weight: bold;">
           __
 	  <br>
 	  <div>
         <img id="ImgBreath" src="img/WhiteDot.png" alt="LED" style="margin-top:1.0em"
-          width="70em" height="70em">
+          width="80em" height="80em">
 	  </div>
       </div>
 
       <div class="Parameters">
-        <p style="margin-top:4px; margin-bottom:5px;">System Settings
+        <p style="margin-top:4px; margin-bottom:5px;">System Parameter Settings
       </div>
       <div id=MODEDiv class="Mode">
         <p
           style="margin-top:0px; margin-bottom:50px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           Mode
         <p id=MODE
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
       </div>
       <div id=VTDiv class="VT">
@@ -333,7 +333,7 @@
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           Tidal Volume
         <p id=VT
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:2em;">
           (ml)
@@ -343,7 +343,7 @@
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           Respiration Rate
         <p id=RR
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:2em;">
           (bpm)
@@ -353,7 +353,7 @@
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           I:E Ratio
         <p id=IE
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:2em;">
           (ratio)
@@ -363,7 +363,7 @@
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           PEEP
         <p id=IPEEP
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:2em;">
           (cm H<sub>2</sub>O)
@@ -373,7 +373,7 @@
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           Max Pressure
         <p id=PMAX
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:2em;">
           (cm H<sub>2</sub>O)
@@ -383,7 +383,7 @@
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
           Support Pressure
         <p id=PS
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p style="margin-top:0px; margin-bottom:0px; font-size:2em;">
           (cm H<sub>2</sub>O)
@@ -391,9 +391,9 @@
       <div id=TPSDiv class="TPS">
         <p
           style="margin-top:0px; margin-bottom:30px; font-size:2.5em;background-color:var(--rsp_darkblue);">
-          End Support
+          Support Termination
         <p id=TPS
-          style="margin-top:0px; margin-bottom:10px; font-size:3.5em; font-weight:bold;">
+          style="margin-top:0px; margin-bottom:10px; font-size:4.5em; font-weight:bold;">
           __
         <p id=TPS_UNITS
           style="margin-top:0px; margin-bottom:0px; font-size:2em;">

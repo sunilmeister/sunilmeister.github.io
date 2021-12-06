@@ -76,6 +76,10 @@ function updatePendingSettings(blink) {
 function updatePending(blink) {
   updatePendingSettings(blink);
 
+  // double verify is something is pending
+  pendingState = pendingMODE || pendingVT || pendingRR || pendingIE ||
+                 pendingIPEEP || pendingPMAX || pendingPS || pendingTPS;
+
   if (pendingState) {
     elm = document.getElementById("Pending");
     elm.innerHTML = "Pending Uncommitted Changes";
@@ -301,14 +305,14 @@ function updateSnapshot(d) {
     // Breath Type
     else if (key=='MANDATORY') { 
       if (value==1) {
-        document.getElementById("ImgBreath").src = "img/GreenDot.png";
+        document.getElementById("ImgBreath").src = "img/MandatoryDot.png";
         elm = document.getElementById("BreathType");
         elm.innerHTML = "Mandatory";
       }
     }
     else if (key=='SPONTANEOUS') { 
       if (value==1) {
-        document.getElementById("ImgBreath").src = "img/YellowDot.png";
+        document.getElementById("ImgBreath").src = "img/SpontaneousDot.png";
         elm = document.getElementById("BreathType");
         elm.innerHTML = "Spontaneous";
       }
@@ -362,27 +366,35 @@ function updateSnapshot(d) {
     // Input Settings
     else if (key=='MODE') { 
       pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
+      if (pendingMODE) somethingPending = true;
     }
     else if (key=='VT') { 
       pendingVT = updateSettingValue(value, "VTDiv", "VT");
+      if (pendingVT) somethingPending = true;
     }
     else if (key=='RR') { 
       pendingRR = updateSettingValue(value, "RRDiv", "RR");
+      if (pendingRR) somethingPending = true;
     }
     else if (key=='EI') { 
       pendingIE = updateSettingValue(value, "IEDiv", "IE");
+      if (pendingIE) somethingPending = true;
     }
     else if (key=='IPEEP') { 
       pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
+      if (pendingIPEEP) somethingPending = true;
     }
     else if (key=='PMAX') { 
       pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
+      if (pendingPMAX) somethingPending = true;
     }
     else if (key=='PS') { 
       pendingPS = updateSettingValue(value, "PSDiv", "PS");
+      if (pendingPS) somethingPending = true;
     }
     else if (key=='TPS') { 
       pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
+      if (pendingTPS) somethingPending = true;
       [tps, units] = parseInputTPS(document.getElementById("TPS").innerText);
 
       elm = document.getElementById("TPS");
