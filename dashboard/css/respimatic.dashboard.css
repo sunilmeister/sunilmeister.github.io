@@ -105,7 +105,7 @@
   border-color: var(--rsp_darkblue);
   border-width: thick;
   color: var(--rsp_darkblue);
-  background-color: white;
+  background-color: var(--rsp_lightblue);
   font-size: 2.5em;
 }
 
@@ -130,7 +130,7 @@
   border-style: solid;
   border-color: var(--rsp_darkblue);
   border-width: thick;
-  background-color: white;
+  background-color: var(--rsp_lightblue);
   color: var(--rsp_darkblue);
   font-size: 2.5em;
 }
@@ -157,7 +157,7 @@
   border-style: solid;
   border-color: var(--rsp_darkblue);
   border-width: thick;
-  background-color: white;
+  background-color: var(--rsp_lightblue);
   font-size: 2.5em;
 }
 
@@ -178,6 +178,7 @@
   border-width: thick;
   color: white;
   font-size: 2em;
+  background-color: var(--rsp_lightblue);
 }
 
 .Altitude {
@@ -187,6 +188,7 @@
   border-width: thick;
   color: white;
   font-size: 2em;
+  background-color: var(--rsp_lightblue);
 }
 
 .Breath {
@@ -195,7 +197,7 @@
   border-color: var(--rsp_darkblue);
   border-width: thick;
   color: var(--rsp_darkblue);
-  background-color: white;
+  background-color: var(--rsp_lightblue);
   font-size: 2em;
 }
 
