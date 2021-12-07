@@ -5,6 +5,7 @@
 */
 
 .sidebar {
+  border-radius: 25px;
   height: 100%;
   width: 240px;
   position: absolute;
@@ -23,18 +24,14 @@
 }
 
 .body-pane {
-  margin-left: 250px;
+  border-radius: 25px;
+  margin-left: 300px;
   font-size: 20px;
   font-family: verdana;
 }
 
-.dashboard-pane {
-  margin-left: 270px;
-  margin-right: 20px;
-}
-
 .dbTableButton {
-  background-color: var(--rsp_blue);
+  background-color: var(--rsp_mediumblue);
   border: white;
   color: white;
   padding: 5px 15px;
@@ -54,12 +51,12 @@
 
 .dbTableButton:active {
   background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_blue);
+  box-shadow: 0 6px var(--rsp_mediumblue);
   transform: translateY(6px);
 }
 
 .button {
-  background-color: var(--rsp_blue);
+  background-color: var(--rsp_mediumblue);
   border: white;
   color: white;
   padding: 10px 25px;
@@ -84,7 +81,7 @@
 }
 
 .sidebarButton {
-  background-color: var(--rsp_blue);
+  background-color: var(--rsp_mediumblue);
   border: white;
   color: white;
   padding: 10px 15px;
@@ -122,7 +119,7 @@
 
 table,
 tr {
-  border: 1px solid white;
+  border-bottom: 1px solid white;
   border-collapse: collapse;
 }
 

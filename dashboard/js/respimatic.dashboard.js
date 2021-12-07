@@ -1,163 +1,8 @@
-var datasource_name = "RESPIMATIC100";
-
-uiJson.datasources.length=0;
-uiJson.datasources.push(dataSources["DUMMY"]);
-uiJson.datasources[0].settings.thing_id=respimaticUid;
 document.title = respimaticUid + " (" + datasource_name + ")"
 
-var normal_background;
-var initial_background;
-var standby_background;
-var error_background;
-var running_background;
-var attention_background;
-var current_background;
-var background_before_error;
-var gsw_elements = [];
-
-var initial_state = false;
-var standby_state = false;
-var running_state = false;
-var error_state = false;
-var attention_state = false;
-
-function set_current_background(color) {
-  current_background = color;
-  if (gsw_elements.length == 0) {
-    gsw_elements = document.getElementsByClassName("gs_w");
-  }
-  if (gsw_elements[0].style.backgroundColor == color) return;
-
-  for (var i = 0; i < gsw_elements.length; i++) {
-    gsw_elements[i].style.backgroundColor=color;
-  }
-}
-
-function set_normal_background() {
-  set_current_background(normal_background);
-}
-
-function set_initial_background() {
-  set_current_background(initial_background);
-}
-
-function set_standby_background() {
-  set_current_background(standby_background);
-}
-
-function set_running_background() {
-  set_current_background(running_background);
-}
-
-function set_attention_background() {
-  var color = current_background;
-
-  if (current_background==attention_background) {
-    if (initial_state) color = initial_background;
-    else if (standby_state) color = standby_background;
-    else if (running_state) color = running_background;
-    else if (error_state) color = error_background;
-  } else {
-    color = attention_background;
-  }
-
-  set_current_background(color);
-}
-
-function set_error_background() {
-  var color = current_background;
-
-  if (current_background==error_background) {
-    color = background_before_error;
-  } else {
-    color = error_background;
-  }
-
-  set_current_background(color);
-}
-
-function enter_initial_state() {
-  initial_state = true;
-  standby_state = false;
-  running_state = false;
-  error_state = false;
-  attention_state = false;
-  background_before_error = initial_background;
-
-  set_initial_background();
-}
-
-function enter_standby_state() {
-  initial_state = false;
-  standby_state = true;
-  running_state = false;
-  error_state = false;
-  background_before_error = standby_background;
-
-  if (attention_state) set_current_background(attention_background);
-  else set_standby_background();
-}
-
-function enter_running_state() {
-  initial_state = false;
-  standby_state = false;
-  running_state = true;
-  error_state = false;
-  background_before_error = running_background;
-
-  if (attention_state) set_attention_background();
-  else set_running_background();
-}
-
-function enter_error_state() {
-  attention_state = false;
-
-  initial_state = false;
-  standby_state = false;
-  running_state = false;
-  error_state = true;
-
-  set_error_background();
-}
-
-function exit_error_state() {
-}
-
-function enter_attention_state() {
-  if (error_state) {
-    attention_state = false;
-    set_error_background();
-  } else {
-    attention_state = true;
-    set_attention_background();
-  }
-}
-
-function exit_attention_state() {
-  attention_state = false;
-  var color = normal_background;
-
-  if (initial_state) color = initial_background;
-  else if (standby_state) color = standby_background;
-  else if (running_state) color = running_background;
-  else if (error_state) color = error_background;
-
-  set_current_background(color);
-}
-
-var currentViewIsSnapshot = true;
-var firstDweet = true;
-var numBreaths = 0;
-var chartsPaused = false;
-var desiredFiO2 = 21;
-var o2Purity = 21;
-var reqO2Flow = 0;
-var fiO2Knob = null;
-var purityKnob = null;
-
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
-  fiO2Knob.setValue(fiO2);
-  purityKnob.setValue(o2Purity);
+  fiO2Gauge.setValue(fiO2);
+  purityGauge.setValue(o2Purity);
 
   elm = document.getElementById("o2FlowRate");
   elm.innerHTML = parseFloat(o2Flow/10).toFixed(1) + " (litres/min)" ;
@@ -180,7 +25,6 @@ function checkFiO2Calculation(d) {
   if (typeof value != "undefined") {
     if (validDecimalInteger(value) && (value<=100)) {
       newPurity = value;
-      //console.log("Purity=" + newPurity);
       change = true;
     }
   }
@@ -189,7 +33,6 @@ function checkFiO2Calculation(d) {
   if (typeof value != "undefined") {
     if (validDecimalInteger(value)) {
       newO2Flow = value;
-      //console.log("Flow=" + newO2Flow);
       change = true;
     }
   }
@@ -202,7 +45,13 @@ function checkFiO2Calculation(d) {
   }
 }
 
-function process_dweet_content(d) {
+function waitForDweets() {
+  dweetio.listen_for(respimaticUid, function (d) {
+    processDweet(d);
+  });
+}
+
+function processDweet(d) {
   if (firstDweet) {
     firstDweet = false;
     startDate = d.created;
@@ -215,6 +64,8 @@ function process_dweet_content(d) {
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
   checkFiO2Calculation(d);
+
+  updateSnapshot(d);
 
   chartProcessJsonRecord(d);
   if (typeof d.content["BTOG"] == "undefined") return d;
@@ -233,34 +84,44 @@ window.onload = function () {
 
   var style = getComputedStyle(document.body)
 
-  normal_background = style.getPropertyValue('--rsp_darkblue');
-  initial_background = normal_background;
-  standby_background = normal_background;
-  error_background = style.getPropertyValue('--rsp_darkred');
-  running_background = style.getPropertyValue('--rsp_green');
-  attention_background = style.getPropertyValue('--rsp_orange');
-  current_background = normal_background;
-  background_before_error = initial_background;
+  blueColor = style.getPropertyValue('--rsp_blue');
+  mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
+  darkblueColor = style.getPropertyValue('--rsp_darkblue');
+  darkredColor = style.getPropertyValue('--rsp_darkred');
+  greenColor = style.getPropertyValue('--rsp_green');
+  orangeColor = style.getPropertyValue('--rsp_orange');
+
+  alertImage = "OK";
+  alertBackground = "GREEN";
+  pendingBackground = "MEDIUMBLUE";
 
   currentViewIsSnapshot = true;
-  btn = document.getElementById("btnViewChange");
-  snapshot = document.getElementById("board-content");
-  charts = document.getElementById("chart-content");
-  btn.textContent = "Charts View" ;
-  snapshot.style.display = "block";
+  snapshot = document.getElementById("snapshot-pane");
+  snapshot.style.display = "inline-grid";
+
+  charts = document.getElementById("chart-pane");
   charts.style.display = "none";
 
-  var heading = document.getElementById("SysUid");
-  heading.innerText = respimaticUid;
+  btn = document.getElementById("btnViewChange");
+  btn.textContent = "Charts View" ;
 
-  installPurityKnob();
-  installFiO2Knob();
+  installPurityGauge();
+  installFiO2Gauge();
+
+  installPeakGauge();
+  installPlatGauge();
+  installPeepGauge();
+
+  installTempGauge();
+
+  // now wait for dweets and act accordingly
+  waitForDweets();
 }
 
 function toggleDashboardView() {
   btn = document.getElementById("btnViewChange");
-  snapshot = document.getElementById("board-content");
-  charts = document.getElementById("chart-content");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
   if (currentViewIsSnapshot) {
     currentViewIsSnapshot = false;
     snapshot.style.display = "none";
@@ -268,7 +129,7 @@ function toggleDashboardView() {
     btn.textContent = "Snapshots View" ;
     if (chartsPaused) selectTogglePause();
   } else {
-    snapshot.style.display = "block";
+    snapshot.style.display = "inline-grid";
     charts.style.display = "none";
     currentViewIsSnapshot = true;
     btn.textContent = "Charts View" ;
@@ -292,11 +153,14 @@ function createDashboardCharts() {
 }
 
 function createDashboardPressureCharts() {
+  var style = getComputedStyle(document.body)
+
   var chartJson ;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Pressures";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
+  chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
 
@@ -331,7 +195,6 @@ function createDashboardPressureCharts() {
   }
 
   container = document.getElementById("chartPressureDiv");
-  chartJson.backgroundColor = "lightgrey" ;
   if (pressureChart) {
     pressureChart.destroy();
     pressureChart = null;
@@ -341,11 +204,14 @@ function createDashboardPressureCharts() {
 }
 
 function createDashboardVolumeCharts() {
+  var style = getComputedStyle(document.body)
+
   var chartJson ;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Volumes";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
+  chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
 
@@ -372,7 +238,6 @@ function createDashboardVolumeCharts() {
   }
 
   container = document.getElementById("chartVolumeDiv");
-  chartJson.backgroundColor = "lightgrey" ;
   if (volumeChart) {
     volumeChart.destroy();
     volumeChart = null;
@@ -382,11 +247,14 @@ function createDashboardVolumeCharts() {
 }
 
 function createDashboardFiO2Charts() {
+  var style = getComputedStyle(document.body)
+
   var chartJson ;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "FiO2";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
+  chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
 
@@ -422,7 +290,6 @@ function createDashboardFiO2Charts() {
   }
 
   container = document.getElementById("chartFiO2Div");
-  chartJson.backgroundColor = "lightgrey" ;
   if (fiO2Chart) {
     fiO2Chart.destroy();
     fiO2Chart = null;
@@ -432,11 +299,14 @@ function createDashboardFiO2Charts() {
 }
 
 function createDashboardMiscCharts() {
+  var style = getComputedStyle(document.body)
+
   var chartJson ;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Miscellaneous";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
+  chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
 
@@ -472,7 +342,6 @@ function createDashboardMiscCharts() {
   }
 
   container = document.getElementById("chartMiscDiv");
-  chartJson.backgroundColor = "lightgrey" ;
   if (miscChart) {
     miscChart.destroy();
     miscChart = null;
@@ -482,11 +351,14 @@ function createDashboardMiscCharts() {
 }
 
 function createDashboardBpmCharts() {
+  var style = getComputedStyle(document.body)
+
   var chartJson ;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Breaths per Minute";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
-  chartJson.height = 300;
+  chartJson.height = 700;
+  chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
 
@@ -512,7 +384,6 @@ function createDashboardBpmCharts() {
   }
 
   container = document.getElementById("chartBpmDiv");
-  chartJson.backgroundColor = "lightgrey" ;
   if (bpmChart) {
     bpmChart.destroy();
     bpmChart = null;
@@ -536,68 +407,148 @@ function selectExit() {
   window.location.assign("../index.html");
 }
 
-/*
- * Knob Event listener.
- *
- * Parameter 'knob' is the knob object which was
- * actuated. Allows you to associate data with
- * it to discern which of your knobs was actuated.
- *
- * Parameter 'value' is the value which was set
- * by the user.
- */
-const fiO2KnobListener = function (knob, value) {
-  // do not allow the user to change it on the dashboard
-  if (value==desiredFiO2) return;
-  alert("FiO2 parameter can only be changed\nfrom the RESPIMATIC Front Panel");
-  knob.setValue(desiredFiO2);
-};
-
-function installFiO2Knob() {
-  // Create knob element, 125 x 125 px in size.
-  fiO2Knob = pureknob.createKnob(125, 125);
+function installFiO2Gauge() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 275 x 275 px in size.
+  fiO2Gauge = pureknob.createKnob(275, 275);
   // Set properties.
-  fiO2Knob.setProperty('angleStart', -0.75 * Math.PI);
-  fiO2Knob.setProperty('angleEnd', 0.75 * Math.PI);
-  fiO2Knob.setProperty('colorFG', '#88ff88');
-  fiO2Knob.setProperty('trackWidth', 0.4);
-  fiO2Knob.setProperty('valMin', 21);
-  fiO2Knob.setProperty('valMax', 100);
+  fiO2Gauge.setProperty('angleStart', -0.75 * Math.PI);
+  fiO2Gauge.setProperty('angleEnd', 0.75 * Math.PI);
+  fiO2Gauge.setProperty('colorFG', 'white');
+  fiO2Gauge.setProperty('colorBG', style.getPropertyValue('--rsp_mediumblue'));
+  fiO2Gauge.setProperty('trackWidth', 0.4);
+  fiO2Gauge.setProperty('valMin', 21);
+  fiO2Gauge.setProperty('valMax', 100);
+  fiO2Gauge.setProperty('needle', true);
+  fiO2Gauge.setProperty('readonly', true);
+  fiO2Gauge.setProperty('textScale', 1);
   // Set initial value.
-  fiO2Knob.setValue(desiredFiO2);
-  fiO2Knob.addListener(fiO2KnobListener);
+  fiO2Gauge.setValue();
   // Create element node.
-  const node = fiO2Knob.node();
+  const node = fiO2Gauge.node();
   // Add it to the DOM.
   const elem = document.getElementById('fiO2Div');
   elem.appendChild(node);
 }
 
-const purityKnobListener = function (knob, value) {
-  // do not allow the user to change it on the dashboard
-  if (value==o2Purity) return;
-  alert("O2Purity parameter can only be changed\nfrom the RESPIMATIC Front Panel");
-  knob.setValue(o2Purity);
-};
-
-function installPurityKnob() {
-  // Create knob element, 125 x 125 px in size.
-  purityKnob = pureknob.createKnob(125, 125);
+function installPurityGauge() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 275 x 275 px in size.
+  purityGauge = pureknob.createKnob(275, 275);
   // Set properties.
-  purityKnob.setProperty('angleStart', -0.75 * Math.PI);
-  purityKnob.setProperty('angleEnd', 0.75 * Math.PI);
-  purityKnob.setProperty('colorFG', '#88ff88');
-  purityKnob.setProperty('trackWidth', 0.4);
-  purityKnob.setProperty('valMin', 21);
-  purityKnob.setProperty('valMax', 100);
+  purityGauge.setProperty('angleStart', -0.75 * Math.PI);
+  purityGauge.setProperty('angleEnd', 0.75 * Math.PI);
+  purityGauge.setProperty('colorFG', 'white');
+  purityGauge.setProperty('colorBG', style.getPropertyValue('--rsp_mediumblue'));
+  purityGauge.setProperty('trackWidth', 0.4);
+  purityGauge.setProperty('valMin', 21);
+  purityGauge.setProperty('valMax', 100);
+  purityGauge.setProperty('needle', true);
+  purityGauge.setProperty('readonly', true);
+  purityGauge.setProperty('textScale', 1);
   // Set initial value.
-  purityKnob.setValue(o2Purity);
-  purityKnob.addListener(purityKnobListener);
+  purityGauge.setValue();
   // Create element node.
-  const node = purityKnob.node();
+  const node = purityGauge.node();
   // Add it to the DOM.
   const elem = document.getElementById('purityDiv');
   elem.appendChild(node);
 }
 
+
+function installPeakGauge() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 275 x 275 px in size.
+  peakGauge = pureknob.createKnob(275, 275);
+  // Set properties.
+  peakGauge.setProperty('angleStart', -0.75 * Math.PI);
+  peakGauge.setProperty('angleEnd', 0.75 * Math.PI);
+  peakGauge.setProperty('colorFG', 'white');
+  peakGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  peakGauge.setProperty('trackWidth', 0.5);
+  peakGauge.setProperty('valMin', 0);
+  peakGauge.setProperty('valMax', 70);
+  peakGauge.setProperty('needle', true);
+  peakGauge.setProperty('readonly', true);
+  peakGauge.setProperty('textScale', 1.75);
+  // Set initial value.
+  peakGauge.setValue();
+  // Create element node.
+  const node = peakGauge.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('PeakGauge');
+  elem.appendChild(node);
+}
+
+function installPlatGauge() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 275 x 275 px in size.
+  platGauge = pureknob.createKnob(275, 275);
+  // Set properties.
+  platGauge.setProperty('angleStart', -0.75 * Math.PI);
+  platGauge.setProperty('angleEnd', 0.75 * Math.PI);
+  platGauge.setProperty('colorFG', 'white');
+  platGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  platGauge.setProperty('trackWidth', 0.5);
+  platGauge.setProperty('valMin', 0);
+  platGauge.setProperty('valMax', 70);
+  platGauge.setProperty('needle', true);
+  platGauge.setProperty('readonly', true);
+  platGauge.setProperty('textScale', 1.75);
+  // Set initial value.
+  platGauge.setValue();
+  // Create element node.
+  const node = platGauge.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('PlatGauge');
+  elem.appendChild(node);
+}
+
+function installPeepGauge() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 275 x 275 px in size.
+  peepGauge = pureknob.createKnob(275, 275);
+  // Set properties.
+  peepGauge.setProperty('angleStart', -0.75 * Math.PI);
+  peepGauge.setProperty('angleEnd', 0.75 * Math.PI);
+  peepGauge.setProperty('colorFG', 'white');
+  peepGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
+  peepGauge.setProperty('trackWidth', 0.5);
+  peepGauge.setProperty('valMin', 0);
+  peepGauge.setProperty('valMax', 70);
+  peepGauge.setProperty('needle', true);
+  peepGauge.setProperty('readonly', true);
+  peepGauge.setProperty('textScale', 1.75);
+  // Set initial value.
+  peepGauge.setValue();
+  // Create element node.
+  const node = peepGauge.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('PeepGauge');
+  elem.appendChild(node);
+}
+
+function installTempGauge() {
+  var style = getComputedStyle(document.body)
+  // Create knob element, 225 x 225 px in size.
+  tempGauge = pureknob.createKnob(225, 225);
+  // Set properties.
+  tempGauge.setProperty('angleStart', -0.75 * Math.PI);
+  tempGauge.setProperty('angleEnd', 0.75 * Math.PI);
+  tempGauge.setProperty('colorFG', style.getPropertyValue('--rsp_darkblue'));
+  tempGauge.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
+  tempGauge.setProperty('trackWidth', 0.5);
+  tempGauge.setProperty('valMin', -20);
+  tempGauge.setProperty('valMax', 70);
+  tempGauge.setProperty('needle', true);
+  tempGauge.setProperty('readonly', true);
+  tempGauge.setProperty('textScale', 1.75);
+  // Set initial value.
+  tempGauge.setValue();
+  // Create element node.
+  const node = tempGauge.node();
+  // Add it to the DOM.
+  const elem = document.getElementById('TempGauge');
+  elem.appendChild(node);
+}
 

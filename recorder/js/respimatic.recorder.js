@@ -248,7 +248,7 @@ function waitForDweets() {
 function startLog() {
   if (doLog) return;
   heading = document.getElementById("SysUidMsg");
-  heading.innerText = "Recording In-progress";
+  heading.innerText = "Recording ...";
   heading = document.getElementById("SysUid");
   heading.innerText = "\n" + respimaticUid;
   doLog = true;

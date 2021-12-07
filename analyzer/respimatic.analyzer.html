@@ -41,7 +41,7 @@
     <div class="sidebar">
       
       <br>
-      <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+      <div style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
         <center>
           <p id="logTimeDuration">Session Duration 00:00:00
           <p id="selectedTimeDuration">Window Duration 00:00:00
@@ -53,7 +53,7 @@
       </center>
       
       <center>
-        <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+        <div style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <p>Session Actions
             <br>
             <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Select Session</button>
@@ -72,7 +72,7 @@
       
       <br>
       <center>
-        <div style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+        <div style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <p>Window Actions
             <br>
             <button id="btnStat" class="sidebarButton" onclick='selectStats()'>Statistics</button>
@@ -88,7 +88,7 @@
       </center>
       
       <br>
-      <div style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+      <div style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
         <center>
           <p>Current Session
             <br>
@@ -118,11 +118,11 @@
       </center>
       
       <center>
-        <div id="selectorDiv" style="display: none">
+        <div id="selectorDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Select Session for Analysis</h2>
           <div
-            style="height:850px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+            style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
             <br>
             <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
             </table>
@@ -131,7 +131,7 @@
         </div>
       </center>
       
-      <div id="statsDiv" style="display: none">
+      <div id="statsDiv" style="display: none; border-radius:25px; margin-bottom:20px;">
         <center>
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Session Statistics</h2>
@@ -240,7 +240,7 @@
       </div>
       
       <center>
-        <div id="chartsDiv" style="display: none">
+        <div id="chartsDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Select Parameters for Chart</h2>
           
@@ -287,14 +287,14 @@
             <label for="timeBased">Elapsed Time</label>
             
             <br><br>
-            <input id="chartTitle" type="text" style="font-size: 16px;padding: 5px;width: 150;text-align: center">
+            <input id="chartTitle" type="text" style="border-radius:25px; font-size: 16px;padding: 5px;width: 150;text-align: center">
             Chart Title
             <button class="button" onclick='createNewChart()'>CREATE
               CHART</button>
 	    <br><br>
           </div>
           
-          <div id="chartContainerDiv" height=550px style="margin-left:10px; margin-top:20px">
+          <div id="chartContainerDiv" height=550px style="border-radius:25px; margin-left:10px; margin-top:20px">
           </div>
 	  <br><br><br><br>
 	  <br><br><br><br>
@@ -306,29 +306,29 @@
       </center>
       
       <center>
-        <div id="errorWarningDiv" style="display: none">
+        <div id="errorWarningDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Session Errors and Warnings</h2>
           
           <div class="row">
-            <div id="errorColDiv" class="column" style="font-size: 20">
+            <div id="errorColDiv" class="column" style="border-radius:25px; font-size: 20">
               <center>
                 <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                   Session Errors</h2>
               </center>
               <div id="errorDiv"
-                style="margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                style="border-radius:25px; margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollErrorDiv" style="font-size:16; text-align: left">
               </div>
             </div>
             
-            <div id="warningColDiv" class="column" style="font-size: 20">
+            <div id="warningColDiv" class="column" style="border-radius:25px; font-size: 20">
               <center>
                 <h2 style="background-color:var(--rsp_darkblue); color:white;font-size:1.3em; font-family:verdana;">
                   Session Warnings</h2>
               </center>
               <div id="warningDiv"
-                style="margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                style="border-radius:25px; margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollWarningDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -338,11 +338,11 @@
       </center>
       
       <center>
-        <div id="rawDataDiv" style="display: none">
+        <div id="rawDataDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
           <h2 style="color:var(--rsp_darkblue); font-size:1.3em; font-family:verdana;">
             Dumping Raw Data for Session</h2>
           <div
-            style="margin-left:10px; height:1025px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            style="border-radius:25px; margin-left:10px; height:1025px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id="scrollRawDataDiv" style="font-size:16; text-align: left">
           </div>
           
@@ -350,11 +350,11 @@
       </center>
       
       <center>
-        <div id="importDiv" style="display: none">
+        <div id="importDiv" style="border-radius:25px; margin-bottom:30px; display: none">
           <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Import Session</h2>
           <div
-            style="margin-left:10px; height:350px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
+            style="border-radius:25px; margin-left:10px; height:350px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
             <br><br>
             <label for="fileSelector">Session File to Import</label>
             <input type="file" id="fileSelector" accept=".txt"
@@ -372,11 +372,11 @@
       </center>
       
       <center>
-        <div id="exportSessionDiv" style="display: none">
+        <div id="exportSessionDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
           <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Export Selected Session</h2>
           <div
-            style="height:500px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+            style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
             <br>
             <table id='dbExportTable' className="dbTableStyle" style="font-size:20px; width:100%">
             </table>
@@ -385,7 +385,7 @@
       </center>
       
       <center>
-        <div id="exportWindowDiv" style="display: none">
+        <div id="exportWindowDiv" style="border-radius:25px; display: none">
           <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Export Analysis Window</h2>
           <button class="button" onclick='exportWindow()'>Export Analysis Window
@@ -393,11 +393,11 @@
         </div>
       </center>
       
+	<div id="logosDiv" style="border-radius:25px; background-color:var(--rsp_darkblue);">
       <center>
-	<div id="logosDiv">
           <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px" width="620" height="140">
-	</div>
       </center>
+	</div>
     </div>
 
   </body>
