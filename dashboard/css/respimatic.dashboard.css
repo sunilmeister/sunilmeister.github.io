@@ -283,3 +283,8 @@
   color: white;
 }
 
+body {
+    zoom: 0.95;
+    -moz-transform: scale(0.95);
+    -moz-transform-origin: 0 0;
+}
