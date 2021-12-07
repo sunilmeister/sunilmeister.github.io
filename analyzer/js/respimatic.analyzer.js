@@ -445,7 +445,7 @@ function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
 
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_blue');
+  bgd = style.getPropertyValue('--rsp_mediumblue');
 
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = bgd;

@@ -4,7 +4,7 @@
 
 function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_blue');
+  bgd = style.getPropertyValue('--rsp_mediumblue');
 
   var newElement = document.createElement('p');
   newElement.innerHTML = prefix + "DateTime: " + dateToStr(jsonData.created);
