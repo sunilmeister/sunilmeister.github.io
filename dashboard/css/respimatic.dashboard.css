@@ -283,11 +283,3 @@
   color: white;
 }
 
-.VerticalLine {
-  border-left: 6px solid var(--rsp_darkblue);
-  height: 500px;
-  position: absolute;
-  left: 50%;
-  margin-left: -3px;
-  top: 0;
-}
