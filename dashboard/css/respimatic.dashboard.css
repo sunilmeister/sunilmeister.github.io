@@ -13,12 +13,8 @@
   border-radius: 25px;
   font-family: monospace;
   font-size: 4em;
-  font-weight: bold;
-  background-color: white;
-  color: var(--rsp_darkblue);
-  border-color: var(--rsp_darkblue);
-  border-style: solid;
-  border-width: thick;
+  color: white;
+  background-color: var(--rsp_mediumblue);
 }
 
 .Alert {
