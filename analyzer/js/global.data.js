@@ -72,6 +72,8 @@ var numActiveEntry;
 var numErrorEntry;
 
 // Breath types
+var prevBreathMandatory;
+var prevBreathSpontaneous;
 var numMandatory;
 var numSpontaneous;
 var numMaintenance;
@@ -91,6 +93,8 @@ function initGlobalData() {
   activeState = false;
   errorState = false;
 
+  prevBreathMandatory = false;
+  prevBreathSpontaneous = false;
   numMandatory = 0;
   numSpontaneous = 0;
   numMaintenance = 0;
@@ -238,14 +242,13 @@ function globalProcessJsonRecord(jsonData) {
         } else if (ckey=="ERROR") {
 	  if ((value==1) && !errorState) numErrorEntry++ ;
 	  errorState = (value==1);
-        } else if (ckey=="MANDATORY") {
-	  prevBreathMandatory = (value==1);
-        } else if (ckey=="SPONTANEOUS") {
-	  prevBreathMandatory = !(value==1);
+        } else if (ckey=="BREATH") {
+	  prevBreathMandatory = (value=="MANDATORY");
+	  prevBreathSpontaneous = (value=="SPONTANEOUS");
         } else if (ckey=="BTOG") {
 	  if (prevBreathMandatory) {
 	    numMandatory++ ;
-	  } else {
+	  } else if (prevBreathSpontaneous) {
 	    numSpontaneous++ ;
 	  }
 	  if (errorState) numMaintenance++;

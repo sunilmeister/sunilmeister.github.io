@@ -74,11 +74,11 @@ function updatePendingSettings(blink) {
 }
 
 function updatePending(blink) {
-  updatePendingSettings(blink);
-
-  // double verify is something is pending
+  // double verify if something is pending
   pendingState = pendingMODE || pendingVT || pendingRR || pendingIE ||
                  pendingIPEEP || pendingPMAX || pendingPS || pendingTPS;
+
+  updatePendingSettings(blink);
 
   if (pendingState) {
     elm = document.getElementById("Pending");
@@ -303,18 +303,17 @@ function updateSnapshot(d) {
     }
 
     // Breath Type
-    else if (key=='MANDATORY') { 
-      if (value==1) {
+    else if (key=='BREATH') { 
+      elm = document.getElementById("BreathType");
+      if (value=="MANDATORY") {
         document.getElementById("ImgBreath").src = "img/MandatoryDot.png";
-        elm = document.getElementById("BreathType");
         elm.innerHTML = "Mandatory";
-      }
-    }
-    else if (key=='SPONTANEOUS') { 
-      if (value==1) {
+      } else if (value=="SPONTANEOUS") {
         document.getElementById("ImgBreath").src = "img/SpontaneousDot.png";
-        elm = document.getElementById("BreathType");
         elm.innerHTML = "Spontaneous";
+      } else {
+        document.getElementById("ImgBreath").src = "img/WhiteDot.png";
+        elm.innerHTML = "";
       }
     }
 
@@ -342,6 +341,14 @@ function updateSnapshot(d) {
       }
       else {
 	pendingState = false;
+	pendingMODE = false;
+	pendingVT = false;
+	pendingRR = false;
+	pendingIE = false;
+	pendingIPEEP = false;
+	pendingPMAX = false;
+	pendingPS = false;
+	pendingTPS = false;
 	updatePending(false);
       }
     }
