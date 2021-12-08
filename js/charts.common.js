@@ -35,8 +35,16 @@ function initChartColor() {
 var chartTemplate = {
   zoomEnabled: true, 
   zoomType: "x",
-  title:{ text: "" },
-  axisX:{ title: "", },
+  title:{ 
+    text: "" ,
+    padding: 10,
+    borderThickness: 2,
+    cornerRadius: 4,
+  },
+  axisX:{ 
+    title: "", 
+    fontSize: 50,
+  },
   axisY:[],
   toolTip: { shared: true },
   legend: { 
@@ -45,6 +53,9 @@ var chartTemplate = {
   },
   height: 500,
   backgroundColor: "#D5F3FE",
+  legend:{
+    fontSize: 35,
+  },
   data: []
 };
 
