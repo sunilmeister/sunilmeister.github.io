@@ -322,7 +322,7 @@ function globalProcessJsonRecord(jsonData) {
 	    }
 	  }
         } else if (ckey=="FIO2") {
-	  iif (validDecimalInteger(value)) {
+	  if (validDecimalInteger(value)) {
 	    currParamCombo.fiO2 = value;
 	    if ((fiO2s.length==0) || (fiO2s.indexOf(value) == -1)) {
 	      fiO2s.push(value);
