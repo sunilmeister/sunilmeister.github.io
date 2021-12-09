@@ -322,8 +322,14 @@ function globalProcessJsonRecord(jsonData) {
 	    }
 	  }
         } else if (ckey=="FIO2") {
-	  if (validDecimalInteger(value)) {
+	  if (validDecimalInteger(value) && (value <=100)) {
 	    currParamCombo.fiO2 = value;
+	    if (maxFiO2 < value) {
+	      maxFiO2 = value;
+	    }
+	    if (minFiO2 > value) {
+	      minFiO2 = value;
+	    }
 	    if ((fiO2s.length==0) || (fiO2s.indexOf(value) == -1)) {
 	      fiO2s.push(value);
 	    }
@@ -407,16 +413,6 @@ function globalProcessJsonRecord(jsonData) {
 	    }
 	    if (minPeep > value) {
 	      minPeep = value;
-	    }
-	  }
-        } else if (ckey=="FIO2") {
-	  console.log("FIO2 value=" + value);
-	  if (validDecimalInteger(value) && (value <=100)) {
-	    if (maxFiO2 < value) {
-	      maxFiO2 = value;
-	    }
-	    if (minFiO2 > value) {
-	      minFiO2 = value;
 	    }
 	  }
         } else if (ckey=="TEMP") {
