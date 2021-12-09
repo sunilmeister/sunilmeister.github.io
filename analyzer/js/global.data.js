@@ -410,6 +410,7 @@ function globalProcessJsonRecord(jsonData) {
 	    }
 	  }
         } else if (ckey=="FIO2") {
+	  console.log("FIO2 value=" + value);
 	  if (validDecimalInteger(value) && (value <=100)) {
 	    if (maxFiO2 < value) {
 	      maxFiO2 = value;
