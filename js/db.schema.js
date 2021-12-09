@@ -26,6 +26,7 @@ var jsonRecordSchema = {
     PMAX: "--",
     PS: "--",
     TPS: "--",
+    FIO2: "--",
     MBPM: "--",
     SBPM: "--",
     STATIC: "--",
