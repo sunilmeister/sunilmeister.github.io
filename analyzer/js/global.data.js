@@ -329,7 +329,7 @@ function globalProcessJsonRecord(jsonData) {
 	    }
 	  }
         } else if (ckey=="MBPM") {
-	  iif (validDecimalInteger(value)) {
+	  if (validDecimalInteger(value)) {
 	    if (maxMbpm < value) {
 	      maxMbpm = value;
 	    }
