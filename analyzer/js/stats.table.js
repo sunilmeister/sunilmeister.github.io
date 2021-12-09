@@ -107,7 +107,7 @@ function constructStatMinMaxTable() {
   minMaxTableRow(table,"Mandatory BPM","bpm","mbpmMin","mbpmMax");
   minMaxTableRow(table,"Spontaneous BPM","bpm","sbpmMin","sbpmMax");
 
-  minMaxTableRow(table,"FiO2","%","fiO2Min","fiO2Max");
+  minMaxTableRow(table,"FIO2","%","fiO2Min","fiO2Max");
 
   minMaxTableRow(table,"Instantaneous Static Compliance","ml / cmH20","scMin","scMax");
   minMaxTableRow(table,"Instantaneous Dynamic Compliance","ml / cmH20","dcMin","dcMax");
@@ -126,7 +126,7 @@ function constructStatParamTable() {
   paramTableRow(table,"Maximum Pressure","cmH20","pmax");
   paramTableRow(table,"Support Pressure","cmH20","ps");
   paramTableRow(table,"Support Pressure Termination","%flow,secs","tps");
-  paramTableRow(table,"FiO2","%","fiO2");
+  paramTableRow(table,"FIO2","%","fiO2");
 }
 
 function constructStatMiscTable() {
