@@ -45,9 +45,7 @@ function displayUsedCombos() {
 
     cell = row.insertCell();
     dstr = dateToStr(combo.start);
-    console.log("Unmodified " + dstr);
     dstr = dstr.replace("]","] ");
-    console.log("Modified " + dstr);
     cell.innerHTML = dstr;
   }
 }
