@@ -44,7 +44,8 @@ function displayUsedCombos() {
     cell.innerHTML = combo.numBreaths;
 
     cell = row.insertCell();
-    cell.innerHTML = dateToStr(combo.start);
+    dstr = dateToStr(combo.start);
+    cell.innerHTML = dstr.replace("]","] ");
   }
 }
 

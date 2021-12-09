@@ -175,6 +175,7 @@ function equalParamCombos(curr, prev) {
     (curr.ipeep==prev.ipeep) &&
     (curr.pmax==prev.pmax) &&
     (curr.ps==prev.ps) &&
+    (curr.fiO2==prev.fiO2) &&
     (curr.tps==prev.tps)
   ) {
     return true;
@@ -320,8 +321,15 @@ function globalProcessJsonRecord(jsonData) {
 	      tpss.push(value);
 	    }
 	  }
+        } else if (ckey=="FIO2") {
+	  iif (validDecimalInteger(value)) {
+	    currParamCombo.fiO2 = value;
+	    if ((fiO2s.length==0) || (fiO2s.indexOf(value) == -1)) {
+	      fiO2s.push(value);
+	    }
+	  }
         } else if (ckey=="MBPM") {
-	  if (validDecimalInteger(value)) {
+	  iif (validDecimalInteger(value)) {
 	    if (maxMbpm < value) {
 	      maxMbpm = value;
 	    }
