@@ -22,7 +22,7 @@ function listDbTableRow(item, index) {
   var row = table.insertRow();
   var cell;
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="selectDbRow(this)">SELECT</button>';
+  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="selectDbRow(this)">SELECT</button>';
   cell = row.insertCell();
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();

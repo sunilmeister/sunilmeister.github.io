@@ -4,7 +4,7 @@
 
 function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_mediumblue');
+  bgd = style.getPropertyValue('--rsp_darkblue');
 
   var newElement = document.createElement('p');
   newElement.innerHTML = prefix + "DateTime: " + dateToStr(jsonData.created);
@@ -34,6 +34,7 @@ function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   }
 
   var newElement = document.createElement('hr');
+  newElement.style.color="white";
   scrollbox.appendChild(newElement);
 }
 
