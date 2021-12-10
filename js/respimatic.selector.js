@@ -83,4 +83,9 @@ window.onload = function() {
   datalist.onfocus = function() {
     datalist.value = '';
   }; // on focus - clear input
+
+  alert(
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
+    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+  );
 };

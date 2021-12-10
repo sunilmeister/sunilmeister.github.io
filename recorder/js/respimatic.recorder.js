@@ -281,6 +281,10 @@ window.onload = function() {
   heading.innerText = "\n" + respimaticUid;
   listAllDbs();
   waitForDweets();
+  alert(
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
+    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+  );
 }
 
 function selectExit() {
