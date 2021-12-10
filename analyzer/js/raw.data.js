@@ -1,14 +1,11 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-
 function displayJsonRawData(jsonData) {
-    var scrollbox = document.getElementById('scrollRawDataDiv');
-
-    var newElement = document.createElement('p');
-    newElement.innerText = newElement.textContent = JSON.stringify(jsonData);
-
-    scrollbox.appendChild(newElement);
+  var scrollbox = document.getElementById('scrollRawDataDiv');
+  var newElement = document.createElement('p');
+  newElement.innerText = newElement.textContent = JSON.stringify(jsonData);
+  scrollbox.appendChild(newElement);
 }
 
 function displayJsonRecord(key) {
@@ -17,7 +14,6 @@ function displayJsonRecord(key) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
     sessionDbReady = true;
-
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.get(key);
@@ -27,12 +23,12 @@ function displayJsonRecord(key) {
     }
   }
 }
-
 var dataDisplayed = false;
+
 function initRawDump() {
   console.log("initRawData");
   var scrollbox = document.getElementById('scrollRawDataDiv');
-  scrollbox.innerHTML = "" ;
+  scrollbox.innerHTML = "";
   dataDisplayed = false;
 }
 
@@ -42,20 +38,15 @@ function displayRawData() {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
-
   if (dataDisplayed) return;
-  if (allDbKeys.length==0) {
+  if (allDbKeys.length == 0) {
     alert("Selected Session has no data");
     return;
   }
-
-  for (i=0; i<allDbKeys.length; i++) {
+  for (i = 0; i < allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (!keyWithinAnalysisRange(key)) continue;
     displayJsonRecord(key);
   }
-
   dataDisplayed = true;
 }
-
-

@@ -4,7 +4,6 @@
 // ////////////////////////////////////////////////////
 -->
 
-
 <!DOCTYPE html>
 <html>
 
@@ -14,7 +13,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <meta name="viewport" content = "width = device-width, initial-scale = 0.9, user-scalable = yes" />
+  <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
   <link rel="icon" type="image/png" href="../img/favicon.png">
 
   <link rel="stylesheet" href="../css/common.css" />
@@ -28,48 +27,51 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      font-family: Arial; 
+      font-family: Arial;
       background-color: var(--rsp_darkblue);
       color: white;
-      border-radius:25px;
+      border-radius: 25px;
       padding: 8px;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;
-      transform: translate(-50%, -50%); /* (x, y)  => position */
-      -ms-transform: translate(-50%, -50%); /* IE 9 */
-      -webkit-transform: translate(-50%, -50%); /* Chrome, Safari, Opera */    
+      transform: translate(-50%, -50%);
+      /* (x, y)  => position */
+      -ms-transform: translate(-50%, -50%);
+      /* IE 9 */
+      -webkit-transform: translate(-50%, -50%);
+      /* Chrome, Safari, Opera */
     }
-   </style>
+  </style>
 </head>
 
 <body>
-  <div class = "wrapper">
+  <div class="wrapper">
 
     <center>
-      <img src="img/FiO2.png" alt="Title" width="360" height="100" >
+      <img src="img/FiO2.png" alt="Title" width="360" height="100">
       <div class="content" style="font-size: 1em; border-style: solid; border-coloor:white; background-color:var(--rsp_mediumblue); color:white; margin-left: 6px; margin-right: 6px;">
-        <font size = "5.5">
-	  <b>
-	  <label>Required Incoming O<sub>2</sub> Flow</label>
-          <font size = "6">
-	  <p id="o2FlowRate">0.0 (litres/min)
-	  </font>
-	  </b>
-	</font>
-       </div>
-       <br>
+        <font size="5.5">
+          <b>
+            <label>Required Incoming O<sub>2</sub> Flow</label>
+            <font size="6">
+              <p id="o2FlowRate">0.0 (litres/min)
+            </font>
+          </b>
+        </font>
+      </div>
+      <br>
 
-       <div id="vtRrDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-	 <font size = 4>
-         <p>&nbsp&nbsp&nbsp&nbspDesired VT(ml)&nbsp&nbsp&nbsp&nbspDesired RR(bpm)
-	 </font size>
-       </div>
+      <div id="vtRrDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+        <font size=4>
+          <p>&nbsp&nbsp&nbsp&nbspDesired VT(ml)&nbsp&nbsp&nbsp&nbspDesired RR(bpm)
+        </font size>
+      </div>
 
-       <div id="fio2Div" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-	 <font size = 4>
-	   <p>&nbspO<sub>2</sub> Source Purity(%)&nbsp&nbsp&nbspDesired FiO<sub>2</sub>(%)
-	 </font size>
-       </div>
+      <div id="fio2Div" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+        <font size=4>
+          <p>&nbspO<sub>2</sub> Source Purity(%)&nbsp&nbsp&nbspDesired FiO<sub>2</sub>(%)
+        </font size>
+      </div>
 
       <img src="../img/Logos.png" alt="Title" width="360" height="60" style="padding-bottom:0;">
     </center>
@@ -77,5 +79,5 @@
   </div>
 
 </body>
-</html>
 
+</html>

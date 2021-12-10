@@ -25,11 +25,11 @@
   font-size: 3em;
 }
 
-.Space1  {
+.Space1 {
   grid-area: 1 / 8 / 15 / 9;
 }
 
-.Space2  {
+.Space2 {
   grid-area: 1 / 12 / 15 / 13;
 }
 
@@ -282,4 +282,3 @@
   background-color: var(--rsp_darkblue);
   color: white;
 }
-

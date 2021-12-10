@@ -3,7 +3,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
-
 .sidebar {
   width: 14em;
   position: absolute;
@@ -92,4 +91,3 @@ span {
 .noUi-active .noUi-tooltip {
   display: block;
 }
-

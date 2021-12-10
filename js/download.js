@@ -38,19 +38,19 @@
     myBlob = myBlob.call ? myBlob.bind(self) : Blob;
     if (String(this) ===
       "true"
-      ) { //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
+    ) { //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
       payload = [payload, mimeType];
       mimeType = payload[0];
       payload = payload[1];
     }
     if (url && url.length <
       2048
-      ) { // if no filename and no mime, assume a url was passed as the only argument
+    ) { // if no filename and no mime, assume a url was passed as the only argument
       fileName = url.split("/").pop().split("?")[0];
       anchor.href = url; // assign href prop to temp anchor
       if (anchor.href.indexOf(url) !== -
         1
-        ) { // if the browser determines that it's a potentially valid url path:
+      ) { // if the browser determines that it's a potentially valid url path:
         var ajax = new XMLHttpRequest();
         ajax.open("GET", url, true);
         ajax.responseType = 'blob';
@@ -80,7 +80,7 @@
       new myBlob([payload], {
         type: mimeType
       });
-    
+
     function dataUrlToBlob(strUrl) {
       var parts = strUrl.split(/[:;,]/),
         type = parts[1],
@@ -94,7 +94,7 @@
         type: type
       });
     }
-    
+
     function saver(url, winMode) {
       if ('download' in anchor) { //html5 A[download]
         anchor.href = url;
@@ -164,4 +164,3 @@
     return true;
   }; /* end download() */
 }));
-

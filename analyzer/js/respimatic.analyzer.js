@@ -1,16 +1,13 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-
 var analysisRangeSliderDiv = null;
 var rangeSlider = null;
 var sliderCommitPending = false;
-
 document.title = respimaticUid + " (ANALYZER)";
 if (!window.indexedDB) {
   alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
-
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
@@ -63,11 +60,10 @@ function listAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
   table.innerHTML = "";
-
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
-  for (i=retrieved_dbs.length-1; i>=0; i--) {
-    listDbTableRow(retrieved_dbs[i],i);
+  for (i = retrieved_dbs.length - 1; i >= 0; i--) {
+    listDbTableRow(retrieved_dbs[i], i);
   }
 }
 
@@ -215,14 +211,14 @@ function initSession() {
   }
   resetAnalysisData();
   var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function (event) {
+  req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
     sessionDbReady = true;
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.getAllKeys();
-    keyReq.onsuccess = function (event) {
+    keyReq.onsuccess = function(event) {
       var keys = event.target.result;
       allDbKeys = keys;
       if (keys.length == 0) {
@@ -353,8 +349,7 @@ function resetTimeInterval() {
   gatherGlobalData();
   resetDivs();
 }
-
-window.onload = function () {
+window.onload = function() {
   sessionDbName = "";
   sessionDbReady = false;
   var heading = document.getElementById("SysUid");
@@ -362,7 +357,7 @@ window.onload = function () {
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
-  rangeSlider.on('end', function () {
+  rangeSlider.on('end', function() {
     flashAnalysisWindowButtons();
     updateSliderDuration();
     sliderCommitPending = true;
@@ -402,21 +397,27 @@ function createAnalysisRangeSlider() {
     padding: [1000, 1000],
     connect: [false, true, false],
     // handle labels
-    tooltips: [
-      {
-        to: function (ms) { return msToDateStr(ms); },
-        from: function (dt) { return dateStrToMs(dt); }
+    tooltips: [{
+        to: function(ms) {
+          return msToDateStr(ms);
+        },
+        from: function(dt) {
+          return dateStrToMs(dt);
+        }
       },
       {
-        to: function (ms) { return msToDateStr(ms); },
-        from: function (dt) { return dateStrToMs(dt); }
+        to: function(ms) {
+          return msToDateStr(ms);
+        },
+        from: function(dt) {
+          return dateStrToMs(dt);
+        }
       }
     ],
     //pips: {mode: 'count', values: 5},
   });
 }
-
-var intervalId = setInterval(function () {
+var intervalId = setInterval(function() {
   blinkAnalysisWindowButtons();
 }, 1000);
 var analysisButtonsFlashed = false;
@@ -434,7 +435,6 @@ function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_darkred');
-
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = bgd;
   el = document.getElementById("btnCancelInterval");
@@ -443,10 +443,8 @@ function flashAnalysisWindowButtons() {
 
 function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
-
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_mediumblue');
-
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = bgd;
   el = document.getElementById("btnCancelInterval");

@@ -3,7 +3,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
-
 .sidebar {
   border-radius: 25px;
   width: 240px;
@@ -148,7 +147,7 @@ span {
 }
 
 .chartContainer {
-    border: 10px solid #CCCCCC;
-    box-sizing: border-box;
-    height:1200px;
+  border: 10px solid #CCCCCC;
+  box-sizing: border-box;
+  height: 1200px;
 }

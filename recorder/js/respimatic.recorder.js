@@ -1,7 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-
 var creationTimeStamp = "";
 var db;
 var dbName;
@@ -16,11 +15,9 @@ var l1 = false;
 var l2 = false;
 var l3 = false;
 var l4 = false;
-
 // Refresh data controls
 const REFRESH_DWEET_INTERVAL = 10;
 var dweetIntervalCounter = 0;
-
 // check for browser capability
 document.title = respimaticUid + " (RECORDER)";
 if (!window.indexedDB) {
@@ -100,8 +97,8 @@ function insertJsonData(db, jsonData) {
   var tx = db.transaction([dbObjStoreName], 'readwrite');
   var store = tx.objectStore(dbObjStoreName);
   store.add(jsonData); // Wait for the database transaction to complete
-  tx.oncomplete = function () {}
-  tx.onerror = function (event) {
+  tx.oncomplete = function() {}
+  tx.onerror = function(event) {
     alert('Error storing data! ' + event.target.errorCode);
   }
 }
@@ -112,8 +109,8 @@ function listAllDbs() {
   table.innerHTML = "";
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
-  for (i=retrieved_dbs.length-1; i>=0; i--) {
-    listDbTableRow(retrieved_dbs[i],i);
+  for (i = retrieved_dbs.length - 1; i >= 0; i--) {
+    listDbTableRow(retrieved_dbs[i], i);
   }
 }
 
@@ -242,9 +239,9 @@ function processDweet(d) {
 }
 
 function waitForDweets() {
-  dweetio.listen_for(respimaticUid, function (d) {
+  dweetio.listen_for(respimaticUid, function(d) {
     dweetIntervalCounter++;
-    if (dweetIntervalCounter>REFRESH_DWEET_INTERVAL) {
+    if (dweetIntervalCounter > REFRESH_DWEET_INTERVAL) {
       dweetIntervalCounter = 0;
       prevContent = {};
     }
@@ -261,7 +258,6 @@ function startLog() {
   heading = document.getElementById("SysUid");
   heading.innerText = "\n" + respimaticUid;
   doLog = true;
-
   elm = document.getElementById("activeSessionDiv");
   style = getComputedStyle(document.body)
   elm.style.backgroundColor = style.getPropertyValue('--rsp_green');
@@ -274,13 +270,11 @@ function pauseLog() {
   heading = document.getElementById("SysUid");
   heading.innerText = "\n" + respimaticUid;
   doLog = false;
-
   elm = document.getElementById("activeSessionDiv");
   style = getComputedStyle(document.body)
   elm.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
 }
-
-window.onload = function () {
+window.onload = function() {
   heading = document.getElementById("SysUidMsg");
   heading.innerText = "Ready to Record";
   heading = document.getElementById("SysUid");
@@ -297,4 +291,3 @@ function selectExit() {
   }
   window.location.assign("../index.html");
 }
-

@@ -1,17 +1,14 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-
 function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_darkblue');
-
   var newElement = document.createElement('p');
   newElement.innerHTML = prefix + "DateTime: " + dateToStr(jsonData.created);
   newElement.style.backgroundColor = bgd;
-  newElement.style.color = "white" ;
+  newElement.style.color = "white";
   scrollbox.appendChild(newElement);
-
   if (jsonData.L1) {
     var newElement = document.createElement('p');
     newElement.innerText = newElement.textContent = jsonData.L1;
@@ -32,20 +29,19 @@ function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
     newElement.innerText = newElement.textContent = jsonData.L4;
     scrollbox.appendChild(newElement);
   }
-
   var newElement = document.createElement('hr');
-  newElement.style.color="white";
+  newElement.style.color = "white";
   scrollbox.appendChild(newElement);
 }
-
 var errorWarningDisplayed = false;
+
 function initErrorWarnings() {
   console.log("initErrorWarnings");
   errorWarningDisplayed = false;
   var scrollbox = document.getElementById('scrollErrorDiv');
-  scrollbox.innerHTML = "" ;
+  scrollbox.innerHTML = "";
   scrollbox = document.getElementById('scrollWarningDiv');
-  scrollbox.innerHTML = "" ;
+  scrollbox.innerHTML = "";
 }
 
 function displayErrorWarnings() {
@@ -54,22 +50,16 @@ function displayErrorWarnings() {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
-
   if (errorWarningDisplayed) return;
-
   var scrollbox = document.getElementById('scrollErrorDiv');
-  for (i=0; i<errorMsgs.length; i++) {
-    prefix = "ERROR #" + (i+1) + " ";
+  for (i = 0; i < errorMsgs.length; i++) {
+    prefix = "ERROR #" + (i + 1) + " ";
     displayJsonErrorWarning(prefix, scrollbox, errorMsgs[i]);
   }
-
   var scrollbox = document.getElementById('scrollWarningDiv');
-  for (i=0; i<warningMsgs.length; i++) {
-    prefix = "WARNING #" + (i+1) + " ";
+  for (i = 0; i < warningMsgs.length; i++) {
+    prefix = "WARNING #" + (i + 1) + " ";
     displayJsonErrorWarning(prefix, scrollbox, warningMsgs[i]);
   }
-
   errorWarningDisplayed = true;
 }
-
-

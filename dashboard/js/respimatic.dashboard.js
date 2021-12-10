@@ -3,9 +3,8 @@ document.title = respimaticUid + " (" + datasource_name + ")"
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   fiO2Gauge.setValue(fiO2);
   purityGauge.setValue(o2Purity);
-
   elm = document.getElementById("o2FlowRate");
-  elm.innerHTML = parseFloat(o2Flow/10).toFixed(1) + " (litres/min)" ;
+  elm.innerHTML = parseFloat(o2Flow / 10).toFixed(1) + " (litres/min)";
 }
 
 function checkFiO2Calculation(d) {
@@ -13,22 +12,20 @@ function checkFiO2Calculation(d) {
   var newPurity = o2Purity;
   var newO2Flow = reqO2Flow;
   var change = false;
-
   value = d.content["FIO2"];
   if (typeof value != "undefined") {
-    if (validDecimalInteger(value) && (value<=100)) {
+    if (validDecimalInteger(value) && (value <= 100)) {
       newFiO2 = value;
       change = true;
     }
   }
   value = d.content["O2PURITY"];
   if (typeof value != "undefined") {
-    if (validDecimalInteger(value) && (value<=100)) {
+    if (validDecimalInteger(value) && (value <= 100)) {
       newPurity = value;
       change = true;
     }
   }
-
   value = d.content["O2FLOWX10"];
   if (typeof value != "undefined") {
     if (validDecimalInteger(value)) {
@@ -36,7 +33,6 @@ function checkFiO2Calculation(d) {
       change = true;
     }
   }
-
   if (change) {
     desiredFiO2 = newFiO2;
     o2Purity = newPurity;
@@ -46,7 +42,7 @@ function checkFiO2Calculation(d) {
 }
 
 function waitForDweets() {
-  dweetio.listen_for(respimaticUid, function (d) {
+  dweetio.listen_for(respimaticUid, function(d) {
     processDweet(d);
   });
 }
@@ -64,56 +60,41 @@ function processDweet(d) {
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
   checkFiO2Calculation(d);
-
   updateSnapshot(d);
-
   chartProcessJsonRecord(d);
   if (typeof d.content["BTOG"] == "undefined") return d;
-
   numBreaths++;
   elm = document.getElementById("numBreaths");
-  elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths ;
-
+  elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths;
   if (!currentViewIsSnapshot && !chartsPaused) createDashboardCharts();
   return d;
 }
-
-window.onload = function () {
+window.onload = function() {
   firstDweet = true;
   numBreaths = 0;
-
   var style = getComputedStyle(document.body)
-
   blueColor = style.getPropertyValue('--rsp_blue');
   mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
   darkblueColor = style.getPropertyValue('--rsp_darkblue');
   darkredColor = style.getPropertyValue('--rsp_darkred');
   greenColor = style.getPropertyValue('--rsp_green');
   orangeColor = style.getPropertyValue('--rsp_orange');
-
   alertImage = "OK";
   alertBackground = "GREEN";
   pendingBackground = "MEDIUMBLUE";
-
   currentViewIsSnapshot = true;
   snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";
-
   charts = document.getElementById("chart-pane");
   charts.style.display = "none";
-
   btn = document.getElementById("btnViewChange");
-  btn.textContent = "Charts View" ;
-
+  btn.textContent = "Charts View";
   installPurityGauge();
   installFiO2Gauge();
-
   installPeakGauge();
   installPlatGauge();
   installPeepGauge();
-
   installTempGauge();
-
   // now wait for dweets and act accordingly
   waitForDweets();
 }
@@ -126,24 +107,23 @@ function toggleDashboardView() {
     currentViewIsSnapshot = false;
     snapshot.style.display = "none";
     charts.style.display = "block";
-    btn.textContent = "Snapshots View" ;
+    btn.textContent = "Snapshots View";
     if (chartsPaused) selectTogglePause();
   } else {
     snapshot.style.display = "inline-grid";
     charts.style.display = "none";
     currentViewIsSnapshot = true;
-    btn.textContent = "Charts View" ;
+    btn.textContent = "Charts View";
     if (!chartsPaused) selectTogglePause();
   }
 }
-
 var pressureChart = null;
 var volumeChart = null;
 var bpmChart = null;
 var fiO2Chart = null;
 var miscChart = null;
-
 var timeBased = false;
+
 function createDashboardCharts() {
   createDashboardPressureCharts();
   createDashboardVolumeCharts();
@@ -154,17 +134,15 @@ function createDashboardCharts() {
 
 function createDashboardPressureCharts() {
   var style = getComputedStyle(document.body)
-
-  var chartJson ;
+  var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Pressures";
-  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
-
-  paramData = createCanvasChartData(peakValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(peakValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[0];
   yaxis = createPressureYaxis(0, chartColor);
   chartJson.axisY.push(yaxis);
@@ -175,8 +153,7 @@ function createDashboardPressureCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(platValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(platValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[1];
   if (paramData) {
     paramData.name = "Plateau Pressure (cm H20)";
@@ -184,8 +161,7 @@ function createDashboardPressureCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(mpeepValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(mpeepValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[2];
   if (paramData) {
     paramData.name = "PEEP Pressure (cm H20)";
@@ -193,7 +169,6 @@ function createDashboardPressureCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
   container = document.getElementById("chartPressureDiv");
   if (pressureChart) {
     pressureChart.destroy();
@@ -205,17 +180,15 @@ function createDashboardPressureCharts() {
 
 function createDashboardVolumeCharts() {
   var style = getComputedStyle(document.body)
-
-  var chartJson ;
+  var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Volumes";
-  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
-
-  paramData = createCanvasChartData(vtdelValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(vtdelValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[0];
   yaxis = createVtYaxis(0, chartColor);
   chartJson.axisY.push(yaxis);
@@ -225,8 +198,7 @@ function createDashboardVolumeCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(mvdelValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(mvdelValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[1];
   yaxis = createMvYaxis(1, chartColor);
   chartJson.axisY2 = createNewInstance(yaxis);
@@ -236,7 +208,6 @@ function createDashboardVolumeCharts() {
     paramData.axisYType = "secondary";
     chartJson.data.push(paramData);
   }
-
   container = document.getElementById("chartVolumeDiv");
   if (volumeChart) {
     volumeChart.destroy();
@@ -248,17 +219,15 @@ function createDashboardVolumeCharts() {
 
 function createDashboardFiO2Charts() {
   var style = getComputedStyle(document.body)
-
-  var chartJson ;
+  var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "FiO2";
-  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
-
-  paramData = createCanvasChartData(fiO2Values,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(fiO2Values, timeBased, flagError, flagWarning);
   chartColor = graphColors[0];
   yaxis = createPercentYaxis(0, chartColor);
   chartJson.axisY.push(yaxis);
@@ -268,8 +237,7 @@ function createDashboardFiO2Charts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(o2PurityValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(o2PurityValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[1];
   if (paramData) {
     paramData.name = "O2 Purity (%)";
@@ -277,8 +245,7 @@ function createDashboardFiO2Charts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(o2FlowValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(o2FlowValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[2];
   yaxis = createO2FlowYaxis(0, chartColor);
   chartJson.axisY2 = createNewInstance(yaxis);
@@ -288,7 +255,6 @@ function createDashboardFiO2Charts() {
     paramData.axisYType = "secondary";
     chartJson.data.push(paramData);
   }
-
   container = document.getElementById("chartFiO2Div");
   if (fiO2Chart) {
     fiO2Chart.destroy();
@@ -300,17 +266,15 @@ function createDashboardFiO2Charts() {
 
 function createDashboardMiscCharts() {
   var style = getComputedStyle(document.body)
-
-  var chartJson ;
+  var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Miscellaneous";
-  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
-
-  paramData = createCanvasChartData(tempValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(tempValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[0];
   yaxis = createTempYaxis(0, chartColor);
   chartJson.axisY.push(yaxis);
@@ -320,8 +284,7 @@ function createDashboardMiscCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(warningValues,timeBased,false,true);
+  paramData = createCanvasChartData(warningValues, timeBased, false, true);
   chartColor = graphColors[1];
   yaxis = createErrorWarningYaxis(0, chartColor);
   chartJson.axisY2 = createNewInstance(yaxis);
@@ -331,8 +294,7 @@ function createDashboardMiscCharts() {
     paramData.axisYType = "secondary";
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(errorValues,timeBased,true,false);
+  paramData = createCanvasChartData(errorValues, timeBased, true, false);
   chartColor = graphColors[2];
   if (paramData) {
     paramData.name = "Errors";
@@ -340,7 +302,6 @@ function createDashboardMiscCharts() {
     paramData.axisYType = "secondary";
     chartJson.data.push(paramData);
   }
-
   container = document.getElementById("chartMiscDiv");
   if (miscChart) {
     miscChart.destroy();
@@ -352,17 +313,15 @@ function createDashboardMiscCharts() {
 
 function createDashboardBpmCharts() {
   var style = getComputedStyle(document.body)
-
-  var chartJson ;
+  var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Breaths per Minute";
-  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number" ;
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
-
-  paramData = createCanvasChartData(sbpmValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(sbpmValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[0];
   yaxis = createBpmYaxis(0, chartColor);
   chartJson.axisY.push(yaxis);
@@ -373,8 +332,7 @@ function createDashboardBpmCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
-  paramData = createCanvasChartData(mbpmValues,timeBased,flagError,flagWarning);
+  paramData = createCanvasChartData(mbpmValues, timeBased, flagError, flagWarning);
   chartColor = graphColors[1];
   if (paramData) {
     paramData.name = "Mandatory Breaths (bpm)";
@@ -382,7 +340,6 @@ function createDashboardBpmCharts() {
     paramData.axisYIndex = 0;
     chartJson.data.push(paramData);
   }
-
   container = document.getElementById("chartBpmDiv");
   if (bpmChart) {
     bpmChart.destroy();
@@ -454,7 +411,6 @@ function installPurityGauge() {
   const elem = document.getElementById('purityDiv');
   elem.appendChild(node);
 }
-
 
 function installPeakGauge() {
   var style = getComputedStyle(document.body)
@@ -551,4 +507,3 @@ function installTempGauge() {
   const elem = document.getElementById('TempGauge');
   elem.appendChild(node);
 }
-
