@@ -17,6 +17,10 @@ var l2 = false;
 var l3 = false;
 var l4 = false;
 
+// Refresh data controls
+const REFRESH_DWEET_INTERVAL = 10;
+var dweetIntervalCounter = 0;
+
 // check for browser capability
 document.title = respimaticUid + " (RECORDER)";
 if (!window.indexedDB) {
@@ -239,6 +243,11 @@ function processDweet(d) {
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function (d) {
+    dweetIntervalCounter++;
+    if (dweetIntervalCounter>REFRESH_DWEET_INTERVAL) {
+      dweetIntervalCounter = 0;
+      prevContent = {};
+    }
     processDweet(d);
   });
 }
