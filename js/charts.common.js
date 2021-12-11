@@ -38,8 +38,6 @@ var chartTemplate = {
   title:{ 
     text: "" ,
     padding: 10,
-    borderThickness: 2,
-    cornerRadius: 4,
   },
   axisX:{ 
     title: "", 
