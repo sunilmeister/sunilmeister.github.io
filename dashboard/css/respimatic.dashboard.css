@@ -282,3 +282,17 @@
   background-color: var(--rsp_darkblue);
   color: white;
 }
+
+.ChartWrapper {
+  background-color:var(--rsp_lightblue); 
+  border-color: var(--rsp_mediumblue); 
+  border-width: 25px; 
+  border-style: inset; 
+  min-height: 750px;
+}
+
+.ChartCanvas {
+  margin-bottom:50px; 
+  margin-left:10px;
+  margin-right:10px;
+}
