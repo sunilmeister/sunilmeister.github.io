@@ -151,3 +151,8 @@ span {
   box-sizing: border-box;
   height: 1200px;
 }
+
+.shadowDiv {
+  -webkit-box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.4); 
+  box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.4);
+}

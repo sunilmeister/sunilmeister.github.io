@@ -286,8 +286,8 @@
 .ChartWrapper {
   background-color:var(--rsp_lightblue); 
   border-color: var(--rsp_mediumblue); 
-  -webkit-box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.46); 
-  box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.46);
+  -webkit-box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.4); 
+  box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.4);
   min-height: 750px;
   margin-bottom: 40px;
 }
