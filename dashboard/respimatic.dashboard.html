@@ -77,24 +77,38 @@
   <div class="dashboard-pane">
     <div id="chart-pane" style="display:none">
       <center>
+        <div class=shadowDiv10 style="background-color:var(--rsp_mediumblue); color:white;font-size:3em; font-family:verdana;">
+          <br>
+          <input id="PressuresTick" style="width:3em;height:3em;" type="checkbox" onclick="PressuresClick()">
+          Pressures&nbsp&nbsp&nbsp
+          <input id="VolumesTick" style="width:3em;height:3em;" type="checkbox" onclick="VolumesClick()">
+          Volumes&nbsp&nbsp&nbsp
+          <input id="BpmTick" style="width:3em;height:3em;" type="checkbox" onclick="BpmClick()">
+          Breaths per Minute&nbsp&nbsp&nbsp
+          <input id="FiO2Tick" style="width:3em;height:3em;" type="checkbox" onclick="FiO2Click()">
+	  FiO<sub>2</sub>&nbsp&nbsp&nbsp
+          <input id="MiscTick" style="width:3em;height:3em;" type="checkbox" onclick="MiscClick()">
+          Miscellaneous
+	  <br><br>
+        </div>
 
-	<div class=ChartWrapper>
+	<div id=PressuresChartWrapper class=ChartWrapper style="display:none;">
           <div id="chartPressureDiv" class=ChartCanvas></div>
 	</div>
 
-	<div class=ChartWrapper>
+	<div id=VolumesChartWrapper class=ChartWrapper style="display:none;">
 	  <div id="chartVolumeDiv" class=ChartVanvas></div>
         </div>
 
-	<div class=ChartWrapper>
+	<div id=BpmChartWrapper class=ChartWrapper style="display:none;">
 	  <div id="chartBpmDiv" class=ChartVanvas></div>
         </div>
 
-	<div class=ChartWrapper>
+	<div id=FiO2ChartWrapper class=ChartWrapper style="display:none;">
 	  <div id="chartFiO2Div" class=ChartVanvas></div>
         </div>
 
-	<div class=ChartWrapper>
+	<div id=MiscChartWrapper class=ChartWrapper style="display:none;">
 	  <div id="chartMiscDiv" class=ChartVanvas></div>
 	</div>
 

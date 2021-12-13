@@ -89,12 +89,18 @@ window.onload = function() {
   charts.style.display = "none";
   btn = document.getElementById("btnViewChange");
   btn.textContent = "Charts View";
+
+  // Install all gauges
   installPurityGauge();
   installFiO2Gauge();
   installPeakGauge();
   installPlatGauge();
   installPeepGauge();
   installTempGauge();
+
+  // Chart types to display
+  InitChartCheckBoxes();
+
   // now wait for dweets and act accordingly
   waitForDweets();
   alert(
@@ -511,3 +517,52 @@ function installTempGauge() {
   const elem = document.getElementById('TempGauge');
   elem.appendChild(node);
 }
+
+function PressuresClick() {
+  if (document.getElementById("PressuresTick").checked) {
+    document.getElementById("PressuresChartWrapper").style.display = "block";
+  } else {
+    document.getElementById("PressuresChartWrapper").style.display = "none";
+  }
+}
+
+function VolumesClick() {
+  if (document.getElementById("VolumesTick").checked) {
+    document.getElementById("VolumesChartWrapper").style.display = "block";
+  } else {
+    document.getElementById("VolumesChartWrapper").style.display = "none";
+  }
+}
+
+function BpmClick() {
+  if (document.getElementById("BpmTick").checked) {
+    document.getElementById("BpmChartWrapper").style.display = "block";
+  } else {
+    document.getElementById("BpmChartWrapper").style.display = "none";
+  }
+}
+
+function FiO2Click() {
+  if (document.getElementById("FiO2Tick").checked) {
+    document.getElementById("FiO2ChartWrapper").style.display = "block";
+  } else {
+    document.getElementById("FiO2ChartWrapper").style.display = "none";
+  }
+}
+
+function MiscClick() {
+  if (document.getElementById("MiscTick").checked) {
+    document.getElementById("MiscChartWrapper").style.display = "block";
+  } else {
+    document.getElementById("MiscChartWrapper").style.display = "none";
+  }
+}
+
+function InitChartCheckBoxes() {
+  document.getElementById("PressuresTick").checked = false;
+  document.getElementById("VolumesTick").checked = false;
+  document.getElementById("BpmTick").checked = false;
+  document.getElementById("FiO2Tick").checked = false;
+  document.getElementById("MiscTick").checked = false;
+}
+
