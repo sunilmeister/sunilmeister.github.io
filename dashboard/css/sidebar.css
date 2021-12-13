@@ -51,6 +51,34 @@
   transform: translateY(6px);
 }
 
+.sidebarButtonShadow {
+  background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
+  border: white;
+  color: white;
+  padding: 0.5em 0.7em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0.3em 0.3em;
+  cursor: pointer;
+  font-size: 1.2em;
+  border-radius: 1em;
+  width: 10em;
+  opacity: 0.8;
+}
+
+.sidebarButtonShadow:hover {
+  opacity: 1;
+}
+
+.sidebarButtonShadow:active {
+  background-color: var(--rsp_green);
+  box-shadow: 0 6px var(--rsp_lightblue);
+  transform: translateY(6px);
+}
+
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;
@@ -91,3 +119,14 @@ span {
 .noUi-active .noUi-tooltip {
   display: block;
 }
+
+.shadowDiv5 {
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4); 
+  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4);
+}
+
+.shadowDiv10 {
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
+}
+

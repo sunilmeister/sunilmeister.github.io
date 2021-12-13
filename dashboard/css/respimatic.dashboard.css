@@ -15,6 +15,8 @@
   font-size: 4em;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Alert {
@@ -23,6 +25,8 @@
   background-color: var(--rsp_green);
   color: white;
   font-size: 3em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Space1 {
@@ -39,6 +43,8 @@
   background-color: var(--rsp_mediumblue);
   font-size: 2em;
   color: white;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Patient {
@@ -47,6 +53,8 @@
   font-size: 3em;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Measurements {
@@ -57,46 +65,58 @@
   font-weight: bold;
   margin-top: 0px;
   margin-bottom: 0px;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Peak {
   grid-area: 6 / 1 / 9 / 4;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Plateau {
   grid-area: 9 / 1 / 12 / 4;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Peep {
   grid-area: 12 / 1 / 15 / 4;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Dynamic {
   grid-area: 13 / 4 / 15 / 6;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Static {
   grid-area: 13 / 6 / 15 / 8;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Compliance {
@@ -107,22 +127,28 @@
   color: var(--rsp_darkblue);
   background-color: var(--rsp_lightblue);
   font-size: 2.5em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .MBPM {
   grid-area: 10 / 4 / 12 / 6;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .SBPM {
   grid-area: 10 / 6 / 12 / 8;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .BPM {
@@ -133,22 +159,28 @@
   background-color: var(--rsp_lightblue);
   color: var(--rsp_darkblue);
   font-size: 2.5em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Tidal {
   grid-area: 7 / 4 / 9 / 6;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Minute {
   grid-area: 7 / 6 / 9 / 8;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Volume {
@@ -159,6 +191,8 @@
   border-width: thick;
   background-color: var(--rsp_lightblue);
   font-size: 2.5em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Environment {
@@ -169,6 +203,8 @@
   font-weight: bold;
   margin-top: 0px;
   margin-bottom: 0px;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Temp {
@@ -179,6 +215,8 @@
   color: white;
   font-size: 2em;
   background-color: var(--rsp_lightblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Altitude {
@@ -189,6 +227,8 @@
   color: white;
   font-size: 2em;
   background-color: var(--rsp_lightblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Breath {
@@ -199,6 +239,8 @@
   color: var(--rsp_darkblue);
   background-color: var(--rsp_lightblue);
   font-size: 2em;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Parameters {
@@ -209,62 +251,80 @@
   font-weight: bold;
   margin-top: 0px;
   margin-bottom: 0px;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Mode {
   grid-area: 6 / 13 / 8 / 16;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .VT {
   grid-area: 8 / 13 / 10 / 16;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .RR {
   grid-area: 10 / 13 / 12 / 16;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .IE {
   grid-area: 12 / 13 / 14 / 16;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .IPeep {
   grid-area: 6 / 16 / 8 / 19;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .PMAX {
   grid-area: 8 / 16 / 10 / 19;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .PS {
   grid-area: 10 / 16 / 12 / 19;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .TPS {
   grid-area: 12 / 16 / 14 / 19;
-  border-radius: 25px;
+  border-radius: 0px 0px 25px 25px;
   color: white;
   background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Pending {
@@ -274,6 +334,8 @@
   color: white;
   font-size: 2.5em;
   font-weight: bold;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .Logo {
@@ -281,6 +343,8 @@
   border-radius: 25px;
   background-color: var(--rsp_darkblue);
   color: white;
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
 }
 
 .ChartWrapper {

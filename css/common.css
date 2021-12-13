@@ -105,6 +105,34 @@
   transform: translateY(6px);
 }
 
+.sidebarButtonShadow {
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4); 
+  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4);
+  background-color: var(--rsp_mediumblue);
+  border: white;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 20px;
+  width: 210px;
+  opacity: 0.8;
+}
+
+.sidebarButtonShadow:hover {
+  opacity: 1;
+}
+
+.sidebarButtonShadow:active {
+  background-color: var(--rsp_green);
+  box-shadow: 0 6px var(--rsp_lightblue);
+  transform: translateY(6px);
+}
+
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;
@@ -152,7 +180,13 @@ span {
   height: 1200px;
 }
 
-.shadowDiv {
-  -webkit-box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.4); 
-  box-shadow: 15px 15px 16px 14px rgba(0,0,0,0.4);
+.shadowDiv5 {
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4); 
+  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4);
 }
+
+.shadowDiv10 {
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
+}
+
