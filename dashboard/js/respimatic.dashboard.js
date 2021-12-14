@@ -119,6 +119,7 @@ function toggleDashboardView() {
     charts.style.display = "block";
     btn.textContent = "Snapshots View";
     if (chartsPaused) selectTogglePause();
+    createDashboardCharts();
   } else {
     snapshot.style.display = "inline-grid";
     charts.style.display = "none";
