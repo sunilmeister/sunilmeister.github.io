@@ -3,7 +3,20 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
+.sidebarColumn {
+  width: 41em;
+  height: 100%;
+  position: absolute;
+  background-color: var(--rsp_mediumblue);
+  margin-top:0;
+  margin-bottom:0;
+  margin-left:0;
+}
+
 .sidebar {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
   width: 14em;
   position: absolute;
   font-size: 2.5em;
@@ -21,14 +34,19 @@
 }
 
 .dashboard-pane {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
+
   margin-left: 50em;
   margin-right: 2em;
 }
 
 .sidebarButton {
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_blue);
   border: white;
-  color: white;
+  color: var(--rsp_darkblue);
   padding: 0.5em 0.7em;
   text-align: center;
   text-decoration: none;
@@ -36,6 +54,7 @@
   margin: 0.3em 0.3em;
   cursor: pointer;
   font-size: 1.2em;
+  font-weight: bold;
   border-radius: 1em;
   width: 10em;
   opacity: 0.8;
@@ -46,7 +65,7 @@
 }
 
 .sidebarButton:active {
-  background-color: var(--rsp_green);
+  background-color: var(--rsp_mediumblue);
   box-shadow: 0 6px var(--rsp_lightblue);
   transform: translateY(6px);
 }

@@ -27,53 +27,54 @@
 </head>
 
 <body>
-  <div class="sidebar">
+  <div class="sidebarColumn">
+    <div class="sidebar">
 
-    <br>
-    <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-      <center>
-        <p id="logTimeDuration">Session Duration 00:00:00
-        <p id="startTime">Starting Time 00:00:00
-      </center>
+      <br>
+      <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+        <center>
+          <p id="logTimeDuration">Session Duration 00:00:00
+          <p id="startTime">Starting Time 00:00:00
+        </center>
+      </div>
+
+      <br>
+      <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+        <center>
+          <div id="btnNewSessionDiv">
+            <br>
+            <button id="btnNewSessionDiv" class="sidebarButton" onclick='createNewDb()'>Start New Session</button>
+          </div>
+
+          <div id="btnStartLogDiv">
+            <br>
+            <button id="btnStartLog" class="sidebarButton" onclick='startLog()'>Resume
+              Recording</button>
+          </div>
+          `
+          <div id="btnPauseLogDiv">
+            <button id="btnPauseLog" class="sidebarButton" onclick='pauseLog()'>Pause&nbsp&nbsp&nbsp Recording</button>
+          </div>
+
+          <div id="btnDeleteDiv">
+            <br>
+            <button id="btnDeleteAll" class="sidebarButton" onclick='deleteAllDbs()'>Delete All
+              Sessions</button>
+            <br><br>
+          </div>
+
+        </center>
+      </div>
+
+      <br>
+      <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana; font-size:1.5em;">
+        <center>
+          <p id='SysUidMsg' style="margin-top: 0.5em; margin-bottom:0.5em;"></p>
+          <p id='SysUid' style="margin-top:0.5em; font-size:0.5em;">
+        </center>
+      </div>
+
     </div>
-
-    <br>
-    <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-      <center>
-        <div id="btnNewSessionDiv">
-          <br>
-          <button id="btnNewSessionDiv" class="sidebarButton" onclick='createNewDb()'>Start New Session</button>
-        </div>
-
-        <div id="btnStartLogDiv">
-          <br>
-          <button id="btnStartLog" class="sidebarButton" onclick='startLog()'>Resume
-            Recording</button>
-        </div>
-        `
-        <div id="btnPauseLogDiv">
-          <button id="btnPauseLog" class="sidebarButton" onclick='pauseLog()'>Pause
-            Recording</button>
-        </div>
-
-        <div id="btnDeleteDiv">
-          <br>
-          <button id="btnDeleteAll" class="sidebarButton" onclick='deleteAllDbs()'>Delete All
-            Sessions</button>
-          <br><br>
-        </div>
-
-      </center>
-    </div>
-
-    <br>
-    <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana; font-size:1.5em;">
-      <center>
-        <p id='SysUidMsg' style="margin-top: 0.5em; margin-bottom:0.5em;"></p>
-        <p id='SysUid' style="margin-top:0.5em; font-size:0.5em;">
-      </center>
-    </div>
-
   </div>
 
   <div class="body-pane">
@@ -81,7 +82,7 @@
     <center>
       <div class="row" style="margin-top:-28px; margin-right:20px">
         <div class="column">
-          <p class=shadowDiv5 id="sessionName" style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+          <p class=shadowDiv5 id="sessionName" style="width:500px; background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
             No Active Session
           <div class=shadowDiv5 id="activeSessionDiv" style="border-radius:25px; height:660px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id=dweetBox style="font-size:20px; text-align: left">

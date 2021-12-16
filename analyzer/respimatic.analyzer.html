@@ -38,68 +38,72 @@
 </head>
 
 <body>
-  <div class="sidebar">
+  <div class="sidebarColumn">
+    <div class="sidebar">
 
-    <br>
-    <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-      <center>
-        <p id="logTimeDuration">Session Duration 00:00:00
-        <p id="selectedTimeDuration">Window Duration 00:00:00
-      </center>
-    </div>
-    <br>
-
-    <center>
+      <br>
       <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-        <p>Session Actions
-          <br>
-          <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Select Session</button>
-          <br>
-          <button id="btnExport" class="sidebarButton" onclick='selectExport()'>Export Session</button>
-          <br>
-          <button id="btnImport" class="sidebarButton" onclick='selectImport()'>Import Session</button>
-          <br>
-          <button id="btnDeleteAll" class="sidebarButton" onclick='deleteAllDbs()'>Delete All Sessions</button>
-          <br>
-          <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Display Raw
-            Data</button>
-          <br>
+        <center>
+          <p id="logTimeDuration">Session Duration 00:00:00
+          <p id="selectedTimeDuration">Window Duration 00:00:00
+        </center>
       </div>
-    </center>
+      <br>
 
-    <br>
-    <center>
-      <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-        <p>Window Actions
-          <br>
-          <button id="btnStat" class="sidebarButton" onclick='selectStats()'>Statistics</button>
-          <br>
-          <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>Charts</button>
-          <br>
-          <button id="btnErrorWarning" class="sidebarButton" onclick='selectErrorWarnings()'>Errors &
-            Warnings</button>
-          <br>
-          <button id="btnExportWindow" class="sidebarButton" onclick='selectExportWindow()'>Export Window </button>
-          <br>
-      </div>
-    </center>
-
-    <br>
-    <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
       <center>
-        <p>Current Session
-          <br>
-        <p id='SysUid' style="font-size:16px;">
+        <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+          <p>Session Actions
+            <br>
+            <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Select Session</button>
+            <br>
+            <button id="btnExport" class="sidebarButton" onclick='selectExport()'>Export Session</button>
+            <br>
+            <button id="btnImport" class="sidebarButton" onclick='selectImport()'>Import Session</button>
+            <br>
+            <button id="btnDeleteAll" class="sidebarButton" onclick='deleteAllDbs()'>Delete All Sessions</button>
+            <br>
+            <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Display Raw
+              Data</button>
+            <br>
+        </div>
       </center>
+
+      <br>
+      <center>
+        <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+          <p>Window Actions
+            <br>
+            <button id="btnStat" class="sidebarButton" onclick='selectStats()'>Statistics</button>
+            <br>
+            <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>Charts</button>
+            <br>
+            <button id="btnErrorWarning" class="sidebarButton" onclick='selectErrorWarnings()'>Errors &
+              Warnings</button>
+            <br>
+            <button id="btnExportWindow" class="sidebarButton" onclick='selectExportWindow()'>Export Window </button>
+            <br>
+        </div>
+      </center>
+
+      <br>
+      <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;font-size:25px;">
+        <center>
+          <p style="font-size:20px;">SYSUID
+            <br>
+          <p id='SysUid' style="font-size:15px;">
+            <br>
+          <p id='SessionInfo' style="font-size:20px;">
+        </center>
+      </div>
     </div>
   </div>
 
   <div class="body-pane" style="margin-right:20px;">
 
     <center>
-      <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:20px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display: none; margin-left: 10px;">
+      <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:20px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display: none; ">
         <br><br>
-        <div id="analysisRangeSliderDiv" style="margin-left: 20px; margin-right: 20px;">
+        <div id="analysisRangeSliderDiv" style="padding-left:20px; padding-right:20px;">
         </div>
         <p style="color:white; font-size:20px; font-family:verdana;">
           Analysis Window Sliders&nbsp;&nbsp;
@@ -114,7 +118,7 @@
     </center>
 
     <center>
-      <div id="selectorDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
+      <div id="selectorDiv" style="width:800px; border-radius:25px; display: none; margin-bottom:20px;">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Select Session for Analysis</h2>
         <div class=shadowDiv5 style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
@@ -239,7 +243,7 @@
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Select Parameters for Chart</h2>
 
-        <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:20px; font-family:verdana; margin-left:10px">
+        <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:20px; font-family:verdana; ">
           <br>
           <input id="peakTick" style="width:20px;height:20px;" type="checkbox">
           Peak
@@ -289,10 +293,10 @@
           <br><br>
         </div>
 
-	<div class=shadowDiv5 style="background-color:var(--rsp_lightblue);min-height: 650px;">
-          <div id="chartContainerDiv" height=550px style="border-radius:25px; margin-left:10px; margin-top:20px">
+        <div class=shadowDiv5 style="background-color:var(--rsp_lightblue);min-height: 650px;">
+          <div id="chartContainerDiv" height=550px style="border-radius:25px; margin-top:20px">
           </div>
-	</div>
+        </div>
       </div>
     </center>
 
@@ -327,7 +331,7 @@
     </center>
 
     <center>
-      <div id="rawDataDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
+      <div id="rawDataDiv" style="width:1000px; border-radius:25px; display: none; margin-bottom:20px;">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Dumping Raw Data for Session</h2>
         <div class=shadowDiv5 style="border-radius:25px; margin-left:10px; height:1025px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
@@ -338,10 +342,10 @@
     </center>
 
     <center>
-      <div id="importDiv" style="border-radius:25px; margin-bottom:30px; display: none">
+      <div id="importDiv" style="width:800px; border-radius:25px; margin-bottom:30px; display: none">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Import Session</h2>
-        <div class=shadowDiv5 style="border-radius:25px; margin-left:10px; height:350px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
+        <div class=shadowDiv5 style="border-radius:25px; height:350px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
           <br><br>
           <label for="fileSelector">Session File to Import</label>
           <input type="file" id="fileSelector" accept=".txt" style="width: 200; border-radius: 10px; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
@@ -357,7 +361,7 @@
     </center>
 
     <center>
-      <div id="exportSessionDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
+      <div id="exportSessionDiv" style="width:800px; border-radius:25px; display: none; margin-bottom:20px;">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Export Selected Session</h2>
         <div class=shadowDiv5 style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
@@ -369,10 +373,10 @@
     </center>
 
     <center>
-      <div id="exportWindowDiv" style="border-radius:25px; display: none">
+      <div id="exportWindowDiv" style="width:800px; border-radius:25px; display: none">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Export Analysis Window</h2>
-        <button class="button" onclick='exportWindow()' style="font-size:1.5em; -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); " >Export Analysis Window
+        <button class="button" onclick='exportWindow()' style="font-size:1.5em; -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); ">Export Analysis Window
           as a Session</button>
         <br><br><br><br>
       </div>

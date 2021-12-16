@@ -25,7 +25,7 @@ function listDbTableRow(item, index) {
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>';
+  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="deleteDbRow(this)">DELETE</button>';
 }
 
 function selectDbRow(row) {
@@ -35,9 +35,12 @@ function selectDbRow(row) {
   dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
   sessionDbName = dbName;
   var heading = document.getElementById("SysUid");
-  heading.innerText = respimaticUid +
-    '\n\nSession Name\n' + p.cells[1].innerHTML + '\n\nCreation Date\n' + p.cells[2].innerHTML;
+  heading.innerHTML = respimaticUid ;
+  var sessionInfo = document.getElementById("SessionInfo");
+  sessionInfo.innerHTML = '<br>Session Name<br>' + p.cells[1].innerHTML + '<br><br>Creation Date<br>' + p.cells[2].innerHTML;
   initSession(dbName);
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("selectorDiv").style.display = "none";
   return dbName;
 }
 
@@ -201,6 +204,7 @@ function selectRawData() {
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
+  document.getElementById("exportSessionDiv").style.display = "none";
   displayRawData();
 }
 
@@ -233,7 +237,6 @@ function initSession() {
       updateSelectedDuration();
       updateLogDuration();
       gatherGlobalData();
-      document.getElementById("analysisWindowDiv").style.display = "block";
     }
   }
 }
@@ -322,7 +325,7 @@ function setTimeInterval() {
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
-  resetDivs();
+  //resetDivs();
 }
 
 function cancelTimeInterval() {
@@ -335,6 +338,7 @@ function cancelTimeInterval() {
 }
 
 function resetTimeInterval() {
+  cancelTimeInterval();
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
   if ((logStartTime.getTime() == analysisStartTime.getTime()) &&
@@ -353,7 +357,9 @@ window.onload = function() {
   sessionDbName = "";
   sessionDbReady = false;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid + "\nNo Session Selected";
+  heading.innerHTML = respimaticUid ;
+  var sessionInfo = document.getElementById("SessionInfo");
+  sessionInfo.innerHTML = '<br>No Session' ;
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
@@ -439,20 +445,24 @@ function blinkAnalysisWindowButtons() {
 function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_darkred');
+  bgd = style.getPropertyValue('--rsp_orange');
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = bgd;
   el = document.getElementById("btnCancelInterval");
+  el.style.backgroundColor = bgd;
+  el = document.getElementById("btnResetInterval");
   el.style.backgroundColor = bgd;
 }
 
 function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_mediumblue');
+  bgd = style.getPropertyValue('--rsp_blue');
   el = document.getElementById("btnSetInterval");
   el.style.backgroundColor = bgd;
   el = document.getElementById("btnCancelInterval");
+  el.style.backgroundColor = bgd;
+  el = document.getElementById("btnResetInterval");
   el.style.backgroundColor = bgd;
 }
 

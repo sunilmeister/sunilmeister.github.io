@@ -145,7 +145,8 @@ function createNewDb() {
   startLog();
   var sessionName = document.getElementById('sessionName');
   arr = parseDbName(dbName);
-  sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
+  //sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
+  sessionName.innerHTML = arr[1] ;
 }
 // ///////////////////////////////////////////////////////
 // Dweet Functions 

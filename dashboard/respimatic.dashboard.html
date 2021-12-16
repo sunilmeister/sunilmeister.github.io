@@ -27,47 +27,49 @@
 </head>
 
 <body>
-  <div class="sidebar">
+  <div class="sidebarColumn">
+    <div class="sidebar">
 
-    <br>
-    <div class=shadowDiv10 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
-      <center>
-        <p id="logTimeDuration">Duration 00:00:00
-        <p id="startTime">Starting Time 00:00:00
-        <p id="numBreaths">Number of Breaths 0000
-      </center>
-    </div>
-
-    <div class=shadowDiv10 style="margin-top:1em; border-radius:40px; background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
-      <center>
-        <div style="margin-top:1em;">
-          <button id="btnViewChange" class="sidebarButton" onclick='toggleDashboardView()'>Charts View</button>
-        </div>
-
-        <div id="pauseChartsDiv" style="margin-top:0.6em; margin-bottom:1em;">
-          <button id="btnPauseCharts" class="sidebarButton" onclick='selectTogglePause()'>Pause Charts</button>
-        </div>
-      </center>
-
-    </div>
-
-    <center>
-      <div class=shadowDiv10 id="fiO2Calc" style="margin-top:1.6em; border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-        <div id="purityDiv" style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-          <p>O<sub>2</sub> Source Purity (%)
-        </div>
-        <div id="fiO2Div" style="border-radius:25px; background-color:var(--rsp_darkblue); border-radius:25px; color:white; font-family:verdana;">
-          <p>Desired FiO<sub>2</sub> (%)
-        </div>
-        <div id="flowDiv" style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-          <p style="font-size:1.0em;">Set
-            O<sub>2</sub> Flow Rate
-          <p id="o2FlowRate" style="font-size:1.1em; font-weight: bold;">0.0
-            (litres/min)
-        </div>
+      <br>
+      <div class=shadowDiv10 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
+        <center>
+          <p id="logTimeDuration">Duration 00:00:00
+          <p id="startTime">Starting Time 00:00:00
+          <p id="numBreaths">Number of Breaths 0000
+        </center>
       </div>
-    </center>
 
+      <div class=shadowDiv10 style="margin-top:1em; border-radius:40px; background-color:var(--rsp_darkblue); color:white; font-size:1em; font-family:verdana;">
+        <center>
+          <div style="margin-top:1em;">
+            <button id="btnViewChange" class="sidebarButton" onclick='toggleDashboardView()'>Charts View</button>
+          </div>
+
+          <div id="pauseChartsDiv" style="margin-top:0.6em; margin-bottom:1em;">
+            <button id="btnPauseCharts" class="sidebarButton" onclick='selectTogglePause()'>Pause Charts</button>
+          </div>
+        </center>
+
+      </div>
+
+      <center>
+        <div class=shadowDiv10 id="fiO2Calc" style="margin-top:1.6em; border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+          <div id="purityDiv" style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+            <p>O<sub>2</sub> Source Purity (%)
+          </div>
+          <div id="fiO2Div" style="border-radius:25px; background-color:var(--rsp_darkblue); border-radius:25px; color:white; font-family:verdana;">
+            <p>Desired FiO<sub>2</sub> (%)
+          </div>
+          <div id="flowDiv" style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
+            <p style="font-size:1.0em;">Set
+              O<sub>2</sub> Flow Rate
+            <p id="o2FlowRate" style="font-size:1.1em; font-weight: bold;">0.0
+              (litres/min)
+          </div>
+        </div>
+      </center>
+
+    </div>
   </div>
 
   <div class="dashboard-pane">
@@ -82,31 +84,31 @@
           <input id="BpmTick" style="width:3em;height:3em;" type="checkbox" onclick="BpmClick()">
           Breaths per Minute&nbsp&nbsp&nbsp
           <input id="FiO2Tick" style="width:3em;height:3em;" type="checkbox" onclick="FiO2Click()">
-	  FiO<sub>2</sub>&nbsp&nbsp&nbsp
+          FiO<sub>2</sub>&nbsp&nbsp&nbsp
           <input id="MiscTick" style="width:3em;height:3em;" type="checkbox" onclick="MiscClick()">
           Miscellaneous
-	  <br><br>
+          <br><br>
         </div>
 
-	<div id=PressuresChartWrapper class=ChartWrapper style="display:none;">
+        <div id=PressuresChartWrapper class=ChartWrapper style="display:none;">
           <div id="chartPressureDiv" class=ChartCanvas></div>
-	</div>
-
-	<div id=VolumesChartWrapper class=ChartWrapper style="display:none;">
-	  <div id="chartVolumeDiv" class=ChartVanvas></div>
         </div>
 
-	<div id=BpmChartWrapper class=ChartWrapper style="display:none;">
-	  <div id="chartBpmDiv" class=ChartVanvas></div>
+        <div id=VolumesChartWrapper class=ChartWrapper style="display:none;">
+          <div id="chartVolumeDiv" class=ChartVanvas></div>
         </div>
 
-	<div id=FiO2ChartWrapper class=ChartWrapper style="display:none;">
-	  <div id="chartFiO2Div" class=ChartVanvas></div>
+        <div id=BpmChartWrapper class=ChartWrapper style="display:none;">
+          <div id="chartBpmDiv" class=ChartVanvas></div>
         </div>
 
-	<div id=MiscChartWrapper class=ChartWrapper style="display:none;">
-	  <div id="chartMiscDiv" class=ChartVanvas></div>
-	</div>
+        <div id=FiO2ChartWrapper class=ChartWrapper style="display:none;">
+          <div id="chartFiO2Div" class=ChartVanvas></div>
+        </div>
+
+        <div id=MiscChartWrapper class=ChartWrapper style="display:none;">
+          <div id="chartMiscDiv" class=ChartVanvas></div>
+        </div>
 
       </center>
     </div>

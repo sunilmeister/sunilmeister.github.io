@@ -3,6 +3,16 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
+.sidebarColumn {
+  width: 280px;
+  height: 100%;
+  position: absolute;
+  background-color: var(--rsp_mediumblue);
+  margin-top:0;
+  margin-bottom:0;
+  margin-left:0;
+}
+
 .sidebar {
   border-radius: 25px;
   width: 240px;
@@ -23,10 +33,13 @@
 
 .body-pane {
   border-radius: 25px;
-  margin-top: 50px;
   margin-left: 300px;
   font-size: 20px;
   font-family: verdana;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  position: absolute;
 }
 
 .dbTableButton {
@@ -49,8 +62,8 @@
 }
 
 .dbTableButton:active {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_mediumblue);
+  background-color: var(--rsp_blue);
+  box-shadow: 0 6px var(--rsp_lightblue);
   transform: translateY(6px);
 }
 
@@ -74,15 +87,15 @@
 }
 
 .button:active {
-  background-color: var(--rsp_green);
+  background-color: var(--rsp_darkblue);
   box-shadow: 0 6px var(--rsp_lightblue);
   transform: translateY(6px);
 }
 
 .sidebarButton {
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_blue);
   border: white;
-  color: white;
+  color: var(--rsp_darkblue);
   padding: 10px 15px;
   text-align: center;
   text-decoration: none;
@@ -90,6 +103,7 @@
   margin: 4px 2px;
   cursor: pointer;
   font-size: 20px;
+  font-weight: bold;
   border-radius: 20px;
   width: 210px;
   opacity: 0.8;

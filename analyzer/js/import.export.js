@@ -22,7 +22,7 @@ function listDbExportTableRow(item, index) {
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>';
+  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="deleteDbRow(this)">DELETE</button>';
 }
 
 function exportDbRow(row) {
