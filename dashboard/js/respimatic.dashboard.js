@@ -70,46 +70,6 @@ function processDweet(d) {
   return d;
 }
 
-window.onload = function() {
-  firstDweet = true;
-  numBreaths = 0;
-  var style = getComputedStyle(document.body)
-  blueColor = style.getPropertyValue('--rsp_blue');
-  mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
-  darkblueColor = style.getPropertyValue('--rsp_darkblue');
-  darkredColor = style.getPropertyValue('--rsp_darkred');
-  greenColor = style.getPropertyValue('--rsp_green');
-  orangeColor = style.getPropertyValue('--rsp_orange');
-  alertImage = "OK";
-  alertBackground = "GREEN";
-  pendingBackground = "MEDIUMBLUE";
-  currentViewIsSnapshot = true;
-  snapshot = document.getElementById("snapshot-pane");
-  snapshot.style.display = "inline-grid";
-  charts = document.getElementById("chart-pane");
-  charts.style.display = "none";
-  btn = document.getElementById("btnViewChange");
-  btn.textContent = "Charts View";
-
-  // Install all gauges
-  installPurityGauge();
-  installFiO2Gauge();
-  installPeakGauge();
-  installPlatGauge();
-  installPeepGauge();
-  installTempGauge();
-
-  // Chart types to display
-  InitChartCheckBoxes();
-
-  // now wait for dweets and act accordingly
-  waitForDweets();
-  alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-  );
-}
-
 function toggleDashboardView() {
   btn = document.getElementById("btnViewChange");
   snapshot = document.getElementById("snapshot-pane");
@@ -574,3 +534,49 @@ function InitChartCheckBoxes() {
   document.getElementById("MiscTick").checked = false;
 }
 
+window.onload = function() {
+  firstDweet = true;
+  numBreaths = 0;
+  var style = getComputedStyle(document.body)
+  blueColor = style.getPropertyValue('--rsp_blue');
+  mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
+  darkblueColor = style.getPropertyValue('--rsp_darkblue');
+  darkredColor = style.getPropertyValue('--rsp_darkred');
+  greenColor = style.getPropertyValue('--rsp_green');
+  orangeColor = style.getPropertyValue('--rsp_orange');
+  alertImage = "OK";
+  alertBackground = "GREEN";
+  pendingBackground = "MEDIUMBLUE";
+  currentViewIsSnapshot = true;
+  snapshot = document.getElementById("snapshot-pane");
+  snapshot.style.display = "inline-grid";
+  charts = document.getElementById("chart-pane");
+  charts.style.display = "none";
+  btn = document.getElementById("btnViewChange");
+  btn.textContent = "Charts View";
+
+  // Install all gauges
+  installPurityGauge();
+  installFiO2Gauge();
+  installPeakGauge();
+  installPlatGauge();
+  installPeepGauge();
+  installTempGauge();
+
+  // Chart types to display
+  InitChartCheckBoxes();
+
+  // now wait for dweets and act accordingly
+  waitForDweets();
+  alert(
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
+    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+  );
+}
+
+window.onbeforeunload = function(e) {
+  if (numBreaths!=0) {
+    const msg = 'Charts waveform history will be lost';
+    return msg;
+  }
+}

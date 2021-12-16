@@ -253,6 +253,10 @@ function waitForDweets() {
 // ///////////////////////////////////////////////////////
 function startLog() {
   if (doLog) return;
+  if (!dbName) {
+    alert("No Session created");
+    return;
+  }
   heading = document.getElementById("SysUidMsg");
   heading.innerText = "Recording ...";
   heading = document.getElementById("SysUid");
@@ -274,6 +278,17 @@ function pauseLog() {
   style = getComputedStyle(document.body)
   elm.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
 }
+
+function selectExit() {
+  if (doLog) {
+    if (!confirm("Recording will STOP")) {
+      return;
+    }
+  }
+  //window.location.assign("../index.html");
+  window.open('','_self').close();
+}
+
 window.onload = function() {
   heading = document.getElementById("SysUidMsg");
   heading.innerText = "Ready to Record";
@@ -287,12 +302,9 @@ window.onload = function() {
   );
 }
 
-function selectExit() {
+window.onbeforeunload = function(e) {
   if (doLog) {
-    if (!confirm("Recording will STOP")) {
-      return;
-    }
+    const msg = 'Recording will stop';
+    return msg;
   }
-  //window.location.assign("../index.html");
-  window.open('','_self').close();
 }

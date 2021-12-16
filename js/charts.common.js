@@ -47,7 +47,7 @@ var chartTemplate = {
   toolTip: { shared: true },
   legend: { 
     cursor: "pointer", 
-    itemclick: toggleDataSeries
+    itemclick: toggleDataSeries,
     fontSize: 15,
   },
   height: 600,
