@@ -69,6 +69,7 @@ function processDweet(d) {
   if (!currentViewIsSnapshot && !chartsPaused) createDashboardCharts();
   return d;
 }
+
 window.onload = function() {
   firstDweet = true;
   numBreaths = 0;
