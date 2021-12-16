@@ -378,7 +378,8 @@ function selectTogglePause() {
 }
 
 function selectExit() {
-  window.location.assign("../index.html");
+  //window.location.assign("../index.html");
+  window.open('','_self').close();
 }
 
 function installFiO2Gauge() {

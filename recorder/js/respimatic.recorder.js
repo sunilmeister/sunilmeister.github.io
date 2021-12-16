@@ -293,5 +293,6 @@ function selectExit() {
       return;
     }
   }
-  window.location.assign("../index.html");
+  //window.location.assign("../index.html");
+  window.open('','_self').close();
 }

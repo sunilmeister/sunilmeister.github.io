@@ -16,6 +16,28 @@ var logStartTime = new Date();
 var logEndTime = new Date();
 var analysisStartTime = new Date();
 var analysisEndTime = new Date();
+
+// /////////////////////////////////////////////
+// Zoom to a fraction of original
+// /////////////////////////////////////////////
+function pageZoom(factor) {
+  factor = factor * (screen.availHeight  / window.innerHeight);
+  document.body.style.transform = 'scale(' + factor +')';
+  document.body.style.transformOrigin = 'top left' ;
+
+  console.log("Outer Width=" + window.outerWidth);
+  console.log("Inner Width=" + window.innerWidth);
+  console.log("Screen Width=" + screen.availWidth);
+  console.log("Client Width=" + document.documentElement.clientWidth);
+  console.log(" ");
+  console.log("Outer Height=" + window.outerHeight);
+  console.log("Inner Height=" + window.innerHeight);
+  console.log("Screen Height=" + screen.availHeight);
+  console.log("Client Height=" + document.documentElement.clientHeight);
+
+  console.log("Zoom Factor=" + factor);
+}
+
 // /////////////////////////////////////////////
 // milliseconds to dates
 // /////////////////////////////////////////////

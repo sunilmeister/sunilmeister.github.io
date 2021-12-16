@@ -52,26 +52,31 @@ function launchDashboard() {
   if (!getRespimaticSysUID()) {
     return;
   }
-  window.location.assign("dashboard/respimatic.dashboard.html");
+  //window.location.assign("dashboard/respimatic.dashboard.html");
+  window.open("dashboard/respimatic.dashboard.html");
 }
 
 function launchRecorder() {
   if (!getRespimaticSysUID()) {
     return;
   }
-  window.location.assign("recorder/respimatic.recorder.html");
+  //window.location.assign("recorder/respimatic.recorder.html");
+  window.open("recorder/respimatic.recorder.html");
 }
 
 function launchAnalyzer() {
   if (!getRespimaticSysUID()) {
     return;
   }
-  window.location.assign("analyzer/respimatic.analyzer.html");
+  //window.location.assign("analyzer/respimatic.analyzer.html");
+  window.open("analyzer/respimatic.analyzer.html");
 }
 
 function launchFiO2() {
-  window.location.assign("fio2/respimatic.fio2Calc.html");
+  // window.location.assign("fio2/respimatic.fio2Calc.html");
+  window.open("fio2/respimatic.fio2Calc.html");
 }
+
 window.onload = function() {
   var retrieved_uids = localStorage.getItem("respimatic_uids");
   var respimatic_uids = [];
