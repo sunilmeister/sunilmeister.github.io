@@ -35,9 +35,9 @@ function selectDbRow(row) {
   dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
   sessionDbName = dbName;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid ;
+  heading.innerHTML = '<b>SYSUID</b><br>' + respimaticUid ;
   var sessionInfo = document.getElementById("SessionInfo");
-  sessionInfo.innerHTML = '<br>Session Name<br>' + p.cells[1].innerHTML + '<br><br>Creation Date<br>' + p.cells[2].innerHTML;
+  sessionInfo.innerHTML = '<b>Session Name</b><br>' + p.cells[1].innerHTML + '<br><br><b>Creation Date</b><br>' + p.cells[2].innerHTML;
   initSession(dbName);
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("selectorDiv").style.display = "none";
@@ -357,7 +357,7 @@ window.onload = function() {
   sessionDbName = "";
   sessionDbReady = false;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid ;
+  heading.innerHTML = '<b>SYSUID</b><br>' + respimaticUid ;
   var sessionInfo = document.getElementById("SessionInfo");
   sessionInfo.innerHTML = '<br>No Session' ;
   // Create analysis range slider
