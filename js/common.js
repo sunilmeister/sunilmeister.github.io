@@ -61,6 +61,7 @@ function validDecimalInteger(num) {
 }
 
 function validFloatNumber(num) {
+  if (validDecimalInteger(num)) return true;
   str = String(num);
   if (str.match(/^-?\d+\.?\d+$/)) return true;
   return false;
