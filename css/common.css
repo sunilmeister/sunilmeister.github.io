@@ -4,13 +4,13 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 280px;
+  width: 290px;
   height: 100%;
   position: absolute;
   background-color: var(--rsp_mediumblue);
-  margin-top:0;
+  margin-top:-8px;
   margin-bottom:0;
-  margin-left:0;
+  margin-left:-8px;
 }
 
 .sidebar {
@@ -33,7 +33,7 @@
 
 .body-pane {
   border-radius: 25px;
-  margin-left: 300px;
+  margin-left: 310px;
   font-size: 20px;
   font-family: verdana;
   top: 50%;
