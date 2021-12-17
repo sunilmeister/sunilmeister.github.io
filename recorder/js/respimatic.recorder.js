@@ -63,6 +63,7 @@ function listDbTableRow(item, index) {
   cell = row.insertCell();
   cell.innerHTML = '<button class="dbTableButton" onclick="exportDbRow(this)">EXPORT</button>';
   cell = row.insertCell();
+  cell.style.paddingRight = "25px" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];

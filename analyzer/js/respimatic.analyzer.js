@@ -21,6 +21,7 @@ function listDbTableRow(item, index) {
   cell = row.insertCell();
   cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="selectDbRow(this)">SELECT</button>';
   cell = row.insertCell();
+  cell.style.paddingRight = "25px" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];

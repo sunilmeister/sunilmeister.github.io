@@ -54,6 +54,11 @@ function dateStrToMs(dStr) {
 // /////////////////////////////////////////////
 // Misc functions
 // /////////////////////////////////////////////
+function trim(str) {
+  str = String(str);
+  return str.trim();
+}
+
 function validDecimalInteger(num) {
   str = String(num);
   if (str.match(/^-?\d+$/)) return true;
@@ -63,7 +68,7 @@ function validDecimalInteger(num) {
 function validFloatNumber(num) {
   if (validDecimalInteger(num)) return true;
   str = String(num);
-  if (str.match(/^-?\d+\.?\d+$/)) return true;
+  if (str.match(/^-?\d+\.?\d*$/)) return true;
   return false;
 }
 
