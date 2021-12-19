@@ -269,7 +269,7 @@ function updateSnapshot(d) {
       elm = document.getElementById("AltF");
       elm.innerHTML = ft + " <small><small>ft</small></small>";
       elm = document.getElementById("AltM");
-      if (ft='--') m = '--' ;
+      if (ft=='--') m = '--' ;
       elm.innerHTML = m + " <small><small>m</small></small>";
     }
     // Breath Type
