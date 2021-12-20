@@ -204,13 +204,15 @@ function updateSnapshot(d) {
         updateAlert(false);
       }
     } else if (key == 'ERROR') {
-      errorState = false;
       if (value == "1") {
         errorState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ERROR</b>";
         document.getElementById("StateImg").src = "img/RedDot.png";
         updateAlert(false);
+      } else {
+	if (errorState) attentionState = false; // exiting error state
+        errorState = false;
       }
     } else if (key == 'ATTENTION') {
       if (value == "1") {
