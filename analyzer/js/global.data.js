@@ -171,7 +171,7 @@ function globalTrackJsonRecord(jsonData) {
         value = jsonData.content[ckey];
         initialJsonRecord.content[ckey] = value;
         if (ckey == "BTOG") {
-          breathTimes = [initialJsonRecord.created]
+          breathTimes = [{"time":initialJsonRecord.created,"valid":false}]
         }
       }
     }

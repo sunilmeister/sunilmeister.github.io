@@ -42,6 +42,9 @@ var chartTemplate = {
   axisX:{ 
     title: "", 
     fontSize: 50,
+    scaleBreaks: {
+      customBreaks: [],
+    },
   },
   axisY:[],
   toolTip: { shared: true },
@@ -52,7 +55,7 @@ var chartTemplate = {
   },
   height: 600,
   backgroundColor: "#D5F3FE",
-  data: []
+  data: [],
 };
 
 function toggleDataSeries(e) {
@@ -70,6 +73,9 @@ function toggleDataSeries(e) {
 
 // value transitions
 var breathTimes = [];
+var missingBreaths = [];
+var missingBreathWindows = [];
+var missingTimeWindows = [];
 var vtdelValues = [];
 var mvdelValues = [];
 var sbpmValues = [];
@@ -104,6 +110,10 @@ function initChartData() {
   initChartColor();
 
   breathTimes = [];
+  missingBreaths = [];
+  missingBreathWindows = [];
+  //missingBreathWindows = [{"startValue":4,"endValue":8, "type":"zigzag", "color":"gray","autoCalculate":true}];
+  missingTimeWindows = [];
   vtdelValues = [];
   mvdelValues = [];
   sbpmValues = [];
@@ -134,7 +144,7 @@ function initChartData() {
 }
 
 function initGraphStartValues() {
- if (breathTimes.length==0) breathTimes = [0];
+ if (breathTimes.length==0) breathTimes.push({"time":0,"valid":false});
  if (peakValues.length==0) peakValues.push({"time":0,"value":null});
  if (platValues.length==0) platValues.push({"time":0,"value":null});
  if (mpeepValues.length==0) mpeepValues.push({"time":0,"value":null});
@@ -151,6 +161,8 @@ function initGraphStartValues() {
  if (o2PurityValues.length==0) o2PurityValues.push({"time":0,"value":null});
  if (o2FlowValues.length==0) o2FlowValues.push({"time":0,"value":null});
 }
+
+var lastValidBreathTime = 0;
 
 function chartProcessJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
@@ -205,7 +217,29 @@ function chartProcessJsonRecord(jsonData) {
 	    if (!l4) l4 = jsonData.content['L4'];
 	  }
         } else if (ckey=="BTOG") {
-	  breathTimes.push(curTime);
+	  breathTimes.push({"time":curTime, "valid":true});
+	  lastValidBreathTime = curTime;
+        } else if (ckey=="LOST") {
+	  if (validDecimalInteger(value)) {
+            missingBreaths.push({"time":curTime,"value":value});
+	    // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
+	    lastBreathNum = breathTimes.length;
+	    for (i=1; i<=value; i++) {
+	      breathTimes.push({"time":lastValidBreathTime+i, "valid":false});
+	    }
+
+	    // record breaks for graphing
+	    missingBreathWindows.push(
+	      {"startValue":lastBreathNum+1,"endValue":lastBreathNum+value,
+		"type":"zigzag","color":"gray","autoCalculate":true});
+	    
+	    missingTimeWindows.push(
+	      {"startValue":lastValidBreathTime+1,"endValue":curTime-1,
+		"type":"zigzag","color":"gray","autoCalculate":true});
+
+	  } else {
+            missingBreaths.push({"time":curTime,"value":null});
+	  }
         } else if (ckey=="FIO2") {
 	  if (validDecimalInteger(value) && (value<=100)) {
 	    fiO2Values.push({"time":curTime,"value":value});
@@ -428,7 +462,7 @@ function createDatapoints(transitions) {
     if (curIx==transitions.length-1) {
       curValue = transitions[curIx].value;
     } else {
-      if (breathTimes[i] >= transitions[curIx+1].time ) {
+      if (breathTimes[i].time >= transitions[curIx+1].time ) {
 	curValue = transitions[++curIx].value;
       } else {
 	curValue = transitions[curIx].value;
@@ -453,7 +487,7 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
   var xval;
   for (i=1; i<numPoints; i++) {
     if (timeBased) {
-      ms = new Date(breathTimes[i]) - new Date(breathTimes[1]);
+      ms = new Date(breathTimes[i].time) - new Date(breathTimes[1].time);
       sec = Math.round(ms/1000);
       xval = sec;
     } else {

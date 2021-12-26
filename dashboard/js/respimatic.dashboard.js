@@ -115,6 +115,11 @@ function createDashboardPressureCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Pressures";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+  }
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -161,6 +166,11 @@ function createDashboardVolumeCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Volumes";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+  }
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -200,6 +210,11 @@ function createDashboardFiO2Charts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "FiO2";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+  }
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -247,6 +262,11 @@ function createDashboardMiscCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Miscellaneous";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+  }
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -294,6 +314,11 @@ function createDashboardBpmCharts() {
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Breaths per Minute";
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+  }
   chartJson.height = 700;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -535,6 +560,7 @@ function InitChartCheckBoxes() {
 }
 
 window.onload = function() {
+  initChartData();
   firstDweet = true;
   numBreaths = 0;
   var style = getComputedStyle(document.body)
