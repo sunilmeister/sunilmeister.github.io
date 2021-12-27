@@ -225,6 +225,10 @@ function processDweet(d) {
   }
   if (!doLog) return;
 
+  if (typeof d.content['LOST'] != 'undefined') {
+    console.log("LOST=" + d.content);
+  }
+
   // We already have the UID
   delete d.thing;
   if (d.content['INITIAL'] == "1") initialState = true;
