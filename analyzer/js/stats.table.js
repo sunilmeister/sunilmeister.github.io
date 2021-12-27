@@ -103,6 +103,7 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Mandatory Breaths", "numMandatory");
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
+  miscTableRow(table, "Number of Missing Breaths (Wi-Fi Disconnect)", "numMissingBreaths");
   miscTableRow(table, "Number of entries into INITIAL state", "numInitialEntry");
   miscTableRow(table, "Number of entries into STANDBY state", "numStandbyEntry");
   miscTableRow(table, "Number of entries into ACTIVE state", "numActiveEntry");
@@ -221,6 +222,8 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(numSpontaneous);
   el = document.getElementById("numMaintenance");
   el.innerHTML = replaceDummyValue(numMaintenance);
+  el = document.getElementById("numMissingBreaths");
+  el.innerHTML = replaceDummyValue(numMissingBreaths);
   el = document.getElementById("numInitialEntry");
   el.innerHTML = replaceDummyValue(numInitialEntry);
   el = document.getElementById("numStandbyEntry");

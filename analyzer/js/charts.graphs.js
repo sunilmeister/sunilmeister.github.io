@@ -73,6 +73,12 @@ function createNewChart() {
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+  }
+
   if (peakYes) {
     flagError = false;
     flagWarning = false;

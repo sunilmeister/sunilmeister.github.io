@@ -354,6 +354,7 @@ function resetTimeInterval() {
   gatherGlobalData();
   resetDivs();
 }
+
 window.onload = function() {
   sessionDbName = "";
   sessionDbReady = false;

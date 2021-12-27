@@ -66,6 +66,7 @@ var prevBreathSpontaneous;
 var numMandatory;
 var numSpontaneous;
 var numMaintenance;
+var numMissingBreaths;
 
 function initGlobalData() {
   console.log("initGlobalData");
@@ -82,9 +83,6 @@ function initGlobalData() {
   errorState = false;
   prevBreathMandatory = false;
   prevBreathSpontaneous = false;
-  numMandatory = 0;
-  numSpontaneous = 0;
-  numMaintenance = 0;
   patientName = ""
   patientInfo = ""
   altitude = "";
@@ -145,6 +143,7 @@ function initGlobalData() {
   numMandatory = 0;
   numSpontaneous = 0;
   numMaintenance = 0;
+  numMissingBreaths = 0;
 }
 
 function equalParamCombos(curr, prev) {
@@ -236,6 +235,8 @@ function globalProcessJsonRecord(jsonData) {
           } else {
             prevParamCombo.numBreaths++;
           }
+        } else if (ckey == "LOST") {
+	  numMissingBreaths += value;
         } else if (ckey == "ATTENTION") {
           attentionState = (value == 1);
         } else if (ckey == "MODE") {
