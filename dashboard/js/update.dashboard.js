@@ -108,7 +108,7 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "img/Error.svg";
       alertImage = "ERROR";
     }
-  } else if (attentionState) {
+  } else if (attentionState || wifiDropped) {
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
@@ -366,7 +366,76 @@ function updateSnapshot(d) {
     }
   }
 }
+
+function undisplayWifiDropped() {
+  wifiDropped = false;
+  if (messagesBackground=="MEDIUMBLUE") return;
+
+  elm = document.getElementById("MessagesDiv");
+  elm.style.backgroundColor = mediumblueColor;
+  messagesBackground="MEDIUMBLUE";
+
+  elm = document.getElementById("Mline1");
+  elm.innerHTML = "--";
+  elm = document.getElementById("Mline2");
+  elm.innerHTML = "--";
+  elm = document.getElementById("Mline3");
+  elm.innerHTML = "--";
+  elm = document.getElementById("Mline4");
+  elm.innerHTML = "--";
+}
+
+function displayWifiDropped() {
+  wifiDropped = true;
+  if (messagesBackground=="ORANGE") return;
+
+  elm = document.getElementById("MessagesDiv");
+  elm.style.backgroundColor = orangeColor;
+  messagesBackground="ORANGE";
+
+  elm = document.getElementById("MessagesDiv");
+  elm.style.backgroundColor = orangeColor;
+
+  elm = document.getElementById("Mline1");
+  elm.innerHTML = "Wi-Fi Disconnected";
+  elm = document.getElementById("Mline2");
+  elm.innerHTML = "&nbsp";
+  elm = document.getElementById("Mline3");
+  elm.innerHTML = "System will attempt";
+  elm = document.getElementById("Mline4");
+  elm.innerHTML = "to re-connect";
+}
+
+function displayWifiUnconnected() {
+  wifiDropped = true;
+  if (messagesBackground=="ORANGE") return;
+
+  elm = document.getElementById("MessagesDiv");
+  elm.style.backgroundColor = orangeColor;
+  messagesBackground="ORANGE";
+
+  elm = document.getElementById("MessagesDiv");
+  elm.style.backgroundColor = orangeColor;
+
+  elm = document.getElementById("Mline1");
+  elm.innerHTML = "Wi-Fi not connected";
+  elm = document.getElementById("Mline2");
+  elm.innerHTML = "Use RESPIMATIC";
+  elm = document.getElementById("Mline3");
+  elm.innerHTML = "Control Panel";
+  elm = document.getElementById("Mline4");
+  elm.innerHTML = "to connect";
+}
+
 var periodicIntervalId = setInterval(function() {
   updateAlert(true);
   updatePending(true);
+  periodicTickCount++;
+  if (firstDweet) {
+    displayWifiUnconnected();
+  } else if ((periodicTickCount-lastDweetTick) >= dweetIntervalMax) {
+    displayWifiDropped();
+  } else {
+    undisplayWifiDropped();
+  }
 }, 1500);

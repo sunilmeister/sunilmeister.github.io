@@ -15,6 +15,14 @@ var l1 = false;
 var l2 = false;
 var l3 = false;
 var l4 = false;
+var recorderBackground="MEDIUMBLUE";
+
+// check for continuing dweets
+const dweetIntervalMax = 6;
+var periodicTickCount = 0;
+var lastDweetTick = 0;
+var wifiDropped = false;
+
 // Refresh data controls
 const REFRESH_DWEET_INTERVAL = 10;
 var dweetIntervalCounter = 0;
@@ -23,6 +31,52 @@ document.title = respimaticUid + " (RECORDER)";
 if (!window.indexedDB) {
   alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
+
+function undisplayWifiDropped() {
+  elm = document.getElementById("activeSessionDiv");
+  style = getComputedStyle(document.body);
+
+  if (doLog) {
+    elm.style.backgroundColor = style.getPropertyValue('--rsp_green');
+    recorderBackground="GREEN";
+  } else {
+    elm.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+    recorderBackground="ORANGE";
+    if (!dbName) {
+      dweetBox = document.getElementById('dweetBox');
+      dweetBox.innerHTML = "<center><br><br><br><b>No Active Session</b></center>" ;
+    } else {
+      dweetBox = document.getElementById('dweetBox');
+      dweetBox.innerHTML = "<center><br><br><br><b>Recording Paused</b></center>" ;
+    }
+  }
+}
+
+function displayWifiDropped() {
+  if (recorderBackground=="ORANGE") return;
+
+  dweetBox = document.getElementById('dweetBox');
+  dweetBox.innerHTML = "<center><br><br><br><b>Wi-Fi Disconnected</b><br><br>System will attempt<br>to re-connect</center>" ;
+
+  elm = document.getElementById("activeSessionDiv");
+  style = getComputedStyle(document.body);
+  elm.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+  recorderBackground="ORANGE";
+}
+
+function displayWifiUnconnected() {
+  if (recorderBackground=="ORANGE") return;
+
+  elm = document.getElementById("activeSessionDiv");
+  style = getComputedStyle(document.body);
+  elm.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+  recorderBackground="ORANGE";
+
+  dweetBox = document.getElementById('dweetBox');
+  dweetBox.innerHTML = "<center><br><br><br><b>Wi-Fi not connected</b><br><br>Use Control Panel<br>to connect to Wi-Fi</center>" ;
+}
+
+
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
@@ -158,7 +212,6 @@ function displayTweet(d) {
 }
 
 function processDweet(d) {
-  if (!doLog) return;
   if (firstDweet) {
     firstDweet = false;
     startDate = d.created;
@@ -170,6 +223,8 @@ function processDweet(d) {
     elm = document.getElementById("logTimeDuration");
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
+  if (!doLog) return;
+
   // We already have the UID
   delete d.thing;
   if (d.content['INITIAL'] == "1") initialState = true;
@@ -233,7 +288,7 @@ function processDweet(d) {
   }
   var dweetBox = document.getElementById('dweetBox');
   if (emptyContent) {
-    dweetBox.innerText = dweetBox.textContent = "\n\n<Record pruned>";
+    dweetBox.innerHTML = "<center><br><br><br><b>Record pruned</b></center>" ;
   } else {
     insertJsonData(db, d);
     dweetBox.innerText = dweetBox.textContent = JSON.stringify(d, null, ". ");
@@ -242,6 +297,7 @@ function processDweet(d) {
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
+    lastDweetTick = periodicTickCount;
     dweetIntervalCounter++;
     if (dweetIntervalCounter > REFRESH_DWEET_INTERVAL) {
       dweetIntervalCounter = 0;
@@ -267,6 +323,7 @@ function startLog() {
   elm = document.getElementById("activeSessionDiv");
   style = getComputedStyle(document.body)
   elm.style.backgroundColor = style.getPropertyValue('--rsp_green');
+  recorderBackground="GREEN";
 }
 
 function pauseLog() {
@@ -276,9 +333,19 @@ function pauseLog() {
   heading = document.getElementById("SysUid");
   heading.innerText = "\n" + respimaticUid;
   doLog = false;
+
   elm = document.getElementById("activeSessionDiv");
   style = getComputedStyle(document.body)
-  elm.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
+  elm.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+  recorderBackground="ORANGE";
+
+  if (!dbName) {
+    dweetBox = document.getElementById('dweetBox');
+    dweetBox.innerHTML = "<center><br><br><br><b>No Active Session</b></center>" ;
+  } else {
+    dweetBox = document.getElementById('dweetBox');
+    dweetBox.innerHTML = "<center><br><br><br><b>Recording Paused</b></center>" ;
+  }
 }
 
 function selectExit() {
@@ -292,11 +359,24 @@ function selectExit() {
 }
 
 window.onload = function() {
+  periodicTickCount = 0;
+  lastDweetTick = 0;
+  dweetIntervalCounter = 0;
+
   heading = document.getElementById("SysUidMsg");
   heading.innerText = "Ready to Record";
   heading = document.getElementById("SysUid");
   heading.innerText = "\n" + respimaticUid;
   listAllDbs();
+
+  elm = document.getElementById("activeSessionDiv");
+  style = getComputedStyle(document.body)
+  elm.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+  recorderBackground="ORANGE";
+
+  dweetBox = document.getElementById('dweetBox');
+  dweetBox.innerHTML = "<center><br><br><br><b>No Active Session</b></center>" ;
+
   waitForDweets();
   alert(
     "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
@@ -310,3 +390,14 @@ window.onbeforeunload = function(e) {
     return msg;
   }
 }
+
+var periodicIntervalId = setInterval(function() {
+  periodicTickCount++;
+  if (firstDweet) {
+    displayWifiUnconnected();
+  } else if ((periodicTickCount-lastDweetTick) >= dweetIntervalMax) {
+    displayWifiDropped();
+  } else {
+    undisplayWifiDropped();
+  }
+}, 1500);

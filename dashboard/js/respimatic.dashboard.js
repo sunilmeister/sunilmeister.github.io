@@ -43,8 +43,9 @@ function checkFiO2Calculation(d) {
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
+    lastDweetTick = periodicTickCount;
     processDweet(d);
-  });
+  })
 }
 
 function processDweet(d) {
@@ -560,9 +561,16 @@ function InitChartCheckBoxes() {
 }
 
 window.onload = function() {
-  initChartData();
   firstDweet = true;
   numBreaths = 0;
+
+  periodicTickCount = 0;
+  lastDweetTick = 0;
+  wifiDropped = false;
+  messagesBackground="MEDIUMBLUE";
+
+  initChartData();
+
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');
   mediumblueColor = style.getPropertyValue('--rsp_mediumblue');

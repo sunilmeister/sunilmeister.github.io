@@ -7,6 +7,7 @@ var orangeColor;
 var alertImage;
 var alertBackground;
 var pendingBackground;
+var messagesBackground;
 var pendingMODE = false;
 var pendingVT = false;
 var pendingRR = false;
@@ -15,7 +16,7 @@ var pendingIPEEP = false;
 var pendingPMAX = false;
 var pendingPS = false;
 var pendingTPS = false;
-var initialState = false;
+var initialState = true;
 var standbyState = false;
 var activeState = false;
 var errorState = false;
@@ -34,3 +35,10 @@ var peakGauge = null;
 var platGauge = null;
 var peepGauge = null;
 var tempGauge = null;
+
+// check for continuing dweets
+const dweetIntervalMax = 6;
+var periodicTickCount = 0;
+var lastDweetTick = 0;
+var wifiDropped = false;
+
