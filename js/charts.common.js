@@ -112,7 +112,6 @@ function initChartData() {
   breathTimes = [];
   missingBreaths = [];
   missingBreathWindows = [];
-  //missingBreathWindows = [{"startValue":4,"endValue":8, "type":"zigzag", "color":"gray","autoCalculate":true}];
   missingTimeWindows = [];
   vtdelValues = [];
   mvdelValues = [];
@@ -231,11 +230,11 @@ function chartProcessJsonRecord(jsonData) {
 	    // record breaks for graphing
 	    missingBreathWindows.push(
 	      {"startValue":lastBreathNum+1,"endValue":lastBreathNum+value,
-		"type":"zigzag","color":"gray","autoCalculate":true});
+		"type":"zigzag","lineColor": "black","autoCalculate":true});
 	    
 	    missingTimeWindows.push(
 	      {"startValue":lastValidBreathTime+1,"endValue":curTime-1,
-		"type":"zigzag","color":"gray","autoCalculate":true});
+		"type":"zigzag","lineColor": "black","autoCalculate":true});
 
 	  } else {
             missingBreaths.push({"time":curTime,"value":null});
