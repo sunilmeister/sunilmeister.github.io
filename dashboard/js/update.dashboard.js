@@ -368,6 +368,7 @@ function updateSnapshot(d) {
 }
 
 function undisplayWifiDropped() {
+  if (initialState) return;
   wifiDropped = false;
   if (messagesBackground=="MEDIUMBLUE") return;
 
