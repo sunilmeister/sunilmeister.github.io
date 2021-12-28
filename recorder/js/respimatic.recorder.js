@@ -53,6 +53,7 @@ function undisplayWifiDropped() {
 }
 
 function displayWifiDropped() {
+  if (initialState) return;
   if (recorderBackground=="ORANGE") return;
 
   dweetBox = document.getElementById('dweetBox');
