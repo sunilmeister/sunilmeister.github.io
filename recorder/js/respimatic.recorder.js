@@ -226,7 +226,7 @@ function processDweet(d) {
   if (!doLog) return;
 
   if (typeof d.content['LOST'] != 'undefined') {
-    console.log("LOST=" + d.content);
+    console.log("LOST=" + d.content['LOST']);
   }
 
   // We already have the UID
