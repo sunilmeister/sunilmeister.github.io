@@ -121,7 +121,7 @@ function createDashboardPressureCharts() {
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
   }
-  chartJson.height = 700;
+  chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
@@ -172,7 +172,7 @@ function createDashboardVolumeCharts() {
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
   }
-  chartJson.height = 700;
+  chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
@@ -216,7 +216,7 @@ function createDashboardFiO2Charts() {
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
   }
-  chartJson.height = 700;
+  chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
@@ -268,7 +268,7 @@ function createDashboardMiscCharts() {
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
   }
-  chartJson.height = 700;
+  chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
@@ -320,7 +320,7 @@ function createDashboardBpmCharts() {
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
   }
-  chartJson.height = 700;
+  chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
   flagWarning = false;
@@ -370,8 +370,8 @@ function selectExit() {
 
 function installFiO2Gauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 275 x 275 px in size.
-  fiO2Gauge = pureknob.createKnob(275, 275);
+  // Create knob element, 200 x 200 px in size.
+  fiO2Gauge = pureknob.createKnob(200, 200);
   // Set properties.
   fiO2Gauge.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Gauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -394,8 +394,8 @@ function installFiO2Gauge() {
 
 function installPurityGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 275 x 275 px in size.
-  purityGauge = pureknob.createKnob(275, 275);
+  // Create knob element, 200 x 200 px in size.
+  purityGauge = pureknob.createKnob(200, 200);
   // Set properties.
   purityGauge.setProperty('angleStart', -0.75 * Math.PI);
   purityGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -418,8 +418,8 @@ function installPurityGauge() {
 
 function installPeakGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 275 x 275 px in size.
-  peakGauge = pureknob.createKnob(275, 275);
+  // Create knob element, 175 x 175 px in size.
+  peakGauge = pureknob.createKnob(175, 175);
   // Set properties.
   peakGauge.setProperty('angleStart', -0.75 * Math.PI);
   peakGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -442,8 +442,8 @@ function installPeakGauge() {
 
 function installPlatGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 275 x 275 px in size.
-  platGauge = pureknob.createKnob(275, 275);
+  // Create knob element, 175 x 175 px in size.
+  platGauge = pureknob.createKnob(175, 175);
   // Set properties.
   platGauge.setProperty('angleStart', -0.75 * Math.PI);
   platGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -466,8 +466,8 @@ function installPlatGauge() {
 
 function installPeepGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 275 x 275 px in size.
-  peepGauge = pureknob.createKnob(275, 275);
+  // Create knob element, 175 x 175 px in size.
+  peepGauge = pureknob.createKnob(175, 175);
   // Set properties.
   peepGauge.setProperty('angleStart', -0.75 * Math.PI);
   peepGauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -490,8 +490,8 @@ function installPeepGauge() {
 
 function installTempGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 225 x 225 px in size.
-  tempGauge = pureknob.createKnob(225, 225);
+  // Create knob element, 150 x 150 px in size.
+  tempGauge = pureknob.createKnob(150, 150);
   // Set properties.
   tempGauge.setProperty('angleStart', -0.75 * Math.PI);
   tempGauge.setProperty('angleEnd', 0.75 * Math.PI);

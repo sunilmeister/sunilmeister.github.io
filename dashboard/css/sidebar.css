@@ -4,33 +4,33 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 41em;
+  width: 25rem;
   height: 100%;
   position: absolute;
   background-color: var(--rsp_mediumblue);
-  margin-top:-0.5em;
+  margin-top:-0.5rem;
   margin-bottom:0;
-  margin-left:-0.5em;
+  margin-left:-0.5rem;
 }
 
 .sidebar {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-  width: 14em;
+  width: 20rem;
   position: absolute;
-  font-size: 2.5em;
+  font-size: 1.5rem;
   font-family: verdana;
-  margin-left: 1em;
+  margin-left: 2rem;
 }
 
 .sidebar div {
   padding: 0;
-  font-size: 1em;
+  font-size: 1.75rem;
   display: block;
-  padding-top: 0.3em;
-  padding-bottom: 0.3em;
-  margin-top: -47px;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  margin-top: 1rem;
 }
 
 .dashboard-pane {
@@ -39,24 +39,24 @@
   transform: translateY(-50%);
   position: absolute;
 
-  margin-left: 50em;
-  margin-right: 2em;
+  margin-left: 32rem;
+  margin-right: 2rem;
 }
 
 .sidebarButton {
   background-color: var(--rsp_blue);
   border: white;
   color: var(--rsp_darkblue);
-  padding: 0.5em 0.7em;
+  padding: 0.5rem 0.7rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 0.3em 0.3em;
+  margin: 0.3rem 0.3rem;
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1.75rem;
   font-weight: bold;
-  border-radius: 0.6em;
-  width: 10em;
+  border-radius: 0.6rem;
+  width: 18rem;
   opacity: 0.8;
 }
 
@@ -66,25 +66,25 @@
 
 .sidebarButton:active {
   background-color: var(--rsp_mediumblue);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
+  box-shadow: 0 0.25em var(--rsp_lightblue);
+  transform: translateY(0.375rem);
 }
 
 .sidebarButtonShadow {
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
-  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
   border: white;
   color: white;
-  padding: 0.5em 0.7em;
+  padding: 0.5rem 0.7rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 0.3em 0.3em;
+  margin: 0.3rem 0.3rem;
   cursor: pointer;
-  font-size: 1.2em;
-  border-radius: 0.6em;
-  width: 10em;
+  font-size: 1.8rem;
+  border-radius: 0.6rem;
+  width: 15rem;
   opacity: 0.8;
 }
 
@@ -94,8 +94,8 @@
 
 .sidebarButtonShadow:active {
   background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
+  box-shadow: 0 0.375rem var(--rsp_lightblue);
+  transform: translateY(0.375rem);
 }
 
 /* A row of equal columns that sits next to each other */
@@ -106,7 +106,7 @@
 /* Create two equal columns that sits next to each other */
 .column {
   flex: 50%;
-  padding: 20em;
+  padding: 20rem;
 }
 
 table,
@@ -116,19 +116,18 @@ tr {
 }
 
 .dbTableStyle td {
-  padding: 0 5px 0 0;
+  padding: 0 0.31rem 0 0;
 }
 
 .statsTableStyle td {
-  padding: 0 5px 0 0;
+  padding: 0 0.31rem 0 0;
   /* Only right padding*/
 }
 
 span {
   height: 1rem;
-  margin-right: 0px;
-  margin-left: 0px;
-  border-right: 0px solid white;
+  margin-right: 0rem;
+  margin-left: 0rem;
 }
 
 .noUi-tooltip {
@@ -140,12 +139,12 @@ span {
 }
 
 .shadowDiv5 {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4); 
-  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.31rem 0.31rem 0.31rem 0.31rem rgba(0,0,0,0.4); 
+  box-shadow: 0.31rem 0.31rem 0.31rem 0.31rem rgba(0,0,0,0.4);
 }
 
 .shadowDiv10 {
-  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
-  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
 }
 
