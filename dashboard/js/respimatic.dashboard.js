@@ -60,13 +60,16 @@ function processDweet(d) {
     elm = document.getElementById("logTimeDuration");
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
   }
+
+  if (typeof d.content["BTOG"] != "undefined") {
+    numBreaths++;
+    elm = document.getElementById("numBreaths");
+    elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths;
+  }
+
   checkFiO2Calculation(d);
   updateSnapshot(d);
   chartProcessJsonRecord(d);
-  if (typeof d.content["BTOG"] == "undefined") return d;
-  numBreaths++;
-  elm = document.getElementById("numBreaths");
-  elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths;
   if (!currentViewIsSnapshot && !chartsPaused) createDashboardCharts();
   return d;
 }

@@ -375,6 +375,7 @@ function undisplayWifiDropped() {
   elm.style.backgroundColor = mediumblueColor;
   messagesBackground="MEDIUMBLUE";
 
+  /*
   elm = document.getElementById("Mline1");
   elm.innerHTML = "--";
   elm = document.getElementById("Mline2");
@@ -383,6 +384,7 @@ function undisplayWifiDropped() {
   elm.innerHTML = "--";
   elm = document.getElementById("Mline4");
   elm.innerHTML = "--";
+  */
 }
 
 function displayWifiDropped() {

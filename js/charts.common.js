@@ -51,7 +51,7 @@ var chartTemplate = {
   legend: { 
     cursor: "pointer", 
     itemclick: toggleDataSeries,
-    fontSize: 35,
+    fontSize: 25,
   },
   height: 600,
   backgroundColor: "#D5F3FE",

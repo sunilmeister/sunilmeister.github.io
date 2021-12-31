@@ -126,7 +126,7 @@
   border-width: thick;
   color: var(--rsp_darkblue);
   background-color: var(--rsp_lightblue);
-  font-size: 1.6rem;
+  font-size: 1.75rem;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
 }
