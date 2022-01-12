@@ -48,7 +48,7 @@
           </div>
 
           <div style="margin-top:1rem;">
-            <button id="btnViewChange2" class="sidebarButton" onclick='changeView2()'>Tables View</button>
+            <button id="btnViewChange2" class="sidebarButton" onclick='changeView2()'>Statistics View</button>
           </div>
 
           <div id="pauseChartsDiv" style="margin-top:0.6rem; margin-bottom:1rem;">
@@ -79,19 +79,19 @@
   </div>
 
   <div class="dashboard-pane">
-    <div id="table-pane" style="display: none;">
+    <div id="stat-pane" style="display: none; font-family:verdana;">
       <center>
-        <h2 style="color:var(--rsp_darkblue); font-size:3em; font-family:verdana;">
+        <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">
           Session Statistics</h2>
       </center>
       <div class="row">
 
-	<div id="measured-pane" class="column" style="font-size:2rem;">
+	<div id="measured-pane" class="column" style="font-size:2.5rem;">
           <center>
             <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2.5rem; font-family:verdana;">
               Parameters Measured</h2>
           </center>
-          <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:2rem; width:100%">
+          <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:2.5rem; width:100%">
             <tr>
               <th align="left" style="background-color:lightgray; ">
                 Parameter</th>
@@ -106,7 +106,7 @@
             <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2.5rem; font-family:verdana;">
               Miscellaneous Information</h2>
           </center>
-          <table id='statsMiscTable' className="statsTableStyle" style="font-size:2rem; width:100%">
+          <table id='statsMiscTable' className="statsTableStyle" style="font-size:2.5rem; width:100%">
             <tr>
               <th align="left" style="background-color:lightgray; ">
                 Information</th>
@@ -116,7 +116,7 @@
           </table>
         </div>
 
-        <div id="stats-pane" class="column" style="font-size: 2rem">
+        <div id="stats-pane" class="column" style="font-size: 2.5rem">
           <center>
             <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2.5rem; font-family:verdana;">
               Static Information</h2>
@@ -126,14 +126,14 @@
             <br>
           <p id="altitude">
             <center>
-              <div id="staticStats" style="font-size: 2rem">
+              <div id="staticStats" style="font-size: 2.5rem">
                 <center>
                   <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2.5rem; font-family:verdana;">
                     Parameter Settings Used</h2>
                 </center>
 
                 <center>
-                  <table id='statsParamTable' className="statsTableStyle" style="font-size:2rem; width:100%">
+                  <table id='statsParamTable' className="statsTableStyle" style="font-size:2.5rem; width:100%">
                     <tr>
                       <th align="left" style="background-color:lightgray; ">
                         Parameter</th>
@@ -152,27 +152,27 @@
                 </center>
 
                 <center>
-                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:2rem; width:100%">
+                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:2.25rem; width:100%">
                     <tr>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         MODE</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         VT </th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         &nbsp;RR&nbsp;</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         I:E</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         PEEP</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         PMAX</th>
-                      <th style="background-color:lightgray;">
-                        &nbsp;&nbsp;PS&nbsp;&nbsp;</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
+                        PS</th>
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         TPS</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         FIO2</th>
-                      <th style="background-color:lightgray;">
+                      <th style="background-color:lightgray;padding-right:1rem;">
                         BREATHS</th>
                       <th style="background-color:lightgray;">
                         START TIME</th>

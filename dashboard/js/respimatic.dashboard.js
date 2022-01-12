@@ -74,7 +74,7 @@ function processDweet(d) {
   statProcessJsonRecord(d);
   if ((currentView=="snapshots") && !updatePaused) updateSnapshot();
   if ((currentView=="charts") && !updatePaused) createDashboardCharts();
-  if ((currentView=="tables") && !updatePaused) createDashboardTables();
+  if ((currentView=="stats") && !updatePaused) createDashboardStats();
   return d;
 }
 
@@ -87,7 +87,7 @@ function snapshotProcessJsonRecord(d) {
   }
 }
 
-function createDashboardTables() {
+function createDashboardStats() {
   globalDataValid = true;
   displayStats();
 }
@@ -115,29 +115,29 @@ function changeView1() {
   btn2 = document.getElementById("btnViewChange2");
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
-  tables = document.getElementById("table-pane");
+  stats = document.getElementById("stat-pane");
   if (currentView == "snapshots") {
     currentView = "charts";
     snapshot.style.display = "none";
     charts.style.display = "block";
-    tables.style.display = "none";
+    stats.style.display = "none";
     btn1.textContent = "Snapshots View";
-    btn2.textContent = "Tables View";
+    btn2.textContent = "Statistics View";
     createDashboardCharts();
   } else if (currentView == "charts") {
     currentView = "snapshots";
     snapshot.style.display = "inline-grid";
     charts.style.display = "none";
-    tables.style.display = "none";
+    stats.style.display = "none";
     btn1.textContent = "Charts View";
-    btn2.textContent = "Tables View";
+    btn2.textContent = "Statistics View";
   } else {
     currentView = "snapshots";
     snapshot.style.display = "inline-grid";
     charts.style.display = "none";
-    tables.style.display = "none";
+    stats.style.display = "none";
     btn1.textContent = "Charts View";
-    btn2.textContent = "Tables View";
+    btn2.textContent = "Statistics View";
   }
 }
 
@@ -147,28 +147,28 @@ function changeView2() {
   btn2 = document.getElementById("btnViewChange2");
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
-  tables = document.getElementById("table-pane");
+  stats = document.getElementById("stat-pane");
   if (currentView == "snapshots") {
-    currentView = "tables";
+    currentView = "stats";
     snapshot.style.display = "none";
     charts.style.display = "none";
-    tables.style.display = "block";
+    stats.style.display = "block";
     btn1.textContent = "Snapshots View";
     btn2.textContent = "Charts View";
   } else if (currentView == "charts") {
-    currentView = "tables";
+    currentView = "stats";
     snapshot.style.display = "none";
     charts.style.display = "none";
-    tables.style.display = "block";
+    stats.style.display = "block";
     btn1.textContent = "Snapshots View";
     btn2.textContent = "Charts View";
   } else {
     currentView = "charts";
     snapshot.style.display = "none";
     charts.style.display = "block";
-    tables.style.display = "none";
+    stats.style.display = "none";
     btn1.textContent = "Snapshots View";
-    btn2.textContent = "Tables View";
+    btn2.textContent = "Statistics View";
     createDashboardCharts();
   }
 }
@@ -442,7 +442,7 @@ function togglePause() {
     updatePaused = false;
     if (currentView=="snapshots") updateSnapshot();
     if (currentView=="charts") createDashboardCharts();
-    if (currentView=="tables") createDashboardTables();
+    if (currentView=="stats") createDashboardStats();
   } else {
     elm.textContent = "Resume";
     updatePaused = true;
@@ -676,12 +676,12 @@ window.onload = function() {
   snapshot.style.display = "inline-grid";
   charts = document.getElementById("chart-pane");
   charts.style.display = "none";
-  tables = document.getElementById("table-pane");
-  tables.style.display = "none";
+  stats = document.getElementById("stat-pane");
+  stats.style.display = "none";
   btn1 = document.getElementById("btnViewChange1");
   btn1.textContent = "Charts View";
   btn2 = document.getElementById("btnViewChange2");
-  btn2.textContent = "Tables View";
+  btn2.textContent = "Statistics View";
 
   // Install all gauges
   installPurityGauge();
