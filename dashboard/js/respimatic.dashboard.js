@@ -1,5 +1,6 @@
 document.title = respimaticUid + " (" + datasource_name + ")"
 var currentView = "snapshots";
+var breathPausedAt = 0;
 
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   fiO2Gauge.setValue(fiO2);
@@ -64,7 +65,12 @@ function processDweet(d) {
 
   if (typeof d.content["BTOG"] != "undefined") {
     numBreaths++;
-    elm = document.getElementById("numBreaths");
+  }
+
+  elm = document.getElementById("numBreaths");
+  if (updatePaused) {
+    elm.innerHTML = "&nbsp&nbspUpdates Paused at&nbsp&nbsp Breath " + breathPausedAt;
+  } else {
     elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths;
   }
 
@@ -94,17 +100,21 @@ function createDashboardStats() {
 
 function blinkPauseButton() {
   btn = document.getElementById("btnPause");
+  hdr = document.getElementById("headerDiv");
   var style = getComputedStyle(document.body)
   if (updatePaused) {
     if (pauseButtonBackground=="BLUE") {
       btn.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+      hdr.style.backgroundColor = style.getPropertyValue('--rsp_orange');
       pauseButtonBackground = "ORANGE";
     } else {
       btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+      hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
       pauseButtonBackground = "BLUE";
     }
   } else {
     btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+    hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
     pauseButtonBackground = "BLUE";
   }
 }
@@ -438,14 +448,17 @@ function createDashboardBpmCharts() {
 function togglePause() {
   elm = document.getElementById("btnPause");
   if (updatePaused) {
-    elm.textContent = "Pause";
+    elm.textContent = "Pause Updates";
     updatePaused = false;
     if (currentView=="snapshots") updateSnapshot();
     if (currentView=="charts") createDashboardCharts();
     if (currentView=="stats") createDashboardStats();
   } else {
-    elm.textContent = "Resume";
+    elm.textContent = "Resume Updates";
     updatePaused = true;
+    breathPausedAt = numBreaths;
+    elm = document.getElementById("numBreaths");
+    elm.innerHTML = "&nbsp&nbspUpdates Paused at&nbsp&nbsp Breath " + breathPausedAt;
   }
 }
 
