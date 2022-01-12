@@ -97,7 +97,19 @@ function initGlobalData() {
   tpss = [];
   fiO2s = [];
   // Settings combinations
-  prevParamCombo = {};
+  prevParamCombo = {
+    "mode": "--",
+    "vt": "--",
+    "rr": "--",
+    "ie": "--",
+    "ipeep": "--",
+    "pmax": "--",
+    "ps": "--",
+    "tps": "--",
+    "fiO2": "--",
+    "numBreaths": 0,
+    "start": 0
+  };
   currParamCombo = {
     "mode": "--",
     "vt": "--",
@@ -200,7 +212,10 @@ function globalProcessJsonRecord(jsonData) {
   }
   // Below is common to all pages
   chartProcessJsonRecord(jsonData);
-  // unique to amalyzer
+  statProcessJsonRecord(jsonData);
+}
+
+function statProcessJsonRecord(jsonData) {
   for (var key in jsonData) {
     if (key == 'content') {
       for (var ckey in jsonData.content) {
@@ -227,13 +242,17 @@ function globalProcessJsonRecord(jsonData) {
             numSpontaneous++;
           }
           if (errorState) numMaintenance++;
-          if (!equalParamCombos(currParamCombo, prevParamCombo)) {
-            usedParamCombos.push(createNewInstance(prevParamCombo));
+          if ((usedParamCombos.length==0) || 
+	    !equalParamCombos(currParamCombo, prevParamCombo)) {
+
+	    // first breath in current combo
             prevParamCombo = createNewInstance(currParamCombo);
-            prevParamCombo.numBreaths = 1;
-            prevParamCombo.start = jsonData.created;
+            currParamCombo.start = jsonData.created;
+            currParamCombo.numBreaths = 1;
+            usedParamCombos.push(createNewInstance(currParamCombo));
           } else {
-            prevParamCombo.numBreaths++;
+	    // update number of breaths for the last combo
+            usedParamCombos[usedParamCombos.length-1].numBreaths++;
           }
         } else if (ckey == "LOST") {
 	  numMissingBreaths += value;
@@ -435,7 +454,7 @@ function globalProcessAllJsonRecords(key, lastRecord) {
 }
 
 function globalLastRecord() {
-  usedParamCombos.push(createNewInstance(prevParamCombo));
+  //usedParamCombos.push(createNewInstance(prevParamCombo));
   globalDataValid = true;
 }
 

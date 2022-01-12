@@ -109,21 +109,6 @@
   padding: 20rem;
 }
 
-table,
-tr {
-  border: 1px solid white;
-  border-collapse: collapse;
-}
-
-.dbTableStyle td {
-  padding: 0 0.31rem 0 0;
-}
-
-.statsTableStyle td {
-  padding: 0 0.31rem 0 0;
-  /* Only right padding*/
-}
-
 span {
   height: 1rem;
   margin-right: 0rem;
@@ -147,4 +132,17 @@ span {
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
 }
+
+
+table,
+tr {
+  border-bottom: 1px solid white;
+  border-collapse: collapse;
+}
+
+.statsTableStyle td {
+  padding: 0 0.31rem 0 0;
+  /* Only right padding*/
+}
+
 

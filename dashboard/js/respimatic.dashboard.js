@@ -71,7 +71,7 @@ function processDweet(d) {
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
   chartProcessJsonRecord(d);
-  tableProcessJsonRecord(d);
+  statProcessJsonRecord(d);
   if ((currentView=="snapshots") && !updatePaused) updateSnapshot();
   if ((currentView=="charts") && !updatePaused) createDashboardCharts();
   if ((currentView=="tables") && !updatePaused) createDashboardTables();
@@ -87,10 +87,9 @@ function snapshotProcessJsonRecord(d) {
   }
 }
 
-function tableProcessJsonRecord(d) {
-}
-
 function createDashboardTables() {
+  globalDataValid = true;
+  displayStats();
 }
 
 function blinkPauseButton() {
@@ -663,7 +662,8 @@ window.onload = function() {
   pauseButtonBackground="MEDIUMBLUE";
   alertImage = "OK";
 
-  initChartData();
+  initGlobalData();
+  initStats();
 
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');
