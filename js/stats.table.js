@@ -76,13 +76,13 @@ function constructStatMinMaxTable() {
   minMaxTableRow(table, "Plateau Pressure", "cmH20", "platMin", "platMax");
   minMaxTableRow(table, "PEEP Pressure", "cmH20", "mpeepMin", "mpeepMax");
   minMaxTableRow(table, "Tidal Volume Delivered", "ml", "vtMin", "vtMax");
-  minMaxTableRow(table, "Minute Volume Delivered", "litres / min", "mvMin", "mvMax");
+  minMaxTableRow(table, "Minute Volume Delivered", "litres/min", "mvMin", "mvMax");
   minMaxTableRow(table, "Mandatory BPM", "bpm", "mbpmMin", "mbpmMax");
   minMaxTableRow(table, "Spontaneous BPM", "bpm", "sbpmMin", "sbpmMax");
   minMaxTableRow(table, "FIO2", "%", "fiO2Min", "fiO2Max");
-  minMaxTableRow(table, "Instantaneous Static Compliance", "ml / cmH20", "scMin", "scMax");
-  minMaxTableRow(table, "Instantaneous Dynamic Compliance", "ml / cmH20", "dcMin", "dcMax");
-  minMaxTableRow(table, "System Temperature", "deg C", "tempMin", "tempMax");
+  minMaxTableRow(table, "Instantaneous Static Compliance", "ml/cmH20", "scMin", "scMax");
+  minMaxTableRow(table, "Instantaneous Dynamic Compliance", "ml/cmH20", "dcMin", "dcMax");
+  minMaxTableRow(table, "System Temperature", "degC", "tempMin", "tempMax");
 }
 
 function constructStatParamTable() {
