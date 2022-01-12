@@ -1,4 +1,5 @@
 document.title = respimaticUid + " (" + datasource_name + ")"
+var currentView = "snapshots";
 
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   fiO2Gauge.setValue(fiO2);
@@ -68,31 +69,111 @@ function processDweet(d) {
   }
 
   checkFiO2Calculation(d);
-  updateSnapshot(d);
+  snapshotProcessJsonRecord(d);
   chartProcessJsonRecord(d);
-  if (!currentViewIsSnapshot && !chartsPaused) createDashboardCharts();
+  tableProcessJsonRecord(d);
+  if ((currentView=="snapshots") && !updatePaused) updateSnapshot();
+  if ((currentView=="charts") && !updatePaused) createDashboardCharts();
+  if ((currentView=="tables") && !updatePaused) createDashboardTables();
   return d;
 }
 
-function toggleDashboardView() {
-  btn = document.getElementById("btnViewChange");
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  if (currentViewIsSnapshot) {
-    currentViewIsSnapshot = false;
-    snapshot.style.display = "none";
-    charts.style.display = "block";
-    btn.textContent = "Snapshots View";
-    if (chartsPaused) selectTogglePause();
-    createDashboardCharts();
-  } else {
-    snapshot.style.display = "inline-grid";
-    charts.style.display = "none";
-    currentViewIsSnapshot = true;
-    btn.textContent = "Charts View";
-    if (!chartsPaused) selectTogglePause();
+function snapshotProcessJsonRecord(d) {
+  updatedDweetContent.created = d.created;
+  for (let key in d.content) {
+    // get key value pairs
+    value = d.content[key];
+    updatedDweetContent.content[key] = value;
   }
 }
+
+function tableProcessJsonRecord(d) {
+}
+
+function createDashboardTables() {
+}
+
+function blinkPauseButton() {
+  btn = document.getElementById("btnPause");
+  var style = getComputedStyle(document.body)
+  if (updatePaused) {
+    if (pauseButtonBackground=="BLUE") {
+      btn.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+      pauseButtonBackground = "ORANGE";
+    } else {
+      btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+      pauseButtonBackground = "BLUE";
+    }
+  } else {
+    btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+    pauseButtonBackground = "BLUE";
+  }
+}
+
+function changeView1() {
+  updatePaused = false;
+  btn1 = document.getElementById("btnViewChange1");
+  btn2 = document.getElementById("btnViewChange2");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
+  tables = document.getElementById("table-pane");
+  if (currentView == "snapshots") {
+    currentView = "charts";
+    snapshot.style.display = "none";
+    charts.style.display = "block";
+    tables.style.display = "none";
+    btn1.textContent = "Snapshots View";
+    btn2.textContent = "Tables View";
+    createDashboardCharts();
+  } else if (currentView == "charts") {
+    currentView = "snapshots";
+    snapshot.style.display = "inline-grid";
+    charts.style.display = "none";
+    tables.style.display = "none";
+    btn1.textContent = "Charts View";
+    btn2.textContent = "Tables View";
+  } else {
+    currentView = "snapshots";
+    snapshot.style.display = "inline-grid";
+    charts.style.display = "none";
+    tables.style.display = "none";
+    btn1.textContent = "Charts View";
+    btn2.textContent = "Tables View";
+  }
+}
+
+function changeView2() {
+  updatePaused = false;
+  btn1 = document.getElementById("btnViewChange1");
+  btn2 = document.getElementById("btnViewChange2");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
+  tables = document.getElementById("table-pane");
+  if (currentView == "snapshots") {
+    currentView = "tables";
+    snapshot.style.display = "none";
+    charts.style.display = "none";
+    tables.style.display = "block";
+    btn1.textContent = "Snapshots View";
+    btn2.textContent = "Charts View";
+  } else if (currentView == "charts") {
+    currentView = "tables";
+    snapshot.style.display = "none";
+    charts.style.display = "none";
+    tables.style.display = "block";
+    btn1.textContent = "Snapshots View";
+    btn2.textContent = "Charts View";
+  } else {
+    currentView = "charts";
+    snapshot.style.display = "none";
+    charts.style.display = "block";
+    tables.style.display = "none";
+    btn1.textContent = "Snapshots View";
+    btn2.textContent = "Tables View";
+    createDashboardCharts();
+  }
+}
+
 var pressureChart = null;
 var volumeChart = null;
 var bpmChart = null;
@@ -355,14 +436,17 @@ function createDashboardBpmCharts() {
   bpmChart.render();
 }
 
-function selectTogglePause() {
-  elm = document.getElementById("btnPauseCharts");
-  if (chartsPaused) {
-    elm.textContent = "Pause Charts";
-    chartsPaused = false;
+function togglePause() {
+  elm = document.getElementById("btnPause");
+  if (updatePaused) {
+    elm.textContent = "Pause";
+    updatePaused = false;
+    if (currentView=="snapshots") updateSnapshot();
+    if (currentView=="charts") createDashboardCharts();
+    if (currentView=="tables") createDashboardTables();
   } else {
-    elm.textContent = "Resume Charts";
-    chartsPaused = true;
+    elm.textContent = "Resume";
+    updatePaused = true;
   }
 }
 
@@ -564,13 +648,20 @@ function InitChartCheckBoxes() {
 }
 
 window.onload = function() {
+  currentView = "snapshots";
+  updatePaused = false;
   firstDweet = true;
   numBreaths = 0;
+  updatedDweetContent = {"content":{}};
 
   periodicTickCount = 0;
   lastDweetTick = 0;
   wifiDropped = false;
   messagesBackground="MEDIUMBLUE";
+  alertBackground = "GREEN";
+  pendingBackground = "MEDIUMBLUE";
+  pauseButtonBackground="MEDIUMBLUE";
+  alertImage = "OK";
 
   initChartData();
 
@@ -581,16 +672,16 @@ window.onload = function() {
   darkredColor = style.getPropertyValue('--rsp_darkred');
   greenColor = style.getPropertyValue('--rsp_green');
   orangeColor = style.getPropertyValue('--rsp_orange');
-  alertImage = "OK";
-  alertBackground = "GREEN";
-  pendingBackground = "MEDIUMBLUE";
-  currentViewIsSnapshot = true;
   snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";
   charts = document.getElementById("chart-pane");
   charts.style.display = "none";
-  btn = document.getElementById("btnViewChange");
-  btn.textContent = "Charts View";
+  tables = document.getElementById("table-pane");
+  tables.style.display = "none";
+  btn1 = document.getElementById("btnViewChange1");
+  btn1.textContent = "Charts View";
+  btn2 = document.getElementById("btnViewChange2");
+  btn2.textContent = "Tables View";
 
   // Install all gauges
   installPurityGauge();

@@ -171,7 +171,8 @@ function updateSettingValue(str, containerDiv, valueDiv) {
   return pending;
 }
 
-function updateSnapshot(d) {
+function updateSnapshot() {
+  let d = updatedDweetContent;
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
@@ -433,6 +434,7 @@ function displayWifiUnconnected() {
 var periodicIntervalId = setInterval(function() {
   updateAlert(true);
   updatePending(true);
+  blinkPauseButton();
   periodicTickCount++;
   if (firstDweet) {
     displayWifiUnconnected();

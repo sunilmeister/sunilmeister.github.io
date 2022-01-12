@@ -8,6 +8,7 @@ var alertImage;
 var alertBackground;
 var pendingBackground;
 var messagesBackground;
+var pauseButtonBackground;
 var pendingMODE = false;
 var pendingVT = false;
 var pendingRR = false;
@@ -25,7 +26,7 @@ var pendingState = false;
 var currentViewIsSnapshot = true;
 var firstDweet = true;
 var numBreaths = 0;
-var chartsPaused = false;
+var updatePaused = false;
 var desiredFiO2 = 21;
 var o2Purity = 21;
 var reqO2Flow = 0;
@@ -35,6 +36,10 @@ var peakGauge = null;
 var platGauge = null;
 var peepGauge = null;
 var tempGauge = null;
+
+// Up to date dweet format state
+// useful for resuming after pause
+var updatedDweetContent = {"content":{}};;
 
 // check for continuing dweets
 const dweetIntervalMax = 6;
