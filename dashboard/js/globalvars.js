@@ -1,4 +1,5 @@
 var datasource_name = "RESPIMATIC100";
+var updateInProgress = false;
 var blueColor;
 var darkblueColor;
 var darkredColor;
