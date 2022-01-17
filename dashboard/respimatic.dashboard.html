@@ -22,6 +22,7 @@
   <script src="../js/charts.common.js"></script>
   <script src="../js/stats.table.js"></script>
   <script src="../js/global.data.js"></script>
+  <script src="../js/error.warning.js"></script>
   <script src="../pure-knob-master/pureknob.js"></script>
   <script src="js/globalvars.js"></script>
   <script src="js/update.dashboard.js"></script>
@@ -49,6 +50,10 @@
 
           <div style="margin-top:1rem;">
             <button id="btnViewChange2" class="sidebarButton" onclick='changeView2()'>Statistics View</button>
+          </div>
+
+          <div style="margin-top:1rem;">
+            <button id="btnViewChange3" class="sidebarButton" onclick='changeView3()'>Alerts View</button>
           </div>
 
           <div id="pauseChartsDiv" style="margin-top:0.6rem; margin-bottom:1rem;">
@@ -79,6 +84,37 @@
   </div>
 
   <div class="dashboard-pane">
+    <div id="alert-pane" style="display: none; font-family:verdana;">
+      <center>
+
+        <h2 style="color:var(--rsp_darkblue); font-size:3em; font-family:verdana;">
+          Session Alerts</h2>
+
+        <div class="row">
+          <div id="errorColDiv" class="column" style="border-radius:1.5rem; font-size: 1.5rem; width:60rem;">
+            <center>
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                Session Errors</h2>
+            </center>
+            <div class=shadowDiv5 id="errorDiv" style="border-radius:1.5rem; margin-left:10px; height:70rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <p id="scrollErrorDiv" style="font-size:1.5rem; text-align: left">
+            </div>
+          </div>
+
+          <div id="warningColDiv" class="column" style="border-radius:1.5rem; font-size: 1.5rem; width:60rem;">
+            <center>
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                Session Warnings</h2>
+            </center>
+            <div class=shadowDiv5 id="warningDiv" style="border-radius:1.5rem; margin-left:10px; height:70rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <p id="scrollWarningDiv" style="font-size:1.5rem; text-align: left">
+            </div>
+          </div>
+
+        </div>
+      </center>
+    </div>
+
     <div id="stat-pane" style="display: none; font-family:verdana;">
       <center>
         <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">

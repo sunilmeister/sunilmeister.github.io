@@ -33,11 +33,9 @@ function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   newElement.style.color = "white";
   scrollbox.appendChild(newElement);
 }
-var errorWarningDisplayed = false;
 
 function initErrorWarnings() {
   console.log("initErrorWarnings");
-  errorWarningDisplayed = false;
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   scrollbox = document.getElementById('scrollWarningDiv');
@@ -50,16 +48,16 @@ function displayErrorWarnings() {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
-  if (errorWarningDisplayed) return;
   var scrollbox = document.getElementById('scrollErrorDiv');
+  scrollbox.innerHTML = "";
   for (i = 0; i < errorMsgs.length; i++) {
     prefix = "ERROR #" + (i + 1) + " ";
     displayJsonErrorWarning(prefix, scrollbox, errorMsgs[i]);
   }
-  var scrollbox = document.getElementById('scrollWarningDiv');
+  scrollbox = document.getElementById('scrollWarningDiv');
+  scrollbox.innerHTML = "";
   for (i = 0; i < warningMsgs.length; i++) {
     prefix = "WARNING #" + (i + 1) + " ";
     displayJsonErrorWarning(prefix, scrollbox, warningMsgs[i]);
   }
-  errorWarningDisplayed = true;
 }

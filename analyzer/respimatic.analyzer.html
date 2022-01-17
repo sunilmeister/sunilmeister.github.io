@@ -30,10 +30,10 @@
   <script src="../js/charts.common.js"></script>
   <script src="../js/stats.table.js"></script>
   <script src="../js/global.data.js"></script>
+  <script src="../js/error.warning.js"></script>
   <script src="js/import.export.js"></script>
   <script src="js/charts.graphs.js"></script>
   <script src="js/raw.data.js"></script>
-  <script src="js/error.warning.js"></script>
   <script src="js/respimatic.analyzer.js"></script>
 </head>
 
@@ -73,12 +73,11 @@
         <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <p>Window Actions
             <br>
-            <button id="btnStat" class="sidebarButton" onclick='selectStats()'>Statistics</button>
+            <button id="btnStat" class="sidebarButton" onclick='selectStats()'>View Statistics</button>
             <br>
-            <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>Charts</button>
+            <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>View Charts</button>
             <br>
-            <button id="btnErrorWarning" class="sidebarButton" onclick='selectErrorWarnings()'>Errors &
-              Warnings</button>
+            <button id="btnErrorWarning" class="sidebarButton" onclick='selectErrorWarnings()'>View Alerts</button>
             <br>
             <button id="btnExportWindow" class="sidebarButton" onclick='selectExportWindow()'>Export Window </button>
             <br>
@@ -300,7 +299,7 @@
     <center>
       <div id="errorWarningDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
-          Session Errors and Warnings</h2>
+          Session Alerts</h2>
 
         <div class="row">
           <div id="errorColDiv" class="column" style="border-radius:25px; font-size: 20">

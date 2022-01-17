@@ -81,6 +81,7 @@ function processDweet(d) {
   if ((currentView=="snapshots") && !updatePaused) updateSnapshot();
   if ((currentView=="charts") && !updatePaused) createDashboardCharts();
   if ((currentView=="stats") && !updatePaused) createDashboardStats();
+  if ((currentView=="alerts") && !updatePaused) createDashboardAlerts();
   return d;
 }
 
@@ -96,6 +97,11 @@ function snapshotProcessJsonRecord(d) {
 function createDashboardStats() {
   globalDataValid = true;
   displayStats();
+}
+
+function createDashboardAlerts() {
+  globalDataValid = true;
+  displayErrorWarnings();
 }
 
 function blinkPauseButton() {
@@ -119,67 +125,122 @@ function blinkPauseButton() {
   }
 }
 
-function changeView1() {
-  updatePaused = false;
+function changeToSnapshotView() {
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
+  btn3 = document.getElementById("btnViewChange3");
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
+  alerts = document.getElementById("alert-pane");
+
+  updatePaused = false;
+  currentView = "snapshots";
+  snapshot.style.display = "inline-grid";
+  charts.style.display = "none";
+  stats.style.display = "none";
+  alerts.style.display = "none";
+  btn1.textContent = "Charts View";
+  btn2.textContent = "Statistics View";
+  btn3.textContent = "Alerts View";
+}
+
+function changeToChartView() {
+  btn1 = document.getElementById("btnViewChange1");
+  btn2 = document.getElementById("btnViewChange2");
+  btn3 = document.getElementById("btnViewChange3");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
+  stats = document.getElementById("stat-pane");
+  alerts = document.getElementById("alert-pane");
+
+  updatePaused = false;
+  currentView = "charts";
+  snapshot.style.display = "none";
+  charts.style.display = "block";
+  stats.style.display = "none";
+  alerts.style.display = "none";
+  btn1.textContent = "Snapshots View";
+  btn2.textContent = "Statistics View";
+  btn3.textContent = "Alerts View";
+  createDashboardCharts();
+}
+
+function changeToStatView() {
+  btn1 = document.getElementById("btnViewChange1");
+  btn2 = document.getElementById("btnViewChange2");
+  btn3 = document.getElementById("btnViewChange3");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
+  stats = document.getElementById("stat-pane");
+  alerts = document.getElementById("alert-pane");
+
+  updatePaused = false;
+  currentView = "stats";
+  snapshot.style.display = "none";
+  charts.style.display = "none";
+  stats.style.display = "block";
+  alerts.style.display = "none";
+  btn1.textContent = "Snapshots View";
+  btn2.textContent = "Charts View";
+  btn3.textContent = "Alerts View";
+  createDashboardStats();
+}
+
+function changeToAlertView() {
+  btn1 = document.getElementById("btnViewChange1");
+  btn2 = document.getElementById("btnViewChange2");
+  btn3 = document.getElementById("btnViewChange3");
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
+  stats = document.getElementById("stat-pane");
+  alerts = document.getElementById("alert-pane");
+
+  updatePaused = false;
+  currentView = "alerts";
+  snapshot.style.display = "none";
+  charts.style.display = "none";
+  stats.style.display = "none";
+  alerts.style.display = "block";
+  btn1.textContent = "Snapshots View";
+  btn2.textContent = "Charts View";
+  btn3.textContent = "Statistics View";
+  createDashboardAlerts();
+}
+
+function changeView1() {
   if (currentView == "snapshots") {
-    currentView = "charts";
-    snapshot.style.display = "none";
-    charts.style.display = "block";
-    stats.style.display = "none";
-    btn1.textContent = "Snapshots View";
-    btn2.textContent = "Statistics View";
-    createDashboardCharts();
+    changeToChartView();
   } else if (currentView == "charts") {
-    currentView = "snapshots";
-    snapshot.style.display = "inline-grid";
-    charts.style.display = "none";
-    stats.style.display = "none";
-    btn1.textContent = "Charts View";
-    btn2.textContent = "Statistics View";
+    changeToSnapshotView();
+  } else if (currentView == "alerts") {
+    changeToSnapshotView();
   } else {
-    currentView = "snapshots";
-    snapshot.style.display = "inline-grid";
-    charts.style.display = "none";
-    stats.style.display = "none";
-    btn1.textContent = "Charts View";
-    btn2.textContent = "Statistics View";
+    changeToSnapshotView();
   }
 }
 
 function changeView2() {
-  updatePaused = false;
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
   if (currentView == "snapshots") {
-    currentView = "stats";
-    snapshot.style.display = "none";
-    charts.style.display = "none";
-    stats.style.display = "block";
-    btn1.textContent = "Snapshots View";
-    btn2.textContent = "Charts View";
+    changeToStatView();
   } else if (currentView == "charts") {
-    currentView = "stats";
-    snapshot.style.display = "none";
-    charts.style.display = "none";
-    stats.style.display = "block";
-    btn1.textContent = "Snapshots View";
-    btn2.textContent = "Charts View";
+    changeToStatView();
+  } else if (currentView == "alerts") {
+    changeToChartView();
   } else {
-    currentView = "charts";
-    snapshot.style.display = "none";
-    charts.style.display = "block";
-    stats.style.display = "none";
-    btn1.textContent = "Snapshots View";
-    btn2.textContent = "Statistics View";
-    createDashboardCharts();
+    changeToChartView();
+  }
+}
+
+function changeView3() {
+  if (currentView == "snapshots") {
+    changeToAlertView();
+  } else if (currentView == "charts") {
+    changeToAlertView();
+  } else if (currentView == "alerts") {
+    changeToStatView();
+  } else {
+    changeToAlertView();
   }
 }
 
@@ -677,6 +738,7 @@ window.onload = function() {
 
   initGlobalData();
   initStats();
+  initErrorWarnings();
 
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');
