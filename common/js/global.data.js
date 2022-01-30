@@ -188,9 +188,9 @@ function globalTrackJsonRecord(jsonData) {
     }
   }
   // delete signalling messages
-  delete initialJsonRecord.content["BTOG"];
-  delete initialJsonRecord.content["WMSG"];
-  delete initialJsonRecord.content["EMSG"];
+  //delete initialJsonRecord.content["BTOG"];
+  //delete initialJsonRecord.content["WMSG"];
+  //delete initialJsonRecord.content["EMSG"];
 }
 
 function processFirstRecordData() {
