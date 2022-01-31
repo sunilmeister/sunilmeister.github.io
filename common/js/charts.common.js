@@ -92,19 +92,6 @@ var fiO2Values = [];
 var o2PurityValues = [];
 var o2FlowValues = [];
 
-var warningNum = 0;
-var errorNum = 0;
-
-// error and warning messages
-var errorMsgs = [];
-var warningMsgs = [];
-var expectWarningMsg;
-var expectErrorMsg;
-var l1;
-var l2;
-var l3;
-var l4;
-
 function initChartData() {
   console.log("initChartData");
   initChartColor();
@@ -128,37 +115,26 @@ function initChartData() {
   fiO2Values = [];
   o2PurityValues = [];
   o2FlowValues = [];
-
-  warningNum = 0;
-  errorNum = 0;
-
-  errorMsgs = [];
-  warningMsgs = [];
-  expectWarningMsg = false;
-  expectErrorMsg = false;
-  l1 = "";
-  l2 = "";
-  l3 = "";
-  l4 = "";
 }
 
-function initGraphStartValues() {
- if (breathTimes.length==0) breathTimes.push({"time":0,"valid":false});
- if (peakValues.length==0) peakValues.push({"time":0,"value":null});
- if (platValues.length==0) platValues.push({"time":0,"value":null});
- if (mpeepValues.length==0) mpeepValues.push({"time":0,"value":null});
- if (vtdelValues.length==0) vtdelValues.push({"time":0,"value":null});
- if (mvdelValues.length==0) mvdelValues.push({"time":0,"value":null});
- if (scompValues.length==0) scompValues.push({"time":0,"value":null});
- if (dcompValues.length==0) dcompValues.push({"time":0,"value":null});
- if (mbpmValues.length==0) mbpmValues.push({"time":0,"value":null});
- if (sbpmValues.length==0) sbpmValues.push({"time":0,"value":null});
- if (tempValues.length==0) tempValues.push({"time":0,"value":null});
- if (warningValues.length==0) warningValues.push({"time":0,"value":null});
- if (errorValues.length==0) errorValues.push({"time":0,"value":null});
- if (fiO2Values.length==0) fiO2Values.push({"time":0,"value":null});
- if (o2PurityValues.length==0) o2PurityValues.push({"time":0,"value":null});
- if (o2FlowValues.length==0) o2FlowValues.push({"time":0,"value":null});
+function initChartStartValues() {
+  console.log("initChartStartValues");
+  if (breathTimes.length==0) breathTimes.push({"time":0,"valid":false});
+  if (peakValues.length==0) peakValues.push({"time":0,"value":null});
+  if (platValues.length==0) platValues.push({"time":0,"value":null});
+  if (mpeepValues.length==0) mpeepValues.push({"time":0,"value":null});
+  if (vtdelValues.length==0) vtdelValues.push({"time":0,"value":null});
+  if (mvdelValues.length==0) mvdelValues.push({"time":0,"value":null});
+  if (scompValues.length==0) scompValues.push({"time":0,"value":null});
+  if (dcompValues.length==0) dcompValues.push({"time":0,"value":null});
+  if (mbpmValues.length==0) mbpmValues.push({"time":0,"value":null});
+  if (sbpmValues.length==0) sbpmValues.push({"time":0,"value":null});
+  if (tempValues.length==0) tempValues.push({"time":0,"value":null});
+  if (warningValues.length==0) warningValues.push({"time":0,"value":null});
+  if (errorValues.length==0) errorValues.push({"time":0,"value":null});
+  if (fiO2Values.length==0) fiO2Values.push({"time":0,"value":null});
+  if (o2PurityValues.length==0) o2PurityValues.push({"time":0,"value":null});
+  if (o2FlowValues.length==0) o2FlowValues.push({"time":0,"value":null});
 }
 
 var lastValidBreathTime = 0;
@@ -169,7 +145,9 @@ function chartProcessJsonRecord(jsonData) {
     if (key=='content') {
       if (typeof jsonData.content["WMSG"] != 'undefined') {
         expectWarningMsg = true;
+        console.log("WMSG");
         warningValues.push({"time":curTime,"value":++warningNum});
+	//console.log("Warning #" + warningNum);
       } 
       if (typeof jsonData.content["EMSG"] != 'undefined') {
         expectErrorMsg = true;
@@ -189,9 +167,10 @@ function chartProcessJsonRecord(jsonData) {
 	    };
 
 	    if (expectWarningMsg) {
-	      warningMsgs.push((msg));
+	      warningMsgs.push(msg);
+	      console.log("Pushed a warning msg");
 	    } else {
-	      errorMsgs.push((msg));
+	      errorMsgs.push(msg);
 	    }
 	    expectWarningMsg = false;
 	    expectErrorMsg = false;

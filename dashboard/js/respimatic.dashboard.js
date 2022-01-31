@@ -441,6 +441,7 @@ function createDashboardMiscCharts() {
   yaxis = createErrorWarningYaxis(0, chartColor);
   chartJson.axisY2 = createNewInstance(yaxis);
   if (paramData) {
+    //console.log("warningValues.length=" +warningValues.length);
     paramData.name = "Warnings";
     paramData.color = chartColor;
     paramData.axisYType = "secondary";
@@ -738,6 +739,7 @@ window.onload = function() {
 
   initGlobalData();
   initStats();
+  initChartStartValues();
   initErrorWarnings();
 
   var style = getComputedStyle(document.body)

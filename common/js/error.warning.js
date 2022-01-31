@@ -43,7 +43,7 @@ function initErrorWarnings() {
 }
 
 function displayErrorWarnings() {
-  console.log("displayErrorWarnings");
+  //console.log("displayErrorWarnings");
   if (!globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;

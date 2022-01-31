@@ -43,6 +43,8 @@ var minScomp, maxScomp;
 var minDcomp, maxDcomp;
 var minTemp, maxTemp;
 // error and warning messages
+var warningNum = 0;
+var errorNum = 0;
 var errorMsgs = [];
 var warningMsgs = [];
 var expectWarningMsg;
@@ -124,6 +126,7 @@ function initGlobalData() {
     "start": 0
   };
   usedParamCombos = [];
+
   minPeak = minDummyValue;
   maxPeak = maxDummyValue;
   minPlat = minDummyValue;
@@ -146,11 +149,13 @@ function initGlobalData() {
   maxDcomp = maxDummyValue;
   minTemp = minDummyValue;
   maxTemp = maxDummyValue;
+
   // state transitions
   numInitialEntry = 0;
   numStandbyEntry = 0;
   numActiveEntry = 0;
   numErrorEntry = 0;
+
   // Breath types
   numMandatory = 0;
   numSpontaneous = 0;
@@ -188,9 +193,9 @@ function globalTrackJsonRecord(jsonData) {
     }
   }
   // delete signalling messages
-  //delete initialJsonRecord.content["BTOG"];
-  //delete initialJsonRecord.content["WMSG"];
-  //delete initialJsonRecord.content["EMSG"];
+  delete initialJsonRecord.content["BTOG"];
+  delete initialJsonRecord.content["WMSG"];
+  delete initialJsonRecord.content["EMSG"];
 }
 
 function processFirstRecordData() {
@@ -201,7 +206,7 @@ function processFirstRecordData() {
   prevParamCombo = createNewInstance(currParamCombo);
   prevParamCombo.start = initialJsonRecord.created;
   globalProcessJsonRecord(initialJsonRecord);
-  initGraphStartValues();
+  initChartStartValues();
 }
 
 function globalProcessJsonRecord(jsonData) {

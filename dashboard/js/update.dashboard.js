@@ -89,7 +89,7 @@ function updatePending(blink) {
     elm = document.getElementById("PendingDiv");
     elm.style.backgroundColor = mediumblueColor;
     elm = document.getElementById("Pending");
-    elm.innerHTML = "No Uncommitted Changes";
+    elm.innerHTML = "No Pending Changes";
     pendingBackground = "MEDIUMBLUE";
   }
 }
@@ -176,33 +176,41 @@ function updateSnapshot() {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
+    if (value === null) continue;
+
     // System State
     if (key == 'INITIAL') {
-      initialState = false;
       if (value == "1") {
+	if (!initialState) attentionState = false; // entering initial state
         initialState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
         updateAlert(false);
+      } else {
+        initialState = false;
       }
     } else if (key == 'STANDBY') {
-      standbyState = false;
       if (value == "1") {
+	if (!standbyState) attentionState = false; // entering standby state
         standbyState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>STANDBY</b>";
         document.getElementById("StateImg").src = "img/YellowDot.png";
         updateAlert(false);
+      } else {
+        standbyState = false;
       }
     } else if (key == 'RUNNING') {
-      activeState = false;
       if (value == "1") {
+	if (!activeState) attentionState = false; // entering active state
         activeState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ACTIVE</b>";
         document.getElementById("StateImg").src = "img/GreenDot.png";
         updateAlert(false);
+      } else {
+        activeState = false;
       }
     } else if (key == 'ERROR') {
       if (value == "1") {
