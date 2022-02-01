@@ -144,12 +144,30 @@ function chartProcessJsonRecord(jsonData) {
   for (var key in jsonData) {
     if (key=='content') {
       if (typeof jsonData.content["WMSG"] != 'undefined') {
+	if (expectWarningMsg) { // back to back with Previous msg not yet fully received
+	    var msg = {
+	      'created' : jsonData.created,
+	      'L1' : l1,
+	      'L2' : l2,
+	      'L3' : l3,
+	      'L4' : l4
+	    };
+            warningMsgs.push(msg);
+	}
         expectWarningMsg = true;
-        console.log("WMSG");
         warningValues.push({"time":curTime,"value":++warningNum});
-	//console.log("Warning #" + warningNum);
       } 
       if (typeof jsonData.content["EMSG"] != 'undefined') {
+	if (expectErrorMsg) { // back to back with Previous msg not yet fully received
+	    var msg = {
+	      'created' : jsonData.created,
+	      'L1' : l1,
+	      'L2' : l2,
+	      'L3' : l3,
+	      'L4' : l4
+	    };
+            errorMsgs.push(msg);
+	}
         expectErrorMsg = true;
         errorValues.push({"time":curTime,"value":++errorNum});
       }
@@ -168,7 +186,6 @@ function chartProcessJsonRecord(jsonData) {
 
 	    if (expectWarningMsg) {
 	      warningMsgs.push(msg);
-	      console.log("Pushed a warning msg");
 	    } else {
 	      errorMsgs.push(msg);
 	    }
