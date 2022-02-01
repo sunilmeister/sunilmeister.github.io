@@ -138,6 +138,8 @@ function initChartStartValues() {
 }
 
 var lastValidBreathTime = 0;
+var lastWarningTime = 0;
+var lastErrorTime = 0;
 
 function chartProcessJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
@@ -146,7 +148,7 @@ function chartProcessJsonRecord(jsonData) {
       if (typeof jsonData.content["WMSG"] != 'undefined') {
 	if (expectWarningMsg) { // back to back with Previous msg not yet fully received
 	    var msg = {
-	      'created' : jsonData.created,
+	      'created' : lastWarningTime,
 	      'L1' : l1,
 	      'L2' : l2,
 	      'L3' : l3,
@@ -154,13 +156,14 @@ function chartProcessJsonRecord(jsonData) {
 	    };
             warningMsgs.push(msg);
 	}
+	lastWarningTime = jsonData.created;
         expectWarningMsg = true;
         warningValues.push({"time":curTime,"value":++warningNum});
       } 
       if (typeof jsonData.content["EMSG"] != 'undefined') {
 	if (expectErrorMsg) { // back to back with Previous msg not yet fully received
 	    var msg = {
-	      'created' : jsonData.created,
+	      'created' : lastErrorTime,
 	      'L1' : l1,
 	      'L2' : l2,
 	      'L3' : l3,
@@ -168,6 +171,7 @@ function chartProcessJsonRecord(jsonData) {
 	    };
             errorMsgs.push(msg);
 	}
+	lastErrorTime = jsonData.created;
         expectErrorMsg = true;
         errorValues.push({"time":curTime,"value":++errorNum});
       }
@@ -176,8 +180,14 @@ function chartProcessJsonRecord(jsonData) {
 	value = jsonData.content[ckey];
         if (l1 && l2 && l3 && l4) {
 	  if (expectErrorMsg || expectWarningMsg) {
+	    var msgTime;
+	    if (expectWarningMsg) {
+	      msgTime = lastWarningTime;
+	    } else {
+	      msgTime = lastErrorTime;
+	    }
 	    var msg = {
-	      'created' : jsonData.created,
+	      'created' : msgTime,
 	      'L1' : l1,
 	      'L2' : l2,
 	      'L3' : l3,
