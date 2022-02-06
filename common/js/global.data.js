@@ -30,18 +30,41 @@ var fiO2s = [];
 var prevParamCombo = {};
 var currParamCombo = {};
 var usedParamCombos = [];
-// min max
-var minPeak, maxPeak;
-var minPlat, maxPlat;
-var minPeep, maxPeep;
-var minVtdel, maxVtdel;
-var minMvdel, maxMvdel;
-var minMbpm, maxMbpm;
-var minSbpm, maxSbpm;
-var minFiO2, maxFiO2;
-var minScomp, maxScomp;
-var minDcomp, maxDcomp;
-var minTemp, maxTemp;
+// min max, avg
+var minPeak, maxPeak, avgPeak;
+var minPlat, maxPlat, avgPlat;
+var minPeep, maxPeep, avgPeep;
+var minVtdel, maxVtdel, avgVtdel;
+var minMvdel, maxMvdel, avgMvdel;
+var minMbpm, maxMbpm, avgMbpm;
+var minSbpm, maxSbpm, avgSbpm;
+var minFiO2, maxFiO2, avgFiO2;
+var minScomp, maxScomp, avgScomp;
+var minDcomp, maxDcomp, avgDcomp;
+var minTemp, maxTemp, avgTemp;
+// sum and numSamples for computing average
+var sumPeak=0;
+var nPeak=0; 
+var sumPlat=0;
+var nPlat=0; 
+var sumPeep=0;
+var nPeep=0; 
+var sumVtdel=0;
+var nVtdel=0; 
+var sumMvdel=0;
+var nMvdel=0; 
+var sumMbpm=0;
+var nMbpm=0; 
+var sumSbpm=0;
+var nSbpm=0; 
+var sumFiO2=0;
+var nFiO2=0; 
+var sumScomp=0;
+var nScomp=0; 
+var sumDcomp=0;
+var nDcomp=0; 
+var sumTemp=0;
+var nTemp=0; 
 // error and warning messages
 var warningNum = 0;
 var errorNum = 0;
@@ -129,26 +152,61 @@ function initGlobalData() {
 
   minPeak = minDummyValue;
   maxPeak = maxDummyValue;
+  avgPeak = "--";
   minPlat = minDummyValue;
   maxPlat = maxDummyValue;
+  avgPlat = "--";
   minPeep = minDummyValue;
   maxPeep = maxDummyValue;
+  avgPeep = "--";
   minVtdel = minDummyValue;
   maxVtdel = maxDummyValue;
+  avgVtdel = "--";
   minMvdel = minDummyValue;
   maxMvdel = maxDummyValue;
+  avgMvdel = "--";
   minMbpm = minDummyValue;
   maxMbpm = maxDummyValue;
+  avgMbpm = "--";
   minSbpm = minDummyValue;
   maxSbpm = maxDummyValue;
+  avgSbpm = "--";
   minFiO2 = minDummyValue;
   maxFiO2 = maxDummyValue;
+  avgFiO2 = "--";
   minScomp = minDummyValue;
   maxScomp = maxDummyValue;
+  avgScomp = "--";
   minDcomp = minDummyValue;
   maxDcomp = maxDummyValue;
+  avgDcomp = "--";
   minTemp = minDummyValue;
   maxTemp = maxDummyValue;
+  avgTemp = "--";
+
+  // for computing averages
+  sumPeak=0;
+  nPeak=0; 
+  sumPlat=0;
+  nPlat=0; 
+  sumPeep=0;
+  nPeep=0; 
+  sumVtdel=0;
+  nVtdel=0; 
+  sumMvdel=0;
+  nMvdel=0; 
+  sumMbpm=0;
+  nMbpm=0; 
+  sumSbpm=0;
+  nSbpm=0; 
+  sumFiO2=0;
+  nFiO2=0; 
+  sumScomp=0;
+  nScomp=0; 
+  sumDcomp=0;
+  nDcomp=0; 
+  sumTemp=0;
+  nTemp=0; 
 
   // state transitions
   numInitialEntry = 0;
@@ -331,6 +389,8 @@ function statProcessJsonRecord(jsonData) {
             if ((fiO2s.length == 0) || (fiO2s.indexOf(value) == -1)) {
               fiO2s.push(value);
             }
+	    sumFiO2 += value;
+	    avgFiO2 = formAvg(sumFiO2,++nFiO2);
           }
         } else if (ckey == "MBPM") {
           if (validDecimalInteger(value)) {
@@ -340,6 +400,8 @@ function statProcessJsonRecord(jsonData) {
             if (minMbpm > value) {
               minMbpm = value;
             }
+	    sumMbpm += value;
+	    avgMbpm = formAvg(sumMbpm,++nMbpm);
           }
         } else if (ckey == "SBPM") {
           if (validDecimalInteger(value)) {
@@ -349,6 +411,8 @@ function statProcessJsonRecord(jsonData) {
             if (minSbpm > value) {
               minSbpm = value;
             }
+	    sumSbpm += value;
+	    avgSbpm = formAvg(sumSbpm,++nSbpm);
           }
         } else if (ckey == "STATIC") {
           if (validDecimalInteger(value)) {
@@ -358,6 +422,8 @@ function statProcessJsonRecord(jsonData) {
             if (minScomp > value) {
               minScomp = value;
             }
+	    sumScomp += value;
+	    avgScomp = formAvg(sumScomp,++nScomp);
           }
         } else if (ckey == "DYNAMIC") {
           if (validDecimalInteger(value)) {
@@ -367,6 +433,8 @@ function statProcessJsonRecord(jsonData) {
             if (minDcomp > value) {
               minDcomp = value;
             }
+	    sumDcomp += value;
+	    avgDcomp = formAvg(sumDcomp,++nDcomp);
           }
         } else if (ckey == "VTDEL") {
           if (validDecimalInteger(value)) {
@@ -376,6 +444,8 @@ function statProcessJsonRecord(jsonData) {
             if (minVtdel > value) {
               minVtdel = value;
             }
+	    sumVtdel += value;
+	    avgVtdel = formAvg(sumVtdel,++nVtdel);
           }
         } else if (ckey == "MVDEL") {
           if (validFloatNumber(value)) {
@@ -385,6 +455,8 @@ function statProcessJsonRecord(jsonData) {
             if (minMvdel > value) {
               minMvdel = value;
             }
+	    sumMvdel += value;
+	    avgMvdel = formAvg(sumMvdel,++nMvdel);
           }
         } else if (ckey == "PIP") {
           if (validDecimalInteger(value)) {
@@ -394,6 +466,8 @@ function statProcessJsonRecord(jsonData) {
             if (minPeak > value) {
               minPeak = value;
             }
+	    sumPeak += value;
+	    avgPeak = formAvg(sumPeak,++nPeak);
           }
         } else if (ckey == "PLAT") {
           if (validDecimalInteger(value)) {
@@ -403,6 +477,8 @@ function statProcessJsonRecord(jsonData) {
             if (minPlat > value) {
               minPlat = value;
             }
+	    sumPlat += value;
+	    avgPlat = formAvg(sumPlat,++nPlat);
           }
         } else if (ckey == "MPEEP") {
           if (validDecimalInteger(value)) {
@@ -412,6 +488,8 @@ function statProcessJsonRecord(jsonData) {
             if (minPeep > value) {
               minPeep = value;
             }
+	    sumPeep += value;
+	    avgPeep = formAvg(sumPeep,++nPeep);
           }
         } else if (ckey == "TEMP") {
           if (validDecimalInteger(value)) {
@@ -421,6 +499,8 @@ function statProcessJsonRecord(jsonData) {
             if (minTemp > value) {
               minTemp = value;
             }
+	    sumTemp += value;
+	    avgTemp = formAvg(sumTemp,++nTemp);
           }
         } else if (ckey == "ALT") {
           altitude = value + " ft(m)";
