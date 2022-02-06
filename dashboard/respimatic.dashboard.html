@@ -231,6 +231,7 @@
 	  &nbsp&nbsp&nbsp&nbsp
 	  &nbsp&nbsp&nbsp&nbsp
 	  &nbsp&nbsp&nbsp&nbsp
+	  Charts:&nbsp&nbsp
           <input id="PressuresTick" style="width:2rem;height:2rem;" type="checkbox" onclick="PressuresClick()">
           Pressures&nbsp&nbsp&nbsp
           <input id="VolumesTick" style="width:2rem;height:2rem;" type="checkbox" onclick="VolumesClick()">
@@ -244,7 +245,13 @@
 	  &nbsp&nbsp&nbsp&nbsp
 	  &nbsp&nbsp&nbsp&nbsp
 	  &nbsp&nbsp&nbsp&nbsp
-          <br><br>
+	  <br><br>
+           X-Axis:
+          <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px">
+          <label for="breathNum">Breath Number</label>
+          <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px">
+          <label for="timeBased">Elapsed Time between Updates</label>
+<br><br>
         </div>
 
         <div id=PressuresChartWrapper class=ChartWrapper style="display:none;">

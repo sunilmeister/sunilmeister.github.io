@@ -256,6 +256,9 @@ var updatingCharts = false;
 function createDashboardCharts() {
   if (updatingCharts) return;
   updatingCharts = true;
+  elm = document.getElementById("timeTick");
+  timeBased = elm.checked;
+
   createDashboardPressureCharts();
   createDashboardVolumeCharts();
   createDashboardBpmCharts();
