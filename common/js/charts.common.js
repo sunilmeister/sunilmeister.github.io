@@ -222,6 +222,7 @@ function chartProcessJsonRecord(jsonData) {
 	    if (!l4) l4 = jsonData.content['L4'];
 	  }
         } else if (ckey=="BTOG") {
+	  //console.log("Push BTOG=" + value + " " + curTime);
 	  breathTimes.push({"time":curTime, "valid":true});
 	  lastValidBreathTime = curTime;
         } else if (ckey=="LOST") {
@@ -288,6 +289,7 @@ function chartProcessJsonRecord(jsonData) {
 	    dcompValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="VTDEL") {
+	  //console.log("Push VTDEL=" + value + " " + curTime);
 	  if (validDecimalInteger(value)) {
 	    vtdelValues.push({"time":curTime,"value":value});
 	  } else {
@@ -394,6 +396,7 @@ function createVtYaxis(num, color) {
     titleFontColor: color,
     gridColor: horizontalGridColor,
     minimum: 0,
+    maximum: 700,
     suffix: ""
   };
   return (yaxis);
@@ -408,6 +411,7 @@ function createMvYaxis(num, color) {
     titleFontColor: color,
     gridColor: horizontalGridColor,
     minimum: 0,
+    maximum: 20,
     suffix: ""
   };
   return (yaxis);
@@ -456,24 +460,40 @@ function createTempYaxis(num, color) {
 }
 
 
-var doingSbpm = false;
+var debugLogDatapoints = false;
 function createDatapoints(transitions) {
   var curValue = 0;
   var curIx = 0;
   var curValue = transitions[0].value; // guaranteed to have at least one entry
 
+  if (debugLogDatapoints) {
+    console.log("transitions.length="+transitions.length);
+    for (i=0; i<transitions.length; i++) {
+      console.log("transitions[" + i + "]=" +
+	transitions[i].value + " (" +
+	transitions[i].time + ")");
+    }
+  }
   var datapoints = [];
-  for (i=0; i<breathTimes.length; i++) {
+  for (i=1; i<breathTimes.length; i++) {
     if (curIx==transitions.length-1) {
       curValue = transitions[curIx].value;
     } else {
       if (breathTimes[i].time >= transitions[curIx+1].time ) {
+        if (debugLogDatapoints) console.log("breath time >= curIx=" + curIx);
 	curValue = transitions[++curIx].value;
       } else {
+        if (debugLogDatapoints) console.log("breath time < curIx=" + curIx);
 	curValue = transitions[curIx].value;
       }
     }
     datapoints.push(curValue);
+  }
+  if (debugLogDatapoints) {
+    console.log("datapoints.length="+datapoints.length);
+    for (i=0; i<datapoints.length; i++) {
+      console.log("datapoints[" + i + "]=" + datapoints[i]);
+    }
   }
 
   return datapoints;
