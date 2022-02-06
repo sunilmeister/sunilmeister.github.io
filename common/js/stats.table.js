@@ -49,7 +49,7 @@ function miscTableRow(table, field, value) {
   cell = row.insertCell();
   cell.innerHTML = field;
   cell = row.insertCell();
-  cell.innerHTML = '<div id=' + value + '>----</div>';
+  cell.innerHTML = '<div style="text-align:right;" id=' + value + '>----</div>';
 }
 
 function paramTableRow(table, field, units, value) {
@@ -71,11 +71,11 @@ function minMaxTableRow(table, field, units, minDiv, maxDiv, avgDiv) {
   cell.innerHTML = units;
   cell.innerHTML = '<div style="font-size:0.7em;">' + units + '</div>';
   cell = row.insertCell();
-  cell.innerHTML = '<div id=' + minDiv + '>----</div>';
+  cell.innerHTML = '<div style="text-align:right;" id=' + minDiv + '>----</div>';
   cell = row.insertCell();
-  cell.innerHTML = '<div id=' + maxDiv + '>----</div>';
+  cell.innerHTML = '<div style="text-align:right;" id=' + maxDiv + '>----</div>';
   cell = row.insertCell();
-  cell.innerHTML = '<div id=' + avgDiv + '>----</div>';
+  cell.innerHTML = '<div style="text-align:right;" id=' + avgDiv + '>----</div>';
 }
 
 function constructStatMinMaxTable() {
