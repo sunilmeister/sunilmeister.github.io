@@ -77,6 +77,9 @@ function createNewChart() {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+    chartJson.axisX.minimum = 1;
+    chartJson.axisX.interval = 1;
+    chartJson.axisX.intervalType = "number";
   }
 
   if (peakYes) {
