@@ -332,15 +332,17 @@ function updateSnapshot() {
       elm = document.getElementById("Pline1");
       elm.innerHTML = value;
     } else if (key == 'PMISC') {
-      [gender, age, pid] = parsePatientInfo(value);
-      elm = document.getElementById("Pline2");
-      if (gender == "M") {
-        elm.innerHTML = "Male " + "(" + age + " years)";
-      } else {
-        elm.innerHTML = "Female " + "(" + age + " years)";
+      if (value!="") {
+        [gender, age, pid] = parsePatientInfo(value);
+        elm = document.getElementById("Pline2");
+        if (gender == "M") {
+          elm.innerHTML = "Male " + "(" + age + " years)";
+        } else {
+          elm.innerHTML = "Female " + "(" + age + " years)";
+        }
+        elm = document.getElementById("Pline3");
+        elm.innerHTML = "ID: " + pid;
       }
-      elm = document.getElementById("Pline3");
-      elm.innerHTML = "ID: " + pid;
     }
     // Input Settings
     else if (key == 'MODE') {
