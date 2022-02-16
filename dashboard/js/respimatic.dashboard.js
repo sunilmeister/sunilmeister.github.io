@@ -251,11 +251,7 @@ var fiO2Chart = null;
 var miscChart = null;
 var timeBased = false;
 
-var updatingCharts = false;
-
 function createDashboardCharts() {
-  //if (updatingCharts) return;
-  updatingCharts = true;
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
 
@@ -264,7 +260,6 @@ function createDashboardCharts() {
   createDashboardBpmCharts();
   createDashboardFiO2Charts();
   createDashboardMiscCharts();
-  updatingCharts = false;
 }
 
 function createDashboardPressureCharts() {
