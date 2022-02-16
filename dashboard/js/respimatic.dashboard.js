@@ -254,7 +254,7 @@ var timeBased = false;
 var updatingCharts = false;
 
 function createDashboardCharts() {
-  if (updatingCharts) return;
+  //if (updatingCharts) return;
   updatingCharts = true;
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
