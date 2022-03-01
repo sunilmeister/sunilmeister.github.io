@@ -72,14 +72,22 @@ function createNewChart() {
   o2FlowYaxisNum = -1;
   var chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = title;
-  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  createChartsXaxis(chartJson);
   if (timeBased) {
-    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
-  } else {
-    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
-    chartJson.axisX.minimum = 1;
-    chartJson.axisX.interval = 1;
-    chartJson.axisX.intervalType = "number";
+    if (breathTimes.length>1) {
+      var msg =   "Elapsed time shown is from the ";
+      msg = msg + "first to the last recorded breath\n";
+      msg = msg + "in the analysis window\n\n";
+
+      var diff = breathTimes[1].time - analysisStartTime;
+      msg = msg + "First breath recorded " + msToTimeStr(diff) + " (hh:mm:ss)\n";
+      msg = msg + "from the start of the analysis window\n\n";
+
+      diff = breathTimes[breathTimes.length-1].time - analysisStartTime;
+      msg = msg + "Last breath recorded " + msToTimeStr(diff) + " (hh:mm:ss)\n";
+      msg = msg + "from the start of the analysis window";
+      alert(msg);
+    }
   }
 
   if (peakYes) {
