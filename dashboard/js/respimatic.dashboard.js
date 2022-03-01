@@ -267,7 +267,7 @@ function createDashboardPressureCharts() {
   var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Pressures";
-  createChartsXaxis(chartJson,numBreaths,sessionDurationInMs);
+  createChartsXaxis(chartJson);
   chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -313,7 +313,7 @@ function createDashboardVolumeCharts() {
   var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Volumes";
-  createChartsXaxis(chartJson,numBreaths,sessionDurationInMs);
+  createChartsXaxis(chartJson);
   chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -352,7 +352,7 @@ function createDashboardFiO2Charts() {
   var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "FiO2";
-  createChartsXaxis(chartJson,numBreaths,sessionDurationInMs);
+  createChartsXaxis(chartJson);
   chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -399,7 +399,7 @@ function createDashboardMiscCharts() {
   var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Miscellaneous";
-  createChartsXaxis(chartJson,numBreaths,sessionDurationInMs);
+  createChartsXaxis(chartJson);
   chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;
@@ -447,7 +447,7 @@ function createDashboardBpmCharts() {
   var chartJson;
   chartJson = createNewInstance(chartTemplate);
   chartJson.title.text = "Breaths per Minute";
-  createChartsXaxis(chartJson,numBreaths,sessionDurationInMs);
+  createChartsXaxis(chartJson);
   chartJson.height = 475;
   chartJson.backgroundColor = style.getPropertyValue('--rsp_lightblue');
   flagError = false;

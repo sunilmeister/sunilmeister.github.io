@@ -71,27 +71,15 @@ function toggleDataSeries(e) {
 }
 
 
-function createChartsXaxis(chartJson, numBreaths, sessionDurationInMs) {
+function createChartsXaxis(chartJson) {
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   if (timeBased) {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
     chartJson.axisX.minimum = 0;
-    if (sessionDurationInMs) {
-      chartJson.axisX.interval = Math.ceil(sessionDurationInMs/maxTickMarksXaxis/1000);
-    } else {
-      chartJson.axisX.interval = 1;
-    }
   } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
     chartJson.axisX.minimum = 1;
-    if (numBreaths) {
-      chartJson.axisX.interval = Math.ceil(numBreaths/maxTickMarksXaxis);
-    } else {
-      chartJson.axisX.interval = 1;
-    }
   }
-
-  chartJson.axisX.intervalType = "number";
 }
 
 // ////////////////////////////////////////////////////
