@@ -4,6 +4,8 @@
 // currently open session
 var sessionDbName = "";
 var sessionDbReady = false;
+var sessionDurationInMs = 0;
+
 // before Analysis starts
 var initialJsonRecord = null;
 // useful for params that have an undefined value sometimes
@@ -95,6 +97,7 @@ var numMissingBreaths;
 
 function initGlobalData() {
   console.log("initGlobalData");
+  sessionDurationInMs = 0;
   globalDataValid = false;
   firstRecord = true;
   initChartData();

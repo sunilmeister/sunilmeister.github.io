@@ -20,7 +20,9 @@ const graphColors = [
 ];
 var nextChartColor = 0;
 
-var horizontalGridColor = "#8f99fb";
+var horizontalGridColor = "#8F99FB";
+var bandColor = "white";
+var maxTickMarksXaxis = 20;
 
 function getNextChartColor() {
   color = graphColors[nextChartColor++];
@@ -42,6 +44,7 @@ var chartTemplate = {
   axisX:{ 
     title: "", 
     fontSize: 50,
+    interlacedColor: bandColor,
     scaleBreaks: {
       customBreaks: [],
     },
@@ -65,6 +68,30 @@ function toggleDataSeries(e) {
     e.dataSeries.visible = true;
   }
   e.chart.render();
+}
+
+
+function createChartsXaxis(chartJson, numBreaths, sessionDurationInMs) {
+  chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  if (timeBased) {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
+    chartJson.axisX.minimum = 0;
+    if (sessionDurationInMs) {
+      chartJson.axisX.interval = Math.ceil(sessionDurationInMs/maxTickMarksXaxis/1000);
+    } else {
+      chartJson.axisX.interval = 1;
+    }
+  } else {
+    chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
+    chartJson.axisX.minimum = 1;
+    if (numBreaths) {
+      chartJson.axisX.interval = Math.ceil(numBreaths/maxTickMarksXaxis);
+    } else {
+      chartJson.axisX.interval = 1;
+    }
+  }
+
+  chartJson.axisX.intervalType = "number";
 }
 
 // ////////////////////////////////////////////////////
