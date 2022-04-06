@@ -2,6 +2,7 @@ var desiredFiO2 = 21;
 var desiredVt = 400;
 var desiredRr = 15;
 var o2Purity = 100;
+
 window.onload = function() {
   installVtKnob();
   installRrKnob();

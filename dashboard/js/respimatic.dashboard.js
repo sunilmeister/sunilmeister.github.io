@@ -1,4 +1,3 @@
-document.title = respimaticUid + " (" + datasource_name + ")"
 var currentView = "snapshots";
 var breathPausedAt = 0;
 
@@ -695,6 +694,9 @@ function InitChartCheckBoxes() {
 }
 
 window.onload = function() {
+  initDbNames();
+  document.title = respimaticUid + " (" + datasource_name + ")"
+
   currentView = "snapshots";
   updatePaused = false;
   firstDweet = true;

@@ -1,12 +1,16 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const cookieName = "selectedUid";
+const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS" ;
+const uidCookieName = "RESPIMATIC_UID_COOKIE";
+const tagCookieName = "RESPIMATIC_TAG_COOKIE";
+var respimaticUid = "";
+var respimaticTag = "";
+
 const localStorageDbName = "respimatic_dbs";
-var respimaticUid = getCookie(cookieName);
-const dbNamePrefix = respimaticUid;
+var dbNamePrefix = "";
 const dbVersion = 1;
-const dbObjStoreName = respimaticUid;
+var dbObjStoreName = "";
 const dbPrimaryKey = 'created';
 var db = null;
 var dbReady = false;
@@ -16,6 +20,14 @@ var logStartTime = new Date();
 var logEndTime = new Date();
 var analysisStartTime = new Date();
 var analysisEndTime = new Date();
+
+function initDbNames() {
+  respimaticUid = getCookie(uidCookieName);
+  respimaticTag = getCookie(tagCookieName);
+
+  dbNamePrefix = respimaticUid;
+  dbObjStoreName = respimaticUid;
+}
 
 // /////////////////////////////////////////////
 // Zoom to a fraction of original
@@ -229,20 +241,7 @@ const tpsOptions = ["\u21A110\uFE6A", "\u21A120\uFE6A", "\u21A130\uFE6A", "\u23F
 function tpsValid(str) {
   return tpsOptions.indexOf(str) != -1;
 }
-// /////////////////////////////////////////////
-// UID functions
-// /////////////////////////////////////////////
-function validUid() {
-  var uid_length = respimaticUid.length;
-  if (uid_length != 20) return false;
-  var pos = respimaticUid.indexOf("RSP_");
-  if (pos != 0) return false;
-  var hex_str = respimaticUid.substr(4);
-  //alert("hex_str = " + hex_str);
-  var re = /[0-9A-Fa-f]{16}/g;
-  if (re.test(hex_str)) return true;
-  return false;
-}
+
 // /////////////////////////////////////////////
 // Cookie functions
 // /////////////////////////////////////////////
@@ -250,8 +249,8 @@ function setCookie(cname, cvalue) {
   var d = new Date();
   d.setFullYear(d.getFullYear() + 1);
   var expiry = d.toUTCString();
-  document.cookie = cname + "=" + cvalue + "; expires=" + expiry +
-    ";path=/; SameSite=None;Secure";
+  document.cookie = cname + "=" + cvalue + "; expires=" + expiry 
+    + ";path=/; SameSite=None;Secure";
 }
 
 function deleteCookie(cname) {

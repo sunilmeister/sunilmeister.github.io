@@ -25,8 +25,9 @@
       <input type="button" id="tst" value="OK" onclick="fnselect()" />
     
     <script>
+      var element = null;
       function fnselect(){
-        var element = getSelectedTableRow();
+        element = getSelectedTableRow();
         if(element){ //it must be selected
          alert(element.children[0].firstChild.data);
 	} else {

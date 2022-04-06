@@ -27,7 +27,6 @@ var wifiDropped = false;
 const REFRESH_DWEET_INTERVAL = 10;
 var dweetIntervalCounter = 0;
 // check for browser capability
-document.title = respimaticUid + " (RECORDER)";
 if (!window.indexedDB) {
   alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
@@ -364,6 +363,9 @@ function selectExit() {
 }
 
 window.onload = function() {
+  initDbNames();
+  document.title = respimaticUid + " (RECORDER)";
+
   periodicTickCount = 0;
   lastDweetTick = 0;
   dweetIntervalCounter = 0;

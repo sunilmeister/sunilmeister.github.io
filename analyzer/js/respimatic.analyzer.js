@@ -4,7 +4,6 @@
 var analysisRangeSliderDiv = null;
 var rangeSlider = null;
 var sliderCommitPending = false;
-document.title = respimaticUid + " (ANALYZER)";
 if (!window.indexedDB) {
   alert("IndexedDB not available in your browser.\nSwitch browsers");
 }
@@ -356,6 +355,9 @@ function resetTimeInterval() {
 }
 
 window.onload = function() {
+  initDbNames();
+  document.title = respimaticUid + " (ANALYZER)";
+
   sessionDbName = "";
   sessionDbReady = false;
   var heading = document.getElementById("SysUid");
