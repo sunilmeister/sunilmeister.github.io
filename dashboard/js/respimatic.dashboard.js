@@ -695,7 +695,10 @@ function InitChartCheckBoxes() {
 
 window.onload = function() {
   initDbNames();
-  document.title = respimaticUid + " (" + datasource_name + ")"
+  document.title = respimaticTag + " (" + datasource_name + ")"
+  var heading = document.getElementById("SysUid");
+  heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+
 
   currentView = "snapshots";
   updatePaused = false;

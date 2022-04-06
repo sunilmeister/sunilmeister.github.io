@@ -356,12 +356,13 @@ function resetTimeInterval() {
 
 window.onload = function() {
   initDbNames();
-  document.title = respimaticUid + " (ANALYZER)";
+  document.title = respimaticTag + " (ANALYZER)";
 
   sessionDbName = "";
   sessionDbReady = false;
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = '<b>SYSUID</b><br>' + respimaticUid ;
+  heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+
   var sessionInfo = document.getElementById("SessionInfo");
   sessionInfo.innerHTML = '<br>No Session' ;
   // Create analysis range slider

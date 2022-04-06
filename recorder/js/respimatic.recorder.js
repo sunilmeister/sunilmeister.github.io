@@ -364,7 +364,7 @@ function selectExit() {
 
 window.onload = function() {
   initDbNames();
-  document.title = respimaticUid + " (RECORDER)";
+  document.title = respimaticTag + " (RECORDER)";
 
   periodicTickCount = 0;
   lastDweetTick = 0;
@@ -373,7 +373,7 @@ window.onload = function() {
   heading = document.getElementById("SysUidMsg");
   heading.innerText = "Ready to Record";
   heading = document.getElementById("SysUid");
-  heading.innerText = "\n" + respimaticUid;
+  heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   listAllDbs();
 
   elm = document.getElementById("activeSessionDiv");

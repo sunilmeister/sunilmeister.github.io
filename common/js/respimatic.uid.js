@@ -25,7 +25,7 @@ function saveNewRespimaticSystemId(uid, tag) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
   obj = createSystemUidTagObj(uid, tag);
-  knownRespimaticSystems.push(obj);
+  knownRespimaticSystems.unshift(obj);
   localStorage.setItem(
     respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
 }
