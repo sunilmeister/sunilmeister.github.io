@@ -14,6 +14,17 @@ function createDropdownSelect(sysList, values) {
   }
 }
 
+function setSelectedSystem(uid, tag) {
+  respimaticUid = uid;
+  respimaticTag = tag;
+  setCookie(uidCookieName, respimaticUid);
+  setCookie(tagCookieName, respimaticTag);
+
+  var ddList = document.getElementById("SYSTEM_NAME");
+  createDropdownSelect(ddList, knownRespimaticSystems);
+  ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
+}
+
 function getRespimaticSysUID() {
   var ddList = document.getElementById("SYSTEM_NAME");
   var tag = ddList.value;
@@ -21,16 +32,74 @@ function getRespimaticSysUID() {
     alert("No RESPIMATIC-100 System selected");
     return false;
   }
-  respimaticTag = tag;
-  respimaticUid = findSystemUid(tag);
-  setCookie(uidCookieName, respimaticUid);
-  setCookie(tagCookieName, respimaticTag);
-  sessionStorage.setItem(uidCookieName, respimaticUid);
-  sessionStorage.setItem(tagCookieName, respimaticTag);
+  uid = findSystemUid(tag);
+  setSelectedSystem(uid, tag);
   return true;
 }
 
+function selectSystemInfo() {
+  var row = getSelectedTableRow();
+  if (!row) {
+    alert("No table row selected\nSelect a row and try again!");
+    return;
+  }
+
+  tag = row.children[0].firstChild.data;
+  uid = row.children[1].firstChild.data;
+  setSelectedSystem(uid, tag);
+
+  elm = document.getElementById("knownSystems");
+  elm.style.display = "none";
+  var elm = document.getElementById("mainDiv");
+  elm.style.display = "block";
+
+}
+
+function removeSystemInfo() {
+  var row = getSelectedTableRow();
+  if (!row) {
+    alert("No table row selected\nSelect a row and try again!");
+    return;
+  }
+
+  tag = row.children[0].firstChild.data;
+  uid = row.children[1].firstChild.data;
+  removedTag = removeSystemUidTagInfo(uid, tag);
+  var ddList = document.getElementById("SYSTEM_NAME");
+
+  if (knownRespimaticSystems.length) {
+    if (removedTag == respimaticTag) {
+      setSelectedSystem(knownRespimaticSystems[0].uid, knownRespimaticSystems[0].tag);
+    }
+  } else {
+    respimaticTag = "";
+    respimaticUid = "";
+    ddList.selectedIndex = -1;
+  }
+  createDropdownSelect(ddList, knownRespimaticSystems);
+
+
+  elm = document.getElementById("knownSystems");
+  elm.style.display = "none";
+  var elm = document.getElementById("mainDiv");
+  elm.style.display = "block";
+}
+
+function exitSystemInfo() {
+  elm = document.getElementById("knownSystems");
+  elm.style.display = "none";
+  var elm = document.getElementById("mainDiv");
+  elm.style.display = "block";
+}
+
 function knownSystemInfo() {
+  var elm = document.getElementById("mainDiv");
+  elm.style.display = "none";
+  elm = document.getElementById("knownSystems");
+  elm.style.display = "block";
+
+  populateSystemUidTagHtmlTable("knownSystemsTable");
+  initSelectRowTable("knownSystemsTable");
 }
 
 function newSystemInfo() {
@@ -57,16 +126,7 @@ function rememberNewSystem() {
   }
 
   saveNewRespimaticSystemId(newSysUid, newSysTag);
-  respimaticUid = newSysUid;
-  respimaticTag = newSysTag;
-  setCookie(uidCookieName, respimaticUid);
-  setCookie(tagCookieName, respimaticTag);
-  sessionStorage.setItem(uidCookieName, respimaticUid);
-  sessionStorage.setItem(tagCookieName, respimaticTag);
-
-  var ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownRespimaticSystems);
-  ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
+  setSelectedSystem(newSysUid, newSysTag);
 
   alert("Stored new RESPIMATIC-100 System Info" + 
     "\nSystem TAG: " + newSysTag +
@@ -111,16 +171,22 @@ window.onload = function() {
     + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
   );
 
+  var elm = document.getElementById("mainDiv");
+  elm.style.display = "block";
+  elm = document.getElementById("knownSystems");
+  elm.style.display = "none";
 
   initKnownRespimaticSystems();
 
   // create dropdown list
   var ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
-  respimaticUid = getCookie(uidCookieName);
-  respimaticTag = getCookie(tagCookieName);
-  if (respimaticUid && respimaticTag) {
-    ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
+  uid = getCookie(uidCookieName);
+  tag = getCookie(tagCookieName);
+  //alert("Retrieved tag=" + tag);
+
+  if (uid && tag) {
+    setSelectedSystem(uid, tag);
   } else {
     respimaticTag = "";
     respimaticUid = "";

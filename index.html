@@ -17,8 +17,10 @@
     <link rel="icon" type="image/png" href="common/img/favicon.png" />
     <link rel="stylesheet" href="common/css/colors.css" />
     <link rel="stylesheet" href="common/css/select.table.row.css" />
+    <link rel="stylesheet" href="common/css/select.table.row.css" />
 
     <script src="common/js/common.js"></script>
+    <script src="common/js/select.table.row.js"></script>
     <script src="common/js/respimatic.uid.js"></script>
     <script src="js/respimatic.selector.js"></script>
 
@@ -43,6 +45,16 @@
         /* IE 9 */
         -webkit-transform: translate(-50%, -50%);
         /* Chrome, Safari, Opera */
+      }
+
+      .sysTableStyle {
+        border-radius: 25px;
+        font-family: Arial;
+        background-color: var(--rsp_darkblue);
+        color: white;
+        padding: 8px;
+        -webkit-box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
+        box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
       }
 
       .button {
@@ -74,49 +86,72 @@
   </head>
 
   <body>
-    <div class="wrapper">
+    <div id="mainDiv" class="wrapper" style="display:block">
       <center>
         <img src="common/img/Apps.png" alt="Title" width="350" height="100" />
-        <hr />
+        <hr>
         <div class="content" style="font-size: 1.5em;">
           <font size="5">
             <button class="button" style="width: 220px;" onclick="launchFiO2()">FiO<sub>2</sub> Calculator</button>
-            <br />
-            <hr />
-            <button class="button" style="width: 175px; padding: 15px 0px;" onclick="knownSystemInfo()">Known Systems</button>
-            <button class="button" style="width: 175px; padding: 15px 0px;" onclick="newSystemInfo()">New System</button>
+            <br>
+            <hr>
+            <button class="button" style="width: 300px;" onclick="knownSystemInfo()">Show Known Systems</button>
+	    <br>
+            <button class="button" style="width: 300px;" onclick="newSystemInfo()">Add New System</button>
 
             <div id="newSystemDiv" style="display: none;">
-              <hr />
+              <hr>
               <form>
                 <label for="newSysName">System Name</label>
-                <input type="text" id="newSysName" name="newSysName" value="" /><br />
+                <input type="text" id="newSysName" name="newSysName" value="" /><br>
                 <label for="newSysUid">System UID&nbsp&nbsp&nbsp</label>
-                <input type="text" id="newSysUid" name="newSysUid" value="" /><br />
+                <input type="text" id="newSysUid" name="newSysUid" value="" /><br>
 		<br>
-                <button class="button" style="width: 220px; padding: 0 0;" onclick="rememberNewSystem()">Remember</button>
+                <button class="button" style="width: 300px;padding: 0px 10px;" onclick="rememberNewSystem()">Add</button>
               </form>
             </div>
 
-            <hr />
+            <hr>
             <label>Establish WEB Connection</label>
-            <br />
+            <br>
           </font>
 
           <select id="SYSTEM_NAME" style="border-radius: 10px; font-size: 1em; padding: 5px; width: 340px; text-align: center;" />
           </select>
 
-          <hr />
+          <hr>
           <button class="button" style="width: 220px;" onclick="launchDashboard()">Dashboard</button>
-          <br />
+          <br>
           <button class="button" style="width: 220px;" onclick="launchRecorder()">Recorder</button>
-          <br />
+          <br>
           <button class="button" style="width: 220px;" onclick="launchAnalyzer()">Analyzer</button>
         </div>
-        <hr />
+        <hr>
         <img src="common/img/Logos.png" alt="Title" width="350" height="60" />
       </center>
     </div>
+
+    <div id="knownSystems" style="display:none">
+      <center>
+	<font size="3.5em" face="Arial" >
+          <table id='knownSystemsTable' style="border:solid">
+	    <thead>
+            <tr>
+              <th align="center" style="min-width:300px; background-color:lightgray; ">RESPIMATIC-100 System Tag</th>
+              <th align="center" style="min-width:300px; background-color:lightgray; ">RESPIMATIC-100 System UID</th>
+            </tr>
+	    </thead>
+          </table>
+	</font>
+	<hr>
+
+        <button class="button" style="width: 220px;" onclick="selectSystemInfo()">Select</button>
+        <button class="button" style="width: 220px;" onclick="removeSystemInfo()">Remove</button>
+        <button class="button" style="width: 220px;" onclick="exitSystemInfo()">Exit</button>
+
+      </center>
+    </div>
+
   </body>
 </html>
 

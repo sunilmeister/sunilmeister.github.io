@@ -1,10 +1,12 @@
+var selectRowTable;
+
 function initSelectRowTable(tableId) {
-  var table = document.getElementById(tableId);
-  table.onclick = highlightSelectedRow;
+  selectRowTable = document.getElementById(tableId);
+  selectRowTable.onclick = highlightSelectedRow;
 }
     
 function highlightSelectedRow(e) {
-  var selected = table.getElementsByClassName('selectedTableRow');
+  var selected = selectRowTable.getElementsByClassName('selectedTableRow');
   if (selected[0]) selected[0].className = '';
   e.target.parentNode.className = 'selectedTableRow';
 }

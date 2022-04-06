@@ -68,17 +68,36 @@ function findSystemUid(tag) {
   return obj.uid;
 }
 
+function removeSystemUidTagInfo(uid, tag) {
+  for( var i = 0; i < knownRespimaticSystems.length; i++){ 
+    obj = knownRespimaticSystems[i];
+    if (obj.tag != tag) continue;
+    if (obj.uid != uid) continue;
+    knownRespimaticSystems.splice(i,1);
+    localStorage.setItem(
+      respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+    return tag;
+  }
+  return "";
+}
+
 function appendSystemUidTagHtmlRow(table, uid, tag) {
   row = table.insertRow();
   cell = row.insertCell();
-  cell.innerHTML = uid;
-  cell = row.insertCell();
   cell.innerHTML = tag;
+  cell = row.insertCell();
+  cell.innerHTML = uid;
 }
 
 function populateSystemUidTagHtmlTable(tableId) {
   initKnownRespimaticSystems();
   var table = document.getElementById(tableId);
+
+  var rowCount = table.rows.length;
+  for (var i = 1; i < rowCount; i++) {
+    table.deleteRow(1);
+  }
+
   for (const obj of knownRespimaticSystems) {
    appendSystemUidTagHtmlRow(table, obj.uid, obj.tag);
   }
