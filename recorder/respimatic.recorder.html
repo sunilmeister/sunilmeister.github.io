@@ -20,9 +20,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../common/css/colors.css" />
   <link rel="stylesheet" href="../common/css/common.css" />
+  <link rel="stylesheet" href="../common/css/select.table.row.css" />
+
   <script src="https://dweet.io/client/dweet.io.min.js"></script>
   <script src="../common/js/download.js"></script>
   <script src="../common/js/common.js"></script>
+  <script src="../common/js/select.table.row.js"></script>
   <script src="../common/js/respimatic.uid.js"></script>
   <script src="js/respimatic.recorder.js"></script>
 </head>
@@ -97,7 +100,17 @@
           <div class=shadowDiv5 style="border-radius:25px; height:660px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
             <br>
             <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
+	      <thead>
+		<tr>
+                  <th align="center" style="padding: 5px 5px; font-size: 22px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Session Name</th>
+                  <th align="center" style="padding: 5px 5px; font-size: 22px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+            </tr>
+
+	      </thead>
             </table>
+	    <br>
+            <button id="btnExportSession" class="button" onclick='exportDbRow()'>Export</button>
+            <button id="btnDeleteSession" class="button" onclick='deleteDbRow()'>Delete</button>
           </div>
 
         </div>

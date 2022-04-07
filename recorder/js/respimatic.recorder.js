@@ -115,36 +115,32 @@ function listDbTableRow(item, index) {
   var row = table.insertRow();
   var cell;
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="exportDbRow(this)">EXPORT</button>';
-  cell = row.insertCell();
   cell.style.paddingRight = "25px" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
-  cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" onclick="deleteDbRow(this)">DELETE</button>';
 }
 
-function exportDbRow(row) {
-  var p = row.parentNode.parentNode;
+function exportDbRow() {
+  var row = getSelectedTableRow();
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
-  var dbName = respimaticUid + '|' + p.cells[1].innerHTML + "|" + p.cells[2].innerHTML;
+  var dbName = respimaticUid + '|' + row.cells[0].innerHTML + "|" + row.cells[1].innerHTML;
   exportDb(dbName);
 }
 
-function deleteDbRow(row) {
-  var p = row.parentNode.parentNode;
+function deleteDbRow() {
+  var row = getSelectedTableRow();
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
-  var dName = respimaticUid + '|' + p.cells[1].innerHTML + "|" + p.cells[2].innerHTML;
-  if (!confirm("Deleting Session named\n" + p.cells[1].innerHTML)) {
+  var dName = respimaticUid + '|' + row.cells[0].innerHTML + "|" + row.cells[1].innerHTML;
+  if (!confirm("Deleting Session named\n" + row.cells[0].innerHTML)) {
     return;
   }
   // Delete the actual database
   deleteDb(dName);
   // remove from HTML table
-  p.parentNode.removeChild(p);
+  row.parentNode.removeChild(row);
 }
 
 function insertJsonData(db, jsonData) {
@@ -161,7 +157,11 @@ function insertJsonData(db, jsonData) {
 function listAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
-  table.innerHTML = "";
+  var rowCount = table.rows.length;
+  for (var i = 1; i < rowCount; i++) {
+    table.deleteRow(1);
+  }
+
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
   for (i = retrieved_dbs.length - 1; i >= 0; i--) {
@@ -374,6 +374,8 @@ window.onload = function() {
   heading.innerText = "Ready to Record";
   heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+
+  initSelectRowTable("dbTable", null);
   listAllDbs();
 
   elm = document.getElementById("activeSessionDiv");
