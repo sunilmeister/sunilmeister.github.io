@@ -174,11 +174,11 @@ function deleteAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
   numRows = table.rows.length;
-  for (i = 0; i < numRows; i++) {
-    row = table.rows[0];
-    name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+  for (i = 1; i < numRows; i++) {
+    row = table.rows[1];
+    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
     deleteDb(name);
-    table.deleteRow(0);
+    table.deleteRow(1);
   }
 }
 
