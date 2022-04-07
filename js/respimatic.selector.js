@@ -40,7 +40,7 @@ function getRespimaticSysUID() {
 function selectSystemInfo() {
   var row = getSelectedTableRow();
   if (!row) {
-    alert("No table row selected\nSelect a row and try again!");
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
     return;
   }
 
@@ -58,7 +58,7 @@ function selectSystemInfo() {
 function removeSystemInfo() {
   var row = getSelectedTableRow();
   if (!row) {
-    alert("No table row selected\nSelect a row and try again!");
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
     return;
   }
 

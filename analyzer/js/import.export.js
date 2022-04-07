@@ -12,25 +12,27 @@ function listDbExportTableRow(item, index) {
   nameTm = parseDbName(item);
   // only list databases for the currently selected system
   if (nameTm[0] != respimaticUid) return;
+  
   var table = document.getElementById("dbExportTable");
   var row = table.insertRow();
   var cell;
-  cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="exportDbRow(this)">EXPORT</button>';
   cell = row.insertCell();
   cell.style.paddingRight = "25px" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
-  cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="deleteDbRow(this)">DELETE</button>';
 }
 
-function exportDbRow(row) {
-  var p = row.parentNode.parentNode;
+function exportDbRow() {
+  var row = getSelectedTableRow();
+  if (!row) {
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
+    return;
+  }
+
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  var dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
+  var dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   exportDb(dbName);
 }
 
@@ -61,8 +63,13 @@ function doExportWindow(dbName) {
 
 function listAllExportDbs() {
   //clear any existing table being shown
+  initSelectRowTable("dbExportTable", exportDbRow);
   var table = document.getElementById("dbExportTable");
-  table.innerHTML = "";
+  var rowCount = table.rows.length;
+  for (var i = 1; i < rowCount; i++) {
+    table.deleteRow(1);
+  }
+
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
   for (i = retrieved_dbs.length - 1; i >= 0; i--) {

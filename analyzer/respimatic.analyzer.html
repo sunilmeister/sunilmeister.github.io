@@ -21,11 +21,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
   <link rel="stylesheet" href="../common/css/colors.css" />
   <link rel="stylesheet" href="../common/css/common.css" />
+  <link rel="stylesheet" href="../common/css/select.table.row.css" />
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js">
   </script>
   <script src="../canvasjs/canvasjs.min.js"></script>
   <script src="../common/js/download.js"></script>
   <script src="../common/js/db.schema.js"></script>
+  <script src="../common/js/select.table.row.js"></script>
   <script src="../common/js/common.js"></script>
   <script src="../common/js/respimatic.uid.js"></script>
   <script src="../common/js/charts.common.js"></script>
@@ -61,7 +64,7 @@
             <br>
             <button id="btnImport" class="sidebarButton" onclick='selectImport()'>Import Session</button>
             <br>
-            <button id="btnDeleteAll" class="sidebarButton" onclick='deleteAllDbs()'>Delete All Sessions</button>
+            <button id="btnDeleteAll" class="sidebarButton" style="padding: 10px 5px;" onclick='deleteAllDbs()'>Delete All Sessions</button>
             <br>
             <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Display Raw
               Data</button>
@@ -119,10 +122,22 @@
       <div id="selectorDiv" style="width:800px; border-radius:25px; display: none; margin-bottom:20px;">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Select Session for Analysis</h2>
-        <div class=shadowDiv5 style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+        <div class=shadowDiv5 style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
           <br>
-          <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
-          </table>
+            <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
+	      <thead>
+		<tr>
+                  <th align="center" style="padding: 5px 5px; font-size: 22px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Session Name</th>
+                  <th align="center" style="padding: 5px 5px; font-size: 22px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+            </tr>
+
+	      </thead>
+            </table>
+	    <br>
+            <button id="btnSelectSession" class="button" onclick='selectDbRow()'>Select</button>
+            <button id="btnExportSession" class="button" onclick='exportDbRow()'>Export</button>
+            <button id="btnDeleteSession" class="button" onclick='deleteDbRow()'>Delete</button>
+            <button id="btnDeleteAllSessions" class="button" onclick='deleteAllDbs()'>Delete All</button>
         </div>
 
       </div>
@@ -363,10 +378,22 @@
       <div id="exportSessionDiv" style="width:800px; border-radius:25px; display: none; margin-bottom:20px;">
         <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
           Export Selected Session</h2>
-        <div class=shadowDiv5 style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+        <div class=shadowDiv5 style="border-radius:25px; height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
           <br>
-          <table id='dbExportTable' className="dbTableStyle" style="font-size:20px; width:100%">
-          </table>
+ <table id='dbExportTable' className="dbTableStyle" style="font-size:20px; width:100%">
+	      <thead>
+		<tr>
+                  <th align="center" style="padding: 5px 5px; font-size: 22px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Session Name</th>
+                  <th align="center" style="padding: 5px 5px; font-size: 22px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+            </tr>
+
+	      </thead>
+            </table>
+	    <br>
+            <button id="btnExportSessionE" class="button" onclick='exportDbRow()'>Export</button>
+            <button id="btnDeleteSessionE" class="button" onclick='deleteDbRow()'>Delete</button>
+            <button id="btnDeleteAllSessionsE" class="button" onclick='deleteAllDbs()'>Delete All</button>
+
         </div>
       </div>
     </center>

@@ -18,41 +18,47 @@ function listDbTableRow(item, index) {
   var row = table.insertRow();
   var cell;
   cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="selectDbRow(this)">SELECT</button>';
-  cell = row.insertCell();
   cell.style.paddingRight = "25px" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
-  cell = row.insertCell();
-  cell.innerHTML = '<button class="dbTableButton" style="background-color:var(--rsp_darkblue);" onclick="deleteDbRow(this)">DELETE</button>';
 }
 
-function selectDbRow(row) {
-  var p = row.parentNode.parentNode;
+function selectDbRow() {
+  var row = getSelectedTableRow();
+  if (!row) {
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
+    return;
+  }
+
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
+  dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   sessionDbName = dbName;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = '<b>SYSUID</b><br>' + respimaticUid ;
   var sessionInfo = document.getElementById("SessionInfo");
-  sessionInfo.innerHTML = '<b>Session Name</b><br>' + p.cells[1].innerHTML + '<br><br><b>Creation Date</b><br>' + p.cells[2].innerHTML;
+  sessionInfo.innerHTML = '<b>Session Name</b><br>' + row.cells[0].innerHTML + '<br><br><b>Creation Date</b><br>' + row.cells[1].innerHTML;
   initSession(dbName);
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("selectorDiv").style.display = "none";
   return dbName;
 }
 
-function deleteDbRow(row) {
-  var p = row.parentNode.parentNode;
+function deleteDbRow() {
+  var row = getSelectedTableRow();
+  if (!row) {
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
+    return;
+  }
+
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  name = respimaticUid + '|' + p.cells[1].innerHTML + '|' + p.cells[2].innerHTML;
+  name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   // Delete the actual database
   deleteDb(name);
   // remove from HTML table
-  p.parentNode.removeChild(p);
+  row.parentNode.removeChild(row);
   // return the name just in case
   return dbName;
 }
@@ -60,9 +66,14 @@ function deleteDbRow(row) {
 // MAIN function executed on window load
 // ///////////////////////////////////////////////////////
 function listAllDbs() {
+  initSelectRowTable("dbTable", selectDbRow);
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
-  table.innerHTML = "";
+  var rowCount = table.rows.length;
+  for (var i = 1; i < rowCount; i++) {
+    table.deleteRow(1);
+  }
+
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
   for (i = retrieved_dbs.length - 1; i >= 0; i--) {
@@ -75,11 +86,20 @@ function deleteAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
   numRows = table.rows.length;
-  for (i = 0; i < numRows; i++) {
-    row = table.rows[0];
-    name = respimaticUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+  for (i = 1; i < numRows; i++) {
+    row = table.rows[1];
+    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
     deleteDb(name);
-    table.deleteRow(0);
+    table.deleteRow(1);
+  }
+
+  table = document.getElementById("dbExportTable");
+  numRows = table.rows.length;
+  for (i = 1; i < numRows; i++) {
+    row = table.rows[1];
+    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+    deleteDb(name);
+    table.deleteRow(1);
   }
 }
 

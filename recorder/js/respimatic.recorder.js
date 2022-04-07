@@ -123,6 +123,11 @@ function listDbTableRow(item, index) {
 
 function exportDbRow() {
   var row = getSelectedTableRow();
+  if (!row) {
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
+    return;
+  }
+
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
   var dbName = respimaticUid + '|' + row.cells[0].innerHTML + "|" + row.cells[1].innerHTML;
@@ -131,6 +136,11 @@ function exportDbRow() {
 
 function deleteDbRow() {
   var row = getSelectedTableRow();
+  if (!row) {
+    alert("No selected item\nSelect by clicking on a table row\nTry again!");
+    return;
+  }
+
   // reconstruct the dbName
   // grab the creation field from the first cell in the same row
   var dName = respimaticUid + '|' + row.cells[0].innerHTML + "|" + row.cells[1].innerHTML;
