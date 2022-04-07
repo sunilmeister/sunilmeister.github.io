@@ -91,20 +91,21 @@
             <br>
           <select id="SYSTEM_NAME" style="border-radius: 10px; font-size: 1em; padding: 5px; width: 340px; text-align: center;" />
           </select>
-	  <br>
+	  <br><hr>
             <button class="button" onclick="knownSystemInfo()">Show Known Systems</button>
-	    <br>
-            <button class="button" onclick="newSystemInfo()">Add New System</button>
 
-            <div id="newSystemDiv" style="display: none;">
+            <div id="newSystemDiv" style="display: block;">
               <hr>
               <form>
-                <label for="newSysName">System Name</label>
-                <input type="text" id="newSysName" name="newSysName" value="" /><br>
-                <label for="newSysUid">System UID&nbsp&nbsp&nbsp</label>
-                <input type="text" id="newSysUid" name="newSysUid" value="" /><br>
+                <label for="newSysName">System TAG</label>
 		<br>
-                <button class="button"  onclick="rememberNewSystem()">Add</button>
+                <input type="text" style="border-radius: 10px; font-size:1.2em" size=22 id="newSysName" name="newSysName" value="" /><br>
+		<br>
+                <label for="newSysUid">System UID</label>
+		<br>
+                <input type="text" style="border-radius: 10px; font-size:1.2em" size=22 id="newSysUid" name="newSysUid" value="" /><br>
+		<br>
+                <button class="button"  onclick="rememberNewSystem()">Add New System</button>
               </form>
             </div>
 

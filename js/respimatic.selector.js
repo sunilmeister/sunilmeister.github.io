@@ -108,11 +108,6 @@ function knownSystemInfo() {
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
 }
 
-function newSystemInfo() {
-  var div = document.getElementById('newSystemDiv');
-  div.style.display = "block" ;
-}
-
 function rememberNewSystem() {
   var elm = document.getElementById('newSysName');
   newSysTag = elm.value;
@@ -137,9 +132,6 @@ function rememberNewSystem() {
   alert("Stored new RESPIMATIC-100 System Info" + 
     "\nSystem TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
-
-  var div = document.getElementById('newSystemDiv');
-  div.style.display = "none" ;
 }
 
 function launchDashboard() {
