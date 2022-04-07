@@ -6,6 +6,7 @@
 
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Respimatic 100 WebAPPS</title>
     <meta charset="UTF-8" />
@@ -35,7 +36,6 @@
         padding: 8px;
         -webkit-box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
         box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
-
         -ms-text-size-adjust: 100%;
         -webkit-text-size-adjust: 100%;
         transform: translate(-50%, -50%);
@@ -45,7 +45,7 @@
         -webkit-transform: translate(-50%, -50%);
         /* Chrome, Safari, Opera */
       }
-
+      
       .button {
         background-color: var(--rsp_mediumblue);
         border: white;
@@ -61,26 +61,28 @@
         border-radius: 10px;
         opacity: 0.8;
       }
-
+      
       .button:hover {
         opacity: 1;
       }
-
+      
       .button:active {
         background-color: var(--rsp_green);
         box-shadow: 0 6px var(--rsp_lightblue);
         transform: translateY(6px);
       }
+
     </style>
   </head>
 
   <body>
-    <div id="mainDiv" class="wrapper" style="display:block">
-      <center>
-        <img src="common/img/Apps.png" alt="Title" width="350" height="100" />
-        <hr>
-        <div class="content" style="font-size: 1.5em;">
-          <font size="5">
+    <div id="wrapper" class="wrapper">
+      <div id="mainDiv" style="display:block">
+        <center>
+          <img src="common/img/Apps.png" alt="Title" width="350" height="100" />
+          <hr>
+          <div class="content" style="font-size: 1.5em;">
+            <font size="5">
             <button class="button" onclick="launchFiO2()">FiO<sub>2</sub> Calculator</button>
             <br>
             <hr>
@@ -108,22 +110,18 @@
 
           </font>
 
+            <hr>
+            <button class="button" onclick="launchDashboard()">Dashboard</button>
+            <br>
+            <button class="button" onclick="launchRecorder()">Recorder</button>
+            <br>
+            <button class="button" onclick="launchAnalyzer()">Analyzer</button>
+          </div>
+      </div>
 
-          <hr>
-          <button class="button" onclick="launchDashboard()">Dashboard</button>
-          <br>
-          <button class="button" onclick="launchRecorder()">Recorder</button>
-          <br>
-          <button class="button" onclick="launchAnalyzer()">Analyzer</button>
-        </div>
-        <hr>
-        <img src="common/img/Logos.png" alt="Title" width="350" height="60" />
-      </center>
-    </div>
-
-    <div id="knownSystems" style="display:none">
-      <center>
-	<font size="3.5em" face="Arial" >
+      <div id="knownSystems" style="display:none">
+        <center>
+          <font size="3.5em" face="Arial">
           <table id='knownSystemsTable' style="border:solid">
 	    <thead>
             <tr>
@@ -133,15 +131,20 @@
 	    </thead>
           </table>
 	</font>
-	<hr>
+          <hr>
 
-        <button class="button" style="width: 220px;" onclick="selectSystemInfo()">Select</button>
-        <button class="button" style="width: 220px;" onclick="removeSystemInfo()">Remove</button>
-        <button class="button" style="width: 220px;" onclick="exitSystemInfo()">Done</button>
+          <button class="button" style="width: 220px;" onclick="selectSystemInfo()">Select</button>
+          <button class="button" style="width: 220px;" onclick="removeSystemInfo()">Remove</button>
+          <button class="button" style="width: 220px;" onclick="exitSystemInfo()">Done</button>
 
+        </center>
+      </div>
+      <hr>
+      <img src="common/img/Logos.png" alt="Title" width="350" height="60" />
       </center>
     </div>
 
   </body>
+
 </html>
 
