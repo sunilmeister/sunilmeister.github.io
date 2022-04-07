@@ -1,8 +1,9 @@
 var selectRowTable;
 
-function initSelectRowTable(tableId) {
+function initSelectRowTable(tableId, doubleClickFn) {
   selectRowTable = document.getElementById(tableId);
   selectRowTable.onclick = highlightSelectedRow;
+  if (doubleClickFn) selectRowTable.ondblclick = doubleClickFn;
 }
     
 function highlightSelectedRow(e) {

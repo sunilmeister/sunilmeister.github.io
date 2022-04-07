@@ -92,14 +92,20 @@ function exitSystemInfo() {
   elm.style.display = "block";
 }
 
+
 function knownSystemInfo() {
+  if (knownRespimaticSystems.length==0) {
+    alert("No known RESPIMATIC-100 Systems\nAdd new System info");
+    return;
+  }
+
   var elm = document.getElementById("mainDiv");
   elm.style.display = "none";
   elm = document.getElementById("knownSystems");
   elm.style.display = "block";
 
   populateSystemUidTagHtmlTable("knownSystemsTable");
-  initSelectRowTable("knownSystemsTable");
+  initSelectRowTable("knownSystemsTable", selectSystemInfo);
 }
 
 function newSystemInfo() {
