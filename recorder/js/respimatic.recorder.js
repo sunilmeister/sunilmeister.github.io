@@ -167,6 +167,7 @@ function insertJsonData(db, jsonData) {
 function listAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
+  initSelectRowTable("dbTable", null);
   var rowCount = table.rows.length;
   for (var i = 1; i < rowCount; i++) {
     table.deleteRow(1);
@@ -385,7 +386,6 @@ window.onload = function() {
   heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
 
-  initSelectRowTable("dbTable", null);
   listAllDbs();
 
   elm = document.getElementById("activeSessionDiv");

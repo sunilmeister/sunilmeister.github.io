@@ -9,7 +9,11 @@ function initSelectRowTable(tableId, doubleClickFn) {
 function highlightSelectedRow(e) {
   var selected = selectRowTable.getElementsByClassName('selectedTableRow');
   if (selected[0]) selected[0].className = '';
-  e.target.parentNode.className = 'selectedTableRow';
+
+  if (e.target.parentNode.getElementsByTagName('th').length == 0) {
+    // not the header row
+    e.target.parentNode.className = 'selectedTableRow';
+  }
 }
     
 function getSelectedTableRow(){
