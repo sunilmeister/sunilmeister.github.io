@@ -93,6 +93,16 @@ function exitSystemInfo() {
 }
 
 
+function addSystemInfo() {
+  var table = document.getElementById("knownSystemsTable");
+  tag = prompt("New System TAG");
+  tag = tag.toUpperCase();
+  uid = prompt("New System UID");
+  uid = uid.toUpperCase();
+  checkAndAddNewSystemInfo(uid, tag);
+  knownSystemInfo();
+}
+
 function knownSystemInfo() {
   if (knownRespimaticSystems.length==0) {
     alert("No known RESPIMATIC-100 Systems\nAdd new System info");
@@ -108,13 +118,8 @@ function knownSystemInfo() {
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
 }
 
-function rememberNewSystem() {
-  var elm = document.getElementById('newSysName');
-  newSysTag = elm.value;
-  newSysTag = newSysTag.toUpperCase();
-  elm = document.getElementById('newSysUid');
-  newSysUid = elm.value;
-  newSysUid = newSysUid.toUpperCase();
+function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
+  //alert("uid=" + newSysUid + " tag=" + newSysTag);
   if (!validSystemUid(newSysUid)) {
     alert("Invalid RESPIMATIC-100 UID: " + newSysUid +
       "\nMust be RSP_ followed by 16-digit HEX number\nTry again!");
@@ -132,6 +137,16 @@ function rememberNewSystem() {
   alert("Stored new RESPIMATIC-100 System Info" + 
     "\nSystem TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
+}
+
+function rememberNewSystem() {
+  var elm = document.getElementById('newSysName');
+  newSysTag = elm.value;
+  newSysTag = newSysTag.toUpperCase();
+  elm = document.getElementById('newSysUid');
+  newSysUid = elm.value;
+  newSysUid = newSysUid.toUpperCase();
+  checkAndAddNewSystemInfo(newSysUid, newSysTag);
 }
 
 function launchDashboard() {

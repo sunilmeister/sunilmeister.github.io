@@ -87,6 +87,7 @@ function appendSystemUidTagHtmlRow(table, uid, tag) {
   cell.innerHTML = tag;
   cell = row.insertCell();
   cell.innerHTML = uid;
+  return row;
 }
 
 function populateSystemUidTagHtmlTable(tableId) {
