@@ -96,8 +96,16 @@ function exitSystemInfo() {
 function addSystemInfo() {
   var table = document.getElementById("knownSystemsTable");
   tag = prompt("New System TAG");
+  if (!tag) {
+    alert("Must enter System TAG\nTry again!");
+    return;
+  }
   tag = tag.toUpperCase();
   uid = prompt("New System UID");
+  if (!uid) {
+    alert("Must enter System UID\nTry again!");
+    return;
+  }
   uid = uid.toUpperCase();
   checkAndAddNewSystemInfo(uid, tag);
   knownSystemInfo();
@@ -142,10 +150,20 @@ function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
 function rememberNewSystem() {
   var elm = document.getElementById('newSysName');
   newSysTag = elm.value;
+  if (!newSysTag) {
+    alert("Must enter System TAG\nTry again!");
+    return;
+  }
   newSysTag = newSysTag.toUpperCase();
+
   elm = document.getElementById('newSysUid');
   newSysUid = elm.value;
+  if (!newSysTag) {
+    alert("Must enter System UID\nTry again!");
+    return;
+  }
   newSysUid = newSysUid.toUpperCase();
+
   checkAndAddNewSystemInfo(newSysUid, newSysTag);
 }
 
