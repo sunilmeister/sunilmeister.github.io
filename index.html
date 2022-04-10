@@ -79,7 +79,7 @@
     <div id="wrapper" class="wrapper">
       <div id="mainDiv" style="display:block">
         <center>
-          <img src="common/img/Apps.png" alt="Title" width="400" height="100" />
+          <img src="common/img/Apps.png" alt="Title" width="340" height="100" />
           <hr>
           <div class="content" style="font-size: 1.5em;">
             <font size="5">
@@ -91,21 +91,10 @@
             <br>
           <select id="SYSTEM_NAME" style="border-radius: 10px; font-size: 0.9em; padding: 5px; width: 370px; text-align: center;" />
           </select>
-	  <br>
+	  <br><br>
+            <button class="button"  onclick="addSystemInfo()">Add New System</button>
+	    <br>
             <button class="button" onclick="knownSystemInfo()">Manage Known Systems</button>
-
-            <div id="newSystemDiv" style="display: block;">
-              <hr>
-              <form>
-                <label for="newSysName">System TAG</label>
-		<br>
-                <input type="text" style="border-radius: 10px; font-size:1.2em" size=24 id="newSysName" name="newSysName" value="" /><br>
-                <label for="newSysUid">System UID</label>
-		<br>
-                <input type="text" style="border-radius: 10px; font-size:1.2em" size=24 id="newSysUid" name="newSysUid" value="" /><br>
-                <button class="button"  onclick="rememberNewSystem()">Add New System</button>
-              </form>
-            </div>
 
           </font>
 

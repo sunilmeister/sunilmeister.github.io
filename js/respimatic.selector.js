@@ -78,11 +78,8 @@ function removeSystemInfo() {
   }
   createDropdownSelect(ddList, knownRespimaticSystems);
 
-
-  elm = document.getElementById("knownSystems");
-  elm.style.display = "none";
-  var elm = document.getElementById("mainDiv");
-  elm.style.display = "block";
+  populateSystemUidTagHtmlTable("knownSystemsTable");
+  initSelectRowTable("knownSystemsTable", selectSystemInfo);
 }
 
 function exitSystemInfo() {
@@ -108,7 +105,8 @@ function addSystemInfo() {
   }
   uid = uid.toUpperCase();
   checkAndAddNewSystemInfo(uid, tag);
-  knownSystemInfo();
+  populateSystemUidTagHtmlTable("knownSystemsTable");
+  initSelectRowTable("knownSystemsTable", selectSystemInfo);
 }
 
 function knownSystemInfo() {
