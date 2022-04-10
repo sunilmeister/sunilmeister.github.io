@@ -12,10 +12,19 @@ function createSystemUidTagObj(uid, tag) {
   return obj;
 }
 
+function compareSystemUidTagObj( a, b ) {
+  if ( a.tag < b.tag ) {
+    return -1;
+  } else if ( a.tag > b.tag ) {
+    return 1;
+  } else return 0;
+}
+
 function initKnownRespimaticSystems() {
   var str = localStorage.getItem(respimaticSystemsLocalStorage);
   if (str) {
     knownRespimaticSystems = JSON.parse(str);
+    knownRespimaticSystems.sort(compareSystemUidTagObj);
   } else {
     knownRespimaticSystems = [];
   }
@@ -25,7 +34,8 @@ function saveNewRespimaticSystemId(uid, tag) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
   obj = createSystemUidTagObj(uid, tag);
-  knownRespimaticSystems.unshift(obj);
+  knownRespimaticSystems.push(obj);
+  knownRespimaticSystems.sort(compareSystemUidTagObj);
   localStorage.setItem(
     respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
 }
