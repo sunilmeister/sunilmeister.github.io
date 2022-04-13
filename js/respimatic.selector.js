@@ -25,7 +25,7 @@ function setSelectedSystem(uid, tag) {
   ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
 }
 
-function getRespimaticSysUID() {
+function getSelectedRespimaticTagFromDD() {
   var ddList = document.getElementById("SYSTEM_NAME");
   var tag = ddList.value;
   if (!tag) {
@@ -40,7 +40,7 @@ function getRespimaticSysUID() {
 function selectSystemInfo() {
   var row = getSelectedTableRow();
   if (!row) {
-    alert("No selected item\nSelect by clicking on a table row\nTry again!");
+    alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
     return;
   }
 
@@ -55,15 +55,11 @@ function selectSystemInfo() {
 
 }
 
-function removeSystemInfo() {
-  var row = getSelectedTableRow();
-  if (!row) {
-    alert("No selected item\nSelect by clicking on a table row\nTry again!");
-    return;
-  }
+function removeSystem(uid, tag) {
+  if (!confirm("OK to remove system info?\n" 
+    + "\nSystem TAG ; " + tag
+    + "\nSystem UID: " + uid)) return;
 
-  tag = row.children[0].firstChild.data;
-  uid = row.children[1].firstChild.data;
   removedTag = removeSystemUidTagInfo(uid, tag);
   var ddList = document.getElementById("SYSTEM_NAME");
 
@@ -80,6 +76,25 @@ function removeSystemInfo() {
 
   populateSystemUidTagHtmlTable("knownSystemsTable");
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
+}
+
+function removeSystemInfo(tag) {
+  if (!getSelectedRespimaticTagFromDD()) {
+    return;
+  }
+  removeSystem(respimaticUid,respimaticTag);
+}
+
+function removeKnownSystemInfo() {
+  var row = getSelectedTableRow();
+  if (!row) {
+    alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+    return;
+  }
+
+  tag = row.children[0].firstChild.data;
+  uid = row.children[1].firstChild.data;
+  removeSystem(uid,tag);
 }
 
 function exitSystemInfo() {
@@ -140,7 +155,7 @@ function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
   saveNewRespimaticSystemId(newSysUid, newSysTag);
   setSelectedSystem(newSysUid, newSysTag);
 
-  alert("Stored new RESPIMATIC-100 System Info" + 
+  alert("Stored new RESPIMATIC-100 System Info\n" + 
     "\nSystem TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
 }
@@ -166,7 +181,7 @@ function rememberNewSystem() {
 }
 
 function launchDashboard() {
-  if (!getRespimaticSysUID()) {
+  if (!getSelectedRespimaticTagFromDD()) {
     return;
   }
   //window.location.assign("dashboard/respimatic.dashboard.html");
@@ -174,7 +189,7 @@ function launchDashboard() {
 }
 
 function launchRecorder() {
-  if (!getRespimaticSysUID()) {
+  if (!getSelectedRespimaticTagFromDD()) {
     return;
   }
   //window.location.assign("recorder/respimatic.recorder.html");
@@ -182,7 +197,7 @@ function launchRecorder() {
 }
 
 function launchAnalyzer() {
-  if (!getRespimaticSysUID()) {
+  if (!getSelectedRespimaticTagFromDD()) {
     return;
   }
   //window.location.assign("analyzer/respimatic.analyzer.html");
