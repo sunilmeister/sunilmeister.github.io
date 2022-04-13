@@ -25,7 +25,7 @@ function setSelectedSystem(uid, tag) {
   ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
 }
 
-function getSelectedRespimaticTagFromDD() {
+function setSelectedRespimaticTagFromDD() {
   var ddList = document.getElementById("SYSTEM_NAME");
   var tag = ddList.value;
   if (!tag) {
@@ -79,7 +79,7 @@ function removeSystem(uid, tag) {
 }
 
 function removeSystemInfo(tag) {
-  if (!getSelectedRespimaticTagFromDD()) {
+  if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
   removeSystem(respimaticUid,respimaticTag);
@@ -181,7 +181,7 @@ function rememberNewSystem() {
 }
 
 function launchDashboard() {
-  if (!getSelectedRespimaticTagFromDD()) {
+  if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
   //window.location.assign("dashboard/respimatic.dashboard.html");
@@ -189,7 +189,7 @@ function launchDashboard() {
 }
 
 function launchRecorder() {
-  if (!getSelectedRespimaticTagFromDD()) {
+  if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
   //window.location.assign("recorder/respimatic.recorder.html");
@@ -197,7 +197,7 @@ function launchRecorder() {
 }
 
 function launchAnalyzer() {
-  if (!getSelectedRespimaticTagFromDD()) {
+  if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
   //window.location.assign("analyzer/respimatic.analyzer.html");
