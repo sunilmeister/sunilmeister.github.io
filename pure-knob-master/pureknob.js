@@ -1126,11 +1126,11 @@
 			canvas.addEventListener('mousemove', mouseMoveListener);
 			canvas.addEventListener('mouseup', mouseUpListener);
 			canvas.addEventListener('resize', resizeListener);
-			canvas.addEventListener('touchstart', touchStartListener);
-			canvas.addEventListener('touchmove', touchMoveListener);
-			canvas.addEventListener('touchend', touchEndListener);
-			canvas.addEventListener('touchcancel', touchCancelListener);
-			canvas.addEventListener('wheel', scrollListener);
+			canvas.addEventListener('touchstart', touchStartListener, {passive: true});
+			canvas.addEventListener('touchmove', touchMoveListener, {passive: true});
+			canvas.addEventListener('touchend', touchEndListener, {passive: true});
+			canvas.addEventListener('touchcancel', touchCancelListener, {passive: true});
+			canvas.addEventListener('wheel', scrollListener, {passive: true});
 			input.addEventListener('keydown', keyDownListener);
 			return knob;
 		};

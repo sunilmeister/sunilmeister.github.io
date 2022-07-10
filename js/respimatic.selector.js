@@ -19,6 +19,8 @@ function setSelectedSystem(uid, tag) {
   respimaticTag = tag;
   setCookie(uidCookieName, respimaticUid);
   setCookie(tagCookieName, respimaticTag);
+  sessionStorage.setItem("respimaticUid", respimaticUid);
+  sessionStorage.setItem("respimaticTag", respimaticTag);
 
   var ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);

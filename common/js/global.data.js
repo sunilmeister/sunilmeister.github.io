@@ -5,6 +5,7 @@
 var sessionDbName = "";
 var sessionDbReady = false;
 var sessionDurationInMs = 0;
+const RESPIMATIC_UID_PREFIX = "RSP_";
 
 // before Analysis starts
 var initialJsonRecord = null;

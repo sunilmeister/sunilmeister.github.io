@@ -24,6 +24,10 @@ var analysisEndTime = new Date();
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
   respimaticTag = getCookie(tagCookieName);
+  if (!respimaticUid) {
+    respimaticUid = sessionStorage.getItem("respimaticUid");
+    respimaticTag = sessionStorage.getItem("respimaticTag");
+  }
 
   dbNamePrefix = respimaticUid;
   dbObjStoreName = respimaticUid;

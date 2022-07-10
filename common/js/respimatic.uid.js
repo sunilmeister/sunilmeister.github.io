@@ -117,7 +117,7 @@ function populateSystemUidTagHtmlTable(tableId) {
 function validSystemUid(uid) {
   var uid_length = uid.length;
   if (uid_length != 20) return false;
-  var pos = uid.indexOf("RSP_");
+  var pos = uid.indexOf(RESPIMATIC_UID_PREFIX);
   if (pos != 0) return false;
   var hex_str = uid.substr(4);
   var re = /[0-9A-Fa-f]{16}/g;
