@@ -338,8 +338,17 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
 }
 
+.SysUid {
+  grid-area: 15 / 1 / 17 / 8;
+  border-radius: 1.5rem;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+}
+
 .Logo {
-  grid-area: 15 / 1 / 17 / 19;
+  grid-area: 15 / 8 / 17 / 19;
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
