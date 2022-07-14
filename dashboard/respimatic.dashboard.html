@@ -27,6 +27,7 @@
   <script src="../common/js/error.warning.js"></script>
   <script src="../pure-knob-master/pureknob.js"></script>
   <script src="js/globalvars.js"></script>
+  <script src="js/record.dashboard.js"></script>
   <script src="js/update.dashboard.js"></script>
   <script src="js/respimatic.dashboard.js"></script>
 </head>
@@ -44,6 +45,14 @@
         </center>
       </div>
 
+      <div id="recordDiv" class=shadowDiv10 style="border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1.7rem; font-family:verdana;">
+	<center>
+	  <p id='recordMessage'>RECORDING OFF</p>
+            <button id="recordButton" class="sidebarButton" onclick='toggleRecording()' style="background-color:var(--rsp_green); color:white; margin-bottom:1rem;">Start Recording</button>
+
+        </center>
+      </div>
+
       <div class=shadowDiv10 style="margin-top:1rem; border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
         <center>
           <div style="margin-top:1rem;">
@@ -58,7 +67,7 @@
             <button id="btnViewChange3" class="sidebarButton" onclick='changeView3()'>Alerts View</button>
           </div>
 
-          <div id="pauseChartsDiv" style="margin-top:0.6rem; margin-bottom:1rem;">
+          <div id="pauseChartsDiv" style="margin-bottom:1rem;">
             <button id="btnPause" class="sidebarButton" onclick='togglePause()'>Pause Updates</button>
           </div>
         </center>
