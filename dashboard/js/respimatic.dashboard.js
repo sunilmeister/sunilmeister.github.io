@@ -45,7 +45,16 @@ function checkFiO2Calculation(d) {
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
     lastDweetTick = periodicTickCount;
+    dweetIntervalCounter++;
+    if (dweetIntervalCounter > REFRESH_DWEET_INTERVAL) {
+      dweetIntervalCounter = 0;
+      prevContent = {};
+    }
+
+    var newD; // a copy of the dweet
+    if (!recordingOff && !recordingPaused) newD = createNewInstance(d);
     processDweet(d);
+    if (!recordingOff && !recordingPaused) recordDweet(newD);
   })
 }
 
@@ -695,6 +704,7 @@ function InitChartCheckBoxes() {
 
 window.onload = function() {
   initDbNames();
+  InitRecorder();
   document.title = respimaticTag + " (" + datasource_name + ")"
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
@@ -763,3 +773,18 @@ window.onbeforeunload = function(e) {
     return msg;
   }
 }
+
+var periodicIntervalId = setInterval(function() {
+  updateAlert(true);
+  updatePending(true);
+  blinkPauseButton();
+  blinkRecordButton();
+  periodicTickCount++;
+  if (firstDweet) {
+    displayWifiUnconnected();
+  } else if ((periodicTickCount-lastDweetTick) >= dweetIntervalMax) {
+    displayWifiDropped();
+  } else {
+    undisplayWifiDropped();
+  }
+}, 1500);

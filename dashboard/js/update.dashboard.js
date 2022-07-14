@@ -441,16 +441,4 @@ function displayWifiUnconnected() {
   elm.innerHTML = "to connect";
 }
 
-var periodicIntervalId = setInterval(function() {
-  updateAlert(true);
-  updatePending(true);
-  blinkPauseButton();
-  periodicTickCount++;
-  if (firstDweet) {
-    displayWifiUnconnected();
-  } else if ((periodicTickCount-lastDweetTick) >= dweetIntervalMax) {
-    displayWifiDropped();
-  } else {
-    undisplayWifiDropped();
-  }
-}, 1500);
+

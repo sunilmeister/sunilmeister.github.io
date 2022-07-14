@@ -1,3 +1,4 @@
+// Dashboard
 var datasource_name = "RESPIMATIC100";
 var updateInProgress = false;
 var blueColor;
@@ -42,9 +43,27 @@ var tempGauge = null;
 // useful for resuming after pause
 var updatedDweetContent = {"content":{}};;
 
+// Recorder
+var creationTimeStamp = "";
+var db;
+var dbName;
+var recordStartDate = new Date();
+var prevContent = {};
+var expectErrorMsg = false;
+var expectWarningMsg = false;
+var l1 = false;
+var l2 = false;
+var l3 = false;
+var l4 = false;
+var recorderBackground="MEDIUMBLUE";
+var recordingOff = true;
+var recordingPaused = false;
+
 // check for continuing dweets
-const dweetIntervalMax = 6;
+const REFRESH_DWEET_INTERVAL = 10;
+const dweetIntervalMax = 8;
 var periodicTickCount = 0;
 var lastDweetTick = 0;
 var wifiDropped = false;
+var dweetIntervalCounter = 0;
 
