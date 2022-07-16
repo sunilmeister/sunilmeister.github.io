@@ -61,7 +61,7 @@ var recordingPaused = false;
 
 // check for continuing dweets
 const REFRESH_DWEET_INTERVAL = 10;
-const dweetIntervalMax = 8;
+const dweetIntervalMax = 15;
 var periodicTickCount = 0;
 var lastDweetTick = 0;
 var wifiDropped = false;
