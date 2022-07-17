@@ -45,14 +45,6 @@
         </center>
       </div>
 
-      <div id="recordDiv" class=shadowDiv10 style="border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1.7rem; font-family:verdana;">
-	<center>
-	  <p id='recordMessage'>RECORDING OFF</p>
-            <button id="recordButton" class="sidebarButton" onclick='toggleRecording()' style="margin-bottom:1rem;">Start Recording</button>
-
-        </center>
-      </div>
-
       <div class=shadowDiv10 style="margin-top:1rem; border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
         <center>
           <div style="margin-top:1rem;">
@@ -67,8 +59,12 @@
             <button id="btnViewChange3" class="sidebarButton" onclick='changeView3()'>Alerts View</button>
           </div>
 
-          <div id="pauseChartsDiv" style="margin-bottom:1rem;">
-            <button id="btnPause" class="sidebarButton" onclick='togglePause()'>Pause Updates</button>
+          <div id="pauseChartsDiv" style="margin-top:1rem;">
+            <button id="btnPause" class="sidebarButton" onclick='togglePause()'>Pause Dashboard</button>
+          </div>
+
+          <div id="recordingDiv" style="margin-bottom:1rem;">
+            <button id="recordButton" class="sidebarButton" onclick='toggleRecording()' style="margin-bottom:1rem;">Start Recording</button>
           </div>
         </center>
 
@@ -77,13 +73,13 @@
       <center>
         <div class=shadowDiv10 id="fiO2Calc" style="margin-top:1.6rem; border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
           <div id="purityDiv" style="border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-            <p style="margin-bottom:-0.5rem;" >O<sub>2</sub> Source Purity (%)
+            <p style="margin-bottom:-0.5rem; margin-top:-0.5em;" >O<sub>2</sub> Source Purity (%)
           </div>
           <div id="fiO2Div" style="border-radius:1.5rem; background-color:var(--rsp_darkblue); border-radius:1.5rem; color:white; font-family:verdana;">
             <pstyle="margin-bottom:-1rem;">Desired FiO<sub>2</sub> (%)
           </div>
-          <div id="flowDiv" style="border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-            <p style="font-size:1.75rem;">Set
+          <div id="flowDiv" style="border-radius:1.5rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); font-family:verdana; margin-top:-0.5em">
+            <p style="font-size:1.75rem; ">Set
               O<sub>2</sub> Flow Rate
             <p id="o2FlowRate" style="font-size:1.75rem; font-weight: bold;">0.0
               (litres/min)

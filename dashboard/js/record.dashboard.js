@@ -19,7 +19,6 @@ function blinkRecordButton() {
 function toggleRecording() {
   var style = getComputedStyle(document.body)
   btn = document.getElementById("recordButton");
-  msg = document.getElementById("recordMessage");
   if (recordingOff) {
     // check for browser capability
     if (!window.indexedDB) {
@@ -32,17 +31,14 @@ function toggleRecording() {
       alert("No Recording Session created\nTry again!");
       return;
     } 
-    msg.innerHTML = "RECORDING ON";
     btn.innerHTML = "Pause Recording" ;
     recordingOff = false;
     recordingPaused = false;
   } else if (recordingPaused) {
-    msg.innerHTML = "RECORDING ON";
     btn.innerHTML = "Pause Recording" ;
     recordingOff = false;
     recordingPaused = false;
   } else if (!recordingPaused) {
-    msg.innerHTML = "RECORDING PAUSED";
     btn.innerHTML = "Resume Recording" ;
     recordingOff = false;
     recordingPaused = true;

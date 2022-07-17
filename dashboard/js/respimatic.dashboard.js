@@ -77,7 +77,7 @@ function processDweet(d) {
 
   elm = document.getElementById("numBreaths");
   if (updatePaused) {
-    elm.innerHTML = "&nbsp&nbspUpdates Paused at&nbsp&nbsp Breath " + breathPausedAt;
+    elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
   } else {
     elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths;
   }
@@ -110,6 +110,20 @@ function createDashboardStats() {
 function createDashboardAlerts() {
   globalDataValid = true;
   displayErrorWarnings();
+}
+
+function blinkFlowRate() {
+  flowDiv = document.getElementById("flowDiv");
+  var style = getComputedStyle(document.body)
+    if (flowDivBackground=="DARKBLUE") {
+      flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_lightblue');
+      flowDiv.style.color = style.getPropertyValue('--rsp_darkblue');
+      flowDivBackground = "LIGHTBLUE";
+    } else {
+      flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
+      flowDiv.style.color = "white";
+      flowDivBackground = "DARKBLUE";
+    }
 }
 
 function blinkPauseButton() {
@@ -491,17 +505,17 @@ function createDashboardBpmCharts() {
 function togglePause() {
   elm = document.getElementById("btnPause");
   if (updatePaused) {
-    elm.textContent = "Pause Updates";
+    elm.textContent = "Pause Dashboard";
     updatePaused = false;
     if (currentView=="snapshots") updateSnapshot();
     if (currentView=="charts") createDashboardCharts();
     if (currentView=="stats") createDashboardStats();
   } else {
-    elm.textContent = "Resume Updates";
+    elm.textContent = "Resume Dashboard";
     updatePaused = true;
     breathPausedAt = numBreaths;
     elm = document.getElementById("numBreaths");
-    elm.innerHTML = "&nbsp&nbspUpdates Paused at&nbsp&nbsp Breath " + breathPausedAt;
+    elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
   }
 }
 
@@ -729,6 +743,7 @@ window.onload = function() {
   alertBackground = "GREEN";
   pendingBackground = "MEDIUMBLUE";
   pauseButtonBackground="MEDIUMBLUE";
+  flowDivBackground="DARKBLUE";
   alertImage = "OK";
 
   initGlobalData();
@@ -785,6 +800,7 @@ var periodicIntervalId = setInterval(function() {
   updatePending(true);
   blinkPauseButton();
   blinkRecordButton();
+  blinkFlowRate();
   periodicTickCount++;
   if (firstDweet) {
     displayWifiUnconnected();

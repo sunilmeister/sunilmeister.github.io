@@ -11,6 +11,7 @@ var alertBackground;
 var pendingBackground;
 var messagesBackground;
 var pauseButtonBackground;
+var flowDivBackground;
 var pendingMODE = false;
 var pendingVT = false;
 var pendingRR = false;
