@@ -705,9 +705,15 @@ function InitChartCheckBoxes() {
 window.onload = function() {
   initDbNames();
   InitRecorder();
-  document.title = respimaticTag + " (" + datasource_name + ")"
+
   var heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+  if (respimaticTag) {
+    document.title = respimaticTag + " (" + datasource_name + ")"
+    heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+  } else {
+    document.title = "UNCONNECTED"
+    heading.innerHTML = "UNCONNECTED"
+  }
 
 
   currentView = "snapshots";
