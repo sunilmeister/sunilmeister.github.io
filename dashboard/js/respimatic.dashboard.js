@@ -711,8 +711,8 @@ window.onload = function() {
     document.title = respimaticTag + " (" + datasource_name + ")"
     heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   } else {
-    document.title = "UNCONNECTED"
-    heading.innerHTML = "UNCONNECTED"
+    document.title = "NOT SPECIFIED"
+    heading.innerHTML = "NOT SPECIFIED"
   }
 
 
