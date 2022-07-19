@@ -35,10 +35,11 @@ function selectDbRow() {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   sessionDbName = dbName;
-  var heading = document.getElementById("SysUid");
-  heading.innerHTML = '<b>SYSUID</b><br>' + respimaticUid ;
-  var sessionInfo = document.getElementById("SessionInfo");
-  sessionInfo.innerHTML = '<b>Session Name</b><br>' + row.cells[0].innerHTML + '<br><br><b>Creation Date</b><br>' + row.cells[1].innerHTML;
+  var sessionInfo = document.getElementById("SessionName");
+  sessionInfo.innerHTML = row.cells[0].innerHTML ;
+  var creationDate = document.getElementById("CreationDate");
+  creationDate.innerHTML = row.cells[1].innerHTML ;
+
   initSession(dbName);
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("selectorDiv").style.display = "none";
@@ -383,8 +384,10 @@ window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
 
-  var sessionInfo = document.getElementById("SessionInfo");
-  sessionInfo.innerHTML = '<br>No Session' ;
+  var sessionInfo = document.getElementById("SessionName");
+  sessionInfo.innerHTML = 'No Session' ;
+  var creationDate = document.getElementById("CreationDate");
+  creationDate.innerHTML = '----' ;
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
