@@ -339,7 +339,25 @@
 }
 
 .SysUid {
-  grid-area: 15 / 1 / 17 / 8;
+  grid-area: 15 / 1 / 17 / 6;
+  border-radius: 1.5rem;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+}
+
+.DashboardActive {
+  grid-area: 15 / 6 / 16 / 9;
+  border-radius: 1.5rem;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+}
+
+.RecordingActive {
+  grid-area: 16 / 6 / 17 / 9;
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
@@ -348,7 +366,7 @@
 }
 
 .Logo {
-  grid-area: 15 / 8 / 17 / 19;
+  grid-area: 15 / 9 / 17 / 19;
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;

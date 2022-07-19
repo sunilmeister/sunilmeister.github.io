@@ -42,34 +42,48 @@ function checkFiO2Calculation(d) {
   }
 }
 
+var dweetQ = new Queue();
+
+function disassembleAndQueueDweet(d) {
+  //console.log(d);
+  if (awaitingFirstDweet) {
+    awaitingFirstDweet = false;
+    startDate = new Date(d.created);
+    simulatedTimeInMs = startDate.valueOf();
+    startDTIME = d.content["0"].DTIME;
+    //console.log("startDTIME=" + startDTIME);
+    elm = document.getElementById("startTime");
+    elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
+  }
+
+  for (i=0;;i++) {
+    key = String(i);
+    if (typeof d.content[key] == "undefined")  break;
+    fragment = d.content[key];
+    fragment.created = addMsToDate(startDate,fragment.DTIME-startDTIME);
+    delete fragment.DTIME;
+    dweetQ.push(createNewInstance(fragment));
+    //console.log("Dweet Queue Size=" + dweetQ.size());
+    //console.log("Fragment " + i + " created " + fragment.created + " is " + fragment.content);
+  }
+}
+
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
-    lastDweetTick = periodicTickCount;
-    dweetIntervalCounter++;
-    if (dweetIntervalCounter > REFRESH_DWEET_INTERVAL) {
-      dweetIntervalCounter = 0;
-      prevContent = {};
+    if (simulatedTimeInMs-lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+      initRecordingPrevContent();
     }
+    lastDweetInMs = simulatedTimeInMs;
 
-    var newD; // a copy of the dweet
-    if (!recordingOff && !recordingPaused) newD = createNewInstance(d);
-    processDweet(d);
-    if (!recordingOff && !recordingPaused) recordDweet(newD);
+    disassembleAndQueueDweet(d);
   })
 }
 
-function processDweet(d) {
-  if (firstDweet) {
-    firstDweet = false;
-    startDate = d.created;
-    elm = document.getElementById("startTime");
-    elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
-  } else {
-    curDate = d.created;
-    sessionDurationInMs = curDate - startDate;
-    elm = document.getElementById("logTimeDuration");
-    elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
-  }
+function processDashboardDweet(d) {
+  curDate = new Date(d.created);
+  sessionDurationInMs = curDate - startDate;
+  elm = document.getElementById("logTimeDuration");
+  elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
 
   if (typeof d.content["BTOG"] != "undefined") {
     numBreaths++;
@@ -507,12 +521,16 @@ function togglePause() {
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
+    document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
+    
     if (currentView=="snapshots") updateSnapshot();
     if (currentView=="charts") createDashboardCharts();
     if (currentView=="stats") createDashboardStats();
   } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
+    document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
+    
     breathPausedAt = numBreaths;
     elm = document.getElementById("numBreaths");
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
@@ -732,12 +750,12 @@ window.onload = function() {
 
   currentView = "snapshots";
   updatePaused = false;
-  firstDweet = true;
+  awaitingFirstDweet = true;
   numBreaths = 0;
   updatedDweetContent = {"content":{}};
 
-  periodicTickCount = 0;
-  lastDweetTick = 0;
+  simulatedTimeInMs = 0;
+  lastDweetInMs = 0;
   wifiDropped = false;
   messagesBackground="MEDIUMBLUE";
   alertBackground = "GREEN";
@@ -745,6 +763,7 @@ window.onload = function() {
   pauseButtonBackground="MEDIUMBLUE";
   flowDivBackground="DARKBLUE";
   alertImage = "OK";
+  blinkInterval = 0;
 
   initGlobalData();
   initStats();
@@ -796,17 +815,38 @@ window.onbeforeunload = function(e) {
 }
 
 var periodicIntervalId = setInterval(function() {
+  simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
   updateAlert(true);
   updatePending(true);
-  blinkPauseButton();
-  blinkRecordButton();
-  blinkFlowRate();
-  periodicTickCount++;
-  if (firstDweet) {
+  blinkInterval += PERIODIC_INTERVAL_IN_MS;
+  if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
+    blinkInterval = 0;
+    blinkPauseButton();
+    blinkRecordButton();
+    blinkFlowRate();
+  }
+  if (awaitingFirstDweet) {
     displayWifiUnconnected();
-  } else if ((periodicTickCount-lastDweetTick) >= dweetIntervalMax) {
+  } else if ((simulatedTimeInMs-lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS) {
     displayWifiDropped();
   } else {
     undisplayWifiDropped();
   }
-}, 1500);
+
+  if (dweetQ.size()) {
+    d = dweetQ.peek();
+    dTime = new Date(d.created);
+    dTimeInMs = dTime.valueOf();
+    //console.log(d);
+    //console.log("dTimeInMs=" + dTimeInMs);
+    //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
+    if (simulatedTimeInMs >= dTimeInMs) {
+      d = dweetQ.pop();
+      //console.log("Queue Popped new size=" + dweetQ.size());
+      var dCopy; // a copy of the dweet
+      if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
+      processDashboardDweet(d);
+      if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
+    }
+  }
+}, PERIODIC_INTERVAL_IN_MS);

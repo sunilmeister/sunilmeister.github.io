@@ -67,6 +67,15 @@ function dateStrToMs(dStr) {
   d = strToDate(dStr);
   return d.getTime();
 }
+
+function addMsToDate(date, ms) {
+  //console.log("Date: " + date);
+  //console.log("ms: " + ms);
+  var mill = date.valueOf();    // Get millisecond value from date
+  mill += ms;
+  return new Date(mill);
+}
+
 // /////////////////////////////////////////////
 // Misc functions
 // /////////////////////////////////////////////

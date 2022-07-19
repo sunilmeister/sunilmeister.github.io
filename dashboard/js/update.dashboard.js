@@ -171,6 +171,17 @@ function updateSettingValue(str, containerDiv, valueDiv) {
   return pending;
 }
 
+function displayMessageLine(lineTag) {
+  if (messagesBackground!="MEDIUMBLUE") {
+    elm = document.getElementById("MessagesDiv");
+    elm.style.backgroundColor = mediumblueColor;
+    messagesBackground="MEDIUMBLUE";
+  }
+  elm = document.getElementById(lineTag);
+  mvalue = formMessageLine(value);
+  elm.innerHTML = mvalue;
+}
+
 function updateSnapshot() {
   let d = updatedDweetContent;
   for (let key in d.content) {
@@ -234,21 +245,13 @@ function updateSnapshot() {
     }
     // Message lines
     else if (key == 'L1') {
-      elm = document.getElementById("Mline1");
-      mvalue = formMessageLine(value);
-      elm.innerHTML = mvalue;
+      displayMessageLine("Mline1");
     } else if (key == 'L2') {
-      elm = document.getElementById("Mline2");
-      mvalue = formMessageLine(value);
-      elm.innerHTML = mvalue;
+      displayMessageLine("Mline2");
     } else if (key == 'L3') {
-      elm = document.getElementById("Mline3");
-      mvalue = formMessageLine(value);
-      elm.innerHTML = mvalue;
+      displayMessageLine("Mline3");
     } else if (key == 'L4') {
-      elm = document.getElementById("Mline4");
-      mvalue = formMessageLine(value);
-      elm.innerHTML = mvalue;
+      displayMessageLine("Mline4");
     }
     // bpm
     else if (key == 'SBPM') {
@@ -386,7 +389,6 @@ function undisplayWifiDropped() {
   elm.style.backgroundColor = mediumblueColor;
   messagesBackground="MEDIUMBLUE";
 
-  /*
   elm = document.getElementById("Mline1");
   elm.innerHTML = "--";
   elm = document.getElementById("Mline2");
@@ -395,7 +397,6 @@ function undisplayWifiDropped() {
   elm.innerHTML = "--";
   elm = document.getElementById("Mline4");
   elm.innerHTML = "--";
-  */
 }
 
 function displayWifiDropped() {
@@ -411,9 +412,9 @@ function displayWifiDropped() {
   elm.style.backgroundColor = orangeColor;
 
   elm = document.getElementById("Mline1");
-  elm.innerHTML = "Wi-Fi Disconnected";
+  elm.innerHTML = "No Message from device";
   elm = document.getElementById("Mline2");
-  elm.innerHTML = "&nbsp";
+  elm.innerHTML = "for a while";
   elm = document.getElementById("Mline3");
   elm.innerHTML = "System will attempt";
   elm = document.getElementById("Mline4");
@@ -432,13 +433,13 @@ function displayWifiUnconnected() {
   elm.style.backgroundColor = orangeColor;
 
   elm = document.getElementById("Mline1");
-  elm.innerHTML = "Wi-Fi not connected";
+  elm.innerHTML = "Awaiting Internet";
   elm = document.getElementById("Mline2");
-  elm.innerHTML = "Use RESPIMATIC";
+  elm.innerHTML = "Connection";
   elm = document.getElementById("Mline3");
-  elm.innerHTML = "Control Panel";
+  elm.innerHTML = "Connect RESPIMATIC100";
   elm = document.getElementById("Mline4");
-  elm.innerHTML = "to connect";
+  elm.innerHTML = "to Wi-Fi";
 }
 
 

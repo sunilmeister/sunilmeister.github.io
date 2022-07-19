@@ -34,14 +34,20 @@ function toggleRecording() {
     btn.innerHTML = "Pause Recording" ;
     recordingOff = false;
     recordingPaused = false;
+    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
+    
   } else if (recordingPaused) {
     btn.innerHTML = "Pause Recording" ;
     recordingOff = false;
     recordingPaused = false;
+    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
+    
   } else if (!recordingPaused) {
     btn.innerHTML = "Resume Recording" ;
     recordingOff = false;
     recordingPaused = true;
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+    
   }
 }
 
@@ -91,8 +97,11 @@ function insertJsonData(db, jsonData) {
   }
 }
 
+function initRecordingPrevContent() {
+  prevContent = {};
+}
 
-function recordDweet(d) {
+function processRecordDweet(d) {
   if (!recordingOff && !recordingPaused) return;
 
   if (typeof d.content['LOST'] != 'undefined') {
@@ -100,7 +109,7 @@ function recordDweet(d) {
   }
 
   // We already have the UID
-  delete d.thing;
+  // delete d.thing;
   if (d.content['INITIAL'] == "1") initialState = true;
   if (d.content['STANDBY'] == "1") initialState = false;
   if (d.content['RUNNING'] == "1") initialState = false;

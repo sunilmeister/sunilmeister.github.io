@@ -1,5 +1,8 @@
 // Dashboard
 var datasource_name = "RESPIMATIC100";
+var startDate;
+var startDTIME;
+var simulatedTimeInMs = 0;
 var updateInProgress = false;
 var blueColor;
 var darkblueColor;
@@ -27,7 +30,7 @@ var errorState = false;
 var attentionState = false;
 var pendingState = false;
 var currentViewIsSnapshot = true;
-var firstDweet = true;
+var awaitingFirstDweet = true;
 var numBreaths = 0;
 var updatePaused = false;
 var desiredFiO2 = 21;
@@ -61,10 +64,11 @@ var recordingOff = true;
 var recordingPaused = false;
 
 // check for continuing dweets
-const REFRESH_DWEET_INTERVAL = 10;
-const dweetIntervalMax = 15;
-var periodicTickCount = 0;
-var lastDweetTick = 0;
 var wifiDropped = false;
-var dweetIntervalCounter = 0;
+var blinkInterval = 0;
+const PERIODIC_INTERVAL_IN_MS = 1000;
+const BLINK_INTERVAL_IN_MS = 2000;
+const MAX_DWEET_INTERVAL_IN_MS = 10000;
+const INIT_RECORDING_INTERVAL_IN_MS = 10000;
+
 
