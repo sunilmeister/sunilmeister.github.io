@@ -85,7 +85,7 @@ function updatePending(blink) {
       elm.style.backgroundColor = mediumblueColor;
       pendingBackground = "MEDIUMBLUE";
     }
-  } else if (pendingBackground != "MEDIUMBLUE") {
+  } else {
     elm = document.getElementById("PendingDiv");
     elm.style.backgroundColor = mediumblueColor;
     elm = document.getElementById("Pending");
@@ -388,6 +388,14 @@ function undisplayWifiDropped() {
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = mediumblueColor;
   messagesBackground="MEDIUMBLUE";
+  document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
+  if (recordingOff) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else if (recordingPaused) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else {
+    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
+  }
 
   elm = document.getElementById("Mline1");
   elm.innerHTML = "--";
@@ -407,6 +415,14 @@ function displayWifiDropped() {
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
   messagesBackground="ORANGE";
+  document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+  if (recordingOff) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else if (recordingPaused) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else {
+    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
+  }
 
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
@@ -428,6 +444,14 @@ function displayWifiUnconnected() {
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
   messagesBackground="ORANGE";
+  document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+  if (recordingOff) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else if (recordingPaused) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else {
+    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
+  }
 
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
