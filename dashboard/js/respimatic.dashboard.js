@@ -51,7 +51,7 @@ function disassembleAndQueueDweet(d) {
     key = String(i);
     if (typeof d.content[key] == "undefined")  break;
     fragment = d.content[key];
-    fragment.created = addMsToDate(startDate,fragment.DTIME-startDTIME);
+    fragment.created = new Date(addMsToDate(startDate,fragment.DTIME-startDTIME));
     delete fragment.DTIME;
     dweetQ.push(createNewInstance(fragment));
     //console.log("Dweet Queue Size=" + dweetQ.size());

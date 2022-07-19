@@ -97,7 +97,7 @@ function initRecordingPrevContent() {
 }
 
 function processRecordDweet(d) {
-  if (!recordingOff && !recordingPaused) return;
+  if (recordingOff || recordingPaused) return;
 
   if (typeof d.content['LOST'] != 'undefined') {
     console.log("LOST=" + d.content['LOST']);
