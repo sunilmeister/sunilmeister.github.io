@@ -46,15 +46,6 @@ var dweetQ = new Queue();
 
 function disassembleAndQueueDweet(d) {
   //console.log(d);
-  if (awaitingFirstDweet) {
-    awaitingFirstDweet = false;
-    startDate = new Date(d.created);
-    simulatedTimeInMs = startDate.valueOf();
-    startDTIME = d.content["0"].DTIME;
-    //console.log("startDTIME=" + startDTIME);
-    elm = document.getElementById("startTime");
-    elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
-  }
 
   for (i=0;;i++) {
     key = String(i);
@@ -73,6 +64,15 @@ function waitForDweets() {
     if (simulatedTimeInMs-lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
+    if (awaitingFirstDweet) {
+      startDate = new Date(d.created);
+      simulatedTimeInMs = startDate.valueOf();
+      startDTIME = d.content["0"].DTIME;
+      //console.log("startDTIME=" + startDTIME);
+      elm = document.getElementById("startTime");
+      elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
+    }
+    awaitingFirstDweet = false;
     lastDweetInMs = simulatedTimeInMs;
 
     disassembleAndQueueDweet(d);
@@ -827,7 +827,8 @@ var periodicIntervalId = setInterval(function() {
   }
   if (awaitingFirstDweet) {
     displayWifiUnconnected();
-  } else if ((simulatedTimeInMs-lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS) {
+  } else if ((dweetQ.size()==0) &&
+            ((simulatedTimeInMs-lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
     displayWifiDropped();
   } else {
     undisplayWifiDropped();
