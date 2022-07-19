@@ -521,7 +521,6 @@ function togglePause() {
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
-    document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
     
     if (currentView=="snapshots") updateSnapshot();
     if (currentView=="charts") createDashboardCharts();
@@ -529,12 +528,12 @@ function togglePause() {
   } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
-    document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
     
     breathPausedAt = numBreaths;
     elm = document.getElementById("numBreaths");
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
   }
+  updateDashboardAndRecordingStatus();
 }
 
 function selectExit() {
@@ -834,7 +833,7 @@ var periodicIntervalId = setInterval(function() {
     undisplayWifiDropped();
   }
 
-  if (dweetQ.size()) {
+  while (dweetQ.size()) {
     d = dweetQ.peek();
     dTime = new Date(d.created);
     dTimeInMs = dTime.valueOf();
@@ -848,6 +847,6 @@ var periodicIntervalId = setInterval(function() {
       if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
       processDashboardDweet(d);
       if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
-    }
+    } else break;
   }
 }, PERIODIC_INTERVAL_IN_MS);

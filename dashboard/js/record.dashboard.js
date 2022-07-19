@@ -34,21 +34,16 @@ function toggleRecording() {
     btn.innerHTML = "Pause Recording" ;
     recordingOff = false;
     recordingPaused = false;
-    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
-    
   } else if (recordingPaused) {
     btn.innerHTML = "Pause Recording" ;
     recordingOff = false;
     recordingPaused = false;
-    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
-    
   } else if (!recordingPaused) {
     btn.innerHTML = "Resume Recording" ;
     recordingOff = false;
     recordingPaused = true;
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-    
   }
+  updateDashboardAndRecordingStatus();
 }
 
 // ///////////////////////////////////////////////////////

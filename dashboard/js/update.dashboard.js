@@ -73,9 +73,10 @@ function updatePending(blink) {
   pendingState = pendingMODE || pendingVT || pendingRR || pendingIE ||
     pendingIPEEP || pendingPMAX || pendingPS || pendingTPS;
   updatePendingSettings(blink);
+  //console.log("pendingState=" + pendingState);
   if (pendingState) {
     elm = document.getElementById("Pending");
-    elm.innerHTML = "Pending Uncommitted Changes";
+    elm.innerHTML = "Pending Changes";
     if (pendingBackground != "ORANGE") {
       elm = document.getElementById("PendingDiv");
       elm.style.backgroundColor = orangeColor;
@@ -381,6 +382,28 @@ function updateSnapshot() {
   }
 }
 
+function updateDashboardAndRecordingStatus() {
+  if (awaitingFirstDweet) {
+    document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+  } else if (updatePaused) {
+    document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
+  } else if (wifiDropped) {
+    document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+  } else {
+    document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
+  }
+  
+  if (recordingOff) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else if (recordingPaused) {
+    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+  } else if (wifiDropped) {
+    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
+  } else {
+    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
+  }
+}
+
 function undisplayWifiDropped() {
   wifiDropped = false;
   if (messagesBackground=="MEDIUMBLUE") return;
@@ -388,14 +411,7 @@ function undisplayWifiDropped() {
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = mediumblueColor;
   messagesBackground="MEDIUMBLUE";
-  document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
-  if (recordingOff) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else if (recordingPaused) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else {
-    document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
-  }
+  updateDashboardAndRecordingStatus();
 
   elm = document.getElementById("Mline1");
   elm.innerHTML = "--";
@@ -415,14 +431,7 @@ function displayWifiDropped() {
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
   messagesBackground="ORANGE";
-  document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  if (recordingOff) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else if (recordingPaused) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else {
-    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-  }
+  updateDashboardAndRecordingStatus();
 
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
@@ -444,14 +453,7 @@ function displayWifiUnconnected() {
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
   messagesBackground="ORANGE";
-  document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  if (recordingOff) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else if (recordingPaused) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else {
-    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-  }
+  updateDashboardAndRecordingStatus();
 
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
