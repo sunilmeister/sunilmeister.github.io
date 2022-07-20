@@ -838,7 +838,7 @@ var periodicIntervalId = setInterval(function() {
 
   // Main loop executed every PERIODIC_INTERVAL_IN_MS
   while(dweetQ.size()) {
-    FetchAndExecuteFromQueue();
+    if (!FetchAndExecuteFromQueue()) break;
   }
 
 }, PERIODIC_INTERVAL_IN_MS);
@@ -858,6 +858,9 @@ function FetchAndExecuteFromQueue() {
     if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
     processDashboardDweet(d);
     if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
+    return true;
+  } else {
+    return false;
   }
 }
 
