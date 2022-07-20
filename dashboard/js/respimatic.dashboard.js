@@ -165,13 +165,10 @@ function changeToSnapshotView() {
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
 
   updatePaused = false;
   currentView = "snapshots";
@@ -179,25 +176,19 @@ function changeToSnapshotView() {
   charts.style.display = "none";
   stats.style.display = "none";
   alerts.style.display = "none";
-  records.style.display = "none";
-
   btn1.textContent = "Charts View";
   btn2.textContent = "Statistics View";
   btn3.textContent = "Alerts View";
-  btn4.textContent = "Recording View";
 }
 
 function changeToChartView() {
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
 
   updatePaused = false;
   currentView = "charts";
@@ -205,12 +196,9 @@ function changeToChartView() {
   charts.style.display = "block";
   stats.style.display = "none";
   alerts.style.display = "none";
-  records.style.display = "none";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Statistics View";
   btn3.textContent = "Alerts View";
-  btn4.textContent = "Recording View";
   createDashboardCharts();
 }
 
@@ -218,13 +206,10 @@ function changeToStatView() {
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
 
   updatePaused = false;
   currentView = "stats";
@@ -232,12 +217,9 @@ function changeToStatView() {
   charts.style.display = "none";
   stats.style.display = "block";
   alerts.style.display = "none";
-  records.style.display = "none";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Charts View";
   btn3.textContent = "Alerts View";
-  btn4.textContent = "Recording View";
   createDashboardStats();
 }
 
@@ -245,13 +227,10 @@ function changeToAlertView() {
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
 
   updatePaused = false;
   currentView = "alerts";
@@ -259,44 +238,19 @@ function changeToAlertView() {
   charts.style.display = "none";
   stats.style.display = "none";
   alerts.style.display = "block";
-  records.style.display = "none";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Charts View";
   btn3.textContent = "Statistics View";
-  btn4.textContent = "Recording View";
   createDashboardAlerts();
-}
-
-function changeToRecordView() {
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
-
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-
-  updatePaused = false;
-  currentView = "records";
-  snapshot.style.display = "none";
-  charts.style.display = "none";
-  stats.style.display = "none";
-  alerts.style.display = "none";
-  records.style.display = "block";
-
-  btn1.textContent = "Snapshots View";
-  btn2.textContent = "Charts View";
-  btn3.textContent = "Statistics View";
-  btn4.textContent = "Alerts View";
 }
 
 function changeView1() {
   if (currentView == "snapshots") {
     changeToChartView();
+  } else if (currentView == "charts") {
+    changeToSnapshotView();
+  } else if (currentView == "alerts") {
+    changeToSnapshotView();
   } else {
     changeToSnapshotView();
   }
@@ -307,26 +261,22 @@ function changeView2() {
     changeToStatView();
   } else if (currentView == "charts") {
     changeToStatView();
+  } else if (currentView == "alerts") {
+    changeToChartView();
   } else {
     changeToChartView();
   }
 }
 
 function changeView3() {
-  if (currentView == "alerts") {
-    changeToStatView();
-  } else if (currentView == "records") {
+  if (currentView == "snapshots") {
+    changeToAlertView();
+  } else if (currentView == "charts") {
+    changeToAlertView();
+  } else if (currentView == "alerts") {
     changeToStatView();
   } else {
     changeToAlertView();
-  }
-}
-
-function changeView4() {
-  if (currentView == "records") {
-    changeToAlertView();
-  } else {
-    changeToRecordView();
   }
 }
 
