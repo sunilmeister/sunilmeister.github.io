@@ -81,6 +81,12 @@ function createNewDb() {
   InitRecorder();
 }
 
+function createRecordView() {
+  elm = document.getElementById('recordSessionName');
+  arr = parseDbName(dbName);
+  elm.innerHTML = arr[1] + " [" + arr[2] + "]";
+}
+
 function insertJsonData(db, jsonData) {
   // Start a database transaction and get the notes object store
   var tx = db.transaction([dbObjStoreName], 'readwrite');
@@ -165,7 +171,11 @@ function processRecordDweet(d) {
     emptyContent = false;
   }
 
-  if (!emptyContent) {
+  recordBox = document.getElementById("recordBox");
+  if (emptyContent) {
+    recordBox.innerHTML = "<center><br><br><br><br><br><b>Record Pruned</b></center>" ;
+  } else {
+    recordBox.innerText = JSON.stringify(d, null, ". ");
     if (db) insertJsonData(db, d);
   }
 }
