@@ -79,13 +79,12 @@ function createNewDb() {
   if (!dbName) return;
   createOrOpenDb(dbName, creationTimeStamp);
   InitRecorder();
+}
 
-  //sessionName = document.getElementById('recordSessionName');
-  //sessionName.innerHTML = dbName;
-  //arr = parseDbName(dbName);
-  //sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
-  //sessionName.innerHTML = arr[1] ;
-
+function createRecordView() {
+  elm = document.getElementById('recordSessionName');
+  arr = parseDbName(dbName);
+  elm.innerHTML = arr[1] + " [" + arr[2] + "]";
 }
 
 function insertJsonData(db, jsonData) {

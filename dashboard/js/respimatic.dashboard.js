@@ -104,6 +104,8 @@ function processDashboardDweet(d) {
   if ((currentView=="charts") && !updatePaused) createDashboardCharts();
   if ((currentView=="stats") && !updatePaused) createDashboardStats();
   if ((currentView=="alerts") && !updatePaused) createDashboardAlerts();
+  if (currentView=="records") createRecordView();
+  
   return d;
 }
 
@@ -269,6 +271,7 @@ function changeToAlertView() {
 }
 
 function changeToRecordView() {
+  //console.log("Changing to record view");
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
