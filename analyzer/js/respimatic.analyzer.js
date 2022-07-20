@@ -248,6 +248,7 @@ function initSession() {
       allDbKeys = keys;
       if (keys.length == 0) {
         alert("Selected Session has no data");
+	return;
       }
       logStartTime = new Date(keys[0]);
       logStartTime.setMilliseconds(0);

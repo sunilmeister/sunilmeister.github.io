@@ -807,8 +807,11 @@ window.onload = function() {
 }
 
 window.onbeforeunload = function(e) {
+  var msg = 'Charts waveform history will be lost';
   if (numBreaths!=0) {
-    const msg = 'Charts waveform history will be lost';
+    if (!recordingOff) {
+      msg = msg + '\nAlso recording will stop';
+    }
     return msg;
   }
 }
@@ -830,23 +833,32 @@ var periodicIntervalId = setInterval(function() {
             ((simulatedTimeInMs-lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
     displayWifiDropped();
   } else {
-    undisplayWifiDropped();
+    displayNormalMessages();
   }
 
-  while (dweetQ.size()) {
-    d = dweetQ.peek();
-    dTime = new Date(d.created);
-    dTimeInMs = dTime.valueOf();
-    //console.log(d);
-    //console.log("dTimeInMs=" + dTimeInMs);
-    //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
-    if (simulatedTimeInMs >= dTimeInMs) {
-      d = dweetQ.pop();
-      //console.log("Queue Popped new size=" + dweetQ.size());
-      var dCopy; // a copy of the dweet
-      if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
-      processDashboardDweet(d);
-      if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
-    } else break;
+  // Main loop executed every PERIODIC_INTERVAL_IN_MS
+  while(dweetQ.size()) {
+    FetchAndExecuteFromQueue();
   }
+
 }, PERIODIC_INTERVAL_IN_MS);
+
+function FetchAndExecuteFromQueue() {
+  if (dweetQ.size() == 0) return;
+  d = dweetQ.peek();
+  dTime = new Date(d.created);
+  dTimeInMs = dTime.valueOf();
+  //console.log(d);
+  //console.log("dTimeInMs=" + dTimeInMs);
+  //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
+  if (simulatedTimeInMs >= dTimeInMs) {
+    d = dweetQ.pop();
+    //console.log("Queue Popped new size=" + dweetQ.size());
+    var dCopy; // a copy of the dweet
+    if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
+    processDashboardDweet(d);
+    if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
+  }
+}
+
+

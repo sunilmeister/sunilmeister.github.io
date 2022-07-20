@@ -404,7 +404,7 @@ function updateDashboardAndRecordingStatus() {
   }
 }
 
-function undisplayWifiDropped() {
+function displayNormalMessages() {
   wifiDropped = false;
   if (messagesBackground=="MEDIUMBLUE") return;
 
@@ -412,15 +412,6 @@ function undisplayWifiDropped() {
   elm.style.backgroundColor = mediumblueColor;
   messagesBackground="MEDIUMBLUE";
   updateDashboardAndRecordingStatus();
-
-  elm = document.getElementById("Mline1");
-  elm.innerHTML = "--";
-  elm = document.getElementById("Mline2");
-  elm.innerHTML = "--";
-  elm = document.getElementById("Mline3");
-  elm.innerHTML = "--";
-  elm = document.getElementById("Mline4");
-  elm.innerHTML = "--";
 }
 
 function displayWifiDropped() {
