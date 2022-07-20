@@ -79,6 +79,13 @@ function createNewDb() {
   if (!dbName) return;
   createOrOpenDb(dbName, creationTimeStamp);
   InitRecorder();
+
+  //sessionName = document.getElementById('recordSessionName');
+  //sessionName.innerHTML = dbName;
+  //arr = parseDbName(dbName);
+  //sessionName.innerHTML = arr[1] + " [" + arr[2] + "]";
+  //sessionName.innerHTML = arr[1] ;
+
 }
 
 function insertJsonData(db, jsonData) {
@@ -165,7 +172,11 @@ function processRecordDweet(d) {
     emptyContent = false;
   }
 
-  if (!emptyContent) {
+  recordBox = document.getElementById("recordBox");
+  if (emptyContent) {
+    //recordBox.innerHTML = "<center><br><br><br><b>Record pruned</b></center>" ;
+  } else {
+    //recordBox.innerText = JSON.stringify(d, null, ". ");
     if (db) insertJsonData(db, d);
   }
 }

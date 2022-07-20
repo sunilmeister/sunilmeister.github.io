@@ -59,6 +59,15 @@
             <button id="btnViewChange3" class="sidebarButton" onclick='changeView3()'>Alerts View</button>
           </div>
 
+          <div style="margin-top:1rem;">
+            <button id="btnViewChange4" class="sidebarButton" onclick='changeView4()'>Recording View</button>
+          </div>
+
+        </center>
+      </div>
+
+      <div class=shadowDiv10 style="margin-top:1rem; border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
+        <center>
           <div id="pauseChartsDiv" style="margin-top:1rem;">
             <button id="btnPause" class="sidebarButton" onclick='togglePause()'>Pause Dashboard</button>
           </div>
@@ -91,6 +100,15 @@
   </div>
 
   <div class="dashboard-pane">
+          <div id="record-pane" style="border-radius:25px; font-family:verdana;font-size:1.5em; display:none">
+	    <center>
+	<p class=shadowDiv5 id="sessionName" style="background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Active Session
+		<div class=shadowDiv5 id="activeSessionDiv" style="border-radius:25px; height:60em; width:50em; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
+			<p id=recordBox style="font-size:2em; text-align: left">
+		</div>
+	    </center>
+      </div>
+
     <div id="alert-pane" style="display: none; font-family:verdana;">
       <center>
 
@@ -505,6 +523,7 @@
       <div id=PendingDiv class="Pending">
         <p id=Pending style="font-size:2rem; margin-top:1.25rem; margin-bottom:0rem;">No Pending Changes
       </div>
+
 
       <div class=SysUid style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;font-size:1.5em;">
         <center>
