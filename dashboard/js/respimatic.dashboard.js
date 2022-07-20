@@ -104,7 +104,6 @@ function processDashboardDweet(d) {
   if ((currentView=="charts") && !updatePaused) createDashboardCharts();
   if ((currentView=="stats") && !updatePaused) createDashboardStats();
   if ((currentView=="alerts") && !updatePaused) createDashboardAlerts();
-  if (currentView=="records") createRecordView();
   
   return d;
 }
@@ -897,7 +896,7 @@ var periodicIntervalId = setInterval(function() {
 }, PERIODIC_INTERVAL_IN_MS);
 
 function FetchAndExecuteFromQueue() {
-  if (dweetQ.size() == 0) return;
+  if (dweetQ.size() == 0) return false;
   d = dweetQ.peek();
   dTime = new Date(d.created);
   dTimeInMs = dTime.valueOf();

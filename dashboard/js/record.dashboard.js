@@ -79,9 +79,6 @@ function createNewDb() {
   if (!dbName) return;
   createOrOpenDb(dbName, creationTimeStamp);
   InitRecorder();
-}
-
-function createRecordView() {
   elm = document.getElementById('recordSessionName');
   arr = parseDbName(dbName);
   elm.innerHTML = arr[1] + " [" + arr[2] + "]";
@@ -94,7 +91,7 @@ function insertJsonData(db, jsonData) {
   store.add(jsonData); // Wait for the database transaction to complete
   tx.oncomplete = function() {}
   tx.onerror = function(event) {
-    alert('Error storing data! ' + event.target.errorCode);
+    console.log('Error storing data! ' + event.target.errorCode);
   }
 }
 
