@@ -35,10 +35,8 @@ function selectDbRow() {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   sessionDbName = dbName;
-  var sessionInfo = document.getElementById("SessionName");
-  sessionInfo.innerHTML = row.cells[0].innerHTML ;
-  var creationDate = document.getElementById("CreationDate");
-  creationDate.innerHTML = row.cells[1].innerHTML ;
+  var sessionInfo = document.getElementById("analyzeSessionName");
+  sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
 
   initSession(dbName);
   document.getElementById("analysisWindowDiv").style.display = "block";
@@ -385,10 +383,8 @@ window.onload = function() {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
 
-  var sessionInfo = document.getElementById("SessionName");
-  sessionInfo.innerHTML = 'No Session' ;
-  var creationDate = document.getElementById("CreationDate");
-  creationDate.innerHTML = '----' ;
+  var sessionInfo = document.getElementById("analyzeSessionName");
+  sessionInfo.innerHTML = 'No Selected Session' ;
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
