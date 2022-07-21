@@ -1,21 +1,3 @@
-//  returns [gender, age, pid]
-function parsePatientInfo(str) {
-  tokens = str.split('[');
-  tokens = tokens[1].split(']');
-  pid = tokens[0].trim();
-  tokens = tokens[1].split(' ');
-  age = tokens[2];
-  tokens = tokens[1].split('(');
-  tokens = tokens[1].split(')');
-  gender = tokens[0];
-  return [gender, age, pid];
-}
-
-function parseAltitude(str) {
-  // return [ft,meters]
-  return str.split(' ');
-}
-
 function formMessageLine(str) {
   value = str.trim();
   mvalue = value.replace(/ /g, "&nbsp");
@@ -338,14 +320,16 @@ function updateSnapshot() {
     } else if (key == 'PMISC') {
       if (value!="") {
         [gender, age, pid] = parsePatientInfo(value);
-        elm = document.getElementById("Pline2");
-        if (gender == "M") {
-          elm.innerHTML = "Male " + "(" + age + " years)";
-        } else {
-          elm.innerHTML = "Female " + "(" + age + " years)";
-        }
-        elm = document.getElementById("Pline3");
-        elm.innerHTML = "ID: " + pid;
+	if (gender && age && pid) {
+          elm = document.getElementById("Pline2");
+          if (gender == "M") {
+            elm.innerHTML = "Male " + "(" + age + " years)";
+          } else {
+            elm.innerHTML = "Female " + "(" + age + " years)";
+          }
+          elm = document.getElementById("Pline3");
+          elm.innerHTML = "ID: " + pid;
+	}
       }
     }
     // Input Settings

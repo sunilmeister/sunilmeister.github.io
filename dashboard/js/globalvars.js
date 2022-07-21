@@ -48,17 +48,17 @@ var tempGauge = null;
 var updatedDweetContent = {"content":{}};;
 
 // Recorder
-var creationTimeStamp = "";
+var recCreationTimeStamp = "";
 var db;
 var dbName;
 var recordStartDate = new Date();
-var prevContent = {};
-var expectErrorMsg = false;
-var expectWarningMsg = false;
-var l1 = false;
-var l2 = false;
-var l3 = false;
-var l4 = false;
+var recPrevContent = {};
+var recExpectErrorMsg = false;
+var recExpectWarningMsg = false;
+var recL1Valid = false;
+var recL2Valid = false;
+var recL3Valid = false;
+var recL4Valid = false;
 var recorderBackground="MEDIUMBLUE";
 var recordingOff = true;
 var recordingPaused = false;

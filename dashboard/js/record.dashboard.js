@@ -52,7 +52,7 @@ function toggleRecording() {
 function getNewDbName() {
   var name = "";
   today = new Date();
-  creationTimeStamp = today;
+  recCreationTimeStamp = today;
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
@@ -77,7 +77,7 @@ function getNewDbName() {
 function createNewDb() {
   dbName = getNewDbName();
   if (!dbName) return;
-  createOrOpenDb(dbName, creationTimeStamp);
+  createOrOpenDb(dbName, recCreationTimeStamp);
   InitRecorder();
   elm = document.getElementById('recordSessionName');
   arr = parseDbName(dbName);
@@ -96,7 +96,7 @@ function insertJsonData(db, jsonData) {
 }
 
 function initRecordingPrevContent() {
-  prevContent = {};
+  recPrevContent = {};
 }
 
 function processRecordDweet(d) {
@@ -113,35 +113,35 @@ function processRecordDweet(d) {
   if (d.content['RUNNING'] == "1") initialState = false;
   if (d.content['ERROR'] == "1") initialState = false;
   if (typeof d.content['WMSG'] != 'undefined') {
-    expectWarningMsg = true;
-    prevContent['L1'] = "";
-    prevContent['L2'] = "";
-    prevContent['L3'] = "";
-    prevContent['L4'] = "";
-    l1 = l2 = l3 = l4 = false;
+    recExpectWarningMsg = true;
+    recPrevContent['L1'] = "";
+    recPrevContent['L2'] = "";
+    recPrevContent['L3'] = "";
+    recPrevContent['L4'] = "";
+    recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
   }
   if (typeof d.content['EMSG'] != 'undefined') {
-    expectErrorMsg = true;
-    prevContent['L1'] = "";
-    prevContent['L2'] = "";
-    prevContent['L3'] = "";
-    prevContent['L4'] = "";
-    l1 = l2 = l3 = l4 = false;
+    recExpectErrorMsg = true;
+    recPrevContent['L1'] = "";
+    recPrevContent['L2'] = "";
+    recPrevContent['L3'] = "";
+    recPrevContent['L4'] = "";
+    recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
   }
-  if (expectWarningMsg || expectErrorMsg) {
-    if (l1 && l2 && l3 && l4) {
-      expectWarningMsg = false;
-      expectErrorMsg = false;
-      l1 = l2 = l3 = l4 = false;
+  if (recExpectWarningMsg || recExpectErrorMsg) {
+    if (recL1Valid && recL2Valid && recL3Valid && recL4Valid) {
+      recExpectWarningMsg = false;
+      recExpectErrorMsg = false;
+      recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
     }
   }
-  if (expectWarningMsg || expectErrorMsg) {
-    if (typeof d.content['L1'] != 'undefined') l1 = true;
-    if (typeof d.content['L2'] != 'undefined') l2 = true;
-    if (typeof d.content['L3'] != 'undefined') l3 = true;
-    if (typeof d.content['L4'] != 'undefined') l4 = true;
+  if (recExpectWarningMsg || recExpectErrorMsg) {
+    if (typeof d.content['L1'] != 'undefined') recL1Valid = true;
+    if (typeof d.content['L2'] != 'undefined') recL2Valid = true;
+    if (typeof d.content['L3'] != 'undefined') recL3Valid = true;
+    if (typeof d.content['L4'] != 'undefined') recL4Valid = true;
   }
-  if (!expectWarningMsg && !expectErrorMsg && !initialState) {
+  if (!recExpectWarningMsg && !recExpectErrorMsg && !initialState) {
     // Get rid of messages except in INITIAL state or when the attention is ON
     delete d.content['L1'];
     delete d.content['L2'];
@@ -152,12 +152,12 @@ function processRecordDweet(d) {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (typeof prevContent[key] == 'undefined') {
-      prevContent[key] = value;
+    if (typeof recPrevContent[key] == 'undefined') {
+      recPrevContent[key] = value;
     } else {
-      prevValue = prevContent[key];
+      prevValue = recPrevContent[key];
       if (prevValue != value) {
-        prevContent[key] = value;
+        recPrevContent[key] = value;
       } else {
         delete d.content[key];
       }
@@ -183,10 +183,10 @@ function InitRecorder() {
   dweetIntervalCounter = 0;
 
   recordStartDate = new Date();
-  prevContent = {};
-  expectErrorMsg = false;
-  expectWarningMsg = false;
-  l1 = l2 = l3 = l4 = false;
+  recPrevContent = {};
+  recExpectErrorMsg = false;
+  recExpectWarningMsg = false;
+  recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
 
   recordingOff = true;
   recordingPaused = false;

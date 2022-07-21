@@ -442,3 +442,30 @@ function lookupO2FlowRate(vt, rr, fiO2, purity) {
   f = (mv * (fiO2 - 21)) / (degradedPurity - 21);
   return f;
 }
+
+//returns an array [gender, age, pid]
+// from a pattern like "[ID] (M) Age"
+function parsePatientInfo(str) {
+  age="";pid="";gender="";
+  let re = /\[.*\]\s+\([MF]\)\s+.+/i ;
+  if (!str.match(re)) {
+    //console.log(str);
+    return [gender, age, pid];
+  }
+  tokens = str.split('[');
+  tokens = tokens[1].split(']');
+  pid = tokens[0].trim();
+  tokens = tokens[1].split(' ');
+  age = tokens[2];
+  tokens = tokens[1].split('(');
+  tokens = tokens[1].split(')');
+  gender = tokens[0];
+  return [gender, age, pid];
+}
+
+function parseAltitude(str) {
+  // return [ft,meters]
+  return str.split(' ');
+}
+
+
