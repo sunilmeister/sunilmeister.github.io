@@ -86,6 +86,7 @@ function processDashboardDweet(d) {
   elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
 
   if (typeof d.content["BTOG"] != "undefined") {
+    console.log("BTOG=" + d.content["BTOG"]);
     numBreaths++;
   }
 
