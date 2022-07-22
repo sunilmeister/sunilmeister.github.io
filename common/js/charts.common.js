@@ -239,6 +239,9 @@ function chartProcessJsonRecord(jsonData) {
         } else if (ckey=="BNUM") {
 	  breathTimes.push({"time":curTime, "valid":true});
 	  lastValidBreathTime = curTime;
+	  if (systemBreathTime==0) { // initialize
+	    prevSystemBreathNum = value-1;
+	  }
 	  systemBreathNum = value;
 	  breathsMissing = systemBreathNum - prevSystemBreathNum - 1;
 	  prevSystemBreathNum = value;
