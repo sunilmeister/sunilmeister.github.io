@@ -161,80 +161,80 @@ function chartProcessJsonRecord(jsonData) {
   for (var key in jsonData) {
     if (key=='content') {
       if (typeof jsonData.content["WMSG"] != 'undefined') {
-	if (expectWarningMsg) { // back to back with Previous msg not yet fully received
+	if (chartExpectWarningMsg) { // back to back with Previous msg not yet fully received
 	    var msg = {
 	      'created' : lastWarningTime,
-	      'L1' : l1,
-	      'L2' : l2,
-	      'L3' : l3,
-	      'L4' : l4
+	      'L1' : chartL1,
+	      'L2' : chartL2,
+	      'L3' : chartL3,
+	      'L4' : chartL4
 	    };
             warningMsgs.push(msg);
 	}
 	lastWarningTime = jsonData.created;
-        expectWarningMsg = true;
+        chartExpectWarningMsg = true;
         warningValues.push({"time":curTime,"value":++warningNum});
       } 
       if (typeof jsonData.content["EMSG"] != 'undefined') {
-	if (expectErrorMsg) { // back to back with Previous msg not yet fully received
+	if (chartExpectErrorMsg) { // back to back with Previous msg not yet fully received
 	    var msg = {
 	      'created' : lastErrorTime,
-	      'L1' : l1,
-	      'L2' : l2,
-	      'L3' : l3,
-	      'L4' : l4
+	      'L1' : chartL1,
+	      'L2' : chartL2,
+	      'L3' : chartL3,
+	      'L4' : chartL4
 	    };
             errorMsgs.push(msg);
 	}
 	lastErrorTime = jsonData.created;
-        expectErrorMsg = true;
+        chartExpectErrorMsg = true;
         errorValues.push({"time":curTime,"value":++errorNum});
       }
 
       for (var ckey in jsonData.content) {
 	value = jsonData.content[ckey];
-        if (l1 && l2 && l3 && l4) {
-	  if (expectErrorMsg || expectWarningMsg) {
+        if (chartL1 && chartL2 && chartL3 && chartL4) {
+	  if (chartExpectErrorMsg || chartExpectWarningMsg) {
 	    var msgTime;
-	    if (expectWarningMsg) {
+	    if (chartExpectWarningMsg) {
 	      msgTime = lastWarningTime;
 	    } else {
 	      msgTime = lastErrorTime;
 	    }
 	    var msg = {
 	      'created' : msgTime,
-	      'L1' : l1,
-	      'L2' : l2,
-	      'L3' : l3,
-	      'L4' : l4
+	      'L1' : chartL1,
+	      'L2' : chartL2,
+	      'L3' : chartL3,
+	      'L4' : chartL4
 	    };
 
-	    if (expectWarningMsg) {
+	    if (chartExpectWarningMsg) {
 	      warningMsgs.push(msg);
 	    } else {
 	      errorMsgs.push(msg);
 	    }
-	    expectWarningMsg = false;
-	    expectErrorMsg = false;
-	    l1 = l2 = l3 = l4 = "";
+	    chartExpectWarningMsg = false;
+	    chartExpectErrorMsg = false;
+	    chartL1 = chartL2 = chartL3 = chartL4 = "";
 	  }
 	}
 
         if (ckey=="L1") {
-	  if (expectWarningMsg || expectErrorMsg) {
-	    if (!l1) l1 = jsonData.content['L1'];
+	  if (chartExpectWarningMsg || chartExpectErrorMsg) {
+	    if (!chartL1) chartL1 = jsonData.content['L1'];
 	  }
         } else if (ckey=="L2") {
-	  if (expectWarningMsg || expectErrorMsg) {
-	    if (!l2) l2 = jsonData.content['L2'];
+	  if (chartExpectWarningMsg || chartExpectErrorMsg) {
+	    if (!chartL2) chartL2 = jsonData.content['L2'];
 	  }
         } else if (ckey=="L3") {
-	  if (expectWarningMsg || expectErrorMsg) {
-	    if (!l3) l3 = jsonData.content['L3'];
+	  if (chartExpectWarningMsg || chartExpectErrorMsg) {
+	    if (!chartL3) chartL3 = jsonData.content['L3'];
 	  }
         } else if (ckey=="L4") {
-	  if (expectWarningMsg || expectErrorMsg) {
-	    if (!l4) l4 = jsonData.content['L4'];
+	  if (chartExpectWarningMsg || chartExpectErrorMsg) {
+	    if (!chartL4) chartL4 = jsonData.content['L4'];
 	  }
         } else if (ckey=="BNUM") {
 	  breathTimes.push({"time":curTime, "valid":true});

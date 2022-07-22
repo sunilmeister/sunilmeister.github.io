@@ -78,12 +78,12 @@ var warningNum = 0;
 var errorNum = 0;
 var errorMsgs = [];
 var warningMsgs = [];
-var expectWarningMsg;
-var expectErrorMsg;
-var l1;
-var l2;
-var l3;
-var l4;
+var chartExpectWarningMsg;
+var chartExpectErrorMsg;
+var chartL1;
+var chartL2;
+var chartL3;
+var chartL4;
 // state transitions
 var initialState;
 var standbyState;
