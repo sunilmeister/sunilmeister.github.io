@@ -7,6 +7,11 @@ var sessionDbReady = false;
 var sessionDurationInMs = 0;
 const RESPIMATIC_UID_PREFIX = "UID_";
 
+// Breath numbers being recorded
+var dashboardBreathNum = 0;
+var systemBreathNum = 0;
+var prevSystemBreathNum = 0;
+
 // before Analysis starts
 var initialJsonRecord = null;
 // useful for params that have an undefined value sometimes
@@ -101,6 +106,11 @@ function initGlobalData() {
   sessionDurationInMs = 0;
   globalDataValid = false;
   firstRecord = true;
+
+  dashboardBreathNum = 0;
+  systemBreathNum = 0;
+  prevSystemBreathNum = 0;
+
   initChartData();
   numInitialEntry = 0;
   numStandbyEntry = 0;
@@ -136,7 +146,7 @@ function initGlobalData() {
     "ps": "--",
     "tps": "--",
     "fiO2": "--",
-    "numBreaths": 0,
+    "dashboardBreathNum": 0,
     "start": 0
   };
   currParamCombo = {
@@ -149,7 +159,7 @@ function initGlobalData() {
     "ps": "--",
     "tps": "--",
     "fiO2": "--",
-    "numBreaths": 0,
+    "dashboardBreathNum": 0,
     "start": 0
   };
   usedParamCombos = [];
@@ -315,11 +325,11 @@ function statProcessJsonRecord(jsonData) {
 	    // first breath in current combo
             prevParamCombo = createNewInstance(currParamCombo);
             currParamCombo.start = jsonData.created;
-            currParamCombo.numBreaths = 1;
+            currParamCombo.dashboardBreathNum = 1;
             usedParamCombos.push(createNewInstance(currParamCombo));
           } else {
 	    // update number of breaths for the last combo
-            usedParamCombos[usedParamCombos.length-1].numBreaths++;
+            usedParamCombos[usedParamCombos.length-1].dashboardBreathNum++;
           }
         } else if (ckey == "LOST") {
 	  numMissingBreaths += value;

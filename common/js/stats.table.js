@@ -13,7 +13,7 @@ function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
   for (i = 0; i < usedParamCombos.length; i++) {
     combo = usedParamCombos[i];
-    if (combo.numBreaths == 0) continue;
+    if (combo.dashboardBreathNum == 0) continue;
     row = table.insertRow();
     cell = row.insertCell();
     cell.innerHTML = combo.mode;
@@ -34,7 +34,7 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = combo.fiO2;
     cell = row.insertCell();
-    cell.innerHTML = combo.numBreaths;
+    cell.innerHTML = combo.dashboardBreathNum;
     cell = row.insertCell();
     dstr = dateToStr(combo.start);
     dstr = dstr.replace("]", "] ");

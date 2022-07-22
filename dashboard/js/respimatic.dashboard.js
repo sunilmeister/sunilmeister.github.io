@@ -87,14 +87,15 @@ function processDashboardDweet(d) {
 
   if (typeof d.content["BNUM"] != "undefined") {
     //console.log("BNUM=" + d.content["BNUM"]);
-    numBreaths++;
+    dashboardBreathNum++;
+    systemBreathNum = d.content["BNUM"];
   }
 
-  elm = document.getElementById("numBreaths");
+  elm = document.getElementById("dashboardBreathNum");
   if (updatePaused) {
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
   } else {
-    elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + numBreaths;
+    elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + dashboardBreathNum;
   }
 
   checkFiO2Calculation(d);
@@ -582,8 +583,8 @@ function togglePause() {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
     
-    breathPausedAt = numBreaths;
-    elm = document.getElementById("numBreaths");
+    breathPausedAt = dashboardBreathNum;
+    elm = document.getElementById("dashboardBreathNum");
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
   }
   updateDashboardAndRecordingStatus();
@@ -803,7 +804,8 @@ window.onload = function() {
   currentView = "snapshots";
   updatePaused = false;
   awaitingFirstDweet = true;
-  numBreaths = 0;
+  dashboardBreathNum = 0;
+  systemBreathNum = 0;
   updatedDweetContent = {"content":{}};
 
   simulatedTimeInMs = 0;
@@ -862,7 +864,7 @@ window.onload = function() {
 window.onbeforeunload = function(e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';
-  if (numBreaths!=0) {
+  if (dashboardBreathNum!=0) {
     if (!recordingOff) {
       msg = msg + '\nAlso recording will stop';
     }

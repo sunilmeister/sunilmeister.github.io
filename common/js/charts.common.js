@@ -237,30 +237,31 @@ function chartProcessJsonRecord(jsonData) {
 	    if (!l4) l4 = jsonData.content['L4'];
 	  }
         } else if (ckey=="BNUM") {
-	  //console.log("Push BNUM=" + value + " " + curTime);
 	  breathTimes.push({"time":curTime, "valid":true});
 	  lastValidBreathTime = curTime;
-        } else if (ckey=="LOST") {
-	  if (validDecimalInteger(value)) {
-            missingBreaths.push({"time":curTime,"value":value});
+	  systemBreathNum = value;
+	  lostBreaths = systemBreathNum - prevSystemBreathNum - 1;
+	  prevSystemBreathNum = value;
+	  if (lostBreaths) {
+            missingBreaths.push({"time":curTime,"value":lostBreaths});
 	    // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
 	    lastBreathNum = breathTimes.length;
-	    for (i=1; i<=value; i++) {
+	    for (i=1; i<=lostBreaths; i++) {
 	      breathTimes.push({"time":lastValidBreathTime+i, "valid":false});
 	    }
 
 	    // record breaks for graphing
 	    missingBreathWindows.push(
-	      {"startValue":lastBreathNum+1,"endValue":lastBreathNum+value,
+	      {"startValue":lastBreathNum+1,"endValue":lastBreathNum+lostBreaths,
 		"type":"zigzag","lineColor": "black","autoCalculate":true});
 	    
 	    missingTimeWindows.push(
 	      {"startValue":lastValidBreathTime+1,"endValue":curTime-1,
 		"type":"zigzag","lineColor": "black","autoCalculate":true});
 
-	  } else {
-            missingBreaths.push({"time":curTime,"value":null});
 	  }
+        } else if (ckey=="LOST") {
+	  // ignore because we can now compute it better with BNUM
         } else if (ckey=="FIO2") {
 	  if (validDecimalInteger(value) && (value<=100)) {
 	    fiO2Values.push({"time":curTime,"value":value});

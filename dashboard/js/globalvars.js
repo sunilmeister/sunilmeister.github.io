@@ -31,7 +31,6 @@ var attentionState = false;
 var pendingState = false;
 var currentViewIsSnapshot = true;
 var awaitingFirstDweet = true;
-var numBreaths = 0;
 var updatePaused = false;
 var desiredFiO2 = 21;
 var o2Purity = 21;
