@@ -15,7 +15,7 @@ var jsonRecordSchema = {
     ERROR: "--",
     MANDATORY: "--",
     SPONTANEOUS: "--",
-    BTOG: "--",
+    BNUM: "--",
     LOST: 0,
     ATTENTION: "--",
     PENDING: "--",

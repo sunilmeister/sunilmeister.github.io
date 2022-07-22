@@ -85,8 +85,8 @@ function processDashboardDweet(d) {
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
 
-  if (typeof d.content["BTOG"] != "undefined") {
-    console.log("BTOG=" + d.content["BTOG"]);
+  if (typeof d.content["BNUM"] != "undefined") {
+    //console.log("BNUM=" + d.content["BNUM"]);
     numBreaths++;
   }
 
@@ -860,6 +860,7 @@ window.onload = function() {
 }
 
 window.onbeforeunload = function(e) {
+  if (db) db.close();
   var msg = 'Charts waveform history will be lost';
   if (numBreaths!=0) {
     if (!recordingOff) {

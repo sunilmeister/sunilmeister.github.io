@@ -248,21 +248,21 @@ function globalTrackJsonRecord(jsonData) {
       for (var ckey in jsonData.content) {
         value = jsonData.content[ckey];
         initialJsonRecord.content[ckey] = value;
-        if (ckey == "BTOG") {
+        if (ckey == "BNUM") {
           breathTimes = [{"time":initialJsonRecord.created,"valid":false}]
         }
       }
     }
   }
   // delete signalling messages
-  delete initialJsonRecord.content["BTOG"];
+  delete initialJsonRecord.content["BNUM"];
   delete initialJsonRecord.content["WMSG"];
   delete initialJsonRecord.content["EMSG"];
 }
 
 function processFirstRecordData() {
   // delete signalling messages
-  delete initialJsonRecord.content["BTOG"];
+  delete initialJsonRecord.content["BNUM"];
   delete initialJsonRecord.content["WMSG"];
   delete initialJsonRecord.content["EMSG"];
   prevParamCombo = createNewInstance(currParamCombo);
@@ -302,7 +302,7 @@ function statProcessJsonRecord(jsonData) {
         } else if (ckey == "BREATH") {
           prevBreathMandatory = (value == "MANDATORY");
           prevBreathSpontaneous = (value == "SPONTANEOUS");
-        } else if (ckey == "BTOG") {
+        } else if (ckey == "BNUM") {
           if (prevBreathMandatory) {
             numMandatory++;
           } else if (prevBreathSpontaneous) {

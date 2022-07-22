@@ -169,9 +169,7 @@ function processRecordDweet(d) {
   }
 
   recordBox = document.getElementById("recordBox");
-  if (emptyContent) {
-    recordBox.innerHTML = "<center><br><br><br><br><br><b>Record Pruned</b></center>" ;
-  } else {
+  if (!emptyContent) {
     recordBox.innerText = JSON.stringify(d, null, ". ");
     if (db) insertJsonData(db, d);
   }

@@ -236,8 +236,8 @@ function chartProcessJsonRecord(jsonData) {
 	  if (expectWarningMsg || expectErrorMsg) {
 	    if (!l4) l4 = jsonData.content['L4'];
 	  }
-        } else if (ckey=="BTOG") {
-	  //console.log("Push BTOG=" + value + " " + curTime);
+        } else if (ckey=="BNUM") {
+	  //console.log("Push BNUM=" + value + " " + curTime);
 	  breathTimes.push({"time":curTime, "valid":true});
 	  lastValidBreathTime = curTime;
         } else if (ckey=="LOST") {
