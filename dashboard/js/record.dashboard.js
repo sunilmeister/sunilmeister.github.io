@@ -102,10 +102,6 @@ function initRecordingPrevContent() {
 function processRecordDweet(d) {
   if (recordingOff || recordingPaused) return;
 
-  if (typeof d.content['LOST'] != 'undefined') {
-    console.log("LOST=" + d.content['LOST']);
-  }
-
   // We already have the UID
   // delete d.thing;
   if (d.content['INITIAL'] == "1") initialState = true;

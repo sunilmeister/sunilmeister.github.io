@@ -85,12 +85,6 @@ function processDashboardDweet(d) {
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
 
-  if (typeof d.content["BNUM"] != "undefined") {
-    //console.log("BNUM=" + d.content["BNUM"]);
-    dashboardBreathNum++;
-    systemBreathNum = d.content["BNUM"];
-  }
-
   elm = document.getElementById("dashboardBreathNum");
   if (updatePaused) {
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
@@ -909,6 +903,12 @@ function FetchAndExecuteFromQueue() {
   //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
   if (simulatedTimeInMs >= dTimeInMs) {
     d = dweetQ.pop();
+    if (typeof d.content["BNUM"] != "undefined") {
+      //console.log("BNUM=" + d.content["BNUM"]);
+      dashboardBreathNum++;
+      systemBreathNum = d.content["BNUM"];
+    }
+
     //console.log("Queue Popped new size=" + dweetQ.size());
     var dCopy; // a copy of the dweet
     if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);

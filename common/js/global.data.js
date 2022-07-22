@@ -259,6 +259,11 @@ function globalTrackJsonRecord(jsonData) {
         value = jsonData.content[ckey];
         initialJsonRecord.content[ckey] = value;
         if (ckey == "BNUM") {
+  	  systemBreathNum = value;
+	  bMissing = systemBreathNum - prevSystemBreathNum - 1;
+	  numMissingBreaths += bMissing;
+	  prevSystemBreathNum = value;
+
           breathTimes = [{"time":initialJsonRecord.created,"valid":false}]
         }
       }
@@ -331,8 +336,6 @@ function statProcessJsonRecord(jsonData) {
 	    // update number of breaths for the last combo
             usedParamCombos[usedParamCombos.length-1].dashboardBreathNum++;
           }
-        } else if (ckey == "LOST") {
-	  numMissingBreaths += value;
         } else if (ckey == "ATTENTION") {
           attentionState = (value == 1);
         } else if (ckey == "MODE") {
