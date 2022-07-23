@@ -2,6 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var chartPrevSystemBreathNum = -1;
+
 const graphColors = [
   "Crimson",
   "Blue",
@@ -111,6 +113,8 @@ function initChartData() {
   console.log("initChartData");
   initChartColor();
 
+  chartPrevSystemBreathNum = -1;
+  
   breathTimes = [];
   missingBreaths = [];
   missingBreathWindows = [];
@@ -239,13 +243,15 @@ function chartProcessJsonRecord(jsonData) {
         } else if (ckey=="BNUM") {
 	  breathTimes.push({"time":curTime, "valid":true});
 	  lastValidBreathTime = curTime;
-	  if (systemBreathTime==0) { // initialize
-	    prevSystemBreathNum = value-1;
+	  if (chartPrevSystemBreathNum==-1) { // initialize
+	    chartPrevSystemBreathNum = value-1;
 	  }
 	  systemBreathNum = value;
-	  breathsMissing = systemBreathNum - prevSystemBreathNum - 1;
-	  prevSystemBreathNum = value;
+	  breathsMissing = systemBreathNum - chartPrevSystemBreathNum - 1;
+	  chartPrevSystemBreathNum = value;
 	  if (breathsMissing) {
+	    console.log("Breaths Missing =" + breathsMissing);
+	    console.log("Missing systemBreathNum=" + systemBreathNum + " prev=" + chartPrevSystemBreathNum);
             missingBreaths.push({"time":curTime,"value":breathsMissing});
 	    // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
 	    lastBreathNum = breathTimes.length;

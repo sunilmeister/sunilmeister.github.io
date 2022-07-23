@@ -866,8 +866,7 @@ window.onbeforeunload = function(e) {
   }
 }
 
-var periodicIntervalId = setInterval(function() {
-  simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
+function HandlePeriodicTasks() {
   updateAlert(true);
   updatePending(true);
   blinkInterval += PERIODIC_INTERVAL_IN_MS;
@@ -885,11 +884,20 @@ var periodicIntervalId = setInterval(function() {
   } else {
     displayNormalMessages();
   }
+}
 
-  // Main loop executed every PERIODIC_INTERVAL_IN_MS
+//var periodicIntervalId = setTimeout(function mainLoop() {
+var periodicIntervalId = setInterval(function mainLoop() {
+  simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
+  HandlePeriodicTasks();
+
+  // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   while(dweetQ.size()) {
     if (!FetchAndExecuteFromQueue()) break;
   }
+
+  // nest so that the next one is scheduled only after current one finishes
+  // periodicIntervalId = setTimeout(mainLoop, PERIODIC_INTERVAL_IN_MS);
 
 }, PERIODIC_INTERVAL_IN_MS);
 

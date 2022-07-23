@@ -10,7 +10,7 @@ const RESPIMATIC_UID_PREFIX = "UID_";
 // Breath numbers being recorded
 var dashboardBreathNum = 0;
 var systemBreathNum = 0;
-var prevSystemBreathNum = 0;
+var prevSystemBreathNum = -1;
 
 // before Analysis starts
 var initialJsonRecord = null;
@@ -109,7 +109,7 @@ function initGlobalData() {
 
   dashboardBreathNum = 0;
   systemBreathNum = 0;
-  prevSystemBreathNum = 0;
+  prevSystemBreathNum = -1;
 
   initChartData();
   numInitialEntry = 0;
@@ -259,6 +259,10 @@ function globalTrackJsonRecord(jsonData) {
         value = jsonData.content[ckey];
         initialJsonRecord.content[ckey] = value;
         if (ckey == "BNUM") {
+	  if (prevSystemBreathNum==-1) { // initialize
+	    prevSystemBreathNum = value-1;
+	  }
+
   	  systemBreathNum = value;
 	  bMissing = systemBreathNum - prevSystemBreathNum - 1;
 	  numMissingBreaths += bMissing;
