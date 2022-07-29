@@ -271,13 +271,13 @@ function chartProcessJsonRecord(jsonData) {
 	  }
         } else if (ckey=="FIO2") {
 	  if (validDecimalInteger(value) && (value<=100)) {
-	    fiO2Values.push({"time":curTime,"value":value});
+	    fiO2Values.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    fiO2Values.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="O2PURITY") {
 	  if (validDecimalInteger(value) && (value<=100)) {
-	    o2PurityValues.push({"time":curTime,"value":value});
+	    o2PurityValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    o2PurityValues.push({"time":curTime,"value":null});
 	  }
@@ -289,62 +289,62 @@ function chartProcessJsonRecord(jsonData) {
 	  }
         } else if (ckey=="MBPM") {
 	  if (validDecimalInteger(value)) {
-	    mbpmValues.push({"time":curTime,"value":value});
+	    mbpmValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    mbpmValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="SBPM") {
 	  if (validDecimalInteger(value)) {
-	    sbpmValues.push({"time":curTime,"value":value});
+	    sbpmValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    sbpmValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="STATIC") {
 	  if (validDecimalInteger(value)) {
-	    scompValues.push({"time":curTime,"value":value});
+	    scompValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    scompValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="DYNAMIC") {
 	  if (validDecimalInteger(value)) {
-	    dcompValues.push({"time":curTime,"value":value});
+	    dcompValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    dcompValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="VTDEL") {
 	  //console.log("Push VTDEL=" + value + " " + curTime);
 	  if (validDecimalInteger(value)) {
-	    vtdelValues.push({"time":curTime,"value":value});
+	    vtdelValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    vtdelValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="MVDEL") {
 	  if (validFloatNumber(value)) {
-	    mvdelValues.push({"time":curTime,"value":value});
+	    mvdelValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    mvdelValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="PIP") {
 	  if (validDecimalInteger(value)) {
-	    peakValues.push({"time":curTime,"value":value});
+	    peakValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    peakValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="PLAT") {
 	  if (validDecimalInteger(value)) {
-	    platValues.push({"time":curTime,"value":value});
+	    platValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    platValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="MPEEP") {
 	  if (validDecimalInteger(value)) {
-	    mpeepValues.push({"time":curTime,"value":value});
+	    mpeepValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    mpeepValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="TEMP") {
 	  if (validDecimalInteger(value)) {
-	    tempValues.push({"time":curTime,"value":value});
+	    tempValues.push({"time":curTime,"value":Number(value)});
 	  } else {
 	    tempValues.push({"time":curTime,"value":null});
 	  }
