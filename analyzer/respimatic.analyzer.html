@@ -58,16 +58,9 @@
         <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <p>Session Actions
             <br>
-            <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Select Session</button>
+            <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Manage Sessions</button>
             <br>
-            <button id="btnExport" class="sidebarButton" onclick='selectExport()'>Export Session</button>
-            <br>
-            <button id="btnImport" class="sidebarButton" onclick='selectImport()'>Import Session</button>
-            <br>
-            <button id="btnDeleteAll" class="sidebarButton" style="padding: 10px 5px;" onclick='deleteAllDbs()'>Delete All Sessions</button>
-            <br>
-            <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Display Raw
-              Data</button>
+            <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Session Raw Data</button>
             <br>
         </div>
       </center>
@@ -130,6 +123,7 @@
 	    <br>
             <button id="btnSelectSession" class="button" onclick='selectDbRow()'>Select</button>
             <button id="btnExportSession" class="button" onclick='exportDbRow()'>Export</button>
+            <button id="btnImportSession" class="button" onclick='selectImport()'>Import</button>
             <button id="btnDeleteSession" class="button" onclick='deleteDbRow()'>Delete</button>
             <button id="btnDeleteAllSessions" class="button" onclick='deleteAllDbs()'>Delete All</button>
         </div>
