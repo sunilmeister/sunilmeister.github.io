@@ -781,6 +781,7 @@ function InitChartCheckBoxes() {
   document.getElementById("MiscTick").checked = false;
 }
 
+var finishedLoading = false;
 window.onload = function() {
   initDbNames();
   InitRecorder();
@@ -849,6 +850,7 @@ window.onload = function() {
 
   // now wait for dweets and act accordingly
   waitForDweets();
+  finishedLoading = true;
 }
 
 window.onbeforeunload = function(e) {
@@ -863,6 +865,8 @@ window.onbeforeunload = function(e) {
 }
 
 function HandlePeriodicTasks() {
+  if (!finishedLoading) return;
+
   updateAlert(true);
   updatePending(true);
   blinkInterval += PERIODIC_INTERVAL_IN_MS;
