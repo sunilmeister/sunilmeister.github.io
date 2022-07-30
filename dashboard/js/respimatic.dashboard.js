@@ -849,10 +849,6 @@ window.onload = function() {
 
   // now wait for dweets and act accordingly
   waitForDweets();
-  alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-  );
 }
 
 window.onbeforeunload = function(e) {
@@ -928,4 +924,8 @@ function FetchAndExecuteFromQueue() {
   }
 }
 
+alert(
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
+    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+);
 

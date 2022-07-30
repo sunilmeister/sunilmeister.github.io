@@ -404,10 +404,6 @@ window.onload = function() {
   document.getElementById("exportWindowDiv").style.display = "none";
   resetAnalysisData();
   selectSession();
-  alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-  );
 }
 
 function selectExit() {
@@ -502,3 +498,8 @@ function resetDivs() {
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
 }
+
+alert(
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
+    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+);

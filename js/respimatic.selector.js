@@ -212,10 +212,6 @@ function launchFiO2() {
 }
 
 window.onload = function() {
-  alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-  );
 
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";
@@ -239,3 +235,8 @@ window.onload = function() {
     ddList.selectedIndex = -1;
   }
 };
+
+alert(
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
+    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+);
