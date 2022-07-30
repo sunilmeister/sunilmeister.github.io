@@ -251,7 +251,7 @@ function chartProcessJsonRecord(jsonData) {
 	  chartPrevSystemBreathNum = value;
 	  if (breathsMissing) {
 	    console.log("Breaths Missing =" + breathsMissing);
-	    console.log("Missing systemBreathNum=" + systemBreathNum + " prev=" + chartPrevSystemBreathNum);
+	    console.log("Missing systemBreathNum=" + systemBreathNum);
             missingBreaths.push({"time":curTime,"value":breathsMissing});
 	    // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
 	    lastBreathNum = breathTimes.length;

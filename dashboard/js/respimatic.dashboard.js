@@ -886,8 +886,8 @@ function HandlePeriodicTasks() {
   }
 }
 
-//var periodicIntervalId = setTimeout(function mainLoop() {
-var periodicIntervalId = setInterval(function mainLoop() {
+var periodicIntervalId = setTimeout(function mainLoop() {
+//var periodicIntervalId = setInterval(function mainLoop() {
   simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
   HandlePeriodicTasks();
 
@@ -897,7 +897,7 @@ var periodicIntervalId = setInterval(function mainLoop() {
   }
 
   // nest so that the next one is scheduled only after current one finishes
-  // periodicIntervalId = setTimeout(mainLoop, PERIODIC_INTERVAL_IN_MS);
+  periodicIntervalId = setTimeout(mainLoop, PERIODIC_INTERVAL_IN_MS);
 
 }, PERIODIC_INTERVAL_IN_MS);
 
