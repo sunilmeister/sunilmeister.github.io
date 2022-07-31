@@ -592,7 +592,7 @@ function selectExit() {
 function installFiO2Gauge() {
   var style = getComputedStyle(document.body)
   // Create knob element, 200 x 200 px in size.
-  fiO2Gauge = pureknob.createKnob(200, 200);
+  fiO2Gauge = pureknob.createKnob(150, 150);
   // Set properties.
   fiO2Gauge.setProperty('angleStart', -0.75 * Math.PI);
   fiO2Gauge.setProperty('angleEnd', 0.75 * Math.PI);
@@ -616,7 +616,7 @@ function installFiO2Gauge() {
 function installPurityGauge() {
   var style = getComputedStyle(document.body)
   // Create knob element, 200 x 200 px in size.
-  purityGauge = pureknob.createKnob(200, 200);
+  purityGauge = pureknob.createKnob(150, 150);
   // Set properties.
   purityGauge.setProperty('angleStart', -0.75 * Math.PI);
   purityGauge.setProperty('angleEnd', 0.75 * Math.PI);
