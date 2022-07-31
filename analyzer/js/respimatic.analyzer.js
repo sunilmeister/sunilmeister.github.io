@@ -16,17 +16,16 @@ function listDbTableRow(item, index) {
   if (nameTm[0] != respimaticUid) return;
   var table = document.getElementById("dbTable");
   var row = table.insertRow();
+  row.style.cursor = "pointer" ;
   var cell;
   cell = row.insertCell();
   cell.style.paddingRight = "25px" ;
   cell.style.paddingTop = "8px" ;
   cell.style.paddingBottom = "8px" ;
-  cell.style.cursor = "pointer" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.style.paddingTop = "8px" ;
   cell.style.paddingBottom = "8px" ;
-  cell.style.cursor = "pointer" ;
   cell.innerHTML = nameTm[2];
 }
 

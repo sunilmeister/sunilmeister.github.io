@@ -93,6 +93,7 @@ function removeSystemUidTagInfo(uid, tag) {
 
 function appendSystemUidTagHtmlRow(table, uid, tag) {
   row = table.insertRow();
+  row.style.cursor = "pointer";
   cell = row.insertCell();
   cell.innerHTML = tag;
   cell = row.insertCell();
