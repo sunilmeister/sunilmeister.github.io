@@ -19,8 +19,10 @@ function listDbTableRow(item, index) {
   var cell;
   cell = row.insertCell();
   cell.style.paddingRight = "25px" ;
+  cell.style.cursor = "pointer" ;
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
+  cell.style.cursor = "pointer" ;
   cell.innerHTML = nameTm[2];
 }
 
