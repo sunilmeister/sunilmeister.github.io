@@ -102,7 +102,7 @@ var numMaintenance;
 var numMissingBreaths;
 
 function initGlobalData() {
-  console.log("initGlobalData");
+  //console.log("initGlobalData");
   sessionDurationInMs = 0;
   globalDataValid = false;
   firstRecord = true;
@@ -566,7 +566,7 @@ function globalLastRecord() {
 
 function gatherGlobalData() {
   if (globalDataValid) return;
-  console.log("gatherGlobalData");
+  //console.log("gatherGlobalData");
   initialJsonRecord = createNewInstance(jsonRecordSchema);
   if (allDbKeys.length == 0) {
     alert("Selected Session has no data");

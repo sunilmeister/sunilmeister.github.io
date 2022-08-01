@@ -1,7 +1,6 @@
 // Dashboard
 var datasource_name = "RESPIMATIC100";
 var startDate;
-var startDTIME;
 var simulatedTimeInMs = 0;
 var updateInProgress = false;
 var blueColor;

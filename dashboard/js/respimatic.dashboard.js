@@ -44,6 +44,7 @@ function checkFiO2Calculation(d) {
 
 var dweetQ = new Queue();
 
+var startDTIME = 0;
 function disassembleAndQueueDweet(d) {
   //console.log(d);
 
@@ -51,11 +52,21 @@ function disassembleAndQueueDweet(d) {
     key = String(i);
     if (typeof d.content[key] == "undefined")  break;
     fragment = d.content[key];
-    fragment.created = new Date(addMsToDate(startDate,fragment.DTIME-startDTIME));
-    delete fragment.DTIME;
+    dTime = fragment.DTIME;
+    if (!startDTIME) startDTIME = dTime;
+
+    if (typeof fragment.content['CLEAR_ALL'] != "undefined")  {
+      // replace CLEAR_ALL with a preconstructed dweet
+      fragment = createNewInstance(clearAllDweet);
+      //console.log("Encountered CLEAR_ALL");
+      //console.log(fragment);
+    }
+
+    fragment.DTIME = dTime;
+    fragment.created = new Date(addMsToDate(startDate,(fragment.DTIME - startDTIME)));
+    //console.log(fragment);
+
     dweetQ.push(createNewInstance(fragment));
-    //console.log("Dweet Queue Size=" + dweetQ.size());
-    //console.log("Fragment " + i + " created " + fragment.created + " is " + fragment.content);
   }
 }
 
@@ -66,9 +77,7 @@ function waitForDweets() {
     }
     if (awaitingFirstDweet) {
       startDate = new Date(d.created);
-      simulatedTimeInMs = startDate.valueOf();
-      startDTIME = d.content["0"].DTIME;
-      //console.log("startDTIME=" + startDTIME);
+      simulatedTimeInMs = d.content["0"].DTIME;
       elm = document.getElementById("startTime");
       elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
     }
@@ -266,7 +275,6 @@ function changeToAlertView() {
 }
 
 function changeToRecordView() {
-  //console.log("Changing to record view");
   btn1 = document.getElementById("btnViewChange1");
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
@@ -503,7 +511,6 @@ function createDashboardMiscCharts() {
   yaxis = createErrorWarningYaxis(0, chartColor);
   chartJson.axisY2 = createNewInstance(yaxis);
   if (paramData) {
-    //console.log("warningValues.length=" +warningValues.length);
     paramData.name = "Warnings";
     paramData.color = chartColor;
     paramData.axisYType = "secondary";
@@ -904,20 +911,17 @@ var periodicIntervalId = setTimeout(function mainLoop() {
 function FetchAndExecuteFromQueue() {
   if (dweetQ.size() == 0) return false;
   d = dweetQ.peek();
-  dTime = new Date(d.created);
-  dTimeInMs = dTime.valueOf();
+  dTimeInMs = d.DTIME;
   //console.log(d);
   //console.log("dTimeInMs=" + dTimeInMs);
   //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
   if (simulatedTimeInMs >= dTimeInMs) {
     d = dweetQ.pop();
     if (typeof d.content["BNUM"] != "undefined") {
-      //console.log("BNUM=" + d.content["BNUM"]);
       dashboardBreathNum++;
       systemBreathNum = d.content["BNUM"];
     }
 
-    //console.log("Queue Popped new size=" + dweetQ.size());
     var dCopy; // a copy of the dweet
     if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
     processDashboardDweet(d);

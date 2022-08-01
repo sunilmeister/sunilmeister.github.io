@@ -128,7 +128,7 @@ function replaceDummyValue(value) {
 }
 
 function displayStats() {
-  console.log("displayStats");
+  //console.log("displayStats");
   if (!globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
@@ -277,7 +277,7 @@ function displayStats() {
 }
 
 function initStats() {
-  console.log("initStats");
+  //console.log("initStats");
   tablesConstructed = false;
   table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;

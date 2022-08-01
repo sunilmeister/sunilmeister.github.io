@@ -69,8 +69,6 @@ function dateStrToMs(dStr) {
 }
 
 function addMsToDate(date, ms) {
-  //console.log("Date: " + date);
-  //console.log("ms: " + ms);
   var mill = date.valueOf();    // Get millisecond value from date
   mill += ms;
   return new Date(mill);
@@ -109,7 +107,6 @@ function keyMoreThanAnalysisRangeMax(key) {
 
 function keyLessThanAnalysisRangeMin(key) {
   d = new Date(key);
-  //console.log("d=" + d + " analysisStart=" + analysisStartTime);
   if (d < analysisStartTime) return true;
   return false;
 }
@@ -188,13 +185,11 @@ function msToTimeStr(milliseconds) {
 function strToDate(dateStr, timeStr) {
   if (!dateStr || !timeStr) return null;
   const dateArr = dateStr.split("-");
-  //console.log("date " + dateArr);
   if (dateArr.length != 3) return null;
   dd = dateArr[0];
   mm = dateArr[1];
   yyyy = dateArr[2];
   const timeArr = timeStr.split(":");
-  //console.log("time " + timeArr);
   if (timeArr.length != 3) return null;
   hh = timeArr[0];
   mn = timeArr[1];
@@ -207,8 +202,6 @@ function strToDate(dateStr, timeStr) {
   }
   date = new Date(isoString);
   date.setMilliseconds(0);
-  //console.log("isoString=" + isoString);
-  //console.log("Date=" + date);
   return date;
 }
 // /////////////////////////////////////////////
@@ -449,7 +442,6 @@ function parsePatientInfo(str) {
   age="";pid="";gender="";
   let re = /\[.*\]\s+\([MF]\)\s+.+/i ;
   if (!str.match(re)) {
-    //console.log(str);
     return [gender, age, pid];
   }
   tokens = str.split('[');

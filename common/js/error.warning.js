@@ -35,7 +35,7 @@ function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
 }
 
 function initErrorWarnings() {
-  console.log("initErrorWarnings");
+  //console.log("initErrorWarnings");
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   scrollbox = document.getElementById('scrollWarningDiv');

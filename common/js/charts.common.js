@@ -110,7 +110,7 @@ var o2PurityValues = [];
 var o2FlowValues = [];
 
 function initChartData() {
-  console.log("initChartData");
+  //console.log("initChartData");
   initChartColor();
 
   chartPrevSystemBreathNum = -1;
@@ -137,7 +137,7 @@ function initChartData() {
 }
 
 function initChartStartValues() {
-  console.log("initChartStartValues");
+  //console.log("initChartStartValues");
   if (breathTimes.length==0) breathTimes.push({"time":0,"valid":false});
   if (peakValues.length==0) peakValues.push({"time":0,"value":null});
   if (platValues.length==0) platValues.push({"time":0,"value":null});
@@ -312,7 +312,6 @@ function chartProcessJsonRecord(jsonData) {
 	    dcompValues.push({"time":curTime,"value":null});
 	  }
         } else if (ckey=="VTDEL") {
-	  //console.log("Push VTDEL=" + value + " " + curTime);
 	  if (validDecimalInteger(value)) {
 	    vtdelValues.push({"time":curTime,"value":Number(value)});
 	  } else {
