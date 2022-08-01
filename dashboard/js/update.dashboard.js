@@ -398,27 +398,48 @@ function displayNormalMessages() {
   updateDashboardAndRecordingStatus();
 }
 
+var savedL1 = savedL2 = savedL3 = savedL4 = "";
+var wifiDroppedBlink = 0;
+
 function displayWifiDropped() {
-  if (initialState) return;
+  //if (initialState) return;
   wifiDropped = true;
-  if (messagesBackground=="ORANGE") return;
+  wifiDroppedBlink++;
+  if (wifiDroppedBlink != 3) return;
+  wifiDroppedBlink  = 0;
 
-  elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = orangeColor;
-  messagesBackground="ORANGE";
-  updateDashboardAndRecordingStatus();
+  if (messagesBackground=="ORANGE") {
+    elm = document.getElementById("MessagesDiv");
+    elm.style.backgroundColor = mediumblueColor;
+    messagesBackground="MEDIUMBLUE";
 
-  elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = orangeColor;
+    elm = document.getElementById("Mline1");
+    elm.innerHTML = savedL1;
+    elm = document.getElementById("Mline2");
+    elm.innerHTML = savedL2;
+    elm = document.getElementById("Mline3");
+    elm.innerHTML = savedL3;
+    elm = document.getElementById("Mline4");
+    elm.innerHTML = savedL4;
+  } else {
+    elm = document.getElementById("MessagesDiv");
+    elm.style.backgroundColor = orangeColor;
+    messagesBackground="ORANGE";
+    updateDashboardAndRecordingStatus();
 
-  elm = document.getElementById("Mline1");
-  elm.innerHTML = "No Message from device";
-  elm = document.getElementById("Mline2");
-  elm.innerHTML = "for a while";
-  elm = document.getElementById("Mline3");
-  elm.innerHTML = "System will attempt";
-  elm = document.getElementById("Mline4");
-  elm.innerHTML = "to re-connect";
+    elm = document.getElementById("Mline1");
+    savedL1 = elm.innerHTML;
+    elm.innerHTML = "&nbsp";
+    elm = document.getElementById("Mline2");
+    savedL2 = elm.innerHTML;
+    elm.innerHTML = "No Message from device";
+    elm = document.getElementById("Mline3");
+    savedL3 = elm.innerHTML;
+    elm.innerHTML = "for a while";
+    elm = document.getElementById("Mline4");
+    savedL4 = elm.innerHTML;
+    elm.innerHTML = "&nbsp";
+  }
 }
 
 function displayWifiUnconnected() {
