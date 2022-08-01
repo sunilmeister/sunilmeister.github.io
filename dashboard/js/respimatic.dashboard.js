@@ -900,8 +900,8 @@ var periodicIntervalId = setTimeout(function mainLoop() {
   HandlePeriodicTasks();
 
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
-  while(dweetQ && dweetQ.size()) {
-    if (!FetchAndExecuteFromQueue()) break;
+  if (dweetQ && dweetQ.size()) {
+    FetchAndExecuteFromQueue();
   }
 
   // nest so that the next one is scheduled only after current one finishes
