@@ -62,6 +62,7 @@ var recordingOff = true;
 var recordingPaused = false;
 
 // check for continuing dweets
+var dweetQ = null;
 var wifiDropped = false;
 var blinkInterval = 0;
 const PERIODIC_INTERVAL_IN_MS = 1000;

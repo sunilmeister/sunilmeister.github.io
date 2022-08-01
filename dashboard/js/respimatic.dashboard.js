@@ -42,7 +42,6 @@ function checkFiO2Calculation(d) {
   }
 }
 
-var dweetQ = new Queue();
 
 var startDTIME = 0;
 function disassembleAndQueueDweet(d) {
@@ -76,8 +75,9 @@ function waitForDweets() {
       initRecordingPrevContent();
     }
     if (awaitingFirstDweet) {
-      startDate = new Date(d.created);
+      //console.log(d);
       simulatedTimeInMs = d.content["0"].DTIME;
+      startDate = new Date(d.created);
       elm = document.getElementById("startTime");
       elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
     }
@@ -856,6 +856,7 @@ window.onload = function() {
   InitChartCheckBoxes();
 
   // now wait for dweets and act accordingly
+  dweetQ = new Queue();
   waitForDweets();
   finishedLoading = true;
 }
@@ -899,7 +900,7 @@ var periodicIntervalId = setTimeout(function mainLoop() {
   HandlePeriodicTasks();
 
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
-  while(dweetQ.size()) {
+  while(dweetQ && dweetQ.size()) {
     if (!FetchAndExecuteFromQueue()) break;
   }
 
@@ -909,14 +910,17 @@ var periodicIntervalId = setTimeout(function mainLoop() {
 }, PERIODIC_INTERVAL_IN_MS);
 
 function FetchAndExecuteFromQueue() {
+  if (!finishedLoading) return false;
   if (dweetQ.size() == 0) return false;
   d = dweetQ.peek();
   dTimeInMs = d.DTIME;
   //console.log(d);
-  //console.log("dTimeInMs=" + dTimeInMs);
   //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
+  //console.log("Peeked dTimeInMs=" + dTimeInMs);
   if (simulatedTimeInMs >= dTimeInMs) {
     d = dweetQ.pop();
+    //console.log("Popped dTimeInMs=" + dTimeInMs);
+    
     if (typeof d.content["BNUM"] != "undefined") {
       dashboardBreathNum++;
       systemBreathNum = d.content["BNUM"];
