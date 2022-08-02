@@ -1,7 +1,6 @@
 var knownRespimaticSystems = [];
-
 var templateSystemId = {
-  uid : "",
+  uid: "",
   tag: ""
 };
 
@@ -12,12 +11,14 @@ function createSystemUidTagObj(uid, tag) {
   return obj;
 }
 
-function compareSystemUidTagObj( a, b ) {
-  if ( a.tag < b.tag ) {
+function compareSystemUidTagObj(a, b) {
+  if (a.tag < b.tag) {
     return -1;
-  } else if ( a.tag > b.tag ) {
+  }
+  else if (a.tag > b.tag) {
     return 1;
-  } else return 0;
+  }
+  else return 0;
 }
 
 function initKnownRespimaticSystems() {
@@ -25,7 +26,8 @@ function initKnownRespimaticSystems() {
   if (str) {
     knownRespimaticSystems = JSON.parse(str);
     knownRespimaticSystems.sort(compareSystemUidTagObj);
-  } else {
+  }
+  else {
     knownRespimaticSystems = [];
   }
 }
@@ -42,9 +44,9 @@ function saveNewRespimaticSystemId(uid, tag) {
 
 function findRespimaticTagIndex(tag) {
   tag = tag.toUpperCase();
-  i=0;
+  i = 0;
   for (const obj of knownRespimaticSystems) {
-    if (obj.tag==tag) return i;
+    if (obj.tag == tag) return i;
     i++;
   }
   return -1;
@@ -53,7 +55,7 @@ function findRespimaticTagIndex(tag) {
 function findSystemUidObj(uid) {
   uid = uid.toUpperCase();
   for (const obj of knownRespimaticSystems) {
-    if (obj.uid==uid) return obj;
+    if (obj.uid == uid) return obj;
   }
   return null;
 }
@@ -61,7 +63,7 @@ function findSystemUidObj(uid) {
 function findSystemTagObj(tag) {
   tag = tag.toUpperCase();
   for (const obj of knownRespimaticSystems) {
-    if (obj.tag==tag) return obj;
+    if (obj.tag == tag) return obj;
   }
   return null;
 }
@@ -79,11 +81,11 @@ function findSystemUid(tag) {
 }
 
 function removeSystemUidTagInfo(uid, tag) {
-  for( var i = 0; i < knownRespimaticSystems.length; i++){ 
+  for (var i = 0; i < knownRespimaticSystems.length; i++) {
     obj = knownRespimaticSystems[i];
     if (obj.tag != tag) continue;
     if (obj.uid != uid) continue;
-    knownRespimaticSystems.splice(i,1);
+    knownRespimaticSystems.splice(i, 1);
     localStorage.setItem(
       respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
     return tag;
@@ -104,14 +106,12 @@ function appendSystemUidTagHtmlRow(table, uid, tag) {
 function populateSystemUidTagHtmlTable(tableId) {
   initKnownRespimaticSystems();
   var table = document.getElementById(tableId);
-
   var rowCount = table.rows.length;
   for (var i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-
   for (const obj of knownRespimaticSystems) {
-   appendSystemUidTagHtmlRow(table, obj.uid, obj.tag);
+    appendSystemUidTagHtmlRow(table, obj.uid, obj.tag);
   }
 }
 

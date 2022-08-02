@@ -61,3 +61,4 @@ function displayErrorWarnings() {
     displayJsonErrorWarning(prefix, scrollbox, warningMsgs[i]);
   }
 }
+

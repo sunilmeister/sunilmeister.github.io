@@ -3,9 +3,9 @@
 // ////////////////////////////////////////////////////
 var tablesConstructed = false;
 
-function formAvg(sum,num) {
-  if (num==0) return "--" ;
-  avg = sum/num;
+function formAvg(sum, num) {
+  if (num == 0) return "--";
+  avg = sum / num;
   return avg.toFixed(1);
 }
 
@@ -149,19 +149,22 @@ function displayStats() {
   el = document.getElementById("platMin");
   if (minPeak == 0) {
     el.innerHTML = "--";
-  } else {
+  }
+  else {
     el.innerHTML = replaceDummyValue(minPlat);
   }
   el = document.getElementById("platMax");
   if (minPeak == 0) {
     el.innerHTML = "--";
-  } else {
+  }
+  else {
     el.innerHTML = replaceDummyValue(maxPlat);
   }
   el = document.getElementById("platAvg");
   if (minPeak == 0) {
     el.innerHTML = "--";
-  } else {
+  }
+  else {
     el.innerHTML = replaceDummyValue(avgPlat);
   }
   el = document.getElementById("mpeepMin");
@@ -218,7 +221,6 @@ function displayStats() {
   el.innerHTML = replaceDummyValue(maxTemp);
   el = document.getElementById("tempAvg");
   el.innerHTML = replaceDummyValue(avgTemp);
-
   el = document.getElementById("mode");
   el.innerHTML = replaceDummyValue(modes);
   el = document.getElementById("vt");
@@ -240,13 +242,15 @@ function displayStats() {
   el = document.getElementById("pName");
   if (patientName) {
     el.innerHTML = "Patient Name: " + replaceDummyValue(patientName);
-  } else {
+  }
+  else {
     el.innerHTML = "Patient Name: UNKNOWN";
   }
   el = document.getElementById("pInfo");
   if (patientInfo) {
     el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo);
-  } else {
+  }
+  else {
     el.innerHTML = "Patient Info: UNKNOWN";
   }
   el = document.getElementById("altitude");
@@ -288,3 +292,4 @@ function initStats() {
   table = document.getElementById("statsMiscTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 }
+

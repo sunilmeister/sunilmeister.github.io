@@ -2,8 +2,9 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+// Dweet schema
 var jsonRecordSchema = {
-  created : 0,
+  created: 0,
   content: {
     L1: "--",
     L2: "--",
@@ -48,8 +49,9 @@ var jsonRecordSchema = {
   }
 };
 
+// Preconstructed dweet to clear all fields
 var clearAllDweet = {
-  created : 0,
+  created: 0,
   content: {
     INITIAL: 1,
     STANDBY: 0,
@@ -86,3 +88,4 @@ var clearAllDweet = {
     PID: "--",
   }
 };
+

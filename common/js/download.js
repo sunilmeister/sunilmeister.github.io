@@ -1,4 +1,4 @@
-//download.js v4.2, by dandavis; 2008-2016. [CCBY2] see http://danml.com/download.html for tests/usage
+// download.js v4.2, by dandavis; 2008-2016. [CCBY2] see http://danml.com/download.html for tests/usage
 // v1 landed a FF+Chrome compat way of downloading strings to local un-named files, upgraded to use a hidden frame and optional mime
 // v2 added named files via a[download], msSaveBlob, IE (10+) support, and window.URL support for larger+faster saves than dataURLs
 // v3 added dataURL and Blob Input, bind-toggle arity, and legacy dataURL fallback was improved with force-download mime and base64 support. 3.1 improved safari handling.
@@ -10,12 +10,14 @@
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define([], factory);
-  } else if (typeof exports === 'object') {
+  }
+  else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
     module.exports = factory();
-  } else {
+  }
+  else {
     // Browser globals (root is window)
     root.download = factory();
   }
@@ -68,7 +70,8 @@
       if (payload.length > (1024 * 1024 * 1.999) && myBlob !== toString) {
         payload = dataUrlToBlob(payload);
         mimeType = payload.type || defaultMime;
-      } else {
+      }
+      else {
         return navigator.msSaveBlob ?
           // IE10 can't do a[download], only Blobs:
           navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
@@ -144,12 +147,14 @@
     }
     if (self.URL) { // simple fast and modern way using Blob and URL:
       saver(self.URL.createObjectURL(blob), true);
-    } else {
+    }
+    else {
       // handle non-Blob()+non-URL browsers:
       if (typeof blob === "string" || blob.constructor === toString) {
         try {
           return saver("data:" + mimeType + ";base64," + self.btoa(blob));
-        } catch (y) {
+        }
+        catch (y) {
           return saver("data:" + mimeType + "," + encodeURIComponent(
             blob));
         }
@@ -164,3 +169,4 @@
     return true;
   }; /* end download() */
 }));
+

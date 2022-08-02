@@ -1,17 +1,16 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS" ;
+const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS";
 const uidCookieName = "RESPIMATIC_UID_COOKIE";
 const tagCookieName = "RESPIMATIC_TAG_COOKIE";
+const localStorageDbName = "respimatic_dbs";
+const dbVersion = 1;
+const dbPrimaryKey = 'created';
 var respimaticUid = "";
 var respimaticTag = "";
-
-const localStorageDbName = "respimatic_dbs";
 var dbNamePrefix = "";
-const dbVersion = 1;
 var dbObjStoreName = "";
-const dbPrimaryKey = 'created';
 var db = null;
 var dbReady = false;
 var dbName = "";
@@ -28,19 +27,16 @@ function initDbNames() {
     respimaticUid = sessionStorage.getItem("respimaticUid");
     respimaticTag = sessionStorage.getItem("respimaticTag");
   }
-
   dbNamePrefix = respimaticUid;
   dbObjStoreName = respimaticUid;
 }
-
 // /////////////////////////////////////////////
 // Zoom to a fraction of original
 // /////////////////////////////////////////////
 function pageZoom(factor) {
-  factor = factor * (screen.availHeight  / window.innerHeight);
-  document.body.style.transform = 'scale(' + factor +')';
-  document.body.style.transformOrigin = 'top left' ;
-
+  factor = factor * (screen.availHeight / window.innerHeight);
+  document.body.style.transform = 'scale(' + factor + ')';
+  document.body.style.transformOrigin = 'top left';
   console.log("Outer Width=" + window.outerWidth);
   console.log("Inner Width=" + window.innerWidth);
   console.log("Screen Width=" + screen.availWidth);
@@ -50,10 +46,8 @@ function pageZoom(factor) {
   console.log("Inner Height=" + window.innerHeight);
   console.log("Screen Height=" + screen.availHeight);
   console.log("Client Height=" + document.documentElement.clientHeight);
-
   console.log("Zoom Factor=" + factor);
 }
-
 // /////////////////////////////////////////////
 // milliseconds to dates
 // /////////////////////////////////////////////
@@ -69,11 +63,10 @@ function dateStrToMs(dStr) {
 }
 
 function addMsToDate(date, ms) {
-  var mill = date.valueOf();    // Get millisecond value from date
+  var mill = date.valueOf(); // Get millisecond value from date
   mill += ms;
   return new Date(mill);
 }
-
 // /////////////////////////////////////////////
 // Misc functions
 // /////////////////////////////////////////////
@@ -247,7 +240,6 @@ const tpsOptions = ["\u21A110\uFE6A", "\u21A120\uFE6A", "\u21A130\uFE6A", "\u23F
 function tpsValid(str) {
   return tpsOptions.indexOf(str) != -1;
 }
-
 // /////////////////////////////////////////////
 // Cookie functions
 // /////////////////////////////////////////////
@@ -255,8 +247,8 @@ function setCookie(cname, cvalue) {
   var d = new Date();
   d.setFullYear(d.getFullYear() + 1);
   var expiry = d.toUTCString();
-  document.cookie = cname + "=" + cvalue + "; expires=" + expiry 
-    + ";path=/; SameSite=None;Secure";
+  document.cookie = cname + "=" + cvalue + "; expires=" + expiry +
+    ";path=/; SameSite=None;Secure";
 }
 
 function deleteCookie(cname) {
@@ -289,11 +281,13 @@ function checkDbExists(dbName) {
   var respimatic_dbs = [];
   if (retrieved_dbs) {
     respimatic_dbs = JSON.parse(retrieved_dbs);
-  } else return false;
+  }
+  else return false;
   var ix;
   if (respimatic_dbs.length) {
     ix = respimatic_dbs.indexOf(dbName);
-  } else {
+  }
+  else {
     ix = -1;
   }
   if (ix == -1) return false;
@@ -315,7 +309,8 @@ function deleteDb(dbName) {
   var ix;
   if (retrieved_dbs.length) {
     ix = retrieved_dbs.indexOf(dbName);
-  } else {
+  }
+  else {
     ix = -1;
   }
   if (ix != -1) {
@@ -338,7 +333,8 @@ function isValidDatabaseName(dname) {
   var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
   if (format.test(dname)) {
     return false;
-  } else {
+  }
+  else {
     return true;
   }
 }
@@ -355,7 +351,8 @@ function createOrOpenDb(name, timeStamp) {
       dbObjStore = db.createObjectStore(dbObjStoreName, {
         keyPath: dbPrimaryKey
       });
-    } else {
+    }
+    else {
       dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
     }
   }
@@ -394,7 +391,8 @@ function exportDb(dbName) {
       if (cursor) {
         getAll.push(cursor.value);
         cursor.continue();
-      } else {
+      }
+      else {
         download(JSON.stringify(getAll, null, 1), "respimatic.session.txt", "text/plain");
       }
     }
@@ -411,7 +409,8 @@ function registerDbName(dbName) {
   var ix;
   if (respimatic_dbs.length) {
     ix = respimatic_dbs.indexOf(dbName);
-  } else {
+  }
+  else {
     ix = -1;
   }
   if (ix == -1) {
@@ -435,12 +434,13 @@ function lookupO2FlowRate(vt, rr, fiO2, purity) {
   f = (mv * (fiO2 - 21)) / (degradedPurity - 21);
   return f;
 }
-
 //returns an array [gender, age, pid]
 // from a pattern like "[ID] (M) Age"
 function parsePatientInfo(str) {
-  age="";pid="";gender="";
-  let re = /\[.*\]\s+\([MF]\)\s+.+/i ;
+  age = "";
+  pid = "";
+  gender = "";
+  let re = /\[.*\]\s+\([MF]\)\s+.+/i;
   if (!str.match(re)) {
     return [gender, age, pid];
   }
@@ -459,5 +459,4 @@ function parseAltitude(str) {
   // return [ft,meters]
   return str.split(' ');
 }
-
 
