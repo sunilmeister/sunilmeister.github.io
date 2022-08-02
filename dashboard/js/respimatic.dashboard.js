@@ -41,37 +41,32 @@ function checkFiO2Calculation(d) {
     updateFiO2Display(newFiO2, newPurity, newO2Flow);
   }
 }
-
-
 var startDTIME = 0;
+
 function disassembleAndQueueDweet(d) {
   //console.log(d);
-
-  for (i=0;;i++) {
+  for (i = 0;; i++) {
     key = String(i);
-    if (typeof d.content[key] == "undefined")  break;
+    if (typeof d.content[key] == "undefined") break;
     fragment = d.content[key];
     dTime = fragment.DTIME;
     if (!startDTIME) startDTIME = dTime;
-
-    if (typeof fragment.content['CLEAR_ALL'] != "undefined")  {
+    if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
       // replace CLEAR_ALL with a preconstructed dweet
       fragment = createNewInstance(clearAllDweet);
       //console.log("Encountered CLEAR_ALL");
       //console.log(fragment);
     }
-
     fragment.DTIME = dTime;
-    fragment.created = new Date(addMsToDate(startDate,(fragment.DTIME - startDTIME)));
+    fragment.created = new Date(addMsToDate(startDate, (fragment.DTIME - startDTIME)));
     //console.log(fragment);
-
     dweetQ.push(createNewInstance(fragment));
   }
 }
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
-    if (simulatedTimeInMs-lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    if (simulatedTimeInMs - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
     if (awaitingFirstDweet) {
@@ -83,7 +78,6 @@ function waitForDweets() {
     }
     awaitingFirstDweet = false;
     lastDweetInMs = simulatedTimeInMs;
-
     disassembleAndQueueDweet(d);
   })
 }
@@ -93,23 +87,21 @@ function processDashboardDweet(d) {
   sessionDurationInMs = curDate - startDate;
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
-
   elm = document.getElementById("dashboardBreathNum");
   if (updatePaused) {
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
-  } else {
+  }
+  else {
     elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + dashboardBreathNum;
   }
-
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
   chartProcessJsonRecord(d);
   statProcessJsonRecord(d);
-  if ((currentView=="snapshots") && !updatePaused) updateSnapshot();
-  if ((currentView=="charts") && !updatePaused) createDashboardCharts();
-  if ((currentView=="stats") && !updatePaused) createDashboardStats();
-  if ((currentView=="alerts") && !updatePaused) createDashboardAlerts();
-  
+  if ((currentView == "snapshots") && !updatePaused) updateSnapshot();
+  if ((currentView == "charts") && !updatePaused) createDashboardCharts();
+  if ((currentView == "stats") && !updatePaused) createDashboardStats();
+  if ((currentView == "alerts") && !updatePaused) createDashboardAlerts();
   return d;
 }
 
@@ -135,15 +127,16 @@ function createDashboardAlerts() {
 function blinkFlowRate() {
   flowDiv = document.getElementById("flowDiv");
   var style = getComputedStyle(document.body)
-    if (flowDivBackground=="DARKBLUE") {
-      flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_lightblue');
-      flowDiv.style.color = style.getPropertyValue('--rsp_darkblue');
-      flowDivBackground = "LIGHTBLUE";
-    } else {
-      flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
-      flowDiv.style.color = "white";
-      flowDivBackground = "DARKBLUE";
-    }
+  if (flowDivBackground == "DARKBLUE") {
+    flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_lightblue');
+    flowDiv.style.color = style.getPropertyValue('--rsp_darkblue');
+    flowDivBackground = "LIGHTBLUE";
+  }
+  else {
+    flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
+    flowDiv.style.color = "white";
+    flowDivBackground = "DARKBLUE";
+  }
 }
 
 function blinkPauseButton() {
@@ -151,16 +144,18 @@ function blinkPauseButton() {
   hdr = document.getElementById("headerDiv");
   var style = getComputedStyle(document.body)
   if (updatePaused) {
-    if (pauseButtonBackground=="BLUE") {
+    if (pauseButtonBackground == "BLUE") {
       btn.style.backgroundColor = style.getPropertyValue('--rsp_orange');
       hdr.style.backgroundColor = style.getPropertyValue('--rsp_orange');
       pauseButtonBackground = "ORANGE";
-    } else {
+    }
+    else {
       btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
       hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
       pauseButtonBackground = "BLUE";
     }
-  } else {
+  }
+  else {
     btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
     hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
     pauseButtonBackground = "BLUE";
@@ -172,13 +167,11 @@ function changeToSnapshotView() {
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
   btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-
   updatePaused = false;
   currentView = "snapshots";
   snapshot.style.display = "inline-grid";
@@ -186,7 +179,6 @@ function changeToSnapshotView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-
   btn1.textContent = "Charts View";
   btn2.textContent = "Statistics View";
   btn3.textContent = "Alerts View";
@@ -198,13 +190,11 @@ function changeToChartView() {
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
   btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-
   updatePaused = false;
   currentView = "charts";
   snapshot.style.display = "none";
@@ -212,7 +202,6 @@ function changeToChartView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Statistics View";
   btn3.textContent = "Alerts View";
@@ -225,13 +214,11 @@ function changeToStatView() {
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
   btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-
   updatePaused = false;
   currentView = "stats";
   snapshot.style.display = "none";
@@ -239,7 +226,6 @@ function changeToStatView() {
   stats.style.display = "block";
   alerts.style.display = "none";
   records.style.display = "none";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Charts View";
   btn3.textContent = "Alerts View";
@@ -252,13 +238,11 @@ function changeToAlertView() {
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
   btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-
   updatePaused = false;
   currentView = "alerts";
   snapshot.style.display = "none";
@@ -266,7 +250,6 @@ function changeToAlertView() {
   stats.style.display = "none";
   alerts.style.display = "block";
   records.style.display = "none";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Charts View";
   btn3.textContent = "Statistics View";
@@ -279,13 +262,11 @@ function changeToRecordView() {
   btn2 = document.getElementById("btnViewChange2");
   btn3 = document.getElementById("btnViewChange3");
   btn4 = document.getElementById("btnViewChange4");
-
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-
   updatePaused = false;
   currentView = "records";
   snapshot.style.display = "none";
@@ -293,7 +274,6 @@ function changeToRecordView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "block";
-
   btn1.textContent = "Snapshots View";
   btn2.textContent = "Charts View";
   btn3.textContent = "Statistics View";
@@ -303,7 +283,8 @@ function changeToRecordView() {
 function changeView1() {
   if (currentView == "snapshots") {
     changeToChartView();
-  } else {
+  }
+  else {
     changeToSnapshotView();
   }
 }
@@ -311,9 +292,11 @@ function changeView1() {
 function changeView2() {
   if (currentView == "snapshots") {
     changeToStatView();
-  } else if (currentView == "charts") {
+  }
+  else if (currentView == "charts") {
     changeToStatView();
-  } else {
+  }
+  else {
     changeToChartView();
   }
 }
@@ -321,9 +304,11 @@ function changeView2() {
 function changeView3() {
   if (currentView == "alerts") {
     changeToStatView();
-  } else if (currentView == "records") {
+  }
+  else if (currentView == "records") {
     changeToStatView();
-  } else {
+  }
+  else {
     changeToAlertView();
   }
 }
@@ -331,11 +316,11 @@ function changeView3() {
 function changeView4() {
   if (currentView == "records") {
     changeToAlertView();
-  } else {
+  }
+  else {
     changeToRecordView();
   }
 }
-
 var pressureChart = null;
 var volumeChart = null;
 var bpmChart = null;
@@ -346,7 +331,6 @@ var timeBased = false;
 function createDashboardCharts() {
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
-
   createDashboardPressureCharts();
   createDashboardVolumeCharts();
   createDashboardBpmCharts();
@@ -576,14 +560,13 @@ function togglePause() {
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
-    
-    if (currentView=="snapshots") updateSnapshot();
-    if (currentView=="charts") createDashboardCharts();
-    if (currentView=="stats") createDashboardStats();
-  } else {
+    if (currentView == "snapshots") updateSnapshot();
+    if (currentView == "charts") createDashboardCharts();
+    if (currentView == "stats") createDashboardStats();
+  }
+  else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
-    
     breathPausedAt = dashboardBreathNum;
     elm = document.getElementById("dashboardBreathNum");
     elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
@@ -593,7 +576,7 @@ function togglePause() {
 
 function selectExit() {
   //window.location.assign("../index.html");
-  window.open('','_self').close();
+  window.open('', '_self').close();
 }
 
 function installFiO2Gauge() {
@@ -743,7 +726,8 @@ function installTempGauge() {
 function PressuresClick() {
   if (document.getElementById("PressuresTick").checked) {
     document.getElementById("PressuresChartWrapper").style.display = "block";
-  } else {
+  }
+  else {
     document.getElementById("PressuresChartWrapper").style.display = "none";
   }
 }
@@ -751,7 +735,8 @@ function PressuresClick() {
 function VolumesClick() {
   if (document.getElementById("VolumesTick").checked) {
     document.getElementById("VolumesChartWrapper").style.display = "block";
-  } else {
+  }
+  else {
     document.getElementById("VolumesChartWrapper").style.display = "none";
   }
 }
@@ -759,7 +744,8 @@ function VolumesClick() {
 function BpmClick() {
   if (document.getElementById("BpmTick").checked) {
     document.getElementById("BpmChartWrapper").style.display = "block";
-  } else {
+  }
+  else {
     document.getElementById("BpmChartWrapper").style.display = "none";
   }
 }
@@ -767,7 +753,8 @@ function BpmClick() {
 function FiO2Click() {
   if (document.getElementById("FiO2Tick").checked) {
     document.getElementById("FiO2ChartWrapper").style.display = "block";
-  } else {
+  }
+  else {
     document.getElementById("FiO2ChartWrapper").style.display = "none";
   }
 }
@@ -775,7 +762,8 @@ function FiO2Click() {
 function MiscClick() {
   if (document.getElementById("MiscTick").checked) {
     document.getElementById("MiscChartWrapper").style.display = "block";
-  } else {
+  }
+  else {
     document.getElementById("MiscChartWrapper").style.display = "none";
   }
 }
@@ -787,45 +775,41 @@ function InitChartCheckBoxes() {
   document.getElementById("FiO2Tick").checked = false;
   document.getElementById("MiscTick").checked = false;
 }
-
 var finishedLoading = false;
 window.onload = function() {
   initDbNames();
   InitRecorder();
-
   var heading = document.getElementById("SysUid");
   if (respimaticTag) {
     document.title = respimaticTag + " (" + datasource_name + ")"
     heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
-  } else {
+  }
+  else {
     document.title = "NOT SPECIFIED"
     heading.innerHTML = "NOT SPECIFIED"
   }
-
-
   currentView = "snapshots";
   updatePaused = false;
   awaitingFirstDweet = true;
   dashboardBreathNum = 0;
   systemBreathNum = 0;
-  updatedDweetContent = {"content":{}};
-
+  updatedDweetContent = {
+    "content": {}
+  };
   simulatedTimeInMs = 0;
   lastDweetInMs = 0;
   wifiDropped = false;
-  messagesBackground="MEDIUMBLUE";
+  messagesBackground = "MEDIUMBLUE";
   alertBackground = "GREEN";
   pendingBackground = "MEDIUMBLUE";
-  pauseButtonBackground="MEDIUMBLUE";
-  flowDivBackground="DARKBLUE";
+  pauseButtonBackground = "MEDIUMBLUE";
+  flowDivBackground = "DARKBLUE";
   alertImage = "OK";
   blinkInterval = 0;
-
   initGlobalData();
   initStats();
   initChartStartValues();
   initErrorWarnings();
-
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');
   mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
@@ -843,7 +827,6 @@ window.onload = function() {
   btn1.textContent = "Charts View";
   btn2 = document.getElementById("btnViewChange2");
   btn2.textContent = "Statistics View";
-
   // Install all gauges
   installPurityGauge();
   installFiO2Gauge();
@@ -851,20 +834,17 @@ window.onload = function() {
   installPlatGauge();
   installPeepGauge();
   installTempGauge();
-
   // Chart types to display
   InitChartCheckBoxes();
-
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();
   finishedLoading = true;
 }
-
 window.onbeforeunload = function(e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';
-  if (dashboardBreathNum!=0) {
+  if (dashboardBreathNum != 0) {
     if (!recordingOff) {
       msg = msg + '\nAlso recording will stop';
     }
@@ -874,7 +854,6 @@ window.onbeforeunload = function(e) {
 
 function HandlePeriodicTasks() {
   if (!finishedLoading) return;
-
   updateAlert(true);
   updatePending(true);
   blinkInterval += PERIODIC_INTERVAL_IN_MS;
@@ -886,27 +865,25 @@ function HandlePeriodicTasks() {
   }
   if (awaitingFirstDweet) {
     displayWifiUnconnected();
-  } else if ((dweetQ.size()==0) &&
-            ((simulatedTimeInMs-lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
+  }
+  else if ((dweetQ.size() == 0) &&
+    ((simulatedTimeInMs - lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
     displayWifiDropped();
-  } else {
+  }
+  else {
     displayNormalMessages();
   }
 }
-
 var periodicIntervalId = setTimeout(function mainLoop() {
-//var periodicIntervalId = setInterval(function mainLoop() {
+  //var periodicIntervalId = setInterval(function mainLoop() {
   simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
   HandlePeriodicTasks();
-
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (dweetQ && dweetQ.size()) {
     FetchAndExecuteFromQueue();
   }
-
   // nest so that the next one is scheduled only after current one finishes
   periodicIntervalId = setTimeout(mainLoop, PERIODIC_INTERVAL_IN_MS);
-
 }, PERIODIC_INTERVAL_IN_MS);
 
 function FetchAndExecuteFromQueue() {
@@ -920,24 +897,22 @@ function FetchAndExecuteFromQueue() {
   if (simulatedTimeInMs >= dTimeInMs) {
     d = dweetQ.pop();
     //console.log("Popped dTimeInMs=" + dTimeInMs);
-    
     if (typeof d.content["BNUM"] != "undefined") {
       dashboardBreathNum++;
       systemBreathNum = d.content["BNUM"];
     }
-
     var dCopy; // a copy of the dweet
     if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
     processDashboardDweet(d);
     if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
     return true;
-  } else {
+  }
+  else {
     return false;
   }
 }
-
 alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+  "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
+  "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
 );
 

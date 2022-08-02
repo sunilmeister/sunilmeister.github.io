@@ -40,11 +40,11 @@ var peakGauge = null;
 var platGauge = null;
 var peepGauge = null;
 var tempGauge = null;
-
 // Up to date dweet format state
 // useful for resuming after pause
-var updatedDweetContent = {"content":{}};;
-
+var updatedDweetContent = {
+  "content": {}
+};;
 // Recorder
 var recCreationTimeStamp = "";
 var db;
@@ -57,10 +57,9 @@ var recL1Valid = false;
 var recL2Valid = false;
 var recL3Valid = false;
 var recL4Valid = false;
-var recorderBackground="MEDIUMBLUE";
+var recorderBackground = "MEDIUMBLUE";
 var recordingOff = true;
 var recordingPaused = false;
-
 // check for continuing dweets
 var dweetQ = null;
 var wifiDropped = false;
@@ -69,5 +68,4 @@ const PERIODIC_INTERVAL_IN_MS = 500;
 const BLINK_INTERVAL_IN_MS = 2000;
 const MAX_DWEET_INTERVAL_IN_MS = 30000;
 const INIT_RECORDING_INTERVAL_IN_MS = 20000;
-
 

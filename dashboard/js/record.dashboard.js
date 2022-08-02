@@ -1,16 +1,17 @@
-
 function blinkRecordButton() {
   btn = document.getElementById("recordButton");
   var style = getComputedStyle(document.body)
   if (recordingPaused) {
-    if (recordButtonBackground=="BLUE") {
+    if (recordButtonBackground == "BLUE") {
       btn.style.backgroundColor = style.getPropertyValue('--rsp_orange');
       recordButtonBackground = "ORANGE";
-    } else {
+    }
+    else {
       btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
       recordButtonBackground = "BLUE";
     }
-  } else {
+  }
+  else {
     btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
     recordButtonBackground = "BLUE";
   }
@@ -25,27 +26,27 @@ function toggleRecording() {
       alert("IndexedDB not available in your browser.\nUse different browser");
       return;
     }
-
     createNewDb();
     if (!dbName) {
       alert("No Recording Session created\nTry again!");
       return;
-    } 
-    btn.innerHTML = "Pause Recording" ;
+    }
+    btn.innerHTML = "Pause Recording";
     recordingOff = false;
     recordingPaused = false;
-  } else if (recordingPaused) {
-    btn.innerHTML = "Pause Recording" ;
+  }
+  else if (recordingPaused) {
+    btn.innerHTML = "Pause Recording";
     recordingOff = false;
     recordingPaused = false;
-  } else if (!recordingPaused) {
-    btn.innerHTML = "Resume Recording" ;
+  }
+  else if (!recordingPaused) {
+    btn.innerHTML = "Resume Recording";
     recordingOff = false;
     recordingPaused = true;
   }
   updateDashboardAndRecordingStatus();
 }
-
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
@@ -67,9 +68,11 @@ function getNewDbName() {
     name = dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
     if (!isValidDatabaseName(dbNameSuffix)) {
       alert("Invalid Session name\n" + dbNameSuffix + "\nTry again");
-    } else if (checkDbExists(name)) {
+    }
+    else if (checkDbExists(name)) {
       alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
-    } else break;
+    }
+    else break;
   } while (true);
   return name;
 }
@@ -101,7 +104,6 @@ function initRecordingPrevContent() {
 
 function processRecordDweet(d) {
   if (recordingOff || recordingPaused) return;
-
   // We already have the UID
   // delete d.thing;
   if (d.content['INITIAL'] == "1") initialState = true;
@@ -150,11 +152,13 @@ function processRecordDweet(d) {
     value = d.content[key];
     if (typeof recPrevContent[key] == 'undefined') {
       recPrevContent[key] = value;
-    } else {
+    }
+    else {
       prevValue = recPrevContent[key];
       if (prevValue != value) {
         recPrevContent[key] = value;
-      } else {
+      }
+      else {
         delete d.content[key];
       }
     }
@@ -163,7 +167,6 @@ function processRecordDweet(d) {
   for (let key in d.content) {
     emptyContent = false;
   }
-
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     recordBox.innerText = JSON.stringify(d, null, ". ");
@@ -175,16 +178,13 @@ function InitRecorder() {
   periodicTickCount = 0;
   lastDweetTick = 0;
   dweetIntervalCounter = 0;
-
   recordStartDate = new Date();
   recPrevContent = {};
   recExpectErrorMsg = false;
   recExpectWarningMsg = false;
   recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
-
   recordingOff = true;
   recordingPaused = false;
-  recordButtonBackground="MEDIUMBLUE";
+  recordButtonBackground = "MEDIUMBLUE";
 }
-
 

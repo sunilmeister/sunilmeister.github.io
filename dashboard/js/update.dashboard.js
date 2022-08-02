@@ -10,14 +10,16 @@ function parseInputParam(val) {
   var str;
   if (typeof val === 'string' || val instanceof String) {
     str = val;
-  } else {
+  }
+  else {
     str = String(val);
   }
   tokens = str.split(arrowUnicode);
   if (tokens.length == 1) {
     oldP = tokens[0];
     newP = tokens[0];
-  } else {
+  }
+  else {
     oldP = tokens[0];
     newP = tokens[1];
   }
@@ -30,11 +32,13 @@ function updatePendingIndividualSetting(blink, div, pendingSetting) {
     if (pendingSetting && blink) {
       if (pendingBackground != "ORANGE") {
         elm.style.backgroundColor = orangeColor;
-      } else {
+      }
+      else {
         elm.style.backgroundColor = mediumblueColor;
       }
     }
-  } else if (pendingBackground != "MEDIUMBLUE") {
+  }
+  else if (pendingBackground != "MEDIUMBLUE") {
     elm.style.backgroundColor = mediumblueColor;
   }
 }
@@ -63,12 +67,14 @@ function updatePending(blink) {
       elm = document.getElementById("PendingDiv");
       elm.style.backgroundColor = orangeColor;
       pendingBackground = "ORANGE";
-    } else if (blink) {
+    }
+    else if (blink) {
       elm = document.getElementById("PendingDiv");
       elm.style.backgroundColor = mediumblueColor;
       pendingBackground = "MEDIUMBLUE";
     }
-  } else {
+  }
+  else {
     elm = document.getElementById("PendingDiv");
     elm.style.backgroundColor = mediumblueColor;
     elm = document.getElementById("Pending");
@@ -83,7 +89,8 @@ function updateAlert(blink) {
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = darkredColor;
       alertBackground = "DARKRED";
-    } else if (blink) {
+    }
+    else if (blink) {
       elm.style.backgroundColor = mediumblueColor;
       alertBackground = "MEDIUMBLUE";
     }
@@ -91,11 +98,13 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "img/Error.svg";
       alertImage = "ERROR";
     }
-  } else if (attentionState || wifiDropped) {
+  }
+  else if (attentionState || wifiDropped) {
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
-    } else if (blink) {
+    }
+    else if (blink) {
       elm.style.backgroundColor = mediumblueColor;
       alertBackground = "MEDIUMBLUE";
     }
@@ -103,7 +112,8 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "img/Warning.svg";
       alertImage = "WARNING";
     }
-  } else {
+  }
+  else {
     if (alertBackground != "GREEN") {
       elm.style.backgroundColor = greenColor;
       alertBackground = "GREEN";
@@ -144,7 +154,8 @@ function updateSettingValue(str, containerDiv, valueDiv) {
     updatePending(false);
     elm = document.getElementById(containerDiv);
     elm.style.backgroundColor = orangeColor;
-  } else {
+  }
+  else {
     pending = false;
     elm = document.getElementById(containerDiv);
     elm.style.backgroundColor = mediumblueColor;
@@ -155,10 +166,10 @@ function updateSettingValue(str, containerDiv, valueDiv) {
 }
 
 function displayMessageLine(lineTag) {
-  if (messagesBackground!="MEDIUMBLUE") {
+  if (messagesBackground != "MEDIUMBLUE") {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = mediumblueColor;
-    messagesBackground="MEDIUMBLUE";
+    messagesBackground = "MEDIUMBLUE";
   }
   elm = document.getElementById(lineTag);
   mvalue = formMessageLine(value);
@@ -171,57 +182,65 @@ function updateSnapshot() {
     // get key value pairs
     value = d.content[key];
     if (value === null) continue;
-
     // System State
     if (key == 'INITIAL') {
       if (value == "1") {
-	if (!initialState) attentionState = false; // entering initial state
+        if (!initialState) attentionState = false; // entering initial state
         initialState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
         updateAlert(false);
-      } else {
+      }
+      else {
         initialState = false;
       }
-    } else if (key == 'STANDBY') {
+    }
+    else if (key == 'STANDBY') {
       if (value == "1") {
-	if (!standbyState) attentionState = false; // entering standby state
+        if (!standbyState) attentionState = false; // entering standby state
         standbyState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>STANDBY</b>";
         document.getElementById("StateImg").src = "img/YellowDot.png";
         updateAlert(false);
-      } else {
+      }
+      else {
         standbyState = false;
       }
-    } else if (key == 'RUNNING') {
+    }
+    else if (key == 'RUNNING') {
       if (value == "1") {
-	if (!activeState) attentionState = false; // entering active state
+        if (!activeState) attentionState = false; // entering active state
         activeState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ACTIVE</b>";
         document.getElementById("StateImg").src = "img/GreenDot.png";
         updateAlert(false);
-      } else {
+      }
+      else {
         activeState = false;
       }
-    } else if (key == 'ERROR') {
+    }
+    else if (key == 'ERROR') {
       if (value == "1") {
         errorState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ERROR</b>";
         document.getElementById("StateImg").src = "img/RedDot.png";
         updateAlert(false);
-      } else {
-	if (errorState) attentionState = false; // exiting error state
+      }
+      else {
+        if (errorState) attentionState = false; // exiting error state
         errorState = false;
       }
-    } else if (key == 'ATTENTION') {
+    }
+    else if (key == 'ATTENTION') {
       if (value == "1") {
         attentionState = true;
         updateAlert(false);
-      } else {
+      }
+      else {
         attentionState = false;
         updateAlert(false);
       }
@@ -229,18 +248,22 @@ function updateSnapshot() {
     // Message lines
     else if (key == 'L1') {
       displayMessageLine("Mline1");
-    } else if (key == 'L2') {
+    }
+    else if (key == 'L2') {
       displayMessageLine("Mline2");
-    } else if (key == 'L3') {
+    }
+    else if (key == 'L3') {
       displayMessageLine("Mline3");
-    } else if (key == 'L4') {
+    }
+    else if (key == 'L4') {
       displayMessageLine("Mline4");
     }
     // bpm
     else if (key == 'SBPM') {
       elm = document.getElementById("SBPM");
       elm.innerHTML = value;
-    } else if (key == 'MBPM') {
+    }
+    else if (key == 'MBPM') {
       elm = document.getElementById("MBPM");
       elm.innerHTML = value;
     }
@@ -248,7 +271,8 @@ function updateSnapshot() {
     else if (key == 'VTDEL') {
       elm = document.getElementById("VTDEL");
       elm.innerHTML = value;
-    } else if (key == 'MVDEL') {
+    }
+    else if (key == 'MVDEL') {
       elm = document.getElementById("MVDEL");
       elm.innerHTML = value;
     }
@@ -256,7 +280,8 @@ function updateSnapshot() {
     else if (key == 'STATIC') {
       elm = document.getElementById("SCOMP");
       elm.innerHTML = value;
-    } else if (key == 'DYNAMIC') {
+    }
+    else if (key == 'DYNAMIC') {
       elm = document.getElementById("DCOMP");
       elm.innerHTML = value;
     }
@@ -266,7 +291,7 @@ function updateSnapshot() {
       elm = document.getElementById("AltF");
       elm.innerHTML = ft + " <small><small>ft</small></small>";
       elm = document.getElementById("AltM");
-      if (ft=='--') m = '--' ;
+      if (ft == '--') m = '--';
       elm.innerHTML = m + " <small><small>m</small></small>";
     }
     // Breath Type
@@ -275,10 +300,12 @@ function updateSnapshot() {
       if (value == "MANDATORY") {
         document.getElementById("ImgBreath").src = "img/MandatoryDot.png";
         elm.innerHTML = "Mandatory";
-      } else if (value == "SPONTANEOUS") {
+      }
+      else if (value == "SPONTANEOUS") {
         document.getElementById("ImgBreath").src = "img/SpontaneousDot.png";
         elm.innerHTML = "Spontaneous";
-      } else {
+      }
+      else {
         document.getElementById("ImgBreath").src = "img/WhiteDot.png";
         elm.innerHTML = "";
       }
@@ -286,9 +313,11 @@ function updateSnapshot() {
     // Pressures
     else if (key == 'PIP') {
       peakGauge.setValue(value);
-    } else if (key == 'PLAT') {
+    }
+    else if (key == 'PLAT') {
       platGauge.setValue(value);
-    } else if (key == 'MPEEP') {
+    }
+    else if (key == 'MPEEP') {
       peepGauge.setValue(value);
     }
     // Temperature
@@ -300,7 +329,8 @@ function updateSnapshot() {
       if (value == 1) {
         pendingState = true;
         updatePending(false);
-      } else {
+      }
+      else {
         pendingState = false;
         pendingMODE = false;
         pendingVT = false;
@@ -317,44 +347,53 @@ function updateSnapshot() {
     else if (key == 'PNAME') {
       elm = document.getElementById("Pline1");
       elm.innerHTML = value;
-    } else if (key == 'PMISC') {
-      if (value!="") {
+    }
+    else if (key == 'PMISC') {
+      if (value != "") {
         [gender, age, pid] = parsePatientInfo(value);
-	if (gender && age && pid) {
+        if (gender && age && pid) {
           elm = document.getElementById("Pline2");
           if (gender == "M") {
             elm.innerHTML = "Male " + "(" + age + " years)";
-          } else {
+          }
+          else {
             elm.innerHTML = "Female " + "(" + age + " years)";
           }
           elm = document.getElementById("Pline3");
           elm.innerHTML = "ID: " + pid;
-	}
+        }
       }
     }
     // Input Settings
     else if (key == 'MODE') {
       pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
       if (pendingMODE) somethingPending = true;
-    } else if (key == 'VT') {
+    }
+    else if (key == 'VT') {
       pendingVT = updateSettingValue(value, "VTDiv", "VT");
       if (pendingVT) somethingPending = true;
-    } else if (key == 'RR') {
+    }
+    else if (key == 'RR') {
       pendingRR = updateSettingValue(value, "RRDiv", "RR");
       if (pendingRR) somethingPending = true;
-    } else if (key == 'EI') {
+    }
+    else if (key == 'EI') {
       pendingIE = updateSettingValue(value, "IEDiv", "IE");
       if (pendingIE) somethingPending = true;
-    } else if (key == 'IPEEP') {
+    }
+    else if (key == 'IPEEP') {
       pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
       if (pendingIPEEP) somethingPending = true;
-    } else if (key == 'PMAX') {
+    }
+    else if (key == 'PMAX') {
       pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
       if (pendingPMAX) somethingPending = true;
-    } else if (key == 'PS') {
+    }
+    else if (key == 'PS') {
       pendingPS = updateSettingValue(value, "PSDiv", "PS");
       if (pendingPS) somethingPending = true;
-    } else if (key == 'TPS') {
+    }
+    else if (key == 'TPS') {
       pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
       if (pendingTPS) somethingPending = true;
       [tps, units] = parseInputTPS(document.getElementById("TPS").innerText);
@@ -369,35 +408,38 @@ function updateSnapshot() {
 function updateDashboardAndRecordingStatus() {
   if (awaitingFirstDweet) {
     document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  } else if (updatePaused) {
+  }
+  else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
-  } else if (wifiDropped) {
+  }
+  else if (wifiDropped) {
     document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  } else {
+  }
+  else {
     document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
   }
-  
   if (recordingOff) {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else if (recordingPaused) {
+  }
+  else if (recordingPaused) {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else if (wifiDropped) {
+  }
+  else if (wifiDropped) {
     document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-  } else {
+  }
+  else {
     document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
   }
 }
 
 function displayNormalMessages() {
   wifiDropped = false;
-  if (messagesBackground=="MEDIUMBLUE") return;
-
+  if (messagesBackground == "MEDIUMBLUE") return;
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = mediumblueColor;
-  messagesBackground="MEDIUMBLUE";
+  messagesBackground = "MEDIUMBLUE";
   updateDashboardAndRecordingStatus();
 }
-
 var savedL1 = savedL2 = savedL3 = savedL4 = "";
 var wifiDroppedBlink = 0;
 
@@ -406,13 +448,11 @@ function displayWifiDropped() {
   wifiDropped = true;
   wifiDroppedBlink++;
   if (wifiDroppedBlink != 3) return;
-  wifiDroppedBlink  = 0;
-
-  if (messagesBackground=="ORANGE") {
+  wifiDroppedBlink = 0;
+  if (messagesBackground == "ORANGE") {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = mediumblueColor;
-    messagesBackground="MEDIUMBLUE";
-
+    messagesBackground = "MEDIUMBLUE";
     elm = document.getElementById("Mline1");
     elm.innerHTML = savedL1;
     elm = document.getElementById("Mline2");
@@ -421,12 +461,12 @@ function displayWifiDropped() {
     elm.innerHTML = savedL3;
     elm = document.getElementById("Mline4");
     elm.innerHTML = savedL4;
-  } else {
+  }
+  else {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = orangeColor;
-    messagesBackground="ORANGE";
+    messagesBackground = "ORANGE";
     updateDashboardAndRecordingStatus();
-
     elm = document.getElementById("Mline1");
     savedL1 = elm.innerHTML;
     elm.innerHTML = "&nbsp";
@@ -444,16 +484,13 @@ function displayWifiDropped() {
 
 function displayWifiUnconnected() {
   wifiDropped = true;
-  if (messagesBackground=="ORANGE") return;
-
+  if (messagesBackground == "ORANGE") return;
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
-  messagesBackground="ORANGE";
+  messagesBackground = "ORANGE";
   updateDashboardAndRecordingStatus();
-
   elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = orangeColor;
-
   elm = document.getElementById("Mline1");
   elm.innerHTML = "Awaiting Internet";
   elm = document.getElementById("Mline2");
@@ -463,5 +500,4 @@ function displayWifiUnconnected() {
   elm = document.getElementById("Mline4");
   elm.innerHTML = "to Wi-Fi";
 }
-
 
