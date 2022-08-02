@@ -44,22 +44,24 @@ function checkFiO2Calculation(d) {
 var startDTIME = 0;
 
 function disassembleAndQueueDweet(d) {
-  //console.log(d);
-  for (i = 0;; i++) {
-    key = String(i);
+  fragmentIndex = 0;
+  while (1) {
+    key = String(fragmentIndex);
+    fragmentIndex++;
+
     if (typeof d.content[key] == "undefined") break;
     fragment = d.content[key];
-    dTime = fragment.DTIME;
-    if (!startDTIME) startDTIME = dTime;
+    dTimeStr = fragment.DTIME;
+    dTime = parseDTIME(dTimeStr);
+    if (dTime==null) continue // ignore this malformed dweet
+
+    if (!startDTIME) startDTIME = Number(dTime);
     if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
       // replace CLEAR_ALL with a preconstructed dweet
       fragment = createNewInstance(clearAllDweet);
-      //console.log("Encountered CLEAR_ALL");
-      //console.log(fragment);
     }
-    fragment.DTIME = dTime;
+    fragment.DTIME = Number(dTime);
     fragment.created = new Date(addMsToDate(startDate, (fragment.DTIME - startDTIME)));
-    //console.log(fragment);
     dweetQ.push(createNewInstance(fragment));
   }
 }
@@ -70,8 +72,13 @@ function waitForDweets() {
       initRecordingPrevContent();
     }
     if (awaitingFirstDweet) {
-      //console.log(d);
-      simulatedTimeInMs = d.content["0"].DTIME;
+      dTimeStr = d.content["0"].DTIME 
+      //console.log("dTimeStr=" + dTimeStr);
+      dTime = parseDTIME(dTimeStr);
+      if (dTime==null) return; // ignore this malformed dweet
+
+      simulatedTimeInMs = Number(dTime);
+      //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
       startDate = new Date(d.created);
       elm = document.getElementById("startTime");
       elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
@@ -874,29 +881,26 @@ function HandlePeriodicTasks() {
     displayNormalMessages();
   }
 }
-var periodicIntervalId = setTimeout(function mainLoop() {
-  //var periodicIntervalId = setInterval(function mainLoop() {
-  simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
+
+var periodicIntervalId = setInterval(function () {
+  if (!awaitingFirstDweet) {
+    simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
+  }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (dweetQ && dweetQ.size()) {
     FetchAndExecuteFromQueue();
   }
-  // nest so that the next one is scheduled only after current one finishes
-  periodicIntervalId = setTimeout(mainLoop, PERIODIC_INTERVAL_IN_MS);
-}, PERIODIC_INTERVAL_IN_MS);
+}, PERIODIC_INTERVAL_IN_MS)
 
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return false;
   if (dweetQ.size() == 0) return false;
   d = dweetQ.peek();
-  dTimeInMs = d.DTIME;
-  //console.log(d);
-  //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
-  //console.log("Peeked dTimeInMs=" + dTimeInMs);
+  dTimeInMs = Number(d.DTIME);
+
   if (simulatedTimeInMs >= dTimeInMs) {
     d = dweetQ.pop();
-    //console.log("Popped dTimeInMs=" + dTimeInMs);
     if (typeof d.content["BNUM"] != "undefined") {
       dashboardBreathNum++;
       systemBreathNum = d.content["BNUM"];
@@ -907,10 +911,12 @@ function FetchAndExecuteFromQueue() {
     if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
     return true;
   }
-  else {
-    return false;
+  if (dTimeInMs - simulatedTimeInMs > MAX_DIFF_DWEET_SIMULAION_TIMES) {
+    console.log("Dweets way ahead of simulated time " + dTimeInMs + " v/s " + simulatedTimeInMs);
   }
+  return false;
 }
+
 alert(
   "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
   "Or hold down the CTRL key and use the mouse wheel to zoom in/out"

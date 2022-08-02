@@ -434,15 +434,13 @@ function lookupO2FlowRate(vt, rr, fiO2, purity) {
   f = (mv * (fiO2 - 21)) / (degradedPurity - 21);
   return f;
 }
-//returns an array [gender, age, pid]
+// returns an array [gender, age, pid]
 // from a pattern like "[ID] (M) Age"
+// returns null if badly formed
 function parsePatientInfo(str) {
-  age = "";
-  pid = "";
-  gender = "";
   let re = /\[.*\]\s+\([MF]\)\s+.+/i;
   if (!str.match(re)) {
-    return [gender, age, pid];
+    return null;
   }
   tokens = str.split('[');
   tokens = tokens[1].split(']');
@@ -453,6 +451,40 @@ function parsePatientInfo(str) {
   tokens = tokens[1].split(')');
   gender = tokens[0];
   return [gender, age, pid];
+}
+// calculate checksum of a 32-bit number
+// returns a byte checksum
+function checksum(num) {
+  sum = 0;
+  for (i=0; i<4; i++) {
+    b = num >> (i*4);
+    b = b & 0xFF;
+    sum += b;
+    sum = sum & 0xFF;
+  }
+  cs = ~sum + 1;
+  return cs & 0xFF;
+}
+// returns DTIME after checking checksum
+// from a pattern like "DTIME (checksum)"
+// returns null if badly formed
+function parseDTIME(tstr) {
+  str = String(tstr);
+  let re = /[0-9]+\s*\([0-9]+\)/i;
+  //console.log("DTIME str=" + str);
+  if (!str.match(re)) {
+    return null;
+  }
+  tokens = str.split('(');
+  dTime = tokens[0].trim();
+  tokens = tokens[1].split(')');
+  ccs = checksum(dTime);
+  if (tokens[0] != ccs) {
+    console.log("DTIME =" + dTime + " checksum=" + tokens[0]);
+    console.log("Computed checksum=" + ccs);
+    return null;
+  }
+  return dTime;
 }
 
 function parseAltitude(str) {

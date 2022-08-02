@@ -350,8 +350,9 @@ function updateSnapshot() {
     }
     else if (key == 'PMISC') {
       if (value != "") {
-        [gender, age, pid] = parsePatientInfo(value);
-        if (gender && age && pid) {
+	rvalue = parsePatientInfo(value);
+	if (rvalue!=null) {
+          [gender, age, pid] = rvalue;
           elm = document.getElementById("Pline2");
           if (gender == "M") {
             elm.innerHTML = "Male " + "(" + age + " years)";
