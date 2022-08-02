@@ -15,8 +15,8 @@
   font-size: 2rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Alert {
@@ -25,8 +25,8 @@
   background-color: var(--rsp_green);
   color: white;
   font-size: 2rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Space1 {
@@ -43,8 +43,8 @@
   background-color: var(--rsp_mediumblue);
   font-size: 1.5rem;
   color: white;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Patient {
@@ -53,8 +53,8 @@
   font-size: 2rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Measurements {
@@ -65,8 +65,8 @@
   font-weight: bold;
   margin-top: 0rem;
   margin-bottom: 0rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Peak {
@@ -75,8 +75,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Plateau {
@@ -85,8 +85,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Peep {
@@ -95,8 +95,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Dynamic {
@@ -105,8 +105,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Static {
@@ -115,8 +115,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Compliance {
@@ -127,8 +127,8 @@
   color: var(--rsp_darkblue);
   background-color: var(--rsp_lightblue);
   font-size: 1.75rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .MBPM {
@@ -137,8 +137,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .SBPM {
@@ -147,8 +147,8 @@
   color: white;
   background-color: var(--rsp_mediumblue);
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .BPM {
@@ -159,8 +159,8 @@
   background-color: var(--rsp_lightblue);
   color: var(--rsp_darkblue);
   font-size: 1.75rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Tidal {
@@ -169,8 +169,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Minute {
@@ -179,8 +179,8 @@
   background-color: var(--rsp_mediumblue);
   color: white;
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Volume {
@@ -191,8 +191,8 @@
   border-width: thick;
   background-color: var(--rsp_lightblue);
   font-size: 1.75rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Environment {
@@ -203,8 +203,8 @@
   font-weight: bold;
   margin-top: 0rem;
   margin-bottom: 0rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Temp {
@@ -215,8 +215,8 @@
   color: white;
   font-size: 1.5rem;
   background-color: var(--rsp_lightblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Altitude {
@@ -227,8 +227,8 @@
   color: white;
   font-size: 1.5rem;
   background-color: var(--rsp_lightblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Breath {
@@ -239,8 +239,8 @@
   color: var(--rsp_darkblue);
   background-color: var(--rsp_lightblue);
   font-size: 1rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Parameters {
@@ -251,8 +251,8 @@
   font-weight: bold;
   margin-top: 0rem;
   margin-bottom: 0rem;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Mode {
@@ -260,8 +260,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .VT {
@@ -269,8 +269,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .RR {
@@ -278,8 +278,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .IE {
@@ -287,8 +287,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .IPeep {
@@ -296,8 +296,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .PMAX {
@@ -305,8 +305,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .PS {
@@ -314,8 +314,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .TPS {
@@ -323,8 +323,8 @@
   border-radius: 0rem 0rem 1.5rem 1.5rem;
   color: white;
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Pending {
@@ -334,8 +334,8 @@
   color: white;
   font-size: 1rem;
   font-weight: bold;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .SysUid {
@@ -343,8 +343,8 @@
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .DashboardActive {
@@ -352,8 +352,8 @@
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .RecordingActive {
@@ -361,8 +361,8 @@
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Logo {
@@ -370,22 +370,22 @@
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .ChartWrapper {
-  background-color:var(--rsp_lightblue); 
-  border-color: var(--rsp_mediumblue); 
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  background-color: var(--rsp_lightblue);
+  border-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   min-height: 30rem;
   margin-bottom: 1rem;
 }
 
 .ChartCanvas {
-  margin-bottom:4rem; 
-  margin-left:0.25rem;
-  margin-right:0.25rem;
+  margin-bottom: 4rem;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 

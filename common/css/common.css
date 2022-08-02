@@ -6,10 +6,10 @@
 .sidebarColumn {
   width: 290px;
   background-color: var(--rsp_mediumblue);
-  padding-bottom:20px;
-  margin-top:200px;
-  margin-bottom:0;
-  margin-left:-8px;
+  padding-bottom: 20px;
+  margin-top: 200px;
+  margin-bottom: 0;
+  margin-left: -8px;
   border-radius: 25px;
 }
 
@@ -113,8 +113,8 @@
 }
 
 .sidebarButtonShadow {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4); 
-  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
   background-color: var(--rsp_mediumblue);
   border: white;
   color: white;
@@ -188,12 +188,12 @@ span {
 }
 
 .shadowDiv5 {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4); 
-  box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
 
 .shadowDiv10 {
-  -webkit-box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4); 
-  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
 }
 

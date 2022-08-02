@@ -6,10 +6,10 @@
 .sidebarColumn {
   width: 25rem;
   background-color: var(--rsp_mediumblue);
-  margin-top:2rem;
-  margin-bottom:0rem;
-  padding-bottom:3rem;
-  margin-left:-0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 0rem;
+  padding-bottom: 3rem;
+  margin-left: -0.5rem;
   border-radius: 2rem;
 }
 
@@ -64,8 +64,8 @@
 
 .sidebarButtonShadow {
   background-color: var(--rsp_mediumblue);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   border: white;
   color: white;
   padding: 0.5rem 0.7rem;
@@ -116,15 +116,14 @@ span {
 }
 
 .shadowDiv5 {
-  -webkit-box-shadow: 0.31rem 0.31rem 0.31rem 0.31rem rgba(0,0,0,0.4); 
-  box-shadow: 0.31rem 0.31rem 0.31rem 0.31rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.31rem 0.31rem 0.31rem 0.31rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.31rem 0.31rem 0.31rem 0.31rem rgba(0, 0, 0, 0.4);
 }
 
 .shadowDiv10 {
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4); 
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
-
 
 table,
 tr {
@@ -136,5 +135,4 @@ tr {
   padding: 0 0.31rem 0 0;
   /* Only right padding*/
 }
-
 
