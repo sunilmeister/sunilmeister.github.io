@@ -2,15 +2,14 @@ var desiredFiO2 = 21;
 var desiredVt = 400;
 var desiredRr = 15;
 var o2Purity = 100;
-
 window.onload = function() {
   installVtKnob();
   installRrKnob();
   installPurityKnob();
   installFiO2Knob();
   alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
+    "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
   );
 }
 const vtKnobListener = function(knob, value) {
@@ -135,3 +134,4 @@ function updateFiO2Calculation(vt, rr, fiO2, o2Purity) {
   elm.innerHTML = "<font size=6><b>" + parseFloat(f / 1000).toFixed(1) +
     " (litres/min)</b></font>";
 }
+

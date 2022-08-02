@@ -16,16 +16,16 @@ function listDbTableRow(item, index) {
   if (nameTm[0] != respimaticUid) return;
   var table = document.getElementById("dbTable");
   var row = table.insertRow();
-  row.style.cursor = "pointer" ;
+  row.style.cursor = "pointer";
   var cell;
   cell = row.insertCell();
-  cell.style.paddingRight = "25px" ;
-  cell.style.paddingTop = "8px" ;
-  cell.style.paddingBottom = "8px" ;
+  cell.style.paddingRight = "25px";
+  cell.style.paddingTop = "8px";
+  cell.style.paddingBottom = "8px";
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
-  cell.style.paddingTop = "8px" ;
-  cell.style.paddingBottom = "8px" ;
+  cell.style.paddingTop = "8px";
+  cell.style.paddingBottom = "8px";
   cell.innerHTML = nameTm[2];
 }
 
@@ -35,14 +35,12 @@ function selectDbRow() {
     alert("No selected item\nSelect by clicking on a table row\nTry again!");
     return;
   }
-
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   sessionDbName = dbName;
   var sessionInfo = document.getElementById("analyzeSessionName");
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
-
   initSession(dbName);
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("selectorDiv").style.display = "none";
@@ -55,7 +53,6 @@ function deleteDbRow() {
     alert("No selected item\nSelect by clicking on a table row\nTry again!");
     return;
   }
-
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
@@ -77,7 +74,6 @@ function listAllDbs() {
   for (var i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
   for (i = retrieved_dbs.length - 1; i >= 0; i--) {
@@ -96,7 +92,6 @@ function deleteAllDbs() {
     deleteDb(name);
     table.deleteRow(1);
   }
-
   table = document.getElementById("dbExportTable");
   numRows = table.rows.length;
   for (i = 1; i < numRows; i++) {
@@ -251,7 +246,7 @@ function initSession() {
       allDbKeys = keys;
       if (keys.length == 0) {
         alert("Selected Session has no data");
-	return;
+        return;
       }
       logStartTime = new Date(keys[0]);
       logStartTime.setMilliseconds(0);
@@ -281,7 +276,8 @@ function checkValidAnalysisDuration() {
   if (diff <= 0) {
     alert("Analysis EndTime must be greater than StartTime");
     return false;
-  } else return true;
+  }
+  else return true;
 }
 
 function updateLogDuration() {
@@ -299,7 +295,8 @@ function updateLogDuration() {
   elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = "Session Duration " + msToTimeStr(diff);
-  } else {
+  }
+  else {
     elm.innerHTML = "Session Duration " + "NaN";
   }
 }
@@ -324,7 +321,8 @@ function updateSelectedDuration() {
   var diff = analysisEndTime - analysisStartTime;
   if (diff >= 0) {
     elm.innerHTML = "Window Duration " + msToTimeStr(diff);
-  } else {
+  }
+  else {
     elm.innerHTML = "NaN";
   }
   elm = document.getElementById("intervalStart");
@@ -378,18 +376,15 @@ function resetTimeInterval() {
   gatherGlobalData();
   resetDivs();
 }
-
 window.onload = function() {
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
-
   sessionDbName = "";
   sessionDbReady = false;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
-
   var sessionInfo = document.getElementById("analyzeSessionName");
-  sessionInfo.innerHTML = 'No Selected Session' ;
+  sessionInfo.innerHTML = 'No Selected Session';
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   createAnalysisRangeSlider();
@@ -413,7 +408,7 @@ window.onload = function() {
 
 function selectExit() {
   //window.location.assign("../index.html");
-  window.open('','_self').close();
+  window.open('', '_self').close();
 }
 
 function createAnalysisRangeSlider() {
@@ -463,7 +458,8 @@ function blinkAnalysisWindowButtons() {
   if (!sliderCommitPending) return;
   if (analysisButtonsFlashed) {
     unflashAnalysisWindowButtons();
-  } else {
+  }
+  else {
     flashAnalysisWindowButtons();
   }
 }
@@ -503,8 +499,8 @@ function resetDivs() {
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
 }
-
 alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+  "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
+  "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
 );
+

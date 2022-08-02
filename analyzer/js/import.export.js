@@ -12,12 +12,11 @@ function listDbExportTableRow(item, index) {
   nameTm = parseDbName(item);
   // only list databases for the currently selected system
   if (nameTm[0] != respimaticUid) return;
-  
   var table = document.getElementById("dbExportTable");
   var row = table.insertRow();
   var cell;
   cell = row.insertCell();
-  cell.style.paddingRight = "25px" ;
+  cell.style.paddingRight = "25px";
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];
@@ -29,7 +28,6 @@ function exportDbRow() {
     alert("No selected item\nSelect by clicking on a table row\nTry again!");
     return;
   }
-
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   var dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
@@ -54,7 +52,8 @@ function doExportWindow(dbName) {
           getAll.push(record);
         }
         cursor.continue();
-      } else {
+      }
+      else {
         download(JSON.stringify(getAll, null, 1), "respimatic.session.txt", "text/plain");
       }
     }
@@ -69,7 +68,6 @@ function listAllExportDbs() {
   for (var i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-
   var retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return;
   for (i = retrieved_dbs.length - 1; i >= 0; i--) {
@@ -91,7 +89,8 @@ function doImport(file, fileName, dbName) {
         dbObjStore = db.createObjectStore(dbObjStoreName, {
           keyPath: dbPrimaryKey
         });
-      } else {
+      }
+      else {
         dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
       }
     };
@@ -132,7 +131,8 @@ function importFile() {
     dbName = respimaticUid + '|' + sessionName + "|" + nameTagTime;
     if (checkDbExists(dbName)) {
       alert("Session name already exists\n" + sessionName + "\nTry again");
-    } else break;
+    }
+    else break;
   } while (true);
   doImport(file, fileName, dbName);
   alert("Successfully imported Session name\n" + sessionName);
@@ -141,3 +141,4 @@ function importFile() {
 function exportWindow() {
   doExportWindow(sessionDbName);
 }
+

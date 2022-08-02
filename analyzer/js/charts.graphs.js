@@ -74,22 +74,19 @@ function createNewChart() {
   chartJson.title.text = title;
   createChartsXaxis(chartJson);
   if (timeBased) {
-    if (breathTimes.length>1) {
-      var msg =   "Elapsed time shown is from the ";
+    if (breathTimes.length > 1) {
+      var msg = "Elapsed time shown is from the ";
       msg = msg + "first to the last recorded breath\n";
       msg = msg + "in the analysis window\n\n";
-
       var diff = breathTimes[1].time - analysisStartTime;
       msg = msg + "First breath recorded " + msToTimeStr(diff) + " (hh:mm:ss)\n";
       msg = msg + "from the start of the analysis window\n\n";
-
-      diff = breathTimes[breathTimes.length-1].time - analysisStartTime;
+      diff = breathTimes[breathTimes.length - 1].time - analysisStartTime;
       msg = msg + "Last breath recorded " + msToTimeStr(diff) + " (hh:mm:ss)\n";
       msg = msg + "from the start of the analysis window";
       alert(msg);
     }
   }
-
   if (peakYes) {
     flagError = false;
     flagWarning = false;
@@ -105,7 +102,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = pressureYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Peak pressures\nNo data points found!");
     }
   }
@@ -124,7 +122,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = pressureYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Plateau pressures\nNo data points found!");
     }
   }
@@ -143,7 +142,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = pressureYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Peep pressures\nNo data points found!");
     }
   }
@@ -162,7 +162,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = vtYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Tidal Volume\nNo data points found!");
     }
   }
@@ -181,7 +182,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = mvYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Minute Volume\nNo data points found!");
     }
   }
@@ -200,7 +202,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = bpmYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Mandatory BPM\nNo data points found!");
     }
   }
@@ -219,7 +222,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = bpmYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Spontaneous BPM\nNo data points found!");
     }
   }
@@ -238,7 +242,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = compYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Spontaneous BPM\nNo data points found!");
     }
     somethingToRender
@@ -258,7 +263,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = compYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Spontaneous BPM\nNo data points found!");
     }
   }
@@ -277,7 +283,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = tempYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot Spontaneous BPM\nNo data points found!");
     }
   }
@@ -328,7 +335,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = percentYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot FiO2\nNo data points found!");
     }
   }
@@ -347,7 +355,8 @@ function createNewChart() {
       }
       paramData.axisYIndex = percentYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot O2 Purity\nNo data points found!");
     }
   }
@@ -366,13 +375,15 @@ function createNewChart() {
       }
       paramData.axisYIndex = o2FlowYaxisNum;
       chartJson.data.push(paramData);
-    } else {
+    }
+    else {
       alert("Cannot plot O2 Flow Rate\nNo data points found!");
     }
   }
   if (somethingToRender) {
     renderNewChart(chartJson);
-  } else {
+  }
+  else {
     alert("Please select Parameter(s) to Chart");
   }
 }
@@ -384,3 +395,4 @@ function displayCharts() {
     return;
   }
 }
+
