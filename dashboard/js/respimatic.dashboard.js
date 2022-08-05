@@ -846,7 +846,7 @@ window.onload = function() {
   InitChartCheckBoxes();
   // Create chart range slider
   elm = document.getElementById('chartSliderCaption');
-  elm.innerHTML = String(MAX_CHART_DATAPOINTS) + " Latest Breaths charted by default: Use Slider to select custom range" ;
+  elm.innerHTML = "Select Chart Window (MAX " + MAX_CHART_DATAPOINTS + " Breaths)";
   chartRangeDiv = document.getElementById('chartRangeDiv');
   createChartRangeSlider(chartRangeDiv);
   // now wait for dweets and act accordingly
