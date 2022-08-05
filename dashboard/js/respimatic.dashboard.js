@@ -782,6 +782,7 @@ function InitChartCheckBoxes() {
   document.getElementById("FiO2Tick").checked = false;
   document.getElementById("MiscTick").checked = false;
 }
+
 var finishedLoading = false;
 window.onload = function() {
   initDbNames();
@@ -843,6 +844,11 @@ window.onload = function() {
   installTempGauge();
   // Chart types to display
   InitChartCheckBoxes();
+  // Create chart range slider
+  elm = document.getElementById('chartSliderCaption');
+  elm.innerHTML = String(MAX_CHART_DATAPOINTS) + " Latest Breaths charted by default: Use Slider to select custom range" ;
+  chartRangeDiv = document.getElementById('chartRangeDiv');
+  createChartRangeSlider(chartRangeDiv);
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();

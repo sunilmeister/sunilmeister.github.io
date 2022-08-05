@@ -6,6 +6,8 @@ var sessionDbName = "";
 var sessionDbReady = false;
 var sessionDurationInMs = 0;
 const RESPIMATIC_UID_PREFIX = "UID_";
+// Chart Range Selector (Slider)
+var chartRangeSlider = null;
 // Breath numbers being recorded
 var dashboardBreathNum = 0;
 var systemBreathNum = 0;

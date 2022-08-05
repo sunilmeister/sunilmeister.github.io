@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-var chartPrevSystemBreathNum = -1;
+const MAX_CHART_DATAPOINTS = 10;
 const graphColors = [
   "Crimson",
   "Blue",
@@ -18,10 +18,14 @@ const graphColors = [
   "Violet",
   "SteelBlue",
 ];
+var chartPrevSystemBreathNum = -1;
 var nextChartColor = 0;
 var horizontalGridColor = "#8F99FB";
 var bandColor = "white";
-var maxTickMarksXaxis = 20;
+var chartSliderPresent = false;
+var minChartBreathNum = 1;
+var maxChartBreathNum = MAX_CHART_DATAPOINTS;
+var chartRangeLimit = MAX_CHART_DATAPOINTS;
 
 function getNextChartColor() {
   color = graphColors[nextChartColor++];
@@ -43,6 +47,7 @@ var chartTemplate = {
     title: "",
     fontSize: 50,
     interlacedColor: bandColor,
+    interval: 1,
     scaleBreaks: {
       customBreaks: [],
     },
@@ -73,13 +78,11 @@ function toggleDataSeries(e) {
 
 function createChartsXaxis(chartJson) {
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
+  chartJson.axisX.minimum = startingXval;
   if (timeBased) {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
-    chartJson.axisX.minimum = 0;
-  }
-  else {
+  } else {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingBreathWindows);
-    chartJson.axisX.minimum = 1;
   }
 }
 // ////////////////////////////////////////////////////
@@ -108,6 +111,10 @@ var o2FlowValues = [];
 
 function initChartData() {
   //console.log("initChartData");
+  chartSliderPresent = false;
+  minChartBreathNum = 1;
+  maxChartBreathNum = MAX_CHART_DATAPOINTS;
+  chartRangeLimit = MAX_CHART_DATAPOINTS;
   initChartColor();
   chartPrevSystemBreathNum = -1;
   breathTimes = [];
@@ -302,10 +309,11 @@ function chartProcessJsonRecord(jsonData) {
           }
           systemBreathNum = value;
           breathsMissing = systemBreathNum - chartPrevSystemBreathNum - 1;
+	  updateChartRangeOnNewBreath(systemBreathNum - chartPrevSystemBreathNum);
           chartPrevSystemBreathNum = value;
           if (breathsMissing) {
             console.log("Breaths Missing =" + breathsMissing);
-            console.log("Missing systemBreathNum=" + systemBreathNum);
+            console.log("Before systemBreathNum=" + systemBreathNum);
             missingBreaths.push({
               "time": curTime,
               "value": breathsMissing
@@ -650,6 +658,7 @@ function createTempYaxis(num, color) {
   return (yaxis);
 }
 var debugLogDatapoints = false;
+var startingXval = -1;
 
 function createDatapoints(transitions) {
   var curValue = 0;
@@ -678,7 +687,9 @@ function createDatapoints(transitions) {
         curValue = transitions[curIx].value;
       }
     }
-    datapoints.push(curValue);
+    if (!chartSliderPresent || ((i<=maxChartBreathNum) && (i>=minChartBreathNum))) {
+      datapoints.push(curValue);
+    }
   }
   if (debugLogDatapoints) {
     console.log("datapoints.length=" + datapoints.length);
@@ -693,18 +704,34 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
   if (valueArray.length == 0) return null;
   var yDatapoints = [];
   var xyPoints = [];
-  numPoints = breathTimes.length;
+  if (!chartSliderPresent) {
+    numPoints = breathTimes.length;
+  } else {
+    numPoints = maxChartBreathNum - minChartBreathNum + 1;
+  }
   xyPoints.length = 0;
   yDatapoints = createDatapoints(valueArray);
   var xval;
+  startingXval = -1;
   for (i = 1; i < numPoints; i++) {
     if (timeBased) {
-      ms = new Date(breathTimes[i].time) - new Date(breathTimes[1].time);
+      var ms;
+      if (chartSliderPresent) {
+        ms = new Date(breathTimes[i+minChartBreathNum-1].time) - new Date(breathTimes[1].time);
+      } else {
+        ms = new Date(breathTimes[i].time) - new Date(breathTimes[1].time);
+      }
       sec = Math.round(ms / 1000);
       xval = sec;
+      if (startingXval<0) startingXval = xval;
     }
     else {
-      xval = i;
+      if (chartSliderPresent) {
+        xval = i+minChartBreathNum-1;
+      } else {
+        xval = i;
+      }
+      if (startingXval<0) startingXval = xval;
     }
     if (!flagError && !flagWarning) {
       xyPoints.push({
@@ -753,4 +780,98 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
   };
   return (chartData);
 }
+
+var cumulativeChartBreaths = 0;
+function updateChartRangeOnNewBreath(num) {
+  cumulativeChartBreaths++ ;
+  if (!chartSliderPresent) {
+    minChartBreathNum = 1;
+    maxChartBreathNum += num;
+    return;
+  }
+
+  if (minChartBreathNum==0) minChartBreathNum = 1;
+
+  maxChartBreathNum += num;
+  if (cumulativeChartBreaths>MAX_CHART_DATAPOINTS) chartRangeLimit += num;
+  if ((maxChartBreathNum - minChartBreathNum) >= MAX_CHART_DATAPOINTS) {
+    minChartBreathNum += num;
+  }
+  chartRangeSlider.updateOptions({
+    range: {
+      min: 1,
+      max: chartRangeLimit
+    }
+  });
+  chartRangeSlider.set([minChartBreathNum, maxChartBreathNum]);
+}
+
+function selectChartRange(slider, minB, maxB) {
+  chartSliderPresent = true;
+  l = Number(minB);
+  r = Number(maxB);
+  if (cumulativeChartBreaths) {
+    if (r>cumulativeChartBreaths) r = cumulativeChartBreaths;
+    if (l<1) l = 1;
+  } else {
+    r = l = 0;
+  }
+
+  if (l != minChartBreathNum) {
+    // min changed
+    if (r-l>MAX_CHART_DATAPOINTS) {
+      r = l+MAX_CHART_DATAPOINTS-1;
+    }
+  } else if (r != maxChartBreathNum) {
+    // max changed
+    if (r-l>MAX_CHART_DATAPOINTS) {
+      l = r-MAX_CHART_DATAPOINTS+1;
+    }
+  }
+  
+  minChartBreathNum = l;
+  maxChartBreathNum = r;
+  slider.set([l, r]);
+  console.log(minChartBreathNum + "," + maxChartBreathNum);
+}
+
+function createChartRangeSlider(chartRangeDiv) {
+  chartRangeSlider = noUiSlider.create(chartRangeDiv, {
+    range: {
+      min: 0,
+      max: MAX_CHART_DATAPOINTS
+    },
+    step: 1,
+    start: [
+      0,
+      0
+    ],
+    connect: [false, true, false],
+    // handle labels
+    tooltips: [{
+        to: function(n) {
+          return String(parseInt(n));
+        },
+        from: function(str) {
+          return Number(str);
+        }
+      },
+      {
+        to: function(n) {
+          return String(parseInt(n));
+        },
+        from: function(str) {
+          return Number(str);
+        }
+      }
+    ],
+  });
+  selectChartRange(chartRangeSlider, 0, 0) ;
+  
+  chartRangeSlider.on('change', function() {
+    values = this.get();
+    selectChartRange(this, values[0], values[1]);
+  });
+}
+
 

@@ -15,7 +15,9 @@
     <link href="css/respimatic.dashboard.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../common/js/db.schema.js"></script>
@@ -251,6 +253,13 @@
       </div>
 
       <div id="chart-pane" style="display:none">
+	<br>
+	<center>
+	  <p id='chartSliderCaption' style="font-size:2.5rem; font-family:verdana;"></p>
+	</center>
+        <div id="chartRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+	</div>
+	<br>
         <center>
           <div class=shadowDiv10 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; font-family:verdana;">
             <br>
