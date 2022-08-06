@@ -335,6 +335,11 @@ var fiO2Chart = null;
 var miscChart = null;
 var timeBased = false;
 
+function updateChartsDuringPause() {
+  if (!updatePaused) return; // will be updated anyway
+  createDashboardCharts();
+}
+
 function createDashboardCharts() {
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
@@ -570,6 +575,7 @@ function togglePause() {
     if (currentView == "snapshots") updateSnapshot();
     if (currentView == "charts") createDashboardCharts();
     if (currentView == "stats") createDashboardStats();
+    if (currentView == "alerts") createDashboardAlerts();
   }
   else {
     elm.textContent = "Resume Dashboard";
@@ -737,6 +743,7 @@ function PressuresClick() {
   else {
     document.getElementById("PressuresChartWrapper").style.display = "none";
   }
+  updateChartsDuringPause();
 }
 
 function VolumesClick() {
@@ -746,6 +753,7 @@ function VolumesClick() {
   else {
     document.getElementById("VolumesChartWrapper").style.display = "none";
   }
+  updateChartsDuringPause();
 }
 
 function BpmClick() {
@@ -755,6 +763,7 @@ function BpmClick() {
   else {
     document.getElementById("BpmChartWrapper").style.display = "none";
   }
+  updateChartsDuringPause();
 }
 
 function FiO2Click() {
@@ -764,6 +773,7 @@ function FiO2Click() {
   else {
     document.getElementById("FiO2ChartWrapper").style.display = "none";
   }
+  updateChartsDuringPause();
 }
 
 function MiscClick() {
@@ -773,6 +783,7 @@ function MiscClick() {
   else {
     document.getElementById("MiscChartWrapper").style.display = "none";
   }
+  updateChartsDuringPause();
 }
 
 function InitChartCheckBoxes() {

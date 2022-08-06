@@ -254,10 +254,13 @@
 
       <div id="chart-pane" style="display:none">
 	<br>
-	<center>
-	  <p id='chartSliderCaption' style="font-size:2.5rem; font-family:verdana;"></p>
-	</center>
-        <div id="chartRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+	<div class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
+	  <center>
+	    <p id='chartSliderCaption' style="color: white; font-size:2rem; font-family:verdana;"></p>Select Chart Window
+	  </center>
+          <div id="chartRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+	  </div>
+	  <br>
 	</div>
 	<br>
         <center>
@@ -282,9 +285,9 @@
             &nbsp&nbsp&nbsp&nbsp
             <br>
             X-Axis:
-            <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px">
+            <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px" onclick="updateChartsDuringPause()">
             <label for="breathNum">Breath Number</label>
-            <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px">
+            <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px" onclick="updateChartsDuringPause()">
             <label for="timeBased">Elapsed Time between Updates</label>
             <br><br>
           </div>
