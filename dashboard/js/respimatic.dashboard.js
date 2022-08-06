@@ -335,11 +335,6 @@ var fiO2Chart = null;
 var miscChart = null;
 var timeBased = false;
 
-function updateChartsDuringPause() {
-  if (!updatePaused) return; // will be updated anyway
-  createDashboardCharts();
-}
-
 function createDashboardCharts() {
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
@@ -743,7 +738,7 @@ function PressuresClick() {
   else {
     document.getElementById("PressuresChartWrapper").style.display = "none";
   }
-  updateChartsDuringPause();
+  createDashboardCharts();
 }
 
 function VolumesClick() {
@@ -753,7 +748,7 @@ function VolumesClick() {
   else {
     document.getElementById("VolumesChartWrapper").style.display = "none";
   }
-  updateChartsDuringPause();
+  createDashboardCharts();
 }
 
 function BpmClick() {
@@ -763,7 +758,7 @@ function BpmClick() {
   else {
     document.getElementById("BpmChartWrapper").style.display = "none";
   }
-  updateChartsDuringPause();
+  createDashboardCharts();
 }
 
 function FiO2Click() {
@@ -773,7 +768,7 @@ function FiO2Click() {
   else {
     document.getElementById("FiO2ChartWrapper").style.display = "none";
   }
-  updateChartsDuringPause();
+  createDashboardCharts();
 }
 
 function MiscClick() {
@@ -783,7 +778,7 @@ function MiscClick() {
   else {
     document.getElementById("MiscChartWrapper").style.display = "none";
   }
-  updateChartsDuringPause();
+  createDashboardCharts();
 }
 
 function InitChartCheckBoxes() {
@@ -859,7 +854,7 @@ window.onload = function() {
   elm = document.getElementById('chartSliderCaption');
   elm.innerHTML = "Select Chart Window (MAX " + MAX_CHART_DATAPOINTS + " Breaths)";
   chartRangeDiv = document.getElementById('chartRangeDiv');
-  createChartRangeSlider(chartRangeDiv);
+  createChartRangeSlider(chartRangeDiv, createDashboardCharts);
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();

@@ -835,7 +835,7 @@ function selectChartRange(slider, minB, maxB) {
   console.log(minChartBreathNum + "," + maxChartBreathNum);
 }
 
-function createChartRangeSlider(chartRangeDiv) {
+function createChartRangeSlider(chartRangeDiv, callback) {
   chartRangeSlider = noUiSlider.create(chartRangeDiv, {
     range: {
       min: 0,
@@ -871,6 +871,7 @@ function createChartRangeSlider(chartRangeDiv) {
   chartRangeSlider.on('change', function() {
     values = this.get();
     selectChartRange(this, values[0], values[1]);
+    callback();
   });
 }
 
