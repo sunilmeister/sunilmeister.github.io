@@ -605,6 +605,9 @@ function globalLastRecord() {
       }
     });
     analysisRangeSlider.set(analysisStartBreath, analysisEndBreath);
+    updateSelectedDuration();
+    elm = document.getElementById("logNumBreaths");
+    elm.innerHTML = "Session Total Breaths " + analysisEndBreath;
   }
 }
 

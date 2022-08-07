@@ -306,11 +306,14 @@ function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
   var diff = analysisEndTime - analysisStartTime;
   if (diff >= 0) {
-    elm.innerHTML = "Window Duration " + msToTimeStr(diff);
+    elm.innerHTML = "Window Time Duration " + msToTimeStr(diff);
   }
   else {
     elm.innerHTML = "NaN";
   }
+
+  elm = document.getElementById("selectedBreathRange");
+  elm.innerHTML = "Window Breath Range " + analysisStartBreath + ' - ' + analysisEndBreath;
 }
 
 function setTimeInterval() {
@@ -383,6 +386,15 @@ function selectExit() {
 }
 
 function createAnalysisRangeSlider(div) {
+  var analysisSliderFormatStr = {
+    to: function(n) {
+      return String(parseInt(n));
+    },
+    from: function(str) {
+      return Number(str);
+    }
+  }
+  
   analysisRangeSlider = noUiSlider.create(div, {
     range: {
       min: 0,
@@ -395,26 +407,11 @@ function createAnalysisRangeSlider(div) {
     ],
     connect: [false, true, false],
     // handle labels
-    tooltips: [{
-        to: function(n) {
-          return String(parseInt(n));
-        },
-        from: function(str) {
-          return Number(str);
-        }
-      },
-      {
-        to: function(n) {
-          return String(parseInt(n));
-        },
-        from: function(str) {
-          return Number(str);
-        }
-      }
-    ],
+    tooltips: true,
+    format: analysisSliderFormatStr,
+    //pips: {mode: 'range', format: analysisSliderFormatStr},
   });
 
-  
   analysisRangeSlider.on('change', function() {
     flashAnalysisWindowButtons();
     sliderCommitPending = true;

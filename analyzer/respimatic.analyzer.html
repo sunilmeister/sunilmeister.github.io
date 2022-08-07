@@ -48,8 +48,10 @@
         <br>
         <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <center>
-            <p id="logTimeDuration">Session Duration 00:00:00
-            <p id="selectedTimeDuration">Window Duration 00:00:00
+            <p id="logNumBreaths">Session Total Breaths 0000
+            <p id="logTimeDuration">Session Time Duration 00:00:00
+            <p id="selectedBreathRange">Window Breath Range 0 - 0000
+            <p id="selectedTimeDuration">Window Time Duration 00:00:00
           </center>
         </div>
         <br>
@@ -86,20 +88,23 @@
 
     <div class="body-pane" style="margin-right:20px;">
       <center>
-        <p class=shadowDiv5 id="analyzeSessionName" style="margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
+        <p class=shadowDiv5 id="analyzeSessionName" style="margin-bottom:0px; padding-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
       </center>
-      <center>
-        <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display: none; ">
-          <br><br>
-          <div id="analysisRangeSliderDiv" style="padding-left:20px; padding-right:20px;font-size:15px; font-family:verdana; color:white;">
-          </div>
-          <p style="color:white; font-size:25px; font-family:verdana;">
-            Set Analysis Breaths Window&nbsp;&nbsp;
-            <button id="btnSetInterval" class="sidebarButton" style="width:100px" onclick='setTimeInterval()'>Accept</button>
-            <button id="btnCancelInterval" class="sidebarButton" style="width:100px" onclick='cancelTimeInterval()'>Cancel</button>
-            <button id="btnResetInterval" class="sidebarButton" style="width:100px" onclick='resetTimeInterval()'>Reset</button>
-        </div>
-      </center>
+
+      <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
+        <center>
+	  <p style="color: white; font-size:2rem; font-family:verdana;">Breath Range Window for Analysis
+	</center>
+        <div id="analysisRangeSliderDiv" style="margin-top:0px; padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+	</div>
+	<br>
+	<center>
+          <button id="btnSetInterval" class="sidebarButton" style="width:100px" onclick='setTimeInterval()'>Accept</button>
+          <button id="btnCancelInterval" class="sidebarButton" style="width:100px" onclick='cancelTimeInterval()'>Cancel</button>
+          <button id="btnResetInterval" class="sidebarButton" style="width:100px" onclick='resetTimeInterval()'>Reset</button>
+	  <br><br>
+        </center>
+      </div>
 
       <center>
         <div id="selectorDiv" style="width:800px; border-radius:25px; display: none; margin-bottom:20px;">
