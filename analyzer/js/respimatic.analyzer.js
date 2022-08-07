@@ -313,7 +313,7 @@ function updateSelectedDuration() {
   }
 
   elm = document.getElementById("selectedBreathRange");
-  elm.innerHTML = "Window Breath Range " + analysisStartBreath + ' - ' + analysisEndBreath;
+  elm.innerHTML = "Window Breath Range " + analysisStartBreath + ' to ' + analysisEndBreath;
 }
 
 function setTimeInterval() {
