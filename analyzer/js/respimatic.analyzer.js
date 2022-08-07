@@ -376,7 +376,11 @@ function resetTimeInterval() {
   gatherGlobalData();
   resetDivs();
 }
+
 window.onload = function() {
+  console.log("onload");
+  initSessionGather = true;
+  fullSessionBreathTimes = [];
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
   sessionDbName = "";

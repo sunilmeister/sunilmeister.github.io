@@ -6,6 +6,9 @@ var sessionDbName = "";
 var sessionDbReady = false;
 var sessionDurationInMs = 0;
 const RESPIMATIC_UID_PREFIX = "UID_";
+// Analyzer guides
+var fullSessionBreathTimes = [];
+var initSessionGather = false;
 // Chart Range Selector (Slider)
 var chartRangeSlider = null;
 // Breath numbers being recorded
@@ -323,6 +326,10 @@ function statProcessJsonRecord(jsonData) {
           prevBreathSpontaneous = (value == "SPONTANEOUS");
         }
         else if (ckey == "BNUM") {
+	  if (initSessionGather) {
+	    //console.log("Pushing");
+	    fullSessionBreathTimes.push(new Date(jsonData.created));
+	  }
           if (prevBreathMandatory) {
             numMandatory++;
           }
@@ -571,7 +578,7 @@ function globalProcessAllJsonRecords(key, lastRecord) {
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
-      // It will never get here is keyMoreThanAnalysisRangeMax
+      // It will never get here if keyMoreThanAnalysisRangeMax
       if (keyLessThanAnalysisRangeMin(jsonData.created)) {
         globalTrackJsonRecord(jsonData);
       }
@@ -593,6 +600,7 @@ function globalLastRecord() {
 function gatherGlobalData() {
   if (globalDataValid) return;
   //console.log("gatherGlobalData");
+  initSessionGather = (fullSessionBreathTimes.length==0);
   initialJsonRecord = createNewInstance(jsonRecordSchema);
   if (allDbKeys.length == 0) {
     alert("Selected Session has no data");
