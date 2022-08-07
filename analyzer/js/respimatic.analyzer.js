@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 var analysisRangeSliderDiv = null;
-var rangeSlider = null;
+var analysisRangeSlider = null;
 var sliderCommitPending = false;
 if (!window.indexedDB) {
   alert("IndexedDB not available in your browser.\nSwitch browsers");
@@ -254,6 +254,7 @@ function initSession() {
       logEndTime.setMilliseconds(0);
       analysisStartTime = new Date(logStartTime);
       analysisEndTime = new Date(logEndTime);
+      
       updateSelectedDuration();
       updateLogDuration();
       gatherGlobalData();
@@ -281,7 +282,7 @@ function checkValidAnalysisDuration() {
 }
 
 function updateLogDuration() {
-  rangeSlider.updateOptions({
+  analysisRangeSlider.updateOptions({
     range: {
       'min': logStartTime.getTime(),
       'max': logEndTime.getTime()
@@ -301,21 +302,6 @@ function updateLogDuration() {
   }
 }
 
-function updateSliderDuration() {
-  values = rangeSlider.get();
-  st = new Date(Number(values[0]));
-  st.setMilliseconds(0);
-  et = new Date(Number(values[1]));
-  et.setMilliseconds(0);
-  var diff = et - st;
-  elm = document.getElementById("intervalStart");
-  elm.value = dateToStr(st);
-  elm = document.getElementById("intervalEnd");
-  elm.value = dateToStr(et);
-  elm = document.getElementById("intervalDuration");
-  elm.value = msToTimeStr(diff);
-}
-
 function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
   var diff = analysisEndTime - analysisStartTime;
@@ -325,26 +311,16 @@ function updateSelectedDuration() {
   else {
     elm.innerHTML = "NaN";
   }
-  elm = document.getElementById("intervalStart");
-  elm.value = dateToStr(analysisStartTime);
-  elm = document.getElementById("intervalEnd");
-  elm.value = dateToStr(analysisEndTime);
-  elm = document.getElementById("intervalDuration");
-  elm.value = msToTimeStr(diff);
 }
 
 function setTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  values = rangeSlider.get();
-  st = new Date(Number(values[0]));
-  st.setMilliseconds(0);
-  et = new Date(Number(values[1]));
-  et.setMilliseconds(0);
-  if ((st.getTime() == analysisStartTime.getTime()) &&
-    (et.getTime() == analysisEndTime.getTime())) return;
-  analysisStartTime = new Date(st);
-  analysisEndTime = new Date(et);
+  values = analysisRangeSlider.get();
+  analysisStartBreath = parseInt(values[0]);
+  analysisEndBreath = parseInt(values[1]);
+  analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
+  analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
@@ -354,9 +330,7 @@ function setTimeInterval() {
 function cancelTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  st = analysisStartTime.getTime();
-  et = analysisEndTime.getTime();
-  rangeSlider.set([st, et]);
+  analysisRangeSlider.set([analysisStartBreath, analysisEndBreath]);
   updateSelectedDuration();
 }
 
@@ -364,13 +338,11 @@ function resetTimeInterval() {
   cancelTimeInterval();
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  if ((logStartTime.getTime() == analysisStartTime.getTime()) &&
-    (logEndTime.getTime() == analysisEndTime.getTime())) return;
-  analysisStartTime = logStartTime;
-  analysisEndTime = logEndTime;
-  st = logStartTime.getTime();
-  et = logEndTime.getTime();
-  rangeSlider.set([st, et]);
+  analysisStartBreath = 1;
+  analysisEndBreath = fullSessionBreathTimes.length;
+  analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
+  analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
+  analysisRangeSlider.set([analysisStartBreath, analysisEndBreath]);
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
@@ -378,7 +350,7 @@ function resetTimeInterval() {
 }
 
 window.onload = function() {
-  console.log("onload");
+  //console.log("onload");
   initSessionGather = true;
   fullSessionBreathTimes = [];
   initDbNames();
@@ -391,12 +363,7 @@ window.onload = function() {
   sessionInfo.innerHTML = 'No Selected Session';
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
-  createAnalysisRangeSlider();
-  rangeSlider.on('end', function() {
-    flashAnalysisWindowButtons();
-    updateSliderDuration();
-    sliderCommitPending = true;
-  });
+  createAnalysisRangeSlider(analysisRangeSliderDiv);
   unflashAnalysisWindowButtons();
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
@@ -415,44 +382,45 @@ function selectExit() {
   window.open('', '_self').close();
 }
 
-function createAnalysisRangeSlider() {
-  rangeSlider = noUiSlider.create(analysisRangeSliderDiv, {
-    // Create two timestamps to define a range.
+function createAnalysisRangeSlider(div) {
+  analysisRangeSlider = noUiSlider.create(div, {
     range: {
-      min: logStartTime.getTime(),
-      max: logEndTime.getTime() + 10000
+      min: 0,
+      max: 1
     },
-    // Steps of one second
-    step: 1000,
-    // Two more timestamps indicate the handle starting positions.
+    step: 1,
     start: [
-      analysisStartTime.getTime(),
-      analysisEndTime.getTime() + 10000
+      0,
+      1
     ],
-    //some formatting
-    padding: [1000, 1000],
     connect: [false, true, false],
     // handle labels
     tooltips: [{
-        to: function(ms) {
-          return msToDateStr(ms);
+        to: function(n) {
+          return String(parseInt(n));
         },
-        from: function(dt) {
-          return dateStrToMs(dt);
+        from: function(str) {
+          return Number(str);
         }
       },
       {
-        to: function(ms) {
-          return msToDateStr(ms);
+        to: function(n) {
+          return String(parseInt(n));
         },
-        from: function(dt) {
-          return dateStrToMs(dt);
+        from: function(str) {
+          return Number(str);
         }
       }
     ],
-    //pips: {mode: 'count', values: 5},
+  });
+
+  
+  analysisRangeSlider.on('change', function() {
+    flashAnalysisWindowButtons();
+    sliderCommitPending = true;
   });
 }
+
 var intervalId = setInterval(function() {
   blinkAnalysisWindowButtons();
 }, 1000);

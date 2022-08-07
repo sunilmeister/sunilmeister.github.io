@@ -26,14 +26,14 @@ function displayJsonRecord(key) {
 var dataDisplayed = false;
 
 function initRawDump() {
-  console.log("initRawData");
+  //console.log("initRawData");
   var scrollbox = document.getElementById('scrollRawDataDiv');
   scrollbox.innerHTML = "";
   dataDisplayed = false;
 }
 
 function displayRawData() {
-  console.log("displayRawData");
+  //console.log("displayRawData");
   if (!globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;

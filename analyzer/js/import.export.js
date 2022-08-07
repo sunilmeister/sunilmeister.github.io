@@ -4,7 +4,7 @@
 var importJsonArray = [];
 
 function initImportExport() {
-  console.log("initImportExport");
+  //console.log("initImportExport");
   importJsonArray = [];
 }
 
@@ -35,7 +35,7 @@ function exportDbRow() {
 }
 
 function doExportWindow(dbName) {
-  console.log("exportWindow dbName=" + dbName);
+  //console.log("exportWindow dbName=" + dbName);
   var getAll = [];
   getAll.push(formInitialJsonRecord());
   var req = indexedDB.open(dbName, dbVersion);

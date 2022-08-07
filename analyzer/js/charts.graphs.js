@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 function initCharts() {
-  console.log("initCharts");
+  //console.log("initCharts");
   elm = document.getElementById("chartContainerDiv");
   elm.innerHTML = "";
 }
@@ -389,7 +389,7 @@ function createNewChart() {
 }
 
 function displayCharts() {
-  console.log("displayCharts");
+  //console.log("displayCharts");
   if (!globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;

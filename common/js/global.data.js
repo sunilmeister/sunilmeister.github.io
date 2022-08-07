@@ -329,6 +329,7 @@ function statProcessJsonRecord(jsonData) {
 	  if (initSessionGather) {
 	    //console.log("Pushing");
 	    fullSessionBreathTimes.push(new Date(jsonData.created));
+	    analysisEndBreath++;
 	  }
           if (prevBreathMandatory) {
             numMandatory++;
@@ -595,6 +596,16 @@ function globalProcessAllJsonRecords(key, lastRecord) {
 function globalLastRecord() {
   //usedParamCombos.push(createNewInstance(prevParamCombo));
   globalDataValid = true;
+  if (analysisRangeSlider && initSessionGather) {
+    analysisStartBreath = 1;
+    analysisRangeSlider.updateOptions({
+      range: {
+        min: analysisStartBreath,
+        max: analysisEndBreath
+      }
+    });
+    analysisRangeSlider.set(analysisStartBreath, analysisEndBreath);
+  }
 }
 
 function gatherGlobalData() {
