@@ -2,6 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 const MAX_CHART_DATAPOINTS = 60;
+const MAX_XAXIS_TICK_MARKS = 20;
 const graphColors = [
   "Crimson",
   "Blue",
@@ -78,7 +79,9 @@ function toggleDataSeries(e) {
 
 function createChartsXaxis(chartJson) {
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
-  chartJson.axisX.minimum = startingXval;
+  chartJson.axisX.interval = calculateXaxisInterval();
+  chartJson.axisX.minimum = calculateXaxisMinimum();
+  console.log("Xaxis tick interval = " + chartJson.axisX.interval);
   if (timeBased) {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
   } else {
@@ -658,7 +661,6 @@ function createTempYaxis(num, color) {
   return (yaxis);
 }
 var debugLogDatapoints = false;
-var startingXval = -1;
 
 function createDatapoints(transitions) {
   var curValue = 0;
@@ -700,6 +702,44 @@ function createDatapoints(transitions) {
   return datapoints;
 }
 
+function calculateXaxisInterval() {
+  if (chartSliderPresent) {
+    if (timeBased) {
+      st = new Date(breathTimes[minChartBreathNum].time);
+      et = new Date(breathTimes[maxChartBreathNum].time);
+      numPoints = (et - st)/1000;
+    } else {
+      numPoints = maxChartBreathNum - minChartBreathNum + 1;
+    }
+  } else {
+    if (timeBased) {
+      numPoints = (analysisEndTime - analysisStartTime)/1000;
+    } else {
+      numPoints = analysisEndBreath - analysisStartBreath + 1;
+    }
+  }
+  interval = Math.ceil(numPoints/MAX_XAXIS_TICK_MARKS);
+  return interval;
+}
+
+function calculateXaxisMinimum() {
+  if (chartSliderPresent) {
+    if (timeBased) {
+      st = new Date(breathTimes[1].time);
+      et = new Date(breathTimes[minChartBreathNum].time);
+      return (et-st)/1000 ;
+    } else {
+      return minChartBreathNum;
+    }
+  } else {
+    if (timeBased) {
+      return (analysisStartTime - logStartTime)/1000;
+    } else {
+      return analysisStartBreath;
+    }
+  }
+}
+
 function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
   if (valueArray.length == 0) return null;
   var yDatapoints = [];
@@ -712,7 +752,6 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
   xyPoints.length = 0;
   yDatapoints = createDatapoints(valueArray);
   var xval;
-  startingXval = -1;
   for (i = 1; i < numPoints; i++) {
     if (timeBased) {
       var ms;
@@ -723,7 +762,6 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
       }
       sec = Math.round(ms / 1000);
       xval = sec;
-      if (startingXval<0) startingXval = xval;
     }
     else {
       if (chartSliderPresent) {
@@ -731,7 +769,6 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
       } else {
         xval = i;
       }
-      if (startingXval<0) startingXval = xval;
     }
     if (!flagError && !flagWarning) {
       xyPoints.push({
@@ -832,7 +869,7 @@ function selectChartRange(slider, minB, maxB) {
   minChartBreathNum = l;
   maxChartBreathNum = r;
   slider.set([l, r]);
-  console.log(minChartBreathNum + "," + maxChartBreathNum);
+  //console.log(minChartBreathNum + "," + maxChartBreathNum);
 }
 
 function createChartRangeSlider(chartRangeDiv, callback) {

@@ -426,6 +426,8 @@ function showAnalysisRangeSlider() {
   //console.log("Showing slider");
   analysisStartBreath = 1;
   analysisEndBreath = fullSessionBreathTimes.length;
+  analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
+  analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "block";
   elm = document.getElementById("logNumBreaths");
