@@ -282,16 +282,6 @@ function checkValidAnalysisDuration() {
 }
 
 function updateLogDuration() {
-  analysisRangeSlider.updateOptions({
-    range: {
-      'min': logStartTime.getTime(),
-      'max': logEndTime.getTime()
-    },
-    start: [
-      analysisStartTime.getTime(),
-      analysisEndTime.getTime()
-    ],
-  });
   var diff = logEndTime - logStartTime;
   elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
@@ -364,10 +354,6 @@ window.onload = function() {
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   var sessionInfo = document.getElementById("analyzeSessionName");
   sessionInfo.innerHTML = 'No Selected Session';
-  // Create analysis range slider
-  analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
-  createAnalysisRangeSlider(analysisRangeSliderDiv);
-  unflashAnalysisWindowButtons();
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
@@ -383,39 +369,6 @@ window.onload = function() {
 function selectExit() {
   //window.location.assign("../index.html");
   window.open('', '_self').close();
-}
-
-function createAnalysisRangeSlider(div) {
-  var analysisSliderFormatStr = {
-    to: function(n) {
-      return String(parseInt(n));
-    },
-    from: function(str) {
-      return Number(str);
-    }
-  }
-  
-  analysisRangeSlider = noUiSlider.create(div, {
-    range: {
-      min: 0,
-      max: 1
-    },
-    step: 1,
-    start: [
-      0,
-      1
-    ],
-    connect: [false, true, false],
-    // handle labels
-    tooltips: true,
-    format: analysisSliderFormatStr,
-    //pips: {mode: 'range', format: analysisSliderFormatStr},
-  });
-
-  analysisRangeSlider.on('change', function() {
-    flashAnalysisWindowButtons();
-    sliderCommitPending = true;
-  });
 }
 
 var intervalId = setInterval(function() {
@@ -468,6 +421,57 @@ function resetDivs() {
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
 }
+
+function showAnalysisRangeSlider() {
+  //console.log("Showing slider");
+  analysisStartBreath = 1;
+  analysisEndBreath = fullSessionBreathTimes.length;
+  elm = document.getElementById("analysisWindowDiv");
+  elm.style.display = "block";
+  elm = document.getElementById("logNumBreaths");
+  elm.innerHTML = "Session Total Breaths " + analysisEndBreath;
+
+  // Create analysis range slider
+  analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
+  createAnalysisRangeSlider(analysisRangeSliderDiv);
+  unflashAnalysisWindowButtons();
+
+  updateSelectedDuration();
+}
+
+function createAnalysisRangeSlider(div) {
+  var analysisSliderFormatStr = {
+    to: function(n) {
+      return String(parseInt(n));
+    },
+    from: function(str) {
+      return Number(str);
+    }
+  }
+  
+  analysisRangeSlider = noUiSlider.create(div, {
+    range: {
+      min: analysisStartBreath,
+      max: analysisEndBreath
+    },
+    step: 1,
+    start: [
+      analysisStartBreath,
+      analysisEndBreath
+    ],
+    connect: [false, true, false],
+    // handle labels
+    tooltips: true,
+    format: analysisSliderFormatStr,
+    //pips: {mode: 'range', format: analysisSliderFormatStr},
+  });
+
+  analysisRangeSlider.on('change', function() {
+    flashAnalysisWindowButtons();
+    sliderCommitPending = true;
+  });
+}
+
 alert(
   "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
   "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
