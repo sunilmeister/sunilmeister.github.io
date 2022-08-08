@@ -75,6 +75,7 @@ function createNewChart() {
   createChartsXaxis(chartJson);
   if (timeBased) {
     if (breathTimes.length > 1) {
+      /*
       var msg = "Elapsed time shown is from the ";
       msg = msg + "first to the last recorded breath\n";
       msg = msg + "in the analysis window\n\n";
@@ -85,6 +86,9 @@ function createNewChart() {
       msg = msg + "Last breath recorded " + msToTimeStr(diff) + " (hh:mm:ss)\n";
       msg = msg + "from the start of the analysis window";
       alert(msg);
+      */
+    } else {
+      alert("No recorded breath for this session");
     }
   }
   if (peakYes) {

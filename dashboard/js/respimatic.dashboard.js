@@ -359,7 +359,7 @@ function createDashboardPressureCharts() {
   chartColor = graphColors[0];
   yaxis = createPressureYaxis(0, chartColor);
   chartJson.axisY.push(yaxis);
-  chartJson.axisY2 = createNewInstance(yaxis);
+  chartJson.axisY2 = createNewInstance(yaxis); // same axis on both sides
   if (paramData) {
     paramData.color = chartColor;
     paramData.name = "Peak Pressure (cm H20)";
@@ -379,7 +379,7 @@ function createDashboardPressureCharts() {
   if (paramData) {
     paramData.name = "PEEP Pressure (cm H20)";
     paramData.color = chartColor;
-    paramData.axisYIndex = 0;
+    paramData.axisYType = "secondary";
     chartJson.data.push(paramData);
   }
   container = document.getElementById("chartPressureDiv");
@@ -550,7 +550,7 @@ function createDashboardBpmCharts() {
   if (paramData) {
     paramData.name = "Mandatory Breaths (bpm)";
     paramData.color = chartColor;
-    paramData.axisYIndex = 0;
+    paramData.axisYType = "secondary";
     chartJson.data.push(paramData);
   }
   container = document.getElementById("chartBpmDiv");

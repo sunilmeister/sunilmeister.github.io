@@ -439,6 +439,9 @@ function showAnalysisRangeSlider() {
   unflashAnalysisWindowButtons();
 
   updateSelectedDuration();
+  if (analysisEndBreath==0) {
+    alert("No recorded breath for this session");
+  }
 }
 
 function createAnalysisRangeSlider(div) {
