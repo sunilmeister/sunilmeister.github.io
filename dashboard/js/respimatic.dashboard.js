@@ -80,8 +80,8 @@ function waitForDweets() {
       simulatedTimeInMs = Number(dTime);
       //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
       startDate = new Date(d.created);
-      elm = document.getElementById("startTime");
-      elm.innerHTML = "Starting Time " + dateToTimeStr(d.created);
+      elm = document.getElementById("logStartTime");
+      elm.innerHTML = dateToTimeStr(d.created);
     }
     awaitingFirstDweet = false;
     lastDweetInMs = simulatedTimeInMs;
@@ -93,13 +93,16 @@ function processDashboardDweet(d) {
   curDate = new Date(d.created);
   sessionDurationInMs = curDate - startDate;
   elm = document.getElementById("logTimeDuration");
-  elm.innerHTML = "Session Duration " + msToTimeStr(sessionDurationInMs);
+  elm.innerHTML = msToTimeStr(sessionDurationInMs);
   elm = document.getElementById("dashboardBreathNum");
+  pd = document.getElementById("pausedOrDuring");
   if (updatePaused) {
-    elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
+    pd.innerHTML = "&nbspPaused At";
+    elm.innerHTML = breathPausedAt;
   }
   else {
-    elm.innerHTML = "&nbsp&nbspNumber of Breaths&nbsp&nbsp " + dashboardBreathNum;
+    pd.innerHTML = "&nbspDuring";
+    elm.innerHTML = dashboardBreathNum;
   }
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
@@ -576,8 +579,10 @@ function togglePause() {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
     breathPausedAt = dashboardBreathNum;
+    pd = document.getElementById("pausedOrDuring");
+    pd.innerHTML = "&nbspPaused At";
     elm = document.getElementById("dashboardBreathNum");
-    elm.innerHTML = "&nbsp&nbspDashboard Paused at&nbsp&nbsp Breath " + breathPausedAt;
+    elm.innerHTML = breathPausedAt;
   }
   updateDashboardAndRecordingStatus();
 }
@@ -916,6 +921,11 @@ function FetchAndExecuteFromQueue() {
     if (typeof d.content["BNUM"] != "undefined") {
       dashboardBreathNum++;
       systemBreathNum = d.content["BNUM"];
+      if (startSystemBreathNum<0) {
+	startSystemBreathNum = systemBreathNum;
+        elm = document.getElementById("priorBreathNum");
+	elm.innerHTML = String(systemBreathNum-1);
+      }
     }
     var dCopy; // a copy of the dweet
     if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);

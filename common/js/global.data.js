@@ -14,6 +14,7 @@ var chartRangeSlider = null;
 // Breath numbers being recorded
 var dashboardBreathNum = 0;
 var systemBreathNum = 0;
+var startSystemBreathNum = -1;
 var prevSystemBreathNum = -1;
 // before Analysis starts
 var initialJsonRecord = null;
@@ -111,6 +112,7 @@ function initGlobalData() {
   firstRecord = true;
   dashboardBreathNum = 0;
   systemBreathNum = 0;
+  startSystemBreathNum = -1;
   prevSystemBreathNum = -1;
   initChartData();
   numInitialEntry = 0;
@@ -261,6 +263,7 @@ function globalTrackJsonRecord(jsonData) {
             prevSystemBreathNum = value - 1;
           }
           systemBreathNum = value;
+	  if (startSystemBreathNum==-1) startSystemBreathNum = value;
           bMissing = systemBreathNum - prevSystemBreathNum - 1;
           numMissingBreaths += bMissing;
           prevSystemBreathNum = value;

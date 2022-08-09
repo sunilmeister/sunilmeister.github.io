@@ -42,10 +42,30 @@
         <br>
         <div id="headerDiv" class=shadowDiv10 style="border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1.75rem; font-family:verdana;">
           <center>
-            <p id="logTimeDuration">Session Duration 00:00:00
-            <p id="startTime">Starting Time 00:00:00
-            <p id="dashboardBreathNum">Number of Breaths 0000
+	    <p style="margin-bottom:0;"><b>SESSION TIMES</b>
+            <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
+	      <tr>
+                <td align="left">&nbspStart</td>
+                <td id="logStartTime" align="center">00:00:00</td>
+	      </tr>
+	      <tr>
+                <td align="left">&nbspDuration</td>
+                <td id="logTimeDuration" align="center">00:00:00</td>
+	      </tr>
+	    </table>
+	    <p style="margin-bottom:0;"><b>SESSION BREATHS</b>
+            <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
+	      <tr>
+                <td align="left">&nbspPrior</td>
+                <td id="priorBreathNum" align="center">--</td>
+	      </tr>
+	      <tr>
+                <td id="pausedOrDuring" align="left">&nbspDuring</td>
+                <td id="dashboardBreathNum" align="center">0</td>
+	      </tr>
+	    </table>
           </center>
+	  <br>
         </div>
 
         <div class=shadowDiv10 style="margin-top:1rem; border-radius:1.5rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
@@ -539,7 +559,7 @@
 
         <div class=SysUid style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-family:verdana;font-size:1.5em;">
           <center>
-            <p style="font-size:1.4em; margin-top:0.4em; margin-bottom:0.4em"><b>System UID</b></p>
+            <p style="font-size:1.4em; margin-top:0.4em; margin-bottom:0.4em"><b>SYSTEM UID</b></p>
             <p id='SysUid' style="font-size:1.3em; margin-bottom:0.4em">
           </center>
         </div>
