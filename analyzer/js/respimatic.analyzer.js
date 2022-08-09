@@ -285,10 +285,10 @@ function updateLogDuration() {
   var diff = logEndTime - logStartTime;
   elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
-    elm.innerHTML = "Session Duration " + msToTimeStr(diff);
+    elm.innerHTML = msToTimeStr(diff);
   }
   else {
-    elm.innerHTML = "Session Duration " + "NaN";
+    elm.innerHTML = "NaN";
   }
 }
 
@@ -296,14 +296,16 @@ function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
   var diff = analysisEndTime - analysisStartTime;
   if (diff >= 0) {
-    elm.innerHTML = "Window Time Duration " + msToTimeStr(diff);
+    elm.innerHTML = msToTimeStr(diff);
   }
   else {
     elm.innerHTML = "NaN";
   }
 
   elm = document.getElementById("selectedBreathRange");
-  elm.innerHTML = "Window Breath Range " + analysisStartBreath + ' to ' + analysisEndBreath;
+  elm.innerHTML = String(analysisStartBreath) + ',' + analysisEndBreath;
+  elm = document.getElementById("priorNumBreaths");
+  elm.innerHTML = String(startSystemBreathNum-1);
 }
 
 function setTimeInterval() {
@@ -431,7 +433,7 @@ function showAnalysisRangeSlider() {
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "block";
   elm = document.getElementById("logNumBreaths");
-  elm.innerHTML = "Session Total Breaths " + analysisEndBreath;
+  elm.innerHTML = analysisEndBreath;
 
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');

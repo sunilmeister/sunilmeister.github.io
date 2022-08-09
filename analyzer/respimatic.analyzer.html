@@ -48,11 +48,34 @@
         <br>
         <div class=shadowDiv5 style="border-radius:25px; background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
           <center>
-            <p id="logNumBreaths">Session Total Breaths ----
-            <p id="logTimeDuration">Session Time Duration --:--:--
-            <p id="selectedBreathRange">Window Breath Range -- to --
-            <p id="selectedTimeDuration">Window Time Duration --:--:--
+            <p style="margin-bottom:0;"><b>SESSION DATA</b>
+            <table style="border-collapse:unset; border:none; font-size:20px; width:100%">
+	      <tr>
+                <td align="left">&nbspBreaths</td>
+                <td id="logNumBreaths" align="center">--</td>
+	      </tr>
+	      <tr>
+                <td align="left">&nbspDuration</td>
+                <td id="logTimeDuration" align="center">--:--:--</td>
+	      </tr>
+	      <tr>
+                <td align="left">&nbspPriorBreaths</td>
+                <td id="priorNumBreaths" align="center">--</td>
+	      </tr>
+	    </table>
+            <p style="margin-bottom:0;"><b>ANALYSIS WINDOW</b>
+            <table style="border-collapse:unset; border:none; font-size:20px; width:100%">
+	      <tr>
+                <td align="left">&nbspBreathRange</td>
+                <td id="selectedBreathRange" align="center">--</td>
+	      </tr>
+	      <tr>
+                <td align="left">&nbspDuration</td>
+                <td id="selectedTimeDuration" align="center">--:--:--</td>
+	      </tr>
+	    </table>
           </center>
+	  <br>
         </div>
         <br>
 
@@ -86,7 +109,7 @@
       </div>
     </div>
 
-    <div class="body-pane" style="margin-right:20px; margin-top:-970px;">
+    <div class="body-pane" style="margin-right:20px; margin-top:-850px;">
       <center>
         <p class=shadowDiv5 id="analyzeSessionName" style="margin-top:-50px; margin-bottom:0px; padding-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
       </center>

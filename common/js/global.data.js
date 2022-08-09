@@ -332,6 +332,7 @@ function statProcessJsonRecord(jsonData) {
 	  if (initSessionGather) {
 	    //console.log("Pushing");
 	    fullSessionBreathTimes.push(new Date(jsonData.created));
+	    if (startSystemBreathNum<0) startSystemBreathNum = value;
 	  }
           if (prevBreathMandatory) {
             numMandatory++;
