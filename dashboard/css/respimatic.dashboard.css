@@ -338,17 +338,8 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-.SysUid {
-  grid-area: 15 / 1 / 17 / 6;
-  border-radius: 1.5rem;
-  background-color: var(--rsp_darkblue);
-  color: white;
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
-}
-
 .DashboardActive {
-  grid-area: 15 / 6 / 16 / 9;
+  grid-area: 15 / 1 / 16 / 4;
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
@@ -357,7 +348,16 @@
 }
 
 .RecordingActive {
-  grid-area: 16 / 6 / 17 / 9;
+  grid-area: 16 / 1 / 17 / 4;
+  border-radius: 1.5rem;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+}
+
+.SysUid {
+  grid-area: 15 / 4 / 17 / 9;
   border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
