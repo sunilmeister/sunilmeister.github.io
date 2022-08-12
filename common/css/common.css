@@ -3,60 +3,16 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
-.sidebarColumn {
-  width: 290px;
-  background-color: var(--rsp_blue);
-  padding-bottom: 20px;
-  margin-top: 100px;
-  margin-bottom: 0;
-  margin-left: -8px;
+
+/* A row of equal columns that sits next to each other */
+.row {
+  display: flex;
 }
 
-.sidebar {
-  border-radius: 25px;
-  width: 240px;
-  font-size: 16px;
-  font-family: verdana;
-  margin-left: 20px;
-}
-
-.sidebar div {
-  padding: 4px;
-  font-size: 20px;
-  display: block;
-}
-
-.body-pane {
-  border-radius: 25px;
-  margin-top: -870px;
-  margin-left: 310px;
-  font-size: 20px;
-  font-family: verdana;
-}
-
-.dbTableButton {
-  background-color: var(--rsp_mediumblue);
-  border: white;
-  color: white;
-  padding: 5px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 6px 6px;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 10px;
-  opacity: 0.8;
-}
-
-.dbTableButton:hover {
-  opacity: 1;
-}
-
-.dbTableButton:active {
-  background-color: var(--rsp_blue);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 10px;
 }
 
 .button {
@@ -84,85 +40,10 @@
   transform: translateY(6px);
 }
 
-.sidebarButton {
-  background-color: var(--rsp_blue);
-  border: white;
-  color: var(--rsp_darkblue);
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
-  border-radius: 10px;
-  width: 210px;
-  opacity: 0.8;
-}
-
-.sidebarButton:hover {
-  opacity: 1;
-}
-
-.sidebarButton:active {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
-}
-
-.sidebarButtonShadow {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  background-color: var(--rsp_mediumblue);
-  border: white;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 10px;
-  width: 210px;
-  opacity: 0.8;
-}
-
-.sidebarButtonShadow:hover {
-  opacity: 1;
-}
-
-.sidebarButtonShadow:active {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
-}
-
-/* A row of equal columns that sits next to each other */
-.row {
-  display: flex;
-}
-
-/* Create two equal columns that sits next to each other */
-.column {
-  flex: 50%;
-  padding: 10px;
-}
-
 table,
 tr {
   border-bottom: 1px solid white;
   border-collapse: collapse;
-}
-
-.dbTableStyle td {
-  padding: 0 5px 0 0;
-}
-
-.statsTableStyle td {
-  padding: 0 5px 0 0;
-  /* Only right padding*/
 }
 
 span {
@@ -184,6 +65,11 @@ span {
   border: 10px solid #CCCCCC;
   box-sizing: border-box;
   height: 1200px;
+}
+
+.statsTableStyle td {
+  padding: 0 5px 0 0;
+  /* Only right padding*/
 }
 
 .shadowDiv5 {
