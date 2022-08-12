@@ -34,35 +34,6 @@
   font-family: verdana;
 }
 
-.dbTableStyle td {
-  padding: 0 5px 0 0;
-}
-
-.dbTableButton {
-  background-color: var(--rsp_mediumblue);
-  border: white;
-  color: white;
-  padding: 5px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 6px 6px;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 10px;
-  opacity: 0.8;
-}
-
-.dbTableButton:hover {
-  opacity: 1;
-}
-
-.dbTableButton:active {
-  background-color: var(--rsp_blue);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
-}
-
 .sidebarButton {
   background-color: var(--rsp_blue);
   border: white;
