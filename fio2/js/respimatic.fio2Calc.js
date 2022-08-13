@@ -2,6 +2,7 @@ var desiredFiO2 = 21;
 var desiredVt = 400;
 var desiredRr = 15;
 var o2Purity = 100;
+
 window.onload = function() {
   installVtKnob();
   installRrKnob();
@@ -18,56 +19,37 @@ const vtKnobListener = function(knob, value) {
 };
 
 function installVtKnob() {
-  // Create knob element, 150 x 150 px in size.
-  const knob = pureknob.createKnob(150, 150);
-  // Set properties.
-  knob.setProperty('angleStart', -0.75 * Math.PI);
-  knob.setProperty('angleEnd', 0.75 * Math.PI);
-  knob.setProperty('colorFG', '#88ff88');
-  knob.setProperty('trackWidth', 0.4);
-  knob.setProperty('valMin', 0);
-  knob.setProperty('valMax', 8);
-  // custom numbers
+  var bgColor = 'black';
+  var fgColor = '#88ff88' ;
+  var containerDiv = document.getElementById('vtRrDiv');
+  const knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 0, 8);
+  knob.setValue(4);
+  knob.setChangeCallback(vtKnobListener);
+
   knob.setProperty('fnStringToValue', function(string) {
     return (parseInt(string) - 200) / 50;
   });
   knob.setProperty('fnValueToString', function(value) {
     return ((value * 50) + 200).toString();
   });
-  // Set initial value.
-  knob.setValue(4);
-  knob.addListener(vtKnobListener);
-  // Create element node.
-  const node = knob.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('vtRrDiv');
-  elem.appendChild(node);
 }
+
 const rrKnobListener = function(knob, value) {
   desiredRr = value;
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
 };
 
 function installRrKnob() {
-  // Create knob element, 150 x 150 px in size.
-  const knob = pureknob.createKnob(150, 150);
-  // Set properties.
-  knob.setProperty('angleStart', -0.75 * Math.PI);
-  knob.setProperty('angleEnd', 0.75 * Math.PI);
-  knob.setProperty('colorFG', '#88ff88');
-  knob.setProperty('trackWidth', 0.4);
-  knob.setProperty('valMin', 10);
-  knob.setProperty('valMax', 30);
-  // Set initial value.
+  var bgColor = 'black';
+  var fgColor = '#88ff88' ;
+  var containerDiv = document.getElementById('vtRrDiv');
+  const knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 10, 30);
   knob.setValue(15);
-  knob.addListener(rrKnobListener);
-  // Create element node.
-  const node = knob.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('vtRrDiv');
-  elem.appendChild(node);
+  knob.setChangeCallback(rrKnobListener);
 }
+
 var fiO2Knob = null;
+var purityKnob = null;
 
 function adjustFiO2Max() {
   degradedPurity = DegradedPurity(o2Purity);
@@ -84,24 +66,14 @@ const fiO2KnobListener = function(knob, value) {
 };
 
 function installFiO2Knob() {
-  // Create knob element, 150 x 150 px in size.
-  fiO2Knob = pureknob.createKnob(150, 150);
-  // Set properties.
-  fiO2Knob.setProperty('angleStart', -0.75 * Math.PI);
-  fiO2Knob.setProperty('angleEnd', 0.75 * Math.PI);
-  fiO2Knob.setProperty('colorFG', '#88ff88');
-  fiO2Knob.setProperty('trackWidth', 0.4);
-  fiO2Knob.setProperty('valMin', 21);
-  fiO2Knob.setProperty('valMax', 100);
-  // Set initial value.
+  var bgColor = 'black';
+  var fgColor = '#88ff88' ;
+  var containerDiv = document.getElementById('fio2Div');
+  fiO2Knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   fiO2Knob.setValue(21);
-  fiO2Knob.addListener(fiO2KnobListener);
-  // Create element node.
-  const node = fiO2Knob.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('fio2Div');
-  elem.appendChild(node);
+  fiO2Knob.setChangeCallback(fiO2KnobListener);
 }
+
 const purityKnobListener = function(knob, value) {
   o2Purity = value;
   adjustFiO2Max();
@@ -109,23 +81,12 @@ const purityKnobListener = function(knob, value) {
 };
 
 function installPurityKnob() {
-  // Create knob element, 150 x 150 px in size.
-  const knob = pureknob.createKnob(150, 150);
-  // Set properties.
-  knob.setProperty('angleStart', -0.75 * Math.PI);
-  knob.setProperty('angleEnd', 0.75 * Math.PI);
-  knob.setProperty('colorFG', '#88ff88');
-  knob.setProperty('trackWidth', 0.4);
-  knob.setProperty('valMin', 21);
-  knob.setProperty('valMax', 100);
-  // Set initial value.
-  knob.setValue(100);
-  knob.addListener(purityKnobListener);
-  // Create element node.
-  const node = knob.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('fio2Div');
-  elem.appendChild(node);
+  var bgColor = 'black';
+  var fgColor = '#88ff88' ;
+  var containerDiv = document.getElementById('fio2Div');
+  purityKnob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
+  purityKnob.setValue(21);
+  purityKnob.setChangeCallback(purityKnobListener);
 }
 
 function updateFiO2Calculation(vt, rr, fiO2, o2Purity) {

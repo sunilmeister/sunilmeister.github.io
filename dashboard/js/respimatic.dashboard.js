@@ -593,147 +593,58 @@ function selectExit() {
 }
 
 function installFiO2Gauge() {
-  var style = getComputedStyle(document.body)
-  // Create knob element, 200 x 200 px in size.
-  fiO2Gauge = pureknob.createKnob(150, 150);
-  // Set properties.
-  fiO2Gauge.setProperty('angleStart', -0.75 * Math.PI);
-  fiO2Gauge.setProperty('angleEnd', 0.75 * Math.PI);
-  fiO2Gauge.setProperty('colorFG', 'white');
-  fiO2Gauge.setProperty('colorBG', style.getPropertyValue('--rsp_mediumblue'));
-  fiO2Gauge.setProperty('trackWidth', 0.4);
-  fiO2Gauge.setProperty('valMin', 21);
-  fiO2Gauge.setProperty('valMax', 100);
-  fiO2Gauge.setProperty('needle', true);
+  var style = getComputedStyle(document.body);
+  var bgColor = style.getPropertyValue('--rsp_mediumblue');
+  var fgColor = 'white' ;
+  var containerDiv = document.getElementById('fiO2Div');
+  fiO2Gauge = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
-  fiO2Gauge.setProperty('textScale', 1);
-  // Set initial value.
-  fiO2Gauge.setValue();
-  // Create element node.
-  const node = fiO2Gauge.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('fiO2Div');
-  elem.appendChild(node);
 }
 
 function installPurityGauge() {
-  var style = getComputedStyle(document.body)
-  // Create knob element, 200 x 200 px in size.
-  purityGauge = pureknob.createKnob(150, 150);
-  // Set properties.
-  purityGauge.setProperty('angleStart', -0.75 * Math.PI);
-  purityGauge.setProperty('angleEnd', 0.75 * Math.PI);
-  purityGauge.setProperty('colorFG', 'white');
-  purityGauge.setProperty('colorBG', style.getPropertyValue('--rsp_mediumblue'));
-  purityGauge.setProperty('trackWidth', 0.4);
-  purityGauge.setProperty('valMin', 21);
-  purityGauge.setProperty('valMax', 100);
-  purityGauge.setProperty('needle', true);
+  var style = getComputedStyle(document.body);
+  var bgColor = style.getPropertyValue('--rsp_mediumblue');
+  var fgColor = 'white' ;
+  var containerDiv = document.getElementById('purityDiv');
+  purityGauge = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
-  purityGauge.setProperty('textScale', 1);
-  // Set initial value.
-  purityGauge.setValue();
-  // Create element node.
-  const node = purityGauge.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('purityDiv');
-  elem.appendChild(node);
+  
 }
 
 function installPeakGauge() {
-  var style = getComputedStyle(document.body)
-  // Create knob element, 175 x 175 px in size.
-  peakGauge = pureknob.createKnob(175, 175);
-  // Set properties.
-  peakGauge.setProperty('angleStart', -0.75 * Math.PI);
-  peakGauge.setProperty('angleEnd', 0.75 * Math.PI);
-  peakGauge.setProperty('colorFG', 'white');
-  peakGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
-  peakGauge.setProperty('trackWidth', 0.5);
-  peakGauge.setProperty('valMin', 0);
-  peakGauge.setProperty('valMax', 70);
-  peakGauge.setProperty('needle', true);
+  var style = getComputedStyle(document.body);
+  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var fgColor = 'white' ;
+  var containerDiv = document.getElementById('PeakGauge');
+  peakGauge = new CircularGauge(containerDiv, 175, fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
-  peakGauge.setProperty('textScale', 1.75);
-  // Set initial value.
-  peakGauge.setValue();
-  // Create element node.
-  const node = peakGauge.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('PeakGauge');
-  elem.appendChild(node);
 }
 
 function installPlatGauge() {
-  var style = getComputedStyle(document.body)
-  // Create knob element, 175 x 175 px in size.
-  platGauge = pureknob.createKnob(175, 175);
-  // Set properties.
-  platGauge.setProperty('angleStart', -0.75 * Math.PI);
-  platGauge.setProperty('angleEnd', 0.75 * Math.PI);
-  platGauge.setProperty('colorFG', 'white');
-  platGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
-  platGauge.setProperty('trackWidth', 0.5);
-  platGauge.setProperty('valMin', 0);
-  platGauge.setProperty('valMax', 70);
-  platGauge.setProperty('needle', true);
+  var style = getComputedStyle(document.body);
+  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var fgColor = 'white' ;
+  var containerDiv = document.getElementById('PlatGauge');
+  platGauge = new CircularGauge(containerDiv, 175, fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
-  platGauge.setProperty('textScale', 1.75);
-  // Set initial value.
-  platGauge.setValue();
-  // Create element node.
-  const node = platGauge.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('PlatGauge');
-  elem.appendChild(node);
 }
 
 function installPeepGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 175 x 175 px in size.
-  peepGauge = pureknob.createKnob(175, 175);
-  // Set properties.
-  peepGauge.setProperty('angleStart', -0.75 * Math.PI);
-  peepGauge.setProperty('angleEnd', 0.75 * Math.PI);
-  peepGauge.setProperty('colorFG', 'white');
-  peepGauge.setProperty('colorBG', style.getPropertyValue('--rsp_darkblue'));
-  peepGauge.setProperty('trackWidth', 0.5);
-  peepGauge.setProperty('valMin', 0);
-  peepGauge.setProperty('valMax', 70);
-  peepGauge.setProperty('needle', true);
+  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var fgColor = 'white' ;
+  var containerDiv = document.getElementById('PeepGauge');
+  peepGauge = new CircularGauge(containerDiv, 175, fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
-  peepGauge.setProperty('textScale', 1.75);
-  // Set initial value.
-  peepGauge.setValue();
-  // Create element node.
-  const node = peepGauge.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('PeepGauge');
-  elem.appendChild(node);
 }
 
 function installTempGauge() {
   var style = getComputedStyle(document.body)
-  // Create knob element, 150 x 150 px in size.
-  tempGauge = pureknob.createKnob(150, 150);
-  // Set properties.
-  tempGauge.setProperty('angleStart', -0.75 * Math.PI);
-  tempGauge.setProperty('angleEnd', 0.75 * Math.PI);
-  tempGauge.setProperty('colorFG', style.getPropertyValue('--rsp_darkblue'));
-  tempGauge.setProperty('colorBG', style.getPropertyValue('--rsp_blue'));
-  tempGauge.setProperty('trackWidth', 0.5);
-  tempGauge.setProperty('valMin', -20);
-  tempGauge.setProperty('valMax', 70);
-  tempGauge.setProperty('needle', true);
+  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var fgColor = style.getPropertyValue('--rsp_mediumblue');
+  var containerDiv = document.getElementById('TempGauge');
+  tempGauge = new CircularGauge(containerDiv, 150, fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
-  tempGauge.setProperty('textScale', 1.75);
-  // Set initial value.
-  tempGauge.setValue();
-  // Create element node.
-  const node = tempGauge.node();
-  // Add it to the DOM.
-  const elem = document.getElementById('TempGauge');
-  elem.appendChild(node);
 }
 
 function PressuresClick() {
