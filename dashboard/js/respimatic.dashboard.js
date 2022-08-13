@@ -794,6 +794,68 @@ function InitChartCheckBoxes() {
   document.getElementById("MiscTick").checked = false;
 }
 
+function createChartRangeSlider(div) {
+  chartSliderPresent = true;
+  chartRangeSlider = new IntRangeSlider(
+    div,
+    0,
+    MAX_CHART_DATAPOINTS,
+    0,
+    0,
+    1
+  );
+  chartRangeSlider.setChangeCallback(chartRangeSliderCallback);
+}
+
+function chartRangeSliderCallback() {
+  values = chartRangeSlider.getSlider();
+  selectChartRange(chartRangeSlider, values[0], values[1]);
+  createDashboardCharts();
+}
+
+function selectChartRange(slider, minB, maxB) {
+  l = Number(minB);
+  r = Number(maxB);
+  if (cumulativeChartBreaths) {
+    if (r>cumulativeChartBreaths) r = cumulativeChartBreaths;
+    if (l<1) l = 1;
+  } else {
+    r = l = 0;
+  }
+
+  if (l != minChartBreathNum) {
+    // min changed
+    if (r-l>MAX_CHART_DATAPOINTS) {
+      r = l+MAX_CHART_DATAPOINTS-1;
+    }
+  } else if (r != maxChartBreathNum) {
+    // max changed
+    if (r-l>MAX_CHART_DATAPOINTS) {
+      l = r-MAX_CHART_DATAPOINTS+1;
+    }
+  }
+  
+  minChartBreathNum = l;
+  maxChartBreathNum = r;
+  slider.setSlider([l, r]);
+}
+
+var cumulativeChartBreaths = 0;
+function updateChartRangeOnNewBreath(num) {
+  cumulativeChartBreaths+=num ;
+  //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
+  if (minChartBreathNum==0) minChartBreathNum = 1;
+
+  maxChartBreathNum += num;
+  if (cumulativeChartBreaths>MAX_CHART_DATAPOINTS) chartRangeLimit += num;
+  if ((maxChartBreathNum - minChartBreathNum) >= MAX_CHART_DATAPOINTS) {
+    minChartBreathNum += num;
+  }
+  //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
+  chartRangeSlider.setRange([1, chartRangeLimit]);
+  chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+}
+
 var finishedLoading = false;
 window.onload = function() {
   initDbNames();
@@ -859,12 +921,13 @@ window.onload = function() {
   elm = document.getElementById('chartSliderCaption');
   elm.innerHTML = "Select Chart Window (MAX " + MAX_CHART_DATAPOINTS + " Breaths)";
   chartRangeDiv = document.getElementById('chartRangeDiv');
-  createChartRangeSlider(chartRangeDiv, createDashboardCharts);
+  createChartRangeSlider(chartRangeDiv);
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();
   finishedLoading = true;
 }
+
 window.onbeforeunload = function(e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';

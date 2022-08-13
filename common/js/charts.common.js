@@ -24,8 +24,8 @@ var nextChartColor = 0;
 var horizontalGridColor = "#8F99FB";
 var bandColor = "white";
 var chartSliderPresent = false;
-var minChartBreathNum = 1;
-var maxChartBreathNum = MAX_CHART_DATAPOINTS;
+var minChartBreathNum = 0;
+var maxChartBreathNum = 0;
 var chartRangeLimit = MAX_CHART_DATAPOINTS;
 
 function getNextChartColor() {
@@ -81,7 +81,7 @@ function createChartsXaxis(chartJson) {
   chartJson.axisX.title = timeBased ? "Elapsed Time (secs)" : "Breath Number";
   chartJson.axisX.interval = calculateXaxisInterval();
   chartJson.axisX.minimum = calculateXaxisMinimum();
-  console.log("Xaxis tick interval = " + chartJson.axisX.interval);
+  //console.log("Xaxis tick interval = " + chartJson.axisX.interval);
   if (timeBased) {
     chartJson.axisX.scaleBreaks.customBreaks = createNewInstance(missingTimeWindows);
   } else {
@@ -115,8 +115,8 @@ var o2FlowValues = [];
 function initChartData() {
   //console.log("initChartData");
   chartSliderPresent = false;
-  minChartBreathNum = 1;
-  maxChartBreathNum = MAX_CHART_DATAPOINTS;
+  minChartBreathNum = 0;
+  maxChartBreathNum = 0;
   chartRangeLimit = MAX_CHART_DATAPOINTS;
   initChartColor();
   chartPrevSystemBreathNum = -1;
@@ -816,100 +816,6 @@ function createCanvasChartData(valueArray, timeBased, flagError, flagWarning) {
     "dataPoints": xyPoints
   };
   return (chartData);
-}
-
-var cumulativeChartBreaths = 0;
-function updateChartRangeOnNewBreath(num) {
-  cumulativeChartBreaths++ ;
-  if (!chartSliderPresent) {
-    minChartBreathNum = 1;
-    maxChartBreathNum += num;
-    return;
-  }
-
-  if (minChartBreathNum==0) minChartBreathNum = 1;
-
-  maxChartBreathNum += num;
-  if (cumulativeChartBreaths>MAX_CHART_DATAPOINTS) chartRangeLimit += num;
-  if ((maxChartBreathNum - minChartBreathNum) >= MAX_CHART_DATAPOINTS) {
-    minChartBreathNum += num;
-  }
-  chartRangeSlider.updateOptions({
-    range: {
-      min: 1,
-      max: chartRangeLimit
-    }
-  });
-  chartRangeSlider.set([minChartBreathNum, maxChartBreathNum]);
-}
-
-function selectChartRange(slider, minB, maxB) {
-  chartSliderPresent = true;
-  l = Number(minB);
-  r = Number(maxB);
-  if (cumulativeChartBreaths) {
-    if (r>cumulativeChartBreaths) r = cumulativeChartBreaths;
-    if (l<1) l = 1;
-  } else {
-    r = l = 0;
-  }
-
-  if (l != minChartBreathNum) {
-    // min changed
-    if (r-l>MAX_CHART_DATAPOINTS) {
-      r = l+MAX_CHART_DATAPOINTS-1;
-    }
-  } else if (r != maxChartBreathNum) {
-    // max changed
-    if (r-l>MAX_CHART_DATAPOINTS) {
-      l = r-MAX_CHART_DATAPOINTS+1;
-    }
-  }
-  
-  minChartBreathNum = l;
-  maxChartBreathNum = r;
-  slider.set([l, r]);
-  //console.log(minChartBreathNum + "," + maxChartBreathNum);
-}
-
-function createChartRangeSlider(chartRangeDiv, callback) {
-  chartRangeSlider = noUiSlider.create(chartRangeDiv, {
-    range: {
-      min: 0,
-      max: MAX_CHART_DATAPOINTS
-    },
-    step: 1,
-    start: [
-      0,
-      0
-    ],
-    connect: [false, true, false],
-    // handle labels
-    tooltips: [{
-        to: function(n) {
-          return String(parseInt(n));
-        },
-        from: function(str) {
-          return Number(str);
-        }
-      },
-      {
-        to: function(n) {
-          return String(parseInt(n));
-        },
-        from: function(str) {
-          return Number(str);
-        }
-      }
-    ],
-  });
-  selectChartRange(chartRangeSlider, 0, 0) ;
-  
-  chartRangeSlider.on('change', function() {
-    values = this.get();
-    selectChartRange(this, values[0], values[1]);
-    callback();
-  });
 }
 
 

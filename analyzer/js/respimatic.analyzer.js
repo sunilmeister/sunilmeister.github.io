@@ -311,7 +311,7 @@ function updateSelectedDuration() {
 function setTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  values = analysisRangeSlider.get();
+  values = analysisRangeSlider.getSlider();
   analysisStartBreath = parseInt(values[0]);
   analysisEndBreath = parseInt(values[1]);
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
@@ -325,7 +325,7 @@ function setTimeInterval() {
 function cancelTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  analysisRangeSlider.set([analysisStartBreath, analysisEndBreath]);
+  analysisRangeSlider.setSlider([analysisStartBreath, analysisEndBreath]);
   updateSelectedDuration();
 }
 
@@ -337,7 +337,7 @@ function resetTimeInterval() {
   analysisEndBreath = fullSessionBreathTimes.length;
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
-  analysisRangeSlider.set([analysisStartBreath, analysisEndBreath]);
+  analysisRangeSlider.setSlider([analysisStartBreath, analysisEndBreath]);
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
@@ -446,37 +446,27 @@ function showAnalysisRangeSlider() {
   }
 }
 
-function createAnalysisRangeSlider(div) {
-  var analysisSliderFormatStr = {
-    to: function(n) {
-      return String(parseInt(n));
-    },
-    from: function(str) {
-      return Number(str);
-    }
-  }
-  
-  analysisRangeSlider = noUiSlider.create(div, {
-    range: {
-      min: analysisStartBreath,
-      max: analysisEndBreath
-    },
-    step: 1,
-    start: [
-      analysisStartBreath,
-      analysisEndBreath
-    ],
-    connect: [false, true, false],
-    // handle labels
-    tooltips: true,
-    format: analysisSliderFormatStr,
-    //pips: {mode: 'range', format: analysisSliderFormatStr},
-  });
+var cumulativeChartBreaths = 0;
+function updateChartRangeOnNewBreath(num) {
+  minChartBreathNum = 1;
+  maxChartBreathNum += num;
+}
 
-  analysisRangeSlider.on('change', function() {
-    flashAnalysisWindowButtons();
-    sliderCommitPending = true;
-  });
+function createAnalysisRangeSlider(div) {
+  analysisRangeSlider = new IntRangeSlider(
+    analysisRangeSliderDiv,
+    analysisStartBreath,
+    analysisEndBreath,
+    analysisStartBreath,
+    analysisEndBreath,
+    1
+  );
+  analysisRangeSlider.setChangeCallback(analysisRangeSliderCallback);
+}
+
+function analysisRangeSliderCallback() {
+  flashAnalysisWindowButtons();
+  sliderCommitPending = true;
 }
 
 alert(
