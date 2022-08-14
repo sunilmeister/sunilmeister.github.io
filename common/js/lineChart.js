@@ -158,13 +158,22 @@ class LineChart {
     return chartData;
   }
 
-  addXYPointsPrimaryY(Yaxis, name, color, xyPoints) {
+  addXYPointsNewPrimaryY(Yaxis, name, color, xyPoints) {
     axisNum = this.chartJson.axisY.length;
     xyPoints.name = name;
     xyPoints.color = color;
     this.chartJson.axisY.push(LineChart.createInstance(Yaxis));
     xyPoints.axisYIndex = axisNum;
     this.chartJson.data.push(LineChart.createInstance(xyPoints));
+    return axisNum;
+  }
+
+  addXYPointsOldPrimaryY(axisNum, name, color, xyPoints) {
+    xyPoints.name = name;
+    xyPoints.color = color;
+    xyPoints.axisYIndex = axisNum;
+    this.chartJson.data.push(LineChart.createInstance(xyPoints));
+    return axisNum;
   }
 
   addXYPointsSecondaryY(Yaxis, name, color, xyPoints) {
