@@ -6,6 +6,22 @@ const CHART_XAXIS_MAX_TICK_MARKS = 20;
 const CHART_FONT_SIZE = 50;
 const CHART_INTERLACED_COLOR = 'white' ;
 const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB' ;
+const LINE_GRAPH_COLORS = [
+  "Crimson",
+  "Blue",
+  "Green",
+  "Indigo",
+  "Purple",
+  "Olive",
+  "Fuchsia",
+  "Maroon",
+  "Aqua",
+  "Navy",
+  "Silver",
+  "Slategrey",
+  "Violet",
+  "SteelBlue",
+];
 
 function toggleDataSeries(e) {
   if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -19,13 +35,20 @@ function toggleDataSeries(e) {
 
 class LineChart {
   static timeUnits = false;
+  static nextGraphColor = 0;
 
-  static createNewInstance(obj) {
+  static newColor() {
+    color = LINE_GRAPH_COLORS[nextGraphColor++];
+    if (nextGraphColor == graphColors.length) nextGraphColor = 0;
+    return color;
+  }
+
+  static #createNewInstance(obj) {
     return JSON.parse(JSON.stringify(obj));
   }
 
   // if timeBased, init/min/max are Date else breath numbers
-  static calculateXaxisInterval(min, max) {
+  static #calculateXaxisInterval(min, max) {
     var numPoints = 0;
     if (LineChart.timeUnits) {
       numPoints = (max - min)/1000;
@@ -40,7 +63,7 @@ class LineChart {
 
 
   // if timeUnits, init/min/max are Date else breath numbers
-  static calculateXaxisMinimum(init, min) {
+  static #calculateXaxisMinimum(init, min) {
     if (LineChart.timeUnits) {
       return (min - init)/1000 ;
     } else {
@@ -158,6 +181,7 @@ class LineChart {
     return chartData;
   }
 
+  // return Y-axis number for possible reuse
   addXYPointsNewPrimaryY(Yaxis, name, color, xyPoints) {
     axisNum = this.chartJson.axisY.length;
     xyPoints.name = name;
@@ -168,6 +192,7 @@ class LineChart {
     return axisNum;
   }
 
+  // return Y-axis number for possible reuse
   addXYPointsOldPrimaryY(axisNum, name, color, xyPoints) {
     xyPoints.name = name;
     xyPoints.color = color;
