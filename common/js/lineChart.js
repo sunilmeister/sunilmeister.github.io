@@ -198,6 +198,7 @@ class LineChart {
 
   // Set min and max to null to process the entire data
   static #createDatapoints(breathTimes, transitions, min, max) {
+    var doFull = (min==null) && (max==null);
     var curValue = 0;
     var curIx = 0;
     var curValue = transitions[0].value; // guaranteed to have at least one entry
@@ -212,7 +213,7 @@ class LineChart {
           curValue = transitions[curIx].value;
         }
       }
-      if ((min==null) && (max==null)) || ((i<=max) && (i>=min))) {
+      if (doFull || ((i<=max) && (i>=min))) {
         datapoints.push(curValue);
       }
     }
