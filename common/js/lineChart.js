@@ -5,7 +5,7 @@
 const CHART_XAXIS_MAX_TICK_MARKS = 20;
 const CHART_FONT_SIZE = 50;
 const CHART_INTERLACED_COLOR = 'white' ;
-const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB' ;
+const CHART_HORIZONTAL_GRID_COLOR = '8F99FB' ;
 const LINE_GRAPH_COLORS = [
   "Crimson",
   "Blue",
@@ -23,6 +23,14 @@ const LINE_GRAPH_COLORS = [
   "SteelBlue",
 ];
 
+var graphColorIndex = 0;
+
+function newGraphColor() {
+  var color = LINE_GRAPH_COLORS[graphColorIndex++];
+  if (graphColorIndex == graphColors.length) graphColorIndex = 0;
+  return color;
+}
+
 function toggleDataSeries(e) {
   if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
     e.dataSeries.visible = false;
@@ -33,65 +41,88 @@ function toggleDataSeries(e) {
   e.chart.render();
 }
 
+function cloneObject(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+// //////////////////////////////////////////////////////
+// Recommended sequence
+// 1. construct LineChart object
+// 2. add X-axis
+// 3. create XY points
+// 4. Create Y-axis
+// 5. add XY points and Y-axis to LineChart object
+// 6. Render LineChart object
+// //////////////////////////////////////////////////////
 class LineChart {
-  static timeUnits = false;
-  static nextGraphColor = 0;
 
-  static newColor() {
-    color = LINE_GRAPH_COLORS[nextGraphColor++];
-    if (nextGraphColor == graphColors.length) nextGraphColor = 0;
-    return color;
-  }
-
-  static #createNewInstance(obj) {
-    return JSON.parse(JSON.stringify(obj));
-  }
-
-  // if timeBased, init/min/max are Date else breath numbers
-  static #calculateXaxisInterval(min, max) {
-    var numPoints = 0;
-    if (LineChart.timeUnits) {
-      numPoints = (max - min)/1000;
-    } else {
-      numPoints = max - min + 1;
-    }
-    var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
-    //console.log("max=" + max + " min=" + min);
-    //console.log("numPoints=" + numPoints + " interval=" + interval);
-    return interval;
-  }
-
-
-  // if timeUnits, init/min/max are Date else breath numbers
-  static #calculateXaxisMinimum(init, min) {
-    if (LineChart.timeUnits) {
-      return (min - init)/1000 ;
-    } else {
-      return min - init;
-    }
+  constructor(title, height, timeUnits) {
+    this.timeUnits = timeUnits;
+    this.chartJson = {
+      zoomEnabled: true,
+      zoomType: "x",
+      title: {text: title, padding: 10},
+      axisY: [],
+      toolTip: {shared: true},
+      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: 25},
+      height: height,
+      backgroundColor: "#D5F3FE",
+      data: []
+    };
   }
 
   // X axis is the same for all charts in our application
   // if timeBased, init/min/max are Date else breath numbers
-  static createXaxis(init, min, max, missingWindows) {
+  addXaxis(init, min, max, missingWindows) {
     var Xaxis = {};
-    if (LineChart.timeUnits) {
+    if (this.timeUnits) {
       Xaxis.title = "Elapsed Time (secs)";
     } else {
       Xaxis.title = "Breath Number";
     }
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
-    Xaxis.interval = LineChart.calculateXaxisInterval(min, max);
-    Xaxis.minimum = LineChart.calculateXaxisMinimum(init, min);
+    Xaxis.interval = calculateXaxisInterval(min, max);
+    Xaxis.minimum = calculateXaxisMinimum(init, min);
     if (missingWindows && missingWindows.length) {
       Xaxis.scaleBreaks = {};
-      Xaxis.scaleBreaks.customBreaks = LineChart.createNewInstance(missingWindows);
+      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
-    return LineChart.createNewInstance(Xaxis);
+    this.chartJson.axisX = Xaxis;
   }
 
-  static createYaxis(title,color,min) {
+  render(containerDiv) {
+    var chart = new CanvasJS.Chart(containerDiv, this.chartJson);
+    chart.render();
+  }
+
+  // ////////////////////////////////////////////
+  // Rest below are all private method
+  // ////////////////////////////////////////////
+
+  // if timeBased, init/min/max are Date else breath numbers
+  calculateXaxisInterval(min, max) {
+    var numPoints = 0;
+    if (this.timeUnits) {
+      numPoints = (max - min)/1000;
+    } else {
+      numPoints = max - min + 1;
+    }
+    var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
+    return interval;
+  }
+
+
+  // if timeUnits, init/min/max are Date else breath numbers
+  calculateXaxisMinimum(init, min) {
+    if (this.timeUnits) {
+      return (min - init)/1000 ;
+    } else {
+      return min - init;
+    }
+  }
+
+  createYaxis(title,color,min) {
     var Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
@@ -101,11 +132,35 @@ class LineChart {
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
     Yaxis.minimum = min;
     Yaxis.suffix = "";
-    return LineChart.createNewInstance(Yaxis);
+    return cloneObject(Yaxis);
   }
 
   // Set min and max to null to process the entire data
-  static createXYPoints(breathTimes, transitions, min, max, flagError, flagWarning) {
+  createDatapoints(breathTimes, transitions, min, max) {
+    var doFull = (min==null) && (max==null);
+    var curValue = 0;
+    var curIx = 0;
+    var curValue = transitions[0].value; // guaranteed to have at least one entry
+    var datapoints = [];
+    for (i = 1; i < breathTimes.length; i++) {
+      if (curIx == transitions.length - 1) {
+        curValue = transitions[curIx].value;
+      } else {
+        if (breathTimes[i].time >= transitions[curIx + 1].time) {
+          curValue = transitions[++curIx].value;
+        } else {
+          curValue = transitions[curIx].value;
+        }
+      }
+      if (doFull || ((i<=max) && (i>=min))) {
+        datapoints.push(curValue);
+      }
+    }
+    return datapoints;
+  }
+
+  // Set min and max to null to process the entire data
+  createXYPoints(breathTimes, transitions, min, max, flagError, flagWarning) {
     if (transitions.length == 0) return null;
     var yDatapoints = [];
     var xyPoints = [];
@@ -120,15 +175,14 @@ class LineChart {
     yDatapoints = createDatapoints(breathTimes, transitions, min, max);
     var xval;
     for (i = 1; i < numPoints; i++) {
-      if (LineChart.timeUnits) {
+      if (this.timeUnits) {
         var ms;
         if (doFull) {
           ms = new Date(breathTimes[i].time) - new Date(breathTimes[1].time);
         } else {
           ms = new Date(breathTimes[i+min-1].time) - new Date(breathTimes[1].time);
         }
-        sec = Math.round(ms / 1000);
-        xval = sec;
+        xval = Math.round(ms / 1000);
       } else {
         if (doFull) {
           xval = i;
@@ -168,90 +222,50 @@ class LineChart {
         }
       }
     }
+    var noLegend = false;
     if (flagError || flagWarning) noLegend = true;
-    else noLegend = false;
   
     var chartData = {};
     chartData.type = "line";
-    chartData.name = "";
-    chartData.color = "";
     chartData.showInLegend = !noLegend;
-    chartData.axisYIndex = 0;
     chartData.dataPoints = xyPoints;
     return chartData;
   }
 
   // return Y-axis number for possible reuse
-  addXYPointsNewPrimaryY(Yaxis, name, color, xyPoints) {
-    axisNum = this.chartJson.axisY.length;
+  addXYPointsPrimaryYNew(Yaxis, name, color, xyPoints) {
+    var axisNum = this.chartJson.axisY.length;
     xyPoints.name = name;
     xyPoints.color = color;
-    this.chartJson.axisY.push(LineChart.createInstance(Yaxis));
+    this.chartJson.axisY.push(cloneObject(Yaxis));
     xyPoints.axisYIndex = axisNum;
-    this.chartJson.data.push(LineChart.createInstance(xyPoints));
+    this.chartJson.data.push(cloneObject(xyPoints));
+    console.log(this.chartJson);
     return axisNum;
   }
 
   // return Y-axis number for possible reuse
-  addXYPointsOldPrimaryY(axisNum, name, color, xyPoints) {
+  addXYPointsPrimaryYReuse(axisNum, name, color, xyPoints) {
     xyPoints.name = name;
     xyPoints.color = color;
     xyPoints.axisYIndex = axisNum;
-    this.chartJson.data.push(LineChart.createInstance(xyPoints));
+    this.chartJson.data.push(cloneObject(xyPoints));
     return axisNum;
   }
 
-  addXYPointsSecondaryY(Yaxis, name, color, xyPoints) {
+  addXYPointsSecondaryYNew(Yaxis, name, color, xyPoints) {
     xyPoints.name = name;
     xyPoints.color = color;
-    this.chartJson.axisY2 = LineChart.createInstance(Yaxis);
+    this.chartJson.axisY2 = cloneObject(Yaxis);
     xyPoints.axisYType = "secondary";
-    this.chartJson.data.push(LineChart.createInstance(xyPoints));
+    this.chartJson.data.push(cloneObject(xyPoints));
   }
 
-  constructor(title, Xaxis, timeUnits) {
-    LineChart.timeUnits = timeUnits;
-    this.chartJson = {
-      zoomEnabled: true,
-      zoomType: "x",
-      title: {text: title, padding: 10},
-      axisX: Xaxis,
-      axisY: [],
-      toolTip: {shared: true},
-      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: 25},
-      height: 600,
-      backgroundColor: "#D5F3FE",
-      data: [],
-    };
-  }
-
-  render(containerDiv) {
-    chart = new CanvasJS.Chart(containerDiv, this.chartJson);
-    chart.render();
-  }
-
-  // Set min and max to null to process the entire data
-  static #createDatapoints(breathTimes, transitions, min, max) {
-    var doFull = (min==null) && (max==null);
-    var curValue = 0;
-    var curIx = 0;
-    var curValue = transitions[0].value; // guaranteed to have at least one entry
-    var datapoints = [];
-    for (i = 1; i < breathTimes.length; i++) {
-      if (curIx == transitions.length - 1) {
-        curValue = transitions[curIx].value;
-      } else {
-        if (breathTimes[i].time >= transitions[curIx + 1].time) {
-          curValue = transitions[++curIx].value;
-        } else {
-          curValue = transitions[curIx].value;
-        }
-      }
-      if (doFull || ((i<=max) && (i>=min))) {
-        datapoints.push(curValue);
-      }
-    }
-    return datapoints;
+  addXYPointsSecondaryYReuse(name, color, xyPoints) {
+    xyPoints.name = name;
+    xyPoints.color = color;
+    xyPoints.axisYType = "secondary";
+    this.chartJson.data.push(cloneObject(xyPoints));
   }
 
 };
