@@ -5,11 +5,11 @@
   // or null if no graph created
   // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, reuseAxisNum:2}
   // flags = {warning:true, error:false}
-  // paramInfo = {pName:"", transitions:[], pColor:""}
+  // paramInfo = {name:"", transitions:[], color:""}
 function addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo) {
     var paramTransitions = paramInfo.transitions;
-    var paramName = paramInfo.pName;
-    var paramColor = paramInfo.pColor;
+    var paramName = paramInfo.name;
+    var paramColor = paramInfo.color;
   
     var xyPoints = chart.createXYPoints(breathTimes, paramTransitions, null, null, 
       flags.error, flags.warning);
@@ -46,9 +46,43 @@ function createPeakGraph(chart, reuseAxisNum) {
                yName:"Pressure (cm H20)"};
   flags = {warning:false, error:false}
   paramInfo = {
-    pName: "Peak Pressure (cm H20)" ,
-    pColor: newGraphColor(),
+    name: "Peak Pressure (cm H20)" ,
+    color: newGraphColor(),
     transitions: peakValues
+  };
+
+  return addGraph(chart,yAxisInfo, breathTimes, flags, paramInfo);
+}
+
+function createPlatGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('platTick');
+  if (!elm.checked) return null;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, reuseAxisNum:reuseAxisNum,
+               yName:"Pressure (cm H20)"};
+  flags = {warning:false, error:false}
+  paramInfo = {
+    name: "Plateau Pressure (cm H20)" ,
+    color: newGraphColor(),
+    transitions: platValues
+  };
+
+  return addGraph(chart,yAxisInfo, breathTimes, flags, paramInfo);
+}
+
+function createPeepGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('peepTick');
+  if (!elm.checked) return null;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, reuseAxisNum:reuseAxisNum,
+               yName:"Pressure (cm H20)"};
+  flags = {warning:false, error:false}
+  paramInfo = {
+    name: "Peep Pressure (cm H20)" ,
+    color: newGraphColor(),
+    transitions: mpeepValues
   };
 
   return addGraph(chart,yAxisInfo, breathTimes, flags, paramInfo);
@@ -80,8 +114,8 @@ function createNewChart() {
 
   pressureAxisNum = null;
   pressureAxisNum = createPeakGraph(chart, pressureAxisNum);
-  //pressureAxisNum = createPlatGraph(chart, pressureAxisNum);
-  //pressureAxisNum = createPeepGraph(chart, pressureAxisNum);
+  pressureAxisNum = createPlatGraph(chart, pressureAxisNum);
+  pressureAxisNum = createPeepGraph(chart, pressureAxisNum);
 
   containerDiv = document.getElementById("chartContainerDiv");
   chart.render(containerDiv);

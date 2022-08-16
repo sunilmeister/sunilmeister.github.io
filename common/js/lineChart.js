@@ -44,6 +44,30 @@ function toggleDataSeries(e) {
 function cloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
+  // Set min and max to null to process the entire data
+function  createYPoints(breathTimes, transitions, min, max) {
+  var doFull = (min==null) && (max==null);
+  var curValue = 0;
+  var curIx = 0;
+  var curValue = transitions[0].value; // guaranteed to have at least one entry
+  var datapoints = [];
+  for (let i = 1; i < breathTimes.length; i++) {
+    if (curIx == transitions.length - 1) {
+      curValue = transitions[curIx].value;
+    } else {
+      if (breathTimes[i].time >= transitions[curIx + 1].time) {
+        curValue = transitions[++curIx].value;
+      } else {
+        curValue = transitions[curIx].value;
+      }
+    }
+    if (doFull || ((i<=max) && (i>=min))) {
+      datapoints.push(curValue);
+    }
+  }
+  return datapoints;
+}
+
 
 // //////////////////////////////////////////////////////
 // Recommended sequence
@@ -136,45 +160,22 @@ class LineChart {
   }
 
   // Set min and max to null to process the entire data
-  createDatapoints(breathTimes, transitions, min, max) {
-    var doFull = (min==null) && (max==null);
-    var curValue = 0;
-    var curIx = 0;
-    var curValue = transitions[0].value; // guaranteed to have at least one entry
-    var datapoints = [];
-    for (i = 1; i < breathTimes.length; i++) {
-      if (curIx == transitions.length - 1) {
-        curValue = transitions[curIx].value;
-      } else {
-        if (breathTimes[i].time >= transitions[curIx + 1].time) {
-          curValue = transitions[++curIx].value;
-        } else {
-          curValue = transitions[curIx].value;
-        }
-      }
-      if (doFull || ((i<=max) && (i>=min))) {
-        datapoints.push(curValue);
-      }
-    }
-    return datapoints;
-  }
-
-  // Set min and max to null to process the entire data
   createXYPoints(breathTimes, transitions, min, max, flagError, flagWarning) {
     if (transitions.length == 0) return null;
     var yDatapoints = [];
     var xyPoints = [];
     var doFull = (min==null) && (max==null);
+    var numPoints = 0;
   
     if (doFull) {
       numPoints = breathTimes.length;
     } else {
       numPoints = max - min + 1;
     }
-    xyPoints.length = 0;
-    yDatapoints = createDatapoints(breathTimes, transitions, min, max);
+    var xyPoints = [];
+    var yDatapoints = createYPoints(breathTimes, transitions, min, max);
     var xval;
-    for (i = 1; i < numPoints; i++) {
+    for (let i = 1; i < numPoints; i++) {
       if (this.timeUnits) {
         var ms;
         if (doFull) {
@@ -197,11 +198,10 @@ class LineChart {
         });
       } else {
         if (yDatapoints[i] != yDatapoints[i - 1]) {
-          if (flagError) {
-            label = "E";
-            marker = "cross";
-            color = "red";
-          } else {
+	  var label = "E";
+	  var marker = "cross";
+	  var color = "red";
+          if (flagWarning) {
             label = "W";
             marker = "triangle";
             color = "orange";
@@ -240,7 +240,6 @@ class LineChart {
     this.chartJson.axisY.push(cloneObject(Yaxis));
     xyPoints.axisYIndex = axisNum;
     this.chartJson.data.push(cloneObject(xyPoints));
-    console.log(this.chartJson);
     return axisNum;
   }
 
