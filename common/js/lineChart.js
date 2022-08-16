@@ -44,30 +44,6 @@ function toggleDataSeries(e) {
 function cloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
-  // Set min and max to null to process the entire data
-function  createYPoints(breathTimes, transitions, min, max) {
-  var doFull = (min==null) && (max==null);
-  var curValue = 0;
-  var curIx = 0;
-  var curValue = transitions[0].value; // guaranteed to have at least one entry
-  var datapoints = [];
-  for (let i = 1; i < breathTimes.length; i++) {
-    if (curIx == transitions.length - 1) {
-      curValue = transitions[curIx].value;
-    } else {
-      if (breathTimes[i].time >= transitions[curIx + 1].time) {
-        curValue = transitions[++curIx].value;
-      } else {
-        curValue = transitions[curIx].value;
-      }
-    }
-    if (doFull || ((i<=max) && (i>=min))) {
-      datapoints.push(curValue);
-    }
-  }
-  return datapoints;
-}
-
 
 // //////////////////////////////////////////////////////
 // Recommended sequence
@@ -166,14 +142,33 @@ class LineChart {
     var xyPoints = [];
     var doFull = (min==null) && (max==null);
     var numPoints = 0;
-  
     if (doFull) {
       numPoints = breathTimes.length;
     } else {
       numPoints = max - min + 1;
     }
-    var xyPoints = [];
-    var yDatapoints = createYPoints(breathTimes, transitions, min, max);
+    //var yDatapoints = createYPoints(breathTimes, transitions, min, max);
+
+    // Collect Y dapoints
+    var curValue = 0;
+    var curIx = 0;
+    var curValue = transitions[0].value; // guaranteed to have at least one entry
+    for (let i = 1; i < breathTimes.length; i++) {
+      if (curIx == transitions.length - 1) {
+        curValue = transitions[curIx].value;
+      } else {
+        if (breathTimes[i].time >= transitions[curIx + 1].time) {
+          curValue = transitions[++curIx].value;
+        } else {
+          curValue = transitions[curIx].value;
+        }
+      }
+      if (doFull || ((i<=max) && (i>=min))) {
+        yDatapoints.push(curValue);
+      }
+    }
+  
+    // Attach X datapoints
     var xval;
     for (let i = 1; i < numPoints; i++) {
       if (this.timeUnits) {
