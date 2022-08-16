@@ -124,6 +124,23 @@ function createMvdelGraph(chart, reuseAxisNum) {
   return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
 }
 
+function createO2FlowGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('o2FlowTick');
+  if (!elm.checked) return reuseAxisNum;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
+               yName:"Minute Volume (litres/min)"};
+  flags = {warning:false, error:false}
+  paramInfo = {
+    name: "O2 Flow Rate (litres/min)" ,
+    color: newGraphColor(),
+    transitions: o2FlowValues
+  };
+
+  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+}
+
 function createSbpmGraph(chart, reuseAxisNum) {
   elm = document.getElementById('sbpmTick');
   if (!elm.checked) return reuseAxisNum;
@@ -192,6 +209,91 @@ function createDcompGraph(chart, reuseAxisNum) {
   return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
 }
 
+function createTempGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('tempTick');
+  if (!elm.checked) return reuseAxisNum;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+               yName:"System Temp (deg C)"};
+  flags = {warning:false, error:false}
+  paramInfo = {
+    name: "System Temp (deg C)" ,
+    color: newGraphColor(),
+    transitions: tempValues
+  };
+
+  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+}
+
+function createWarningGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('warningTick');
+  if (!elm.checked) return reuseAxisNum;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+               yName:"Errors & Warnings"};
+  flags = {warning:true, error:false}
+  paramInfo = {
+    name: "Warnings" ,
+    color: newGraphColor(),
+    transitions: warningValues
+  };
+
+  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+}
+
+function createErrorGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('errorTick');
+  if (!elm.checked) return reuseAxisNum;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+               yName:"Errors & Warnings"};
+  flags = {warning:false, error:true}
+  paramInfo = {
+    name: "Errors" ,
+    color: newGraphColor(),
+    transitions: errorValues
+  };
+
+  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+}
+
+function createFiO2Graph(chart, reuseAxisNum) {
+  elm = document.getElementById('fiO2Tick');
+  if (!elm.checked) return reuseAxisNum;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+               yName:"Percentage (%)"};
+  flags = {warning:false, error:false}
+  paramInfo = {
+    name: "FiO2 (%)" ,
+    color: newGraphColor(),
+    transitions: fiO2Values
+  };
+
+  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+}
+
+function createPurityGraph(chart, reuseAxisNum) {
+  elm = document.getElementById('o2PurityTick');
+  if (!elm.checked) return reuseAxisNum;
+
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+               yName:"Percentage (%)"};
+  flags = {warning:false, error:false}
+  paramInfo = {
+    name: "O2 Purity (%)" ,
+    color: newGraphColor(),
+    transitions: o2PurityValues
+  };
+
+  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+}
+
 function createAnalysisChart() {
   cleanupCharts();
   height = 650;
@@ -227,6 +329,7 @@ function createAnalysisChart() {
 
   mvAxisNum = null;
   mvAxisNum = createMvdelGraph(analysisChart, mvAxisNum);
+  mvAxisNum = createO2FlowGraph(analysisChart, mvAxisNum);
 
   bpmAxisNum = null;
   bpmAxisNum = createSbpmGraph(analysisChart, bpmAxisNum);
@@ -235,6 +338,17 @@ function createAnalysisChart() {
   compAxisNum = null;
   compAxisNum = createScompGraph(analysisChart, compAxisNum);
   compAxisNum = createDcompGraph(analysisChart, compAxisNum);
+
+  tempAxisNum = null;
+  tempAxisNum = createTempGraph(analysisChart, tempAxisNum);
+
+  flagAxisNum = null;
+  flagAxisNum = createWarningGraph(analysisChart, flagAxisNum);
+  flagAxisNum = createErrorGraph(analysisChart, flagAxisNum);
+
+  pctAxisNum = null;
+  pctAxisNum = createFiO2Graph(analysisChart, pctAxisNum);
+  pctAxisNum = createPurityGraph(analysisChart, pctAxisNum);
 
   containerDiv = document.getElementById("chartContainerDiv");
   analysisChart.render(containerDiv);
