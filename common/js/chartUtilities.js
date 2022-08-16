@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const MAX_CHART_DATAPOINTS = 100;
+const MAX_CHART_DATAPOINTS = 60;
 var chartRangeLimit = MAX_CHART_DATAPOINTS;
 var minChartBreathNum = 0;
 var maxChartBreathNum = 0;

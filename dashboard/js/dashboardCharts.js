@@ -446,6 +446,7 @@ function createChartRangeSlider(div) {
 }
 
 function chartRangeSliderCallback() {
+  //console.log("chartRangeSliderCallback");
   values = chartRangeSlider.getSlider();
   selectChartRange(chartRangeSlider, values[0], values[1]);
   createDashboardCharts();
@@ -475,6 +476,7 @@ function selectChartRange(slider, minB, maxB) {
   
   minChartBreathNum = l;
   maxChartBreathNum = r;
+  //console.log("Select min=" + minChartBreathNum + " max=" + maxChartBreathNum);
   slider.setSlider([l, r]);
 }
 
