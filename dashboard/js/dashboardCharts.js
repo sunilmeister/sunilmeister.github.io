@@ -350,7 +350,7 @@ function createDashboardCharts() {
   var missing = [];
   if (timeBased) {
     init = startDate;
-    min = breathTimes[minChartBreathNum-1].time;
+    min = breathTimes[minChartBreathNum].time;
     max = breathTimes[maxChartBreathNum-1].time;
     missing = missingTimeWindows;
   } else {

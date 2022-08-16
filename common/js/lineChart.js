@@ -26,7 +26,7 @@ var graphColorIndex = 0;
 
 function newGraphColor() {
   var color = LINE_GRAPH_COLORS[graphColorIndex++];
-  if (graphColorIndex == graphColors.length) graphColorIndex = 0;
+  if (graphColorIndex == LINE_GRAPH_COLORS.length) graphColorIndex = 0;
   return color;
 }
 
@@ -82,8 +82,8 @@ class LineChart {
     }
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
-    Xaxis.interval = calculateXaxisInterval(min, max);
-    Xaxis.minimum = calculateXaxisMinimum(init, min);
+    Xaxis.interval = this.calculateXaxisInterval(min, max);
+    Xaxis.minimum = this.calculateXaxisMinimum(init, min);
     if (missingWindows && missingWindows.length) {
       Xaxis.scaleBreaks = {};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
@@ -159,7 +159,6 @@ class LineChart {
     } else {
       numPoints = max - min + 1;
     }
-    //var yDatapoints = createYPoints(breathTimes, transitions, min, max);
 
     // Collect Y dapoints
     var curValue = 0;
