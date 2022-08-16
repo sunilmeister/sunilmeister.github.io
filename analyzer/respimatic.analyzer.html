@@ -270,56 +270,53 @@
 
           <div class=shadowDiv5 style="width:2000px;background-color:var(--rsp_mediumblue); color:white;font-size:20px; font-family:verdana; ">
             <br>
-            <input id="peakTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="peakTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Peak
-            <input id="platTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="platTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Plateau
-            <input id="peepTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="peepTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             PEEP
-            <input id="vtdelTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="vtdelTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Tidal Volume
-            <input id="mvdelTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="mvdelTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Minute Volume
-            <input id="mbpmTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="mbpmTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Mandatory BPM
-            <input id="sbpmTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="sbpmTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Spontaneous BPM
             <br>
-            <input id="fiO2Tick" style="width:20px;height:20px;" type="checkbox">
+            <input id="fiO2Tick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             FiO<sub>2</sub>
-            <input id="o2PurityTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="o2PurityTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             O<sub>2</sub> Purity
-            <input id="o2FlowTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="o2FlowTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             O<sub>2</sub> Flow
-            <input id="scompTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="scompTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Instant Static Compliance
-            <input id="dcompTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="dcompTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Instant Dynamic Compliance
             <br>
-            <input id="warningTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="warningTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Warning
-            <input id="errorTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="errorTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             Error
-            <input id="tempTick" style="width:20px;height:20px;" type="checkbox">
+            <input id="tempTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
             System Temperature
 
             <br><br>
             X-Axis:
-            <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px">
+            <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px" onchange='createAnalysisChart()'>
             <label for="breathNum">Breath Number</label>
-            <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px">
+            <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px" onchange='createAnalysisChart()'>
             <label for="timeBased">Elapsed Time between Updates</label>
 
-            <br><br>
-            <input id="chartTitle" type="text" style="border-radius:25px; font-size: 16px;padding: 5px;width: 150;text-align: center">
+            <input id="chartTitle" type="text" style="border-radius:25px; font-size: 16px;padding: 5px;width: 150;text-align: center" onchange='createAnalysisChart()'>
             Chart Title
-            <button class="button" style="background-color:var(--rsp_darkblue);" onclick='createNewChart()'>CREATE
-              CHART</button>
             <br><br>
           </div>
 
           <div class=shadowDiv5 style="background-color:var(--rsp_lightblue);min-height: 650px;">
-            <div id="chartContainerDiv" height=550px style="border-radius:25px; margin-top:20px">
+            <div id="chartContainerDiv" height=600px style="border-radius:25px; margin-top:20px">
             </div>
           </div>
         </div>

@@ -15,7 +15,6 @@ const LINE_GRAPH_COLORS = [
   "Olive",
   "Fuchsia",
   "Maroon",
-  "Aqua",
   "Navy",
   "Silver",
   "Slategrey",
@@ -69,6 +68,7 @@ class LineChart {
       backgroundColor: "#D5F3FE",
       data: []
     };
+    this.chart = null;
   }
 
   // X axis is the same for all charts in our application
@@ -92,8 +92,19 @@ class LineChart {
   }
 
   render(containerDiv) {
-    var chart = new CanvasJS.Chart(containerDiv, this.chartJson);
-    chart.render();
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
+    this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
+    this.chart.render();
+  }
+
+  destroy() {
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
   }
 
   // ////////////////////////////////////////////
@@ -122,7 +133,7 @@ class LineChart {
     }
   }
 
-  createYaxis(title,color,min) {
+  createYaxis(title,color,min, max) {
     var Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
@@ -130,7 +141,8 @@ class LineChart {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    Yaxis.minimum = min;
+    if (min!=null) Yaxis.minimum = min;
+    if (max!=null) Yaxis.maximum = max;
     Yaxis.suffix = "";
     return cloneObject(Yaxis);
   }
