@@ -342,7 +342,7 @@ function createFiO2Charts(height, timeBased, init, min, max, missing) {
 
 function createDashboardCharts() {
   elm = document.getElementById("timeTick");
-  timeBased = elm.checked;
+  var timeBased = elm.checked;
   var height=475
   var init = null;
   var min = null;
