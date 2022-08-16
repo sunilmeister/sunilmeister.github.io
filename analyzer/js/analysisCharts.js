@@ -17,7 +17,7 @@ function createPeakGraph(chart, reuseAxisNum) {
     transitions: peakValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createPlatGraph(chart, reuseAxisNum) {
@@ -34,7 +34,7 @@ function createPlatGraph(chart, reuseAxisNum) {
     transitions: platValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createPeepGraph(chart, reuseAxisNum) {
@@ -51,7 +51,7 @@ function createPeepGraph(chart, reuseAxisNum) {
     transitions: mpeepValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createVtdelGraph(chart, reuseAxisNum) {
@@ -68,7 +68,7 @@ function createVtdelGraph(chart, reuseAxisNum) {
     transitions: vtdelValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createMvdelGraph(chart, reuseAxisNum) {
@@ -85,7 +85,7 @@ function createMvdelGraph(chart, reuseAxisNum) {
     transitions: mvdelValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createO2FlowGraph(chart, reuseAxisNum) {
@@ -102,7 +102,7 @@ function createO2FlowGraph(chart, reuseAxisNum) {
     transitions: o2FlowValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createSbpmGraph(chart, reuseAxisNum) {
@@ -119,7 +119,7 @@ function createSbpmGraph(chart, reuseAxisNum) {
     transitions: sbpmValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createMbpmGraph(chart, reuseAxisNum) {
@@ -136,7 +136,7 @@ function createMbpmGraph(chart, reuseAxisNum) {
     transitions: mbpmValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createScompGraph(chart, reuseAxisNum) {
@@ -153,7 +153,7 @@ function createScompGraph(chart, reuseAxisNum) {
     transitions: scompValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createDcompGraph(chart, reuseAxisNum) {
@@ -170,7 +170,7 @@ function createDcompGraph(chart, reuseAxisNum) {
     transitions: dcompValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createTempGraph(chart, reuseAxisNum) {
@@ -187,7 +187,7 @@ function createTempGraph(chart, reuseAxisNum) {
     transitions: tempValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createWarningGraph(chart, reuseAxisNum) {
@@ -204,7 +204,7 @@ function createWarningGraph(chart, reuseAxisNum) {
     transitions: warningValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createErrorGraph(chart, reuseAxisNum) {
@@ -221,7 +221,7 @@ function createErrorGraph(chart, reuseAxisNum) {
     transitions: errorValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createFiO2Graph(chart, reuseAxisNum) {
@@ -238,7 +238,7 @@ function createFiO2Graph(chart, reuseAxisNum) {
     transitions: fiO2Values
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createPurityGraph(chart, reuseAxisNum) {
@@ -255,7 +255,7 @@ function createPurityGraph(chart, reuseAxisNum) {
     transitions: o2PurityValues
   };
 
-  return addGraph(chart, yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
 }
 
 function createAnalysisChart() {
@@ -276,10 +276,12 @@ function createAnalysisChart() {
     init = logStartTime;
     min = analysisStartTime;
     max = analysisEndTime;
+    missing = missingTimeWindows;
   } else {
     init = 0;
     min = 1;
     max = breathTimes.length;
+    missing = missingBreathWindows;
   }
   analysisChart.addXaxis(init, min, max, missing);
 

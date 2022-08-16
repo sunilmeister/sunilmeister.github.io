@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 */
 
-const CHART_XAXIS_MAX_TICK_MARKS = 20;
+const CHART_XAXIS_MAX_TICK_MARKS = 25;
 const CHART_FONT_SIZE = 50;
 const CHART_INTERLACED_COLOR = 'white' ;
 const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB' ;
@@ -71,6 +71,41 @@ class LineChart {
     this.chart = null;
   }
 
+  // returns the Y-axis number for possible reuse
+  // or null if no graph created
+  // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, yMax:null, reuseAxisNum:2}
+  // flags = {warning:true, error:false}
+  // paramInfo = {name:"", transitions:[], color:""}
+  addGraph(yAxisInfo, breathTimes, flags, paramInfo) {
+    var paramTransitions = paramInfo.transitions;
+    var paramName = paramInfo.name;
+    var paramColor = paramInfo.color;
+  
+    var xyPoints = this.createXYPoints(breathTimes, paramTransitions, null, null, 
+      flags.error, flags.warning);
+    if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
+  
+    var yAxis = null;
+    if (!yAxisInfo.reuse) {
+      yAxis = this.createYaxis(yAxisInfo.yName, paramColor, yAxisInfo.yMin, yAxisInfo.yMax);
+      if (yAxisInfo.primary) {
+        return this.addXYPointsPrimaryYNew(yAxis, paramName, paramColor,  xyPoints);
+      } else {
+        this.addXYPointsSecondaryYNew(yAxis, paramName, paramColor,  xyPoints);
+        return null;
+      }
+    } else {
+      if (yAxisInfo.primary) {
+        return this.addXYPointsPrimaryYReuse(
+  	  yAxisInfo.reuseAxisNum, paramName, paramColor,  xyPoints);
+      } else {
+        this.addXYPointsSecondaryYReuse(paramName, paramColor,  xyPoints);
+        return null;
+      }
+    }
+    return null;
+  }
+  
   // X axis is the same for all charts in our application
   // if timeBased, init/min/max are Date else breath numbers
   addXaxis(init, min, max, missingWindows) {

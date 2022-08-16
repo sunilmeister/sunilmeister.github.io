@@ -482,7 +482,7 @@ function parseDTIME(tstr) {
   tokens = tokens[1].split(')');
   ccs = checksum(dTime);
   if (tokens[0] != ccs) {
-    console.log("DTIME =" + dTime + " checksum=" + tokens[0]);
+    console.log("Bad DTIME =" + dTime + " checksum=" + tokens[0]);
     console.log("Computed checksum=" + ccs);
     return null;
   }
