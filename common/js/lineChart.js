@@ -2,56 +2,12 @@
 // Author: Sunil Nanda
 */
 
-const CHART_XAXIS_MAX_TICK_MARKS = 25;
-const CHART_FONT_SIZE = 50;
-const CHART_INTERLACED_COLOR = 'white' ;
-const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB' ;
-const LINE_GRAPH_COLORS = [
-  "Crimson",
-  "Blue",
-  "Green",
-  "Indigo",
-  "Purple",
-  "Olive",
-  "Fuchsia",
-  "Maroon",
-  "Navy",
-  "Silver",
-  "Slategrey",
-  "Violet",
-  "SteelBlue",
-];
-
-var graphColorIndex = 0;
-
-function newGraphColor() {
-  var color = LINE_GRAPH_COLORS[graphColorIndex++];
-  if (graphColorIndex == LINE_GRAPH_COLORS.length) graphColorIndex = 0;
-  return color;
-}
-
-function toggleDataSeries(e) {
-  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-    e.dataSeries.visible = false;
-  }
-  else {
-    e.dataSeries.visible = true;
-  }
-  e.chart.render();
-}
-
-function cloneObject(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-
 // //////////////////////////////////////////////////////
 // Recommended sequence
 // 1. construct LineChart object
 // 2. add X-axis
-// 3. create XY points
-// 4. Create Y-axis
-// 5. add XY points and Y-axis to LineChart object
-// 6. Render LineChart object
+// 3. add Graph(s)
+// 4. Render LineChart object
 // //////////////////////////////////////////////////////
 class LineChart {
 

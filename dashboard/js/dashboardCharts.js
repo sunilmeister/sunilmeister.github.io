@@ -32,8 +32,7 @@ function createPlatGraph(chart, reuseAxisNum) {
 }
 
 function createPeepGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Pressure (cm H20)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -60,8 +59,7 @@ function createVtdelGraph(chart, reuseAxisNum) {
 }
 
 function createMvdelGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
                yName:"Minute Volume (litres/min)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -74,8 +72,7 @@ function createMvdelGraph(chart, reuseAxisNum) {
 }
 
 function createO2FlowGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
                yName:"Minute Volume (litres/min)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -102,8 +99,7 @@ function createSbpmGraph(chart, reuseAxisNum) {
 }
 
 function createMbpmGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Breaths per Min (bpm)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -130,8 +126,7 @@ function createScompGraph(chart, reuseAxisNum) {
 }
 
 function createDcompGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Compliance (ml/cm H20)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -144,8 +139,7 @@ function createDcompGraph(chart, reuseAxisNum) {
 }
 
 function createTempGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"System Temp (deg C)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -200,8 +194,7 @@ function createFiO2Graph(chart, reuseAxisNum) {
 }
 
 function createPurityGraph(chart, reuseAxisNum) {
-  reuse = (reuseAxisNum != null);
-  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Percentage (%)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -216,6 +209,7 @@ function createPurityGraph(chart, reuseAxisNum) {
 var pressureChart = null;
 function createPressureCharts(height, timeBased, init, min, max, missing) {
   if (!document.getElementById("PressuresTick").checked) return;
+  initGraphColor();
   if (pressureChart) {
     pressureChart.destroy();
     delete pressureChart;
@@ -236,6 +230,7 @@ function createPressureCharts(height, timeBased, init, min, max, missing) {
 var volumeChart = null;
 function createVolumeCharts(height, timeBased, init, min, max, missing) {
   if (!document.getElementById("VolumesTick").checked) return;
+  initGraphColor();
   if (volumeChart) {
     volumeChart.destroy();
     delete volumeChart;
@@ -256,6 +251,7 @@ function createVolumeCharts(height, timeBased, init, min, max, missing) {
 var bpmChart = null;
 function createBpmCharts(height, timeBased, init, min, max, missing) {
   if (!document.getElementById("BpmTick").checked) return;
+  initGraphColor();
   if (bpmChart) {
     bpmChart.destroy();
     delete bpmChart;
@@ -275,6 +271,7 @@ function createBpmCharts(height, timeBased, init, min, max, missing) {
 var compChart = null;
 function createCompCharts(height, timeBased, init, min, max, missing) {
   if (!document.getElementById("CompTick").checked) return;
+  initGraphColor();
   if (compChart) {
     compChart.destroy();
     delete compChart;
@@ -294,6 +291,7 @@ function createCompCharts(height, timeBased, init, min, max, missing) {
 var miscChart = null;
 function createMiscCharts(height, timeBased, init, min, max, missing) {
   if (!document.getElementById("MiscTick").checked) return;
+  initGraphColor();
   if (miscChart) {
     miscChart.destroy();
     delete miscChart;
@@ -316,6 +314,7 @@ function createMiscCharts(height, timeBased, init, min, max, missing) {
 var fiO2Chart = null;
 function createFiO2Charts(height, timeBased, init, min, max, missing) {
   if (!document.getElementById("FiO2Tick").checked) return;
+  initGraphColor();
   if (fiO2Chart) {
     fiO2Chart.destroy();
     delete fiO2Chart;
@@ -429,6 +428,7 @@ function InitChartCheckBoxes() {
   document.getElementById("VolumesTick").checked = false;
   document.getElementById("BpmTick").checked = false;
   document.getElementById("FiO2Tick").checked = false;
+  document.getElementById("CompTick").checked = false;
   document.getElementById("MiscTick").checked = false;
 }
 

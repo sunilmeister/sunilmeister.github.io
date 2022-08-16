@@ -260,6 +260,7 @@ function createPurityGraph(chart, reuseAxisNum) {
 
 function createAnalysisChart() {
   cleanupCharts();
+  initGraphColor();
   height = 650;
   elm = document.getElementById("chartTitle");
   title = elm.value;
