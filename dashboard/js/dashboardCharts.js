@@ -2,8 +2,10 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 var dashboardChart = null;
+var prevMinBreathNum = 0;
+var prevMaxBreathNum = 0;
 
-function createPeakGraph(chart, reuseAxisNum) {
+function createPeakGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Pressure (cm H20)"};
@@ -14,10 +16,10 @@ function createPeakGraph(chart, reuseAxisNum) {
     transitions: peakValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createPlatGraph(chart, reuseAxisNum) {
+function createPlatGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Pressure (cm H20)"};
@@ -28,10 +30,10 @@ function createPlatGraph(chart, reuseAxisNum) {
     transitions: platValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createPeepGraph(chart, reuseAxisNum) {
+function createPeepGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Pressure (cm H20)"};
   flags = {warning:false, error:false}
@@ -41,10 +43,10 @@ function createPeepGraph(chart, reuseAxisNum) {
     transitions: mpeepValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createVtdelGraph(chart, reuseAxisNum) {
+function createVtdelGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:700, reuseAxisNum:reuseAxisNum,
                yName:"Volume (ml)"};
@@ -55,10 +57,10 @@ function createVtdelGraph(chart, reuseAxisNum) {
     transitions: vtdelValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createMvdelGraph(chart, reuseAxisNum) {
+function createMvdelGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
                yName:"Minute Volume (litres/min)"};
   flags = {warning:false, error:false}
@@ -68,10 +70,10 @@ function createMvdelGraph(chart, reuseAxisNum) {
     transitions: mvdelValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createO2FlowGraph(chart, reuseAxisNum) {
+function createO2FlowGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:20, reuseAxisNum:reuseAxisNum,
                yName:"Minute Volume (litres/min)"};
   flags = {warning:false, error:false}
@@ -81,10 +83,10 @@ function createO2FlowGraph(chart, reuseAxisNum) {
     transitions: o2FlowValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createSbpmGraph(chart, reuseAxisNum) {
+function createSbpmGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Breaths per Min (bpm)"};
@@ -95,10 +97,10 @@ function createSbpmGraph(chart, reuseAxisNum) {
     transitions: sbpmValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createMbpmGraph(chart, reuseAxisNum) {
+function createMbpmGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Breaths per Min (bpm)"};
   flags = {warning:false, error:false}
@@ -108,10 +110,10 @@ function createMbpmGraph(chart, reuseAxisNum) {
     transitions: mbpmValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createScompGraph(chart, reuseAxisNum) {
+function createScompGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Compliance (ml/cm H20)"};
@@ -122,10 +124,10 @@ function createScompGraph(chart, reuseAxisNum) {
     transitions: scompValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createDcompGraph(chart, reuseAxisNum) {
+function createDcompGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Compliance (ml/cm H20)"};
   flags = {warning:false, error:false}
@@ -135,10 +137,10 @@ function createDcompGraph(chart, reuseAxisNum) {
     transitions: dcompValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createTempGraph(chart, reuseAxisNum) {
+function createTempGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"System Temp (deg C)"};
   flags = {warning:false, error:false}
@@ -148,10 +150,10 @@ function createTempGraph(chart, reuseAxisNum) {
     transitions: tempValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createWarningGraph(chart, reuseAxisNum) {
+function createWarningGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Errors & Warnings"};
@@ -162,10 +164,10 @@ function createWarningGraph(chart, reuseAxisNum) {
     transitions: warningValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createErrorGraph(chart, reuseAxisNum) {
+function createErrorGraph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Errors & Warnings"};
@@ -176,10 +178,10 @@ function createErrorGraph(chart, reuseAxisNum) {
     transitions: errorValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createFiO2Graph(chart, reuseAxisNum) {
+function createFiO2Graph(chart, reuseAxisNum, rangeInfo) {
   reuse = (reuseAxisNum != null);
   yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Percentage (%)"};
@@ -190,10 +192,10 @@ function createFiO2Graph(chart, reuseAxisNum) {
     transitions: fiO2Values
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
-function createPurityGraph(chart, reuseAxisNum) {
+function createPurityGraph(chart, reuseAxisNum, rangeInfo) {
   yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Percentage (%)"};
   flags = {warning:false, error:false}
@@ -203,7 +205,7 @@ function createPurityGraph(chart, reuseAxisNum) {
     transitions: o2PurityValues
   };
 
-  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  return chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo);
 }
 
 var pressureChart = null;
@@ -215,13 +217,14 @@ function createPressureCharts(height, timeBased, init, min, max, missing) {
     delete pressureChart;
     pressureChart = null;
   }
+  rangeInfo = {min:min, max:max};
   pressureChart = new LineChart("Pressures", height, timeBased);
   pressureChart.addXaxis(init, min, max, missing);
 
   pressureAxisNum = null;
-  pressureAxisNum = createPeakGraph(pressureChart, pressureAxisNum);
-  pressureAxisNum = createPlatGraph(pressureChart, pressureAxisNum);
-  pressureAxisNum = createPeepGraph(pressureChart, pressureAxisNum);
+  pressureAxisNum = createPeakGraph(pressureChart, pressureAxisNum, rangeInfo);
+  pressureAxisNum = createPlatGraph(pressureChart, pressureAxisNum, rangeInfo);
+  pressureAxisNum = createPeepGraph(pressureChart, pressureAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartPressureDiv");
   pressureChart.render(containerDiv);
@@ -236,13 +239,14 @@ function createVolumeCharts(height, timeBased, init, min, max, missing) {
     delete volumeChart;
     volumeChart = null;
   }
+  rangeInfo = {min:min, max:max};
   volumeChart = new LineChart("Volumes", height, timeBased);
   volumeChart.addXaxis(init, min, max, missing);
 
   volumeAxisNum = null;
-  volumeAxisNum = createVtdelGraph(volumeChart, volumeAxisNum);
+  volumeAxisNum = createVtdelGraph(volumeChart, volumeAxisNum, rangeInfo);
   mvAxisNum = null;
-  mvAxisNum = createMvdelGraph(volumeChart, mvAxisNum);
+  mvAxisNum = createMvdelGraph(volumeChart, mvAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartVolumeDiv");
   volumeChart.render(containerDiv);
@@ -257,12 +261,13 @@ function createBpmCharts(height, timeBased, init, min, max, missing) {
     delete bpmChart;
     bpmChart = null;
   }
+  rangeInfo = {min:min, max:max};
   bpmChart = new LineChart("BPM", height, timeBased);
   bpmChart.addXaxis(init, min, max, missing);
 
   bpmAxisNum = null;
-  bpmAxisNum = createSbpmGraph(bpmChart, bpmAxisNum);
-  bpmAxisNum = createMbpmGraph(bpmChart, bpmAxisNum);
+  bpmAxisNum = createSbpmGraph(bpmChart, bpmAxisNum, rangeInfo);
+  bpmAxisNum = createMbpmGraph(bpmChart, bpmAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartBpmDiv");
   bpmChart.render(containerDiv);
@@ -277,12 +282,13 @@ function createCompCharts(height, timeBased, init, min, max, missing) {
     delete compChart;
     compChart = null;
   }
+  rangeInfo = {min:min, max:max};
   compChart = new LineChart("Lung Compliances", height, timeBased);
   compChart.addXaxis(init, min, max, missing);
 
   compAxisNum = null;
-  compAxisNum = createScompGraph(compChart, compAxisNum);
-  compAxisNum = createDcompGraph(compChart, compAxisNum);
+  compAxisNum = createScompGraph(compChart, compAxisNum, rangeInfo);
+  compAxisNum = createDcompGraph(compChart, compAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartCompDiv");
   compChart.render(containerDiv);
@@ -297,15 +303,16 @@ function createMiscCharts(height, timeBased, init, min, max, missing) {
     delete miscChart;
     miscChart = null;
   }
+  rangeInfo = {min:min, max:max};
   miscChart = new LineChart("Miscellaneous", height, timeBased);
   miscChart.addXaxis(init, min, max, missing);
 
   tempAxisNum = null;
-  tempAxisNum = createTempGraph(miscChart, tempAxisNum);
+  tempAxisNum = createTempGraph(miscChart, tempAxisNum, rangeInfo);
 
   flagAxisNum = null;
-  flagAxisNum = createWarningGraph(miscChart, flagAxisNum);
-  flagAxisNum = createErrorGraph(miscChart, flagAxisNum);
+  flagAxisNum = createWarningGraph(miscChart, flagAxisNum, rangeInfo);
+  flagAxisNum = createErrorGraph(miscChart, flagAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartMiscDiv");
   miscChart.render(containerDiv);
@@ -320,14 +327,15 @@ function createFiO2Charts(height, timeBased, init, min, max, missing) {
     delete fiO2Chart;
     fiO2Chart = null;
   }
+  rangeInfo = {min:min, max:max};
   fiO2Chart = new LineChart("FiO2", height, timeBased);
   fiO2Chart.addXaxis(init, min, max, missing);
 
   pctAxisNum = null;
-  pctAxisNum = createFiO2Graph(fiO2Chart, pctAxisNum);
-  pctAxisNum = createPurityGraph(fiO2Chart, pctAxisNum);
+  pctAxisNum = createFiO2Graph(fiO2Chart, pctAxisNum, rangeInfo);
+  pctAxisNum = createPurityGraph(fiO2Chart, pctAxisNum, rangeInfo);
   mvAxisNum = null;
-  mvAxisNum = createO2FlowGraph(fiO2Chart, mvAxisNum);
+  mvAxisNum = createO2FlowGraph(fiO2Chart, mvAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartFiO2Div");
   fiO2Chart.render(containerDiv);
@@ -359,6 +367,9 @@ function createDashboardCharts() {
   createFiO2Charts(height, timeBased, init, min, max, missing);
   createCompCharts(height, timeBased, init, min, max, missing);
   createMiscCharts(height, timeBased, init, min, max, missing);
+
+  prevMinBreathNum = min;
+  prevMaxBreathNum = max;
 }
 
 ////////////////////////////////////////////////////////

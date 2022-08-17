@@ -32,12 +32,15 @@ class LineChart {
   // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, yMax:null, reuseAxisNum:2}
   // flags = {warning:true, error:false}
   // paramInfo = {name:"", transitions:[], color:""}
-  addGraph(yAxisInfo, breathTimes, flags, paramInfo) {
+  // rangeInfo = {min:, max:}
+  addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo) {
     var paramTransitions = paramInfo.transitions;
     var paramName = paramInfo.name;
     var paramColor = paramInfo.color;
+    var minX = rangeInfo.min;
+    var maxX = rangeInfo.max;
   
-    var xyPoints = this.createXYPoints(breathTimes, paramTransitions, null, null, 
+    var xyPoints = this.createXYPoints(breathTimes, paramTransitions, minX, maxX, 
       flags.error, flags.warning);
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
   
