@@ -182,7 +182,7 @@ function changeToSnapshotView() {
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  updatePaused = false;
+  if (updatePaused) togglePause();
   currentView = "snapshots";
   snapshot.style.display = "inline-grid";
   charts.style.display = "none";
@@ -205,7 +205,7 @@ function changeToChartView() {
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  updatePaused = false;
+  if (updatePaused) togglePause();
   currentView = "charts";
   snapshot.style.display = "none";
   charts.style.display = "block";
@@ -229,7 +229,7 @@ function changeToStatView() {
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  updatePaused = false;
+  if (updatePaused) togglePause();
   currentView = "stats";
   snapshot.style.display = "none";
   charts.style.display = "none";
@@ -253,7 +253,7 @@ function changeToAlertView() {
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  updatePaused = false;
+  if (updatePaused) togglePause();
   currentView = "alerts";
   snapshot.style.display = "none";
   charts.style.display = "none";
@@ -277,7 +277,7 @@ function changeToRecordView() {
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  updatePaused = false;
+  if (updatePaused) togglePause();
   currentView = "records";
   snapshot.style.display = "none";
   charts.style.display = "none";
@@ -334,9 +334,11 @@ function changeView4() {
 
 function togglePause() {
   elm = document.getElementById("btnPause");
+  slider = document.getElementById("chartSlider");
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
+    slider.style.display = "none" ;
     if (currentView == "snapshots") updateSnapshot();
     if (currentView == "charts") createDashboardCharts();
     if (currentView == "stats") createDashboardStats();
@@ -345,6 +347,7 @@ function togglePause() {
   else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
+    slider.style.display = "block" ;
     breathPausedAt = dashboardBreathNum;
     pd = document.getElementById("pausedOrDuring");
     pd.innerHTML = "&nbspPaused At";
@@ -476,8 +479,6 @@ window.onload = function() {
   // Chart types to display
   InitChartCheckBoxes();
   // Create chart range slider
-  elm = document.getElementById('chartSliderCaption');
-  elm.innerHTML = "Select Chart Window (MAX " + MAX_CHART_DATAPOINTS + " Breaths)";
   chartRangeDiv = document.getElementById('chartRangeDiv');
   createChartRangeSlider(chartRangeDiv);
   // now wait for dweets and act accordingly
