@@ -1,4 +1,4 @@
-// Dashboard
+// Dashboard variables
 var datasource_name = "RESPIMATIC100";
 var startDate;
 var simulatedTimeInMs = 0;
