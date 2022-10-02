@@ -466,44 +466,40 @@ function chartRangeSliderCallback() {
 function selectChartRange(slider, minB, maxB) {
   l = Number(minB);
   r = Number(maxB);
-  if (cumulativeChartBreaths) {
-    if (r>cumulativeChartBreaths) r = cumulativeChartBreaths;
+  if (dashboardBreathNum) {
+    if (r>dashboardBreathNum) r = dashboardBreathNum;
     if (l<1) l = 1;
   } else {
     r = l = 0;
   }
 
-  if (l != minChartBreathNum) {
-    // min changed
-    if (r-l>MAX_CHART_DATAPOINTS) {
-      r = l+MAX_CHART_DATAPOINTS-1;
-    }
-  } else if (r != maxChartBreathNum) {
-    // max changed
-    if (r-l>MAX_CHART_DATAPOINTS) {
-      l = r-MAX_CHART_DATAPOINTS+1;
-    }
-  }
-  
   minChartBreathNum = l;
   maxChartBreathNum = r;
   //console.log("Select min=" + minChartBreathNum + " max=" + maxChartBreathNum);
   slider.setSlider([l, r]);
 }
 
-var cumulativeChartBreaths = 0;
+var accumulatedBreathsPaused = 0;
 function updateChartRangeOnNewBreath(num) {
-  cumulativeChartBreaths+=num ;
+  chartRangeLimit += num;
+  chartRangeSlider.setRange([1, chartRangeLimit]);
+
+  // If update is paused
+  if (updatePaused) {
+    accumulatedBreathsPaused += num;
+    return;
+  } else {
+    num += accumulatedBreathsPaused;
+    accumulatedBreathsPaused = 0;
+  }
   //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
   if (minChartBreathNum==0) minChartBreathNum = 1;
 
   maxChartBreathNum += num;
-  if (cumulativeChartBreaths>MAX_CHART_DATAPOINTS) chartRangeLimit += num;
   if ((maxChartBreathNum - minChartBreathNum) >= MAX_CHART_DATAPOINTS) {
     minChartBreathNum += num;
   }
   //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
-  chartRangeSlider.setRange([1, chartRangeLimit]);
   chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
 }
 
