@@ -489,9 +489,8 @@ function updateChartRangeOnNewBreath(num) {
   //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
 
   maxChartBreathNum = dashboardBreathNum;
-  if ((maxChartBreathNum - minChartBreathNum) >= MAX_CHART_DATAPOINTS) {
-    minChartBreathNum = dashboardBreathNum - MAX_CHART_DATAPOINTS +1;
-  } else {
+  minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
+  if (minChartBreathNum <= 0) {
     minChartBreathNum = 1;
   }
   //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
