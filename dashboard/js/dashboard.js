@@ -101,7 +101,7 @@ function processDashboardDweet(d) {
     elm.innerHTML = breathPausedAt;
   }
   else {
-    pd.innerHTML = "&nbspDuring";
+    pd.innerHTML = "&nbspDashboard";
     elm.innerHTML = dashboardBreathNum;
   }
   checkFiO2Calculation(d);

@@ -479,25 +479,20 @@ function selectChartRange(slider, minB, maxB) {
   slider.setSlider([l, r]);
 }
 
-var accumulatedBreathsPaused = 0;
 function updateChartRangeOnNewBreath(num) {
-  chartRangeLimit += num;
+  chartRangeLimit = dashboardBreathNum;
   chartRangeSlider.setRange([1, chartRangeLimit]);
 
   // If update is paused
-  if (updatePaused) {
-    accumulatedBreathsPaused += num;
-    return;
-  } else {
-    num += accumulatedBreathsPaused;
-    accumulatedBreathsPaused = 0;
-  }
-  //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
-  if (minChartBreathNum==0) minChartBreathNum = 1;
+  if (updatePaused) return;
 
-  maxChartBreathNum += num;
+  //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
+
+  maxChartBreathNum = dashboardBreathNum;
   if ((maxChartBreathNum - minChartBreathNum) >= MAX_CHART_DATAPOINTS) {
-    minChartBreathNum += num;
+    minChartBreathNum = dashboardBreathNum - MAX_CHART_DATAPOINTS +1;
+  } else {
+    minChartBreathNum = 1;
   }
   //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
   chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
