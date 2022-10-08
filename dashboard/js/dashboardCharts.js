@@ -481,7 +481,7 @@ function selectChartRange(slider, minB, maxB) {
 
 function updateChartRangeOnNewBreath(num) {
   chartRangeLimit = dashboardBreathNum;
-  chartRangeSlider.setRange([1, chartRangeLimit]);
+  chartRangeSlider.setRange([1, chartRangeLimit+1]);
 
   // If update is paused
   if (updatePaused) return;
