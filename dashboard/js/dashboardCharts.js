@@ -221,7 +221,7 @@ function createPressureCharts(height, timeBased, init, min, max, missing) {
     pressureChart = null;
   }
   rangeInfo = {min:min, max:max};
-  pressureChart = new LineChart("Pressures", height, timeBased);
+  pressureChart = new LineChart("Pressures (Peak, Plateau, Peep)", height, timeBased);
   pressureChart.addXaxis(init, min, max, missing);
 
   pressureAxisNum = null;
@@ -243,7 +243,7 @@ function createVolumeCharts(height, timeBased, init, min, max, missing) {
     volumeChart = null;
   }
   rangeInfo = {min:min, max:max};
-  volumeChart = new LineChart("Volumes", height, timeBased);
+  volumeChart = new LineChart("Volumes (Tidal, Minute)", height, timeBased);
   volumeChart.addXaxis(init, min, max, missing);
 
   volumeAxisNum = null;
@@ -265,7 +265,7 @@ function createBpmCharts(height, timeBased, init, min, max, missing) {
     bpmChart = null;
   }
   rangeInfo = {min:min, max:max};
-  bpmChart = new LineChart("BPM", height, timeBased);
+  bpmChart = new LineChart("BPM (Mandatory, Spontaneous)", height, timeBased);
   bpmChart.addXaxis(init, min, max, missing);
 
   bpmAxisNum = null;
@@ -286,7 +286,7 @@ function createCompCharts(height, timeBased, init, min, max, missing) {
     compChart = null;
   }
   rangeInfo = {min:min, max:max};
-  compChart = new LineChart("Lung Compliances", height, timeBased);
+  compChart = new LineChart("Instant Lung Compliances (Static, Dynamic)", height, timeBased);
   compChart.addXaxis(init, min, max, missing);
 
   compAxisNum = null;
@@ -307,7 +307,7 @@ function createMiscCharts(height, timeBased, init, min, max, missing) {
     miscChart = null;
   }
   rangeInfo = {min:min, max:max};
-  miscChart = new LineChart("Miscellaneous", height, timeBased);
+  miscChart = new LineChart("Miscellaneous (Errors, Warnings, Temperature)", height, timeBased);
   miscChart.addXaxis(init, min, max, missing);
 
   tempAxisNum = null;
@@ -331,7 +331,7 @@ function createFiO2Charts(height, timeBased, init, min, max, missing) {
     fiO2Chart = null;
   }
   rangeInfo = {min:min, max:max};
-  fiO2Chart = new LineChart("FiO2", height, timeBased);
+  fiO2Chart = new LineChart("Oxygen (FiO2, Purity, Flow Rate)", height, timeBased);
   fiO2Chart.addXaxis(init, min, max, missing);
 
   pctAxisNum = null;
