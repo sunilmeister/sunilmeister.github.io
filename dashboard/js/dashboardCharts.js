@@ -34,7 +34,8 @@ function createPlatGraph(chart, reuseAxisNum, rangeInfo) {
 }
 
 function createPeepGraph(chart, reuseAxisNum, rangeInfo) {
-  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Pressure (cm H20)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -101,7 +102,8 @@ function createSbpmGraph(chart, reuseAxisNum, rangeInfo) {
 }
 
 function createMbpmGraph(chart, reuseAxisNum, rangeInfo) {
-  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Breaths per Min (bpm)"};
   flags = {warning:false, error:false}
   paramInfo = {
@@ -128,7 +130,8 @@ function createScompGraph(chart, reuseAxisNum, rangeInfo) {
 }
 
 function createDcompGraph(chart, reuseAxisNum, rangeInfo) {
-  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Compliance (ml/cm H20)"};
   flags = {warning:false, error:false}
   paramInfo = {
