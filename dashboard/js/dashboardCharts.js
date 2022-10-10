@@ -234,6 +234,7 @@ function createPressureCharts(height, timeBased, initX, minX, maxX) {
   pressureAxisNum = createPeakGraph(pressureChart, pressureAxisNum, rangeInfo);
   pressureAxisNum = createPlatGraph(pressureChart, pressureAxisNum, rangeInfo);
   pressureAxisNum = createPeepGraph(pressureChart, pressureAxisNum, rangeInfo);
+  pressureChart.addDummyY2axis();
 
   containerDiv = document.getElementById("chartPressureDiv");
   pressureChart.render(containerDiv);
@@ -289,6 +290,7 @@ function createBpmCharts(height, timeBased, initX, minX, maxX, missing) {
   bpmAxisNum = null;
   bpmAxisNum = createSbpmGraph(bpmChart, bpmAxisNum, rangeInfo);
   bpmAxisNum = createMbpmGraph(bpmChart, bpmAxisNum, rangeInfo);
+  bpmChart.addDummyY2axis();
 
   containerDiv = document.getElementById("chartBpmDiv");
   bpmChart.render(containerDiv);
@@ -316,6 +318,7 @@ function createCompCharts(height, timeBased, initX, minX, maxX, missing) {
   compAxisNum = null;
   compAxisNum = createScompGraph(compChart, compAxisNum, rangeInfo);
   compAxisNum = createDcompGraph(compChart, compAxisNum, rangeInfo);
+  compChart.addDummyY2axis();
 
   containerDiv = document.getElementById("chartCompDiv");
   compChart.render(containerDiv);

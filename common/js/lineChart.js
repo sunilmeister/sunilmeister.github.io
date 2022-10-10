@@ -127,7 +127,7 @@ class LineChart {
     }
   }
 
-  createYaxis(title,color,minX, maxX) {
+  createYaxis(title,color,minY, maxY) {
     var Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
@@ -135,8 +135,8 @@ class LineChart {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    if (minX!=null) Yaxis.minimum = minX;
-    if (maxX!=null) Yaxis.maximum = maxX;
+    if (minY!=null) Yaxis.minimum = minY;
+    if (maxY!=null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
     return cloneObject(Yaxis);
   }
@@ -267,4 +267,23 @@ class LineChart {
     this.chartJson.data.push(cloneObject(xyPoints));
   }
 
+  addDummyY2axis() {
+    var minX = this.chartJson.axisX.minimum;
+    var minY = this.chartJson.axisY[0].minimum;
+    var maxY = this.chartJson.axisY[0].maximum;
+    var color = this.chartJson.backgroundColor;
+
+    var Y2axis = {};
+    Y2axis.title = "Dummy";
+    Y2axis.lineColor = color;
+    Y2axis.tickColor = color;
+    Y2axis.labelFontColor = color;
+    Y2axis.titleFontColor = color;
+    Y2axis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
+    Y2axis.minimum = minY;
+    Y2axis.maximum = maxY;
+    Y2axis.suffix = "";
+    this.chartJson.axisY2 = cloneObject(Y2axis);
+    this.chartJson.data.push({axisYType: "secondary", datapoints:[{x:minX,y:minY}]});
+  }
 };
