@@ -69,30 +69,18 @@ class LineChart {
   // if timeBased, init/min/max are Date else breath numbers
   addXaxis(initX, minX, maxX, missingWindows) {
     var Xaxis = {};
-    var missing = [];
     if (this.timeUnits) {
       Xaxis.title = "Elapsed Time (secs)";
-      // calculate missing times in terms of elapsed time
-      for (let i=0; i<missingWindows.length; i++) {
-	var m = missingWindows[i];
-	var newM = cloneObject(m);
-	newM.startValue = Math.floor(new Date(m.startValue) - initX)/1000;
-	newM.endValue = Math.ceil(new Date(m.endValue) - initX)/1000;
-	//console.log("m start=" + m.startValue + " end=" + m.endValue + " initX=" + initX);
-	//console.log("newM start=" + newM.startValue + " end=" + newM.endValue);
-	missing.push(newM);
-      }
     } else {
       Xaxis.title = "Breath Number";
-      missing = missingWindows;
     }
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval(minX, maxX);
     Xaxis.minimum = this.calculateXaxisMinimum(initX, minX);
-    if (missing && missing.length) {
+    if (missingWindows && missingWindows.length) {
       Xaxis.scaleBreaks = {};
-      Xaxis.scaleBreaks.customBreaks = cloneObject(missing);
+      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
     this.chartJson.axisX = Xaxis;
   }
@@ -133,7 +121,7 @@ class LineChart {
   // if timeUnits, init/min/max are Date else breath numbers
   calculateXaxisMinimum(initX, minX) {
     if (this.timeUnits) {
-      return Math.ceil(minX - initX)/1000 ;
+      return Math.floor(minX - initX)/1000 ;
     } else {
       return minX - initX;
     }

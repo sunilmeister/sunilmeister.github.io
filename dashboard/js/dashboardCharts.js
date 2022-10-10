@@ -383,6 +383,7 @@ function createFiO2Charts(height, timeBased, initX, minX, maxX, missing) {
 function createDashboardCharts() {
   elm = document.getElementById("timeTick");
   var timeBased = elm.checked;
+  //console.log("createDashboardCharts() timeBased=" + timeBased);
   var height=475
   var minX = minChartBreathNum;
   var maxX = maxChartBreathNum;

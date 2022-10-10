@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const MAX_CHART_DATAPOINTS = 100;
+const MAX_CHART_DATAPOINTS = 60;
 var chartRangeLimit = MAX_CHART_DATAPOINTS;
 var minChartBreathNum = 0;
 var maxChartBreathNum = 0;
@@ -266,7 +266,6 @@ function chartProcessJsonRecord(jsonData) {
             "time": curTime,
             "valid": true
           });
-          lastValidBreathTime = curTime;
           if (chartPrevSystemBreathNum == -1) { // initialize
             chartPrevSystemBreathNum = value - 1;
           }
@@ -291,20 +290,22 @@ function chartProcessJsonRecord(jsonData) {
             }
             // record breaks for graphing
             missingBreathWindows.push({
-              "startValue": lastBreathNum + 1,
+              "startValue": lastBreathNum,
               "endValue": lastBreathNum + breathsMissing,
               "type": "zigzag",
               "lineColor": "black",
               "autoCalculate": true
             });
+	    if (!lastValidBreathTime) lastValidBreathTime=startDate;
             missingTimeWindows.push({
-              "startValue": lastValidBreathTime + 1,
-              "endValue": curTime - 1,
+              "startValue": ((new Date(lastValidBreathTime) - startDate)/1000)+0.5,
+              "endValue": ((new Date(curTime) - startDate)/1000)-0.5,
               "type": "zigzag",
               "lineColor": "black",
               "autoCalculate": true
             });
           }
+          lastValidBreathTime = curTime;
         }
         else if (ckey == "FIO2") {
           if (validDecimalInteger(value) && (value <= 100)) {
