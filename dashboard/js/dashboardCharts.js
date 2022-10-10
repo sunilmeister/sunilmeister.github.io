@@ -224,7 +224,7 @@ function createPressureCharts(height, timeBased, initX, minX, maxX) {
   pressureChart = new LineChart("Pressures (Peak, Plateau, Peep)", height, timeBased);
 
   if (timeBased) {
-    pressureChart.addXaxis(breathTimes[minX].time, 
+    pressureChart.addXaxis(startDate,
       breathTimes[minX].time, breathTimes[maxX].time, missingTimeWindows);
   } else {
     pressureChart.addXaxis(initX, minX, maxX, missingBreathWindows);
@@ -252,7 +252,7 @@ function createVolumeCharts(height, timeBased, initX, minX, maxX, missing) {
   volumeChart = new LineChart("Volumes (Tidal, Minute)", height, timeBased);
 
   if (timeBased) {
-    volumeChart.addXaxis(breathTimes[minX].time, 
+    volumeChart.addXaxis(startDate,
       breathTimes[minX].time, breathTimes[maxX].time, missingTimeWindows);
   } else {
     volumeChart.addXaxis(initX, minX, maxX, missingBreathWindows);
@@ -280,7 +280,7 @@ function createBpmCharts(height, timeBased, initX, minX, maxX, missing) {
   bpmChart = new LineChart("BPM (Mandatory, Spontaneous)", height, timeBased);
 
   if (timeBased) {
-    bpmChart.addXaxis(breathTimes[minX].time, 
+    bpmChart.addXaxis(startDate,
       breathTimes[minX].time, breathTimes[maxX].time, missingTimeWindows);
   } else {
     bpmChart.addXaxis(initX, minX, maxX, missingBreathWindows);
@@ -307,7 +307,7 @@ function createCompCharts(height, timeBased, initX, minX, maxX, missing) {
   compChart = new LineChart("Instant Lung Compliances (Static, Dynamic)", height, timeBased);
 
   if (timeBased) {
-    compChart.addXaxis(breathTimes[minX].time, 
+    compChart.addXaxis(startDate,
       breathTimes[minX].time, breathTimes[maxX].time, missingTimeWindows);
   } else {
     compChart.addXaxis(initX, minX, maxX, missingBreathWindows);
@@ -334,7 +334,7 @@ function createMiscCharts(height, timeBased, initX, minX, maxX, missing) {
   miscChart = new LineChart("Miscellaneous (Errors, Warnings, Temperature)", height, timeBased);
 
   if (timeBased) {
-    miscChart.addXaxis(breathTimes[minX].time, 
+    miscChart.addXaxis(startDate,
       breathTimes[minX].time, breathTimes[maxX].time, missingTimeWindows);
   } else {
     miscChart.addXaxis(initX, minX, maxX, missingBreathWindows);
@@ -364,7 +364,7 @@ function createFiO2Charts(height, timeBased, initX, minX, maxX, missing) {
   fiO2Chart = new LineChart("Oxygen (FiO2, Purity, Flow Rate)", height, timeBased);
 
   if (timeBased) {
-    fiO2Chart.addXaxis(breathTimes[minX].time, 
+    fiO2Chart.addXaxis(startDate,
       breathTimes[minX].time, breathTimes[maxX].time, missingTimeWindows);
   } else {
     fiO2Chart.addXaxis(initX, minX, maxX, missingBreathWindows);
@@ -384,9 +384,9 @@ function createDashboardCharts() {
   elm = document.getElementById("timeTick");
   var timeBased = elm.checked;
   var height=475
-  var initX = 0;
   var minX = minChartBreathNum;
   var maxX = maxChartBreathNum;
+  var initX = 0;
 
   createPressureCharts(height, timeBased, initX, minX, maxX);
   createVolumeCharts(height, timeBased, initX, minX, maxX);
