@@ -533,12 +533,13 @@ var periodicIntervalId = setInterval(function () {
 }, PERIODIC_INTERVAL_IN_MS)
 
 function FetchAndExecuteFromQueue() {
-  if (!finishedLoading) return false;
-  if (dweetQ.size() == 0) return false;
-  d = dweetQ.peek();
-  dTimeInMs = Number(d.DTIME);
+  if (!finishedLoading) return;
+  while(1) {
+    if (dweetQ.size() == 0) break;
+    d = dweetQ.peek();
+    dTimeInMs = Number(d.DTIME);
+    if (simulatedTimeInMs < dTimeInMs) break;
 
-  if (simulatedTimeInMs >= dTimeInMs) {
     d = dweetQ.pop();
     if (typeof d.content["BNUM"] != "undefined") {
       dashboardBreathNum++;
@@ -553,12 +554,13 @@ function FetchAndExecuteFromQueue() {
     if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
     processDashboardDweet(d);
     if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
-    return true;
   }
+
   if (dTimeInMs - simulatedTimeInMs > MAX_DIFF_DWEET_SIMULAION_TIMES) {
-    console.log("Dweets way ahead of simulated time " + dTimeInMs + " v/s " + simulatedTimeInMs);
+    console.log("Dweets way ahead of simulated time " + dTimeInMs + 
+      " v/s " + simulatedTimeInMs);
   }
-  return false;
+  return;
 }
 
 alert(

@@ -290,7 +290,7 @@ function chartProcessJsonRecord(jsonData) {
             }
             // record breaks for graphing
             missingBreathWindows.push({
-              "startValue": lastBreathNum,
+              "startValue": lastBreathNum+1,
               "endValue": lastBreathNum + breathsMissing,
               "type": "zigzag",
               "lineColor": "black",
