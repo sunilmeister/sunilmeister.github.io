@@ -76,8 +76,10 @@ class LineChart {
       for (let i=0; i<missingWindows.length; i++) {
 	var m = missingWindows[i];
 	var newM = cloneObject(m);
-	newM.startValue = (m.startValue - initX)/1000;
-	newM.endValue = (m.endValue - initX)/1000;
+	newM.startValue = Math.floor(new Date(m.startValue) - initX)/1000;
+	newM.endValue = Math.ceil(new Date(m.endValue) - initX)/1000;
+	//console.log("m start=" + m.startValue + " end=" + m.endValue + " initX=" + initX);
+	//console.log("newM start=" + newM.startValue + " end=" + newM.endValue);
 	missing.push(newM);
       }
     } else {
@@ -131,7 +133,7 @@ class LineChart {
   // if timeUnits, init/min/max are Date else breath numbers
   calculateXaxisMinimum(initX, minX) {
     if (this.timeUnits) {
-      return (minX - initX)/1000 ;
+      return Math.ceil(minX - initX)/1000 ;
     } else {
       return minX - initX;
     }
