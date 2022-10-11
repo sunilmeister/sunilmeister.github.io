@@ -507,16 +507,18 @@ window.onbeforeunload = function(e) {
   }
 }
 
+
 function HandlePeriodicTasks() {
   if (!finishedLoading) return;
   updateAlert(true);
   updatePending(true);
-  blinkInterval += TIMEOUT_INTERVAL_IN_MS;
+  var invokeTimeInMs = (new Date()).getTime();
+  blinkInterval = invokeTimeInMs - prevBlinkTimeInMs;
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
-    blinkInterval = 0;
     blinkPauseButton();
     blinkRecordButton();
     blinkFlowRate();
+    prevBlinkTimeInMs = invokeTimeInMs;
   }
   if (awaitingFirstDweet) {
     displayWifiUnconnected();

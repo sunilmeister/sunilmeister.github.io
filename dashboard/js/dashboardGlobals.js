@@ -66,6 +66,8 @@ var recordingPaused = false;
 var dweetQ = null;
 var wifiDropped = false;
 var blinkInterval = 0;
+var prevBlinkTimeInMs = (new Date()).getTime();
+
 const TIMEOUT_INTERVAL_IN_MS = 200;
 const BLINK_INTERVAL_IN_MS = 1000;
 const MAX_DWEET_INTERVAL_IN_MS = 30000;
