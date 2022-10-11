@@ -66,6 +66,12 @@ function disassembleAndQueueDweet(d) {
   }
 }
 
+function getCurrentSimulatedTime() {
+  curDate = new Date();
+  deltaTimeInMs = curDate - startSystemDate;
+  return startSimulatedTimeInMs + deltaTimeInMs;
+}
+
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
     if (simulatedTimeInMs - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
@@ -78,6 +84,8 @@ function waitForDweets() {
       if (dTime==null) return; // ignore this malformed dweet
 
       simulatedTimeInMs = Number(dTime);
+      startSimulatedTimeInMs = simulatedTimeInMs;
+      startSystemDate = new Date();
       //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
       startDate = new Date(d.created);
       elm = document.getElementById("logStartTime");
@@ -353,6 +361,7 @@ function togglePause() {
     pd.innerHTML = "&nbspPaused At";
     elm = document.getElementById("dashboardBreathNum");
     elm.innerHTML = breathPausedAt;
+    //console.log("Peak Dweet Queue usage = " + dweetQ.peakSize());
   }
   updateDashboardAndRecordingStatus();
 }
@@ -502,7 +511,7 @@ function HandlePeriodicTasks() {
   if (!finishedLoading) return;
   updateAlert(true);
   updatePending(true);
-  blinkInterval += PERIODIC_INTERVAL_IN_MS;
+  blinkInterval += TIMEOUT_INTERVAL_IN_MS;
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkInterval = 0;
     blinkPauseButton();
@@ -521,16 +530,17 @@ function HandlePeriodicTasks() {
   }
 }
 
-var periodicIntervalId = setInterval(function () {
+setTimeout(function periodicCheck() {
   if (!awaitingFirstDweet) {
-    simulatedTimeInMs += PERIODIC_INTERVAL_IN_MS;
+    simulatedTimeInMs = getCurrentSimulatedTime();
   }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (dweetQ && dweetQ.size()) {
     FetchAndExecuteFromQueue();
   }
-}, PERIODIC_INTERVAL_IN_MS)
+  setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
+}, TIMEOUT_INTERVAL_IN_MS)
 
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;

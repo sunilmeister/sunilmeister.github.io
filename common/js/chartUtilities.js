@@ -262,6 +262,8 @@ function chartProcessJsonRecord(jsonData) {
           }
         }
         else if (ckey == "BNUM") {
+	  if (!validDecimalInteger(value)) continue; // will count as missing
+
           breathTimes.push({
             "time": curTime,
             "valid": true
@@ -290,8 +292,8 @@ function chartProcessJsonRecord(jsonData) {
             }
             // record breaks for graphing
             missingBreathWindows.push({
-              "startValue": lastBreathNum+1,
-              "endValue": lastBreathNum + breathsMissing,
+              "startValue": lastBreathNum+0.5,
+              "endValue": lastBreathNum + breathsMissing + 0.5,
               "type": "zigzag",
               "lineColor": "black",
               "autoCalculate": true

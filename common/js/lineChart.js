@@ -175,7 +175,10 @@ class LineChart {
   
     // Attach X datapoints
     var xval;
+    var prevXval = -1;
+    var ignoreDatapoint = false;
     for (let i = 1; i < numPoints; i++) {
+      ignoreDatapoint = false;
       if (this.timeUnits) {
         var ms;
         if (doFull) {
@@ -184,6 +187,8 @@ class LineChart {
           ms = new Date(breathTimes[i+minX-1].time) - new Date(breathTimes[1].time);
         }
         xval = Math.round(ms / 1000);
+	if (xval <= prevXval) ignoreDatapoint = true;
+	else prevXval = xval;
       } else {
         if (doFull) {
           xval = i;
@@ -192,33 +197,37 @@ class LineChart {
         }
       }
       if (!flagError && !flagWarning) {
-        xyPoints.push({
-          "x": xval,
-          "y": yDatapoints[i]
-        });
+        if (!ignoreDatapoint) {
+          xyPoints.push({
+            "x": xval,
+            "y": yDatapoints[i]
+          });
+	}
       } else {
-        if (yDatapoints[i] != yDatapoints[i - 1]) {
-	  var label = "E";
-	  var marker = "cross";
-	  var color = "red";
-          if (flagWarning) {
-            label = "W";
-            marker = "triangle";
-            color = "orange";
-          }
-          xyPoints.push({
-            "x": xval,
-            "y": yDatapoints[i],
-            indexLabel: label,
-            markerType: marker,
-            markerColor: color,
-            markerSize: 16
-          });
-        } else {
-          xyPoints.push({
-            "x": xval,
-            "y": null
-          });
+        if (!ignoreDatapoint) {
+          if (yDatapoints[i] != yDatapoints[i - 1]) {
+	    var label = "E";
+	    var marker = "cross";
+	    var color = "red";
+            if (flagWarning) {
+              label = "W";
+              marker = "triangle";
+              color = "orange";
+            }
+            xyPoints.push({
+              "x": xval,
+              "y": yDatapoints[i],
+              indexLabel: label,
+              markerType: marker,
+              markerColor: color,
+              markerSize: 16
+            });
+          } else {
+            xyPoints.push({
+              "x": xval,
+              "y": null
+            });
+	  }
         }
       }
     }
