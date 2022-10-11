@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 var analysisChart = null;
-var fullRange = {min:null, max:null};
+var fullRange = {minX:null, maxX:null};
 
 function createPeakGraph(chart, reuseAxisNum) {
   elm = document.getElementById('peakTick');
