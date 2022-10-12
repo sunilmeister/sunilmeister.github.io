@@ -262,7 +262,7 @@ function chartProcessJsonRecord(jsonData) {
           }
         }
         else if (ckey == "BNUM") {
-	  if ((!validDecimalInteger(value) || (value<systemBreathNum)) {
+	  if (!validDecimalInteger(value) || (value<systemBreathNum)) {
 	    console.log("Bad BNUM value = " + value + " sys = " + systemBreathNum);
 	    continue; // will count as missing
 	  }
