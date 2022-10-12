@@ -268,7 +268,8 @@ function createAnalysisChart() {
   elm = document.getElementById("timeTick");
   timeBased = elm.checked;
 
-  analysisChart = new LineChart(title, height, timeBased);
+  needDummyY2 = false;
+  analysisChart = new LineChart(title, height, timeBased, needDummyY2);
 
   var init = null;
   var min = null;

@@ -11,7 +11,7 @@
 // //////////////////////////////////////////////////////
 class LineChart {
 
-  constructor(title, height, timeUnits) {
+  constructor(title, height, timeUnits, dummyY2) {
     this.timeUnits = timeUnits;
     this.chartJson = {
       zoomEnabled: true,
@@ -25,6 +25,7 @@ class LineChart {
       data: []
     };
     this.chart = null;
+    this.needDummyY2 = true;
   }
 
   // returns the Y-axis number for possible reuse
@@ -247,6 +248,10 @@ class LineChart {
     xyPoints.name = name;
     xyPoints.color = color;
     this.chartJson.axisY.push(cloneObject(Yaxis));
+    if (this.needDummyY2) {
+      this.needDummyY2 = false;
+      this.addDummyY2axis();
+    }
     xyPoints.axisYIndex = axisNum;
     this.chartJson.data.push(cloneObject(xyPoints));
     return axisNum;

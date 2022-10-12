@@ -221,7 +221,8 @@ function createPressureCharts(height, timeBased, initX, minX, maxX) {
     pressureChart = null;
   }
   rangeInfo = {minX:minX, maxX:maxX};
-  pressureChart = new LineChart("Pressures (Peak, Plateau, Peep)", height, timeBased);
+  needDummyY2 = true;
+  pressureChart = new LineChart("Pressures (Peak, Plateau, Peep)", height, timeBased, needDummyY2);
 
   if (timeBased) {
     pressureChart.addXaxis(startDate,
@@ -234,7 +235,6 @@ function createPressureCharts(height, timeBased, initX, minX, maxX) {
   pressureAxisNum = createPeakGraph(pressureChart, pressureAxisNum, rangeInfo);
   pressureAxisNum = createPlatGraph(pressureChart, pressureAxisNum, rangeInfo);
   pressureAxisNum = createPeepGraph(pressureChart, pressureAxisNum, rangeInfo);
-  pressureChart.addDummyY2axis();
 
   containerDiv = document.getElementById("chartPressureDiv");
   pressureChart.render(containerDiv);
@@ -250,7 +250,8 @@ function createVolumeCharts(height, timeBased, initX, minX, maxX, missing) {
     volumeChart = null;
   }
   rangeInfo = {minX:minX, maxX:maxX};
-  volumeChart = new LineChart("Volumes (Tidal, Minute)", height, timeBased);
+  needDummyY2 = false;
+  volumeChart = new LineChart("Volumes (Tidal, Minute)", height, timeBased, needDummyY2);
 
   if (timeBased) {
     volumeChart.addXaxis(startDate,
@@ -278,7 +279,8 @@ function createBpmCharts(height, timeBased, initX, minX, maxX, missing) {
     bpmChart = null;
   }
   rangeInfo = {minX:minX, maxX:maxX};
-  bpmChart = new LineChart("BPM (Mandatory, Spontaneous)", height, timeBased);
+  needDummyY2 = true;
+  bpmChart = new LineChart("BPM (Mandatory, Spontaneous)", height, timeBased, needDummyY2);
 
   if (timeBased) {
     bpmChart.addXaxis(startDate,
@@ -290,7 +292,6 @@ function createBpmCharts(height, timeBased, initX, minX, maxX, missing) {
   bpmAxisNum = null;
   bpmAxisNum = createSbpmGraph(bpmChart, bpmAxisNum, rangeInfo);
   bpmAxisNum = createMbpmGraph(bpmChart, bpmAxisNum, rangeInfo);
-  bpmChart.addDummyY2axis();
 
   containerDiv = document.getElementById("chartBpmDiv");
   bpmChart.render(containerDiv);
@@ -306,7 +307,8 @@ function createCompCharts(height, timeBased, initX, minX, maxX, missing) {
     compChart = null;
   }
   rangeInfo = {minX:minX, maxX:maxX};
-  compChart = new LineChart("Instant Lung Compliances (Static, Dynamic)", height, timeBased);
+  needDummyY2 = true;
+  compChart = new LineChart("Instant Lung Compliances (Static, Dynamic)", height, timeBased, needDummyY2);
 
   if (timeBased) {
     compChart.addXaxis(startDate,
@@ -318,7 +320,6 @@ function createCompCharts(height, timeBased, initX, minX, maxX, missing) {
   compAxisNum = null;
   compAxisNum = createScompGraph(compChart, compAxisNum, rangeInfo);
   compAxisNum = createDcompGraph(compChart, compAxisNum, rangeInfo);
-  compChart.addDummyY2axis();
 
   containerDiv = document.getElementById("chartCompDiv");
   compChart.render(containerDiv);
@@ -334,7 +335,8 @@ function createMiscCharts(height, timeBased, initX, minX, maxX, missing) {
     miscChart = null;
   }
   rangeInfo = {minX:minX, maxX:maxX};
-  miscChart = new LineChart("Miscellaneous (Errors, Warnings, Temperature)", height, timeBased);
+  needDummyY2 = false;
+  miscChart = new LineChart("Miscellaneous (Errors, Warnings, Temperature)", height, timeBased, needDummyY2);
 
   if (timeBased) {
     miscChart.addXaxis(startDate,
@@ -343,12 +345,12 @@ function createMiscCharts(height, timeBased, initX, minX, maxX, missing) {
     miscChart.addXaxis(initX, minX, maxX, missingBreathWindows);
   }
 
-  tempAxisNum = null;
-  tempAxisNum = createTempGraph(miscChart, tempAxisNum, rangeInfo);
-
   flagAxisNum = null;
   flagAxisNum = createWarningGraph(miscChart, flagAxisNum, rangeInfo);
   flagAxisNum = createErrorGraph(miscChart, flagAxisNum, rangeInfo);
+
+  tempAxisNum = null;
+  tempAxisNum = createTempGraph(miscChart, tempAxisNum, rangeInfo);
 
   containerDiv = document.getElementById("chartMiscDiv");
   miscChart.render(containerDiv);
@@ -364,7 +366,8 @@ function createFiO2Charts(height, timeBased, initX, minX, maxX, missing) {
     fiO2Chart = null;
   }
   rangeInfo = {minX:minX, maxX:maxX};
-  fiO2Chart = new LineChart("Oxygen (FiO2, Purity, Flow Rate)", height, timeBased);
+  needDummyY2 = false;
+  fiO2Chart = new LineChart("Oxygen (FiO2, Purity, Flow Rate)", height, timeBased, needDummyY2);
 
   if (timeBased) {
     fiO2Chart.addXaxis(startDate,
