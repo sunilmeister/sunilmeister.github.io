@@ -284,8 +284,8 @@ function chartProcessJsonRecord(jsonData) {
               'created': curTime,
               'L1': String(breathsMissing) + " Breath(s) missed",
               'L2': "Info not received by",
-              'L3': "  Dashboard due to",
-              'L4': "  Internet losses"
+              'L3': "Dashboard due to",
+              'L4': "Internet losses"
             };
             infoMsgs.push(msg);
 	  }
