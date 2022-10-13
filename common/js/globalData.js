@@ -82,6 +82,7 @@ var warningNum = 0;
 var errorNum = 0;
 var errorMsgs = [];
 var warningMsgs = [];
+var infoMsgs = [];
 var chartExpectWarningMsg;
 var chartExpectErrorMsg;
 var chartL1;

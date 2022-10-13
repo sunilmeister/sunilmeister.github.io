@@ -142,7 +142,7 @@ function createDashboardStats() {
 
 function createDashboardAlerts() {
   globalDataValid = true;
-  displayErrorWarnings();
+  displayErrorWarningInfo();
 }
 
 function blinkFlowRate() {
@@ -463,7 +463,7 @@ window.onload = function() {
   initGlobalData();
   initStats();
   initChartStartValues();
-  initErrorWarnings();
+  initErrorWarningInfo();
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');
   mediumblueColor = style.getPropertyValue('--rsp_mediumblue');

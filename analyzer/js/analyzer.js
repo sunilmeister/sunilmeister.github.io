@@ -180,7 +180,7 @@ function selectErrorWarnings() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
-  displayErrorWarnings();
+  displayErrorWarningInfo();
 }
 
 function selectCharts() {
@@ -253,6 +253,7 @@ function initSession() {
       logEndTime = new Date(keys[keys.length - 1]);
       logEndTime.setMilliseconds(0);
       analysisStartTime = new Date(logStartTime);
+      startDate = analysisStartTime;
       analysisEndTime = new Date(logEndTime);
       
       updateSelectedDuration();
@@ -267,7 +268,7 @@ function resetAnalysisData() {
   initStats();
   initCharts();
   initRawDump();
-  initErrorWarnings();
+  initErrorWarningInfo();
   initImportExport();
 }
 
@@ -316,6 +317,7 @@ function setTimeInterval() {
   analysisEndBreath = parseInt(values[1]);
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
+  startDate = analysisStartTime;
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
@@ -336,6 +338,7 @@ function resetTimeInterval() {
   analysisStartBreath = 1;
   analysisEndBreath = fullSessionBreathTimes.length;
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
+  startDate = analysisStartTime;
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
   analysisRangeSlider.setSlider([analysisStartBreath, analysisEndBreath]);
   updateSelectedDuration();
@@ -429,6 +432,7 @@ function showAnalysisRangeSlider() {
   analysisStartBreath = 1;
   analysisEndBreath = fullSessionBreathTimes.length;
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
+  startDate = analysisStartTime;
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "block";

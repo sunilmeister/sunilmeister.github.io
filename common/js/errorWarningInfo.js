@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
+function displayJsonErrorWarningInfo(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_darkblue');
   var newElement = document.createElement('p');
@@ -34,16 +34,17 @@ function displayJsonErrorWarning(prefix, scrollbox, jsonData) {
   scrollbox.appendChild(newElement);
 }
 
-function initErrorWarnings() {
+function initErrorWarningInfo() {
   //console.log("initErrorWarnings");
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
+  scrollbox = document.getElementById('scrollInfoDiv');
+  scrollbox.innerHTML = "";
 }
 
-function displayErrorWarnings() {
-  //console.log("displayErrorWarnings");
+function displayErrorWarningInfo() {
   if (!globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
@@ -52,13 +53,19 @@ function displayErrorWarnings() {
   scrollbox.innerHTML = "";
   for (i = 0; i < errorMsgs.length; i++) {
     prefix = "ERROR #" + (i + 1) + " ";
-    displayJsonErrorWarning(prefix, scrollbox, errorMsgs[i]);
+    displayJsonErrorWarningInfo(prefix, scrollbox, errorMsgs[i]);
   }
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < warningMsgs.length; i++) {
     prefix = "WARNING #" + (i + 1) + " ";
-    displayJsonErrorWarning(prefix, scrollbox, warningMsgs[i]);
+    displayJsonErrorWarningInfo(prefix, scrollbox, warningMsgs[i]);
+  }
+  scrollbox = document.getElementById('scrollInfoDiv');
+  scrollbox.innerHTML = "";
+  for (i = 0; i < infoMsgs.length; i++) {
+    prefix = "INFO #" + (i + 1) + " ";
+    displayJsonErrorWarningInfo(prefix, scrollbox, infoMsgs[i]);
   }
 }
 

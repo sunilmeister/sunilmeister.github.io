@@ -287,7 +287,7 @@ function chartProcessJsonRecord(jsonData) {
               'L3': "  Dashboard due to",
               'L4': "  Internet losses"
             };
-            warningMsgs.push(msg);
+            infoMsgs.push(msg);
 	  }
 
 	  updateChartRangeOnNewBreath(systemBreathNum - chartPrevSystemBreathNum);
