@@ -112,6 +112,9 @@ function processDashboardDweet(d) {
     pd.innerHTML = "&nbspDashboard";
     elm.innerHTML = dashboardBreathNum;
   }
+  elm = document.getElementById("numMissedBreaths");
+  elm.innerHTML = totalMissedBreaths;
+
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
   chartProcessJsonRecord(d);

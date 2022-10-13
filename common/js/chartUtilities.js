@@ -6,6 +6,7 @@ var chartRangeLimit = MAX_CHART_DATAPOINTS;
 var minChartBreathNum = 0;
 var maxChartBreathNum = 0;
 var chartPrevSystemBreathNum = -1;
+var totalMissedBreaths = 0;
 const CHART_XAXIS_MAX_TICK_MARKS = 25;
 const CHART_FONT_SIZE = 50;
 const CHART_INTERLACED_COLOR = 'white' ;
@@ -276,6 +277,19 @@ function chartProcessJsonRecord(jsonData) {
           }
           systemBreathNum = value;
           breathsMissing = systemBreathNum - chartPrevSystemBreathNum - 1;
+	  totalMissedBreaths += breathsMissing;
+
+	  if (breathsMissing) {
+	    var msg = {
+              'created': curTime,
+              'L1': String(breathsMissing) + " Breaths missed",
+              'L2': "This happens due to",
+              'L3': "Internet losses",
+              'L4': ""
+            };
+            warningMsgs.push(msg);
+	  }
+
 	  updateChartRangeOnNewBreath(systemBreathNum - chartPrevSystemBreathNum);
           chartPrevSystemBreathNum = value;
           if (breathsMissing) {
