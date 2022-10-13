@@ -285,7 +285,7 @@ function chartProcessJsonRecord(jsonData) {
               'L1': String(breathsMissing) + " Breath(s) missed",
               'L2': "Info not received by",
               'L3': "Dashboard due to",
-              'L4': "Internet losses"
+              'L4': "Internet packet loss"
             };
             infoMsgs.push(msg);
 	  }
