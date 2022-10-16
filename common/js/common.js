@@ -459,7 +459,7 @@ function parsePatientInfo(str) {
 function checksum(num) {
   sum = 0;
   for (i=0; i<4; i++) {
-    b = num >> (i*4);
+    b = num >> (i*8);
     b = b & 0xFF;
     sum += b;
     sum = sum & 0xFF;
