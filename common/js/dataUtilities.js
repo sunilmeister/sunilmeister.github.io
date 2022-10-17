@@ -506,7 +506,7 @@ function statProcessJsonRecord(jsonData) {
             if (minMvdel > value) {
               minMvdel = value;
             }
-            sumMvdel += value;
+            sumMvdel += Number(value);
             avgMvdel = formAvg(sumMvdel, ++nMvdel);
           }
         }
