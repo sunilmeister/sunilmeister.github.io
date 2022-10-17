@@ -434,7 +434,7 @@ function statProcessJsonRecord(jsonData) {
             if ((fiO2s.length == 0) || (fiO2s.indexOf(value) == -1)) {
               fiO2s.push(value);
             }
-            sumFiO2 += value;
+            sumFiO2 += Number(value);
             avgFiO2 = formAvg(sumFiO2, ++nFiO2);
           }
         }
@@ -446,7 +446,7 @@ function statProcessJsonRecord(jsonData) {
             if (minMbpm > value) {
               minMbpm = value;
             }
-            sumMbpm += value;
+            sumMbpm += Number(value);
             avgMbpm = formAvg(sumMbpm, ++nMbpm);
           }
         }
@@ -458,7 +458,7 @@ function statProcessJsonRecord(jsonData) {
             if (minSbpm > value) {
               minSbpm = value;
             }
-            sumSbpm += value;
+            sumSbpm += Number(value);
             avgSbpm = formAvg(sumSbpm, ++nSbpm);
           }
         }
@@ -470,7 +470,7 @@ function statProcessJsonRecord(jsonData) {
             if (minScomp > value) {
               minScomp = value;
             }
-            sumScomp += value;
+            sumScomp += Number(value);
             avgScomp = formAvg(sumScomp, ++nScomp);
           }
         }
@@ -482,7 +482,7 @@ function statProcessJsonRecord(jsonData) {
             if (minDcomp > value) {
               minDcomp = value;
             }
-            sumDcomp += value;
+            sumDcomp += Number(value);
             avgDcomp = formAvg(sumDcomp, ++nDcomp);
           }
         }
@@ -494,7 +494,7 @@ function statProcessJsonRecord(jsonData) {
             if (minVtdel > value) {
               minVtdel = value;
             }
-            sumVtdel += value;
+            sumVtdel += Number(value);
             avgVtdel = formAvg(sumVtdel, ++nVtdel);
           }
         }
@@ -518,7 +518,7 @@ function statProcessJsonRecord(jsonData) {
             if (minPeak > value) {
               minPeak = value;
             }
-            sumPeak += value;
+            sumPeak += Number(value);
             avgPeak = formAvg(sumPeak, ++nPeak);
           }
         }
@@ -530,7 +530,7 @@ function statProcessJsonRecord(jsonData) {
             if (minPlat > value) {
               minPlat = value;
             }
-            sumPlat += value;
+            sumPlat += Number(value);
             avgPlat = formAvg(sumPlat, ++nPlat);
           }
         }
@@ -542,7 +542,7 @@ function statProcessJsonRecord(jsonData) {
             if (minPeep > value) {
               minPeep = value;
             }
-            sumPeep += value;
+            sumPeep += Number(value);
             avgPeep = formAvg(sumPeep, ++nPeep);
           }
         }
@@ -554,7 +554,7 @@ function statProcessJsonRecord(jsonData) {
             if (minTemp > value) {
               minTemp = value;
             }
-            sumTemp += value;
+            sumTemp += Number(value);
             avgTemp = formAvg(sumTemp, ++nTemp);
           }
         }
