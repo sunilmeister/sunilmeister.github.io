@@ -1,12 +1,13 @@
 ﻿/*
 CanvasJS React Charts - https://canvasjs.com/
-Copyright 2021 fenopix
+Copyright 2022 fenopix
 
 --------------------- License Information --------------------
 CanvasJS is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
 https://canvasjs.com/license/
 
 */
+
 var React = require('react');
 var CanvasJS = require('./canvasjs.min');
 CanvasJS = CanvasJS.Chart ? CanvasJS : window.CanvasJS;
@@ -16,12 +17,12 @@ class CanvasJSChart extends React.Component {
 	constructor(props) {
 		super(props);
 		this.options = props.options ? props.options : {};
-		this.containerProps = props.containerProps ? props.containerProps : { width: "100%", position: "relative" };
+		this.containerProps = props.containerProps ? { ...props.containerProps } : { width: "100%", position: "relative" };
 		this.containerProps.height = props.containerProps && props.containerProps.height ? props.containerProps.height : this.options.height ? this.options.height + "px" : "400px";
 		this.chartContainerId = "canvasjs-react-chart-container-" + CanvasJSChart._cjsContainerId++;
 	}
 	componentDidMount() {
-		//Create Chart and Render		
+		//Create Chart and Render
 		this.chart = new CanvasJS.Chart(this.chartContainerId, this.options);
 		this.chart.render();
 
@@ -39,12 +40,14 @@ class CanvasJSChart extends React.Component {
 	}
 	componentWillUnmount() {
 		//Destroy chart and remove reference
-		this.chart.destroy();
+		if (this.chart)
+			this.chart.destroy();
+
 		if (this.props.onRef)
 			this.props.onRef(undefined);
 	}
 	render() {
-		//return React.createElement('div', { id: this.chartContainerId, style: this.containerProps });		
+		//return React.createElement('div', { id: this.chartContainerId, style: this.containerProps });
 		return <div id={this.chartContainerId} style={this.containerProps} />
 	}
 }

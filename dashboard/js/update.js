@@ -5,7 +5,6 @@ function formMessageLine(str) {
 }
 // returns [old,new]
 function parseInputParam(val) {
-  const arrowUnicode = '\u27AD';
   var oldP, newP;
   var str;
   if (typeof val === 'string' || val instanceof String) {
@@ -14,7 +13,7 @@ function parseInputParam(val) {
   else {
     str = String(val);
   }
-  tokens = str.split(arrowUnicode);
+  tokens = str.split(',');
   if (tokens.length == 1) {
     oldP = tokens[0];
     newP = tokens[0];
@@ -126,23 +125,16 @@ function updateAlert(blink) {
 }
 // returns [val,units]
 function parseInputTPS(str) {
-  const flowUnicode = '\u21A1';
-  const timeUnicode = '\u23F1';
-  const pctUnicode = '\uFE6A';
   var val, units;
-  tokens = str.split(flowUnicode);
+  tokens = str.split('F');
   if (tokens[0] != str) {
     val = tokens[1];
-    units = "(% Peak Flow)";
-    return [val, units];
-  }
-  tokens = str.split(timeUnicode);
-  if (tokens[0] != str) {
-    val = tokens[1];
+    units = "(% of Peak Flow)";
+  } else {
+    val = str;
     units = "(secs)";
-    return [val, units];
   }
-  return [str, ""];
+  return [val, units];
 }
 
 function updateSettingValue(str, containerDiv, valueDiv) {

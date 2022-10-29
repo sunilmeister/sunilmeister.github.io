@@ -260,6 +260,9 @@ function globalTrackJsonRecord(jsonData) {
         value = jsonData.content[ckey];
         initialJsonRecord.content[ckey] = value;
         if (ckey == "BNUM") {
+	  var bnumValue = parseChecksumString(value);
+	  if (bnumValue==null) continue; // ignore badly formed BNUM
+	  value = Number(bnumValue);
           if (prevSystemBreathNum == -1) { // initialize
             prevSystemBreathNum = value - 1;
           }
@@ -330,6 +333,9 @@ function statProcessJsonRecord(jsonData) {
           prevBreathSpontaneous = (value == "SPONTANEOUS");
         }
         else if (ckey == "BNUM") {
+	  bnumValue = parseChecksumString(value);
+	  if (bnumValue==null) continue // ignore badly formed BNUM  
+	  value = Number(bnumValue);
 	  if (initSessionGather) {
 	    //console.log("Pushing");
 	    fullSessionBreathTimes.push(new Date(jsonData.created));
@@ -415,7 +421,9 @@ function statProcessJsonRecord(jsonData) {
           }
         }
         else if (ckey == "TPS") {
+	  //console.log("TPS=" + value);
           if (tpsValid(value)) {
+	    //console.log("TPS Valid");
             currParamCombo.tps = value;
             if ((tpss.length == 0) || (tpss.indexOf(value) == -1)) {
               tpss.push(value);

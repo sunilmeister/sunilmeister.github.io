@@ -41,7 +41,7 @@ function checkFiO2Calculation(d) {
     updateFiO2Display(newFiO2, newPurity, newO2Flow);
   }
 }
-var startDTIME = 0;
+var startMillis = 0;
 
 function disassembleAndQueueDweet(d) {
   fragmentIndex = 0;
@@ -51,48 +51,47 @@ function disassembleAndQueueDweet(d) {
 
     if (typeof d.content[key] == "undefined") break;
     fragment = d.content[key];
-    dTimeStr = fragment.DTIME;
-    dTime = parseDTIME(dTimeStr);
-    if (dTime==null) continue // ignore this malformed dweet
+    millisStr = fragment.MILLIS;
+    millis = parseChecksumString(millisStr);
+    if (millis==null) continue // ignore this malformed dweet
 
-    if (!startDTIME) startDTIME = Number(dTime);
+    if (!startMillis) startMillis = Number(millis);
     if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
       // replace CLEAR_ALL with a preconstructed dweet
       fragment = createNewInstance(clearAllDweet);
     }
-    fragment.DTIME = Number(dTime);
-    fragment.created = new Date(addMsToDate(startDate, (fragment.DTIME - startDTIME)));
+    fragment.MILLIS = Number(millis);
+    fragment.created = new Date(addMsToDate(startDate, (fragment.MILLIS - startMillis)));
     dweetQ.push(createNewInstance(fragment));
   }
 }
 
-function getCurrentSimulatedTime() {
+function getCurrentSimulatedMillis() {
   curDate = new Date();
   deltaTimeInMs = curDate - startSystemDate;
-  return startSimulatedTimeInMs + deltaTimeInMs;
+  return startSimulatedMillis + deltaTimeInMs;
 }
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function(d) {
-    if (simulatedTimeInMs - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
     if (awaitingFirstDweet) {
-      dTimeStr = d.content["0"].DTIME 
-      //console.log("dTimeStr=" + dTimeStr);
-      dTime = parseDTIME(dTimeStr);
-      if (dTime==null) return; // ignore this malformed dweet
+      millisStr = d.content["0"].MILLIS 
+      millis = parseChecksumString(millisStr);
+      if (millis==null) return; // ignore this malformed dweet
 
-      simulatedTimeInMs = Number(dTime);
-      startSimulatedTimeInMs = simulatedTimeInMs;
+      simulatedMillis = Number(millis);
+      startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
-      //console.log("simulatedTimeInMs=" + simulatedTimeInMs);
+      //console.log("simulatedMillis=" + simulatedMillis);
       startDate = new Date(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
     awaitingFirstDweet = false;
-    lastDweetInMs = simulatedTimeInMs;
+    lastDweetInMs = simulatedMillis;
     disassembleAndQueueDweet(d);
   })
 }
@@ -450,7 +449,7 @@ window.onload = function() {
   updatedDweetContent = {
     "content": {}
   };
-  simulatedTimeInMs = 0;
+  simulatedMillis = 0;
   lastDweetInMs = 0;
   wifiDropped = false;
   messagesBackground = "MEDIUMBLUE";
@@ -527,7 +526,7 @@ function HandlePeriodicTasks() {
     displayWifiUnconnected();
   }
   else if ((dweetQ.size() == 0) &&
-    ((simulatedTimeInMs - lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
+    ((simulatedMillis - lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
     displayWifiDropped();
   }
   else {
@@ -537,7 +536,7 @@ function HandlePeriodicTasks() {
 
 setTimeout(function periodicCheck() {
   if (!awaitingFirstDweet) {
-    simulatedTimeInMs = getCurrentSimulatedTime();
+    simulatedMillis = getCurrentSimulatedMillis();
   }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
@@ -549,16 +548,17 @@ setTimeout(function periodicCheck() {
 
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
+  var millis;
   while(1) {
     if (dweetQ.size() == 0) break;
     d = dweetQ.peek();
-    dTimeInMs = Number(d.DTIME);
-    if (simulatedTimeInMs < dTimeInMs) break;
+    millis = Number(d.MILLIS);
+    if (simulatedMillis < millis) break;
 
     d = dweetQ.pop();
     if (typeof d.content["BNUM"] != "undefined") {
       dashboardBreathNum++;
-      systemBreathNum = d.content["BNUM"];
+      systemBreathNum = parseChecksumString(d.content["BNUM"]);
       if (startSystemBreathNum<0) {
 	startSystemBreathNum = systemBreathNum;
         elm = document.getElementById("priorBreathNum");
@@ -571,9 +571,9 @@ function FetchAndExecuteFromQueue() {
     if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
   }
 
-  if (dTimeInMs - simulatedTimeInMs > MAX_DIFF_DWEET_SIMULAION_TIMES) {
-    console.log("Dweets way ahead of simulated time " + dTimeInMs + 
-      " v/s " + simulatedTimeInMs);
+  if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
+    console.log("Dweets way ahead of simulated time " + millis + 
+      " v/s " + simulatedMillis);
   }
   return;
 }

@@ -237,7 +237,7 @@ const psOptions = [10, 15, 20, 25, 30, 35, 40];
 function psValid(str) {
   return psOptions.indexOf(str) != -1;
 }
-const tpsOptions = ["\u21A110\uFE6A", "\u21A120\uFE6A", "\u21A130\uFE6A", "\u23F11.0", "\u23F11.5", "\u23F12.0", "\u23F12.5", "\u23F13.0"];
+const tpsOptions = ["F10%", "F20%", "F30%", "1.0", "1.5", "2.0", "2.5", "3.0"];
 
 function tpsValid(str) {
   return tpsOptions.indexOf(str) != -1;
@@ -467,26 +467,24 @@ function checksum(num) {
   cs = ~sum + 1;
   return cs & 0xFF;
 }
-// returns DTIME after checking checksum
-// from a pattern like "DTIME (checksum)"
+// returns num after checking checksum
+// from a pattern like "num (checksum)"
 // returns null if badly formed
-function parseDTIME(tstr) {
+function parseChecksumString(tstr) {
   str = String(tstr);
-  let re = /[0-9]+\s*\([0-9]+\)/i;
-  //console.log("DTIME str=" + str);
+  let re = /[0-9]+:[0-9]+/i;
   if (!str.match(re)) {
     return null;
   }
-  tokens = str.split('(');
-  dTime = tokens[0].trim();
-  tokens = tokens[1].split(')');
-  ccs = checksum(dTime);
-  if (tokens[0] != ccs) {
-    console.log("Bad DTIME =" + dTime + " checksum=" + tokens[0]);
+  tokens = str.split(':');
+  num = tokens[0].trim();
+  ccs = checksum(num);
+  if (tokens[1] != ccs) {
+    console.log("Bad ChecksumString =" + num + " checksum=" + tokens[0]);
     console.log("Computed checksum=" + ccs);
     return null;
   }
-  return dTime;
+  return num;
 }
 
 function parseAltitude(str) {

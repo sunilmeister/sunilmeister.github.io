@@ -263,11 +263,12 @@ function chartProcessJsonRecord(jsonData) {
           }
         }
         else if (ckey == "BNUM") {
-	  if (!validDecimalInteger(value) || (value<systemBreathNum)) {
+	  var bnumValue = parseChecksumString(value);
+	  if (bnumValue==null) {
 	    console.log("Bad BNUM value = " + value + " sys = " + systemBreathNum);
 	    continue; // will count as missing
 	  }
-
+          value = Number(bnumValue);
           breathTimes.push({
             "time": curTime,
             "valid": true

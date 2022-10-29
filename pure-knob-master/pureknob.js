@@ -229,10 +229,13 @@
 				 */
 				'resize': function() {
 					const canvas = this._canvas;
-					canvas.style.height = '100%';
-					canvas.style.width = '100%';
-					canvas.height = this._height;
-					canvas.width = this._width;
+					const ctx = canvas.getContext('2d');
+					const scale = window.devicePixelRatio;
+					canvas.style.height = this._height + 'px';
+					canvas.style.width = this._width + 'px';
+					canvas.height = Math.floor(this._height * scale);
+					canvas.width = Math.floor(this._width * scale);
+					ctx.scale(scale, scale);
 				},
 
 				/*
@@ -292,7 +295,24 @@
 				graph.redraw();
 			};
 
+			/*
+			 * Listen for device pixel ratio changes.
+			 */
+			const updatePixelRatio = function() {
+				const pixelRatio = window.devicePixelRatio;
+				graph.redraw();
+				const pixelRatioString = pixelRatio.toString();
+				const matcher = '(resolution:' + pixelRatioString + 'dppx)';
+
+				const params = {
+					'once': true
+				};
+
+				window.matchMedia(matcher).addEventListener('change', updatePixelRatio, params);
+			}
+
 			canvas.addEventListener('resize', resizeListener);
+			updatePixelRatio();
 			return graph;
 		}
 
@@ -320,7 +340,7 @@
 			input.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 			input.style.border = 'none';
 			input.style.color = '#ff8800';
-			input.style.fontFamily = 'verdana';
+			input.style.fontFamily = 'sans-serif';
 			input.style.fontSize = fontSizeString + 'px';
 			input.style.height = heightString + 'px';
 			input.style.margin = 'auto';
@@ -540,7 +560,7 @@
 					/*
 					 * Draw the number.
 					 */
-					ctx.font = "bold " + fontSizeString + 'px verdana';
+					ctx.font = fontSizeString + 'px sans-serif';
 					ctx.fillStyle = colorFilling;
 					ctx.textAlign = 'center';
 					ctx.textBaseline = 'middle';
@@ -550,7 +570,7 @@
 					 * Draw the label
 					 */
 					if (label !== null) {
-						ctx.font = "bold " + labelSizeString + 'px verdana';
+						ctx.font = labelSizeString + 'px sans-serif';
 						ctx.fillStyle = colorLabel;
 						ctx.textAlign = 'center';
 						ctx.textBaseline = 'middle';
@@ -570,10 +590,13 @@
 				 */
 				'resize': function() {
 					const canvas = this._canvas;
-					canvas.style.height = '100%';
-					canvas.style.width = '100%';
-					canvas.height = this._height;
-					canvas.width = this._width;
+					const ctx = canvas.getContext('2d');
+					const scale = window.devicePixelRatio;
+					canvas.style.height = this._height + 'px';
+					canvas.style.width = this._width + 'px';
+					canvas.height = Math.floor(this._height * scale);
+					canvas.width = Math.floor(this._width * scale);
+					ctx.scale(scale, scale);
 				},
 
 				/*
@@ -693,9 +716,9 @@
 				 * the element position.
 				 */
 				if (touch !== null) {
-					const touchX = touch.pageX;
+					const touchX = touch.clientX;
 					x = touchX - offsetX;
-					const touchY = touch.pageY;
+					const touchY = touch.clientY;
 					y = touchY - offsetY;
 				}
 
@@ -1120,18 +1143,35 @@
 
 			};
 
+			/*
+			 * Listen for device pixel ratio changes.
+			 */
+			const updatePixelRatio = function() {
+				const pixelRatio = window.devicePixelRatio;
+				knob.redraw();
+				const pixelRatioString = pixelRatio.toString();
+				const matcher = '(resolution:' + pixelRatioString + 'dppx)';
+
+				const params = {
+					'once': true
+				};
+
+				window.matchMedia(matcher).addEventListener('change', updatePixelRatio, params);
+			}
+
 			canvas.addEventListener('dblclick', doubleClickListener);
 			canvas.addEventListener('mousedown', mouseDownListener);
 			canvas.addEventListener('mouseleave', mouseCancelListener);
 			canvas.addEventListener('mousemove', mouseMoveListener);
 			canvas.addEventListener('mouseup', mouseUpListener);
 			canvas.addEventListener('resize', resizeListener);
-			canvas.addEventListener('touchstart', touchStartListener, {passive: true});
-			canvas.addEventListener('touchmove', touchMoveListener, {passive: true});
-			canvas.addEventListener('touchend', touchEndListener, {passive: true});
-			canvas.addEventListener('touchcancel', touchCancelListener, {passive: true});
-			canvas.addEventListener('wheel', scrollListener, {passive: true});
+			canvas.addEventListener('touchstart', touchStartListener);
+			canvas.addEventListener('touchmove', touchMoveListener);
+			canvas.addEventListener('touchend', touchEndListener);
+			canvas.addEventListener('touchcancel', touchCancelListener);
+			canvas.addEventListener('wheel', scrollListener);
 			input.addEventListener('keydown', keyDownListener);
+			updatePixelRatio();
 			return knob;
 		};
 
