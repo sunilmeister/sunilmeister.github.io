@@ -115,7 +115,7 @@ class LineChart {
       numPoints = maxX - minX + 1;
     }
     var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
-    if (this.timeUnits) console.log("interval=" + interval);
+    //if (this.timeUnits) console.log("interval=" + interval);
     return interval;
   }
 
