@@ -2,20 +2,44 @@ var desiredFiO2 = 21;
 var desiredVt = 400;
 var desiredRr = 15;
 var o2Purity = 100;
+var minO2Purity = 21;
+var altitude = 0;
+var altitudeUnits = "feet";
+var fiO2Knob = null;
+var purityKnob = null;
+
+alert(
+  "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
+  "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
+);
 
 window.onload = function() {
   installVtKnob();
   installRrKnob();
   installPurityKnob();
   installFiO2Knob();
-  alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
-    "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-  );
 }
+
+function altChanged() {
+  var elm = document.getElementById('altitude');
+  altitude=elm.value;
+  elm = document.getElementById('altitudeUnits');
+  altitudeUnits=elm.value;
+  if (altitudeUnits=="feet") {
+    minO2Purity = o2PurityAtAltitudeFt(altitude);
+  } else {
+    minO2Purity = o2PurityAtAltitudeMtr(altitude);
+  }
+  if (purityKnob.getProperty('valMin') != minO2Purity) {
+    purityKnob.setProperty('valMin', minO2Purity);
+    fiO2Knob.setProperty('valMin', minO2Purity);
+  }
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
+}
+
 const vtKnobListener = function(knob, value) {
   desiredVt = 200 + value * 50;
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
 };
 
 function installVtKnob() {
@@ -36,7 +60,7 @@ function installVtKnob() {
 
 const rrKnobListener = function(knob, value) {
   desiredRr = value;
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
 };
 
 function installRrKnob() {
@@ -48,21 +72,30 @@ function installRrKnob() {
   knob.setChangeCallback(rrKnobListener);
 }
 
-var fiO2Knob = null;
-var purityKnob = null;
-
-function adjustFiO2Max() {
-  degradedPurity = DegradedPurity(o2Purity);
+var settingFiO2KnobValues = false;
+function adjustFiO2Max(degradedPurity) {
+  //console.log("degraded=" + degradedPurity + " desired=" + desiredFiO2);
+  settingFiO2KnobValues = true;
   if (degradedPurity < desiredFiO2) {
     desiredFiO2 = degradedPurity;
-    //fiO2Knob.setProperty('valMax', o2Purity);
     fiO2Knob.setValue(degradedPurity);
   }
+  fiO2Knob.setProperty('valMax', degradedPurity);
+  settingFiO2KnobValues = false;
 }
+
 const fiO2KnobListener = function(knob, value) {
+  if (settingFiO2KnobValues) {
+    // dont endlesslesly recurse
+    return;
+  }
+  //console.log("FiO2 knob value=" + value);
   desiredFiO2 = value;
-  adjustFiO2Max();
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
+  degradedPurity = DegradedPurity(o2Purity, minO2Purity);
+  if (degradedPurity < desiredFiO2) {
+    adjustFiO2Max(degradedPurity);
+  }
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
 };
 
 function installFiO2Knob() {
@@ -76,8 +109,9 @@ function installFiO2Knob() {
 
 const purityKnobListener = function(knob, value) {
   o2Purity = value;
-  adjustFiO2Max();
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity);
+  degradedPurity = DegradedPurity(o2Purity, minO2Purity);
+  adjustFiO2Max(degradedPurity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
 };
 
 function installPurityKnob() {
@@ -89,8 +123,8 @@ function installPurityKnob() {
   purityKnob.setChangeCallback(purityKnobListener);
 }
 
-function updateFiO2Calculation(vt, rr, fiO2, o2Purity) {
-  f = lookupO2FlowRate(vt, rr, fiO2, o2Purity);
+function updateFiO2Calculation(vt, rr, fiO2, o2Purity, minO2Purity) {
+  f = lookupO2FlowRate(vt, rr, fiO2, o2Purity, minO2Purity);
   elm = document.getElementById("o2FlowRate");
   elm.innerHTML = "<font size=6><b>" + parseFloat(f / 1000).toFixed(1) +
     " (litres/min)</b></font>";

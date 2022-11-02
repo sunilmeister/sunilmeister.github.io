@@ -37,6 +37,10 @@ class CircularGauge {
     this.gauge.setProperty(property, value);
   }
 
+  getProperty(property) {
+    return this.gauge.getProperty(property);
+  }
+
   setChangeCallback(callback) {
     this.callback = callback;
     this.gauge.addListener(this.callback);

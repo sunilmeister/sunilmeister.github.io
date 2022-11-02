@@ -422,18 +422,19 @@ function registerDbName(dbName) {
 }
 const PURITY_DEGRADATION_PERCENT = 92;
 
-function DegradedPurity(p) {
+function DegradedPurity(p, minP) {
+  console.log("p=" + p + " minP=" + minP);
   var maxPurity = (PURITY_DEGRADATION_PERCENT * p) / 100;
-  if (maxPurity < 21) return 21;
+  if (maxPurity < minP) return minP;
   return maxPurity;
 }
 
-function lookupO2FlowRate(vt, rr, fiO2, purity) {
-  if (fiO2 < 21) fiO2 = 21;
-  degradedPurity = DegradedPurity(purity);
+function lookupO2FlowRate(vt, rr, fiO2, purity, minPurity) {
+  if (fiO2 < minPurity) fiO2 = minPurity;
+  degradedPurity = DegradedPurity(purity, minPurity);
   mv = vt * rr;
   if (fiO2 > degradedPurity) fiO2 = degradedPurity;
-  f = (mv * (fiO2 - 21)) / (degradedPurity - 21);
+  f = (mv * (fiO2 - minPurity)) / (degradedPurity - minPurity);
   return f;
 }
 // returns an array [gender, age, pid]
@@ -490,5 +491,15 @@ function parseChecksumString(tstr) {
 function parseAltitude(str) {
   // return [ft,meters]
   return str.split(' ');
+}
+
+function o2PurityAtAltitudeFt(ft) {
+  o2x = 206000 - 6*ft;
+  o2 = (o2x+5000)/10000;
+  return Math.floor(o2);
+}
+
+function o2PurityAtAltitudeMtr(mtr) {
+  return o2PurityAtAltitudeFt(mtr*3.28);
 }
 
