@@ -77,10 +77,13 @@ function adjustFiO2Max(degradedPurity) {
   //console.log("degraded=" + degradedPurity + " desired=" + desiredFiO2);
   settingFiO2KnobValues = true;
   if (degradedPurity < desiredFiO2) {
+    alert("Max chievable FiO2 is " + degradedPurity +'%\n' +
+      "given the specified incoming O2 Purity value\n\n" +
+      "Changing the FiO2 to " + degradedPurity + '%');
     desiredFiO2 = degradedPurity;
     fiO2Knob.setValue(degradedPurity);
   }
-  fiO2Knob.setProperty('valMax', degradedPurity);
+  //fiO2Knob.setProperty('valMax', degradedPurity);
   settingFiO2KnobValues = false;
 }
 

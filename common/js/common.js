@@ -420,7 +420,7 @@ function registerDbName(dbName) {
     localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
   }
 }
-const PURITY_DEGRADATION_PERCENT = 92;
+const PURITY_DEGRADATION_PERCENT = 96;
 
 function DegradedPurity(p, minP) {
   console.log("p=" + p + " minP=" + minP);
