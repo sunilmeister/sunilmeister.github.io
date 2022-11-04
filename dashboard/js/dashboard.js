@@ -108,7 +108,7 @@ function processDashboardDweet(d) {
     elm.innerHTML = breathPausedAt;
   }
   else {
-    pd.innerHTML = "&nbspDashboard";
+    pd.innerHTML = "&nbspDetected";
     elm.innerHTML = dashboardBreathNum;
   }
   elm = document.getElementById("numMissedBreaths");
