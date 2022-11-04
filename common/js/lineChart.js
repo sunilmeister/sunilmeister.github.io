@@ -240,7 +240,7 @@ class LineChart {
     chartData.type = "line";
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = xyPoints;
-    //if (this.timeUnits) console.log(xyPoints);
+    //if (this.timeUnits) console.log("NumPoints=" + xyPoints.length);
     return chartData;
   }
 

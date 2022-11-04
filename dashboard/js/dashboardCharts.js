@@ -386,10 +386,13 @@ function createFiO2Charts(height, timeBased, initX, minX, maxX, missing) {
   fiO2Chart.render(containerDiv);
 }
 
+var chartCreationInProgress = false;
 function createDashboardCharts() {
+  if (chartCreationInProgress) return;
+  chartCreationInProgress = true;
+
   elm = document.getElementById("timeTick");
   var timeBased = elm.checked;
-  //console.log("createDashboardCharts() timeBased=" + timeBased);
   var height=475
   var minX = minChartBreathNum;
   var maxX = maxChartBreathNum;
@@ -404,6 +407,7 @@ function createDashboardCharts() {
 
   prevMinBreathNum = minX;
   prevMaxBreathNum = maxX;
+  chartCreationInProgress = false;
 }
 
 ////////////////////////////////////////////////////////
