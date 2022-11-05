@@ -92,6 +92,7 @@ class LineChart {
       this.chart = null;
     }
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
+    //console.log(this.chartJson.data[1]);
     this.chart.render();
   }
 
