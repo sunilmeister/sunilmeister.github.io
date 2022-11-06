@@ -238,7 +238,7 @@ class LineChart {
     if (flagError || flagWarning) noLegend = true;
   
     var chartData = {};
-    chartData.type = "line";
+    chartData.type = "stepLine";
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = xyPoints;
     //if (this.timeUnits) console.log("NumPoints=" + xyPoints.length);
