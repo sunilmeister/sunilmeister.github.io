@@ -1,8 +1,8 @@
 var desiredFiO2 = 21;
 var desiredVt = 400;
 var desiredRr = 15;
-var o2Purity = 100;
-var minO2Purity = 21;
+var o2Purity = 21;
+var atmO2Purity = 21;
 var altitude = 0;
 var altitudeUnits = "feet";
 var fiO2Knob = null;
@@ -26,20 +26,20 @@ function altChanged() {
   elm = document.getElementById('altitudeUnits');
   altitudeUnits=elm.value;
   if (altitudeUnits=="feet") {
-    minO2Purity = o2PurityAtAltitudeFt(altitude);
+    atmO2Purity = o2PurityAtAltitudeFt(altitude);
   } else {
-    minO2Purity = o2PurityAtAltitudeMtr(altitude);
+    atmO2Purity = o2PurityAtAltitudeMtr(altitude);
   }
-  if (purityKnob.getProperty('valMin') != minO2Purity) {
-    purityKnob.setProperty('valMin', minO2Purity);
-    fiO2Knob.setProperty('valMin', minO2Purity);
+  if (purityKnob.getProperty('valMin') != atmO2Purity) {
+    purityKnob.setProperty('valMin', atmO2Purity);
+    fiO2Knob.setProperty('valMin', atmO2Purity);
   }
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 }
 
 const vtKnobListener = function(knob, value) {
   desiredVt = 200 + value * 50;
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 };
 
 function installVtKnob() {
@@ -60,7 +60,7 @@ function installVtKnob() {
 
 const rrKnobListener = function(knob, value) {
   desiredRr = value;
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 };
 
 function installRrKnob() {
@@ -96,7 +96,7 @@ const fiO2KnobListener = function(knob, value) {
   if (o2Purity < desiredFiO2) {
     adjustFiO2Max(o2Purity);
   }
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 };
 
 function installFiO2Knob() {
@@ -111,7 +111,7 @@ function installFiO2Knob() {
 const purityKnobListener = function(knob, value) {
   o2Purity = value;
   adjustFiO2Max(o2Purity);
-  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
+  updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 };
 
 function installPurityKnob() {
@@ -123,8 +123,8 @@ function installPurityKnob() {
   purityKnob.setChangeCallback(purityKnobListener);
 }
 
-function updateFiO2Calculation(vt, rr, fiO2, o2Purity, minO2Purity) {
-  f = lookupO2FlowRate(vt, rr, fiO2, o2Purity, minO2Purity);
+function updateFiO2Calculation(vt, rr, fiO2, o2Purity, atmO2Purity) {
+  f = lookupO2FlowRate(vt, rr, fiO2, o2Purity, atmO2Purity);
   elm = document.getElementById("o2FlowRate");
   elm.innerHTML = "<font size=6><b>" + parseFloat(f / 1000).toFixed(1) +
     " (litres/min)</b></font>";

@@ -420,13 +420,17 @@ function registerDbName(dbName) {
     localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
   }
 }
-function lookupO2FlowRate(vt, rr, fiO2, purity, minPurity) {
-  if (fiO2 < minPurity) fiO2 = minPurity;
+
+const O2FLOW_SAFETY_BOOST_PERCENT = 107;
+function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
+  if (fiO2 == atmPurity) return 0;
+  if (fiO2 < atmPurity) fiO2 = atmPurity;
   mv = vt * rr;
   if (fiO2 > purity) fiO2 = purity;
-  f = (mv * (fiO2 - minPurity)) / (purity - minPurity);
-  return f;
+  f = (mv * (fiO2 - atmPurity)) / (purity - atmPurity);
+  return (f*O2FLOW_SAFETY_BOOST_PERCENT)/100;
 }
+
 // returns an array [gender, age, pid]
 // from a pattern like "[ID] (M) Age"
 // returns null if badly formed
