@@ -420,21 +420,11 @@ function registerDbName(dbName) {
     localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
   }
 }
-const PURITY_DEGRADATION_PERCENT = 96;
-
-function DegradedPurity(p, minP) {
-  console.log("p=" + p + " minP=" + minP);
-  var maxPurity = (PURITY_DEGRADATION_PERCENT * p) / 100;
-  if (maxPurity < minP) return minP;
-  return maxPurity;
-}
-
 function lookupO2FlowRate(vt, rr, fiO2, purity, minPurity) {
   if (fiO2 < minPurity) fiO2 = minPurity;
-  degradedPurity = DegradedPurity(purity, minPurity);
   mv = vt * rr;
-  if (fiO2 > degradedPurity) fiO2 = degradedPurity;
-  f = (mv * (fiO2 - minPurity)) / (degradedPurity - minPurity);
+  if (fiO2 > purity) fiO2 = purity;
+  f = (mv * (fiO2 - minPurity)) / (purity - minPurity);
   return f;
 }
 // returns an array [gender, age, pid]
