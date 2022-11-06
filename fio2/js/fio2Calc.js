@@ -73,17 +73,16 @@ function installRrKnob() {
 }
 
 var settingFiO2KnobValues = false;
-function adjustFiO2Max(degradedPurity) {
-  //console.log("degraded=" + degradedPurity + " desired=" + desiredFiO2);
+function adjustFiO2Max(o2Purity) {
   settingFiO2KnobValues = true;
-  if (degradedPurity < desiredFiO2) {
-    alert("Max chievable FiO2 is " + degradedPurity +'%\n' +
+  if (o2Purity < desiredFiO2) {
+    alert("Max chievable FiO2 is " + o2Purity +'%\n' +
       "given the specified incoming O2 Purity value\n\n" +
-      "Changing the FiO2 to " + degradedPurity + '%');
-    desiredFiO2 = degradedPurity;
-    fiO2Knob.setValue(degradedPurity);
+      "Changing the FiO2 to " + o2Purity + '%');
+    desiredFiO2 = o2Purity;
+    fiO2Knob.setValue(o2Purity);
   }
-  //fiO2Knob.setProperty('valMax', degradedPurity);
+  //fiO2Knob.setProperty('valMax', o2Purity);
   settingFiO2KnobValues = false;
 }
 
@@ -94,9 +93,8 @@ const fiO2KnobListener = function(knob, value) {
   }
   //console.log("FiO2 knob value=" + value);
   desiredFiO2 = value;
-  degradedPurity = DegradedPurity(o2Purity, minO2Purity);
-  if (degradedPurity < desiredFiO2) {
-    adjustFiO2Max(degradedPurity);
+  if (o2Purity < desiredFiO2) {
+    adjustFiO2Max(o2Purity);
   }
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
 };
@@ -112,8 +110,7 @@ function installFiO2Knob() {
 
 const purityKnobListener = function(knob, value) {
   o2Purity = value;
-  degradedPurity = DegradedPurity(o2Purity, minO2Purity);
-  adjustFiO2Max(degradedPurity);
+  adjustFiO2Max(o2Purity);
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, minO2Purity);
 };
 
