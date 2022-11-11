@@ -199,7 +199,8 @@ function createFiO2Graph(chart, reuseAxisNum, rangeInfo) {
 }
 
 function createPurityGraph(chart, reuseAxisNum, rangeInfo) {
-  yAxisInfo = {primary:false, reuse:false, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
+  reuse = (reuseAxisNum != null);
+  yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, reuseAxisNum:reuseAxisNum,
                yName:"Percentage (%)"};
   flags = {warning:false, error:false}
   paramInfo = {
