@@ -183,10 +183,11 @@ function blinkPauseButton() {
 }
 
 function changeToSnapshotView() {
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
+  document.getElementById("btnSnapshots").disabled = true;
+  document.getElementById("btnCharts").disabled = false;
+  document.getElementById("btnStats").disabled = false;
+  document.getElementById("btnAlerts").disabled = false;
+  document.getElementById("btnRecording").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
@@ -199,17 +200,14 @@ function changeToSnapshotView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-  btn1.textContent = "Charts View";
-  btn2.textContent = "Statistics View";
-  btn3.textContent = "Alerts View";
-  btn4.textContent = "Recording View";
 }
 
 function changeToChartView() {
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
+  document.getElementById("btnSnapshots").disabled = false;
+  document.getElementById("btnCharts").disabled = true;
+  document.getElementById("btnStats").disabled = false;
+  document.getElementById("btnAlerts").disabled = false;
+  document.getElementById("btnRecording").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
@@ -222,18 +220,15 @@ function changeToChartView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-  btn1.textContent = "Snapshots View";
-  btn2.textContent = "Statistics View";
-  btn3.textContent = "Alerts View";
-  btn4.textContent = "Recording View";
   createDashboardCharts();
 }
 
 function changeToStatView() {
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
+  document.getElementById("btnSnapshots").disabled = false;
+  document.getElementById("btnCharts").disabled = false;
+  document.getElementById("btnStats").disabled = true;
+  document.getElementById("btnAlerts").disabled = false;
+  document.getElementById("btnRecording").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
@@ -246,18 +241,15 @@ function changeToStatView() {
   stats.style.display = "block";
   alerts.style.display = "none";
   records.style.display = "none";
-  btn1.textContent = "Snapshots View";
-  btn2.textContent = "Charts View";
-  btn3.textContent = "Alerts View";
-  btn4.textContent = "Recording View";
   createDashboardStats();
 }
 
 function changeToAlertView() {
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
+  document.getElementById("btnSnapshots").disabled = false;
+  document.getElementById("btnCharts").disabled = false;
+  document.getElementById("btnStats").disabled = false;
+  document.getElementById("btnAlerts").disabled = true;
+  document.getElementById("btnRecording").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
@@ -270,18 +262,15 @@ function changeToAlertView() {
   stats.style.display = "none";
   alerts.style.display = "block";
   records.style.display = "none";
-  btn1.textContent = "Snapshots View";
-  btn2.textContent = "Charts View";
-  btn3.textContent = "Statistics View";
-  btn4.textContent = "Recording View";
   createDashboardAlerts();
 }
 
 function changeToRecordView() {
-  btn1 = document.getElementById("btnViewChange1");
-  btn2 = document.getElementById("btnViewChange2");
-  btn3 = document.getElementById("btnViewChange3");
-  btn4 = document.getElementById("btnViewChange4");
+  document.getElementById("btnSnapshots").disabled = false;
+  document.getElementById("btnCharts").disabled = false;
+  document.getElementById("btnStats").disabled = false;
+  document.getElementById("btnAlerts").disabled = false;
+  document.getElementById("btnRecording").disabled = true;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
@@ -294,52 +283,6 @@ function changeToRecordView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "block";
-  btn1.textContent = "Snapshots View";
-  btn2.textContent = "Charts View";
-  btn3.textContent = "Statistics View";
-  btn4.textContent = "Alerts View";
-}
-
-function changeView1() {
-  if (currentView == "snapshots") {
-    changeToChartView();
-  }
-  else {
-    changeToSnapshotView();
-  }
-}
-
-function changeView2() {
-  if (currentView == "snapshots") {
-    changeToStatView();
-  }
-  else if (currentView == "charts") {
-    changeToStatView();
-  }
-  else {
-    changeToChartView();
-  }
-}
-
-function changeView3() {
-  if (currentView == "alerts") {
-    changeToStatView();
-  }
-  else if (currentView == "records") {
-    changeToStatView();
-  }
-  else {
-    changeToAlertView();
-  }
-}
-
-function changeView4() {
-  if (currentView == "records") {
-    changeToAlertView();
-  }
-  else {
-    changeToRecordView();
-  }
 }
 
 function togglePause() {
@@ -476,10 +419,6 @@ window.onload = function() {
   charts.style.display = "none";
   stats = document.getElementById("stat-pane");
   stats.style.display = "none";
-  btn1 = document.getElementById("btnViewChange1");
-  btn1.textContent = "Charts View";
-  btn2 = document.getElementById("btnViewChange2");
-  btn2.textContent = "Statistics View";
   // Install all gauges
   installPurityGauge();
   installFiO2Gauge();

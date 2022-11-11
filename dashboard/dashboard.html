@@ -83,19 +83,23 @@
           <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
             <center>
               <div style="margin-top:1rem;">
-                <button id="btnViewChange1" class="sidebarButton" onclick='changeView1()'>Charts View</button>
+                <button id="btnSnapshots" class="sidebarButton" onclick='changeToSnapshotView()' disabled>Snapshots View</button>
               </div>
 
               <div style="margin-top:1rem;">
-                <button id="btnViewChange2" class="sidebarButton" onclick='changeView2()'>Statistics View</button>
+                <button id="btnCharts" class="sidebarButton" onclick='changeToChartView()'>Charts View</button>
               </div>
 
               <div style="margin-top:1rem;">
-                <button id="btnViewChange3" class="sidebarButton" onclick='changeView3()'>Alerts View</button>
+                <button id="btnStats" class="sidebarButton" onclick='changeToStatView()'>Statistics View</button>
               </div>
 
               <div style="margin-top:1rem;">
-                <button id="btnViewChange4" class="sidebarButton" onclick='changeView4()'>Recording View</button>
+                <button id="btnAlerts" class="sidebarButton" onclick='changeToAlertView()'>Alerts View</button>
+              </div>
+
+              <div style="margin-top:1rem;">
+                <button id="btnRecording" class="sidebarButton" onclick='changeToRecordView()'>Recording View</button>
               </div>
 
             </center>
