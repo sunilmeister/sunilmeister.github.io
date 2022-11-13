@@ -125,6 +125,14 @@ function selectSession() {
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = false;
+  document.getElementById("btnStat").disabled = false;
+  document.getElementById("btnChart").disabled = false;
+  document.getElementById("btnErrorWarning").disabled = false;
+  document.getElementById("btnExportWindow").disabled = false;
+
   listAllDbs();
 }
 
@@ -150,6 +158,14 @@ function selectExport() {
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "block";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = false;
+  document.getElementById("btnStat").disabled = false;
+  document.getElementById("btnChart").disabled = false;
+  document.getElementById("btnErrorWarning").disabled = false;
+  document.getElementById("btnExportWindow").disabled = true;
+
   listAllExportDbs();
 }
 
@@ -165,6 +181,14 @@ function selectStats() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = false;
+  document.getElementById("btnStat").disabled = true;
+  document.getElementById("btnChart").disabled = false;
+  document.getElementById("btnErrorWarning").disabled = false;
+  document.getElementById("btnExportWindow").disabled = false;
+
   displayStats();
 }
 
@@ -180,6 +204,14 @@ function selectErrorWarnings() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = false;
+  document.getElementById("btnStat").disabled = false;
+  document.getElementById("btnChart").disabled = false;
+  document.getElementById("btnErrorWarning").disabled = true;
+  document.getElementById("btnExportWindow").disabled = false;
+
   displayErrorWarningInfo();
 }
 
@@ -195,6 +227,14 @@ function selectCharts() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = false;
+  document.getElementById("btnStat").disabled = false;
+  document.getElementById("btnChart").disabled = true;
+  document.getElementById("btnErrorWarning").disabled = false;
+  document.getElementById("btnExportWindow").disabled = false;
+
   displayCharts();
 }
 
@@ -210,6 +250,14 @@ function selectExportWindow() {
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "block";
   document.getElementById("exportSessionDiv").style.display = "none";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = false;
+  document.getElementById("btnStat").disabled = false;
+  document.getElementById("btnChart").disabled = false;
+  document.getElementById("btnErrorWarning").disabled = false;
+  document.getElementById("btnExportWindow").disabled = true;
+
 }
 
 function selectRawData() {
@@ -224,6 +272,14 @@ function selectRawData() {
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
+
+  document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnRaw").disabled = true;
+  document.getElementById("btnStat").disabled = false;
+  document.getElementById("btnChart").disabled = false;
+  document.getElementById("btnErrorWarning").disabled = false;
+  document.getElementById("btnExportWindow").disabled = false;
+
   displayRawData();
 }
 

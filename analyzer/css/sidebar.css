@@ -51,14 +51,22 @@
   opacity: 0.8;
 }
 
-.sidebarButton:hover {
+.sidebarButton:hover:not([disabled]) {
   opacity: 1;
 }
 
-.sidebarButton:active {
+.sidebarButton:active:not([disabled]) {
   background-color: var(--rsp_green);
   box-shadow: 0 6px var(--rsp_lightblue);
   transform: translateY(6px);
+}
+
+.sidebarButton:disabled,
+.sidebarButton[disabled]{
+  background-color: white;
+  color: lightgrey;
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
 
 .sidebarButtonShadow {
@@ -79,12 +87,21 @@
   opacity: 0.8;
 }
 
-.sidebarButtonShadow:hover {
+.sidebarButtonShadow:hover:not([disabled]) {
   opacity: 1;
 }
 
-.sidebarButtonShadow:active {
+.sidebarButtonShadow:active:not([disabled]) {
   background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
+  box-shadow: 0 0.375rem var(--rsp_lightblue);
+  transform: translateY(0.375rem);
 }
+
+.sidebarButtonShadow:disabled,
+.sidebarButtonShadow[disabled]{
+  background-color: white;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+
