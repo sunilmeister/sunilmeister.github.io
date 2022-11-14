@@ -78,8 +78,8 @@ var nDcomp = 0;
 var sumTemp = 0;
 var nTemp = 0;
 // error and warning messages
-var warningNum = 0;
 var errorNum = 0;
+var warningNum = 0;
 var errorMsgs = [];
 var warningMsgs = [];
 var infoMsgs = [];
@@ -233,6 +233,12 @@ function initGlobalData() {
   numSpontaneous = 0;
   numMaintenance = 0;
   numMissingBreaths = 0;
+  // error messages etc.
+  errorMsgs = [];
+  warningMsgs = [];
+  infoMsgs = [];
+  errorNum = 0;
+  warningNum = 0;
 }
 
 function equalParamCombos(curr, prev) {
