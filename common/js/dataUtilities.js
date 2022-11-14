@@ -296,6 +296,20 @@ function processFirstRecordData() {
   initChartStartValues();
 }
 
+function readSessionVersion(jsonData) {
+  if (sessionVersion != 'UNKNOWN') return;
+  for (var key in jsonData) {
+    if (key == 'content') {
+      for (var ckey in jsonData.content) {
+        if (ckey == "SESSION_VERSION") {
+          sessionVersion = jsonData.content[ckey];
+	  console.log("Found sessionVersion=" + sessionVersion);
+	}
+      }
+    }
+  }
+}
+
 function globalProcessJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
   if (firstRecord) {
@@ -591,6 +605,7 @@ function globalProcessAllJsonRecords(key, lastRecord) {
     var keyReq = store.get(key);
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
+      readSessionVersion(jsonData);
       // It will never get here if keyMoreThanAnalysisRangeMax
       if (keyLessThanAnalysisRangeMin(jsonData.created)) {
         globalTrackJsonRecord(jsonData);
@@ -616,6 +631,7 @@ function globalLastRecord() {
 
 function gatherGlobalData() {
   if (globalDataValid) return;
+  sessionVersion = "UNKNOWN";
   //console.log("gatherGlobalData");
   initSessionGather = (fullSessionBreathTimes.length==0);
   initialJsonRecord = createNewInstance(jsonRecordSchema);

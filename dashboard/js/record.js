@@ -166,9 +166,15 @@ function processRecordDweet(d) {
   var emptyContent = true;
   for (let key in d.content) {
     emptyContent = false;
+    break;
   }
+
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
+    if (db && sessionVersion=='UNKNOWN') {
+      sessionVersion = SESSION_VERSION;
+      d.content.SESSION_VERSION = sessionVersion;
+    }
     recordBox.innerText = JSON.stringify(d, null, ". ");
     if (db) insertJsonData(db, d);
   }
