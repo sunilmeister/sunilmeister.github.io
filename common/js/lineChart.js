@@ -41,6 +41,7 @@ class LineChart {
     var minX = rangeInfo.minX;
     var maxX = rangeInfo.maxX;
   
+    //console.log("createXYPoints breathTimes.length=" + breathTimes.length);
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, minX, maxX, 
       flags.error, flags.warning);
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
@@ -92,7 +93,6 @@ class LineChart {
       this.chart = null;
     }
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
-    //console.log(this.chartJson.data[1]);
     this.chart.render();
   }
 
@@ -146,7 +146,10 @@ class LineChart {
 
   // Set min and max to null to process the entire data
   createXYPoints(breathTimes, transitions, minX, maxX, flagError, flagWarning) {
-    if (transitions.length == 0) return null;
+    if (transitions.length == 0) {
+      console.log("No transitions for createXYPoints");
+      return null;
+    }
     var yDatapoints = [];
     var xyPoints = [];
     var doFull = (minX==null) && (maxX==null);
@@ -241,7 +244,7 @@ class LineChart {
     chartData.type = "stepLine";
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = xyPoints;
-    //if (this.timeUnits) console.log("NumPoints=" + xyPoints.length);
+    if (this.timeUnits) console.log("Time based NumPoints=" + xyPoints.length);
     return chartData;
   }
 
