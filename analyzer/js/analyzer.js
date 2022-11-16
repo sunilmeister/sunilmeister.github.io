@@ -134,6 +134,7 @@ function selectSession() {
 function selectImport() {
   UndisplayAllPanes();
   document.getElementById("importDiv").style.display = "block";
+  enableAllButtons();
 }
 
 function selectExport() {
@@ -280,7 +281,7 @@ function UndisplayAllPanes() {
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
-
+  document.getElementById("selectorDiv").style.display = "none";
 }
 
 function checkValidAnalysisDuration() {

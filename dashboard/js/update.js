@@ -290,11 +290,11 @@ function updateSnapshot() {
     else if (key == 'BREATH') {
       elm = document.getElementById("BreathType");
       if (value == "MANDATORY") {
-        document.getElementById("ImgBreath").src = "img/MandatoryDot.png";
+        document.getElementById("ImgBreath").src = "img/YellowDot.png";
         elm.innerHTML = "Mandatory";
       }
       else if (value == "SPONTANEOUS") {
-        document.getElementById("ImgBreath").src = "img/SpontaneousDot.png";
+        document.getElementById("ImgBreath").src = "img/GreenDot.png";
         elm.innerHTML = "Spontaneous";
       }
       else {
