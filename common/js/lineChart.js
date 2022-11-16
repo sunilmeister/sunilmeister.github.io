@@ -243,7 +243,7 @@ class LineChart {
     var chartData = {};
     chartData.type = "stepLine";
     chartData.showInLegend = !noLegend;
-    chartData.dataPoints = xyPoints;
+    chartData.dataPoints = cloneObject(xyPoints);
     if (this.timeUnits) console.log("Time based NumPoints=" + xyPoints.length);
     return chartData;
   }
