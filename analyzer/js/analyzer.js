@@ -42,8 +42,9 @@ function selectDbRow() {
   var sessionInfo = document.getElementById("analyzeSessionName");
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   initSession(dbName);
+
+  UndisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
-  document.getElementById("selectorDiv").style.display = "none";
   return dbName;
 }
 
