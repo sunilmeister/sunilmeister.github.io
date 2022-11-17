@@ -330,6 +330,7 @@ function displayCharts() {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
+  createAnalysisChart();
 }
 
 function cleanupCharts() {
@@ -343,6 +344,7 @@ function cleanupCharts() {
 }
 
 function initSelection() {
+  /*
   document.getElementById('peakTick').checked = false;
   document.getElementById('platTick').checked = false;
   document.getElementById('peepTick').checked = false;
@@ -360,6 +362,7 @@ function initSelection() {
   document.getElementById('o2FlowTick').checked = false;
   document.getElementById('timeTick').checked = false;
   document.getElementById('breathTick').checked = true;
+  */
 }
 
 function initCharts() {
