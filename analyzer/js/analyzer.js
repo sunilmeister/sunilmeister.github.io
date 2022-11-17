@@ -242,8 +242,8 @@ function initSession() {
       logEndTime = new Date(keys[keys.length - 1]);
       logEndTime.setMilliseconds(0);
       analysisStartTime = new Date(logStartTime);
-      startDate = analysisStartTime;
       analysisEndTime = new Date(logEndTime);
+      startDate = logStartTime;
       
       updateSelectedDuration();
       updateLogDuration();
@@ -330,7 +330,6 @@ function setTimeInterval() {
   analysisEndBreath = parseInt(values[1]);
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
-  startDate = analysisStartTime;
   updateSelectedDuration();
   resetAnalysisData();
   gatherGlobalData();
@@ -352,7 +351,6 @@ function resetTimeInterval() {
   analysisStartBreath = 1;
   analysisEndBreath = fullSessionBreathTimes.length;
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
-  startDate = analysisStartTime;
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
   analysisRangeSlider.setSlider([analysisStartBreath, analysisEndBreath]);
   updateSelectedDuration();
@@ -430,7 +428,6 @@ function showAnalysisRangeSlider() {
   analysisStartBreath = 1;
   analysisEndBreath = fullSessionBreathTimes.length;
   analysisStartTime = fullSessionBreathTimes[analysisStartBreath-1];
-  startDate = analysisStartTime;
   analysisEndTime = fullSessionBreathTimes[analysisEndBreath-1];
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "block";

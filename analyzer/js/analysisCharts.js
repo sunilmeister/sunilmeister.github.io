@@ -271,21 +271,15 @@ function createAnalysisChart() {
     initBnum:0, 
     minBnum:1, 
     maxBnum:breathTimes.length,
+    missingBnum:cloneObject(missingBreathWindows),
     initTime:logStartTime, 
     minTime:analysisStartTime, 
-    maxTime:analysisEndTime
+    maxTime:analysisEndTime,
+    missingTime:cloneObject(missingTimeWindows)
   };
 
   needDummyY2 = false;
   analysisChart = new LineChart(title, height, timeBased, rangeX, needDummyY2);
-
-  var missing = [];
-  if (timeBased) {
-    missing = missingTimeWindows;
-  } else {
-    missing = missingBreathWindows;
-  }
-  analysisChart.addXaxis(missing);
 
   pressureAxisNum = null;
   pressureAxisNum = createPeakGraph(analysisChart, pressureAxisNum);

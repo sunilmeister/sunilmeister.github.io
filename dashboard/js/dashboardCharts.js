@@ -213,7 +213,7 @@ function createPurityGraph(chart, reuseAxisNum, rangeX) {
 }
 
 var pressureChart = null;
-function createPressureCharts(height, timeBased, rangeX, missing) {
+function createPressureCharts(height, timeBased, rangeX) {
   if (!document.getElementById("PressuresTick").checked) return;
   initGraphColor();
   if (pressureChart) {
@@ -225,8 +225,6 @@ function createPressureCharts(height, timeBased, rangeX, missing) {
   pressureChart = new LineChart("Pressures (Peak, Plateau, Peep)", 
     height, timeBased, rangeX, needDummyY2);
 
-  pressureChart.addXaxis(missing);
-
   pressureAxisNum = null;
   pressureAxisNum = createPeakGraph(pressureChart, pressureAxisNum, rangeX);
   pressureAxisNum = createPlatGraph(pressureChart, pressureAxisNum, rangeX);
@@ -237,7 +235,7 @@ function createPressureCharts(height, timeBased, rangeX, missing) {
 }
 
 var volumeChart = null;
-function createVolumeCharts(height, timeBased, rangeX, missing) {
+function createVolumeCharts(height, timeBased, rangeX) {
   if (!document.getElementById("VolumesTick").checked) return;
   initGraphColor();
   if (volumeChart) {
@@ -249,8 +247,6 @@ function createVolumeCharts(height, timeBased, rangeX, missing) {
   volumeChart = new LineChart("Volumes (Tidal, Minute)", 
     height, timeBased, rangeX, needDummyY2);
 
-  volumeChart.addXaxis(missing);
-
   volumeAxisNum = null;
   volumeAxisNum = createVtdelGraph(volumeChart, volumeAxisNum, rangeX);
   mvAxisNum = null;
@@ -261,7 +257,7 @@ function createVolumeCharts(height, timeBased, rangeX, missing) {
 }
 
 var bpmChart = null;
-function createBpmCharts(height, timeBased, rangeX, missing) {
+function createBpmCharts(height, timeBased, rangeX) {
   if (!document.getElementById("BpmTick").checked) return;
   initGraphColor();
   if (bpmChart) {
@@ -273,8 +269,6 @@ function createBpmCharts(height, timeBased, rangeX, missing) {
   bpmChart = new LineChart("BPM (Mandatory, Spontaneous)", 
     height, timeBased, rangeX, needDummyY2);
 
-  bpmChart.addXaxis(missing);
-
   bpmAxisNum = null;
   bpmAxisNum = createSbpmGraph(bpmChart, bpmAxisNum, rangeX);
   bpmAxisNum = createMbpmGraph(bpmChart, bpmAxisNum, rangeX);
@@ -284,7 +278,7 @@ function createBpmCharts(height, timeBased, rangeX, missing) {
 }
 
 var compChart = null;
-function createCompCharts(height, timeBased, rangeX, missing) {
+function createCompCharts(height, timeBased, rangeX) {
   if (!document.getElementById("CompTick").checked) return;
   initGraphColor();
   if (compChart) {
@@ -296,8 +290,6 @@ function createCompCharts(height, timeBased, rangeX, missing) {
   compChart = new LineChart("Instant Lung Compliances (Static, Dynamic)", 
     height, timeBased, rangeX, needDummyY2);
 
-  compChart.addXaxis(missing);
-
   compAxisNum = null;
   compAxisNum = createScompGraph(compChart, compAxisNum, rangeX);
   compAxisNum = createDcompGraph(compChart, compAxisNum, rangeX);
@@ -307,7 +299,7 @@ function createCompCharts(height, timeBased, rangeX, missing) {
 }
 
 var miscChart = null;
-function createMiscCharts(height, timeBased, rangeX, missing) {
+function createMiscCharts(height, timeBased, rangeX) {
   if (!document.getElementById("MiscTick").checked) return;
   initGraphColor();
   if (miscChart) {
@@ -318,8 +310,6 @@ function createMiscCharts(height, timeBased, rangeX, missing) {
   needDummyY2 = false;
   miscChart = new LineChart("Miscellaneous (Errors, Warnings, Temperature)", 
     height, timeBased, rangeX, needDummyY2);
-
-  miscChart.addXaxis(missing);
 
   flagAxisNum = null;
   flagAxisNum = createWarningGraph(miscChart, flagAxisNum, rangeX);
@@ -333,7 +323,7 @@ function createMiscCharts(height, timeBased, rangeX, missing) {
 }
 
 var fiO2Chart = null;
-function createFiO2Charts(height, timeBased, rangeX, missing) {
+function createFiO2Charts(height, timeBased, rangeX) {
   if (!document.getElementById("FiO2Tick").checked) return;
   initGraphColor();
   if (fiO2Chart) {
@@ -344,8 +334,6 @@ function createFiO2Charts(height, timeBased, rangeX, missing) {
   needDummyY2 = false;
   fiO2Chart = new LineChart("Oxygen (FiO2, Purity, Flow Rate)", 
     height, timeBased, rangeX, needDummyY2);
-
-  fiO2Chart.addXaxis(missing);
 
   pctAxisNum = null;
   pctAxisNum = createFiO2Graph(fiO2Chart, pctAxisNum, rangeX);
@@ -370,24 +358,19 @@ function createDashboardCharts() {
     initBnum:0, 
     minBnum:minChartBreathNum , 
     maxBnum:maxChartBreathNum ,
+    missingBnum:cloneObject(missingBreathWindows),
     initTime:startDate, 
     minTime:breathTimes[minChartBreathNum].time, 
-    maxTime:breathTimes[maxChartBreathNum].time
+    maxTime:breathTimes[maxChartBreathNum].time,
+    missingTime:cloneObject(missingTimeWindows)
   };
 
-  var missing = [];
-  if (timeBased) {
-    missing = missingTimeWindows ;
-  } else {
-    missing = missingBreathWindows ;
-  }
-
-  createPressureCharts(height, timeBased, rangeX, missing);
-  createVolumeCharts(height, timeBased, rangeX, missing);
-  createBpmCharts(height, timeBased, rangeX, missing);
-  createFiO2Charts(height, timeBased, rangeX, missing);
-  createCompCharts(height, timeBased, rangeX, missing);
-  createMiscCharts(height, timeBased, rangeX, missing);
+  createPressureCharts(height, timeBased, rangeX);
+  createVolumeCharts(height, timeBased, rangeX);
+  createBpmCharts(height, timeBased, rangeX);
+  createFiO2Charts(height, timeBased, rangeX);
+  createCompCharts(height, timeBased, rangeX);
+  createMiscCharts(height, timeBased, rangeX);
 
   prevMinBreathNum = rangeX.minBnum;
   prevMaxBreathNum = rangeX.maxBnum;

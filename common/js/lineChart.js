@@ -5,16 +5,17 @@
 // //////////////////////////////////////////////////////
 // Recommended sequence
 // 1. construct LineChart object
-// 2. add X-axis
-// 3. add Graph(s)
-// 4. Render LineChart object
+// 2. add Graph(s)
+// 3. Render LineChart object
 // 
 // The constructor inputs are
 // Title of chart
 // Height in pixels
 // Whether time based or brathnumber based
 // Whether a dummy secondary Y-axis is need for alignment
-// rangeX = {doFull:, initBnum:, minBnum:, maxBnum:, initTime:, minTime:, maxTime:}
+// rangeX = {doFull:, 
+//           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
+//           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
 // //////////////////////////////////////////////////////
 class LineChart {
 
@@ -34,6 +35,8 @@ class LineChart {
     };
     this.chart = null;
     this.needDummyY2 = true;
+
+    this.addXaxis();
   }
 
   // returns the Y-axis number for possible reuse
@@ -71,40 +74,6 @@ class LineChart {
     return null;
   }
   
-  // X axis is the same for all charts in our application
-  addXaxis(missingWindows) {
-    var Xaxis = {};
-    if (this.timeUnits) {
-      Xaxis.title = "Elapsed Time (secs)";
-    } else {
-      Xaxis.title = "Breath Number";
-    }
-    Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
-    Xaxis.fontSize = CHART_FONT_SIZE;
-    Xaxis.interval = this.calculateXaxisInterval();
-    Xaxis.minimum = this.calculateXaxisMinimum();
-    if (missingWindows && missingWindows.length) {
-      if (this.timeUnits) {
-        var initTime = this.rangeX.initTime;
-        var missing =  [];
-	// Have to scale the missing time windows appropriately
-	var missing = [];
-        for (i=0; i<missingWindows.length; i++) {
-	  var m = cloneObject(missingWindows[i]);
-	  m.startValue = (m.startValue - initTime)/1000 ;
-	  m.endValue = (m.endValue - initTime)/1000 ;
-	  missing.push(m);
-        }
-        Xaxis.scaleBreaks = {};
-        Xaxis.scaleBreaks.customBreaks = cloneObject(missing);
-      } else {
-        Xaxis.scaleBreaks = {};
-        Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
-      }
-    }
-    this.chartJson.axisX = Xaxis;
-  }
-
   render(containerDiv) {
     if (this.chart) {
       this.chart.destroy();
@@ -124,6 +93,36 @@ class LineChart {
   // ////////////////////////////////////////////
   // Rest below are all private method
   // ////////////////////////////////////////////
+
+  // X axis is the same for all charts in our application
+  addXaxis() {
+    var Xaxis = {};
+    var missingWindows = [];
+    if (this.timeUnits) {
+      Xaxis.title = "Elapsed Time (secs)";
+      missingWindows = this.rangeX.missingTime;
+    } else {
+      Xaxis.title = "Breath Number";
+      missingWindows = this.rangeX.missingBnum;
+    }
+    Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
+    Xaxis.fontSize = CHART_FONT_SIZE;
+    Xaxis.interval = this.calculateXaxisInterval();
+    Xaxis.minimum = this.calculateXaxisMinimum();
+    if (missingWindows && missingWindows.length) {
+      /*
+      if (this.timeUnits) {
+        for (i=0; i<missingWindows.length; i++) {
+	  var m = missingWindows[i];
+	  console.log("s=" + m.startValue + " e=" + m.endValue );
+        }
+      }
+      */
+      Xaxis.scaleBreaks = {};
+      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
+    }
+    this.chartJson.axisX = Xaxis;
+  }
 
   calculateXaxisInterval() {
     var initBnum = this.rangeX.initBnum;
