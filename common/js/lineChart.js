@@ -13,6 +13,7 @@ class LineChart {
 
   constructor(title, height, timeUnits, dummyY2) {
     this.timeUnits = timeUnits;
+    this.initX = 0;
     this.chartJson = {
       zoomEnabled: true,
       zoomType: "x",
@@ -41,7 +42,6 @@ class LineChart {
     var minX = rangeInfo.minX;
     var maxX = rangeInfo.maxX;
   
-    //console.log("createXYPoints breathTimes.length=" + breathTimes.length);
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, minX, maxX, 
       flags.error, flags.warning);
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
@@ -76,6 +76,7 @@ class LineChart {
     } else {
       Xaxis.title = "Breath Number";
     }
+    this.initX = initX;
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval(minX, maxX);
@@ -124,6 +125,14 @@ class LineChart {
   // if timeUnits, init/min/max are Date else breath numbers
   calculateXaxisMinimum(initX, minX) {
     if (this.timeUnits) {
+      //console.log("initX datatype=" + typeof initX);
+      //console.log("minX datatype=" + typeof minX);
+      //console.log("initX=" + initX);
+      //console.log("minX=" + minX);
+      //console.log("initX=" + initX.valueOf());
+      //console.log("minX=" + minX.valueOf());
+      //var diff = minX - initX;
+      //console.log("Diff=" + diff);
       return Math.floor(minX - initX)/1000 ;
     } else {
       return minX - initX;
@@ -179,7 +188,7 @@ class LineChart {
       }
     }
   
-    // Attach X datapoints
+    // Attach X dataPoints
     var xval;
     var prevXval = -1;
     var ignoreDatapoint = false;
@@ -188,9 +197,9 @@ class LineChart {
       if (this.timeUnits) {
         var ms;
         if (doFull) {
-          ms = new Date(breathTimes[i].time) - new Date(breathTimes[1].time);
+          ms = new Date(breathTimes[i].time) - this.initX;
         } else {
-          ms = new Date(breathTimes[i+minX-1].time) - new Date(breathTimes[1].time);
+          ms = new Date(breathTimes[i+minX-1].time) - this.initX;
         }
         xval = Math.round(ms / 1000);
 	if (xval <= prevXval) ignoreDatapoint = true;
@@ -244,7 +253,6 @@ class LineChart {
     chartData.type = "stepLine";
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = cloneObject(xyPoints);
-    if (this.timeUnits) console.log("Time based NumPoints=" + xyPoints.length);
     return chartData;
   }
 
@@ -260,6 +268,14 @@ class LineChart {
     }
     xyPoints.axisYIndex = axisNum;
     this.chartJson.data.push(cloneObject(xyPoints));
+    /*
+    if (this.timeUnits) {
+      var n =  this.chartJson.data[1].dataPoints.length;
+      console.log("Time based NumPoints=" + n);
+      console.log("Time based minX=" + this.chartJson.axisX.minimum);
+      console.log(this.chartJson.data[1]);
+    }
+    */
     return axisNum;
   }
 
@@ -304,6 +320,6 @@ class LineChart {
     Y2axis.maximum = maxY;
     Y2axis.suffix = "";
     this.chartJson.axisY2 = cloneObject(Y2axis);
-    this.chartJson.data.push({axisYType: "secondary", datapoints:[{x:minX,y:minY}]});
+    this.chartJson.data.push({axisYType: "secondary", dataPoints:[{x:minX,y:minY}]});
   }
 };
