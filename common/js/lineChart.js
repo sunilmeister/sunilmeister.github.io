@@ -1,6 +1,6 @@
-/*
-// Author: Sunil Nanda
-*/
+/* *****************************************************************
+   Author: Sunil Nanda
+ ***************************************************************** */
 
 // //////////////////////////////////////////////////////
 // Recommended sequence
@@ -8,12 +8,19 @@
 // 2. add X-axis
 // 3. add Graph(s)
 // 4. Render LineChart object
+// 
+// The constructor inputs are
+// Title of chart
+// Height in pixels
+// Whether time based or brathnumber based
+// Whether a dummy secondary Y-axis is need for alignment
+// rangeX = {doFull:, initBnum:, minBnum:, maxBnum:, initTime:, minTime:, maxTime:}
 // //////////////////////////////////////////////////////
 class LineChart {
 
-  constructor(title, height, timeUnits, dummyY2) {
+  constructor(title, height, timeUnits, rangeX, dummyY2) {
     this.timeUnits = timeUnits;
-    this.initX = 0;
+    this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
       zoomType: "x",
@@ -34,16 +41,12 @@ class LineChart {
   // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, yMax:null, reuseAxisNum:2}
   // flags = {warning:true, error:false}
   // paramInfo = {name:"", transitions:[], color:""}
-  // rangeInfo = {minX:, maxX:}
-  addGraph(yAxisInfo, breathTimes, flags, paramInfo, rangeInfo) {
+  addGraph(yAxisInfo, breathTimes, flags, paramInfo) {
     var paramTransitions = paramInfo.transitions;
     var paramName = paramInfo.name;
     var paramColor = paramInfo.color;
-    var minX = rangeInfo.minX;
-    var maxX = rangeInfo.maxX;
   
-    var xyPoints = this.createXYPoints(breathTimes, paramTransitions, minX, maxX, 
-      flags.error, flags.warning);
+    var xyPoints = this.createXYPoints(breathTimes, paramTransitions, flags);
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
   
     var yAxis = null;
@@ -68,19 +71,17 @@ class LineChart {
   }
   
   // X axis is the same for all charts in our application
-  // if timeBased, init/min/max are Date else breath numbers
-  addXaxis(initX, minX, maxX, missingWindows) {
+  addXaxis(missingWindows) {
     var Xaxis = {};
     if (this.timeUnits) {
       Xaxis.title = "Elapsed Time (secs)";
     } else {
       Xaxis.title = "Breath Number";
     }
-    this.initX = initX;
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
-    Xaxis.interval = this.calculateXaxisInterval(minX, maxX);
-    Xaxis.minimum = this.calculateXaxisMinimum(initX, minX);
+    Xaxis.interval = this.calculateXaxisInterval();
+    Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
       Xaxis.scaleBreaks = {};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
@@ -108,34 +109,35 @@ class LineChart {
   // Rest below are all private method
   // ////////////////////////////////////////////
 
-  // if timeBased, init/min/max are Date else breath numbers
-  calculateXaxisInterval(minX, maxX) {
+  calculateXaxisInterval() {
+    var initBnum = this.rangeX.initBnum;
+    var minBnum = this.rangeX.minBnum;
+    var maxBnum = this.rangeX.maxBnum;
+    var initTime = this.rangeX.initTime;
+    var minTime = this.rangeX.minTime;
+    var maxTime = this.rangeX.maxTime;
     var numPoints = 0;
     if (this.timeUnits) {
-      numPoints = (maxX - minX)/1000;
+      numPoints = (maxTime - minTime)/1000;
     } else {
-      numPoints = maxX - minX + 1;
+      numPoints = maxBnum - minBnum + 1;
     }
     var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
-    //if (this.timeUnits) console.log("interval=" + interval);
     return interval;
   }
 
 
-  // if timeUnits, init/min/max are Date else breath numbers
-  calculateXaxisMinimum(initX, minX) {
+  calculateXaxisMinimum() {
+    var initBnum = this.rangeX.initBnum;
+    var minBnum = this.rangeX.minBnum;
+    var maxBnum = this.rangeX.maxBnum;
+    var initTime = this.rangeX.initTime;
+    var minTime = this.rangeX.minTime;
+    var maxTime = this.rangeX.maxTime;
     if (this.timeUnits) {
-      //console.log("initX datatype=" + typeof initX);
-      //console.log("minX datatype=" + typeof minX);
-      //console.log("initX=" + initX);
-      //console.log("minX=" + minX);
-      //console.log("initX=" + initX.valueOf());
-      //console.log("minX=" + minX.valueOf());
-      //var diff = minX - initX;
-      //console.log("Diff=" + diff);
-      return Math.floor(minX - initX)/1000 ;
+      return Math.floor(minTime - initTime)/1000 ;
     } else {
-      return minX - initX;
+      return minBnum - initBnum;
     }
   }
 
@@ -153,20 +155,28 @@ class LineChart {
     return cloneObject(Yaxis);
   }
 
-  // Set min and max to null to process the entire data
-  createXYPoints(breathTimes, transitions, minX, maxX, flagError, flagWarning) {
+  createXYPoints(breathTimes, transitions, flags) {
+    var initBnum = this.rangeX.initBnum;
+    var minBnum = this.rangeX.minBnum;
+    var maxBnum = this.rangeX.maxBnum;
+    var initTime = this.rangeX.initTime;
+    var minTime = this.rangeX.minTime;
+    var maxTime = this.rangeX.maxTime;
+    var flagWarning = flags.warning;
+    var flagError = flags.error;
+
     if (transitions.length == 0) {
       console.log("No transitions for createXYPoints");
       return null;
     }
     var yDatapoints = [];
     var xyPoints = [];
-    var doFull = (minX==null) && (maxX==null);
+    var doFull = this.rangeX.doFull;
     var numPoints = 0;
     if (doFull) {
       numPoints = breathTimes.length;
     } else {
-      numPoints = maxX - minX + 1;
+      numPoints = maxBnum - minBnum + 1;
     }
 
     // Collect Y dapoints
@@ -183,7 +193,7 @@ class LineChart {
           curValue = transitions[curIx].value;
         }
       }
-      if (doFull || ((i<=maxX) && (i>=minX))) {
+      if (doFull || ((i<=maxBnum) && (i>=minBnum))) {
         yDatapoints.push(curValue);
       }
     }
@@ -197,9 +207,9 @@ class LineChart {
       if (this.timeUnits) {
         var ms;
         if (doFull) {
-          ms = new Date(breathTimes[i].time) - this.initX;
+          ms = new Date(breathTimes[i].time) - initTime;
         } else {
-          ms = new Date(breathTimes[i+minX-1].time) - this.initX;
+          ms = new Date(breathTimes[i+minBnum-1].time) - initTime;
         }
         xval = Math.round(ms / 1000);
 	if (xval <= prevXval) ignoreDatapoint = true;
@@ -208,7 +218,7 @@ class LineChart {
         if (doFull) {
           xval = i;
         } else {
-          xval = i+minX-1;
+          xval = i+minBnum-1;
         }
       }
       if (!flagError && !flagWarning) {
@@ -268,14 +278,6 @@ class LineChart {
     }
     xyPoints.axisYIndex = axisNum;
     this.chartJson.data.push(cloneObject(xyPoints));
-    /*
-    if (this.timeUnits) {
-      var n =  this.chartJson.data[1].dataPoints.length;
-      console.log("Time based NumPoints=" + n);
-      console.log("Time based minX=" + this.chartJson.axisX.minimum);
-      console.log(this.chartJson.data[1]);
-    }
-    */
     return axisNum;
   }
 
