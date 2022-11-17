@@ -318,8 +318,8 @@ function chartProcessJsonRecord(jsonData) {
             });
 	    if (!lastValidBreathTime) lastValidBreathTime=startDate;
             missingTimeWindows.push({
-              "startValue": ((new Date(lastValidBreathTime) - startDate)/1000)+0.5,
-              "endValue": ((new Date(curTime) - startDate)/1000)-0.5,
+              "startValue": new Date(lastValidBreathTime),
+              "endValue": new Date(curTime),
               "type": "zigzag",
               "lineColor": "black",
               "autoCalculate": true

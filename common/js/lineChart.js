@@ -47,6 +47,7 @@ class LineChart {
     var paramColor = paramInfo.color;
   
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, flags);
+    if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
   
     var yAxis = null;
@@ -83,8 +84,23 @@ class LineChart {
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
-      Xaxis.scaleBreaks = {};
-      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
+      if (this.timeUnits) {
+        var initTime = this.rangeX.initTime;
+        var missing =  [];
+	// Have to scale the missing time windows appropriately
+	var missing = [];
+        for (i=0; i<missingWindows.length; i++) {
+	  var m = cloneObject(missingWindows[i]);
+	  m.startValue = (m.startValue - initTime)/1000 ;
+	  m.endValue = (m.endValue - initTime)/1000 ;
+	  missing.push(m);
+        }
+        Xaxis.scaleBreaks = {};
+        Xaxis.scaleBreaks.customBreaks = cloneObject(missing);
+      } else {
+        Xaxis.scaleBreaks = {};
+        Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
+      }
     }
     this.chartJson.axisX = Xaxis;
   }
