@@ -1,6 +1,10 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////
+// Below are all chart data utilities
+/////////////////////////////////////////////////////////////////
 const MAX_CHART_DATAPOINTS = 60;
 var chartRangeLimit = MAX_CHART_DATAPOINTS;
 var minChartBreathNum = 0;
@@ -512,5 +516,145 @@ function chartProcessJsonRecord(jsonData) {
       }
     }
   }
+}
+
+/////////////////////////////////////////////////////////////////
+// Below are all chart user-interface utilities
+/////////////////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
+var checkBoxTreeRootId = "checkBoxTreeRoot";
+var cboxTree = null;
+
+var chartContainerIdPrefix = "chartContainer";
+var chartContainerTemplateId = "chartContainerTemplate";
+var editMenuTemplateId = "editMenuTemplate";
+var chartBodyClass = "chartBody";
+var editChartMenuClass = "chartEditMenu";
+var editChartMenuId = "chartDropDownMenu";
+var chartContainerClass = "chartContainer";
+var allChartsId = "chartsDiv";
+var allChartContainerInfo = {};
+var cboxTreeRootId = "checkBoxTreeRoot";
+var cboxTree = null;
+var chartsXrange = null;
+
+function chartInsertOnTop() {
+  allCharts = document.getElementById(allChartsId);
+  //console.log("chartInsertOnTop ");
+  newContainer = createNewChartContainer();
+  allCharts.insertBefore(newContainer, null);
+  removeChartEditMenu();
+}
+
+function chartInsert(bnode) {
+  containerNode = bnode.parentNode.parentNode;
+  //console.log("chartInsert " + containerNode.id);
+  newContainer = createNewChartContainer();
+  containerNode.parentNode.insertBefore(newContainer, containerNode);
+  removeChartEditMenu();
+}
+
+function chartAppend(bnode) {
+  containerNode = bnode.parentNode.parentNode;
+  //console.log("chartAppend " + containerNode.id);
+  newContainer = createNewChartContainer();
+  containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
+  removeChartEditMenu();
+}
+
+function chartEdit(bnode) {
+  removeChartEditMenu();
+  containerNode = bnode.parentNode.parentNode;
+  //console.log("chartEdit " + containerNode.id);
+  temp = document.getElementById(editMenuTemplateId);
+  template = findChildNodeByClass(temp.content,editChartMenuClass);
+  node = template.cloneNode(true);
+  containerNode.insertBefore(node, bnode.parentNode.nextSibling);
+  cboxTree = new checkboxTree(cboxTreeRootId);
+  box = allChartContainerInfo[containerNode.id];
+  box.updateMenu(editChartMenuId);
+  cboxTree.PropagateFromLeafCheckboxes();
+}
+
+function chartDelete(bnode) {
+  containerNode = bnode.parentNode.parentNode;
+  //console.log("chartDelete " + containerNode.id);
+  removeChartContainerId(containerNode.id);
+  containerNode.remove();
+  if (numberOfExistingCharts()==0) {
+    alert("No chart container left\nCreating new empty one");
+    chartInsertOnTop();
+  }
+  removeChartEditMenu();
+}
+
+function removeChartEditMenu() {
+  if (cboxTree) delete cboxTree;
+  menuDiv = document.getElementById(editChartMenuId);
+  if (!menuDiv) return;
+  menuDiv.remove();
+}
+
+function chartMenuCancel(bnode) {
+  containerNode = bnode.parentNode.parentNode.parentNode;
+  console.log("chartMenuCancel " + containerNode.id);
+  removeChartEditMenu();
+}
+
+function chartMenuSubmit(bnode) {
+  containerNode = bnode.parentNode.parentNode.parentNode;
+  console.log("chartMenuSubmit " + containerNode.id);
+  box = allChartContainerInfo[containerNode.id];
+  box.updateOptions(editChartMenuId);
+  removeChartEditMenu();
+  box.render();
+}
+
+function findChildNodeByClass(node, className) {
+  var res = null;
+  node.childNodes.forEach(function(n) {
+    if (n.className == className) {
+      res = n;
+      return;
+    }
+  });
+  return res;
+}
+
+var currentChartContainerNum = 0;
+function createNewChartContainer() {
+  temp = document.getElementById(chartContainerTemplateId);
+  template = findChildNodeByClass(temp.content,chartContainerClass);
+  node = template.cloneNode(true);
+  node.id = chartContainerIdPrefix + (currentChartContainerNum++) ;
+  body = findChildNodeByClass(node,chartBodyClass);
+  box = new chartBox(body);
+  storeChartContainerId(node.id,box);
+  return node;
+}
+
+function numberOfExistingCharts() {
+  return (Object.keys(allChartContainerInfo).length);
+}
+
+function findChartContainerId(id) {
+  obj = allChartContainerInfo[id];
+  if (!obj || (typeof obj == 'undefined')) return null;
+  return obj;
+}
+
+function storeChartContainerId(id, chartBox) {
+  allChartContainerInfo[id] = chartBox;
+}
+
+function removeChartContainerId(id) {
+  delete allChartContainerInfo[id];
+}
+
+function treeCheckboxClicked(cbox) {
+  cboxTree.CheckboxClicked(cbox);
 }
 

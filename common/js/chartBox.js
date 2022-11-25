@@ -3,9 +3,9 @@
 // ////////////////////////////////////////////////////
 
 class chartBox {
-  // containerDiv is an HTML object
-  constructor(containerDiv) {
-    this.containerDiv = containerDiv;
+  // containerBodyDiv is an HTML object
+  constructor(containerBodyDiv) {
+    this.containerBodyDiv = containerBodyDiv;
     this.options = {};
     this.chart = null;
     this.rangeX = null;
@@ -14,11 +14,16 @@ class chartBox {
   // rangeX = {doFull:, 
   //           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
-  render(rangeX) {
+  render() {
     this.cleanupCharts();
-    this.rangeX = rangeX;
+    if (!chartsXrange) {
+      this.rangeX = null;
+      return; // chartsXrange is a global variable
+    }
+
+    this.rangeX = chartsXrange;
     this.createChart();
-    if (this.chart) this.chart.render();
+    if (this.chart) this.chart.render(this.containerBodyDiv);
   }
 
   // Update the HTML dropdown menu using stored options
@@ -92,15 +97,14 @@ class chartBox {
       delete this.chart;
       this.chart = null;
     }
-    this.containerDiv.innerHTML = "";
   }
 
   createChart() {
-    this.chart = new lineChart(
+    this.chart = new LineChart(
       this.options.title,
-      this.containerDiv.height,
+      this.containerBodyDiv.offsetHeight,
       this.options.timeUnits,
-      rangeX,
+      this.rangeX,
       false
     );
     this.createIndividualCharts();

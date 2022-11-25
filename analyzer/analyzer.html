@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../common/css/colors.css" />
     <link rel="stylesheet" href="../common/css/common.css" />
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
+    <link rel="stylesheet" href="../common/css/chart.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
@@ -34,7 +35,6 @@
     <script src="../common/js/common.js"></script>
     <script src="../common/js/rangeSlider.js"></script>
     <script src="../common/js/uid.js"></script>
-    <script src="../common/js/chartUtilities.js"></script>
     <script src="../common/js/statUtilities.js"></script>
     <script src="../common/js/dataUtilities.js"></script>
     <script src="../common/js/errorWarningInfo.js"></script>
@@ -42,6 +42,9 @@
     <script src="js/analysisCharts.js"></script>
     <script src="js/rawData.js"></script>
     <script src="js/analyzer.js"></script>
+    <script src="../common/js/checkboxTree.js"></script>
+    <script src="../common/js/chartUtilities.js"></script>
+    <script src="../common/js/chartBox.js"></script>
   </head>
 
   <body>
@@ -264,64 +267,8 @@
         </div>
       </div>
 
-      <center>
-        <div id="chartsDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
-          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
-            Select Parameters for Chart</h2>
-
-          <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:20px; font-family:verdana; ">
-            <br>
-            <input id="peakTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Peak
-            <input id="platTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Plateau
-            <input id="peepTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            PEEP
-            <input id="vtdelTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Tidal Volume
-            <input id="mvdelTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Minute Volume
-            <input id="mbpmTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Mandatory BPM
-            <input id="sbpmTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Spontaneous BPM
-            <br>
-            <input id="fiO2Tick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            FiO<sub>2</sub>
-            <input id="o2PurityTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            O<sub>2</sub> Purity
-            <input id="o2FlowTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            O<sub>2</sub> Flow
-            <input id="scompTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Instant Static Compliance
-            <input id="dcompTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Instant Dynamic Compliance
-            <br>
-            <input id="warningTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Warning
-            <input id="errorTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            Error
-            <input id="tempTick" style="width:20px;height:20px;" type="checkbox" onclick='createAnalysisChart()'>
-            System Temperature
-
-            <br><br>
-            X-Axis:
-            <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px" onchange='createAnalysisChart()'>
-            <label for="breathNum">Breath Number</label>
-            <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px" onchange='createAnalysisChart()'>
-            <label for="timeBased">Elapsed Time between Updates</label>
-
-            <input id="chartTitle" type="text" style="border-radius:25px; font-size: 16px;padding: 5px;width: 150;text-align: center" onchange='createAnalysisChart()'>
-            Chart Title
-            <br><br>
-          </div>
-
-          <div class=shadowDiv5 style="background-color:var(--rsp_lightblue);min-height: 650px;">
-            <div id="chartContainerDiv" height=600px style="border-radius:25px; margin-top:20px">
-            </div>
-          </div>
-        </div>
-      </center>
+      <div id="chartsDiv" style="border-radius:25px; display: none; margin-bottom:20px;">
+      </div>
 
       <center>
         <div id="errorWarningDiv" style="border-radius:25px; display: none; margin-bottom:10px;">
@@ -431,13 +378,157 @@
             <p id='SysUid' style="font-size:20px; ">
           </center>
         </div>
-        <div class=shadowDiv5 id="logosDiv" style="height:100%; margin-left:41%; border-radius:25px; background-color:var(--rsp_darkblue);">
+        <div class=shadowDiv5 id="logosDiv" style="height:100%; margin-left:41%; border-radius:25px; background-color:var(--rsp_darkblue); display:flex;">
           <center>
-            <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px" width="440" height="128">
+            <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px; " width="440" height="128">
           </center>
         </div>
       </div>
     </div>
+
+<!-- 
+// ////////////////////////////////////////////////////
+// Below are all templates only
+// ////////////////////////////////////////////////////
+-->
+    <template id="chartContainerTemplate">
+      <div class="chartContainer" style="position:relative">
+	<div class="chartBanner">
+	  <button onClick="chartAppend(this)"><img  src="../common/img/plus.png" width=30px height=30px></button>
+	  <button onClick="chartEdit(this)"><img  src="../common/img/pen.png" width=30px height=30px></button>
+	  <button onClick="chartDelete(this)"><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
+	</div>
+	<div class="chartBody">
+	</div>
+      </div>
+    </template>
+
+    <template id=editMenuTemplate>
+      <div id=chartDropDownMenu class="chartEditMenu" style="background-color: var(--rsp_lightblue);">
+        <div class="chartEditMenuBanner">
+	  <button onClick="chartMenuSubmit(this)"><img  src="../common/img/check.png" width=30px height=30px></button>
+	  <button onClick="chartMenuCancel(this)"><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
+        </div>
+  
+        <div id="titleDiv" style="background-color: var(--rsp_lightblue)">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
+            <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
+              <input id=ChartTitleId type="text" id="title" name="title" >
+            </div>
+          </center>
+        </div>
+        <div id="checkBoxTreeRoot" style="margin-top:-20px; padding-bottom:10px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
+            <input type="checkbox" id=Presssures onclick='treeCheckboxClicked(this)'>
+	    <label for=Presssures>Pressures</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Peak onclick='treeCheckboxClicked(this)'>
+              <label for=Peak>Peak Pressure</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Plat onclick='treeCheckboxClicked(this)'>
+              <label for=Plat>Plateau Pressure</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=PEEP onclick='treeCheckboxClicked(this)'>
+              <label for=PEEP>PEEP Pressure</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=Volumes onclick='treeCheckboxClicked(this)'>
+            <label for=Volumes>Volumes</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Tidal onclick='treeCheckboxClicked(this)'>
+              <label for=Tidal>Tidal Volume</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Minute onclick='treeCheckboxClicked(this)'>
+              <label for=Minute>Minute Volume</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=BPM onclick='treeCheckboxClicked(this)'>
+            <label for=BPM>Breaths per minute</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Mandatory onclick='treeCheckboxClicked(this)'>
+              <label for=Mandatory>Mandatory BPM</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Spontaneous onclick='treeCheckboxClicked(this)'>
+              <label for=Spontaneous>Spontaneous BPM</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue);">
+            <input type="checkbox" id=Compliances onclick='treeCheckboxClicked(this)'>
+            <label for=Compliances>Instant Lung Compliances</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Dynamic onclick='treeCheckboxClicked(this)'>
+              <label for=Dynamic>Instant Dynamic Lung Compliance&nbsp</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Static onclick='treeCheckboxClicked(this)'>
+              <label for=Static>Instant Static Lung Compliance</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox" id=Oxygen onclick='treeCheckboxClicked(this)'>
+            <label for=Oxygen>Oxygen Related</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=FiO2 onclick='treeCheckboxClicked(this)'>
+              <label for=FiO2>FiO2</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=O2Flow onclick='treeCheckboxClicked(this)'>
+              <label for=O2Flow>Incoming Oxygen Flow Required</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=O2Purity onclick='treeCheckboxClicked(this)'>
+              <label for=O2Purity>Incoming Oxygen Purity</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox" id=Miscellaneous onclick='treeCheckboxClicked(this)'>
+            <label for=Miscellaneous>Miscellaneous</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Errors onclick='treeCheckboxClicked(this)'>
+              <label for=Errors>System Errors</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Warnings onclick='treeCheckboxClicked(this)'>
+              <label for=Warnings>System Warnings</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Temperature onclick='treeCheckboxClicked(this)'>
+              <label for=Temperature>System Temperature</label>
+            </div>
+          </div>
+        </div>
+        <div id=XAxisUnits style="margin-top:-20px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-bottom:0px;">X-axis Units</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
+  	  <form name="XunitsForm" style="padding-top:12px;">
+              <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
+              <label for=BNUM>Breath Number</label>
+              <input type="radio" id=TIME name="XAxisUnits" value="TIME">
+              <label for=TIME>Breath Times</label>
+  	  </form>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+    </template>
 
   </body>
 

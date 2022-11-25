@@ -16,6 +16,7 @@ var allChartsId = "allCharts";
 var allChartContainerInfo = {};
 var cboxTreeRootId = "checkBoxTreeRoot";
 var cboxTree = null;
+var chartsXrange = null;
 
 function chartInsertOnTop() {
   allCharts = document.getElementById(allChartsId);
@@ -61,7 +62,7 @@ function chartDelete(bnode) {
   removeChartContainerId(containerNode.id);
   containerNode.remove();
   if (isChartContainerIdEmpty()) {
-    console.log("No chart container left - creating new one");
+    alert("No chart container left\nCreating new empty one");
     chartInsertOnTop();
   }
   removeChartEditMenu();
@@ -86,6 +87,7 @@ function chartMenuSubmit(bnode) {
   box = allChartContainerInfo[containerNode.id];
   box.updateOptions(editChartMenuId);
   removeChartEditMenu();
+  box.render();
 }
 
 function findChildNodeByClass(node, className) {
