@@ -4,6 +4,14 @@
 // ////////////////////////////////////////////////////
 */
 
+.indentDiv {
+  margin-left: 15px;
+}
+
+.show {
+  display:block;
+}
+
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;
@@ -59,12 +67,6 @@ span {
 
 .noUi-active .noUi-tooltip {
   display: block;
-}
-
-.chartContainer {
-  border: 10px solid #CCCCCC;
-  box-sizing: border-box;
-  height: 1200px;
 }
 
 .statsTableStyle td {

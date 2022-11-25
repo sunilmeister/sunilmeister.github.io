@@ -1,0 +1,36 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+.iconButton {
+  background-color: var(--rsp_lightblue);
+  border: white;
+  color: var(--rsp_darkblue);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.iconButton:hover:not([disabled]) {
+  opacity: 1;
+}
+
+.iconButton:active:not([disabled]) {
+  background-color: var(--rsp_green);
+  box-shadow: 0 6px var(--rsp_lightblue);
+  transform: translateY(6px);
+}
+
+.iconButton:disabled,
+.iconButton[disabled]{
+  background-color: white;
+  color: lightgrey;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+

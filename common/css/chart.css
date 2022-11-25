@@ -1,0 +1,37 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+.chartContainer {
+  margin-top: 10px;
+}
+
+.chartBanner {
+  background-color: var(--rsp_darkblue);
+  display: flex; 
+  justify-content:flex-end;
+}
+
+.chartEditMenu {
+  display: inline-block; 
+  position: relative;
+  float: right;
+  border-style: solid;
+  border-color:var(--rsp_blue);
+  opacity:1;
+  z-index: 2;
+}
+
+.chartEditMenuBanner {
+  background-color: var(--rsp_darkblue);
+  display: flex; 
+  justify-content:flex-end;
+}
+
+.chartBody {
+  background-color: var(--rsp_lightblue);
+  height: 300px;
+}
+
