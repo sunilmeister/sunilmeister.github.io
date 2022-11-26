@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
 
     <link href="../common/css/colors.css" rel="stylesheet" />
+    <link href="../common/css/chart.css" rel="stylesheet" />
     <link href="css/sidebar.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -30,9 +31,11 @@
     <script src="../common/js/dataUtilities.js"></script>
     <script src="../common/js/common.js"></script>
     <script src="../common/js/uid.js"></script>
-    <script src="../common/js/chartUtilities.js"></script>
     <script src="../common/js/statUtilities.js"></script>
     <script src="../common/js/errorWarningInfo.js"></script>
+    <script src="../common/js/checkboxTree.js"></script>
+    <script src="../common/js/chartUtilities.js"></script>
+    <script src="../common/js/chartBox.js"></script>
     <script src="js/dashboardGlobals.js"></script>
     <script src="js/record.js"></script>
     <script src="js/update.js"></script>
@@ -300,7 +303,10 @@
         </div>
 
         <div id="chart-pane" style="display:none">
-          <br>
+	  <center>
+          <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">Session Charts</h2>
+  	  </center>
+
           <div id=chartSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display:none;">
             <center>
 	      <p style="color: white; font-size:2rem; font-family:verdana; padding-top:1rem;">Select Chart Window to display</p>
@@ -309,51 +315,11 @@
             </div>
             <br>
           </div>
-          <br>
-          <center>
-            <div class=shadowDiv10 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; font-family:verdana;">
-              <br> &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp Charts:&nbsp&nbsp
-              <input id="PressuresTick" style="width:2rem;height:2rem;" type="checkbox" onclick="PressuresClick()"> Pressures&nbsp&nbsp&nbsp
-              <input id="VolumesTick" style="width:2rem;height:2rem;" type="checkbox" onclick="VolumesClick()"> Volumes&nbsp&nbsp&nbsp
-              <input id="BpmTick" style="width:2rem;height:2rem;" type="checkbox" onclick="BpmClick()"> Breaths per Minute&nbsp&nbsp&nbsp
-              <input id="CompTick" style="width:2rem;height:2rem;" type="checkbox" onclick="CompClick()"> Instant Lung Compliances&nbsp&nbsp&nbsp
-              <input id="FiO2Tick" style="width:2rem;height:2rem;" type="checkbox" onclick="FiO2Click()"> Oxygen
-              <input id="MiscTick" style="width:2rem;height:2rem;" type="checkbox" onclick="MiscClick()"> Miscellaneous &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp
-              <br> X-Axis:
-              <input id="breathTick" type="radio" name="xaxis" checked style="font-size: 16px;width: 20px; height: 20px" onchange="createDashboardCharts()">
-              <label for="breathNum">Breath Number</label>
-              <input id="timeTick" type="radio" name="xaxis" style="font-size: 16px;width: 20px; height: 20px" onchange="createDashboardCharts()">
-              <label for="timeBased">Elapsed Time between Updates</label>
-              <br>
-              <br>
-            </div>
-
-            <div id=PressuresChartWrapper class=ChartWrapper style="display:none;">
-              <div id="chartPressureDiv" class=ChartCanvas></div>
-            </div>
-
-            <div id=VolumesChartWrapper class=ChartWrapper style="display:none;">
-              <div id="chartVolumeDiv" class=ChartCanvas></div>
-            </div>
-
-            <div id=BpmChartWrapper class=ChartWrapper style="display:none;">
-              <div id="chartBpmDiv" class=ChartCanvas></div>
-            </div>
-
-            <div id=CompChartWrapper class=ChartWrapper style="display:none;">
-              <div id="chartCompDiv" class=ChartCanvas></div>
-            </div>
-
-            <div id=FiO2ChartWrapper class=ChartWrapper style="display:none;">
-              <div id="chartFiO2Div" class=ChartCanvas></div>
-            </div>
-
-            <div id=MiscChartWrapper class=ChartWrapper style="display:none;">
-              <div id="chartMiscDiv" class=ChartCanvas></div>
-            </div>
-
-          </center>
+          <div id="chartsDiv" style="margin-bottom:20px;">
+            <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
+	  </div>
         </div>
+
 
         <div id="snapshot-pane" class="Snapshot">
           <div class="Space1"></div>
@@ -603,6 +569,150 @@
         </div>
       </div>
     </div>
+
+<!-- 
+// ////////////////////////////////////////////////////
+// Below are all templates only
+// ////////////////////////////////////////////////////
+-->
+    <template id="chartContainerTemplate">
+      <div class="chartContainer" style="position:relative">
+	<div class="chartBanner">
+	  <button onClick="chartAppend(this)"><img  src="../common/img/plus.png" width=30px height=30px></button>
+	  <button onClick="chartEdit(this)"><img  src="../common/img/pen.png" width=30px height=30px></button>
+	  <button onClick="chartDelete(this)"><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
+	</div>
+	<div class="chartBody">
+	</div>
+      </div>
+    </template>
+
+    <template id=editMenuTemplate>
+      <div id=chartDropDownMenu class="chartEditMenu" style="background-color: var(--rsp_lightblue);">
+        <div class="chartEditMenuBanner">
+	  <button onClick="chartMenuSubmit(this)"><img  src="../common/img/check.png" width=30px height=30px></button>
+	  <button onClick="chartMenuCancel(this)"><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
+        </div>
+  
+        <div id="titleDiv" style="background-color: var(--rsp_lightblue)">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
+            <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
+              <input id=ChartTitleId type="text" id="title" name="title" >
+            </div>
+          </center>
+        </div>
+        <div id="checkBoxTreeRoot" style="margin-top:-20px; padding-bottom:10px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
+            <input type="checkbox" id=Presssures onclick='treeCheckboxClicked(this)'>
+	    <label for=Presssures>Pressures</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Peak onclick='treeCheckboxClicked(this)'>
+              <label for=Peak>Peak Pressure</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Plat onclick='treeCheckboxClicked(this)'>
+              <label for=Plat>Plateau Pressure</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=PEEP onclick='treeCheckboxClicked(this)'>
+              <label for=PEEP>PEEP Pressure</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=Volumes onclick='treeCheckboxClicked(this)'>
+            <label for=Volumes>Volumes</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Tidal onclick='treeCheckboxClicked(this)'>
+              <label for=Tidal>Tidal Volume</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Minute onclick='treeCheckboxClicked(this)'>
+              <label for=Minute>Minute Volume</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=BPM onclick='treeCheckboxClicked(this)'>
+            <label for=BPM>Breaths per minute</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Mandatory onclick='treeCheckboxClicked(this)'>
+              <label for=Mandatory>Mandatory BPM</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Spontaneous onclick='treeCheckboxClicked(this)'>
+              <label for=Spontaneous>Spontaneous BPM</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue);">
+            <input type="checkbox" id=Compliances onclick='treeCheckboxClicked(this)'>
+            <label for=Compliances>Instant Lung Compliances</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Dynamic onclick='treeCheckboxClicked(this)'>
+              <label for=Dynamic>Instant Dynamic Lung Compliance&nbsp</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Static onclick='treeCheckboxClicked(this)'>
+              <label for=Static>Instant Static Lung Compliance</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox" id=Oxygen onclick='treeCheckboxClicked(this)'>
+            <label for=Oxygen>Oxygen Related</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=FiO2 onclick='treeCheckboxClicked(this)'>
+              <label for=FiO2>FiO2</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=O2Flow onclick='treeCheckboxClicked(this)'>
+              <label for=O2Flow>Incoming Oxygen Flow Required</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=O2Purity onclick='treeCheckboxClicked(this)'>
+              <label for=O2Purity>Incoming Oxygen Purity</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox" id=Miscellaneous onclick='treeCheckboxClicked(this)'>
+            <label for=Miscellaneous>Miscellaneous</label>
+            <div class="indentDiv">
+              <input type="checkbox" id=Errors onclick='treeCheckboxClicked(this)'>
+              <label for=Errors>System Errors</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Warnings onclick='treeCheckboxClicked(this)'>
+              <label for=Warnings>System Warnings</label>
+            </div>
+            <div class="indentDiv">
+              <input type="checkbox" id=Temperature onclick='treeCheckboxClicked(this)'>
+              <label for=Temperature>System Temperature</label>
+            </div>
+          </div>
+        </div>
+        <div id=XAxisUnits style="margin-top:-20px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-bottom:0px;">X-axis Units</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
+  	  <form name="XunitsForm" style="padding-top:12px;">
+              <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
+              <label for=BNUM>Breath Number</label>
+              <input type="radio" id=TIME name="XAxisUnits" value="TIME">
+              <label for=TIME>Breath Times</label>
+  	  </form>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+    </template>
 
   </body>
 

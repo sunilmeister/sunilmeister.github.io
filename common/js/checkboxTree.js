@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-class checkboxTree {
+class CheckboxTree {
   constructor(treeRootId) {
     this.treeRootId = treeRootId;
     this.treeRoot = document.getElementById(treeRootId);

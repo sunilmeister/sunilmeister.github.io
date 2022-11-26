@@ -426,8 +426,6 @@ window.onload = function() {
   installPlatGauge();
   installPeepGauge();
   installTempGauge();
-  // Chart types to display
-  InitChartCheckBoxes();
   // Create chart range slider
   chartRangeDiv = document.getElementById('chartRangeDiv');
   createChartRangeSlider(chartRangeDiv);

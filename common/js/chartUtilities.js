@@ -545,7 +545,7 @@ function chartInsertOnTop() {
   allCharts = document.getElementById(allChartsId);
   //console.log("chartInsertOnTop ");
   newContainer = createNewChartContainer();
-  allCharts.insertBefore(newContainer, null);
+  allCharts.insertBefore(newContainer, allCharts.firstChild);
   removeChartEditMenu();
 }
 
@@ -573,7 +573,7 @@ function chartEdit(bnode) {
   template = findChildNodeByClass(temp.content,editChartMenuClass);
   node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
-  cboxTree = new checkboxTree(cboxTreeRootId);
+  cboxTree = new CheckboxTree(cboxTreeRootId);
   box = allChartContainerInfo[containerNode.id];
   box.updateMenu(editChartMenuId);
   cboxTree.PropagateFromLeafCheckboxes();
@@ -631,7 +631,7 @@ function createNewChartContainer() {
   node = template.cloneNode(true);
   node.id = chartContainerIdPrefix + (currentChartContainerNum++) ;
   body = findChildNodeByClass(node,chartBodyClass);
-  box = new chartBox(body);
+  box = new ChartBox(body);
   storeChartContainerId(node.id,box);
   return node;
 }

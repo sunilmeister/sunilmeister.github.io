@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-class chartBox {
+class ChartBox {
   // containerBodyDiv is an HTML object
   constructor(containerBodyDiv) {
     this.containerBodyDiv = containerBodyDiv;
@@ -107,10 +107,11 @@ class chartBox {
       this.rangeX,
       false
     );
-    this.createIndividualCharts();
+    initGraphColor();
+    this.createIndividualGraphs();
   }
 
-  createIndividualCharts() {
+  createIndividualGraphs() {
     var pressureAxisNum = null;
     pressureAxisNum = this.createPeakGraph(pressureAxisNum);
     pressureAxisNum = this.createPlatGraph(pressureAxisNum);

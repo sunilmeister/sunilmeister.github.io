@@ -1,6 +1,5 @@
 function createAnalysisCharts() {
   cleanupCharts();
-  initGraphColor();
   chartsXrange = {
     doFull: true,
     initBnum:0, 
@@ -14,6 +13,7 @@ function createAnalysisCharts() {
   };
 
   for (id in allChartContainerInfo) {
+    initGraphColor();
     allChartContainerInfo[id].render();
   }
 }
