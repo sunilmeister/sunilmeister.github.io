@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
+    <link rel="stylesheet" href="css/sizes.css" />
     <link rel="stylesheet" href="../common/css/colors.css" />
     <link rel="stylesheet" href="../common/css/common.css" />
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
@@ -414,7 +415,7 @@
           <center>
             <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
             <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
-              <input id=ChartTitleId type="text" id="title" name="title" >
+              <input id=ChartTitleId class="chartEditMenuTitle" type="text" id="title" name="title" >
             </div>
           </center>
         </div>
@@ -518,10 +519,12 @@
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
   	  <form name="XunitsForm" style="padding-top:12px;">
+	    <center>
               <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
               <label for=BNUM>Breath Number</label>
               <input type="radio" id=TIME name="XAxisUnits" value="TIME">
               <label for=TIME>Breath Times</label>
+	    </center>
   	  </form>
             <br>
           </div>

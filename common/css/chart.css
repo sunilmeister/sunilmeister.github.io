@@ -10,9 +10,13 @@
 
 .chartBanner {
   background-color: var(--rsp_darkblue);
-  height:40px;
+  height:var(--chartMenuBannerHeight);
   display: flex; 
   justify-content:flex-end;
+}
+
+.chartEditMenuTitle {
+  font-size:var(--chartMenuFontSize);
 }
 
 .chartEditMenu {
@@ -23,17 +27,18 @@
   border-color:var(--rsp_blue);
   opacity:1;
   z-index: 2;
+  font-size:var(--chartMenuFontSize);
 }
 
 .chartEditMenuBanner {
   background-color: var(--rsp_darkblue);
   display: flex; 
   justify-content:flex-end;
-  height:40px;
+  height:var(--chartMenuBannerHeight);
 }
 
 .chartBody {
   background-color: var(--rsp_lightblue);
-  height: 500px;
+  height: var(--chartBodyHeight);
 }
 

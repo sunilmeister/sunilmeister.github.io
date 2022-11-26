@@ -10,7 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
 
+    <link href="css/sizes.css" rel="stylesheet" />
     <link href="../common/css/colors.css" rel="stylesheet" />
+    <link href="../common/css/common.css" rel="stylesheet" />
     <link href="../common/css/chart.css" rel="stylesheet" />
     <link href="css/sidebar.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
@@ -598,7 +600,8 @@
           <center>
             <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
             <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
-              <input id=ChartTitleId type="text" id="title" name="title" >
+              <input id=ChartTitleId class="chartEditMenuTitle" type="text" id="title" name="title" >
+	      
             </div>
           </center>
         </div>
@@ -702,10 +705,12 @@
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
   	  <form name="XunitsForm" style="padding-top:12px;">
+	    <center>
               <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
               <label for=BNUM>Breath Number</label>
               <input type="radio" id=TIME name="XAxisUnits" value="TIME">
               <label for=TIME>Breath Times</label>
+	    </center>
   	  </form>
             <br>
           </div>
