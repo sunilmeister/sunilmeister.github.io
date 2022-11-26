@@ -296,7 +296,7 @@ function processFirstRecordData() {
   delete initialJsonRecord.content["BNUM"];
   delete initialJsonRecord.content["WMSG"];
   delete initialJsonRecord.content["EMSG"];
-  prevParamCombo = createNewInstance(currParamCombo);
+  prevParamCombo = cloneObject(currParamCombo);
   prevParamCombo.start = initialJsonRecord.created;
   globalProcessJsonRecord(initialJsonRecord);
   initChartStartValues();
@@ -357,7 +357,6 @@ function statProcessJsonRecord(jsonData) {
 	  if (bnumValue==null) continue // ignore badly formed BNUM  
 	  value = Number(bnumValue);
 	  if (initSessionGather) {
-	    //console.log("Pushing");
 	    fullSessionBreathTimes.push(new Date(jsonData.created));
 	    if (startSystemBreathNum<0) startSystemBreathNum = value;
 	  }
@@ -371,10 +370,10 @@ function statProcessJsonRecord(jsonData) {
           if ((usedParamCombos.length == 0) ||
             !equalParamCombos(currParamCombo, prevParamCombo)) {
             // first breath in current combo
-            prevParamCombo = createNewInstance(currParamCombo);
+            prevParamCombo = cloneObject(currParamCombo);
             currParamCombo.start = jsonData.created;
             currParamCombo.dashboardBreathNum = 1;
-            usedParamCombos.push(createNewInstance(currParamCombo));
+            usedParamCombos.push(cloneObject(currParamCombo));
           }
           else {
             // update number of breaths for the last combo
@@ -441,9 +440,7 @@ function statProcessJsonRecord(jsonData) {
           }
         }
         else if (ckey == "TPS") {
-	  //console.log("TPS=" + value);
           if (tpsValid(value)) {
-	    //console.log("TPS Valid");
             currParamCombo.tps = value;
             if ((tpss.length == 0) || (tpss.indexOf(value) == -1)) {
               tpss.push(value);
@@ -627,7 +624,7 @@ function globalProcessAllJsonRecords(key, lastRecord) {
 }
 
 function globalLastRecord() {
-  //usedParamCombos.push(createNewInstance(prevParamCombo));
+  //usedParamCombos.push(cloneObject(prevParamCombo));
   globalDataValid = true;
   var analysisWindowExists = (typeof analysisWindowExists != undefined); 
   if (analysisWindowExists && initSessionGather) {
@@ -640,7 +637,7 @@ function gatherGlobalData() {
   sessionVersion = "UNKNOWN";
   //console.log("gatherGlobalData");
   initSessionGather = (fullSessionBreathTimes.length==0);
-  initialJsonRecord = createNewInstance(jsonRecordSchema);
+  initialJsonRecord = cloneObject(jsonRecordSchema);
   if (allDbKeys.length == 0) {
     alert("Selected Session has no data");
     return;

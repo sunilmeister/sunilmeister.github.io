@@ -58,11 +58,11 @@ function disassembleAndQueueDweet(d) {
     if (!startMillis) startMillis = Number(millis);
     if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
       // replace CLEAR_ALL with a preconstructed dweet
-      fragment = createNewInstance(clearAllDweet);
+      fragment = cloneObject(clearAllDweet);
     }
     fragment.MILLIS = Number(millis);
     fragment.created = new Date(addMsToDate(startDate, (fragment.MILLIS - startMillis)));
-    dweetQ.push(createNewInstance(fragment));
+    dweetQ.push(cloneObject(fragment));
   }
 }
 
@@ -503,9 +503,9 @@ function FetchAndExecuteFromQueue() {
       }
     }
     var dCopy; // a copy of the dweet
-    if (!recordingOff && !recordingPaused) dCopy = createNewInstance(d);
+    dCopy = cloneObject(d);
     processDashboardDweet(d);
-    if (!recordingOff && !recordingPaused) processRecordDweet(dCopy);
+    processRecordDweet(dCopy);
   }
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {

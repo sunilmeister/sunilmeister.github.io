@@ -53,11 +53,6 @@ function toggleDataSeries(e) {
   e.chart.render();
 }
 
-function cloneObject(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-
-
 // value transitions
 var breathTimes = [];
 var missingBreaths = [];

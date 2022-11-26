@@ -52,7 +52,8 @@ var recCreationTimeStamp = "";
 var db;
 var dbName;
 var recordStartDate = new Date();
-var recPrevContent = {};
+var accumulatedRecordState = {};
+var prevDweetRecorded = false;
 var recExpectErrorMsg = false;
 var recExpectWarningMsg = false;
 var recL1Valid = false;
@@ -71,6 +72,6 @@ var prevBlinkTimeInMs = (new Date()).getTime();
 const TIMEOUT_INTERVAL_IN_MS = 200;
 const BLINK_INTERVAL_IN_MS = 1000;
 const MAX_DWEET_INTERVAL_IN_MS = 30000;
-const INIT_RECORDING_INTERVAL_IN_MS = 20000;
+const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 

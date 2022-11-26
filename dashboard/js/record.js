@@ -98,12 +98,24 @@ function insertJsonData(db, jsonData) {
   }
 }
 
+function createAccumulatedDweet(d) {
+  // Note that the signalling messages have already been removed
+  // in accumulatedRecordState
+  for (const k in accumulatedRecordState) {
+    if (typeof d.content[k]=='undefined') {
+      d.content[k] = accumulatedRecordState[k];
+    }
+  }
+  return d;
+}
+
 function initRecordingPrevContent() {
-  recPrevContent = {};
+  // periodically keep clearing accumulated state if not recording
+  doRecord = (!recordingOff && !recordingPaused);
+  if (!doRecord) accumulatedRecordState = {};
 }
 
 function processRecordDweet(d) {
-  if (recordingOff || recordingPaused) return;
   // We already have the UID
   // delete d.thing;
   if (d.content['INITIAL'] == "1") initialState = true;
@@ -112,18 +124,18 @@ function processRecordDweet(d) {
   if (d.content['ERROR'] == "1") initialState = false;
   if (typeof d.content['WMSG'] != 'undefined') {
     recExpectWarningMsg = true;
-    recPrevContent['L1'] = "";
-    recPrevContent['L2'] = "";
-    recPrevContent['L3'] = "";
-    recPrevContent['L4'] = "";
+    accumulatedRecordState['L1'] = "";
+    accumulatedRecordState['L2'] = "";
+    accumulatedRecordState['L3'] = "";
+    accumulatedRecordState['L4'] = "";
     recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
   }
   if (typeof d.content['EMSG'] != 'undefined') {
     recExpectErrorMsg = true;
-    recPrevContent['L1'] = "";
-    recPrevContent['L2'] = "";
-    recPrevContent['L3'] = "";
-    recPrevContent['L4'] = "";
+    accumulatedRecordState['L1'] = "";
+    accumulatedRecordState['L2'] = "";
+    accumulatedRecordState['L3'] = "";
+    accumulatedRecordState['L4'] = "";
     recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
   }
   if (recExpectWarningMsg || recExpectErrorMsg) {
@@ -150,13 +162,13 @@ function processRecordDweet(d) {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (typeof recPrevContent[key] == 'undefined') {
-      recPrevContent[key] = value;
+    if (typeof accumulatedRecordState[key] == 'undefined') {
+      accumulatedRecordState[key] = value;
     }
     else {
-      prevValue = recPrevContent[key];
+      prevValue = accumulatedRecordState[key];
       if (prevValue != value) {
-        recPrevContent[key] = value;
+        accumulatedRecordState[key] = value;
       }
       else {
         delete d.content[key];
@@ -169,14 +181,23 @@ function processRecordDweet(d) {
     break;
   }
 
+  doRecord = (!recordingOff && !recordingPaused);
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
-    if (db && sessionVersion=='UNKNOWN') {
-      sessionVersion = SESSION_VERSION;
-      d.content.SESSION_VERSION = sessionVersion;
+    if (doRecord) {
+      if (db && sessionVersion=='UNKNOWN') {
+        sessionVersion = SESSION_VERSION;
+        d.content.SESSION_VERSION = sessionVersion;
+      }
+      if (!prevDweetRecorded) {
+	// Add on the accumulated state first
+	d = createAccumulatedDweet(d);
+	// console.log(d);
+      }
+      recordBox.innerText = JSON.stringify(d, null, ". ");
+      if (db) insertJsonData(db, d);
+      prevDweetRecorded = doRecord;
     }
-    recordBox.innerText = JSON.stringify(d, null, ". ");
-    if (db) insertJsonData(db, d);
   }
 }
 
@@ -185,7 +206,8 @@ function InitRecorder() {
   lastDweetTick = 0;
   dweetIntervalCounter = 0;
   recordStartDate = new Date();
-  recPrevContent = {};
+  // accumulatedRecordState = {}; DONT!!!
+  prevDweetRecorded = false;
   recExpectErrorMsg = false;
   recExpectWarningMsg = false;
   recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;

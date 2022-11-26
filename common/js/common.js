@@ -90,7 +90,7 @@ function validFloatNumber(num) {
   return false;
 }
 
-function createNewInstance(obj) {
+function cloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 

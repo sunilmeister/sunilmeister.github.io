@@ -4,14 +4,6 @@
 // ////////////////////////////////////////////////////
 */
 
-.indentDiv {
-  margin-left: var(--chartMenuIndent);
-}
-
-.show {
-  display:block;
-}
-
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;
