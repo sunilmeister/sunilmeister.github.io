@@ -36,7 +36,6 @@ class LineChart {
     };
     this.chart = null;
     this.needDummyY2 = true;
-    this.yFormatter = null;
 
     this.addXaxis();
   }
@@ -53,10 +52,6 @@ class LineChart {
     if (typeof paramInfo["graphType"] != 'undefined') {
       this.graphType = paramInfo.graphType;
     }
-    if (typeof paramInfo["yFormatter"] != 'undefined') {
-      this.yFormatter = paramInfo.yFormatter;
-    }
-  
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, flags);
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
@@ -64,7 +59,6 @@ class LineChart {
     var yAxis = null;
     if (!yAxisInfo.reuse) {
       yAxis = this.createYaxis(yAxisInfo.yName, paramColor, yAxisInfo.yMin, yAxisInfo.yMax);
-      //if (this.yFormatter) yAxis.labelFormatter = this.yFormatter;
       if (yAxisInfo.primary) {
         return this.addXYPointsPrimaryYNew(yAxis, paramName, paramColor,  xyPoints);
       } else {

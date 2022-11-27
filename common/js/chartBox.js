@@ -109,7 +109,6 @@ class ChartBox {
       this.rangeX,
       false
     );
-    initGraphColor();
     this.createIndividualGraphs();
   }
 
@@ -158,7 +157,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Peak Pressure (cm H20)" ,
-      color: newGraphColor(),
+      color: "red",
       transitions: peakValues
     };
   
@@ -174,7 +173,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Plateau Pressure (cm H20)" ,
-      color: newGraphColor(),
+      color: "grey",
       transitions: platValues
     };
   
@@ -190,7 +189,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Peep Pressure (cm H20)" ,
-      color: newGraphColor(),
+      color: "green",
       transitions: mpeepValues
     };
   
@@ -206,7 +205,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Tidal Volume (ml)" ,
-      color: newGraphColor(),
+      color: "purple",
       transitions: vtdelValues
     };
   
@@ -222,7 +221,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Minute Volume (litres/min)" ,
-      color: newGraphColor(),
+      color: "olive",
       transitions: mvdelValues
     };
   
@@ -238,7 +237,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "O2 Flow Rate (litres/min)" ,
-      color: newGraphColor(),
+      color: "Indigo",
       transitions: o2FlowValues
     };
   
@@ -254,7 +253,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Static BPM (bpm)" ,
-      color: newGraphColor(),
+      color: "Maroon",
       transitions: sbpmValues
     };
   
@@ -270,7 +269,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Static BPM (bpm)" ,
-      color: newGraphColor(),
+      color: "Violet",
       transitions: mbpmValues
     };
   
@@ -288,8 +287,7 @@ class ChartBox {
       name: "Breath Type(Mandatory/Spontaneous)" ,
       color: "lightgrey",
       transitions: breathTypeValues,
-      graphType: "stepArea",
-      yFormatter: "function(e){if(e.value)return 'M';else return 'S';}"  
+      graphType: "stepArea"
     };
   
     return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
@@ -304,7 +302,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Static Compliance (ml/cm H20)" ,
-      color: newGraphColor(),
+      color: "Navy",
       transitions: scompValues
     };
   
@@ -320,7 +318,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Dynamic Compliance (ml/cm H20)" ,
-      color: newGraphColor(),
+      color: "Crimson",
       transitions: dcompValues
     };
   
@@ -336,7 +334,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "System Temp (deg C)" ,
-      color: newGraphColor(),
+      color: "Fuchsia",
       transitions: tempValues
     };
   
@@ -352,7 +350,7 @@ class ChartBox {
     var flags = {warning:true, error:false}
     var paramInfo = {
       name: "Warnings" ,
-      color: newGraphColor(),
+      color: "Orange",
       transitions: warningValues
     };
   
@@ -368,7 +366,7 @@ class ChartBox {
     var flags = {warning:false, error:true}
     var paramInfo = {
       name: "Errors" ,
-      color: newGraphColor(),
+      color: "Pink",
       transitions: errorValues
     };
   
@@ -384,7 +382,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "FiO2 (%)" ,
-      color: newGraphColor(),
+      color: "Brown",
       transitions: fiO2Values
     };
   
@@ -400,7 +398,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "O2 Purity (%)" ,
-      color: newGraphColor(),
+      color: "lightGreen",
       transitions: o2PurityValues
     };
   

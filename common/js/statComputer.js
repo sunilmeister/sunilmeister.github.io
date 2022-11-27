@@ -21,13 +21,32 @@ class StatComputer {
     this.initialize();
   }
 
-  // transitions is the transition array for a param
-  compute(transitions) {
-    this.initialize();
+  filterTransitions(transitions) {
+    if (this.xRange.doFull) return transitions;
+    var arr = [];
+    var minDate = Date(breathTimes[this.xRange.minBnum]);
+    var maxDate = Date(breathTimes[this.xRange.maxBnum]);
 
+    var prevItem = null;
+    for (let i = 1; i < transitions.length; i++) {
+      tDate = Date(transitions[i].time);
+      if (tDate>maxDate) break;
+      if (tDate<minDate) {
+	prevItem = transitions[i];
+	continue;
+      } else if (tDate != minDate) {
+        if (prevItem) arr.push(cloneObject(cloneObject(prevItem)));
+      }
+      arr.push(cloneObject(transitions[i]));
+    }
+    return arr;
+  }
+
+  rangeArray(transitions) {
+    var arr = [];
     if (transitions.length == 0) {
       console.log("No transitions for statComputer");
-      return ;
+      return arr;
     }
 
     // Collect param datapoints per breath
@@ -46,9 +65,15 @@ class StatComputer {
       }
       if (this.xRange.doFull ||
 	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
-        this.computedValuesPerBreath.push(curValue);
+        arr.push({"time":new Date(breathTimes[i]), "value":curValue});
       }
     }
+    return arr;
+  }
+
+  computeMinMaxAvg(transitions) {
+    this.initialize();
+    this.trimArray(transitions);
 
     var sum = null;
     var num = 0;
@@ -87,6 +112,38 @@ class StatComputer {
 
   computedValuesPerBreath() {
     return this.computedValuesPerBreath;
+  }
+
+  //////////////////////////////////////////////////////////////////////
+  // Below are private methods
+  //////////////////////////////////////////////////////////////////////
+
+  // transitions is the transition array for a param
+  trimArray(transitions) {
+    if (transitions.length == 0) {
+      console.log("No transitions for statComputer");
+      return ;
+    }
+
+    // Collect param datapoints per breath
+    var curValue = 0;
+    var curIx = 0;
+    var curValue = transitions[0].value; // guaranteed to have at least one entry
+    for (let i = 1; i < breathTimes.length; i++) {
+      if (curIx == transitions.length - 1) {
+        curValue = transitions[curIx].value;
+      } else {
+        if (breathTimes[i].time >= transitions[curIx + 1].time) {
+          curValue = transitions[++curIx].value;
+        } else {
+          curValue = transitions[curIx].value;
+        }
+      }
+      if (this.xRange.doFull ||
+	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
+        this.computedValuesPerBreath.push(curValue);
+      }
+    }
   }
 
   initialize() {

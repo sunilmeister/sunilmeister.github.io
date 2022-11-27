@@ -13,7 +13,6 @@ function createAnalysisCharts() {
   };
 
   for (id in allChartContainerInfo) {
-    initGraphColor();
     allChartContainerInfo[id].render();
   }
 }

@@ -36,8 +36,8 @@ var pss = [];
 var tpss = [];
 var fiO2s = [];
 // Combinations of settings
-var prevParamCombo = {};
-var currParamCombo = {};
+var prevParamCombo = {time:0,value:{}};
+var currParamCombo = {time:0,value:{}};
 var usedParamCombos = [];
 // error and warning messages
 var errorNum = 0;

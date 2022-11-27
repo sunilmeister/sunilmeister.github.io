@@ -2,16 +2,18 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 function equalParamCombos(curr, prev) {
+  //console.log("curr"); console.log(curr);
+  //console.log("prev"); console.log(prev);
   if (
-    (curr.mode == prev.mode) &&
-    (curr.vt == prev.vt) &&
-    (curr.rr == prev.rr) &&
-    (curr.ie == prev.ie) &&
-    (curr.ipeep == prev.ipeep) &&
-    (curr.pmax == prev.pmax) &&
-    (curr.ps == prev.ps) &&
-    (curr.fiO2 == prev.fiO2) &&
-    (curr.tps == prev.tps)
+    (curr.value.mode == prev.value.mode) &&
+    (curr.value.vt == prev.value.vt) &&
+    (curr.value.rr == prev.value.rr) &&
+    (curr.value.ie == prev.value.ie) &&
+    (curr.value.ipeep == prev.value.ipeep) &&
+    (curr.value.pmax == prev.value.pmax) &&
+    (curr.value.ps == prev.value.ps) &&
+    (curr.value.fiO2 == prev.value.fiO2) &&
+    (curr.value.tps == prev.value.tps)
   ) {
     return true;
   }
@@ -57,7 +59,7 @@ function processFirstRecordData() {
   delete initialJsonRecord.content["WMSG"];
   delete initialJsonRecord.content["EMSG"];
   prevParamCombo = cloneObject(currParamCombo);
-  prevParamCombo.start = initialJsonRecord.created;
+  prevParamCombo.time = initialJsonRecord.created;
   globalProcessJsonRecord(initialJsonRecord);
   initTransitionStartValues();
 }
@@ -129,8 +131,8 @@ function statProcessJsonRecord(jsonData) {
             !equalParamCombos(currParamCombo, prevParamCombo)) {
             // first breath in current combo
             prevParamCombo = cloneObject(currParamCombo);
-            currParamCombo.start = jsonData.created;
-            currParamCombo.dashboardBreathNum = 1;
+            currParamCombo.time = jsonData.created;
+            currParamCombo.value.dashboardBreathNum = 1;
             usedParamCombos.push(cloneObject(currParamCombo));
           }
           else {
@@ -143,7 +145,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "MODE") {
           if (modeValid(value)) {
-            currParamCombo.mode = value;
+            currParamCombo.value.mode = value;
             if ((modes.length == 0) || (modes.indexOf(value) == -1)) {
               modes.push({"time": curTime, "value": value});
             }
@@ -151,7 +153,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "VT") {
           if (vtValid(value)) {
-            currParamCombo.vt = value;
+            currParamCombo.value.vt = value;
             if ((vts.length == 0) || (vts.indexOf(value) == -1)) {
               vts.push({"time": curTime, "value": value});
             }
@@ -159,7 +161,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "RR") {
           if (rrValid(value)) {
-            currParamCombo.rr = value;
+            currParamCombo.value.rr = value;
             if ((rrs.length == 0) || (rrs.indexOf(value) == -1)) {
               rrs.push({"time": curTime, "value": value});
             }
@@ -167,7 +169,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "EI") {
           if (ieValid(value)) {
-            currParamCombo.ie = value;
+            currParamCombo.value.ie = value;
             if ((ies.length == 0) || (ies.indexOf(value) == -1)) {
               ies.push({"time": curTime, "value": value});
             }
@@ -175,7 +177,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "IPEEP") {
           if (peepValid(value)) {
-            currParamCombo.ipeep = value;
+            currParamCombo.value.ipeep = value;
             if ((ipeeps.length == 0) || (ipeeps.indexOf(value) == -1)) {
               ipeeps.push({"time": curTime, "value": value});
             }
@@ -183,7 +185,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "PMAX") {
           if (pmaxValid(value)) {
-            currParamCombo.pmax = value;
+            currParamCombo.value.pmax = value;
             if ((pmaxs.length == 0) || (pmaxs.indexOf(value) == -1)) {
               pmaxs.push({"time": curTime, "value": value});
             }
@@ -191,7 +193,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "PS") {
           if (psValid(value)) {
-            currParamCombo.ps = value;
+            currParamCombo.value.ps = value;
             if ((pss.length == 0) || (pss.indexOf(value) == -1)) {
               pss.push({"time": curTime, "value": value});
             }
@@ -199,7 +201,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "TPS") {
           if (tpsValid(value)) {
-            currParamCombo.tps = value;
+            currParamCombo.value.tps = value;
             if ((tpss.length == 0) || (tpss.indexOf(value) == -1)) {
               tpss.push({"time": curTime, "value": value});
             }
@@ -207,7 +209,7 @@ function statProcessJsonRecord(jsonData) {
         }
         else if (ckey == "FIO2") {
           if (validDecimalInteger(value) && (value <= 100)) {
-            currParamCombo.fiO2 = value;
+            currParamCombo.value.fiO2 = value;
             if ((fiO2s.length == 0) || (fiO2s.indexOf(value) == -1)) {
               fiO2s.push({"time": curTime, "value": value});
             }

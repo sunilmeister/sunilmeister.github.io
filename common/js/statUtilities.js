@@ -10,32 +10,33 @@ function checkForUndefined(val) {
 
 function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
+  var arr = statComputer.filterTransitions(usedParamCombos);
   for (i = 0; i < usedParamCombos.length; i++) {
-    combo = usedParamCombos[i];
+    combo = arr[i];
     if (combo.dashboardBreathNum == 0) continue;
     row = table.insertRow();
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.mode);
+    cell.innerHTML = checkForUndefined(combo.value.mode);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.vt);
+    cell.innerHTML = checkForUndefined(combo.value.vt);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.rr);
+    cell.innerHTML = checkForUndefined(combo.value.rr);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.ie);
+    cell.innerHTML = checkForUndefined(combo.value.ie);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.ipeep);
+    cell.innerHTML = checkForUndefined(combo.value.ipeep);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.pmax);
+    cell.innerHTML = checkForUndefined(combo.value.pmax);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.ps);
+    cell.innerHTML = checkForUndefined(combo.value.ps);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.tps);
+    cell.innerHTML = checkForUndefined(combo.value.tps);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.fiO2);
+    cell.innerHTML = checkForUndefined(combo.value.fiO2);
     cell = row.insertCell();
-    cell.innerHTML = combo.dashboardBreathNum;
+    cell.innerHTML = combo.value.dashboardBreathNum;
     cell = row.insertCell();
-    dstr = dateToStr(combo.start);
+    dstr = dateToStr(combo.time);
     dstr = dstr.replace("]", "] ");
     cell.innerHTML = dstr;
   }
@@ -127,14 +128,16 @@ function replaceDummyValue(value) {
 }
 
 var statComputer = null;
+
 function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
-  statComputer.compute(transitions);
+  statComputer.computeMinMaxAvg(transitions);
   document.getElementById(minDivId).innerHTML = replaceDummyValue(statComputer.computedMin);
   document.getElementById(maxDivId).innerHTML = replaceDummyValue(statComputer.computedMax);
   document.getElementById(avgDivId).innerHTML = replaceDummyValue(statComputer.computedAvg);
 }
 
-function formUniqueValueString(arr) {
+function formUniqueValueString(inputarray) {
+  arr = statComputer.filterTransitions(inputarray);
   if (arr.length==0) return "----";
   var obj = {};
   for (let i=0; i<arr.length; i++) {

@@ -15,33 +15,6 @@ const CHART_XAXIS_MAX_TICK_MARKS = 25;
 const CHART_FONT_SIZE = 50;
 const CHART_INTERLACED_COLOR = 'white' ;
 const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB' ;
-const LINE_GRAPH_COLORS = [
-  "Crimson",
-  "Blue",
-  "Green",
-  "Indigo",
-  "Purple",
-  "Olive",
-  "Fuchsia",
-  "Maroon",
-  "Navy",
-  "Silver",
-  "Slategrey",
-  "Violet",
-  "SteelBlue",
-];
-
-var graphColorIndex = 0;
-
-function initGraphColor() {
-  graphColorIndex = 0;
-}
-
-function newGraphColor() {
-  var color = LINE_GRAPH_COLORS[graphColorIndex++];
-  if (graphColorIndex == LINE_GRAPH_COLORS.length) graphColorIndex = 0;
-  return color;
-}
 
 function toggleDataSeries(e) {
   if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
