@@ -497,7 +497,6 @@ function chartMenuCancel(bnode) {
 
 function chartMenuSubmit(bnode) {
   containerNode = bnode.parentNode.parentNode.parentNode;
-  console.log("chartMenuSubmit " + containerNode.id);
   box = allChartContainerInfo[containerNode.id];
   box.updateOptions(editChartMenuId);
   removeChartEditMenu();

@@ -20,6 +20,7 @@
 class LineChart {
 
   constructor(title, height, timeUnits, rangeX, dummyY2) {
+    this.graphType = "stepLine";
     this.timeUnits = timeUnits;
     this.rangeX = rangeX;
     this.chartJson = {
@@ -35,6 +36,7 @@ class LineChart {
     };
     this.chart = null;
     this.needDummyY2 = true;
+    this.yFormatter = null;
 
     this.addXaxis();
   }
@@ -43,11 +45,17 @@ class LineChart {
   // or null if no graph created
   // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, yMax:null, reuseAxisNum:2}
   // flags = {warning:true, error:false}
-  // paramInfo = {name:"", transitions:[], color:""}
+  // paramInfo = {name:"", transitions:[], color:"", graphType:"stepLine"}
   addGraph(yAxisInfo, breathTimes, flags, paramInfo) {
     var paramTransitions = paramInfo.transitions;
     var paramName = paramInfo.name;
     var paramColor = paramInfo.color;
+    if (typeof paramInfo["graphType"] != 'undefined') {
+      this.graphType = paramInfo.graphType;
+    }
+    if (typeof paramInfo["yFormatter"] != 'undefined') {
+      this.yFormatter = paramInfo.yFormatter;
+    }
   
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, flags);
     if (!xyPoints) return null;
@@ -56,6 +64,7 @@ class LineChart {
     var yAxis = null;
     if (!yAxisInfo.reuse) {
       yAxis = this.createYaxis(yAxisInfo.yName, paramColor, yAxisInfo.yMin, yAxisInfo.yMax);
+      //if (this.yFormatter) yAxis.labelFormatter = this.yFormatter;
       if (yAxisInfo.primary) {
         return this.addXYPointsPrimaryYNew(yAxis, paramName, paramColor,  xyPoints);
       } else {
@@ -275,7 +284,7 @@ class LineChart {
     if (flagError || flagWarning) noLegend = true;
   
     var chartData = {};
-    chartData.type = "stepLine";
+    chartData.type = this.graphType;
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;

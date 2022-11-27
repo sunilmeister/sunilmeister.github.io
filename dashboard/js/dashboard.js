@@ -377,7 +377,7 @@ window.onload = function() {
   InitRecorder();
   var heading = document.getElementById("SysUid");
   if (respimaticTag) {
-    document.title = respimaticTag + " (" + datasource_name + ")"
+    document.title = respimaticTag + " (DASHBOARD)"
     heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   }
   else {
