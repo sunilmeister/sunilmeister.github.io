@@ -404,7 +404,7 @@ window.onload = function() {
   blinkInterval = 0;
   initGlobalData();
   initStats();
-  initChartStartValues();
+  initTransitionStartValues();
   initErrorWarningInfo();
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');

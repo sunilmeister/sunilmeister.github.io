@@ -53,121 +53,6 @@ function toggleDataSeries(e) {
   e.chart.render();
 }
 
-// value transitions
-var breathTimes = [];
-var missingBreaths = [];
-var missingBreathWindows = [];
-var missingTimeWindows = [];
-var vtdelValues = [];
-var mvdelValues = [];
-var sbpmValues = [];
-var mbpmValues = [];
-var scompValues = [];
-var dcompValues = [];
-var peakValues = [];
-var platValues = [];
-var mpeepValues = [];
-var tempValues = [];
-var warningValues = [];
-var errorValues = [];
-var fiO2Values = [];
-var o2PurityValues = [];
-var o2FlowValues = [];
-
-function initChartData() {
-  //console.log("initChartData");
-  minChartBreathNum = 0;
-  maxChartBreathNum = 0;
-  chartRangeLimit = MAX_CHART_DATAPOINTS;
-  chartPrevSystemBreathNum = -1;
-  breathTimes = [];
-  missingBreaths = [];
-  missingBreathWindows = [];
-  missingTimeWindows = [];
-  vtdelValues = [];
-  mvdelValues = [];
-  sbpmValues = [];
-  mbpmValues = [];
-  scompValues = [];
-  dcompValues = [];
-  peakValues = [];
-  platValues = [];
-  mpeepValues = [];
-  tempValues = [];
-  warningValues = [];
-  errorValues = [];
-  fiO2Values = [];
-  o2PurityValues = [];
-  o2FlowValues = [];
-}
-
-function initChartStartValues() {
-  //console.log("initChartStartValues");
-  if (breathTimes.length == 0) breathTimes.push({
-    "time": 0,
-    "valid": false
-  });
-  if (peakValues.length == 0) peakValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (platValues.length == 0) platValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (mpeepValues.length == 0) mpeepValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (vtdelValues.length == 0) vtdelValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (mvdelValues.length == 0) mvdelValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (scompValues.length == 0) scompValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (dcompValues.length == 0) dcompValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (mbpmValues.length == 0) mbpmValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (sbpmValues.length == 0) sbpmValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (tempValues.length == 0) tempValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (warningValues.length == 0) warningValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (errorValues.length == 0) errorValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (fiO2Values.length == 0) fiO2Values.push({
-    "time": 0,
-    "value": null
-  });
-  if (o2PurityValues.length == 0) o2PurityValues.push({
-    "time": 0,
-    "value": null
-  });
-  if (o2FlowValues.length == 0) o2FlowValues.push({
-    "time": 0,
-    "value": null
-  });
-}
 var lastValidBreathTime = 0;
 var lastWarningTime = 0;
 var lastErrorTime = 0;
@@ -272,6 +157,7 @@ function chartProcessJsonRecord(jsonData) {
             "time": curTime,
             "valid": true
           });
+
           if (chartPrevSystemBreathNum == -1) { // initialize
             chartPrevSystemBreathNum = value - 1;
           }
@@ -325,6 +211,12 @@ function chartProcessJsonRecord(jsonData) {
             });
           }
           lastValidBreathTime = curTime;
+        }
+        else if (ckey == "BREATH") {
+          breathTypeValues.push({
+            "time": curTime,
+            "value": (value == "MANDATORY") ? 1 : 0
+          });
         }
         else if (ckey == "FIO2") {
           if (validDecimalInteger(value) && (value <= 100)) {
@@ -534,7 +426,6 @@ var allChartsId = "chartsDiv";
 var allChartContainerInfo = {};
 var cboxTreeRootId = "checkBoxTreeRoot";
 var cboxTree = null;
-var chartsXrange = null;
 
 function chartInsertOnTop() {
   allCharts = document.getElementById(allChartsId);

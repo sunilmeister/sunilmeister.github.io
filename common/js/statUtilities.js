@@ -3,10 +3,9 @@
 // ////////////////////////////////////////////////////
 var tablesConstructed = false;
 
-function formAvg(sum, num) {
-  if (num == 0) return "--";
-  avg = sum / num;
-  return avg.toFixed(1);
+function checkForUndefined(val) {
+  if (typeof val == 'undefined') return "?";
+  return val;
 }
 
 function displayUsedCombos() {
@@ -16,23 +15,23 @@ function displayUsedCombos() {
     if (combo.dashboardBreathNum == 0) continue;
     row = table.insertRow();
     cell = row.insertCell();
-    cell.innerHTML = combo.mode;
+    cell.innerHTML = checkForUndefined(combo.mode);
     cell = row.insertCell();
-    cell.innerHTML = combo.vt;
+    cell.innerHTML = checkForUndefined(combo.vt);
     cell = row.insertCell();
-    cell.innerHTML = combo.rr;
+    cell.innerHTML = checkForUndefined(combo.rr);
     cell = row.insertCell();
-    cell.innerHTML = combo.ie;
+    cell.innerHTML = checkForUndefined(combo.ie);
     cell = row.insertCell();
-    cell.innerHTML = combo.ipeep;
+    cell.innerHTML = checkForUndefined(combo.ipeep);
     cell = row.insertCell();
-    cell.innerHTML = combo.pmax;
+    cell.innerHTML = checkForUndefined(combo.pmax);
     cell = row.insertCell();
-    cell.innerHTML = combo.ps;
+    cell.innerHTML = checkForUndefined(combo.ps);
     cell = row.insertCell();
-    cell.innerHTML = combo.tps;
+    cell.innerHTML = checkForUndefined(combo.tps);
     cell = row.insertCell();
-    cell.innerHTML = combo.fiO2;
+    cell.innerHTML = checkForUndefined(combo.fiO2);
     cell = row.insertCell();
     cell.innerHTML = combo.dashboardBreathNum;
     cell = row.insertCell();
@@ -121,10 +120,18 @@ function constructStatMiscTable() {
 }
 
 function replaceDummyValue(value) {
-  if (value == minDummyValue) str = "--";
-  else if (value == maxDummyValue) str = "--";
+  if ((value == null) || (typeof value=='undefined'))  str = "----";
+  else if (value=='undefined') str = "----" ;
   else str = String(value);
   return str;
+}
+
+var statComputer = null;
+function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
+  statComputer.compute(transitions);
+  document.getElementById(minDivId).innerHTML = replaceDummyValue(statComputer.computedMin);
+  document.getElementById(maxDivId).innerHTML = replaceDummyValue(statComputer.computedMax);
+  document.getElementById(avgDivId).innerHTML = replaceDummyValue(statComputer.computedAvg);
 }
 
 function displayStats() {
@@ -140,87 +147,21 @@ function displayStats() {
     constructStatMiscTable();
   }
   tablesConstructed = true;
-  el = document.getElementById("peakMin");
-  el.innerHTML = replaceDummyValue(minPeak);
-  el = document.getElementById("peakMax");
-  el.innerHTML = replaceDummyValue(maxPeak);
-  el = document.getElementById("peakAvg");
-  el.innerHTML = replaceDummyValue(avgPeak);
-  el = document.getElementById("platMin");
-  if (minPeak == 0) {
-    el.innerHTML = "--";
-  }
-  else {
-    el.innerHTML = replaceDummyValue(minPlat);
-  }
-  el = document.getElementById("platMax");
-  if (minPeak == 0) {
-    el.innerHTML = "--";
-  }
-  else {
-    el.innerHTML = replaceDummyValue(maxPlat);
-  }
-  el = document.getElementById("platAvg");
-  if (minPeak == 0) {
-    el.innerHTML = "--";
-  }
-  else {
-    el.innerHTML = replaceDummyValue(avgPlat);
-  }
-  el = document.getElementById("mpeepMin");
-  el.innerHTML = replaceDummyValue(minPeep);
-  el = document.getElementById("mpeepMax");
-  el.innerHTML = replaceDummyValue(maxPeep);
-  el = document.getElementById("mpeepAvg");
-  el.innerHTML = replaceDummyValue(avgPeep);
-  el = document.getElementById("vtMin");
-  el.innerHTML = replaceDummyValue(minVtdel);
-  el = document.getElementById("vtMax");
-  el.innerHTML = replaceDummyValue(maxVtdel);
-  el = document.getElementById("vtAvg");
-  el.innerHTML = replaceDummyValue(avgVtdel);
-  el = document.getElementById("mvMin");
-  el.innerHTML = replaceDummyValue(minMvdel);
-  el = document.getElementById("mvMax");
-  el.innerHTML = replaceDummyValue(maxMvdel);
-  el = document.getElementById("mvAvg");
-  el.innerHTML = replaceDummyValue(avgMvdel);
-  el = document.getElementById("mbpmMin");
-  el.innerHTML = replaceDummyValue(minMbpm);
-  el = document.getElementById("mbpmMax");
-  el.innerHTML = replaceDummyValue(maxMbpm);
-  el = document.getElementById("mbpmAvg");
-  el.innerHTML = replaceDummyValue(avgMbpm);
-  el = document.getElementById("sbpmMin");
-  el.innerHTML = replaceDummyValue(minSbpm);
-  el = document.getElementById("sbpmMax");
-  el.innerHTML = replaceDummyValue(maxSbpm);
-  el = document.getElementById("sbpmAvg");
-  el.innerHTML = replaceDummyValue(avgSbpm);
-  el = document.getElementById("fiO2Min");
-  el.innerHTML = replaceDummyValue(minFiO2);
-  el = document.getElementById("fiO2Max");
-  el.innerHTML = replaceDummyValue(maxFiO2);
-  el = document.getElementById("fiO2Avg");
-  el.innerHTML = replaceDummyValue(avgFiO2);
-  el = document.getElementById("scMin");
-  el.innerHTML = replaceDummyValue(minScomp);
-  el = document.getElementById("scMax");
-  el.innerHTML = replaceDummyValue(maxScomp);
-  el = document.getElementById("scAvg");
-  el.innerHTML = replaceDummyValue(avgScomp);
-  el = document.getElementById("dcMin");
-  el.innerHTML = replaceDummyValue(minDcomp);
-  el = document.getElementById("dcMax");
-  el.innerHTML = replaceDummyValue(maxDcomp);
-  el = document.getElementById("dcAvg");
-  el.innerHTML = replaceDummyValue(avgDcomp);
-  el = document.getElementById("tempMin");
-  el.innerHTML = replaceDummyValue(minTemp);
-  el = document.getElementById("tempMax");
-  el.innerHTML = replaceDummyValue(maxTemp);
-  el = document.getElementById("tempAvg");
-  el.innerHTML = replaceDummyValue(avgTemp);
+  reportsXrange.doFull = true;
+  statComputer = new StatComputer(breathTimes,reportsXrange);
+
+  fillMinMaxAvgRow("peakMin","peakMax","peakAvg",peakValues);
+  fillMinMaxAvgRow("platMin","platMax","platAvg",platValues);
+  fillMinMaxAvgRow("mpeepMin","mpeepMax","mpeepAvg",mpeepValues);
+  fillMinMaxAvgRow("vtMin","vtMax","vtAvg",vtdelValues);
+  fillMinMaxAvgRow("mvMin","mvMax","mvAvg",mvdelValues);
+  fillMinMaxAvgRow("mbpmMin","mbpmMax","mbpmAvg",mbpmValues);
+  fillMinMaxAvgRow("sbpmMin","sbpmMax","sbpmAvg",sbpmValues);
+  fillMinMaxAvgRow("fiO2Min","fiO2Max","fiO2Avg",fiO2Values);
+  fillMinMaxAvgRow("scMin","scMax","scAvg",scompValues);
+  fillMinMaxAvgRow("dcMin","dcMax","dcAvg",dcompValues);
+  fillMinMaxAvgRow("tempMin","tempMax","tempAvg",tempValues);
+
   el = document.getElementById("mode");
   el.innerHTML = replaceDummyValue(modes);
   el = document.getElementById("vt");
