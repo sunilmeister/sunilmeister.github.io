@@ -2,6 +2,12 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+// Special function for Y-axis of Breath Types
+function breathTypeFormatter(e) {
+  if (e.value) return 'M';
+  else return 'S';
+}
+
 class ChartBox {
   // containerBodyDiv is an HTML object
   constructor(containerBodyDiv) {
@@ -173,7 +179,7 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Plateau Pressure (cm H20)" ,
-      color: "grey",
+      color: "silver",
       transitions: platValues
     };
   
@@ -285,9 +291,11 @@ class ChartBox {
     var flags = {warning:false, error:false}
     var paramInfo = {
       name: "Breath Type(Mandatory/Spontaneous)" ,
-      color: "lightgrey",
+      color: "#E78A61",
       transitions: breathTypeValues,
-      graphType: "stepArea"
+      yFormat: breathTypeFormatter,
+      yInterval: 1,
+      //graphType: "stepArea"
     };
   
     return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);

@@ -36,6 +36,8 @@ class LineChart {
     };
     this.chart = null;
     this.needDummyY2 = true;
+    this.yFormat = null;
+    this.yInterval = null;
 
     this.addXaxis();
   }
@@ -52,6 +54,13 @@ class LineChart {
     if (typeof paramInfo["graphType"] != 'undefined') {
       this.graphType = paramInfo.graphType;
     }
+    if (typeof paramInfo["yFormat"] != 'undefined') {
+      this.yFormat = paramInfo.yFormat;
+    }
+    if (typeof paramInfo["yInterval"] != 'undefined') {
+      this.yInterval = paramInfo.yInterval;
+    }
+
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, flags);
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
@@ -113,14 +122,6 @@ class LineChart {
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
-      /*
-      if (this.timeUnits) {
-        for (i=0; i<missingWindows.length; i++) {
-	  var m = missingWindows[i];
-	  console.log("s=" + m.startValue + " e=" + m.endValue );
-        }
-      }
-      */
       Xaxis.scaleBreaks = {};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
@@ -289,7 +290,13 @@ class LineChart {
     var axisNum = this.chartJson.axisY.length;
     xyPoints.name = name;
     xyPoints.color = color;
+    if (this.yInterval) {
+      Yaxis.interval = this.yInterval;
+    }
     this.chartJson.axisY.push(cloneObject(Yaxis));
+    if (this.yFormat) {
+      this.chartJson.axisY[axisNum].labelFormatter = this.yFormat;
+    }
     if (this.needDummyY2) {
       this.needDummyY2 = false;
       this.addDummyY2axis();
