@@ -37,6 +37,8 @@ class ChartBox {
     document.getElementById("Minute").checked = this.options["Minute"];
     document.getElementById("Mandatory").checked = this.options["Mandatory"];
     document.getElementById("Spontaneous").checked = this.options["Spontaneous"];
+    document.getElementById("TypeMandatory").checked = this.options["TypeMandatory"];
+    document.getElementById("TypeSpontaneous").checked = this.options["TypeSpontaneous"];
     document.getElementById("Dynamic").checked = this.options["Dynamic"];
     document.getElementById("FiO2").checked = this.options["FiO2"];
     document.getElementById("O2Flow").checked = this.options["O2Flow"];
@@ -60,6 +62,8 @@ class ChartBox {
     this.options["Minute"] = document.getElementById("Minute").checked;
     this.options["Mandatory"] = document.getElementById("Mandatory").checked;
     this.options["Spontaneous"] = document.getElementById("Spontaneous").checked;
+    this.options["TypeMandatory"] = document.getElementById("TypeMandatory").checked;
+    this.options["TypeSpontaneous"] = document.getElementById("TypeSpontaneous").checked;
     this.options["Dynamic"] = document.getElementById("Dynamic").checked;
     this.options["FiO2"] = document.getElementById("FiO2").checked;
     this.options["O2Flow"] = document.getElementById("O2Flow").checked;
@@ -127,6 +131,10 @@ class ChartBox {
     var bpmAxisNum = null;
     bpmAxisNum = this.createSbpmGraph(bpmAxisNum);
     bpmAxisNum = this.createMbpmGraph(bpmAxisNum);
+  
+    var btypeAxisNum = null;
+    btypeAxisNum = this.createSpontaneousBreathGraph(btypeAxisNum);
+    btypeAxisNum = this.createMandatoryBreathGraph(btypeAxisNum);
   
     var compAxisNum = null;
     compAxisNum = this.createScompGraph(compAxisNum);
@@ -267,6 +275,45 @@ class ChartBox {
       name: "Static BPM (bpm)" ,
       color: newGraphColor(),
       transitions: mbpmValues
+    };
+  
+    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  }
+  
+  createMandatoryBreathGraph(reuseAxisNum) {
+    if (!this.options.TypeMandatory) return reuseAxisNum;
+
+    var reuse = (reuseAxisNum != null);
+    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:2, 
+      reuseAxisNum:reuseAxisNum, yName:"Breath Type"};
+    var flags = {warning:false, error:false}
+    var paramInfo = {
+      name: "Mandatory Breaths" ,
+      color: newGraphColor(),
+      transitions: breathTypeValues
+    };
+  
+    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  }
+  
+  createSpontaneousBreathGraph(reuseAxisNum) {
+    if (!this.options.TypeSpontaneous) return reuseAxisNum;
+  
+    // form inverse of mandatory for spontaneous
+    var sValues = [];
+    for (let i=0; i<breathTypeValues.length; i++) {
+      var obj = breathTypeValues[i];
+      sValues.push({"time":obj.time,"value":(obj.value==1)?0:1});
+    }
+
+    var reuse = (reuseAxisNum != null);
+    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:2, 
+      reuseAxisNum:reuseAxisNum, yName:"Breath Type"};
+    var flags = {warning:false, error:false}
+    var paramInfo = {
+      name: "Spontaneous Breaths" ,
+      color: newGraphColor(),
+      transitions: sValues
     };
   
     return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);

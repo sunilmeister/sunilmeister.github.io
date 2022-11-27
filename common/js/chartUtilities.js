@@ -56,6 +56,7 @@ function toggleDataSeries(e) {
 var lastValidBreathTime = 0;
 var lastWarningTime = 0;
 var lastErrorTime = 0;
+var prevBreathRecorded = 0;
 
 function chartProcessJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
@@ -157,6 +158,13 @@ function chartProcessJsonRecord(jsonData) {
             "time": curTime,
             "valid": true
           });
+	  if (prevBreathRecorded != prevBreathMandatory) {
+            breathTypeValues.push({
+              "time": curTime,
+              "value": prevBreathMandatory?1:0
+            });
+	    prevBreathRecorded = prevBreathMandatory;
+	  }
 
           if (chartPrevSystemBreathNum == -1) { // initialize
             chartPrevSystemBreathNum = value - 1;
@@ -213,10 +221,7 @@ function chartProcessJsonRecord(jsonData) {
           lastValidBreathTime = curTime;
         }
         else if (ckey == "BREATH") {
-          breathTypeValues.push({
-            "time": curTime,
-            "value": (value == "MANDATORY") ? 1 : 0
-          });
+	  prevBreathMandatory = (value=="MANDATORY");
         }
         else if (ckey == "FIO2") {
           if (validDecimalInteger(value) && (value <= 100)) {
