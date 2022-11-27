@@ -134,6 +134,26 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
   document.getElementById(avgDivId).innerHTML = replaceDummyValue(statComputer.computedAvg);
 }
 
+function formUniqueValueString(arr) {
+  if (arr.length==0) return "----";
+  var obj = {};
+  for (let i=0; i<arr.length; i++) {
+    obj[arr[i].value] = 1;
+  }
+
+  str = "";
+  first = true;
+  for (k in obj) {
+    if (first) {
+      str += String(k);
+      first = false;
+    } else {
+      str += "," + String(k);
+    }
+  }
+  return str;
+}
+
 function displayStats() {
   //console.log("displayStats");
   if (!globalDataValid) {
@@ -163,23 +183,24 @@ function displayStats() {
   fillMinMaxAvgRow("tempMin","tempMax","tempAvg",tempValues);
 
   el = document.getElementById("mode");
-  el.innerHTML = replaceDummyValue(modes);
+  el.innerHTML = formUniqueValueString(modes);
   el = document.getElementById("vt");
-  el.innerHTML = replaceDummyValue(vts);
+  el.innerHTML = formUniqueValueString(vts);
   el = document.getElementById("rr");
-  el.innerHTML = replaceDummyValue(rrs);
+  el.innerHTML = formUniqueValueString(rrs);
   el = document.getElementById("ie");
-  el.innerHTML = replaceDummyValue(ies);
+  el.innerHTML = formUniqueValueString(ies);
   el = document.getElementById("ipeeps");
-  el.innerHTML = replaceDummyValue(ipeeps);
+  el.innerHTML = formUniqueValueString(ipeeps);
   el = document.getElementById("pmax");
-  el.innerHTML = replaceDummyValue(pmaxs);
+  el.innerHTML = formUniqueValueString(pmaxs);
   el = document.getElementById("ps");
-  el.innerHTML = replaceDummyValue(pss);
+  el.innerHTML = formUniqueValueString(pss);
   el = document.getElementById("tps");
-  el.innerHTML = replaceDummyValue(tpss);
+  el.innerHTML = formUniqueValueString(tpss);
   el = document.getElementById("fiO2");
-  el.innerHTML = replaceDummyValue(fiO2s);
+  el.innerHTML = formUniqueValueString(fiO2s);
+
   el = document.getElementById("pName");
   if (patientName) {
     el.innerHTML = "Patient Name: " + replaceDummyValue(patientName);

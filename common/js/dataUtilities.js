@@ -145,7 +145,7 @@ function statProcessJsonRecord(jsonData) {
           if (modeValid(value)) {
             currParamCombo.mode = value;
             if ((modes.length == 0) || (modes.indexOf(value) == -1)) {
-              modes.push(value);
+              modes.push({"time": curTime, "value": value});
             }
           }
         }
@@ -153,7 +153,7 @@ function statProcessJsonRecord(jsonData) {
           if (vtValid(value)) {
             currParamCombo.vt = value;
             if ((vts.length == 0) || (vts.indexOf(value) == -1)) {
-              vts.push(value);
+              vts.push({"time": curTime, "value": value});
             }
           }
         }
@@ -161,7 +161,7 @@ function statProcessJsonRecord(jsonData) {
           if (rrValid(value)) {
             currParamCombo.rr = value;
             if ((rrs.length == 0) || (rrs.indexOf(value) == -1)) {
-              rrs.push(value);
+              rrs.push({"time": curTime, "value": value});
             }
           }
         }
@@ -169,7 +169,7 @@ function statProcessJsonRecord(jsonData) {
           if (ieValid(value)) {
             currParamCombo.ie = value;
             if ((ies.length == 0) || (ies.indexOf(value) == -1)) {
-              ies.push(value);
+              ies.push({"time": curTime, "value": value});
             }
           }
         }
@@ -177,7 +177,7 @@ function statProcessJsonRecord(jsonData) {
           if (peepValid(value)) {
             currParamCombo.ipeep = value;
             if ((ipeeps.length == 0) || (ipeeps.indexOf(value) == -1)) {
-              ipeeps.push(value);
+              ipeeps.push({"time": curTime, "value": value});
             }
           }
         }
@@ -185,7 +185,7 @@ function statProcessJsonRecord(jsonData) {
           if (pmaxValid(value)) {
             currParamCombo.pmax = value;
             if ((pmaxs.length == 0) || (pmaxs.indexOf(value) == -1)) {
-              pmaxs.push(value);
+              pmaxs.push({"time": curTime, "value": value});
             }
           }
         }
@@ -193,7 +193,7 @@ function statProcessJsonRecord(jsonData) {
           if (psValid(value)) {
             currParamCombo.ps = value;
             if ((pss.length == 0) || (pss.indexOf(value) == -1)) {
-              pss.push(value);
+              pss.push({"time": curTime, "value": value});
             }
           }
         }
@@ -201,7 +201,7 @@ function statProcessJsonRecord(jsonData) {
           if (tpsValid(value)) {
             currParamCombo.tps = value;
             if ((tpss.length == 0) || (tpss.indexOf(value) == -1)) {
-              tpss.push(value);
+              tpss.push({"time": curTime, "value": value});
             }
           }
         }
@@ -209,7 +209,7 @@ function statProcessJsonRecord(jsonData) {
           if (validDecimalInteger(value) && (value <= 100)) {
             currParamCombo.fiO2 = value;
             if ((fiO2s.length == 0) || (fiO2s.indexOf(value) == -1)) {
-              fiO2s.push(value);
+              fiO2s.push({"time": curTime, "value": value});
             }
           }
         }
