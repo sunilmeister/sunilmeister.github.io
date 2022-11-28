@@ -28,7 +28,6 @@ function createDashboardCharts() {
     allChartContainerInfo[id].render();
   }
 
-
   prevMinBreathNum = chartsXrange.minBnum;
   prevMaxBreathNum = chartsXrange.maxBnum;
   chartCreationInProgress = false;
@@ -100,6 +99,7 @@ function setChartTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   setStatTimeInterval();
   setAlertTimeInterval();
+  createDashboardCharts();
 }
 
 function cancelChartTimeInterval(btn) {
@@ -150,4 +150,5 @@ function resetChartTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   resetStatTimeInterval();
   resetAlertTimeInterval();
+  createDashboardCharts();
 }

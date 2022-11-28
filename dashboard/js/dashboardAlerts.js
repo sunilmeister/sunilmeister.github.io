@@ -28,6 +28,7 @@ function setAlertTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   setStatTimeInterval();
   setChartTimeInterval();
+  createDashboardAlerts();
 }
 
 function cancelAlertTimeInterval(btn) {
@@ -64,6 +65,7 @@ function resetAlertTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   resetStatTimeInterval();
   resetChartTimeInterval();
+  createDashboardAlerts();
 }
 
 function alertRangeSliderCallback() {
@@ -92,5 +94,4 @@ function updateAlertRangeOnNewBreath(num) {
     stopSliderCallback = false;
   }
 }
-
 

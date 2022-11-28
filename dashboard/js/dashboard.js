@@ -465,6 +465,18 @@ window.onbeforeunload = function(e) {
   }
 }
 
+function overSliderButton(btn) {
+  btn.style.backgroundColor = "white";
+  btn.style.borderColor = "white";
+}
+
+function outSliderButton(btn) {
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_lightblue');
+  btn.style.backgroundColor = bgd;
+  btn.style.borderColor = bgd;
+}
+
 function setBackGroundBreathWindowButton(id, bgd) {
   el = document.getElementById(id);
   el.style.backgroundColor = bgd;

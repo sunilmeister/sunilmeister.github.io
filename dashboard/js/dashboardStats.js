@@ -28,6 +28,7 @@ function setStatTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   setChartTimeInterval();
   setAlertTimeInterval();
+  createDashboardStats();
 }
 
 function cancelStatTimeInterval(btn) {
@@ -66,6 +67,7 @@ function resetStatTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   resetChartTimeInterval();
   resetAlertTimeInterval();
+  createDashboardStats();
 }
 
 function statRangeSliderCallback() {
