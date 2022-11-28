@@ -102,7 +102,7 @@ var chartsXrange = {
 
 var reportsXrange = {
     doFull: true,
-    minBnum:null, 
+    minBnum:1, 
     maxBnum:null,
     missingBnum:[]
 };
@@ -158,7 +158,7 @@ function initGlobalData() {
 
   reportsXrange = {
     doFull: true,
-    minbnum:null , 
+    minbnum:1 , 
     maxbnum:null ,
     missingbnum:[]
   };

@@ -89,6 +89,8 @@ function updateChartRangeOnNewBreath(num) {
   }
   //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
   chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+
+  chartRangeSlider.setRange([1, chartRangeLimit]);
 }
 
 function setChartTimeInterval(btn) {

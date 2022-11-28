@@ -161,7 +161,7 @@ function chartProcessJsonRecord(jsonData) {
             });
 	  }
 
-	  updateChartRangeOnNewBreath(systemBreathNum - chartPrevSystemBreathNum);
+	  updateRangeOnNewBreath(systemBreathNum - chartPrevSystemBreathNum);
           chartPrevSystemBreathNum = value;
           if (breathsMissing) {
             console.log("Breaths Missing =" + breathsMissing);

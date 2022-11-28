@@ -13,7 +13,7 @@ function displayUsedCombos() {
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
   
   var arr = statComputer.filterValues(usedParamCombos);
-  for (i = 0; i < usedParamCombos.length; i++) {
+  for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     if (combo.value.numBreaths == 0) continue;
     var row = table.insertRow();

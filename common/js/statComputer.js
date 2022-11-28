@@ -29,13 +29,13 @@ class StatComputer {
 
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
-      tDate = Date(transitions[i].time);
+      var tDate = Date(transitions[i].time);
       if (tDate>maxDate) break;
       if (tDate<minDate) {
 	prevItem = transitions[i];
 	continue;
       } else if (tDate != minDate) {
-        //if (prevItem) arr.push(cloneObject(cloneObject(prevItem)));
+        if (prevItem) arr.push(cloneObject(cloneObject(prevItem)));
       }
       arr.push(cloneObject(transitions[i]));
     }

@@ -63,6 +63,11 @@ var recL4Valid = false;
 var recorderBackground = "MEDIUMBLUE";
 var recordingOff = true;
 var recordingPaused = false;
+// sliders
+var sliderCommitPending = false;
+var chartRangeSlider = null;
+var stattRangeSlider = null;
+var alertRangeSlider = null;
 // check for continuing dweets
 var dweetQ = null;
 var wifiDropped = false;

@@ -285,6 +285,17 @@ function changeToRecordView() {
   records.style.display = "block";
 }
 
+function updateRangeOnNewBreath(num) {
+  if (reportsXrange.doFull) {
+    reportsXrange.minBnum=1;
+    reportsXrange.maxBnum=dashboardBreathNum;
+  }
+
+  updateChartRangeOnNewBreath(num);
+  updateStatRangeOnNewBreath(num);
+  updateAlertRangeOnNewBreath(num);
+}
+
 function togglePause() {
   elm = document.getElementById("btnPause");
   slider = document.getElementById("chartSlider");
@@ -454,6 +465,38 @@ window.onbeforeunload = function(e) {
   }
 }
 
+function setBackGroundBreathWindowButton(id, bgd) {
+  el = document.getElementById(id);
+  el.style.backgroundColor = bgd;
+}
+
+function colorBreathWindowButtons(bgd) {
+  setBackGroundBreathWindowButton('btnChartSetInterval',bgd);
+  setBackGroundBreathWindowButton('btnChartCancelInterval',bgd);
+  setBackGroundBreathWindowButton('btnChartResetInterval',bgd);
+
+  setBackGroundBreathWindowButton('btnStatSetInterval',bgd);
+  setBackGroundBreathWindowButton('btnStatCancelInterval',bgd);
+  setBackGroundBreathWindowButton('btnStatResetInterval',bgd);
+
+  setBackGroundBreathWindowButton('btnAlertSetInterval',bgd);
+  setBackGroundBreathWindowButton('btnAlertCancelInterval',bgd);
+  setBackGroundBreathWindowButton('btnAlertResetInterval',bgd);
+}
+
+breathWindowButtonsFlashed = false;
+function flashBreathWindowButtons() {
+  breathWindowButtonsFlashed = true;
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_orange');
+  colorBreathWindowButtons(bgd);
+}
+
+function unflashBreathWindowButtons() {
+  breathWindowButtonsFlashed = false;
+  bgd = 'white'
+  colorBreathWindowButtons(bgd);
+}
 
 function HandlePeriodicTasks() {
   if (!finishedLoading) return;
@@ -465,6 +508,10 @@ function HandlePeriodicTasks() {
     blinkPauseButton();
     blinkRecordButton();
     blinkFlowRate();
+    if (sliderCommitPending) {
+      if (breathWindowButtonsFlashed) unflashBreathWindowButtons();
+      else flashBreathWindowButtons();
+    }
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   if (awaitingFirstDweet) {

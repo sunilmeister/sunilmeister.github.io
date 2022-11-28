@@ -323,6 +323,7 @@ function updateSelectedDuration() {
 }
 
 function setTimeInterval() {
+  if (!sliderCommitPending) return;
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
   values = analysisRangeSlider.getSlider();
@@ -338,6 +339,7 @@ function setTimeInterval() {
 }
 
 function cancelTimeInterval() {
+  if (!sliderCommitPending) return;
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
   analysisRangeSlider.setSlider([analysisStartBreath, analysisEndBreath]);
@@ -345,7 +347,7 @@ function cancelTimeInterval() {
 }
 
 function resetTimeInterval() {
-  cancelTimeInterval();
+  if (!sliderCommitPending) return;
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
   analysisStartBreath = 1;
@@ -448,7 +450,7 @@ function showAnalysisRangeSlider() {
 }
 
 var cumulativeChartBreaths = 0;
-function updateChartRangeOnNewBreath(num) {
+function updateRangeOnNewBreath(num) {
   minChartBreathNum = 1;
   maxChartBreathNum += num;
 }
