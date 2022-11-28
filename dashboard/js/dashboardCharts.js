@@ -51,7 +51,6 @@ function createChartRangeSlider(div) {
 
 function chartRangeSliderCallback() {
   if (stopSliderCallback) return;
-  console.log("chartRangeSliderCallback");
   flashBreathWindowButtons();
   sliderCommitPending = true;
   values = chartRangeSlider.getSlider();
@@ -72,14 +71,12 @@ function updateChartRangeOnNewBreath(num) {
   // if range is not "full"
   if (!reportsXrange.doFull || sliderCommitPending) return;
 
-  //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
-
   maxChartBreathNum = dashboardBreathNum;
   minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
   if (minChartBreathNum <= 0) {
     minChartBreathNum = 1;
   }
-  //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
+
   stopSliderCallback = true;
   chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
   stopSliderCallback = false;

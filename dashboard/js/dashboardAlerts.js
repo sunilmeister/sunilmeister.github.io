@@ -68,7 +68,6 @@ function resetAlertTimeInterval(btn) {
 
 function alertRangeSliderCallback() {
   if (stopSliderCallback) return;
-  console.log("alertRangeSliderCallback");
   flashBreathWindowButtons();
   sliderCommitPending = true;
   values = statRangeSlider.getSlider();

@@ -6,31 +6,25 @@
 
 .iconButton {
   background-color: var(--rsp_lightblue);
-  border: white;
   color: var(--rsp_darkblue);
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   opacity: 0.7;
-  font-size: 16px;
-  margin: 5px;
+  font-size: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  opacity:1; 
 }
 
-.iconButton:hover:not([disabled]) {
-  opacity: 1;
+.iconButton:hover{
+  background-color: white; !important
+  opacity:1; 
 }
 
-.iconButton:active:not([disabled]) {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
+.iconButton:active{
+  background-color: var(--rsp_lightblue);
+  box-shadow: 0 6px white;
   transform: translateY(6px);
-}
-
-.iconButton:disabled,
-.iconButton[disabled]{
-  background-color: white;
-  color: lightgrey;
-  cursor: not-allowed;
-  pointer-events: all !important;
 }
 

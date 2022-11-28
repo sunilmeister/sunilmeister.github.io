@@ -70,7 +70,6 @@ function resetStatTimeInterval(btn) {
 
 function statRangeSliderCallback() {
   if (stopSliderCallback) return;
-  console.log("statRangeSliderCallback");
   flashBreathWindowButtons();
   sliderCommitPending = true;
   values = statRangeSlider.getSlider();
