@@ -91,3 +91,11 @@ function updateChartRangeOnNewBreath(num) {
   chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
 }
 
+function setChartTimeInterval(btn) {
+}
+
+function cancelChartTimeInterval(btn) {
+}
+
+function resetChartTimeInterval(btn) {
+}

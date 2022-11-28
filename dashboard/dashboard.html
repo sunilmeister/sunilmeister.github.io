@@ -44,6 +44,8 @@
     <script src="js/record.js"></script>
     <script src="js/update.js"></script>
     <script src="js/dashboardCharts.js"></script>
+    <script src="js/dashboardStats.js"></script>
+    <script src="js/dashboardAlerts.js"></script>
     <script src="js/dashboard.js"></script>
   </head>
 
@@ -162,6 +164,23 @@
             <h2 style="color:var(--rsp_darkblue); font-size:3em; font-family:verdana;">
             Session Alerts</h2>
 
+          <div id=alertSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
+	    <br>
+            <div id="alertRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+            </div>
+            <div>
+  	    <center>
+  	      <p style="color: white; font-size:2.5rem; font-family:verdana;">Set Breath Range Window for Display
+  
+  	      <button id="btnSetInterval" onClick="setAlertTimeInterval(this)"><img  src="../common/img/check.png" width=50px height=50px></button>
+  	      <button id="btnCancelInterval" onClick="cancelAlertTimeInterval(this)"><img  src="../common/img/close.png" width=50px height=50px></button>
+  	      <button id="btnResetInterval" onClick="resetAlertTimeInterval(this)"><img  src="../common/img/reset.png" width=50px height=50px></button>
+              </center>
+            </div>
+  
+            <br>
+          </div>
+
             <div class="row">
               <div id="errorColDiv" class="column" style="border-radius:1.5rem; font-size: 1.5rem; width:60rem;">
                 <center>
@@ -202,8 +221,25 @@
             <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">
             Session Statistics</h2>
           </center>
-          <div class="row">
 
+          <div id=statSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
+	    <br>
+            <div id="statRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+            </div>
+            <div>
+  	    <center>
+  	      <p style="color: white; font-size:2.5rem; font-family:verdana;">Set Breath Range Window for Display
+  
+  	      <button id="btnSetInterval" onClick="setStatTimeInterval(this)"><img  src="../common/img/check.png" width=50px height=50px></button>
+  	      <button id="btnCancelInterval" onClick="cancelStatTimeInterval(this)"><img  src="../common/img/close.png" width=50px height=50px></button>
+  	      <button id="btnResetInterval" onClick="resetStatTimeInterval(this)"><img  src="../common/img/reset.png" width=50px height=50px></button>
+              </center>
+            </div>
+  
+            <br>
+          </div>
+
+          <div class="row">
             <div id="measured-pane" class="column" style="font-size:2rem;">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2.5rem; font-family:verdana;">
@@ -307,18 +343,26 @@
         </div>
 
         <div id="chart-pane" style="display:none">
-
-          <div id=chartSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana; display:none;">
-            <center>
-	      <p style="color: white; font-size:2rem; font-family:verdana; padding-top:1rem;">Select Chart Window to display</p>
-            </center>
-            <div id="chartRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
-            </div>
-            <br>
-          </div>
 	  <center>
           <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">Session Charts</h2>
   	  </center>
+
+          <div id=chartSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
+	    <br>
+            <div id="chartRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+            </div>
+            <div>
+  	    <center>
+  	      <p style="color: white; font-size:2.5rem; font-family:verdana;">Set Breath Range Window for Display
+  
+  	      <button id="btnSetInterval" onClick="setChartTimeInterval(this)"><img  src="../common/img/check.png" width=50px height=50px></button>
+  	      <button id="btnCancelInterval" onClick="cancelChartTimeInterval(this)"><img  src="../common/img/close.png" width=50px height=50px></button>
+  	      <button id="btnResetInterval" onClick="resetChartTimeInterval(this)"><img  src="../common/img/reset.png" width=50px height=50px></button>
+              </center>
+            </div>
+  
+            <br>
+          </div>
           <div id="chartsDiv" style="margin-bottom:20px;">
             <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
 	  </div>

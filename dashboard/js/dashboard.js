@@ -300,7 +300,6 @@ function togglePause() {
   else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
-    slider.style.display = "block" ;
     breathPausedAt = dashboardBreathNum;
     pd = document.getElementById("pausedOrDuring");
     pd.innerHTML = "&nbspPaused At";
@@ -431,6 +430,13 @@ window.onload = function() {
   // Create chart range slider
   chartRangeDiv = document.getElementById('chartRangeDiv');
   createChartRangeSlider(chartRangeDiv);
+  // Create stat range slider
+  statRangeDiv = document.getElementById('statRangeDiv');
+  createStatRangeSlider(statRangeDiv);
+  // Create alert range slider
+  alertRangeDiv = document.getElementById('alertRangeDiv');
+  createAlertRangeSlider(alertRangeDiv);
+
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();
