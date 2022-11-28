@@ -12,7 +12,7 @@ function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
   
-  var arr = statComputer.filterValues(usedParamCombos);
+  var arr = statComputer.filterTransitions(usedParamCombos);
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     if (combo.value.numBreaths == 0) continue;
@@ -135,7 +135,7 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
 }
 
 function formUniqueValueString(inputarray) {
-  arr = statComputer.filterValues(inputarray);
+  arr = statComputer.filterTransitions(inputarray);
   if (arr.length==0) return "----";
   var obj = {};
   for (let i=0; i<arr.length; i++) {

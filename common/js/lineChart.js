@@ -45,7 +45,7 @@ class LineChart {
   // returns the Y-axis number for possible reuse
   // or null if no graph created
   // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, yMax:null, reuseAxisNum:2}
-  // flags = {warning:true, error:false}
+  // flags = {warning:true, error:false, notification:false}
   // paramInfo = {name:"", transitions:[], color:"", graphType:"stepLine"}
   addGraph(yAxisInfo, breathTimes, flags, paramInfo) {
     var paramTransitions = paramInfo.transitions;
@@ -183,6 +183,7 @@ class LineChart {
     var maxTime = this.rangeX.maxTime;
     var flagWarning = flags.warning;
     var flagError = flags.error;
+    var flagNotif = flags.notification;
 
     if (transitions.length == 0) {
       console.log("No transitions for createXYPoints");
@@ -240,7 +241,7 @@ class LineChart {
           xval = i+minBnum-1;
         }
       }
-      if (!flagError && !flagWarning) {
+      if (!flagError && !flagWarning && !flagNotif) {
         if (!ignoreDatapoint) {
           xyPoints.push({
             "x": xval,
@@ -257,7 +258,11 @@ class LineChart {
               label = "W";
               marker = "triangle";
               color = "orange";
-            }
+            } else if (flagNotif) {
+              label = "N";
+              marker = "square";
+              color = "yellow";
+	    }
             xyPoints.push({
               "x": xval,
               "y": yDatapoints[i],
@@ -276,7 +281,7 @@ class LineChart {
       }
     }
     var noLegend = false;
-    if (flagError || flagWarning) noLegend = true;
+    if (flagError || flagWarning || flagNotif) noLegend = true;
   
     var chartData = {};
     chartData.type = this.graphType;

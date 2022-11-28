@@ -65,6 +65,7 @@ var recordingOff = true;
 var recordingPaused = false;
 // sliders
 var sliderCommitPending = false;
+var stopSliderCallback = false;
 var chartRangeSlider = null;
 var stattRangeSlider = null;
 var alertRangeSlider = null;

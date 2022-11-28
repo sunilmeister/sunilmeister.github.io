@@ -50,26 +50,18 @@ function createChartRangeSlider(div) {
 }
 
 function chartRangeSliderCallback() {
-  //console.log("chartRangeSliderCallback");
+  if (stopSliderCallback) return;
+  console.log("chartRangeSliderCallback");
+  flashBreathWindowButtons();
+  sliderCommitPending = true;
   values = chartRangeSlider.getSlider();
-  selectChartRange(chartRangeSlider, values[0], values[1]);
-  createDashboardCharts();
-}
+  bmin = parseInt(values[0]);
+  bmax = parseInt(values[1]);
 
-function selectChartRange(slider, minB, maxB) {
-  l = Number(minB);
-  r = Number(maxB);
-  if (dashboardBreathNum) {
-    if (r>dashboardBreathNum) r = dashboardBreathNum;
-    if (l<1) l = 1;
-  } else {
-    r = l = 0;
-  }
-
-  minChartBreathNum = l;
-  maxChartBreathNum = r;
-  //console.log("Select min=" + minChartBreathNum + " max=" + maxChartBreathNum);
-  slider.setSlider([l, r]);
+  stopSliderCallback = true;
+  alertRangeSlider.setSlider([bmin, bmax]);
+  statRangeSlider.setSlider([bmin, bmax]);
+  stopSliderCallback = false;
 }
 
 function updateChartRangeOnNewBreath(num) {
@@ -77,8 +69,8 @@ function updateChartRangeOnNewBreath(num) {
   if (chartRangeLimit==1) chartRangeLimit=2; // max must be > min
   chartRangeSlider.setRange([1, chartRangeLimit]);
 
-  // If update is paused
-  if (updatePaused) return;
+  // if range is not "full"
+  if (!reportsXrange.doFull || sliderCommitPending) return;
 
   //console.log("Before min=" + minChartBreathNum + " max=" + maxChartBreathNum);
 
@@ -88,16 +80,77 @@ function updateChartRangeOnNewBreath(num) {
     minChartBreathNum = 1;
   }
   //console.log("After min=" + minChartBreathNum + " max=" + maxChartBreathNum);
+  stopSliderCallback = true;
   chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
-
-  chartRangeSlider.setRange([1, chartRangeLimit]);
+  stopSliderCallback = false;
 }
 
 function setChartTimeInterval(btn) {
+  if (!sliderCommitPending) return;
+  sliderCommitPending = false;
+  unflashBreathWindowButtons();
+  values = chartRangeSlider.getSlider();
+  bmin = parseInt(values[0]);
+  bmax = parseInt(values[1]);
+  saveChartXrange = reportsXrange;
+  reportsXrange.doFull = false;
+  reportsXrange.minBnum = bmin;
+  reportsXrange.maxBnum = bmax;
+  maxChartBreathNum = bmax;
+  minChartBreathNum = bmin;
+
+  // check if call is because of my button
+  if (typeof btn == 'undefined') return;
+  setStatTimeInterval();
+  setAlertTimeInterval();
 }
 
 function cancelChartTimeInterval(btn) {
+  if (!sliderCommitPending) return;
+  sliderCommitPending = false;
+  unflashBreathWindowButtons();
+  if (saveChartXrange) {
+    reportsXrange = saveChartXrange;
+    maxChartBreathNum = reportsXrange.maxBnum;
+    minChartBreathNum = reportsXrange.minBnum;
+  } else {
+    reportsXrange.doFull = true;
+    reportsXrange.minBnum = 1;
+    reportsXrange.maxBnum = dashboardBreathNum;
+    maxChartBreathNum = dashboardBreathNum;
+    minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
+    if (minChartBreathNum <= 0) {
+      minChartBreathNum = 1;
+    }
+  }
+  stopSliderCallback = true;
+  chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+  stopSliderCallback = false;
+
+  // check if call is because of my button
+  if (typeof btn == 'undefined') return;
+  cancelStatTimeInterval();
+  cancelAlertTimeInterval();
 }
 
 function resetChartTimeInterval(btn) {
+  saveChartXrange = null;
+  sliderCommitPending = false;
+  unflashBreathWindowButtons();
+  reportsXrange.doFull = true;
+  reportsXrange.minBnum = 1;
+  reportsXrange.maxBnum = dashboardBreathNum;
+  maxChartBreathNum = dashboardBreathNum;
+  minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
+  if (minChartBreathNum <= 0) {
+    minChartBreathNum = 1;
+  }
+  stopSliderCallback = true;
+  chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+  stopSliderCallback = false;
+
+  // check if call is because of my button
+  if (typeof btn == 'undefined') return;
+  resetStatTimeInterval();
+  resetAlertTimeInterval();
 }

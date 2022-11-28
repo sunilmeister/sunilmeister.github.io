@@ -51,6 +51,7 @@ class ChartBox {
     document.getElementById("O2Purity").checked = this.options["O2Purity"];
     document.getElementById("Errors").checked = this.options["Errors"];
     document.getElementById("Warnings").checked = this.options["Warnings"];
+    document.getElementById("Notifications").checked = this.options["Notifications"];
     document.getElementById("Temperature").checked = this.options["Temperature"];
 
     document.getElementById("ChartTitleId").value = this.options["title"];
@@ -75,6 +76,7 @@ class ChartBox {
     this.options["O2Purity"] = document.getElementById("O2Purity").checked;
     this.options["Errors"] = document.getElementById("Errors").checked;
     this.options["Warnings"] = document.getElementById("Warnings").checked;
+    this.options["Notifications"] = document.getElementById("Notifications").checked;
     this.options["Temperature"] = document.getElementById("Temperature").checked;
 
     this.options["title"] = document.getElementById("ChartTitleId").value;
@@ -147,8 +149,9 @@ class ChartBox {
     tempAxisNum = this.createTempGraph(tempAxisNum);
   
     var flagAxisNum = null;
-    flagAxisNum = this.createWarningGraph(flagAxisNum);
     flagAxisNum = this.createErrorGraph(flagAxisNum);
+    flagAxisNum = this.createWarningGraph(flagAxisNum);
+    flagAxisNum = this.createNotificationGraph(flagAxisNum);
   
     var pctAxisNum = null;
     pctAxisNum = this.createFiO2Graph(pctAxisNum);
@@ -161,7 +164,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Pressure (cm H20)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Peak Pressure (cm H20)" ,
       color: "red",
@@ -177,7 +180,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Pressure (cm H20)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Plateau Pressure (cm H20)" ,
       color: "silver",
@@ -193,7 +196,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Pressure (cm H20)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Peep Pressure (cm H20)" ,
       color: "green",
@@ -209,7 +212,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:700, 
       reuseAxisNum:reuseAxisNum, yName:"Volume (ml)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Tidal Volume (ml)" ,
       color: "purple",
@@ -225,7 +228,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:20, 
       reuseAxisNum:reuseAxisNum, yName:"Minute Volume (litres/min)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Minute Volume (litres/min)" ,
       color: "olive",
@@ -241,7 +244,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:20, 
       reuseAxisNum:reuseAxisNum, yName:"Minute Volume (litres/min)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "O2 Flow Rate (litres/min)" ,
       color: "Indigo",
@@ -257,7 +260,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Breaths per Min (bpm)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Static BPM (bpm)" ,
       color: "Maroon",
@@ -273,7 +276,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Breaths per Min (bpm)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Static BPM (bpm)" ,
       color: "Violet",
@@ -289,7 +292,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:2, 
       reuseAxisNum:reuseAxisNum, yName:"Breath Type"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Breath TypeMandatory/Spontaneous/Error" ,
       color: "#E78A61",
@@ -308,7 +311,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Compliance (ml/cm H20)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Static Compliance (ml/cm H20)" ,
       color: "Navy",
@@ -324,7 +327,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Compliance (ml/cm H20)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "Dynamic Compliance (ml/cm H20)" ,
       color: "Crimson",
@@ -340,7 +343,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:-20, yMax:70, 
       reuseAxisNum:reuseAxisNum, yName:"System Temp (deg C)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "System Temp (deg C)" ,
       color: "Fuchsia",
@@ -355,12 +358,28 @@ class ChartBox {
   
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
-      reuseAxisNum:reuseAxisNum, yName:"Errors & Warnings"};
-    var flags = {warning:true, error:false}
+      reuseAxisNum:reuseAxisNum, yName:"System Alerts"};
+    var flags = {warning:true, error:false, notification:false};
     var paramInfo = {
       name: "Warnings" ,
       color: "Orange",
       transitions: warningValues
+    };
+  
+    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+  }
+  
+  createNotificationGraph(reuseAxisNum) {
+    if (!this.options.Notifications) return reuseAxisNum;
+  
+    var reuse = (reuseAxisNum != null);
+    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
+      reuseAxisNum:reuseAxisNum, yName:"System Alerts"};
+    var flags = {warning:false, error:false, notification:true}
+    var paramInfo = {
+      name: "Notifications" ,
+      color: "Yellow",
+      transitions: notificationValues
     };
   
     return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
@@ -371,8 +390,8 @@ class ChartBox {
   
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
-      reuseAxisNum:reuseAxisNum, yName:"Errors & Warnings"};
-    var flags = {warning:false, error:true}
+      reuseAxisNum:reuseAxisNum, yName:"System Alerts"};
+    var flags = {warning:false, error:true, notification:false};
     var paramInfo = {
       name: "Errors" ,
       color: "Pink",
@@ -388,7 +407,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Percentage (%)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "FiO2 (%)" ,
       color: "Brown",
@@ -404,7 +423,7 @@ class ChartBox {
     var reuse = (reuseAxisNum != null);
     var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Percentage (%)"};
-    var flags = {warning:false, error:false}
+    var flags = {warning:false, error:false, notification:false};
     var paramInfo = {
       name: "O2 Purity (%)" ,
       color: "lightGreen",

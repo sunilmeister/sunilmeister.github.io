@@ -468,6 +468,7 @@ window.onbeforeunload = function(e) {
 function setBackGroundBreathWindowButton(id, bgd) {
   el = document.getElementById(id);
   el.style.backgroundColor = bgd;
+  el.style.opacity = 1;
 }
 
 function colorBreathWindowButtons(bgd) {
