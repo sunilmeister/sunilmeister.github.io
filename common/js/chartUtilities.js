@@ -154,7 +154,11 @@ function chartProcessJsonRecord(jsonData) {
               'L3': "Dashboard due to",
               'L4': "Internet packet loss"
             };
-            infoMsgs.push(msg);
+            notificationMsgs.push(msg);
+            notificationValues.push({
+              "time": curTime,
+              "value": ++notificationNum
+            });
 	  }
 
 	  updateChartRangeOnNewBreath(systemBreathNum - chartPrevSystemBreathNum);

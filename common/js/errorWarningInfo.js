@@ -63,9 +63,9 @@ function displayErrorWarningInfo() {
   }
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
-  for (i = 0; i < infoMsgs.length; i++) {
+  for (i = 0; i < notificationMsgs.length; i++) {
     prefix = "INFO #" + (i + 1) + " ";
-    displayJsonErrorWarningInfo(prefix, scrollbox, infoMsgs[i]);
+    displayJsonErrorWarningInfo(prefix, scrollbox, notificationMsgs[i]);
   }
 }
 

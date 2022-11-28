@@ -12,7 +12,7 @@ function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
   
-  var arr = statComputer.filterTransitions(usedParamCombos);
+  var arr = statComputer.filterValues(usedParamCombos);
   for (i = 0; i < usedParamCombos.length; i++) {
     combo = arr[i];
     if (combo.value.numBreaths == 0) continue;
@@ -137,7 +137,7 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
 }
 
 function formUniqueValueString(inputarray) {
-  arr = statComputer.filterTransitions(inputarray);
+  arr = statComputer.filterValues(inputarray);
   if (arr.length==0) return "----";
   var obj = {};
   for (let i=0; i<arr.length; i++) {
@@ -178,7 +178,7 @@ function displayBreathTypeInfo() {
   el.innerHTML = replaceDummyValue(ne);
 
 
-  arr = statComputer.filterTransitions(missingBreathWindows);
+  arr = statComputer.filterValues(missingBreathWindows);
   var n = 0;
   for (let i=0; i<arr.length; i++) {
     obj = arr[i];
@@ -240,6 +240,33 @@ function displayPatientInfo() {
   }
 }
 
+function displayAlertsInfo() {
+
+  var arr = statComputer.filterValues(notificationValues);
+  var n = 0;
+  for (i=0; i<arr.length; i++) {
+    if (arr[i].value) n++;
+  }
+  el = document.getElementById("numNotifications");
+  el.innerHTML = replaceDummyValue(n);
+
+  arr = statComputer.filterValues(warningValues);
+  n = 0;
+  for (i=0; i<arr.length; i++) {
+    if (arr[i].value) n++;
+  }
+  el = document.getElementById("numWarnings");
+  el.innerHTML = replaceDummyValue(n);
+
+  arr = statComputer.filterValues(errorValues);
+  n = 0;
+  for (i=0; i<arr.length; i++) {
+    if (arr[i].value) n++;
+  }
+  el = document.getElementById("numErrors");
+  el.innerHTML = replaceDummyValue(n);
+}
+
 function displayStats() {
   //console.log("displayStats");
   if (!globalDataValid) {
@@ -260,16 +287,10 @@ function displayStats() {
   displayBreathTypeInfo();
   displayUsedCombos();
   displayPatientInfo();
+  displayAlertsInfo();
 
   el = document.getElementById("altitude");
   el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(altitude);
-
-  el = document.getElementById("numNotifications");
-  el.innerHTML = replaceDummyValue(warningNum);
-  el = document.getElementById("numWarnings");
-  el.innerHTML = replaceDummyValue(warningNum);
-  el = document.getElementById("numErrors");
-  el.innerHTML = replaceDummyValue(errorNum);
 }
 
 function initStats() {

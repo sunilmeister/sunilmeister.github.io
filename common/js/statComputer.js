@@ -21,7 +21,7 @@ class StatComputer {
     this.initialize();
   }
 
-  filterTransitions(transitions) {
+  filterValues(transitions) {
     if (this.xRange.doFull) return transitions;
     var arr = [];
     var minDate = Date(breathTimes[this.xRange.minBnum]);
@@ -35,7 +35,7 @@ class StatComputer {
 	prevItem = transitions[i];
 	continue;
       } else if (tDate != minDate) {
-        if (prevItem) arr.push(cloneObject(cloneObject(prevItem)));
+        //if (prevItem) arr.push(cloneObject(cloneObject(prevItem)));
       }
       arr.push(cloneObject(transitions[i]));
     }

@@ -40,11 +40,12 @@ var prevParamCombo = {time:0,value:{}};
 var currParamCombo = {time:0,value:{}};
 var usedParamCombos = [];
 // error and warning messages
-var errorNum = 0;
+var notificationNum = 0;
 var warningNum = 0;
-var errorMsgs = [];
+var errorNum = 0;
+var notificationMsgs = [];
 var warningMsgs = [];
-var infoMsgs = [];
+var errorMsgs = [];
 var chartExpectWarningMsg;
 var chartExpectErrorMsg;
 var chartL1;
@@ -80,6 +81,7 @@ var peakValues = [];
 var platValues = [];
 var mpeepValues = [];
 var tempValues = [];
+var notificationValues = [];
 var warningValues = [];
 var errorValues = [];
 var fiO2Values = [];
@@ -109,11 +111,12 @@ function initGlobalData() {
   // breath types
   numMissingBreaths = 0;
   // error messages etc.
-  errorMsgs = [];
+  notificationMsgs = [];
   warningMsgs = [];
-  infoMsgs = [];
-  errorNum = 0;
+  errorMsgs = [];
+  notificationNum = 0;
   warningNum = 0;
+  errorNum = 0;
   // chart transitions etc.
   minChartBreathNum = 0;
   maxChartBreathNum = 0;
@@ -134,6 +137,7 @@ function initGlobalData() {
   platValues = [];
   mpeepValues = [];
   tempValues = [];
+  notificationValues = [];
   warningValues = [];
   errorValues = [];
   fiO2Values = [];
@@ -211,6 +215,10 @@ function initTransitionStartValues() {
     "value": null
   });
   if (warningValues.length == 0) warningValues.push({
+    "time": 0,
+    "value": null
+  });
+  if (notificationValues.length == 0) notificationValues.push({
     "time": 0,
     "value": null
   });
