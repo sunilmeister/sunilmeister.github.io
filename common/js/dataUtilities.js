@@ -129,6 +129,7 @@ function statProcessJsonRecord(jsonData) {
             prevParamCombo = cloneObject(currParamCombo);
             currParamCombo.time = jsonData.created;
             currParamCombo.value.numBreaths = 1;
+            currParamCombo.value.startingBreath = breathTimes.length-1;
             usedParamCombos.push(cloneObject(currParamCombo));
           }
           else {

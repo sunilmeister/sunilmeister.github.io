@@ -38,9 +38,7 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.numBreaths);
     cell = row.insertCell();
-    dstr = dateToStr(combo.time);
-    dstr = dstr.replace("]", "] ");
-    cell.innerHTML = dstr;
+    cell.innerHTML = checkForUndefined(combo.value.startingBreath);
   }
 }
 /////////////////////////////////////////////////////////////////
