@@ -373,6 +373,8 @@ function installTempGauge() {
 
 var finishedLoading = false;
 window.onload = function() {
+  reportsXrange.doFull = true;
+
   initDbNames();
   InitRecorder();
   var heading = document.getElementById("SysUid");

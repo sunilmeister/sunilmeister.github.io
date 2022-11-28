@@ -375,6 +375,8 @@ window.onload = function() {
 
   UndisplayAllPanes();
 
+  reportsXrange.doFull = true;
+  
   resetAnalysisData();
   selectSession();
 }

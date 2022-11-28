@@ -123,21 +123,17 @@ function statProcessJsonRecord(jsonData) {
 	    if (startSystemBreathNum<0) startSystemBreathNum = value;
 	  }
 
-          if (prevBreathMandatory) numMandatory++;
-          else if (prevBreathSpontaneous) numSpontaneous++;
-
-          if (errorState) numMaintenance++;
           if ((usedParamCombos.length == 0) ||
             !equalParamCombos(currParamCombo, prevParamCombo)) {
             // first breath in current combo
             prevParamCombo = cloneObject(currParamCombo);
             currParamCombo.time = jsonData.created;
-            currParamCombo.value.dashboardBreathNum = 1;
+            currParamCombo.value.numBreaths = 1;
             usedParamCombos.push(cloneObject(currParamCombo));
           }
           else {
             // update number of breaths for the last combo
-            usedParamCombos[usedParamCombos.length - 1].dashboardBreathNum++;
+            usedParamCombos[usedParamCombos.length - 1].value.numBreaths++;
           }
         }
         else if (ckey == "ATTENTION") {

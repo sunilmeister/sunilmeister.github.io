@@ -4,8 +4,9 @@
 
 // Special function for Y-axis of Breath Types
 function breathTypeFormatter(e) {
-  if (e.value) return 'M';
-  else return 'S';
+  if (e.value==0) return 'S';
+  if (e.value==1) return 'M';
+  else return 'E';
 }
 
 class ChartBox {
@@ -286,11 +287,11 @@ class ChartBox {
     if (!this.options.BreathType) return reuseAxisNum;
 
     var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:1, 
+    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:2, 
       reuseAxisNum:reuseAxisNum, yName:"Breath Type"};
     var flags = {warning:false, error:false}
     var paramInfo = {
-      name: "Breath Type(Mandatory/Spontaneous)" ,
+      name: "Breath TypeMandatory/Spontaneous/Error" ,
       color: "#E78A61",
       transitions: breathTypeValues,
       yFormat: breathTypeFormatter,

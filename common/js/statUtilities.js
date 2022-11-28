@@ -10,11 +10,13 @@ function checkForUndefined(val) {
 
 function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
+  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
+  
   var arr = statComputer.filterTransitions(usedParamCombos);
   for (i = 0; i < usedParamCombos.length; i++) {
     combo = arr[i];
-    if (combo.dashboardBreathNum == 0) continue;
-    row = table.insertRow();
+    if (combo.value.numBreaths == 0) continue;
+    var row = table.insertRow();
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.mode);
     cell = row.insertCell();
@@ -34,7 +36,7 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
     cell = row.insertCell();
-    cell.innerHTML = combo.value.dashboardBreathNum;
+    cell.innerHTML = checkForUndefined(combo.value.numBreaths);
     cell = row.insertCell();
     dstr = dateToStr(combo.time);
     dstr = dstr.replace("]", "] ");
@@ -108,14 +110,12 @@ function constructStatParamTable() {
 
 function constructStatMiscTable() {
   var table = document.getElementById("statsMiscTable");
+  miscTableRow(table, "Number of Breaths", "numBreaths");
   miscTableRow(table, "Number of Mandatory Breaths", "numMandatory");
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
   miscTableRow(table, "Number of Missing Breaths (Wi-Fi Disconnect)", "numMissingBreaths");
-  miscTableRow(table, "Number of entries into INITIAL state", "numInitialEntry");
-  miscTableRow(table, "Number of entries into STANDBY state", "numStandbyEntry");
-  miscTableRow(table, "Number of entries into ACTIVE state", "numActiveEntry");
-  miscTableRow(table, "Number of entries into ERROR state", "numErrorEntry");
+  miscTableRow(table, "Number of NOTIFICATIONSs", "numNotifications");
   miscTableRow(table, "Number of WARNINGs", "numWarnings");
   miscTableRow(table, "Number of ERRORs", "numErrors");
 }
@@ -157,22 +157,38 @@ function formUniqueValueString(inputarray) {
   return str;
 }
 
-function displayStats() {
-  //console.log("displayStats");
-  if (!globalDataValid) {
-    alert("Data Gathering in process\nGive us a second and try again");
-    return;
+function displayBreathTypeInfo() {
+  var arr = statComputer.rangeArray(breathTypeValues);
+  var nm=0;
+  var ns=0;
+  var ne=0;
+  for (let i=0; i<arr.length; i++) {
+    value = arr[i].value;
+    if (value==0) ns++;
+    else if (value==1) nm++;
+    else ne++;
   }
-  if (!tablesConstructed) {
-    //console.log("Constructing Tables");
-    constructStatMinMaxTable();
-    constructStatParamTable();
-    constructStatMiscTable();
-  }
-  tablesConstructed = true;
-  reportsXrange.doFull = true;
-  statComputer = new StatComputer(breathTimes,reportsXrange);
+  el = document.getElementById("numBreaths");
+  el.innerHTML = replaceDummyValue(arr.length);
+  el = document.getElementById("numMandatory");
+  el.innerHTML = replaceDummyValue(nm);
+  el = document.getElementById("numSpontaneous");
+  el.innerHTML = replaceDummyValue(ns);
+  el = document.getElementById("numMaintenance");
+  el.innerHTML = replaceDummyValue(ne);
 
+
+  arr = statComputer.filterTransitions(missingBreathWindows);
+  var n = 0;
+  for (let i=0; i<arr.length; i++) {
+    obj = arr[i];
+    n += ((obj.endValue-obj.startValue)+1);
+  }
+  el = document.getElementById("numMissingBreaths");
+  el.innerHTML = replaceDummyValue(n);
+}
+
+function displayMinMaxAvg() {
   fillMinMaxAvgRow("peakMin","peakMax","peakAvg",peakValues);
   fillMinMaxAvgRow("platMin","platMax","platAvg",platValues);
   fillMinMaxAvgRow("mpeepMin","mpeepMax","mpeepAvg",mpeepValues);
@@ -184,7 +200,9 @@ function displayStats() {
   fillMinMaxAvgRow("scMin","scMax","scAvg",scompValues);
   fillMinMaxAvgRow("dcMin","dcMax","dcAvg",dcompValues);
   fillMinMaxAvgRow("tempMin","tempMax","tempAvg",tempValues);
+}
 
+function displayParamUsage() {
   el = document.getElementById("mode");
   el.innerHTML = formUniqueValueString(modes);
   el = document.getElementById("vt");
@@ -203,46 +221,55 @@ function displayStats() {
   el.innerHTML = formUniqueValueString(tpss);
   el = document.getElementById("fiO2");
   el.innerHTML = formUniqueValueString(fiO2s);
+}
 
+function displayPatientInfo() {
   el = document.getElementById("pName");
   if (patientName) {
-    el.innerHTML = "Patient Name: " + replaceDummyValue(patientName);
+    el.innerHTML = "Patient Name: " + patientName;
   }
   else {
     el.innerHTML = "Patient Name: UNKNOWN";
   }
   el = document.getElementById("pInfo");
   if (patientInfo) {
-    el.innerHTML = "Patient Info: " + replaceDummyValue(patientInfo);
+    el.innerHTML = "Patient Info: " + patientInfo;
   }
   else {
     el.innerHTML = "Patient Info: UNKNOWN";
   }
+}
+
+function displayStats() {
+  //console.log("displayStats");
+  if (!globalDataValid) {
+    alert("Data Gathering in process\nGive us a second and try again");
+    return;
+  }
+  if (!tablesConstructed) {
+    //console.log("Constructing Tables");
+    constructStatMinMaxTable();
+    constructStatParamTable();
+    constructStatMiscTable();
+  }
+  tablesConstructed = true;
+  statComputer = new StatComputer(breathTimes,reportsXrange);
+
+  displayMinMaxAvg();
+  displayParamUsage();
+  displayBreathTypeInfo();
+  displayUsedCombos();
+  displayPatientInfo();
+
   el = document.getElementById("altitude");
   el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(altitude);
-  el = document.getElementById("numMandatory");
-  el.innerHTML = replaceDummyValue(numMandatory);
-  el = document.getElementById("numSpontaneous");
-  el.innerHTML = replaceDummyValue(numSpontaneous);
-  el = document.getElementById("numMaintenance");
-  el.innerHTML = replaceDummyValue(numMaintenance);
-  el = document.getElementById("numMissingBreaths");
-  el.innerHTML = replaceDummyValue(numMissingBreaths);
-  el = document.getElementById("numInitialEntry");
-  el.innerHTML = replaceDummyValue(numInitialEntry);
-  el = document.getElementById("numStandbyEntry");
-  el.innerHTML = replaceDummyValue(numStandbyEntry);
-  el = document.getElementById("numActiveEntry");
-  el.innerHTML = replaceDummyValue(numActiveEntry);
-  el = document.getElementById("numErrorEntry");
-  el.innerHTML = replaceDummyValue(numErrorEntry);
+
+  el = document.getElementById("numNotifications");
+  el.innerHTML = replaceDummyValue(warningNum);
   el = document.getElementById("numWarnings");
   el.innerHTML = replaceDummyValue(warningNum);
   el = document.getElementById("numErrors");
   el.innerHTML = replaceDummyValue(errorNum);
-  table = document.getElementById("statsComboTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-  displayUsedCombos();
 }
 
 function initStats() {
@@ -257,4 +284,5 @@ function initStats() {
   table = document.getElementById("statsMiscTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 }
+
 

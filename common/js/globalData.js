@@ -63,9 +63,6 @@ var numErrorEntry;
 // Breath types
 var prevBreathMandatory;
 var prevBreathSpontaneous;
-var numMandatory;
-var numSpontaneous;
-var numMaintenance;
 var numMissingBreaths;
 // value transitions
 var breathTimes = [];
@@ -102,7 +99,7 @@ var chartsXrange = {
 };
 
 var reportsXrange = {
-    doFull: null,
+    doFull: true,
     minBnum:null, 
     maxBnum:null,
     missingBnum:[]
@@ -110,9 +107,6 @@ var reportsXrange = {
 
 function initGlobalData() {
   // breath types
-  numMandatory = 0;
-  numSpontaneous = 0;
-  numMaintenance = 0;
   numMissingBreaths = 0;
   // error messages etc.
   errorMsgs = [];
@@ -159,7 +153,7 @@ function initGlobalData() {
   };
 
   reportsXrange = {
-    doFull: null,
+    doFull: true,
     minbnum:null , 
     maxbnum:null ,
     missingbnum:[]
