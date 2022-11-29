@@ -519,7 +519,7 @@ function flashBreathWindowButtons() {
 function unflashBreathWindowButtons() {
   breathWindowButtonsFlashed = false;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_lightblue');
+  bgd = style.getPropertyValue('white');
   colorBreathWindowButtons(bgd);
 }
 
