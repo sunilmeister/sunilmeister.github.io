@@ -6,6 +6,7 @@
 
 .iconButton {
   background-color: white;
+  border-color: white;
   color: var(--rsp_darkblue);
   text-align: center;
   text-decoration: none;
@@ -18,11 +19,13 @@
 
 .iconButton:hover{
   background-color: var(--rsp_lightblue);
+  border-color: var(--rsp_lightblue);
   opacity:1; 
 }
 
 .iconButton:active{
   background-color: var(--rsp_blue);
+  border-color: var(--rsp_blue);
   box-shadow: 0 6px white;
   transform: translateY(6px);
 }
