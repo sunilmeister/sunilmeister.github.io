@@ -473,11 +473,13 @@ function overIconButton(btn) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_lightblue');
   btn.style.backgroundColor = bgd;
+  el.style.borderColor = bgd;
 }
 
 function setBackGroundBreathWindowButton(id, bgd) {
   el = document.getElementById(id);
   el.style.backgroundColor = bgd;
+  el.style.borderColor = bgd;
   el.style.opacity = 1;
 }
 
