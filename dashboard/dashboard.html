@@ -160,18 +160,13 @@
         </div>
 
         <div id="alert-pane" style="display: none; font-family:verdana;">
-          <center>
-
-            <h2 style="color:var(--rsp_darkblue); font-size:3em; font-family:verdana;">
-            Session Alerts</h2>
-
           <div id=alertSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
 	    <br>
             <div id="alertRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
             </div>
             <div>
   	    <center>
-  	      <p style="color: white; font-size:2.5rem; font-family:verdana;">Set Breath Range Window for Display
+  	      <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px;">Set Breath Range Window for Display
   
   	      <button class="iconButton" id="btnAlertSetInterval" onClick="setAlertTimeInterval(this)"><img  src="../common/img/check.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
   	      <button class="iconButton" id="btnAlertCancelInterval" onClick="cancelAlertTimeInterval(this)"><img  src="../common/img/close.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
@@ -218,10 +213,6 @@
         </div>
 
         <div id="stat-pane" style="display: none; font-family:verdana;">
-          <center>
-            <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">
-            Session Statistics</h2>
-          </center>
 
           <div id=statSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
 	    <br>
@@ -229,7 +220,7 @@
             </div>
             <div>
   	    <center>
-  	      <p style="color: white; font-size:2.5rem; font-family:verdana;">Set Breath Range Window for Display
+  	      <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px">Set Breath Range Window for Display
   
   	      <button class="iconButton" id="btnStatSetInterval" onClick="setStatTimeInterval(this)"><img  src="../common/img/check.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
   	      <button class="iconButton" id="btnStatCancelInterval" onClick="cancelStatTimeInterval(this)"><img  src="../common/img/close.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
@@ -344,9 +335,6 @@
         </div>
 
         <div id="chart-pane" style="display:none">
-	  <center>
-          <h2 style="color:var(--rsp_darkblue); font-size:3.5em; font-family:verdana;">Session Charts</h2>
-  	  </center>
 
           <div id=chartSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
 	    <br>
@@ -354,7 +342,7 @@
             </div>
             <div>
   	    <center>
-  	      <p style="color: white; font-size:2.5rem; font-family:verdana;">Set Breath Range Window for Display
+  	      <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px">Set Breath Range Window for Display
   
   	      <button class="iconButton" id="btnChartSetInterval" onClick="setChartTimeInterval(this)"><img  src="../common/img/check.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
   	      <button class="iconButton" id="btnChartCancelInterval" onClick="cancelChartTimeInterval(this)"><img  src="../common/img/close.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
@@ -364,7 +352,7 @@
   
             <br>
           </div>
-          <div id="chartsDiv" style="margin-bottom:20px;">
+          <div id="chartsDiv" style="margin-bottom:20px; margin-top:50px;">
             <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
 	  </div>
         </div>
@@ -627,9 +615,9 @@
     <template id="chartContainerTemplate">
       <div class="chartContainer" style="position:relative">
 	<div class="chartBanner">
-	  <button class="iconButton" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/plus.png" width=20px height=20px></button>
-	  <button class="iconButton" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/pen.png" width=20px height=20px></button>
-	  <button class="iconButton" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/trash-bin.png" width=20px height=20px></button>
+	  <button class="iconButton" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/plus.png" width=30px height=30px></button>
+	  <button class="iconButton" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/pen.png" width=30px height=30px></button>
+	  <button class="iconButton" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
 	</div>	
 	<div class="chartBody">
 	</div>
@@ -639,8 +627,8 @@
     <template id=editMenuTemplate>
       <div id=chartDropDownMenu class="chartEditMenu" style="background-color: var(--rsp_lightblue);">
         <div class="chartEditMenuBanner">
-	  <button class="iconButton" onClick="chartMenuSubmit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=20px height=20px></button>
-	  <button class="iconButton" onClick="chartMenuCancel(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/close.png" width=20px height=20px></button>
+	  <button class="iconButton" onClick="chartMenuSubmit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=30px height=30px></button>
+	  <button class="iconButton" onClick="chartMenuCancel(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/close.png" width=30px height=30px></button>
         </div>
   
         <div id="titleDiv" style="background-color: var(--rsp_lightblue)">
