@@ -52,18 +52,42 @@ function displayErrorWarningInfo() {
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < errorMsgs.length; i++) {
+    cDate = Date(errorMsgs[i].created);
+    if (!reportsXrange.doFull) {
+      var minDate = Date(breathTimes[this.xRange.minBnum]);
+      var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+      if (cDate > maxDate) continue;
+      if (cDate < minDate) continue;
+    }
+
     prefix = "ERROR #" + (i + 1) + " ";
     displayJsonErrorWarningInfo(prefix, scrollbox, errorMsgs[i]);
   }
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < warningMsgs.length; i++) {
+    cDate = Date(warningMsgs[i].created);
+    if (!reportsXrange.doFull) {
+      var minDate = Date(breathTimes[this.xRange.minBnum]);
+      var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+      if (cDate > maxDate) continue;
+      if (cDate < minDate) continue;
+    }
+
     prefix = "WARNING #" + (i + 1) + " ";
     displayJsonErrorWarningInfo(prefix, scrollbox, warningMsgs[i]);
   }
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < notificationMsgs.length; i++) {
+    cDate = Date(notificationMsgs[i].created);
+    if (!reportsXrange.doFull) {
+      var minDate = Date(breathTimes[this.xRange.minBnum]);
+      var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+      if (cDate > maxDate) continue;
+      if (cDate < minDate) continue;
+    }
+
     prefix = "INFO #" + (i + 1) + " ";
     displayJsonErrorWarningInfo(prefix, scrollbox, notificationMsgs[i]);
   }
