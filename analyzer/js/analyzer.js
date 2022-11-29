@@ -405,12 +405,14 @@ function blinkAnalysisWindowButtons() {
 
 function outIconButton(btn) {
   btn.style.backgroundColor = "white";
+  btn.style.borderColor = "white";
 }
 
 function overIconButton(btn) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_lightblue');
   btn.style.backgroundColor = bgd;
+  btn.style.borderColor = bgd;
 }
 
 function flashAnalysisWindowButtons() {
