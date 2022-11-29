@@ -52,12 +52,9 @@ function displayErrorWarningInfo() {
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < errorMsgs.length; i++) {
-    cDate = Date(errorMsgs[i].created);
     if (!reportsXrange.doFull) {
-      var minDate = Date(breathTimes[reportsXrange.minBnum]);
-      var maxDate = Date(breathTimes[reportsXrange.maxBnum]);
-      if (cDate > maxDate) continue;
-      if (cDate < minDate) continue;
+      if (errorMsgs[i].created > breathTimes[reportsXrange.maxBnum].time) continue;
+      if (errorMsgs[i].created < breathTimes[reportsXrange.minBnum].time) continue;
     }
 
     prefix = "ERROR #" + (i + 1) + " ";
@@ -66,12 +63,9 @@ function displayErrorWarningInfo() {
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < warningMsgs.length; i++) {
-    cDate = Date(warningMsgs[i].created);
     if (!reportsXrange.doFull) {
-      var minDate = Date(breathTimes[reportsXrange.minBnum]);
-      var maxDate = Date(breathTimes[reportsXrange.maxBnum]);
-      if (cDate > maxDate) continue;
-      if (cDate < minDate) continue;
+      if (warningMsgs[i].created > breathTimes[reportsXrange.maxBnum].time) continue;
+      if (warningMsgs[i].created < breathTimes[reportsXrange.minBnum].time) continue;
     }
 
     prefix = "WARNING #" + (i + 1) + " ";
@@ -80,14 +74,10 @@ function displayErrorWarningInfo() {
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < notificationMsgs.length; i++) {
-    cDate = Date(notificationMsgs[i].created);
     if (!reportsXrange.doFull) {
-      var minDate = Date(breathTimes[reportsXrange.minBnum]);
-      var maxDate = Date(breathTimes[reportsXrange.maxBnum]);
-      if (cDate > maxDate) continue;
-      if (cDate < minDate) continue;
+      if (notificationMsgs[i].created > breathTimes[reportsXrange.maxBnum].time) continue;
+      if (notificationMsgs[i].created < breathTimes[reportsXrange.minBnum].time) continue;
     }
-
     prefix = "INFO #" + (i + 1) + " ";
     displayJsonErrorWarningInfo(prefix, scrollbox, notificationMsgs[i]);
   }
