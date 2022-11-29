@@ -46,7 +46,7 @@ function chartProcessJsonRecord(jsonData) {
           };
           warningMsgs.push(msg);
         }
-        lastWarningTime = jsonData.created;
+        lastWarningTime = curTime;
         chartExpectWarningMsg = true;
         warningValues.push({
           "time": curTime,
@@ -64,7 +64,7 @@ function chartProcessJsonRecord(jsonData) {
           };
           errorMsgs.push(msg);
         }
-        lastErrorTime = jsonData.created;
+        lastErrorTime = curTime;
         chartExpectErrorMsg = true;
         errorValues.push({
           "time": curTime,
