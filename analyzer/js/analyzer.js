@@ -403,6 +403,16 @@ function blinkAnalysisWindowButtons() {
   }
 }
 
+function outIconButton(btn) {
+  btn.style.backgroundColor = "white";
+}
+
+function overIconButton(btn) {
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_lightblue');
+  btn.style.backgroundColor = bgd;
+}
+
 function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   var style = getComputedStyle(document.body)
