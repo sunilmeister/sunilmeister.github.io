@@ -54,8 +54,8 @@ function displayErrorWarningInfo() {
   for (i = 0; i < errorMsgs.length; i++) {
     cDate = Date(errorMsgs[i].created);
     if (!reportsXrange.doFull) {
-      var minDate = Date(breathTimes[this.xRange.minBnum]);
-      var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+      var minDate = Date(breathTimes[reportsXrange.minBnum]);
+      var maxDate = Date(breathTimes[reportsXrange.maxBnum]);
       if (cDate > maxDate) continue;
       if (cDate < minDate) continue;
     }
@@ -68,8 +68,8 @@ function displayErrorWarningInfo() {
   for (i = 0; i < warningMsgs.length; i++) {
     cDate = Date(warningMsgs[i].created);
     if (!reportsXrange.doFull) {
-      var minDate = Date(breathTimes[this.xRange.minBnum]);
-      var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+      var minDate = Date(breathTimes[reportsXrange.minBnum]);
+      var maxDate = Date(breathTimes[reportsXrange.maxBnum]);
       if (cDate > maxDate) continue;
       if (cDate < minDate) continue;
     }
@@ -82,8 +82,8 @@ function displayErrorWarningInfo() {
   for (i = 0; i < notificationMsgs.length; i++) {
     cDate = Date(notificationMsgs[i].created);
     if (!reportsXrange.doFull) {
-      var minDate = Date(breathTimes[this.xRange.minBnum]);
-      var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+      var minDate = Date(breathTimes[reportsXrange.minBnum]);
+      var maxDate = Date(breathTimes[reportsXrange.maxBnum]);
       if (cDate > maxDate) continue;
       if (cDate < minDate) continue;
     }
