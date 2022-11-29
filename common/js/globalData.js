@@ -97,7 +97,7 @@ var chartsXrange = {
     initTime:null,
     minTime:null,
     maxTime:null,
-    missingtIme:[]
+    missingTime:[]
 };
 
 var reportsXrange = {
@@ -146,21 +146,21 @@ function initGlobalData() {
 
   chartsXrange = {
     doFull: null,
-    initbnum:null, 
-    minbnum:null , 
-    maxbnum:null ,
-    missingbnum:[],
-    inittime:null,
-    mintime:null,
-    maxtime:null,
-    missingtime:[]
+    initBnum:null, 
+    minBnum:null , 
+    maxBnum:null ,
+    missingBnum:[],
+    initTime:null,
+    minTime:null,
+    maxTime:null,
+    missingTime:[]
   };
 
   reportsXrange = {
     doFull: true,
-    minbnum:1 , 
-    maxbnum:null ,
-    missingbnum:[]
+    minBnum:1 , 
+    maxBnum:null ,
+    missingBnum:[]
   };
 
 }
