@@ -471,8 +471,8 @@ function outIconButton(btn) {
   
   btn.style.backgroundColor = "white";
   btn.style.borderColor = "white";
-  console.log("out");
-  console.log(btn);
+  //console.log("out");
+  //console.log(btn);
 }
 
 function overIconButton(btn) {
@@ -483,8 +483,8 @@ function overIconButton(btn) {
   bgd = style.getPropertyValue('--rsp_lightblue');
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
-  console.log("hover");
-  console.log(btn);
+  //console.log("hover");
+  //console.log(btn);
 }
 
 function setBackGroundBreathWindowButton(id, bgd) {

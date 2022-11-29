@@ -404,11 +404,17 @@ function blinkAnalysisWindowButtons() {
 }
 
 function outIconButton(btn) {
+  var isImg = (btn.nodeName.toLowerCase() === 'img');
+  if (isImg) btn = btn.parentNode;
+
   btn.style.backgroundColor = "white";
   btn.style.borderColor = "white";
 }
 
 function overIconButton(btn) {
+  var isImg = (btn.nodeName.toLowerCase() === 'img');
+  if (isImg) btn = btn.parentNode;
+
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_lightblue');
   btn.style.backgroundColor = bgd;
