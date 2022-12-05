@@ -1,11 +1,19 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
+const RESPIMATIC_UID_PREFIX = "UID_";
+const SPONTANEOUS_BREATH = 0;
+const MANDATORY_BREATH = 1;
+const ERROR_BREATH = 2;
+const INITIAL_STATE = 0;
+const STANDBY_STATE = 1;
+const ACTIVE_STATE = 2;
+const ERROR_STATE = 3;
+
 // currently open session
 var sessionDbName = "";
 var sessionDbReady = false;
 var sessionDurationInMs = 0;
-const RESPIMATIC_UID_PREFIX = "UID_";
 // Analyzer guides
 var fullSessionBreathTimes = [];
 var initSessionGather = false;
@@ -70,6 +78,7 @@ var breathTimes = [];
 var missingBreaths = [];
 var missingBreathWindows = [];
 var missingTimeWindows = [];
+var stateValues = [];
 var vtdelValues = [];
 var mvdelValues = [];
 var sbpmValues = [];
@@ -179,6 +188,10 @@ function initTransitionStartValues() {
     "value": null
   });
   if (mpeepValues.length == 0) mpeepValues.push({
+    "time": 0,
+    "value": null
+  });
+  if (stateValues.length == 0) stateValues.push({
     "time": 0,
     "value": null
   });

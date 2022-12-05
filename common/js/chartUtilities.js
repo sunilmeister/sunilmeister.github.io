@@ -134,7 +134,8 @@ function chartProcessJsonRecord(jsonData) {
 	  if (prevBreathRecorded != prevBreathMandatory) {
             breathTypeValues.push({
               "time": curTime,
-              "value": errorState?2:(prevBreathMandatory?1:0)
+              "value": errorState?ERROR_BREATH:
+	      (prevBreathMandatory?MANDATORY_BREATH:SPONTANEOUS_BREATH)
             });
 	    prevBreathRecorded = prevBreathMandatory;
 	  }

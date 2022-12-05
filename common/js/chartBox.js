@@ -4,8 +4,8 @@
 
 // Special function for Y-axis of Breath Types
 function breathTypeFormatter(e) {
-  if (e.value==0) return 'S';
-  if (e.value==1) return 'M';
+  if (e.value==SPONTANEOUS_BREATH) return 'S';
+  if (e.value==MANDATORY_BREATH) return 'M';
   else return 'E';
 }
 
