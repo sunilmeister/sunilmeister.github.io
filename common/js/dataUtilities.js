@@ -95,19 +95,27 @@ function statProcessJsonRecord(jsonData) {
       for (var ckey in jsonData.content) {
         value = jsonData.content[ckey];
         if (ckey == "INITIAL") {
-          if ((value == 1) && !initialState) numInitialEntry++;
+          if ((value == 1) && !initialState) {
+            stateValues.push({"time": curTime, "value": INITIAL_STATE});
+	  }
           initialState = (value == 1);
         }
         else if (ckey == "STANDBY") {
-          if ((value == 1) && !standbyState) numStandbyEntry++;
+          if ((value == 1) && !standbyState) {
+            stateValues.push({"time": curTime, "value": STANDBY_STATE});
+	  }
           standbyState = (value == 1);
         }
         else if (ckey == "RUNNING") {
-          if ((value == 1) && !activeState) numActiveEntry++;
+          if ((value == 1) && !activeState) {
+            stateValues.push({"time": curTime, "value": ACTIVE_STATE});
+	  }
           activeState = (value == 1);
         }
         else if (ckey == "ERROR") {
-          if ((value == 1) && !errorState) numErrorEntry++;
+          if ((value == 1) && !errorState) {
+            stateValues.push({"time": curTime, "value": ERROR_STATE});
+	  }
           errorState = (value == 1);
         }
         else if (ckey == "BREATH") {

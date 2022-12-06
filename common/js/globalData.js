@@ -14,6 +14,8 @@ const ERROR_STATE = 3;
 var sessionDbName = "";
 var sessionDbReady = false;
 var sessionDurationInMs = 0;
+var sessionVersion = "UNKNOWN";
+
 // Analyzer guides
 var fullSessionBreathTimes = [];
 var initSessionGather = false;
@@ -65,10 +67,6 @@ var initialState;
 var standbyState;
 var activeState;
 var errorState;
-var numInitialEntry;
-var numStandbyEntry;
-var numActiveEntry;
-var numErrorEntry;
 // Breath types
 var prevBreathMandatory;
 var prevBreathSpontaneous;
