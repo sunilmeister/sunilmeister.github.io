@@ -180,7 +180,7 @@ function displayBreathTypeInfo() {
   var n = 0;
   for (let i=0; i<arr.length; i++) {
     obj = arr[i];
-    n += ((obj.endValue-obj.startValue)+1);
+    n += (obj.endValue-obj.startValue);
   }
   el = document.getElementById("numMissingBreaths");
   el.innerHTML = replaceDummyValue(n);
