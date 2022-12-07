@@ -99,7 +99,7 @@ function constructStatParamTable() {
   paramTableRow(table, "Tidal Volume", "ml", "vt");
   paramTableRow(table, "Respiration Rate", "bpm", "rr");
   paramTableRow(table, "I:E Ratio", "ratio", "ie");
-  paramTableRow(table, "PEEP Pressure", "cmH20", "ipeeps");
+  paramTableRow(table, "PEEP Pressure", "cmH20", "ipeep");
   paramTableRow(table, "Maximum Pressure", "cmH20", "pmax");
   paramTableRow(table, "Support Pressure", "cmH20", "ps");
   paramTableRow(table, "Support Pressure Termination", "%flow,secs", "tps");
@@ -134,23 +134,41 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
   document.getElementById(avgDivId).innerHTML = replaceDummyValue(statComputer.computedAvg);
 }
 
-function formUniqueValueString(inputarray) {
-  arr = statComputer.filterTransitions(inputarray);
-  if (arr.length==0) return "----";
+function extractUsedParamsFromCombos() {
+  var pNames = ["mode","vt","rr","ie","ipeep","pmax","ps","tps","fiO2"];
   var obj = {};
-  for (let i=0; i<arr.length; i++) {
-    obj[arr[i].value] = 1;
+
+  var arr = statComputer.filterTransitions(app.usedParamCombos);
+  for (i = 0; i < arr.length; i++) {
+    combo = arr[i];
+    params = combo.value;
+    for (j=0; j<pNames.length; j++) {
+      pName = pNames[j];
+      p = params[pName];
+      if (typeof p == 'undefined') continue;
+      if (typeof obj[pName] == 'undefined') {
+        obj[pName] = [p];
+      } else {
+	if (obj[pName].indexOf(p) == -1) {
+	  obj[pName].push(p);
+	}
+      }
+    }
+  }
+  return obj;
+}
+
+function formUsedParamString(extractedObj, paramName) {
+  var extractedArray = extractedObj[paramName];
+  if (typeof extractedArray == 'undefined') {
+    return "?";
   }
 
-  str = "";
-  first = true;
-  for (k in obj) {
-    if (first) {
-      str += String(k);
-      first = false;
-    } else {
-      str += "," + String(k);
-    }
+  var str = "";
+  for (i=0; i<extractedArray.length; i++) {
+    var p = extractedArray[i];
+    if (i==0) str = p;
+    else str = str + "," + p;
   }
   return str;
 }
@@ -201,24 +219,26 @@ function displayMinMaxAvg() {
 }
 
 function displayParamUsage() {
+  var obj = extractUsedParamsFromCombos();
+
   el = document.getElementById("mode");
-  el.innerHTML = formUniqueValueString(session.modes);
+  el.innerHTML = formUsedParamString(obj,"mode");
   el = document.getElementById("vt");
-  el.innerHTML = formUniqueValueString(session.vts);
+  el.innerHTML = formUsedParamString(obj,"vt");
   el = document.getElementById("rr");
-  el.innerHTML = formUniqueValueString(session.rrs);
+  el.innerHTML = formUsedParamString(obj,"rr");
   el = document.getElementById("ie");
-  el.innerHTML = formUniqueValueString(session.ies);
-  el = document.getElementById("ipeeps");
-  el.innerHTML = formUniqueValueString(session.ipeeps);
+  el.innerHTML = formUsedParamString(obj,"ie");
+  el = document.getElementById("ipeep");
+  el.innerHTML = formUsedParamString(obj,"ipeep");
   el = document.getElementById("pmax");
-  el.innerHTML = formUniqueValueString(session.pmaxs);
+  el.innerHTML = formUsedParamString(obj,"pmax");
   el = document.getElementById("ps");
-  el.innerHTML = formUniqueValueString(session.pss);
+  el.innerHTML = formUsedParamString(obj,"ps");
   el = document.getElementById("tps");
-  el.innerHTML = formUniqueValueString(session.tpss);
+  el.innerHTML = formUsedParamString(obj,"tps");
   el = document.getElementById("fiO2");
-  el.innerHTML = formUniqueValueString(session.fiO2s);
+  el.innerHTML = formUsedParamString(obj,"fiO2");
 }
 
 function displayPatientInfo() {

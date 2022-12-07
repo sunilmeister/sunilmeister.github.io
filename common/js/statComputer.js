@@ -35,18 +35,22 @@ class StatComputer {
     var minDate = Date(this.breathTimes[this.xRange.minBnum]);
     var maxDate = Date(this.breathTimes[this.xRange.maxBnum]);
 
-    var keepOneBefore = true;
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
       var tDate = Date(transitions[i].time);
-      if (tDate>maxDate) break;
+      if (tDate>maxDate) {
+        if (keepOneBefore) {
+          if (prevItem) {
+	    console.log("Keeping one before");
+	    console.log(prevItem);
+	    arr.push(cloneObject(cloneObject(prevItem)));
+          }
+        }
+	break;
+      }
       if (tDate<minDate) {
 	prevItem = transitions[i];
 	continue;
-      } else if (tDate != minDate) {
-	if (keepOneBefore) {
-          if (prevItem) arr.push(cloneObject(cloneObject(prevItem)));
-        }
       }
       arr.push(cloneObject(transitions[i]));
     }
