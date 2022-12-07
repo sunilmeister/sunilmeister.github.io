@@ -14,7 +14,7 @@ function createDashboardCharts() {
 
   app.chartsXrange = {
     doFull: false,
-    initBnum:0, 
+    initBnum:1, 
     minBnum:app.minChartBreathNum , 
     maxBnum:app.maxChartBreathNum ,
     missingBnum:cloneObject(session.missingBreathWindows),

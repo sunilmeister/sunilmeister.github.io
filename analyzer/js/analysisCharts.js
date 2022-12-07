@@ -2,9 +2,9 @@ function createAnalysisCharts() {
   cleanupCharts();
   app.chartsXrange = {
     doFull: true,
-    initBnum:0, 
-    minBnum:1, 
-    maxBnum:session.breathTimes.length,
+    initBnum:1, 
+    minBnum:app.analysisStartBreath, 
+    maxBnum:app.analysisEndBreath,
     missingBnum:cloneObject(session.missingBreathWindows),
     initTime:app.logStartTime, 
     minTime:app.analysisStartTime, 

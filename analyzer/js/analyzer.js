@@ -267,6 +267,8 @@ function resetAnalysisData(newDbSelected) {
   if (newDbSelected) {
     app = cloneObject(AppDataTemplate);
     full = cloneObject(FullTemplate);
+  } else {
+    initAppData();
   }
   initStats();
   initCharts();
@@ -337,6 +339,12 @@ function setTimeInterval() {
   app.analysisStartTime = full.fullSessionBreathTimes[app.analysisStartBreath-1];
   app.analysisEndTime = full.fullSessionBreathTimes[app.analysisEndBreath-1];
   analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+
+  app.reportsXrange.doFull = true;
+  app.reportsXrange.minBnum = app.analysisStartBreath;
+  app.reportsXrange.maxBnum = app.analysisEndBreath;
+  app.reportsXrange.missingBnum = session.missingBreathWindows;
+
   updateSelectedDuration();
   resetAnalysisData(false);
   gatherGlobalData(analysisGatherDoneCallback);
@@ -360,6 +368,12 @@ function resetTimeInterval() {
   app.analysisStartTime = app.logStartTime;
   app.analysisEndTime = app.logEndTime;
   analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+
+  app.reportsXrange.doFull = true;
+  app.reportsXrange.minBnum = app.analysisStartBreath;
+  app.reportsXrange.maxBnum = app.analysisEndBreath;
+  app.reportsXrange.missingBnum = session.missingBreathWindows;
+
   updateSelectedDuration();
   resetAnalysisData(false);
   gatherGlobalData(analysisGatherDoneCallback);
@@ -474,6 +488,11 @@ function showAnalysisRangeSlider(newDb) {
   elm.style.display = "block";
   elm = document.getElementById("logNumBreaths");
   elm.innerHTML = app.analysisEndBreath;
+
+  app.reportsXrange.doFull = true;
+  app.reportsXrange.minBnum = app.analysisStartBreath;
+  app.reportsXrange.maxBnum = app.analysisEndBreath;
+  app.reportsXrange.missingBnum = session.missingBreathWindows;
 
   // Create analysis range slider
   analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');

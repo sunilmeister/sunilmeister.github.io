@@ -122,8 +122,9 @@ class LineChart {
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
-      Xaxis.scaleBreaks = {};
-      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
+      console.log(missingWindows);
+      //Xaxis.scaleBreaks = {};
+      //Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
     this.chartJson.axisX = Xaxis;
   }
@@ -235,11 +236,7 @@ class LineChart {
 	if (xval <= prevXval) ignoreDatapoint = true;
 	else prevXval = xval;
       } else {
-        if (doFull) {
-          xval = i;
-        } else {
-          xval = i+minBnum-1;
-        }
+        xval = i+minBnum-1;
       }
       if (!flagError && !flagWarning && !flagNotif) {
         if (!ignoreDatapoint) {
