@@ -374,8 +374,8 @@ function analysisGatherDoneCallback(newDb) {
   app.logStartBreath = 1;
   app.logEndBreath = full.fullSessionBreathTimes.length;
   showAnalysisRangeSlider(newDb);
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
   analysisRangeSlider.setRange([app.logStartBreath, app.logEndBreath]);
+  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 }
 
 window.onload = function() {
