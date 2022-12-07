@@ -37,7 +37,8 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.numBreaths);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.startingBreath);
+    afterBreath = app.reportsXrange.minBnum + combo.value.startingBreath;
+    cell.innerHTML = checkForUndefined(afterBreath);
   }
 }
 /////////////////////////////////////////////////////////////////
