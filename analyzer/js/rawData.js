@@ -34,7 +34,7 @@ function initRawDump() {
 
 function displayRawData() {
   //console.log("displayRawData");
-  if (!globalDataValid) {
+  if (!app.globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }

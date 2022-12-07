@@ -1,5 +1,3 @@
-var currentView = "snapshots";
-var breathPausedAt = 0;
 
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   fiO2Gauge.setValue(fiO2);
@@ -41,7 +39,6 @@ function checkFiO2Calculation(d) {
     updateFiO2Display(newFiO2, newPurity, newO2Flow);
   }
 }
-var startMillis = 0;
 
 function disassembleAndQueueDweet(d) {
   fragmentIndex = 0;
@@ -61,7 +58,7 @@ function disassembleAndQueueDweet(d) {
       fragment = cloneObject(clearAllDweet);
     }
     fragment.MILLIS = Number(millis);
-    fragment.created = new Date(addMsToDate(startDate, (fragment.MILLIS - startMillis)));
+    fragment.created = new Date(addMsToDate(app.startDate, (fragment.MILLIS - startMillis)));
     dweetQ.push(cloneObject(fragment));
   }
 }
@@ -86,7 +83,7 @@ function waitForDweets() {
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
       //console.log("simulatedMillis=" + simulatedMillis);
-      startDate = new Date(d.created);
+      app.startDate = new Date(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
@@ -98,7 +95,7 @@ function waitForDweets() {
 
 function processDashboardDweet(d) {
   curDate = new Date(d.created);
-  sessionDurationInMs = curDate - startDate;
+  sessionDurationInMs = curDate - app.startDate;
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
   elm = document.getElementById("dashboardBreathNum");
@@ -109,15 +106,14 @@ function processDashboardDweet(d) {
   }
   else {
     pd.innerHTML = "&nbspDetected";
-    elm.innerHTML = dashboardBreathNum;
+    elm.innerHTML = app.dashboardBreathNum;
   }
   elm = document.getElementById("numMissedBreaths");
-  elm.innerHTML = totalMissedBreaths;
+  elm.innerHTML = app.numMissingBreaths;
 
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
-  chartProcessJsonRecord(d);
-  statProcessJsonRecord(d);
+  processJsonRecord(d);
   if ((currentView == "snapshots") && !updatePaused) updateSnapshot();
   if ((currentView == "charts") && !updatePaused) createDashboardCharts();
   if ((currentView == "stats") && !updatePaused) createDashboardStats();
@@ -135,13 +131,13 @@ function snapshotProcessJsonRecord(d) {
 }
 
 function createDashboardStats() {
-  globalDataValid = true;
+  app.globalDataValid = true;
   displayStats();
 }
 
 function createDashboardAlerts() {
-  globalDataValid = true;
-  displayErrorWarningInfo();
+  app.globalDataValid = true;
+  displayAlerts();
 }
 
 function blinkFlowRate() {
@@ -286,9 +282,9 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath(num) {
-  if (reportsXrange.doFull) {
-    reportsXrange.minBnum=1;
-    reportsXrange.maxBnum=dashboardBreathNum;
+  if (app.reportsXrange.doFull) {
+    app.reportsXrange.minBnum=1;
+    app.reportsXrange.maxBnum=app.dashboardBreathNum;
   }
 
   updateChartRangeOnNewBreath(num);
@@ -311,7 +307,7 @@ function togglePause() {
   else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
-    breathPausedAt = dashboardBreathNum;
+    breathPausedAt = app.dashboardBreathNum;
     pd = document.getElementById("pausedOrDuring");
     pd.innerHTML = "&nbspPaused At";
     elm = document.getElementById("dashboardBreathNum");
@@ -381,9 +377,12 @@ function installTempGauge() {
   tempGauge.setProperty('readonly', true);
 }
 
-var finishedLoading = false;
 window.onload = function() {
-  reportsXrange.doFull = true;
+  finishedLoading = false;
+  // Create data objects
+  app = cloneObject(AppDataTemplate);
+  session = cloneObject(SessionDataTemplate);
+  full = cloneObject(FullTemplate);
 
   initDbNames();
   InitRecorder();
@@ -396,28 +395,8 @@ window.onload = function() {
     document.title = "NOT SPECIFIED"
     heading.innerHTML = "NOT SPECIFIED"
   }
-  currentView = "snapshots";
-  updatePaused = false;
-  awaitingFirstDweet = true;
-  dashboardBreathNum = 0;
-  systemBreathNum = 0;
-  updatedDweetContent = {
-    "content": {}
-  };
-  simulatedMillis = 0;
-  lastDweetInMs = 0;
-  wifiDropped = false;
-  messagesBackground = "MEDIUMBLUE";
-  alertBackground = "GREEN";
-  pendingBackground = "MEDIUMBLUE";
-  pauseButtonBackground = "MEDIUMBLUE";
-  flowDivBackground = "DARKBLUE";
-  alertImage = "OK";
-  blinkInterval = 0;
-  initGlobalData();
   initStats();
-  initTransitionStartValues();
-  initErrorWarningInfo();
+  initAlerts();
   var style = getComputedStyle(document.body)
   blueColor = style.getPropertyValue('--rsp_blue');
   mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
@@ -457,7 +436,7 @@ window.onload = function() {
 window.onbeforeunload = function(e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';
-  if (dashboardBreathNum != 0) {
+  if (app.dashboardBreathNum != 0) {
     if (!recordingOff) {
       msg = msg + '\nAlso recording will stop';
     }
@@ -574,10 +553,10 @@ function FetchAndExecuteFromQueue() {
 
     d = dweetQ.pop();
     if (typeof d.content["BNUM"] != "undefined") {
-      dashboardBreathNum++;
-      systemBreathNum = parseChecksumString(d.content["BNUM"]);
-      if (startSystemBreathNum<0) {
-	startSystemBreathNum = systemBreathNum;
+      app.dashboardBreathNum++;
+      app.systemBreathNum = parseChecksumString(d.content["BNUM"]);
+      if (app.startSystemBreathNum<0) {
+	app.startSystemBreathNum = app.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
 	elm.innerHTML = String(systemBreathNum-1);
       }

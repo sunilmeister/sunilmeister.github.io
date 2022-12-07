@@ -32,8 +32,8 @@ class StatComputer {
   filter(transitions, keepOneBefore) {
     if (this.xRange.doFull) return transitions;
     var arr = [];
-    var minDate = Date(breathTimes[this.xRange.minBnum]);
-    var maxDate = Date(breathTimes[this.xRange.maxBnum]);
+    var minDate = Date(this.breathTimes[this.xRange.minBnum]);
+    var maxDate = Date(this.breathTimes[this.xRange.maxBnum]);
 
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
@@ -63,11 +63,11 @@ class StatComputer {
     var curValue = 0;
     var curIx = 0;
     var curValue = transitions[0].value; // guaranteed to have at least one entry
-    for (let i = 1; i < breathTimes.length; i++) {
+    for (let i = 1; i < this.breathTimes.length; i++) {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
-        if (breathTimes[i].time >= transitions[curIx + 1].time) {
+        if (this.breathTimes[i].time >= transitions[curIx + 1].time) {
           curValue = transitions[++curIx].value;
         } else {
           curValue = transitions[curIx].value;
@@ -75,7 +75,7 @@ class StatComputer {
       }
       if (this.xRange.doFull ||
 	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
-        arr.push({"time":new Date(breathTimes[i]), "value":curValue});
+        arr.push({"time":new Date(this.breathTimes[i]), "value":curValue});
       }
     }
     return arr;
@@ -139,11 +139,11 @@ class StatComputer {
     var curValue = 0;
     var curIx = 0;
     var curValue = transitions[0].value; // guaranteed to have at least one entry
-    for (let i = 1; i < breathTimes.length; i++) {
+    for (let i = 1; i < this.breathTimes.length; i++) {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
-        if (breathTimes[i].time >= transitions[curIx + 1].time) {
+        if (this.breathTimes[i].time >= transitions[curIx + 1].time) {
           curValue = transitions[++curIx].value;
         } else {
           curValue = transitions[curIx].value;

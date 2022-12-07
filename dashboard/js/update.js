@@ -27,7 +27,7 @@ function parseInputParam(val) {
 
 function updatePendingIndividualSetting(blink, div, pendingSetting) {
   elm = document.getElementById(div);
-  if (pendingState) {
+  if (app.pendingState) {
     if (pendingSetting && blink) {
       if (pendingBackground != "ORANGE") {
         elm.style.backgroundColor = orangeColor;
@@ -43,23 +43,24 @@ function updatePendingIndividualSetting(blink, div, pendingSetting) {
 }
 
 function updatePendingSettings(blink) {
-  updatePendingIndividualSetting(blink, "MODEDiv", pendingMODE);
-  updatePendingIndividualSetting(blink, "VTDiv", pendingVT);
-  updatePendingIndividualSetting(blink, "RRDiv", pendingRR);
-  updatePendingIndividualSetting(blink, "IEDiv", pendingIE);
-  updatePendingIndividualSetting(blink, "IPEEPDiv", pendingIPEEP);
-  updatePendingIndividualSetting(blink, "PMAXDiv", pendingPMAX);
-  updatePendingIndividualSetting(blink, "PSDiv", pendingPS);
-  updatePendingIndividualSetting(blink, "TPSDiv", pendingTPS);
+  updatePendingIndividualSetting(blink, "MODEDiv", app.pendingMODE);
+  updatePendingIndividualSetting(blink, "VTDiv", app.pendingVT);
+  updatePendingIndividualSetting(blink, "RRDiv", app.pendingRR);
+  updatePendingIndividualSetting(blink, "IEDiv", app.pendingIE);
+  updatePendingIndividualSetting(blink, "IPEEPDiv", app.pendingIPEEP);
+  updatePendingIndividualSetting(blink, "PMAXDiv", app.pendingPMAX);
+  updatePendingIndividualSetting(blink, "PSDiv", app.pendingPS);
+  updatePendingIndividualSetting(blink, "TPSDiv", app.pendingTPS);
 }
 
 function updatePending(blink) {
-  // double verify if something is pending
-  pendingState = pendingMODE || pendingVT || pendingRR || pendingIE ||
-    pendingIPEEP || pendingPMAX || pendingPS || pendingTPS;
+  // double verify if something is app.pending
+  app.pendingState = app.pendingMODE || app.pendingVT || app.pendingRR || 
+    app.pendingIE || app.pendingIPEEP || app.pendingPMAX || 
+    app.pendingPS || app.pendingTPS;
   updatePendingSettings(blink);
-  //console.log("pendingState=" + pendingState);
-  if (pendingState) {
+  //console.log("pendingState=" + app.pendingState);
+  if (app.pendingState) {
     elm = document.getElementById("Pending");
     elm.innerHTML = "Pending Changes";
     if (pendingBackground != "ORANGE") {
@@ -84,7 +85,7 @@ function updatePending(blink) {
 
 function updateAlert(blink) {
   elm = document.getElementById("AlertDiv");
-  if (errorState) {
+  if (app.errorState) {
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = darkredColor;
       alertBackground = "DARKRED";
@@ -98,7 +99,7 @@ function updateAlert(blink) {
       alertImage = "ERROR";
     }
   }
-  else if (attentionState || wifiDropped) {
+  else if (app.attentionState || wifiDropped) {
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
@@ -141,7 +142,7 @@ function updateSettingValue(str, containerDiv, valueDiv) {
   var pending = false;
   [prev, curr] = parseInputParam(str);
   if (prev != curr) {
-    pendingState = true;
+    app.pendingState = true;
     pending = true;
     updatePending(false);
     elm = document.getElementById(containerDiv);
@@ -177,63 +178,63 @@ function updateSnapshot() {
     // System State
     if (key == 'INITIAL') {
       if (value == "1") {
-        if (!initialState) attentionState = false; // entering initial state
-        initialState = true;
+        if (!app.initialState) app.attentionState = false; // entering initial state
+        app.initialState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
         updateAlert(false);
       }
       else {
-        initialState = false;
+        app.initialState = false;
       }
     }
     else if (key == 'STANDBY') {
       if (value == "1") {
-        if (!standbyState) attentionState = false; // entering standby state
-        standbyState = true;
+        if (!app.standbyState) app.attentionState = false; // entering standby state
+        app.standbyState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>STANDBY</b>";
         document.getElementById("StateImg").src = "img/YellowDot.png";
         updateAlert(false);
       }
       else {
-        standbyState = false;
+        app.standbyState = false;
       }
     }
     else if (key == 'RUNNING') {
       if (value == "1") {
-        if (!activeState) attentionState = false; // entering active state
-        activeState = true;
+        if (!app.activeState) app.attentionState = false; // entering active state
+        app.activeState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ACTIVE</b>";
         document.getElementById("StateImg").src = "img/GreenDot.png";
         updateAlert(false);
       }
       else {
-        activeState = false;
+        app.activeState = false;
       }
     }
     else if (key == 'ERROR') {
       if (value == "1") {
-        errorState = true;
+        app.errorState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ERROR</b>";
         document.getElementById("StateImg").src = "img/RedDot.png";
         updateAlert(false);
       }
       else {
-        if (errorState) attentionState = false; // exiting error state
-        errorState = false;
+        if (app.errorState) app.attentionState = false; // exiting error state
+        app.errorState = false;
       }
     }
     else if (key == 'ATTENTION') {
       if (value == "1") {
-        attentionState = true;
+        app.attentionState = true;
         updateAlert(false);
       }
       else {
-        attentionState = false;
+        app.attentionState = false;
         updateAlert(false);
       }
     }
@@ -319,19 +320,19 @@ function updateSnapshot() {
     // Pending settings change
     else if (key == 'PENDING') {
       if (value == 1) {
-        pendingState = true;
+        app.pendingState = true;
         updatePending(false);
       }
       else {
-        pendingState = false;
-        pendingMODE = false;
-        pendingVT = false;
-        pendingRR = false;
-        pendingIE = false;
-        pendingIPEEP = false;
-        pendingPMAX = false;
-        pendingPS = false;
-        pendingTPS = false;
+        app.pendingState = false;
+        app.pendingMODE = false;
+        app.pendingVT = false;
+        app.pendingRR = false;
+        app.pendingIE = false;
+        app.pendingIPEEP = false;
+        app.pendingPMAX = false;
+        app.pendingPS = false;
+        app.pendingTPS = false;
         updatePending(false);
       }
     }
@@ -359,36 +360,36 @@ function updateSnapshot() {
     }
     // Input Settings
     else if (key == 'MODE') {
-      pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
-      if (pendingMODE) somethingPending = true;
+      app.pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
+      if (app.pendingMODE) somethingPending = true;
     }
     else if (key == 'VT') {
-      pendingVT = updateSettingValue(value, "VTDiv", "VT");
-      if (pendingVT) somethingPending = true;
+      app.pendingVT = updateSettingValue(value, "VTDiv", "VT");
+      if (app.pendingVT) somethingPending = true;
     }
     else if (key == 'RR') {
-      pendingRR = updateSettingValue(value, "RRDiv", "RR");
-      if (pendingRR) somethingPending = true;
+      app.pendingRR = updateSettingValue(value, "RRDiv", "RR");
+      if (app.pendingRR) somethingPending = true;
     }
     else if (key == 'EI') {
-      pendingIE = updateSettingValue(value, "IEDiv", "IE");
-      if (pendingIE) somethingPending = true;
+      app.pendingIE = updateSettingValue(value, "IEDiv", "IE");
+      if (app.pendingIE) somethingPending = true;
     }
     else if (key == 'IPEEP') {
-      pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
-      if (pendingIPEEP) somethingPending = true;
+      app.pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
+      if (app.pendingIPEEP) somethingPending = true;
     }
     else if (key == 'PMAX') {
-      pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
-      if (pendingPMAX) somethingPending = true;
+      app.pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
+      if (app.pendingPMAX) somethingPending = true;
     }
     else if (key == 'PS') {
-      pendingPS = updateSettingValue(value, "PSDiv", "PS");
-      if (pendingPS) somethingPending = true;
+      app.pendingPS = updateSettingValue(value, "PSDiv", "PS");
+      if (app.pendingPS) somethingPending = true;
     }
     else if (key == 'TPS') {
-      pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
-      if (pendingTPS) somethingPending = true;
+      app.pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
+      if (app.pendingTPS) somethingPending = true;
       [tps, units] = parseInputTPS(document.getElementById("TPS").innerText);
       elm = document.getElementById("TPS");
       elm.innerHTML = tps;
@@ -411,6 +412,7 @@ function updateDashboardAndRecordingStatus() {
   else {
     document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
   }
+
   if (recordingOff) {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
   }
@@ -433,11 +435,9 @@ function displayNormalMessages() {
   messagesBackground = "MEDIUMBLUE";
   updateDashboardAndRecordingStatus();
 }
-var savedL1 = savedL2 = savedL3 = savedL4 = "";
-var wifiDroppedBlink = 0;
 
 function displayWifiDropped() {
-  //if (initialState) return;
+  //if (app.initialState) return;
   wifiDropped = true;
   wifiDroppedBlink++;
   if (wifiDroppedBlink != 3) return;

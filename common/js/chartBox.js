@@ -23,12 +23,12 @@ class ChartBox {
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
-    if (!chartsXrange) {
+    if (!app.chartsXrange) {
       this.rangeX = null;
       return; // chartsXrange is a global variable
     }
 
-    this.rangeX = chartsXrange;
+    this.rangeX = app.chartsXrange;
     this.createChart();
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }
@@ -168,10 +168,10 @@ class ChartBox {
     var paramInfo = {
       name: "Peak Pressure (cm H20)" ,
       color: "red",
-      transitions: peakValues
+      transitions: session.peakValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createPlatGraph(reuseAxisNum) {
@@ -184,10 +184,10 @@ class ChartBox {
     var paramInfo = {
       name: "Plateau Pressure (cm H20)" ,
       color: "silver",
-      transitions: platValues
+      transitions: session.platValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createPeepGraph(reuseAxisNum) {
@@ -200,10 +200,10 @@ class ChartBox {
     var paramInfo = {
       name: "Peep Pressure (cm H20)" ,
       color: "green",
-      transitions: mpeepValues
+      transitions: session.mpeepValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createVtdelGraph(reuseAxisNum) {
@@ -216,10 +216,10 @@ class ChartBox {
     var paramInfo = {
       name: "Tidal Volume (ml)" ,
       color: "purple",
-      transitions: vtdelValues
+      transitions: session.vtdelValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createMvdelGraph(reuseAxisNum) {
@@ -232,10 +232,10 @@ class ChartBox {
     var paramInfo = {
       name: "Minute Volume (litres/min)" ,
       color: "olive",
-      transitions: mvdelValues
+      transitions: session.mvdelValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createO2FlowGraph(reuseAxisNum) {
@@ -248,10 +248,10 @@ class ChartBox {
     var paramInfo = {
       name: "O2 Flow Rate (litres/min)" ,
       color: "Indigo",
-      transitions: o2FlowValues
+      transitions: session.o2FlowValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createSbpmGraph(reuseAxisNum) {
@@ -264,10 +264,10 @@ class ChartBox {
     var paramInfo = {
       name: "Static BPM (bpm)" ,
       color: "Maroon",
-      transitions: sbpmValues
+      transitions: session.sbpmValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createMbpmGraph(reuseAxisNum) {
@@ -280,10 +280,10 @@ class ChartBox {
     var paramInfo = {
       name: "Static BPM (bpm)" ,
       color: "Violet",
-      transitions: mbpmValues
+      transitions: session.mbpmValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createBreathTypeGraph(reuseAxisNum) {
@@ -296,13 +296,13 @@ class ChartBox {
     var paramInfo = {
       name: "Breath TypeMandatory/Spontaneous/Error" ,
       color: "#E78A61",
-      transitions: breathTypeValues,
+      transitions: session.breathTypeValues,
       yFormat: breathTypeFormatter,
       yInterval: 1,
       //graphType: "stepArea"
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createScompGraph(reuseAxisNum) {
@@ -315,10 +315,10 @@ class ChartBox {
     var paramInfo = {
       name: "Static Compliance (ml/cm H20)" ,
       color: "Navy",
-      transitions: scompValues
+      transitions: session.scompValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createDcompGraph(reuseAxisNum) {
@@ -331,10 +331,10 @@ class ChartBox {
     var paramInfo = {
       name: "Dynamic Compliance (ml/cm H20)" ,
       color: "Crimson",
-      transitions: dcompValues
+      transitions: session.dcompValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createTempGraph(reuseAxisNum) {
@@ -347,10 +347,10 @@ class ChartBox {
     var paramInfo = {
       name: "System Temp (deg C)" ,
       color: "Fuchsia",
-      transitions: tempValues
+      transitions: session.tempValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createWarningGraph(reuseAxisNum) {
@@ -363,10 +363,10 @@ class ChartBox {
     var paramInfo = {
       name: "Warnings" ,
       color: "Orange",
-      transitions: warningValues
+      transitions: session.warningValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createNotificationGraph(reuseAxisNum) {
@@ -379,10 +379,10 @@ class ChartBox {
     var paramInfo = {
       name: "Notifications" ,
       color: "Yellow",
-      transitions: notificationValues
+      transitions: session.notificationValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createErrorGraph(reuseAxisNum) {
@@ -395,10 +395,10 @@ class ChartBox {
     var paramInfo = {
       name: "Errors" ,
       color: "Pink",
-      transitions: errorValues
+      transitions: session.errorValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createFiO2Graph(reuseAxisNum) {
@@ -411,10 +411,10 @@ class ChartBox {
     var paramInfo = {
       name: "FiO2 (%)" ,
       color: "Brown",
-      transitions: fiO2Values
+      transitions: session.fiO2Values
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
   
   createPurityGraph(reuseAxisNum) {
@@ -427,10 +427,10 @@ class ChartBox {
     var paramInfo = {
       name: "O2 Purity (%)" ,
       color: "lightGreen",
-      transitions: o2PurityValues
+      transitions: session.o2PurityValues
     };
   
-    return this.chart.addGraph(yAxisInfo, breathTimes, flags, paramInfo);
+    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
   }
 
 }

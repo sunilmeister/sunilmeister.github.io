@@ -1,52 +1,77 @@
-// Dashboard variables
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
+const TIMEOUT_INTERVAL_IN_MS         = 200;
+const BLINK_INTERVAL_IN_MS           = 1000;
+const MAX_DWEET_INTERVAL_IN_MS       = 30000;
+const INIT_RECORDING_INTERVAL_IN_MS  = 5000;
+const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
+
 var datasource_name = "RESPIMATIC100";
-var startDate;
 var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
+var startMillis = 0;
+var simulatedMillis = 0;
+var lastDweetInMs = 0;
 var startSystemDate = new Date();
+
+var currentView = "snapshots";
+var currentViewIsSnapshot = true;
+
+var updatePaused = false;
 var updateInProgress = false;
+
+var wifiDropped = false;
+var wifiDroppedBlink = 0;
+
+var savedL1 = "";
+var savedL2 = "";
+var savedL3 = "";
+var savedL4 = "";
+
+var dashboardBreathNum = 0;
+var systemBreathNum = 0;
+var breathPausedAt = 0;
+
+var updatedDweetContent = {"content": {}};
+var awaitingFirstDweet = true;
+var dweetQ = null;
+var periodicTickCount = 0;
+var lastDweetTick = 0;
+var dweetIntervalCounter = 0;
+var finishedLoading = false;
+
+var messagesBackground = "MEDIUMBLUE";
+var alertBackground = "GREEN";
+var pendingBackground = "MEDIUMBLUE";
+var pauseButtonBackground = "MEDIUMBLUE";
+var flowDivBackground = "DARKBLUE";
+var recordButtonBackground = "MEDIUMBLUE";
+var alertImage = "OK";
+
+var blinkInterval = 0;
+var prevBlinkTimeInMs = (new Date()).getTime();
+
+var somethingPending = false;
+
 var blueColor;
 var darkblueColor;
 var darkredColor;
 var greenColor;
 var orangeColor;
-var alertImage;
-var alertBackground;
-var pendingBackground;
-var messagesBackground;
-var pauseButtonBackground;
-var flowDivBackground;
-var pendingMODE = false;
-var pendingVT = false;
-var pendingRR = false;
-var pendingIE = false;
-var pendingIPEEP = false;
-var pendingPMAX = false;
-var pendingPS = false;
-var pendingTPS = false;
-var initialState = true;
-var standbyState = false;
-var activeState = false;
-var errorState = false;
-var attentionState = false;
-var pendingState = false;
-var currentViewIsSnapshot = true;
-var awaitingFirstDweet = true;
-var updatePaused = false;
+
 var desiredFiO2 = 21;
 var o2Purity = 21;
 var reqO2Flow = 0;
+
 var fiO2Gauge = null;
 var purityGauge = null;
 var peakGauge = null;
 var platGauge = null;
 var peepGauge = null;
 var tempGauge = null;
-// Up to date dweet format state
-// useful for resuming after pause
-var updatedDweetContent = {
-  "content": {}
-};;
+
 // Recorder
 var recCreationTimeStamp = "";
 var db;
@@ -63,21 +88,12 @@ var recL4Valid = false;
 var recorderBackground = "MEDIUMBLUE";
 var recordingOff = true;
 var recordingPaused = false;
+var skipRecording = false;
+
 // sliders
 var sliderCommitPending = false;
 var stopSliderCallback = false;
 var chartRangeSlider = null;
-var stattRangeSlider = null;
+var statRangeSlider = null;
 var alertRangeSlider = null;
-// check for continuing dweets
-var dweetQ = null;
-var wifiDropped = false;
-var blinkInterval = 0;
-var prevBlinkTimeInMs = (new Date()).getTime();
-
-const TIMEOUT_INTERVAL_IN_MS = 200;
-const BLINK_INTERVAL_IN_MS = 1000;
-const MAX_DWEET_INTERVAL_IN_MS = 30000;
-const INIT_RECORDING_INTERVAL_IN_MS = 5000;
-const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 

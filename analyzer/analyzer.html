@@ -29,11 +29,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="../canvasjs/canvasjs.min.js"></script>
-    <script src="../common/js/download.js"></script>
-    <script src="../common/js/version.js"></script>
+    <script src="../common/js/constants.js"></script>
     <script src="../common/js/uid.js"></script>
     <script src="../common/js/common.js"></script>
-    <script src="../common/js/selectTableRow.js"></script>
     <script src="../common/js/checkboxTree.js"></script>
     <script src="../common/js/lineChart.js"></script>
     <script src="../common/js/statComputer.js"></script>
@@ -41,12 +39,15 @@
     <script src="../common/js/circularGauge.js"></script>
     <script src="../common/js/queue.js"></script>
     <script src="../common/js/dbSchema.js"></script>
-    <script src="../common/js/globalData.js"></script>
-    <script src="../common/js/dataUtilities.js"></script>
-    <script src="../common/js/chartUtilities.js"></script>
-    <script src="../common/js/statUtilities.js"></script>
-    <script src="../common/js/errorWarningInfo.js"></script>
+    <script src="../common/js/sessionData.js"></script>
+    <script src="../common/js/appData.js"></script>
+    <script src="../common/js/dweets.js"></script>
+    <script src="../common/js/charts.js"></script>
+    <script src="../common/js/stats.js"></script>
+    <script src="../common/js/alerts.js"></script>
+    <script src="../common/js/download.js"></script>
     <script src="../common/js/chartBox.js"></script>
+    <script src="../common/js/selectTableRow.js"></script>
     <script src="js/importExport.js"></script>
     <script src="js/analysisCharts.js"></script>
     <script src="js/rawData.js"></script>
@@ -111,7 +112,7 @@
               <br>
               <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>View Charts</button>
               <br>
-              <button id="btnErrorWarning" class="sidebarButton" onclick='selectErrorWarnings()'>View Alerts</button>
+              <button id="btnAlert" class="sidebarButton" onclick='selectAlerts()'>View Alerts</button>
               <br>
               <button id="btnExportWindow" class="sidebarButton" onclick='selectExportWindow()'>Export Window </button>
               <br>
@@ -132,9 +133,9 @@
 	<center>
 	  <p style="color: white; font-size:2rem; font-family:verdana; margin-top:5px;">Set Breath Range Window for Analysis
 
-	  <button class="iconButton" id="btnSetInterval" onClick="setTimeInterval(this) onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'"><img  src="../common/img/check.png" width=30px height=30px></button>
-	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick="cancelTimeInterval(this)"><img  src="../common/img/close.png" width=30px height=30px></button>
-	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick="resetTimeInterval(this)"><img  src="../common/img/reset.png" width=30px height=30px></button>
+	  <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=30px height=30px></button>
+	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)'><img  src="../common/img/close.png" width=30px height=30px></button>
+	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)'><img  src="../common/img/reset.png" width=30px height=30px></button>
 	  <br><br>
         </center>
       </div>

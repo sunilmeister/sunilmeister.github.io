@@ -4,39 +4,38 @@
 var prevMinBreathNum = 0;
 var prevMaxBreathNum = 0;
 
-var chartCreationInProgress = false;
 function createDashboardCharts() {
-  if (chartCreationInProgress) return;
-  chartCreationInProgress = true;
+  if (app.chartCreationInProgress) return;
+  app.chartCreationInProgress = true;
 
   if (numberOfExistingCharts()==0) {
     chartInsertOnTop(); // always have chart box for user to start with
   }  
-  chartsXrange = {
+
+  app.chartsXrange = {
     doFull: false,
     initBnum:0, 
-    minBnum:minChartBreathNum , 
-    maxBnum:maxChartBreathNum ,
-    missingBnum:cloneObject(missingBreathWindows),
-    initTime:startDate, 
-    minTime:breathTimes[minChartBreathNum].time, 
-    maxTime:breathTimes[maxChartBreathNum].time,
-    missingTime:cloneObject(missingTimeWindows)
+    minBnum:app.minChartBreathNum , 
+    maxBnum:app.maxChartBreathNum ,
+    missingBnum:cloneObject(session.missingBreathWindows),
+    initTime:app.startDate, 
+    minTime:session.breathTimes[app.minChartBreathNum].time, 
+    maxTime:session.breathTimes[app.maxChartBreathNum].time,
+    missingTime:cloneObject(session.missingTimeWindows)
   };
   
-  for (id in allChartContainerInfo) {
-    allChartContainerInfo[id].render();
+  for (id in app.allChartsContainerInfo) {
+    app.allChartsContainerInfo[id].render();
   }
 
-  prevMinBreathNum = chartsXrange.minBnum;
-  prevMaxBreathNum = chartsXrange.maxBnum;
-  chartCreationInProgress = false;
+  prevMinBreathNum = app.chartsXrange.minBnum;
+  prevMaxBreathNum = app.chartsXrange.maxBnum;
+  app.chartCreationInProgress = false;
 }
 
 ////////////////////////////////////////////////////////
 
 function createChartRangeSlider(div) {
-  chartSliderPresent = true;
   chartRangeSlider = new IntRangeSlider(
     div,
     0,
@@ -63,87 +62,86 @@ function chartRangeSliderCallback() {
 }
 
 function updateChartRangeOnNewBreath(num) {
-  chartRangeLimit = dashboardBreathNum;
-  if (chartRangeLimit==1) chartRangeLimit=2; // max must be > min
-  chartRangeSlider.setRange([1, chartRangeLimit]);
+  app.chartRangeLimit = app.dashboardBreathNum;
+  if (app.chartRangeLimit==1) app.chartRangeLimit=2; // max must be > min
+  chartRangeSlider.setRange([1, app.chartRangeLimit]);
 
   // if range is not "full"
-  if (!reportsXrange.doFull || sliderCommitPending) return;
+  if (!app.reportsXrange.doFull || sliderCommitPending) return;
 
-  maxChartBreathNum = dashboardBreathNum;
-  minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
-  if (minChartBreathNum <= 0) {
-    minChartBreathNum = 1;
+  app.maxChartBreathNum = app.dashboardBreathNum;
+  app.minChartBreathNum = app.maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
+  if (app.minChartBreathNum <= 0) {
+    app.minChartBreathNum = 1;
   }
 
   stopSliderCallback = true;
-  chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+  chartRangeSlider.setSlider([app.minChartBreathNum, app.maxChartBreathNum]);
   stopSliderCallback = false;
 }
 
 function setChartTimeInterval(btn) {
   if (!sliderCommitPending) return;
-  sliderCommitPending = false;
   unflashBreathWindowButtons();
   values = chartRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveChartXrange = reportsXrange;
-  reportsXrange.doFull = false;
-  reportsXrange.minBnum = bmin;
-  reportsXrange.maxBnum = bmax;
-  maxChartBreathNum = bmax;
-  minChartBreathNum = bmin;
+  saveChartXrange = app.reportsXrange;
+  app.reportsXrange.doFull = false;
+  app.reportsXrange.minBnum = bmin;
+  app.reportsXrange.maxBnum = bmax;
+  app.maxChartBreathNum = bmax;
+  app.minChartBreathNum = bmin;
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
   setStatTimeInterval();
   setAlertTimeInterval();
   createDashboardCharts();
+  sliderCommitPending = false;
 }
 
 function cancelChartTimeInterval(btn) {
   if (!sliderCommitPending) return;
-  sliderCommitPending = false;
   unflashBreathWindowButtons();
   if (saveChartXrange) {
-    reportsXrange = saveChartXrange;
-    maxChartBreathNum = reportsXrange.maxBnum;
-    minChartBreathNum = reportsXrange.minBnum;
+    app.reportsXrange = saveChartXrange;
+    app.maxChartBreathNum = app.reportsXrange.maxBnum;
+    app.minChartBreathNum = app.reportsXrange.minBnum;
   } else {
-    reportsXrange.doFull = true;
-    reportsXrange.minBnum = 1;
-    reportsXrange.maxBnum = dashboardBreathNum;
-    maxChartBreathNum = dashboardBreathNum;
-    minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
-    if (minChartBreathNum <= 0) {
-      minChartBreathNum = 1;
+    app.reportsXrange.doFull = true;
+    app.reportsXrange.minBnum = 1;
+    app.reportsXrange.maxBnum = app.dashboardBreathNum;
+    app.maxChartBreathNum = app.dashboardBreathNum;
+    app.minChartBreathNum = app.maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
+    if (app.minChartBreathNum <= 0) {
+      app.minChartBreathNum = 1;
     }
   }
   stopSliderCallback = true;
-  chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+  chartRangeSlider.setSlider([app.minChartBreathNum, app.maxChartBreathNum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
   cancelStatTimeInterval();
   cancelAlertTimeInterval();
+  sliderCommitPending = false;
 }
 
 function resetChartTimeInterval(btn) {
   saveChartXrange = null;
-  sliderCommitPending = false;
   unflashBreathWindowButtons();
-  reportsXrange.doFull = true;
-  reportsXrange.minBnum = 1;
-  reportsXrange.maxBnum = dashboardBreathNum;
-  maxChartBreathNum = dashboardBreathNum;
-  minChartBreathNum = maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
-  if (minChartBreathNum <= 0) {
-    minChartBreathNum = 1;
+  app.reportsXrange.doFull = true;
+  app.reportsXrange.minBnum = 1;
+  app.reportsXrange.maxBnum = app.dashboardBreathNum;
+  app.maxChartBreathNum = app.dashboardBreathNum;
+  app.minChartBreathNum = app.maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
+  if (app.minChartBreathNum <= 0) {
+    app.minChartBreathNum = 1;
   }
   stopSliderCallback = true;
-  chartRangeSlider.setSlider([minChartBreathNum, maxChartBreathNum]);
+  chartRangeSlider.setSlider([app.minChartBreathNum, app.maxChartBreathNum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
@@ -151,4 +149,5 @@ function resetChartTimeInterval(btn) {
   resetStatTimeInterval();
   resetAlertTimeInterval();
   createDashboardCharts();
+  sliderCommitPending = false;
 }

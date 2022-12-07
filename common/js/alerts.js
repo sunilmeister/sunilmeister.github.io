@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-function displayJsonErrorWarningInfo(prefix, scrollbox, jsonData) {
+function displayJsonAlerts(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_darkblue');
   var newElement = document.createElement('p');
@@ -34,8 +34,7 @@ function displayJsonErrorWarningInfo(prefix, scrollbox, jsonData) {
   scrollbox.appendChild(newElement);
 }
 
-function initErrorWarningInfo() {
-  //console.log("initErrorWarnings");
+function initAlerts() {
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   scrollbox = document.getElementById('scrollWarningDiv');
@@ -44,42 +43,48 @@ function initErrorWarningInfo() {
   scrollbox.innerHTML = "";
 }
 
-function displayErrorWarningInfo() {
-  if (!globalDataValid) {
+function displayAlerts() {
+  if (!app.globalDataValid) {
     alert("Data Gathering in process\nGive us a second and try again");
     return;
   }
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
-  for (i = 0; i < errorMsgs.length; i++) {
-    if (!reportsXrange.doFull) {
-      if (errorMsgs[i].created > breathTimes[reportsXrange.maxBnum].time) continue;
-      if (errorMsgs[i].created < breathTimes[reportsXrange.minBnum].time) continue;
+  for (i = 0; i < session.errorMsgs.length; i++) {
+    if (!app.reportsXrange.doFull) {
+      if (session.errorMsgs[i].created > 
+	session.breathTimes[app.reportsXrange.maxBnum].time) continue;
+      if (session.errorMsgs[i].created < 
+	session.breathTimes[app.reportsXrange.minBnum].time) continue;
     }
 
     prefix = "ERROR #" + (i + 1) + " ";
-    displayJsonErrorWarningInfo(prefix, scrollbox, errorMsgs[i]);
+    displayJsonAlerts(prefix, scrollbox, session.errorMsgs[i]);
   }
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
-  for (i = 0; i < warningMsgs.length; i++) {
-    if (!reportsXrange.doFull) {
-      if (warningMsgs[i].created > breathTimes[reportsXrange.maxBnum].time) continue;
-      if (warningMsgs[i].created < breathTimes[reportsXrange.minBnum].time) continue;
+  for (i = 0; i < session.warningMsgs.length; i++) {
+    if (!app.reportsXrange.doFull) {
+      if (session.warningMsgs[i].created > 
+	session.breathTimes[app.reportsXrange.maxBnum].time) continue;
+      if (session.warningMsgs[i].created < 
+	session.breathTimes[app.reportsXrange.minBnum].time) continue;
     }
 
     prefix = "WARNING #" + (i + 1) + " ";
-    displayJsonErrorWarningInfo(prefix, scrollbox, warningMsgs[i]);
+    displayJsonAlerts(prefix, scrollbox, session.warningMsgs[i]);
   }
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
-  for (i = 0; i < notificationMsgs.length; i++) {
-    if (!reportsXrange.doFull) {
-      if (notificationMsgs[i].created > breathTimes[reportsXrange.maxBnum].time) continue;
-      if (notificationMsgs[i].created < breathTimes[reportsXrange.minBnum].time) continue;
+  for (i = 0; i < session.notificationMsgs.length; i++) {
+    if (!app.reportsXrange.doFull) {
+      if (session.notificationMsgs[i].created > 
+	session.breathTimes[app.reportsXrange.maxBnum].time) continue;
+      if (session.notificationMsgs[i].created < 
+	session.breathTimes[app.reportsXrange.minBnum].time) continue;
     }
     prefix = "INFO #" + (i + 1) + " ";
-    displayJsonErrorWarningInfo(prefix, scrollbox, notificationMsgs[i]);
+    displayJsonAlerts(prefix, scrollbox, session.notificationMsgs[i]);
   }
 }
 

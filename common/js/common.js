@@ -94,25 +94,6 @@ function cloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
-function keyMoreThanAnalysisRangeMax(key) {
-  d = new Date(key);
-  if (d > analysisEndTime) return true;
-  return false;
-}
-
-function keyLessThanAnalysisRangeMin(key) {
-  d = new Date(key);
-  if (d < analysisStartTime) return true;
-  return false;
-}
-
-function keyWithinAnalysisRange(key) {
-  d = new Date(key);
-  if (d < analysisStartTime) return false;
-  if (d > analysisEndTime) return false;
-  return true;
-}
-
 function convertMS(milliseconds) {
   var day, hour, minute, seconds;
   seconds = Math.floor(milliseconds / 1000);

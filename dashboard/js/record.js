@@ -118,10 +118,10 @@ function initRecordingPrevContent() {
 function processRecordDweet(d) {
   // We already have the UID
   // delete d.thing;
-  if (d.content['INITIAL'] == "1") initialState = true;
-  if (d.content['STANDBY'] == "1") initialState = false;
-  if (d.content['RUNNING'] == "1") initialState = false;
-  if (d.content['ERROR'] == "1") initialState = false;
+  if (d.content['INITIAL'] == "1") skipRecording = true;
+  if (d.content['STANDBY'] == "1") skipRecording = false;
+  if (d.content['RUNNING'] == "1") skipRecording = false;
+  if (d.content['ERROR'] == "1") skipRecording = false;
   if (typeof d.content['WMSG'] != 'undefined') {
     recExpectWarningMsg = true;
     accumulatedRecordState['L1'] = "";
@@ -151,7 +151,7 @@ function processRecordDweet(d) {
     if (typeof d.content['L3'] != 'undefined') recL3Valid = true;
     if (typeof d.content['L4'] != 'undefined') recL4Valid = true;
   }
-  if (!recExpectWarningMsg && !recExpectErrorMsg && !initialState) {
+  if (!recExpectWarningMsg && !recExpectErrorMsg && !skipRecording) {
     // Get rid of messages except in INITIAL state or when the attention is ON
     delete d.content['L1'];
     delete d.content['L2'];
@@ -185,9 +185,9 @@ function processRecordDweet(d) {
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     if (doRecord) {
-      if (db && sessionVersion=='UNKNOWN') {
-        sessionVersion = SESSION_VERSION;
-        d.content.SESSION_VERSION = sessionVersion;
+      if (db && app.sessionVersion=='UNKNOWN') {
+        app.sessionVersion = SESSION_VERSION;
+        d.content.SESSION_VERSION = app.sessionVersion;
       }
       if (!prevDweetRecorded) {
 	// Add on the accumulated state first
@@ -202,17 +202,6 @@ function processRecordDweet(d) {
 }
 
 function InitRecorder() {
-  periodicTickCount = 0;
-  lastDweetTick = 0;
-  dweetIntervalCounter = 0;
   recordStartDate = new Date();
-  // accumulatedRecordState = {}; DONT!!!
-  prevDweetRecorded = false;
-  recExpectErrorMsg = false;
-  recExpectWarningMsg = false;
-  recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
-  recordingOff = true;
-  recordingPaused = false;
-  recordButtonBackground = "MEDIUMBLUE";
 }
 
