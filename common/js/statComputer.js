@@ -35,6 +35,7 @@ class StatComputer {
     var minDate = Date(this.breathTimes[this.xRange.minBnum]);
     var maxDate = Date(this.breathTimes[this.xRange.maxBnum]);
 
+    var keepOneBefore = true;
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
       var tDate = Date(transitions[i].time);
@@ -54,9 +55,10 @@ class StatComputer {
 
   rangeArray(transitions) {
     var arr = [];
-    if (transitions.length == 0) {
+    if (transitions.length <= 1) {
+      // First one is always a dummy
       console.log("No transitions for statComputer");
-      return arr;
+      return transitions;
     }
 
     // Collect param datapoints per breath

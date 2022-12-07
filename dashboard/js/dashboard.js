@@ -558,7 +558,7 @@ function FetchAndExecuteFromQueue() {
       if (app.startSystemBreathNum<0) {
 	app.startSystemBreathNum = app.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
-	elm.innerHTML = String(systemBreathNum-1);
+	elm.innerHTML = String(app.systemBreathNum-1);
       }
     }
     var dCopy; // a copy of the dweet

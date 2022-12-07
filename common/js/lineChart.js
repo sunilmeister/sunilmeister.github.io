@@ -157,7 +157,7 @@ class LineChart {
     if (this.timeUnits) {
       return Math.floor(minTime - initTime)/1000 ;
     } else {
-      return minBnum - initBnum;
+      return minBnum - initBnum + 1;
     }
   }
 

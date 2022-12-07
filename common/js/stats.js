@@ -162,12 +162,12 @@ function displayBreathTypeInfo() {
   var ne=0;
   for (let i=0; i<arr.length; i++) {
     value = arr[i].value;
-    if (value==0) ns++;
-    else if (value==1) nm++;
-    else ne++;
+    if (value==SPONTANEOUS_BREATH) ns++;
+    else if (value==MANDATORY_BREATH) nm++;
+    else if (value==ERROR_BREATH) ne++;
   }
   el = document.getElementById("numBreaths");
-  el.innerHTML = replaceDummyValue(arr.length);
+  el.innerHTML = replaceDummyValue(nm+ns+ne);
   el = document.getElementById("numMandatory");
   el.innerHTML = replaceDummyValue(nm);
   el = document.getElementById("numSpontaneous");

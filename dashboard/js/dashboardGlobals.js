@@ -30,8 +30,6 @@ var savedL2 = "";
 var savedL3 = "";
 var savedL4 = "";
 
-var dashboardBreathNum = 0;
-var systemBreathNum = 0;
 var breathPausedAt = 0;
 
 var updatedDweetContent = {"content": {}};
