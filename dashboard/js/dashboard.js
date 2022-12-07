@@ -382,7 +382,6 @@ window.onload = function() {
   // Create data objects
   app = cloneObject(AppDataTemplate);
   session = cloneObject(SessionDataTemplate);
-  full = cloneObject(FullTemplate);
 
   initDbNames();
   InitRecorder();

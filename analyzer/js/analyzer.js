@@ -263,13 +263,6 @@ function enableAllButtons() {
 }
 
 function resetAnalysisData(newDbSelected) {
-  session = cloneObject(SessionDataTemplate);
-  if (newDbSelected) {
-    app = cloneObject(AppDataTemplate);
-    full = cloneObject(FullTemplate);
-  } else {
-    initAppData();
-  }
   initStats();
   initCharts();
   initRawDump();
@@ -329,6 +322,28 @@ function updateSelectedDuration() {
   elm.innerHTML = String(app.startSystemBreathNum-1);
 }
 
+function setAnalysisRanges(doFull) {
+  app.reportsXrange ={
+    doFull : doFull,
+    minBnum : app.analysisStartBreath,
+    maxBnum : app.analysisEndBreath,
+    missingBnum : session.missingBreathWindows,
+  };
+
+  app.chartsXrange = {
+    doFull :  doFull,
+    initBnum : 1, 
+    minBnum : app.analysisStartBreath, 
+    maxBnum : app.analysisEndBreath,
+    missingBnum : cloneObject(session.missingBreathWindows),
+    initTime : app.logStartTime, 
+    minTime : app.analysisStartTime, 
+    maxTime : app.analysisEndTime,
+    missingTime : cloneObject(session.missingTimeWindows)
+  };
+
+}
+
 function setTimeInterval() {
   if (!sliderCommitPending) return;
   sliderCommitPending = false;
@@ -336,18 +351,14 @@ function setTimeInterval() {
   values = analysisRangeSlider.getSlider();
   app.analysisStartBreath = parseInt(values[0]);
   app.analysisEndBreath = parseInt(values[1]);
-  app.analysisStartTime = full.fullSessionBreathTimes[app.analysisStartBreath-1];
-  app.analysisEndTime = full.fullSessionBreathTimes[app.analysisEndBreath-1];
+  app.analysisStartTime = session.breathTimes[app.analysisStartBreath].time;
+  app.analysisEndTime = session.breathTimes[app.analysisEndBreath].time;
   analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 
-  app.reportsXrange.doFull = true;
-  app.reportsXrange.minBnum = app.analysisStartBreath;
-  app.reportsXrange.maxBnum = app.analysisEndBreath;
-  app.reportsXrange.missingBnum = session.missingBreathWindows;
-
+  setAnalysisRanges(false);
   updateSelectedDuration();
+
   resetAnalysisData(false);
-  gatherGlobalData(analysisGatherDoneCallback);
   UndisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
 }
@@ -369,34 +380,32 @@ function resetTimeInterval() {
   app.analysisEndTime = app.logEndTime;
   analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 
-  app.reportsXrange.doFull = true;
-  app.reportsXrange.minBnum = app.analysisStartBreath;
-  app.reportsXrange.maxBnum = app.analysisEndBreath;
-  app.reportsXrange.missingBnum = session.missingBreathWindows;
-
+  setAnalysisRanges(true);
   updateSelectedDuration();
+
   resetAnalysisData(false);
-  gatherGlobalData(analysisGatherDoneCallback);
   UndisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
 }
 
-function analysisGatherDoneCallback(newDb) {
-  //usedParamCombos.push(cloneObject(prevParamCombo));
+function analysisGatherDoneCallback() {
   app.globalDataValid = true;
   app.sessionDbReady = true;
   app.logStartBreath = 1;
-  app.logEndBreath = full.fullSessionBreathTimes.length;
-  showAnalysisRangeSlider(newDb);
-  analysisRangeSlider.setRange([app.logStartBreath, app.logEndBreath]);
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+  app.logEndBreath = session.breathTimes.length-1;
+
+  setAnalysisRanges();
+  updateSelectedDuration();
+
+  createAnalysisRangeSlider();
+  //analysisRangeSlider.setRange([app.logStartBreath, app.logEndBreath]);
+  //analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 }
 
 window.onload = function() {
   // Create data objects
   app = cloneObject(AppDataTemplate);
   session = cloneObject(SessionDataTemplate);
-  full = cloneObject(FullTemplate);
 
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
@@ -477,42 +486,24 @@ function unflashAnalysisWindowButtons() {
   el.style.backgroundColor = bgd;
 }
 
-function showAnalysisRangeSlider(newDb) {
-  if (newDb) {
-    app.analysisStartBreath = app.logStartBreath;
-    app.analysisEndBreath = app.logEndBreath;
-    app.analysisStartTime = app.logStartTime;
-    app.analysisEndTime = app.logEndTime;
-  }
-  elm = document.getElementById("analysisWindowDiv");
-  elm.style.display = "block";
-  elm = document.getElementById("logNumBreaths");
-  elm.innerHTML = app.analysisEndBreath;
-
-  app.reportsXrange.doFull = true;
-  app.reportsXrange.minBnum = app.analysisStartBreath;
-  app.reportsXrange.maxBnum = app.analysisEndBreath;
-  app.reportsXrange.missingBnum = session.missingBreathWindows;
-
-  // Create analysis range slider
-  analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
-  createAnalysisRangeSlider(analysisRangeSliderDiv);
-  unflashAnalysisWindowButtons();
-
-  updateSelectedDuration();
-  if (app.analysisEndBreath==0) {
-    alert("No recorded breath for this session");
-  }
-}
-
 var cumulativeChartBreaths = 0;
 function updateRangeOnNewBreath(num) {
   app.minChartBreathNum = 1;
   app.maxChartBreathNum += num;
 }
 
-function createAnalysisRangeSlider(div) {
-  if (analysisRangeSlider) return;
+function createAnalysisRangeSlider() {
+  app.analysisStartBreath = app.logStartBreath;
+  app.analysisEndBreath = app.logEndBreath;
+  app.analysisStartTime = app.logStartTime;
+  app.analysisEndTime = app.logEndTime;
+  if (app.analysisEndBreath==0) {
+    alert("No recorded breath for this session\nSelect another session");
+    return;
+  }
+
+  // Create analysis range slider
+  analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
   analysisRangeSlider = new IntRangeSlider(
     analysisRangeSliderDiv,
     app.analysisStartBreath,
@@ -522,6 +513,20 @@ function createAnalysisRangeSlider(div) {
     1
   );
   analysisRangeSlider.setChangeCallback(analysisRangeSliderCallback);
+
+  elm = document.getElementById("analysisWindowDiv");
+  elm.style.display = "block";
+  elm = document.getElementById("logNumBreaths");
+  elm.innerHTML = app.analysisEndBreath;
+
+  setAnalysisRanges(true);
+  updateSelectedDuration();
+
+  unflashAnalysisWindowButtons();
+
+  if (app.logEndBreath==0) {
+    alert("No recorded breath for this session");
+  }
 }
 
 function analysisRangeSliderCallback() {

@@ -105,46 +105,5 @@ var AppDataTemplate = {
   },
 };
 
-function initAppData() {
-  // Breath types
-  app.prevBreathMandatory=   true;
-  app.prevBreathSpontaneous= false;
-  app.numMissingBreaths=     0;
-  app.prevBreathRecorded=    false;
-  app.lastValidBreathTime=   null;
-  app.lastWarningTime=       null;
-  app.lastErrorTime=         null;
-
-  // Breath numbers being recorded
-  app.dashboardBreathNum=   0;
-  app.systemBreathNum=      0;
-  app.startSystemBreathNum= -1;
-  app.prevSystemBreathNum=  -1;
-  app.chartPrevSystemBreathNum=-1;
-
-  // valid or not
-  app.globalDataValid= false;
-  app.firstRecord=     true;
-
-  // Combinations of settings
-  app.prevParamCombo=  {"time":0,"value":{}};
-  app.currParamCombo=  {"time":0,"value":{}};
-  app.usedParamCombos= [];
-
-  // error and warning messages
-  app.chartExpectWarningMsg= false;
-  app.chartExpectErrorMsg=   false;
-  app.chartL1= "";
-  app.chartL2= "";
-  app.chartL3= "";
-  app.chartL4= "";
-  app.errorNum=        0;
-  app.warningNum=      0;
-  app.notificationNum= 0;
-
-  // before Analysis starts
-  app.initialJsonRecord=    {};
-}
-
 var app = null;
 

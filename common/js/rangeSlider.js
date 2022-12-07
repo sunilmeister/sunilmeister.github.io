@@ -4,6 +4,7 @@
 
 class IntRangeSlider {
   constructor(containerDiv, rangeMin, rangeMax, sliderMin, sliderMax, sliderStep) {
+    if (rangeMin==rangeMax) rangeMax++;
     this.containerDiv = containerDiv;
     this.rangeMin = rangeMin;
     this.rangeMax = rangeMax;
@@ -45,6 +46,7 @@ class IntRangeSlider {
   setRange(values) { // values is a 2 element array [min, max]
     this.rangeMin = values[0];
     this.rangeMax = values[1];
+    if (this.rangeMin==this.rangeMax) this.rangeMax++;
     this.rangeSlider.updateOptions({
       range: {
         min: this.rangeMin,

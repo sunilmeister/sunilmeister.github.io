@@ -47,11 +47,4 @@ var SessionDataTemplate = {
 };
 
 
-// Analyzer guides
-var FullTemplate = {
-  fullSessionBreathTimes: [],
-  initSessionGather:      true,
-};
-
 var session = null;
-var full = null;

@@ -106,7 +106,7 @@ function globalProcessJsonRecord(jsonData) {
   processJsonRecord(jsonData);
 }
 
-function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback, newDb) {
+function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
@@ -126,7 +126,7 @@ function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback, newDb)
         globalProcessJsonRecord(jsonData);
       }
       if (lastRecord) {
-        if (typeof lastRecordCallback != 'undefined') lastRecordCallback(newDb);
+        if (typeof lastRecordCallback != 'undefined') lastRecordCallback();
       }
     }
   }
@@ -135,9 +135,6 @@ function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback, newDb)
 function gatherGlobalData(lastRecordCallback) {
   app.globalDataValid = false;
   app.sessionVersion = "UNKNOWN";
-  newDb = (full.fullSessionBreathTimes.length==0);
-  full.initSessionGather = newDb;
-  //console.log("gatherGlobalData initSessionGather=" + full.initSessionGather);
   app.initialJsonRecord = cloneObject(jsonRecordSchema);
   if (allDbKeys.length == 0) {
     alert("Selected Session has no data");
@@ -155,7 +152,7 @@ function gatherGlobalData(lastRecordCallback) {
     else if (keyMoreThanAnalysisRangeMax(allDbKeys[i + 1])) {
       lastRecord = true;
     }
-    globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback, newDb);
+    globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback);
   }
 }
 
@@ -279,11 +276,6 @@ function processJsonRecord(jsonData) {
 	    continue; // will count as missing
 	  }
           value = Number(bnumValue);
-	  if (full.initSessionGather) {
-	    //console.log("Pushing into fullSessionBreathTimes");
-	    full.fullSessionBreathTimes.push(new Date(jsonData.created));
-	    if (app.startSystemBreathNum<0) app.startSystemBreathNum = value;
-	  }
           if ((app.usedParamCombos.length == 0) ||
             !equalParamCombos(app.currParamCombo, app.prevParamCombo)) {
             // first breath in current combo
