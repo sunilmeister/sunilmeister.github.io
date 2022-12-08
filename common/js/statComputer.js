@@ -32,17 +32,15 @@ class StatComputer {
   filter(transitions, keepOneBefore) {
     if (this.xRange.doFull) return transitions;
     var arr = [];
-    var minDate = Date(this.breathTimes[this.xRange.minBnum]);
-    var maxDate = Date(this.breathTimes[this.xRange.maxBnum]);
+    var minDate = (this.breathTimes[this.xRange.minBnum].time);
+    var maxDate = (this.breathTimes[this.xRange.maxBnum].time);
 
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
-      var tDate = Date(transitions[i].time);
+      var tDate = new Date(transitions[i].time);
       if (tDate>maxDate) {
         if (keepOneBefore && (arr.length==0)) {
           if (prevItem) {
-	    console.log("Keeping one before");
-	    console.log(prevItem);
 	    arr.push(cloneObject(cloneObject(prevItem)));
 	    prevItem = null;
           }
@@ -55,14 +53,19 @@ class StatComputer {
       } else if (tDate>minDate) {
         if (keepOneBefore && (arr.length==0)) {
           if (prevItem) {
-	    console.log("Keeping one before");
-	    console.log(prevItem);
 	    arr.push(cloneObject(cloneObject(prevItem)));
 	    prevItem = null;
           }
         }
       }
       arr.push(cloneObject(transitions[i]));
+    }
+
+    if (keepOneBefore && (arr.length==0)) {
+      if (prevItem) {
+        arr.push(cloneObject(cloneObject(prevItem)));
+        prevItem = null;
+      }
     }
     return arr;
   }
