@@ -39,11 +39,12 @@ class StatComputer {
     for (let i = 1; i < transitions.length; i++) {
       var tDate = Date(transitions[i].time);
       if (tDate>maxDate) {
-        if (keepOneBefore) {
+        if (keepOneBefore && (arr.length==0)) {
           if (prevItem) {
 	    console.log("Keeping one before");
 	    console.log(prevItem);
 	    arr.push(cloneObject(cloneObject(prevItem)));
+	    prevItem = null;
           }
         }
 	break;
@@ -51,6 +52,15 @@ class StatComputer {
       if (tDate<minDate) {
 	prevItem = transitions[i];
 	continue;
+      } else if (tDate>minDate) {
+        if (keepOneBefore && (arr.length==0)) {
+          if (prevItem) {
+	    console.log("Keeping one before");
+	    console.log(prevItem);
+	    arr.push(cloneObject(cloneObject(prevItem)));
+	    prevItem = null;
+          }
+        }
       }
       arr.push(cloneObject(transitions[i]));
     }
