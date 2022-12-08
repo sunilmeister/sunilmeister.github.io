@@ -250,7 +250,7 @@ function enableAllButtons() {
 }
 
 function disableAllButtons() {
-  document.getElementById("btnSelect").disabled = true;
+  //document.getElementById("btnSelect").disabled = true;
   document.getElementById("btnRaw").disabled = true;
   document.getElementById("btnStat").disabled = true;
   document.getElementById("btnChart").disabled = true;
@@ -391,16 +391,25 @@ function resetTimeInterval() {
 function analysisGatherDoneCallback() {
   app.globalDataValid = true;
   app.sessionDbReady = true;
+
   app.logStartBreath = 1;
   app.logEndBreath = session.breathTimes.length-1;
+
+  app.analysisStartBreath = app.logStartBreath;
+  app.analysisEndBreath = app.logEndBreath;
+  app.analysisStartTime = app.logStartTime;
+  app.analysisEndTime = app.logEndTime;
+
+  if (app.logEndBreath==0) {
+    alert("No recorded breath for this session\nSelect another session");
+    return;
+  }
 
   enableAllButtons();
   setAnalysisRanges();
   updateSelectedDuration();
 
   createAnalysisRangeSlider();
-  //analysisRangeSlider.setRange([app.logStartBreath, app.logEndBreath]);
-  //analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 }
 
 window.onload = function() {
@@ -494,26 +503,22 @@ function updateRangeOnNewBreath(num) {
 }
 
 function createAnalysisRangeSlider() {
-  app.analysisStartBreath = app.logStartBreath;
-  app.analysisEndBreath = app.logEndBreath;
-  app.analysisStartTime = app.logStartTime;
-  app.analysisEndTime = app.logEndTime;
-  if (app.analysisEndBreath==0) {
-    alert("No recorded breath for this session\nSelect another session");
-    return;
+  // Create analysis range slider
+  if (!analysisRangeSlider) {
+    analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
+    analysisRangeSlider = new IntRangeSlider(
+      analysisRangeSliderDiv,
+      app.analysisStartBreath,
+      app.analysisEndBreath,
+      app.analysisStartBreath,
+      app.analysisEndBreath,
+      1
+    );
+    analysisRangeSlider.setChangeCallback(analysisRangeSliderCallback);
   }
 
-  // Create analysis range slider
-  analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
-  analysisRangeSlider = new IntRangeSlider(
-    analysisRangeSliderDiv,
-    app.analysisStartBreath,
-    app.analysisEndBreath,
-    app.analysisStartBreath,
-    app.analysisEndBreath,
-    1
-  );
-  analysisRangeSlider.setChangeCallback(analysisRangeSliderCallback);
+  analysisRangeSlider.setRange([app.logStartBreath, app.logEndBreath]);
+  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "block";
