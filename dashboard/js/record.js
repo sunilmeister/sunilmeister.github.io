@@ -1,3 +1,7 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
 function blinkRecordButton() {
   btn = document.getElementById("recordButton");
   var style = getComputedStyle(document.body)
