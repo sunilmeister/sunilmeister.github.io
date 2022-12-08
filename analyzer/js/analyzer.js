@@ -129,7 +129,7 @@ function selectSession() {
   undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
 
-  enableAllButtons();
+  if (app.globalDataValid) enableAllButtons();
 
   listAllDbs();
 }
@@ -137,14 +137,14 @@ function selectSession() {
 function selectImport() {
   undisplayAllPanes();
   document.getElementById("importDiv").style.display = "block";
-  enableAllButtons();
+  if (app.globalDataValid) enableAllButtons();
 }
 
 function selectExport() {
   undisplayAllPanes();
   document.getElementById("exportSessionDiv").style.display = "block";
 
-  enableAllButtons();
+  if (app.globalDataValid) enableAllButtons();
   listAllExportDbs();
 }
 
@@ -208,7 +208,7 @@ function initSession(dbName) {
     alert("Please Select Session");
     return;
   }
-  resetAnalysisData(true);
+  resetAnalysisData();
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
@@ -257,7 +257,7 @@ function disableAllButtons() {
   document.getElementById("btnAlert").disabled = true;
 }
 
-function resetAnalysisData(newDbSelected) {
+function resetAnalysisData() {
   initStats();
   initCharts();
   initRawDump();
@@ -358,7 +358,7 @@ function setTimeInterval() {
 
   setAnalysisRanges(false);
   updateSelectedDuration();
-  resetAnalysisData(false);
+  resetAnalysisData();
   document.getElementById("analysisWindowDiv").style.display = "block";
   refreshActivePane();
 }
@@ -382,7 +382,7 @@ function resetTimeInterval() {
 
   setAnalysisRanges(true);
   updateSelectedDuration();
-  resetAnalysisData(false);
+  resetAnalysisData();
   document.getElementById("analysisWindowDiv").style.display = "block";
 
   refreshActivePane();
@@ -427,10 +427,12 @@ window.onload = function() {
   sessionInfo.innerHTML = 'No Selected Session';
 
   undisplayAllPanes();
+  disableAllButtons();
 
   app.reportsXrange.doFull = true;
+  app.chartsXrange.doFull = true;
   
-  resetAnalysisData(true);
+  resetAnalysisData();
   selectSession();
 }
 
