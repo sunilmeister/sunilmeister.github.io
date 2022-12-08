@@ -27,13 +27,23 @@ function listDbTableRow(item, index) {
   cell.style.paddingTop = "8px";
   cell.style.paddingBottom = "8px";
   cell.innerHTML = nameTm[2];
+
+  cell = row.insertCell();
+  cell.innerHTML = checkButtonHTML("selectRowBtn",25);
+  cell = row.insertCell();
+  cell.innerHTML = exportButtonHTML("exportRowBtn",25);
+  cell = row.insertCell();
+  cell.innerHTML = trashButtonHTML("deleteRowBtn",25);
 }
 
-function selectDbRow() {
-  var row = getSelectedTableRow();
-  if (!row) {
-    alert("No selected item\nSelect by clicking on a table row\nTry again!");
-    return;
+function selectDbRow(row) {
+  if ((typeof row == 'undefined') || (row.tagName != "TR")) {
+    row = getSelectedTableRow();
+    console.log(row);
+    if (!row) {
+      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      return;
+    }
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
@@ -48,11 +58,13 @@ function selectDbRow() {
   return dbName;
 }
 
-function deleteDbRow() {
-  var row = getSelectedTableRow();
-  if (!row) {
-    alert("No selected item\nSelect by clicking on a table row\nTry again!");
-    return;
+function deleteDbRow(row) {
+  if (typeof row == 'undefined') {
+    row = getSelectedTableRow();
+    if (!row) {
+      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      return;
+    }
   }
   msg = "Delete " + row.cells[0].innerHTML + " " + row.cells[1].innerHTML + "?";
   if (!confirm(msg)) return;
@@ -67,6 +79,19 @@ function deleteDbRow() {
   // return the name just in case
   return dbName;
 }
+
+function selectRowBtn(btn) {
+  selectDbRow(btn.parentNode.parentNode);
+}
+
+function exportRowBtn(btn) {
+  exportDbRow(btn.parentNode.parentNode);
+}
+
+function deleteRowBtn(btn) {
+  deleteDbRow(btn.parentNode.parentNode);
+}
+
 // ///////////////////////////////////////////////////////
 // MAIN function executed on window load
 // ///////////////////////////////////////////////////////
@@ -458,17 +483,11 @@ function blinkAnalysisWindowButtons() {
 }
 
 function outIconButton(btn) {
-  var isImg = (btn.nodeName.toLowerCase() === 'img');
-  if (isImg) btn = btn.parentNode;
-
   btn.style.backgroundColor = "white";
   btn.style.borderColor = "white";
 }
 
 function overIconButton(btn) {
-  var isImg = (btn.nodeName.toLowerCase() === 'img');
-  if (isImg) btn = btn.parentNode;
-
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_lightblue');
   btn.style.backgroundColor = bgd;

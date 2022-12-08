@@ -40,7 +40,7 @@ function setSelectedRespimaticTagFromDD() {
 }
 
 function selectSystemInfo(row) {
-  if (typeof row == 'undefined') {
+  if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
       alert("No selected item\n\nSelect by clicking on a table row\nTry again!");

@@ -27,6 +27,6 @@
   background-color: var(--rsp_blue);
   border-color: var(--rsp_blue);
   box-shadow: 0 6px white;
-  transform: translateY(6px);
+  transform: translateY(4px);
 }
 

@@ -22,11 +22,13 @@ function listDbExportTableRow(item, index) {
   cell.innerHTML = nameTm[2];
 }
 
-function exportDbRow() {
-  var row = getSelectedTableRow();
-  if (!row) {
-    alert("No selected item\nSelect by clicking on a table row\nTry again!");
-    return;
+function exportDbRow(row) {
+  if (typeof row == 'undefined') {
+    row = getSelectedTableRow();
+    if (!row) {
+      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      return;
+    }
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row

@@ -31,6 +31,7 @@
     <script src="../canvasjs/canvasjs.min.js"></script>
     <script src="../common/js/constants.js"></script>
     <script src="../common/js/uid.js"></script>
+    <script src="../common/js/iconButton.js"></script>
     <script src="../common/js/common.js"></script>
     <script src="../common/js/checkboxTree.js"></script>
     <script src="../common/js/lineChart.js"></script>
@@ -139,36 +140,37 @@
       </div>
 
       <center>
-        <div id="selectorDiv" style="width:800px; display: none; margin-bottom:20px; ">
+        <div id="selectorDiv" style="display: none; margin-bottom:20px; ">
           <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Select Session for Analysis</h2>
-          <div class=shadowDiv5 style="height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
-            <br>
-            <table id='dbTable' className="dbTableStyle" style="font-size:22px; width:100%">
+          <div class=shadowDiv5 style="height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+
+	    <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
+	      <button class="iconButton" onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left"><img  src="../common/img/import.png" width=35px height=35px></button>
+              <button class="iconButton" onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right"><img  src="../common/img/trash-bin.png" width=35px height=35px></button>
+	      <br>RESPIMATIC-100 Session Databases
+            </div>
+
+            <table id='dbTable' className="dbTableStyle" style="font-size:25px; width:100%">
               <thead>
                 <tr>
-                  <th align="center" style="padding: 8px 8px; font-size: 25px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Session Name</th>
-                  <th align="center" style="padding: 8px 8px; font-size: 25px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                  <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Session Name</th>
+                  <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                  <th align="center" style="padding: 8px 8px; font-size: 30px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
                 </tr>
 
               </thead>
             </table>
-            <br>
-            <button id="btnSelectSession" class="button" style="font-size:25px;" onclick='selectDbRow()'>Select</button>
-            <button id="btnExportSession" class="button" style="font-size:25px;" onclick='exportDbRow()'>Export</button>
-            <button id="btnImportSession" class="button" style="font-size:25px;" onclick='selectImport()'>Import</button>
-            <button id="btnDeleteSession" class="button" style="font-size:25px;" onclick='deleteDbRow()'>Delete</button>
-            <button id="btnDeleteAllSessions" class="button" style="font-size:25px;" onclick='deleteAllDbs()'>Delete All</button>
           </div>
           <div>
 	      <br><br>
-            <div class=shadowDiv5 id="SYSDiv" style="height:100%; width:40%; float:left; border-radius:25px; background-color:var(--rsp_darkblue); color:white;font-family:verdana;font-size:25px;">
+            <div class=shadowDiv5 id="SYSDiv" style="height:100%; width:40%; float:left; background-color:var(--rsp_darkblue); color:white;font-family:verdana;font-size:25px;">
               <center>
                 <p style="font-size:25px; "><b>SYSTEM UID</b>
                 <p id='SysUid' style="font-size:20px; ">
               </center>
             </div>
-            <div class=shadowDiv5 id="logosDiv" style="height:100%; margin-left:41%; border-radius:25px; background-color:var(--rsp_darkblue);">
+            <div class=shadowDiv5 id="logosDiv" style="height:100%; margin-left:41%; background-color:var(--rsp_darkblue);">
               <center>
                 <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px; " width="440" height="128">
               </center>
