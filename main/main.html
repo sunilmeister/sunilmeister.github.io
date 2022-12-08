@@ -1,0 +1,142 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Respimatic 100 WebAPPS</title>
+    <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
+
+    <link rel="icon" type="image/png" href="../common/img/favicon.png" />
+    <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="../common/css/selectTableRow.css" />
+
+    <script src="../common/js/common.js"></script>
+    <script src="../common/js/selectTableRow.js"></script>
+    <script src="../common/js/uid.js"></script>
+    <script src="js/selector.js"></script>
+
+    <style>
+      .wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 25px;
+        font-family: Arial;
+        background-color: var(--rsp_darkblue);
+        color: white;
+        padding: 8px;
+        -webkit-box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
+        box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        transform: translate(-50%, -50%);
+        /* (x, y)  => position */
+        -ms-transform: translate(-50%, -50%);
+        /* IE 9 */
+        -webkit-transform: translate(-50%, -50%);
+        /* Chrome, Safari, Opera */
+      }
+
+      .button {
+        background-color: var(--rsp_mediumblue);
+        border: white;
+        color: white;
+        padding: 10px 5px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        font-size: 20px;
+        width: 250px;
+        border-radius: 10px;
+        opacity: 0.8;
+      }
+
+      .button:hover {
+        opacity: 1;
+      }
+
+      .button:active {
+        background-color: var(--rsp_green);
+        box-shadow: 0 6px var(--rsp_lightblue);
+        transform: translateY(6px);
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="wrapper" class="wrapper">
+      <div id="mainDiv" style="display:block">
+        <center>
+          <img src="../common/img/Apps.png" alt="Title" width="340" height="100" />
+          <hr>
+          <div class="content" style="font-size: 1.5em;">
+            <font size="5">
+              <button class="button" onclick="launchFiO2()">FiO<sub>2</sub> Calculator</button>
+              <br>
+              <hr>
+
+              <label>Establish WEB Connection</label>
+              <br>
+              <select id="SYSTEM_NAME" style="border-radius: 10px; font-size: 0.9em; padding: 5px; width: 370px; text-align: center;" />
+              </select>
+              <br><br>
+              <button class="button" onclick="addSystemInfo()">Add New System</button>
+              <br>
+              <button class="button" onclick="removeSystemInfo()">Remove System</button>
+              <br>
+              <button class="button" onclick="knownSystemInfo()">Manage Known Systems</button>
+
+            </font>
+
+            <hr>
+            <button class="button" onclick="launchDashboard()">Dashboard</button>
+            <br>
+            <button class="button" onclick="launchAnalyzer()">Analyzer</button>
+          </div>
+        </center>
+      </div>
+
+      <div id="knownSystems" style="display:none">
+        <center>
+          <font size="3.5em" face="Arial">
+            <br>
+            <table id='knownSystemsTable' style="border:solid">
+              <thead>
+                <tr>
+                  <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 5px 5px; font-size:1.3em">RESPIMATIC-100 System Tag</th>
+                  <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.3em">RESPIMATIC-100 System UID</th>
+                </tr>
+              </thead>
+            </table>
+          </font>
+          <br>
+
+          <button class="button" style="width: 150px;" onclick="selectSystemInfo()">Select</button>
+          <button class="button" style="width: 150px;" onclick="addSystemInfo()">Add</button>
+          <button class="button" style="width: 150px;" onclick="removeKnownSystemInfo()">Remove</button>
+          <button class="button" style="width: 150px;" onclick="exitSystemInfo()">Done</button>
+
+        </center>
+      </div>
+      <hr>
+      <center>
+        <img src="../common/img/Logos.png" alt="Title" width="350" height="60" />
+      </center>
+    </div>
+
+  </body>
+
+</html>
+

@@ -187,7 +187,7 @@ function launchDashboard() {
     return;
   }
   //window.location.assign("dashboard/respimatic.dashboard.html");
-  window.open("dashboard/dashboard.html");
+  window.open("../dashboard/dashboard.html");
 }
 
 function launchAnalyzer() {
@@ -195,12 +195,12 @@ function launchAnalyzer() {
     return;
   }
   //window.location.assign("analyzer/respimatic.analyzer.html");
-  window.open("analyzer/analyzer.html");
+  window.open("../analyzer/analyzer.html");
 }
 
 function launchFiO2() {
   // window.location.assign("fio2/respimatic.fio2Calc.html");
-  window.open("fio2/fio2Calc.html");
+  window.open("../fio2/fio2Calc.html");
 }
 
 window.onload = function() {
