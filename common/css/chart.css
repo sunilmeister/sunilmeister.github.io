@@ -16,8 +16,6 @@
 .chartBanner {
   background-color: var(--rsp_darkblue);
   height:var(--chartMenuBannerHeight);
-  display: flex; 
-  justify-content:flex-end;
 }
 
 .chartEditMenuTitle {
