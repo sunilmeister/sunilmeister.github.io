@@ -1,7 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-var analysisRangeSliderDiv = null;
 var analysisRangeSlider = null;
 var sliderCommitPending = false;
 if (!window.indexedDB) {
@@ -54,6 +53,9 @@ function deleteDbRow() {
     alert("No selected item\nSelect by clicking on a table row\nTry again!");
     return;
   }
+  msg = "Delete " + row.cells[0].innerHTML + " " + row.cells[1].innerHTML + "?";
+  if (!confirm(msg)) return;
+
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
@@ -167,7 +169,7 @@ function selectAlerts() {
   if (!checkValidAnalysisDuration()) return;
 
   UndisplayAllPanes();
-  document.getElementById("errorWarningDiv").style.display = "block";
+  document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
 
   enableAllButtons();
@@ -268,8 +270,6 @@ function resetAnalysisData(newDbSelected) {
   initRawDump();
   initAlerts();
   initImportExport();
-  enableAllButtons();
-  UndisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
 }
 
@@ -277,7 +277,7 @@ function UndisplayAllPanes() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
-  document.getElementById("errorWarningDiv").style.display = "none";
+  document.getElementById("alertsDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
@@ -341,7 +341,16 @@ function setAnalysisRanges(doFull) {
     maxTime : app.analysisEndTime,
     missingTime : cloneObject(session.missingTimeWindows)
   };
+}
 
+function refreshActivePane() {
+  if (document.getElementById("statsDiv").style.display == "block") {
+    displayStats();
+  } else if (document.getElementById("chartsDiv").style.display == "block") {
+    displayCharts();
+  } else if (document.getElementById("alertsDiv").style.display == "block") {
+    displayAlerts();
+  }
 }
 
 function setTimeInterval() {
@@ -357,10 +366,9 @@ function setTimeInterval() {
 
   setAnalysisRanges(false);
   updateSelectedDuration();
-
   resetAnalysisData(false);
-  UndisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
+  refreshActivePane();
 }
 
 function cancelTimeInterval() {
@@ -382,10 +390,10 @@ function resetTimeInterval() {
 
   setAnalysisRanges(true);
   updateSelectedDuration();
-
   resetAnalysisData(false);
-  UndisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
+
+  refreshActivePane();
 }
 
 function analysisGatherDoneCallback() {
