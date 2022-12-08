@@ -22,8 +22,7 @@ var AppDataTemplate = {
   // Breath numbers being recorded
   dashboardBreathNum:   0,
   systemBreathNum:      0,
-  startSystemBreathNum: -1,
-  prevSystemBreathNum:  -1,
+  startSystemBreathNum: null,
 
   // before Analysis starts
   initialJsonRecord:    {},
@@ -49,13 +48,13 @@ var AppDataTemplate = {
   notificationNum: 0,
 
   // chart transitions etc.
-  minChartBreathNum:       0,
-  maxChartBreathNum:       0,
-  chartPrevSystemBreathNum:-1,
-  chartRangeLimit:         MAX_CHART_DATAPOINTS,
-  chartRangeSlider:        null,
-  cboxTree:                null,
-  chartCreationInProgress: false,
+  minChartBreathNum:        0,
+  maxChartBreathNum:        0,
+  chartPrevSystemBreathNum: null,
+  chartRangeLimit:          MAX_CHART_DATAPOINTS,
+  chartRangeSlider:         null,
+  cboxTree:                 null,
+  chartCreationInProgress:  false,
   allChartsContainerInfo:   {},
 
   // current state 

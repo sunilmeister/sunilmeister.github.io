@@ -1,24 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-function keyMoreThanAnalysisRangeMax(key) {
-  d = new Date(key);
-  if (d > app.analysisEndTime) return true;
-  return false;
-}
-
-function keyLessThanAnalysisRangeMin(key) {
-  d = new Date(key);
-  if (d < app.analysisStartTime) return true;
-  return false;
-}
-
-function keyWithinAnalysisRange(key) {
-  d = new Date(key);
-  if (d < app.analysisStartTime) return false;
-  if (d > app.analysisEndTime) return false;
-  return true;
-}
 
 function equalParamCombos(curr, prev) {
   //console.log("curr"); console.log(curr);
@@ -37,39 +19,6 @@ function equalParamCombos(curr, prev) {
     return true;
   }
   else return false;
-}
-
-function globalTrackJsonRecord(jsonData) {
-  for (var key in jsonData) {
-    app.initialJsonRecord.created = jsonData.created;
-    if (key == 'content') {
-      for (var ckey in jsonData.content) {
-        value = jsonData.content[ckey];
-        app.initialJsonRecord.content[ckey] = value;
-        if (ckey == "BNUM") {
-	  var bnumValue = parseChecksumString(value);
-	  if (bnumValue==null) continue; // ignore badly formed BNUM
-	  value = Number(bnumValue);
-          if (app.prevSystemBreathNum == -1) { // initialize
-            app.prevSystemBreathNum = value - 1;
-          }
-          app.systemBreathNum = value;
-	  if (app.startSystemBreathNum==-1) app.startSystemBreathNum = value;
-          bMissing = app.systemBreathNum - app.prevSystemBreathNum - 1;
-          session.numMissingBreaths += bMissing;
-          app.prevSystemBreathNum = value;
-          session.breathTimes = [{
-            "time": app.initialJsonRecord.created,
-            "valid": false
-          }]
-        }
-      }
-    }
-  }
-  // delete signalling messages
-  delete app.initialJsonRecord.content["BNUM"];
-  delete app.initialJsonRecord.content["WMSG"];
-  delete app.initialJsonRecord.content["EMSG"];
 }
 
 function processFirstRecordData() {
@@ -118,13 +67,7 @@ function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback) {
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
       readSessionVersion(jsonData);
-      // It will never get here if keyMoreThanAnalysisRangeMax
-      if (keyLessThanAnalysisRangeMin(jsonData.created)) {
-        globalTrackJsonRecord(jsonData);
-      }
-      else {
-        globalProcessJsonRecord(jsonData);
-      }
+      globalProcessJsonRecord(jsonData);
       if (lastRecord) {
         if (typeof lastRecordCallback != 'undefined') lastRecordCallback();
       }
@@ -143,13 +86,7 @@ function gatherGlobalData(lastRecordCallback) {
   var lastRecord = false;
   for (i = 0; i < allDbKeys.length; i++) {
     key = allDbKeys[i];
-    if (keyMoreThanAnalysisRangeMax(allDbKeys[i])) {
-      break;
-    }
-    else if (i == (allDbKeys.length - 1)) {
-      lastRecord = true;
-    }
-    else if (keyMoreThanAnalysisRangeMax(allDbKeys[i + 1])) {
+    if (i == (allDbKeys.length - 1)) {
       lastRecord = true;
     }
     globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback);
@@ -276,6 +213,9 @@ function processJsonRecord(jsonData) {
 	    continue; // will count as missing
 	  }
           value = Number(bnumValue);
+
+ 	  if (app.startSystemBreathNum==null) app.startSystemBreathNum = value;
+
           if ((app.usedParamCombos.length == 0) ||
             !equalParamCombos(app.currParamCombo, app.prevParamCombo)) {
             // first breath in current combo
@@ -302,7 +242,7 @@ function processJsonRecord(jsonData) {
 	    app.prevBreathRecorded = app.prevBreathMandatory;
 	  }
 
-          if (app.chartPrevSystemBreathNum == -1) { // initialize
+          if (app.chartPrevSystemBreathNum == null) { // initialize
             app.chartPrevSystemBreathNum = value - 1;
           }
           app.systemBreathNum = value;

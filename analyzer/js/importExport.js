@@ -48,9 +48,7 @@ function doExportWindow(dbName) {
       var cursor = evt.target.result;
       if (cursor) {
         record = cursor.value;
-        if (keyWithinAnalysisRange(record.created)) {
-          getAll.push(record);
-        }
+        getAll.push(record);
         cursor.continue();
       }
       else {

@@ -45,7 +45,6 @@ function displayRawData() {
   }
   for (i = 0; i < allDbKeys.length; i++) {
     key = allDbKeys[i];
-    if (!keyWithinAnalysisRange(key)) continue;
     displayJsonRecord(key);
   }
   dataDisplayed = true;

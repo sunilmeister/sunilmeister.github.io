@@ -42,7 +42,7 @@ function selectDbRow() {
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   initSession(dbName);
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
   return dbName;
 }
@@ -126,7 +126,7 @@ function checkDbReady() {
 }
 
 function selectSession() {
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
 
   enableAllButtons();
@@ -135,13 +135,13 @@ function selectSession() {
 }
 
 function selectImport() {
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("importDiv").style.display = "block";
   enableAllButtons();
 }
 
 function selectExport() {
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("exportSessionDiv").style.display = "block";
 
   enableAllButtons();
@@ -154,7 +154,7 @@ function selectStats() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
 
@@ -168,7 +168,7 @@ function selectAlerts() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
 
@@ -182,7 +182,7 @@ function selectCharts() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
 
@@ -196,7 +196,7 @@ function selectExportWindow() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("analysisWindowDiv").style.display = "block";
   document.getElementById("exportWindowDiv").style.display = "block";
 
@@ -209,7 +209,7 @@ function selectRawData() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
   document.getElementById("rawDataDiv").style.display = "block";
 
   enableAllButtons();
@@ -250,6 +250,7 @@ function initSession(dbName) {
       
       updateSelectedDuration();
       updateLogDuration();
+      disableAllButtons();
       gatherGlobalData(analysisGatherDoneCallback);
     }
   }
@@ -264,6 +265,15 @@ function enableAllButtons() {
   document.getElementById("btnExportWindow").disabled = false;
 }
 
+function disableAllButtons() {
+  document.getElementById("btnSelect").disabled = true;
+  document.getElementById("btnRaw").disabled = true;
+  document.getElementById("btnStat").disabled = true;
+  document.getElementById("btnChart").disabled = true;
+  document.getElementById("btnAlert").disabled = true;
+  document.getElementById("btnExportWindow").disabled = true;
+}
+
 function resetAnalysisData(newDbSelected) {
   initStats();
   initCharts();
@@ -273,7 +283,7 @@ function resetAnalysisData(newDbSelected) {
   document.getElementById("analysisWindowDiv").style.display = "block";
 }
 
-function UndisplayAllPanes() {
+function undisplayAllPanes() {
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
@@ -402,6 +412,7 @@ function analysisGatherDoneCallback() {
   app.logStartBreath = 1;
   app.logEndBreath = session.breathTimes.length-1;
 
+  enableAllButtons();
   setAnalysisRanges();
   updateSelectedDuration();
 
@@ -424,7 +435,7 @@ window.onload = function() {
   var sessionInfo = document.getElementById("analyzeSessionName");
   sessionInfo.innerHTML = 'No Selected Session';
 
-  UndisplayAllPanes();
+  undisplayAllPanes();
 
   app.reportsXrange.doFull = true;
   
