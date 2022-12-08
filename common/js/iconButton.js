@@ -2,20 +2,17 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function checkButtonHTML(size) {
-  onClickFunction = "foo";
+function checkButtonHTML(onClickFunction,size) {
   pngFileName = "check";
   return iconButtonHTML(pngFileName, size, onClickFunction);
 }
 
-function trashButtonHTML(size) {
-  onClickFunction = "foo";
+function trashButtonHTML(onClickFunction,size) {
   pngFileName = "trash-bin";
   return iconButtonHTML(pngFileName, size, onClickFunction);
 }
 
-function exportButtonHTML(size) {
-  onClickFunction = "foo";
+function exportButtonHTML(onClickFunction,size) {
   pngFileName = "export";
   return iconButtonHTML(pngFileName, size, onClickFunction);
 }

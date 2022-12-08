@@ -105,11 +105,9 @@ function appendSystemUidTagHtmlRow(table, uid, tag) {
   cell = row.insertCell();
   cell.innerHTML = uid;
   cell = row.insertCell();
-  cell.innerHTML = checkButtonHTML(15);
+  cell.innerHTML = checkButtonHTML("selectUidRow",15);
   cell = row.insertCell();
-  cell.innerHTML = exportButtonHTML(15);
-  cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML(15);
+  cell.innerHTML = trashButtonHTML("removeUidRow",15);
   return row;
 }
 
@@ -135,4 +133,5 @@ function validSystemUid(uid) {
   if (re.test(hex_str)) return true;
   return false;
 }
+
 

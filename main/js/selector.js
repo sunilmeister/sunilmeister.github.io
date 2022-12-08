@@ -39,11 +39,13 @@ function setSelectedRespimaticTagFromDD() {
   return true;
 }
 
-function selectSystemInfo() {
-  var row = getSelectedTableRow();
-  if (!row) {
-    alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
-    return;
+function selectSystemInfo(row) {
+  if (typeof row == 'undefined') {
+    row = getSelectedTableRow();
+    if (!row) {
+      alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+      return;
+    }
   }
 
   tag = row.children[0].firstChild.data;
@@ -57,8 +59,9 @@ function selectSystemInfo() {
 
 }
 
-function removeSystem(uid, tag) {
-  if (!confirm("OK to remove system info?\n" 
+function removeSystem(uid, tag, noconfirm) {
+  if (typeof noconfirm == 'undefined') noconfirm = false;
+  if (!noconfirm && !confirm("OK to remove system info?\n" 
     + "\nSystem TAG ; " + tag
     + "\nSystem UID: " + uid)) return;
 
@@ -87,11 +90,13 @@ function removeSystemInfo(tag) {
   removeSystem(respimaticUid,respimaticTag);
 }
 
-function removeKnownSystemInfo() {
-  var row = getSelectedTableRow();
-  if (!row) {
-    alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
-    return;
+function removeKnownSystemInfo(row) {
+  if (typeof row == 'undefined') {
+    row = getSelectedTableRow();
+    if (!row) {
+      alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+      return;
+    }
   }
 
   tag = row.children[0].firstChild.data;
@@ -124,6 +129,23 @@ function addSystemInfo() {
   checkAndAddNewSystemInfo(uid, tag);
   populateSystemUidTagHtmlTable("knownSystemsTable");
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
+}
+
+function selectUidRow(btn) {
+  selectSystemInfo(btn.parentNode.parentNode);
+}
+
+function removeUidRow(btn) {
+  removeSystemInfo(btn.parentNode.parentNode);
+}
+
+function removeAllUidRows(btn) {
+  if (!confirm("OK to remove ALL system info?")) return; 
+
+  for (i=0; i<knownRespimaticSystems.length;) {
+    sys = knownRespimaticSystems[i];
+    removeSystem(sys.uid, sys.tag, true);
+  }
 }
 
 function knownSystemInfo() {

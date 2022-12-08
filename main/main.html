@@ -35,8 +35,8 @@
         background-color: var(--rsp_darkblue);
         color: white;
         padding: 8px;
-        -webkit-box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
-        box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
+        -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+        box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
         -ms-text-size-adjust: 100%;
         -webkit-text-size-adjust: 100%;
         transform: translate(-50%, -50%);
@@ -111,25 +111,25 @@
 
       <div id="knownSystems" style="display:none">
         <center>
+	  <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
+            <button class="iconButton" onClick="exitSystemInfo(this)" style="float:left"><img  src="../common/img/back.png" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' width=20px height=20px></button>RESPIMATIC-100 Systems Table
+            <button class="iconButton" onClick="removeAllUidRows(this)" style="float:right"><img  src="../common/img/trash-bin.png" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' width=20px height=20px></button>
+            <button class="iconButton" onClick="addSystemInfo(this)" style="float:right"><img  src="../common/img/plus.png" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' width=20px height=20px></button>
+          </div>
+
           <font size="3.5em" face="Arial">
             <br>
             <table id='knownSystemsTable' style="border:solid">
               <thead>
                 <tr>
-                  <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 5px 5px; font-size:1.3em">RESPIMATIC-100 System Tag</th>
-                  <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.3em">RESPIMATIC-100 System UID</th>
-                  <th align="center" colspan="3" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.3em">Actions</th>
+                  <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 5px 5px; font-size:1.2em">System Tag</th>
+                  <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.2em">System UID</th>
+                  <th align="center" colspan="2" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.2em">Actions</th>
                 </tr>
               </thead>
             </table>
           </font>
           <br>
-
-          <button class="button" style="width: 150px;" onclick="selectSystemInfo()">Select</button>
-          <button class="button" style="width: 150px;" onclick="addSystemInfo()">Add</button>
-          <button class="button" style="width: 150px;" onclick="removeKnownSystemInfo()">Remove</button>
-          <button class="button" style="width: 150px;" onclick="exitSystemInfo()">Done</button>
-
         </center>
       </div>
       <hr>
