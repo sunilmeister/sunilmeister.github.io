@@ -34,30 +34,6 @@ function exportDbRow() {
   exportDb(dbName);
 }
 
-function doExportWindow(dbName) {
-  //console.log("exportWindow dbName=" + dbName);
-  var getAll = [];
-  getAll.push(formInitialJsonRecord());
-  var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function(event) {
-    // Set the db variable to our database so we can use it!  
-    var db = event.target.result;
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
-    store.openCursor().onsuccess = function(evt) {
-      var cursor = evt.target.result;
-      if (cursor) {
-        record = cursor.value;
-        getAll.push(record);
-        cursor.continue();
-      }
-      else {
-        download(JSON.stringify(getAll, null, 1), "respimatic.session.txt", "text/plain");
-      }
-    }
-  }
-}
-
 function listAllExportDbs() {
   //clear any existing table being shown
   initSelectRowTable("dbExportTable", exportDbRow);
@@ -134,9 +110,5 @@ function importFile() {
   } while (true);
   doImport(file, fileName, dbName);
   alert("Successfully imported Session name\n" + sessionName);
-}
-
-function exportWindow() {
-  doExportWindow(sessionDbName);
 }
 
