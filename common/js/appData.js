@@ -3,12 +3,15 @@
 // ////////////////////////////////////////////////////
 
 var AppDataTemplate = {
+  // /////////////////////////////////////////////
+  // Below are used by Analyzer
+  // /////////////////////////////////////////////
+
   // currently open session
   sessionDbName:  "",
   sessionDbReady: false,
   sessionVersion: "UNKNOWN",
   sessionDurationInMs: 0,
-  startDate: null,
   tablesConstructed: false,
   logStartTime: null,
   logEndTime: null,
@@ -19,17 +22,22 @@ var AppDataTemplate = {
   logStartBreath: 0,
   logEndBreath: 0,
 
-  // Breath numbers being recorded
-  dashboardBreathNum:   0,
-  systemBreathNum:      0,
-  startSystemBreathNum: null,
-
   // before Analysis starts
   initialJsonRecord:    {},
 
   // valid or not
   globalDataValid: false,
   firstRecord:     true,
+
+  // /////////////////////////////////////////////
+  // Below are used both by Analyzer and Dashboard
+  // /////////////////////////////////////////////
+
+  // Breath numbers being recorded
+  startDate: null,
+  dashboardBreathNum:   0,
+  systemBreathNum:      0,
+  startSystemBreathNum: null,
 
   // Combinations of settings
   prevParamCombo:  {"time":0,"value":{}},
@@ -82,25 +90,30 @@ var AppDataTemplate = {
   lastWarningTime:       null,
   lastErrorTime:         null,
 
+  // /////////////////////////////////////////////
+  // Cannot merge the two ranges below because
+  // dashboard charts have a sliding window
+  // /////////////////////////////////////////////
+
   // charts analysis ranges
   chartsXrange: {
-    doFull: true,
-    initBnum:null, 
-    minBnum:null, 
-    maxBnum:null,
-    missingBnum:[],
-    initTime:null,
-    minTime:null,
-    maxTime:null,
-    missingTime:[]
+    doFull:        true,
+    initBnum:      null, 
+    minBnum:       null, 
+    maxBnum:       null,
+    missingBnum:   [],
+    initTime:      null,
+    minTime:       null,
+    maxTime:       null,
+    missingTime:   []
   },
 
   // reports analysis ranges
   reportsXrange: {
-    doFull: true,
-    minBnum:null, 
-    maxBnum:null,
-    missingBnum:[]
+    doFull:       true,
+    minBnum:      null, 
+    maxBnum:      null,
+    missingBnum:  []
   },
 };
 
