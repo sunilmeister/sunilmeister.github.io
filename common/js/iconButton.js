@@ -2,12 +2,26 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function iconButtonHTML() {
-  className = "iconButton;
+function checkButtonHTML(size) {
+  onClickFunction = "foo";
+  pngFileName = "check";
+  return iconButtonHTML(pngFileName, size, onClickFunction);
+}
+
+function trashButtonHTML(size) {
+  onClickFunction = "foo";
+  pngFileName = "trash-bin";
+  return iconButtonHTML(pngFileName, size, onClickFunction);
+}
+
+function exportButtonHTML(size) {
   onClickFunction = "foo";
   pngFileName = "export";
-  size = 30;
+  return iconButtonHTML(pngFileName, size, onClickFunction);
+}
 
+function iconButtonHTML(pngFileName, size, onClickFunction) {
+  className = "iconButton";
   htmlStr = '<button class="' + className +'"' +
             ' onClick="' + onClickFunction + '(this)">' +
             ' <img  src="../common/img/' + pngFileName + '.png"' + 

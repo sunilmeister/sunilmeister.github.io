@@ -104,6 +104,12 @@ function appendSystemUidTagHtmlRow(table, uid, tag) {
   cell.innerHTML = tag;
   cell = row.insertCell();
   cell.innerHTML = uid;
+  cell = row.insertCell();
+  cell.innerHTML = checkButtonHTML(15);
+  cell = row.insertCell();
+  cell.innerHTML = exportButtonHTML(15);
+  cell = row.insertCell();
+  cell.innerHTML = trashButtonHTML(15);
   return row;
 }
 

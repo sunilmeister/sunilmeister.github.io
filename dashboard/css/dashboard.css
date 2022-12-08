@@ -340,7 +340,6 @@
 
 .DashboardActive {
   grid-area: 15 / 1 / 16 / 4;
-  border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -349,7 +348,6 @@
 
 .RecordingActive {
   grid-area: 16 / 1 / 17 / 4;
-  border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -358,7 +356,6 @@
 
 .SysUid {
   grid-area: 15 / 4 / 17 / 9;
-  border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -367,7 +364,6 @@
 
 .Logo {
   grid-area: 15 / 9 / 17 / 19;
-  border-radius: 1.5rem;
   background-color: var(--rsp_darkblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);

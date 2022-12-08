@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="../common/css/colors.css" />
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
 
+    <script src="../common/js/constants.js"></script>
     <script src="../common/js/common.js"></script>
+    <script src="../common/js/iconButton.js"></script>
     <script src="../common/js/selectTableRow.js"></script>
     <script src="../common/js/uid.js"></script>
     <script src="js/selector.js"></script>
@@ -29,7 +31,6 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        border-radius: 25px;
         font-family: Arial;
         background-color: var(--rsp_darkblue);
         color: white;
@@ -89,7 +90,7 @@
 
               <label>Establish WEB Connection</label>
               <br>
-              <select id="SYSTEM_NAME" style="border-radius: 10px; font-size: 0.9em; padding: 5px; width: 370px; text-align: center;" />
+              <select id="SYSTEM_NAME" style="font-size: 0.9em; padding: 5px; width: 370px; text-align: center;" />
               </select>
               <br><br>
               <button class="button" onclick="addSystemInfo()">Add New System</button>
@@ -117,6 +118,7 @@
                 <tr>
                   <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 5px 5px; font-size:1.3em">RESPIMATIC-100 System Tag</th>
                   <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.3em">RESPIMATIC-100 System UID</th>
+                  <th align="center" colspan="3" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.3em">Actions</th>
                 </tr>
               </thead>
             </table>
