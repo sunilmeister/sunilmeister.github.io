@@ -34,11 +34,8 @@ function exportDbRow(row) {
   // grab the tag field from the first cell in the same row
   var dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
 
-  fileName = "";
-  while (fileName=="") {
-    fileName = prompt("Enter file name", row.cells[0].innerText);
-  }
-  exportDb(dbName, fileName);
+  fileName = prompt("Enter file name", row.cells[0].innerText);
+  if (fileName) exportDb(dbName, fileName);
 }
 
 function listAllExportDbs() {
@@ -89,6 +86,10 @@ function doImport(file, fileName, dbName) {
       listAllDbs();
     }
   }
+}
+
+function cancelImport() {
+  selectSession();
 }
 
 function importFile() {
