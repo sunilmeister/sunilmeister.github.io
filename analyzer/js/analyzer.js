@@ -145,8 +145,6 @@ function selectExport() {
   document.getElementById("exportSessionDiv").style.display = "block";
 
   enableAllButtons();
-  document.getElementById("btnExportWindow").disabled = true;
-
   listAllExportDbs();
 }
 
@@ -190,19 +188,6 @@ function selectCharts() {
   document.getElementById("btnChart").disabled = true;
 
   displayCharts();
-}
-
-function selectExportWindow() {
-  if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
-
-  undisplayAllPanes();
-  document.getElementById("analysisWindowDiv").style.display = "block";
-  document.getElementById("exportWindowDiv").style.display = "block";
-
-  enableAllButtons();
-  document.getElementById("btnExportWindow").disabled = true;
-
 }
 
 function selectRawData() {
@@ -262,7 +247,6 @@ function enableAllButtons() {
   document.getElementById("btnStat").disabled = false;
   document.getElementById("btnChart").disabled = false;
   document.getElementById("btnAlert").disabled = false;
-  document.getElementById("btnExportWindow").disabled = false;
 }
 
 function disableAllButtons() {
@@ -271,7 +255,6 @@ function disableAllButtons() {
   document.getElementById("btnStat").disabled = true;
   document.getElementById("btnChart").disabled = true;
   document.getElementById("btnAlert").disabled = true;
-  document.getElementById("btnExportWindow").disabled = true;
 }
 
 function resetAnalysisData(newDbSelected) {
@@ -289,7 +272,6 @@ function undisplayAllPanes() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("alertsDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("exportWindowDiv").style.display = "none";
   document.getElementById("exportSessionDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
