@@ -31,7 +31,12 @@ function exportDbRow() {
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   var dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
-  exportDb(dbName);
+
+  fileName = "";
+  while (fileName=="") {
+    fileName = prompt("Enter file name", row.cells[0].innerText);
+  }
+  exportDb(dbName, fileName);
 }
 
 function listAllExportDbs() {

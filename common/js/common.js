@@ -361,7 +361,7 @@ function createOrOpenDb(name, timeStamp) {
   }
 }
 
-function exportDb(dbName) {
+function exportDb(dbName,fileName) {
   var getAll = [];
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
@@ -376,7 +376,7 @@ function exportDb(dbName) {
         cursor.continue();
       }
       else {
-        download(JSON.stringify(getAll, null, 1), "respimatic.session.txt", "text/plain");
+        download(JSON.stringify(getAll, null, 1), fileName, "text/plain");
       }
     }
   }
