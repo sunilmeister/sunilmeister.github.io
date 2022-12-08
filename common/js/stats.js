@@ -34,10 +34,22 @@ function displayUsedCombos() {
     cell.innerHTML = checkForUndefined(combo.value.tps);
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
+
+    var beforeBreath = combo.value.startingBreath;
+    var nb = combo.value.numBreaths;
+    var minBnum = app.reportsXrange.minBnum;
+    var maxBnum = app.reportsXrange.maxBnum;
+    if (beforeBreath < minBnum) {
+      nb = nb - (minBnum-beforeBreath-1);
+    }
+    var tb = session.breathTimes.length-1;
+    if (tb > maxBnum) {
+      nb = nb - (tb-maxBnum);
+    }
+
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.numBreaths);
+    cell.innerHTML = checkForUndefined(nb);
     cell = row.insertCell();
-    beforeBreath = combo.value.startingBreath;
     cell.innerHTML = checkForUndefined(beforeBreath);
   }
 }
