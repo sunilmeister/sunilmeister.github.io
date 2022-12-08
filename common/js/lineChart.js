@@ -29,7 +29,7 @@ class LineChart {
       title: {text: title, padding: 10},
       axisY: [],
       toolTip: {shared: true},
-      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: 25},
+      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: app.chartFontSize},
       height: height,
       backgroundColor: "#D5F3FE",
       data: []

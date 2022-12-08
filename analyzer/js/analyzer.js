@@ -39,7 +39,6 @@ function listDbTableRow(item, index) {
 function selectDbRow(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
-    console.log(row);
     if (!row) {
       alert("No selected item\nSelect by clicking on a table row\nTry again!");
       return;
@@ -441,6 +440,7 @@ function analysisGatherDoneCallback() {
 window.onload = function() {
   // Create data objects
   app = cloneObject(AppDataTemplate);
+  app.chartFontSize = 20;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

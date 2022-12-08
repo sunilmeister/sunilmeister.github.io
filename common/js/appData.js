@@ -62,6 +62,7 @@ var AppDataTemplate = {
   chartRangeLimit:          MAX_CHART_DATAPOINTS,
   chartRangeSlider:         null,
   cboxTree:                 null,
+  chartFontSize:            25,
   chartCreationInProgress:  false,
   allChartsContainerInfo:   {},
 
