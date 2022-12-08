@@ -4,7 +4,7 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 290px;
+  width: 350px;
   background-color: var(--rsp_blue);
   padding-bottom: 20px;
   margin-top: 150px;
@@ -13,23 +13,23 @@
 }
 
 .sidebar {
-  border-radius: 25px;
-  width: 240px;
-  font-size: 16px;
+  width: 300px;
+  font-size: 20px;
   font-family: verdana;
   margin-left: 20px;
 }
 
 .sidebar div {
-  padding: 4px;
-  font-size: 20px;
+  padding: 10px;
+  font-size: 25px;
   display: block;
 }
 
 .body-pane {
   border-radius: 25px;
-  margin-top: -870px;
-  margin-left: 310px;
+  margin-top: -950px;
+  margin-left: 370px;
+  margin-right: 20px;
   font-size: 20px;
   font-family: verdana;
 }
@@ -44,10 +44,10 @@
   display: inline-block;
   margin: 4px 2px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: bold;
   border-radius: 10px;
-  width: 210px;
+  width: 250px;
   opacity: 0.8;
 }
 

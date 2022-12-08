@@ -121,21 +121,22 @@
       </div>
     </div>
 
-    <div class="body-pane" style="margin-right:20px; margin-top:-875px;">
+    <div class="body-pane">
       <center>
-        <p class=shadowDiv5 id="analyzeSessionName" style="margin-top:-50px; margin-bottom:0px; padding-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
+        <p class=shadowDiv5 id="analyzeSessionName" style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
       </center>
 
-      <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:1.5em font-family:verdana; display:none; margin-bottom:50px;">
+      <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:1.5em font-family:verdana; display:none; margin-bottom:20px; padding-bottom:5px; ">
         <div id="analysisRangeSliderDiv" style="margin-top:0px; padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
 	</div>
 	<center>
+	  <br>
 	  <p style="color: white; font-size:2rem; font-family:verdana; margin-top:5px;">Set Breath Range Window for Analysis
 
-	  <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=30px height=30px></button>
-	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)'><img  src="../common/img/close.png" width=30px height=30px></button>
-	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)'><img  src="../common/img/reset.png" width=30px height=30px></button>
-	  <br><br>
+	  <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=35px height=35px></button>
+	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)'style="float:right;"><img  src="../common/img/close.png" width=35px height=35px></button>
+	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;"><img  src="../common/img/reset.png" width=35px height=35px></button>
+	  <br>
         </center>
       </div>
 
@@ -179,15 +180,15 @@
         </div>
       </center>
 
-      <div id="statsDiv" style="display: none; margin-bottom:20px;">
+      <div id="statsDiv" style="display: none; margin-bottom:10px;">
         <div class="row">
 
-          <div id="measured-pane" class="column" style="font-size: 20">
+          <div id="measured-pane" class="column" style="font-size: 25px">
             <center>
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                 Parameters Measured</h2>
             </center>
-            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:18px; width:100%">
+            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:22px; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Parameter</th>
@@ -203,7 +204,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                 Miscellaneous Information</h2>
             </center>
-            <table id='statsMiscTable' className="statsTableStyle" style="font-size:18px; width:100%">
+            <table id='statsMiscTable' className="statsTableStyle" style="font-size:22px; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Information</th>
@@ -213,7 +214,7 @@
             </table>
           </div>
 
-          <div id="stats-pane" class="column" style="font-size: 20">
+          <div id="stats-pane" class="column" style="font-size: 25px">
             <center>
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                 Static Information</h2>
@@ -223,14 +224,14 @@
               <br>
             <p id="altitude">
               <center>
-                <div id="staticStats" style="font-size: 20px">
+                <div id="staticStats" style="font-size: 25px">
                   <center>
                     <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                       Parameter Settings Used</h2>
                   </center>
 
                   <center>
-                    <table id='statsParamTable' className="statsTableStyle" style="font-size:18px; width:100%">
+                    <table id='statsParamTable' className="statsTableStyle" style="font-size:22px; width:100%">
                       <tr>
                         <th align="left" style="background-color:lightgray; ">
                           Parameter</th>
@@ -249,7 +250,7 @@
                   </center>
 
                   <center>
-                    <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:17px; width:100%">
+                    <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:20px; width:100%">
                       <tr>
                         <th style="background-color:lightgray;">
                           MODE</th>
@@ -289,14 +290,14 @@
       </div>
 
       <center>
-        <div id="alertsDiv" style="display: none; margin-bottom:10px;">
+        <div id="alertsDiv" style="display: none; margin-bottom:10px; font-size:22px;">
           <div class="row" style="margin-top:10px;">
             <div id="errorColDiv" class="column" style="font-size: 20">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                   Session Errors</h2>
               </center>
-              <div class=shadowDiv5 id="errorDiv" style="margin-left:0px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id="errorDiv" style="margin-left:0px; height:900px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollErrorDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -306,7 +307,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                   Session Warnings</h2>
               </center>
-              <div class=shadowDiv5 id="warningDiv" style="margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id="warningDiv" style="margin-left:10px; height:900px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollWarningDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -316,7 +317,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
                   Session Information</h2>
               </center>
-              <div class=shadowDiv5 id="infoDiv" style="margin-left:10px; height:760px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id="infoDiv" style="margin-left:10px; height:900px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollInfoDiv" style="font-size:16; text-align: left">
               </div>
             </div>
@@ -388,9 +389,9 @@
     <template id="chartContainerTemplate">
       <div class="chartContainer" style="position:relative">
 	<div class="chartBanner">
-	  <button class="iconButton" style="float:left;" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/plus.png" width=20px height=20px></button>
-	  <button class="iconButton" style="float:right;" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/trash-bin.png" width=20px height=20px></button>
-	  <button class="iconButton" style="float:right;" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/pen.png" width=20px height=20px></button>
+	  <button class="iconButton" style="float:left;" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/plus.png" width=30px height=30px></button>
+	  <button class="iconButton" style="float:right;" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
+	  <button class="iconButton" style="float:right;" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/pen.png" width=30px height=30px></button>
 	</div>
 	<div class="chartBody">
 	</div>
