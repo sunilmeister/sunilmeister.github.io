@@ -4,6 +4,7 @@
 
 function formMessageLine(str) {
   value = str.trim();
+  if (value=="") return "&nbsp";
   mvalue = value.replace(/ /g, "&nbsp");
   return mvalue;
 }
