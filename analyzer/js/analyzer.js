@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 var analysisRangeSlider = null;
+var sessionBannerHTML = null;
 var sliderCommitPending = false;
 if (!window.indexedDB) {
   alert("IndexedDB not available in your browser.\nSwitch browsers");
@@ -48,12 +49,12 @@ function selectDbRow(row) {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   app.sessionDbName = dbName;
-  var sessionInfo = document.getElementById("analyzeSessionName");
+  var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
+  sessionBannerHTML = sessionInfo.innerHTML;
   initSession(dbName);
+  selectSession();
 
-  undisplayAllPanes();
-  document.getElementById("analysisWindowDiv").style.display = "block";
   return dbName;
 }
 
@@ -180,6 +181,8 @@ function selectStats() {
   undisplayAllPanes();
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
+  var sessionInfo = document.getElementById("sessionNameSlider");
+  sessionInfo.innerHTML = sessionBannerHTML;
 
   enableAllButtons();
   document.getElementById("btnStat").disabled = true;
@@ -194,6 +197,8 @@ function selectAlerts() {
   undisplayAllPanes();
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
+  var sessionInfo = document.getElementById("sessionNameSlider");
+  sessionInfo.innerHTML = sessionBannerHTML;
 
   enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
@@ -208,6 +213,8 @@ function selectCharts() {
   undisplayAllPanes();
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
+  var sessionInfo = document.getElementById("sessionNameSlider");
+  sessionInfo.innerHTML = sessionBannerHTML;
 
   enableAllButtons();
   document.getElementById("btnChart").disabled = true;
@@ -221,6 +228,8 @@ function selectRawData() {
 
   undisplayAllPanes();
   document.getElementById("rawDataDiv").style.display = "block";
+  var sessionInfo = document.getElementById("sessionNameData");
+  sessionInfo.innerHTML = sessionBannerHTML;
 
   enableAllButtons();
   document.getElementById("btnRaw").disabled = true;
@@ -288,7 +297,11 @@ function resetAnalysisData() {
   initRawDump();
   initAlerts();
   initImportExport();
-  document.getElementById("analysisWindowDiv").style.display = "block";
+  if ((document.getElementById("statsDiv").style.display == "block")
+    || (document.getElementById("chartsDiv").style.display == "block")
+    || (document.getElementById("alertsDiv").style.display == "block")) {
+    document.getElementById("analysisWindowDiv").style.display = "block";
+  }
 }
 
 function undisplayAllPanes() {
@@ -384,7 +397,6 @@ function setTimeInterval() {
   setAnalysisRanges(false);
   updateSelectedDuration();
   resetAnalysisData();
-  document.getElementById("analysisWindowDiv").style.display = "block";
   refreshActivePane();
 }
 
@@ -450,7 +462,7 @@ window.onload = function() {
   app.sessionDbReady = false;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
-  var sessionInfo = document.getElementById("analyzeSessionName");
+  var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Session';
 
   undisplayAllPanes();
@@ -544,7 +556,7 @@ function createAnalysisRangeSlider() {
   analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 
   elm = document.getElementById("analysisWindowDiv");
-  elm.style.display = "block";
+  elm.style.display = "none";
   elm = document.getElementById("logNumBreaths");
   elm.innerHTML = app.analysisEndBreath;
 
