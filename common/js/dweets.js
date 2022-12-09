@@ -194,7 +194,7 @@ function processJsonRecord(jsonData) {
 	  }
           app.standbyState = (value == 1);
         }
-        else if (ckey == "RUNNING") {
+        else if ((ckey == "RUNNING") || (ckey == "ACTIVE")) {
           if ((value == 1) && !app.activeState) {
             session.stateValues.push({"time": curTime, "value": ACTIVE_STATE});
 	  }
