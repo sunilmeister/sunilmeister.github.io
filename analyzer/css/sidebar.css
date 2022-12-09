@@ -7,7 +7,7 @@
   width: 350px;
   background-color: var(--rsp_blue);
   padding-bottom: 20px;
-  margin-top: 150px;
+  margin-top: 100px;
   margin-bottom: 0;
   margin-left: -8px;
 }
@@ -27,7 +27,7 @@
 
 .body-pane {
   border-radius: 25px;
-  margin-top: -950px;
+  margin-top: -1100px;
   margin-left: 370px;
   margin-right: 20px;
   font-size: 20px;
@@ -35,71 +35,54 @@
 }
 
 .sidebarButton {
-  background-color: var(--rsp_blue);
-  border: white;
-  color: var(--rsp_darkblue);
-  padding: 10px 15px;
+  align-items: center;
+  appearance: none;
+  background-color: var(--rsp_mediumblue);
+  color: white;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: var(--rsp_blue) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: white;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px 4px;
+  position: relative;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
   font-size: 25px;
-  font-weight: bold;
-  border-radius: 10px;
   width: 250px;
-  opacity: 0.8;
+}
+
+.sidebarButton:focus:not([disabled]) {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
 .sidebarButton:hover:not([disabled]) {
-  opacity: 1;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
 }
 
 .sidebarButton:active:not([disabled]) {
-  background-color: var(--rsp_green);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
-}
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);}
 
 .sidebarButton:disabled,
 .sidebarButton[disabled]{
   background-color: white;
-  color: lightgrey;
-  cursor: not-allowed;
-  pointer-events: all !important;
-}
-
-.sidebarButtonShadow {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  background-color: var(--rsp_mediumblue);
-  border: white;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 10px;
-  width: 210px;
-  opacity: 0.8;
-}
-
-.sidebarButtonShadow:hover:not([disabled]) {
-  opacity: 1;
-}
-
-.sidebarButtonShadow:active:not([disabled]) {
-  background-color: var(--rsp_green);
-  box-shadow: 0 0.375rem var(--rsp_lightblue);
-  transform: translateY(0.375rem);
-}
-
-.sidebarButtonShadow:disabled,
-.sidebarButtonShadow[disabled]{
-  background-color: white;
+  color: grey;
   cursor: not-allowed;
   pointer-events: all !important;
 }

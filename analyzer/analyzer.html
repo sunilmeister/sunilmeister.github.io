@@ -60,10 +60,11 @@
       <div class="sidebar">
 
         <br>
-        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
+        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
           <center>
             <p style="margin-bottom:0;"><b>SESSION DATA</b>
-            <table style="border-collapse:unset; border:none; font-size:20px; width:100%">
+	    <br><br>
+            <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
 	      <tr>
                 <td align="left">&nbspBreaths</td>
                 <td id="logNumBreaths" align="center">--</td>
@@ -77,8 +78,10 @@
                 <td id="priorNumBreaths" align="center">--</td>
 	      </tr>
 	    </table>
-            <p style="margin-bottom:0;"><b>ANALYSIS WINDOW</b>
-            <table style="border-collapse:unset; border:none; font-size:20px; width:100%">
+	    <br>
+	    <p style="margin-bottom:0;"><b>ANALYSIS WINDOW</b>
+	    <br><br>
+	    <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
 	      <tr>
                 <td align="left">&nbspBreathRange</td>
                 <td id="selectedBreathRange" align="center">--</td>
@@ -94,9 +97,9 @@
 	<br><br>
 
         <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-            <p>Session Actions
-              <br>
+          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
+	    <p><b>SESSION ACTIONS</b>
+	    <br><br>
               <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Manage Sessions</button>
               <br>
               <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Session Raw Data</button>
@@ -106,9 +109,9 @@
 
 	<br><br>
         <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:20px; font-family:verdana;">
-            <p>Window Actions
-              <br>
+          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
+	    <p><b>WINDOW ACTIONS</b>
+	    <br><br>
               <button id="btnStat" class="sidebarButton" onclick='selectStats()'>View Statistics</button>
               <br>
               <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>View Charts</button>
@@ -185,7 +188,7 @@
 
           <div id="measured-pane" class="column" style="font-size: 25px">
             <center>
-              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                 Parameters Measured</h2>
             </center>
             <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:22px; width:100%">
@@ -201,7 +204,7 @@
             </table>
 
             <center>
-              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                 Miscellaneous Information</h2>
             </center>
             <table id='statsMiscTable' className="statsTableStyle" style="font-size:22px; width:100%">
@@ -216,7 +219,7 @@
 
           <div id="stats-pane" class="column" style="font-size: 25px">
             <center>
-              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                 Static Information</h2>
             </center>
             <p id="pName">
@@ -226,7 +229,7 @@
               <center>
                 <div id="staticStats" style="font-size: 25px">
                   <center>
-                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                       Parameter Settings Used</h2>
                   </center>
 
@@ -245,7 +248,7 @@
                   </center>
 
                   <center>
-                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                       Sequence of Parameter Combinations</h2>
                   </center>
 
@@ -338,20 +341,19 @@
       </center>
 
       <center>
-        <div id="importDiv" style="width:800px; margin-bottom:30px; display: none">
-          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
-            Import Session</h2>
-          <div class=shadowDiv5 style="height:350px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
+        <div id="importDiv" style="width:850px; margin-top:200px; margin-bottom:30px; display: none">
+          <div class=shadowDiv5 style="height:430px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 30px; font-family: 'verdana'">
             <br><br>
             <label for="fileSelector">Session File to Import</label>
-            <input type="file" id="fileSelector" accept=".txt" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
+	    <br><br>
+            <input type="file" id="fileSelector" accept=".txt" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
             <br><br>
             <label for="importSessionName">Session Name to Create</label>
-            <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
+            <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
             <br><br><br>
-            <button class="button" style="background-color:var(--rsp_darkblue);" onclick='importFile()'>IMPORT</button>
-            <button class="button" style="background-color:var(--rsp_darkblue);" onclick='cancelImport()'>CANCEL</button>
-            <br>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
+	    <br><br>
 
           </div>
         </div>
@@ -361,7 +363,7 @@
         <div id="exportSessionDiv" style="width:800px; display: none; margin-bottom:20px;">
           <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
             Export Selected Session</h2>
-          <div class=shadowDiv5 style="height:690px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+          <div class=shadowDiv5 style="height:690px; line-height:1.2em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
             <br>
             <table id='dbExportTable' className="dbTableStyle" style="font-size:20px; width:100%">
               <thead>

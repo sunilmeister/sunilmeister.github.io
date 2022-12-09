@@ -4,6 +4,51 @@
 // ////////////////////////////////////////////////////
 */
 
+.button {
+  align-items: center;
+  appearance: none;
+  background-color: var(--rsp_mediumblue);
+  color: white;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: var(--rsp_blue) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: white;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px 4px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 22px;
+}
+
+.button:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;
@@ -13,31 +58,6 @@
 .column {
   flex: 50%;
   padding: 10px;
-}
-
-.button {
-  background-color: var(--rsp_mediumblue);
-  border: white;
-  color: white;
-  padding: 10px 25px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  font-size: 20px;
-  border-radius: 10px;
-  opacity: 0.7;
-}
-
-.button:hover {
-  opacity: 1;
-}
-
-.button:active {
-  background-color: var(--rsp_darkblue);
-  box-shadow: 0 6px var(--rsp_lightblue);
-  transform: translateY(6px);
 }
 
 table,
