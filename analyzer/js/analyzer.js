@@ -154,7 +154,7 @@ function selectSession() {
   undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
 
-  if (app.globalDataValid) enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
 
   listAllDbs();
 }
@@ -162,14 +162,14 @@ function selectSession() {
 function selectImport() {
   undisplayAllPanes();
   document.getElementById("importDiv").style.display = "block";
-  if (app.globalDataValid) enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
 }
 
 function selectExport() {
   undisplayAllPanes();
   document.getElementById("exportSessionDiv").style.display = "block";
 
-  if (app.globalDataValid) enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
   listAllExportDbs();
 }
 
@@ -261,7 +261,7 @@ function initSession(dbName) {
       updateSelectedDuration();
       updateLogDuration();
       disableAllButtons();
-      gatherGlobalData(analysisGatherDoneCallback);
+      gatherSessionData(analysisGatherDoneCallback);
     }
   }
 }
@@ -414,7 +414,7 @@ function resetTimeInterval() {
 }
 
 function analysisGatherDoneCallback() {
-  app.globalDataValid = true;
+  app.sessionDataValid = true;
   app.sessionDbReady = true;
 
   app.logStartBreath = 1;
@@ -440,6 +440,7 @@ function analysisGatherDoneCallback() {
 window.onload = function() {
   // Create data objects
   app = cloneObject(AppDataTemplate);
+  app.appId = ANALYZER_APP_ID;
   app.chartFontSize = 20;
   session = cloneObject(SessionDataTemplate);
 

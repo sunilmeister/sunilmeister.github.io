@@ -134,12 +134,10 @@ function snapshotProcessJsonRecord(d) {
 }
 
 function createDashboardStats() {
-  app.globalDataValid = true;
   displayStats();
 }
 
 function createDashboardAlerts() {
-  app.globalDataValid = true;
   displayAlerts();
 }
 
@@ -384,6 +382,7 @@ window.onload = function() {
   finishedLoading = false;
   // Create data objects
   app = cloneObject(AppDataTemplate);
+  app.appId = DASHBOARD_APP_ID;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

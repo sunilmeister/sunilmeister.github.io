@@ -28,7 +28,7 @@ function processFirstRecordData() {
   delete app.initialJsonRecord.content["EMSG"];
   app.prevParamCombo = cloneObject(app.currParamCombo);
   app.prevParamCombo.time = app.initialJsonRecord.created;
-  globalProcessJsonRecord(app.initialJsonRecord);
+  processJsonRecordPreamble(app.initialJsonRecord);
 }
 
 function readSessionVersion(jsonData) {
@@ -45,7 +45,7 @@ function readSessionVersion(jsonData) {
   }
 }
 
-function globalProcessJsonRecord(jsonData) {
+function processJsonRecordPreamble(jsonData) {
   curTime = new Date(jsonData.created);
   if (app.firstRecord) {
     app.firstRecord = false;
@@ -55,7 +55,7 @@ function globalProcessJsonRecord(jsonData) {
   processJsonRecord(jsonData);
 }
 
-function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback) {
+function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function(event) {
     // Set the db variable to our database so we can use it!  
@@ -67,7 +67,7 @@ function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback) {
     keyReq.onsuccess = function(event) {
       var jsonData = keyReq.result;
       readSessionVersion(jsonData);
-      globalProcessJsonRecord(jsonData);
+      processJsonRecordPreamble(jsonData);
       if (lastRecord) {
         if (typeof lastRecordCallback != 'undefined') lastRecordCallback();
       }
@@ -75,8 +75,8 @@ function globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback) {
   }
 }
 
-function gatherGlobalData(lastRecordCallback) {
-  app.globalDataValid = false;
+function gatherSessionData(lastRecordCallback) {
+  app.sessionDataValid = false;
   app.sessionVersion = "UNKNOWN";
   app.initialJsonRecord = cloneObject(jsonRecordSchema);
   if (allDbKeys.length == 0) {
@@ -89,7 +89,7 @@ function gatherGlobalData(lastRecordCallback) {
     if (i == (allDbKeys.length - 1)) {
       lastRecord = true;
     }
-    globalProcessAllJsonRecords(key, lastRecord, lastRecordCallback);
+    processAllJsonRecords(key, lastRecord, lastRecordCallback);
   }
 }
 

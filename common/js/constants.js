@@ -2,6 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 const RESPIMATIC_UID_PREFIX = "UID_";
+const DASHBOARD_APP_ID      = "DASHBOARD";
+const ANALYZER_APP_ID       = "ANALYZER";
 
 const SPONTANEOUS_BREATH = 0;
 const MANDATORY_BREATH   = 1;
