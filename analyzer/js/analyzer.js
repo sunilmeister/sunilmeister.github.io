@@ -29,11 +29,11 @@ function listDbTableRow(item, index) {
   cell.innerHTML = nameTm[2];
 
   cell = row.insertCell();
-  cell.innerHTML = checkButtonHTML("selectRowBtn",25);
+  cell.innerHTML = checkButtonHTML("selectRowBtn",25,"Select");
   cell = row.insertCell();
-  cell.innerHTML = exportButtonHTML("exportRowBtn",25);
+  cell.innerHTML = exportButtonHTML("exportRowBtn",25,"Export");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("deleteRowBtn",25);
+  cell.innerHTML = trashButtonHTML("deleteRowBtn",25,"Delete");
 }
 
 function selectDbRow(row) {
