@@ -4,5 +4,11 @@
   --chartMenuFontSize: 20px;
   --chartMenuBannerHeight: 50px;
   --chartMenuIconSize: 40px;
+  --columnPadding: 10px;
+  --sidebarBtnHeight: 40px;
+  --sidebarBtnWidth: 250px;
+  --sidebarBtnFontSize: 25px;
+  --sidebarBtnPadding: 5px 5px;
+  --sidebarBtnMargin: 10px 4px;
 }
 

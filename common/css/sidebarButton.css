@@ -3,8 +3,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
-
-.button {
+.sidebarButton {
   align-items: center;
   appearance: none;
   background-color: var(--rsp_mediumblue);
@@ -15,14 +14,13 @@
   box-sizing: white;
   cursor: pointer;
   display: inline-flex;
-  height: 40px;
+  height: var(--sidebarBtnHeight);
   justify-content: center;
   line-height: 1;
   list-style: none;
   overflow: hidden;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px 4px;
+  padding: var(--sidebarBtnPadding);
+  margin: var(--sidebarBtnMargin);
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -32,77 +30,29 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow,transform;
-  font-size: 22px;
+  font-size: var(--sidebarBtnFontSize);
+  width: var(--sidebarBtnWidth);
 }
 
-.button:focus {
+.sidebarButton:focus:not([disabled]) {
   box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
-.button:hover {
+.sidebarButton:hover:not([disabled]) {
   box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
-.button:active {
+.sidebarButton:active:not([disabled]) {
   box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
-}
+  transform: translateY(2px);}
 
-/* A row of equal columns that sits next to each other */
-.row {
-  display: flex;
-}
-
-/* Create two equal columns that sits next to each other */
-.column {
-  flex: 50%;
-  padding: var(--columnPadding);
-}
-
-table,
-tr {
-  border-bottom: 1px solid white;
-  border-collapse: collapse;
-}
-
-span {
-  height: 1rem;
-  margin-right: 0px;
-  margin-left: 0px;
-  border-right: 0px solid white;
-}
-
-.noUi-tooltip {
-  display: none;
-}
-
-.noUi-active .noUi-tooltip {
-  display: block;
-}
-
-.statsTableStyle td {
-  padding: 0 5px 0 0;
-  /* Only right padding*/
-}
-
-.shadowDiv5 {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-}
-
-.shadowDiv10 {
-  -webkit-box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* For range slider */
-.noUi-tooltip {
-  display: none;
-}
-
-.noUi-active .noUi-tooltip {
-  display: block;
+.sidebarButton:disabled,
+.sidebarButton[disabled]{
+  background-color: white;
+  color: grey;
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
 
 
