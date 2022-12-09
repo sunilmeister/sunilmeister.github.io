@@ -63,43 +63,47 @@
         <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
           <center>
             <p style="margin-bottom:0;"><b>SESSION DATA</b>
-	    <br><br>
-            <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
-	      <tr>
-                <td align="left">&nbspBreaths</td>
-                <td id="logNumBreaths" align="center">--</td>
-	      </tr>
-	      <tr>
-                <td align="left">&nbspDuration</td>
-                <td id="logTimeDuration" align="center">--:--:--</td>
-	      </tr>
-	      <tr>
-                <td align="left">&nbspPriorBreaths</td>
-                <td id="priorNumBreaths" align="center">--</td>
-	      </tr>
-	    </table>
-	    <br>
-	    <p style="margin-bottom:0;"><b>ANALYSIS WINDOW</b>
-	    <br><br>
-	    <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
-	      <tr>
-                <td align="left">&nbspBreathRange</td>
-                <td id="selectedBreathRange" align="center">--</td>
-	      </tr>
-	      <tr>
-                <td align="left">&nbspDuration</td>
-                <td id="selectedTimeDuration" align="center">--:--:--</td>
-	      </tr>
-	    </table>
+              <br>
+              <br>
+              <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
+                <tr>
+                  <td align="left">&nbspBreaths</td>
+                  <td id="logNumBreaths" align="center">--</td>
+                </tr>
+                <tr>
+                  <td align="left">&nbspDuration</td>
+                  <td id="logTimeDuration" align="center">--:--:--</td>
+                </tr>
+                <tr>
+                  <td align="left">&nbspPriorBreaths</td>
+                  <td id="priorNumBreaths" align="center">--</td>
+                </tr>
+              </table>
+              <br>
+              <p style="margin-bottom:0;"><b>ANALYSIS WINDOW</b>
+                <br>
+                <br>
+                <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
+                  <tr>
+                    <td align="left">&nbspBreathRange</td>
+                    <td id="selectedBreathRange" align="center">--</td>
+                  </tr>
+                  <tr>
+                    <td align="left">&nbspDuration</td>
+                    <td id="selectedTimeDuration" align="center">--:--:--</td>
+                  </tr>
+                </table>
           </center>
-	  <br>
+          <br>
         </div>
-	<br><br>
+        <br>
+        <br>
 
         <center>
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
-	    <p><b>SESSION ACTIONS</b>
-	    <br><br>
+            <p><b>SESSION ACTIONS</b>
+              <br>
+              <br>
               <button id="btnSelect" class="sidebarButton" onclick='selectSession()'>Manage Sessions</button>
               <br>
               <button id="btnRaw" class="sidebarButton" onclick='selectRawData()'>Session Raw Data</button>
@@ -107,11 +111,13 @@
           </div>
         </center>
 
-	<br><br>
+        <br>
+        <br>
         <center>
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
-	    <p><b>WINDOW ACTIONS</b>
-	    <br><br>
+            <p><b>WINDOW ACTIONS</b>
+              <br>
+              <br>
               <button id="btnStat" class="sidebarButton" onclick='selectStats()'>View Statistics</button>
               <br>
               <button id="btnChart" class="sidebarButton" onclick='selectCharts()'>View Charts</button>
@@ -126,22 +132,22 @@
 
     <div class="body-pane">
       <center>
-	<div style="width:1000px; margin-bottom:20px;">
-        <p class=shadowDiv5 id="analyzeSessionName" style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
-	</div>
+        <div style="width:1000px; margin-bottom:20px;">
+          <p class=shadowDiv5 id="analyzeSessionName" style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
+        </div>
       </center>
 
       <div class=shadowDiv5 id="analysisWindowDiv" style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:1.5em font-family:verdana; display:none; margin-bottom:20px; padding-bottom:5px; ">
         <div id="analysisRangeSliderDiv" style="margin-top:0px; padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
-	</div>
-	<center>
-	  <br>
-	  <p style="color: white; font-size:2rem; font-family:verdana; margin-top:5px;">Set Breath Range Window for Analysis
+        </div>
+        <center>
+          <br>
+          <p style="color: white; font-size:2rem; font-family:verdana; margin-top:5px;">Set Breath Range Window for Analysis
 
-	  <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img  src="../common/img/check.png" width=35px height=35px></button>
-	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)'style="float:right;" title='Cancel'><img  src="../common/img/close.png" width=35px height=35px></button>
-	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img  src="../common/img/reset.png" width=35px height=35px></button>
-	  <br>
+            <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=35px height=35px></button>
+            <button class="iconButton" id="btnCancelInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=35px height=35px></button>
+            <button class="iconButton" id="btnResetInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/reset.png" width=35px height=35px></button>
+            <br>
         </center>
       </div>
 
@@ -151,10 +157,10 @@
             Select Session for Analysis</h2>
           <div class=shadowDiv5 style="height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
 
-	    <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
-	      <button class="iconButton" onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img  src="../common/img/plus.png" width=35px height=35px></button>
-              <button class="iconButton" onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img  src="../common/img/trash-bin.png" width=35px height=35px></button>
-	      <br>RESPIMATIC-100 Session Databases
+            <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
+              <button class="iconButton" onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/plus.png" width=35px height=35px></button>
+              <button class="iconButton" onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" width=35px height=35px></button>
+              <br>RESPIMATIC-100 Session Databases
             </div>
 
             <table id='dbTable' className="dbTableStyle" style="font-size:25px; width:100%">
@@ -169,11 +175,12 @@
             </table>
           </div>
           <div style="width:1010px; margin-top:-1rem;">
-	      <br><br>
+            <br>
+            <br>
             <div class=shadowDiv5 id="SYSDiv" style="height:100%; width:40%; float:left; background-color:var(--rsp_darkblue); color:white;font-family:verdana;font-size:25px;">
               <center>
                 <p style="font-size:25px; "><b>SYSTEM UID</b>
-                <p id='SysUid' style="font-size:20px; ">
+                  <p id='SysUid' style="font-size:20px; ">
               </center>
             </div>
             <div class=shadowDiv5 id="logosDiv" style="height:100%; margin-left:41%; background-color:var(--rsp_darkblue);">
@@ -225,67 +232,67 @@
                 Static Information</h2>
             </center>
             <p id="pName">
-            <p id="pInfo">
-              <br>
-            <p id="altitude">
-              <center>
-                <div id="staticStats" style="font-size: 25px">
+              <p id="pInfo">
+                <br>
+                <p id="altitude">
                   <center>
-                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+                    <div id="staticStats" style="font-size: 25px">
+                      <center>
+                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                       Parameter Settings Used</h2>
-                  </center>
+                      </center>
 
-                  <center>
-                    <table id='statsParamTable' className="statsTableStyle" style="font-size:22px; width:100%">
-                      <tr>
-                        <th align="left" style="background-color:lightgray; ">
-                          Parameter</th>
-                        <th align="left" style="background-color:lightgray; ">
-                          Units
-                        </th>
-                        <th align="left" style="background-color:lightgray;">
-                          Values</th>
-                      </tr>
-                    </table>
-                  </center>
+                      <center>
+                        <table id='statsParamTable' className="statsTableStyle" style="font-size:22px; width:100%">
+                          <tr>
+                            <th align="left" style="background-color:lightgray; ">
+                              Parameter</th>
+                            <th align="left" style="background-color:lightgray; ">
+                              Units
+                            </th>
+                            <th align="left" style="background-color:lightgray;">
+                              Values</th>
+                          </tr>
+                        </table>
+                      </center>
 
-                  <center>
-                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+                      <center>
+                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
                       Sequence of Parameter Combinations</h2>
+                      </center>
+
+                      <center>
+                        <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:20px; width:100%">
+                          <tr>
+                            <th style="background-color:lightgray;">
+                              MODE</th>
+                            <th style="background-color:lightgray;">
+                              VT </th>
+                            <th style="background-color:lightgray;">
+                              &nbsp;RR&nbsp;</th>
+                            <th style="background-color:lightgray;">
+                              I:E</th>
+                            <th style="background-color:lightgray;">
+                              PEEP</th>
+                            <th style="background-color:lightgray;">
+                              PMAX</th>
+                            <th style="background-color:lightgray;">
+                              &nbsp;&nbsp;PS&nbsp;&nbsp;</th>
+                            <th style="background-color:lightgray;">
+                              TPS</th>
+                            <th style="background-color:lightgray;">
+                              FIO2</th>
+                            <th style="background-color:lightgray;">
+                              # of BREATHS</th>
+                            <th style="background-color:lightgray;">
+                              Before BREATH#</th>
+                          </tr>
+                        </table>
+                      </center>
+
+                    </div>
+
                   </center>
-
-                  <center>
-                    <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:20px; width:100%">
-                      <tr>
-                        <th style="background-color:lightgray;">
-                          MODE</th>
-                        <th style="background-color:lightgray;">
-                          VT </th>
-                        <th style="background-color:lightgray;">
-                          &nbsp;RR&nbsp;</th>
-                        <th style="background-color:lightgray;">
-                          I:E</th>
-                        <th style="background-color:lightgray;">
-                          PEEP</th>
-                        <th style="background-color:lightgray;">
-                          PMAX</th>
-                        <th style="background-color:lightgray;">
-                          &nbsp;&nbsp;PS&nbsp;&nbsp;</th>
-                        <th style="background-color:lightgray;">
-                          TPS</th>
-                        <th style="background-color:lightgray;">
-                          FIO2</th>
-                        <th style="background-color:lightgray;">
-                          # of BREATHS</th>
-                        <th style="background-color:lightgray;">
-                          Before BREATH#</th>
-                      </tr>
-                    </table>
-                  </center>
-
-                </div>
-
-              </center>
           </div>
         </div>
       </div>
@@ -345,17 +352,23 @@
       <center>
         <div id="importDiv" style="width:850px; margin-top:200px; margin-bottom:30px; display: none">
           <div class=shadowDiv5 style="height:430px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 30px; font-family: 'verdana'">
-            <br><br>
+            <br>
+            <br>
             <label for="fileSelector">Session File to Import</label>
-	    <br><br>
+            <br>
+            <br>
             <input type="file" id="fileSelector" accept=".txt" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
-            <br><br>
+            <br>
+            <br>
             <label for="importSessionName">Session Name to Create</label>
             <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
-            <br><br><br>
+            <br>
+            <br>
+            <br>
             <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
             <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
-	    <br><br>
+            <br>
+            <br>
 
           </div>
         </div>
@@ -384,36 +397,37 @@
           </div>
         </div>
       </center>
+    </div>
 
-<!-- 
+    <!-- 
 // ////////////////////////////////////////////////////
 // Below are all templates only
 // ////////////////////////////////////////////////////
 -->
     <template id="chartContainerTemplate">
       <div class="chartContainer" style="position:relative">
-	<div class="chartBanner">
-	  <button class="iconButton" style="float:left;" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img  src="../common/img/plus.png" width=30px height=30px></button>
-	  <button class="iconButton" style="float:right;" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
-	  <button class="iconButton" style="float:right;" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img  src="../common/img/pen.png" width=30px height=30px></button>
-	</div>
-	<div class="chartBody">
-	</div>
+        <div class="chartBanner">
+          <button class="iconButton" style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img src="../common/img/plus.png" width=30px height=30px></button>
+          <button class="iconButton" style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=30px height=30px></button>
+          <button class="iconButton" style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=30px height=30px></button>
+        </div>
+        <div class="chartBody">
+        </div>
       </div>
     </template>
 
     <template id=editMenuTemplate>
       <div id=chartDropDownMenu class="chartEditMenu" style="background-color: var(--rsp_lightblue);">
         <div class="chartEditMenuBanner">
-	  <button class="iconButton" onClick="chartMenuSubmit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img  src="../common/img/check.png" width=20px height=20px></button>
-	  <button class="iconButton" onClick="chartMenuCancel(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img  src="../common/img/close.png" width=20px height=20px></button>
+          <button class="iconButton" onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
+          <button class="iconButton" onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
         </div>
-  
+
         <div id="titleDiv" style="background-color: var(--rsp_lightblue)">
           <center>
             <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
             <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
-              <input id=ChartTitleId class="chartEditMenuTitle" type="text" id="title" name="title" >
+              <input id=ChartTitleId class="chartEditMenuTitle" type="text" id="title" name="title">
             </div>
           </center>
         </div>
@@ -423,7 +437,7 @@
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
             <input type="checkbox" id=Presssures onclick='treeCheckboxClicked(this)'>
-	    <label for=Presssures>Pressures</label>
+            <label for=Presssures>Pressures</label>
             <div class="chartIndentDiv">
               <input type="checkbox" id=Peak onclick='treeCheckboxClicked(this)'>
               <label for=Peak>Peak Pressure</label>
@@ -524,14 +538,14 @@
             <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-bottom:0px;">X-axis Units</p>
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
-  	  <form name="XunitsForm" style="padding-top:12px;">
-	    <center>
-              <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
-              <label for=BNUM>Breath Number</label>
-              <input type="radio" id=TIME name="XAxisUnits" value="TIME">
-              <label for=TIME>Breath Times</label>
-	    </center>
-  	  </form>
+            <form name="XunitsForm" style="padding-top:12px;">
+              <center>
+                <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
+                <label for=BNUM>Breath Number</label>
+                <input type="radio" id=TIME name="XAxisUnits" value="TIME">
+                <label for=TIME>Breath Times</label>
+              </center>
+            </form>
             <br>
           </div>
           <br>
