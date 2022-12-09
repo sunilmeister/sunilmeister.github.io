@@ -11,12 +11,12 @@ function blinkRecordButton() {
       recordButtonBackground = "ORANGE";
     }
     else {
-      btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+      btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
       recordButtonBackground = "BLUE";
     }
   }
   else {
-    btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+    btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
     recordButtonBackground = "BLUE";
   }
 }

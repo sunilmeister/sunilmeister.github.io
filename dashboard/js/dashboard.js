@@ -169,13 +169,13 @@ function blinkPauseButton() {
       pauseButtonBackground = "ORANGE";
     }
     else {
-      btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+      btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
       hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
       pauseButtonBackground = "BLUE";
     }
   }
   else {
-    btn.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+    btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
     hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
     pauseButtonBackground = "BLUE";
   }
