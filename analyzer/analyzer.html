@@ -138,9 +138,9 @@
 	  <br>
 	  <p style="color: white; font-size:2rem; font-family:verdana; margin-top:5px;">Set Breath Range Window for Analysis
 
-	  <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=35px height=35px></button>
-	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)'style="float:right;"><img  src="../common/img/close.png" width=35px height=35px></button>
-	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;"><img  src="../common/img/reset.png" width=35px height=35px></button>
+	  <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img  src="../common/img/check.png" width=35px height=35px></button>
+	  <button class="iconButton" id="btnCancelInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)'style="float:right;" title='Cancel'><img  src="../common/img/close.png" width=35px height=35px></button>
+	  <button class="iconButton" id="btnResetInterval"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img  src="../common/img/reset.png" width=35px height=35px></button>
 	  <br>
         </center>
       </div>
@@ -152,8 +152,8 @@
           <div class=shadowDiv5 style="height:800px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
 
 	    <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
-	      <button class="iconButton" onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left"><img  src="../common/img/plus.png" width=35px height=35px></button>
-              <button class="iconButton" onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right"><img  src="../common/img/trash-bin.png" width=35px height=35px></button>
+	      <button class="iconButton" onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img  src="../common/img/plus.png" width=35px height=35px></button>
+              <button class="iconButton" onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img  src="../common/img/trash-bin.png" width=35px height=35px></button>
 	      <br>RESPIMATIC-100 Session Databases
             </div>
 
@@ -393,9 +393,9 @@
     <template id="chartContainerTemplate">
       <div class="chartContainer" style="position:relative">
 	<div class="chartBanner">
-	  <button class="iconButton" style="float:left;" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/plus.png" width=30px height=30px></button>
-	  <button class="iconButton" style="float:right;" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
-	  <button class="iconButton" style="float:right;" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/pen.png" width=30px height=30px></button>
+	  <button class="iconButton" style="float:left;" onClick="chartAppend(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img  src="../common/img/plus.png" width=30px height=30px></button>
+	  <button class="iconButton" style="float:right;" onClick="chartDelete(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img  src="../common/img/trash-bin.png" width=30px height=30px></button>
+	  <button class="iconButton" style="float:right;" onClick="chartEdit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img  src="../common/img/pen.png" width=30px height=30px></button>
 	</div>
 	<div class="chartBody">
 	</div>
@@ -405,8 +405,8 @@
     <template id=editMenuTemplate>
       <div id=chartDropDownMenu class="chartEditMenu" style="background-color: var(--rsp_lightblue);">
         <div class="chartEditMenuBanner">
-	  <button class="iconButton" onClick="chartMenuSubmit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/check.png" width=20px height=20px></button>
-	  <button class="iconButton" onClick="chartMenuCancel(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)'><img  src="../common/img/close.png" width=20px height=20px></button>
+	  <button class="iconButton" onClick="chartMenuSubmit(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img  src="../common/img/check.png" width=20px height=20px></button>
+	  <button class="iconButton" onClick="chartMenuCancel(this)"  onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img  src="../common/img/close.png" width=20px height=20px></button>
         </div>
   
         <div id="titleDiv" style="background-color: var(--rsp_lightblue)">
