@@ -63,11 +63,13 @@ function chartRangeSliderCallback() {
 
 function updateChartRangeOnNewBreath(num) {
   app.chartRangeLimit = app.dashboardBreathNum;
-  if (app.chartRangeLimit==1) app.chartRangeLimit=2; // max must be > min
   chartRangeSlider.setRange([1, app.chartRangeLimit]);
 
   // if range is not "full"
   if (!app.reportsXrange.doFull || sliderCommitPending) return;
+  if (app.reportsXrange.doFull) {
+    app.reportsXrange.maxBnum = app.dashboardBreathNum;
+  }
 
   app.maxChartBreathNum = app.dashboardBreathNum;
   app.minChartBreathNum = app.maxChartBreathNum - MAX_CHART_DATAPOINTS + 1;
