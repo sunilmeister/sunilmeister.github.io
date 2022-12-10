@@ -229,11 +229,6 @@ function removeAllUidRows(btn) {
 }
 
 function knownSystemInfo() {
-  if (knownRespimaticSystems.length==0) {
-    alert("No known RESPIMATIC-100 Systems\nAdd new System info");
-    return;
-  }
-
   var elm = document.getElementById("mainDiv");
   elm.style.display = "none";
   elm = document.getElementById("knownSystems");
