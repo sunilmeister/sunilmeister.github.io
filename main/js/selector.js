@@ -147,7 +147,7 @@ function removeSystemInfo(tag) {
   removeSystem(respimaticUid,respimaticTag);
 }
 
-function removeKnownSystemInfo(row) {
+function removeSystemInfoRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
@@ -180,6 +180,8 @@ function silentAddSystemTagUidInfo(uid, tag) {
 
   saveNewRespimaticSystemId(uid, tag);
   populateSystemUidTagHtmlTable("knownSystemsTable");
+  var ddList = document.getElementById("SYSTEM_NAME");
+  createDropdownSelect(ddList, knownRespimaticSystems);
   return true;
 }
 
@@ -214,7 +216,7 @@ function selectUidRow(btn) {
 }
 
 function removeUidRow(btn) {
-  removeSystemInfo(btn.parentNode.parentNode);
+  removeSystemInfoRow(btn.parentNode.parentNode);
 }
 
 function removeAllUidRows(btn) {
