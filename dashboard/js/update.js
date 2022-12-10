@@ -207,7 +207,7 @@ function updateSnapshot() {
         app.standbyState = false;
       }
     }
-    else if (key == 'RUNNING') {
+    else if ((key == "RUNNING") || (key == "ACTIVE")) {
       if (value == "1") {
         if (!app.activeState) app.attentionState = false; // entering active state
         app.activeState = true;

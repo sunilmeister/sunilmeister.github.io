@@ -124,6 +124,7 @@ function processRecordDweet(d) {
   // delete d.thing;
   if (d.content['INITIAL'] == "1") skipRecording = true;
   if (d.content['STANDBY'] == "1") skipRecording = false;
+  if (d.content['ACTIVE'] == "1") skipRecording = false;
   if (d.content['RUNNING'] == "1") skipRecording = false;
   if (d.content['ERROR'] == "1") skipRecording = false;
   if (typeof d.content['WMSG'] != 'undefined') {

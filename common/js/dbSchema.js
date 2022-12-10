@@ -12,7 +12,7 @@ var jsonRecordSchema = {
     L4: "--",
     INITIAL: "--",
     STANDBY: "--",
-    RUNNING: "--",
+    ACTIVE: "--",
     ERROR: "--",
     MANDATORY: "--",
     SPONTANEOUS: "--",
