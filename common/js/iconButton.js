@@ -32,14 +32,13 @@ function iconButtonHTML(pngFileName, size, onClickFunction,title) {
   return htmlStr;
 }
 
+var saveBackgroundColor = null;
 function outIconBtn(btn) {
   btn.style.backgroundColor = "white";
   btn.style.borderColor = "white";
 
   if (btn.parentNode.parentNode.tagName == "TR") {
-    var style = getComputedStyle(document.body)
-    bgd = style.getPropertyValue('--rsp_darkblue');
-    btn.parentNode.parentNode.style.backgroundColor = bgd;
+    btn.parentNode.parentNode.style.backgroundColor = saveBackgroundColor;
   }
 }
 
@@ -50,6 +49,7 @@ function overIconBtn(btn) {
   btn.style.borderColor = bgd;
 
   if (btn.parentNode.parentNode.tagName == "TR") {
+    saveBackgroundColor = btn.parentNode.parentNode.style.backgroundColor;
     bgd = style.getPropertyValue('--rsp_blue');
     btn.parentNode.parentNode.style.backgroundColor = bgd;
   }

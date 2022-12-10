@@ -22,6 +22,7 @@
 
     <script src="../common/js/constants.js"></script>
     <script src="../common/js/common.js"></script>
+    <script src="../common/js/download.js"></script>
     <script src="../common/js/iconButton.js"></script>
     <script src="../common/js/selectTableRow.js"></script>
     <script src="../common/js/uid.js"></script>
@@ -53,6 +54,24 @@
 
   <body>
     <div id="wrapper" class="wrapper">
+      <center>
+        <div id="importDiv" style="display: none">
+          <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 25px; font-family: 'verdana'">
+            <br>
+            <label for="fileSelector">Systems File to Import</label>
+            <br>
+            <br>
+            <input type="file" id="fileSelector" accept=".txt" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
+            <br>
+            <br>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:25px;" onclick='importFile()'>IMPORT</button>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:25px;" onclick='cancelImport()'>CANCEL</button>
+            <br>
+            <br>
+          </div>
+        </div>
+      </center>
+
       <div id="mainDiv" style="display:block">
         <center>
           <img src="../common/img/Apps.png" alt="Title" width="340" height="100" />
@@ -83,16 +102,16 @@
           </div>
         </center>
       </div>
-
       <div id="knownSystems" style="display:none">
-        <center>
-          <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
-            <button class="iconButton" onClick="exitSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=20px height=20px></button>RESPIMATIC-100 Systems Table
-            <button class="iconButton" onClick="removeAllUidRows(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Delete ALL'><img src="../common/img/trash-bin.png" width=20px height=20px></button>
-            <button class="iconButton" onClick="addSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Add System'><img src="../common/img/plus.png" width=20px height=20px></button>
-          </div>
+        <div style="height:500px;">
+          <center>
+            <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
+              <button class="iconButton" onClick="exitSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=20px height=20px></button>RESPIMATIC-100 Systems Table
+              <button class="iconButton" onClick="removeAllUidRows(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Delete ALL'><img src="../common/img/trash-bin.png" width=20px height=20px></button>
+              <button class="iconButton" onClick="addSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Add System'><img src="../common/img/plus.png" width=20px height=20px></button>
+            </div>
 
-          <font size="3.5em" face="Arial">
+            <font size="3.5em" face="Arial">
             <br>
             <table id='knownSystemsTable' style="border:solid">
               <thead>
@@ -104,8 +123,18 @@
               </thead>
             </table>
           </font>
-          <br>
+            <br>
+          </center>
+        </div>
+        <hr>
+        <center>
+          <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
+            Import / Export Systems Table
+            <button class="iconButton" onClick="importSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Import'><img src="../common/img/import.png" width=20px height=20px></button>
+            <button class="iconButton" onClick="exportSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Export'><img src="../common/img/export.png" width=20px height=20px></button>
+          </div>
         </center>
+
       </div>
       <hr>
       <center>
