@@ -38,21 +38,6 @@ function exportDbRow(row) {
   if (fileName) exportDb(dbName, fileName);
 }
 
-function listAllExportDbs() {
-  //clear any existing table being shown
-  initSelectRowTable("dbExportTable", exportDbRow);
-  var table = document.getElementById("dbExportTable");
-  var rowCount = table.rows.length;
-  for (var i = 1; i < rowCount; i++) {
-    table.deleteRow(1);
-  }
-  var retrieved_dbs = getAllDbs();
-  if (!retrieved_dbs) return;
-  for (i = retrieved_dbs.length - 1; i >= 0; i--) {
-    listDbExportTableRow(retrieved_dbs[i], i);
-  }
-}
-
 function doImport(file, fileName, dbName) {
   var reader = new FileReader();
   reader.readAsText(file, "UTF-8");

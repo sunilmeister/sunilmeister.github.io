@@ -174,14 +174,6 @@ function selectImport() {
   if (app.sessionDataValid) enableAllButtons();
 }
 
-function selectExport() {
-  undisplayAllPanes();
-  document.getElementById("exportSessionDiv").style.display = "block";
-
-  if (app.sessionDataValid) enableAllButtons();
-  listAllExportDbs();
-}
-
 function selectStats() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
@@ -318,7 +310,6 @@ function undisplayAllPanes() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("alertsDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("exportSessionDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
 }
