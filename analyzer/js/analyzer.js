@@ -35,6 +35,14 @@ function listDbTableRow(item, index) {
   cell.innerHTML = exportButtonHTML("exportRowBtn",25,"Export");
   cell = row.insertCell();
   cell.innerHTML = trashButtonHTML("deleteRowBtn",25,"Delete");
+
+  // Highlight selected database
+  banner = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
+  if (sessionBannerHTML == banner) {
+    var style = getComputedStyle(document.body)
+    row.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+  }
+
 }
 
 function selectDbRow(row) {
