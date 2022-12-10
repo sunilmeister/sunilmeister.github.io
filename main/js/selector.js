@@ -93,7 +93,7 @@ function exportSystemInfo() {
   //console.log(JSON.stringify(knownRespimaticSystems));
   fileName = prompt("Enter file name", "Respimatic Systems");
   if (fileName) download(JSON.stringify(knownRespimaticSystems, null, 1), 
-                         fileName, "text/plain");
+                         fileName, "text/xml");
 }
 
 function selectSystemInfo(row) {

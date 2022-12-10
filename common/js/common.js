@@ -376,7 +376,7 @@ function exportDb(dbName,fileName) {
         cursor.continue();
       }
       else {
-        download(JSON.stringify(getAll, null, 1), fileName, "text/plain");
+        download(JSON.stringify(getAll, null, 1), fileName, "text/xml");
       }
     }
   }
