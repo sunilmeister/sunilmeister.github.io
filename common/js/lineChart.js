@@ -122,9 +122,9 @@ class LineChart {
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
-      console.log(missingWindows);
-      //Xaxis.scaleBreaks = {};
-      //Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
+      //console.log(missingWindows);
+      Xaxis.scaleBreaks = {};
+      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
     this.chartJson.axisX = Xaxis;
   }
