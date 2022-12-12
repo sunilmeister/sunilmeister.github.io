@@ -93,6 +93,12 @@ var AppDataTemplate = {
   lastErrorTime:         null,
 
   // /////////////////////////////////////////////
+  // Below is stuff for detailed breath pressure chart
+  // /////////////////////////////////////////////
+  pwData:            [],
+  newPwDataCallback: null,
+
+  // /////////////////////////////////////////////
   // Cannot merge the two ranges below because
   // dashboard charts have a sliding window
   // /////////////////////////////////////////////

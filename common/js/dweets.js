@@ -571,6 +571,21 @@ function processJsonRecord(jsonData) {
         else if (ckey == "PMISC") {
           session.patientInfo = value;
         }
+        else if (ckey == "PWSTART") {
+	  console.log(ckey + ":" + value);
+	  pwStart(value);
+	}
+        else if (ckey == "PWEND") {
+	  console.log(ckey + ":" + value);
+	  pwEnd(value);
+	} else {
+          partsArray = ckey.split('_');
+	  if (partsArray.length==0) continue;
+	  if (partsArray[0]!="PWSLICE") continue;
+	  pwSliceNum = partsArray[1];
+	  console.log("PWSLICE[" + pwSliceNum + "]=" + value);
+	  pwSlice(pwSliceNum, value);
+	}
       }
     }
   }
@@ -578,5 +593,112 @@ function processJsonRecord(jsonData) {
 
 function formInitialJsonRecord() {
   return initialJsonRecord;
+}
+
+// ////////////////////////////////////////////////
+// All individual Pressure Waveform data handling below
+// ////////////////////////////////////////////////
+var pwBreathNum = null;
+var pwNumSlices = null;
+var pwSampleInterval = null;
+var pwBreathClosed = true;
+var pwSlices = [];
+var prevPwSliceNum = -1;
+var pwExpectedSamplesPerSlice = null;
+
+function pwCollectedSamples(slices) {
+  num = 0;
+  for (i=0; i<slices.length; i++) {
+    num += slices[i].sliceData.length;
+  }
+  return num;
+}
+
+function pwStart(str) {
+  if (!pwBreathClosed) {
+    console.log("Ignored previous PWSTART missing PWEND pwBreathNum=" + pwBreathNum);
+    pwBreathClosed = true;
+  }
+
+  arr = JSON.parse(str);
+  if (!arr || (arr.length!=3)) {
+    console.log("Bad PWSTART=" + str);
+    pwBreathNum = null;
+    pwSampleInterval = null;
+    return;;
+  }
+
+  pwBreathNum = arr[0];
+  pwExpectedSamplesPerSlice = arr[1];
+  pwSampleInterval = arr[2];
+  pwBreathClosed = false;
+  prevPwSliceNum = -1;
+  pwSlices = [];
+}
+
+function pwEnd(str) {
+  if (!pwBreathNum || pwBreathClosed) {
+    console.log("Missing PWSTART for PWEND=" + str);
+    pwBreathClosed = true;
+    return;
+  }
+
+  missingSamples = Number(str) - pwCollectedSamples(pwSlices);
+  if (missingSamples) {
+    console.log("Missing Samples at PWEND=" + missingSamples);
+    samples = [];
+    for (j=0; j<missingSamples; j++) {
+      samples.push(null);
+    }
+    pwSlices.push({"sliceNum":pwSliceNum, sliceData:cloneObject(samples)});
+  }
+
+  // consolidate all samples
+  samples = [];
+  for (i=0; i<pwSlices.length; i++) {
+    slice = pwSlices[i];
+    for (j=0; j<slice.sliceData.length; j++) {
+      samples.push(slice.sliceData[j]);
+    }
+  }
+
+  // store it for later use
+  app.pwData.push({
+    "breathNum":pwBreathNum,
+    "sampleInterval":pwSampleInterval,
+    "samples":cloneObject(samples),
+  });
+
+  pwBreathClosed = true;
+  if (app.newPwDataCallback) app.newPwDataCallback(pwBreathNum);
+}
+
+function pwSlice(receivedSliceNum, str) {
+  if (!pwBreathNum || pwBreathClosed) {
+    console.log("Missing PWSTART for PWSLICE=" + str);
+    pwBreathClosed = true;
+    return;
+  }
+  arr = JSON.parse(str);
+  if (!arr || (arr.length!=2)) {
+    console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + pwBreathNum);
+    return;
+  }
+
+  pwSliceNum = arr[0];
+  if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
+    console.log("Missing SliceNum=" + pwSliceNum-1 + " for BreathNum=" + pwBreathNum);
+    // stuff empty slices
+    for (i=prevPwSliceNum; i<pwSliceNum; i++) {
+      samples = [];
+      for (j=0; j<pwExpectedSamplesPerSlice; j++) {
+	samples.push(null);
+      }
+      pwSlices.push({"sliceNum":pwSliceNum, sliceData:cloneObject(samples)});
+    }
+  }
+
+  pwSlices.push({"sliceNum":pwSliceNum, sliceData:cloneObject(arr[1])});
+  prevPwSliceNum = pwSliceNum;
 }
 
