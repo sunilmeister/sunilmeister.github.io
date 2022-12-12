@@ -70,7 +70,7 @@ class BreathPressureGraph {
   // X axis is the same for all charts in our application
   addXaxis() {
     var Xaxis = {};
-    Xaxis.title = "Elapsed Time (millisecs)";
+    Xaxis.title = "Elapsed Time (secs)";
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval();
@@ -118,21 +118,21 @@ class BreathPressureGraph {
 
       var xval = session.breathTimes[breathNum].time - this.rangeX.initTime;
       Xaxis.scaleBreaks.customBreaks.push({
-	startValue: prevXval+100,
-        endValue: xval-100,
+	startValue: (prevXval+100)/1000,
+        endValue: (xval-100)/1000,
         color: "orange",
         type: "zigzag"
       });
 
       // Make sure that the graphs do not connect end-to-end
       xyPoints.push({
-        "x": xval-200,
+        "x": (xval-200)/1000,
         "y": null
       });
 
       for (j=0; j<samples.length; j++) {
         xyPoints.push({
-          "x": xval,
+          "x": xval/1000,
           "y": samples[j]
         });
 	xval += sampleInterval;
@@ -172,18 +172,14 @@ class BreathPressureGraph {
   }
 
   calculateXaxisInterval() {
-    var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
-    var numPoints = maxTime - minTime;
-    var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
-    return 500;
+    return 0.25;
   }
 
 
   calculateXaxisMinimum() {
     var initTime = this.rangeX.initTime;
     var minTime = this.rangeX.minTime;
-    return minTime - initTime ;
+    return (minTime - initTime)/1000 ;
   }
 
 

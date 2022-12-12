@@ -599,18 +599,18 @@ function processJsonRecord(jsonData) {
           session.patientInfo = value;
         }
         else if (ckey == "PWSTART") {
-	  console.log(ckey + ":" + value);
+	  //console.log(ckey + ":" + value);
 	  pwStart(value);
 	}
         else if (ckey == "PWEND") {
-	  console.log(ckey + ":" + value);
+	  //console.log(ckey + ":" + value);
 	  pwEnd(value);
 	} else {
           partsArray = ckey.split('_');
 	  if (partsArray.length==0) continue;
 	  if (partsArray[0]!="PWSLICE") continue;
 	  sNum = partsArray[1];
-	  console.log("PWSLICE[" + sNum + "]=" + value);
+	  //console.log("PWSLICE[" + sNum + "]=" + value);
 	  pwSlice(sNum, value);
 	}
       }
