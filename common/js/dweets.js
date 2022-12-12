@@ -2,6 +2,15 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var pwBreathNum = null;
+var pwSampleInterval = null;
+var pwBreathClosed = true;
+var pwSlices = [];
+var pwSliceNum = -1;
+var prevPwSliceNum = -1;
+var pwExpectedSamplesPerSlice = null;
+var expectingPWEND = false;
+
 function equalParamCombos(curr, prev) {
   //console.log("curr"); console.log(curr);
   //console.log("prev"); console.log(prev);
@@ -135,6 +144,24 @@ function processJsonRecord(jsonData) {
       }
       for (var ckey in jsonData.content) {
         value = jsonData.content[ckey];
+
+        if (expectingPWEND) {
+	  // if anything else, close of with PWEND
+	  if (ckey!="PWEND") {
+            partsArray = ckey.split('_');
+            if ((partsArray.length==0) || (partsArray[0]!="PWSLICE")) {
+              console.log("Expecting PWEND or PWSLICE but found=" + ckey);
+              n = pwCollectedSamples(pwSlices);
+              if (n) {
+                console.log("Graphing anyway ...");
+                pwEnd(String(n));
+              }
+              pwBreathClosed = true;
+	      expectingPWEND = false;
+	    }
+	  }
+	}
+
         if (app.chartL1 && app.chartL2 && app.chartL3 && app.chartL4) {
           if (app.chartExpectErrorMsg || app.chartExpectWarningMsg) {
             var msgTime;
@@ -598,14 +625,6 @@ function formInitialJsonRecord() {
 // ////////////////////////////////////////////////
 // All individual Pressure Waveform data handling below
 // ////////////////////////////////////////////////
-var pwBreathNum = null;
-var pwSampleInterval = null;
-var pwBreathClosed = true;
-var pwSlices = [];
-var pwSliceNum = -1;
-var prevPwSliceNum = -1;
-var pwExpectedSamplesPerSlice = null;
-
 function pwCollectedSamples(slices) {
   num = 0;
   for (i=0; i<slices.length; i++) {
@@ -616,7 +635,12 @@ function pwCollectedSamples(slices) {
 
 function pwStart(str) {
   if (!pwBreathClosed) {
-    console.log("Ignored previous PWSTART missing PWEND pwBreathNum=" + pwBreathNum);
+    console.log("Previous PWSTART missing PWEND pwBreathNum=" + pwBreathNum);
+    n = pwCollectedSamples(pwSlices);
+    if (n) {
+      console.log("Graphing anyway ...");
+      pwEnd(String(n));
+    }
     pwBreathClosed = true;
   }
 
@@ -627,7 +651,7 @@ function pwStart(str) {
     pwSampleInterval = null;
     return;;
   }
-
+  expectingPWEND = true;
   pwBreathNum = arr[0];
   pwExpectedSamplesPerSlice = arr[1];
   pwSampleInterval = arr[2];
@@ -662,6 +686,7 @@ function pwEnd(str) {
       samples.push(slice.sliceData[j]);
     }
   }
+  pwSlices = [];
 
   // store it for later use
   app.pwData.push({
@@ -670,6 +695,7 @@ function pwEnd(str) {
     "samples":cloneObject(samples),
   });
 
+  expectingPWEND = false;
   pwBreathClosed = true;
   if (app.newPwDataCallback) app.newPwDataCallback(pwBreathNum);
 }
@@ -686,7 +712,7 @@ function pwSlice(receivedSliceNum, str) {
     return;
   }
 
-  pwSliceNum = arr[0];
+  pwSliceNum = Number(arr[0]);
   if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
     console.log("Missing SliceNum=" + pwSliceNum-1 + " for BreathNum=" + pwBreathNum);
     // stuff empty slices

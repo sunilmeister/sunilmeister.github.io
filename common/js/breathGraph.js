@@ -105,6 +105,7 @@ class BreathPressureGraph {
 
     var xyPoints = [];
     var prevXval = 0;
+
     for (i=0; i<app.pwData.length; i++) {
       var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
       var sampleInterval = app.pwData[i].sampleInterval;
@@ -121,6 +122,12 @@ class BreathPressureGraph {
         endValue: xval-100,
         color: "orange",
         type: "zigzag"
+      });
+
+      // Make sure that the graphs do not connect end-to-end
+      xyPoints.push({
+        "x": xval-200,
+        "y": null
       });
 
       for (j=0; j<samples.length; j++) {
@@ -169,7 +176,7 @@ class BreathPressureGraph {
     var maxTime = this.rangeX.maxTime;
     var numPoints = maxTime - minTime;
     var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
-    return interval;
+    return 500;
   }
 
 
