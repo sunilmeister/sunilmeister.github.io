@@ -599,7 +599,7 @@ function FetchAndExecuteFromQueue() {
     if (typeof d.content["BNUM"] != "undefined") {
       app.dashboardBreathNum++;
       app.systemBreathNum = parseChecksumString(d.content["BNUM"]);
-      if (app.startSystemBreathNum<0) {
+      if (app.startSystemBreathNum==null) {
 	app.startSystemBreathNum = app.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
 	elm.innerHTML = String(app.systemBreathNum-1);

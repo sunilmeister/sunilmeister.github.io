@@ -582,9 +582,9 @@ function processJsonRecord(jsonData) {
           partsArray = ckey.split('_');
 	  if (partsArray.length==0) continue;
 	  if (partsArray[0]!="PWSLICE") continue;
-	  pwSliceNum = partsArray[1];
-	  console.log("PWSLICE[" + pwSliceNum + "]=" + value);
-	  pwSlice(pwSliceNum, value);
+	  sNum = partsArray[1];
+	  console.log("PWSLICE[" + sNum + "]=" + value);
+	  pwSlice(sNum, value);
 	}
       }
     }
@@ -599,10 +599,10 @@ function formInitialJsonRecord() {
 // All individual Pressure Waveform data handling below
 // ////////////////////////////////////////////////
 var pwBreathNum = null;
-var pwNumSlices = null;
 var pwSampleInterval = null;
 var pwBreathClosed = true;
 var pwSlices = [];
+var pwSliceNum = -1;
 var prevPwSliceNum = -1;
 var pwExpectedSamplesPerSlice = null;
 
@@ -633,6 +633,7 @@ function pwStart(str) {
   pwSampleInterval = arr[2];
   pwBreathClosed = false;
   prevPwSliceNum = -1;
+  pwSliceNum = -1;
   pwSlices = [];
 }
 
@@ -650,7 +651,7 @@ function pwEnd(str) {
     for (j=0; j<missingSamples; j++) {
       samples.push(null);
     }
-    pwSlices.push({"sliceNum":pwSliceNum, sliceData:cloneObject(samples)});
+    pwSlices.push({"sliceNum":pwSliceNum+1, sliceData:cloneObject(samples)});
   }
 
   // consolidate all samples
@@ -664,7 +665,7 @@ function pwEnd(str) {
 
   // store it for later use
   app.pwData.push({
-    "breathNum":pwBreathNum,
+    "systemBreathNum":pwBreathNum,
     "sampleInterval":pwSampleInterval,
     "samples":cloneObject(samples),
   });
@@ -689,12 +690,12 @@ function pwSlice(receivedSliceNum, str) {
   if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
     console.log("Missing SliceNum=" + pwSliceNum-1 + " for BreathNum=" + pwBreathNum);
     // stuff empty slices
-    for (i=prevPwSliceNum; i<pwSliceNum; i++) {
+    for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
       samples = [];
       for (j=0; j<pwExpectedSamplesPerSlice; j++) {
 	samples.push(null);
       }
-      pwSlices.push({"sliceNum":pwSliceNum, sliceData:cloneObject(samples)});
+      pwSlices.push({"sliceNum":i, sliceData:cloneObject(samples)});
     }
   }
 

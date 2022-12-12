@@ -37,14 +37,13 @@ class BreathPressureGraph {
   }
 
   addGraph() {
-    var paramTransitions = paramInfo.transitions;
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";
     var xyPoints = this.createXYPoints();
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
   
-    yAxis = this.createYaxis(paramName, paramColor, 0, 1000);
+    var yAxis = this.createYaxis(paramName, paramColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
   }
   
@@ -107,7 +106,7 @@ class BreathPressureGraph {
     var xyPoints = [];
     var prevXval = 0;
     for (i=0; i<app.pwData.length; i++) {
-      var breathNum = app.pwData[i].breathNum;
+      var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
       var sampleInterval = app.pwData[i].sampleInterval;
       var samples = app.pwData[i].samples;
 
@@ -116,7 +115,7 @@ class BreathPressureGraph {
 	if (breathNum>maxBnum) break;
       }
 
-      var xval = (breathTimes[breathNum].time - initTime);
+      var xval = session.breathTimes[breathNum].time - this.rangeX.initTime;
       Xaxis.scaleBreaks.customBreaks.push({
 	startValue: prevXval+100,
         endValue: xval-100,
@@ -136,7 +135,7 @@ class BreathPressureGraph {
 
     var chartData = {};
     chartData.type = this.graphType;
-    chartData.showInLegend = !noLegend;
+    chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;
   }
@@ -168,7 +167,7 @@ class BreathPressureGraph {
   calculateXaxisInterval() {
     var minTime = this.rangeX.minTime;
     var maxTime = this.rangeX.maxTime;
-    var numPoints = (maxTime - minTime)/1000;
+    var numPoints = maxTime - minTime;
     var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
     return interval;
   }
@@ -177,8 +176,7 @@ class BreathPressureGraph {
   calculateXaxisMinimum() {
     var initTime = this.rangeX.initTime;
     var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
-    return Math.floor(minTime - initTime)/1000 ;
+    return minTime - initTime ;
   }
 
 
