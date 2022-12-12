@@ -2,10 +2,10 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-saveStatXrange = null;
+saveShapeXrange = null;
 
-function createStatRangeSlider(div) {
-  statRangeSlider = new IntRangeSlider(
+function createShapeRangeSlider(div) {
+  shapeRangeSlider = new IntRangeSlider(
     div,
     0,
     1,
@@ -13,16 +13,16 @@ function createStatRangeSlider(div) {
     0,
     1
   );
-  statRangeSlider.setChangeCallback(statRangeSliderCallback);
+  shapeRangeSlider.setChangeCallback(shapeRangeSliderCallback);
 }
 
-function setStatTimeInterval(btn) {
+function setShapeTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
-  values = statRangeSlider.getSlider();
+  values = shapeRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveStatXrange = app.reportsXrange;
+  saveShapeXrange = app.reportsXrange;
   app.reportsXrange.doFull = false;
   app.reportsXrange.minBnum = bmin;
   app.reportsXrange.maxBnum = bmax;
@@ -31,77 +31,86 @@ function setStatTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   setChartTimeInterval();
   setAlertTimeInterval();
-  setShapeTimeInterval();
-  createDashboardStats();
+  setStatTimeInterval();
+  createDashboardShapes();
   sliderCommitPending = false;
 }
 
-function cancelStatTimeInterval(btn) {
+function cancelShapeTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
-  if (saveStatXrange) {
-    app.reportsXrange = saveStatXrange;
+  if (saveShapeXrange) {
+    app.reportsXrange = saveShapeXrange;
   } else {
     app.reportsXrange.doFull = true;
     app.reportsXrange.minBnum = 1;
     app.reportsXrange.maxBnum = app.dashboardBreathNum;
   }
   stopSliderCallback = true;
-  statRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  shapeRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
   cancelChartTimeInterval();
   cancelAlertTimeInterval();
-  cancelShapeTimeInterval();
+  cancelStatTimeInterval();
   sliderCommitPending = false;
 }
 
-function resetStatTimeInterval(btn) {
-  saveStatXrange = null;
+function resetShapeTimeInterval(btn) {
+  saveShapeXrange = null;
   unflashBreathWindowButtons();
   app.reportsXrange.doFull = true;
   app.reportsXrange.minBnum = 1;
   app.reportsXrange.maxBnum = app.dashboardBreathNum;
   stopSliderCallback = true;
-  statRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  shapeRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
   resetChartTimeInterval();
   resetAlertTimeInterval();
-  resetShapeTimeInterval();
-  createDashboardStats();
+  resetStatTimeInterval();
+  createDashboardShapes();
   sliderCommitPending = false;
 }
 
-function statRangeSliderCallback() {
+function shapeRangeSliderCallback() {
   if (stopSliderCallback) return;
   flashBreathWindowButtons();
   sliderCommitPending = true;
-  values = statRangeSlider.getSlider();
+  values = shapeRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
 
   stopSliderCallback = true;
   chartRangeSlider.setSlider([bmin, bmax]);
   alertRangeSlider.setSlider([bmin, bmax]);
-  shapeRangeSlider.setSlider([bmin, bmax]);
+  statRangeSlider.setSlider([bmin, bmax]);
   stopSliderCallback = false;
 }
 
-function updateStatRangeOnNewBreath(num) {
+function updateShapeRangeOnNewBreath(num) {
   if (app.dashboardBreathNum==1) {
-    statRangeSlider.setRange([1, 2]);
+    shapeRangeSlider.setRange([1, 2]);
   } else {
-    statRangeSlider.setRange([1, app.dashboardBreathNum]);
+    shapeRangeSlider.setRange([1, app.dashboardBreathNum]);
   }
   if (app.reportsXrange.doFull && !sliderCommitPending) {
     stopSliderCallback = true;
-    statRangeSlider.setSlider([1, app.dashboardBreathNum]);
+    shapeRangeSlider.setSlider([1, app.dashboardBreathNum]);
     stopSliderCallback = false;
   }
+}
+
+function createDashboardShapes() {
+  minBnum = app.reportsXrange.minBnum;
+  maxBnum = app.reportsXrange.maxBnum;
+  if ((!minBnum) || (!maxBnum)) return;
+  app.reportsXrange.initTime = app.startDate;
+  app.reportsXrange.minTime = session.breathTimes[minBnum].time;
+  app.reportsXrange.maxTime = session.breathTimes[maxBnum].time;
 }
 

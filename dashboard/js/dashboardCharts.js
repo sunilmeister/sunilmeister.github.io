@@ -58,6 +58,7 @@ function chartRangeSliderCallback() {
   stopSliderCallback = true;
   alertRangeSlider.setSlider([bmin, bmax]);
   statRangeSlider.setSlider([bmin, bmax]);
+  shapeRangeSlider.setSlider([bmin, bmax]);
   stopSliderCallback = false;
 }
 
@@ -99,6 +100,7 @@ function setChartTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   setStatTimeInterval();
   setAlertTimeInterval();
+  setShapeTimeInterval();
   createDashboardCharts();
   sliderCommitPending = false;
 }
@@ -128,6 +130,7 @@ function cancelChartTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   cancelStatTimeInterval();
   cancelAlertTimeInterval();
+  cancelShapeTimeInterval();
   sliderCommitPending = false;
 }
 
@@ -150,6 +153,7 @@ function resetChartTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   resetStatTimeInterval();
   resetAlertTimeInterval();
+  resetShapeTimeInterval();
   createDashboardCharts();
   sliderCommitPending = false;
 }

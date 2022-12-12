@@ -121,6 +121,7 @@ function processDashboardDweet(d) {
   if ((currentView == "charts") && !updatePaused) createDashboardCharts();
   if ((currentView == "stats") && !updatePaused) createDashboardStats();
   if ((currentView == "alerts") && !updatePaused) createDashboardAlerts();
+  if ((currentView == "shapes") && !updatePaused) createDashboardShapes();
   return d;
 }
 
@@ -185,11 +186,13 @@ function changeToSnapshotView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
+  document.getElementById("btnShapes").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
+  shapes = document.getElementById("shapes-pane");
   if (updatePaused) togglePause();
   currentView = "snapshots";
   snapshot.style.display = "inline-grid";
@@ -197,6 +200,7 @@ function changeToSnapshotView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
+  shapes.style.display = "none";
 }
 
 function changeToChartView() {
@@ -205,11 +209,13 @@ function changeToChartView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
+  document.getElementById("btnShapes").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
+  shapes = document.getElementById("shapes-pane");
   if (updatePaused) togglePause();
   currentView = "charts";
   snapshot.style.display = "none";
@@ -217,7 +223,32 @@ function changeToChartView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
+  shapes.style.display = "none";
   createDashboardCharts();
+}
+
+function changeToShapeView() {
+  document.getElementById("btnSnapshots").disabled = false;
+  document.getElementById("btnCharts").disabled = false;
+  document.getElementById("btnStats").disabled = false;
+  document.getElementById("btnAlerts").disabled = false;
+  document.getElementById("btnRecording").disabled = false;
+  document.getElementById("btnShapes").disabled = true;
+  snapshot = document.getElementById("snapshot-pane");
+  charts = document.getElementById("chart-pane");
+  stats = document.getElementById("stat-pane");
+  alerts = document.getElementById("alert-pane");
+  records = document.getElementById("record-pane");
+  shapes = document.getElementById("shapes-pane");
+  if (updatePaused) togglePause();
+  currentView = "shapes";
+  snapshot.style.display = "none";
+  charts.style.display = "none";
+  stats.style.display = "none";
+  alerts.style.display = "none";
+  records.style.display = "none";
+  shapes.style.display = "block";
+  createDashboardShapes();
 }
 
 function changeToStatView() {
@@ -226,11 +257,13 @@ function changeToStatView() {
   document.getElementById("btnStats").disabled = true;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
+  document.getElementById("btnShapes").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
+  shapes = document.getElementById("shapes-pane");
   if (updatePaused) togglePause();
   currentView = "stats";
   snapshot.style.display = "none";
@@ -238,6 +271,7 @@ function changeToStatView() {
   stats.style.display = "block";
   alerts.style.display = "none";
   records.style.display = "none";
+  shapes.style.display = "none";
   createDashboardStats();
 }
 
@@ -247,11 +281,13 @@ function changeToAlertView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = true;
   document.getElementById("btnRecording").disabled = false;
+  document.getElementById("btnShapes").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
+  shapes = document.getElementById("shapes-pane");
   if (updatePaused) togglePause();
   currentView = "alerts";
   snapshot.style.display = "none";
@@ -259,6 +295,7 @@ function changeToAlertView() {
   stats.style.display = "none";
   alerts.style.display = "block";
   records.style.display = "none";
+  shapes.style.display = "none";
   createDashboardAlerts();
 }
 
@@ -268,11 +305,13 @@ function changeToRecordView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = true;
+  document.getElementById("btnShapes").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
+  shapes = document.getElementById("shapes-pane");
   if (updatePaused) togglePause();
   currentView = "records";
   snapshot.style.display = "none";
@@ -280,6 +319,7 @@ function changeToRecordView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "block";
+  shapes.style.display = "none";
 }
 
 function updateRangeOnNewBreath(num) {
@@ -291,6 +331,7 @@ function updateRangeOnNewBreath(num) {
   updateChartRangeOnNewBreath(num);
   updateStatRangeOnNewBreath(num);
   updateAlertRangeOnNewBreath(num);
+  updateShapeRangeOnNewBreath(num);
 }
 
 function togglePause() {
@@ -304,6 +345,7 @@ function togglePause() {
     if (currentView == "charts") createDashboardCharts();
     if (currentView == "stats") createDashboardStats();
     if (currentView == "alerts") createDashboardAlerts();
+    if (currentView == "shapes") createDashboardShapes();
   }
   else {
     elm.textContent = "Resume Dashboard";
@@ -427,6 +469,9 @@ window.onload = function() {
   // Create alert range slider
   alertRangeDiv = document.getElementById('alertRangeDiv');
   createAlertRangeSlider(alertRangeDiv);
+  // Create shape range slider
+  shapeRangeDiv = document.getElementById('shapeRangeDiv');
+  createShapeRangeSlider(shapeRangeDiv);
 
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
@@ -480,6 +525,10 @@ function colorBreathWindowButtons(bgd) {
   setBackGroundBreathWindowButton('btnAlertSetInterval',bgd);
   setBackGroundBreathWindowButton('btnAlertCancelInterval',bgd);
   setBackGroundBreathWindowButton('btnAlertResetInterval',bgd);
+
+  setBackGroundBreathWindowButton('btnShapeSetInterval',bgd);
+  setBackGroundBreathWindowButton('btnShapeCancelInterval',bgd);
+  setBackGroundBreathWindowButton('btnShapeResetInterval',bgd);
 }
 
 breathWindowButtonsFlashed = false;

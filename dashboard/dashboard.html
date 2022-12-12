@@ -31,6 +31,7 @@
     <script src="../common/js/common.js"></script>
     <script src="../common/js/checkboxTree.js"></script>
     <script src="../common/js/lineChart.js"></script>
+    <script src="../common/js/breathGraph.js"></script>
     <script src="../common/js/statComputer.js"></script>
     <script src="../common/js/rangeSlider.js"></script>
     <script src="../common/js/circularGauge.js"></script>
@@ -50,6 +51,7 @@
     <script src="js/dashboardCharts.js"></script>
     <script src="js/dashboardStats.js"></script>
     <script src="js/dashboardAlerts.js"></script>
+    <script src="js/dashboardShapes.js"></script>
     <script src="js/dashboard.js"></script>
   </head>
 
@@ -113,6 +115,10 @@
               </div>
 
               <div style="margin-top:1rem;">
+                <button id="btnShapes" class="sidebarButton" onclick='changeToShapeView()'>Breath Shapes View</button>
+              </div>
+
+              <div style="margin-top:1rem;">
                 <button id="btnRecording" class="sidebarButton" onclick='changeToRecordView()'>Recording View</button>
               </div>
 
@@ -151,6 +157,24 @@
       </div>
 
       <div class="dashboard-pane">
+        <div id="shapes-pane" class="column" style="font-size: 2rem; display:none">
+          <div id=shapeSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
+            <br>
+            <div id="shapeRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;"> </div>
+            <br>
+            <div>
+              <center>
+                <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px;">Set Breath Range Window for Display
+                  <button class="iconButton" id="btnShapeSetInterval" onClick="setShapeTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=50px height=50px></button>
+                  <button class="iconButton" id="btnShapeCancelInterval" style="float:right;" onClick="cancelShapeTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" width=50px height=50px></button>
+                  <button class="iconButton" id="btnShapeResetInterval" style="float:left;" onClick="resetShapeTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Default'><img src="../common/img/reset.png" width=50px height=50px></button>
+              </center>
+            </div>
+            <div id="shapeBody">
+            </div>
+          </div>
+        </div>
+
         <div id="record-pane" style="width:60em; font-family:verdana;font-size:1.5em; display:none">
           <center>
             <p class=shadowDiv5 id="recordSessionName" style="background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;">
@@ -354,6 +378,7 @@
 
             <br>
           </div>
+
           <div id="chartsDiv" style="margin-bottom:20px; margin-top:50px;">
             <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
           </div>
@@ -608,7 +633,7 @@
       </div>
     </div>
 
-<!-- 
+    <!-- 
 // ////////////////////////////////////////////////////
 // Below are all templates only
 // ////////////////////////////////////////////////////

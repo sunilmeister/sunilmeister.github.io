@@ -150,6 +150,11 @@ function extractUsedParamsFromCombos() {
   var pNames = ["mode","vt","rr","ie","ipeep","pmax","ps","tps","fiO2"];
   var obj = {};
 
+  if (app.usedParamCombos.length==0) {
+    console.log("app.usedParamCombos is empty");
+    return;
+  }
+
   var arr = statComputer.filterTransitions(app.usedParamCombos);
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];

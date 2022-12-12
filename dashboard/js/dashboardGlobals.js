@@ -94,4 +94,5 @@ var stopSliderCallback = false;
 var chartRangeSlider = null;
 var statRangeSlider = null;
 var alertRangeSlider = null;
+var shapeRangeSlider = null;
 

@@ -31,6 +31,7 @@ function setAlertTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   setStatTimeInterval();
   setChartTimeInterval();
+  setShapeTimeInterval();
   createDashboardAlerts();
   sliderCommitPending = false;
 }
@@ -53,6 +54,7 @@ function cancelAlertTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   cancelStatTimeInterval();
   cancelChartTimeInterval();
+  cancelShapeTimeInterval();
   sliderCommitPending = false;
 }
 
@@ -68,6 +70,7 @@ function resetAlertTimeInterval(btn) {
   if (typeof btn == 'undefined') return;
   resetStatTimeInterval();
   resetChartTimeInterval();
+  resetShapeTimeInterval();
   createDashboardAlerts();
   sliderCommitPending = false;
 }
@@ -83,6 +86,7 @@ function alertRangeSliderCallback() {
   stopSliderCallback = true;
   statRangeSlider.setSlider([bmin, bmax]);
   chartRangeSlider.setSlider([bmin, bmax]);
+  shapeRangeSlider.setSlider([bmin, bmax]);
   stopSliderCallback = false;
 }
 
