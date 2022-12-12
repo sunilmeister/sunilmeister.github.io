@@ -18,7 +18,7 @@
 class BreathPressureGraph {
 
   constructor(title, height, rangeX) {
-    this.graphType = "line";
+    this.graphType = "spline";
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
