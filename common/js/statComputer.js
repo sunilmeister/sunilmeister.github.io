@@ -7,7 +7,7 @@
 // breathTimes array
 // xRange is an object of the form
 // {
-//     doFull: null,
+//     rolling: true,
 //     minBnum:null , 
 //     maxBnum:null ,
 //     missingBnum:[]
@@ -30,7 +30,7 @@ class StatComputer {
   }
 
   filter(transitions, keepOneBefore) {
-    if (this.xRange.doFull) return transitions;
+    if (this.xRange.rolling) return transitions;
     var arr = [];
     var minDate = (this.breathTimes[this.xRange.minBnum].time);
     var maxDate = (this.breathTimes[this.xRange.maxBnum].time);
@@ -92,7 +92,7 @@ class StatComputer {
           curValue = transitions[curIx].value;
         }
       }
-      if (this.xRange.doFull ||
+      if (this.xRange.rolling ||
 	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
         arr.push({"time":new Date(this.breathTimes[i]), "value":curValue});
       }
@@ -168,7 +168,7 @@ class StatComputer {
           curValue = transitions[curIx].value;
         }
       }
-      if (this.xRange.doFull ||
+      if (this.xRange.rolling ||
 	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
         this.computedValuesPerBreath.push(curValue);
       }

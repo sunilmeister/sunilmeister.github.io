@@ -13,7 +13,7 @@
 // Height in pixels
 // Whether time based or brathnumber based
 // Whether a dummy secondary Y-axis is need for alignment
-// rangeX = {doFull:, 
+// rangeX = {rolling:, 
 //           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
 //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
 // //////////////////////////////////////////////////////
@@ -192,9 +192,9 @@ class LineChart {
     }
     var yDatapoints = [];
     var xyPoints = [];
-    var doFull = this.rangeX.doFull;
+    var rolling = this.rangeX.rolling;
     var numPoints = 0;
-    if (doFull) {
+    if (rolling) {
       numPoints = breathTimes.length;
     } else {
       numPoints = maxBnum - minBnum + 1;
@@ -214,7 +214,7 @@ class LineChart {
           curValue = transitions[curIx].value;
         }
       }
-      if (doFull || ((i<=maxBnum) && (i>=minBnum))) {
+      if (rolling || ((i<=maxBnum) && (i>=minBnum))) {
         yDatapoints.push(curValue);
       }
     }
@@ -227,7 +227,7 @@ class LineChart {
       ignoreDatapoint = false;
       if (this.timeUnits) {
         var ms;
-        if (doFull) {
+        if (rolling) {
           ms = new Date(breathTimes[i].time) - initTime;
         } else {
           ms = new Date(breathTimes[i+minBnum-1].time) - initTime;

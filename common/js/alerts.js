@@ -51,11 +51,11 @@ function displayAlerts() {
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.errorMsgs.length; i++) {
-    if (!app.reportsXrange.doFull) {
+    if (!app.reportRange.rolling) {
       if (session.errorMsgs[i].created > 
-	session.breathTimes[app.reportsXrange.maxBnum].time) continue;
+	session.breathTimes[app.reportRange.maxBnum].time) continue;
       if (session.errorMsgs[i].created < 
-	session.breathTimes[app.reportsXrange.minBnum].time) continue;
+	session.breathTimes[app.reportRange.minBnum].time) continue;
     }
 
     prefix = "ERROR #" + (i + 1) + " ";
@@ -64,11 +64,11 @@ function displayAlerts() {
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.warningMsgs.length; i++) {
-    if (!app.reportsXrange.doFull) {
+    if (!app.reportRange.rolling) {
       if (session.warningMsgs[i].created > 
-	session.breathTimes[app.reportsXrange.maxBnum].time) continue;
+	session.breathTimes[app.reportRange.maxBnum].time) continue;
       if (session.warningMsgs[i].created < 
-	session.breathTimes[app.reportsXrange.minBnum].time) continue;
+	session.breathTimes[app.reportRange.minBnum].time) continue;
     }
 
     prefix = "WARNING #" + (i + 1) + " ";
@@ -77,11 +77,11 @@ function displayAlerts() {
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.notificationMsgs.length; i++) {
-    if (!app.reportsXrange.doFull) {
+    if (!app.reportRange.rolling) {
       if (session.notificationMsgs[i].created > 
-	session.breathTimes[app.reportsXrange.maxBnum].time) continue;
+	session.breathTimes[app.reportRange.maxBnum].time) continue;
       if (session.notificationMsgs[i].created < 
-	session.breathTimes[app.reportsXrange.minBnum].time) continue;
+	session.breathTimes[app.reportRange.minBnum].time) continue;
     }
     prefix = "INFO #" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, session.notificationMsgs[i]);

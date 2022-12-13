@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-saveShapeXrange = null;
+saveShapeRange = null;
 
 function createShapeRangeSlider(div) {
   shapeRangeSlider = new IntRangeSlider(
@@ -22,12 +22,8 @@ function setShapeTimeInterval(btn) {
   values = shapeRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveShapeXrange = app.reportsXrange;
-  saveShapeRollingRange = null;
-  app.rollingRange = false;
-  app.reportsXrange.doFull = false;
-  app.reportsXrange.minBnum = bmin;
-  app.reportsXrange.maxBnum = bmax;
+  saveShapeRange = app.reportRange;
+  app.reportRange = createReportRange(false, bmin, bmax);
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
@@ -41,16 +37,13 @@ function setShapeTimeInterval(btn) {
 function cancelShapeTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
-  if (saveShapeXrange) {
-    app.reportsXrange = saveShapeXrange;
-    app.rollingRange = saveShapeRollingRange;
+  if (saveShapeRange) {
+    app.reportRange = saveShapeRange;
   } else {
-    app.reportsXrange.doFull = true;
-    app.reportsXrange.minBnum = 1;
-    app.reportsXrange.maxBnum = app.dashboardBreathNum;
+    resetShapeTimeInterval();
   }
   stopSliderCallback = true;
-  shapeRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  shapeRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
@@ -62,15 +55,18 @@ function cancelShapeTimeInterval(btn) {
 }
 
 function resetShapeTimeInterval(btn) {
-  saveShapeXrange = null;
-  saveShapeRollingRange = null;
-  app.rollingRange = true;
+  saveShapeRange = null;
   unflashBreathWindowButtons();
-  app.reportsXrange.doFull = true;
-  app.reportsXrange.minBnum = 1;
-  app.reportsXrange.maxBnum = app.dashboardBreathNum;
+
+  var minBnum = 1;
+  if (app.reportRange.rolling && app.pwData.length>MAX_SHAPE_CHARTS) {
+    startPw = app.pwData.length - MAX_SHAPE_CHARTS;
+    minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
+  }
+  app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+
   stopSliderCallback = true;
-  shapeRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  shapeRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
@@ -98,39 +94,39 @@ function shapeRangeSliderCallback() {
 }
 
 function updateShapeRangeOnNewBreath(num) {
-  if (app.dashboardBreathNum==1) {
-    shapeRangeSlider.setRange([1, 2]);
-  } else {
-    shapeRangeSlider.setRange([1, app.dashboardBreathNum]);
-  }
-  if (app.reportsXrange.doFull && !sliderCommitPending) {
+  shapeRangeSlider.setRange([1, app.dashboardBreathNum]);
+
+  if (!app.reportRange.rolling || sliderCommitPending) return;
+  if (app.reportRange.rolling) {
+    var minBnum = 1;
+    if (app.reportRange.rolling && app.pwData.length>MAX_SHAPE_CHARTS) {
+      startPw = app.pwData.length - MAX_SHAPE_CHARTS;
+      minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
+    }
+    app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+
     stopSliderCallback = true;
-    shapeRangeSlider.setSlider([1, app.dashboardBreathNum]);
+    shapeRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
     stopSliderCallback = false;
+  }
+}
+
+function updateShapeRangeOnEntry() {
+  if (app.reportRange.rolling) {
+    resetShapeTimeInterval();
   }
 }
 
 var breathShapeGraph = null;
 function createDashboardShapes() {
-  if (app.rollingRange && app.pwData.length>MAX_SHAPE_CHARTS) {
-    startPw = app.pwData.length - MAX_SHAPE_CHARTS;
-    minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
-  } else {
-    minBnum = app.reportsXrange.minBnum;
-  }
-  app.reportsXrange.minBnum = minBnum;
-  app.reportsXrange.minTime = session.breathTimes[minBnum].time;
-  maxBnum = app.reportsXrange.maxBnum;
-  app.reportsXrange.initTime = app.startDate;
-  app.reportsXrange.maxTime = session.breathTimes[maxBnum].time;
-
   if (breathShapeGraph) {
     breathShapeGraph.destroy();
     delete breathShapeGraph;
   }
 
   div = document.getElementById("shapeGraphBody");
-  breathShapeGraph = new BreathPressureGraph("Breath Pressure Shapes",800,app.reportsXrange);
+  breathShapeGraph = 
+    new BreathPressureGraph("Breath Pressure Shapes",800,app.reportRange);
   breathShapeGraph.addGraph();
   breathShapeGraph.render(div);
 }

@@ -46,5 +46,26 @@ var SessionDataTemplate = {
   errorMsgs:            [],
 };
 
+function createReportRange(rolling, minBnum, maxBnum) {
+  range = {};
+  range.rolling =       rolling;
+  range.initBnum =      1; 
+  range.minBnum =       minBnum; 
+  range.maxBnum =       maxBnum;
+  range.missingBnum =   cloneObject(session.missingBreathWindows);
+  range.initTime =      app.startDate;
+  if (minBnum<1) {
+    range.minTime =     app.startDate;
+  } else {
+    range.minTime =     session.breathTimes[minBnum].time;
+  }
+  if (maxBnum<1) {
+    range.maxTime =     app.startDate;
+  } else {
+    range.maxTime =     session.breathTimes[maxBnum].time;
+  }
+  range.missingTime =   cloneObject(session.missingTimeWindows);
+  return range;
+}
 
 var session = null;

@@ -37,8 +37,8 @@ function displayUsedCombos() {
 
     var beforeBreath = combo.value.startingBreath;
     var nb = combo.value.numBreaths;
-    var minBnum = app.reportsXrange.minBnum;
-    var maxBnum = app.reportsXrange.maxBnum;
+    var minBnum = app.reportRange.minBnum;
+    var maxBnum = app.reportRange.maxBnum;
     if (beforeBreath < minBnum) {
       nb = nb - (minBnum-beforeBreath-1);
     }
@@ -315,7 +315,7 @@ function displayStats() {
     constructStatMiscTable();
   }
   app.tablesConstructed = true;
-  statComputer = new StatComputer(session.breathTimes,app.reportsXrange);
+  statComputer = new StatComputer(session.breathTimes,app.reportRange);
 
   displayMinMaxAvg();
   displayParamUsage();

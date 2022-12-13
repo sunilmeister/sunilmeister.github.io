@@ -224,6 +224,8 @@ function changeToChartView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "none";
+
+  updateChartRangeOnEntry();
   createDashboardCharts();
 }
 
@@ -248,6 +250,8 @@ function changeToShapeView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "block";
+
+  updateShapeRangeOnEntry();
   createDashboardShapes();
 }
 
@@ -272,6 +276,8 @@ function changeToStatView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "none";
+
+  updateStatRangeOnEntry();
   createDashboardStats();
 }
 
@@ -296,6 +302,8 @@ function changeToAlertView() {
   alerts.style.display = "block";
   records.style.display = "none";
   shapes.style.display = "none";
+
+  updateAlertRangeOnEntry();
   createDashboardAlerts();
 }
 
@@ -323,9 +331,9 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath(num) {
-  if (app.reportsXrange.doFull) {
-    app.reportsXrange.minBnum=1;
-    app.reportsXrange.maxBnum=app.dashboardBreathNum;
+  if (app.reportRange.rolling) {
+    app.reportRange.minBnum=1;
+    app.reportRange.maxBnum=app.dashboardBreathNum;
   }
 
   updateChartRangeOnNewBreath(num);

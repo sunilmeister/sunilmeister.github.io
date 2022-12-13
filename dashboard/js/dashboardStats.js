@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-saveStatXrange = null;
+saveStatRange = null;
 
 function createStatRangeSlider(div) {
   statRangeSlider = new IntRangeSlider(
@@ -22,10 +22,8 @@ function setStatTimeInterval(btn) {
   values = statRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveStatXrange = app.reportsXrange;
-  app.reportsXrange.doFull = false;
-  app.reportsXrange.minBnum = bmin;
-  app.reportsXrange.maxBnum = bmax;
+  saveStatRange = app.reportRange;
+  app.reportRange = createReportRange(false, bmin, bmax);
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
@@ -39,15 +37,13 @@ function setStatTimeInterval(btn) {
 function cancelStatTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
-  if (saveStatXrange) {
-    app.reportsXrange = saveStatXrange;
+  if (saveStatRange) {
+    app.reportRange = saveStatRange;
   } else {
-    app.reportsXrange.doFull = true;
-    app.reportsXrange.minBnum = 1;
-    app.reportsXrange.maxBnum = app.dashboardBreathNum;
+    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
   }
   stopSliderCallback = true;
-  statRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  statRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
@@ -59,13 +55,11 @@ function cancelStatTimeInterval(btn) {
 }
 
 function resetStatTimeInterval(btn) {
-  saveStatXrange = null;
+  saveStatRange = null;
   unflashBreathWindowButtons();
-  app.reportsXrange.doFull = true;
-  app.reportsXrange.minBnum = 1;
-  app.reportsXrange.maxBnum = app.dashboardBreathNum;
+  app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
   stopSliderCallback = true;
-  statRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  statRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
@@ -98,10 +92,16 @@ function updateStatRangeOnNewBreath(num) {
   } else {
     statRangeSlider.setRange([1, app.dashboardBreathNum]);
   }
-  if (app.reportsXrange.doFull && !sliderCommitPending) {
+  if (app.reportRange.rolling && !sliderCommitPending) {
     stopSliderCallback = true;
     statRangeSlider.setSlider([1, app.dashboardBreathNum]);
     stopSliderCallback = false;
+  }
+}
+
+function updateStatRangeOnEntry() {
+  if (app.reportRange.rolling) {
+    resetStatTimeInterval();
   }
 }
 

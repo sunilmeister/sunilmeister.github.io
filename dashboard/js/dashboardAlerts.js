@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-saveAlertXrange = null;
+saveAlertRange = null;
 
 function createAlertRangeSlider(div) {
   alertRangeSlider = new IntRangeSlider(
@@ -22,10 +22,8 @@ function setAlertTimeInterval(btn) {
   values = alertRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveAlertXrange = app.reportsXrange;
-  app.reportsXrange.doFull = false;
-  app.reportsXrange.minBnum = bmin;
-  app.reportsXrange.maxBnum = bmax;
+  saveAlertRange = app.reportRange;
+  app.reportRange = createReportRange(false, bmin, bmax);
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
@@ -39,15 +37,13 @@ function setAlertTimeInterval(btn) {
 function cancelAlertTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
-  if (saveAlertXrange) {
-    app.reportsXrange = saveAlertXrange;
+  if (saveAlertRange) {
+    app.reportRange = saveAlertRange;
   } else {
-    app.reportsXrange.doFull = true;
-    app.reportsXrange.minBnum = 1;
-    app.reportsXrange.maxBnum = app.dashboardBreathNum;
+    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
   }
   stopSliderCallback = true;
-  alertRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  alertRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   // check if call is because of my button
@@ -59,12 +55,10 @@ function cancelAlertTimeInterval(btn) {
 }
 
 function resetAlertTimeInterval(btn) {
-  saveAlertXrange = null;
+  saveAlertRange = null;
   unflashBreathWindowButtons();
-  app.reportsXrange.doFull = true;
-  app.reportsXrange.minBnum = 1;
-  app.reportsXrange.maxBnum = app.dashboardBreathNum;
-  alertRangeSlider.setSlider([app.reportsXrange.minBnum, app.reportsXrange.maxBnum]);
+  app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+  alertRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
 
   // check if call is because of my button
   if (typeof btn == 'undefined') return;
@@ -96,10 +90,16 @@ function updateAlertRangeOnNewBreath(num) {
   } else {
     alertRangeSlider.setRange([1, app.dashboardBreathNum]);
   }
-  if (app.reportsXrange.doFull && !sliderCommitPending) {
+  if (app.reportRange.rolling && !sliderCommitPending) {
     stopSliderCallback = true;
     alertRangeSlider.setSlider([1, app.dashboardBreathNum]);
     stopSliderCallback = false;
+  }
+}
+
+function updateAlertRangeOnEntry() {
+  if (app.reportRange.rolling) {
+    resetAlertTimeInterval();
   }
 }
 

@@ -11,7 +11,7 @@
 // The constructor inputs are
 // Title of chart
 // Height in pixels
-// rangeX = {doFull:, 
+// rangeX = {rolling:, 
 //           initBnum:Number, minBnum:Number, maxBnum:Number, 
 //           initTime:Date, minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
@@ -118,7 +118,7 @@ class BreathPressureGraph {
     var initBnum = this.rangeX.initBnum;
     var minBnum = this.rangeX.minBnum;
     var maxBnum = this.rangeX.maxBnum;
-    var doFull = this.rangeX.doFull;
+    var rolling = this.rangeX.rolling;
 
     // init Breaks in the graph
     var Xaxis = this.chartJson.axisX;
@@ -136,7 +136,7 @@ class BreathPressureGraph {
       var partial = app.pwData[i].partial;
       var prefix = partial? "Partial " : "" ;
 
-      if (!doFull) {
+      if (!rolling) {
 	if (breathNum<minBnum) continue;
 	if (breathNum>maxBnum) break;
       }

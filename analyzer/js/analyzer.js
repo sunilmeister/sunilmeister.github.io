@@ -371,25 +371,8 @@ function updateSelectedDuration() {
   elm.innerHTML = String(app.startSystemBreathNum-1);
 }
 
-function setAnalysisRanges(doFull) {
-  app.reportsXrange ={
-    doFull : doFull,
-    minBnum : app.analysisStartBreath,
-    maxBnum : app.analysisEndBreath,
-    missingBnum : session.missingBreathWindows,
-  };
-
-  app.chartsXrange = {
-    doFull :  doFull,
-    initBnum : 1, 
-    minBnum : app.analysisStartBreath, 
-    maxBnum : app.analysisEndBreath,
-    missingBnum : cloneObject(session.missingBreathWindows),
-    initTime : app.logStartTime, 
-    minTime : app.analysisStartTime, 
-    maxTime : app.analysisEndTime,
-    missingTime : cloneObject(session.missingTimeWindows)
-  };
+function setAnalysisRanges(rolling) {
+  app.reportRange = createReportRange(rolling, app.analysisStartBreath, app.analysisEndBreath);
 }
 
 function refreshActivePane() {
@@ -464,7 +447,7 @@ function analysisGatherDoneCallback() {
   }
 
   enableAllButtons();
-  setAnalysisRanges();
+  setAnalysisRanges(true);
   updateSelectedDuration();
 
   createAnalysisRangeSlider();
@@ -493,8 +476,7 @@ window.onload = function() {
   undisplayAllPanes();
   disableAllButtons();
 
-  app.reportsXrange.doFull = true;
-  app.chartsXrange.doFull = true;
+  app.reportRange = createReportRange(false, 0, 0);
   
   resetAnalysisData();
   selectSession();
@@ -558,8 +540,8 @@ function unflashAnalysisWindowButtons() {
 
 var cumulativeChartBreaths = 0;
 function updateRangeOnNewBreath(num) {
-  app.minChartBreathNum = 1;
-  app.maxChartBreathNum += num;
+  app.reportRange.minBnum = 1;
+  app.reportRange.maxBnum += num;
 }
 
 function createAnalysisRangeSlider() {

@@ -57,8 +57,6 @@ var AppDataTemplate = {
   notificationNum: 0,
 
   // chart transitions etc.
-  minChartBreathNum:        0,
-  maxChartBreathNum:        0,
   chartPrevSystemBreathNum: null,
   chartRangeLimit:          MAX_CHART_DATAPOINTS,
   chartRangeSlider:         null,
@@ -104,14 +102,9 @@ var AppDataTemplate = {
   pwData:            [],
   newPwDataCallback: null,
 
-  // /////////////////////////////////////////////
-  // Cannot merge the two ranges below because
-  // dashboard charts have a sliding window
-  // /////////////////////////////////////////////
-
-  // charts analysis ranges
-  chartsXrange: {
-    doFull:        true,
+  // analysis  and display ranges
+  reportRange: {
+    rolling:       true,
     initBnum:      null, 
     minBnum:       null, 
     maxBnum:       null,
@@ -122,16 +115,8 @@ var AppDataTemplate = {
     missingTime:   []
   },
 
-  // reports analysis ranges
-  reportsXrange: {
-    doFull:       true,
-    minBnum:      null, 
-    maxBnum:      null,
-    missingBnum:  []
-  },
-
-  rollingRange: true,
 };
 
 var app = null;
+
 

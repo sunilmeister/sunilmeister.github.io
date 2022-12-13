@@ -18,17 +18,18 @@ class ChartBox {
     this.rangeX = null;
   }
 
-  // rangeX = {doFull:, 
+  // rangeX = {rolling:, 
   //           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
-    if (!app.chartsXrange) {
+    //console.log("app.reportRange=" + app.reportRange);
+    if (!app.reportRange) {
       this.rangeX = null;
-      return; // chartsXrange is a global variable
+      return; // reportRange is a global variable
     }
 
-    this.rangeX = app.chartsXrange;
+    this.rangeX = app.reportRange;
     this.createChart();
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }

@@ -3,7 +3,6 @@
 // ////////////////////////////////////////////////////
 
 function createAnalysisCharts() {
-  cleanupCharts();
   for (id in app.allChartsContainerInfo) {
     app.allChartsContainerInfo[id].render();
   }
@@ -21,9 +20,6 @@ function displayCharts() {
     chartInsertOnTop(); // always have chart box for user to start with
   }  
   createAnalysisCharts();
-}
-
-function cleanupCharts() {
 }
 
 function initCharts() {
