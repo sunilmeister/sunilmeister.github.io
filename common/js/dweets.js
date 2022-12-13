@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 var pwBreathNum = null;
+var pwBreathPartial = false;
 var pwSampleInterval = null;
 var pwBreathClosed = true;
 var pwSlices = [];
@@ -656,6 +657,7 @@ function pwStart(str) {
   pwExpectedSamplesPerSlice = arr[1];
   pwSampleInterval = arr[2];
   pwBreathClosed = false;
+  pwBreathPartial = false;
   prevPwSliceNum = -1;
   pwSliceNum = -1;
   pwSlices = [];
@@ -670,6 +672,7 @@ function pwEnd(str) {
 
   missingSamples = Number(str) - pwCollectedSamples(pwSlices);
   if (missingSamples) {
+    pwBreathPartial = true;
     console.log("Missing Samples at PWEND=" + missingSamples);
     samples = [];
     for (j=0; j<missingSamples; j++) {
@@ -690,12 +693,14 @@ function pwEnd(str) {
 
   // store it for later use
   app.pwData.push({
+    "partial":pwBreathPartial,
     "systemBreathNum":pwBreathNum,
     "sampleInterval":pwSampleInterval,
     "samples":cloneObject(samples),
   });
 
   expectingPWEND = false;
+  pwBreathPartial = false;
   pwBreathClosed = true;
   if (app.newPwDataCallback) app.newPwDataCallback(pwBreathNum);
 }
@@ -717,6 +722,7 @@ function pwSlice(receivedSliceNum, str) {
   if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
     console.log("Missing SliceNum=" + (pwSliceNum-1) + " for BreathNum=" + pwBreathNum);
     // stuff empty slices
+    pwBreathPartial = true;
     for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
       samples = [];
       for (j=0; j<pwExpectedSamplesPerSlice; j++) {

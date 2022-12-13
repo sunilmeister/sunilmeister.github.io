@@ -133,6 +133,8 @@ class BreathPressureGraph {
       var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
       var sampleInterval = app.pwData[i].sampleInterval;
       var samples = app.pwData[i].samples;
+      var partial = app.pwData[i].partial;
+      var prefix = partial? "Partial " : "" ;
 
       if (!doFull) {
 	if (breathNum<minBnum) continue;
@@ -166,9 +168,11 @@ class BreathPressureGraph {
       }
       prevXval = xval;
       stripLine.endValue = (xval)/1000;
-      stripLine.label = "Breath# " + breathNum;
+      stripLine.label = prefix + "Breath #" + breathNum;
       stripLine.labelPlacement = "inside";
       stripLine.labelAlign = "far";
+      stripLine.labelWrap = true;
+      stripLine.labelMaxWidth = 150;
       stripLine.labelFontColor = "black";
       stripLine.labelFontSize = app.stripLineFontSize;
       this.chartJson.axisX.stripLines.push(cloneObject(stripLine));
