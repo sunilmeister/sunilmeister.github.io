@@ -23,6 +23,8 @@ function setShapeTimeInterval(btn) {
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
   saveShapeXrange = app.reportsXrange;
+  saveShapeRollingRange = null;
+  app.rollingRange = false;
   app.reportsXrange.doFull = false;
   app.reportsXrange.minBnum = bmin;
   app.reportsXrange.maxBnum = bmax;
@@ -41,6 +43,7 @@ function cancelShapeTimeInterval(btn) {
   unflashBreathWindowButtons();
   if (saveShapeXrange) {
     app.reportsXrange = saveShapeXrange;
+    app.rollingRange = saveShapeRollingRange;
   } else {
     app.reportsXrange.doFull = true;
     app.reportsXrange.minBnum = 1;
@@ -60,6 +63,8 @@ function cancelShapeTimeInterval(btn) {
 
 function resetShapeTimeInterval(btn) {
   saveShapeXrange = null;
+  saveShapeRollingRange = null;
+  app.rollingRange = true;
   unflashBreathWindowButtons();
   app.reportsXrange.doFull = true;
   app.reportsXrange.minBnum = 1;
@@ -107,11 +112,16 @@ function updateShapeRangeOnNewBreath(num) {
 
 var breathShapeGraph = null;
 function createDashboardShapes() {
-  minBnum = app.reportsXrange.minBnum;
-  maxBnum = app.reportsXrange.maxBnum;
-  if ((!minBnum) || (!maxBnum)) return;
-  app.reportsXrange.initTime = app.startDate;
+  if (app.rollingRange && app.pwData.length>MAX_SHAPE_CHARTS) {
+    startPw = app.pwData.length - MAX_SHAPE_CHARTS;
+    minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
+  } else {
+    minBnum = app.reportsXrange.minBnum;
+  }
+  app.reportsXrange.minBnum = minBnum;
   app.reportsXrange.minTime = session.breathTimes[minBnum].time;
+  maxBnum = app.reportsXrange.maxBnum;
+  app.reportsXrange.initTime = app.startDate;
   app.reportsXrange.maxTime = session.breathTimes[maxBnum].time;
 
   if (breathShapeGraph) {

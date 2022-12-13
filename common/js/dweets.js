@@ -155,7 +155,7 @@ function processJsonRecord(jsonData) {
               n = pwCollectedSamples(pwSlices);
               if (n) {
                 console.log("Graphing anyway ...");
-                pwEnd(String(n));
+                pwEnd(String(n)+12); // Assume one slice missing
               }
               pwBreathClosed = true;
 	      expectingPWEND = false;
@@ -242,8 +242,6 @@ function processJsonRecord(jsonData) {
 	  }
           value = Number(bnumValue);
 
- 	  if (app.startSystemBreathNum==null) app.startSystemBreathNum = value;
-
           if ((app.usedParamCombos.length == 0) ||
             !equalParamCombos(app.currParamCombo, app.prevParamCombo)) {
             // first breath in current combo
@@ -274,8 +272,16 @@ function processJsonRecord(jsonData) {
             app.chartPrevSystemBreathNum = value - 1;
           }
           app.systemBreathNum = value;
-          breathsMissing = app.systemBreathNum - app.chartPrevSystemBreathNum - 1;
+	  if (app.systemBreathNum==null) { // first BNUM
+	    // Take care of breaths missing right at the start
+            breathsMissing = value - 1;
+	  } else {
+            breathsMissing = app.systemBreathNum - app.chartPrevSystemBreathNum - 1;
+	  }
 	  app.numMissingBreaths += breathsMissing;
+	  if (app.startSystemBreathNum == null) {
+            app.startSystemBreathNum = value-app.numMissingBreaths;
+	  }
 
 	  if (breathsMissing) {
 	    var msg = {
@@ -666,6 +672,10 @@ function pwStart(str) {
 function pwEnd(str) {
   if (!pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWEND=" + str);
+    prevPwSliceNum = -1;
+    pwSliceNum = -1;
+    pwSlices = [];
+    pwBreathPartial = false;
     pwBreathClosed = true;
     return;
   }
@@ -708,6 +718,7 @@ function pwEnd(str) {
 function pwSlice(receivedSliceNum, str) {
   if (!pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWSLICE=" + str);
+    pwBreathPartial = false;
     pwBreathClosed = true;
     return;
   }

@@ -170,7 +170,7 @@ class BreathPressureGraph {
       stripLine.endValue = (xval)/1000;
       stripLine.label = prefix + "Breath #" + breathNum;
       stripLine.labelPlacement = "inside";
-      stripLine.labelAlign = "far";
+      stripLine.labelAlign = "near";
       stripLine.labelWrap = true;
       stripLine.labelMaxWidth = 150;
       stripLine.labelFontColor = "black";

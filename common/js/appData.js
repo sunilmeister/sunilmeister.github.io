@@ -37,7 +37,7 @@ var AppDataTemplate = {
   // Breath numbers being recorded
   startDate: null,
   dashboardBreathNum:   0,
-  systemBreathNum:      0,
+  systemBreathNum:      null,
   startSystemBreathNum: null,
 
   // Combinations of settings
@@ -129,6 +129,8 @@ var AppDataTemplate = {
     maxBnum:      null,
     missingBnum:  []
   },
+
+  rollingRange: true,
 };
 
 var app = null;
