@@ -7,7 +7,7 @@
   width: 350px;
   background-color: var(--rsp_blue);
   padding-bottom: 20px;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-bottom: 0;
   margin-left: -8px;
 }
@@ -27,7 +27,7 @@
 
 .body-pane {
   border-radius: 25px;
-  margin-top: -1100px;
+  margin-top: -1125px;
   margin-left: 370px;
   margin-right: 20px;
   font-size: 20px;

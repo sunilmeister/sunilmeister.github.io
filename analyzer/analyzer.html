@@ -36,6 +36,7 @@
     <script src="../common/js/common.js"></script>
     <script src="../common/js/checkboxTree.js"></script>
     <script src="../common/js/lineChart.js"></script>
+    <script src="../common/js/breathGraph.js"></script>
     <script src="../common/js/statComputer.js"></script>
     <script src="../common/js/rangeSlider.js"></script>
     <script src="../common/js/circularGauge.js"></script>
@@ -52,6 +53,7 @@
     <script src="../common/js/selectTableRow.js"></script>
     <script src="js/importExport.js"></script>
     <script src="js/analysisCharts.js"></script>
+    <script src="js/analysisShapes.js"></script>
     <script src="js/rawData.js"></script>
     <script src="js/analyzer.js"></script>
   </head>
@@ -125,6 +127,8 @@
               <br>
               <button id="btnAlert" class="sidebarButton" onclick='selectAlerts()'>View Alerts</button>
               <br>
+              <button id="btnShape" class="sidebarButton" onclick='selectShapes()'>View Breath Shapes</button>
+              <br>
           </div>
         </center>
 
@@ -197,6 +201,12 @@
         </div>
       </div>
       </center>
+
+      <div id="shapesDiv" style="font-size: 25px; display:none">
+        <div id="shapeGraphBody" class=shadowDiv5 style="margin-top:50px; height:800px;">
+        </div>
+      </div>
+
 
       <div id="statsDiv" style="display: none; margin-bottom:10px;">
         <div class="row">

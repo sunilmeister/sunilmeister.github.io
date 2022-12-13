@@ -206,6 +206,22 @@ function selectAlerts() {
   displayAlerts();
 }
 
+function selectShapes() {
+  if (!checkDbReady()) return;
+  if (!checkValidAnalysisDuration()) return;
+
+  undisplayAllPanes();
+  document.getElementById("shapesDiv").style.display = "block";
+  document.getElementById("analysisWindowDiv").style.display = "block";
+  var sessionInfo = document.getElementById("sessionNameSlider");
+  sessionInfo.innerHTML = sessionBannerHTML;
+
+  enableAllButtons();
+  document.getElementById("btnShape").disabled = true;
+
+  displayShapes();
+}
+
 function selectCharts() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
@@ -281,6 +297,7 @@ function enableAllButtons() {
   document.getElementById("btnStat").disabled = false;
   document.getElementById("btnChart").disabled = false;
   document.getElementById("btnAlert").disabled = false;
+  document.getElementById("btnShape").disabled = false;
 }
 
 function disableAllButtons() {
@@ -289,6 +306,7 @@ function disableAllButtons() {
   document.getElementById("btnStat").disabled = true;
   document.getElementById("btnChart").disabled = true;
   document.getElementById("btnAlert").disabled = true;
+  document.getElementById("btnShape").disabled = true;
 }
 
 function resetAnalysisData() {
@@ -299,6 +317,7 @@ function resetAnalysisData() {
   initImportExport();
   if ((document.getElementById("statsDiv").style.display == "block")
     || (document.getElementById("chartsDiv").style.display == "block")
+    || (document.getElementById("shapesDiv").style.display == "block")
     || (document.getElementById("alertsDiv").style.display == "block")) {
     document.getElementById("analysisWindowDiv").style.display = "block";
   }
@@ -379,6 +398,8 @@ function refreshActivePane() {
     displayCharts();
   } else if (document.getElementById("alertsDiv").style.display == "block") {
     displayAlerts();
+  } else if (document.getElementById("shapesDiv").style.display == "block") {
+    displayShapes();
   }
 }
 

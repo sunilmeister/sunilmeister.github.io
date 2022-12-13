@@ -74,6 +74,8 @@ class BreathPressureGraph {
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
+    Xaxis.gridColor = "black";
+    Xaxis.gridThickness = 1;
     this.chartJson.axisX = Xaxis;
     this.stripColors = [
       "#B3B6B7",
@@ -200,7 +202,7 @@ class BreathPressureGraph {
   }
 
   calculateXaxisInterval() {
-    return 0.25;
+    return 0.2;
   }
 
 

@@ -423,7 +423,7 @@ function installTempGauge() {
 function receivedNewShape() {
   if (currentView == "shapes") return;
   if (confirm("Received a new Breath Shape snapshot\n" + 
-    "Switch to `Breath Shapes View` ?")) changeToShapeView();
+    "Switch to `View Breath Shapes` ?")) changeToShapeView();
 }
 
 window.onload = function() {
