@@ -25,11 +25,11 @@
   display: block;
   padding-top: 0.3rem;
   padding-bottom: 0.3rem;
-  margin-top: 1rem;
+  margin-top: 0rem;
 }
 
 .dashboard-pane {
-  margin-top: -108rem;
+  margin-top: -110rem;
   margin-left: 40rem;
   margin-right: 2rem;
 }

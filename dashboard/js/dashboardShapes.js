@@ -120,7 +120,7 @@ function createDashboardShapes() {
   }
 
   div = document.getElementById("shapeGraphBody");
-  breathShapeGraph = new BreathPressureGraph("Breath Pressure Shapes",600,app.reportsXrange);
+  breathShapeGraph = new BreathPressureGraph("Breath Pressure Shapes",800,app.reportsXrange);
   breathShapeGraph.addGraph();
   breathShapeGraph.render(div);
 }

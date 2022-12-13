@@ -71,11 +71,23 @@ class BreathPressureGraph {
   addXaxis() {
     var Xaxis = {};
     Xaxis.title = "Elapsed Time (secs)";
-    Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     this.chartJson.axisX = Xaxis;
+    this.stripColors = [
+      "#B3B6B7",
+      "#FCF3CF",
+      "#D5F5E3",
+      "#D4E6F1"
+    ];
+    this.colorIndex = 0;
+  }
+ 
+  getNextStripColor() {
+    var color = this.stripColors[this.colorIndex++];
+    if (this.colorIndex==this.stripColors.length-1) this.colorIndex = 0;
+    return color;
   }
 
   createYaxis(title,color,minY, maxY) {
@@ -105,6 +117,7 @@ class BreathPressureGraph {
 
     var xyPoints = [];
     var prevXval = 0;
+    this.chartJson.axisX.stripLines = [];
 
     for (i=0; i<app.pwData.length; i++) {
       var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
@@ -129,6 +142,9 @@ class BreathPressureGraph {
         "x": (xval-200)/1000,
         "y": null
       });
+      var stripLine = {};
+      stripLine.color = this.getNextStripColor();
+      stripLine.startValue = (xval-200)/1000;
 
       for (j=0; j<samples.length; j++) {
         xyPoints.push({
@@ -138,7 +154,16 @@ class BreathPressureGraph {
 	xval += sampleInterval;
       }
       prevXval = xval;
+      stripLine.endValue = (xval)/1000;
+      //stripLine.value = xval/1000;
+      stripLine.label = "Breath# " + breathNum;
+      stripLine.labelAngle = "0";
+      //stripLine.labelPlacement = "inside";
+      //stripLine.labelFontColor = "black";
+      //stripLine.labelFontSize = "50px";
+      this.chartJson.axisX.stripLines.push(cloneObject(stripLine));
     }
+
 
     var chartData = {};
     chartData.type = this.graphType;
