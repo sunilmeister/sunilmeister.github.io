@@ -29,10 +29,10 @@ class BreathPressureGraph {
     this.chartJson = {
       zoomEnabled: true,
       zoomType: "x",
-      title: {text: title, padding: 10},
+      title: {text: title, padding: 10, fontSize: app.shapeTitleFontSize},
       axisY: [],
       toolTip: {shared: true},
-      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: app.chartFontSize},
+      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: app.shapeLegendFontSize},
       height: height,
       backgroundColor: "#D5F3FE",
       data: []
@@ -82,6 +82,7 @@ class BreathPressureGraph {
     Xaxis.minimum = this.calculateXaxisMinimum();
     Xaxis.gridColor = "black";
     Xaxis.gridThickness = 1;
+    Xaxis.labelFontSize = app.shapeLabelFontSize;
     Xaxis.labelFormatter = breathShapeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
     this.stripColors = [

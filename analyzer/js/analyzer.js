@@ -475,6 +475,9 @@ window.onload = function() {
   app = cloneObject(AppDataTemplate);
   app.appId = ANALYZER_APP_ID;
   app.chartFontSize = 20;
+  app.shapeLabelFontSize = 20;
+  app.shapeLegendFontSize = 25;
+  app.shapeTitleFontSize = 40;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

@@ -67,6 +67,11 @@ var AppDataTemplate = {
   chartCreationInProgress:  false,
   allChartsContainerInfo:   {},
 
+  // Breath Shapes parameters
+  shapeLabelFontSize:       20,
+  shapeLegendFontSize:      20,
+  shapeTitleFontSize:       40,
+
   // current state 
   initialState:     false,
   standbyState:     false,

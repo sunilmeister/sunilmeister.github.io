@@ -430,6 +430,10 @@ window.onload = function() {
   finishedLoading = false;
   // Create data objects
   app = cloneObject(AppDataTemplate);
+  app.chartFontSize = 25;
+  app.shapeLabelFontSize = 25;
+  app.shapeLegendFontSize = 25;
+  app.shapeTitleFontSize = 50;
   app.appId = DASHBOARD_APP_ID;
   app.newPwDataCallback = receivedNewShape;
   session = cloneObject(SessionDataTemplate);
