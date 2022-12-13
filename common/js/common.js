@@ -94,6 +94,17 @@ function cloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+function parseJSONSafely(str) {
+  try {
+    return JSON.parse(str);
+  }
+  catch (e) {
+    console.log("JSON parsing failed due to syntax error");
+    // Return a default object, or null based on use case.
+    return null;
+  }
+}
+
 function convertMS(milliseconds) {
   var day, hour, minute, seconds;
   seconds = Math.floor(milliseconds / 1000);

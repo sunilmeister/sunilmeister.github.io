@@ -155,12 +155,15 @@ class BreathPressureGraph {
       }
       prevXval = xval;
       stripLine.endValue = (xval)/1000;
-      //stripLine.value = xval/1000;
+      this.chartJson.axisX.stripLines.push(cloneObject(stripLine));
+
+      stripLine = {};
       stripLine.label = "Breath# " + breathNum;
+      stripLine.value = xval/1000;
       stripLine.labelAngle = "0";
-      //stripLine.labelPlacement = "inside";
-      //stripLine.labelFontColor = "black";
-      //stripLine.labelFontSize = "50px";
+      stripLine.labelPlacement = "inside";
+      stripLine.labelFontColor = "black";
+      stripLine.labelFontSize = "50px";
       this.chartJson.axisX.stripLines.push(cloneObject(stripLine));
     }
 

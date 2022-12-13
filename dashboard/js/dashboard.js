@@ -420,11 +420,18 @@ function installTempGauge() {
   tempGauge.setProperty('readonly', true);
 }
 
+function receivedNewShape() {
+  if (currentView == "shapes") return;
+  if (confirm("Received a new Breath Shape snapshot\n" + 
+    "Switch to `Breath Shapes View` ?")) changeToShapeView();
+}
+
 window.onload = function() {
   finishedLoading = false;
   // Create data objects
   app = cloneObject(AppDataTemplate);
   app.appId = DASHBOARD_APP_ID;
+  app.newPwDataCallback = receivedNewShape;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

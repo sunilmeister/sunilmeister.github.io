@@ -706,7 +706,8 @@ function pwSlice(receivedSliceNum, str) {
     pwBreathClosed = true;
     return;
   }
-  arr = JSON.parse(str);
+
+  arr = parseJSONSafely(str);
   if (!arr || (arr.length!=2)) {
     console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + pwBreathNum);
     return;
