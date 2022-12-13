@@ -715,7 +715,7 @@ function pwSlice(receivedSliceNum, str) {
 
   pwSliceNum = Number(arr[0]);
   if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
-    console.log("Missing SliceNum=" + pwSliceNum-1 + " for BreathNum=" + pwBreathNum);
+    console.log("Missing SliceNum=" + (pwSliceNum-1) + " for BreathNum=" + pwBreathNum);
     // stuff empty slices
     for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
       samples = [];

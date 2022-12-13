@@ -328,6 +328,7 @@ function undisplayAllPanes() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("alertsDiv").style.display = "none";
+  document.getElementById("shapesDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";

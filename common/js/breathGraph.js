@@ -15,6 +15,12 @@
 //           initBnum:Number, minBnum:Number, maxBnum:Number, 
 //           initTime:Date, minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
+function breathShapeXaxisFormatter(e) {
+  iPart = Math.floor(e.value);
+  if (Number(iPart) != Number(e.value)) return ""
+  else return iPart;
+}
+
 class BreathPressureGraph {
 
   constructor(title, height, rangeX) {
@@ -76,6 +82,7 @@ class BreathPressureGraph {
     Xaxis.minimum = this.calculateXaxisMinimum();
     Xaxis.gridColor = "black";
     Xaxis.gridThickness = 1;
+    Xaxis.labelFormatter = breathShapeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
     this.stripColors = [
       "#B3B6B7",
