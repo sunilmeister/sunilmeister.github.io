@@ -71,6 +71,7 @@ var AppDataTemplate = {
   shapeLabelFontSize:       20,
   shapeLegendFontSize:      20,
   shapeTitleFontSize:       40,
+  stripLineFontSize:        50,
 
   // current state 
   initialState:     false,

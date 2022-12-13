@@ -434,6 +434,7 @@ window.onload = function() {
   app.shapeLabelFontSize = 25;
   app.shapeLegendFontSize = 25;
   app.shapeTitleFontSize = 50;
+  app.stripLineFontSize = 50;
   app.appId = DASHBOARD_APP_ID;
   app.newPwDataCallback = receivedNewShape;
   session = cloneObject(SessionDataTemplate);
