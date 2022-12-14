@@ -99,9 +99,8 @@ class BreathPressureGraph {
     Xaxis.labelFormatter = breathShapeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
     this.stripColors = [
-      "#B3B6B7",
       "#FCF3CF",
-      "#D5F5E3",
+      //"#D5F5E3",
       "#D4E6F1"
     ];
     this.colorIndex = 0;
@@ -109,7 +108,7 @@ class BreathPressureGraph {
  
   getNextStripColor() {
     var color = this.stripColors[this.colorIndex++];
-    if (this.colorIndex==this.stripColors.length-1) this.colorIndex = 0;
+    if (this.colorIndex==this.stripColors.length) this.colorIndex = 0;
     return color;
   }
 
