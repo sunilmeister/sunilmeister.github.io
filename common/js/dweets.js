@@ -152,11 +152,8 @@ function processJsonRecord(jsonData) {
             partsArray = ckey.split('_');
             if ((partsArray.length==0) || (partsArray[0]!="PWSLICE")) {
               console.log("Expecting PWEND or PWSLICE but found=" + ckey);
-              n = pwCollectedSamples(pwSlices);
-              if (n) {
-                console.log("Graphing anyway with PWEND=" + n);
-                pwEnd(String(n+12)); // Assume one slice missing
-              }
+              console.log("Graphing anyway with PWEND()");
+              pwEnd();
               pwBreathClosed = true;
 	      expectingPWEND = false;
 	    }
@@ -637,11 +634,8 @@ function pwCollectedSamples(slices) {
 function pwStart(str) {
   if (!pwBreathClosed) {
     console.log("Previous PWSTART missing PWEND pwBreathNum=" + pwBreathNum);
-    n = pwCollectedSamples(pwSlices);
-    if (n) {
-      console.log("Graphing anyway with PWEND=" + n);
-      pwEnd(String(n));
-    }
+    console.log("Graphing anyway with PWEND=" + n);
+    pwEnd();
     pwBreathClosed = true;
   }
 
@@ -664,6 +658,7 @@ function pwStart(str) {
 }
 
 function pwEnd(str) {
+  if (typeof str == 'undefined') str = String(SHAPE_MAX_SAMPLES_PER_BREATH);
   if (!pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWEND=" + str);
     prevPwSliceNum = -1;
@@ -674,19 +669,8 @@ function pwEnd(str) {
     return;
   }
 
-  var samples = [];
-  missingSamples = Number(str) - pwCollectedSamples(pwSlices);
-  if (missingSamples) {
-    pwBreathPartial = true;
-    console.log("Missing Samples at PWEND=" + missingSamples + " expect total=" + str);
-    for (j=0; j<missingSamples; j++) {
-      samples.push(null);
-    }
-    pwSlices.push({"sliceNum":pwSliceNum+1, sliceData:cloneObject(samples)});
-  }
-
   // consolidate all samples
-  samples = [];
+  let samples = [];
   for (i=0; i<pwSlices.length; i++) {
     slice = pwSlices[i];
     for (j=0; j<slice.sliceData.length; j++) {
@@ -694,6 +678,15 @@ function pwEnd(str) {
     }
   }
   pwSlices = [];
+  if (Number(str) != samples.length) {
+    pwBreathPartial = true;
+    console.log("Missing Samples at PWEND=");
+  }
+
+  // Make it consistently SHAPE_MAX_SAMPLES_PER_BREATH
+  for (j=0; j<SHAPE_MAX_SAMPLES_PER_BREATH - samples.length; j++) {
+    samples.push(null);
+  }
 
   // store it for later use
   app.pwData.push({
@@ -722,8 +715,8 @@ function pwSlice(receivedSliceNum, str) {
     console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + pwBreathNum);
     return;
   }
-
   pwSliceNum = Number(arr[0]);
+
   if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
     console.log("Missing SliceNum=" + (pwSliceNum-1) + " for BreathNum=" + pwBreathNum);
     // stuff empty slices

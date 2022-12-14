@@ -14,7 +14,11 @@ const STANDBY_STATE = 1;
 const ACTIVE_STATE  = 2;
 const ERROR_STATE   = 3;
 
-const MAX_SHAPE_CHARTS            = 8;
+const SHAPE_MAX_CHARTS             = 8;
+const SHAPE_MAX_SAMPLES_PER_BREATH = 60
+const SHAPE_MAX_SAMPLES_PER_SLICE  = 12;
+const SHAPE_MAX_SLICES             = 12;
+
 const MAX_CHART_DATAPOINTS        = 60;
 const CHART_XAXIS_MAX_TICK_MARKS  = 25;
 const CHART_FONT_SIZE             = 50;

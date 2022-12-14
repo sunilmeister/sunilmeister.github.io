@@ -59,8 +59,8 @@ function resetShapeTimeInterval(btn) {
   unflashBreathWindowButtons();
 
   var minBnum = 1;
-  if (app.reportRange.rolling && app.pwData.length>MAX_SHAPE_CHARTS) {
-    startPw = app.pwData.length - MAX_SHAPE_CHARTS;
+  if (app.reportRange.rolling && app.pwData.length>SHAPE_MAX_CHARTS) {
+    startPw = app.pwData.length - SHAPE_MAX_CHARTS;
     minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
   }
   app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
@@ -99,8 +99,8 @@ function updateShapeRangeOnNewBreath(num) {
   if (!app.reportRange.rolling || sliderCommitPending) return;
   if (app.reportRange.rolling) {
     var minBnum = 1;
-    if (app.reportRange.rolling && app.pwData.length>MAX_SHAPE_CHARTS) {
-      startPw = app.pwData.length - MAX_SHAPE_CHARTS;
+    if (app.reportRange.rolling && app.pwData.length>SHAPE_MAX_CHARTS) {
+      startPw = app.pwData.length - SHAPE_MAX_CHARTS;
       minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
     }
     app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
