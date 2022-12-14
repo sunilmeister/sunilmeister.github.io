@@ -23,8 +23,9 @@ function displayShapes() {
     if (!confirm("Too many (" + n + ") Breath Shape graphs\n" +
       "It may take time to display all\n" +
       "Consider changing the Range Slider to select a smaller breath range\n" +
-      "Recommended is 4 at a time\n" +
-      "CANCEL to NOT display")) return;
+      "Recommended is 8 at a time\n\n" +
+      "OK to display anyway\n" +
+      "CANCEL to NOT display\n")) return;
   }
 
   div = document.getElementById("shapeGraphBody");
