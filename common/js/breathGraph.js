@@ -154,6 +154,7 @@ class BreathPressureGraph {
 	if (breathNum>maxBnum) break;
       }
 
+      if (!session.breathTimes[breathNum].valid) continue;
       var xval = session.breathTimes[breathNum].time - this.rangeX.initTime;
       var initXval = xval;
       Xaxis.scaleBreaks.customBreaks.push({
