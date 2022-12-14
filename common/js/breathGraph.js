@@ -42,6 +42,19 @@ class BreathPressureGraph {
     this.addXaxis();
   }
 
+  numShapesInRange() {
+    var minBnum = app.reportRange.minBnum;
+    var maxBnum = app.reportRange.maxBnum;
+    var n = 0;
+    for (let i=0; i<app.pwData.length; i++) {
+      var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
+      if (breathNum<minBnum) continue;
+      if (breathNum>maxBnum) break;
+      n++;
+    }
+    return n;
+  }
+
   addGraph() {
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";

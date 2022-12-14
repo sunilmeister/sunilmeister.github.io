@@ -16,8 +16,18 @@ function displayShapes() {
     delete breathShapeGraph;
   }
 
+  breathShapeGraph = 
+    new BreathPressureGraph("Breath Pressure Shapes",800,app.reportRange);
+  let n = breathShapeGraph.numShapesInRange();
+  if (n > MAX_SHAPE_CHARTS) {
+    if (!confirm("Too many (" + n + ") Breath Shape graphs\n" +
+      "It may take time to display all\n" +
+      "Consider changing the Range Slider to select a smaller breath range\n" +
+      "Recommended is 4 at a time\n" +
+      "CANCEL to NOT display")) return;
+  }
+
   div = document.getElementById("shapeGraphBody");
-  breathShapeGraph = new BreathPressureGraph("Breath Pressure Shapes",800,app.reportRange);
   breathShapeGraph.addGraph();
   breathShapeGraph.render(div);
 }
