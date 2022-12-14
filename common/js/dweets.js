@@ -154,8 +154,8 @@ function processJsonRecord(jsonData) {
               console.log("Expecting PWEND or PWSLICE but found=" + ckey);
               n = pwCollectedSamples(pwSlices);
               if (n) {
-                console.log("Graphing anyway ...");
-                pwEnd(String(n)+12); // Assume one slice missing
+                console.log("Graphing anyway with PWEND=" + n);
+                pwEnd(String(n+12)); // Assume one slice missing
               }
               pwBreathClosed = true;
 	      expectingPWEND = false;
@@ -645,7 +645,7 @@ function pwStart(str) {
     console.log("Previous PWSTART missing PWEND pwBreathNum=" + pwBreathNum);
     n = pwCollectedSamples(pwSlices);
     if (n) {
-      console.log("Graphing anyway ...");
+      console.log("Graphing anyway with PWEND=" + n);
       pwEnd(String(n));
     }
     pwBreathClosed = true;
@@ -680,11 +680,11 @@ function pwEnd(str) {
     return;
   }
 
+  var samples = [];
   missingSamples = Number(str) - pwCollectedSamples(pwSlices);
   if (missingSamples) {
     pwBreathPartial = true;
-    console.log("Missing Samples at PWEND=" + missingSamples);
-    samples = [];
+    console.log("Missing Samples at PWEND=" + missingSamples + " expect total=" + str);
     for (j=0; j<missingSamples; j++) {
       samples.push(null);
     }

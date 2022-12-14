@@ -157,7 +157,7 @@ class BreathPressureGraph {
       var xval = session.breathTimes[breathNum].time - this.rangeX.initTime;
       var initXval = xval;
       Xaxis.scaleBreaks.customBreaks.push({
-	startValue: (prevXval+100)/1000,
+	startValue: prevXval? (prevXval+100)/1000 :0,
         endValue: (xval-100)/1000,
         color: "orange",
         type: "zigzag"
@@ -180,6 +180,7 @@ class BreathPressureGraph {
 	xval += sampleInterval;
       }
       prevXval = xval;
+
       stripLine.endValue = (xval)/1000;
       stripLine.label = prefix + "Breath #" + breathNum;
       stripLine.labelPlacement = "inside";
@@ -188,9 +189,8 @@ class BreathPressureGraph {
       stripLine.labelMaxWidth = 150;
       stripLine.labelFontColor = "black";
       stripLine.labelFontSize = app.stripLineFontSize;
-      this.chartJson.axisX.stripLines.push(cloneObject(stripLine));
+      Xaxis.stripLines.push(cloneObject(stripLine));
     }
-
 
     var chartData = {};
     chartData.type = this.graphType;
