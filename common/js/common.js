@@ -191,6 +191,22 @@ function strToDate(dateStr, timeStr) {
   date.setMilliseconds(0);
   return date;
 }
+
+function closestNonNullEntryIndex(arr, index) {
+  if (arr[index]) return index;
+  // search up
+  for (i=index; i<arr.length; i++) {
+    if (arr[i]) return i;
+  }
+  // search down
+  for (i=index; i>=0; i--) {
+    if (arr[i]) return i;
+  }
+
+  console.log("closestNonNullEntryIndex: No non-null entry in the array");
+  return null;
+}
+
 // /////////////////////////////////////////////
 // Valid Parameter Check functions
 // /////////////////////////////////////////////

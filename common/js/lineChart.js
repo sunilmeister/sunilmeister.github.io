@@ -208,7 +208,7 @@ class LineChart {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
-        if (breathTimes[i].time >= transitions[curIx + 1].time) {
+        if (breathTimes[i] >= transitions[curIx + 1].time) {
           curValue = transitions[++curIx].value;
         } else {
           curValue = transitions[curIx].value;
@@ -228,9 +228,9 @@ class LineChart {
       if (this.timeUnits) {
         var ms;
         if (rolling) {
-          ms = new Date(breathTimes[i].time) - initTime;
+          ms = new Date(breathTimes[i]) - initTime;
         } else {
-          ms = new Date(breathTimes[i+minBnum-1].time) - initTime;
+          ms = new Date(breathTimes[i+minBnum-1]) - initTime;
         }
         xval = Math.round(ms / 1000);
 	if (xval <= prevXval) ignoreDatapoint = true;

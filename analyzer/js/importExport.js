@@ -42,7 +42,8 @@ function doImport(file, fileName, dbName) {
   var reader = new FileReader();
   reader.readAsText(file, "UTF-8");
   reader.onload = function(evt) {
-    importJsonArray = JSON.parse(evt.target.result);
+    importJsonArray = parseJSONSafely(evt.target.result);
+    if (!importJsonArray) importJsonArray = [];
     var dbReq = window.indexedDB.open(dbName, dbVersion);
     dbReq.onupgradeneeded = function(event) {
       // Save the IDBDatabase interface

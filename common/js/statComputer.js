@@ -32,8 +32,8 @@ class StatComputer {
   filter(transitions, keepOneBefore) {
     if (this.xRange.rolling) return transitions;
     var arr = [];
-    var minDate = (this.breathTimes[this.xRange.minBnum].time);
-    var maxDate = (this.breathTimes[this.xRange.maxBnum].time);
+    var minDate = (this.breathTimes[this.xRange.minBnum]);
+    var maxDate = (this.breathTimes[this.xRange.maxBnum]);
 
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
@@ -86,7 +86,7 @@ class StatComputer {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
-        if (this.breathTimes[i].time >= transitions[curIx + 1].time) {
+        if (this.breathTimes[i] >= transitions[curIx + 1].time) {
           curValue = transitions[++curIx].value;
         } else {
           curValue = transitions[curIx].value;
@@ -162,7 +162,7 @@ class StatComputer {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
-        if (this.breathTimes[i].time >= transitions[curIx + 1].time) {
+        if (this.breathTimes[i] >= transitions[curIx + 1].time) {
           curValue = transitions[++curIx].value;
         } else {
           curValue = transitions[curIx].value;

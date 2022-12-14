@@ -255,10 +255,7 @@ function processJsonRecord(jsonData) {
             // update number of breaths for the last combo
             app.usedParamCombos[app.usedParamCombos.length - 1].value.numBreaths++;
           }
-          session.breathTimes.push({
-            "time": curTime,
-            "valid": true
-          });
+          session.breathTimes.push(curTime);
 	  if (app.prevBreathRecorded != app.prevBreathMandatory) {
             session.breathTypeValues.push({
               "time": curTime,
@@ -310,10 +307,7 @@ function processJsonRecord(jsonData) {
             // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
             lastBreathNum = session.breathTimes.length;
             for (i = 1; i <= breathsMissing; i++) {
-              session.breathTimes.push({
-                "time": app.lastValidBreathTime + i,
-                "valid": false
-              });
+              session.breathTimes.push(null);
             }
             // record breaks for graphing
             session.missingBreathWindows.push({
@@ -651,7 +645,7 @@ function pwStart(str) {
     pwBreathClosed = true;
   }
 
-  arr = JSON.parse(str);
+  arr = parseJSONSafely(str);
   if (!arr || (arr.length!=3)) {
     console.log("Bad PWSTART=" + str);
     pwBreathNum = null;

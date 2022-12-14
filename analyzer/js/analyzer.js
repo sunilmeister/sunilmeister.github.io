@@ -392,10 +392,19 @@ function setTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
   values = analysisRangeSlider.getSlider();
-  app.analysisStartBreath = parseInt(values[0]);
-  app.analysisEndBreath = parseInt(values[1]);
-  app.analysisStartTime = session.breathTimes[app.analysisStartBreath].time;
-  app.analysisEndTime = session.breathTimes[app.analysisEndBreath].time;
+  s = parseInt(values[0]);
+  if (! session.breathTimes[s]) { // missing breath
+    s = closestNonNullEntryIndex(session.breathTimes, s);
+  }
+  e = parseInt(values[1]);
+  if (! session.breathTimes[e]) { // missing breath
+    e = closestNonNullEntryIndex(session.breathTimes, e);
+  }
+
+  app.analysisStartBreath = s;
+  app.analysisEndBreath = e;
+  app.analysisStartTime = session.breathTimes[s];
+  app.analysisEndTime = session.breathTimes[e];
   analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
 
   setAnalysisRanges(false);
@@ -461,7 +470,7 @@ window.onload = function() {
   app.shapeLabelFontSize = 20;
   app.shapeLegendFontSize = 25;
   app.shapeTitleFontSize = 40;
-  app.stripLineFontSize = 40;
+  app.stripLineFontSize = 30;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

@@ -42,7 +42,7 @@ function setSelectedRespimaticTagFromDD() {
 var fileReader = new FileReader();
 fileReader.addEventListener('load', (e) => {
   const data = e.target.result;
-  systems = JSON.parse(data);
+  systems = parseJSONSafely(data);
   if ((systems==null) || (systems.length==0)) {
     alert("File does not have valid data");
     cancelImport();

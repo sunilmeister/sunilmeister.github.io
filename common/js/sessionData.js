@@ -9,7 +9,7 @@ var SessionDataTemplate = {
   altitude:    "",
 
   // value transitions arrays
-  breathTimes:          [{"time":0, "valid":false}],
+  breathTimes:          [null],
   stateValues:          [{"time":0, "value":null}],
   vtdelValues:          [{"time":0, "value":null}],
   mvdelValues:          [{"time":0, "value":null}],
@@ -52,18 +52,26 @@ function createReportRange(rolling, minBnum, maxBnum) {
   range.initBnum =      1; 
   range.minBnum =       minBnum; 
   range.maxBnum =       maxBnum;
-  range.missingBnum =   cloneObject(session.missingBreathWindows);
+  if (! session.breathTimes[minBnum]) { // missing breath
+    minBnum = closestNonNullEntryIndex(session.breathTimes, minBnum);
+  }
+  if (! session.breathTimes[maxBnum]) { // missing breath
+    maxBnum = closestNonNullEntryIndex(session.breathTimes, maxBnum);
+  }
+
   range.initTime =      app.startDate;
   if (minBnum<1) {
     range.minTime =     app.startDate;
   } else {
-    range.minTime =     session.breathTimes[minBnum].time;
+    range.minTime =     session.breathTimes[minBnum];
   }
   if (maxBnum<1) {
     range.maxTime =     app.startDate;
   } else {
-    range.maxTime =     session.breathTimes[maxBnum].time;
+    range.maxTime =     session.breathTimes[maxBnum];
   }
+
+  range.missingBnum =   cloneObject(session.missingBreathWindows);
   range.missingTime =   cloneObject(session.missingTimeWindows);
   return range;
 }
