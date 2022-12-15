@@ -430,7 +430,11 @@ function installTempGauge() {
 
 function receivedNewShape() {
   if (currentView == "shapes") return;
-  if (confirm("Received a new Breath Shape snapshot\n" + 
+  if (app.shapeSendPeriod) {
+    onSchedule = ((app.pwBreathNum % app.shapeSendPeriod) == 1);
+    if (onSchedule) return;
+  }
+  if (confirm("Received an on-demand new Breath Shape snapshot\n" + 
     "Switch to `View Breath Shapes` ?")) changeToShapeView();
 }
 
@@ -444,7 +448,7 @@ window.onload = function() {
   app.shapeTitleFontSize = 50;
   app.stripLineFontSize = 40;
   app.appId = DASHBOARD_APP_ID;
-  //app.newPwDataCallback = receivedNewShape;
+  app.newPwDataCallback = receivedNewShape;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

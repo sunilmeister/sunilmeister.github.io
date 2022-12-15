@@ -66,10 +66,13 @@ var AppDataTemplate = {
   allChartsContainerInfo:   {},
 
   // Breath Shapes parameters
-  shapeLabelFontSize:       20,
-  shapeLegendFontSize:      20,
-  shapeTitleFontSize:       40,
-  stripLineFontSize:        50,
+  shapeSendPeriod:           null,
+  shapeLabelFontSize:        20,
+  shapeLegendFontSize:       20,
+  shapeTitleFontSize:        40,
+  stripLineFontSize:         50,
+  pwExpectedSamplesPerSlice: null,
+  pwBreathNum:               null,
 
   // current state 
   initialState:     false,

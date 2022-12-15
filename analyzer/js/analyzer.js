@@ -413,6 +413,31 @@ function setTimeInterval() {
   refreshActivePane();
 }
 
+function setFullInterval() {
+  sliderCommitPending = false;
+  unflashAnalysisWindowButtons();
+  values = analysisRangeSlider.getRange();
+  s = parseInt(values[0]);
+  if (! session.breathTimes[s]) { // missing breath
+    s = closestNonNullEntryIndex(session.breathTimes, s);
+  }
+  e = parseInt(values[1]);
+  if (! session.breathTimes[e]) { // missing breath
+    e = closestNonNullEntryIndex(session.breathTimes, e);
+  }
+
+  app.analysisStartBreath = s;
+  app.analysisEndBreath = e;
+  app.analysisStartTime = session.breathTimes[s];
+  app.analysisEndTime = session.breathTimes[e];
+  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+
+  setAnalysisRanges(false);
+  updateSelectedDuration();
+  resetAnalysisData();
+  refreshActivePane();
+}
+
 function cancelTimeInterval() {
   if (!sliderCommitPending) return;
   sliderCommitPending = false;
@@ -523,28 +548,32 @@ function overIconButton(btn) {
   btn.style.borderColor = bgd;
 }
 
+function changeIconButtonColor(btn, bgd) {
+  btn.style.backgroundColor = bgd;
+  btn.style.borderColor = bgd;
+  btn.firstElementChild.style.backgroundColor = bgd;
+  btn.firstElementChild.style.borderColor = bgd;
+}
+
+function changeAnalysisWindowButtonsColor(bgd) {
+  changeIconButtonColor(document.getElementById("btnSetInterval"), bgd);
+  changeIconButtonColor(document.getElementById("btnCancelInterval"), bgd);
+  changeIconButtonColor(document.getElementById("btnResetInterval"), bgd);
+  changeIconButtonColor(document.getElementById("btnFullInterval"), bgd);
+}
+
 function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_orange');
-  el = document.getElementById("btnSetInterval");
-  el.style.backgroundColor = bgd;
-  el = document.getElementById("btnCancelInterval");
-  el.style.backgroundColor = bgd;
-  el = document.getElementById("btnResetInterval");
-  el.style.backgroundColor = bgd;
+  changeAnalysisWindowButtonsColor(bgd);
 }
 
 function unflashAnalysisWindowButtons() {
   analysisButtonsFlashed = false;
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('white');
-  el = document.getElementById("btnSetInterval");
-  el.style.backgroundColor = bgd;
-  el = document.getElementById("btnCancelInterval");
-  el.style.backgroundColor = bgd;
-  el = document.getElementById("btnResetInterval");
-  el.style.backgroundColor = bgd;
+  changeAnalysisWindowButtonsColor(bgd);
 }
 
 var cumulativeChartBreaths = 0;

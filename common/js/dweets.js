@@ -2,14 +2,12 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var pwBreathNum = null;
 var pwBreathPartial = false;
 var pwSampleInterval = null;
 var pwBreathClosed = true;
 var pwSlices = [];
 var pwSliceNum = -1;
 var prevPwSliceNum = -1;
-var pwExpectedSamplesPerSlice = null;
 var expectingPWEND = false;
 
 function equalParamCombos(curr, prev) {
@@ -283,7 +281,7 @@ function processJsonRecord(jsonData) {
               'L1': String(breathsMissing) + " Breath(s) missed",
               'L2': "Info not received by",
               'L3': "Dashboard due to",
-              'L4': "Internet packet loss"
+              'L4': "Communication packet loss"
             };
             session.notificationMsgs.push(msg);
             session.notificationValues.push({
@@ -600,6 +598,10 @@ function processJsonRecord(jsonData) {
 	  //console.log(ckey + ":" + value);
 	  pwStart(value);
 	}
+        else if (ckey == "PWPERIOD") {
+	  //console.log(ckey + ":" + value);
+	  app.shapeSendPeriod = value;
+	}
         else if (ckey == "PWEND") {
 	  //console.log(ckey + ":" + value);
 	  pwEnd(value);
@@ -633,7 +635,7 @@ function pwCollectedSamples(slices) {
 
 function pwStart(str) {
   if (!pwBreathClosed) {
-    console.log("Previous PWSTART missing PWEND pwBreathNum=" + pwBreathNum);
+    console.log("Previous PWSTART missing PWEND pwBreathNum=" + app.pwBreathNum);
     console.log("Graphing anyway with PWEND=" + n);
     pwEnd();
     pwBreathClosed = true;
@@ -642,12 +644,12 @@ function pwStart(str) {
   arr = parseJSONSafely(str);
   if (!arr || (arr.length!=3)) {
     console.log("Bad PWSTART=" + str);
-    pwBreathNum = null;
+    app.pwBreathNum = null;
     pwSampleInterval = null;
     return;;
   }
   expectingPWEND = true;
-  pwBreathNum = arr[0];
+  app.pwBreathNum = arr[0];
   pwExpectedSamplesPerSlice = arr[1];
   pwSampleInterval = arr[2];
   pwBreathClosed = false;
@@ -665,7 +667,7 @@ function pwEnd(str) {
       str = String(SHAPE_MAX_SAMPLES_PER_BREATH);
     }
   }
-  if (!pwBreathNum || pwBreathClosed) {
+  if (!app.pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWEND=" + str);
     prevPwSliceNum = -1;
     pwSliceNum = -1;
@@ -697,7 +699,7 @@ function pwEnd(str) {
   // store it for later use
   app.pwData.push({
     "partial":pwBreathPartial,
-    "systemBreathNum":pwBreathNum,
+    "systemBreathNum":app.pwBreathNum,
     "sampleInterval":pwSampleInterval,
     "samples":cloneObject(samples),
   });
@@ -705,11 +707,11 @@ function pwEnd(str) {
   expectingPWEND = false;
   pwBreathPartial = false;
   pwBreathClosed = true;
-  if (app.newPwDataCallback) app.newPwDataCallback(pwBreathNum);
+  if (app.newPwDataCallback) app.newPwDataCallback(app.pwBreathNum);
 }
 
 function pwSlice(receivedSliceNum, str) {
-  if (!pwBreathNum || pwBreathClosed) {
+  if (!app.pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWSLICE=" + str);
     pwBreathPartial = false;
     pwBreathClosed = true;
@@ -718,20 +720,20 @@ function pwSlice(receivedSliceNum, str) {
 
   arr = parseJSONSafely(str);
   if (!arr || (arr.length!=2)) {
-    console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + pwBreathNum);
+    console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + app.pwBreathNum);
     return;
   }
   pwSliceNum = Number(arr[0]);
 
   if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
-    console.log("Missing SliceNum=" + (pwSliceNum-1) + " for BreathNum=" + pwBreathNum);
+    console.log("Missing SliceNum=" + (pwSliceNum-1) + " for BreathNum=" + app.pwBreathNum);
     // stuff empty slices
     pwBreathPartial = true;
     for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
       samples = [];
-      if (!pwExpectedSamplesPerSlice) pwExpectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
-      console.log("Generate Null slice#=" + i + " samples=" + pwExpectedSamplesPerSlice);
-      for (j=0; j<pwExpectedSamplesPerSlice; j++) {
+      if (!app.pwExpectedSamplesPerSlice) app.pwExpectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
+      console.log("Generate Null slice#=" + i + " samples=" + app.pwExpectedSamplesPerSlice);
+      for (j=0; j<app.pwExpectedSamplesPerSlice; j++) {
 	samples.push(null);
       }
       pwSlices.push({"sliceNum":i, sliceData:cloneObject(samples)});
