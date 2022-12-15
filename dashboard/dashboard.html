@@ -29,6 +29,7 @@
     <script src="../common/js/constants.js"></script>
     <script src="../common/js/uid.js"></script>
     <script src="../common/js/common.js"></script>
+    <script src="../common/js/modalPopup.js"></script>
     <script src="../common/js/checkboxTree.js"></script>
     <script src="../common/js/lineChart.js"></script>
     <script src="../common/js/breathGraph.js"></script>
@@ -157,7 +158,21 @@
       </div>
 
       <div class="dashboard-pane">
-	<div id=onDemandShape class="popupClass">
+	<div id='zoomAlertDiv' class="popupClass">
+	  <center>
+	  <br>
+            Use CTRL key and +/- keys to
+	  <br>
+            increase/decrease the page zoom level.
+	  <br>
+	  <br>
+            Or hold down the CTRL key and use
+	  <br>
+            the mouse wheel to zoom in/out.
+	  </center>
+	</div>
+
+	<div id='onDemandDiv' class="popupClass">
 	  <br>
 	  <br>
 	  <center>
@@ -166,6 +181,7 @@
 	  Press 'View Breath Shapes' to view
 	  </center>
 	</div>
+
         <div id="shapes-pane" class="column" style="font-size: 2rem; display:none">
           <div id=shapeSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
             <br>

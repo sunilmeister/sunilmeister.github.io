@@ -114,8 +114,8 @@ span {
   font-size: 2.5rem;
   font-family: verdana;
   padding: 10px;
-  z-index: 10;
-  opacity: 0.8;
+  z-index: 100;
+  opacity: 1;
 
   /* for vertical center */
   position:absolute;

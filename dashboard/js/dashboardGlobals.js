@@ -87,6 +87,7 @@ var recorderBackground = "MEDIUMBLUE";
 var recordingOff = true;
 var recordingPaused = false;
 var skipRecording = false;
+var onDemandAlert = null;
 
 // sliders
 var sliderCommitPending = false;

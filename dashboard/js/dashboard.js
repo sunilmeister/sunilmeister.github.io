@@ -438,33 +438,15 @@ function receivedNewShape() {
   if (confirm("Received an on-demand new Breath Shape snapshot\n" + 
     "Switch to `View Breath Shapes` ?")) changeToShapeView();
   */
-  showOnDemandShapePopup();
+  onDemandAlert.show();
   console.log("On demand snapshot received");
 }
 
-const popupTime = 0;
-var popupTimeCounter = 0;
-var startCountdown = null;
-
-function showOnDemandShapePopup() {
-  document.getElementById('onDemandShape').style.display = 'block' ;
-  popupTimeCounter =0;
-  startCountdown = setInterval(countdownTime,1000); // call every one sec
-}
-
-function countdownTime() {
-  popupTimeCounter++;
-  if(popupTimeCounter == 5) {
-    clearInterval(startCountdown);
-    closeOnDemandShapePopup();;
-  }
-}
-
-function closeOnDemandShapePopup() {
-  document.getElementById('onDemandShape').style.display = 'none' ;
-}
-
 window.onload = function() {
+  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 8);
+  zoomAlert.show();
+  onDemandAlert = new ModalPopup('onDemandDiv','800px', '300px', '2.5rem', 5);
+
   finishedLoading = false;
   // Create data objects
   app = cloneObject(AppDataTemplate);
@@ -673,8 +655,4 @@ function FetchAndExecuteFromQueue() {
   return;
 }
 
-alert(
-  "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
-  "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-);
 
