@@ -108,7 +108,7 @@ span {
 .popupClass {
   width: 800px;
   height: 300px;
-  background-color: var(--rsp_darkblue);
+  background-color: #239B56;
   color: white;
 
   font-size: 2.5rem;

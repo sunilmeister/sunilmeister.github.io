@@ -443,7 +443,7 @@ function receivedNewShape() {
 }
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 8);
+  var zoomAlert = new ModalPopup('zoomAlertDiv','1200px', '600px', '3.5rem', 8);
   zoomAlert.show();
   onDemandAlert = new ModalPopup('onDemandDiv','800px', '300px', '2.5rem', 5);
 

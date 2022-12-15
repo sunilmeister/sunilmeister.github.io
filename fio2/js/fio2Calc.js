@@ -8,12 +8,10 @@ var altitudeUnits = "feet";
 var fiO2Knob = null;
 var purityKnob = null;
 
-alert(
-  "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
-  "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-);
-
 window.onload = function() {
+  var zoomAlert = new ModalPopup('zoomAlertDiv','600px', '250px', '1.5rem', 8);
+  zoomAlert.show();
+
   installVtKnob();
   installRrKnob();
   installPurityKnob();

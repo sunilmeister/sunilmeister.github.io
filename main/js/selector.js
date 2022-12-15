@@ -301,6 +301,8 @@ function launchFiO2() {
 }
 
 window.onload = function() {
+  var zoomAlert = new ModalPopup('zoomAlertDiv','600px', '250px', '1.5rem', 8);
+  zoomAlert.show();
 
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";
@@ -325,7 +327,3 @@ window.onload = function() {
   }
 };
 
-alert(
-    "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n"
-    + "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-);

@@ -23,8 +23,8 @@ class ModalPopup {
 
   count() {
     this.secCounter++;
-    if ((this.secCounter%4)==0) this.div.style.opacity = 1;
-    else this.div.style.opacity = this.div.style.opacity - 0.02;
+    //if ((this.secCounter%4)==0) this.div.style.opacity = 1;
+    //else this.div.style.opacity = this.div.style.opacity - 0.02;
 
     if (this.timerIntervalInMs*(this.secCounter) >= 1000*this.displayTime) {
       clearInterval(this.secTimer);

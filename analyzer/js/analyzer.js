@@ -488,6 +488,9 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
+  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 8);
+  zoomAlert.show();
+
   // Create data objects
   app = cloneObject(AppDataTemplate);
   app.appId = ANALYZER_APP_ID;
@@ -620,8 +623,4 @@ function analysisRangeSliderCallback() {
   sliderCommitPending = true;
 }
 
-alert(
-  "Use CTRL key and +/- keys to increase/decrease the page zoom level\n\n" +
-  "Or hold down the CTRL key and use the mouse wheel to zoom in/out"
-);
 
