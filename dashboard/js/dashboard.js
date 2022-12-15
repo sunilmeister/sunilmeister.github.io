@@ -535,6 +535,11 @@ function setBackGroundBreathWindowButton(id, bgd) {
   el.style.backgroundColor = bgd;
   el.style.borderColor = bgd;
   el.style.opacity = 1;
+
+  el = el.firstElementChild;
+  el.style.backgroundColor = bgd;
+  el.style.borderColor = bgd;
+  el.style.opacity = 1;
 }
 
 function colorBreathWindowButtons(bgd) {
