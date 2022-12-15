@@ -22,7 +22,7 @@ function listDbExportTableRow(item, index) {
   cell.innerHTML = nameTm[2];
 }
 
-function exportDbRow(row) {
+function rowDbName(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
@@ -33,9 +33,30 @@ function exportDbRow(row) {
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   var dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  return dbName;
+}
 
-  fileName = prompt("Enter file name", row.cells[0].innerText);
-  if (fileName) exportDb(dbName, fileName);
+function exportDbRow(row) {
+  if (typeof row == 'undefined') {
+    row = getSelectedTableRow();
+    if (!row) {
+      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      return;
+    }
+  }
+  fileName = document.getElementById("exportFileName").value;
+  if (fileName) {
+    exportDb(rowDbName(row), fileName);
+    document.getElementById("exportDiv").style.display = "none";
+  }
+}
+
+function exportFile() {
+  exportDbRow(exportRowDiv);
+}
+
+function cancelExport() {
+  document.getElementById("exportDiv").style.display = "none";
 }
 
 function doImport(file, fileName, dbName) {
@@ -82,7 +103,7 @@ function cancelImport() {
 function importFile() {
   elm = document.getElementById("fileSelector");
   var fileName = elm.value;
-  if (!file) return;
+  if (!fileName) return;
   var file = elm.files[0];
   if (!file) return;
   elm = document.getElementById("importSessionName");
@@ -106,6 +127,7 @@ function importFile() {
     else break;
   } while (true);
   doImport(file, fileName, dbName);
-  alert("Successfully imported Session name\n" + sessionName);
+  document.getElementById("importDiv").style.display = "none";
+  //alert("Successfully imported Session name\n" + sessionName);
 }
 

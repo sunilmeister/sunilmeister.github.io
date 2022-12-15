@@ -60,46 +60,61 @@
   </head>
 
   <body>
-	<div id='zoomAlertDiv' class="popupClass">
-	  <center>
-	  <br>
-            Use CTRL key and +/- keys to
-	  <br>
-            increase/decrease the page zoom level
-	  <br>
-	    till the page is fully visible.
-	  <br>
-	  <br>
-            Or hold down the CTRL key and use
-	  <br>
-            the mouse wheel to zoom in/out.
-	  </center>
-	</div>
-
-        <div id="importDiv" class='popupClass' style="width:850px; height:430px; display: none">
+    <div id='zoomAlertDiv' class="popupClass">
       <center>
-          <div style="font-size: 30px; font-family: 'verdana'">
-            <br>
-            <br>
-            <label for="fileSelector">Session File to Import</label>
-            <br>
-            <br>
-            <input type="file" id="fileSelector" accept=".xml" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
-            <br>
-            <br>
-            <label for="importSessionName">Session Name to Create</label>
-            <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
-            <br>
-            <br>
-            <br>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
-            <br>
-            <br>
-
-          </div>
+        <br> Use CTRL key and +/- keys to
+        <br> increase/decrease the page zoom level
+        <br> till the page is fully visible.
+        <br>
+        <br> Or hold down the CTRL key and use
+        <br> the mouse wheel to zoom in/out.
       </center>
+    </div>
+
+    <div id="importDiv" class='popupClass' style="width:850px; height:430px; display: none">
+      <center>
+        <div style="font-size: 30px; font-family: 'verdana'">
+          <br>
+          <br>
+          <label for="fileSelector">Session File to Import</label>
+          <br>
+          <br>
+          <input type="file" id="fileSelector" accept=".xml" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <br>
+          <br>
+          <label for="importSessionName">Session Name to Create</label>
+          <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <br>
+          <br>
+          <br>
+          <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
+          <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
+          <br>
+          <br>
+
         </div>
+      </center>
+    </div>
+
+    <div id="exportDiv" class='popupClass' style="width:850px; height:300px; display: none">
+      <center>
+        <div style="font-size: 30px; font-family: 'verdana'">
+          <br>
+          <br>
+          <label for="exportFileName">Export File Name to Create (extension will be .xml)</label>
+          <input id="exportFileName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <br>
+          <br>
+          <br>
+          <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='exportFile()'>EXPORT</button>
+          <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelExport()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
     <div class="sidebarColumn">
       <div class="sidebar">
 
@@ -188,11 +203,11 @@
         </div>
         <center>
           <br>
-            <button class="iconButton" id="btnFullInterval" onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=35px height=35px></button>
-            <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=35px height=35px></button>
-            <button class="iconButton" id="btnCancelInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=35px height=35px></button>
-            <button class="iconButton" id="btnResetInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=35px height=35px></button>
-            <br>
+          <button class="iconButton" id="btnFullInterval" onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=35px height=35px></button>
+          <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=35px height=35px></button>
+          <button class="iconButton" id="btnCancelInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=35px height=35px></button>
+          <button class="iconButton" id="btnResetInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=35px height=35px></button>
+          <br>
         </center>
       </div>
 
@@ -246,7 +261,6 @@
         <div id="shapeGraphBody" class=shadowDiv5 style="margin-top:50px; height:800px;">
         </div>
       </div>
-
 
       <div id="statsDiv" style="display: none; margin-bottom:10px;">
         <div class="row">
@@ -409,7 +423,6 @@
 
         </center>
       </div>
-
 
     </div>
 

@@ -92,8 +92,12 @@ function selectRowBtn(btn) {
   selectDbRow(btn.parentNode.parentNode);
 }
 
+var exportRowDiv = null;
 function exportRowBtn(btn) {
-  exportDbRow(btn.parentNode.parentNode);
+  exportRowDiv = btn.parentNode.parentNode;
+  document.getElementById("exportDiv").style.display = "block";
+  document.getElementById("exportFileName").value = 
+    exportRowDiv.cells[0].innerHTML + ' ' + exportRowDiv.cells[1].innerHTML;;
 }
 
 function deleteRowBtn(btn) {
@@ -169,9 +173,12 @@ function selectSession() {
 }
 
 function selectImport() {
-  undisplayAllPanes();
   document.getElementById("importDiv").style.display = "block";
-  document.getElementById("selectorDiv").style.display = "block";
+  if (app.sessionDataValid) enableAllButtons();
+}
+
+function selectExport() {
+  exportDbRow(exportRowDiv);
   if (app.sessionDataValid) enableAllButtons();
 }
 
