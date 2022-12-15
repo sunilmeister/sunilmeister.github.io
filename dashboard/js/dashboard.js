@@ -434,8 +434,11 @@ function receivedNewShape() {
     onSchedule = ((app.pwBreathNum % app.shapeSendPeriod) == 1);
     if (onSchedule) return;
   }
+  /*
   if (confirm("Received an on-demand new Breath Shape snapshot\n" + 
     "Switch to `View Breath Shapes` ?")) changeToShapeView();
+  */
+  console.log("On demand snapshot received");
 }
 
 window.onload = function() {
