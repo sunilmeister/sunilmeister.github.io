@@ -730,6 +730,7 @@ function pwSlice(receivedSliceNum, str) {
     for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
       samples = [];
       if (!pwExpectedSamplesPerSlice) pwExpectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
+      console.log("Generate Null slice#=" + i + " samples=" + pwExpectedSamplesPerSlice);
       for (j=0; j<pwExpectedSamplesPerSlice; j++) {
 	samples.push(null);
       }
