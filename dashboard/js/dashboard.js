@@ -438,7 +438,29 @@ function receivedNewShape() {
   if (confirm("Received an on-demand new Breath Shape snapshot\n" + 
     "Switch to `View Breath Shapes` ?")) changeToShapeView();
   */
+  showOnDemandShapePopup();
   console.log("On demand snapshot received");
+}
+
+const popupTime = 0;
+var popupTimeCounter = 0;
+var startCountdown = null;
+
+function showOnDemandShapePopup() {
+  document.getElementById('onDemandShape').style.display = 'block' ;
+  startCountdown = setInterval(countdownTime,1000); // call every one sec
+}
+
+function countdownTime() {
+  popupTimeCounter++;
+  if(popupTimeCounter == 10) {
+    clearInterval(startCountdown);
+    closeOnDemandShapePopup();;
+  }
+}
+
+function closeOnDemandShapePopup() {
+  document.getElementById('onDemandShape').style.display = 'none' ;
 }
 
 window.onload = function() {
