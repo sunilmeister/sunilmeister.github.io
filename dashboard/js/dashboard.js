@@ -448,12 +448,13 @@ var startCountdown = null;
 
 function showOnDemandShapePopup() {
   document.getElementById('onDemandShape').style.display = 'block' ;
+  popupTimeCounter =0;
   startCountdown = setInterval(countdownTime,1000); // call every one sec
 }
 
 function countdownTime() {
   popupTimeCounter++;
-  if(popupTimeCounter == 10) {
+  if(popupTimeCounter == 5) {
     clearInterval(startCountdown);
     closeOnDemandShapePopup();;
   }
