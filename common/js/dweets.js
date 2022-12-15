@@ -658,7 +658,13 @@ function pwStart(str) {
 }
 
 function pwEnd(str) {
-  if (typeof str == 'undefined') str = String(SHAPE_MAX_SAMPLES_PER_BREATH);
+  if (typeof str == 'undefined') {
+    if (pwExpectedSamplesPerSlice) {
+      str = String(pwExpectedSamplesPerSlice*SHAPE_MAX_SLICES);
+    } else {
+      str = String(SHAPE_MAX_SAMPLES_PER_BREATH);
+    }
+  }
   if (!pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWEND=" + str);
     prevPwSliceNum = -1;
@@ -723,6 +729,7 @@ function pwSlice(receivedSliceNum, str) {
     pwBreathPartial = true;
     for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
       samples = [];
+      if (!pwExpectedSamplesPerSlice) pwExpectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
       for (j=0; j<pwExpectedSamplesPerSlice; j++) {
 	samples.push(null);
       }
