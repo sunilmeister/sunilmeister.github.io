@@ -9,7 +9,7 @@ var fiO2Knob = null;
 var purityKnob = null;
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','600px', '250px', '1.5rem', 8);
+  var zoomAlert = new ModalPopup('zoomAlertDiv','600px', '250px', '1.5rem', 6);
   zoomAlert.show();
 
   installVtKnob();
