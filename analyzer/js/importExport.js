@@ -39,6 +39,7 @@ function exportDbRow(row) {
 }
 
 function doImport(file, fileName, dbName) {
+  if (!file) return;
   var reader = new FileReader();
   reader.readAsText(file, "UTF-8");
   reader.onload = function(evt) {
@@ -81,7 +82,9 @@ function cancelImport() {
 function importFile() {
   elm = document.getElementById("fileSelector");
   var fileName = elm.value;
+  if (!file) return;
   var file = elm.files[0];
+  if (!file) return;
   elm = document.getElementById("importSessionName");
   sessionName = elm.value;
   var name = "";

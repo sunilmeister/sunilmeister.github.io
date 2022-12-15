@@ -171,6 +171,7 @@ function selectSession() {
 function selectImport() {
   undisplayAllPanes();
   document.getElementById("importDiv").style.display = "block";
+  document.getElementById("selectorDiv").style.display = "block";
   if (app.sessionDataValid) enableAllButtons();
 }
 
@@ -488,7 +489,7 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 8);
+  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 6);
   zoomAlert.show();
 
   // Create data objects

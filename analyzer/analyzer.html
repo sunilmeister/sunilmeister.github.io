@@ -76,6 +76,30 @@
 	  </center>
 	</div>
 
+        <div id="importDiv" class='popupClass' style="width:850px; height:430px; display: none">
+      <center>
+          <div style="font-size: 30px; font-family: 'verdana'">
+            <br>
+            <br>
+            <label for="fileSelector">Session File to Import</label>
+            <br>
+            <br>
+            <input type="file" id="fileSelector" accept=".xml" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+            <br>
+            <br>
+            <label for="importSessionName">Session Name to Create</label>
+            <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+            <br>
+            <br>
+            <br>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
+            <br>
+            <br>
+
+          </div>
+      </center>
+        </div>
     <div class="sidebarColumn">
       <div class="sidebar">
 
@@ -386,30 +410,6 @@
         </center>
       </div>
 
-      <center>
-        <div id="importDiv" style="width:850px; margin-top:200px; margin-bottom:30px; display: none">
-          <div class=shadowDiv5 style="height:430px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 30px; font-family: 'verdana'">
-            <br>
-            <br>
-            <label for="fileSelector">Session File to Import</label>
-            <br>
-            <br>
-            <input type="file" id="fileSelector" accept=".xml" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
-            <br>
-            <br>
-            <label for="importSessionName">Session Name to Create</label>
-            <input id="importSessionName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
-            <br>
-            <br>
-            <br>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
-            <br>
-            <br>
-
-          </div>
-        </div>
-      </center>
 
     </div>
 
