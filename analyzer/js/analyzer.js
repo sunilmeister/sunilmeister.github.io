@@ -497,12 +497,13 @@ function analysisGatherDoneCallback() {
 
 window.onload = function() {
   Swal.fire({
+    icon: 'info',
     title: ZOOM_MESSAGE_STR,
     width: 900,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
-    timer: 6000,
+    timer: 5000,
   })
 
   // Create data objects

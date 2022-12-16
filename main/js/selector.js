@@ -145,7 +145,7 @@ function doRemove(args) {
 
 function removeSystem(uid, tag, noconfirm) {
   if (typeof noconfirm == 'undefined') noconfirm = false;
-  confirmMsg = i
+  confirmMsg = 
       "OK to remove system info?\n" +
       "\nSystem TAG: " + tag +
       "\nSystem UID: " + uid ;
@@ -323,6 +323,7 @@ function launchFiO2() {
 
 window.onload = function() {
   Swal.fire({
+    icon: 'info',
     title: ZOOM_MESSAGE_STR,
     width: 600,
     showConfirmButton: false,

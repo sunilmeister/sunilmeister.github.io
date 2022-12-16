@@ -513,6 +513,8 @@ function modalAlert(msg) {
     width: 800,
     color: 'white',
     background: '#D35400',
+    showConfirmButton: true,
+    confirmButtonColor: '#0D3E51',
   })
 }
 
@@ -523,14 +525,17 @@ function modalConfirm(msg, confirmFn, denyFn, callbackArgs) {
     title: msg,
     width: 800,
     color: 'white',
-    background: '#0D3E51',
+    background: '#2C94BC',
+    showConfirmButton: true,
     showCancelButton: true,
     confirmButtonText: 'OK',
-    denyButtonText: `CANCEL`,
+    cancelButtonText: `CANCEL`,
+    confirmButtonColor: '#0D3E51',
+    cancelButtonColor: '#B22222',
   }).then((result) => {
      if (result.isConfirmed) {
        if (confirmFn) confirmFn(callbackArgs);
-     } else if (result.isConfirmed) {
+     } else if (result.isDenied) {
        if (denyFn) denyFn(callbackArgs);
      }
   })

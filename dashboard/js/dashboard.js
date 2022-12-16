@@ -443,6 +443,7 @@ function receivedNewShape() {
   */
   console.log("On demand snapshot received pwBreathNum=" + app.pwBreathNum);
   Swal.fire({
+    icon: 'info',
     title: ON_DEMAND_MESSAGE_STR,
     width: 1200,
     showConfirmButton: false,
@@ -454,12 +455,13 @@ function receivedNewShape() {
 
 window.onload = function() {
   Swal.fire({
+    icon: 'info',
     title: ZOOM_MESSAGE_STR,
     width: 1200,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
-    timer: 6000
+    timer: 5000
   })
 
   finishedLoading = false;
