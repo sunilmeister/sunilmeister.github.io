@@ -576,7 +576,7 @@ function changeAnalysisWindowButtonsColor(bgd) {
 function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_orange');
+  bgd = style.getPropertyValue('--rsp_lightgreen');
   changeAnalysisWindowButtonsColor(bgd);
 }
 
