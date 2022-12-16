@@ -185,29 +185,32 @@ function silentAddSystemTagUidInfo(uid, tag) {
   return true;
 }
 
-function addSystemInfo() {
-  var table = document.getElementById("knownSystemsTable");
-  tag = prompt("New System TAG");
-  if (!tag) {
-    alert("Must enter System TAG\nTry again!");
-    return false;
-  }
+function cancelNewSystemBtn() {
+  document.getElementById("addSystemDiv").style.display = "none";
+}
+
+function addNewSystemBtn() {
+  tag = document.getElementById("newSysTAG").value; 
   tag = tag.toUpperCase();
+  uid = document.getElementById("newSysUID").value; 
+  uid = uid.toUpperCase();
+
+  var table = document.getElementById("knownSystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
     alert("System TAG='" + tag + "' already exists\nTry again!");
-    return false;
+    return;
   }
 
-  uid = prompt("New System UID");
-  if (!uid) {
-    alert("Must enter System UID\nTry again!");
-    return false;
-  }
   if (!validSystemUid(uid)) {
     alert("Invalid System UID='" + uid + "'\nTry again!");
-    return false;
+    return;
   }
   silentAddSystemTagUidInfo(uid,tag);
+  document.getElementById("addSystemDiv").style.display = "none";
+}
+
+function addSystemInfo() {
+  document.getElementById("addSystemDiv").style.display = "block";
   return true;
 }
 
