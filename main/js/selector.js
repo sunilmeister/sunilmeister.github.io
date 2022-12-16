@@ -197,7 +197,13 @@ function addNewSystemBtn() {
 
   var table = document.getElementById("knownSystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
-    alert("System TAG='" + tag + "' already exists\nTry again!");
+    Swal.fire({
+      icon: 'error',
+      title: "TAG='" + tag + "' already exists\nTry again!",
+      width: 600,
+      color: 'white',
+      background: '#2C94BC',
+    })
     return;
   }
 
