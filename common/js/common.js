@@ -505,3 +505,15 @@ function o2PurityAtAltitudeMtr(mtr) {
   return o2PurityAtAltitudeFt(mtr*3.28);
 }
 
+// various modals
+function modalAlert(msg) {
+  Swal.fire({
+    icon: 'error',
+    title: msg,
+    width: 800,
+    color: 'white',
+    background: '#2C94BC',
+  })
+}
+
+

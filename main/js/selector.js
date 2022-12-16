@@ -31,7 +31,7 @@ function setSelectedRespimaticTagFromDD() {
   var ddList = document.getElementById("SYSTEM_NAME");
   var tag = ddList.value;
   if (!tag) {
-    alert("No RESPIMATIC-100 System selected");
+    modalAlert("No RESPIMATIC-100 System selected");
     return false;
   }
   uid = findSystemUid(tag);
@@ -44,7 +44,7 @@ fileReader.addEventListener('load', (e) => {
   const data = e.target.result;
   systems = parseJSONSafely(data);
   if ((systems==null) || (systems.length==0)) {
-    alert("File does not have valid data");
+    modalAlert("File does not have valid data");
     cancelImport();
     return;
   }
@@ -54,7 +54,7 @@ fileReader.addEventListener('load', (e) => {
     uid = systems[i].uid;
     tag = systems[i].tag;
     if (!silentAddSystemTagUidInfo(uid, tag)) {
-      alert("Failed to add (UID='" + uid + "', TAG='" + tag +"')\n\n" +
+      modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag +"')\n\n" +
 	"Either the UID is invalid\n" +
 	"Or the TAG already exists");
     }
@@ -87,7 +87,7 @@ function importSystemInfo() {
 
 function exportSystemInfo() {
   if ((knownRespimaticSystems==null) || (knownRespimaticSystems.length==0)) {
-    alert("Systems Table is empty");
+    modalAlert("Systems Table is empty");
     return;
   }
   //console.log(JSON.stringify(knownRespimaticSystems));
@@ -100,7 +100,7 @@ function selectSystemInfo(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item\n\nSelect by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -151,7 +151,7 @@ function removeSystemInfoRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      alert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item\n\nSelect by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -197,18 +197,12 @@ function addNewSystemBtn() {
 
   var table = document.getElementById("knownSystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
-    Swal.fire({
-      icon: 'error',
-      title: "TAG='" + tag + "' already exists\nTry again!",
-      width: 600,
-      color: 'white',
-      background: '#2C94BC',
-    })
+    modalAlert("TAG='" + tag + "' already exists\nTry again!");
     return;
   }
 
   if (!validSystemUid(uid)) {
-    alert("Invalid System UID='" + uid + "'\nTry again!");
+    modalAlert("Invalid System UID='" + uid + "'\nTry again!");
     return;
   }
   silentAddSystemTagUidInfo(uid,tag);
@@ -248,14 +242,13 @@ function knownSystemInfo() {
 }
 
 function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
-  //alert("uid=" + newSysUid + " tag=" + newSysTag);
   if (!validSystemUid(newSysUid)) {
-    alert("Invalid RESPIMATIC-100 UID: " + newSysUid +
+    modalAlert("Invalid RESPIMATIC-100 UID: " + newSysUid +
       "\nMust be RSP_ followed by 16-digit HEX number\nTry again!");
     return;
   }
   if (findSystemTagObj(newSysTag)) { // tag already exists
-    alert("Duplicate RESPIMATIC-100 System TAG: " + newSysTag +
+    modalAlert("Duplicate RESPIMATIC-100 System TAG: " + newSysTag +
       "\nTry again!");
     return;
   }
@@ -263,7 +256,7 @@ function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
   saveNewRespimaticSystemId(newSysUid, newSysTag);
   setSelectedSystem(newSysUid, newSysTag);
 
-  alert("Stored new RESPIMATIC-100 System Info\n" + 
+  modalAlert("Stored new RESPIMATIC-100 System Info\n" + 
     "\nSystem TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
 }
@@ -272,7 +265,7 @@ function rememberNewSystem() {
   var elm = document.getElementById('newSysName');
   newSysTag = elm.value;
   if (!newSysTag) {
-    alert("Must enter System TAG\nTry again!");
+    modalAlert("Must enter System TAG\nTry again!");
     return;
   }
   newSysTag = newSysTag.toUpperCase();
@@ -280,7 +273,7 @@ function rememberNewSystem() {
   elm = document.getElementById('newSysUid');
   newSysUid = elm.value;
   if (!newSysTag) {
-    alert("Must enter System UID\nTry again!");
+    modalAlert("Must enter System UID\nTry again!");
     return;
   }
   newSysUid = newSysUid.toUpperCase();
@@ -316,7 +309,7 @@ window.onload = function() {
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
-    timer: 6000
+    timer: 5000
   })
 
   var elm = document.getElementById("mainDiv");
@@ -331,7 +324,6 @@ window.onload = function() {
   createDropdownSelect(ddList, knownRespimaticSystems);
   uid = getCookie(uidCookieName);
   tag = getCookie(tagCookieName);
-  //alert("Retrieved tag=" + tag);
 
   if (uid && tag) {
     setSelectedSystem(uid, tag);
