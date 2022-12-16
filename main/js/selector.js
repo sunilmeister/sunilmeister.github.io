@@ -49,7 +49,7 @@ fileReader.addEventListener('load', (e) => {
     return;
   }
 
-  console.log(systems);
+  //console.log(systems);
   for (i=0; i<systems.length; i++) {
     uid = systems[i].uid;
     tag = systems[i].tag;
@@ -72,28 +72,33 @@ function importFile() {
 }
 
 function cancelImport() {
-  document.getElementById("mainDiv").style.display = "none";
-  document.getElementById("knownSystems").style.display = "block";
   document.getElementById("importDiv").style.display = "none";
 }
 
 function importSystemInfo() {
-  document.getElementById("mainDiv").style.display = "none";
-  document.getElementById("knownSystems").style.display = "none";
   document.getElementById("importDiv").style.display = "block";
-
-
 }
 
-function exportSystemInfo() {
+function cancelExport() {
+  document.getElementById("exportDiv").style.display = "none";
+}
+
+function exportFile() {
+  document.getElementById("exportDiv").style.display = "none";
+ 
   if ((knownRespimaticSystems==null) || (knownRespimaticSystems.length==0)) {
     modalAlert("Systems Table is empty");
     return;
   }
   //console.log(JSON.stringify(knownRespimaticSystems));
-  fileName = prompt("Enter file name", "Respimatic Systems");
+  fileName =  document.getElementById("exportFileName").value;
   if (fileName) download(JSON.stringify(knownRespimaticSystems, null, 1), 
                          fileName, "text/xml");
+}
+
+function exportSystemInfo() {
+  document.getElementById("exportDiv").style.display = "block";
+  document.getElementById("exportFileName").value = "Respimatic Systems Table";
 }
 
 function selectSystemInfo(row) {
@@ -116,11 +121,9 @@ function selectSystemInfo(row) {
 
 }
 
-function removeSystem(uid, tag, noconfirm) {
-  if (typeof noconfirm == 'undefined') noconfirm = false;
-  if (!noconfirm && !confirm("OK to remove system info?\n" 
-    + "\nSystem TAG ; " + tag
-    + "\nSystem UID: " + uid)) return;
+function doRemove(args) {
+  uid = args.uid;
+  tag = args.tag;
 
   removedTag = removeSystemUidTagInfo(uid, tag);
   var ddList = document.getElementById("SYSTEM_NAME");
@@ -138,6 +141,19 @@ function removeSystem(uid, tag, noconfirm) {
 
   populateSystemUidTagHtmlTable("knownSystemsTable");
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
+}
+
+function removeSystem(uid, tag, noconfirm) {
+  if (typeof noconfirm == 'undefined') noconfirm = false;
+  confirmMsg = i
+      "OK to remove system info?\n" +
+      "\nSystem TAG: " + tag +
+      "\nSystem UID: " + uid ;
+  if (!noconfirm) {
+    modalConfirm(confirmMsg, doRemove, null, {uid:uid, tag:tag});
+  } else {
+    doRemove({uid:uid, tag:tag});
+  }
 }
 
 function removeSystemInfo(tag) {
@@ -222,13 +238,16 @@ function removeUidRow(btn) {
   removeSystemInfoRow(btn.parentNode.parentNode);
 }
 
-function removeAllUidRows(btn) {
-  if (!confirm("OK to remove ALL system info?")) return; 
-
+function doRemoveAllUidRows(btn) {
   for (i=0; i<knownRespimaticSystems.length;) {
     sys = knownRespimaticSystems[i];
     removeSystem(sys.uid, sys.tag, true);
   }
+}
+
+function removeAllUidRows(btn) {
+  modalConfirm("OK to remove ALL system info?", 
+    doRemoveAllUidRows, null, null); 
 }
 
 function knownSystemInfo() {

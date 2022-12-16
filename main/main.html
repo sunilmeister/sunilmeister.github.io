@@ -56,6 +56,43 @@
   </head>
 
   <body>
+    <div id="exportDiv" style="width:850px; height:300px; display: none">
+      <center>
+        <div style="font-size: 30px; font-family: 'verdana'">
+          <br>
+          <br>
+          <label for="exportFileName">Export File Name (extension will be .xml)</label>
+          <input id="exportFileName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <br>
+          <br>
+          <br>
+          <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='exportFile()'>EXPORT</button>
+          <button class="button" style="background-color:var(--rsp_darkred); width:250px; font-size:30px;" onclick='cancelExport()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+        <div id="importDiv" class='popupClass' style="height:210px; width:600px; display: none">
+	  <center>
+          <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 20px; font-family: 'verdana'">
+            <br>
+            <label for="fileSelector">Systems File to Import</label>
+            <br>
+            <br>
+            <input type="file" id="fileSelector" accept=".xml" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:20px; font-family:verdana; " />
+            <br>
+            <br>
+            <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='importFile()'>IMPORT</button>
+            <button class="button" style="background-color:var(--rsp_darkred); width:200px; font-size:20px;" onclick='cancelImport()'>CANCEL</button>
+            <br>
+            <br>
+          </div>
+	  </center>
+        </div>
+
     <div id="addSystemDiv" class='popupClass' style="width:600px; height:250px; display: none">
       <center>
         <div style="font-size: 20px; font-family: 'verdana'">
@@ -77,23 +114,6 @@
     </div>
 
     <div id="wrapper" class="wrapper">
-      <center>
-        <div id="importDiv" style="display: none">
-          <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 20px; font-family: 'verdana'">
-            <br>
-            <label for="fileSelector">Systems File to Import</label>
-            <br>
-            <br>
-            <input type="file" id="fileSelector" accept=".xml" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:20px; font-family:verdana; " />
-            <br>
-            <br>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='importFile()'>IMPORT</button>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='cancelImport()'>CANCEL</button>
-            <br>
-            <br>
-          </div>
-        </div>
-      </center>
 
       <div id="mainDiv" style="display:block">
         <center>

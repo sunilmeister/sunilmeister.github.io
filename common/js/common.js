@@ -512,7 +512,27 @@ function modalAlert(msg) {
     title: msg,
     width: 800,
     color: 'white',
-    background: '#2C94BC',
+    background: '#D35400',
+  })
+}
+
+function modalConfirm(msg, confirmFn, denyFn, callbackArgs) {
+  //console.log(callbackArgs);
+  Swal.fire({
+    icon: 'question',
+    title: msg,
+    width: 800,
+    color: 'white',
+    background: '#0D3E51',
+    showCancelButton: true,
+    confirmButtonText: 'OK',
+    denyButtonText: `CANCEL`,
+  }).then((result) => {
+     if (result.isConfirmed) {
+       if (confirmFn) confirmFn(callbackArgs);
+     } else if (result.isConfirmed) {
+       if (denyFn) denyFn(callbackArgs);
+     }
   })
 }
 
