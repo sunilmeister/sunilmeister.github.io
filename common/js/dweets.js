@@ -290,7 +290,7 @@ function processJsonRecord(jsonData) {
             });
 	  }
 
-	  updateRangeOnNewBreath(app.systemBreathNum - app.chartPrevSystemBreathNum);
+	  updateRangeOnNewBreath();
           app.chartPrevSystemBreathNum = value;
           if (breathsMissing) {
             console.log("Breaths Missing =" + breathsMissing);

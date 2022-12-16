@@ -57,21 +57,16 @@
   </head>
 
   <body>
-	<div id='zoomAlertDiv' class="popupClass">
-	  <center>
-	  <br>
-            Use CTRL key and +/- keys to
-	  <br>
-            increase/decrease the page zoom level
-	  <br>
-	    till the page is fully visible.
-	  <br>
-	  <br>
-            Or hold down the CTRL key and use
-	  <br>
-            the mouse wheel to zoom in/out.
-	  </center>
-	</div>
+    <div id='zoomAlertDiv' class="popupClass">
+      <center>
+        <br> Use CTRL key and +/- keys to
+        <br> increase/decrease the page zoom level
+        <br> till the page is fully visible.
+        <br>
+        <br> Or hold down the CTRL key and use
+        <br> the mouse wheel to zoom in/out.
+      </center>
+    </div>
 
     <div id="fullDashboard" style="overflow:auto; min-height:175rem;">
       <div class="sidebarColumn">
@@ -174,31 +169,29 @@
       </div>
 
       <div class="dashboard-pane">
-	<div id='onDemandDiv' class="popupClass">
-	  <br>
-	  <br>
-	  <center>
-	  On Demand Shape received
-	  <br>
-	  Press 'View Breath Shapes' to view
-	  </center>
-	</div>
+        <div id='onDemandDiv' class="popupClass">
+          <br>
+          <br>
+          <center>
+            On Demand Shape received
+            <br> Press 'View Breath Shapes' to view
+          </center>
+        </div>
+
+        <div class=shadowDiv10 id="rangeWindowDiv" style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-family:verdana; display:none; ">
+          <div id="rangeSliderDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem;">
+          </div>
+          <center>
+            <br>
+            <button class="iconButton" id="btnFullInterval" onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=50px height=50px></button>
+            <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=50px height=50px></button>
+            <button class="iconButton" id="btnCancelInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=50px height=50px></button>
+            <button class="iconButton" id="btnResetInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=50px height=50px></button>
+            <br>
+          </center>
+        </div>
 
         <div id="shapes-pane" class="column" style="font-size: 2rem; display:none">
-          <div id=shapeSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
-            <br>
-            <div id="shapeRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;"> </div>
-            <br>
-            <div>
-              <center>
-                <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px;">Set Breath Range Window for Display
-                  <button class="iconButton" id="btnShapeSetInterval" onClick="setShapeTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=50px height=50px></button>
-                  <button class="iconButton" id="btnShapeCancelInterval" style="float:right;" onClick="cancelShapeTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" width=50px height=50px></button>
-                  <button class="iconButton" id="btnShapeResetInterval" style="float:left;" onClick="resetShapeTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Default'><img src="../common/img/rolling.png" width=50px height=50px></button>
-              </center>
-            </div>
-            <br>
-          </div>
           <div id="shapeGraphBody" class=shadowDiv5 style="margin-top:50px; height:800px;">
           </div>
         </div>
@@ -214,23 +207,6 @@
         </div>
 
         <div id="alert-pane" style="display: none; font-family:verdana;">
-          <div id=alertSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
-            <br>
-            <div id="alertRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
-            </div>
-            <div>
-              <center>
-                <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px;">Set Breath Range Window for Display
-
-                  <button class="iconButton" id="btnAlertSetInterval" onClick="setAlertTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=50px height=50px></button>
-                  <button class="iconButton" id="btnAlertCancelInterval" style="float:right;" onClick="cancelAlertTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" width=50px height=50px></button>
-                  <button class="iconButton" id="btnAlertResetInterval" style="float:left;" onClick="resetAlertTimeInterval(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Default'><img src="../common/img/rolling.png" width=50px height=50px></button>
-              </center>
-            </div>
-
-            <br>
-          </div>
-
           <div class="row">
             <div id="errorColDiv" class="column" style="font-size: 1.5rem; width:60rem;">
               <center>
@@ -267,23 +243,6 @@
         </div>
 
         <div id="stat-pane" style="display: none; font-family:verdana;">
-
-          <div id=statSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
-            <br>
-            <div id="statRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
-            </div>
-            <div>
-              <center>
-                <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px">Set Breath Range Window for Display
-
-                  <button class="iconButton" id="btnStatSetInterval" onClick="setStatTimeInterval(this)" title='Set'><img src="../common/img/check.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
-                  <button class="iconButton" id="btnStatCancelInterval" style="float:right;" onClick="cancelStatTimeInterval(this)" title='Cancel'><img src="../common/img/close.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
-                  <button class="iconButton" id="btnStatResetInterval" style="float:left;" onClick="resetStatTimeInterval(this)" title='Default'><img src="../common/img/rolling.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
-              </center>
-            </div>
-
-            <br>
-          </div>
 
           <div class="row">
             <div id="measured-pane" class="column" style="font-size:2rem;">
@@ -389,24 +348,6 @@
         </div>
 
         <div id="chart-pane" style="display:none">
-
-          <div id=chartSlider class=shadowDiv10 style="margin-top:0px; background-color:var(--rsp_darkblue); font-size:20px; font-family:verdana;">
-            <br>
-            <div id="chartRangeDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
-            </div>
-            <div>
-              <center>
-                <p style="color: white; font-size:2.5rem; font-family:verdana; margin-top:5px; margin-bottom:-10px">Set Breath Range Window for Display
-
-                  <button class="iconButton" id="btnChartSetInterval" onClick="setChartTimeInterval(this)" title='Set'><img src="../common/img/check.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
-                  <button class="iconButton" id="btnChartCancelInterval" style="float:right;" onClick="cancelChartTimeInterval(this)" title='Cancel'><img src="../common/img/close.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
-                  <button class="iconButton" id="btnChartResetInterval" style="float:left;" onClick="resetChartTimeInterval(this)" title='Default'><img src="../common/img/rolling.png" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' width=50px height=50px></button>
-              </center>
-            </div>
-
-            <br>
-          </div>
-
           <div id="chartsDiv" style="margin-bottom:20px; margin-top:50px;">
             <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
           </div>

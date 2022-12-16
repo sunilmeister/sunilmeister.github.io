@@ -92,8 +92,7 @@ var onDemandAlert = null;
 // sliders
 var sliderCommitPending = false;
 var stopSliderCallback = false;
-var chartRangeSlider = null;
-var statRangeSlider = null;
-var alertRangeSlider = null;
-var shapeRangeSlider = null;
+var sliderDiv = null;
+var rangeWindowDiv = null;
+var rangeSlider = null;
 

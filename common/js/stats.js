@@ -176,6 +176,9 @@ function extractUsedParamsFromCombos() {
 }
 
 function formUsedParamString(extractedObj, paramName) {
+  if (typeof extractedObj == 'undefined') {
+    return "?";
+  }
   var extractedArray = extractedObj[paramName];
   if (typeof extractedArray == 'undefined') {
     return "?";

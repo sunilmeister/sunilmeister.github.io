@@ -117,12 +117,16 @@ function processDashboardDweet(d) {
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
   processJsonRecord(d);
+  createDashboards();
+  return d;
+}
+
+function createDashboards() {
   if ((currentView == "snapshots") && !updatePaused) updateSnapshot();
   if ((currentView == "charts") && !updatePaused) createDashboardCharts();
   if ((currentView == "stats") && !updatePaused) createDashboardStats();
   if ((currentView == "alerts") && !updatePaused) createDashboardAlerts();
   if ((currentView == "shapes") && !updatePaused) createDashboardShapes();
-  return d;
 }
 
 function snapshotProcessJsonRecord(d) {
@@ -201,6 +205,7 @@ function changeToSnapshotView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "none";
+  rangeWindowDiv.style.display = "none";
 }
 
 function changeToChartView() {
@@ -225,6 +230,7 @@ function changeToChartView() {
   records.style.display = "none";
   shapes.style.display = "none";
 
+  rangeWindowDiv.style.display = "block";
   updateChartRangeOnEntry();
   createDashboardCharts();
 }
@@ -251,6 +257,7 @@ function changeToShapeView() {
   records.style.display = "none";
   shapes.style.display = "block";
 
+  rangeWindowDiv.style.display = "block";
   updateShapeRangeOnEntry();
   createDashboardShapes();
 }
@@ -277,6 +284,7 @@ function changeToStatView() {
   records.style.display = "none";
   shapes.style.display = "none";
 
+  rangeWindowDiv.style.display = "block";
   updateStatRangeOnEntry();
   createDashboardStats();
 }
@@ -303,6 +311,7 @@ function changeToAlertView() {
   records.style.display = "none";
   shapes.style.display = "none";
 
+  rangeWindowDiv.style.display = "block";
   updateAlertRangeOnEntry();
   createDashboardAlerts();
 }
@@ -328,27 +337,21 @@ function changeToRecordView() {
   alerts.style.display = "none";
   records.style.display = "block";
   shapes.style.display = "none";
+  rangeWindowDiv.style.display = "none";
 }
 
-function updateRangeOnNewBreath(num) {
-  if (app.reportRange.rolling) {
-    app.reportRange.minBnum=1;
-    app.reportRange.maxBnum=app.dashboardBreathNum;
-  }
-
-  updateChartRangeOnNewBreath(num);
-  updateStatRangeOnNewBreath(num);
-  updateAlertRangeOnNewBreath(num);
-  updateShapeRangeOnNewBreath(num);
+function updateRangeOnNewBreath() {
+  updateChartRangeOnNewBreath();
+  updateStatRangeOnNewBreath();
+  updateAlertRangeOnNewBreath();
+  updateShapeRangeOnNewBreath();
 }
 
 function togglePause() {
   elm = document.getElementById("btnPause");
-  slider = document.getElementById("chartSlider");
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
-    slider.style.display = "none" ;
     if (currentView == "snapshots") updateSnapshot();
     if (currentView == "charts") createDashboardCharts();
     if (currentView == "stats") createDashboardStats();
@@ -439,7 +442,7 @@ function receivedNewShape() {
     "Switch to `View Breath Shapes` ?")) changeToShapeView();
   */
   onDemandAlert.show();
-  console.log("On demand snapshot received");
+  console.log("On demand snapshot received pwBreathNum=" + app.pwBreathNum);
 }
 
 window.onload = function() {
@@ -492,18 +495,11 @@ window.onload = function() {
   installPlatGauge();
   installPeepGauge();
   installTempGauge();
-  // Create chart range slider
-  chartRangeDiv = document.getElementById('chartRangeDiv');
-  createChartRangeSlider(chartRangeDiv);
-  // Create stat range slider
-  statRangeDiv = document.getElementById('statRangeDiv');
-  createStatRangeSlider(statRangeDiv);
-  // Create alert range slider
-  alertRangeDiv = document.getElementById('alertRangeDiv');
-  createAlertRangeSlider(alertRangeDiv);
-  // Create shape range slider
-  shapeRangeDiv = document.getElementById('shapeRangeDiv');
-  createShapeRangeSlider(shapeRangeDiv);
+
+  // Create range slider
+  rangeWindowDiv = document.getElementById("rangeWindowDiv");
+  sliderDiv = document.getElementById("rangeSliderDiv");
+  createRangeSlider(sliderDiv);
 
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
@@ -520,6 +516,32 @@ window.onbeforeunload = function(e) {
     }
     return msg;
   }
+}
+
+function createRangeSlider(div) {
+  if (rangeSlider) return;
+  rangeSlider = new IntRangeSlider(
+    div,
+    0,
+    MAX_CHART_DATAPOINTS,
+    0,
+    0,
+    1
+  );
+  rangeSlider.setChangeCallback(rangeSliderCallback);
+}
+
+function rangeSliderCallback() {
+  if (stopSliderCallback) return;
+  flashBreathWindowButtons();
+  sliderCommitPending = true;
+  values = chartRangeSlider.getSlider();
+  bmin = parseInt(values[0]);
+  bmax = parseInt(values[1]);
+
+  stopSliderCallback = true;
+  rangeSlider.setSlider([bmin, bmax]);
+  stopSliderCallback = false;
 }
 
 function outIconButton(btn) {
@@ -551,28 +573,17 @@ function setBackGroundBreathWindowButton(id, bgd) {
 }
 
 function colorBreathWindowButtons(bgd) {
-  setBackGroundBreathWindowButton('btnChartSetInterval',bgd);
-  setBackGroundBreathWindowButton('btnChartCancelInterval',bgd);
-  setBackGroundBreathWindowButton('btnChartResetInterval',bgd);
-
-  setBackGroundBreathWindowButton('btnStatSetInterval',bgd);
-  setBackGroundBreathWindowButton('btnStatCancelInterval',bgd);
-  setBackGroundBreathWindowButton('btnStatResetInterval',bgd);
-
-  setBackGroundBreathWindowButton('btnAlertSetInterval',bgd);
-  setBackGroundBreathWindowButton('btnAlertCancelInterval',bgd);
-  setBackGroundBreathWindowButton('btnAlertResetInterval',bgd);
-
-  setBackGroundBreathWindowButton('btnShapeSetInterval',bgd);
-  setBackGroundBreathWindowButton('btnShapeCancelInterval',bgd);
-  setBackGroundBreathWindowButton('btnShapeResetInterval',bgd);
+  setBackGroundBreathWindowButton('btnSetInterval',bgd);
+  setBackGroundBreathWindowButton('btnCancelInterval',bgd);
+  setBackGroundBreathWindowButton('btnResetInterval',bgd);
+  setBackGroundBreathWindowButton('btnFullInterval',bgd);
 }
 
 breathWindowButtonsFlashed = false;
 function flashBreathWindowButtons() {
   breathWindowButtonsFlashed = true;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_orange');
+  bgd = style.getPropertyValue('--rsp_lightgreen');
   colorBreathWindowButtons(bgd);
 }
 
@@ -581,6 +592,71 @@ function unflashBreathWindowButtons() {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('white');
   colorBreathWindowButtons(bgd);
+}
+
+function setTimeInterval(btn) {
+  if (!sliderCommitPending) return;
+  unflashBreathWindowButtons();
+  values = rangeSlider.getSlider();
+  bmin = parseInt(values[0]);
+  bmax = parseInt(values[1]);
+  saveRange = app.reportRange;
+  app.reportRange = createReportRange(false, bmin, bmax);
+
+  createDashboards();
+  sliderCommitPending = false;
+}
+
+var saveRange = null;
+function cancelTimeInterval(btn) {
+  if (!sliderCommitPending) return;
+  unflashBreathWindowButtons();
+  if (saveRange) {
+    app.reportRange = saveRange;
+  } else {
+    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+  }
+  stopSliderCallback = true;
+  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  stopSliderCallback = false;
+  sliderCommitPending = false;
+}
+
+function resetTimeInterval(btn) {
+  saveRange = null;
+  unflashBreathWindowButtons();
+  app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+  stopSliderCallback = true;
+  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  stopSliderCallback = false;
+
+  createDashboards();
+  sliderCommitPending = false;
+}
+
+function setFullInterval(btn) {
+  if (!sliderCommitPending) return;
+  unflashBreathWindowButtons();
+  values = rangeSlider.getRange();
+  bmin = parseInt(values[0]);
+  bmax = parseInt(values[1]);
+  saveRange = app.reportRange;
+  app.reportRange = createReportRange(false, bmin, bmax);
+  stopSliderCallback = true;
+  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  stopSliderCallback = false;
+
+  createDashboards();
+  sliderCommitPending = false;
+}
+
+function rangeSliderCallback() {
+  if (stopSliderCallback) return;
+  flashBreathWindowButtons();
+  sliderCommitPending = true;
+  values = rangeSlider.getSlider();
+  bmin = parseInt(values[0]);
+  bmax = parseInt(values[1]);
 }
 
 function HandlePeriodicTasks() {
