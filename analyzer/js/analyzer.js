@@ -496,7 +496,7 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 6);
+  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 5);
   zoomAlert.show();
 
   // Create data objects
