@@ -114,28 +114,7 @@ span {
   font-size: 2.5rem;
   font-family: verdana;
   padding: 10px;
-  z-index: 100;
-  opacity: 1;
-
-  /* for vertical center */
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-
-  display:none;
-}
-
-.alertPopupClass {
-  background-color: 'orange';
-  color: white;
-
-  font-size: 2.5rem;
-  font-family: verdana;
-  padding: 10px;
-  z-index: 200;
+  z-index: 10;
   opacity: 1;
 
   /* for vertical center */

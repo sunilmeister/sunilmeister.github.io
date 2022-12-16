@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.15/dist/sweetalert2.all.min.js"></script>
     <script src="../pure-knob-master/pureknob.js"></script>
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="../canvasjs/canvasjs.min.js"></script>
@@ -57,17 +58,6 @@
   </head>
 
   <body>
-    <div id='zoomAlertDiv' class="popupClass">
-      <center>
-        <br> Use CTRL key and +/- keys to
-        <br> increase/decrease the page zoom level
-        <br> till the page is fully visible.
-        <br>
-        <br> Or hold down the CTRL key and use
-        <br> the mouse wheel to zoom in/out.
-      </center>
-    </div>
-
     <div id="fullDashboard" style="overflow:auto; min-height:175rem;">
       <div class="sidebarColumn">
         <div class="sidebar">
@@ -169,14 +159,6 @@
       </div>
 
       <div class="dashboard-pane">
-        <div id='onDemandDiv' class="popupClass">
-          <br>
-          <br>
-          <center>
-            On Demand Shape received
-            <br> Press 'View Breath Shapes' to view
-          </center>
-        </div>
 
         <div class=shadowDiv10 id="rangeWindowDiv" style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-family:verdana; display:none; ">
           <div id="rangeSliderDiv" style="padding-left:20px; padding-right:20px;font-size:1.5rem;">

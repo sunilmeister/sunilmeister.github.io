@@ -496,8 +496,14 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','800px', '400px', '2.5rem', 5);
-  zoomAlert.show();
+  Swal.fire({
+    title: ZOOM_MESSAGE_STR,
+    width: 900,
+    showConfirmButton: false,
+    color: 'white',
+    background: '#2C94BC',
+    timer: 6000,
+  })
 
   // Create data objects
   app = cloneObject(AppDataTemplate);

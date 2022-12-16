@@ -441,14 +441,26 @@ function receivedNewShape() {
   if (confirm("Received an on-demand new Breath Shape snapshot\n" + 
     "Switch to `View Breath Shapes` ?")) changeToShapeView();
   */
-  onDemandAlert.show();
   console.log("On demand snapshot received pwBreathNum=" + app.pwBreathNum);
+  Swal.fire({
+    title: ON_DEMAND_MESSAGE_STR,
+    width: 1200,
+    showConfirmButton: false,
+    color: 'white',
+    background: '#2C94BC',
+    timer: 4000
+  })
 }
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','1200px', '600px', '3.5rem', 5);
-  zoomAlert.show();
-  onDemandAlert = new ModalPopup('onDemandDiv','800px', '300px', '2.5rem', 5);
+  Swal.fire({
+    title: ZOOM_MESSAGE_STR,
+    width: 1200,
+    showConfirmButton: false,
+    color: 'white',
+    background: '#2C94BC',
+    timer: 6000
+  })
 
   finishedLoading = false;
   // Create data objects

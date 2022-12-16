@@ -304,8 +304,14 @@ function launchFiO2() {
 }
 
 window.onload = function() {
-  var zoomAlert = new ModalPopup('zoomAlertDiv','600px', '250px', '1.5rem', 5);
-  zoomAlert.show();
+  Swal.fire({
+    title: ZOOM_MESSAGE_STR,
+    width: 600,
+    showConfirmButton: false,
+    color: 'white',
+    background: '#2C94BC',
+    timer: 6000
+  })
 
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";
