@@ -192,7 +192,7 @@ function selectStats() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
 
   displayStats();
@@ -208,7 +208,7 @@ function selectAlerts() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
 
   displayAlerts();
@@ -224,7 +224,7 @@ function selectShapes() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
   document.getElementById("btnShape").disabled = true;
 
   displayShapes();
@@ -240,7 +240,7 @@ function selectCharts() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
 
   displayCharts();
@@ -255,7 +255,7 @@ function selectRawData() {
   var sessionInfo = document.getElementById("sessionNameData");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  enableAllButtons();
+  if (app.sessionDataValid) enableAllButtons();
   document.getElementById("btnRaw").disabled = true;
 
   displayRawData();
@@ -337,9 +337,10 @@ function undisplayAllPanes() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("alertsDiv").style.display = "none";
   document.getElementById("shapesDiv").style.display = "none";
-  document.getElementById("importDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("exportDiv").style.display = "none";
 }
 
 function checkValidAnalysisDuration() {
@@ -518,6 +519,7 @@ window.onload = function() {
 
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
+  app.sessionDataValid = false;
   app.sessionDbName = "";
   app.sessionDbReady = false;
   var heading = document.getElementById("SysUid");

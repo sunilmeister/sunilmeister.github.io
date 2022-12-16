@@ -30,21 +30,13 @@ function toggleRecording() {
       alert("IndexedDB not available in your browser.\nUse different browser");
       return;
     }
-    createNewDb();
-    if (!dbName) {
-      alert("No Recording Session created\nTry again!");
-      return;
-    }
+    document.getElementById('recordNameDiv').style.display = "block";
+    document.getElementById('recordName').value = "New Session"
+  } else if (recordingPaused) {
     btn.innerHTML = "Pause Recording";
     recordingOff = false;
     recordingPaused = false;
-  }
-  else if (recordingPaused) {
-    btn.innerHTML = "Pause Recording";
-    recordingOff = false;
-    recordingPaused = false;
-  }
-  else if (!recordingPaused) {
+  } else if (!recordingPaused) {
     btn.innerHTML = "Resume Recording";
     recordingOff = false;
     recordingPaused = true;
@@ -54,7 +46,7 @@ function toggleRecording() {
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
-function getNewDbName() {
+function getNewDbName(dbNameSuffix) {
   var name = "";
   today = new Date();
   recCreationTimeStamp = today;
@@ -66,29 +58,38 @@ function getNewDbName() {
   var sec = String(today.getSeconds()).padStart(2, '0');
   dmy = dd + "-" + mm + "-" + yyyy;
   nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
-  do {
-    var dbNameSuffix = prompt("Name the new Session", "New Session");
-    if (!dbNameSuffix) return "";
-    name = dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
-    if (!isValidDatabaseName(dbNameSuffix)) {
-      alert("Invalid Session name\n" + dbNameSuffix + "\nTry again");
-    }
-    else if (checkDbExists(name)) {
-      alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
-    }
-    else break;
-  } while (true);
+  if (!dbNameSuffix) return "";
+  name = dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
+  if (!isValidDatabaseName(dbNameSuffix)) {
+    alert("Invalid Session name\n" + dbNameSuffix + "\nTry again");
+    return "";
+  } else if (checkDbExists(name)) {
+    alert("Session name already exists\n" + dbNameSuffix + "\nTry again");
+    return "";
+  }
+
   return name;
 }
 
-function createNewDb() {
-  dbName = getNewDbName();
+function cancelRecordingName() {
+  document.getElementById('recordNameDiv').style.display = "none";
+}
+
+function acceptRecordingName() {
+  suffix = document.getElementById('recordName').value;
+  dbName = getNewDbName(suffix);
   if (!dbName) return;
   createOrOpenDb(dbName, recCreationTimeStamp);
   InitRecorder();
   elm = document.getElementById('recordSessionName');
   arr = parseDbName(dbName);
   elm.innerHTML = arr[1] + " [" + arr[2] + "]";
+
+  btn = document.getElementById('recordButton');
+  btn.innerHTML = "Pause Recording";
+  recordingOff = false;
+  recordingPaused = false;
+  document.getElementById('recordNameDiv').style.display = "none";
 }
 
 function insertJsonData(db, jsonData) {

@@ -58,6 +58,25 @@
   </head>
 
   <body>
+    <div id="recordNameDiv" class='popupClass' style="width:950px; height:400px; display: none">
+      <center>
+        <div style="font-size: 55px; font-family: 'verdana'">
+          <br>
+          <label for="recordName">New Session Name</label>
+	  <br>
+          <input id="recordName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:50px; font-family:verdana;" />
+          <br>
+          <br>
+          <button class="button" style="background-color:var(--rsp_darkblue); padding:5px; font-size:50px; width:300px; height:70px;" onclick='acceptRecordingName()'>RECORD</button>
+          <button class="button" style="background-color:var(--rsp_darkred); padding:5px; font-size:50px; width:300px; height:70px;" onclick='cancelRecordingName()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+
     <div id="fullDashboard" style="overflow:auto; min-height:175rem;">
       <div class="sidebarColumn">
         <div class="sidebar">

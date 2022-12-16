@@ -119,6 +119,8 @@ function selectSystemInfo(row) {
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";
 
+  document.getElementById("exportDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 }
 
 function doRemove(args) {
@@ -182,6 +184,8 @@ function exitSystemInfo() {
   elm.style.display = "none";
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";
+  document.getElementById("exportDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 }
 
 
@@ -255,6 +259,8 @@ function knownSystemInfo() {
   elm.style.display = "none";
   elm = document.getElementById("knownSystems");
   elm.style.display = "block";
+  document.getElementById("exportDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   populateSystemUidTagHtmlTable("knownSystemsTable");
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
@@ -336,6 +342,8 @@ window.onload = function() {
   elm.style.display = "block";
   elm = document.getElementById("knownSystems");
   elm.style.display = "none";
+  document.getElementById("exportDiv").style.display = "none";
+  document.getElementById("importDiv").style.display = "none";
 
   initKnownRespimaticSystems();
 

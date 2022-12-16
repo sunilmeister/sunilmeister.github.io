@@ -229,6 +229,7 @@ function changeToChartView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "none";
+  document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
   updateChartRangeOnEntry();
@@ -256,6 +257,7 @@ function changeToShapeView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "block";
+  document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
   updateShapeRangeOnEntry();
@@ -283,6 +285,7 @@ function changeToStatView() {
   alerts.style.display = "none";
   records.style.display = "none";
   shapes.style.display = "none";
+  document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
   updateStatRangeOnEntry();
@@ -310,6 +313,7 @@ function changeToAlertView() {
   alerts.style.display = "block";
   records.style.display = "none";
   shapes.style.display = "none";
+  document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
   updateAlertRangeOnEntry();
@@ -337,6 +341,8 @@ function changeToRecordView() {
   alerts.style.display = "none";
   records.style.display = "block";
   shapes.style.display = "none";
+  document.getElementById('recordNameDiv').style.display = "none";
+
   rangeWindowDiv.style.display = "none";
 }
 
