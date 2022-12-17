@@ -651,7 +651,6 @@ function resetTimeInterval(btn) {
 }
 
 function setFullInterval(btn) {
-  if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
   values = rangeSlider.getRange();
   bmin = parseInt(values[0]);
