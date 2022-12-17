@@ -21,6 +21,7 @@ var analysisStartTime = new Date();
 var analysisEndTime = new Date();
 var analysisStartBreath = 0;
 var analysisEndBreath = 0;
+var modalWidth = 700;
 
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
@@ -510,8 +511,8 @@ function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',
     title: title,
-    html: "<pre>" + msg + "</pre>",
-    width: 700,
+    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
+    width: modalWidth,
     color: 'white',
     background: '#D35400',
     showConfirmButton: true,
@@ -524,8 +525,8 @@ function modalAlert(title, msg) {
   Swal.fire({
     icon: 'error',
     title: title,
-    html: "<pre>" + msg + "</pre>",
-    width: 700,
+    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
+    width: modalWidth,
     color: 'white',
     background: '#D35400',
     showConfirmButton: true,
@@ -544,8 +545,8 @@ function modalConfirm(title, msg, confirmFn, denyFn, callbackArgs, confirmText, 
   Swal.fire({
     icon: 'question',
     title: title,
-    html: "<pre>" + msg + "</pre>",
-    width: 700,
+    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
+    width: modalWidth,
     color: 'white',
     background: '#2C94BC',
     showConfirmButton: true,

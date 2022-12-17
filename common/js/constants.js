@@ -38,7 +38,7 @@ const CBOX_TREE_ROOT_ID           = "checkBoxTreeRoot";
 const SESSION_VERSION             = "1.0";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM" ;
-const ZOOM_MESSAGE_STR = 
+const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
   "Use CTRL key and +/- keys to" +
   "\n" +
   "increase/decrease the page zoom level" +
@@ -48,7 +48,10 @@ const ZOOM_MESSAGE_STR =
   "\n" +
   "Or hold down the CTRL key and use" +
   "\n" +
-  "the mouse wheel to zoom in/out." ;
+  "the mouse wheel to zoom in/out." +
+  "</pre></span>";
 
 const ON_DEMAND_TITLE_STR = "On-Demand Breath Shape";
-const ON_DEMAND_MESSAGE_STR = "Press 'View Breath Shapes' to view";
+const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
+  "Press 'View Breath Shapes' to view" + 
+  "</pre></span>";

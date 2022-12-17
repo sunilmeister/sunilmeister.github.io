@@ -509,7 +509,7 @@ window.onload = function() {
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,
-    html: "<pre>" + ZOOM_MESSAGE_STR + "</pre>",
+    html: ZOOM_MESSAGE_STR,
     width: 900,
     showConfirmButton: false,
     color: 'white',

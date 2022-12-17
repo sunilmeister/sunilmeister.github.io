@@ -457,10 +457,11 @@ function receivedNewShape() {
 }
 
 window.onload = function() {
+  modalWidth = 1000;
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,
-    html: "<pre>" + ZOOM_MESSAGE_STR + "</pre>",
+    html: ZOOM_MESSAGE_STR,
     width: 1200,
     showConfirmButton: false,
     color: 'white',
