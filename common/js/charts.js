@@ -64,7 +64,7 @@ function chartDelete(bnode) {
   removeChartContainerId(containerNode.id);
   containerNode.remove();
   if (numberOfExistingCharts()==0) {
-    alert("No chart container left\nCreating new empty one");
+    modalWarning("No chart container left\nCreating new empty one");
     chartInsertOnTop();
   }
   removeChartEditMenu();

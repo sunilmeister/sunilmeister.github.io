@@ -6,7 +6,7 @@ var analysisRangeSlider = null;
 var sessionBannerHTML = null;
 var sliderCommitPending = false;
 if (!window.indexedDB) {
-  alert("IndexedDB not available in your browser.\nSwitch browsers");
+  modalAlert("IndexedDB not available in your browser.\nSwitch browsers");
 }
 // ///////////////////////////////////////////////////////
 // Database Functions 
@@ -49,7 +49,7 @@ function selectDbRow(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -70,13 +70,18 @@ function deleteDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
       return;
     }
   }
-  msg = "Delete " + row.cells[0].innerHTML + " " + row.cells[1].innerHTML + "?";
-  if (!confirm(msg)) return;
 
+  msg = "Delete session?\n" + row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
+  modalConfirm(msg, doDeleteDbRow, null, {row:row},
+  "DELETE", "DO NOT DELETE");
+}
+
+function doDeleteDbRow(arg) {
+  row = arg.row;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
@@ -123,7 +128,11 @@ function listAllDbs() {
 }
 
 function deleteAllDbs() {
-  if (!confirm("Deleting All Saved Sessions")) return;
+  modalConfirm("Delete All Saved Sessions", doDeleteAllDbs, null, null,
+               "DELETE ALL", "DO NOT DELETE");
+}
+
+function doDeleteAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
   numRows = table.rows.length;
@@ -146,7 +155,7 @@ function deleteAllDbs() {
 function checkDbReady() {
   if (app.sessionDbReady && app.sessionDbName) {
     if (app.sessionVersion!=SESSION_VERSION) {
-      alert("WARNING\n" + 
+      modalWarning("WARNING\n" + 
 	"Retrieved Session recorded with Software Version " + app.sessionVersion + 
         "\nCurrent Software Version is " + SESSION_VERSION);
     }
@@ -154,12 +163,12 @@ function checkDbReady() {
   }
 
   if (!app.sessionDbName) {
-    alert('No Session Selected\nPlease Select Session for Analysis');
+    modalAlert('No Session Selected\nPlease Select Session for Analysis');
     return false;
   }
   nameTm = parseDbName(app.sessionDbName);
   sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
-  alert('Session ' + sessionName + '\nNot yet ready\nPlease try again');
+  modalAlert('Session ' + sessionName + '\nNot yet ready\nPlease try again');
   return false;
 }
 
@@ -263,7 +272,7 @@ function selectRawData() {
 
 function initSession(dbName) {
   if (!dbName) {
-    alert("Please Select Session");
+    modalAlert("No session selected\nPlease Select Session");
     return;
   }
   resetAnalysisData();
@@ -280,7 +289,7 @@ function initSession(dbName) {
       var keys = event.target.result;
       allDbKeys = keys;
       if (keys.length == 0) {
-        alert("Selected Session has no data");
+        modalAlert("Selected Session has no data");
         return;
       }
       app.logStartTime = new Date(keys[0]);
@@ -347,7 +356,7 @@ function checkValidAnalysisDuration() {
   //return true;
   var diff = app.analysisEndTime - app.analysisStartTime;
   if (diff <= 0) {
-    alert("Analysis EndTime must be greater than StartTime");
+    modalAlert("Analysis EndTime must be greater than StartTime");
     return false;
   }
   else return true;
@@ -485,7 +494,7 @@ function analysisGatherDoneCallback() {
   app.analysisEndTime = app.logEndTime;
 
   if (app.logEndBreath==0) {
-    alert("No recorded breath for this session\nSelect another session");
+    modalAlert("No recorded breath for this session\nSelect another session");
     return;
   }
 
@@ -631,7 +640,7 @@ function createAnalysisRangeSlider() {
   unflashAnalysisWindowButtons();
 
   if (app.logEndBreath==0) {
-    alert("No recorded breath for this session");
+    modalAlert("No recorded breath for this session");
   }
 }
 

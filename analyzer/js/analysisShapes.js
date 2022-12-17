@@ -7,7 +7,7 @@ var breathShapeGraph = null;
 function displayShapes() {
   //console.log("displayShapes");
   if (!app.sessionDataValid) {
-    alert("Data Gathering in process\nGive us a second and try again");
+    modalAlert("Data Gathering in process\nGive us a second and try again");
     return;
   }
 
@@ -20,16 +20,15 @@ function displayShapes() {
     new BreathPressureGraph("Breath Pressure Shapes",800,app.reportRange);
   let n = breathShapeGraph.numShapesInRange();
   if (n > SHAPE_MAX_CHARTS) {
-    if (!confirm("Too many (" + n + ") Breath Shape graphs\n" +
-      "It may take time to display all\n" +
-      "Consider changing the Range Slider to select a smaller breath range\n" +
-      "Recommended is 8 at a time\n\n" +
-      "OK to display anyway\n" +
-      "CANCEL to NOT display\n")) return;
-  }
+    modalConfirm("Many (" + n + ") Breath Shape graphs\n" +
+      "It may take time to display all\n\n" +
+      "Consider changing the Range Slider to select a smaller breath range\n",
+      doDisplayShapes, null, null, "DISPLAY", "DO NOT DISPLAY");
+  } else doDisplayShapes();
+}
 
+function doDisplayShapes() {
   div = document.getElementById("shapeGraphBody");
   breathShapeGraph.addGraph();
   breathShapeGraph.render(div);
 }
-

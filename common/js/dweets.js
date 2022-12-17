@@ -88,7 +88,7 @@ function gatherSessionData(lastRecordCallback) {
   app.sessionVersion = "UNKNOWN";
   app.initialJsonRecord = cloneObject(jsonRecordSchema);
   if (allDbKeys.length == 0) {
-    alert("Selected Session has no data");
+    modalAlert("Selected Session has no data");
     return;
   }
   var lastRecord = false;

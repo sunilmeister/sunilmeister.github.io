@@ -377,14 +377,14 @@ function createOrOpenDb(name, timeStamp) {
   // Fires when we can't open the database
   dbReq.onerror = function(event) {
     dbReady = false;
-    alert('Error opening session ' + event.target.errorCode);
+    modalAlert('Error opening session ' + event.target.errorCode);
   }
   // Fires when there's another open connection to the same database
   dbReq.onblocked = function(event) {
     dbReady = false;
     db = event.target.result;
     db.close();
-    alert("Database version updated, Close all LOGGER tabs, reload the page.");
+    modalAlert("Database version updated, Close all LOGGER tabs, reload the page.");
   }
 }
 
@@ -506,6 +506,19 @@ function o2PurityAtAltitudeMtr(mtr) {
 }
 
 // various modals
+function modalWarning(msg) {
+  Swal.fire({
+    icon: 'warning',
+    title: msg,
+    width: 800,
+    color: 'white',
+    background: '#D35400',
+    showConfirmButton: true,
+    confirmButtonColor: '#0D3E51',
+    confirmButtonText: 'DISMISS',
+  })
+}
+
 function modalAlert(msg) {
   Swal.fire({
     icon: 'error',
@@ -515,11 +528,17 @@ function modalAlert(msg) {
     background: '#D35400',
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
+    confirmButtonText: 'DISMISS',
   })
 }
 
-function modalConfirm(msg, confirmFn, denyFn, callbackArgs) {
-  //console.log(callbackArgs);
+function modalConfirm(msg, confirmFn, denyFn, callbackArgs, confirmText, cancelText) {
+  if (typeof confirmText == 'undefined') {
+    confirmText = "CONFIRM";
+  }
+  if (typeof cancelText == 'undefined') {
+    cancelText = "CANCEL";
+  }
   Swal.fire({
     icon: 'question',
     title: msg,
@@ -528,8 +547,8 @@ function modalConfirm(msg, confirmFn, denyFn, callbackArgs) {
     background: '#2C94BC',
     showConfirmButton: true,
     showCancelButton: true,
-    confirmButtonText: 'OK',
-    cancelButtonText: `CANCEL`,
+    confirmButtonText: confirmText,
+    cancelButtonText: cancelText,
     confirmButtonColor: '#0D3E51',
     cancelButtonColor: '#B22222',
   }).then((result) => {

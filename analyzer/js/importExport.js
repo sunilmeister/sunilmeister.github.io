@@ -26,7 +26,7 @@ function rowDbName(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -40,7 +40,7 @@ function exportDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      alert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -122,12 +122,11 @@ function importFile() {
   do {
     dbName = respimaticUid + '|' + sessionName + "|" + nameTagTime;
     if (checkDbExists(dbName)) {
-      alert("Session name already exists\n" + sessionName + "\nTry again");
+      modalAlert("Session name already exists\n" + sessionName + "\nTry again");
     }
     else break;
   } while (true);
   doImport(file, fileName, dbName);
   document.getElementById("importDiv").style.display = "none";
-  //alert("Successfully imported Session name\n" + sessionName);
 }
 

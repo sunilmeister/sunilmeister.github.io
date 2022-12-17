@@ -45,7 +45,7 @@ function initAlerts() {
 
 function displayAlerts() {
   if (!app.sessionDataValid) {
-    alert("Data Gathering in process\nGive us a second and try again");
+    modalAlert("Data Gathering in process\nGive us a second and try again");
     return;
   }
   var scrollbox = document.getElementById('scrollErrorDiv');
