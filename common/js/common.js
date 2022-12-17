@@ -21,7 +21,7 @@ var analysisStartTime = new Date();
 var analysisEndTime = new Date();
 var analysisStartBreath = 0;
 var analysisEndBreath = 0;
-var modalWidth = 700;
+var modalWidth = 600;
 
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
@@ -514,7 +514,7 @@ function modalWarning(title, msg) {
     html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
     width: modalWidth,
     color: 'white',
-    background: '#D35400',
+    background: '#4D5656',
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',

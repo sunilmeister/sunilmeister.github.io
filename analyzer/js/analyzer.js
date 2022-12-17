@@ -506,6 +506,7 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
+  modalWidth = 700;
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,

@@ -82,9 +82,9 @@ var settingFiO2KnobValues = false;
 function adjustFiO2Max(o2Purity) {
   settingFiO2KnobValues = true;
   if (o2Purity < desiredFiO2) {
-    modalAlert("Inconsistent", Max chievable FiO2 is " + o2Purity +'%\n' +
-      "given the specified incoming O2 Purity value\n\n" +
-      "Changing the FiO2 to " + o2Purity + '%');
+    modalAlert("Inconsistent", "Max achievable FiO2 is " + o2Purity +'%\n' +
+      "given the incoming O2 Purity value of " + o2Purity + "%\n\n" +
+      "Changing FiO2 to " + o2Purity + '%');
     desiredFiO2 = o2Purity;
     fiO2Knob.setValue(o2Purity);
   }
