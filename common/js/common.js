@@ -510,7 +510,7 @@ function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',
     title: title,
-    html: msg,
+    text: msg,
     width: 700,
     color: 'white',
     background: '#D35400',
@@ -524,7 +524,7 @@ function modalAlert(title, msg) {
   Swal.fire({
     icon: 'error',
     title: title,
-    html: msg,
+    text: msg,
     width: 700,
     color: 'white',
     background: '#D35400',
@@ -544,7 +544,7 @@ function modalConfirm(title, msg, confirmFn, denyFn, callbackArgs, confirmText, 
   Swal.fire({
     icon: 'question',
     title: title,
-    html: msg,
+    text: msg,
     width: 700,
     color: 'white',
     background: '#2C94BC',
