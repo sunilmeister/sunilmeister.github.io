@@ -6,7 +6,7 @@ var analysisRangeSlider = null;
 var sessionBannerHTML = null;
 var sliderCommitPending = false;
 if (!window.indexedDB) {
-  modalAlert("IndexedDB not available in your browser.\nSwitch browsers");
+  modalAlert("IndexedDB not available in your browser","Switch browsers");
 }
 // ///////////////////////////////////////////////////////
 // Database Functions 
@@ -49,7 +49,7 @@ function selectDbRow(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected Session","Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -70,7 +70,7 @@ function deleteDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected Session","Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -163,12 +163,12 @@ function checkDbReady() {
   }
 
   if (!app.sessionDbName) {
-    modalAlert('No Session Selected\nPlease Select Session for Analysis');
+    modalAlert('No Session Selected","Please Select Session for Analysis');
     return false;
   }
   nameTm = parseDbName(app.sessionDbName);
   sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
-  modalAlert('Session ' + sessionName + '\nNot yet ready\nPlease try again');
+  modalAlert('Session ' + sessionName + '\nNot yet ready","Please try again');
   return false;
 }
 
@@ -272,7 +272,7 @@ function selectRawData() {
 
 function initSession(dbName) {
   if (!dbName) {
-    modalAlert("No session selected\nPlease Select Session");
+    modalAlert("No Session selected","Please Select Session");
     return;
   }
   resetAnalysisData();
@@ -289,7 +289,7 @@ function initSession(dbName) {
       var keys = event.target.result;
       allDbKeys = keys;
       if (keys.length == 0) {
-        modalAlert("Selected Session has no data");
+        modalAlert("Selected Session has no data","");
         return;
       }
       app.logStartTime = new Date(keys[0]);
@@ -356,7 +356,7 @@ function checkValidAnalysisDuration() {
   //return true;
   var diff = app.analysisEndTime - app.analysisStartTime;
   if (diff <= 0) {
-    modalAlert("Analysis EndTime must be greater than StartTime");
+    modalAlert("Analysis EndTime must be greater than StartTime","");
     return false;
   }
   else return true;
@@ -494,7 +494,7 @@ function analysisGatherDoneCallback() {
   app.analysisEndTime = app.logEndTime;
 
   if (app.logEndBreath==0) {
-    modalAlert("No recorded breath for this session\nSelect another session");
+    modalAlert("No recorded breath for this session","Select another session");
     return;
   }
 
@@ -641,7 +641,7 @@ function createAnalysisRangeSlider() {
   unflashAnalysisWindowButtons();
 
   if (app.logEndBreath==0) {
-    modalAlert("No recorded breath for this session");
+    modalAlert("No recorded breath for this session","");
   }
 }
 

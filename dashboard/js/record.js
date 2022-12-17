@@ -27,7 +27,7 @@ function toggleRecording() {
   if (recordingOff) {
     // check for browser capability
     if (!window.indexedDB) {
-      modalAlert("IndexedDB not available in your browser.\nUse different browser");
+      modalAlert("IndexedDB not available in your browser","Use different browser");
       return;
     }
     document.getElementById('recordNameDiv').style.display = "block";
@@ -61,10 +61,10 @@ function getNewDbName(dbNameSuffix) {
   if (!dbNameSuffix) return "";
   name = dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
   if (!isValidDatabaseName(dbNameSuffix)) {
-    modalAlert("Invalid Session name\n" + dbNameSuffix + "\nTry again");
+    modalAlert("Invalid Session name", dbNameSuffix + "\nTry again");
     return "";
   } else if (checkDbExists(name)) {
-    modalAlert("Session name already exists\n" + dbNameSuffix + "\nTry again");
+    modalAlert("Session name already exists", dbNameSuffix + "\nTry again");
     return "";
   }
 

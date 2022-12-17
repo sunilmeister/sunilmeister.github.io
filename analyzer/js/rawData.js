@@ -35,12 +35,12 @@ function initRawDump() {
 function displayRawData() {
   //console.log("displayRawData");
   if (!app.sessionDataValid) {
-    modalAlert("Data Gathering in process\nGive us a second and try again");
+    modalAlert("Data Gathering in process","Give us a second and try again");
     return;
   }
   if (dataDisplayed) return;
   if (allDbKeys.length == 0) {
-    modalAlert("Selected Session has no data");
+    modalAlert("Selected Session has no data","");
     return;
   }
   for (i = 0; i < allDbKeys.length; i++) {

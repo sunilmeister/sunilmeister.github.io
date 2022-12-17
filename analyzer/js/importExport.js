@@ -26,7 +26,7 @@ function rowDbName(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected Session","Select by clicking on a table row");
       return;
     }
   }
@@ -40,7 +40,7 @@ function exportDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected Session","Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -122,7 +122,7 @@ function importFile() {
   do {
     dbName = respimaticUid + '|' + sessionName + "|" + nameTagTime;
     if (checkDbExists(dbName)) {
-      modalAlert("Session name already exists\n" + sessionName + "\nTry again");
+      modalAlert("Session name already exists\n" + sessionName, "Try again");
     }
     else break;
   } while (true);

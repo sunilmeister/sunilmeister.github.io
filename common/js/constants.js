@@ -43,12 +43,12 @@ const ZOOM_MESSAGE_STR =
   "\n" +
   "increase/decrease the page zoom level" +
   "\n" +
-  "till the full page is visible" +
+  "till the full page is visible." +
   "\n" +
   "\n" +
   "Or hold down the CTRL key and use" +
   "\n" +
-  "the mouse wheel to zoom in/out" ;
+  "the mouse wheel to zoom in/out." ;
 
 const ON_DEMAND_TITLE_STR = "On-Demand Breath Shape";
 const ON_DEMAND_MESSAGE_STR = "Press 'View Breath Shapes' to view";

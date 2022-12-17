@@ -7,7 +7,7 @@ var breathShapeGraph = null;
 function displayShapes() {
   //console.log("displayShapes");
   if (!app.sessionDataValid) {
-    modalAlert("Data Gathering in process\nGive us a second and try again");
+    modalAlert("Data Gathering in process","Give us a second and try again");
     return;
   }
 

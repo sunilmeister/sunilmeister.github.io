@@ -31,7 +31,7 @@ function setSelectedRespimaticTagFromDD() {
   var ddList = document.getElementById("SYSTEM_NAME");
   var tag = ddList.value;
   if (!tag) {
-    modalAlert("No RESPIMATIC-100 System selected");
+    modalAlert("No RESPIMATIC-100 System selected","");
     return false;
   }
   uid = findSystemUid(tag);
@@ -44,7 +44,7 @@ fileReader.addEventListener('load', (e) => {
   const data = e.target.result;
   systems = parseJSONSafely(data);
   if ((systems==null) || (systems.length==0)) {
-    modalAlert("File does not have valid data");
+    modalAlert("File does not have valid data","");
     cancelImport();
     return;
   }
@@ -54,7 +54,7 @@ fileReader.addEventListener('load', (e) => {
     uid = systems[i].uid;
     tag = systems[i].tag;
     if (!silentAddSystemTagUidInfo(uid, tag)) {
-      modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag +"')\n\n" +
+      modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag +"')",
 	"Either the UID is invalid\n" +
 	"Or the TAG already exists");
     }
@@ -87,7 +87,7 @@ function exportFile() {
   document.getElementById("exportDiv").style.display = "none";
  
   if ((knownRespimaticSystems==null) || (knownRespimaticSystems.length==0)) {
-    modalAlert("Systems Table is empty");
+    modalAlert("Systems Table is empty","");
     return;
   }
   //console.log(JSON.stringify(knownRespimaticSystems));
@@ -105,7 +105,7 @@ function selectSystemInfo(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item","Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -169,7 +169,7 @@ function removeSystemInfoRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item\n\nSelect by clicking on a table row\nTry again!");
+      modalAlert("No selected item","Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -217,12 +217,12 @@ function addNewSystemBtn() {
 
   var table = document.getElementById("knownSystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
-    modalAlert("TAG='" + tag + "' already exists\nTry again!");
+    modalAlert("TAG='" + tag + "' already exists","Try again!");
     return;
   }
 
   if (!validSystemUid(uid)) {
-    modalAlert("Invalid System UID='" + uid + "'\nTry again!");
+    modalAlert("Invalid System UID='" + uid + "'", "Try again!");
     return;
   }
   silentAddSystemTagUidInfo(uid,tag);
@@ -269,21 +269,21 @@ function knownSystemInfo() {
 
 function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
   if (!validSystemUid(newSysUid)) {
-    modalAlert("Invalid RESPIMATIC-100 UID: " + newSysUid +
-      "\nMust be RSP_ followed by 16-digit HEX number\nTry again!");
+    modalAlert("Invalid RESPIMATIC-100 UID: " + newSysUid,
+      "Must be RSP_ followed by 16-digit HEX number\nTry again!");
     return;
   }
   if (findSystemTagObj(newSysTag)) { // tag already exists
-    modalAlert("Duplicate RESPIMATIC-100 System TAG: " + newSysTag +
-      "\nTry again!");
+    modalAlert("Duplicate RESPIMATIC-100 System TAG: " + newSysTag,
+      "Try again!");
     return;
   }
 
   saveNewRespimaticSystemId(newSysUid, newSysTag);
   setSelectedSystem(newSysUid, newSysTag);
 
-  modalAlert("Stored new RESPIMATIC-100 System Info\n" + 
-    "\nSystem TAG: " + newSysTag +
+  modalAlert("New RESPIMATIC-100 System Info", 
+    "System TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
 }
 
@@ -291,7 +291,7 @@ function rememberNewSystem() {
   var elm = document.getElementById('newSysName');
   newSysTag = elm.value;
   if (!newSysTag) {
-    modalAlert("Must enter System TAG\nTry again!");
+    modalAlert("Must enter System TAG","Try again!");
     return;
   }
   newSysTag = newSysTag.toUpperCase();
@@ -299,7 +299,7 @@ function rememberNewSystem() {
   elm = document.getElementById('newSysUid');
   newSysUid = elm.value;
   if (!newSysTag) {
-    modalAlert("Must enter System UID\nTry again!");
+    modalAlert("Must enter System UID","Try again!");
     return;
   }
   newSysUid = newSysUid.toUpperCase();

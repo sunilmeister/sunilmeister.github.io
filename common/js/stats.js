@@ -308,7 +308,7 @@ function displayAlertsInfo() {
 function displayStats() {
   //console.log("displayStats");
   if (!app.sessionDataValid) {
-    modalAlert("Data Gathering in process\nGive us a second and try again");
+    modalAlert("Data Gathering in process","Give us a second and try again");
     return;
   }
   if (!app.tablesConstructed) {
