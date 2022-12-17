@@ -128,3 +128,7 @@ span {
   display:none;
 }
 
+.swal2-popup {
+  font-size: var(--swalFontSize) !important;
+  font-family: 'Verdana' !important;
+}

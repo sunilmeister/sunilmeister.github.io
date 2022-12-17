@@ -148,11 +148,12 @@ function doRemove(args) {
 function removeSystem(uid, tag, noconfirm) {
   if (typeof noconfirm == 'undefined') noconfirm = false;
   confirmMsg = 
-      "OK to remove system info?\n" +
+      "Remove system info?\n" +
       "\nSystem TAG: " + tag +
       "\nSystem UID: " + uid ;
   if (!noconfirm) {
-    modalConfirm(confirmMsg, doRemove, null, {uid:uid, tag:tag});
+    modalConfirm(confirmMsg, doRemove, null, {uid:uid, tag:tag},
+    "REMOVE", "DO NOT REMOVE");
   } else {
     doRemove({uid:uid, tag:tag});
   }
@@ -250,8 +251,9 @@ function doRemoveAllUidRows(btn) {
 }
 
 function removeAllUidRows(btn) {
-  modalConfirm("OK to remove ALL system info?", 
-    doRemoveAllUidRows, null, null); 
+  modalConfirm("Remove ALL system info?", 
+    doRemoveAllUidRows, null, null,
+    "REMOVE", "DO NOT REMOVE");
 }
 
 function knownSystemInfo() {

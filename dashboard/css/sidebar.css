@@ -54,8 +54,3 @@ tr {
   padding: 0 0.31rem 0 0;
   /* Only right padding*/
 }
-
-.swal2-popup {
-  font-size: 1.5rem !important;
-  font-family: 'Verdana' !important;
-}
