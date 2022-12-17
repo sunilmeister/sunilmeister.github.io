@@ -11,7 +11,8 @@ var purityKnob = null;
 window.onload = function() {
   Swal.fire({
     icon: 'info',
-    title: ZOOM_MESSAGE_STR,
+    title: ZOOM_TITLE_STR,
+    text: ZOOM_MESSAGE_STR,
     width: 600,
     showConfirmButton: false,
     color: 'white',

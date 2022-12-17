@@ -75,8 +75,8 @@ function deleteDbRow(row) {
     }
   }
 
-  msg = "Delete session?\n" + row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
-  modalConfirm(msg, doDeleteDbRow, null, {row:row},
+  msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
+  modalConfirm("Delete Session", msg, doDeleteDbRow, null, {row:row},
   "DELETE", "DO NOT DELETE");
 }
 
@@ -128,7 +128,7 @@ function listAllDbs() {
 }
 
 function deleteAllDbs() {
-  modalConfirm("Delete All Saved Sessions", doDeleteAllDbs, null, null,
+  modalConfirm("Delete All Saved Sessions", "", doDeleteAllDbs, null, null,
                "DELETE ALL", "DO NOT DELETE");
 }
 
@@ -155,7 +155,7 @@ function doDeleteAllDbs() {
 function checkDbReady() {
   if (app.sessionDbReady && app.sessionDbName) {
     if (app.sessionVersion!=SESSION_VERSION) {
-      modalWarning("WARNING\n" + 
+      modalWarning("VERSION MISMATCH",
 	"Retrieved Session recorded with Software Version " + app.sessionVersion + 
         "\nCurrent Software Version is " + SESSION_VERSION);
     }
@@ -508,7 +508,8 @@ function analysisGatherDoneCallback() {
 window.onload = function() {
   Swal.fire({
     icon: 'info',
-    title: ZOOM_MESSAGE_STR,
+    title: ZOOM_TITLE_STR,
+    text: ZOOM_MESSAGE_STR,
     width: 900,
     showConfirmButton: false,
     color: 'white',

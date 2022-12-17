@@ -506,11 +506,12 @@ function o2PurityAtAltitudeMtr(mtr) {
 }
 
 // various modals
-function modalWarning(msg) {
+function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',
-    title: msg,
-    width: 800,
+    title: title,
+    text: msg,
+    width: 600,
     color: 'white',
     background: '#D35400',
     showConfirmButton: true,
@@ -519,11 +520,12 @@ function modalWarning(msg) {
   })
 }
 
-function modalAlert(msg) {
+function modalAlert(title, msg) {
   Swal.fire({
     icon: 'error',
-    title: msg,
-    width: 800,
+    title: title,
+    text: msg,
+    width: 600,
     color: 'white',
     background: '#D35400',
     showConfirmButton: true,
@@ -532,7 +534,7 @@ function modalAlert(msg) {
   })
 }
 
-function modalConfirm(msg, confirmFn, denyFn, callbackArgs, confirmText, cancelText) {
+function modalConfirm(title, msg, confirmFn, denyFn, callbackArgs, confirmText, cancelText) {
   if (typeof confirmText == 'undefined') {
     confirmText = "CONFIRM";
   }
@@ -541,8 +543,9 @@ function modalConfirm(msg, confirmFn, denyFn, callbackArgs, confirmText, cancelT
   }
   Swal.fire({
     icon: 'question',
-    title: msg,
-    width: 800,
+    title: title,
+    text: msg,
+    width: 600,
     color: 'white',
     background: '#2C94BC',
     showConfirmButton: true,

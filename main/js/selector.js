@@ -148,11 +148,10 @@ function doRemove(args) {
 function removeSystem(uid, tag, noconfirm) {
   if (typeof noconfirm == 'undefined') noconfirm = false;
   confirmMsg = 
-      "Remove system info?\n" +
-      "\nSystem TAG: " + tag +
+      "System TAG: " + tag +
       "\nSystem UID: " + uid ;
   if (!noconfirm) {
-    modalConfirm(confirmMsg, doRemove, null, {uid:uid, tag:tag},
+    modalConfirm("Remove System", confirmMsg, doRemove, null, {uid:uid, tag:tag},
     "REMOVE", "DO NOT REMOVE");
   } else {
     doRemove({uid:uid, tag:tag});
@@ -251,7 +250,7 @@ function doRemoveAllUidRows(btn) {
 }
 
 function removeAllUidRows(btn) {
-  modalConfirm("Remove ALL system info?", 
+  modalConfirm("Remove ALL Systems?", "", 
     doRemoveAllUidRows, null, null,
     "REMOVE", "DO NOT REMOVE");
 }
@@ -332,7 +331,8 @@ function launchFiO2() {
 window.onload = function() {
   Swal.fire({
     icon: 'info',
-    title: ZOOM_MESSAGE_STR,
+    title: ZOOM_TITLE_STR,
+    text: ZOOM_MESSAGE_STR,
     width: 600,
     showConfirmButton: false,
     color: 'white',
