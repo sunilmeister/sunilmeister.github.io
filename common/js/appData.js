@@ -122,6 +122,36 @@ var AppDataTemplate = {
 
 };
 
+function createReportRange(rolling, minBnum, maxBnum) {
+  range = {};
+  range.rolling =       rolling;
+  range.initBnum =      1; 
+  range.minBnum =       minBnum; 
+  range.maxBnum =       maxBnum;
+  if (! session.breathTimes[minBnum]) { // missing breath
+    minBnum = closestNonNullEntryIndex(session.breathTimes, minBnum);
+  }
+  if (! session.breathTimes[maxBnum]) { // missing breath
+    maxBnum = closestNonNullEntryIndex(session.breathTimes, maxBnum);
+  }
+
+  range.initTime =      app.startDate;
+  if (minBnum<1) {
+    range.minTime =     app.startDate;
+  } else {
+    range.minTime =     session.breathTimes[minBnum];
+  }
+  if (maxBnum<1) {
+    range.maxTime =     app.startDate;
+  } else {
+    range.maxTime =     session.breathTimes[maxBnum];
+  }
+
+  range.missingBnum =   cloneObject(session.missingBreathWindows);
+  range.missingTime =   cloneObject(session.missingTimeWindows);
+  return range;
+}
+
 var app = null;
 
 

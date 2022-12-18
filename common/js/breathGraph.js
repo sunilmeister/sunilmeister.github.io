@@ -130,7 +130,6 @@ class BreathPressureGraph {
     var initBnum = this.rangeX.initBnum;
     var minBnum = this.rangeX.minBnum;
     var maxBnum = this.rangeX.maxBnum;
-    var rolling = this.rangeX.rolling;
 
     // init Breaks in the graph
     var Xaxis = this.chartJson.axisX;
@@ -148,10 +147,8 @@ class BreathPressureGraph {
       var partial = app.pwData[i].partial;
       var prefix = partial? "Partial " : "" ;
 
-      if (!rolling) {
-	if (breathNum<minBnum) continue;
-	if (breathNum>maxBnum) break;
-      }
+      if (breathNum<minBnum) continue;
+      if (breathNum>maxBnum) break;
 
       if (!session.breathTimes[breathNum]) {
 	continue;

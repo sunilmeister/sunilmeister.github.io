@@ -26,6 +26,7 @@ function updateChartRangeOnNewBreath() {
   // if range is not "full"
   if (!app.reportRange.rolling || sliderCommitPending) return;
   if (app.reportRange.rolling) {
+    //console.log("chart rolling=" + app.reportRange.rolling);
     minBnum = app.dashboardBreathNum - MAX_CHART_DATAPOINTS + 1;
     if (minBnum <= 0) minBnum = 1;
     app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);

@@ -22,7 +22,7 @@ function displayShapes() {
   if (n > SHAPE_MAX_CHARTS) {
     modalConfirm("Many Breath Shape graphs",
       "It may take time to display all (" + n + ")\n\n" +
-      "Consider changing the Range Slider to select a smaller breath range\n",
+      "Consider changing the Range Slider\n" + "to select a smaller breath range\n",
       doDisplayShapes, null, null, "DISPLAY", "DO NOT DISPLAY");
   } else doDisplayShapes();
 }

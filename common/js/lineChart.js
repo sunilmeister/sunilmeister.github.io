@@ -192,13 +192,7 @@ class LineChart {
     }
     var yDatapoints = [];
     var xyPoints = [];
-    var rolling = this.rangeX.rolling;
-    var numPoints = 0;
-    if (rolling) {
-      numPoints = breathTimes.length;
-    } else {
-      numPoints = maxBnum - minBnum + 1;
-    }
+    var numPoints = maxBnum - minBnum + 1;
 
     // Collect Y dapoints
     var curValue = 0;
@@ -214,7 +208,7 @@ class LineChart {
           curValue = transitions[curIx].value;
         }
       }
-      if (rolling || ((i<=maxBnum) && (i>=minBnum))) {
+      if ((i<=maxBnum) && (i>=minBnum)) {
         yDatapoints.push(curValue);
       }
     }
@@ -226,12 +220,7 @@ class LineChart {
     for (let i = 1; i < numPoints; i++) {
       ignoreDatapoint = false;
       if (this.timeUnits) {
-        var ms;
-        if (rolling) {
-          ms = new Date(breathTimes[i]) - initTime;
-        } else {
-          ms = new Date(breathTimes[i+minBnum-1]) - initTime;
-        }
+        var ms = new Date(breathTimes[i+minBnum-1]) - initTime;
         xval = Math.round(ms / 1000);
 	if (xval <= prevXval) ignoreDatapoint = true;
 	else prevXval = xval;
