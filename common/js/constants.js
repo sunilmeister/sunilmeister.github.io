@@ -35,7 +35,7 @@ const CHART_CONTAINER_CLASS       = "chartContainer";
 const ALL_CHARTS_ID               = "chartsDiv";
 const CBOX_TREE_ROOT_ID           = "checkBoxTreeRoot";
 
-const SESSION_VERSION             = "1.0";
+const SESSION_VERSION             = "1.1";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM" ;
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +

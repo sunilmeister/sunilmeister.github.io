@@ -4,6 +4,7 @@
 
 var pwBreathPartial = false;
 var pwSampleInterval = null;
+var pwActualSamples = null;
 var pwBreathClosed = true;
 var pwSlices = [];
 var pwSliceNum = -1;
@@ -642,16 +643,19 @@ function pwStart(str) {
   }
 
   arr = parseJSONSafely(str);
-  if (!arr || (arr.length!=3)) {
+  if (!arr || (arr.length!=4)) {
     console.log("Bad PWSTART=" + str);
     app.pwBreathNum = null;
     pwSampleInterval = null;
     return;;
   }
   expectingPWEND = true;
+  // PWSTART key has the following value format
+  // arr = [breathNum, breathInfo, expectedSamples, sampleInterval]
   app.pwBreathNum = arr[0];
-  pwExpectedSamplesPerSlice = arr[1];
-  pwSampleInterval = arr[2];
+  app.pwBreathInfo = arr[1];
+  pwExpectedSamplesPerSlice = arr[2];
+  pwSampleInterval = arr[3];
   pwBreathClosed = false;
   pwBreathPartial = false;
   prevPwSliceNum = -1;
@@ -660,13 +664,29 @@ function pwStart(str) {
 }
 
 function pwEnd(str) {
-  if (typeof str == 'undefined') {
-    if (pwExpectedSamplesPerSlice) {
-      str = String(pwExpectedSamplesPerSlice*SHAPE_MAX_SLICES);
+  // PWEND key has the following value format
+  // arr = [breathNum, breathInfo, actualSamples, sampleInterval]
+  if (typeof str != 'undefined') {
+    arr = parseJSONSafely(str);
+    if (arr && (arr.length==4)) {
+      pwActualSamples = arr[2];
+      if (!app.pwBreathNum) {
+        console.log("Recovering from missing PWSTART using PWEND");
+        app.pwBreathNum = arr[0];
+        app.pwBreathInfo = arr[1];
+        pwSampleInterval = arr[3];
+      }
     } else {
-      str = String(SHAPE_MAX_SAMPLES_PER_BREATH);
+      console.log("Bad PWEND=" + str);
+    }
+  } else {
+    if (pwExpectedSamplesPerSlice) {
+      pwActualSamples = pwExpectedSamplesPerSlice*SHAPE_MAX_SLICES;
+    } else {
+      pwActualSamples = SHAPE_MAX_SAMPLES_PER_BREATH;
     }
   }
+
   if (!app.pwBreathNum || pwBreathClosed) {
     console.log("Missing PWSTART for PWEND=" + str);
     prevPwSliceNum = -1;
@@ -686,9 +706,9 @@ function pwEnd(str) {
     }
   }
   pwSlices = [];
-  if (Number(str) != samples.length) {
+  if (pwActualSamples != samples.length) {
     pwBreathPartial = true;
-    console.log("Missing Samples at PWEND=");
+    console.log("Missing Samples at PWEND=" + (pwActualSamples-samples.length));
   }
 
   // Make it consistently SHAPE_MAX_SAMPLES_PER_BREATH
@@ -697,9 +717,11 @@ function pwEnd(str) {
   }
 
   // store it for later use
+  console.log(parseBreathInfoNumber(app.pwBreathInfo));
   app.pwData.push({
     "partial":pwBreathPartial,
     "systemBreathNum":app.pwBreathNum,
+    "breathInfo":app.pwBreathInfo,
     "sampleInterval":pwSampleInterval,
     "samples":cloneObject(samples),
   });

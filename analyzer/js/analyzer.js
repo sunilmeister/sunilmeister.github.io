@@ -155,9 +155,11 @@ function doDeleteAllDbs() {
 function checkDbReady() {
   if (app.sessionDbReady && app.sessionDbName) {
     if (app.sessionVersion!=SESSION_VERSION) {
-      modalWarning("VERSION MISMATCH",
-	"Retrieved Session recorded with Software Version " + app.sessionVersion + 
-        "\nCurrent Software Version is " + SESSION_VERSION);
+      modalAlert("VERSION MISMATCH",
+	"Session recorded with Software Version " + app.sessionVersion + 
+        "\nCurrent Software Version is " + SESSION_VERSION +
+        "\n\nOlder Version " + app.sessionVersion + " not supported");
+      return false;
     }
     return true;
   }
@@ -482,6 +484,8 @@ function resetTimeInterval() {
 }
 
 function analysisGatherDoneCallback() {
+  if (!checkDbReady()) return;
+
   app.sessionDataValid = true;
   app.sessionDbReady = true;
 
@@ -506,7 +510,7 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
-  modalWidth = 700;
+  modalWidth = 900;
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,

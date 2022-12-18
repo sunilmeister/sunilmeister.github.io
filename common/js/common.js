@@ -106,6 +106,41 @@ function parseJSONSafely(str) {
   }
 }
 
+// The return value is an object with following boolean fields
+// {isMaintenance,isAbnormal,isError,isVC,isMandatory}
+function parseBreathInfoNumber(num) {
+  num = Number(num);
+  var obj = {};
+  //console.log("num = 0x" + num.toString(16));
+
+  for (i=0; i<5; i++) {
+    bit = num & 0x1;
+    num = num >> 1;
+
+    switch (i) {
+      case 0:
+	obj.isMandatory = bit ? true : false;
+	break;
+      case 1:
+	obj.isVC = bit ? true : false;
+	break;
+      case 2:
+	obj.isAbnormal = bit ? true : false;
+	break;
+      case 3:
+	obj.isError = bit ? true : false;
+	break;
+      case 4:
+	obj.isMaintenance = bit ? true : false;
+	break;
+      default:
+	break;
+    }
+  }
+
+  return obj;
+}
+
 function convertMS(milliseconds) {
   var day, hour, minute, seconds;
   seconds = Math.floor(milliseconds / 1000);
@@ -472,18 +507,16 @@ function checksum(num) {
   return cs & 0xFF;
 }
 // returns num after checking checksum
-// from a pattern like "num (checksum)"
+// from a pattern like "[num,checksum]"
 // returns null if badly formed
 function parseChecksumString(tstr) {
   str = String(tstr);
-  let re = /[0-9]+:[0-9]+/i;
-  if (!str.match(re)) {
-    return null;
-  }
-  tokens = str.split(':');
-  num = tokens[0].trim();
+  arr = parseJSONSafely(str);
+  if (!arr || arr.length!=2) return null;
+
+  num = arr[0];
   ccs = checksum(num);
-  if (tokens[1] != ccs) {
+  if (arr[1] != ccs) {
     console.log("Bad ChecksumString =" + num + " checksum=" + tokens[0]);
     console.log("Computed checksum=" + ccs);
     return null;

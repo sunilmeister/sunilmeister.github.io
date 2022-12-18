@@ -457,7 +457,7 @@ function receivedNewShape() {
 }
 
 window.onload = function() {
-  modalWidth = 1000;
+  modalWidth = 1200;
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,

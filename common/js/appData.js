@@ -103,6 +103,8 @@ var AppDataTemplate = {
   // Below is stuff for detailed breath pressure chart
   // /////////////////////////////////////////////
   pwData:            [],
+  pwBreathNum:       null,
+  pwBreathInfo:      null,
   newPwDataCallback: null,
 
   // analysis  and display ranges
