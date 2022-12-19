@@ -597,4 +597,26 @@ function modalConfirm(title, msg, confirmFn, denyFn, callbackArgs, confirmText, 
   })
 }
 
+function findChildNodeByClass(node, className) {
+  var res = null;
+  node.childNodes.forEach(function(n) {
+    if (n.className == className) {
+      res = n;
+      return;
+    }
+  });
+  return res;
+}
+
+// tooltips for canvasjs
+function toggleDataSeries(e) {
+  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+    e.dataSeries.visible = false;
+  }
+  else {
+    e.dataSeries.visible = true;
+  }
+  e.shape.render();
+}
+
 

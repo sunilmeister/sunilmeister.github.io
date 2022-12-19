@@ -6,16 +6,6 @@
 // Below are all chart data utilities
 /////////////////////////////////////////////////////////////////
 
-function toggleDataSeries(e) {
-  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-    e.dataSeries.visible = false;
-  }
-  else {
-    e.dataSeries.visible = true;
-  }
-  e.chart.render();
-}
-
 /////////////////////////////////////////////////////////////////
 // Below are all chart user-interface utilities
 /////////////////////////////////////////////////////////////////
@@ -48,14 +38,14 @@ function chartEdit(bnode) {
   removeChartEditMenu();
   containerNode = bnode.parentNode.parentNode;
   //console.log("chartEdit " + containerNode.id);
-  temp = document.getElementById(EDIT_MENU_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content,EDIT_CHART_MENU_CLASS);
+  temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
+  template = findChildNodeByClass(temp.content,CHART_EDIT_CHART_MENU_CLASS);
   node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
-  app.cboxTree = new CheckboxTree(CBOX_TREE_ROOT_ID);
+  app.chartCboxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID);
   box = app.allChartsContainerInfo[containerNode.id];
-  box.updateMenu(EDIT_CHART_MENU_ID);
-  app.cboxTree.PropagateFromLeafCheckboxes();
+  box.updateMenu(CHART_EDIT_CHART_MENU_ID);
+  app.chartCboxTree.PropagateFromLeafCheckboxes();
 }
 
 function chartDelete(bnode) {
@@ -71,8 +61,8 @@ function chartDelete(bnode) {
 }
 
 function removeChartEditMenu() {
-  if (app.cboxTree) delete app.cboxTree;
-  menuDiv = document.getElementById(EDIT_CHART_MENU_ID);
+  if (app.chartCboxTree) delete app.chartCboxTree;
+  menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
   menuDiv.remove();
 }
@@ -86,20 +76,9 @@ function chartMenuCancel(bnode) {
 function chartMenuSubmit(bnode) {
   containerNode = bnode.parentNode.parentNode.parentNode;
   box = app.allChartsContainerInfo[containerNode.id];
-  box.updateOptions(EDIT_CHART_MENU_ID);
+  box.updateOptions(CHART_EDIT_CHART_MENU_ID);
   removeChartEditMenu();
   box.render();
-}
-
-function findChildNodeByClass(node, className) {
-  var res = null;
-  node.childNodes.forEach(function(n) {
-    if (n.className == className) {
-      res = n;
-      return;
-    }
-  });
-  return res;
 }
 
 var currentChartContainerNum = 0;
@@ -132,7 +111,7 @@ function removeChartContainerId(id) {
   delete app.allChartsContainerInfo[id];
 }
 
-function treeCheckboxClicked(cbox) {
-  app.cboxTree.CheckboxClicked(cbox);
+function chartTreeCheckboxClicked(cbox) {
+  app.chartCboxTree.CheckboxClicked(cbox);
 }
 

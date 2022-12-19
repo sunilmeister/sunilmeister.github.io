@@ -717,7 +717,7 @@ function pwEnd(str) {
   }
 
   // store it for later use
-  console.log(parseBreathInfoNumber(app.pwBreathInfo));
+  //console.log(parseBreathInfoNumber(app.pwBreathInfo));
   app.pwData.push({
     "partial":pwBreathPartial,
     "systemBreathNum":app.pwBreathNum,

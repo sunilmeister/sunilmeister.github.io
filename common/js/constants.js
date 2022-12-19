@@ -27,13 +27,23 @@ const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB' ;
 
 const CHART_CONTAINER_ID_PREFIX   = "chartContainer";
 const CHART_CONTAINER_TEMPLATE_ID = "chartContainerTemplate";
-const EDIT_MENU_TEMPLATE_ID       = "editMenuTemplate";
+const CHART_EDIT_MENU_TEMPLATE_ID = "chartEditMenuTemplate";
 const CHART_BODY_CLASS            = "chartBody";
-const EDIT_CHART_MENU_CLASS       = "chartEditMenu";
-const EDIT_CHART_MENU_ID          = "chartDropDownMenu";
+const CHART_EDIT_CHART_MENU_CLASS = "chartEditMenu";
+const CHART_EDIT_CHART_MENU_ID    = "chartDropDownMenu";
 const CHART_CONTAINER_CLASS       = "chartContainer";
 const ALL_CHARTS_ID               = "chartsDiv";
-const CBOX_TREE_ROOT_ID           = "checkBoxTreeRoot";
+const CHART_CBOX_TREE_ROOT_ID     = "chartCheckBoxTreeRoot";
+
+const SHAPE_CONTAINER_ID_PREFIX   = "shapeContainer";
+const SHAPE_CONTAINER_TEMPLATE_ID = "shapeContainerTemplate";
+const SHAPE_EDIT_MENU_TEMPLATE_ID = "shapeEditMenuTemplate";
+const SHAPE_BODY_CLASS            = "shapeBody";
+const SHAPE_EDIT_SHAPE_MENU_CLASS = "shapeEditMenu";
+const SHAPE_EDIT_SHAPE_MENU_ID    = "shapeDropDownMenu";
+const SHAPE_CONTAINER_CLASS       = "shapeContainer";
+const ALL_SHAPES_ID               = "shapesDiv";
+const SHAPE_CBOX_TREE_ROOT_ID     = "shapeCheckBoxTreeRoot";
 
 const SESSION_VERSION             = "1.1";
 

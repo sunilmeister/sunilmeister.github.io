@@ -4,6 +4,13 @@
   --chartMenuFontSize: 30px;
   --chartMenuBannerHeight: 50px;
   --chartMenuIconSize: 50px;
+
+  --shapeBodyHeight: 600px;
+  --shapeMenuIndent: 40px;
+  --shapeMenuFontSize: 30px;
+  --shapeMenuBannerHeight: 50px;
+  --shapeMenuIconSize: 50px;
+
   --columnPadding: 2rem;
   --sidebarBtnHeight: 50px;
   --sidebarBtnWidth: 20rem;

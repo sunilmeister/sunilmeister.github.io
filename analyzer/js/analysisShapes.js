@@ -2,7 +2,11 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var breathShapeGraph = null;
+function createAnalysisShapes() {
+  for (id in app.allShapesContainerInfo) {
+    app.allShapesContainerInfo[id].render();
+  }
+}
 
 function displayShapes() {
   //console.log("displayShapes");
@@ -10,25 +14,9 @@ function displayShapes() {
     modalAlert("Data Gathering in process","Give us a second and try again");
     return;
   }
-
-  if (breathShapeGraph) {
-    breathShapeGraph.destroy();
-    delete breathShapeGraph;
-  }
-
-  breathShapeGraph = 
-    new BreathShapes("Breath Pressure Shapes",800,app.reportRange);
-  let n = breathShapeGraph.numShapesInRange();
-  if (n > SHAPE_MAX_CHARTS) {
-    modalConfirm("Many Breath Shape graphs",
-      "It may take time to display all (" + n + ")\n\n" +
-      "Consider changing the Range Slider\n" + "to select a smaller breath range\n",
-      doDisplayShapes, null, null, "DISPLAY", "DO NOT DISPLAY");
-  } else doDisplayShapes();
+  if (numberOfExistingShapes()==0) {
+    shapeInsertOnTop(); // always have shape box for user to start with
+  }  
+  createAnalysisShapes();
 }
 
-function doDisplayShapes() {
-  div = document.getElementById("shapeGraphBody");
-  breathShapeGraph.addGraph();
-  breathShapeGraph.render(div);
-}

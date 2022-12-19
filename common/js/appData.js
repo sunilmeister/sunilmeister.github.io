@@ -60,10 +60,10 @@ var AppDataTemplate = {
   chartPrevSystemBreathNum: null,
   chartRangeLimit:          MAX_CHART_DATAPOINTS,
   chartRangeSlider:         null,
-  cboxTree:                 null,
   chartFontSize:            25,
   chartCreationInProgress:  false,
   allChartsContainerInfo:   {},
+  chartboxTree:             null,
 
   // Breath Shapes parameters
   shapeSendPeriod:           null,
@@ -73,6 +73,8 @@ var AppDataTemplate = {
   stripLineFontSize:         50,
   pwExpectedSamplesPerSlice: null,
   pwBreathNum:               null,
+  allShapesContainerInfo:    {},
+  shapeboxTree:              null,
 
   // current state 
   initialState:     false,
