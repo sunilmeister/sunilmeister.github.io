@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
     <link rel="stylesheet" href="../common/css/chart.css" />
     <link rel="stylesheet" href="../common/css/shape.css" />
+    <link rel="stylesheet" href="../common/css/colorLegend.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
@@ -356,11 +357,9 @@
       </div>
 
       <div id="chartsDiv" style="display: none; margin-bottom:20px;">
-        <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
       </div>
 
       <div id="shapesDiv" style="display: none; margin-bottom:20px;">
-        <a href="https://www.flaticon.com/free-icons/seen" title="seen icons">Seen icons created by Freepik - Flaticon</a>
       </div>
 
       <center>
@@ -581,6 +580,18 @@
         </div>
         <div class="shapeBody">
         </div>
+	<div>
+	  <ul class="colorLegend">
+            <li><span class="MandatoryVC"></span> Mandatory VC</li>
+            <li><span class="SpontaneousVC"></span> Spontaneous VC</li>
+            <li><span class="SpontaneousPS"></span> Spontaneous PS</li>
+            <li><span class="Maintenance"></span> Maintenance</li>
+            <li><span class="VCError"></span> Error VC</li>
+            <li><span class="PSError"></span> Error PS</li>
+            <li><span class="Abnormal"></span> Abnormal</li>
+          </ul>
+	  <br>
+	</div>
       </div>
     </template>
 
@@ -657,7 +668,7 @@
             </div>
             <br>
           </div>
-        </div>
+	</div>
       </div>
     </template>
 

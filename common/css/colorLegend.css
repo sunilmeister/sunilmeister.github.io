@@ -1,0 +1,47 @@
+.colorLegend {
+ list-style: none; 
+ font-size: var(--colorLegendFontSize);
+}
+
+.colorLegend li {
+ float: left; 
+ margin-right: 20px; 
+}
+
+.colorLegend span {
+ border: 1px solid #ccc; 
+ float: left; 
+ width: var(--colorLegendSize); 
+ height: var(--colorLegendSize); 
+ margin: 20px; 
+}
+
+/* your colors */
+.colorLegend .MandatoryVC {
+ background-color: #FCF3CF; 
+}
+
+.colorLegend .SpontaneousVC {
+ background-color: #D5F5E3; 
+}
+
+.colorLegend .SpontaneousPS {
+ background-color: #D4E6F1; 
+}
+
+.colorLegend .Maintenance {
+ background-color: #76D7C4; 
+}
+
+.colorLegend .VCError {
+ background-color: #FADBD8; 
+}
+
+.colorLegend .PSError {
+ background-color: #D2B4DE; 
+}
+
+.colorLegend .Abnormal {
+ background-color: #F4D03F; 
+}
+

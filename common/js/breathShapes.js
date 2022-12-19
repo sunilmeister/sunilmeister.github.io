@@ -128,7 +128,7 @@ class BreathShapes {
     this.chartJson.axisX = Xaxis;
     this.stripColors = [
       "#FCF3CF",
-      //"#D5F5E3",
+      "#D5F5E3",
       "#D4E6F1"
     ];
     this.colorIndex = 0;
