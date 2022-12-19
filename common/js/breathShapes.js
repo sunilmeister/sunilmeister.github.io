@@ -132,20 +132,24 @@ class BreathShapes {
     var style = getComputedStyle(document.body)
     var bInfo = parseBreathInfo(breathInfo);
   
+    // The order below matters
+    if (bInfo.isError && bInfo.isVC) 
+      return style.getPropertyValue('--colorVCError');
+    if (bInfo.isError && !bInfo.isVC) 
+      return style.getPropertyValue('--colorPSError');
+
+    if (bInfo.Abnormal) 
+      return style.getPropertyValue('--colorAbnormal');
+
+    if (bInfo.isMaintenance) 
+      return style.getPropertyValue('--colorMaintenance');
+
     if (bInfo.isMandatory && bInfo.isVC) 
       return style.getPropertyValue('--colorMandatoryVC');
     if (!bInfo.isMandatory && bInfo.isVC) 
       return style.getPropertyValue('--colorSpontaneousVC');
     if (!bInfo.isMandatory && !bInfo.isVC) 
       return style.getPropertyValue('--colorSpontaneousPS');
-    if (bInfo.isMaintenance) 
-      return style.getPropertyValue('--colorMaintenance');
-    if (bInfo.isError && bInfo.isVC) 
-      return style.getPropertyValue('--colorVCError');
-    if (bInfo.isError && !bInfo.isVC) 
-      return style.getPropertyValue('--colorPSError');
-    if (bInfo.Abnormal) 
-      return style.getPropertyValue('--colorAbnormal');
   
     return style.getPropertyValue('--rsp_yellow');;
   }
