@@ -19,6 +19,10 @@ function createDashboardCharts() {
 
 ////////////////////////////////////////////////////////
 
+function setRollingCharts() {
+  updateChartRangeOnNewBreath();
+}
+
 function updateChartRangeOnNewBreath() {
   app.chartRangeLimit = app.dashboardBreathNum;
   rangeSlider.setRange([1, app.chartRangeLimit]);

@@ -4,9 +4,9 @@
 
 // //////////////////////////////////////////////////////
 // Recommended sequence
-// 1. construct BreathPressureGraph object
+// 1. construct BreathShapes object
 // 2. add Graph
-// 3. Render BreathPressureGraph object
+// 3. Render BreathShapes object
 // 
 // The constructor inputs are
 // Title of chart
@@ -21,7 +21,7 @@ function breathShapeXaxisFormatter(e) {
   else return iPart;
 }
 
-class BreathPressureGraph {
+class BreathShapes {
 
   constructor(title, height, rangeX) {
     this.graphType = "spline";

@@ -14,7 +14,7 @@ const STANDBY_STATE = 1;
 const ACTIVE_STATE  = 2;
 const ERROR_STATE   = 3;
 
-const SHAPE_MAX_CHARTS             = 8;
+const SHAPE_MAX_CHARTS             = 10;
 const SHAPE_MAX_SAMPLES_PER_BREATH = 60
 const SHAPE_MAX_SAMPLES_PER_SLICE  = 12;
 const SHAPE_MAX_SLICES             = 5;

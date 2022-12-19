@@ -347,10 +347,10 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath() {
-  updateChartRangeOnNewBreath();
-  updateStatRangeOnNewBreath();
-  updateAlertRangeOnNewBreath();
-  updateShapeRangeOnNewBreath();
+  if (currentView == "charts") updateChartRangeOnNewBreath();
+  if (currentView == "stats") updateStatRangeOnNewBreath();
+  if (currentView == "alerts") updateAlertRangeOnNewBreath();
+  if (currentView == "shapes") updateShapeRangeOnNewBreath();
 }
 
 function togglePause() {
@@ -648,6 +648,9 @@ function resetTimeInterval(btn) {
   stopSliderCallback = true;
   rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
+
+  if (currentView == "shapes") setRollingShapes();
+  if (currentView == "charts") setRollingCharts();
 
   createDashboards();
   sliderCommitPending = false;

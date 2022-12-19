@@ -17,7 +17,7 @@ function displayShapes() {
   }
 
   breathShapeGraph = 
-    new BreathPressureGraph("Breath Pressure Shapes",800,app.reportRange);
+    new BreathShapes("Breath Pressure Shapes",800,app.reportRange);
   let n = breathShapeGraph.numShapesInRange();
   if (n > SHAPE_MAX_CHARTS) {
     modalConfirm("Many Breath Shape graphs",

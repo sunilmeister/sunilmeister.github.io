@@ -2,6 +2,10 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function setRollingShapes() {
+  updateShapeRangeOnNewBreath();
+}
+
 function updateShapeRangeOnNewBreath() {
   rangeSlider.setRange([1, app.dashboardBreathNum]);
 
@@ -37,7 +41,7 @@ function createDashboardShapes() {
 
   div = document.getElementById("shapeGraphBody");
   breathShapeGraph = 
-    new BreathPressureGraph("Breath Pressure Shapes",800,app.reportRange);
+    new BreathShapes("Breath Pressure Shapes",800,app.reportRange);
   breathShapeGraph.addGraph();
   breathShapeGraph.render(div);
 }
