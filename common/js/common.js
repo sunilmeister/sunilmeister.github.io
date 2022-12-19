@@ -107,7 +107,7 @@ function parseJSONSafely(str) {
 
 // The return value is an object with following boolean fields
 // {isMaintenance,isAbnormal,isError,isVC,isMandatory}
-function parseBreathInfoNumber(num) {
+function parseBreathInfo(num) {
   num = Number(num);
   var obj = {};
   //console.log("num = 0x" + num.toString(16));

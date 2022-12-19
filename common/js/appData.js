@@ -65,16 +65,21 @@ var AppDataTemplate = {
   allChartsContainerInfo:   {},
   chartboxTree:             null,
 
-  // Breath Shapes parameters
-  shapeSendPeriod:           null,
-  shapeLabelFontSize:        20,
-  shapeLegendFontSize:       20,
-  shapeTitleFontSize:        40,
-  stripLineFontSize:         50,
-  pwExpectedSamplesPerSlice: null,
-  pwBreathNum:               null,
-  allShapesContainerInfo:    {},
-  shapeboxTree:              null,
+  // /////////////////////////////////////////////
+  // Below is stuff for detailed breath pressure chart
+  // /////////////////////////////////////////////
+  shapeData:                     [],
+  shapeBreathNum:                null,
+  shapeBreathInfo:               null,
+  newShapeCallback:              null,
+  shapeSendPeriod:               null,
+  shapeLabelFontSize:            20,
+  shapeLegendFontSize:           20,
+  shapeTitleFontSize:            40,
+  shapeExpectedSamplesPerSlice:  null,
+  allShapesContainerInfo:        {},
+  shapeboxTree:                  null,
+  stripLineFontSize:             50,
 
   // current state 
   initialState:     false,
@@ -100,14 +105,6 @@ var AppDataTemplate = {
   lastValidBreathTime:   null,
   lastWarningTime:       null,
   lastErrorTime:         null,
-
-  // /////////////////////////////////////////////
-  // Below is stuff for detailed breath pressure chart
-  // /////////////////////////////////////////////
-  pwData:            [],
-  pwBreathNum:       null,
-  pwBreathInfo:      null,
-  newPwDataCallback: null,
 
   // analysis  and display ranges
   reportRange: {

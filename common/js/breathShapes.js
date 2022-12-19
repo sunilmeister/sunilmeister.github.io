@@ -23,7 +23,7 @@ function breathShapeXaxisFormatter(e) {
 
 class BreathShapes {
 
-  constructor(title, height, rangeX) {
+  constructor(title, height, rangeX, menu) {
     this.graphType = "spline";
     this.rangeX = rangeX;
     this.chartJson = {
@@ -38,16 +38,44 @@ class BreathShapes {
       data: []
     };
     this.chart = null;
+    this.menu = menu;
 
     this.addXaxis();
+  }
+
+  breathSelectedInMenu(breathInfo) {
+    var bInfo = parseBreathInfo(breathInfo);
+    //console.log(bInfo);
+    if (this.menu.MandatoryVC) {
+      if (bInfo.isMandatory && bInfo.isVC) return true;
+    }
+    if (this.menu.SpontaneousVC) {
+      if (!bInfo.isMandatory && bInfo.isVC) return true;
+    }
+    if (this.menu.SpontaneousPS) {
+      if (!bInfo.isMandatory && !bInfo.isVC) return true;
+    }
+    if (this.menu.Maintenance) {
+      if (bInfo.isMaintenance) return true;
+    }
+    if (this.menu.VCError) {
+      if (bInfo.isError && bInfo.isVC) return true;
+    }
+    if (this.menu.PSError) {
+      if (bInfo.isError && !bInfo.isVC) return true;
+    }
+    if (this.menu.Abnormal) {
+      if (bInfo.Abnormal) return true;
+    }
+    return false;
   }
 
   numShapesInRange() {
     var minBnum = app.reportRange.minBnum;
     var maxBnum = app.reportRange.maxBnum;
     var n = 0;
-    for (let i=0; i<app.pwData.length; i++) {
-      var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
+    for (let i=0; i<app.shapeData.length; i++) {
+      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum +1;
       if (breathNum<minBnum) continue;
       if (breathNum>maxBnum) break;
       n++;
@@ -140,15 +168,17 @@ class BreathShapes {
     var prevXval = 0;
     this.chartJson.axisX.stripLines = [];
 
-    for (i=0; i<app.pwData.length; i++) {
-      var breathNum = app.pwData[i].systemBreathNum - app.startSystemBreathNum +1;
-      var sampleInterval = app.pwData[i].sampleInterval;
-      var samples = app.pwData[i].samples;
-      var partial = app.pwData[i].partial;
+    for (let i=0; i<app.shapeData.length; i++) {
+      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum +1;
+      var sampleInterval = app.shapeData[i].sampleInterval;
+      var breathInfo = app.shapeData[i].breathInfo;
+      var samples = app.shapeData[i].samples;
+      var partial = app.shapeData[i].partial;
       var prefix = partial? "Partial " : "" ;
 
       if (breathNum<minBnum) continue;
       if (breathNum>maxBnum) break;
+      if (!this.breathSelectedInMenu(breathInfo)) continue;
 
       if (!session.breathTimes[breathNum]) {
 	continue;
@@ -171,7 +201,7 @@ class BreathShapes {
       stripLine.color = this.getNextStripColor();
       stripLine.startValue = (xval-200)/1000;
 
-      for (j=0; j<samples.length; j++) {
+      for (let j=0; j<samples.length; j++) {
         xyPoints.push({
           "x": xval/1000,
           "y": samples[j]

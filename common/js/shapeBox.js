@@ -34,6 +34,7 @@ class ShapeBox {
     document.getElementById("MandatoryVC").checked = this.options.MandatoryVC;
     document.getElementById("SpontaneousVC").checked = this.options.SpontaneousVC;
     document.getElementById("SpontaneousPS").checked = this.options.SpontaneousPS;
+    document.getElementById("Maintenance").checked = this.options.Maintenance;
     document.getElementById("VCError").checked = this.options.VCError;
     document.getElementById("PSError").checked = this.options.PSError;
     document.getElementById("Abnormal").checked = this.options.Abnormal;
@@ -47,6 +48,7 @@ class ShapeBox {
     this.options.MandatoryVC = document.getElementById("MandatoryVC").checked;
     this.options.SpontaneousVC = document.getElementById("SpontaneousVC").checked;
     this.options.SpontaneousPS = document.getElementById("SpontaneousPS").checked;
+    this.options.Maintenance = document.getElementById("Maintenance").checked;
     this.options.VCError = document.getElementById("VCError").checked;
     this.options.PSError = document.getElementById("PSError").checked;
     this.options.Abnormal = document.getElementById("Abnormal").checked;
@@ -68,7 +70,8 @@ class ShapeBox {
     this.chart = new BreathShapes(
       this.options.title,
       this.containerBodyDiv.offsetHeight,
-      this.rangeX
+      this.rangeX,
+      this.options
     );
     this.chart.addGraph();
   }

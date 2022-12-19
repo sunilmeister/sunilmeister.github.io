@@ -26,9 +26,9 @@ function updateShapeRangeOnNewBreath() {
 
   if (!app.reportRange.rolling || sliderCommitPending) return;
   if (app.reportRange.rolling) {
-    if (app.reportRange.rolling && app.pwData.length>SHAPE_MAX_CHARTS) {
-      startPw = app.pwData.length - SHAPE_MAX_CHARTS;
-      minBnum = app.pwData[startPw].systemBreathNum - app.startSystemBreathNum +1
+    if (app.reportRange.rolling && app.shapeData.length>SHAPE_MAX_CHARTS) {
+      startPw = app.shapeData.length - SHAPE_MAX_CHARTS;
+      minBnum = app.shapeData[startPw].systemBreathNum - app.startSystemBreathNum +1
       app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
     }
 

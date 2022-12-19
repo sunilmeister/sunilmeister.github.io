@@ -2,13 +2,13 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var pwBreathPartial = false;
-var pwSampleInterval = null;
-var pwActualSamples = null;
-var pwBreathClosed = true;
-var pwSlices = [];
-var pwSliceNum = -1;
-var prevPwSliceNum = -1;
+var shapeBreathPartial = false;
+var shapeSampleInterval = null;
+var shapeActualSamples = null;
+var shapeBreathClosed = true;
+var shapeSlices = [];
+var shapeSliceNum = -1;
+var prevShapeSliceNum = -1;
 var expectingPWEND = false;
 
 function equalParamCombos(curr, prev) {
@@ -153,7 +153,7 @@ function processJsonRecord(jsonData) {
               console.log("Expecting PWEND or PWSLICE but found=" + ckey);
               console.log("Graphing anyway with PWEND()");
               pwEnd();
-              pwBreathClosed = true;
+              shapeBreathClosed = true;
 	      expectingPWEND = false;
 	    }
 	  }
@@ -626,7 +626,7 @@ function formInitialJsonRecord() {
 // ////////////////////////////////////////////////
 // All individual Pressure Waveform data handling below
 // ////////////////////////////////////////////////
-function pwCollectedSamples(slices) {
+function shapeCollectedSamples(slices) {
   num = 0;
   for (i=0; i<slices.length; i++) {
     num += slices[i].sliceData.length;
@@ -635,32 +635,32 @@ function pwCollectedSamples(slices) {
 }
 
 function pwStart(str) {
-  if (!pwBreathClosed) {
-    console.log("Previous PWSTART missing PWEND pwBreathNum=" + app.pwBreathNum);
+  if (!shapeBreathClosed) {
+    console.log("Previous PWSTART missing PWEND shapeBreathNum=" + app.shapeBreathNum);
     console.log("Graphing anyway with PWEND=" + n);
     pwEnd();
-    pwBreathClosed = true;
+    shapeBreathClosed = true;
   }
 
   arr = parseJSONSafely(str);
   if (!arr || (arr.length!=4)) {
     console.log("Bad PWSTART=" + str);
-    app.pwBreathNum = null;
-    pwSampleInterval = null;
+    app.shapeBreathNum = null;
+    shapeSampleInterval = null;
     return;;
   }
   expectingPWEND = true;
   // PWSTART key has the following value format
   // arr = [breathNum, breathInfo, expectedSamples, sampleInterval]
-  app.pwBreathNum = arr[0];
-  app.pwBreathInfo = arr[1];
-  pwExpectedSamplesPerSlice = arr[2];
-  pwSampleInterval = arr[3];
-  pwBreathClosed = false;
-  pwBreathPartial = false;
-  prevPwSliceNum = -1;
-  pwSliceNum = -1;
-  pwSlices = [];
+  app.shapeBreathNum = arr[0];
+  app.shapeBreathInfo = arr[1];
+  shapeExpectedSamplesPerSlice = arr[2];
+  shapeSampleInterval = arr[3];
+  shapeBreathClosed = false;
+  shapeBreathPartial = false;
+  prevShapeSliceNum = -1;
+  shapeSliceNum = -1;
+  shapeSlices = [];
 }
 
 function pwEnd(str) {
@@ -669,46 +669,46 @@ function pwEnd(str) {
   if (typeof str != 'undefined') {
     arr = parseJSONSafely(str);
     if (arr && (arr.length==4)) {
-      pwActualSamples = arr[2];
-      if (!app.pwBreathNum) {
+      shapeActualSamples = arr[2];
+      if (!app.shapeBreathNum) {
         console.log("Recovering from missing PWSTART using PWEND");
-        app.pwBreathNum = arr[0];
-        app.pwBreathInfo = arr[1];
-        pwSampleInterval = arr[3];
+        app.shapeBreathNum = arr[0];
+        app.shapeBreathInfo = arr[1];
+        shapeSampleInterval = arr[3];
       }
     } else {
       console.log("Bad PWEND=" + str);
     }
   } else {
-    if (pwExpectedSamplesPerSlice) {
-      pwActualSamples = pwExpectedSamplesPerSlice*SHAPE_MAX_SLICES;
+    if (shapeExpectedSamplesPerSlice) {
+      shapeActualSamples = shapeExpectedSamplesPerSlice*SHAPE_MAX_SLICES;
     } else {
-      pwActualSamples = SHAPE_MAX_SAMPLES_PER_BREATH;
+      shapeActualSamples = SHAPE_MAX_SAMPLES_PER_BREATH;
     }
   }
 
-  if (!app.pwBreathNum || pwBreathClosed) {
+  if (!app.shapeBreathNum || shapeBreathClosed) {
     console.log("Missing PWSTART for PWEND=" + str);
-    prevPwSliceNum = -1;
-    pwSliceNum = -1;
-    pwSlices = [];
-    pwBreathPartial = false;
-    pwBreathClosed = true;
+    prevShapeSliceNum = -1;
+    shapeSliceNum = -1;
+    shapeSlices = [];
+    shapeBreathPartial = false;
+    shapeBreathClosed = true;
     return;
   }
 
   // consolidate all samples
   let samples = [];
-  for (i=0; i<pwSlices.length; i++) {
-    slice = pwSlices[i];
+  for (i=0; i<shapeSlices.length; i++) {
+    slice = shapeSlices[i];
     for (j=0; j<slice.sliceData.length; j++) {
       samples.push(slice.sliceData[j]);
     }
   }
-  pwSlices = [];
-  if (pwActualSamples != samples.length) {
-    pwBreathPartial = true;
-    console.log("Missing Samples at PWEND=" + (pwActualSamples-samples.length));
+  shapeSlices = [];
+  if (shapeActualSamples != samples.length) {
+    shapeBreathPartial = true;
+    console.log("Missing Samples at PWEND=" + (shapeActualSamples-samples.length));
   }
 
   // Make it consistently SHAPE_MAX_SAMPLES_PER_BREATH
@@ -717,52 +717,52 @@ function pwEnd(str) {
   }
 
   // store it for later use
-  //console.log(parseBreathInfoNumber(app.pwBreathInfo));
-  app.pwData.push({
-    "partial":pwBreathPartial,
-    "systemBreathNum":app.pwBreathNum,
-    "breathInfo":app.pwBreathInfo,
-    "sampleInterval":pwSampleInterval,
+  //console.log(parseBreathInfo(app.shapeBreathInfo));
+  app.shapeData.push({
+    "partial":shapeBreathPartial,
+    "systemBreathNum":app.shapeBreathNum,
+    "breathInfo":app.shapeBreathInfo,
+    "sampleInterval":shapeSampleInterval,
     "samples":cloneObject(samples),
   });
 
   expectingPWEND = false;
-  pwBreathPartial = false;
-  pwBreathClosed = true;
-  if (app.newPwDataCallback) app.newPwDataCallback(app.pwBreathNum);
+  shapeBreathPartial = false;
+  shapeBreathClosed = true;
+  if (app.newShapeCallback) app.newShapeCallback(app.shapeBreathNum);
 }
 
 function pwSlice(receivedSliceNum, str) {
-  if (!app.pwBreathNum || pwBreathClosed) {
+  if (!app.shapeBreathNum || shapeBreathClosed) {
     console.log("Missing PWSTART for PWSLICE=" + str);
-    pwBreathPartial = false;
-    pwBreathClosed = true;
+    shapeBreathPartial = false;
+    shapeBreathClosed = true;
     return;
   }
 
   arr = parseJSONSafely(str);
   if (!arr || (arr.length!=2)) {
-    console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + app.pwBreathNum);
+    console.log("Bad PWSLICE_" + receivedSliceNum + "=" + str + " for BreathNum=" + app.shapeBreathNum);
     return;
   }
-  pwSliceNum = Number(arr[0]);
+  shapeSliceNum = Number(arr[0]);
 
-  if ((pwSliceNum!=prevPwSliceNum+1) || (pwSliceNum != receivedSliceNum)) {
-    console.log("Missing SliceNum=" + (pwSliceNum-1) + " for BreathNum=" + app.pwBreathNum);
+  if ((shapeSliceNum!=prevShapeSliceNum+1) || (shapeSliceNum != receivedSliceNum)) {
+    console.log("Missing SliceNum=" + (shapeSliceNum-1) + " for BreathNum=" + app.shapeBreathNum);
     // stuff empty slices
-    pwBreathPartial = true;
-    for (i=prevPwSliceNum+1; i<pwSliceNum; i++) {
+    shapeBreathPartial = true;
+    for (i=prevShapeSliceNum+1; i<shapeSliceNum; i++) {
       samples = [];
-      if (!app.pwExpectedSamplesPerSlice) app.pwExpectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
-      console.log("Generate Null slice#=" + i + " samples=" + app.pwExpectedSamplesPerSlice);
-      for (j=0; j<app.pwExpectedSamplesPerSlice; j++) {
+      if (!app.shapeExpectedSamplesPerSlice) app.shapeExpectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
+      console.log("Generate Null slice#=" + i + " samples=" + app.shapeExpectedSamplesPerSlice);
+      for (j=0; j<app.shapeExpectedSamplesPerSlice; j++) {
 	samples.push(null);
       }
-      pwSlices.push({"sliceNum":i, sliceData:cloneObject(samples)});
+      shapeSlices.push({"sliceNum":i, sliceData:cloneObject(samples)});
     }
   }
 
-  pwSlices.push({"sliceNum":pwSliceNum, sliceData:cloneObject(arr[1])});
-  prevPwSliceNum = pwSliceNum;
+  shapeSlices.push({"sliceNum":shapeSliceNum, sliceData:cloneObject(arr[1])});
+  prevShapeSliceNum = shapeSliceNum;
 }
 
