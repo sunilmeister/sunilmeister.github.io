@@ -18,30 +18,30 @@
 
 /* your colors */
 .colorLegend .MandatoryVC {
- background-color: #FCF3CF; 
+ background-color: var(--colorMandatoryVC); 
 }
 
 .colorLegend .SpontaneousVC {
- background-color: #D5F5E3; 
+ background-color: var(--colorSpontaneousVC); 
 }
 
 .colorLegend .SpontaneousPS {
- background-color: #D4E6F1; 
+ background-color: var(--colorSpontaneousPS); 
 }
 
 .colorLegend .Maintenance {
- background-color: #76D7C4; 
+ background-color: var(--colorMaintenance); 
 }
 
 .colorLegend .VCError {
- background-color: #FADBD8; 
+ background-color: var(--colorVCError); 
 }
 
 .colorLegend .PSError {
- background-color: #D2B4DE; 
+ background-color: var(--colorPSError); 
 }
 
 .colorLegend .Abnormal {
- background-color: #F4D03F; 
+ background-color: var(--colorAbnormal); 
 }
 

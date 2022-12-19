@@ -126,18 +126,28 @@ class BreathShapes {
     Xaxis.labelFontSize = app.shapeLabelFontSize;
     Xaxis.labelFormatter = breathShapeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
-    this.stripColors = [
-      "#FCF3CF",
-      "#D5F5E3",
-      "#D4E6F1"
-    ];
-    this.colorIndex = 0;
   }
  
-  getNextStripColor() {
-    var color = this.stripColors[this.colorIndex++];
-    if (this.colorIndex==this.stripColors.length) this.colorIndex = 0;
-    return color;
+  getStripColor(breathInfo) {
+    var style = getComputedStyle(document.body)
+    var bInfo = parseBreathInfo(breathInfo);
+  
+    if (bInfo.isMandatory && bInfo.isVC) 
+      return style.getPropertyValue('--colorMandatoryVC');
+    if (!bInfo.isMandatory && bInfo.isVC) 
+      return style.getPropertyValue('--colorSpontaneousVC');
+    if (!bInfo.isMandatory && !bInfo.isVC) 
+      return style.getPropertyValue('--colorSpontaneousPS');
+    if (bInfo.isMaintenance) 
+      return style.getPropertyValue('--colorMaintenance');
+    if (bInfo.isError && bInfo.isVC) 
+      return style.getPropertyValue('--colorVCError');
+    if (bInfo.isError && !bInfo.isVC) 
+      return style.getPropertyValue('--colorPSError');
+    if (bInfo.Abnormal) 
+      return style.getPropertyValue('--colorAbnormal');
+  
+    return style.getPropertyValue('--rsp_yellow');;
   }
 
   createYaxis(title,color,minY, maxY) {
@@ -198,7 +208,7 @@ class BreathShapes {
         "y": null
       });
       var stripLine = {};
-      stripLine.color = this.getNextStripColor();
+      stripLine.color = this.getStripColor(breathInfo);
       stripLine.startValue = (xval-200)/1000;
 
       for (let j=0; j<samples.length; j++) {

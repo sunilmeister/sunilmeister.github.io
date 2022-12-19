@@ -15,4 +15,12 @@
   --rsp_yellow: 	#E7C800;
   --rsp_orange: 	#E95F0A;
   --rsp_darkred: 	#B22222;
+
+  --colorMandatoryVC:   #FCF3CF; 
+  --colorSpontaneousVC: #D5F5E3; 
+  --colorSpontaneousPS: #D4E6F1; 
+  --colorMaintenance:   #76D7C4; 
+  --colorVCError:       #FADBD8; 
+  --colorPSError:       #D2B4DE; 
+  --colorAbnormal:      #F4D03F; 
 }
