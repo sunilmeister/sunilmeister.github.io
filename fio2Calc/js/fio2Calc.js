@@ -9,16 +9,7 @@ var fiO2Knob = null;
 var purityKnob = null;
 
 window.onload = function() {
-  Swal.fire({
-    icon: 'info',
-    title: ZOOM_TITLE_STR,
-    html: ZOOM_MESSAGE_STR,
-    width: 600,
-    showConfirmButton: false,
-    color: 'white',
-    background: '#2C94BC',
-    timer: 5000
-  })
+  showZoomReminder(600);
 
   installVtKnob();
   installRrKnob();

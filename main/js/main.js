@@ -325,20 +325,11 @@ function launchAnalyzer() {
 
 function launchFiO2() {
   // window.location.assign("fio2/respimatic.fio2Calc.html");
-  window.open("../fio2/fio2Calc.html");
+  window.open("../fio2Calc/fio2Calc.html");
 }
 
 window.onload = function() {
-  Swal.fire({
-    icon: 'info',
-    title: ZOOM_TITLE_STR,
-    html: ZOOM_MESSAGE_STR,
-    width: 600,
-    showConfirmButton: false,
-    color: 'white',
-    background: '#2C94BC',
-    timer: 5000
-  })
+  showZoomReminder(600);
 
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";

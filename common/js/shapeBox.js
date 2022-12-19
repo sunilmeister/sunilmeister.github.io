@@ -70,6 +70,7 @@ class ShapeBox {
       this.containerBodyDiv.offsetHeight,
       this.rangeX
     );
+    this.chart.addGraph();
   }
 
 }

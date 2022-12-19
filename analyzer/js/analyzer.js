@@ -510,17 +510,7 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
-  modalWidth = 900;
-  Swal.fire({
-    icon: 'info',
-    title: ZOOM_TITLE_STR,
-    html: ZOOM_MESSAGE_STR,
-    width: 900,
-    showConfirmButton: false,
-    color: 'white',
-    background: '#2C94BC',
-    timer: 5000,
-  })
+  showZoomReminder(900);
 
   // Create data objects
   app = cloneObject(AppDataTemplate);

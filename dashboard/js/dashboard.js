@@ -448,7 +448,7 @@ function receivedNewShape() {
     icon: 'info',
     title: ON_DEMAND_TITLE_STR,
     text: ON_DEMAND_MESSAGE_STR,
-    width: 1200,
+    width: app.modalWidth,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
@@ -457,17 +457,7 @@ function receivedNewShape() {
 }
 
 window.onload = function() {
-  modalWidth = 1200;
-  Swal.fire({
-    icon: 'info',
-    title: ZOOM_TITLE_STR,
-    html: ZOOM_MESSAGE_STR,
-    width: 1200,
-    showConfirmButton: false,
-    color: 'white',
-    background: '#2C94BC',
-    timer: 5000
-  })
+  showZoomReminder(1200);
 
   finishedLoading = false;
   // Create data objects

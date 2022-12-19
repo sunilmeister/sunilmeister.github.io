@@ -21,7 +21,6 @@ var analysisStartTime = new Date();
 var analysisEndTime = new Date();
 var analysisStartBreath = 0;
 var analysisEndBreath = 0;
-var modalWidth = 600;
 
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
@@ -540,6 +539,22 @@ function o2PurityAtAltitudeMtr(mtr) {
 }
 
 // various modals
+var modalWidth = 900; // default - overriden by showZoomReminder
+
+function showZoomReminder(width) {
+  modalWidth = width;
+  Swal.fire({
+    icon: 'info',
+    title: ZOOM_TITLE_STR,
+    html: ZOOM_MESSAGE_STR,
+    width: modalWidth,
+    showConfirmButton: false,
+    color: 'white',
+    background: '#2C94BC',
+    timer: 5000
+  })
+}
+
 function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',
