@@ -5,6 +5,12 @@ const RESPIMATIC_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID      = "DASHBOARD";
 const ANALYZER_APP_ID       = "ANALYZER";
 
+const zoomReminderOffCookieName   = "ZOOM_REMINDER_OFF";
+const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS";
+const uidCookieName = "RESPIMATIC_UID_COOKIE";
+const tagCookieName = "RESPIMATIC_TAG_COOKIE";
+const localStorageDbName = "respimatic_dbs";
+
 const SPONTANEOUS_BREATH = 0;
 const MANDATORY_BREATH   = 1;
 const ERROR_BREATH       = 2;

@@ -1,10 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS";
-const uidCookieName = "RESPIMATIC_UID_COOKIE";
-const tagCookieName = "RESPIMATIC_TAG_COOKIE";
-const localStorageDbName = "respimatic_dbs";
 const dbVersion = 1;
 const dbPrimaryKey = 'created';
 var respimaticUid = "";
@@ -296,6 +292,12 @@ function setCookie(cname, cvalue) {
     ";path=/; SameSite=None;Secure";
 }
 
+function deleteAllCookies() {
+  document.cookie.split(";").forEach(function(c) { 
+    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+  });
+}
+
 function deleteCookie(cname) {
   var d = new Date();
   d.setFullYear(d.getFullYear() - 1);
@@ -543,6 +545,7 @@ var modalWidth = 900; // default - overriden by showZoomReminder
 
 function showZoomReminder(width) {
   modalWidth = width;
+  if (getCookie(zoomReminderOffCookieName)) return;
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,
@@ -551,7 +554,17 @@ function showZoomReminder(width) {
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
+    showConfirmButton: true,
+    confirmButtonColor: '#0D3E51',
+    confirmButtonText: 'DISMISS',
+    showCancelButton: true,
+    cancelButtonColor: '#B22222',
+    cancelButtonText: "No More Reminders!",
     timer: 5000
+  }).then((result) => {
+     if (result.isCancelled) {
+      setCookie(zoomReminderOffCookieName, "OFF");
+     }
   })
 }
 
@@ -583,7 +596,7 @@ function modalAlert(title, msg) {
   })
 }
 
-function modalConfirm(title, msg, confirmFn, denyFn, callbackArgs, confirmText, cancelText) {
+function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText, cancelText) {
   if (typeof confirmText == 'undefined') {
     confirmText = "CONFIRM";
   }
@@ -606,8 +619,8 @@ function modalConfirm(title, msg, confirmFn, denyFn, callbackArgs, confirmText, 
   }).then((result) => {
      if (result.isConfirmed) {
        if (confirmFn) confirmFn(callbackArgs);
-     } else if (result.isDenied) {
-       if (denyFn) denyFn(callbackArgs);
+     } else if (result.isCancelled) {
+       if (cancelFn) cancelFn(callbackArgs);
      }
   })
 }
