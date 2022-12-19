@@ -607,35 +607,56 @@
             <input type="checkbox" id=All onclick='shapeTreeCheckboxClicked(this)'>
             <label for=All>All</label>
             <div class="shapeIndentDiv">
-              <input type="checkbox" id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=MandatoryVC>Mandatory Volume Controlled</label>
+	      <br>
+              <input type="checkbox" id=MandatoryB onclick='shapeTreeCheckboxClicked(this)'>
+              <label for=MandatoryB>Mandatory Breaths</label>
+              <div class="shapeIndentDiv">
+                <input type="checkbox" id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
+                <label for=MandatoryVC>Volume Controlled</label>
+              </div>
+	    </div>
+	    <br>
+            <div class="shapeIndentDiv">
+              <input type="checkbox" id=SpontaneousB onclick='shapeTreeCheckboxClicked(this)'>
+              <label for=SpontaneousB>Spontaneous Breaths</label>
+              <div class="shapeIndentDiv">
+                <input type="checkbox" id=SpontaneousVC onclick='shapeTreeCheckboxClicked(this)'>
+                <label for=SpontaneousVC>Volume Controlled</label>
+              </div>
+              <div class="shapeIndentDiv">
+                <input type="checkbox" id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
+                <label for=SpontaneousPS>Pressure Supported&nbsp</label>
+	      </div>
+	      <br>
             </div>
             <div class="shapeIndentDiv">
-              <input type="checkbox" id=SpontaneousVC onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=SpontaneousVC>Spontaneous Volume Controlled</label>
+              <input type="checkbox" id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
+              <label for=MaintenanceB>Maintenance Breaths</label>
+              <div class="shapeIndentDiv">
+                <input type="checkbox" id=Maintenance onclick='shapeTreeCheckboxClicked(this)'>
+                <label for=Maintenance>Volume Controlled</label>
+	      </div>
+	      <br>
             </div>
             <div class="shapeIndentDiv">
-              <input type="checkbox" id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=SpontaneousPS>Spontaneous Pressure Supported&nbsp</label>
-            </div>
-            <div class="shapeIndentDiv">
-              <input type="checkbox" id=Maintenance onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=Maintenance>Maintenance Breaths</label>
-            </div>
-            <div class="shapeIndentDiv">
-              <input type="checkbox" id=VCError onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=VCError>ERROR Volume Controlled</label>
-            </div>
-            <div class="shapeIndentDiv">
-              <input type="checkbox" id=PSError onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=PSError>ERROR Pressure Supported</label>
-            </div>
+              <input type="checkbox" id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
+              <label for=ErrorB>Error Breaths</label>
+              <div class="shapeIndentDiv">
+                <input type="checkbox" id=VCError onclick='shapeTreeCheckboxClicked(this)'>
+                <label for=VCError>ERROR Volume Controlled</label>
+              </div>
+              <div class="shapeIndentDiv">
+                <input type="checkbox" id=PSError onclick='shapeTreeCheckboxClicked(this)'>
+                <label for=PSError>ERROR Pressure Supported</label>
+              </div>
+	      <br>
+	    </div>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=Abnormal onclick='shapeTreeCheckboxClicked(this)'>
               <label for=Abnormal>Abnormal Breath</label>
             </div>
+            <br>
           </div>
-          <br>
         </div>
       </div>
     </template>
