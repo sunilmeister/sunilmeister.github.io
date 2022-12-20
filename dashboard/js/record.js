@@ -90,6 +90,7 @@ function acceptRecordingName() {
   recordingOff = false;
   recordingPaused = false;
   document.getElementById('recordNameDiv').style.display = "none";
+  updateDashboardAndRecordingStatus();
 }
 
 function insertJsonData(db, jsonData) {
