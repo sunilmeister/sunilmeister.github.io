@@ -347,10 +347,11 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath() {
-  if (currentView == "charts") updateChartRangeOnNewBreath();
-  if (currentView == "stats") updateStatRangeOnNewBreath();
-  if (currentView == "alerts") updateAlertRangeOnNewBreath();
-  if (currentView == "shapes") updateShapeRangeOnNewBreath();
+  app.chartRangeLimit++;
+  if (currentView == "charts") updateChartRange();
+  if (currentView == "stats") updateStatRange();
+  if (currentView == "alerts") updateAlertRange();
+  if (currentView == "shapes") updateShapeRange();
 }
 
 function togglePause() {
@@ -439,10 +440,8 @@ function installTempGauge() {
 
 function receivedNewShape() {
   if (currentView == "shapes") return;
-  if (app.shapeSendPeriod) {
-    onSchedule = ((app.pwBreathNum % app.shapeSendPeriod) == 1);
-    if (onSchedule) return;
-  }
+  if ((app.shapeSendPeriod) && !app.shapeOnDemand) return;
+
   console.log("On demand snapshot received pwBreathNum=" + app.pwBreathNum);
   Swal.fire({
     icon: 'info',
@@ -639,8 +638,10 @@ function resetTimeInterval(btn) {
   rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 
-  if (currentView == "shapes") setRollingShapes();
-  if (currentView == "charts") setRollingCharts();
+  if (currentView == "charts") updateChartRange();
+  if (currentView == "stats") updateStatRange();
+  if (currentView == "alerts") updateAlertRange();
+  if (currentView == "shapes") updateShapeRange();
 
   createDashboards();
   sliderCommitPending = false;

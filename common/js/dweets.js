@@ -643,7 +643,7 @@ function pwStart(str) {
   }
 
   arr = parseJSONSafely(str);
-  if (!arr || (arr.length!=4)) {
+  if (!arr || (arr.length!=5)) {
     console.log("Bad PWSTART=" + str);
     app.shapeBreathNum = null;
     shapeSampleInterval = null;
@@ -656,6 +656,7 @@ function pwStart(str) {
   app.shapeBreathInfo = arr[1];
   shapeExpectedSamplesPerSlice = arr[2];
   shapeSampleInterval = arr[3];
+  app.shapeOnDemand = arr[4] ? true : false;
   shapeBreathClosed = false;
   shapeBreathPartial = false;
   prevShapeSliceNum = -1;
@@ -668,13 +669,14 @@ function pwEnd(str) {
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval]
   if (typeof str != 'undefined') {
     arr = parseJSONSafely(str);
-    if (arr && (arr.length==4)) {
+    if (arr && (arr.length==5)) {
       shapeActualSamples = arr[2];
       if (!app.shapeBreathNum) {
         console.log("Recovering from missing PWSTART using PWEND");
         app.shapeBreathNum = arr[0];
         app.shapeBreathInfo = arr[1];
         shapeSampleInterval = arr[3];
+        app.shapeOnDemand = arr[4] ? true : false;
       }
     } else {
       console.log("Bad PWEND=" + str);
@@ -722,6 +724,7 @@ function pwEnd(str) {
     "partial":shapeBreathPartial,
     "systemBreathNum":app.shapeBreathNum,
     "breathInfo":app.shapeBreathInfo,
+    "onDemand":app.shapeOnDemand,
     "sampleInterval":shapeSampleInterval,
     "samples":cloneObject(samples),
   });

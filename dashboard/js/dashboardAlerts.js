@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function updateAlertRangeOnNewBreath() {
+function updateAlertRange() {
   rangeSlider.setRange([1, app.dashboardBreathNum]);
   if (app.reportRange.rolling && !sliderCommitPending) {
     app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);

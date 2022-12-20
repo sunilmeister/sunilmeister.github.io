@@ -17,19 +17,17 @@ function createDashboardShapes() {
   app.shapeCreationInProgress = false;
 }
 
-function setRollingShapes() {
-  updateShapeRangeOnNewBreath();
-}
-
-function updateShapeRangeOnNewBreath() {
+function updateShapeRange() {
   rangeSlider.setRange([1, app.dashboardBreathNum]);
 
   if (!app.reportRange.rolling || sliderCommitPending) return;
   if (app.reportRange.rolling) {
     if (app.reportRange.rolling && app.shapeData.length>SHAPE_MAX_CHARTS) {
-      startPw = app.shapeData.length - SHAPE_MAX_CHARTS;
-      minBnum = app.shapeData[startPw].systemBreathNum - app.startSystemBreathNum +1
+      startShape = app.shapeData.length - SHAPE_MAX_CHARTS;
+      minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum +1
       app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+    } else {
+      app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
     }
 
     stopSliderCallback = true;

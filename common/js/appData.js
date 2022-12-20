@@ -73,6 +73,7 @@ var AppDataTemplate = {
   shapeBreathInfo:               null,
   newShapeCallback:              null,
   shapeSendPeriod:               null,
+  shapeOnDemand:                 false,
   shapeLabelFontSize:            20,
   shapeLegendFontSize:           20,
   shapeTitleFontSize:            40,
