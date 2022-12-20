@@ -545,7 +545,7 @@ var modalWidth = 900; // default - overriden by showZoomReminder
 
 function showZoomReminder(width) {
   modalWidth = width;
-  if (getCookie(zoomReminderOffCookieName)) return;
+  if (getCookie(zoomReminderOffCookieName) == "OFF") return;
   Swal.fire({
     icon: 'info',
     title: ZOOM_TITLE_STR,
@@ -562,7 +562,7 @@ function showZoomReminder(width) {
     cancelButtonText: "No More Reminders!",
     timer: 5000
   }).then((result) => {
-     if (result.isCancelled) {
+     if (result.isDismissed) {
       setCookie(zoomReminderOffCookieName, "OFF");
      }
   })
@@ -619,7 +619,7 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
   }).then((result) => {
      if (result.isConfirmed) {
        if (confirmFn) confirmFn(callbackArgs);
-     } else if (result.isCancelled) {
+     } else if (result.isDismissed) {
        if (cancelFn) cancelFn(callbackArgs);
      }
   })
