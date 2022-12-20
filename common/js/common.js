@@ -568,6 +568,22 @@ function showZoomReminder(width) {
   })
 }
 
+function showEditIconReminder() {
+  Swal.fire({
+    icon: 'info',
+    title: EDIT_ICON_TITLE_STR,
+    html: EDIT_ICON_MESSAGE_STR,
+    width: modalWidth,
+    showConfirmButton: false,
+    color: 'white',
+    background: '#2C94BC',
+    showConfirmButton: true,
+    confirmButtonColor: '#0D3E51',
+    confirmButtonText: 'DISMISS',
+    timer: 5000
+  })
+}
+
 function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',

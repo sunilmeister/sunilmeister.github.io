@@ -6,10 +6,9 @@
 .sidebarColumn {
   width: 30rem;
   background-color: var(--rsp_blue);
-  margin-top: 1rem;
-  margin-bottom: 0rem;
+  padding-left: 0.5rem;
   padding-bottom: 3rem;
-  margin-left: -0.5rem;
+  padding-top: 1rem;
 }
 
 .sidebar {
@@ -29,9 +28,8 @@
 }
 
 .dashboard-pane {
-  margin-top: -110rem;
-  margin-left: 40rem;
-  margin-right: 2rem;
+  margin-top: -115rem;
+  margin-left: 35rem;
 }
 
 .shadowDiv5 {

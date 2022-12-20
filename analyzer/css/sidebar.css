@@ -6,10 +6,12 @@
 .sidebarColumn {
   width: 350px;
   background-color: var(--rsp_blue);
-  padding-bottom: 20px;
+  padding-bottom: 40px;
+  padding-top: 15px;
+  padding-left: 10px;
+  padding-right: 5px;
   margin-top: 50px;
   margin-bottom: 0;
-  margin-left: -8px;
 }
 
 .sidebar {
@@ -27,8 +29,8 @@
 
 .body-pane {
   border-radius: 25px;
-  margin-top: -1125px;
-  margin-left: 370px;
+  margin-top: -1150px;
+  margin-left: 400px;
   margin-right: 20px;
   font-size: 20px;
   font-family: verdana;
