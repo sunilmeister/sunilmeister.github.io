@@ -20,7 +20,6 @@
   --colorSpontaneousVC: #D6EAF8; 
   --colorSpontaneousPS: #82E0AA; 
   --colorMaintenance:   #FBFCFC; 
-  --colorVCError:       #E74C3C; 
-  --colorPSError:       #D2B4DE; 
+  --colorError:         #EC7063; 
   --colorAbnormal:      #F39C12; 
 }

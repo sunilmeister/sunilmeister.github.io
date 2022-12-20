@@ -33,12 +33,8 @@
  background-color: var(--colorMaintenance); 
 }
 
-.colorLegend .VCError {
- background-color: var(--colorVCError); 
-}
-
-.colorLegend .PSError {
- background-color: var(--colorPSError); 
+.colorLegend .Error {
+ background-color: var(--colorError); 
 }
 
 .colorLegend .Abnormal {

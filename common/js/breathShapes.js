@@ -46,26 +46,28 @@ class BreathShapes {
   breathSelectedInMenu(breathInfo) {
     var bInfo = parseBreathInfo(breathInfo);
     //console.log(bInfo);
-    if (this.menu.MandatoryVC) {
-      if (bInfo.isMandatory && bInfo.isVC) return true;
+    // Order below is important
+    if (this.menu.ErrorB) {
+      if (bInfo.isError) return true;
     }
-    if (this.menu.SpontaneousVC) {
-      if (!bInfo.isMandatory && bInfo.isVC) return true;
+    if (this.menu.AbnormalB) {
+      if (bInfo.Abnormal) return true;
     }
-    if (this.menu.SpontaneousPS) {
-      if (!bInfo.isMandatory && !bInfo.isVC) return true;
-    }
-    if (this.menu.Maintenance) {
+    if (this.menu.MaintenanceB) {
       if (bInfo.isMaintenance) return true;
     }
-    if (this.menu.VCError) {
-      if (bInfo.isError && bInfo.isVC) return true;
+
+    // Exceptional Breaths taken care of above
+    var isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
+
+    if (this.menu.MandatoryVC) {
+      if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
     }
-    if (this.menu.PSError) {
-      if (bInfo.isError && !bInfo.isVC) return true;
+    if (this.menu.SpontaneousVC) {
+      if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
     }
-    if (this.menu.Abnormal) {
-      if (bInfo.Abnormal) return true;
+    if (this.menu.SpontaneousPS) {
+      if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
     }
     return false;
   }
@@ -133,10 +135,8 @@ class BreathShapes {
     var bInfo = parseBreathInfo(breathInfo);
   
     // The order below matters
-    if (bInfo.isError && bInfo.isVC) 
-      return style.getPropertyValue('--colorVCError');
-    if (bInfo.isError && !bInfo.isVC) 
-      return style.getPropertyValue('--colorPSError');
+    if (bInfo.isError) 
+      return style.getPropertyValue('--colorError');
 
     if (bInfo.Abnormal) 
       return style.getPropertyValue('--colorAbnormal');

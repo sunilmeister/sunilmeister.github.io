@@ -586,8 +586,7 @@
             <li><span class="SpontaneousVC"></span> Spontaneous VC</li>
             <li><span class="SpontaneousPS"></span> Spontaneous PS</li>
             <li><span class="Maintenance"></span> Maintenance</li>
-            <li><span class="VCError"></span> Error VC</li>
-            <li><span class="PSError"></span> Error PS</li>
+            <li><span class="Error"></span> Error</li>
             <li><span class="Abnormal"></span> Abnormal</li>
           </ul>
 	  <br>
@@ -642,29 +641,17 @@
             </div>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=MaintenanceB>Maintenance Breaths</label>
-              <div class="shapeIndentDiv">
-                <input type="checkbox" id=Maintenance onclick='shapeTreeCheckboxClicked(this)'>
-                <label for=Maintenance>Volume Controlled</label>
-	      </div>
+              <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
 	      <br>
             </div>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=ErrorB>Error Breaths</label>
-              <div class="shapeIndentDiv">
-                <input type="checkbox" id=VCError onclick='shapeTreeCheckboxClicked(this)'>
-                <label for=VCError>ERROR Volume Controlled</label>
-              </div>
-              <div class="shapeIndentDiv">
-                <input type="checkbox" id=PSError onclick='shapeTreeCheckboxClicked(this)'>
-                <label for=PSError>ERROR Pressure Supported</label>
-              </div>
+              <label for=ErrorB>Include Error Breaths</label>
 	      <br>
 	    </div>
             <div class="shapeIndentDiv">
-              <input type="checkbox" id=Abnormal onclick='shapeTreeCheckboxClicked(this)'>
-              <label for=Abnormal>Abnormal Breath</label>
+              <input type="checkbox" id=AbnormalB onclick='shapeTreeCheckboxClicked(this)'>
+              <label for=AbnormalB>Include Abnormal Breaths</label>
             </div>
             <br>
           </div>
