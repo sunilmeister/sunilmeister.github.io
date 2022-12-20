@@ -1,13 +1,13 @@
 :root {
   --chartBodyHeight: 500px;
   --chartMenuIndent: 20px;
-  --chartMenuFontSize: 20px;
+  --chartMenuFontSize: 30px;
   --chartMenuBannerHeight: 50px;
   --chartMenuIconSize: 40px;
 
   --shapeBodyHeight: 500px;
   --shapeMenuIndent: 20px;
-  --shapeMenuFontSize: 20px;
+  --shapeMenuFontSize: 30px;
   --shapeMenuBannerHeight: 50px;
   --shapeMenuIconSize: 40px;
 
