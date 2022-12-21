@@ -353,5 +353,29 @@ window.onload = function() {
     respimaticUid = "";
     ddList.selectedIndex = -1;
   }
+
+  var exportFileNameInput = document.getElementById("exportFileName");
+  exportFileNameInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("exportFileBtn").click();
+    }
+  });
+  
+  var newSysUidInput = document.getElementById("newSysUID");
+  newSysUidInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("addSystemBtn").click();
+    }
+  });
+  
+  var newSysTagInput = document.getElementById("newSysTAG");
+  newSysTagInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("addSystemBtn").click();
+    }
+  });
 };
 

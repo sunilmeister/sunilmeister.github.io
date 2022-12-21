@@ -35,18 +35,18 @@
   </head>
 
   <body>
-    <div id="exportDiv" style="width:850px; height:300px; display: none">
+    <div id="exportDiv" class="popupClass" style="width:700px; height:300px; display: none">
       <center>
-        <div style="font-size: 30px; font-family: 'verdana'">
+        <div style="font-size: 25px; font-family: 'verdana'">
           <br>
           <br>
           <label for="exportFileName">Export File Name (extension will be .xml)</label>
-          <input id="exportFileName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <input id="exportFileName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
           <br>
           <br>
           <br>
-          <button class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='exportFile()'>EXPORT</button>
-          <button class="button" style="background-color:var(--rsp_darkred); width:250px; font-size:30px;" onclick='cancelExport()'>CANCEL</button>
+          <button id=exportFileBtn class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:25px;" onclick='exportFile()'>EXPORT</button>
+          <button class="button" style="background-color:var(--rsp_darkred); width:250px; font-size:25px;" onclick='cancelExport()'>CANCEL</button>
           <br>
           <br>
 
@@ -54,25 +54,23 @@
       </center>
     </div>
 
-        <div id="importDiv" class='popupClass' style="height:210px; width:600px; display: none">
-	  <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-size: 20px; font-family: 'verdana'">
-            <br>
-            <label for="fileSelector">Systems File to Import</label>
-            <br>
-            <br>
-            <input type="file" id="fileSelector" accept=".xml" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:20px; font-family:verdana; " />
-            <br>
-            <br>
-            <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='importFile()'>IMPORT</button>
-            <button class="button" style="background-color:var(--rsp_darkred); width:200px; font-size:20px;" onclick='cancelImport()'>CANCEL</button>
-            <br>
-            <br>
-          </div>
-	  </center>
-        </div>
+    <div id="importDiv" class='popupClass' style="height:300px; width:700px; font-size:30px; font-family:verdana;display: none">
+      <center>
+        <br>
+        <label for="fileSelector">Systems File to Import</label>
+        <br>
+        <br>
+        <input type="file" id="fileSelector" accept=".xml" style="width: 300; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana; " />
+        <br>
+        <br>
+        <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:25px;" onclick='importFile()'>IMPORT</button>
+        <button class="button" style="background-color:var(--rsp_darkred); width:200px; font-size:25px;" onclick='cancelImport()'>CANCEL</button>
+        <br>
+        <br>
+      </center>
+    </div>
 
-    <div id="addSystemDiv" class='popupClass' style="width:600px; height:250px; display: none">
+    <div id="addSystemDiv" class='popupClass' style="width:600px; height:280px; display: none">
       <center>
         <div style="font-size: 20px; font-family: 'verdana'">
           <br>
@@ -86,7 +84,7 @@
           <br>
           <br>
           <br>
-          <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='addNewSystemBtn()'>ADD System</button>
+          <button id=addSystemBtn class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='addNewSystemBtn()'>ADD System</button>
           <button class="button" style="background-color:var(--rsp_darkred); width:200px; font-size:20px;" onclick='cancelNewSystemBtn()'>CANCEL</button>
         </div>
       </center>
@@ -104,31 +102,31 @@
               <br>
               <hr>
 
-              <label>Establish WEB Connection</label>
+              <label style="margin-bottom:0px; font-size:22px" >Select a Known System</label>
               <br>
-              <select id="SYSTEM_NAME" style="font-size: 0.8em; padding: 5px; width: 340px; text-align: center;" />
+              <select id="SYSTEM_NAME" style="font-size: 0.8em; padding: 5px; width: 340px; text-align: center; margin-top:10px;" />
               </select>
               <br>
 	      <hr>
-              <button class="lineButton" onclick="addSystemInfo()" >Remember a New System</button>
+              <button class="lineButton" onclick="addSystemInfo()" >Add to Known Systems</button>
               <br>
               <button class="lineButton" onclick="knownSystemInfo()" >Manage All Known Systems</button>
 
             </font>
 
             <hr>
-            <button class="lineButton" onclick="launchDashboard()" >Launch Dashboard</button>
+            <button class="lineButton" onclick="launchDashboard()">Launch Dashboard</button>
             <br>
             <button class="lineButton" onclick="launchAnalyzer()" style="width:270px;">Launch Analyzer</button>
-	    <br>
+            <br>
           </div>
         </center>
-	<div>
-	  <center>
-              <button class="lineButton" onclick="deleteAllCookies()" style="font-size:12px; height:15px; width:120px; margin-top:0px;" >Delete ALL Cookies</button>
-	  </center>
-              <br>
-	</div>
+        <div>
+          <center>
+            <button class="lineButton" onclick="deleteAllCookies()" style="font-size:12px; height:15px; width:120px; margin-top:10px;">Delete ALL Cookies</button>
+          </center>
+          <br>
+        </div>
 
       </div>
       <div id="knownSystems" style="display:none">
@@ -166,10 +164,10 @@
 
       </div>
       <div style="margin-top:-10px;">
-      <hr>
-      <center>
-        <img src="../common/img/Logos.png" alt="Title" width="350" height="60" />
-      </center>
+        <hr>
+        <center>
+          <img src="../common/img/Logos.png" alt="Title" width="350" height="60" />
+        </center>
       </div>
     </div>
 
