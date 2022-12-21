@@ -4,53 +4,41 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarButton {
-  align-items: center;
   appearance: none;
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_darkblue);
   color: white;
-  border-radius: 6px;
   border-width: 0;
-  box-shadow: var(--rsp_blue) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
-  box-sizing: white;
   cursor: pointer;
   display: inline-flex;
   height: var(--sidebarBtnHeight);
-  justify-content: center;
   line-height: 1;
   list-style: none;
   overflow: hidden;
   padding: var(--sidebarBtnPadding);
   margin: var(--sidebarBtnMargin);
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .15s,transform .15s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  will-change: box-shadow,transform;
   font-size: var(--sidebarBtnFontSize);
   width: var(--sidebarBtnWidth);
+  position: relative;
 }
 
 .sidebarButton:focus:not([disabled]) {
-  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
 .sidebarButton:hover:not([disabled]) {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  color: var(--rsp_blue);
 }
 
 .sidebarButton:active:not([disabled]) {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);}
+  box-shadow: #D6D6E7 0 3px 7px outset;
+  transform: translateY(4px);
+  color: var(--rsp_mediumblue);
+}
 
 .sidebarButton:disabled,
 .sidebarButton[disabled]{
-  background-color: white;
-  color: grey;
+  color: white;
+  color: orange;
   cursor: not-allowed;
   pointer-events: all !important;
 }

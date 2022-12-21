@@ -1,23 +1,22 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-
 function blinkRecordButton() {
   btn = document.getElementById("recordButton");
   var style = getComputedStyle(document.body)
   if (recordingPaused) {
-    if (recordButtonBackground == "BLUE") {
-      btn.style.backgroundColor = style.getPropertyValue('--rsp_orange');
-      recordButtonBackground = "ORANGE";
+    if (recordButtonForeground == "WHITE") {
+      btn.style.color = style.getPropertyValue('--rsp_orange');
+      recordButtonForeground = "ORANGE";
     }
     else {
-      btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
-      recordButtonBackground = "BLUE";
+      btn.style.color = 'white';
+      recordButtonForeground = "WHITE";
     }
   }
   else {
-    btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
-    recordButtonBackground = "BLUE";
+    btn.style.color = 'white';
+    recordButtonForeground = "WHITE";
   }
 }
 

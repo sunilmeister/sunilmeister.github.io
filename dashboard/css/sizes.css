@@ -16,10 +16,10 @@
 
   --columnPadding: 2rem;
   --sidebarBtnHeight: 50px;
-  --sidebarBtnWidth: 20rem;
+  --sidebarBtnWidth: 22rem;
   --sidebarBtnFontSize: 2.1rem;
   --sidebarBtnPadding: 0.7rem 0.7rem;
-  --sidebarBtnMargin: 0.3rem 0.3rem;
+  --sidebarBtnMargin: 0.3rem 0.3rem 0rem 1.2rem;
   --swalFontSize: 1.6rem;
   --swalTextFontSize: 1.6em;
 }

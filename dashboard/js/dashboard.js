@@ -163,24 +163,20 @@ function blinkFlowRate() {
 
 function blinkPauseButton() {
   btn = document.getElementById("btnPause");
-  hdr = document.getElementById("headerDiv");
   var style = getComputedStyle(document.body)
   if (updatePaused) {
-    if (pauseButtonBackground == "BLUE") {
-      btn.style.backgroundColor = style.getPropertyValue('--rsp_orange');
-      hdr.style.backgroundColor = style.getPropertyValue('--rsp_orange');
-      pauseButtonBackground = "ORANGE";
+    if (pauseButtonForeground == "WHITE") {
+      btn.style.color = style.getPropertyValue('--rsp_orange');
+      pauseButtonForeground = "ORANGE";
     }
     else {
-      btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
-      hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
-      pauseButtonBackground = "BLUE";
+      btn.style.color = 'white';
+      pauseButtonForeground = "WHITE";
     }
   }
   else {
-    btn.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
-    hdr.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
-    pauseButtonBackground = "BLUE";
+    btn.style.color = 'white';
+    pauseButtonForeground = "WHITE";
   }
 }
 

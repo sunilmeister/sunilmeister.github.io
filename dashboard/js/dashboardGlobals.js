@@ -43,9 +43,9 @@ var finishedLoading = false;
 var messagesBackground = "MEDIUMBLUE";
 var alertBackground = "GREEN";
 var pendingBackground = "MEDIUMBLUE";
-var pauseButtonBackground = "MEDIUMBLUE";
 var flowDivBackground = "DARKBLUE";
-var recordButtonBackground = "MEDIUMBLUE";
+var pauseButtonForeground = "MEDIUMBLUE";
+var recordButtonForeground = "MEDIUMBLUE";
 var alertImage = "OK";
 
 var blinkInterval = 0;
