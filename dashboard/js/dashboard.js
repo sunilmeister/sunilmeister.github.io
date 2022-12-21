@@ -505,6 +505,14 @@ window.onload = function() {
   sliderDiv = document.getElementById("rangeSliderDiv");
   createRangeSlider(sliderDiv);
 
+  var recordNameInput = document.getElementById("recordName");
+  recordNameInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("acceptRecordNameBtn").click();
+    }
+  });
+  
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();

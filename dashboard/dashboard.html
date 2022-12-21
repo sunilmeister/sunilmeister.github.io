@@ -67,7 +67,7 @@
         <div style="font-size: 55px; font-family: 'verdana'">
           <br>
           <label for="recordName">New Session Name</label>
-	  <br>
+          <br>
           <input id="recordName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:50px; font-family:verdana;" />
           <br>
           <br>
@@ -80,7 +80,6 @@
       </center>
     </div>
 
-
     <div id="fullDashboard" style="overflow:auto; min-height:175rem;">
       <div class="sidebarColumn">
         <div class="sidebar">
@@ -88,43 +87,43 @@
           <br>
           <div id="headerDiv" class=shadowDiv10 style="background-color:var(--rsp_darkblue); color:white; font-size:1.75rem; font-family:verdana;">
             <center>
-	    <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SESSION TIMES</b></p>
-                <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
-                  <tr>
-                    <td align="left">&nbspStart</td>
-                    <td id="logStartTime" align="center">00:00:00</td>
-                  </tr>
-                  <tr>
-                    <td align="left">&nbspDuration</td>
-                    <td id="logTimeDuration" align="center">00:00:00</td>
-                  </tr>
-                </table>
-	    <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SESSION BREATHS</b></p>
-                  <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
-                    <tr>
-                      <td id="pausedOrDuring" align="left">&nbspDetected</td>
-                      <td id="dashboardBreathNum" align="center">0</td>
-                    </tr>
-                    <tr>
-                      <td id="missedBreaths" align="left">&nbspLost</td>
-                      <td id="numMissedBreaths" align="center">0</td>
-                    </tr>
-                  </table>
-	    <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>PRIOR to SESSION</b></p>
-                    <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
-                      <tr>
-                        <td align="left">&nbspBreaths</td>
-                        <td id="priorBreathNum" align="center">--</td>
-                      </tr>
-                    </table>
+              <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SESSION TIMES</b></p>
+              <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
+                <tr>
+                  <td align="left">&nbspStart</td>
+                  <td id="logStartTime" align="center">00:00:00</td>
+                </tr>
+                <tr>
+                  <td align="left">&nbspDuration</td>
+                  <td id="logTimeDuration" align="center">00:00:00</td>
+                </tr>
+              </table>
+              <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SESSION BREATHS</b></p>
+              <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
+                <tr>
+                  <td id="pausedOrDuring" align="left">&nbspDetected</td>
+                  <td id="dashboardBreathNum" align="center">0</td>
+                </tr>
+                <tr>
+                  <td id="missedBreaths" align="left">&nbspLost</td>
+                  <td id="numMissedBreaths" align="center">0</td>
+                </tr>
+              </table>
+              <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>PRIOR to SESSION</b></p>
+              <table style="border-collapse:unset; border:none; font-size:1.8rem; width:100%">
+                <tr>
+                  <td align="left">&nbspBreaths</td>
+                  <td id="priorBreathNum" align="center">--</td>
+                </tr>
+              </table>
             </center>
             <br>
           </div>
 
           <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
-	    <center>
-	    <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SELECT VIEW</b></p>
-	    </center>
+            <center>
+              <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SELECT VIEW</b></p>
+            </center>
             <button id="btnSnapshots" class="sidebarButton" onclick='changeToSnapshotView()' disabled>View Snapshots</button>
 
             <button id="btnCharts" class="sidebarButton" onclick='changeToChartView()'>View Charts</button>
@@ -137,25 +136,25 @@
 
             <button id="btnRecording" class="sidebarButton" onclick='changeToRecordView()'>View Recording</button>
 
-	    <br>
-	    <br>
+            <br>
+            <br>
           </div>
 
           <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; font-family:verdana;">
-	    <center>
-	    <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>TURN ON/OFF</b></p>
-	    </center>
-                <button id="btnPause" class="sidebarButton" onclick='togglePause()'>Pause Dashboard</button>
+            <center>
+              <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>TURN ON/OFF</b></p>
+            </center>
+            <button id="btnPause" class="sidebarButton" onclick='togglePause()'>Pause Dashboard</button>
 
-                <button id="recordButton" class="sidebarButton" onclick='toggleRecording()' style="margin-bottom:1rem;">Start Recording</button>
+            <button id="recordButton" class="sidebarButton" onclick='toggleRecording()' style="margin-bottom:1rem;">Start Recording</button>
 
           </div>
 
           <center>
             <div class=shadowDiv10 id="fiO2Calc" style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-	    <center>
-	      <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0px;"><b>FiO<sub>2</sub> SETTINGS</b></p>
-	    </center>
+              <center>
+                <p style="font-size:2rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0px;"><b>FiO<sub>2</sub> SETTINGS</b></p>
+              </center>
               <div id="purityDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
                 <p style="font-size:2rem; margin-bottom:-0.5rem;">O<sub>2</sub> Source Purity (%)
               </div>
@@ -345,8 +344,8 @@
 
         <div id="shapes-pane" style="display:none">
           <div id="shapesDiv" style="margin-bottom:20px; margin-top:50px;">
-	    <div>
-	      <ul class="colorLegend">
+            <div>
+              <ul class="colorLegend">
                 <li><span class="MandatoryVC"></span> Mandatory VC</li>
                 <li><span class="SpontaneousVC"></span> Spontaneous VC</li>
                 <li><span class="SpontaneousPS"></span> Spontaneous PS</li>
@@ -354,7 +353,7 @@
                 <li><span class="Error"></span> Error</li>
                 <li><span class="Abnormal"></span> Abnormal</li>
               </ul>
-	      <br>
+              <br>
             </div>
           </div>
         </div>
@@ -796,15 +795,15 @@
             <input type="checkbox" id=All onclick='shapeTreeCheckboxClicked(this)'>
             <label for=All>All</label>
             <div class="shapeIndentDiv">
-	      <br>
+              <br>
               <input type="checkbox" id=MandatoryB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=MandatoryB>Mandatory Breaths</label>
               <div class="shapeIndentDiv">
                 <input type="checkbox" id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=MandatoryVC>Volume Controlled</label>
               </div>
-	    </div>
-	    <br>
+            </div>
+            <br>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=SpontaneousB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=SpontaneousB>Spontaneous Breaths</label>
@@ -815,19 +814,19 @@
               <div class="shapeIndentDiv">
                 <input type="checkbox" id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=SpontaneousPS>Pressure Supported&nbsp</label>
-	      </div>
-	      <br>
+              </div>
+              <br>
             </div>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
-	      <br>
+              <br>
             </div>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=ErrorB>Include Error Breaths</label>
-	      <br>
-	    </div>
+              <br>
+            </div>
             <div class="shapeIndentDiv">
               <input type="checkbox" id=AbnormalB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=AbnormalB>Include Abnormal Breaths</label>
