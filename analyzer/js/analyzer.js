@@ -532,6 +532,22 @@ window.onload = function() {
   var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Session';
 
+  var exportFileNameInput = document.getElementById("exportFileName");
+  exportFileNameInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("exportFileBtn").click();
+    }
+  });
+  
+  var importSessionNameInput = document.getElementById("importSessionName");
+  importSessionNameInput.addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("importFileBtn").click();
+    }
+  });
+  
   undisplayAllPanes();
   disableAllButtons();
 
