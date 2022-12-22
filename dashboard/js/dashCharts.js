@@ -2,6 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var firstTimeChartsEntry = true;
+
 function createDashboardCharts() {
   if (app.chartCreationInProgress) return;
   app.chartCreationInProgress = true;
@@ -9,6 +11,11 @@ function createDashboardCharts() {
   if (numberOfExistingCharts()==0) {
     chartInsertOnTop(); // always have chart box for user to start with
   }  
+
+  if (firstTimeChartsEntry) {
+    showEditIconReminder();
+    firstTimeChartsEntry = false;
+  }
 
   for (id in app.allChartsContainerInfo) {
     app.allChartsContainerInfo[id].render();

@@ -2,7 +2,14 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var firstTimeChartsEntry = true;
+
 function createAnalysisCharts() {
+  if (firstTimeChartsEntry) {
+    showEditIconReminder();
+    firstTimeChartsEntry = false;
+  }
+
   for (id in app.allChartsContainerInfo) {
     app.allChartsContainerInfo[id].render();
   }

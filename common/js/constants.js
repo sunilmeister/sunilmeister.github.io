@@ -72,7 +72,7 @@ const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>
   "Press 'View Breath Shapes' to view" + 
   "</pre></span>";
 
-const EDIT_ICON_TITLE_STR = "SELECT DISPLAY ITEMS" ;
+const EDIT_ICON_TITLE_STR = "SELECT CHART ITEMS" ;
 const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
   "Press EDIT icon on the banner" + 
   "\n" +

@@ -2,6 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var firstTimeShapesEntry = true;
 function createDashboardShapes() {
   if (app.shapeCreationInProgress) return;
   app.shapeCreationInProgress = true;
@@ -9,6 +10,11 @@ function createDashboardShapes() {
   if (numberOfExistingShapes()==0) {
     shapeInsertOnTop(); // always have shape box for user to start with
   }  
+
+  if (firstTimeShapesEntry) {
+    showEditIconReminder();
+    firstTimeShapesEntry = false;
+  }
 
   for (id in app.allShapesContainerInfo) {
     app.allShapesContainerInfo[id].render();
