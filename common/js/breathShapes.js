@@ -123,7 +123,7 @@ class BreathShapes {
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
-    Xaxis.gridColor = "black";
+    Xaxis.gridColor = "grey";
     Xaxis.gridThickness = 1;
     Xaxis.labelFontSize = app.shapeLabelFontSize;
     Xaxis.labelFormatter = breathShapeXaxisFormatter;
