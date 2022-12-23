@@ -55,9 +55,7 @@ const SESSION_VERSION             = "1.1";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM" ;
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Use CTRL key and +/- keys to" +
-  "\n" +
-  "increase/decrease the page zoom level" +
+  "Use CTRL key and +/- keys to zoom" +
   "\n" +
   "till the full page is visible." +
   "\n" +
