@@ -34,19 +34,21 @@
 
   </head>
 
-  <body>
-    <div id="exportDiv" class="popupClass" style="width:700px; height:300px; display: none">
+  <body style="font-family: 'verdana'">
+    <div id="exportDiv" class="popupClass" style="width:45rem; height:20rem; display: none">
       <center>
-        <div style="font-size: 25px; font-family: 'verdana'">
+        <div style="font-size: 1.6rem;">
           <br>
           <br>
           <label for="exportFileName">Export File Name (extension will be .xml)</label>
-          <input id="exportFileName" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana;" />
+	  <br>
+	  <br>
+          <input id="exportFileName" style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
           <br>
           <br>
           <br>
-          <button id=exportFileBtn class="button" style="background-color:var(--rsp_darkblue); width:250px; font-size:25px;" onclick='exportFile()'>EXPORT</button>
-          <button class="button" style="background-color:var(--rsp_darkred); width:250px; font-size:25px;" onclick='cancelExport()'>CANCEL</button>
+          <button id=exportFileBtn class="button" style="background-color:var(--rsp_darkblue); width:16rem;" onclick='exportFile()'>EXPORT</button>
+          <button class="button" style="background-color:var(--rsp_darkred); width:16rem;" onclick='cancelExport()'>CANCEL</button>
           <br>
           <br>
 
@@ -54,38 +56,38 @@
       </center>
     </div>
 
-    <div id="importDiv" class='popupClass' style="height:300px; width:700px; font-size:30px; font-family:verdana;display: none">
+    <div id="importDiv" class='popupClass' style="height:15rem; width:40rem; font-size:1.5rem; display: none">
       <center>
         <br>
         <label for="fileSelector">Systems File to Import</label>
         <br>
         <br>
-        <input type="file" id="fileSelector" accept=".xml" style="width: 300; background-color:white; color:var(--rsp_darkblue); font-size:25px; font-family:verdana; " />
+        <input type="file" id="fileSelector" accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.4rem;" />
         <br>
         <br>
-        <button class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:25px;" onclick='importFile()'>IMPORT</button>
-        <button class="button" style="background-color:var(--rsp_darkred); width:200px; font-size:25px;" onclick='cancelImport()'>CANCEL</button>
+        <button class="button" style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick='importFile()'>IMPORT</button>
+        <button class="button" style="background-color:var(--rsp_darkred); width:12.5rem;" onclick='cancelImport()'>CANCEL</button>
         <br>
         <br>
       </center>
     </div>
 
-    <div id="addSystemDiv" class='popupClass' style="width:600px; height:280px; display: none">
+    <div id="addSystemDiv" class='popupClass' style="width:37.5rem; height:18rem; font-size: 1.5rem; display: none">
       <center>
-        <div style="font-size: 20px; font-family: 'verdana'">
+	<div>
           <br>
           <br>
           <label for="newSysTAG">System TAG</label>
-          <input id="newSysTAG" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:20px; font-family:verdana;" />
+          <input id="newSysTAG" style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
           <br>
           <br>
           <label for="newSysUID">System UID</label>
-          <input id="newSysUID" style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:20px; font-family:verdana;" />
+          <input id="newSysUID" style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
           <br>
           <br>
           <br>
-          <button id=addSystemBtn class="button" style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='addNewSystemBtn()'>ADD System</button>
-          <button class="button" style="background-color:var(--rsp_darkred); width:200px; font-size:20px;" onclick='cancelNewSystemBtn()'>CANCEL</button>
+          <button id=addSystemBtn class="button" style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick='addNewSystemBtn()'>ADD System</button>
+          <button class="button" style="background-color:var(--rsp_darkred); width:12.5rem; " onclick='cancelNewSystemBtn()'>CANCEL</button>
         </div>
       </center>
     </div>
@@ -94,43 +96,39 @@
 
       <div id="mainDiv" style="display:block">
         <center>
-          <img src="../common/img/Apps.png" alt="Title" width="340" height="100" />
-          <hr style="margin-top:-10px;">
-          <div class="content" style="font-size: 1.5em;">
-            <font size="5">
-              <button class="lineButton" onclick="launchFiO2()" >Calculate FiO<sub>2</sub> Settings</button>
-              <br>
-              <hr>
+          <img src="../common/img/Apps.png" alt="Title" width=380rem height=110rem />
+          <hr style="margin-top:-0.625rem;">
+          <div class="content" style="font-size: 1.5rem;">
+            <button class="lineButton" onclick="launchFiO2()" >Calculate FiO<sub>2</sub> Settings</button>
+            <br>
+            <hr>
 
-              <label style="margin-bottom:0px; font-size:22px" >Select a Known System</label>
-              <br>
-              <select id="SYSTEM_NAME" style="font-size: 0.8em; padding: 5px; width: 340px; text-align: center; margin-top:10px;" />
-              </select>
-              <br>
-	      <hr>
-              <button class="lineButton" onclick="addSystemInfo()" >Add a Known System</button>
-              <br>
-              <button class="lineButton" onclick="knownSystemInfo()" >Manage Known Systems</button>
-
-            </font>
-
+            <label style="margin-bottom:0px; font-size:22px" >Select a Known System</label>
+            <br>
+            <select id="SYSTEM_NAME" style="font-size: 1.3rem; padding: 5px; width: 22rem; text-align: center; margin-top:0.625rem;" />
+            </select>
+            <br>
+            <hr>
+            <button class="lineButton" onclick="addSystemInfo()" >Add a Known System</button>
+            <br>
+            <button class="lineButton" onclick="knownSystemInfo()" >Manage Known Systems</button>
             <hr>
             <button class="lineButton" onclick="launchDashboard()">Launch Dashboard</button>
             <br>
-            <button class="lineButton" onclick="launchAnalyzer()" style="width:270px;">Launch Analyzer</button>
+            <button class="lineButton" onclick="launchAnalyzer()">Launch Analyzer</button>
             <br>
           </div>
         </center>
         <div>
           <center>
-            <button class="lineButton" onclick="deleteAllCookies()" style="font-size:12px; height:15px; width:120px; margin-top:10px;">Delete ALL Cookies</button>
+            <button class="lineButton" onclick="deleteAllCookies()" style="font-size:0.75rem; height:1rem; width:7.5rem; margin-top:0.625rem;">Delete ALL Cookies</button>
           </center>
           <br>
         </div>
 
       </div>
       <div id="knownSystems" style="display:none">
-        <div style="height:500px;">
+        <div style="height:32rem;">
           <center>
             <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
               <button class="iconButton" onClick="exitSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=20px height=20px></button>RESPIMATIC-100 Systems Table
@@ -157,20 +155,22 @@
         <center>
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
             Import / Export Systems Table
-            <button class="iconButton" onClick="importSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Import'><img src="../common/img/import.png" width=20px height=20px></button>
-            <button class="iconButton" onClick="exportSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Export'><img src="../common/img/export.png" width=20px height=20px></button>
-          </div>
+            <button class="iconButton" onClick="importSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Import'><img src="../common/img/import.png" width=25px height=25px></button>
+            <button class="iconButton" onClick="exportSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Export'><img src="../common/img/export.png" width=25px height=25px></button>
+	    <br>
+	    <br>
+	  </div>
         </center>
 
       </div>
-      <div style="margin-top:-10px;">
+      <div style="margin-top:-0.625rem;">
         <hr>
         <center>
-          <img src="../common/img/Logos.png" alt="Title" width="350" height="60" />
+          <img src="../common/img/Logos.png" alt="Title" width=380rem height=65rem />
         </center>
         <hr>
       </div>
-      <div style="background-color:white; font-size:15px;">
+      <div style="background-color:white; font-size:0.9rem;">
 	<center>
 	<a href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Freepik - Flaticon</a>
 	</center>

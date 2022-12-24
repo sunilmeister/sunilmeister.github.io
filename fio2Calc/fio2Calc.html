@@ -18,6 +18,7 @@
 
     <link rel="stylesheet" href="../common/css/common.css" />
     <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="css/fio2.css" />
     <link rel="stylesheet" href="css/sizes.css" />
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.15/dist/sweetalert2.all.min.js"></script>
@@ -27,83 +28,40 @@
     <script src="../common/js/common.js"></script>
     <script src="../common/js/modalPopup.js"></script>
     <script src="js/fio2Calc.js"></script>
-
-    <style>
-      .wrapper {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        font-family: Arial;
-        background-color: var(--rsp_darkblue);
-        color: white;
-        padding: 8px;
-        -webkit-box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
-        box-shadow: 15px 15px 16px 14px rgba(0, 0, 0, 0.4);
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-        transform: translate(-50%, -50%);
-        /* (x, y)  => position */
-        -ms-transform: translate(-50%, -50%);
-        /* IE 9 */
-        -webkit-transform: translate(-50%, -50%);
-        /* Chrome, Safari, Opera */
-      }
-
-    </style>
   </head>
 
-  <body>
-    <div id='zoomAlertDiv' class="popupClass">
-      <center>
-        <br> Use CTRL key and +/- keys to
-        <br> increase/decrease the page zoom level
-        <br> till the page is fully visible.
-        <br>
-        <br> Or hold down the CTRL key and use
-        <br> the mouse wheel to zoom in/out.
-      </center>
-    </div>
-
+  <body style="font-family:verdana;">
     <div class="wrapper">
 
       <center>
-        <img src="img/FiO2.png" alt="Title" width="360" height="100">
-        <div class="content" style="font-size: 1em; border-style: solid; border-coloor:white; background-color:var(--rsp_mediumblue); color:white; margin-left: 6px; margin-right: 6px;">
-          <font size="5.5">
-            <b>
-              <label>Required Incoming O<sub>2</sub> Flow</label>
-              <font size="6">
-                <p id="o2FlowRate">0.0 (litres/min)
-              </font>
+        <img src="img/FiO2.png" alt="Title" width=360rem height=100rem>
+        <div class="content" style="font-size: 2rem; border-style: solid; border-color:white; background-color:var(--rsp_mediumblue); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
+          <b>
+            <p style="font-size:1.7rem; padding-bottom:-1rem;">Required Incoming O<sub>2</sub> Flow</p>
+	    <p id="o2FlowRate">0.0 (litres/min)</p>
           </b>
-          </font>
         </div>
         <br>
         <br>
-
-        <label for="altitude" style="font-size:1.25em; ">Altitude:
-          <input type="number" id="altitude" name="altitude" autofocus value="0" style="font-size:1.2em; width:5em;" onchange="altChanged()">
+        <label for="altitude" style="font-size:1.5rem; ">Altitude:
+          <input type="number" id="altitude" name="altitude" autofocus value="0" style="font-size:1.5rem; width:8rem;" onchange="altChanged()">
         </label>
-        <select name="altitudeUnits" id="altitudeUnits" onchange="altChanged()" style="font-size:1.3em;">
+        <select name="altitudeUnits" id="altitudeUnits" onchange="altChanged()" style="font-size:1.3rem;">
           <option value="feet">feet</option>
           <option value="meters">meters</option>
         </select>
         <br>
         <br>
 
-        <div id="vtRrDiv" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-          <font size=4>
+        <div id="vtRrDiv" style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem">
             <p>&nbsp&nbsp&nbsp&nbspDesired VT(ml)&nbsp&nbsp&nbsp&nbspDesired RR(bpm)
-          </font size>
         </div>
 
-        <div id="fio2Div" style="background-color:var(--rsp_darkblue); color:white; font-family:verdana;">
-          <font size=4>
+        <div id="fio2Div" style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem">
             <p>&nbspO<sub>2</sub> Source Purity(%)&nbsp&nbsp&nbspDesired FiO<sub>2</sub>(%)
-          </font size>
         </div>
-
-        <img src="../common/img/Logos.png" alt="Title" width="360" height="60" style="padding-bottom:0;">
+        <hr>
+        <img src="../common/img/Logos.png" alt="Title" width=380rem height=70rem style="padding-bottom:0;">
       </center>
 
     </div>
