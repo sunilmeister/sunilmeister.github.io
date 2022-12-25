@@ -31,33 +31,33 @@
   </head>
 
   <body style="font-family:verdana;">
-    <div class="wrapper">
+    <div class=wrapper>
 
       <center>
         <img src="img/FiO2.png" alt="Title" width=360rem height=100rem>
-        <div class="content" style="font-size: 2rem; border-style: solid; border-color:white; background-color:var(--rsp_mediumblue); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
+        <div class=content style="font-size: 2rem; border-style: solid; border-color:white; background-color:var(--rsp_mediumblue); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
           <b>
             <p style="font-size:1.7rem; padding-bottom:-1rem;">Required Incoming O<sub>2</sub> Flow</p>
-	    <p id="o2FlowRate">0.0 (litres/min)</p>
+	    <p id=o2FlowRate>0.0 (litres/min)</p>
           </b>
         </div>
         <br>
         <br>
         <label for="altitude" style="font-size:1.5rem; ">Altitude:
-          <input type="number" id="altitude" name="altitude" autofocus value="0" style="font-size:1.5rem; width:8rem;" onchange="altChanged()">
+          <input type="number" id=altitude name="altitude" autofocus value="0" style="font-size:1.5rem; width:8rem;" onchange="altChanged()">
         </label>
-        <select name="altitudeUnits" id="altitudeUnits" onchange="altChanged()" style="font-size:1.3rem;">
+        <select name="altitudeUnits" id=altitudeUnits onchange="altChanged()" style="font-size:1.3rem;">
           <option value="feet">feet</option>
           <option value="meters">meters</option>
         </select>
         <br>
         <br>
 
-        <div id="vtRrDiv" style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem">
+        <div id=vtRrDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem">
             <p>&nbsp&nbsp&nbsp&nbspDesired VT(ml)&nbsp&nbsp&nbsp&nbspDesired RR(bpm)
         </div>
 
-        <div id="fio2Div" style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem">
+        <div id=fio2Div style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem">
             <p>&nbspO<sub>2</sub> Source Purity(%)&nbsp&nbsp&nbspDesired FiO<sub>2</sub>(%)
         </div>
         <hr>
