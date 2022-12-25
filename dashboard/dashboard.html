@@ -80,7 +80,7 @@
       </center>
     </div>
 
-    <div id="fullDashboard" style="overflow:auto; min-height:65rem;">
+    <div id="fullDashboard" style="overflow:auto; min-height:60rem;">
       <div class="sidebarColumn">
         <div class="sidebar">
 
@@ -171,11 +171,10 @@
 
       <div class="dashboard-pane">
 
-        <div class=shadowDiv10 id="rangeWindowDiv" style="margin-top:0px; margin-bottom:5px; background-color:var(--rsp_darkblue); display:none; ">
-          <div id="rangeSliderDiv" style="padding-left:5px; padding-right:5px;font-size:0.75rem;">
+        <div class=shadowDiv10 id="rangeWindowDiv" style="margin-top:35px; margin-bottom: -25px; background-color:var(--rsp_darkblue); display:none; ">
+          <div id="rangeSliderDiv" style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
           </div>
           <center>
-            <br>
             <button class="iconButton" id="btnFullInterval" onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
             <button class="iconButton" id="btnSetInterval" onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=20px height=20px></button>
             <button class="iconButton" id="btnCancelInterval" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=20px height=20px></button>
@@ -188,7 +187,7 @@
             <p class=shadowDiv5 id="recordSessionName" style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
               No Active Session
               <div class=shadowDiv5 style="height:52rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=recordBox style="font-size:1.2rem; text-align: left">
+                <p id=recordBox style="font-size:1.1rem; text-align: left">
               </div>
           </center>
         </div>
@@ -201,7 +200,7 @@
                   Session Errors</h2>
               </center>
               <div class=shadowDiv5 id="errorDiv" style="height:47rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id="scrollErrorDiv" style="font-size:1.75rem; text-align: left">
+                <p id="scrollErrorDiv" style="font-size:1rem; text-align: left">
               </div>
             </div>
 
@@ -211,7 +210,7 @@
                   Session Warnings</h2>
               </center>
               <div class=shadowDiv5 id="warningDiv" style="height:47rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id="scrollWarningDiv" style="font-size:1.75rem; text-align: left">
+                <p id="scrollWarningDiv" style="font-size:1rem; text-align: left">
               </div>
             </div>
 
@@ -221,7 +220,7 @@
                   Session Information</h2>
               </center>
               <div class=shadowDiv5 id="infoDiv" style="height:47rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id="scrollInfoDiv" style="font-size:1.75rem; text-align: left">
+                <p id="scrollInfoDiv" style="font-size:1rem; text-align: left">
               </div>
             </div>
 
@@ -609,7 +608,7 @@
 // ////////////////////////////////////////////////////
 -->
     <template id="chartContainerTemplate">
-      <div class="chartContainer" style="position:relative">
+      <div class="chartContainer" style="position:relative; width:100%;">
         <div class="chartBanner">
           <button class="iconButton" style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" width=15px height=15px></button>
           <button class="iconButton" style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" width=15px height=15px></button>

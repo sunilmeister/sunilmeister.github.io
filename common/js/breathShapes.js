@@ -229,8 +229,8 @@ class BreathShapes {
       stripLine.labelPlacement = "inside";
       stripLine.labelAlign = "near";
       stripLine.labelWrap = true;
-      stripLine.labelMaxWidth = 120;
-      stripLine.labelFontColor = "black";
+      stripLine.labelMaxWidth = 80;
+      stripLine.labelFontColor = "grey";
       stripLine.labelFontSize = app.stripLineFontSize;
       Xaxis.stripLines.push(cloneObject(stripLine));
     }

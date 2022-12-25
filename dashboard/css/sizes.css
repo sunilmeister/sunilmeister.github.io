@@ -1,11 +1,11 @@
 :root {
-  --chartBodyHeight: 20rem;
+  --chartBodyHeight: 25rem;
   --chartMenuIndent: 1rem;
   --chartMenuFontSize: 1rem;
   --chartMenuBannerHeight: 2rem;
   --chartMenuIconSize: 1rem;
 
-  --shapeBodyHeight: 20rem;
+  --shapeBodyHeight: 25rem;
   --shapeMenuIndent: 1rem;
   --shapeMenuFontSize: 1rem;
   --shapeMenuBannerHeight: 2rem;
