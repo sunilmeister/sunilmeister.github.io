@@ -1,6 +1,6 @@
 .Snapshot {
   display: grid;
-  grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
   grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1rem 1rem;
   place-content: center center;
@@ -292,7 +292,7 @@
 
 .PS {
   grid-area: 10 / 16 / 12 / 19;
-  color: white;
+  color: white;  
   background-color: var(--rsp_mediumblue);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -333,7 +333,7 @@
 }
 
 .SysUid {
-  grid-area: 15 / 4 / 17 / 9;
+  grid-area: 15 / 4 / 17 / 9;style="margin-top:0rem; margin-bottom:0.75rem; font-size:1rem;padding-top:0.125rem; padding-bottom:0.15rem; background-color:var(--rsp_darkblue);">
   background-color: var(--rsp_darkblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -346,6 +346,11 @@
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+}
+
+.EmptyColumn {
+  grid-area: 1 / 1 / 17 / 19;
+  background-color: white;
 }
 
 .ChartWrapper {
@@ -363,3 +368,55 @@
   margin-right: 0.25rem;
 }
 
+.pressureHeadingCls {
+  padding-top:0.25rem; 
+  padding-bottom:0.25rem; 
+  margin-top:0rem; 
+  margin-bottom:0.5rem; 
+  font-size:0.9rem;
+  background-color:var(--rsp_darkblue);
+}
+
+.paramHeadingCls {
+  margin-top:0rem; 
+  margin-bottom:0.75rem; 
+  font-size:1rem;
+  padding-top:0.125rem; 
+  padding-bottom:0.15rem; 
+  background-color:var(--rsp_darkblue);
+}
+
+.paramValueCls {
+  margin-top:0rem; 
+  margin-bottom:0.315rem; 
+  font-size:1.8rem; 
+  font-weight:bold;
+}
+
+.paramUnitsCls {
+  margin-top:0rem; 
+  margin-bottom:0rem; 
+  font-size:0.8rem;
+}
+
+.measuredHeadingCls {
+  padding-top:0.125rem; 
+  padding-bottom:0.15rem; 
+  background-color:var(--rsp_darkblue); 
+  margin-top:0rem; 
+  margin-bottom:0rem; 
+  font-size:0.9rem;
+}
+
+.measuredValueCls {
+  margin-top:1.25rem; 
+  margin-bottom:0.625rem; 
+  font-size:1.8rem; 
+  font-weight:bold;
+}
+
+.measuredUnitsCls {
+  margin-top:0rem; 
+  margin-bottom:0rem; 
+  font-size:0.8rem;
+}

@@ -1,26 +1,26 @@
 :root {
-  --chartBodyHeight: 600px;
-  --chartMenuIndent: 40px;
-  --chartMenuFontSize: 30px;
-  --chartMenuBannerHeight: 50px;
-  --chartMenuIconSize: 50px;
+  --chartBodyHeight: 20rem;
+  --chartMenuIndent: 1rem;
+  --chartMenuFontSize: 1rem;
+  --chartMenuBannerHeight: 2rem;
+  --chartMenuIconSize: 1rem;
 
-  --shapeBodyHeight: 600px;
-  --shapeMenuIndent: 40px;
-  --shapeMenuFontSize: 30px;
-  --shapeMenuBannerHeight: 50px;
-  --shapeMenuIconSize: 50px;
+  --shapeBodyHeight: 20rem;
+  --shapeMenuIndent: 1rem;
+  --shapeMenuFontSize: 1rem;
+  --shapeMenuBannerHeight: 2rem;
+  --shapeMenuIconSize: 1.5rem;
 
-  --colorLegendSize: 50px;
-  --colorLegendFontSize: 35px;
+  --colorLegendSize: 1.5rem;
+  --colorLegendFontSize: 1.2rem;
 
-  --columnPadding: 2rem;
-  --sidebarBtnHeight: 50px;
-  --sidebarBtnWidth: 22rem;
-  --sidebarBtnFontSize: 2.1rem;
-  --sidebarBtnPadding: 0.7rem 0.7rem;
-  --sidebarBtnMargin: 0.3rem 0.3rem 0rem 1.2rem;
-  --swalFontSize: 1.6rem;
-  --swalTextFontSize: 1.6em;
+  --columnPadding: 1rem;
+  --sidebarBtnHeight: 1.6rem;
+  --sidebarBtnWidth: 12rem;
+  --sidebarBtnFontSize: 1.2rem;
+  --sidebarBtnPadding: 0.35rem 0.35rem;
+  --sidebarBtnMargin: 0.15rem 0.15rem 0rem 0.6rem;
+  --swalFontSize: 1.2rem;
+  --swalTextFontSize: 1em;
 }
 

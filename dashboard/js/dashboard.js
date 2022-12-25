@@ -384,7 +384,7 @@ function installFiO2Gauge() {
   var bgColor = style.getPropertyValue('--rsp_mediumblue');
   var fgColor = 'white' ;
   var containerDiv = document.getElementById('fiO2Div');
-  fiO2Gauge = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
+  fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
 }
 
@@ -393,7 +393,7 @@ function installPurityGauge() {
   var bgColor = style.getPropertyValue('--rsp_mediumblue');
   var fgColor = 'white' ;
   var containerDiv = document.getElementById('purityDiv');
-  purityGauge = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
+  purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
   
 }
@@ -403,7 +403,7 @@ function installPeakGauge() {
   var bgColor = style.getPropertyValue('--rsp_darkblue');
   var fgColor = 'white' ;
   var containerDiv = document.getElementById('PeakGauge');
-  peakGauge = new CircularGauge(containerDiv, 175, fgColor, bgColor, 0, 70);
+  peakGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
 }
 
@@ -412,7 +412,7 @@ function installPlatGauge() {
   var bgColor = style.getPropertyValue('--rsp_darkblue');
   var fgColor = 'white' ;
   var containerDiv = document.getElementById('PlatGauge');
-  platGauge = new CircularGauge(containerDiv, 175, fgColor, bgColor, 0, 70);
+  platGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
 }
 
@@ -421,7 +421,7 @@ function installPeepGauge() {
   var bgColor = style.getPropertyValue('--rsp_darkblue');
   var fgColor = 'white' ;
   var containerDiv = document.getElementById('PeepGauge');
-  peepGauge = new CircularGauge(containerDiv, 175, fgColor, bgColor, 0, 70);
+  peepGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
 }
 
@@ -430,7 +430,7 @@ function installTempGauge() {
   var bgColor = style.getPropertyValue('--rsp_darkblue');
   var fgColor = style.getPropertyValue('--rsp_mediumblue');
   var containerDiv = document.getElementById('TempGauge');
-  tempGauge = new CircularGauge(containerDiv, 150, fgColor, bgColor, -20, 70);
+  tempGauge = new CircularGauge(containerDiv, 90, fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
 
@@ -452,7 +452,7 @@ function receivedNewShape() {
 }
 
 window.onload = function() {
-  showZoomReminder(1200);
+  showZoomReminder(600);
 
   finishedLoading = false;
   // Create data objects
