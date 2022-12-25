@@ -519,7 +519,7 @@ window.onload = function() {
   app.shapeLabelFontSize = 20;
   app.shapeLegendFontSize = 25;
   app.shapeTitleFontSize = 40;
-  app.stripLineFontSize = 30;
+  app.stripLineFontSize = 25;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();
