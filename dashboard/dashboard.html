@@ -80,7 +80,7 @@
       </center>
     </div>
 
-    <div id="fullDashboard" style="overflow:auto; min-height:60rem;">
+    <div id="fullDashboard" style="min-height:60rem;">
       <div class="sidebarColumn">
         <div class="sidebar">
 
@@ -184,9 +184,9 @@
 
         <div id="record-pane" style="width:40rem; font-size:1.2rem; display:none">
           <center>
-            <p class=shadowDiv5 id="recordSessionName" style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
+            <p class=shadowDiv5 id="recordSessionName" style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; margin-top:-20px;">
               No Active Session
-              <div class=shadowDiv5 style="height:55rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=recordBox style="font-size:1.1rem; text-align: left">
               </div>
           </center>
@@ -199,7 +199,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Errors</h2>
               </center>
-              <div class=shadowDiv5 id="errorDiv" style="height:47rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id="errorDiv" style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollErrorDiv" style="font-size:1rem; text-align: left">
               </div>
             </div>
@@ -209,7 +209,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Warnings</h2>
               </center>
-              <div class=shadowDiv5 id="warningDiv" style="height:47rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id="warningDiv" style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollWarningDiv" style="font-size:1rem; text-align: left">
               </div>
             </div>
@@ -219,7 +219,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Information</h2>
               </center>
-              <div class=shadowDiv5 id="infoDiv" style="height:47rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id="infoDiv" style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id="scrollInfoDiv" style="font-size:1rem; text-align: left">
               </div>
             </div>
@@ -608,7 +608,7 @@
 // ////////////////////////////////////////////////////
 -->
     <template id="chartContainerTemplate">
-      <div class="chartContainer" style="position:relative; width:100%;">
+      <div class="chartContainer" style="position:relative;">
         <div class="chartBanner">
           <button class="iconButton" style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" width=15px height=15px></button>
           <button class="iconButton" style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" width=15px height=15px></button>

@@ -124,10 +124,10 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Mandatory Breaths", "numMandatory");
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
-  miscTableRow(table, "Number of Missing Breaths (Wi-Fi Disconnect)", "numMissingBreaths");
-  miscTableRow(table, "Number of NOTIFICATIONs", "numNotifications");
-  miscTableRow(table, "Number of WARNINGs", "numWarnings");
-  miscTableRow(table, "Number of ERRORs", "numErrors");
+  miscTableRow(table, "Number of Missing Breaths (Comms Failure)", "numMissingBreaths");
+  miscTableRow(table, "Number of Notifications", "numNotifications");
+  miscTableRow(table, "Number of Warnings", "numWarnings");
+  miscTableRow(table, "Number of Errors", "numErrors");
 }
 
 function replaceDummyValue(value) {

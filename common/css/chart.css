@@ -10,7 +10,8 @@
 
 .chartContainer {
   margin-top: 10px;
-  font-family: verdana;
+  margin-right:1rem;
+  width:100%;
 }
 
 .chartBanner {
@@ -43,5 +44,7 @@
 .chartBody {
   background-color: var(--rsp_lightblue);
   height: var(--chartBodyHeight);
+  margin-right:1rem;
+  width:100%;
 }
 
