@@ -72,7 +72,7 @@ const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>
 
 const EDIT_ICON_TITLE_STR = "SELECT CHART ITEMS" ;
 const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Press EDIT icon on the banner" + 
+  "Press EDIT (PEN icon) on the banner" + 
   "\n" +
-  "to select items to display in the Charts" +
+  "to select Chart items to display" +
   "</pre></span>";
