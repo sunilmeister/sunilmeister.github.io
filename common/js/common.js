@@ -569,6 +569,7 @@ function showZoomReminder(width) {
 }
 
 function showEditIconReminder() {
+  if (getCookie(editReminderOffCookieName) == "OFF") return;
   Swal.fire({
     icon: 'info',
     title: EDIT_ICON_TITLE_STR,
@@ -581,6 +582,10 @@ function showEditIconReminder() {
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
     timer: 5000
+  }).then((result) => {
+     if (result.isDismissed) {
+      setCookie(editReminderOffCookieName, "OFF");
+     }
   })
 }
 
