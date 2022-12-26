@@ -185,6 +185,7 @@ function selectSession() {
 
 function selectImport() {
   document.getElementById("importDiv").style.display = "block";
+  document.getElementById("importSessionName").value = "Imported Session";
   if (app.sessionDataValid) enableAllButtons();
 }
 
@@ -510,16 +511,16 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function() {
-  showZoomReminder(900);
+  showZoomReminder(600);
 
   // Create data objects
   app = cloneObject(AppDataTemplate);
   app.appId = ANALYZER_APP_ID;
-  app.chartFontSize = 20;
-  app.shapeLabelFontSize = 20;
-  app.shapeLegendFontSize = 25;
-  app.shapeTitleFontSize = 40;
-  app.stripLineFontSize = 25;
+  app.chartFontSize = 15;
+  app.shapeLabelFontSize = 15;
+  app.shapeLegendFontSize = 20;
+  app.shapeTitleFontSize = 30;
+  app.stripLineFontSize = 20;
   session = cloneObject(SessionDataTemplate);
 
   initDbNames();

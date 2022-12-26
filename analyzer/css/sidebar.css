@@ -4,35 +4,31 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 350px;
+  width: 17rem;
   background-color: var(--rsp_blue);
-  padding-bottom: 40px;
-  padding-top: 15px;
-  padding-left: 10px;
-  padding-right: 5px;
-  margin-top: 50px;
-  margin-bottom: 0;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  padding-right: 0.4rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
 }
 
 .sidebar {
-  width: 300px;
-  font-size: 20px;
-  font-family: verdana;
-  margin-left: 20px;
+  width: 15rem;
+  font-size: 1.2rem;
+  margin-left: 1rem;
 }
 
 .sidebar div {
-  padding: 10px;
-  font-size: 25px;
+  padding: 1rem;
+  font-size: 1.2rem;
   display: block;
 }
 
 .body-pane {
-  border-radius: 25px;
-  margin-top: -1150px;
-  margin-left: 400px;
-  margin-right: 20px;
-  font-size: 20px;
-  font-family: verdana;
+  margin-top: -930px;
+  margin-left: 20rem;
+  margin-right: 1rem;
+  font-size: 1.2rem;
 }
 

@@ -64,20 +64,21 @@
     <script src="js/analyzer.js"></script>
   </head>
 
-  <body>
-    <div id=importDiv class='popupClass' style="width:850px; height:430px; display: none">
+  <body style="font-family='verdana'">
+    <div id=importDiv class='popupClass' style="width:850px; height:450px; display: none">
       <center>
-        <div style="font-size: 30px; font-family: 'verdana'">
-          <br>
+        <div style="font-size: 1.8rem;" >
           <br>
           <label for="fileSelector">Session File to Import</label>
           <br>
           <br>
-          <input type="file" id=fileSelector accept=".xml" style="width: 250; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <input type="file" id=fileSelector accept=".xml" style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
           <br>
           <br>
           <label for="importSessionName">Session Name to Create</label>
-          <input id=importSessionName style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+	  <br>
+	  <br>
+          <input id=importSessionName style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
           <br>
           <br>
           <br>
@@ -92,11 +93,12 @@
 
     <div id=exportDiv class='popupClass' style="width:850px; height:300px; display: none">
       <center>
-        <div style="font-size: 30px; font-family: 'verdana'">
-          <br>
+        <div style="font-size: 30px; ">
           <br>
           <label for="exportFileName">Export File Name (extension will be .xml)</label>
-          <input id=exportFileName style="width: 200; background-color:white; color:var(--rsp_darkblue); font-size:30px; font-family:verdana;" />
+          <br>
+          <br>
+          <input id=exportFileName style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
           <br>
           <br>
           <br>
@@ -112,12 +114,10 @@
     <div class=sidebarColumn>
       <div class=sidebar>
 
-        <br>
-        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
+        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
           <center>
-	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SESSION DATA</b></p>
-              <br>
-              <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
+	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION DATA</b></p>
+              <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
                 <tr>
                   <td align="left">&nbspBreaths</td>
                   <td id=logNumBreaths align="center">--</td>
@@ -132,9 +132,8 @@
                 </tr>
               </table>
               <br>
-	      <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>ANALYSIS WINDOW</b></p>
-                <br>
-                <table style="border-collapse:unset; border:none; font-size:22px; width:100%">
+	      <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
+                <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
                   <tr>
                     <td align="left">&nbspBreathRange</td>
                     <td id=selectedBreathRange align="center">--</td>
@@ -151,8 +150,8 @@
         <br>
 
         <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
-	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>SESSION ACTIONS</b></p>
+          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
+	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION ACTIONS</b></p>
               <br>
               <button id=btnSelect class=sidebarButton onclick='selectSession()'>Manage Sessions</button>
               <br>
@@ -165,8 +164,8 @@
         <br>
         <br>
         <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:22px; font-family:verdana;">
-	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:10px;"><b>WINDOW ACTIONS</b></p>
+          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
+	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>WINDOW ACTIONS</b></p>
               <br>
               <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
               <br>
@@ -185,33 +184,32 @@
 
     <div class=body-pane>
 
-      <div class=shadowDiv5 id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:1.5em font-family:verdana; display:none; margin-bottom:20px; padding-bottom:5px; ">
-        <div style="margin-bottom:20px;">
+      <div class=shadowDiv5 id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
+        <div style="margin-bottom:10px;">
           <center>
-            <p class=shadowDiv5 id=sessionNameSlider style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
+            <p class=shadowDiv5 id=sessionNameSlider style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2.2rem; "> No Selected Session
           </center>
         </div>
-        <div id=analysisRangeSliderDiv style="margin-top:0px; padding-left:20px; padding-right:20px;font-size:1.5rem; font-family:verdana;">
+        <div id=analysisRangeSliderDiv style="margin-top:0px; padding-left:20px; padding-right:20px;font-size:1.3rem; ">
         </div>
         <center>
-          <br>
-          <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=35px height=35px></button>
-          <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=35px height=35px></button>
-          <button class=iconButton id=btnCancelInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=35px height=35px></button>
-          <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=35px height=35px></button>
+          <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
+          <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=25px height=25px></button>
+          <button class=iconButton id=btnCancelInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=25px height=25px></button>
+          <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=25px height=25px></button>
           <br>
         </center>
       </div>
 
-      <div id=selectorDiv style="display: none; margin-bottom:20px; ">
-        <div style="margin-bottom:20px; width:1000px;">
+      <div id=selectorDiv style="display: none; margin-bottom:20px; max-width:900px;">
+        <div style="margin-bottom:20px; width:900px;">
           <center>
-            <p class=shadowDiv5 id=sessionNameSelector style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
+            <p class=shadowDiv5 id=sessionNameSelector style="margin-top:-50px; margin-bottom:-50px; background-color:var(--rsp_mediumblue); color:white;font-size:2rem; "> No Selected Session
           </center>
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:820px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine';max-width: 1000px;">
+        <div class=shadowDiv5 style="height:712px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.4rem; ">
 
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
             <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/plus.png" width=35px height=35px></button>
@@ -231,18 +229,18 @@
             </thead>
           </table>
         </div>
-        <div style="width:1010px; margin-top:-1rem;">
+        <div style="margin-top:-1.5rem;">
           <br>
           <br>
-          <div class=shadowDiv5 id=SYSDiv style="height:100%; width:40%; float:left; background-color:var(--rsp_darkblue); color:white;font-family:verdana;font-size:25px;">
+          <div class=shadowDiv5 id=SYSDiv style="height:100%; width:30%; float:left; background-color:var(--rsp_darkblue); color:white;font-size:1.4rem;">
             <center>
-              <p style="font-size:25px; "><b>SYSTEM UID</b>
-                <p id='SysUid' style="font-size:20px; ">
+              <p style="font-size:1.4rem; "><b>SYSTEM UID</b>
+                <p id='SysUid' style="font-size:1.2rem; ">
             </center>
           </div>
-          <div class=shadowDiv5 id=logosDiv style="height:100%; margin-left:41%; background-color:var(--rsp_darkblue);">
+          <div class=shadowDiv5 id=logosDiv style="height:100%; margin-left:31%; background-color:var(--rsp_darkblue);">
             <center>
-              <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px; " width="440" height="128">
+              <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 15px; " width=400px height=114px>
             </center>
           </div>
         </div>
@@ -252,12 +250,12 @@
       <div id=statsDiv style="display: none; margin-bottom:10px;">
         <div class=row>
 
-          <div id=measured-pane class=column style="font-size: 25px">
+          <div id=measured-pane class=column style="font-size: 1.4rem">
             <center>
-              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Parameters Measured</h2>
             </center>
-            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:22px; width:100%">
+            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Parameter</th>
@@ -270,10 +268,10 @@
             </table>
 
             <center>
-              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Miscellaneous Information</h2>
             </center>
-            <table id='statsMiscTable' className="statsTableStyle" style="font-size:22px; width:100%">
+            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Information</th>
@@ -283,24 +281,25 @@
             </table>
           </div>
 
-          <div id=stats-pane class=column style="font-size: 25px">
+          <div id=stats-pane class=column style="font-size: 1.4rem">
             <center>
-              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Static Information</h2>
             </center>
-            <p id=pName>
-              <p id=pInfo>
-                <br>
-                <p id=altitude>
+	    <div style="font-size: 1.3rem">
+	      <p id=pName></p>
+	      <p id=pInfo></p>
+	      <p id=altitude></p>
+	    </div>
                   <center>
-                    <div id=staticStats style="font-size: 25px">
+                    <div id=staticStats style="font-size: 1.4rem">
                       <center>
-                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                       Parameter Settings Used</h2>
                       </center>
 
                       <center>
-                        <table id='statsParamTable' className="statsTableStyle" style="font-size:22px; width:100%">
+                        <table id='statsParamTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
                           <tr>
                             <th align="left" style="background-color:lightgray; ">
                               Parameter</th>
@@ -314,12 +313,12 @@
                       </center>
 
                       <center>
-                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.2em; font-family:verdana;">
+                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                       Sequence of Parameter Combinations</h2>
                       </center>
 
                       <center>
-                        <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:20px; width:100%">
+                        <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
                           <tr>
                             <th style="background-color:lightgray;">
                               MODE</th>
@@ -371,34 +370,34 @@
       </div>
 
       <center>
-        <div id=alertsDiv style="display: none; margin-bottom:10px; font-size:22px;">
-          <div class=row style="margin-top:10px;">
-            <div id=errorColDiv class=column style="font-size: 20">
+        <div id=alertsDiv style="display: none; margin-bottom:10px; font-size:1.3rem;">
+          <div class=row style="margin-top:10px; ">
+            <div id=errorColDiv class=column style="font-size: 1rem;">
               <center>
-                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Errors</h2>
               </center>
-              <div class=shadowDiv5 id=errorDiv style="margin-left:0px; height:900px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollErrorDiv style="font-size:16; text-align: left">
+              <div class=shadowDiv5 id=errorDiv style="height:675px; margin-left:0px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                <p id=scrollErrorDiv style="font-size:1rem; text-align: left;">
               </div>
             </div>
 
-            <div id=warningColDiv class=column style="font-size: 20">
+            <div id=warningColDiv class=column style="font-size: 1rem; ">
               <center>
-                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Warnings</h2>
               </center>
-              <div class=shadowDiv5 id=warningDiv style="margin-left:10px; height:900px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id=warningDiv style="height:675px; margin-left:10px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollWarningDiv style="font-size:16; text-align: left">
               </div>
             </div>
 
-            <div id=infoColDiv class=column style="font-size: 20">
+            <div id=infoColDiv class=column style="font-size: 1rem; ">
               <center>
-                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5em; font-family:verdana;">
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Information</h2>
               </center>
-              <div class=shadowDiv5 id=infoDiv style="margin-left:10px; height:900px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id=infoDiv style="height:675px; margin-left:10px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollInfoDiv style="font-size:16; text-align: left">
               </div>
             </div>
@@ -407,17 +406,17 @@
         </div>
       </center>
 
-      <div id=rawDataDiv style="width:1000px; display: none; margin-bottom:20px;">
+      <div id=rawDataDiv style="display: none; margin-bottom:20px;">
         <div style="margin-bottom:20px;;">
           <center>
-            <p class=shadowDiv5 id=sessionNameData style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; font-family:verdana;"> No Selected Session
+            <p class=shadowDiv5 id=sessionNameData style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; "> No Selected Session
           </center>
         </div>
         <center>
-          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; font-family:verdana;">
+          <h2 style="color:var(--rsp_darkblue); font-size:1.5em; ">
             Raw JSON Session Data</h2>
-          <div class=shadowDiv5 style="margin-right:10px; height:1025px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-            <p id=scrollRawDataDiv style="font-size:16; text-align: left">
+          <div class=shadowDiv5 style="margin-right:10px; height:795px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <p id=scrollRawDataDiv style="font-size:1rem; text-align: left">
           </div>
 
         </center>
@@ -433,9 +432,10 @@
     <template id=chartContainerTemplate>
       <div class=chartContainer style="position:relative">
         <div class=chartBanner>
-          <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img src="../common/img/plus.png" width=30px height=30px></button>
-          <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=30px height=30px></button>
-          <button class=iconButton style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=30px height=30px></button>
+          <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img src="../common/img/plus.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
+          <br>
         </div>
         <div class=chartBody>
         </div>
@@ -447,6 +447,7 @@
         <div class=chartEditMenuBanner>
           <button class=iconButton onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
           <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
+	  <br>
         </div>
 
         <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
@@ -582,9 +583,10 @@
     <template id=shapeContainerTemplate>
       <div class=shapeContainer style="position:relative">
         <div class=shapeBanner>
-          <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=30px height=30px></button>
-          <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=30px height=30px></button>
-          <button class=iconButton style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=30px height=30px></button>
+          <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
+	  <br>
         </div>
         <div class=shapeBody>
         </div>
@@ -596,6 +598,7 @@
         <div class=shapeEditMenuBanner>
           <button class=iconButton onClick="shapeMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
           <button class=iconButton onClick="shapeMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
+	  <br>
         </div>
 
         <div id=shapeTitleDiv style="background-color: var(--rsp_lightblue)">

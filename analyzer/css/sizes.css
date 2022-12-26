@@ -1,26 +1,26 @@
 :root {
-  --chartBodyHeight: 500px;
-  --chartMenuIndent: 20px;
-  --chartMenuFontSize: 25px;
-  --chartMenuBannerHeight: 50px;
-  --chartMenuIconSize: 40px;
+  --chartBodyHeight: 20rem;
+  --chartMenuIndent: 1rem;
+  --chartMenuFontSize: 1rem;
+  --chartMenuBannerHeight: 2.5rem;
+  --chartMenuIconSize: 1rem;
 
-  --shapeBodyHeight: 500px;
-  --shapeMenuIndent: 20px;
-  --shapeMenuFontSize: 25px;
-  --shapeMenuBannerHeight: 50px;
-  --shapeMenuIconSize: 40px;
+  --shapeBodyHeight: 25rem;
+  --shapeMenuIndent: 1rem;
+  --shapeMenuFontSize: 1rem;
+  --shapeMenuBannerHeight: 2.5rem;
+  --shapeMenuIconSize: 1rem;
 
-  --colorLegendSize: 40px;
-  --colorLegendFontSize: 25px;
+  --colorLegendSize: 2rem;
+  --colorLegendFontSize: 1.5rem;
 
-  --columnPadding: 10px;
-  --sidebarBtnHeight: 40px;
-  --sidebarBtnWidth: 250px;
-  --sidebarBtnFontSize: 25px;
-  --sidebarBtnPadding: 5px 5px;
-  --sidebarBtnMargin: 10px 4px;
+  --columnPadding: 1rem;
+  --sidebarBtnHeight: 2rem;
+  --sidebarBtnWidth: 12rem;
+  --sidebarBtnFontSize: 1.2rem;
+  --sidebarBtnPadding: 0.35rem 0.35rem;
+  --sidebarBtnMargin: 0.15rem 0.15rem 0rem 0.6rem;
   --swalFontSize: 1.2rem;
-  --swalTextFontSize: 1.4em;
+  --swalTextFontSize: 1.5rem;
 }
 
