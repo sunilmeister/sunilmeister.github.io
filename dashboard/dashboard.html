@@ -61,18 +61,18 @@
     <script src="js/dashboard.js"></script>
   </head>
 
-  <body style="font-family:"verdana";>
-    <div id=recordNameDiv class='popupClass' style="width:30rem; height:15rem; display: none">
+  <body style="font-family:" verdana ";>
+    <div id=recordNameDiv class=popupClass style="width:30rem; height:15rem; display: none ">
       <center>
-        <div style="font-size: 2rem;">
+        <div style="font-size: 2rem; ">
           <br>
-          <label for="recordName">New Session Name</label>
+          <label for="recordName ">New Session Name</label>
           <br>
           <input id=recordName style="width: 25rem; background-color:white; color:var(--rsp_darkblue);font-size: 2rem; " />
           <br>
           <br>
-          <button id=acceptRecordNameBtn class=button style="background-color:var(--rsp_darkblue); padding:5px; width:10rem; height:2rem;" onclick='acceptRecordingName()'>RECORD</button>
-          <button class=button style="background-color:var(--rsp_darkred); padding:5px; width:10rem; height:2rem;" onclick='cancelRecordingName()'>CANCEL</button>
+          <button id=acceptRecordNameBtn class=button style="background-color:var(--rsp_darkblue); padding:5px; width:10rem; height:2rem; " onclick='acceptRecordingName()'>RECORD</button>
+          <button class=button style="background-color:var(--rsp_darkred); padding:5px; width:10rem; height:2rem; " onclick='cancelRecordingName()'>CANCEL</button>
           <br>
           <br>
 
@@ -80,39 +80,39 @@
       </center>
     </div>
 
-    <div id=fullDashboard style="min-height:60rem;">
+    <div id=fullDashboard style="min-height:60rem; ">
       <div class=sidebarColumn>
         <div class=sidebar>
 
           <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_darkblue); color:white; ">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION TIMES</b></p>
-              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
+              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px; "><b>SESSION TIMES</b></p>
+              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100% ">
                 <tr>
-                  <td align="left">&nbspStart</td>
-                  <td id=logStartTime align="center">00:00:00</td>
+                  <td align="left ">&nbspStart</td>
+                  <td id=logStartTime align="center ">00:00:00</td>
                 </tr>
                 <tr>
-                  <td align="left">&nbspDuration</td>
-                  <td id=logTimeDuration align="center">00:00:00</td>
-                </tr>
-              </table>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION BREATHS</b></p>
-              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
-                <tr>
-                  <td id=pausedOrDuring align="left">&nbspDetected</td>
-                  <td id=dashboardBreathNum align="center">0</td>
-                </tr>
-                <tr>
-                  <td id=missedBreaths align="left">&nbspLost</td>
-                  <td id=numMissedBreaths align="center">0</td>
+                  <td align="left ">&nbspDuration</td>
+                  <td id=logTimeDuration align="center ">00:00:00</td>
                 </tr>
               </table>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>PRIOR to SESSION</b></p>
-              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
+              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px; "><b>SESSION BREATHS</b></p>
+              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100% ">
                 <tr>
-                  <td align="left">&nbspBreaths</td>
-                  <td id=priorBreathNum align="center">--</td>
+                  <td id=pausedOrDuring align="left ">&nbspDetected</td>
+                  <td id=dashboardBreathNum align="center ">0</td>
+                </tr>
+                <tr>
+                  <td id=missedBreaths align="left ">&nbspLost</td>
+                  <td id=numMissedBreaths align="center ">0</td>
+                </tr>
+              </table>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px; "><b>PRIOR to SESSION</b></p>
+              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100% ">
+                <tr>
+                  <td align="left ">&nbspBreaths</td>
+                  <td id=priorBreathNum align="center ">--</td>
                 </tr>
               </table>
             </center>
@@ -120,7 +120,7 @@
 
           <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; ">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px; "><b>SELECT VIEW</b></p>
             </center>
             <button id=btnSnapshots class=sidebarButton onclick='changeToSnapshotView()' disabled>View Snapshots</button>
 
@@ -140,28 +140,28 @@
 
           <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem; ">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>TURN ON/OFF</b></p>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px; "><b>TURN ON/OFF</b></p>
             </center>
             <button id=btnPause class=sidebarButton onclick='togglePause()'>Pause Dashboard</button>
 
-            <button id=recordButton class=sidebarButton onclick='toggleRecording()' style="margin-bottom:1rem;">Start Recording</button>
+            <button id=recordButton class=sidebarButton onclick='toggleRecording()' style="margin-bottom:1rem; ">Start Recording</button>
 
           </div>
 
           <center>
             <div class=shadowDiv10 id=fiO2Calc style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; ">
               <center>
-                <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0px;"><b>FiO<sub>2</sub> SETTINGS</b></p>
+                <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0px; "><b>FiO<sub>2</sub> SETTINGS</b></p>
               </center>
               <div id=purityDiv style="background-color:var(--rsp_darkblue); color:white;margin-bottom:-0.5rem; ">
-                <p style="font-size:1rem; margin-bottom:-0.5rem;">O<sub>2</sub> Source Purity (%)
+                <p style="font-size:1rem; margin-bottom:-0.5rem; ">O<sub>2</sub> Source Purity (%)
               </div>
               <div id=fiO2Div style="background-color:var(--rsp_darkblue); color:white;margin-top:-1.75rem; ">
-                <p style="font-size:1rem; margin-bottom:-0.5rem;">Desired FiO<sub>2</sub> (%)
+                <p style="font-size:1rem; margin-bottom:-0.5rem; ">Desired FiO<sub>2</sub> (%)
               </div>
-              <div id=flowDiv style="background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); margin-top:-0.5rem">
+              <div id=flowDiv style="background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); margin-top:-0.5rem ">
                 <p style="font-size:1rem; ">Set O<sub>2</sub> Flow Rate
-                  <p id=o2FlowRate style="font-size:0.9rem; font-weight: bold;">0.0 (litres/min)
+                  <p id=o2FlowRate style="font-size:0.9rem; font-weight: bold; ">0.0 (litres/min)
               </div>
             </div>
           </center>
@@ -172,55 +172,55 @@
       <div class=dashboard-pane>
 
         <div class=shadowDiv10 id=rangeWindowDiv style="margin-top:35px; margin-bottom: -25px; background-color:var(--rsp_darkblue); display:none; ">
-          <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
+          <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem; ">
           </div>
           <center>
-            <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
-            <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png" width=20px height=20px></button>
-            <button class=iconButton id=btnCancelInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=20px height=20px></button>
-            <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=20px height=20px></button>
+            <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png " width=20px height=20px></button>
+            <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/check.png " width=20px height=20px></button>
+            <button class=iconButton id=btnCancelInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right; " title='Cancel'><img src="../common/img/close.png " width=20px height=20px></button>
+            <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left; " title='Default'><img src="../common/img/rolling.png " width=20px height=20px></button>
           </center>
         </div>
 
-        <div id=record-pane style="width:40rem; font-size:1.2rem; display:none">
+        <div id=record-pane style="width:40rem; font-size:1.2rem; display:none ">
           <center>
-            <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; margin-top:-20px;">
+            <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; margin-top:-20px; ">
               No Active Session
-              <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=recordBox style="font-size:1.1rem; text-align: left">
+              <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine' ">
+                <p id=recordBox style="font-size:1.1rem; text-align: left ">
               </div>
           </center>
         </div>
 
         <div id=alert-pane style="display: none; ">
           <div class=row>
-            <div id=errorColDiv class=column style="font-size: 1.5rem; width:60rem;">
+            <div id=errorColDiv class=column style="font-size: 1.5rem; width:60rem; ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Errors</h2>
               </center>
-              <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollErrorDiv style="font-size:1rem; text-align: left">
+              <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine' ">
+                <p id=scrollErrorDiv style="font-size:1rem; text-align: left ">
               </div>
             </div>
 
-            <div id=warningColDiv class=column style="font-size: 1.5rem; width:60rem;">
+            <div id=warningColDiv class=column style="font-size: 1.5rem; width:60rem; ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Warnings</h2>
               </center>
-              <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollWarningDiv style="font-size:1rem; text-align: left">
+              <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine' ">
+                <p id=scrollWarningDiv style="font-size:1rem; text-align: left ">
               </div>
             </div>
 
-            <div id=infoColDiv class=column style="font-size: 1.5rem; width:60rem;">
+            <div id=infoColDiv class=column style="font-size: 1.5rem; width:60rem; ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                   Session Information</h2>
               </center>
-              <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollInfoDiv style="font-size:1rem; text-align: left">
+              <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine' ">
+                <p id=scrollInfoDiv style="font-size:1rem; text-align: left ">
               </div>
             </div>
 
@@ -231,20 +231,20 @@
         <div id=stat-pane style="display: none; ">
 
           <div class=row>
-            <div id=measured-pane class=column style="font-size:2rem;">
+            <div id=measured-pane class=column style="font-size:2rem; ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                 Parameters Measured</h2>
               </center>
-              <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+              <table id='statsMinMaxTable' className="statsTableStyle " style="font-size:1.25rem; width:100% ">
                 <tr>
-                  <th align="left" style="background-color:lightgray; ">
+                  <th align="left " style="background-color:lightgray; ">
                     Parameter</th>
-                  <th align="left" style="background-color:lightgray; ">Units
+                  <th align="left " style="background-color:lightgray; ">Units
                   </th>
-                  <th align="left" style="background-color:lightgray;">Min</th>
-                  <th align="left" style="background-color:lightgray;">&nbspMax</th>
-                  <th align="left" style="background-color:lightgray;">&nbsp&nbsp&nbsp&nbspAvg</th>
+                  <th align="left " style="background-color:lightgray; ">Min</th>
+                  <th align="left " style="background-color:lightgray; ">&nbspMax</th>
+                  <th align="left " style="background-color:lightgray; ">&nbsp&nbsp&nbsp&nbspAvg</th>
                 </tr>
               </table>
 
@@ -252,43 +252,43 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                 Miscellaneous Information</h2>
               </center>
-              <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+              <table id='statsMiscTable' className="statsTableStyle " style="font-size:1.25rem; width:100% ">
                 <tr>
-                  <th align="left" style="background-color:lightgray; ">
+                  <th align="left " style="background-color:lightgray; ">
                     Information</th>
-                  <th align="left" style="background-color:lightgray; ">Value
+                  <th align="left " style="background-color:lightgray; ">Value
                   </th>
                 </tr>
               </table>
             </div>
 
-            <div id=stats-pane class=column style="font-size: 1.25rem">
+            <div id=stats-pane class=column style="font-size: 1.25rem ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                 Static Information</h2>
               </center>
-	      <div style="font-size:1.5rem;">
+	      <div style="font-size:1.5rem; ">
 	      <p id=pName></p>
 	      <p id=pInfo></p>
               <br>
 	      <p id=altitude></p>
 	      </div>
                     <center>
-                      <div id=staticStats style="font-size: 1rem">
+                      <div id=staticStats style="font-size: 1rem ">
                         <center>
                           <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
                       Parameter Settings Used</h2>
                         </center>
 
                         <center>
-                          <table id='statsParamTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+                          <table id='statsParamTable' className="statsTableStyle " style="font-size:1.25rem; width:100% ">
                             <tr>
-                              <th align="left" style="background-color:lightgray; ">
+                              <th align="left " style="background-color:lightgray; ">
                                 Parameter</th>
-                              <th align="left" style="background-color:lightgray; ">
+                              <th align="left " style="background-color:lightgray; ">
                                 Units
                               </th>
-                              <th align="left" style="background-color:lightgray;">
+                              <th align="left " style="background-color:lightgray; ">
                                 Values</th>
                             </tr>
                           </table>
@@ -300,29 +300,29 @@
                         </center>
 
                         <center>
-                          <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
+                          <table id='statsComboTable' className="statsTableStyle " style="text-align:center; font-size:1.2rem; width:100% ">
                             <tr>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 MODE</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 VT </th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 &nbsp;RR&nbsp;</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 I:E</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 PEEP</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 PMAX</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 PS</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 TPS</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 FIO2</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
+                              <th style="background-color:lightgray;padding-right:1rem; ">
                                 # of BREATHS</th>
-                              <th style="background-color:lightgray;">
+                              <th style="background-color:lightgray; ">
                                 Before BREATH#</th>
                             </tr>
                           </table>
@@ -335,13 +335,13 @@
           </div>
         </div>
 
-        <div id=chart-pane style="display:none">
-          <div id=chartsDiv style="margin-bottom:20px; margin-top:50px;">
+        <div id=chart-pane style="display:none ">
+          <div id=chartsDiv style="margin-bottom:20px; margin-top:50px; ">
           </div>
         </div>
 
-        <div id=shapes-pane style="display:none">
-          <div id=shapesDiv style="margin-bottom:20px; margin-top:50px;">
+        <div id=shapes-pane style="display:none ">
+          <div id=shapesDiv style="margin-bottom:20px; margin-top:50px; ">
             <div>
               <ul class=colorLegend>
                 <li><span class=MandatoryVC></span> Mandatory VC</li>
@@ -361,40 +361,40 @@
           <div class=Space2></div>
 
           <div id=MessagesDiv class=Messages>
-            <p id=Mline1 style="font-size:1.8rem; margin-top:1.8rem; margin-bottom:0rem;">
+            <p id=Mline1 style="font-size:1.8rem; margin-top:1.8rem; margin-bottom:0rem; ">
               --
-              <p id=Mline2 style="font-size:1.8rem; margin-top:0.6rem; margin-bottom:0rem;">
+              <p id=Mline2 style="font-size:1.8rem; margin-top:0.6rem; margin-bottom:0rem; ">
                 --
-                <p id=Mline3 style="font-size:1.8rem; margin-top:0.6rem; margin-bottom:0rem;">
+                <p id=Mline3 style="font-size:1.8rem; margin-top:0.6rem; margin-bottom:0rem; ">
                   --
-                  <p id=Mline4 style="font-size:1.8rem; margin-top:0.6rem; margin-bottom:1rem;">
+                  <p id=Mline4 style="font-size:1.8rem; margin-top:0.6rem; margin-bottom:1rem; ">
                     --
           </div>
 
           <div id=AlertDiv class=Alert>
-            <img id=AlertImg src="img/OK.png" alt="Alarm" style="margin-top:1rem" height=70rem; width=70rem;>
+            <img id=AlertImg src="img/OK.png " alt="Alarm " style="margin-top:1rem " height=70rem; width=70rem;>
           </div>
           <div class=State>
-            <img id=StateImg src="img/WhiteDot.png" alt="LED" style="margin-top:0.75rem" width="40rem" height="40rem">
-            <p id=State style="font-size:1rem;"><b>INITIALIZE</b>
+            <img id=StateImg src="img/WhiteDot.png " alt="LED " style="margin-top:0.75rem " width="40rem " height="40rem ">
+            <p id=State style="font-size:1rem; "><b>INITIALIZE</b>
           </div>
 
           <div class=Patient>
-            <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem; margin-bottom:0rem;background-color:var(--rsp_darkblue); font-size:1.4rem;"><b>Patient Information</b>
+            <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem; margin-bottom:0rem;background-color:var(--rsp_darkblue); font-size:1.4rem; "><b>Patient Information</b>
 
-              <p id=Pline1 style="font-size:1.25rem; margin-top:1.5rem; margin-bottom:0rem;">
+              <p id=Pline1 style="font-size:1.25rem; margin-top:1.5rem; margin-bottom:0rem; ">
                 _____________
 
-                <p id=Pline2 style="font-size:1.25rem; margin-top:1rem; margin-bottom:0rem;">
+                <p id=Pline2 style="font-size:1.25rem; margin-top:1rem; margin-bottom:0rem; ">
                   _____________
 
-                  <p id=Pline3 style="font-size:1.25rem; margin-top:1rem; margin-bottom:0rem;">
+                  <p id=Pline3 style="font-size:1.25rem; margin-top:1rem; margin-bottom:0rem; ">
                     _____________
 
           </div>
 
           <div class=Measurements>
-            <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0.15rem;">Measured Patient Parameters
+            <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0.15rem; ">Measured Patient Parameters
           </div>
 
           <div class=Peak>
@@ -417,7 +417,7 @@
           </div>
 
           <div class=Volume>
-            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Estimated Delivered Volume
+            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem; ">Estimated Delivered Volume
           </div>
           <div class=Tidal>
             <p class=measuredHeadingCls>
@@ -437,7 +437,7 @@
           </div>
 
           <div class=Compliance>
-            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Estimated Instant Compliance
+            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem; ">Estimated Instant Compliance
           </div>
           <div class=Dynamic>
             <p class=measuredHeadingCls>
@@ -457,7 +457,7 @@
           </div>
 
           <div class=BPM>
-            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Breaths per Minute
+            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem; ">Breaths per Minute
           </div>
           <div class=MBPM>
             <p class=measuredHeadingCls>
@@ -477,41 +477,41 @@
           </div>
 
           <div class=Environment>
-            <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0rem;">Miscellaneous
+            <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0rem; ">Miscellaneous
           </div>
           <div class=Temp>
-            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.125rem; background-color:var(--rsp_darkblue);">
+            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.125rem; background-color:var(--rsp_darkblue); ">
               Temperature
-              <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.5rem; padding-top:0.125rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
+              <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.5rem; padding-top:0.125rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue); ">
                 <sup>o</sup>C
                 <div id=TempGauge></div>
           </div>
           <div class=Altitude>
-            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
+            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue); ">
               Altitude
-              <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.75rem; padding-top:0.125rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
+              <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.75rem; padding-top:0.125rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue); ">
                 ft (m)
-                <p id=AltF style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem; font-weight:bold;color:var(--rsp_darkblue);">
+                <p id=AltF style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem; font-weight:bold;color:var(--rsp_darkblue); ">
                   __
                   <br>
-                  <p id=AltM style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem; font-weight:bold;color:var(--rsp_darkblue);">
+                  <p id=AltM style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem; font-weight:bold;color:var(--rsp_darkblue); ">
                     __
           </div>
 
           <div class=Breath>
-            <p style="margin-top:0rem; margin-bottom:0rem; color:white; font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
+            <p style="margin-top:0rem; margin-bottom:0rem; color:white; font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue); ">
               Current
-              <p style="margin-top:0rem; margin-bottom:0rem; color:white; font-size:1.1rem;padding-bottom:0.5rem; background-color:var(--rsp_darkblue);">
+              <p style="margin-top:0rem; margin-bottom:0rem; color:white; font-size:1.1rem;padding-bottom:0.5rem; background-color:var(--rsp_darkblue); ">
                 Breath
-                <p id=BreathType style="margin-top:1rem; margin-bottom:1rem; font-size:1rem; font-weight: bold;">
+                <p id=BreathType style="margin-top:1rem; margin-bottom:1rem; font-size:1rem; font-weight: bold; ">
                   ___
                   <div>
-                    <img id=ImgBreath src="img/WhiteDot.png" alt="LED" style="margin-top:0.5rem" width="30rem" height="30rem">
+                    <img id=ImgBreath src="img/WhiteDot.png " alt="LED " style="margin-top:0.5rem " width="30rem " height="30rem ">
                   </div>
           </div>
 
           <div class=Parameters>
-            <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0rem;">System Parameter Settings
+            <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0rem; ">System Parameter Settings
           </div>
           <div id=MODEDiv class=Mode>
             <p class=paramHeadingCls>
@@ -576,27 +576,27 @@
                   (secs)
           </div>
           <div id=PendingDiv class=Pending>
-            <p id=Pending style="font-size:1rem; margin-top:0.625rem; margin-bottom:0rem;">No Pending Changes
+            <p id=Pending style="font-size:1rem; margin-top:0.625rem; margin-bottom:0rem; ">No Pending Changes
           </div>
 
-          <div class=SysUid style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
+          <div class=SysUid style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem; ">
             <center>
-              <p style="font-size:1.2rem; margin-top:0.6rem; margin-bottom:0.2rem"><b>SYSTEM UID</b></p>
-              <p id='SysUid' style="font-size:1rem; margin-bottom:0.2rem">
+              <p style="font-size:1.2rem; margin-top:0.6rem; margin-bottom:0.2rem "><b>SYSTEM UID</b></p>
+              <p id='SysUid' style="font-size:1rem; margin-bottom:0.2rem ">
             </center>
           </div>
 
-          <div class=DashboardActive style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
-            <p align="left" style="margin-top:0.5rem; margin-bottom:0; padding-bottom:0; font-size:1.4rem;">&nbsp<img id=DashboardActiveImg src="img/GreenDot.png" alt="LED" width="20rem" height="20rem">&nbspDashboard</p>
+          <div class=DashboardActive style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem; ">
+            <p align="left " style="margin-top:0.5rem; margin-bottom:0; padding-bottom:0; font-size:1.4rem; ">&nbsp<img id=DashboardActiveImg src="img/GreenDot.png " alt="LED " width="20rem " height="20rem ">&nbspDashboard</p>
           </div>
 
-          <div class=RecordingActive style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
-            <p align="left" style="margin-top:0.5rem; margin-bottom:0; padding-bottom:0; font-size:1.4rem;">&nbsp<img id=RecordingActiveImg src="img/RedDot.png" alt="LED" width="20rem" height="20rem">&nbspRecording</p>
+          <div class=RecordingActive style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem; ">
+            <p align="left " style="margin-top:0.5rem; margin-bottom:0; padding-bottom:0; font-size:1.4rem; ">&nbsp<img id=RecordingActiveImg src="img/RedDot.png " alt="LED " width="20rem " height="20rem ">&nbspRecording</p>
           </div>
 
           <div class=Logo>
             <center>
-              <img src="img/dashboard-title-logos.png" alt="Title" style="margin-top:0.5rem" width="400rem" height="90rem">
+              <img src="img/dashboard-title-logos.png " alt="Title " style="margin-top:0.5rem " width="400rem " height="90rem ">
             </center>
           </div>
 
@@ -610,11 +610,11 @@
 // ////////////////////////////////////////////////////
 -->
     <template id=chartContainerTemplate>
-      <div class=chartContainer style="position:relative;">
+      <div class=chartContainer style="position:relative; ">
         <div class=chartBanner>
-          <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png" width=15px height=15px></button>
+          <button class=iconButton style="float:left; " onClick="chartAppend(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png " width=15px height=15px></button>
+          <button class=iconButton style="float:right; " onClick="chartDelete(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png " width=15px height=15px></button>
+          <button class=iconButton style="float:right; " onClick="chartEdit(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png " width=15px height=15px></button>
 	  <br>
         </div>
         <div class=chartBody>
@@ -623,134 +623,134 @@
     </template>
 
     <template id=chartEditMenuTemplate>
-      <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
+      <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue); ">
         <div class=chartEditMenuBanner>
-          <button class=iconButton onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Accept'><img src="../common/img/check.png" width=15px height=15px></button>
-          <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" width=15px height=15px></button>
+          <button class=iconButton onClick="chartMenuSubmit(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Accept'><img src="../common/img/check.png " width=15px height=15px></button>
+          <button class=iconButton onClick="chartMenuCancel(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png " width=15px height=15px></button>
 	  <br>
         </div>
 
-        <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
+        <div id=chartTitleDiv style="background-color: var(--rsp_lightblue) ">
           <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-            <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
-              <input id=ChartTitleId class=chartEditMenuTitle type="text" id=title name="title">
+            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0; ">Title</p>
+            <div style="background-color: var(--rsp_lightblue); margin-top:-20px ">
+              <input id=ChartTitleId class=chartEditMenuTitle type="text " id=title name="title ">
 
             </div>
           </center>
         </div>
-        <div id=chartCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px;">
+        <div id=chartCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px; ">
           <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; ">Y-axis Parameters</p>
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
-            <input type="checkbox" id=Presssures onclick='chartTreeCheckboxClicked(this)'>
+            <input type="checkbox " id=Presssures onclick='chartTreeCheckboxClicked(this)'>
             <label for=Presssures>Pressures</label>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Peak onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Peak onclick='chartTreeCheckboxClicked(this)'>
               <label for=Peak>Peak Pressure</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Plat onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Plat onclick='chartTreeCheckboxClicked(this)'>
               <label for=Plat>Plateau Pressure</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=PEEP onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=PEEP onclick='chartTreeCheckboxClicked(this)'>
               <label for=PEEP>PEEP Pressure</label>
             </div>
           </div>
           <br>
-          <div style="background-color: var(--rsp_lightblue)">
-            <input type="checkbox" id=Volumes onclick='chartTreeCheckboxClicked(this)'>
+          <div style="background-color: var(--rsp_lightblue) ">
+            <input type="checkbox " id=Volumes onclick='chartTreeCheckboxClicked(this)'>
             <label for=Volumes>Volumes</label>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Tidal onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Tidal onclick='chartTreeCheckboxClicked(this)'>
               <label for=Tidal>Tidal Volume</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Minute onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Minute onclick='chartTreeCheckboxClicked(this)'>
               <label for=Minute>Minute Volume</label>
             </div>
           </div>
           <br>
-          <div style="background-color: var(--rsp_lightblue)">
-            <input type="checkbox" id=Breaths onclick='chartTreeCheckboxClicked(this)'>
+          <div style="background-color: var(--rsp_lightblue) ">
+            <input type="checkbox " id=Breaths onclick='chartTreeCheckboxClicked(this)'>
             <label for=Breaths>Breaths Information</label>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Mandatory onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Mandatory onclick='chartTreeCheckboxClicked(this)'>
               <label for=Mandatory>Mandatory BPM</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Spontaneous onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Spontaneous onclick='chartTreeCheckboxClicked(this)'>
               <label for=Spontaneous>Spontaneous BPM</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=BreathType onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=BreathType onclick='chartTreeCheckboxClicked(this)'>
               <label for=BreathType>Mandatory/Spontaneous/Error</label>
             </div>
           </div>
           <br>
-          <div style="background-color: var(--rsp_lightblue);">
-            <input type="checkbox" id=Compliances onclick='chartTreeCheckboxClicked(this)'>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox " id=Compliances onclick='chartTreeCheckboxClicked(this)'>
             <label for=Compliances>Instant Lung Compliances</label>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Dynamic onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Dynamic onclick='chartTreeCheckboxClicked(this)'>
               <label for=Dynamic>Instant Dynamic Lung Compliance&nbsp</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Static onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Static onclick='chartTreeCheckboxClicked(this)'>
               <label for=Static>Instant Static Lung Compliance</label>
             </div>
           </div>
           <br>
           <div style="background-color: var(--rsp_lightblue); ">
-            <input type="checkbox" id=Oxygen onclick='chartTreeCheckboxClicked(this)'>
+            <input type="checkbox " id=Oxygen onclick='chartTreeCheckboxClicked(this)'>
             <label for=Oxygen>Oxygen Related</label>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=FiO2 onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=FiO2 onclick='chartTreeCheckboxClicked(this)'>
               <label for=FiO2>FiO2</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=O2Flow onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=O2Flow onclick='chartTreeCheckboxClicked(this)'>
               <label for=O2Flow>Incoming Oxygen Flow Required</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=O2Purity onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=O2Purity onclick='chartTreeCheckboxClicked(this)'>
               <label for=O2Purity>Incoming Oxygen Purity</label>
             </div>
           </div>
           <br>
           <div style="background-color: var(--rsp_lightblue); ">
-            <input type="checkbox" id=Miscellaneous onclick='chartTreeCheckboxClicked(this)'>
+            <input type="checkbox " id=Miscellaneous onclick='chartTreeCheckboxClicked(this)'>
             <label for=Miscellaneous>Miscellaneous</label>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Errors onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Errors onclick='chartTreeCheckboxClicked(this)'>
               <label for=Errors>System Errors</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Warnings onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Warnings onclick='chartTreeCheckboxClicked(this)'>
               <label for=Warnings>System Warnings</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Notifications onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Notifications onclick='chartTreeCheckboxClicked(this)'>
               <label for=Notifications>System Notifications</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Temperature onclick='chartTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=Temperature onclick='chartTreeCheckboxClicked(this)'>
               <label for=Temperature>System Temperature</label>
             </div>
           </div>
         </div>
-        <div id=XAxisUnits style="margin-top:-20px;">
+        <div id=XAxisUnits style="margin-top:-20px; ">
           <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-bottom:0px;">X-axis Units</p>
+            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-bottom:0px; ">X-axis Units</p>
           </center>
-          <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
-            <form name="XunitsForm" style="padding-top:12px;">
+          <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px; ">
+            <form name="XunitsForm " style="padding-top:12px; ">
               <center>
-                <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
+                <input type="radio " id=BNUM name="XAxisUnits " value="BNUM " checked>
                 <label for=BNUM>Breath Number</label>
-                <input type="radio" id=TIME name="XAxisUnits" value="TIME">
+                <input type="radio " id=TIME name="XAxisUnits " value="TIME ">
                 <label for=TIME>Breath Times</label>
               </center>
             </form>
@@ -761,11 +761,11 @@
       </div>
     </template>
     <template id=shapeContainerTemplate>
-      <div class=shapeContainer style="position:relative">
+      <div class=shapeContainer style="position:relative ">
         <div class=shapeBanner>
-          <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=15px height=15px></button>
+          <button class=iconButton style="float:left; " onClick="shapeAppend(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box "><img src="../common/img/plus.png " width=15px height=15px></button>
+          <button class=iconButton style="float:right; " onClick="shapeDelete(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete "><img src="../common/img/trash-bin.png " width=15px height=15px></button>
+          <button class=iconButton style="float:right; " onClick="shapeEdit(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit "><img src="../common/img/pen.png " width=15px height=15px></button>
 	  <br>
         </div>
         <div class=shapeBody>
@@ -773,63 +773,63 @@
     </template>
 
     <template id=shapeEditMenuTemplate>
-      <div id=shapeDropDownMenu class=shapeEditMenu style="background-color: var(--rsp_lightblue);">
+      <div id=shapeDropDownMenu class=shapeEditMenu style="background-color: var(--rsp_lightblue); ">
         <div class=shapeEditMenuBanner>
-          <button class=iconButton onClick="shapeMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=15px height=15px></button>
-          <button class=iconButton onClick="shapeMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=15px height=15px></button>
+          <button class=iconButton onClick="shapeMenuSubmit(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept "><img src="../common/img/check.png " width=15px height=15px></button>
+          <button class=iconButton onClick="shapeMenuCancel(this) " onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel "><img src="../common/img/close.png " width=15px height=15px></button>
 	  <br>
         </div>
 
-        <div id=shapeTitleDiv style="background-color: var(--rsp_lightblue)">
+        <div id=shapeTitleDiv style="background-color: var(--rsp_lightblue) ">
           <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-            <div style="background-color: var(--rsp_lightblue); margin-top:-10px">
-              <input id=ShapeTitleId class=shapeEditMenuTitle type="text" id=title name="title">
+            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0; ">Title</p>
+            <div style="background-color: var(--rsp_lightblue); margin-top:-10px ">
+              <input id=ShapeTitleId class=shapeEditMenuTitle type="text " id=title name="title ">
             </div>
           </center>
         </div>
-        <div id=shapeCheckBoxTreeRoot style="margin-top:-10px; padding-bottom:10px;">
+        <div id=shapeCheckBoxTreeRoot style="margin-top:-10px; padding-bottom:10px; ">
           <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; ">Y-axis Parameters</p>
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-top:-5px; ">
-            <input type="checkbox" id=All onclick='shapeTreeCheckboxClicked(this)'>
+            <input type="checkbox " id=All onclick='shapeTreeCheckboxClicked(this)'>
             <label for=All>All</label>
             <div class=shapeIndentDiv>
               <br>
-              <input type="checkbox" id=MandatoryB onclick='shapeTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=MandatoryB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=MandatoryB>Mandatory Breaths</label>
               <div class=shapeIndentDiv>
-                <input type="checkbox" id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
+                <input type="checkbox " id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=MandatoryVC>Volume Controlled</label>
               </div>
             </div>
             <br>
             <div class=shapeIndentDiv>
-              <input type="checkbox" id=SpontaneousB onclick='shapeTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=SpontaneousB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=SpontaneousB>Spontaneous Breaths</label>
               <div class=shapeIndentDiv>
-                <input type="checkbox" id=SpontaneousVC onclick='shapeTreeCheckboxClicked(this)'>
+                <input type="checkbox " id=SpontaneousVC onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=SpontaneousVC>Volume Controlled</label>
               </div>
               <div class=shapeIndentDiv>
-                <input type="checkbox" id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
+                <input type="checkbox " id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=SpontaneousPS>Pressure Supported&nbsp</label>
               </div>
               <br>
             </div>
             <div class=shapeIndentDiv>
-              <input type="checkbox" id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
               <br>
             </div>
             <div class=shapeIndentDiv>
-              <input type="checkbox" id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=ErrorB>Include Error Breaths</label>
               <br>
             </div>
             <div class=shapeIndentDiv>
-              <input type="checkbox" id=AbnormalB onclick='shapeTreeCheckboxClicked(this)'>
+              <input type="checkbox " id=AbnormalB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=AbnormalB>Include Abnormal Breaths</label>
             </div>
             <br>

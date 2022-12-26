@@ -34,21 +34,21 @@
 
   </head>
 
-  <body style="font-family: 'verdana'">
+  <body style="font-family: verdana">
     <div id=exportDiv class=popupClass style="width:45rem; height:20rem; display: none">
       <center>
         <div style="font-size: 1.6rem;">
           <br>
           <br>
           <label for="exportFileName">Export File Name (extension will be .xml)</label>
-	  <br>
-	  <br>
+          <br>
+          <br>
           <input id=exportFileName style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
           <br>
           <br>
           <br>
-          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:16rem;" onclick='exportFile()'>EXPORT</button>
-          <button class=button style="background-color:var(--rsp_darkred); width:16rem;" onclick='cancelExport()'>CANCEL</button>
+          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:16rem;" onclick=exportFile()>EXPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:16rem;" onclick=cancelExport()>CANCEL</button>
           <br>
           <br>
 
@@ -56,7 +56,7 @@
       </center>
     </div>
 
-    <div id=importDiv class='popupClass' style="height:15rem; width:40rem; font-size:1.5rem; display: none">
+    <div id=importDiv class=popupClass style="height:15rem; width:40rem; font-size:1.5rem; display: none">
       <center>
         <br>
         <label for="fileSelector">Systems File to Import</label>
@@ -65,16 +65,16 @@
         <input type="file" id=fileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.4rem;" />
         <br>
         <br>
-        <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick='importFile()'>IMPORT</button>
-        <button class=button style="background-color:var(--rsp_darkred); width:12.5rem;" onclick='cancelImport()'>CANCEL</button>
+        <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=importFile()>IMPORT</button>
+        <button class=button style="background-color:var(--rsp_darkred); width:12.5rem;" onclick=cancelImport()>CANCEL</button>
         <br>
         <br>
       </center>
     </div>
 
-    <div id=addSystemDiv class='popupClass' style="width:37.5rem; height:18rem; font-size: 1.5rem; display: none">
+    <div id=addSystemDiv class=popupClass style="width:37.5rem; height:18rem; font-size: 1.5rem; display: none">
       <center>
-	<div>
+        <div>
           <br>
           <br>
           <label for="newSysTAG">System TAG</label>
@@ -86,8 +86,8 @@
           <br>
           <br>
           <br>
-          <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick='addNewSystemBtn()'>ADD System</button>
-          <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick='cancelNewSystemBtn()'>CANCEL</button>
+          <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=addNewSystemBtn()>ADD System</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelNewSystemBtn()>CANCEL</button>
         </div>
       </center>
     </div>
@@ -99,19 +99,19 @@
           <img src="../common/img/Apps.png" alt="Title" width=380rem height=110rem />
           <hr style="margin-top:-0.625rem;">
           <div class=content style="font-size: 1.5rem;">
-            <button class=lineButton onclick="launchFiO2()" >Calculate FiO<sub>2</sub> Settings</button>
+            <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
             <br>
             <hr>
 
-            <label style="margin-bottom:0px; font-size:22px" >Select a Known System</label>
+            <label style="margin-bottom:0px; font-size:22px">Select a Known System</label>
             <br>
             <select id=SYSTEM_NAME style="font-size: 1.3rem; padding: 5px; width: 22rem; text-align: center; margin-top:0.625rem;" />
             </select>
             <br>
             <hr>
-            <button class=lineButton onclick="addSystemInfo()" >Add a Known System</button>
+            <button class=lineButton onclick="addSystemInfo()">Add a Known System</button>
             <br>
-            <button class=lineButton onclick="knownSystemInfo()" >Manage Known Systems</button>
+            <button class=lineButton onclick="knownSystemInfo()">Manage Known Systems</button>
             <hr>
             <button class=lineButton onclick="launchDashboard()">Launch Dashboard</button>
             <br>
@@ -131,17 +131,17 @@
         <div style="height:32rem;">
           <center>
             <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
-              <button class=iconButton onClick="exitSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=25px height=25px></button>Systems Table
-              <button class=iconButton onClick="removeAllUidRows(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Delete ALL'><img src="../common/img/trash-bin.png" width=25px height=25px></button>
-              <button class=iconButton onClick="addSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Add System'><img src="../common/img/plus.png" width=25px height=25px></button>
-            <button class=iconButton onClick="importSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Import'><img src="../common/img/import.png" width=25px height=25px></button>
-            <button class=iconButton onClick="exportSystemInfo(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title='Export'><img src="../common/img/export.png" width=25px height=25px></button>
-	    <br>
+              <button class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=25px height=25px></button>Systems Table
+              <button class=iconButton onClick="removeAllUidRows(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title='Delete ALL'><img src="../common/img/trash-bin.png" width=25px height=25px></button>
+              <button class=iconButton onClick="addSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title='Add System'><img src="../common/img/plus.png" width=25px height=25px></button>
+              <button class=iconButton onClick="importSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title=Import><img src="../common/img/import.png" width=25px height=25px></button>
+              <button class=iconButton onClick="exportSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title=Export><img src="../common/img/export.png" width=25px height=25px></button>
+              <br>
             </div>
 
             <font size="3.5em" face="Arial">
             <br>
-            <table id='knownSystemsTable' style="border:solid">
+            <table id=knownSystemsTable style="border:solid">
               <thead>
                 <tr>
                   <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 5px 5px; font-size:1.2em">System Tag</th>
@@ -157,15 +157,15 @@
         <hr>
 
       </div>
-      <div >
+      <div>
         <center>
           <img src="../common/img/Logos.png" alt="Title" width=380rem height=65rem />
         </center>
       </div>
       <div style="background-color:white; font-size:0.9rem;">
-	<center>
-	<a href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Freepik - Flaticon</a>
-	</center>
+        <center>
+          <a href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Freepik - Flaticon</a>
+        </center>
       </div>
     </div>
 

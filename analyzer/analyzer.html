@@ -65,9 +65,9 @@
   </head>
 
   <body style="font-family='verdana'">
-    <div id=importDiv class='popupClass' style="width:850px; height:450px; display: none">
+    <div id=importDiv class=popupClass style="width:850px; height:450px; display: none">
       <center>
-        <div style="font-size: 1.8rem;" >
+        <div style="font-size: 1.8rem;">
           <br>
           <label for="fileSelector">Session File to Import</label>
           <br>
@@ -76,8 +76,8 @@
           <br>
           <br>
           <label for="importSessionName">Session Name to Create</label>
-	  <br>
-	  <br>
+          <br>
+          <br>
           <input id=importSessionName style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
           <br>
           <br>
@@ -91,7 +91,7 @@
       </center>
     </div>
 
-    <div id=exportDiv class='popupClass' style="width:850px; height:300px; display: none">
+    <div id=exportDiv class=popupClass style="width:850px; height:300px; display: none">
       <center>
         <div style="font-size: 30px; ">
           <br>
@@ -116,33 +116,33 @@
 
         <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
           <center>
-	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION DATA</b></p>
-              <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
-                <tr>
-                  <td align="left">&nbspBreaths</td>
-                  <td id=logNumBreaths align="center">--</td>
-                </tr>
-                <tr>
-                  <td align="left">&nbspDuration</td>
-                  <td id=logTimeDuration align="center">--:--:--</td>
-                </tr>
-                <tr>
-                  <td align="left">&nbspPriorBreaths</td>
-                  <td id=priorNumBreaths align="center">--</td>
-                </tr>
-              </table>
-              <br>
-	      <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
-                <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
-                  <tr>
-                    <td align="left">&nbspBreathRange</td>
-                    <td id=selectedBreathRange align="center">--</td>
-                  </tr>
-                  <tr>
-                    <td align="left">&nbspDuration</td>
-                    <td id=selectedTimeDuration align="center">--:--:--</td>
-                  </tr>
-                </table>
+            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION DATA</b></p>
+            <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
+              <tr>
+                <td align="left">&nbspBreaths</td>
+                <td id=logNumBreaths align="center">--</td>
+              </tr>
+              <tr>
+                <td align="left">&nbspDuration</td>
+                <td id=logTimeDuration align="center">--:--:--</td>
+              </tr>
+              <tr>
+                <td align="left">&nbspPriorBreaths</td>
+                <td id=priorNumBreaths align="center">--</td>
+              </tr>
+            </table>
+            <br>
+            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
+            <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
+              <tr>
+                <td align="left">&nbspBreathRange</td>
+                <td id=selectedBreathRange align="center">--</td>
+              </tr>
+              <tr>
+                <td align="left">&nbspDuration</td>
+                <td id=selectedTimeDuration align="center">--:--:--</td>
+              </tr>
+            </table>
           </center>
           <br>
         </div>
@@ -151,13 +151,13 @@
 
         <center>
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
-	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION ACTIONS</b></p>
-              <br>
-              <button id=btnSelect class=sidebarButton onclick='selectSession()'>Manage Sessions</button>
-              <br>
-              <button id=btnRaw class=sidebarButton onclick='selectRawData()'>Session Raw Data</button>
-              <br>
-              <br>
+            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION ACTIONS</b></p>
+            <br>
+            <button id=btnSelect class=sidebarButton onclick='selectSession()'>Manage Sessions</button>
+            <br>
+            <button id=btnRaw class=sidebarButton onclick='selectRawData()'>Session Raw Data</button>
+            <br>
+            <br>
           </div>
         </center>
 
@@ -165,17 +165,17 @@
         <br>
         <center>
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
-	    <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>WINDOW ACTIONS</b></p>
-              <br>
-              <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
-              <br>
-              <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
-              <br>
-              <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
-              <br>
-              <button id=btnShape class=sidebarButton onclick='selectShapes()'>View Breath Shapes</button>
-              <br>
-              <br>
+            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>WINDOW ACTIONS</b></p>
+            <br>
+            <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
+            <br>
+            <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
+            <br>
+            <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
+            <br>
+            <button id=btnShape class=sidebarButton onclick='selectShapes()'>View Breath Shapes</button>
+            <br>
+            <br>
           </div>
         </center>
 
@@ -286,69 +286,69 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Static Information</h2>
             </center>
-	    <div style="font-size: 1.3rem">
-	      <p id=pName></p>
-	      <p id=pInfo></p>
-	      <p id=altitude></p>
-	    </div>
-                  <center>
-                    <div id=staticStats style="font-size: 1.4rem">
-                      <center>
-                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+            <div style="font-size: 1.3rem">
+              <p id=pName></p>
+              <p id=pInfo></p>
+              <p id=altitude></p>
+            </div>
+            <center>
+              <div id=staticStats style="font-size: 1.4rem">
+                <center>
+                  <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                       Parameter Settings Used</h2>
-                      </center>
+                </center>
 
-                      <center>
-                        <table id='statsParamTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
-                          <tr>
-                            <th align="left" style="background-color:lightgray; ">
-                              Parameter</th>
-                            <th align="left" style="background-color:lightgray; ">
-                              Units
-                            </th>
-                            <th align="left" style="background-color:lightgray;">
-                              Values</th>
-                          </tr>
-                        </table>
-                      </center>
+                <center>
+                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
+                    <tr>
+                      <th align="left" style="background-color:lightgray; ">
+                        Parameter</th>
+                      <th align="left" style="background-color:lightgray; ">
+                        Units
+                      </th>
+                      <th align="left" style="background-color:lightgray;">
+                        Values</th>
+                    </tr>
+                  </table>
+                </center>
 
-                      <center>
-                        <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                <center>
+                  <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                       Sequence of Parameter Combinations</h2>
-                      </center>
+                </center>
 
-                      <center>
-                        <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
-                          <tr>
-                            <th style="background-color:lightgray;">
-                              MODE</th>
-                            <th style="background-color:lightgray;">
-                              VT </th>
-                            <th style="background-color:lightgray;">
-                              &nbsp;RR&nbsp;</th>
-                            <th style="background-color:lightgray;">
-                              I:E</th>
-                            <th style="background-color:lightgray;">
-                              PEEP</th>
-                            <th style="background-color:lightgray;">
-                              PMAX</th>
-                            <th style="background-color:lightgray;">
-                              &nbsp;&nbsp;PS&nbsp;&nbsp;</th>
-                            <th style="background-color:lightgray;">
-                              TPS</th>
-                            <th style="background-color:lightgray;">
-                              FIO2</th>
-                            <th style="background-color:lightgray;">
-                              # of BREATHS</th>
-                            <th style="background-color:lightgray;">
-                              Before BREATH#</th>
-                          </tr>
-                        </table>
-                      </center>
+                <center>
+                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
+                    <tr>
+                      <th style="background-color:lightgray;">
+                        MODE</th>
+                      <th style="background-color:lightgray;">
+                        VT </th>
+                      <th style="background-color:lightgray;">
+                        &nbsp;RR&nbsp;</th>
+                      <th style="background-color:lightgray;">
+                        I:E</th>
+                      <th style="background-color:lightgray;">
+                        PEEP</th>
+                      <th style="background-color:lightgray;">
+                        PMAX</th>
+                      <th style="background-color:lightgray;">
+                        &nbsp;&nbsp;PS&nbsp;&nbsp;</th>
+                      <th style="background-color:lightgray;">
+                        TPS</th>
+                      <th style="background-color:lightgray;">
+                        FIO2</th>
+                      <th style="background-color:lightgray;">
+                        # of BREATHS</th>
+                      <th style="background-color:lightgray;">
+                        Before BREATH#</th>
+                    </tr>
+                  </table>
+                </center>
 
-                    </div>
+              </div>
 
-                  </center>
+            </center>
           </div>
         </div>
       </div>
@@ -357,8 +357,8 @@
       </div>
 
       <div id=shapesDiv style="display: none; margin-bottom:20px;">
-	<div>
-	  <ul class=colorLegend>
+        <div>
+          <ul class=colorLegend>
             <li><span class=MandatoryVC></span> Mandatory VC</li>
             <li><span class=SpontaneousVC></span> Spontaneous VC</li>
             <li><span class=SpontaneousPS></span> Spontaneous PS</li>
@@ -366,7 +366,7 @@
             <li><span class=Error></span> Error</li>
             <li><span class=Abnormal></span> Abnormal</li>
           </ul>
-	</div>
+        </div>
       </div>
 
       <center>
@@ -447,7 +447,7 @@
         <div class=chartEditMenuBanner>
           <button class=iconButton onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
           <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
-	  <br>
+          <br>
         </div>
 
         <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
@@ -586,7 +586,7 @@
           <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=20px height=20px></button>
           <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
           <button class=iconButton style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
-	  <br>
+          <br>
         </div>
         <div class=shapeBody>
         </div>
@@ -598,7 +598,7 @@
         <div class=shapeEditMenuBanner>
           <button class=iconButton onClick="shapeMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
           <button class=iconButton onClick="shapeMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
-	  <br>
+          <br>
         </div>
 
         <div id=shapeTitleDiv style="background-color: var(--rsp_lightblue)">
@@ -617,15 +617,15 @@
             <input type="checkbox" id=All onclick='shapeTreeCheckboxClicked(this)'>
             <label for=All>All</label>
             <div class=shapeIndentDiv>
-	      <br>
+              <br>
               <input type="checkbox" id=MandatoryB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=MandatoryB>Mandatory Breaths</label>
               <div class=shapeIndentDiv>
                 <input type="checkbox" id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=MandatoryVC>Volume Controlled</label>
               </div>
-	    </div>
-	    <br>
+            </div>
+            <br>
             <div class=shapeIndentDiv>
               <input type="checkbox" id=SpontaneousB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=SpontaneousB>Spontaneous Breaths</label>
@@ -636,26 +636,26 @@
               <div class=shapeIndentDiv>
                 <input type="checkbox" id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
                 <label for=SpontaneousPS>Pressure Supported&nbsp</label>
-	      </div>
-	      <br>
+              </div>
+              <br>
             </div>
             <div class=shapeIndentDiv>
               <input type="checkbox" id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
-	      <br>
+              <br>
             </div>
             <div class=shapeIndentDiv>
               <input type="checkbox" id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=ErrorB>Include Error Breaths</label>
-	      <br>
-	    </div>
+              <br>
+            </div>
             <div class=shapeIndentDiv>
               <input type="checkbox" id=AbnormalB onclick='shapeTreeCheckboxClicked(this)'>
               <label for=AbnormalB>Include Abnormal Breaths</label>
             </div>
             <br>
           </div>
-	</div>
+        </div>
       </div>
     </template>
 
