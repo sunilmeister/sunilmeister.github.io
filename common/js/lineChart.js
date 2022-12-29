@@ -45,7 +45,7 @@ class LineChart {
   // returns the Y-axis number for possible reuse
   // or null if no graph created
   // yAxisInfo = {primary:true, reuse:false, yName:"", yMin:1, yMax:null, reuseAxisNum:2}
-  // flags = {warning:true, error:false, notification:false}
+  // flags = {warning:true, error:false, info:false}
   // paramInfo = {name:"", transitions:[], color:"", graphType:"stepLine"}
   addGraph(yAxisInfo, breathTimes, flags, paramInfo) {
     var paramTransitions = paramInfo.transitions;
@@ -184,7 +184,7 @@ class LineChart {
     var maxTime = this.rangeX.maxTime;
     var flagWarning = flags.warning;
     var flagError = flags.error;
-    var flagNotif = flags.notification;
+    var flagInfo = flags.info;
 
     if (transitions.length == 0) {
       console.log("No transitions for createXYPoints");

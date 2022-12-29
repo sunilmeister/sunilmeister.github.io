@@ -25,7 +25,7 @@ var SessionDataTemplate = {
   fiO2Values:           [{"time":0, "value":null}],
   o2PurityValues:       [{"time":0, "value":null}],
   o2FlowValues:         [{"time":0, "value":null}],
-  notificationValues:   [{"time":0, "value":null}],
+  infoValues:           [{"time":0, "value":null}],
   warningValues:        [{"time":0, "value":null}],
   errorValues:          [{"time":0, "value":null}],
 
@@ -41,7 +41,7 @@ var SessionDataTemplate = {
   missingBreaths:       [],
   missingBreathWindows: [],
   missingTimeWindows:   [],
-  notificationMsgs:     [],
+  infoMsgs:             [],
   warningMsgs :         [],
   errorMsgs:            [],
 };

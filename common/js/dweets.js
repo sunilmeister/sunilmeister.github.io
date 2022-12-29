@@ -284,10 +284,10 @@ function processJsonRecord(jsonData) {
               'L3': "Dashboard due to",
               'L4': "Communication packet loss"
             };
-            session.notificationMsgs.push(msg);
-            session.notificationValues.push({
+            session.infoMsgs.push(msg);
+            session.infoValues.push({
               "time": curTime,
-              "value": ++app.notificationNum
+              "value": ++app.infoNum
             });
 	  }
 

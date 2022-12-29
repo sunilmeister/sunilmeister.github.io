@@ -42,7 +42,7 @@ const vtKnobListener = function(knob, value) {
 function installVtKnob() {
   var bgColor = 'black';
   var fgColor = '#88ff88' ;
-  var containerDiv = document.getElementById('vtRrDiv');
+  var containerDiv = document.getElementById('vtDiv');
   const knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 0, 8);
   knob.setValue(4);
   knob.setChangeCallback(vtKnobListener);
@@ -63,7 +63,7 @@ const rrKnobListener = function(knob, value) {
 function installRrKnob() {
   var bgColor = 'black';
   var fgColor = '#88ff88' ;
-  var containerDiv = document.getElementById('vtRrDiv');
+  var containerDiv = document.getElementById('rrDiv');
   const knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 10, 30);
   knob.setValue(15);
   knob.setChangeCallback(rrKnobListener);
@@ -99,7 +99,7 @@ const fiO2KnobListener = function(knob, value) {
 function installFiO2Knob() {
   var bgColor = 'black';
   var fgColor = '#88ff88' ;
-  var containerDiv = document.getElementById('fio2Div');
+  var containerDiv = document.getElementById('fiO2Div');
   fiO2Knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   fiO2Knob.setValue(21);
   fiO2Knob.setChangeCallback(fiO2KnobListener);
@@ -114,7 +114,7 @@ const purityKnobListener = function(knob, value) {
 function installPurityKnob() {
   var bgColor = 'black';
   var fgColor = '#88ff88' ;
-  var containerDiv = document.getElementById('fio2Div');
+  var containerDiv = document.getElementById('purityDiv');
   purityKnob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   purityKnob.setValue(21);
   purityKnob.setChangeCallback(purityKnobListener);

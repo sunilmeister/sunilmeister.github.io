@@ -76,15 +76,15 @@ function displayAlerts() {
   }
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
-  for (i = 0; i < session.notificationMsgs.length; i++) {
+  for (i = 0; i < session.infoMsgs.length; i++) {
     if (!app.reportRange.rolling) {
-      if (session.notificationMsgs[i].created > 
+      if (session.infoMsgs[i].created > 
 	session.breathTimes[app.reportRange.maxBnum]) continue;
-      if (session.notificationMsgs[i].created < 
+      if (session.infoMsgs[i].created < 
 	session.breathTimes[app.reportRange.minBnum]) continue;
     }
     prefix = "INFO #" + (i + 1) + " ";
-    displayJsonAlerts(prefix, scrollbox, session.notificationMsgs[i]);
+    displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i]);
   }
 }
 

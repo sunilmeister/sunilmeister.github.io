@@ -280,7 +280,7 @@ function displayPatientInfo() {
 
 function displayAlertsInfo() {
 
-  var arr = statComputer.filterValues(session.notificationValues);
+  var arr = statComputer.filterValues(session.infoValues);
   var n = 0;
   for (i=0; i<arr.length; i++) {
     if (arr[i].value) n++;

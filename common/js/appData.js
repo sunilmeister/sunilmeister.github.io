@@ -54,7 +54,7 @@ var AppDataTemplate = {
   chartL4: "",
   errorNum:        0,
   warningNum:      0,
-  notificationNum: 0,
+  infoNum:         0,
 
   // chart transitions etc.
   chartPrevSystemBreathNum: null,
