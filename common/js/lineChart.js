@@ -227,7 +227,7 @@ class LineChart {
       } else {
         xval = i+minBnum-1;
       }
-      if (!flagError && !flagWarning && !flagNotif) {
+      if (!flagError && !flagWarning && !flagInfo) {
         if (!ignoreDatapoint) {
           xyPoints.push({
             "x": xval,
@@ -244,7 +244,7 @@ class LineChart {
               label = "W";
               marker = "triangle";
               color = "orange";
-            } else if (flagNotif) {
+            } else if (flagInfo) {
               label = "N";
               marker = "square";
               color = "yellow";
@@ -267,7 +267,7 @@ class LineChart {
       }
     }
     var noLegend = false;
-    if (flagError || flagWarning || flagNotif) noLegend = true;
+    if (flagError || flagWarning || flagInfo) noLegend = true;
   
     var chartData = {};
     chartData.type = this.graphType;
