@@ -307,6 +307,10 @@ function rememberNewSystem() {
   checkAndAddNewSystemInfo(newSysUid, newSysTag);
 }
 
+function launchDocs() {
+  window.open("../docs/docs.html");
+}
+
 function launchDashboard() {
   if (!setSelectedRespimaticTagFromDD()) {
     return;
