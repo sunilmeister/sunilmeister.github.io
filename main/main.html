@@ -97,31 +97,28 @@
       <div id=mainDiv style="display:block">
         <center>
           <img src="../common/img/Apps.png" alt="Title" width=350rem height=110rem />
-          <hr style="margin-top:-0.625rem;">
           <div class=content style="font-size: 1.5rem;">
-            <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
+            <button class=lineButton onclick="addSystemInfo()">Add a Known System</button>
             <br>
+            <button class=lineButton onclick="knownSystemInfo()">Manage Known Systems</button>
             <hr>
-
             <label style="margin-bottom:0px; font-size:22px">Select a Known System</label>
             <br>
             <select id=SYSTEM_NAME style="font-size: 1.3rem; padding: 5px; width: 22rem; text-align: center; margin-top:0.625rem;" />
             </select>
             <br>
-            <hr>
-            <button class=lineButton onclick="addSystemInfo()">Add a Known System</button>
-            <br>
-            <button class=lineButton onclick="knownSystemInfo()">Manage Known Systems</button>
-            <hr>
             <button class=lineButton onclick="launchDashboard()">Launch Dashboard</button>
             <br>
             <button class=lineButton onclick="launchAnalyzer()">Launch Analyzer</button>
+            <hr>
+            <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
+
             <br>
             <button class=lineButton onclick="launchDocs()">View Documentation</button>
             <br>
           </div>
         </center>
-        <div>
+        <div style="margin-bottom:-1rem;">
           <center>
             <button class=lineButton onclick="deleteAllCookies()" style="font-size:0.75rem; height:1rem; width:7.5rem; margin-top:0.625rem;">Delete ALL Cookies</button>
           </center>
