@@ -505,11 +505,32 @@ window.onload = function() {
   sliderDiv = document.getElementById("rangeSliderDiv");
   createRangeSlider(sliderDiv);
 
+  // Treat <ENTER> as accept button
   var recordNameInput = document.getElementById("recordName");
   recordNameInput.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("acceptRecordNameBtn").click();
+    }
+  });
+  
+  // Remove Chart & Shape edit menus if clicked outside
+  document.addEventListener('click', function (event) {
+    // check if a button is clicked
+    var buttonClicked = (event.target.nodeName == "BUTTON");
+    if (!buttonClicked) {
+      // check parent for icon buttons
+      buttonClicked = (event.target.parentNode.nodeName == "BUTTON");
+    }
+
+    var cMenu = document.getElementById(CHART_EDIT_CHART_MENU_ID);
+    var sMenu = document.getElementById(SHAPE_EDIT_SHAPE_MENU_ID);
+
+    if (!buttonClicked && cMenu && !cMenu.contains(event.target)) {
+      removeChartEditMenu();
+    }
+    if (!buttonClicked && sMenu && !sMenu.contains(event.target)) {
+      removeShapeEditMenu();
     }
   });
   
