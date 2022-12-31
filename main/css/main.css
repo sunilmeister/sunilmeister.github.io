@@ -26,6 +26,7 @@
   background-color:var(--rsp_darkblue);
   border-width:0;
   color:white; 
+  cursor: pointer;
 }
 
 .lineButton:hover {

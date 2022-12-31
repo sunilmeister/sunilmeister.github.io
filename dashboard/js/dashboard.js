@@ -518,7 +518,7 @@ window.onload = function() {
   document.addEventListener('click', function (event) {
     // check if a button is clicked
     var buttonClicked = (event.target.nodeName == "BUTTON");
-    if (!buttonClicked) {
+    if (!buttonClicked && event.target.parentNode) {
       // check parent for icon buttons
       buttonClicked = (event.target.parentNode.nodeName == "BUTTON");
     }

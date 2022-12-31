@@ -33,6 +33,7 @@
   white-space: nowrap;
   will-change: box-shadow,transform;
   font-size: 22px;
+  cursor: pointer;
 }
 
 .button:focus {

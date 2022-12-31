@@ -19,6 +19,7 @@
   font-size: var(--sidebarBtnFontSize);
   width: var(--sidebarBtnWidth);
   position: relative;
+  cursor: pointer;
 }
 
 .sidebarButton:focus:not([disabled]) {
