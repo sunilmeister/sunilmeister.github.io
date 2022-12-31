@@ -1,0 +1,67 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Respimatic 100</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
+    <link rel="icon" type="image/png" href="../common/img/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="css/sidebar.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.15/dist/sweetalert2.all.min.js"></script>
+    <script src="js/doc.js"></script>
+  </head>
+
+  <body style="font-family='verdana'">
+
+    <div class=sidebarColumn>
+      <div class=sidebar>
+
+        <div class=shadowDiv5 style="background-color:var(--rsp_blue); color:white; font-size:1.3rem; ">
+          <center>
+            <img class=imgButton src="img/opManual.png" onclick='opManual()' title='Operating Manual'>
+            <br>
+            <br>
+            <img class=imgButton src="img/webApps.png" onclick='webApps()' title='Web Applications Manual'>
+            <br>
+            <br>
+            <img class=imgButton src="img/slideDeck.png" onclick='slideDeck()' title='Technical Slide Deck'>
+          </center>
+        </div>
+      </div>
+    </div>
+
+    <div class=body-pane>
+      <center>
+        <div id=opManualDiv style="display:none;">
+          <h2>Respimatic 100 Operating Manual</h2>
+          <embed src="docs/Operating Manual.pdf" type="application/pdf" width="650" height="850">
+        </div>
+
+        <div id=webAppsDiv style="display:none;">
+          <h2>Respimatic 100 Web Applications</h2>
+          <embed src="docs/Web Apps.pdf" type="application/pdf" width="650" height="850">
+        </div>
+
+        <div id=slideDeckDiv style="display:none;">
+          <h2>Respimatic 100 Technical Slide Deck</h2>
+          <embed src="docs/Technical Slide Deck.pdf" type="application/pdf" width="900" height="550">
+        </div>
+
+      </center>
+    </div>
+
+  </body>
+
+</html>
