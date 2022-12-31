@@ -5,15 +5,13 @@
 */
 .sidebarColumn {
   width: 10rem;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
   padding-right: 0.4rem;
+  background-color: var(--rsp_blue);
 }
 
 .sidebar {
   width: 10rem;
   font-size: 1.2rem;
-  margin-left: 1rem;
 }
 
 .sidebar div {
@@ -23,15 +21,14 @@
 }
 
 .body-pane {
-  margin-top: -440px;
-  margin-left: 15rem;
-  margin-right: 1rem;
+  margin-top: -520px;
+  margin-left: 12rem;
   font-size: 1.2rem;
 }
 
 .imgButton {
-  height: 100px;
-  width: 100px;
+  height: 90px;
+  width: 90px;
   cursor: pointer;
 }
 
