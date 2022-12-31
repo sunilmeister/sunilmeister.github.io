@@ -308,7 +308,7 @@ function rememberNewSystem() {
 }
 
 function launchDocs() {
-  window.open("../docs/docs.html");
+  window.open("../doc/doc.html");
 }
 
 function launchDashboard() {
