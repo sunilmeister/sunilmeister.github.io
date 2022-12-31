@@ -557,12 +557,12 @@ function showZoomReminder(width) {
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
-    showCancelButton: true,
-    cancelButtonColor: '#B22222',
-    cancelButtonText: "No More Reminders!",
+    showDenyButton: true,
+    denyButtonColor: '#B22222',
+    denyButtonText: "No More Reminders!",
     timer: 5000
   }).then((result) => {
-     if (result.isDismissed) {
+     if (result.isDenied) {
       setCookie(zoomReminderOffCookieName, "OFF");
      }
   })
@@ -578,12 +578,12 @@ function showEditIconReminder() {
     showConfirmButton: true,
     color: 'white',
     background: '#2C94BC',
-    showCancelButton: true,
-    confirmButtonColor: '#0D3E51',
-    confirmButtonText: 'DISMISS',
+    showDenyButton: true,
+    denyButtonColor: '#B22222',
+    denyButtonText: "No More Reminders!",
     timer: 5000
   }).then((result) => {
-     if (result.isDismissed) {
+     if (result.isDenied) {
       setCookie(editReminderOffCookieName, "OFF");
      }
   })
