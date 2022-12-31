@@ -7,6 +7,7 @@ const ANALYZER_APP_ID       = "ANALYZER";
 
 const zoomReminderOffCookieName   = "ZOOM_REMINDER";
 const editReminderOffCookieName   = "EDIT_REMINDER";
+const pdfReminderOffCookieName   = "PDF_REMINDER";
 const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS";
 const uidCookieName = "RESPIMATIC_UID_COOKIE";
 const tagCookieName = "RESPIMATIC_TAG_COOKIE";
@@ -76,4 +77,12 @@ const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>
   "Press EDIT (PEN icon) on the banner" + 
   "\n" +
   "to select Chart items to display" +
+  "</pre></span>";
+
+const PDF_TITLE_STR = "INSTALL PDF VIEWER" ;
+const PDF_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
+  "Install PDF Viewer Browser extension" +
+  "\nfor Online viewing" +
+  "\n" +
+  "\nElse you must download to view" +
   "</pre></span>";
