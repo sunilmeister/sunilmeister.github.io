@@ -23,7 +23,7 @@ window.onload = function() {
       title: PDF_TITLE_STR,
       html: PDF_MESSAGE_STR,
       width: 600,
-      showConfirmButton: false,
+      showConfirmButton: true,
       color: 'white',
       background: '#2C94BC',
       showConfirmButton: true,

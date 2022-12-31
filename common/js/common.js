@@ -575,10 +575,10 @@ function showEditIconReminder() {
     title: EDIT_ICON_TITLE_STR,
     html: EDIT_ICON_MESSAGE_STR,
     width: modalWidth,
-    showConfirmButton: false,
+    showConfirmButton: true,
     color: 'white',
     background: '#2C94BC',
-    showConfirmButton: true,
+    showCancelButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
     timer: 5000
