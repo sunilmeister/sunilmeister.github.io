@@ -78,8 +78,8 @@ const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>
 
 const PDF_TITLE_STR = "INSTALL PDF VIEWER" ;
 const PDF_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Install PDF Viewer Browser extension" +
+  "Install PDF Viewer Browser extension " +
   "for Online viewing" +
   "\n" +
-  "Else you must download to view" +
+  "Else you must download the file to view" +
   "</pre></span>";

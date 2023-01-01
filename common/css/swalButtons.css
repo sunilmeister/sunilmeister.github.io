@@ -1,0 +1,21 @@
+.confirmBtnSwal {
+  font-size:40px;
+  height:40px;
+  width:200px;
+  margin-top:0px;
+  background-color:var(--rsp_darkblue);
+  border-width:0;
+  color:white; 
+  cursor: pointer;
+}
+
+.confirmBtnSwal:hover {
+  color:var(--rsp_blue);
+  transform: translateY(-4px);
+}
+
+.confirmBtnSwal:active {
+  color:var(--rsp_mediumblue);
+  transform: translateY(4px);
+}
+
