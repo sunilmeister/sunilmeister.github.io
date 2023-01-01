@@ -32,7 +32,7 @@ window.onload = function() {
       confirmButtonText: 'DISMISS',
       showDenyButton: true,
       denyButtonColor: '#B22222',
-      denyButtonText: "No More Reminders!",
+      denyButtonText: "STOP Reminders!",
       showCloseButton: true,
       showClass: {
         popup: `
