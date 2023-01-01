@@ -20,6 +20,7 @@ window.onload = function() {
   if (getCookie(pdfReminderOffCookieName) != "OFF") {
     Swal.fire({
       icon: 'info',
+      position: 'bottom-end',
       title: PDF_TITLE_STR,
       html: PDF_MESSAGE_STR,
       width: 600,
@@ -32,6 +33,8 @@ window.onload = function() {
       showDenyButton: true,
       denyButtonColor: '#B22222',
       denyButtonText: "No More Reminders!",
+      showCloseButton: true,
+      timerProgressBar: true,
       timer: 5000
     }).then((result) => {
        if (result.isDenied) {

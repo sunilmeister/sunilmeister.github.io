@@ -548,6 +548,7 @@ function showZoomReminder(width) {
   if (getCookie(zoomReminderOffCookieName) == "OFF") return;
   Swal.fire({
     icon: 'info',
+    position: 'bottom-end',
     title: ZOOM_TITLE_STR,
     html: ZOOM_MESSAGE_STR,
     width: modalWidth,
@@ -560,6 +561,8 @@ function showZoomReminder(width) {
     showDenyButton: true,
     denyButtonColor: '#B22222',
     denyButtonText: "No More Reminders!",
+    showCloseButton: true,
+    timerProgressBar: true,
     timer: 5000
   }).then((result) => {
      if (result.isDenied) {
@@ -572,6 +575,7 @@ function showEditIconReminder() {
   if (getCookie(editReminderOffCookieName) == "OFF") return;
   Swal.fire({
     icon: 'info',
+    position: 'bottom-end',
     title: EDIT_ICON_TITLE_STR,
     html: EDIT_ICON_MESSAGE_STR,
     width: modalWidth,
@@ -581,6 +585,8 @@ function showEditIconReminder() {
     showDenyButton: true,
     denyButtonColor: '#B22222',
     denyButtonText: "No More Reminders!",
+    showCloseButton: true,
+    timerProgressBar: true,
     timer: 5000
   }).then((result) => {
      if (result.isDenied) {
@@ -600,6 +606,7 @@ function modalWarning(title, msg) {
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
+    showCloseButton: true,
   })
 }
 
@@ -614,6 +621,7 @@ function modalAlert(title, msg) {
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
+    showCloseButton: true,
   })
 }
 
@@ -637,6 +645,7 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
     cancelButtonText: cancelText,
     confirmButtonColor: '#0D3E51',
     cancelButtonColor: '#B22222',
+    showCloseButton: true,
   }).then((result) => {
      if (result.isConfirmed) {
        if (confirmFn) confirmFn(callbackArgs);
