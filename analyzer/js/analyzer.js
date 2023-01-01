@@ -551,6 +551,14 @@ window.onload = function() {
   
   undisplayAllPanes();
   disableAllButtons();
+  var menuBar = document.getElementById("sideMenuBar");
+  menuBarHeight = menuBar.offsetHeight;
+  menuBarWidth = menuBar.offsetWidth;
+  var nonMenuArea = document.getElementById("nonMenuArea");
+  nonMenuArea.style.marginTop = String(0-menuBarHeight) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth+50) + "px";
+  //console.log("menuBarHeight = " + menuBarHeight);
+  //console.log("menuBarWidth = " + menuBarWidth);
 
   app.reportRange = createReportRange(false, 0, 0);
   
