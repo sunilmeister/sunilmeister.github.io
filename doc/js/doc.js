@@ -1,19 +1,45 @@
+function enable(btn, img) {
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_lightblue');
+  document.getElementById(btn).style.backgroundColor=bgd;
+  document.getElementById(btn).style.cursor="pointer";
+  document.getElementById(img).style.cursor="pointer";
+}
+
+function disable(btn, img) {
+  document.getElementById(btn).style.backgroundColor="white";
+  document.getElementById(btn).style.cursor="not-allowed";
+  document.getElementById(img).style.cursor="not-allowed";
+}
+
 function opManual() {
   document.getElementById('opManualDiv').style.display="block";
   document.getElementById('webAppsDiv').style.display="none";
   document.getElementById('slideDeckDiv').style.display="none";
+
+  disable('opManualBtn', 'opManualImg');
+  enable('webAppsBtn', 'webAppsImg');
+  enable('slideDeckBtn', 'slideDeckImg');
 }
 
 function webApps() {
   document.getElementById('opManualDiv').style.display="none";
   document.getElementById('webAppsDiv').style.display="block";
   document.getElementById('slideDeckDiv').style.display="none";
+
+  enable('opManualBtn', 'opManualImg');
+  disable('webAppsBtn', 'webAppsImg');
+  enable('slideDeckBtn', 'slideDeckImg');
 }
 
 function slideDeck() {
   document.getElementById('opManualDiv').style.display="none";
   document.getElementById('webAppsDiv').style.display="none";
   document.getElementById('slideDeckDiv').style.display="block";
+
+  enable('opManualBtn', 'opManualImg');
+  enable('webAppsBtn', 'webAppsImg');
+  disable('slideDeckBtn', 'slideDeckImg');
 }
 
 window.onload = function() {

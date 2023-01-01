@@ -30,3 +30,12 @@
   cursor: pointer;
 }
 
+.imgButton:focus:not([disabled]) {
+}
+
+.imgButton:hover:not([disabled]) {
+  transform: translateY(-4px);
+}
+
+
+
