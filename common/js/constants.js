@@ -5,9 +5,9 @@ const RESPIMATIC_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID      = "DASHBOARD";
 const ANALYZER_APP_ID       = "ANALYZER";
 
-const zoomReminderOffCookieName   = "ZOOM_REMINDER";
-const editReminderOffCookieName   = "EDIT_REMINDER";
-const pdfReminderOffCookieName   = "PDF_REMINDER";
+const zoomReminderOffCookieName   = "ZOOM_REMINDER_COOKIE";
+const editReminderOffCookieName   = "EDIT_REMINDER_COOKIE";
+const pdfReminderOffCookieName   = "PDF_REMINDER_COOKIE";
 const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS";
 const uidCookieName = "RESPIMATIC_UID_COOKIE";
 const tagCookieName = "RESPIMATIC_TAG_COOKIE";
