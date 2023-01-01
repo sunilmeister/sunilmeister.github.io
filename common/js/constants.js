@@ -57,13 +57,10 @@ const SESSION_VERSION             = "1.1";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM" ;
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Use CTRL key and +/- keys to zoom" +
-  "\n" +
+  "Use CTRL key and +/- keys to zoom " +
   "till the full page is visible." +
   "\n" +
-  "\n" +
-  "Or hold down the CTRL key and use" +
-  "\n" +
+  "Or hold down the CTRL key and use " +
   "the mouse wheel to zoom in/out." +
   "</pre></span>";
 
@@ -82,7 +79,7 @@ const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>
 const PDF_TITLE_STR = "INSTALL PDF VIEWER" ;
 const PDF_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
   "Install PDF Viewer Browser extension" +
-  "\nfor Online viewing" +
+  "for Online viewing" +
   "\n" +
-  "\nElse you must download to view" +
+  "Else you must download to view" +
   "</pre></span>";

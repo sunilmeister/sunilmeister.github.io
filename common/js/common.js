@@ -548,10 +548,10 @@ function showZoomReminder(width) {
   if (getCookie(zoomReminderOffCookieName) == "OFF") return;
   Swal.fire({
     icon: 'info',
-    position: 'bottom-end',
+    position: 'bottom',
     title: ZOOM_TITLE_STR,
     html: ZOOM_MESSAGE_STR,
-    width: modalWidth,
+    //width: modalWidth,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
@@ -562,6 +562,21 @@ function showZoomReminder(width) {
     denyButtonColor: '#B22222',
     denyButtonText: "No More Reminders!",
     showCloseButton: true,
+    showClass: {
+      popup: `
+        animate__animated
+        animate__fadeInUp
+        animate__faster
+      `
+    },
+    hideClass: {
+      popup: `
+        animate__animated
+        animate__fadeOutDown
+        animate__faster
+      `
+    },
+    grow: 'row',
     timerProgressBar: true,
     timer: 5000
   }).then((result) => {
@@ -578,7 +593,7 @@ function showEditIconReminder() {
     position: 'bottom-end',
     title: EDIT_ICON_TITLE_STR,
     html: EDIT_ICON_MESSAGE_STR,
-    width: modalWidth,
+    //width: modalWidth,
     showConfirmButton: true,
     color: 'white',
     background: '#2C94BC',
@@ -586,6 +601,21 @@ function showEditIconReminder() {
     denyButtonColor: '#B22222',
     denyButtonText: "No More Reminders!",
     showCloseButton: true,
+    showClass: {
+      popup: `
+        animate__animated
+        animate__fadeInUp
+        animate__faster
+      `
+    },
+    hideClass: {
+      popup: `
+        animate__animated
+        animate__fadeOutDown
+        animate__faster
+      `
+    },
+    grow: 'row',
     timerProgressBar: true,
     timer: 5000
   }).then((result) => {

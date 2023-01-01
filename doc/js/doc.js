@@ -23,7 +23,7 @@ window.onload = function() {
       position: 'bottom-end',
       title: PDF_TITLE_STR,
       html: PDF_MESSAGE_STR,
-      width: 600,
+      //width: 600,
       showConfirmButton: true,
       color: 'white',
       background: '#2C94BC',
@@ -34,6 +34,21 @@ window.onload = function() {
       denyButtonColor: '#B22222',
       denyButtonText: "No More Reminders!",
       showCloseButton: true,
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `
+      },
+      grow: 'row',
       timerProgressBar: true,
       timer: 5000
     }).then((result) => {
