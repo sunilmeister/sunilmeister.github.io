@@ -62,7 +62,7 @@
     <script src="js/dashboard.js"></script>
   </head>
 
-  <body style="font-family:verdana";>
+  <body style="font-family:verdana" ;>
     <div id=recordNameDiv class=popupClass style="width:30rem; height:15rem; display: none">
       <center>
         <div style="font-size: 2rem;">
@@ -268,69 +268,69 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Static Information</h2>
               </center>
-	      <div style="font-size:1.5rem;">
-	      <p id=pName></p>
-	      <p id=pInfo></p>
-	      <p id=altitude></p>
-	      </div>
-                    <center>
-                      <div id=staticStats style="font-size: 1rem">
-                        <center>
-                          <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
+              <div style="font-size:1.5rem;">
+                <p id=pName></p>
+                <p id=pInfo></p>
+                <p id=altitude></p>
+              </div>
+              <center>
+                <div id=staticStats style="font-size: 1rem">
+                  <center>
+                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                       Parameter Settings Used</h2>
-                        </center>
+                  </center>
 
-                        <center>
-                          <table id='statsParamTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
-                            <tr>
-                              <th align="left" style="background-color:lightgray;">
-                                Parameter</th>
-                              <th align="left" style="background-color:lightgray;">
-                                Units
-                              </th>
-                              <th align="left" style="background-color:lightgray;">
-                                Values</th>
-                            </tr>
-                          </table>
-                        </center>
+                  <center>
+                    <table id='statsParamTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+                      <tr>
+                        <th align="left" style="background-color:lightgray;">
+                          Parameter</th>
+                        <th align="left" style="background-color:lightgray;">
+                          Units
+                        </th>
+                        <th align="left" style="background-color:lightgray;">
+                          Values</th>
+                      </tr>
+                    </table>
+                  </center>
 
-                        <center>
-                          <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
+                  <center>
+                    <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                       Sequence of Parameter Combinations</h2>
-                        </center>
+                  </center>
 
-                        <center>
-                          <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
-                            <tr>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                MODE</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                VT </th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                &nbsp;RR&nbsp;</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                I:E</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                PEEP</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                PMAX</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                PS</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                TPS</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                FIO2</th>
-                              <th style="background-color:lightgray;padding-right:1rem;">
-                                # of BREATHS</th>
-                              <th style="background-color:lightgray;">
-                                Before BREATH#</th>
-                            </tr>
-                          </table>
-                        </center>
+                  <center>
+                    <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
+                      <tr>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          MODE</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          VT </th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          &nbsp;RR&nbsp;</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          I:E</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          PEEP</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          PMAX</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          PS</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          TPS</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          FIO2</th>
+                        <th style="background-color:lightgray;padding-right:1rem;">
+                          # of BREATHS</th>
+                        <th style="background-color:lightgray;">
+                          Before BREATH#</th>
+                      </tr>
+                    </table>
+                  </center>
 
-                      </div>
+                </div>
 
-                    </center>
+              </center>
             </div>
           </div>
         </div>
@@ -611,13 +611,15 @@
 -->
     <template id=chartContainerTemplate>
       <div class=chartContainer style="position:relative;">
-        <div class=chartBanner>
-          <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png" width=15px height=15px></button>
-	  <br>
-        </div>
-        <div class=chartBody>
+        <div>
+          <div class=chartBanner>
+            <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" width=15px height=15px></button>
+            <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" width=15px height=15px></button>
+            <button class=iconButton style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png" width=15px height=15px></button>
+            <br>
+          </div>
+          <div class=chartBody>
+          </div>
         </div>
       </div>
     </template>
@@ -627,7 +629,7 @@
         <div class=chartEditMenuBanner>
           <button class=iconButton onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Accept'><img src="../common/img/check.png" width=15px height=15px></button>
           <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" width=15px height=15px></button>
-	  <br>
+          <br>
         </div>
 
         <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
@@ -762,13 +764,15 @@
     </template>
     <template id=shapeContainerTemplate>
       <div class=shapeContainer style="position:relative">
-        <div class=shapeBanner>
-          <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=15px height=15px></button>
-          <button class=iconButton style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=15px height=15px></button>
-	  <br>
-        </div>
-        <div class=shapeBody>
+        <div>
+          <div class=shapeBanner>
+            <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=15px height=15px></button>
+            <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=15px height=15px></button>
+            <button class=iconButton style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=15px height=15px></button>
+            <br>
+          </div>
+          <div class=shapeBody>
+          </div>
         </div>
     </template>
 
@@ -777,7 +781,7 @@
         <div class=shapeEditMenuBanner>
           <button class=iconButton onClick="shapeMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=15px height=15px></button>
           <button class=iconButton onClick="shapeMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=15px height=15px></button>
-	  <br>
+          <br>
         </div>
 
         <div id=shapeTitleDiv style="background-color: var(--rsp_lightblue)">
