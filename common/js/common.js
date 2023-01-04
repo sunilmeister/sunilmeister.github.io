@@ -693,7 +693,7 @@ function findChildNodeByClass(node, className) {
   node.childNodes.forEach(function(n) {
     if (n.className == className) {
       res = n;
-      return;
+      return res;
     }
   });
   return res;
