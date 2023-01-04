@@ -19,7 +19,7 @@ function chartInsertOnTop() {
 }
 
 function chartInsert(bnode) {
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorChartContainerNode(bnode);
   //console.log("chartInsert " + containerNode.id);
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
@@ -27,7 +27,7 @@ function chartInsert(bnode) {
 }
 
 function chartAppend(bnode) {
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorChartContainerNode(bnode);
   //console.log("chartAppend " + containerNode.id);
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
@@ -36,7 +36,7 @@ function chartAppend(bnode) {
 
 function chartEdit(bnode) {
   removeChartEditMenu();
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorChartContainerNode(bnode);
   //console.log("chartEdit " + containerNode.id);
   temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
   template = findChildNodeByClass(temp.content,CHART_EDIT_CHART_MENU_CLASS);
@@ -49,7 +49,7 @@ function chartEdit(bnode) {
 }
 
 function chartDelete(bnode) {
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorChartContainerNode(bnode);
   //console.log("chartDelete " + containerNode.id);
   removeChartContainerId(containerNode.id);
   containerNode.remove();
@@ -68,13 +68,13 @@ function removeChartEditMenu() {
 }
 
 function chartMenuCancel(bnode) {
-  containerNode = bnode.parentNode.parentNode.parentNode;
+  containerNode = findAncestorChartContainerNode(bnode);
   console.log("chartMenuCancel " + containerNode.id);
   removeChartEditMenu();
 }
 
 function chartMenuSubmit(bnode) {
-  containerNode = bnode.parentNode.parentNode.parentNode;
+  containerNode = findAncestorChartContainerNode(bnode);
   box = app.allChartsContainerInfo[containerNode.id];
   box.updateOptions(CHART_EDIT_CHART_MENU_ID);
   removeChartEditMenu();
@@ -115,3 +115,10 @@ function chartTreeCheckboxClicked(cbox) {
   app.chartCboxTree.CheckboxClicked(cbox);
 }
 
+function findAncestorChartContainerNode(node) {
+  return findAncestorNodeByClassName(node,CHART_CONTAINER_CLASS);
+}
+
+function findAncestorChartBodyNode(node) {
+  return findAncestorNodeByClassName(node,CHART_BODY_CLASS);
+}

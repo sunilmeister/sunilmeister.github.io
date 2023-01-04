@@ -15,7 +15,7 @@ function shapeInsertOnTop() {
 }
 
 function shapeInsert(bnode) {
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorShapeContainerNode(bnode);
   //console.log("shapeInsert " + containerNode.id);
   newContainer = createNewShapeContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
@@ -23,7 +23,7 @@ function shapeInsert(bnode) {
 }
 
 function shapeAppend(bnode) {
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorShapeContainerNode(bnode);
   //console.log("shapeAppend " + containerNode.id);
   newContainer = createNewShapeContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
@@ -32,7 +32,7 @@ function shapeAppend(bnode) {
 
 function shapeEdit(bnode) {
   removeShapeEditMenu();
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorShapeContainerNode(bnode);
   //console.log("shapeEdit " + containerNode.id);
   temp = document.getElementById(SHAPE_EDIT_MENU_TEMPLATE_ID);
   template = findChildNodeByClass(temp.content,SHAPE_EDIT_SHAPE_MENU_CLASS);
@@ -45,7 +45,7 @@ function shapeEdit(bnode) {
 }
 
 function shapeDelete(bnode) {
-  containerNode = bnode.parentNode.parentNode;
+  containerNode = findAncestorShapeContainerNode(bnode);
   //console.log("shapeDelete " + containerNode.id);
   removeShapeContainerId(containerNode.id);
   containerNode.remove();
@@ -64,13 +64,13 @@ function removeShapeEditMenu() {
 }
 
 function shapeMenuCancel(bnode) {
-  containerNode = bnode.parentNode.parentNode.parentNode;
+  containerNode = findAncestorShapeContainerNode(bnode);
   console.log("shapeMenuCancel " + containerNode.id);
   removeShapeEditMenu();
 }
 
 function shapeMenuSubmit(bnode) {
-  containerNode = bnode.parentNode.parentNode.parentNode;
+  containerNode = findAncestorShapeContainerNode(bnode);
   box = app.allShapesContainerInfo[containerNode.id];
   box.updateOptions(SHAPE_EDIT_SHAPE_MENU_ID);
   removeShapeEditMenu();
@@ -109,5 +109,13 @@ function removeShapeContainerId(id) {
 
 function shapeTreeCheckboxClicked(cbox) {
   app.shapeCboxTree.CheckboxClicked(cbox);
+}
+
+function findAncestorShapeContainerNode(node) {
+  return findAncestorNodeByClassName(node,SHAPE_CONTAINER_CLASS);
+}
+
+function findAncestorShapeBodyNode(node) {
+  return findAncestorNodeByClassName(node,SHAPE_BODY_CLASS);
 }
 
