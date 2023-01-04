@@ -690,13 +690,28 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
 
 function findChildNodeByClass(node, className) {
   var res = null;
-  node.childNodes.forEach(function(n) {
-    if (n.className == className) {
-      res = n;
-      return res;
+  var children = node.childNodes;
+  if (!children) return null;
+
+  for (let i=0; i<children.length; i++) {
+    if (children[i].className == className) {
+      return children[i];
     }
-  });
+  }
+
+  // Else check for next level
+  for (let i=0; i<children.length; i++) {
+    res =  findChildNodeByClass(children[i], className);
+    if (res) return res;
+  }
+
   return res;
+}
+
+function findAncestorNodeByClassName(node, className) {
+  if (node.className==className) return node;
+  if (node.parentNode) return findAncestorNodeByClassName(node.parentNode, className);
+  return null;
 }
 
 // tooltips for canvasjs
