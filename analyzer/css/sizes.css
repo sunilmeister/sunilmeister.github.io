@@ -1,10 +1,12 @@
 :root {
+  --chartContainerPadding: 21rem;
   --chartBodyHeight: 20rem;
   --chartMenuIndent: 1rem;
   --chartMenuFontSize: 1rem;
   --chartMenuBannerHeight: 2.5rem;
   --chartMenuIconSize: 1rem;
 
+  --shapeContainerPadding: 26rem;
   --shapeBodyHeight: 25rem;
   --shapeMenuIndent: 1rem;
   --shapeMenuFontSize: 1rem;
