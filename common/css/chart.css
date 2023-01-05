@@ -12,6 +12,8 @@
   margin-top: 10px;
   margin-right:1rem;
   width:100%;
+  position: relative;
+  padding-bottom: var(--chartContainerPadding);
 }
 
 .chartBanner {
@@ -46,5 +48,6 @@
   height: var(--chartBodyHeight);
   margin-right:1rem;
   width:100%;
+  position:absolute;
 }
 

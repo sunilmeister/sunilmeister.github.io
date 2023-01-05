@@ -11,6 +11,10 @@
 .shapeContainer {
   margin-top: 20px;
   font-family: verdana;
+  margin-right:1rem;
+  width:100%;
+  position: relative;
+  padding-bottom: var(--shapeContainerPadding);
 }
 
 .shapeBanner {
@@ -43,5 +47,8 @@
 .shapeBody {
   background-color: var(--rsp_lightblue);
   height: var(--shapeBodyHeight);
+  margin-right:1rem;
+  width:100%;
+  position:absolute;
 }
 
