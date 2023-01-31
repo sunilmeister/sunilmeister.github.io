@@ -23,15 +23,19 @@ function createDashboardShapes() {
   app.shapeCreationInProgress = false;
 }
 
+function rollingShapeRange() {
+  startShape = app.shapeData.length - SHAPE_MAX_CHARTS;
+  minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum +1
+  app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+}
+
 function updateShapeRange() {
   rangeSlider.setRange([1, app.dashboardBreathNum]);
 
   if (!app.reportRange.rolling || sliderCommitPending) return;
   if (app.reportRange.rolling) {
     if (app.reportRange.rolling && app.shapeData.length>SHAPE_MAX_CHARTS) {
-      startShape = app.shapeData.length - SHAPE_MAX_CHARTS;
-      minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum +1
-      app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+      rollingShapeRange();
     } else {
       app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
     }
@@ -43,11 +47,11 @@ function updateShapeRange() {
 }
 
 function updateShapeRangeOnEntry() {
-  if (app.reportRange.rolling) {
-    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
-    stopSliderCallback = true;
-    rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
-    stopSliderCallback = false;
-  }
+  if (!app.reportRange.rolling) return;
+
+  rollingShapeRange();
+  stopSliderCallback = true;
+  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  stopSliderCallback = false;
 }
 
