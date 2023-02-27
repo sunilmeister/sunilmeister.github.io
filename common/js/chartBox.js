@@ -211,7 +211,7 @@ class ChartBox {
     if (!this.options.Tidal) return reuseAxisNum;
   
     var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:700, 
+    var yAxisInfo = {primary:true, reuse:reuse, yMin:0, yMax:null, 
       reuseAxisNum:reuseAxisNum, yName:"Volume (ml)"};
     var flags = {warning:false, error:false, info:false};
     var paramInfo = {
