@@ -26,7 +26,11 @@ function createDashboardShapes() {
 function rollingShapeRange() {
   startShape = app.shapeData.length - SHAPE_MAX_CHARTS;
   if (startShape<0) startShape = 0;
-  minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum +1
+  if (app.shapeData.length) {
+    minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum +1
+  } else {
+    minBnum = 0;
+  }
   app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
 }
 
