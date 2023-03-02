@@ -4,8 +4,8 @@
 
 function formMessageLine(str) {
   value = str.trim();
-  if (value == "") return " ";
-  mvalue = value.replace(/ /g, " ");
+  if (value == "") return "&nbsp";
+  mvalue = value.replace(/ /g, "&nbsp");
   return mvalue;
 }
 // returns [old,new]
@@ -420,7 +420,7 @@ function displayWifiDropped() {
     updateDashboardAndRecordingStatus();
     elm = document.getElementById("Mline1");
     savedL1 = elm.innerHTML;
-    elm.innerHTML = " ";
+    elm.innerHTML = "&nbsp";
     elm = document.getElementById("Mline2");
     savedL2 = elm.innerHTML;
     elm.innerHTML = "No Message from device";
@@ -429,7 +429,7 @@ function displayWifiDropped() {
     elm.innerHTML = "for a while";
     elm = document.getElementById("Mline4");
     savedL4 = elm.innerHTML;
-    elm.innerHTML = " ";
+    elm.innerHTML = "&nbsp";
   }
 }
 
