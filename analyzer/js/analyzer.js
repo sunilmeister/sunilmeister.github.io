@@ -6,7 +6,7 @@ var analysisRangeSlider = null;
 var sessionBannerHTML = null;
 var sliderCommitPending = false;
 if (!window.indexedDB) {
-  modalAlert("IndexedDB not available in your browser","Switch browsers");
+  modalAlert("IndexedDB not available in your browser", "Switch browsers");
 }
 // ///////////////////////////////////////////////////////
 // Database Functions 
@@ -30,11 +30,11 @@ function listDbTableRow(item, index) {
   cell.innerHTML = nameTm[2];
 
   cell = row.insertCell();
-  cell.innerHTML = checkButtonHTML("selectRowBtn",25,"Select");
+  cell.innerHTML = checkButtonHTML("selectRowBtn", 25, "Select");
   cell = row.insertCell();
-  cell.innerHTML = exportButtonHTML("exportRowBtn",25,"Export");
+  cell.innerHTML = exportButtonHTML("exportRowBtn", 25, "Export");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("deleteRowBtn",25,"Delete");
+  cell.innerHTML = trashButtonHTML("deleteRowBtn", 25, "Delete");
 
   // Highlight selected database
   banner = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
@@ -49,7 +49,7 @@ function selectDbRow(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected Session","Select by clicking on a table row\nTry again!");
+      modalAlert("No selected Session", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -70,14 +70,16 @@ function deleteDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected Session","Select by clicking on a table row\nTry again!");
+      modalAlert("No selected Session", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
 
   msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
-  modalConfirm("Delete Session", msg, doDeleteDbRow, null, {row:row},
-  "DELETE", "DO NOT DELETE");
+  modalConfirm("Delete Session", msg, doDeleteDbRow, null, {
+      row: row
+    },
+    "DELETE", "DO NOT DELETE");
 }
 
 function doDeleteDbRow(arg) {
@@ -98,10 +100,11 @@ function selectRowBtn(btn) {
 }
 
 var exportRowDiv = null;
+
 function exportRowBtn(btn) {
   exportRowDiv = btn.parentNode.parentNode;
   document.getElementById("exportDiv").style.display = "block";
-  document.getElementById("exportFileName").value = 
+  document.getElementById("exportFileName").value =
     exportRowDiv.cells[0].innerHTML + ' ' + exportRowDiv.cells[1].innerHTML;;
 }
 
@@ -129,7 +132,7 @@ function listAllDbs() {
 
 function deleteAllDbs() {
   modalConfirm("Delete All Saved Sessions", "", doDeleteAllDbs, null, null,
-               "DELETE ALL", "DO NOT DELETE");
+    "DELETE ALL", "DO NOT DELETE");
 }
 
 function doDeleteAllDbs() {
@@ -154,9 +157,9 @@ function doDeleteAllDbs() {
 
 function checkDbReady() {
   if (app.sessionDbReady && app.sessionDbName) {
-    if (app.sessionVersion!=SESSION_VERSION) {
+    if (app.sessionVersion != SESSION_VERSION) {
       modalAlert("VERSION MISMATCH",
-	"Session recorded with Software Version " + app.sessionVersion + 
+        "Session recorded with Software Version " + app.sessionVersion +
         "\nCurrent Software Version is " + SESSION_VERSION +
         "\n\nOlder Version " + app.sessionVersion + " not supported");
       return false;
@@ -275,12 +278,12 @@ function selectRawData() {
 
 function initSession(dbName) {
   if (!dbName) {
-    modalAlert("No Session selected","Please Select Session");
+    modalAlert("No Session selected", "Please Select Session");
     return;
   }
   resetAnalysisData();
   var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function(event) {
+  req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
     app.sessionDbReady = true;
@@ -288,11 +291,11 @@ function initSession(dbName) {
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.getAllKeys();
-    keyReq.onsuccess = function(event) {
+    keyReq.onsuccess = function (event) {
       var keys = event.target.result;
       allDbKeys = keys;
       if (keys.length == 0) {
-        modalAlert("Selected Session has no data","");
+        modalAlert("Selected Session has no data", "");
         return;
       }
       app.logStartTime = new Date(keys[0]);
@@ -302,7 +305,7 @@ function initSession(dbName) {
       app.analysisStartTime = new Date(app.logStartTime);
       app.analysisEndTime = new Date(app.logEndTime);
       app.startDate = app.logStartTime;
-      
+
       updateSelectedDuration();
       updateLogDuration();
       disableAllButtons();
@@ -335,10 +338,10 @@ function resetAnalysisData() {
   initRawDump();
   initAlerts();
   initImportExport();
-  if ((document.getElementById("statsDiv").style.display == "block")
-    || (document.getElementById("chartsDiv").style.display == "block")
-    || (document.getElementById("shapesDiv").style.display == "block")
-    || (document.getElementById("alertsDiv").style.display == "block")) {
+  if ((document.getElementById("statsDiv").style.display == "block") ||
+    (document.getElementById("chartsDiv").style.display == "block") ||
+    (document.getElementById("shapesDiv").style.display == "block") ||
+    (document.getElementById("alertsDiv").style.display == "block")) {
     document.getElementById("analysisWindowDiv").style.display = "block";
   }
 }
@@ -359,10 +362,9 @@ function checkValidAnalysisDuration() {
   //return true;
   var diff = app.analysisEndTime - app.analysisStartTime;
   if (diff <= 0) {
-    modalAlert("Analysis EndTime must be greater than StartTime","");
+    modalAlert("Analysis EndTime must be greater than StartTime", "");
     return false;
-  }
-  else return true;
+  } else return true;
 }
 
 function updateLogDuration() {
@@ -370,8 +372,7 @@ function updateLogDuration() {
   elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
-  }
-  else {
+  } else {
     elm.innerHTML = "NaN";
   }
 }
@@ -381,15 +382,14 @@ function updateSelectedDuration() {
   var diff = app.analysisEndTime - app.analysisStartTime;
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
-  }
-  else {
+  } else {
     elm.innerHTML = "NaN";
   }
 
   elm = document.getElementById("selectedBreathRange");
   elm.innerHTML = String(app.analysisStartBreath) + ',' + app.analysisEndBreath;
   elm = document.getElementById("priorNumBreaths");
-  elm.innerHTML = String(app.startSystemBreathNum-1);
+  elm.innerHTML = String(app.startSystemBreathNum - 1);
 }
 
 function setAnalysisRanges(rolling) {
@@ -414,11 +414,11 @@ function setTimeInterval() {
   unflashAnalysisWindowButtons();
   values = analysisRangeSlider.getSlider();
   s = parseInt(values[0]);
-  if (! session.breathTimes[s]) { // missing breath
+  if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
   }
   e = parseInt(values[1]);
-  if (! session.breathTimes[e]) { // missing breath
+  if (!session.breathTimes[e]) { // missing breath
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
@@ -439,11 +439,11 @@ function setFullInterval() {
   unflashAnalysisWindowButtons();
   values = analysisRangeSlider.getRange();
   s = parseInt(values[0]);
-  if (! session.breathTimes[s]) { // missing breath
+  if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
   }
   e = parseInt(values[1]);
-  if (! session.breathTimes[e]) { // missing breath
+  if (!session.breathTimes[e]) { // missing breath
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
@@ -491,15 +491,15 @@ function analysisGatherDoneCallback() {
   app.sessionDbReady = true;
 
   app.logStartBreath = 1;
-  app.logEndBreath = session.breathTimes.length-1;
+  app.logEndBreath = session.breathTimes.length - 1;
 
   app.analysisStartBreath = app.logStartBreath;
   app.analysisEndBreath = app.logEndBreath;
   app.analysisStartTime = app.logStartTime;
   app.analysisEndTime = app.logEndTime;
 
-  if (app.logEndBreath==0) {
-    modalAlert("No recorded breath for this session","Select another session");
+  if (app.logEndBreath == 0) {
+    modalAlert("No recorded breath for this session", "Select another session");
     return;
   }
 
@@ -510,7 +510,7 @@ function analysisGatherDoneCallback() {
   createAnalysisRangeSlider();
 }
 
-window.onload = function() {
+window.onload = function () {
   showZoomReminder(600);
 
   // Create data objects
@@ -534,34 +534,34 @@ window.onload = function() {
   sessionInfo.innerHTML = 'No Selected Session';
 
   var exportFileNameInput = document.getElementById("exportFileName");
-  exportFileNameInput.addEventListener("keypress", function(event) {
+  exportFileNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("exportFileBtn").click();
     }
   });
-  
+
   var importSessionNameInput = document.getElementById("importSessionName");
-  importSessionNameInput.addEventListener("keypress", function(event) {
+  importSessionNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("importFileBtn").click();
     }
   });
-  
+
   undisplayAllPanes();
   disableAllButtons();
   var menuBar = document.getElementById("sideMenuBar");
   menuBarHeight = menuBar.offsetHeight;
   menuBarWidth = menuBar.offsetWidth;
   var nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(0-menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth+50) + "px";
+  nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth + 50) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
   //console.log("menuBarWidth = " + menuBarWidth);
 
   app.reportRange = createReportRange(false, 0, 0);
-  
+
   resetAnalysisData();
   selectSession();
 }
@@ -571,7 +571,7 @@ function selectExit() {
   window.open('', '_self').close();
 }
 
-var intervalId = setInterval(function() {
+var intervalId = setInterval(function () {
   blinkAnalysisWindowButtons();
 }, 1000);
 var analysisButtonsFlashed = false;
@@ -580,8 +580,7 @@ function blinkAnalysisWindowButtons() {
   if (!sliderCommitPending) return;
   if (analysisButtonsFlashed) {
     unflashAnalysisWindowButtons();
-  }
-  else {
+  } else {
     flashAnalysisWindowButtons();
   }
 }
@@ -627,6 +626,7 @@ function unflashAnalysisWindowButtons() {
 }
 
 var cumulativeChartBreaths = 0;
+
 function updateRangeOnNewBreath(num) {
   app.reportRange.minBnum = 1;
   app.reportRange.maxBnum += num;
@@ -660,8 +660,8 @@ function createAnalysisRangeSlider() {
 
   unflashAnalysisWindowButtons();
 
-  if (app.logEndBreath==0) {
-    modalAlert("No recorded breath for this session","");
+  if (app.logEndBreath == 0) {
+    modalAlert("No recorded breath for this session", "");
   }
 }
 
@@ -669,5 +669,3 @@ function analysisRangeSliderCallback() {
   flashAnalysisWindowButtons();
   sliderCommitPending = true;
 }
-
-

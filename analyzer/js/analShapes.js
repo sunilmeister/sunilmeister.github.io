@@ -18,12 +18,11 @@ function createAnalysisShapes() {
 function displayShapes() {
   //console.log("displayShapes");
   if (!app.sessionDataValid) {
-    modalAlert("Data Gathering in process","Give us a second and try again");
+    modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (numberOfExistingShapes()==0) {
+  if (numberOfExistingShapes() == 0) {
     shapeInsertOnTop(); // always have shape box for user to start with
-  }  
+  }
   createAnalysisShapes();
 }
-

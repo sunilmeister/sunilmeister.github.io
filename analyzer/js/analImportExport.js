@@ -26,7 +26,7 @@ function rowDbName(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected Session","Select by clicking on a table row");
+      modalAlert("No selected Session", "Select by clicking on a table row");
       return;
     }
   }
@@ -40,7 +40,7 @@ function exportDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected Session","Select by clicking on a table row\nTry again!");
+      modalAlert("No selected Session", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -63,11 +63,11 @@ function doImport(file, fileName, dbName) {
   if (!file) return;
   var reader = new FileReader();
   reader.readAsText(file, "UTF-8");
-  reader.onload = function(evt) {
+  reader.onload = function (evt) {
     importJsonArray = parseJSONSafely(evt.target.result);
     if (!importJsonArray) importJsonArray = [];
     var dbReq = window.indexedDB.open(dbName, dbVersion);
-    dbReq.onupgradeneeded = function(event) {
+    dbReq.onupgradeneeded = function (event) {
       // Save the IDBDatabase interface
       var db = event.target.result;
       var dbObjStore;
@@ -75,12 +75,11 @@ function doImport(file, fileName, dbName) {
         dbObjStore = db.createObjectStore(dbObjStoreName, {
           keyPath: dbPrimaryKey
         });
-      }
-      else {
+      } else {
         dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
       }
     };
-    dbReq.onsuccess = function(event) {
+    dbReq.onsuccess = function (event) {
       var db = event.target.result;
       for (i = 0; i < importJsonArray.length; i++) {
         jsonData = importJsonArray[i];
@@ -123,10 +122,8 @@ function importFile() {
     dbName = respimaticUid + '|' + sessionName + "|" + nameTagTime;
     if (checkDbExists(dbName)) {
       modalAlert("Session name already exists\n" + sessionName, "Try again");
-    }
-    else break;
+    } else break;
   } while (true);
   doImport(file, fileName, dbName);
   document.getElementById("importDiv").style.display = "none";
 }
-

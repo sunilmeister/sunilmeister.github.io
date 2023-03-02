@@ -20,15 +20,13 @@ function createAnalysisCharts() {
 function displayCharts() {
   //console.log("displayCharts");
   if (!app.sessionDataValid) {
-    modalAlert("Data Gathering in process","Give us a second and try again");
+    modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (numberOfExistingCharts()==0) {
+  if (numberOfExistingCharts() == 0) {
     chartInsertOnTop(); // always have chart box for user to start with
-  }  
+  }
   createAnalysisCharts();
 }
 
-function initCharts() {
-}
-
+function initCharts() {}
