@@ -6,22 +6,20 @@
 // v4.1 adds url download capability via solo URL argument (same domain/CORS only)
 // v4.2 adds semantic variable names, long (over 2MB) dataURL support, and hidden by default temp anchors
 // https://github.com/rndme/download
-(function(root, factory) {
+(function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define([], factory);
-  }
-  else if (typeof exports === 'object') {
+  } else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
     module.exports = factory();
-  }
-  else {
+  } else {
     // Browser globals (root is window)
     root.download = factory();
   }
-}(this, function() {
+}(this, function () {
   return function download(data, strFileName, strMimeType) {
     var self = window, // this script is only for browsers anyway...
       defaultMime =
@@ -30,7 +28,7 @@
       payload = data,
       url = !strFileName && !strMimeType && payload,
       anchor = document.createElement("a"),
-      toString = function(a) {
+      toString = function (a) {
         return String(a);
       },
       myBlob = (self.Blob || self.MozBlob || self.WebKitBlob || toString),
@@ -56,10 +54,10 @@
         var ajax = new XMLHttpRequest();
         ajax.open("GET", url, true);
         ajax.responseType = 'blob';
-        ajax.onload = function(e) {
+        ajax.onload = function (e) {
           download(e.target.response, fileName, defaultMime);
         };
-        setTimeout(function() {
+        setTimeout(function () {
           ajax.send();
         }, 0); // allows setting custom ajax headers using the return:
         return ajax;
@@ -70,8 +68,7 @@
       if (payload.length > (1024 * 1024 * 1.999) && myBlob !== toString) {
         payload = dataUrlToBlob(payload);
         mimeType = payload.type || defaultMime;
-      }
-      else {
+      } else {
         return navigator.msSaveBlob ?
           // IE10 can't do a[download], only Blobs:
           navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
@@ -106,11 +103,11 @@
         anchor.innerHTML = "downloading...";
         anchor.style.display = "none";
         document.body.appendChild(anchor);
-        setTimeout(function() {
+        setTimeout(function () {
           anchor.click();
           document.body.removeChild(anchor);
           if (winMode === true) {
-            setTimeout(function() {
+            setTimeout(function () {
               self.URL.revokeObjectURL(anchor.href);
             }, 250);
           }
@@ -137,7 +134,7 @@
         url = "data:" + url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
       }
       f.src = url;
-      setTimeout(function() {
+      setTimeout(function () {
         document.body.removeChild(f);
       }, 333);
     } //end saver
@@ -147,21 +144,19 @@
     }
     if (self.URL) { // simple fast and modern way using Blob and URL:
       saver(self.URL.createObjectURL(blob), true);
-    }
-    else {
+    } else {
       // handle non-Blob()+non-URL browsers:
       if (typeof blob === "string" || blob.constructor === toString) {
         try {
           return saver("data:" + mimeType + ";base64," + self.btoa(blob));
-        }
-        catch (y) {
+        } catch (y) {
           return saver("data:" + mimeType + "," + encodeURIComponent(
             blob));
         }
       }
       // Blob but not URL support:
       reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         saver(this.result);
       };
       reader.readAsDataURL(blob);
@@ -169,4 +164,3 @@
     return true;
   }; /* end download() */
 }));
-

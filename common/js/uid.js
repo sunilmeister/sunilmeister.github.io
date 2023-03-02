@@ -18,11 +18,9 @@ function createSystemUidTagObj(uid, tag) {
 function compareSystemUidTagObj(a, b) {
   if (a.tag < b.tag) {
     return -1;
-  }
-  else if (a.tag > b.tag) {
+  } else if (a.tag > b.tag) {
     return 1;
-  }
-  else return 0;
+  } else return 0;
 }
 
 function initKnownRespimaticSystems() {
@@ -30,8 +28,7 @@ function initKnownRespimaticSystems() {
   if (str) {
     knownRespimaticSystems = JSON.parse(str);
     knownRespimaticSystems.sort(compareSystemUidTagObj);
-  }
-  else {
+  } else {
     knownRespimaticSystems = [];
   }
 }
@@ -105,9 +102,9 @@ function appendSystemUidTagHtmlRow(table, uid, tag) {
   cell = row.insertCell();
   cell.innerHTML = uid;
   cell = row.insertCell();
-  cell.innerHTML = checkButtonHTML("selectUidRow",15,"Select");
+  cell.innerHTML = checkButtonHTML("selectUidRow", 15, "Select");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("removeUidRow",15,"Remove");
+  cell.innerHTML = trashButtonHTML("removeUidRow", 15, "Remove");
   return row;
 }
 
@@ -133,5 +130,3 @@ function validSystemUid(uid) {
   if (re.test(hex_str)) return true;
   return false;
 }
-
-

@@ -9,25 +9,25 @@ class CheckboxTree {
     this.leafCheckboxes = [];
     this.CollectLeafCboxes(this.treeRoot);
   }
-  
+
   CheckboxClicked(cbox) {
     this.PropagateClickDownwards(cbox.parentNode, cbox.checked);
     this.PropagateBottomUp(this.treeRoot);
   }
-  
+
   PropagateFromLeafCheckboxes() {
     this.PropagateBottomUp(this.treeRoot);
   }
-  
+
   GetLeafCheckboxes() {
     return this.leafCheckboxes;
   }
 
   CollectLeafCboxes(elem) {
     var foundDivChild = false;
-    for (let i=0; i<elem.childNodes.length; i++) {
+    for (let i = 0; i < elem.childNodes.length; i++) {
       var child = elem.childNodes[i];
-      if (child.tagName=="DIV") {
+      if (child.tagName == "DIV") {
         foundDivChild = true;
         this.CollectLeafCboxes(child);
       }
@@ -40,109 +40,109 @@ class CheckboxTree {
   }
 
   GetCboxForDiv(elem) {
-    for(let i = 0; i < elem.childNodes.length; i++) {
+    for (let i = 0; i < elem.childNodes.length; i++) {
       var child = elem.childNodes[i];
-      if (child.type=="checkbox") return child;
+      if (child.type == "checkbox") return child;
     }
     return null;
   }
-  
+
   CollectChildCboxes(elem) {
     var cboxes = [];
-    for(let i = 0; i < elem.childNodes.length; i++) {
+    for (let i = 0; i < elem.childNodes.length; i++) {
       var child = elem.childNodes[i];
-      if (child.tagName=="DIV") {
+      if (child.tagName == "DIV") {
         var arr = child.childNodes;
         if (!arr) continue;
-        for (let j=0; j<arr.length; j++) {
-  	var cbox = arr[j];
-  	if (cbox.type=="checkbox") cboxes.push(cbox);
+        for (let j = 0; j < arr.length; j++) {
+          var cbox = arr[j];
+          if (cbox.type == "checkbox") cboxes.push(cbox);
         }
       }
     }
     return cboxes;
   }
-  
+
   CollectChildDivs(elem) {
     var divs = [];
-    for(let i = 0; i < elem.childNodes.length; i++) {
+    for (let i = 0; i < elem.childNodes.length; i++) {
       var child = elem.childNodes[i];
-      if (child.tagName=="DIV") divs.push(child);
+      if (child.tagName == "DIV") divs.push(child);
     }
     return divs;
   }
-  
+
   PropagateClickDownwards(elem, checked) {
     var divs = this.CollectChildDivs(elem);
-    for(let i = 0; i < divs.length; i++) {
+    for (let i = 0; i < divs.length; i++) {
       var cDiv = divs[i];
       this.PropagateClickDownwards(cDiv, checked);
     }
-  
+
     var cboxes = this.CollectChildCboxes(elem);
-    for(let i = 0; i < cboxes.length; i++) {
+    for (let i = 0; i < cboxes.length; i++) {
       var cbox = cboxes[i];
       cbox.checked = checked;
     }
   }
-  
+
   createSpace(width) {
     var sp = String('..');
     return sp.repeat(width);
   }
-  
+
   PropagateBottomUp(elem) {
     if (!elem) return;
     var elemCbox = null;
-  
+
     if (elem.id != this.treeRootId) elemCbox = this.GetCboxForDiv(elem);
-  
+
     // must create a local copy of the array else recusion wont work!
     var divs = this.CollectChildDivs(elem);
     var localDivs = divs.concat([]);
-  
-    for(let i = 0; i < localDivs.length; i++) {
+
+    for (let i = 0; i < localDivs.length; i++) {
       this.PropagateBottomUp(localDivs[i]);
     }
-  
+
     var cboxStatus = null;
     var cboxes = this.CollectChildCboxes(elem);
-    for (let i=0; i<cboxes.length; i++) {
+    for (let i = 0; i < cboxes.length; i++) {
       var cbox = cboxes[i];
       if (cbox.indeterminate) {
-  	cboxStatus = "indeterminate";
-  	break;
+        cboxStatus = "indeterminate";
+        break;
       }
-      if (cboxStatus==null) {
+      if (cboxStatus == null) {
         if (cbox.checked) cboxStatus = "checked";
         else cboxStatus = "unchecked";
-      } else if (cboxStatus=="checked") {
+      } else if (cboxStatus == "checked") {
         if (!cbox.checked) {
           cboxStatus = "indeterminate";
           break;
         }
-      } else if (cboxStatus=="unchecked") {
+      } else if (cboxStatus == "unchecked") {
         if (cbox.checked) {
           cboxStatus = "indeterminate";
           break;
         }
       }
     }
-  
-    if (cboxStatus=="indeterminate") {
+
+    if (cboxStatus == "indeterminate") {
       if (elemCbox) elemCbox.indeterminate = true;
-    } else if (cboxStatus=="checked") {
+    } else if (cboxStatus == "checked") {
       if (elemCbox) {
         elemCbox.checked = true;
         elemCbox.indeterminate = false;
       }
-    } else if (cboxStatus=="unchecked") {
+    } else if (cboxStatus == "unchecked") {
       if (elemCbox) {
         elemCbox.checked = false;
         elemCbox.indeterminate = false;
       }
     }
-  
+
     return cboxStatus;
   }
 

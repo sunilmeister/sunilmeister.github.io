@@ -39,7 +39,7 @@ function chartEdit(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
   //console.log("chartEdit " + containerNode.id);
   temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content,CHART_EDIT_CHART_MENU_CLASS);
+  template = findChildNodeByClass(temp.content, CHART_EDIT_CHART_MENU_CLASS);
   node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
   app.chartCboxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID);
@@ -53,7 +53,7 @@ function chartDelete(bnode) {
   //console.log("chartDelete " + containerNode.id);
   removeChartContainerId(containerNode.id);
   containerNode.remove();
-  if (numberOfExistingCharts()==0) {
+  if (numberOfExistingCharts() == 0) {
     modalWarning("CHART BOX", "No chart container left\nCreating new empty one");
     chartInsertOnTop();
   }
@@ -82,14 +82,15 @@ function chartMenuSubmit(bnode) {
 }
 
 var currentChartContainerNum = 0;
+
 function createNewChartContainer() {
   temp = document.getElementById(CHART_CONTAINER_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content,CHART_CONTAINER_CLASS);
+  template = findChildNodeByClass(temp.content, CHART_CONTAINER_CLASS);
   node = template.cloneNode(true);
-  node.id = CHART_CONTAINER_ID_PREFIX + (currentChartContainerNum++) ;
-  body = findChildNodeByClass(node,CHART_BODY_CLASS);
+  node.id = CHART_CONTAINER_ID_PREFIX + (currentChartContainerNum++);
+  body = findChildNodeByClass(node, CHART_BODY_CLASS);
   box = new ChartBox(body);
-  storeChartContainerId(node.id,box);
+  storeChartContainerId(node.id, box);
   return node;
 }
 
@@ -116,9 +117,9 @@ function chartTreeCheckboxClicked(cbox) {
 }
 
 function findAncestorChartContainerNode(node) {
-  return findAncestorNodeByClassName(node,CHART_CONTAINER_CLASS);
+  return findAncestorNodeByClassName(node, CHART_CONTAINER_CLASS);
 }
 
 function findAncestorChartBodyNode(node) {
-  return findAncestorNodeByClassName(node,CHART_BODY_CLASS);
+  return findAncestorNodeByClassName(node, CHART_BODY_CLASS);
 }

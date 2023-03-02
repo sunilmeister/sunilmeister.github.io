@@ -38,30 +38,30 @@ class StatComputer {
     var prevItem = null;
     for (let i = 1; i < transitions.length; i++) {
       var tDate = new Date(transitions[i].time);
-      if (tDate>maxDate) {
-        if (keepOneBefore && (arr.length==0)) {
+      if (tDate > maxDate) {
+        if (keepOneBefore && (arr.length == 0)) {
           if (prevItem) {
-	    arr.push(cloneObject(cloneObject(prevItem)));
-	    prevItem = null;
+            arr.push(cloneObject(cloneObject(prevItem)));
+            prevItem = null;
           }
         }
-	break;
+        break;
       }
-      if (tDate<minDate) {
-	prevItem = transitions[i];
-	continue;
-      } else if (tDate>minDate) {
-        if (keepOneBefore && (arr.length==0)) {
+      if (tDate < minDate) {
+        prevItem = transitions[i];
+        continue;
+      } else if (tDate > minDate) {
+        if (keepOneBefore && (arr.length == 0)) {
           if (prevItem) {
-	    arr.push(cloneObject(cloneObject(prevItem)));
-	    prevItem = null;
+            arr.push(cloneObject(cloneObject(prevItem)));
+            prevItem = null;
           }
         }
       }
       arr.push(cloneObject(transitions[i]));
     }
 
-    if (keepOneBefore && (arr.length==0)) {
+    if (keepOneBefore && (arr.length == 0)) {
       if (prevItem) {
         arr.push(cloneObject(cloneObject(prevItem)));
         prevItem = null;
@@ -93,8 +93,11 @@ class StatComputer {
         }
       }
       if (this.xRange.rolling ||
-	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
-        arr.push({"time":new Date(this.breathTimes[i]), "value":curValue});
+        ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum))) {
+        arr.push({
+          "time": new Date(this.breathTimes[i]),
+          "value": curValue
+        });
       }
     }
     return arr;
@@ -106,12 +109,12 @@ class StatComputer {
 
     var sum = null;
     var num = 0;
-    for (let i=0; i<this.computedValuesPerBreath.length; i++) {
+    for (let i = 0; i < this.computedValuesPerBreath.length; i++) {
       var val = this.computedValuesPerBreath[i];
       if (val == null) continue;
       num++;
 
-      if (sum==null) sum = val;
+      if (sum == null) sum = val;
       else sum += val;
 
       if (!this.computedMin) this.computedMin = val;
@@ -121,8 +124,8 @@ class StatComputer {
       else if (val > this.computedMax) this.computedMax = val;
     }
 
-    if (sum!=null) {
-      var avg = sum/num;
+    if (sum != null) {
+      var avg = sum / num;
       this.computedAvg = avg.toFixed(1);
     }
   }
@@ -151,7 +154,7 @@ class StatComputer {
   trimArray(transitions) {
     if (transitions.length == 0) {
       console.log("No transitions for statComputer");
-      return ;
+      return;
     }
 
     // Collect param datapoints per breath
@@ -169,7 +172,7 @@ class StatComputer {
         }
       }
       if (this.xRange.rolling ||
-	((i<=this.xRange.maxBnum) && (i>=this.xRange.minBnum))) {
+        ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum))) {
         this.computedValuesPerBreath.push(curValue);
       }
     }

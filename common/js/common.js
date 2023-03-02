@@ -93,8 +93,7 @@ function cloneObject(obj) {
 function parseJSONSafely(str) {
   try {
     return JSON.parse(str);
-  }
-  catch (e) {
+  } catch (e) {
     console.log("JSON parsing failed due to syntax error");
     // Return a default object, or null based on use case.
     return null;
@@ -108,28 +107,28 @@ function parseBreathInfo(num) {
   var obj = {};
   //console.log("num = 0x" + num.toString(16));
 
-  for (i=0; i<5; i++) {
+  for (i = 0; i < 5; i++) {
     bit = num & 0x1;
     num = num >> 1;
 
     switch (i) {
       case 0:
-	obj.isMandatory = bit ? true : false;
-	break;
+        obj.isMandatory = bit ? true : false;
+        break;
       case 1:
-	obj.isVC = bit ? true : false;
-	break;
+        obj.isVC = bit ? true : false;
+        break;
       case 2:
-	obj.isAbnormal = bit ? true : false;
-	break;
+        obj.isAbnormal = bit ? true : false;
+        break;
       case 3:
-	obj.isError = bit ? true : false;
-	break;
+        obj.isError = bit ? true : false;
+        break;
       case 4:
-	obj.isMaintenance = bit ? true : false;
-	break;
+        obj.isMaintenance = bit ? true : false;
+        break;
       default:
-	break;
+        break;
     }
   }
 
@@ -226,11 +225,11 @@ function strToDate(dateStr, timeStr) {
 function closestNonNullEntryIndex(arr, index) {
   if (arr[index]) return index;
   // search up
-  for (i=index; i<arr.length; i++) {
+  for (i = index; i < arr.length; i++) {
     if (arr[i]) return i;
   }
   // search down
-  for (i=index; i>=0; i--) {
+  for (i = index; i >= 0; i--) {
     if (arr[i]) return i;
   }
 
@@ -293,8 +292,8 @@ function setCookie(cname, cvalue) {
 }
 
 function deleteAllCookies() {
-  document.cookie.split(";").forEach(function(c) { 
-    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+  document.cookie.split(";").forEach(function (c) {
+    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
   });
 }
 
@@ -328,13 +327,11 @@ function checkDbExists(dbName) {
   var respimatic_dbs = [];
   if (retrieved_dbs) {
     respimatic_dbs = JSON.parse(retrieved_dbs);
-  }
-  else return false;
+  } else return false;
   var ix;
   if (respimatic_dbs.length) {
     ix = respimatic_dbs.indexOf(dbName);
-  }
-  else {
+  } else {
     ix = -1;
   }
   if (ix == -1) return false;
@@ -356,8 +353,7 @@ function deleteDb(dbName) {
   var ix;
   if (retrieved_dbs.length) {
     ix = retrieved_dbs.indexOf(dbName);
-  }
-  else {
+  } else {
     ix = -1;
   }
   if (ix != -1) {
@@ -380,8 +376,7 @@ function isValidDatabaseName(dname) {
   var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
   if (format.test(dname)) {
     return false;
-  }
-  else {
+  } else {
     return true;
   }
 }
@@ -390,7 +385,7 @@ function createOrOpenDb(name, timeStamp) {
   var dbReq = indexedDB.open(name, dbVersion);
   // Fires when the version of the database goes up, or the database is created
   // for the first time
-  dbReq.onupgradeneeded = function(event) {
+  dbReq.onupgradeneeded = function (event) {
     db = event.target.result;
     // Object stores in databases are where data are stored.
     var dbObjStore;
@@ -398,26 +393,25 @@ function createOrOpenDb(name, timeStamp) {
       dbObjStore = db.createObjectStore(dbObjStoreName, {
         keyPath: dbPrimaryKey
       });
-    }
-    else {
+    } else {
       dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
     }
   }
   // Fires once the database is opened (and onupgradeneeded completes, if
   // onupgradeneeded was called)
-  dbReq.onsuccess = function(event) {
+  dbReq.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     db = event.target.result;
     dbReady = true;
     registerDbName(dbName);
   }
   // Fires when we can't open the database
-  dbReq.onerror = function(event) {
+  dbReq.onerror = function (event) {
     dbReady = false;
     modalAlert('Error opening session ' + event.target.errorCode);
   }
   // Fires when there's another open connection to the same database
-  dbReq.onblocked = function(event) {
+  dbReq.onblocked = function (event) {
     dbReady = false;
     db = event.target.result;
     db.close();
@@ -425,21 +419,20 @@ function createOrOpenDb(name, timeStamp) {
   }
 }
 
-function exportDb(dbName,fileName) {
+function exportDb(dbName, fileName) {
   var getAll = [];
   var req = indexedDB.open(dbName, dbVersion);
-  req.onsuccess = function(event) {
+  req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
-    store.openCursor().onsuccess = function(evt) {
+    store.openCursor().onsuccess = function (evt) {
       var cursor = evt.target.result;
       if (cursor) {
         getAll.push(cursor.value);
         cursor.continue();
-      }
-      else {
+      } else {
         download(JSON.stringify(getAll, null, 1), fileName, "text/xml");
       }
     }
@@ -456,8 +449,7 @@ function registerDbName(dbName) {
   var ix;
   if (respimatic_dbs.length) {
     ix = respimatic_dbs.indexOf(dbName);
-  }
-  else {
+  } else {
     ix = -1;
   }
   if (ix == -1) {
@@ -467,13 +459,14 @@ function registerDbName(dbName) {
 }
 
 const O2FLOW_SAFETY_BOOST_PERCENT = 107;
+
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
   if (fiO2 == atmPurity) return 0;
   if (fiO2 < atmPurity) fiO2 = atmPurity;
   mv = vt * rr;
   if (fiO2 > purity) fiO2 = purity;
   f = (mv * (fiO2 - atmPurity)) / (purity - atmPurity);
-  return (f*O2FLOW_SAFETY_BOOST_PERCENT)/100;
+  return (f * O2FLOW_SAFETY_BOOST_PERCENT) / 100;
 }
 
 // returns an array [gender, age, pid]
@@ -498,8 +491,8 @@ function parsePatientInfo(str) {
 // returns a byte checksum
 function checksum(num) {
   sum = 0;
-  for (i=0; i<4; i++) {
-    b = num >> (i*8);
+  for (i = 0; i < 4; i++) {
+    b = num >> (i * 8);
     b = b & 0xFF;
     sum += b;
     sum = sum & 0xFF;
@@ -513,7 +506,7 @@ function checksum(num) {
 function parseChecksumString(tstr) {
   str = String(tstr);
   arr = parseJSONSafely(str);
-  if (!arr || arr.length!=2) return null;
+  if (!arr || arr.length != 2) return null;
 
   num = arr[0];
   ccs = checksum(num);
@@ -531,13 +524,13 @@ function parseAltitude(str) {
 }
 
 function o2PurityAtAltitudeFt(ft) {
-  o2x = 206000 - 6*ft;
-  o2 = (o2x+5000)/10000;
+  o2x = 206000 - 6 * ft;
+  o2 = (o2x + 5000) / 10000;
   return Math.floor(o2);
 }
 
 function o2PurityAtAltitudeMtr(mtr) {
-  return o2PurityAtAltitudeFt(mtr*3.28);
+  return o2PurityAtAltitudeFt(mtr * 3.28);
 }
 
 // various modals
@@ -580,9 +573,9 @@ function showZoomReminder(width) {
     timerProgressBar: true,
     timer: 5000
   }).then((result) => {
-     if (result.isDenied) {
+    if (result.isDenied) {
       setCookie(zoomReminderOffCookieName, "OFF");
-     }
+    }
   })
 }
 
@@ -622,9 +615,9 @@ function showEditIconReminder() {
     timerProgressBar: true,
     timer: 5000
   }).then((result) => {
-     if (result.isDenied) {
+    if (result.isDenied) {
       setCookie(editReminderOffCookieName, "OFF");
-     }
+    }
   })
 }
 
@@ -680,11 +673,11 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
     cancelButtonColor: '#B22222',
     showCloseButton: true,
   }).then((result) => {
-     if (result.isConfirmed) {
-       if (confirmFn) confirmFn(callbackArgs);
-     } else if (result.isDismissed) {
-       if (cancelFn) cancelFn(callbackArgs);
-     }
+    if (result.isConfirmed) {
+      if (confirmFn) confirmFn(callbackArgs);
+    } else if (result.isDismissed) {
+      if (cancelFn) cancelFn(callbackArgs);
+    }
   })
 }
 
@@ -693,15 +686,15 @@ function findChildNodeByClass(node, className) {
   var children = node.childNodes;
   if (!children) return null;
 
-  for (let i=0; i<children.length; i++) {
+  for (let i = 0; i < children.length; i++) {
     if (children[i].className == className) {
       return children[i];
     }
   }
 
   // Else check for next level
-  for (let i=0; i<children.length; i++) {
-    res =  findChildNodeByClass(children[i], className);
+  for (let i = 0; i < children.length; i++) {
+    res = findChildNodeByClass(children[i], className);
     if (res) return res;
   }
 
@@ -709,20 +702,17 @@ function findChildNodeByClass(node, className) {
 }
 
 function findAncestorNodeByClassName(node, className) {
-  if (node.className==className) return node;
+  if (node.className == className) return node;
   if (node.parentNode) return findAncestorNodeByClassName(node.parentNode, className);
   return null;
 }
 
 // tooltips for canvasjs
 function toggleDataSeries(e) {
-  if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+  if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
     e.dataSeries.visible = false;
-  }
-  else {
+  } else {
     e.dataSeries.visible = true;
   }
   e.shape.render();
 }
-
-

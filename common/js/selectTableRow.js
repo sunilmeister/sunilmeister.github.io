@@ -26,4 +26,3 @@ function getSelectedTableRow() {
   }
   return null;
 }
-

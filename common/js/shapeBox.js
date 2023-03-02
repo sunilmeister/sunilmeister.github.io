@@ -29,7 +29,7 @@ class ShapeBox {
 
   // Update the HTML dropdown menu using stored options
   updateMenu(menuId) {
-    if (Object.keys(this.options).length==0) return;
+    if (Object.keys(this.options).length == 0) return;
     if (!document.getElementById(menuId)) return;
     document.getElementById("MandatoryVC").checked = this.options.MandatoryVC;
     document.getElementById("SpontaneousVC").checked = this.options.SpontaneousVC;

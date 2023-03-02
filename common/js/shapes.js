@@ -35,7 +35,7 @@ function shapeEdit(bnode) {
   containerNode = findAncestorShapeContainerNode(bnode);
   //console.log("shapeEdit " + containerNode.id);
   temp = document.getElementById(SHAPE_EDIT_MENU_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content,SHAPE_EDIT_SHAPE_MENU_CLASS);
+  template = findChildNodeByClass(temp.content, SHAPE_EDIT_SHAPE_MENU_CLASS);
   node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
   app.shapeCboxTree = new CheckboxTree(SHAPE_CBOX_TREE_ROOT_ID);
@@ -49,7 +49,7 @@ function shapeDelete(bnode) {
   //console.log("shapeDelete " + containerNode.id);
   removeShapeContainerId(containerNode.id);
   containerNode.remove();
-  if (numberOfExistingShapes()==0) {
+  if (numberOfExistingShapes() == 0) {
     modalWarning("SHAPE BOX", "No shape container left\nCreating new empty one");
     shapeInsertOnTop();
   }
@@ -78,14 +78,15 @@ function shapeMenuSubmit(bnode) {
 }
 
 var currentShapeContainerNum = 0;
+
 function createNewShapeContainer() {
   temp = document.getElementById(SHAPE_CONTAINER_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content,SHAPE_CONTAINER_CLASS);
+  template = findChildNodeByClass(temp.content, SHAPE_CONTAINER_CLASS);
   node = template.cloneNode(true);
-  node.id = SHAPE_CONTAINER_ID_PREFIX + (currentShapeContainerNum++) ;
-  body = findChildNodeByClass(node,SHAPE_BODY_CLASS);
+  node.id = SHAPE_CONTAINER_ID_PREFIX + (currentShapeContainerNum++);
+  body = findChildNodeByClass(node, SHAPE_BODY_CLASS);
   box = new ShapeBox(body);
-  storeShapeContainerId(node.id,box);
+  storeShapeContainerId(node.id, box);
   return node;
 }
 
@@ -112,10 +113,9 @@ function shapeTreeCheckboxClicked(cbox) {
 }
 
 function findAncestorShapeContainerNode(node) {
-  return findAncestorNodeByClassName(node,SHAPE_CONTAINER_CLASS);
+  return findAncestorNodeByClassName(node, SHAPE_CONTAINER_CLASS);
 }
 
 function findAncestorShapeBodyNode(node) {
-  return findAncestorNodeByClassName(node,SHAPE_BODY_CLASS);
+  return findAncestorNodeByClassName(node, SHAPE_BODY_CLASS);
 }
-

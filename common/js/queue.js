@@ -25,4 +25,3 @@ class Queue {
     this.items = [];
   }
 }
-

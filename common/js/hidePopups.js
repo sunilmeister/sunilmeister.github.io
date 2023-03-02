@@ -24,7 +24,7 @@ document.addEventListener('click', function (event) {
   var popups = document.getElementsByClassName('popupClass');
   if (!popups) return;
 
-  for (i=0; i<popups.length; i++) {
+  for (i = 0; i < popups.length; i++) {
     popup = popups[i];
     if (!popup.contains(event.target)) {
       popup.style.display = "none";
@@ -32,4 +32,3 @@ document.addEventListener('click', function (event) {
   }
 
 });
-

@@ -25,7 +25,7 @@ class CircularGauge {
     containerDiv.appendChild(node);
   }
 
-  setValue(value) { 
+  setValue(value) {
     this.gauge.setValue(value);
   }
 

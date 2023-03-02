@@ -29,10 +29,20 @@ class BreathShapes {
     this.chartJson = {
       zoomEnabled: true,
       zoomType: "x",
-      title: {text: title, padding: 10, fontSize: app.shapeTitleFontSize},
+      title: {
+        text: title,
+        padding: 10,
+        fontSize: app.shapeTitleFontSize
+      },
       axisY: [],
-      toolTip: {shared: true},
-      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: app.shapeLegendFontSize},
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer",
+        itemclick: toggleDataSeries,
+        fontSize: app.shapeLegendFontSize
+      },
       height: height,
       backgroundColor: "#D5F3FE",
       data: []
@@ -76,10 +86,10 @@ class BreathShapes {
     var minBnum = app.reportRange.minBnum;
     var maxBnum = app.reportRange.maxBnum;
     var n = 0;
-    for (let i=0; i<app.shapeData.length; i++) {
-      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum +1;
-      if (breathNum<minBnum) continue;
-      if (breathNum>maxBnum) break;
+    for (let i = 0; i < app.shapeData.length; i++) {
+      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum + 1;
+      if (breathNum < minBnum) continue;
+      if (breathNum > maxBnum) break;
       n++;
     }
     return n;
@@ -90,12 +100,12 @@ class BreathShapes {
     var paramColor = "blue";
     var xyPoints = this.createXYPoints();
     if (!xyPoints) return null;
-    if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
-  
+    if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
+
     var yAxis = this.createYaxis(paramName, paramColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
   }
-  
+
   render(containerDiv) {
     if (this.chart) {
       this.chart.destroy();
@@ -129,32 +139,42 @@ class BreathShapes {
     Xaxis.labelFormatter = breathShapeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
   }
- 
+
+  getLineColor(breathInfo) {
+    var style = getComputedStyle(document.body)
+    var bInfo = parseBreathInfo(breathInfo);
+
+    // The order below matters
+    if (bInfo.isError) return 'white';
+    if (bInfo.Abnormal) return 'white'
+    return 'blue';
+  }
+
   getStripColor(breathInfo) {
     var style = getComputedStyle(document.body)
     var bInfo = parseBreathInfo(breathInfo);
-  
+
     // The order below matters
-    if (bInfo.isError) 
+    if (bInfo.isError)
       return style.getPropertyValue('--colorError');
 
-    if (bInfo.Abnormal) 
+    if (bInfo.Abnormal)
       return style.getPropertyValue('--colorAbnormal');
 
-    if (bInfo.isMaintenance) 
+    if (bInfo.isMaintenance)
       return style.getPropertyValue('--colorMaintenance');
 
-    if (bInfo.isMandatory && bInfo.isVC) 
+    if (bInfo.isMandatory && bInfo.isVC)
       return style.getPropertyValue('--colorMandatoryVC');
-    if (!bInfo.isMandatory && bInfo.isVC) 
+    if (!bInfo.isMandatory && bInfo.isVC)
       return style.getPropertyValue('--colorSpontaneousVC');
-    if (!bInfo.isMandatory && !bInfo.isVC) 
+    if (!bInfo.isMandatory && !bInfo.isVC)
       return style.getPropertyValue('--colorSpontaneousPS');
-  
+
     return style.getPropertyValue('--rsp_yellow');;
   }
 
-  createYaxis(title,color,minY, maxY) {
+  createYaxis(title, color, minY, maxY) {
     var Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
@@ -162,8 +182,8 @@ class BreathShapes {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    if (minY!=null) Yaxis.minimum = minY;
-    if (maxY!=null) Yaxis.maximum = maxY;
+    if (minY != null) Yaxis.minimum = minY;
+    if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
     return cloneObject(Yaxis);
   }
@@ -182,49 +202,49 @@ class BreathShapes {
     var prevXval = 0;
     this.chartJson.axisX.stripLines = [];
 
-    for (let i=0; i<app.shapeData.length; i++) {
-      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum +1;
+    for (let i = 0; i < app.shapeData.length; i++) {
+      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum + 1;
       var sampleInterval = app.shapeData[i].sampleInterval;
       var breathInfo = app.shapeData[i].breathInfo;
       var samples = app.shapeData[i].samples;
       var partial = app.shapeData[i].partial;
-      var prefix = partial? "Partial " : "" ;
+      var prefix = partial ? "Partial " : "";
 
-      if (breathNum<minBnum) continue;
-      if (breathNum>maxBnum) break;
+      if (breathNum < minBnum) continue;
+      if (breathNum > maxBnum) break;
       if (!this.breathSelectedInMenu(breathInfo)) continue;
 
       if (!session.breathTimes[breathNum]) {
-	continue;
+        continue;
       }
       var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
       var initXval = xval;
       Xaxis.scaleBreaks.customBreaks.push({
-	startValue: prevXval? (prevXval+100)/1000 :0,
-        endValue: (xval-100)/1000,
+        startValue: prevXval ? (prevXval + 100) / 1000 : 0,
+        endValue: (xval - 100) / 1000,
         color: "orange",
         type: "zigzag"
       });
 
       // Make sure that the graphs do not connect end-to-end
       xyPoints.push({
-        "x": (xval-200)/1000,
+        "x": (xval - 200) / 1000,
         "y": null
       });
       var stripLine = {};
       stripLine.color = this.getStripColor(breathInfo);
-      stripLine.startValue = (xval-200)/1000;
+      stripLine.startValue = (xval - 200) / 1000;
 
-      for (let j=0; j<samples.length; j++) {
+      for (let j = 0; j < samples.length; j++) {
         xyPoints.push({
-          "x": xval/1000,
+          "x": xval / 1000,
           "y": samples[j]
         });
-	xval += sampleInterval;
+        xval += sampleInterval;
       }
       prevXval = xval;
 
-      stripLine.endValue = (xval)/1000;
+      stripLine.endValue = (xval) / 1000;
       stripLine.label = prefix + "Breath #" + breathNum;
       stripLine.labelPlacement = "inside";
       stripLine.labelAlign = "near";
@@ -242,7 +262,7 @@ class BreathShapes {
     return chartData;
   }
 
-  createYaxis(title,color,minY, maxY) {
+  createYaxis(title, color, minY, maxY) {
     var Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
@@ -250,8 +270,8 @@ class BreathShapes {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    if (minY!=null) Yaxis.minimum = minY;
-    if (maxY!=null) Yaxis.maximum = maxY;
+    if (minY != null) Yaxis.minimum = minY;
+    if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
     return cloneObject(Yaxis);
   }
@@ -274,7 +294,7 @@ class BreathShapes {
   calculateXaxisMinimum() {
     var initTime = this.rangeX.initTime;
     var minTime = this.rangeX.minTime;
-    return (minTime - initTime)/1000 ;
+    return (minTime - initTime) / 1000;
   }
 
 

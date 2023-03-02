@@ -26,10 +26,19 @@ class LineChart {
     this.chartJson = {
       zoomEnabled: true,
       zoomType: "x",
-      title: {text: title, padding: 10},
+      title: {
+        text: title,
+        padding: 10
+      },
       axisY: [],
-      toolTip: {shared: true},
-      legend: {cursor: "pointer", itemclick: toggleDataSeries, fontSize: app.chartFontSize},
+      toolTip: {
+        shared: true
+      },
+      legend: {
+        cursor: "pointer",
+        itemclick: toggleDataSeries,
+        fontSize: app.chartFontSize
+      },
       height: height,
       backgroundColor: "#D5F3FE",
       data: []
@@ -63,29 +72,29 @@ class LineChart {
 
     var xyPoints = this.createXYPoints(breathTimes, paramTransitions, flags);
     if (!xyPoints) return null;
-    if (!xyPoints.dataPoints || (xyPoints.dataPoints.length==0)) return null;
-  
+    if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
+
     var yAxis = null;
     if (!yAxisInfo.reuse) {
       yAxis = this.createYaxis(yAxisInfo.yName, paramColor, yAxisInfo.yMin, yAxisInfo.yMax);
       if (yAxisInfo.primary) {
-        return this.addXYPointsPrimaryYNew(yAxis, paramName, paramColor,  xyPoints);
+        return this.addXYPointsPrimaryYNew(yAxis, paramName, paramColor, xyPoints);
       } else {
-        this.addXYPointsSecondaryYNew(yAxis, paramName, paramColor,  xyPoints);
+        this.addXYPointsSecondaryYNew(yAxis, paramName, paramColor, xyPoints);
         return null;
       }
     } else {
       if (yAxisInfo.primary) {
         return this.addXYPointsPrimaryYReuse(
-  	  yAxisInfo.reuseAxisNum, paramName, paramColor,  xyPoints);
+          yAxisInfo.reuseAxisNum, paramName, paramColor, xyPoints);
       } else {
-        this.addXYPointsSecondaryYReuse(paramName, paramColor,  xyPoints);
+        this.addXYPointsSecondaryYReuse(paramName, paramColor, xyPoints);
         return null;
       }
     }
     return null;
   }
-  
+
   render(containerDiv) {
     if (this.chart) {
       this.chart.destroy();
@@ -138,11 +147,11 @@ class LineChart {
     var maxTime = this.rangeX.maxTime;
     var numPoints = 0;
     if (this.timeUnits) {
-      numPoints = (maxTime - minTime)/1000;
+      numPoints = (maxTime - minTime) / 1000;
     } else {
       numPoints = maxBnum - minBnum + 1;
     }
-    var interval = Math.ceil(numPoints/CHART_XAXIS_MAX_TICK_MARKS);
+    var interval = Math.ceil(numPoints / CHART_XAXIS_MAX_TICK_MARKS);
     return interval;
   }
 
@@ -155,13 +164,13 @@ class LineChart {
     var minTime = this.rangeX.minTime;
     var maxTime = this.rangeX.maxTime;
     if (this.timeUnits) {
-      return Math.floor(minTime - initTime)/1000 ;
+      return Math.floor(minTime - initTime) / 1000;
     } else {
       return minBnum - initBnum + 1;
     }
   }
 
-  createYaxis(title,color,minY, maxY) {
+  createYaxis(title, color, minY, maxY) {
     var Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
@@ -169,8 +178,8 @@ class LineChart {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    if (minY!=null) Yaxis.minimum = minY;
-    if (maxY!=null) Yaxis.maximum = maxY;
+    if (minY != null) Yaxis.minimum = minY;
+    if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
     return cloneObject(Yaxis);
   }
@@ -208,11 +217,11 @@ class LineChart {
           curValue = transitions[curIx].value;
         }
       }
-      if ((i<=maxBnum) && (i>=minBnum)) {
+      if ((i <= maxBnum) && (i >= minBnum)) {
         yDatapoints.push(curValue);
       }
     }
-  
+
     // Attach X dataPoints
     var xval;
     var prevXval = -1;
@@ -220,12 +229,12 @@ class LineChart {
     for (let i = 1; i < numPoints; i++) {
       ignoreDatapoint = false;
       if (this.timeUnits) {
-        var ms = new Date(breathTimes[i+minBnum-1]) - initTime;
+        var ms = new Date(breathTimes[i + minBnum - 1]) - initTime;
         xval = Math.round(ms / 1000);
-	if (xval <= prevXval) ignoreDatapoint = true;
-	else prevXval = xval;
+        if (xval <= prevXval) ignoreDatapoint = true;
+        else prevXval = xval;
       } else {
-        xval = i+minBnum-1;
+        xval = i + minBnum - 1;
       }
       if (!flagError && !flagWarning && !flagInfo) {
         if (!ignoreDatapoint) {
@@ -233,13 +242,13 @@ class LineChart {
             "x": xval,
             "y": yDatapoints[i]
           });
-	}
+        }
       } else {
         if (!ignoreDatapoint) {
           if (yDatapoints[i] != yDatapoints[i - 1]) {
-	    var label = "E";
-	    var marker = "cross";
-	    var color = "red";
+            var label = "E";
+            var marker = "cross";
+            var color = "red";
             if (flagWarning) {
               label = "W";
               marker = "triangle";
@@ -248,7 +257,7 @@ class LineChart {
               label = "N";
               marker = "square";
               color = "yellow";
-	    }
+            }
             xyPoints.push({
               "x": xval,
               "y": yDatapoints[i],
@@ -262,13 +271,13 @@ class LineChart {
               "x": xval,
               "y": null
             });
-	  }
+          }
         }
       }
     }
     var noLegend = false;
     if (flagError || flagWarning || flagInfo) noLegend = true;
-  
+
     var chartData = {};
     chartData.type = this.graphType;
     chartData.showInLegend = !noLegend;
@@ -338,6 +347,12 @@ class LineChart {
     Y2axis.maximum = maxY;
     Y2axis.suffix = "";
     this.chartJson.axisY2 = cloneObject(Y2axis);
-    this.chartJson.data.push({axisYType: "secondary", dataPoints:[{x:minX,y:minY}]});
+    this.chartJson.data.push({
+      axisYType: "secondary",
+      dataPoints: [{
+        x: minX,
+        y: minY
+      }]
+    });
   }
 };
