@@ -1,3 +1,7 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
 var desiredFiO2 = 21;
 var desiredVt = 400;
 var desiredRr = 15;
@@ -8,7 +12,7 @@ var altitudeUnits = "feet";
 var fiO2Knob = null;
 var purityKnob = null;
 
-window.onload = function() {
+window.onload = function () {
   showZoomReminder(600);
 
   installVtKnob();
@@ -19,10 +23,10 @@ window.onload = function() {
 
 function altChanged() {
   var elm = document.getElementById('altitude');
-  altitude=elm.value;
+  altitude = elm.value;
   elm = document.getElementById('altitudeUnits');
-  altitudeUnits=elm.value;
-  if (altitudeUnits=="feet") {
+  altitudeUnits = elm.value;
+  if (altitudeUnits == "feet") {
     atmO2Purity = o2PurityAtAltitudeFt(altitude);
   } else {
     atmO2Purity = o2PurityAtAltitudeMtr(altitude);
@@ -34,35 +38,35 @@ function altChanged() {
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 }
 
-const vtKnobListener = function(knob, value) {
+const vtKnobListener = function (knob, value) {
   desiredVt = 200 + value * 50;
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 };
 
 function installVtKnob() {
   var bgColor = 'black';
-  var fgColor = '#88ff88' ;
+  var fgColor = '#88ff88';
   var containerDiv = document.getElementById('vtDiv');
   const knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 0, 8);
   knob.setValue(4);
   knob.setChangeCallback(vtKnobListener);
 
-  knob.setProperty('fnStringToValue', function(string) {
+  knob.setProperty('fnStringToValue', function (string) {
     return (parseInt(string) - 200) / 50;
   });
-  knob.setProperty('fnValueToString', function(value) {
+  knob.setProperty('fnValueToString', function (value) {
     return ((value * 50) + 200).toString();
   });
 }
 
-const rrKnobListener = function(knob, value) {
+const rrKnobListener = function (knob, value) {
   desiredRr = value;
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
 };
 
 function installRrKnob() {
   var bgColor = 'black';
-  var fgColor = '#88ff88' ;
+  var fgColor = '#88ff88';
   var containerDiv = document.getElementById('rrDiv');
   const knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 10, 30);
   knob.setValue(15);
@@ -70,10 +74,11 @@ function installRrKnob() {
 }
 
 var settingFiO2KnobValues = false;
+
 function adjustFiO2Max(o2Purity) {
   settingFiO2KnobValues = true;
   if (o2Purity < desiredFiO2) {
-    modalAlert("Inconsistent", "Max achievable FiO2 is " + o2Purity +'%\n' +
+    modalAlert("Inconsistent", "Max achievable FiO2 is " + o2Purity + '%\n' +
       "given the incoming O2 Purity value of " + o2Purity + "%\n\n" +
       "Changing FiO2 to " + o2Purity + '%');
     desiredFiO2 = o2Purity;
@@ -83,7 +88,7 @@ function adjustFiO2Max(o2Purity) {
   settingFiO2KnobValues = false;
 }
 
-const fiO2KnobListener = function(knob, value) {
+const fiO2KnobListener = function (knob, value) {
   if (settingFiO2KnobValues) {
     // dont endlesslesly recurse
     return;
@@ -98,14 +103,14 @@ const fiO2KnobListener = function(knob, value) {
 
 function installFiO2Knob() {
   var bgColor = 'black';
-  var fgColor = '#88ff88' ;
+  var fgColor = '#88ff88';
   var containerDiv = document.getElementById('fiO2Div');
   fiO2Knob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   fiO2Knob.setValue(21);
   fiO2Knob.setChangeCallback(fiO2KnobListener);
 }
 
-const purityKnobListener = function(knob, value) {
+const purityKnobListener = function (knob, value) {
   o2Purity = value;
   adjustFiO2Max(o2Purity);
   updateFiO2Calculation(desiredVt, desiredRr, desiredFiO2, o2Purity, atmO2Purity);
@@ -113,7 +118,7 @@ const purityKnobListener = function(knob, value) {
 
 function installPurityKnob() {
   var bgColor = 'black';
-  var fgColor = '#88ff88' ;
+  var fgColor = '#88ff88';
   var containerDiv = document.getElementById('purityDiv');
   purityKnob = new CircularGauge(containerDiv, 150, fgColor, bgColor, 21, 100);
   purityKnob.setValue(21);
@@ -126,4 +131,3 @@ function updateFiO2Calculation(vt, rr, fiO2, o2Purity, atmO2Purity) {
   elm.innerHTML = "<font size=6><b>" + parseFloat(f / 1000).toFixed(1) +
     " (litres/min)</b></font>";
 }
-

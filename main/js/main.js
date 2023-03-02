@@ -31,7 +31,7 @@ function setSelectedRespimaticTagFromDD() {
   var ddList = document.getElementById("SYSTEM_NAME");
   var tag = ddList.value;
   if (!tag) {
-    modalAlert("No RESPIMATIC-100 System selected","");
+    modalAlert("No RESPIMATIC-100 System selected", "");
     return false;
   }
   uid = findSystemUid(tag);
@@ -43,20 +43,20 @@ var fileReader = new FileReader();
 fileReader.addEventListener('load', (e) => {
   const data = e.target.result;
   systems = parseJSONSafely(data);
-  if ((systems==null) || (systems.length==0)) {
-    modalAlert("File does not have valid data","");
+  if ((systems == null) || (systems.length == 0)) {
+    modalAlert("File does not have valid data", "");
     cancelImport();
     return;
   }
 
   //console.log(systems);
-  for (i=0; i<systems.length; i++) {
+  for (i = 0; i < systems.length; i++) {
     uid = systems[i].uid;
     tag = systems[i].tag;
     if (!silentAddSystemTagUidInfo(uid, tag)) {
-      modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag +"')",
-	"Either the UID is invalid\n" +
-	"Or the TAG already exists");
+      modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag + "')",
+        "Either the UID is invalid\n" +
+        "Or the TAG already exists");
     }
   }
   var ddList = document.getElementById("SYSTEM_NAME");
@@ -85,15 +85,15 @@ function cancelExport() {
 
 function exportFile() {
   document.getElementById("exportDiv").style.display = "none";
- 
-  if ((knownRespimaticSystems==null) || (knownRespimaticSystems.length==0)) {
-    modalAlert("Systems Table is empty","");
+
+  if ((knownRespimaticSystems == null) || (knownRespimaticSystems.length == 0)) {
+    modalAlert("Systems Table is empty", "");
     return;
   }
   //console.log(JSON.stringify(knownRespimaticSystems));
-  fileName =  document.getElementById("exportFileName").value;
-  if (fileName) download(JSON.stringify(knownRespimaticSystems, null, 1), 
-                         fileName, "text/xml");
+  fileName = document.getElementById("exportFileName").value;
+  if (fileName) download(JSON.stringify(knownRespimaticSystems, null, 1),
+    fileName, "text/xml");
 }
 
 function exportSystemInfo() {
@@ -105,7 +105,7 @@ function selectSystemInfo(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item","Select by clicking on a table row\nTry again!");
+      modalAlert("No selected item", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -147,14 +147,20 @@ function doRemove(args) {
 
 function removeSystem(uid, tag, noconfirm) {
   if (typeof noconfirm == 'undefined') noconfirm = false;
-  confirmMsg = 
-      "System TAG: " + tag +
-      "\nSystem UID: " + uid ;
+  confirmMsg =
+    "System TAG: " + tag +
+    "\nSystem UID: " + uid;
   if (!noconfirm) {
-    modalConfirm("Remove System", confirmMsg, doRemove, null, {uid:uid, tag:tag},
-    "REMOVE", "DO NOT REMOVE");
+    modalConfirm("Remove System", confirmMsg, doRemove, null, {
+        uid: uid,
+        tag: tag
+      },
+      "REMOVE", "DO NOT REMOVE");
   } else {
-    doRemove({uid:uid, tag:tag});
+    doRemove({
+      uid: uid,
+      tag: tag
+    });
   }
 }
 
@@ -162,21 +168,21 @@ function removeSystemInfo(tag) {
   if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
-  removeSystem(respimaticUid,respimaticTag);
+  removeSystem(respimaticUid, respimaticTag);
 }
 
 function removeSystemInfoRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected item","Select by clicking on a table row\nTry again!");
+      modalAlert("No selected item", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
 
   tag = row.children[0].firstChild.data;
   uid = row.children[1].firstChild.data;
-  removeSystem(uid,tag);
+  removeSystem(uid, tag);
 }
 
 function exitSystemInfo() {
@@ -210,14 +216,14 @@ function cancelNewSystemBtn() {
 }
 
 function addNewSystemBtn() {
-  tag = document.getElementById("newSysTAG").value; 
+  tag = document.getElementById("newSysTAG").value;
   tag = tag.toUpperCase();
-  uid = document.getElementById("newSysUID").value; 
+  uid = document.getElementById("newSysUID").value;
   uid = uid.toUpperCase();
 
   var table = document.getElementById("knownSystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
-    modalAlert("TAG='" + tag + "' already exists","Try again!");
+    modalAlert("TAG='" + tag + "' already exists", "Try again!");
     return;
   }
 
@@ -225,7 +231,7 @@ function addNewSystemBtn() {
     modalAlert("Invalid System UID='" + uid + "'", "Try again!");
     return;
   }
-  silentAddSystemTagUidInfo(uid,tag);
+  silentAddSystemTagUidInfo(uid, tag);
   document.getElementById("addSystemDiv").style.display = "none";
 }
 
@@ -243,14 +249,14 @@ function removeUidRow(btn) {
 }
 
 function doRemoveAllUidRows(btn) {
-  for (i=0; i<knownRespimaticSystems.length;) {
+  for (i = 0; i < knownRespimaticSystems.length;) {
     sys = knownRespimaticSystems[i];
     removeSystem(sys.uid, sys.tag, true);
   }
 }
 
 function removeAllUidRows(btn) {
-  modalConfirm("Remove ALL Systems?", "", 
+  modalConfirm("Remove ALL Systems?", "",
     doRemoveAllUidRows, null, null,
     "REMOVE", "DO NOT REMOVE");
 }
@@ -282,7 +288,7 @@ function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
   saveNewRespimaticSystemId(newSysUid, newSysTag);
   setSelectedSystem(newSysUid, newSysTag);
 
-  modalAlert("New RESPIMATIC-100 System Info", 
+  modalAlert("New RESPIMATIC-100 System Info",
     "System TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
 }
@@ -291,7 +297,7 @@ function rememberNewSystem() {
   var elm = document.getElementById('newSysName');
   newSysTag = elm.value;
   if (!newSysTag) {
-    modalAlert("Must enter System TAG","Try again!");
+    modalAlert("Must enter System TAG", "Try again!");
     return;
   }
   newSysTag = newSysTag.toUpperCase();
@@ -299,7 +305,7 @@ function rememberNewSystem() {
   elm = document.getElementById('newSysUid');
   newSysUid = elm.value;
   if (!newSysTag) {
-    modalAlert("Must enter System UID","Try again!");
+    modalAlert("Must enter System UID", "Try again!");
     return;
   }
   newSysUid = newSysUid.toUpperCase();
@@ -332,7 +338,7 @@ function launchFiO2() {
   window.open("../fio2Calc/fio2Calc.html");
 }
 
-window.onload = function() {
+window.onload = function () {
   showZoomReminder(600);
 
   var elm = document.getElementById("mainDiv");
@@ -359,27 +365,26 @@ window.onload = function() {
   }
 
   var exportFileNameInput = document.getElementById("exportFileName");
-  exportFileNameInput.addEventListener("keypress", function(event) {
+  exportFileNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("exportFileBtn").click();
     }
   });
-  
+
   var newSysUidInput = document.getElementById("newSysUID");
-  newSysUidInput.addEventListener("keypress", function(event) {
+  newSysUidInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("addSystemBtn").click();
     }
   });
-  
+
   var newSysTagInput = document.getElementById("newSysTAG");
-  newSysTagInput.addEventListener("keypress", function(event) {
+  newSysTagInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("addSystemBtn").click();
     }
   });
 };
-

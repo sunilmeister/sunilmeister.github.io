@@ -1,21 +1,25 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
 function enable(btn, img) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_lightblue');
-  document.getElementById(btn).style.backgroundColor=bgd;
-  document.getElementById(btn).style.cursor="pointer";
-  document.getElementById(img).style.cursor="pointer";
+  document.getElementById(btn).style.backgroundColor = bgd;
+  document.getElementById(btn).style.cursor = "pointer";
+  document.getElementById(img).style.cursor = "pointer";
 }
 
 function disable(btn, img) {
-  document.getElementById(btn).style.backgroundColor="white";
-  document.getElementById(btn).style.cursor="not-allowed";
-  document.getElementById(img).style.cursor="not-allowed";
+  document.getElementById(btn).style.backgroundColor = "white";
+  document.getElementById(btn).style.cursor = "not-allowed";
+  document.getElementById(img).style.cursor = "not-allowed";
 }
 
 function opManual() {
-  document.getElementById('opManualDiv').style.display="block";
-  document.getElementById('webAppsDiv').style.display="none";
-  document.getElementById('slideDeckDiv').style.display="none";
+  document.getElementById('opManualDiv').style.display = "block";
+  document.getElementById('webAppsDiv').style.display = "none";
+  document.getElementById('slideDeckDiv').style.display = "none";
 
   disable('opManualBtn', 'opManualImg');
   enable('webAppsBtn', 'webAppsImg');
@@ -23,9 +27,9 @@ function opManual() {
 }
 
 function webApps() {
-  document.getElementById('opManualDiv').style.display="none";
-  document.getElementById('webAppsDiv').style.display="block";
-  document.getElementById('slideDeckDiv').style.display="none";
+  document.getElementById('opManualDiv').style.display = "none";
+  document.getElementById('webAppsDiv').style.display = "block";
+  document.getElementById('slideDeckDiv').style.display = "none";
 
   enable('opManualBtn', 'opManualImg');
   disable('webAppsBtn', 'webAppsImg');
@@ -33,16 +37,16 @@ function webApps() {
 }
 
 function slideDeck() {
-  document.getElementById('opManualDiv').style.display="none";
-  document.getElementById('webAppsDiv').style.display="none";
-  document.getElementById('slideDeckDiv').style.display="block";
+  document.getElementById('opManualDiv').style.display = "none";
+  document.getElementById('webAppsDiv').style.display = "none";
+  document.getElementById('slideDeckDiv').style.display = "block";
 
   enable('opManualBtn', 'opManualImg');
   enable('webAppsBtn', 'webAppsImg');
   disable('slideDeckBtn', 'slideDeckImg');
 }
 
-window.onload = function() {
+window.onload = function () {
   if (getCookie(pdfReminderOffCookieName) != "OFF") {
     Swal.fire({
       icon: 'info',
@@ -78,17 +82,17 @@ window.onload = function() {
       timerProgressBar: true,
       timer: 5000
     }).then((result) => {
-       if (result.isDenied) {
+      if (result.isDenied) {
         setCookie(pdfReminderOffCookieName, "OFF");
-       }
+      }
     })
   }
   var menuBar = document.getElementById("sideMenuBar");
   menuBarHeight = menuBar.offsetHeight;
   menuBarWidth = menuBar.offsetWidth;
   var nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(0-menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth+50) + "px";
+  nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth + 50) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
   //console.log("menuBarWidth = " + menuBarWidth);
 }
