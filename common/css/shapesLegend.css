@@ -1,5 +1,6 @@
 .shapesLegendDiv {
    font-size: var(--colorLegendFontSize);
+   color: blue;
 }
 
 .shapeLegend {
