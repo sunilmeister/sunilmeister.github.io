@@ -4,8 +4,8 @@
 
 function formMessageLine(str) {
   value = str.trim();
-  if (value=="") return "&nbsp";
-  mvalue = value.replace(/ /g, "&nbsp");
+  if (value == "") return " ";
+  mvalue = value.replace(/ /g, " ");
   return mvalue;
 }
 // returns [old,new]
@@ -14,16 +14,14 @@ function parseInputParam(val) {
   var str;
   if (typeof val === 'string' || val instanceof String) {
     str = val;
-  }
-  else {
+  } else {
     str = String(val);
   }
   tokens = str.split(',');
   if (tokens.length == 1) {
     oldP = tokens[0];
     newP = tokens[0];
-  }
-  else {
+  } else {
     oldP = tokens[0];
     newP = tokens[1];
   }
@@ -36,13 +34,11 @@ function updatePendingIndividualSetting(blink, div, pendingSetting) {
     if (pendingSetting && blink) {
       if (pendingBackground != "ORANGE") {
         elm.style.backgroundColor = orangeColor;
-      }
-      else {
+      } else {
         elm.style.backgroundColor = mediumblueColor;
       }
     }
-  }
-  else if (pendingBackground != "MEDIUMBLUE") {
+  } else if (pendingBackground != "MEDIUMBLUE") {
     elm.style.backgroundColor = mediumblueColor;
   }
 }
@@ -60,8 +56,8 @@ function updatePendingSettings(blink) {
 
 function updatePending(blink) {
   // double verify if something is app.pending
-  app.pendingState = app.pendingMODE || app.pendingVT || app.pendingRR || 
-    app.pendingIE || app.pendingIPEEP || app.pendingPMAX || 
+  app.pendingState = app.pendingMODE || app.pendingVT || app.pendingRR ||
+    app.pendingIE || app.pendingIPEEP || app.pendingPMAX ||
     app.pendingPS || app.pendingTPS;
   updatePendingSettings(blink);
   //console.log("pendingState=" + app.pendingState);
@@ -72,14 +68,12 @@ function updatePending(blink) {
       elm = document.getElementById("PendingDiv");
       elm.style.backgroundColor = orangeColor;
       pendingBackground = "ORANGE";
-    }
-    else if (blink) {
+    } else if (blink) {
       elm = document.getElementById("PendingDiv");
       elm.style.backgroundColor = mediumblueColor;
       pendingBackground = "MEDIUMBLUE";
     }
-  }
-  else {
+  } else {
     elm = document.getElementById("PendingDiv");
     elm.style.backgroundColor = mediumblueColor;
     elm = document.getElementById("Pending");
@@ -94,8 +88,7 @@ function updateAlert(blink) {
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = darkredColor;
       alertBackground = "DARKRED";
-    }
-    else if (blink) {
+    } else if (blink) {
       elm.style.backgroundColor = mediumblueColor;
       alertBackground = "MEDIUMBLUE";
     }
@@ -103,13 +96,11 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "img/Error.svg";
       alertImage = "ERROR";
     }
-  }
-  else if (app.attentionState || wifiDropped) {
+  } else if (app.attentionState || wifiDropped) {
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
-    }
-    else if (blink) {
+    } else if (blink) {
       elm.style.backgroundColor = mediumblueColor;
       alertBackground = "MEDIUMBLUE";
     }
@@ -117,8 +108,7 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "img/Warning.svg";
       alertImage = "WARNING";
     }
-  }
-  else {
+  } else {
     if (alertBackground != "GREEN") {
       elm.style.backgroundColor = greenColor;
       alertBackground = "GREEN";
@@ -152,8 +142,7 @@ function updateSettingValue(str, containerDiv, valueDiv) {
     updatePending(false);
     elm = document.getElementById(containerDiv);
     elm.style.backgroundColor = orangeColor;
-  }
-  else {
+  } else {
     pending = false;
     elm = document.getElementById(containerDiv);
     elm.style.backgroundColor = mediumblueColor;
@@ -189,12 +178,10 @@ function updateSnapshot() {
         elm.innerHTML = "<b>INITIALIZE</b>";
         document.getElementById("StateImg").src = "img/WhiteDot.png";
         updateAlert(false);
-      }
-      else {
+      } else {
         app.initialState = false;
       }
-    }
-    else if (key == 'STANDBY') {
+    } else if (key == 'STANDBY') {
       if (value == "1") {
         if (!app.standbyState) app.attentionState = false; // entering standby state
         app.standbyState = true;
@@ -202,12 +189,10 @@ function updateSnapshot() {
         elm.innerHTML = "<b>STANDBY</b>";
         document.getElementById("StateImg").src = "img/YellowDot.png";
         updateAlert(false);
-      }
-      else {
+      } else {
         app.standbyState = false;
       }
-    }
-    else if ((key == "RUNNING") || (key == "ACTIVE")) {
+    } else if ((key == "RUNNING") || (key == "ACTIVE")) {
       if (value == "1") {
         if (!app.activeState) app.attentionState = false; // entering active state
         app.activeState = true;
@@ -215,30 +200,25 @@ function updateSnapshot() {
         elm.innerHTML = "<b>ACTIVE</b>";
         document.getElementById("StateImg").src = "img/GreenDot.png";
         updateAlert(false);
-      }
-      else {
+      } else {
         app.activeState = false;
       }
-    }
-    else if (key == 'ERROR') {
+    } else if (key == 'ERROR') {
       if (value == "1") {
         app.errorState = true;
         elm = document.getElementById("State");
         elm.innerHTML = "<b>ERROR</b>";
         document.getElementById("StateImg").src = "img/RedDot.png";
         updateAlert(false);
-      }
-      else {
+      } else {
         if (app.errorState) app.attentionState = false; // exiting error state
         app.errorState = false;
       }
-    }
-    else if (key == 'ATTENTION') {
+    } else if (key == 'ATTENTION') {
       if (value == "1") {
         app.attentionState = true;
         updateAlert(false);
-      }
-      else {
+      } else {
         app.attentionState = false;
         updateAlert(false);
       }
@@ -246,22 +226,18 @@ function updateSnapshot() {
     // Message lines
     else if (key == 'L1') {
       displayMessageLine("Mline1");
-    }
-    else if (key == 'L2') {
+    } else if (key == 'L2') {
       displayMessageLine("Mline2");
-    }
-    else if (key == 'L3') {
+    } else if (key == 'L3') {
       displayMessageLine("Mline3");
-    }
-    else if (key == 'L4') {
+    } else if (key == 'L4') {
       displayMessageLine("Mline4");
     }
     // bpm
     else if (key == 'SBPM') {
       elm = document.getElementById("SBPM");
       elm.innerHTML = value;
-    }
-    else if (key == 'MBPM') {
+    } else if (key == 'MBPM') {
       elm = document.getElementById("MBPM");
       elm.innerHTML = value;
     }
@@ -269,8 +245,7 @@ function updateSnapshot() {
     else if (key == 'VTDEL') {
       elm = document.getElementById("VTDEL");
       elm.innerHTML = value;
-    }
-    else if (key == 'MVDEL') {
+    } else if (key == 'MVDEL') {
       elm = document.getElementById("MVDEL");
       elm.innerHTML = value;
     }
@@ -278,8 +253,7 @@ function updateSnapshot() {
     else if (key == 'STATIC') {
       elm = document.getElementById("SCOMP");
       elm.innerHTML = value;
-    }
-    else if (key == 'DYNAMIC') {
+    } else if (key == 'DYNAMIC') {
       elm = document.getElementById("DCOMP");
       elm.innerHTML = value;
     }
@@ -298,12 +272,10 @@ function updateSnapshot() {
       if (value == "MANDATORY") {
         document.getElementById("ImgBreath").src = "img/YellowDot.png";
         elm.innerHTML = "Mandatory";
-      }
-      else if (value == "SPONTANEOUS") {
+      } else if (value == "SPONTANEOUS") {
         document.getElementById("ImgBreath").src = "img/GreenDot.png";
         elm.innerHTML = "Spontaneous";
-      }
-      else {
+      } else {
         document.getElementById("ImgBreath").src = "img/WhiteDot.png";
         elm.innerHTML = "";
       }
@@ -311,11 +283,9 @@ function updateSnapshot() {
     // Pressures
     else if (key == 'PIP') {
       peakGauge.setValue(value);
-    }
-    else if (key == 'PLAT') {
+    } else if (key == 'PLAT') {
       platGauge.setValue(value);
-    }
-    else if (key == 'MPEEP') {
+    } else if (key == 'MPEEP') {
       peepGauge.setValue(value);
     }
     // Temperature
@@ -327,8 +297,7 @@ function updateSnapshot() {
       if (value == 1) {
         app.pendingState = true;
         updatePending(false);
-      }
-      else {
+      } else {
         app.pendingState = false;
         app.pendingMODE = false;
         app.pendingVT = false;
@@ -345,17 +314,15 @@ function updateSnapshot() {
     else if (key == 'PNAME') {
       elm = document.getElementById("Pline1");
       elm.innerHTML = value;
-    }
-    else if (key == 'PMISC') {
+    } else if (key == 'PMISC') {
       if (value != "") {
-	rvalue = parsePatientInfo(value);
-	if (rvalue!=null) {
+        rvalue = parsePatientInfo(value);
+        if (rvalue != null) {
           [gender, age, pid] = rvalue;
           elm = document.getElementById("Pline2");
           if (gender == "M") {
             elm.innerHTML = "Male " + "(" + age + " years)";
-          }
-          else {
+          } else {
             elm.innerHTML = "Female " + "(" + age + " years)";
           }
           elm = document.getElementById("Pline3");
@@ -367,32 +334,25 @@ function updateSnapshot() {
     else if (key == 'MODE') {
       app.pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
       if (app.pendingMODE) somethingPending = true;
-    }
-    else if (key == 'VT') {
+    } else if (key == 'VT') {
       app.pendingVT = updateSettingValue(value, "VTDiv", "VT");
       if (app.pendingVT) somethingPending = true;
-    }
-    else if (key == 'RR') {
+    } else if (key == 'RR') {
       app.pendingRR = updateSettingValue(value, "RRDiv", "RR");
       if (app.pendingRR) somethingPending = true;
-    }
-    else if (key == 'EI') {
+    } else if (key == 'EI') {
       app.pendingIE = updateSettingValue(value, "IEDiv", "IE");
       if (app.pendingIE) somethingPending = true;
-    }
-    else if (key == 'IPEEP') {
+    } else if (key == 'IPEEP') {
       app.pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
       if (app.pendingIPEEP) somethingPending = true;
-    }
-    else if (key == 'PMAX') {
+    } else if (key == 'PMAX') {
       app.pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
       if (app.pendingPMAX) somethingPending = true;
-    }
-    else if (key == 'PS') {
+    } else if (key == 'PS') {
       app.pendingPS = updateSettingValue(value, "PSDiv", "PS");
       if (app.pendingPS) somethingPending = true;
-    }
-    else if (key == 'TPS') {
+    } else if (key == 'TPS') {
       app.pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
       if (app.pendingTPS) somethingPending = true;
       [tps, units] = parseInputTPS(document.getElementById("TPS").innerText);
@@ -407,27 +367,21 @@ function updateSnapshot() {
 function updateDashboardAndRecordingStatus() {
   if (awaitingFirstDweet) {
     document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  }
-  else if (updatePaused) {
+  } else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
-  }
-  else if (wifiDropped) {
+  } else if (wifiDropped) {
     document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  }
-  else {
+  } else {
     document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
   }
 
   if (recordingOff) {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  }
-  else if (recordingPaused) {
+  } else if (recordingPaused) {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  }
-  else if (wifiDropped) {
+  } else if (wifiDropped) {
     document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-  }
-  else {
+  } else {
     document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
   }
 }
@@ -459,15 +413,14 @@ function displayWifiDropped() {
     elm.innerHTML = savedL3;
     elm = document.getElementById("Mline4");
     elm.innerHTML = savedL4;
-  }
-  else {
+  } else {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = orangeColor;
     messagesBackground = "ORANGE";
     updateDashboardAndRecordingStatus();
     elm = document.getElementById("Mline1");
     savedL1 = elm.innerHTML;
-    elm.innerHTML = "&nbsp";
+    elm.innerHTML = " ";
     elm = document.getElementById("Mline2");
     savedL2 = elm.innerHTML;
     elm.innerHTML = "No Message from device";
@@ -476,7 +429,7 @@ function displayWifiDropped() {
     elm.innerHTML = "for a while";
     elm = document.getElementById("Mline4");
     savedL4 = elm.innerHTML;
-    elm.innerHTML = "&nbsp";
+    elm.innerHTML = " ";
   }
 }
 
@@ -498,4 +451,3 @@ function displayWifiUnconnected() {
   elm = document.getElementById("Mline4");
   elm.innerHTML = "to Wi-Fi";
 }
-

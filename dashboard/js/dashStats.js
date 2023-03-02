@@ -20,4 +20,3 @@ function updateStatRangeOnEntry() {
     stopSliderCallback = false;
   }
 }
-

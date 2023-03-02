@@ -8,9 +8,9 @@ function createDashboardCharts() {
   if (app.chartCreationInProgress) return;
   app.chartCreationInProgress = true;
 
-  if (numberOfExistingCharts()==0) {
+  if (numberOfExistingCharts() == 0) {
     chartInsertOnTop(); // always have chart box for user to start with
-  }  
+  }
 
   if (firstTimeChartsEntry) {
     showEditIconReminder();
@@ -53,5 +53,3 @@ function updateChartRangeOnEntry() {
   rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 }
-
-

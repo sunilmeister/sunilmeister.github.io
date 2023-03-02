@@ -8,13 +8,11 @@ function blinkRecordButton() {
     if (recordButtonForeground == "WHITE") {
       btn.style.color = style.getPropertyValue('--rsp_orange');
       recordButtonForeground = "ORANGE";
-    }
-    else {
+    } else {
       btn.style.color = 'white';
       recordButtonForeground = "WHITE";
     }
-  }
-  else {
+  } else {
     btn.style.color = 'white';
     recordButtonForeground = "WHITE";
   }
@@ -26,7 +24,7 @@ function toggleRecording() {
   if (recordingOff) {
     // check for browser capability
     if (!window.indexedDB) {
-      modalAlert("IndexedDB not available in your browser","Use different browser");
+      modalAlert("IndexedDB not available in your browser", "Use different browser");
       return;
     }
     document.getElementById('recordNameDiv').style.display = "block";
@@ -97,8 +95,8 @@ function insertJsonData(db, jsonData) {
   var tx = db.transaction([dbObjStoreName], 'readwrite');
   var store = tx.objectStore(dbObjStoreName);
   store.add(jsonData); // Wait for the database transaction to complete
-  tx.oncomplete = function() {}
-  tx.onerror = function(event) {
+  tx.oncomplete = function () {}
+  tx.onerror = function (event) {
     console.log('Error storing data! ' + event.target.errorCode);
   }
 }
@@ -107,7 +105,7 @@ function createAccumulatedDweet(d) {
   // Note that the signalling messages have already been removed
   // in accumulatedRecordState
   for (const k in accumulatedRecordState) {
-    if (typeof d.content[k]=='undefined') {
+    if (typeof d.content[k] == 'undefined') {
       d.content[k] = accumulatedRecordState[k];
     }
   }
@@ -170,13 +168,11 @@ function processRecordDweet(d) {
     value = d.content[key];
     if (typeof accumulatedRecordState[key] == 'undefined') {
       accumulatedRecordState[key] = value;
-    }
-    else {
+    } else {
       prevValue = accumulatedRecordState[key];
       if (prevValue != value) {
         accumulatedRecordState[key] = value;
-      }
-      else {
+      } else {
         delete d.content[key];
       }
     }
@@ -191,14 +187,14 @@ function processRecordDweet(d) {
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     if (doRecord) {
-      if (db && app.sessionVersion=='UNKNOWN') {
+      if (db && app.sessionVersion == 'UNKNOWN') {
         app.sessionVersion = SESSION_VERSION;
         d.content.SESSION_VERSION = app.sessionVersion;
       }
       if (!prevDweetRecorded) {
-	// Add on the accumulated state first
-	d = createAccumulatedDweet(d);
-	// console.log(d);
+        // Add on the accumulated state first
+        d = createAccumulatedDweet(d);
+        // console.log(d);
       }
       recordBox.innerText = JSON.stringify(d, null, ". ");
       if (db) insertJsonData(db, d);
@@ -210,4 +206,3 @@ function processRecordDweet(d) {
 function InitRecorder() {
   recordStartDate = new Date();
 }
-

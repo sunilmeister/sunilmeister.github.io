@@ -56,4 +56,3 @@ function dashboardRangeSliderCallback() {
   flashBreathWindowButtons();
   sliderCommitPending = true;
 }
-

@@ -20,4 +20,3 @@ function updateAlertRangeOnEntry() {
     stopSliderCallback = false;
   }
 }
-

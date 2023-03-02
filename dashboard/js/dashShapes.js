@@ -3,13 +3,14 @@
 // ////////////////////////////////////////////////////
 
 var firstTimeShapesEntry = true;
+
 function createDashboardShapes() {
   if (app.shapeCreationInProgress) return;
   app.shapeCreationInProgress = true;
 
-  if (numberOfExistingShapes()==0) {
+  if (numberOfExistingShapes() == 0) {
     shapeInsertOnTop(); // always have shape box for user to start with
-  }  
+  }
 
   if (firstTimeShapesEntry) {
     showEditIconReminder();
@@ -25,9 +26,9 @@ function createDashboardShapes() {
 
 function rollingShapeRange() {
   startShape = app.shapeData.length - SHAPE_MAX_CHARTS;
-  if (startShape<0) startShape = 0;
+  if (startShape < 0) startShape = 0;
   if (app.shapeData.length) {
-    minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum +1
+    minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum + 1
   } else {
     minBnum = 0;
   }
@@ -39,7 +40,7 @@ function updateShapeRange() {
 
   if (!app.reportRange.rolling || sliderCommitPending) return;
   if (app.reportRange.rolling) {
-    if (app.reportRange.rolling && app.shapeData.length>SHAPE_MAX_CHARTS) {
+    if (app.reportRange.rolling && app.shapeData.length > SHAPE_MAX_CHARTS) {
       rollingShapeRange();
     } else {
       app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
@@ -59,4 +60,3 @@ function updateShapeRangeOnEntry() {
   rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
   stopSliderCallback = false;
 }
-

@@ -53,7 +53,7 @@ function disassembleAndQueueDweet(d) {
     fragment = d.content[key];
     millisStr = fragment.MILLIS;
     millis = parseChecksumString(millisStr);
-    if (millis==null) continue // ignore this malformed dweet
+    if (millis == null) continue // ignore this malformed dweet
 
     if (!startMillis) startMillis = Number(millis);
     if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
@@ -73,14 +73,14 @@ function getCurrentSimulatedMillis() {
 }
 
 function waitForDweets() {
-  dweetio.listen_for(respimaticUid, function(d) {
+  dweetio.listen_for(respimaticUid, function (d) {
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
     if (awaitingFirstDweet) {
-      millisStr = d.content["0"].MILLIS 
+      millisStr = d.content["0"].MILLIS
       millis = parseChecksumString(millisStr);
-      if (millis==null) return; // ignore this malformed dweet
+      if (millis == null) return; // ignore this malformed dweet
 
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
@@ -106,8 +106,7 @@ function processDashboardDweet(d) {
   if (updatePaused) {
     pd.innerHTML = "&nbspPaused At";
     elm.innerHTML = breathPausedAt;
-  }
-  else {
+  } else {
     pd.innerHTML = "&nbspDetected";
     elm.innerHTML = app.dashboardBreathNum;
   }
@@ -153,8 +152,7 @@ function blinkFlowRate() {
     flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_lightblue');
     flowDiv.style.color = style.getPropertyValue('--rsp_darkblue');
     flowDivBackground = "LIGHTBLUE";
-  }
-  else {
+  } else {
     flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
     flowDiv.style.color = "white";
     flowDivBackground = "DARKBLUE";
@@ -168,13 +166,11 @@ function blinkPauseButton() {
     if (pauseButtonForeground == "WHITE") {
       btn.style.color = style.getPropertyValue('--rsp_orange');
       pauseButtonForeground = "ORANGE";
-    }
-    else {
+    } else {
       btn.style.color = 'white';
       pauseButtonForeground = "WHITE";
     }
-  }
-  else {
+  } else {
     btn.style.color = 'white';
     pauseButtonForeground = "WHITE";
   }
@@ -360,8 +356,7 @@ function togglePause() {
     if (currentView == "stats") createDashboardStats();
     if (currentView == "alerts") createDashboardAlerts();
     if (currentView == "shapes") createDashboardShapes();
-  }
-  else {
+  } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
     breathPausedAt = app.dashboardBreathNum;
@@ -382,7 +377,7 @@ function selectExit() {
 function installFiO2Gauge() {
   var style = getComputedStyle(document.body);
   var bgColor = style.getPropertyValue('--rsp_mediumblue');
-  var fgColor = 'white' ;
+  var fgColor = 'white';
   var containerDiv = document.getElementById('fiO2Div');
   fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
@@ -391,17 +386,17 @@ function installFiO2Gauge() {
 function installPurityGauge() {
   var style = getComputedStyle(document.body);
   var bgColor = style.getPropertyValue('--rsp_mediumblue');
-  var fgColor = 'white' ;
+  var fgColor = 'white';
   var containerDiv = document.getElementById('purityDiv');
   purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
-  
+
 }
 
 function installPeakGauge() {
   var style = getComputedStyle(document.body);
   var bgColor = style.getPropertyValue('--rsp_darkblue');
-  var fgColor = 'white' ;
+  var fgColor = 'white';
   var containerDiv = document.getElementById('PeakGauge');
   peakGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
@@ -410,7 +405,7 @@ function installPeakGauge() {
 function installPlatGauge() {
   var style = getComputedStyle(document.body);
   var bgColor = style.getPropertyValue('--rsp_darkblue');
-  var fgColor = 'white' ;
+  var fgColor = 'white';
   var containerDiv = document.getElementById('PlatGauge');
   platGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
@@ -419,7 +414,7 @@ function installPlatGauge() {
 function installPeepGauge() {
   var style = getComputedStyle(document.body)
   var bgColor = style.getPropertyValue('--rsp_darkblue');
-  var fgColor = 'white' ;
+  var fgColor = 'white';
   var containerDiv = document.getElementById('PeepGauge');
   peepGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
@@ -451,7 +446,7 @@ function receivedNewShape() {
   })
 }
 
-window.onload = function() {
+window.onload = function () {
   showZoomReminder(600);
 
   finishedLoading = false;
@@ -472,8 +467,7 @@ window.onload = function() {
   if (respimaticTag) {
     document.title = respimaticTag + " (DASHBOARD)"
     heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
-  }
-  else {
+  } else {
     document.title = "NOT SPECIFIED"
     heading.innerHTML = "NOT SPECIFIED"
   }
@@ -507,13 +501,13 @@ window.onload = function() {
 
   // Treat <ENTER> as accept button
   var recordNameInput = document.getElementById("recordName");
-  recordNameInput.addEventListener("keypress", function(event) {
+  recordNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("acceptRecordNameBtn").click();
     }
   });
-  
+
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();
@@ -522,13 +516,13 @@ window.onload = function() {
   menuBarHeight = menuBar.offsetHeight;
   menuBarWidth = menuBar.offsetWidth;
   var nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(0-menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth+50) + "px";
+  nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth + 50) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
   //console.log("menuBarWidth = " + menuBarWidth);
 }
 
-window.onbeforeunload = function(e) {
+window.onbeforeunload = function (e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';
   if (app.dashboardBreathNum != 0) {
@@ -594,13 +588,14 @@ function setBackGroundBreathWindowButton(id, bgd) {
 }
 
 function colorBreathWindowButtons(bgd) {
-  setBackGroundBreathWindowButton('btnSetInterval',bgd);
-  setBackGroundBreathWindowButton('btnCancelInterval',bgd);
-  setBackGroundBreathWindowButton('btnResetInterval',bgd);
-  setBackGroundBreathWindowButton('btnFullInterval',bgd);
+  setBackGroundBreathWindowButton('btnSetInterval', bgd);
+  setBackGroundBreathWindowButton('btnCancelInterval', bgd);
+  setBackGroundBreathWindowButton('btnResetInterval', bgd);
+  setBackGroundBreathWindowButton('btnFullInterval', bgd);
 }
 
 breathWindowButtonsFlashed = false;
+
 function flashBreathWindowButtons() {
   breathWindowButtonsFlashed = true;
   var style = getComputedStyle(document.body)
@@ -629,6 +624,7 @@ function setTimeInterval(btn) {
 }
 
 var saveRange = null;
+
 function cancelTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
@@ -702,12 +698,10 @@ function HandlePeriodicTasks() {
   }
   if (awaitingFirstDweet) {
     displayWifiUnconnected();
-  }
-  else if ((dweetQ.size() == 0) &&
+  } else if ((dweetQ.size() == 0) &&
     ((simulatedMillis - lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
     displayWifiDropped();
-  }
-  else {
+  } else {
     displayNormalMessages();
   }
 }
@@ -727,7 +721,7 @@ setTimeout(function periodicCheck() {
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
   var millis;
-  while(1) {
+  while (1) {
     if (dweetQ.size() == 0) break;
     d = dweetQ.peek();
     millis = Number(d.MILLIS);
@@ -737,10 +731,10 @@ function FetchAndExecuteFromQueue() {
     if (typeof d.content["BNUM"] != "undefined") {
       app.dashboardBreathNum++;
       app.systemBreathNum = parseChecksumString(d.content["BNUM"]);
-      if (app.startSystemBreathNum==null) {
-	app.startSystemBreathNum = app.systemBreathNum;
+      if (app.startSystemBreathNum == null) {
+        app.startSystemBreathNum = app.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
-	elm.innerHTML = String(app.systemBreathNum-1);
+        elm.innerHTML = String(app.systemBreathNum - 1);
       }
     }
     var dCopy; // a copy of the dweet
@@ -750,10 +744,8 @@ function FetchAndExecuteFromQueue() {
   }
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
-    console.log("Dweets way ahead of simulated time " + millis + 
+    console.log("Dweets way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
   return;
 }
-
-

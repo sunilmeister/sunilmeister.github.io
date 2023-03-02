@@ -2,10 +2,10 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-const TIMEOUT_INTERVAL_IN_MS         = 200;
-const BLINK_INTERVAL_IN_MS           = 1000;
-const MAX_DWEET_INTERVAL_IN_MS       = 30000;
-const INIT_RECORDING_INTERVAL_IN_MS  = 5000;
+const TIMEOUT_INTERVAL_IN_MS = 200;
+const BLINK_INTERVAL_IN_MS = 1000;
+const MAX_DWEET_INTERVAL_IN_MS = 30000;
+const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
 var datasource_name = "RESPIMATIC100";
@@ -32,7 +32,9 @@ var savedL4 = "";
 
 var breathPausedAt = 0;
 
-var updatedDweetContent = {"content": {}};
+var updatedDweetContent = {
+  "content": {}
+};
 var awaitingFirstDweet = true;
 var dweetQ = null;
 var periodicTickCount = 0;
@@ -95,4 +97,3 @@ var stopSliderCallback = false;
 var sliderDiv = null;
 var rangeWindowDiv = null;
 var rangeSlider = null;
-
