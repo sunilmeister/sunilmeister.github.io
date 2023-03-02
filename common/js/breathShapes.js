@@ -257,7 +257,7 @@ class BreathShapes {
 
     var chartData = {};
     chartData.type = this.graphType;
-    chartData.showInLegend = true;
+    chartData.showInLegend = false;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;
   }
