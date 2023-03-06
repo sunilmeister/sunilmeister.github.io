@@ -169,15 +169,23 @@ function updateFiO2DivsFromSessionData() {
 }
 
 function updateBreathTypeFromSessionData() {
-  if (session.breathData.type == "MANDATORY") {
-    imgBreathDIV.src = "img/YellowDot.png";
-    breathTypeValELM.innerHTML = "Mandatory";
-  } else if (value == "SPONTANEOUS") {
-    imgBreathDIV.src = "img/GreenDot.png";
-    breathTypeValELM.innerHTML = "Spontaneous";
-  } else {
-    imgBreathDIV.src = "img/WhiteDot.png";
-    breathTypeValELM.innerHTML = "None";
+  switch (session.breathData.type) {
+    case MANDATORY_BREATH:
+      imgBreathDIV.src = "img/YellowDot.png";
+      breathTypeValELM.innerHTML = "Mandatory";
+      break;
+    case SPONTANEOUS_BREATH:
+      imgBreathDIV.src = "img/GreenDot.png";
+      breathTypeValELM.innerHTML = "Spontaneous";
+      break;
+    case MAINTENANCE_BREATH:
+      imgBreathDIV.src = "img/RedDot.png";
+      breathTypeValELM.innerHTML = "Maintenance";
+      break;
+    default:
+      imgBreathDIV.src = "img/WhiteDot.png";
+      breathTypeValELM.innerHTML = "None";
+      break;
   }
 }
 
