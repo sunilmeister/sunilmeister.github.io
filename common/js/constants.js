@@ -78,7 +78,7 @@ const SHAPE_CONTAINER_CLASS = "shapeContainer";
 const ALL_SHAPES_ID = "shapesDiv";
 const SHAPE_CBOX_TREE_ROOT_ID = "shapeCheckBoxTreeRoot";
 
-const SESSION_VERSION = "1.1";
+const SESSION_VERSION = "1.0";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM";
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +

@@ -98,7 +98,7 @@ var SessionDataTemplate = {
     peak : null,
     plat : null,
     mpeep : null,
-    vtDel : null,
+    vtdel : null,
     type : null,
   },
 

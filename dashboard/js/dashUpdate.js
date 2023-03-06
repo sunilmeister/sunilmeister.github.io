@@ -231,7 +231,9 @@ function updateSnapshot() {
 
     // Patient info
     else if ((key == 'FNAME') || (key == 'LNAME')) {
-      var pname = session.patientData.fname + " " + session.patientData.lname;
+      var pname = "--" ;
+      if (session.patientData.fname) pname = session.patientData.fname;
+      if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
       updateDivValue(pline1DIV, pname);
     } else if (key == 'AGE') {
       updateDivValue(pline2DIV, String(session.patientData.age));
