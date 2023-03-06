@@ -219,9 +219,8 @@ var SessionDataTemplate = {
   },
 
   // /////////////////////////////////////////////
-  // Below are used by Analyzer
+  // Below is used by Analyzer
   // /////////////////////////////////////////////
-
   analyzer: {
     logStartTime: null,
     logEndTime: null,
@@ -231,11 +230,25 @@ var SessionDataTemplate = {
     analysisEndBreath: 0,
     logStartBreath: 0,
     logEndBreath: 0,
-    // before Analysis starts
-    initialJsonRecord: {},
-    // valid or not
-    firstRecord: true,
   },
+
+  // /////////////////////////////////////////////
+  // Below is used by Analyzer
+  // /////////////////////////////////////////////
+  recorder: {
+    expectErrorMsg:     false,
+    expectWarningMsg:   false,
+    l1Valid:            false,
+    l2Valid:            false,
+    l3Valid:            false,
+    l4Valid:            false,
+    off:                true,
+    paused:             false,
+    creationTimeStamp:  null,
+    accumulatedState:   {},
+    prevDweetRecorded:  false,
+  },
+
 
 };
 

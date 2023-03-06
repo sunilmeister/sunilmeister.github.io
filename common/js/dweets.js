@@ -154,16 +154,6 @@ function equalParamCombos(curr, prev) {
   } else return false;
 }
 
-function processFirstRecordData() {
-  // delete signalling messages
-  delete session.analyzer.initialJsonRecord.content["BNUM"];
-  delete session.analyzer.initialJsonRecord.content["WMSG"];
-  delete session.analyzer.initialJsonRecord.content["EMSG"];
-  session.prevParamCombo = cloneObject(session.currParamCombo);
-  session.prevParamCombo.time = session.analyzer.initialJsonRecord.created;
-  processJsonRecordPreamble(session.analyzer.initialJsonRecord);
-}
-
 function readSessionVersion(jsonData) {
   if (session.sessionVersion != 'UNKNOWN') return;
   for (var key in jsonData) {
@@ -178,16 +168,6 @@ function readSessionVersion(jsonData) {
   }
 }
 
-function processJsonRecordPreamble(jsonData) {
-  curTime = new Date(jsonData.created);
-  if (session.analyzer.firstRecord) {
-    session.analyzer.firstRecord = false;
-    processFirstRecordData();
-  }
-  // Below is common to all pages
-  processJsonRecord(jsonData);
-}
-
 function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
   var req = indexedDB.open(dbName, dbVersion);
   req.onsuccess = function (event) {
@@ -200,7 +180,7 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
     keyReq.onsuccess = function (event) {
       var jsonData = keyReq.result;
       readSessionVersion(jsonData);
-      processJsonRecordPreamble(jsonData);
+      processJsonRecord(jsonData);
       if (lastRecord) {
         if (typeof lastRecordCallback != 'undefined') lastRecordCallback();
       }
@@ -211,7 +191,6 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
 function gatherSessionData(lastRecordCallback) {
   session.analyzer.sessionDataValid = false;
   session.sessionVersion = "UNKNOWN";
-  session.analyzer.initialJsonRecord = cloneObject(jsonRecordSchema);
   if (allDbKeys.length == 0) {
     modalAlert("Selected Session has no data", "");
     return;

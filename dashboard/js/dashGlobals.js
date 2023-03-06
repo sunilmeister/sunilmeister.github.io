@@ -48,6 +48,7 @@ var pendingBackground = "MEDIUMBLUE";
 var flowDivBackground = "DARKBLUE";
 var pauseButtonForeground = "MEDIUMBLUE";
 var recordButtonForeground = "MEDIUMBLUE";
+var recorderBackground = "MEDIUMBLUE";
 var alertImage = "OK";
 
 var blinkInterval = 0;
@@ -69,25 +70,6 @@ var peakGauge = null;
 var platGauge = null;
 var peepGauge = null;
 var tempGauge = null;
-
-// Recorder
-var recCreationTimeStamp = "";
-var db;
-var dbName;
-var recordStartDate = new Date();
-var accumulatedRecordState = {};
-var prevDweetRecorded = false;
-var recExpectErrorMsg = false;
-var recExpectWarningMsg = false;
-var recL1Valid = false;
-var recL2Valid = false;
-var recL3Valid = false;
-var recL4Valid = false;
-var recorderBackground = "MEDIUMBLUE";
-var recordingOff = true;
-var recordingPaused = false;
-var skipRecording = false;
-var onDemandAlert = null;
 
 // sliders
 var sliderCommitPending = false;

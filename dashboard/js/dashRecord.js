@@ -4,7 +4,7 @@
 function blinkRecordButton() {
   btn = document.getElementById("recordButton");
   var style = getComputedStyle(document.body)
-  if (recordingPaused) {
+  if (session.recorder.paused) {
     if (recordButtonForeground == "WHITE") {
       btn.style.color = style.getPropertyValue('--rsp_orange');
       recordButtonForeground = "ORANGE";
@@ -21,7 +21,7 @@ function blinkRecordButton() {
 function toggleRecording() {
   var style = getComputedStyle(document.body)
   btn = document.getElementById("recordButton");
-  if (recordingOff) {
+  if (session.recorder.off) {
     // check for browser capability
     if (!window.indexedDB) {
       modalAlert("IndexedDB not available in your browser", "Use different browser");
@@ -29,14 +29,14 @@ function toggleRecording() {
     }
     document.getElementById('recordNameDiv').style.display = "block";
     document.getElementById('recordName').value = "New Session"
-  } else if (recordingPaused) {
+  } else if (session.recorder.paused) {
     btn.innerHTML = "Pause Recording";
-    recordingOff = false;
-    recordingPaused = false;
-  } else if (!recordingPaused) {
+    session.recorder.off = false;
+    session.recorder.paused = false;
+  } else if (!session.recorder.paused) {
     btn.innerHTML = "Resume Recording";
-    recordingOff = false;
-    recordingPaused = true;
+    session.recorder.off = false;
+    session.recorder.paused = true;
   }
   updateDashboardAndRecordingStatus();
 }
@@ -46,7 +46,7 @@ function toggleRecording() {
 function getNewDbName(dbNameSuffix) {
   var name = "";
   today = new Date();
-  recCreationTimeStamp = today;
+  session.recorder.creationTimeStamp = today;
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
@@ -76,7 +76,7 @@ function acceptRecordingName() {
   suffix = document.getElementById('recordName').value;
   dbName = getNewDbName(suffix);
   if (!dbName) return;
-  createOrOpenDb(dbName, recCreationTimeStamp);
+  createOrOpenDb(dbName, session.recorder.creationTimeStamp);
   InitRecorder();
   elm = document.getElementById('recordSessionName');
   arr = parseDbName(dbName);
@@ -84,8 +84,8 @@ function acceptRecordingName() {
 
   btn = document.getElementById('recordButton');
   btn.innerHTML = "Pause Recording";
-  recordingOff = false;
-  recordingPaused = false;
+  session.recorder.off = false;
+  session.recorder.paused = false;
   document.getElementById('recordNameDiv').style.display = "none";
   updateDashboardAndRecordingStatus();
 }
@@ -103,55 +103,59 @@ function insertJsonData(db, jsonData) {
 
 function createAccumulatedDweet(d) {
   // Note that the signalling messages have already been removed
-  // in accumulatedRecordState
-  for (const k in accumulatedRecordState) {
+  // in session.recorder.accumulatedState
+  for (const k in session.recorder.accumulatedState) {
     if (typeof d.content[k] == 'undefined') {
-      d.content[k] = accumulatedRecordState[k];
+      d.content[k] = session.recorder.accumulatedState[k];
     }
   }
   return d;
 }
 
 function initRecordingPrevContent() {
-  // periodically keep clearing accumulated state if not recording
-  doRecord = (!recordingOff && !recordingPaused);
-  if (!doRecord) accumulatedRecordState = {};
+  // periodically keep clearing session.recorder.accumulatedState state if not recording
+  doRecord = (!session.recorder.off && !session.recorder.paused);
+  if (!doRecord) session.recorder.accumulatedState = {};
 }
 
 function processRecordDweet(d) {
+  var skipRecording = false;
   if (session.stateData.initial) skipRecording = true;
-  else skipRecording = false;
 
   if (typeof d.content['WMSG'] != 'undefined') {
-    recExpectWarningMsg = true;
-    accumulatedRecordState['L1'] = "";
-    accumulatedRecordState['L2'] = "";
-    accumulatedRecordState['L3'] = "";
-    accumulatedRecordState['L4'] = "";
-    recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
+    session.recorder.expectWarningMsg = true;
+    session.recorder.accumulatedState['L1'] = "";
+    session.recorder.accumulatedState['L2'] = "";
+    session.recorder.accumulatedState['L3'] = "";
+    session.recorder.accumulatedState['L4'] = "";
+    session.recorder.l1Valid = session.recorder.l2Valid = 
+             session.recorder.l3Valid = session.recorder.l4Valid = false;
   }
   if (typeof d.content['EMSG'] != 'undefined') {
-    recExpectErrorMsg = true;
-    accumulatedRecordState['L1'] = "";
-    accumulatedRecordState['L2'] = "";
-    accumulatedRecordState['L3'] = "";
-    accumulatedRecordState['L4'] = "";
-    recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
+    session.recorder.expectErrorMsg = true;
+    session.recorder.accumulatedState['L1'] = "";
+    session.recorder.accumulatedState['L2'] = "";
+    session.recorder.accumulatedState['L3'] = "";
+    session.recorder.accumulatedState['L4'] = "";
+    session.recorder.l1Valid = session.recorder.l2Valid = 
+             session.recorder.l3Valid = session.recorder.l4Valid = false;
   }
-  if (recExpectWarningMsg || recExpectErrorMsg) {
-    if (recL1Valid && recL2Valid && recL3Valid && recL4Valid) {
-      recExpectWarningMsg = false;
-      recExpectErrorMsg = false;
-      recL1Valid = recL2Valid = recL3Valid = recL4Valid = false;
+  if (session.recorder.expectWarningMsg || session.recorder.expectErrorMsg) {
+    if (session.recorder.l1Valid && session.recorder.l2Valid && 
+               session.recorder.l3Valid && session.recorder.l4Valid) {
+      session.recorder.expectWarningMsg = false;
+      session.recorder.expectErrorMsg = false;
+      session.recorder.l1Valid = session.recorder.l2Valid = 
+               session.recorder.l3Valid = session.recorder.l4Valid = false;
     }
   }
-  if (recExpectWarningMsg || recExpectErrorMsg) {
-    if (typeof d.content['L1'] != 'undefined') recL1Valid = true;
-    if (typeof d.content['L2'] != 'undefined') recL2Valid = true;
-    if (typeof d.content['L3'] != 'undefined') recL3Valid = true;
-    if (typeof d.content['L4'] != 'undefined') recL4Valid = true;
+  if (session.recorder.expectWarningMsg || session.recorder.expectErrorMsg) {
+    if (typeof d.content['L1'] != 'undefined') session.recorder.l1Valid = true;
+    if (typeof d.content['L2'] != 'undefined') session.recorder.l2Valid = true;
+    if (typeof d.content['L3'] != 'undefined') session.recorder.l3Valid = true;
+    if (typeof d.content['L4'] != 'undefined') session.recorder.l4Valid = true;
   }
-  if (!recExpectWarningMsg && !recExpectErrorMsg && !skipRecording) {
+  if (!session.recorder.expectWarningMsg && !session.recorder.expectErrorMsg && !skipRecording) {
     // Get rid of messages except in INITIAL state or when the attention is ON
     delete d.content['L1'];
     delete d.content['L2'];
@@ -162,12 +166,12 @@ function processRecordDweet(d) {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (typeof accumulatedRecordState[key] == 'undefined') {
-      accumulatedRecordState[key] = value;
+    if (typeof session.recorder.accumulatedState[key] == 'undefined') {
+      session.recorder.accumulatedState[key] = value;
     } else {
-      prevValue = accumulatedRecordState[key];
+      prevValue = session.recorder.accumulatedState[key];
       if (prevValue != value) {
-        accumulatedRecordState[key] = value;
+        session.recorder.accumulatedState[key] = value;
       } else {
         if (!shapeWaveformKey(key)) delete d.content[key];
       }
@@ -179,7 +183,7 @@ function processRecordDweet(d) {
     break;
   }
 
-  doRecord = (!recordingOff && !recordingPaused);
+  doRecord = (!session.recorder.off && !session.recorder.paused);
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     if (doRecord) {
@@ -187,18 +191,17 @@ function processRecordDweet(d) {
         session.sessionVersion = SESSION_VERSION;
         d.content.SESSION_VERSION = session.sessionVersion;
       }
-      if (!prevDweetRecorded) {
-        // Add on the accumulated state first
+      if (!session.recorder.prevDweetRecorded) {
+        // Add on the session.recorder.accumulatedState state first
         d = createAccumulatedDweet(d);
         // console.log(d);
       }
       recordBox.innerText = JSON.stringify(d, null, ". ");
       if (db) insertJsonData(db, d);
-      prevDweetRecorded = doRecord;
+      session.recorder.prevDweetRecorded = doRecord;
     }
   }
 }
 
 function InitRecorder() {
-  recordStartDate = new Date();
 }

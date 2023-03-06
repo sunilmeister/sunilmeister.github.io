@@ -526,7 +526,7 @@ window.onbeforeunload = function (e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';
   if (session.dashboardBreathNum != 0) {
-    if (!recordingOff) {
+    if (!session.recorder.off) {
       msg = msg + '\nAlso recording will stop';
     }
     return msg;
