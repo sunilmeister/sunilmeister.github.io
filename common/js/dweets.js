@@ -11,6 +11,12 @@ var shapeSliceNum = -1;
 var prevShapeSliceNum = -1;
 var expectingPWEND = false;
 
+function shapeWaveformKey(key) {
+  var prefix = String(key).substr(0,2);
+  if (prefix == "PW") return true;
+  return false;
+}
+
 function parseStateData(jsonStr) {
   val = {
     prevState : null,

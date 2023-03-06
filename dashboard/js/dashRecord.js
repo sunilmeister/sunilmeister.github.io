@@ -119,13 +119,9 @@ function initRecordingPrevContent() {
 }
 
 function processRecordDweet(d) {
-  // We already have the UID
-  // delete d.thing;
-  if (d.content['INITIAL'] == "1") skipRecording = true;
-  if (d.content['STANDBY'] == "1") skipRecording = false;
-  if (d.content['ACTIVE'] == "1") skipRecording = false;
-  if (d.content['RUNNING'] == "1") skipRecording = false;
-  if (d.content['ERROR'] == "1") skipRecording = false;
+  if (session.stateData.initial) skipRecording = true;
+  else skipRecording = false;
+
   if (typeof d.content['WMSG'] != 'undefined') {
     recExpectWarningMsg = true;
     accumulatedRecordState['L1'] = "";
@@ -173,7 +169,7 @@ function processRecordDweet(d) {
       if (prevValue != value) {
         accumulatedRecordState[key] = value;
       } else {
-        delete d.content[key];
+        if (!shapeWaveformKey(key)) delete d.content[key];
       }
     }
   }
