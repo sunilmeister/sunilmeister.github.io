@@ -223,8 +223,14 @@ function updateSnapshot() {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (key == 'ATTENTION') {
-      updateAlert(false);
+    if (key == 'ATT') {
+      if (value==1) {
+        updateAlert(true);
+        session.alerts.attention = true;
+      } else {
+        updateAlert(false);
+        session.alerts.attention = false;
+      }
     }
     // Message lines
     else if (key == 'L1') {
