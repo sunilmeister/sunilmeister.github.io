@@ -61,7 +61,7 @@ function disassembleAndQueueDweet(d) {
       fragment = cloneObject(clearAllDweet);
     }
     fragment.MILLIS = Number(millis);
-    fragment.created = new Date(addMsToDate(app.startDate, (fragment.MILLIS - startMillis)));
+    fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));
     dweetQ.push(cloneObject(fragment));
   }
 }
@@ -86,7 +86,7 @@ function waitForDweets() {
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
       //console.log("simulatedMillis=" + simulatedMillis);
-      app.startDate = new Date(d.created);
+      session.startDate = new Date(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
@@ -98,7 +98,7 @@ function waitForDweets() {
 
 function processDashboardDweet(d) {
   curDate = new Date(d.created);
-  sessionDurationInMs = curDate - app.startDate;
+  sessionDurationInMs = curDate - session.startDate;
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
   elm = document.getElementById("dashboardBreathNum");
@@ -108,10 +108,10 @@ function processDashboardDweet(d) {
     elm.innerHTML = breathPausedAt;
   } else {
     pd.innerHTML = "&nbspDetected";
-    elm.innerHTML = app.dashboardBreathNum;
+    elm.innerHTML = session.dashboardBreathNum;
   }
   elm = document.getElementById("numMissedBreaths");
-  elm.innerHTML = app.numMissingBreaths;
+  elm.innerHTML = session.numMissingBreaths;
 
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
@@ -339,7 +339,7 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath() {
-  app.chartRangeLimit++;
+  session.charts.rangeLimit++;
   if (currentView == "charts") updateChartRange();
   if (currentView == "stats") updateStatRange();
   if (currentView == "alerts") updateAlertRange();
@@ -359,7 +359,7 @@ function togglePause() {
   } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
-    breathPausedAt = app.dashboardBreathNum;
+    breathPausedAt = session.dashboardBreathNum;
     pd = document.getElementById("pausedOrDuring");
     pd.innerHTML = "&nbspPaused At";
     elm = document.getElementById("dashboardBreathNum");
@@ -431,14 +431,14 @@ function installTempGauge() {
 
 function receivedNewShape() {
   if (currentView == "shapes") return;
-  if ((app.shapeSendPeriod) && !app.shapeOnDemand) return;
+  if ((session.shapes.sendPeriod) && !session.shapes.onDemand) return;
 
-  console.log("On demand snapshot received pwBreathNum=" + app.pwBreathNum);
+  console.log("On demand snapshot received pwBreathNum=" + session.shapes.pwBreathNum);
   Swal.fire({
     icon: 'info',
     title: ON_DEMAND_TITLE_STR,
     text: ON_DEMAND_MESSAGE_STR,
-    width: app.modalWidth,
+    width: session.modalWidth,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
@@ -450,16 +450,16 @@ window.onload = function () {
   showZoomReminder(600);
 
   finishedLoading = false;
-  // Create data objects
-  app = cloneObject(AppDataTemplate);
-  app.chartFontSize = 12;
-  app.shapeLabelFontSize = 12;
-  app.shapeLegendFontSize = 15;
-  app.shapeTitleFontSize = 30;
-  app.stripLineFontSize = 20;
-  app.appId = DASHBOARD_APP_ID;
-  app.newPwDataCallback = receivedNewShape;
+  initDivElements();
+
   session = cloneObject(SessionDataTemplate);
+  session.appId = DASHBOARD_APP_ID;
+  session.charts.fontSize = 12;
+  session.shapes.labelFontSize = 12;
+  session.shapes.legendFontSize = 15;
+  session.shapes.titleFontSize = 30;
+  session.shapes.stripLineFontSize = 20;
+  session.shapes.newPwDataCallback = receivedNewShape;
 
   initDbNames();
   InitRecorder();
@@ -525,7 +525,7 @@ window.onload = function () {
 window.onbeforeunload = function (e) {
   if (db) db.close();
   var msg = 'Charts waveform history will be lost';
-  if (app.dashboardBreathNum != 0) {
+  if (session.dashboardBreathNum != 0) {
     if (!recordingOff) {
       msg = msg + '\nAlso recording will stop';
     }
@@ -616,8 +616,8 @@ function setTimeInterval(btn) {
   values = rangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveRange = app.reportRange;
-  app.reportRange = createReportRange(false, bmin, bmax);
+  saveRange = session.reportRange;
+  session.reportRange = createReportRange(false, bmin, bmax);
 
   createDashboards();
   sliderCommitPending = false;
@@ -629,12 +629,12 @@ function cancelTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
   if (saveRange) {
-    app.reportRange = saveRange;
+    session.reportRange = saveRange;
   } else {
-    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   }
   stopSliderCallback = true;
-  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
   sliderCommitPending = false;
 }
@@ -642,9 +642,9 @@ function cancelTimeInterval(btn) {
 function resetTimeInterval(btn) {
   saveRange = null;
   unflashBreathWindowButtons();
-  app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+  session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   stopSliderCallback = true;
-  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   if (currentView == "charts") updateChartRange();
@@ -661,10 +661,10 @@ function setFullInterval(btn) {
   values = rangeSlider.getRange();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveRange = app.reportRange;
-  app.reportRange = createReportRange(false, bmin, bmax);
+  saveRange = session.reportRange;
+  session.reportRange = createReportRange(false, bmin, bmax);
   stopSliderCallback = true;
-  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   createDashboards();
@@ -729,12 +729,12 @@ function FetchAndExecuteFromQueue() {
 
     d = dweetQ.pop();
     if (typeof d.content["BNUM"] != "undefined") {
-      app.dashboardBreathNum++;
-      app.systemBreathNum = parseChecksumString(d.content["BNUM"]);
-      if (app.startSystemBreathNum == null) {
-        app.startSystemBreathNum = app.systemBreathNum;
+      session.dashboardBreathNum++;
+      session.systemBreathNum = parseChecksumString(d.content["BNUM"]);
+      if (session.startSystemBreathNum == null) {
+        session.startSystemBreathNum = session.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
-        elm.innerHTML = String(app.systemBreathNum - 1);
+        elm.innerHTML = String(session.systemBreathNum - 1);
       }
     }
     var dCopy; // a copy of the dweet

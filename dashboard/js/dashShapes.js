@@ -5,8 +5,8 @@
 var firstTimeShapesEntry = true;
 
 function createDashboardShapes() {
-  if (app.shapeCreationInProgress) return;
-  app.shapeCreationInProgress = true;
+  if (session.shapes.creationInProgress) return;
+  session.shapes.creationInProgress = true;
 
   if (numberOfExistingShapes() == 0) {
     shapeInsertOnTop(); // always have shape box for user to start with
@@ -17,46 +17,46 @@ function createDashboardShapes() {
     firstTimeShapesEntry = false;
   }
 
-  for (id in app.allShapesContainerInfo) {
-    app.allShapesContainerInfo[id].render();
+  for (id in session.shapes.allShapesContainerInfo) {
+    session.shapes.allShapesContainerInfo[id].render();
   }
 
-  app.shapeCreationInProgress = false;
+  session.shapes.creationInProgress = false;
 }
 
 function rollingShapeRange() {
-  startShape = app.shapeData.length - SHAPE_MAX_CHARTS;
+  startShape = session.shapes.data.length - SHAPE_MAX_CHARTS;
   if (startShape < 0) startShape = 0;
-  if (app.shapeData.length) {
-    minBnum = app.shapeData[startShape].systemBreathNum - app.startSystemBreathNum + 1
+  if (session.shapes.data.length) {
+    minBnum = session.shapes.data[startShape].systemBreathNum - session.startSystemBreathNum + 1
   } else {
     minBnum = 0;
   }
-  app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+  session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
 }
 
 function updateShapeRange() {
-  rangeSlider.setRange([1, app.dashboardBreathNum]);
+  rangeSlider.setRange([1, session.dashboardBreathNum]);
 
-  if (!app.reportRange.rolling || sliderCommitPending) return;
-  if (app.reportRange.rolling) {
-    if (app.reportRange.rolling && app.shapeData.length > SHAPE_MAX_CHARTS) {
+  if (!session.reportRange.rolling || sliderCommitPending) return;
+  if (session.reportRange.rolling) {
+    if (session.reportRange.rolling && session.shapes.data.length > SHAPE_MAX_CHARTS) {
       rollingShapeRange();
     } else {
-      app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+      session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
     }
 
     stopSliderCallback = true;
-    rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+    rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
     stopSliderCallback = false;
   }
 }
 
 function updateShapeRangeOnEntry() {
-  if (!app.reportRange.rolling) return;
+  if (!session.reportRange.rolling) return;
 
   rollingShapeRange();
   stopSliderCallback = true;
-  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 }

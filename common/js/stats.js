@@ -11,7 +11,7 @@ function displayUsedCombos() {
   var table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
-  var arr = statComputer.filterTransitions(app.usedParamCombos);
+  var arr = statComputer.filterTransitions(session.usedParamCombos);
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     if (combo.value.numBreaths == 0) continue;
@@ -37,8 +37,8 @@ function displayUsedCombos() {
 
     var beforeBreath = combo.value.startingBreath;
     var nb = combo.value.numBreaths;
-    var minBnum = app.reportRange.minBnum;
-    var maxBnum = app.reportRange.maxBnum;
+    var minBnum = session.reportRange.minBnum;
+    var maxBnum = session.reportRange.maxBnum;
     if (beforeBreath < minBnum) {
       nb = nb - (minBnum - beforeBreath - 1);
     }
@@ -150,12 +150,12 @@ function extractUsedParamsFromCombos() {
   var pNames = ["mode", "vt", "rr", "ie", "ipeep", "pmax", "ps", "tps", "fiO2"];
   var obj = {};
 
-  if (app.usedParamCombos.length == 0) {
-    console.log("app.usedParamCombos is empty");
+  if (session.usedParamCombos.length == 0) {
+    console.log("session.usedParamCombos is empty");
     return;
   }
 
-  var arr = statComputer.filterTransitions(app.usedParamCombos);
+  var arr = statComputer.filterTransitions(session.usedParamCombos);
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     params = combo.value;
@@ -202,7 +202,7 @@ function displayBreathTypeInfo() {
     value = arr[i].value;
     if (value == SPONTANEOUS_BREATH) ns++;
     else if (value == MANDATORY_BREATH) nm++;
-    else if (value == ERROR_BREATH) ne++;
+    else if (value == MAINTENANCE_BREATH) ne++;
   }
   el = document.getElementById("numBreaths");
   el.innerHTML = replaceDummyValue(nm + ns + ne);
@@ -305,18 +305,18 @@ function displayAlertsInfo() {
 
 function displayStats() {
   //console.log("displayStats");
-  if (!app.sessionDataValid) {
+  if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (!app.tablesConstructed) {
+  if (!session.statTablesConstructed) {
     //console.log("Constructing Tables");
     constructStatMinMaxTable();
     constructStatParamTable();
     constructStatMiscTable();
   }
-  app.tablesConstructed = true;
-  statComputer = new StatComputer(session.breathTimes, app.reportRange);
+  session.statTablesConstructed = true;
+  statComputer = new StatComputer(session.breathTimes, session.reportRange);
 
   displayMinMaxAvg();
   displayParamUsage();
@@ -326,12 +326,13 @@ function displayStats() {
   displayAlertsInfo();
 
   el = document.getElementById("altitude");
-  el.innerHTML = "System Deployment Altitude: " + replaceDummyValue(session.altitude);
+  el.innerHTML = "System Deployment Altitude: " 
+    + replaceDummyValue(session.miscData.altitude);
 }
 
 function initStats() {
   //console.log("initStats");
-  app.tablesConstructed = false;
+  session.statTablesConstructed = false;
   table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
   table = document.getElementById("statsMinMaxTable");

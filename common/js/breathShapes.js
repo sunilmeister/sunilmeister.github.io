@@ -32,7 +32,7 @@ class BreathShapes {
       title: {
         text: title,
         padding: 10,
-        fontSize: app.shapeTitleFontSize
+        fontSize: session.shapes.titleFontSize
       },
       axisY: [],
       toolTip: {
@@ -41,7 +41,7 @@ class BreathShapes {
       legend: {
         cursor: "pointer",
         itemclick: toggleDataSeries,
-        fontSize: app.shapeLegendFontSize
+        fontSize: session.shapes.legendFontSize
       },
       height: height,
       backgroundColor: "#D5F3FE",
@@ -83,11 +83,11 @@ class BreathShapes {
   }
 
   numShapesInRange() {
-    var minBnum = app.reportRange.minBnum;
-    var maxBnum = app.reportRange.maxBnum;
+    var minBnum = session.reportRange.minBnum;
+    var maxBnum = session.reportRange.maxBnum;
     var n = 0;
-    for (let i = 0; i < app.shapeData.length; i++) {
-      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum + 1;
+    for (let i = 0; i < session.shapes.data.length; i++) {
+      var breathNum = session.shapes.data[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       n++;
@@ -135,7 +135,7 @@ class BreathShapes {
     Xaxis.minimum = this.calculateXaxisMinimum();
     Xaxis.gridColor = "grey";
     Xaxis.gridThickness = 1;
-    Xaxis.labelFontSize = app.shapeLabelFontSize;
+    Xaxis.labelFontSize = session.shapes.labelFontSize;
     Xaxis.labelFormatter = breathShapeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
   }
@@ -202,12 +202,12 @@ class BreathShapes {
     var prevXval = 0;
     this.chartJson.axisX.stripLines = [];
 
-    for (let i = 0; i < app.shapeData.length; i++) {
-      var breathNum = app.shapeData[i].systemBreathNum - app.startSystemBreathNum + 1;
-      var sampleInterval = app.shapeData[i].sampleInterval;
-      var breathInfo = app.shapeData[i].breathInfo;
-      var samples = app.shapeData[i].samples;
-      var partial = app.shapeData[i].partial;
+    for (let i = 0; i < session.shapes.data.length; i++) {
+      var breathNum = session.shapes.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+      var sampleInterval = session.shapes.data[i].sampleInterval;
+      var breathInfo = session.shapes.data[i].breathInfo;
+      var samples = session.shapes.data[i].samples;
+      var partial = session.shapes.data[i].partial;
       var prefix = partial ? "Partial " : "";
 
       if (breathNum < minBnum) continue;
@@ -251,7 +251,7 @@ class BreathShapes {
       stripLine.labelWrap = true;
       stripLine.labelMaxWidth = 80;
       stripLine.labelFontColor = "grey";
-      stripLine.labelFontSize = app.stripLineFontSize;
+      stripLine.labelFontSize = session.shapes.stripLineFontSize;
       Xaxis.stripLines.push(cloneObject(stripLine));
     }
 

@@ -8,29 +8,21 @@ function formMessageLine(str) {
   mvalue = value.replace(/ /g, "&nbsp");
   return mvalue;
 }
-// returns [old,new]
-function parseInputParam(val) {
-  var oldP, newP;
-  var str;
-  if (typeof val === 'string' || val instanceof String) {
-    str = val;
+
+function blinkSettingValue(pending, containerDiv, valueDiv) {
+  if (pending) {
+    updatePending(false);
+    elm = document.getElementById(containerDiv);
+    elm.style.backgroundColor = orangeColor;
   } else {
-    str = String(val);
+    elm = document.getElementById(containerDiv);
+    elm.style.backgroundColor = mediumblueColor;
   }
-  tokens = str.split(',');
-  if (tokens.length == 1) {
-    oldP = tokens[0];
-    newP = tokens[0];
-  } else {
-    oldP = tokens[0];
-    newP = tokens[1];
-  }
-  return [oldP, newP];
 }
 
 function updatePendingIndividualSetting(blink, div, pendingSetting) {
   elm = document.getElementById(div);
-  if (app.pendingState) {
+  if (session.paramDataOnDisplay.pending) {
     if (pendingSetting && blink) {
       if (pendingBackground != "ORANGE") {
         elm.style.backgroundColor = orangeColor;
@@ -44,24 +36,20 @@ function updatePendingIndividualSetting(blink, div, pendingSetting) {
 }
 
 function updatePendingSettings(blink) {
-  updatePendingIndividualSetting(blink, "MODEDiv", app.pendingMODE);
-  updatePendingIndividualSetting(blink, "VTDiv", app.pendingVT);
-  updatePendingIndividualSetting(blink, "RRDiv", app.pendingRR);
-  updatePendingIndividualSetting(blink, "IEDiv", app.pendingIE);
-  updatePendingIndividualSetting(blink, "IPEEPDiv", app.pendingIPEEP);
-  updatePendingIndividualSetting(blink, "PMAXDiv", app.pendingPMAX);
-  updatePendingIndividualSetting(blink, "PSDiv", app.pendingPS);
-  updatePendingIndividualSetting(blink, "TPSDiv", app.pendingTPS);
+  pend = session.pendingParamsData;
+  updatePendingIndividualSetting(blink, "MODEDiv", pend.mode);
+  updatePendingIndividualSetting(blink, "VTDiv", pend.vt);
+  updatePendingIndividualSetting(blink, "RRDiv", pend.rr);
+  updatePendingIndividualSetting(blink, "IEDiv", pend.ie);
+  updatePendingIndividualSetting(blink, "IPEEPDiv", pend.ipeep);
+  updatePendingIndividualSetting(blink, "PMAXDiv", pend.pmax);
+  updatePendingIndividualSetting(blink, "PSDiv", pend.ps);
+  updatePendingIndividualSetting(blink, "TPSDiv", pend.ps);
 }
 
 function updatePending(blink) {
-  // double verify if something is app.pending
-  app.pendingState = app.pendingMODE || app.pendingVT || app.pendingRR ||
-    app.pendingIE || app.pendingIPEEP || app.pendingPMAX ||
-    app.pendingPS || app.pendingTPS;
   updatePendingSettings(blink);
-  //console.log("pendingState=" + app.pendingState);
-  if (app.pendingState) {
+  if (session.paramDataOnDisplay.pending) {
     elm = document.getElementById("Pending");
     elm.innerHTML = "Pending Changes";
     if (pendingBackground != "ORANGE") {
@@ -84,7 +72,7 @@ function updatePending(blink) {
 
 function updateAlert(blink) {
   elm = document.getElementById("AlertDiv");
-  if (app.errorState) {
+  if (session.stateData.error) {
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = darkredColor;
       alertBackground = "DARKRED";
@@ -96,7 +84,7 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "img/Error.svg";
       alertImage = "ERROR";
     }
-  } else if (app.attentionState || wifiDropped) {
+  } else if (session.alerts.attention || wifiDropped) {
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
@@ -119,40 +107,8 @@ function updateAlert(blink) {
     }
   }
 }
-// returns [val,units]
-function parseInputTPS(str) {
-  var val, units;
-  tokens = str.split('F');
-  if (tokens[0] != str) {
-    val = tokens[1];
-    units = "(% of Peak Flow)";
-  } else {
-    val = str;
-    units = "(secs)";
-  }
-  return [val, units];
-}
 
-function updateSettingValue(str, containerDiv, valueDiv) {
-  var pending = false;
-  [prev, curr] = parseInputParam(str);
-  if (prev != curr) {
-    app.pendingState = true;
-    pending = true;
-    updatePending(false);
-    elm = document.getElementById(containerDiv);
-    elm.style.backgroundColor = orangeColor;
-  } else {
-    pending = false;
-    elm = document.getElementById(containerDiv);
-    elm.style.backgroundColor = mediumblueColor;
-  }
-  elm = document.getElementById(valueDiv);
-  elm.innerHTML = curr;
-  return pending;
-}
-
-function displayMessageLine(lineTag) {
+function displayMessageLine(lineTag, value) {
   if (messagesBackground != "MEDIUMBLUE") {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = mediumblueColor;
@@ -163,203 +119,160 @@ function displayMessageLine(lineTag) {
   elm.innerHTML = mvalue;
 }
 
+function updateDivValue(div, value) {
+  var txt;
+  if (value === null) txt = "--";
+  else txt = value;
+  div.innerHTML = txt;
+}
+
+function updateStateDivsFromSessionData() {
+  // Change of state
+  if (session.stateData.state !== session.stateData.prevState) {
+    session.alerts.attention = false; // entering initial state
+    updateAlert(false);
+  }
+
+  if (session.stateData.initial) {
+    stateDIV.innerHTML = "<b>INITIALIZE</b>";
+    imgStateDIV.src = "img/WhiteDot.png";
+  } else if (session.stateData.standby) {
+    stateDIV.innerHTML = "<b>STANDBY</b>";
+    imgStateDIV.src = "img/YellowDot.png";
+  } else if (session.stateData.active) {
+    stateDIV.innerHTML = "<b>ACTIVE</b>";
+    imgStateDIV.src = "img/GreenDot.png";
+  } else {
+    stateDIV.innerHTML = "<b>ERROR</b>";
+    imgStateDIV.src = "img/RedDot.png";
+  }
+}
+
+function updateParamDivsFromSessionData() {
+  updateDivValue(vtValELM, session.paramDataOnDisplay.vt);
+  updateDivValue(pmaxValELM, session.paramDataOnDisplay.pmax);
+  updateDivValue(ipeepValELM, session.paramDataOnDisplay.ipeep);
+  updateDivValue(psValELM, session.paramDataOnDisplay.ps);
+  updateDivValue(modeValELM, session.paramDataOnDisplay.mode);
+  updateDivValue(tpsValELM, session.paramDataOnDisplay.tps);
+  updateDivValue(tpsUnitsValELM, session.paramDataOnDisplay.tpsUnits);
+  updateDivValue(ieValELM, session.paramDataOnDisplay.ie);
+  updateDivValue(rrValELM, session.paramDataOnDisplay.rr);
+}
+
+function updateFiO2DivsFromSessionData() {
+  updateFiO2Display(
+    session.fiO2Data.fiO2,
+    session.fiO2Data.o2Purity,
+    session.fiO2Data.o2FlowX10
+  );
+}
+
+function updateBreathTypeFromSessionData() {
+  if (session.breathData.type == "MANDATORY") {
+    imgBreathDIV.src = "img/YellowDot.png";
+    breathTypeValELM.innerHTML = "Mandatory";
+  } else if (value == "SPONTANEOUS") {
+    imgBreathDIV.src = "img/GreenDot.png";
+    breathTypeValELM.innerHTML = "Spontaneous";
+  } else {
+    imgBreathDIV.src = "img/WhiteDot.png";
+    breathTypeValELM.innerHTML = "None";
+  }
+}
+
+function updateBreathDivsFromSessionData() {
+  updateBreathTypeFromSessionData();
+  updateDivValue(vtdelValELM, session.breathData.vtdel);
+
+  peakGauge.setValue(session.breathData.peak);
+  platGauge.setValue(session.breathData.plat);
+  peepGauge.setValue(session.breathData.mpeep);
+}
+
+function updateMinuteDivsFromSessionData() {
+  updateDivValue(sbpmValELM, session.minuteData.sbpm);
+  updateDivValue(mbpmValELM, session.minuteData.mbpm);
+  updateDivValue(mvdelValELM, session.minuteData.mvdel);
+}
+
+function updateCompDivsFromSessionData() {
+  updateDivValue(scompValELM, session.complianceData.scomp);
+  updateDivValue(dcompValELM, session.complianceData.dcomp);
+}
+
+function updateMiscDivsFromSessionData() {
+  altF = " <small><small>ft</small></small>";
+  updateDivValue(altfDIV, session.miscData.altitude + altF);
+  altM = " <small><small>m</small></small>";
+  updateDivValue(altmDIV, Math.floor(session.miscData.altitude*0.305) + altM);
+
+  tempGauge.setValue(session.miscData.tempC);
+}
+
 function updateSnapshot() {
   let d = updatedDweetContent;
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (value === null) continue;
-    // System State
-    if (key == 'INITIAL') {
-      if (value == "1") {
-        if (!app.initialState) app.attentionState = false; // entering initial state
-        app.initialState = true;
-        elm = document.getElementById("State");
-        elm.innerHTML = "<b>INITIALIZE</b>";
-        document.getElementById("StateImg").src = "img/WhiteDot.png";
-        updateAlert(false);
-      } else {
-        app.initialState = false;
-      }
-    } else if (key == 'STANDBY') {
-      if (value == "1") {
-        if (!app.standbyState) app.attentionState = false; // entering standby state
-        app.standbyState = true;
-        elm = document.getElementById("State");
-        elm.innerHTML = "<b>STANDBY</b>";
-        document.getElementById("StateImg").src = "img/YellowDot.png";
-        updateAlert(false);
-      } else {
-        app.standbyState = false;
-      }
-    } else if ((key == "RUNNING") || (key == "ACTIVE")) {
-      if (value == "1") {
-        if (!app.activeState) app.attentionState = false; // entering active state
-        app.activeState = true;
-        elm = document.getElementById("State");
-        elm.innerHTML = "<b>ACTIVE</b>";
-        document.getElementById("StateImg").src = "img/GreenDot.png";
-        updateAlert(false);
-      } else {
-        app.activeState = false;
-      }
-    } else if (key == 'ERROR') {
-      if (value == "1") {
-        app.errorState = true;
-        elm = document.getElementById("State");
-        elm.innerHTML = "<b>ERROR</b>";
-        document.getElementById("StateImg").src = "img/RedDot.png";
-        updateAlert(false);
-      } else {
-        if (app.errorState) app.attentionState = false; // exiting error state
-        app.errorState = false;
-      }
-    } else if (key == 'ATTENTION') {
-      if (value == "1") {
-        app.attentionState = true;
-        updateAlert(false);
-      } else {
-        app.attentionState = false;
-        updateAlert(false);
-      }
+    if (key == 'ATTENTION') {
+      updateAlert(false);
     }
     // Message lines
     else if (key == 'L1') {
-      displayMessageLine("Mline1");
+      displayMessageLine("Mline1", value);
     } else if (key == 'L2') {
-      displayMessageLine("Mline2");
+      displayMessageLine("Mline2", value);
     } else if (key == 'L3') {
-      displayMessageLine("Mline3");
+      displayMessageLine("Mline3", value);
     } else if (key == 'L4') {
-      displayMessageLine("Mline4");
+      displayMessageLine("Mline4", value);
     }
-    // bpm
-    else if (key == 'SBPM') {
-      elm = document.getElementById("SBPM");
-      elm.innerHTML = value;
-    } else if (key == 'MBPM') {
-      elm = document.getElementById("MBPM");
-      elm.innerHTML = value;
-    }
-    // Volumes
-    else if (key == 'VTDEL') {
-      elm = document.getElementById("VTDEL");
-      elm.innerHTML = value;
-    } else if (key == 'MVDEL') {
-      elm = document.getElementById("MVDEL");
-      elm.innerHTML = value;
-    }
-    // Compliances
-    else if (key == 'STATIC') {
-      elm = document.getElementById("SCOMP");
-      elm.innerHTML = value;
-    } else if (key == 'DYNAMIC') {
-      elm = document.getElementById("DCOMP");
-      elm.innerHTML = value;
-    }
-    // Altitude
-    else if (key == 'ALT') {
-      [ft, m] = parseAltitude(value);
-      elm = document.getElementById("AltF");
-      elm.innerHTML = ft + " <small><small>ft</small></small>";
-      elm = document.getElementById("AltM");
-      if (ft == '--') m = '--';
-      elm.innerHTML = m + " <small><small>m</small></small>";
-    }
-    // Breath Type
-    else if (key == 'BREATH') {
-      elm = document.getElementById("BreathType");
-      if (value == "MANDATORY") {
-        document.getElementById("ImgBreath").src = "img/YellowDot.png";
-        elm.innerHTML = "Mandatory";
-      } else if (value == "SPONTANEOUS") {
-        document.getElementById("ImgBreath").src = "img/GreenDot.png";
-        elm.innerHTML = "Spontaneous";
-      } else {
-        document.getElementById("ImgBreath").src = "img/WhiteDot.png";
-        elm.innerHTML = "";
-      }
-    }
-    // Pressures
-    else if (key == 'PIP') {
-      peakGauge.setValue(value);
-    } else if (key == 'PLAT') {
-      platGauge.setValue(value);
-    } else if (key == 'MPEEP') {
-      peepGauge.setValue(value);
-    }
-    // Temperature
-    else if (key == 'TEMP') {
-      tempGauge.setValue(value);
-    }
-    // Pending settings change
-    else if (key == 'PENDING') {
-      if (value == 1) {
-        app.pendingState = true;
-        updatePending(false);
-      } else {
-        app.pendingState = false;
-        app.pendingMODE = false;
-        app.pendingVT = false;
-        app.pendingRR = false;
-        app.pendingIE = false;
-        app.pendingIPEEP = false;
-        app.pendingPMAX = false;
-        app.pendingPS = false;
-        app.pendingTPS = false;
-        updatePending(false);
-      }
-    }
+
     // Patient info
-    else if (key == 'PNAME') {
-      elm = document.getElementById("Pline1");
-      elm.innerHTML = value;
-    } else if (key == 'PMISC') {
-      if (value != "") {
-        rvalue = parsePatientInfo(value);
-        if (rvalue != null) {
-          [gender, age, pid] = rvalue;
-          elm = document.getElementById("Pline2");
-          if (gender == "M") {
-            elm.innerHTML = "Male " + "(" + age + " years)";
-          } else {
-            elm.innerHTML = "Female " + "(" + age + " years)";
-          }
-          elm = document.getElementById("Pline3");
-          elm.innerHTML = "ID: " + pid;
-        }
-      }
+    else if ((key == 'FNAME') || (key == 'LNAME')) {
+      var pname = session.patientData.fname + " " + session.patientData.lname;
+      updateDivValue(pline1DIV, pname);
+    } else if (key == 'AGE') {
+      updateDivValue(pline2DIV, String(session.patientData.age));
+    } else if (key == 'PID') {
+      updateDivValue(pline3DIV, String(session.patientData.pid));
+      //console.log("session.patientData.pid:" + session.patientData.pid);
     }
-    // Input Settings
-    else if (key == 'MODE') {
-      app.pendingMODE = updateSettingValue(value, "MODEDiv", "MODE");
-      if (app.pendingMODE) somethingPending = true;
-    } else if (key == 'VT') {
-      app.pendingVT = updateSettingValue(value, "VTDiv", "VT");
-      if (app.pendingVT) somethingPending = true;
-    } else if (key == 'RR') {
-      app.pendingRR = updateSettingValue(value, "RRDiv", "RR");
-      if (app.pendingRR) somethingPending = true;
-    } else if (key == 'EI') {
-      app.pendingIE = updateSettingValue(value, "IEDiv", "IE");
-      if (app.pendingIE) somethingPending = true;
-    } else if (key == 'IPEEP') {
-      app.pendingIPEEP = updateSettingValue(value, "IPEEPDiv", "IPEEP");
-      if (app.pendingIPEEP) somethingPending = true;
-    } else if (key == 'PMAX') {
-      app.pendingPMAX = updateSettingValue(value, "PMAXDiv", "PMAX");
-      if (app.pendingPMAX) somethingPending = true;
-    } else if (key == 'PS') {
-      app.pendingPS = updateSettingValue(value, "PSDiv", "PS");
-      if (app.pendingPS) somethingPending = true;
-    } else if (key == 'TPS') {
-      app.pendingTPS = updateSettingValue(value, "TPSDiv", "TPS");
-      if (app.pendingTPS) somethingPending = true;
-      [tps, units] = parseInputTPS(document.getElementById("TPS").innerText);
-      elm = document.getElementById("TPS");
-      elm.innerHTML = tps;
-      elm = document.getElementById("TPS_UNITS");
-      elm.innerHTML = units;
+
+    // state
+    else if (key == 'STATE') {
+      updateStateDivsFromSessionData();
+    }
+
+    // Input settings params
+    else if (key == 'PARAM') {
+      updateParamDivsFromSessionData();
+    }
+
+    // fio2
+    else if (key == 'FIO2') {
+      updateFiO2DivsFromSessionData();
+    }
+
+    // breath
+    else if (key == 'BREATH') {
+      updateBreathDivsFromSessionData();
+    }
+
+    // minute data
+    else if (key == 'MINUTE') {
+      updateMinuteDivsFromSessionData();
+    }
+
+    // compliance data
+    else if (key == 'COMP') {
+      updateCompDivsFromSessionData();
+    }
+
+    // misc data
+    else if (key == 'MISC') {
+      updateMiscDivsFromSessionData();
     }
   }
 }
@@ -451,3 +364,6 @@ function displayWifiUnconnected() {
   elm = document.getElementById("Mline4");
   elm.innerHTML = "to Wi-Fi";
 }
+
+
+

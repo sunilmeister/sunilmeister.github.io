@@ -3,20 +3,20 @@
 // ////////////////////////////////////////////////////
 
 function updateStatRange() {
-  rangeSlider.setRange([1, app.dashboardBreathNum]);
-  if (app.reportRange.rolling && !sliderCommitPending) {
-    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+  rangeSlider.setRange([1, session.dashboardBreathNum]);
+  if (session.reportRange.rolling && !sliderCommitPending) {
+    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
     stopSliderCallback = true;
-    rangeSlider.setSlider([1, app.dashboardBreathNum]);
+    rangeSlider.setSlider([1, session.dashboardBreathNum]);
     stopSliderCallback = false;
   }
 }
 
 function updateStatRangeOnEntry() {
-  if (app.reportRange.rolling) {
-    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+  if (session.reportRange.rolling) {
+    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
     stopSliderCallback = true;
-    rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+    rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
     stopSliderCallback = false;
   }
 }

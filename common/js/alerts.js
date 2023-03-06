@@ -44,18 +44,18 @@ function initAlerts() {
 }
 
 function displayAlerts() {
-  if (!app.sessionDataValid) {
+  if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.errorMsgs.length; i++) {
-    if (!app.reportRange.rolling) {
+    if (!session.reportRange.rolling) {
       if (session.errorMsgs[i].created >
-        session.breathTimes[app.reportRange.maxBnum]) continue;
+        session.breathTimes[session.reportRange.maxBnum]) continue;
       if (session.errorMsgs[i].created <
-        session.breathTimes[app.reportRange.minBnum]) continue;
+        session.breathTimes[session.reportRange.minBnum]) continue;
     }
 
     prefix = "ERROR #" + (i + 1) + " ";
@@ -64,11 +64,11 @@ function displayAlerts() {
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.warningMsgs.length; i++) {
-    if (!app.reportRange.rolling) {
+    if (!session.reportRange.rolling) {
       if (session.warningMsgs[i].created >
-        session.breathTimes[app.reportRange.maxBnum]) continue;
+        session.breathTimes[session.reportRange.maxBnum]) continue;
       if (session.warningMsgs[i].created <
-        session.breathTimes[app.reportRange.minBnum]) continue;
+        session.breathTimes[session.reportRange.minBnum]) continue;
     }
 
     prefix = "WARNING #" + (i + 1) + " ";
@@ -77,11 +77,11 @@ function displayAlerts() {
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.infoMsgs.length; i++) {
-    if (!app.reportRange.rolling) {
+    if (!session.reportRange.rolling) {
       if (session.infoMsgs[i].created >
-        session.breathTimes[app.reportRange.maxBnum]) continue;
+        session.breathTimes[session.reportRange.maxBnum]) continue;
       if (session.infoMsgs[i].created <
-        session.breathTimes[app.reportRange.minBnum]) continue;
+        session.breathTimes[session.reportRange.minBnum]) continue;
     }
     prefix = "INFO #" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i]);

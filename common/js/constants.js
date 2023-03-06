@@ -13,9 +13,34 @@ const uidCookieName = "RESPIMATIC_UID_COOKIE";
 const tagCookieName = "RESPIMATIC_TAG_COOKIE";
 const localStorageDbName = "respimatic_dbs";
 
-const SPONTANEOUS_BREATH = 0;
+const NO_BREATH = 0;
 const MANDATORY_BREATH = 1;
-const ERROR_BREATH = 2;
+const SPONTANEOUS_BREATH = 2;
+const MAINTENANCE_BREATH = 3;
+
+const MODE_DECODER = [
+  "CMV",
+  "ACV",
+  "SIMV",
+  "PSV",
+];
+
+const EI_DECODER = [
+  "0:0",
+  "1:1",
+  "1:2",
+  "1:3",
+];
+
+const TPS_DECODER = [
+  { text: "10%", units: "(% Peak Flow)" },
+  { text: "20%", units: "(% Peak Flow)" },
+  { text: "30%", units: "(% Peak Flow)" },
+  { text: "1.0", units: "(secs)" },
+  { text: "1.5", units: "(secs)" },
+  { text: "2.0", units: "(secs)" },
+  { text: "2.5", units: "(secs)" }
+] 
 
 const INITIAL_STATE = 0;
 const STANDBY_STATE = 1;
@@ -23,9 +48,9 @@ const ACTIVE_STATE = 2;
 const ERROR_STATE = 3;
 
 const SHAPE_MAX_CHARTS = 10;
-const SHAPE_MAX_SAMPLES_PER_BREATH = 60
-const SHAPE_MAX_SAMPLES_PER_SLICE = 12;
-const SHAPE_MAX_SLICES = 5;
+const SHAPE_MAX_SAMPLES_PER_BREATH = 64
+const SHAPE_MAX_SAMPLES_PER_SLICE = 8;
+const SHAPE_MAX_SLICES = 8;
 
 const MAX_CHART_DATAPOINTS = 60;
 const CHART_XAXIS_MAX_TICK_MARKS = 25;

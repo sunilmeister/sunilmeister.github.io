@@ -16,13 +16,13 @@ class ShapeBox {
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
-    //console.log("app.reportRange=" + app.reportRange);
-    if (!app.reportRange) {
+    //console.log("session.reportRange=" + session.reportRange);
+    if (!session.reportRange) {
       this.rangeX = null;
       return; // reportRange is a global variable
     }
 
-    this.rangeX = app.reportRange;
+    this.rangeX = session.reportRange;
     this.createChart();
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }

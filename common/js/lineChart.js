@@ -37,7 +37,7 @@ class LineChart {
       legend: {
         cursor: "pointer",
         itemclick: toggleDataSeries,
-        fontSize: app.chartFontSize
+        fontSize: session.charts.fontSize
       },
       height: height,
       backgroundColor: "#D5F3FE",
@@ -101,6 +101,10 @@ class LineChart {
       this.chart = null;
     }
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
+    console.log("lineChart render chartJson");
+    console.log(this.chartJson);
+    console.log("lineChart render chart");
+    console.log(this.chart);
     this.chart.render();
   }
 
@@ -282,6 +286,8 @@ class LineChart {
     chartData.type = this.graphType;
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = cloneObject(xyPoints);
+    // console.log("createXY dataPoints");
+    // console.log(chartData.dataPoints);
     return chartData;
   }
 

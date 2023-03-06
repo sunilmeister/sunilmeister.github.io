@@ -5,8 +5,8 @@
 var firstTimeChartsEntry = true;
 
 function createDashboardCharts() {
-  if (app.chartCreationInProgress) return;
-  app.chartCreationInProgress = true;
+  if (session.charts.creationInProgress) return;
+  session.charts.creationInProgress = true;
 
   if (numberOfExistingCharts() == 0) {
     chartInsertOnTop(); // always have chart box for user to start with
@@ -17,39 +17,40 @@ function createDashboardCharts() {
     firstTimeChartsEntry = false;
   }
 
-  for (id in app.allChartsContainerInfo) {
-    app.allChartsContainerInfo[id].render();
+  for (id in session.charts.allChartsContainerInfo) {
+    console.log("dashCharts render");
+    session.charts.allChartsContainerInfo[id].render();
   }
 
-  app.chartCreationInProgress = false;
+  session.charts.creationInProgress = false;
 }
 
 ////////////////////////////////////////////////////////
 
 function rollingChartRange() {
-  //console.log("chart rolling=" + app.reportRange.rolling);
-  minBnum = app.dashboardBreathNum - MAX_CHART_DATAPOINTS + 1;
+  //console.log("chart rolling=" + session.reportRange.rolling);
+  minBnum = session.dashboardBreathNum - MAX_CHART_DATAPOINTS + 1;
   if (minBnum <= 0) minBnum = 1;
-  app.reportRange = createReportRange(true, minBnum, app.dashboardBreathNum);
+  session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
 }
 
 function updateChartRange() {
-  app.chartRangeLimit = app.dashboardBreathNum;
-  rangeSlider.setRange([1, app.chartRangeLimit]);
+  session.charts.rangeLimit = session.dashboardBreathNum;
+  rangeSlider.setRange([1, session.charts.rangeLimit]);
 
   // if range is not "full"
-  if (!app.reportRange.rolling || sliderCommitPending) return;
-  if (app.reportRange.rolling) rollingChartRange();
+  if (!session.reportRange.rolling || sliderCommitPending) return;
+  if (session.reportRange.rolling) rollingChartRange();
 
   stopSliderCallback = true;
-  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 }
 
 function updateChartRangeOnEntry() {
-  if (!app.reportRange.rolling) return;
+  if (!session.reportRange.rolling) return;
   rollingChartRange();
   stopSliderCallback = true;
-  rangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 }

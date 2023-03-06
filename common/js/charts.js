@@ -42,10 +42,10 @@ function chartEdit(bnode) {
   template = findChildNodeByClass(temp.content, CHART_EDIT_CHART_MENU_CLASS);
   node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
-  app.chartCboxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID);
-  box = app.allChartsContainerInfo[containerNode.id];
+  session.charts.boxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID);
+  box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateMenu(CHART_EDIT_CHART_MENU_ID);
-  app.chartCboxTree.PropagateFromLeafCheckboxes();
+  session.charts.boxTree.PropagateFromLeafCheckboxes();
 }
 
 function chartDelete(bnode) {
@@ -61,7 +61,7 @@ function chartDelete(bnode) {
 }
 
 function removeChartEditMenu() {
-  if (app.chartCboxTree) delete app.chartCboxTree;
+  if (session.charts.boxTree) delete session.charts.boxTree;
   menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
   menuDiv.remove();
@@ -75,7 +75,7 @@ function chartMenuCancel(bnode) {
 
 function chartMenuSubmit(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
-  box = app.allChartsContainerInfo[containerNode.id];
+  box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateOptions(CHART_EDIT_CHART_MENU_ID);
   removeChartEditMenu();
   box.render();
@@ -95,25 +95,25 @@ function createNewChartContainer() {
 }
 
 function numberOfExistingCharts() {
-  return (Object.keys(app.allChartsContainerInfo).length);
+  return (Object.keys(session.charts.allChartsContainerInfo).length);
 }
 
 function findChartContainerId(id) {
-  obj = app.allChartsContainerInfo[id];
+  obj = session.charts.allChartsContainerInfo[id];
   if (!obj || (typeof obj == 'undefined')) return null;
   return obj;
 }
 
 function storeChartContainerId(id, chartBox) {
-  app.allChartsContainerInfo[id] = chartBox;
+  session.charts.allChartsContainerInfo[id] = chartBox;
 }
 
 function removeChartContainerId(id) {
-  delete app.allChartsContainerInfo[id];
+  delete session.charts.allChartsContainerInfo[id];
 }
 
 function chartTreeCheckboxClicked(cbox) {
-  app.chartCboxTree.CheckboxClicked(cbox);
+  session.charts.boxTree.CheckboxClicked(cbox);
 }
 
 function findAncestorChartContainerNode(node) {

@@ -4,6 +4,7 @@
 
 // Special function for Y-axis of Breath Types
 function breathTypeFormatter(e) {
+  if (e.value == NO_BREATH) return '.';
   if (e.value == SPONTANEOUS_BREATH) return 'S';
   if (e.value == MANDATORY_BREATH) return 'M';
   else return 'E';
@@ -23,13 +24,12 @@ class ChartBox {
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
-    //console.log("app.reportRange=" + app.reportRange);
-    if (!app.reportRange) {
+    if (!session.reportRange) {
       this.rangeX = null;
       return; // reportRange is a global variable
     }
 
-    this.rangeX = app.reportRange;
+    this.rangeX = session.reportRange;
     this.createChart();
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }
@@ -46,6 +46,7 @@ class ChartBox {
     document.getElementById("Mandatory").checked = this.options["Mandatory"];
     document.getElementById("Spontaneous").checked = this.options["Spontaneous"];
     document.getElementById("BreathType").checked = this.options["BreathType"];
+    document.getElementById("Static").checked = this.options["Static"];
     document.getElementById("Dynamic").checked = this.options["Dynamic"];
     document.getElementById("FiO2").checked = this.options["FiO2"];
     document.getElementById("O2Flow").checked = this.options["O2Flow"];
@@ -71,6 +72,7 @@ class ChartBox {
     this.options["Mandatory"] = document.getElementById("Mandatory").checked;
     this.options["Spontaneous"] = document.getElementById("Spontaneous").checked;
     this.options["BreathType"] = document.getElementById("BreathType").checked;
+    this.options["Static"] = document.getElementById("Static").checked;
     this.options["Dynamic"] = document.getElementById("Dynamic").checked;
     this.options["FiO2"] = document.getElementById("FiO2").checked;
     this.options["O2Flow"] = document.getElementById("O2Flow").checked;
@@ -309,7 +311,7 @@ class ChartBox {
     var paramInfo = {
       name: "O2 Flow Rate (litres/min)",
       color: "Indigo",
-      transitions: session.o2FlowValues
+      transitions: session.o2FlowX10Values
     };
 
     return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
@@ -333,7 +335,7 @@ class ChartBox {
       info: false
     };
     var paramInfo = {
-      name: "Static BPM (bpm)",
+      name: "Spontaneous BPM (bpm)",
       color: "Maroon",
       transitions: session.sbpmValues
     };
@@ -359,7 +361,7 @@ class ChartBox {
       info: false
     };
     var paramInfo = {
-      name: "Static BPM (bpm)",
+      name: "Mandatory BPM (bpm)",
       color: "Violet",
       transitions: session.mbpmValues
     };
@@ -385,7 +387,7 @@ class ChartBox {
       info: false
     };
     var paramInfo = {
-      name: "Breath TypeMandatory/Spontaneous/Error",
+      name: "BreathType Mandatory/Spontaneous/Error",
       color: "#E78A61",
       transitions: session.breathTypeValues,
       yFormat: breathTypeFormatter,

@@ -43,7 +43,6 @@
     <script src="../common/js/queue.js"></script>
     <script src="../common/js/dbSchema.js"></script>
     <script src="../common/js/sessionData.js"></script>
-    <script src="../common/js/appData.js"></script>
     <script src="../common/js/dweets.js"></script>
     <script src="../common/js/charts.js"></script>
     <script src="../common/js/shapes.js"></script>
@@ -407,7 +406,7 @@
           <div id=AlertDiv class=Alert>
             <img id=AlertImg src="img/OK.png" alt="Alarm" style="margin-top:1rem" height=70rem; width=70rem;>
           </div>
-          <div class=State>
+          <div id=StateDiv class=State>
             <img id=StateImg src="img/WhiteDot.png" alt="LED" style="margin-top:0.75rem" width="40rem" height="40rem">
             <p id=State style="font-size:1rem;"><b>INITIALIZE</b>
           </div>
@@ -533,11 +532,11 @@
 
           <div class=Breath>
             <p style="margin-top:0rem; margin-bottom:0rem; color:white; font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
-              Current
+              Previous
               <p style="margin-top:0rem; margin-bottom:0rem; color:white; font-size:1.1rem;padding-bottom:0.5rem; background-color:var(--rsp_darkblue);">
                 Breath
                 <p id=BreathType style="margin-top:1rem; margin-bottom:1rem; font-size:1rem; font-weight: bold;">
-                  ___
+                  None
                   <div>
                     <img id=ImgBreath src="img/WhiteDot.png" alt="LED" style="margin-top:0.5rem" width="30rem" height="30rem">
                   </div>

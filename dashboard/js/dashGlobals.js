@@ -53,8 +53,6 @@ var alertImage = "OK";
 var blinkInterval = 0;
 var prevBlinkTimeInMs = (new Date()).getTime();
 
-var somethingPending = false;
-
 var blueColor;
 var darkblueColor;
 var darkredColor;
@@ -97,3 +95,88 @@ var stopSliderCallback = false;
 var sliderDiv = null;
 var rangeWindowDiv = null;
 var rangeSlider = null;
+
+// Various HTML divs for updating
+var stateDIV = null;
+var pline1DIV = null;
+var pline2DIV = null;
+var pline3DIV = null;
+var sbpmDIV = null;
+var mbpmDIV = null;
+var vtdelDIV = null;
+var mvdelDIV = null;
+var scompDIV = null;
+var dcompDIV = null;
+var altfDIV = null;
+var altmDIV = null;
+var breathTypeDIV = null;
+var tpsDIV = null;
+var tpsUnitsDIV = null;
+var imgStateDIV = null;
+var imgBreathDIV = null;
+
+var sbpmValELM = null;
+var mbpmValELM = null;
+var vtdelValELM = null;
+var mvdelValELM = null;
+var scompValELM = null;
+var dcompValELM = null;
+var breathTypeValELM = null;
+var tpsValELM = null;
+var vtValELM = null;
+var pmaxValELM = null;
+var ipeepValELM = null;
+var psValELM = null;
+var modeValELM = null;
+var tpsValELM = null;
+var ieValELM = null;
+var rrValELM = null;
+
+function initDivElements() {
+  stateDIV = document.getElementById("StateDiv");
+  pline1DIV = document.getElementById("Pline1");
+  pline2DIV = document.getElementById("Pline2");
+  pline3DIV = document.getElementById("Pline3");
+  stateDIV = document.getElementById("State");
+  sbpmDIV = document.getElementById("SBPM");
+  mbpmDIV = document.getElementById("MBPM");
+  vtdelDIV = document.getElementById("VTDEL");
+  mvdelDIV = document.getElementById("MVDEL");
+  scompDIV = document.getElementById("SCOMP");
+  dcompDIV = document.getElementById("DCOMP");
+  altfDIV = document.getElementById("AltF");
+  altmDIV = document.getElementById("AltM");
+  breathTypeDIV = document.getElementById("BreathType");
+  tpsDIV = document.getElementById("TPS");
+  tpsUnitsDIV = document.getElementById("TPS_UNITS");
+  imgStateDIV = document.getElementById("StateImg")
+  imgBreathDIV = document.getElementById("ImgBreath");
+
+  vtDIV = document.getElementById("VTDiv");
+  pmaxDIV = document.getElementById("PMAXDiv");
+  ipeepDIV = document.getElementById("IPEEPDiv");
+  psDIV = document.getElementById("PSDiv");
+  modeDIV = document.getElementById("MODEDiv");
+  tpsDIV = document.getElementById("TPSDiv");
+  ieDIV = document.getElementById("IEDiv");
+  rrDIV = document.getElementById("RRDiv");
+
+  sbpmValELM = document.getElementById("SBPM");
+  mbpmValELM = document.getElementById("MBPM");
+  vtdelValELM = document.getElementById("VTDEL");
+  mvdelValELM = document.getElementById("MVDEL");
+  scompValELM = document.getElementById("SCOMP");
+  dcompValELM = document.getElementById("DCOMP");
+  breathTypeValELM = document.getElementById("BreathType");
+  tpsValELM = document.getElementById("TPS");
+  tpsUnitsValELM = document.getElementById("TPS_UNITS");
+  vtValELM = document.getElementById("VT");
+  pmaxValELM = document.getElementById("PMAX");
+  ipeepValELM = document.getElementById("IPEEP");
+  psValELM = document.getElementById("PS");
+  modeValELM = document.getElementById("MODE");
+  ieValELM = document.getElementById("IE");
+  rrValELM = document.getElementById("RR");
+}
+  
+  

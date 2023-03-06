@@ -22,8 +22,8 @@ function setTimeInterval(btn) {
   values = dashboardRangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveRange = app.reportRange;
-  app.reportRange = createReportRange(false, bmin, bmax);
+  saveRange = session.reportRange;
+  session.reportRange = createReportRange(false, bmin, bmax);
 
   createDashboards();
   sliderCommitPending = false;
@@ -33,11 +33,11 @@ function cancelTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
   if (saveRange) {
-    app.reportRange = saveRange;
+    session.reportRange = saveRange;
   } else {
-    app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
+    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   }
-  dashboardRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  dashboardRangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
 
   sliderCommitPending = false;
 }
@@ -45,8 +45,8 @@ function cancelTimeInterval(btn) {
 function resetTimeInterval(btn) {
   saveRange = null;
   unflashBreathWindowButtons();
-  app.reportRange = createReportRange(true, 1, app.dashboardBreathNum);
-  dashboardRangeSlider.setSlider([app.reportRange.minBnum, app.reportRange.maxBnum]);
+  session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
+  dashboardRangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
 
   createDashboards();
   sliderCommitPending = false;

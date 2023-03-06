@@ -38,10 +38,10 @@ function shapeEdit(bnode) {
   template = findChildNodeByClass(temp.content, SHAPE_EDIT_SHAPE_MENU_CLASS);
   node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
-  app.shapeCboxTree = new CheckboxTree(SHAPE_CBOX_TREE_ROOT_ID);
-  box = app.allShapesContainerInfo[containerNode.id];
+  session.shapes.boxTree = new CheckboxTree(SHAPE_CBOX_TREE_ROOT_ID);
+  box = session.shapes.allShapesContainerInfo[containerNode.id];
   box.updateMenu(SHAPE_EDIT_SHAPE_MENU_ID);
-  app.shapeCboxTree.PropagateFromLeafCheckboxes();
+  session.shapes.boxTree.PropagateFromLeafCheckboxes();
 }
 
 function shapeDelete(bnode) {
@@ -57,7 +57,7 @@ function shapeDelete(bnode) {
 }
 
 function removeShapeEditMenu() {
-  if (app.shapeCboxTree) delete app.shapeCboxTree;
+  if (session.shapes.boxTree) delete session.shapes.boxTree;
   menuDiv = document.getElementById(SHAPE_EDIT_SHAPE_MENU_ID);
   if (!menuDiv) return;
   menuDiv.remove();
@@ -71,7 +71,7 @@ function shapeMenuCancel(bnode) {
 
 function shapeMenuSubmit(bnode) {
   containerNode = findAncestorShapeContainerNode(bnode);
-  box = app.allShapesContainerInfo[containerNode.id];
+  box = session.shapes.allShapesContainerInfo[containerNode.id];
   box.updateOptions(SHAPE_EDIT_SHAPE_MENU_ID);
   removeShapeEditMenu();
   box.render();
@@ -91,25 +91,25 @@ function createNewShapeContainer() {
 }
 
 function numberOfExistingShapes() {
-  return (Object.keys(app.allShapesContainerInfo).length);
+  return (Object.keys(session.shapes.allShapesContainerInfo).length);
 }
 
 function findShapeContainerId(id) {
-  obj = app.allShapesContainerInfo[id];
+  obj = session.shapes.allShapesContainerInfo[id];
   if (!obj || (typeof obj == 'undefined')) return null;
   return obj;
 }
 
 function storeShapeContainerId(id, shapeBox) {
-  app.allShapesContainerInfo[id] = shapeBox;
+  session.shapes.allShapesContainerInfo[id] = shapeBox;
 }
 
 function removeShapeContainerId(id) {
-  delete app.allShapesContainerInfo[id];
+  delete session.shapes.allShapesContainerInfo[id];
 }
 
 function shapeTreeCheckboxClicked(cbox) {
-  app.shapeCboxTree.CheckboxClicked(cbox);
+  session.shapes.boxTree.CheckboxClicked(cbox);
 }
 
 function findAncestorShapeContainerNode(node) {

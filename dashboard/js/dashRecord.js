@@ -187,9 +187,9 @@ function processRecordDweet(d) {
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     if (doRecord) {
-      if (db && app.sessionVersion == 'UNKNOWN') {
-        app.sessionVersion = SESSION_VERSION;
-        d.content.SESSION_VERSION = app.sessionVersion;
+      if (db && session.sessionVersion == 'UNKNOWN') {
+        session.sessionVersion = SESSION_VERSION;
+        d.content.SESSION_VERSION = session.sessionVersion;
       }
       if (!prevDweetRecorded) {
         // Add on the accumulated state first
