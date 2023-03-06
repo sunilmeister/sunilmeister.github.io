@@ -56,7 +56,7 @@ function selectDbRow(row) {
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
-  app.sessionDbName = dbName;
+  session.sessionDbName = dbName;
   var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   sessionBannerHTML = sessionInfo.innerHTML;
@@ -156,22 +156,22 @@ function doDeleteAllDbs() {
 }
 
 function checkDbReady() {
-  if (app.sessionDbReady && app.sessionDbName) {
-    if (app.sessionVersion != SESSION_VERSION) {
+  if (session.sessionDbReady && session.sessionDbName) {
+    if (session.sessionVersion != SESSION_VERSION) {
       modalAlert("VERSION MISMATCH",
-        "Session recorded with Software Version " + app.sessionVersion +
+        "Session recorded with Software Version " + session.sessionVersion +
         "\nCurrent Software Version is " + SESSION_VERSION +
-        "\n\nOlder Version " + app.sessionVersion + " not supported");
+        "\n\nOlder Version " + session.sessionVersion + " not supported");
       return false;
     }
     return true;
   }
 
-  if (!app.sessionDbName) {
+  if (!session.sessionDbName) {
     modalAlert('No Session Selected","Please Select Session for Analysis');
     return false;
   }
-  nameTm = parseDbName(app.sessionDbName);
+  nameTm = parseDbName(session.sessionDbName);
   sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
   modalAlert('Session ' + sessionName + '\nNot yet ready","Please try again');
   return false;
@@ -181,7 +181,7 @@ function selectSession() {
   undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
 
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
 
   listAllDbs();
 }
@@ -189,12 +189,12 @@ function selectSession() {
 function selectImport() {
   document.getElementById("importDiv").style.display = "block";
   document.getElementById("importSessionName").value = "Imported Session";
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
 }
 
 function selectExport() {
   exportDbRow(exportRowDiv);
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
 }
 
 function selectStats() {
@@ -207,7 +207,7 @@ function selectStats() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
 
   displayStats();
@@ -223,7 +223,7 @@ function selectAlerts() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
 
   displayAlerts();
@@ -239,7 +239,7 @@ function selectShapes() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnShape").disabled = true;
 
   displayShapes();
@@ -255,7 +255,7 @@ function selectCharts() {
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
 
   displayCharts();
@@ -270,7 +270,7 @@ function selectRawData() {
   var sessionInfo = document.getElementById("sessionNameData");
   sessionInfo.innerHTML = sessionBannerHTML;
 
-  if (app.sessionDataValid) enableAllButtons();
+  if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnRaw").disabled = true;
 
   displayRawData();
@@ -286,8 +286,8 @@ function initSession(dbName) {
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    app.sessionDbReady = true;
-    app.sessionDbName = dbName;
+    session.sessionDbReady = true;
+    session.sessionDbName = dbName;
     var tx = db.transaction(dbObjStoreName, 'readonly');
     var store = tx.objectStore(dbObjStoreName);
     var keyReq = store.getAllKeys();
@@ -298,13 +298,13 @@ function initSession(dbName) {
         modalAlert("Selected Session has no data", "");
         return;
       }
-      app.logStartTime = new Date(keys[0]);
-      app.logStartTime.setMilliseconds(0);
-      app.logEndTime = new Date(keys[keys.length - 1]);
-      app.logEndTime.setMilliseconds(0);
-      app.analysisStartTime = new Date(app.logStartTime);
-      app.analysisEndTime = new Date(app.logEndTime);
-      app.startDate = app.logStartTime;
+      session.analyzer.logStartTime = new Date(keys[0]);
+      session.analyzer.logStartTime.setMilliseconds(0);
+      session.analyzer.logEndTime = new Date(keys[keys.length - 1]);
+      session.analyzer.logEndTime.setMilliseconds(0);
+      session.analyzer.analysisStartTime = new Date(session.analyzer.logStartTime);
+      session.analyzer.analysisEndTime = new Date(session.analyzer.logEndTime);
+      session.startDate = session.analyzer.logStartTime;
 
       updateSelectedDuration();
       updateLogDuration();
@@ -360,7 +360,7 @@ function undisplayAllPanes() {
 
 function checkValidAnalysisDuration() {
   //return true;
-  var diff = app.analysisEndTime - app.analysisStartTime;
+  var diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
   if (diff <= 0) {
     modalAlert("Analysis EndTime must be greater than StartTime", "");
     return false;
@@ -368,7 +368,7 @@ function checkValidAnalysisDuration() {
 }
 
 function updateLogDuration() {
-  var diff = app.logEndTime - app.logStartTime;
+  var diff = session.analyzer.logEndTime - session.analyzer.logStartTime;
   elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
@@ -379,7 +379,7 @@ function updateLogDuration() {
 
 function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
-  var diff = app.analysisEndTime - app.analysisStartTime;
+  var diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
   } else {
@@ -387,13 +387,13 @@ function updateSelectedDuration() {
   }
 
   elm = document.getElementById("selectedBreathRange");
-  elm.innerHTML = String(app.analysisStartBreath) + ',' + app.analysisEndBreath;
+  elm.innerHTML = String(session.analyzer.analysisStartBreath) + ',' + session.analyzer.analysisEndBreath;
   elm = document.getElementById("priorNumBreaths");
-  elm.innerHTML = String(app.startSystemBreathNum - 1);
+  elm.innerHTML = String(session.startSystemBreathNum - 1);
 }
 
 function setAnalysisRanges(rolling) {
-  app.reportRange = createReportRange(rolling, app.analysisStartBreath, app.analysisEndBreath);
+  session.reportRange = createReportRange(rolling, session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath);
 }
 
 function refreshActivePane() {
@@ -422,11 +422,11 @@ function setTimeInterval() {
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
-  app.analysisStartBreath = s;
-  app.analysisEndBreath = e;
-  app.analysisStartTime = session.breathTimes[s];
-  app.analysisEndTime = session.breathTimes[e];
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+  session.analyzer.analysisStartBreath = s;
+  session.analyzer.analysisEndBreath = e;
+  session.analyzer.analysisStartTime = session.breathTimes[s];
+  session.analyzer.analysisEndTime = session.breathTimes[e];
+  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
 
   setAnalysisRanges(false);
   updateSelectedDuration();
@@ -447,11 +447,11 @@ function setFullInterval() {
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
-  app.analysisStartBreath = s;
-  app.analysisEndBreath = e;
-  app.analysisStartTime = session.breathTimes[s];
-  app.analysisEndTime = session.breathTimes[e];
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+  session.analyzer.analysisStartBreath = s;
+  session.analyzer.analysisEndBreath = e;
+  session.analyzer.analysisStartTime = session.breathTimes[s];
+  session.analyzer.analysisEndTime = session.breathTimes[e];
+  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
 
   setAnalysisRanges(false);
   updateSelectedDuration();
@@ -463,18 +463,18 @@ function cancelTimeInterval() {
   if (!sliderCommitPending) return;
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
   updateSelectedDuration();
 }
 
 function resetTimeInterval() {
   sliderCommitPending = false;
   unflashAnalysisWindowButtons();
-  app.analysisStartBreath = app.logStartBreath;
-  app.analysisEndBreath = app.logEndBreath;
-  app.analysisStartTime = app.logStartTime;
-  app.analysisEndTime = app.logEndTime;
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+  session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
+  session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
+  session.analyzer.analysisStartTime = session.analyzer.logStartTime;
+  session.analyzer.analysisEndTime = session.analyzer.logEndTime;
+  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
 
   setAnalysisRanges(true);
   updateSelectedDuration();
@@ -487,18 +487,18 @@ function resetTimeInterval() {
 function analysisGatherDoneCallback() {
   if (!checkDbReady()) return;
 
-  app.sessionDataValid = true;
-  app.sessionDbReady = true;
+  session.sessionDataValid = true;
+  session.sessionDbReady = true;
 
-  app.logStartBreath = 1;
-  app.logEndBreath = session.breathTimes.length - 1;
+  session.analyzer.logStartBreath = 1;
+  session.analyzer.logEndBreath = session.breathTimes.length - 1;
 
-  app.analysisStartBreath = app.logStartBreath;
-  app.analysisEndBreath = app.logEndBreath;
-  app.analysisStartTime = app.logStartTime;
-  app.analysisEndTime = app.logEndTime;
+  session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
+  session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
+  session.analyzer.analysisStartTime = session.analyzer.logStartTime;
+  session.analyzer.analysisEndTime = session.analyzer.logEndTime;
 
-  if (app.logEndBreath == 0) {
+  if (session.analyzer.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "Select another session");
     return;
   }
@@ -514,20 +514,19 @@ window.onload = function () {
   showZoomReminder(600);
 
   // Create data objects
-  app = cloneObject(AppDataTemplate);
-  app.appId = ANALYZER_APP_ID;
-  app.chartFontSize = 15;
-  app.shapeLabelFontSize = 15;
-  app.shapeLegendFontSize = 20;
-  app.shapeTitleFontSize = 30;
-  app.stripLineFontSize = 20;
   session = cloneObject(SessionDataTemplate);
+  session.appId = ANALYZER_APP_ID;
+  session.charts.fontSize = 15;
+  session.shapes.labelFontSize = 15;
+  session.shapes.legendFontSize = 20;
+  session.shapes.titleFontSize = 30;
+  session.shapes.stripLineFontSize = 20;
 
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
-  app.sessionDataValid = false;
-  app.sessionDbName = "";
-  app.sessionDbReady = false;
+  session.sessionDataValid = false;
+  session.sessionDbName = "";
+  session.sessionDbReady = false;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   var sessionInfo = document.getElementById("sessionNameSelector");
@@ -560,7 +559,7 @@ window.onload = function () {
   //console.log("menuBarHeight = " + menuBarHeight);
   //console.log("menuBarWidth = " + menuBarWidth);
 
-  app.reportRange = createReportRange(false, 0, 0);
+  session.reportRange = createReportRange(false, 0, 0);
 
   resetAnalysisData();
   selectSession();
@@ -628,8 +627,8 @@ function unflashAnalysisWindowButtons() {
 var cumulativeChartBreaths = 0;
 
 function updateRangeOnNewBreath(num) {
-  app.reportRange.minBnum = 1;
-  app.reportRange.maxBnum += num;
+  session.reportRange.minBnum = 1;
+  session.reportRange.maxBnum += num;
 }
 
 function createAnalysisRangeSlider() {
@@ -638,29 +637,29 @@ function createAnalysisRangeSlider() {
     analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
     analysisRangeSlider = new IntRangeSlider(
       analysisRangeSliderDiv,
-      app.analysisStartBreath,
-      app.analysisEndBreath,
-      app.analysisStartBreath,
-      app.analysisEndBreath,
+      session.analyzer.analysisStartBreath,
+      session.analyzer.analysisEndBreath,
+      session.analyzer.analysisStartBreath,
+      session.analyzer.analysisEndBreath,
       1
     );
     analysisRangeSlider.setChangeCallback(analysisRangeSliderCallback);
   }
 
-  analysisRangeSlider.setRange([app.logStartBreath, app.logEndBreath]);
-  analysisRangeSlider.setSlider([app.analysisStartBreath, app.analysisEndBreath]);
+  analysisRangeSlider.setRange([session.analyzer.logStartBreath, session.analyzer.logEndBreath]);
+  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
 
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "none";
   elm = document.getElementById("logNumBreaths");
-  elm.innerHTML = app.analysisEndBreath;
+  elm.innerHTML = session.analyzer.analysisEndBreath;
 
   setAnalysisRanges(true);
   updateSelectedDuration();
 
   unflashAnalysisWindowButtons();
 
-  if (app.logEndBreath == 0) {
+  if (session.analyzer.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "");
   }
 }

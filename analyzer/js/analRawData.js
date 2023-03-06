@@ -34,7 +34,7 @@ function initRawDump() {
 
 function displayRawData() {
   //console.log("displayRawData");
-  if (!app.sessionDataValid) {
+  if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }

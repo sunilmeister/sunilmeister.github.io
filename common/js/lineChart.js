@@ -101,10 +101,6 @@ class LineChart {
       this.chart = null;
     }
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
-    console.log("lineChart render chartJson");
-    console.log(this.chartJson);
-    console.log("lineChart render chart");
-    console.log(this.chart);
     this.chart.render();
   }
 
@@ -135,7 +131,6 @@ class LineChart {
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
-      //console.log(missingWindows);
       Xaxis.scaleBreaks = {};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
@@ -286,8 +281,6 @@ class LineChart {
     chartData.type = this.graphType;
     chartData.showInLegend = !noLegend;
     chartData.dataPoints = cloneObject(xyPoints);
-    // console.log("createXY dataPoints");
-    // console.log(chartData.dataPoints);
     return chartData;
   }
 

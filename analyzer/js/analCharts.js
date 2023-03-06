@@ -10,8 +10,8 @@ function createAnalysisCharts() {
     firstTimeChartsEntry = false;
   }
 
-  for (id in app.allChartsContainerInfo) {
-    app.allChartsContainerInfo[id].render();
+  for (id in session.charts.allChartsContainerInfo) {
+    session.charts.allChartsContainerInfo[id].render();
   }
 }
 
@@ -19,7 +19,7 @@ function createAnalysisCharts() {
 
 function displayCharts() {
   //console.log("displayCharts");
-  if (!app.sessionDataValid) {
+  if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }

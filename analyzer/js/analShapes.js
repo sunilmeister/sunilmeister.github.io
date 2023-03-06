@@ -10,14 +10,14 @@ function createAnalysisShapes() {
     firstTimeShapesEntry = false;
   }
 
-  for (id in app.allShapesContainerInfo) {
-    app.allShapesContainerInfo[id].render();
+  for (id in session.shapes.allShapesContainerInfo) {
+    session.shapes.allShapesContainerInfo[id].render();
   }
 }
 
 function displayShapes() {
   //console.log("displayShapes");
-  if (!app.sessionDataValid) {
+  if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
