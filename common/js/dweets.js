@@ -556,16 +556,16 @@ function processMiscDweet(curTime, jsonStr) {
   saveSnapValue("altitude", "miscData", curTime, obj);
 }
 
-function saveSnapValue(paramName, objName, curTime, newObj) {
-  value = newObj[paramName];
+function saveSnapValue(paramName, parentName, curTime, newVal) {
+  value = newVal[paramName];
   if (value === null) return;
-  if (value == session[objName][paramName]) return;
+  if (value == session[parentName][paramName]) return;
 
-  session[objName][paramName] = value;
+  session[parentName][paramName] = value;
 }
 
-function saveComboValue(paramName, objName, uniqArrName, curTime, newObj) {
-  value = newObj[paramName];
+function saveComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
+  value = newVal[paramName];
   if (value === null) return;
 
   session.currParamCombo.value[paramName] = value;
@@ -578,15 +578,15 @@ function saveComboValue(paramName, objName, uniqArrName, curTime, newObj) {
   }
 }
 
-function saveSnapComboValue(paramName, objName, uniqArrName, curTime, newObj) {
+function saveSnapComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
   // first check for combo
-  saveComboValue(paramName, objName, uniqArrName, curTime, newObj);
-  saveSnapValue(paramName, objName, curTime, newObj);
+  saveComboValue(paramName, parentName, uniqArrName, curTime, newVal);
+  saveSnapValue(paramName, parentName, curTime, newVal);
 }
 
-function saveTransValue(paramName, objName, valArrName, curTime, newObj) {
-  value = newObj[paramName];
-  if (value == session[objName][paramName]) return; // no transition
+function saveTransValue(paramName, parentName, valArrName, curTime, newVal) {
+  value = newVal[paramName];
+  if (value == session[parentName][paramName]) return; // no transition
 
   if (value !== null) {
     session[valArrName].push({
@@ -601,16 +601,16 @@ function saveTransValue(paramName, objName, valArrName, curTime, newObj) {
   }
 }
 
-function saveSnapComboTransValue(paramName, objName, uniqArrName, valArrName, curTime, newObj) {
+function saveSnapComboTransValue(paramName, parentName, uniqArrName, valArrName, curTime, newVal) {
   // first check for transition
-  saveTransValue(paramName, objName, valArrName, curTime, newObj);
-  saveSnapComboValue(paramName, objName, uniqArrName, curTime, newObj);
+  saveTransValue(paramName, parentName, valArrName, curTime, newVal);
+  saveSnapComboValue(paramName, parentName, uniqArrName, curTime, newVal);
 }
 
-function saveSnapTransValue(paramName, objName, valArrName, curTime, newObj) {
+function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) {
   // first check for transition
-  saveTransValue(paramName, objName, valArrName, curTime, newObj);
-  saveSnapValue(paramName, objName, curTime, newObj);
+  saveTransValue(paramName, parentName, valArrName, curTime, newVal);
+  saveSnapValue(paramName, parentName, curTime, newVal);
 }
 
 function processBnumDweet(curTime, value, jsonData) {
