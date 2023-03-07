@@ -264,6 +264,7 @@ function updateSnapshot() {
     // Input settings params
     else if (key == 'PARAM') {
       updateParamDivsFromSessionData();
+      updatePending(session.paramDataOnDisplay.pending);
     }
 
     // fio2
