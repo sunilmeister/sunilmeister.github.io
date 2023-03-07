@@ -326,8 +326,9 @@ function displayStats() {
   displayAlertsInfo();
 
   el = document.getElementById("altitude");
-  el.innerHTML = "System Deployment Altitude: " 
-    + replaceDummyValue(session.miscData.altitude);
+  el.innerHTML = "System Deployment Altitude: (" 
+    + session.miscData.altitude + " ft) or ("
+    + Math.floor(session.miscData.altitude * 0.305) + " mtrs)" ;
 }
 
 function initStats() {

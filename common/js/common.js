@@ -11,12 +11,6 @@ var db = null;
 var dbReady = false;
 var dbName = "";
 var allDbKeys = {};
-var logStartTime = new Date();
-var logEndTime = new Date();
-var analysisStartTime = new Date();
-var analysisEndTime = new Date();
-var analysisStartBreath = 0;
-var analysisEndBreath = 0;
 
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
