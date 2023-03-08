@@ -54,25 +54,10 @@ function validFloatNumber(num) {
   return false;
 }
 
-function cloneObject(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
 
-function shallowEqualObj(object1, object2) {
-  const keys1 = Object.keys(object1);
-  const keys2 = Object.keys(object2);
-  if (keys1.length !== keys2.length) {
-    return false;
-  }
-  for (let key of keys1) {
-    if (object1[key] !== object2[key]) {
-      return false;
-    }
-  }
-  return true;
-}
-
-  function parseJSONSafely(str) {
+function isObject(object) {
+  return object != null && typeof object === 'object';
+}  function parseJSONSafely(str) {
   try {
     return JSON.parse(str);
   } catch (e) {
@@ -81,6 +66,30 @@ function shallowEqualObj(object1, object2) {
     // Return a default object, or null based on use case.
     return null;
   }
+}
+
+function cloneObject(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function equalObj(object1, object2) {
+  const keys1 = Object.keys(object1);
+  const keys2 = Object.keys(object2);
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  for (const key of keys1) {
+    const val1 = object1[key];
+    const val2 = object2[key];
+    const areObjects = isObject(val1) && isObject(val2);
+    if (
+      (areObjects && !equalObj(val1, val2)) ||
+      (!areObjects && (val1 !== val2))
+    ) {
+      return false;
+    }
+  }
+  return true;
 }
 
 // The return value is an object with following boolean fields
