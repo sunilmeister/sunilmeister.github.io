@@ -428,7 +428,7 @@ function processStateDweet(curTime, jsonStr) {
 
   obj.prevState = session.stateData.state;
   session.stateData = obj;
-  session.stateValues.push({
+  session.stateChanges.push({
     "time": curTime,
     "value": obj.state
   });
@@ -488,9 +488,9 @@ function processFiO2Dweet(curTime, jsonStr) {
   obj = parseFiO2Data(jsonStr);
   if (!obj) return;
 
-  saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2s", "fiO2Values", curTime, obj);
-  saveSnapComboTransValue("o2Purity", "fiO2Data", "o2Puritys", "o2PurityValues", curTime, obj);
-  saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10s", "o2FlowX10Values", curTime, obj);
+  saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2s", "fiO2Changes", curTime, obj);
+  saveSnapComboTransValue("o2Purity", "fiO2Data", "o2Puritys", "o2PurityChanges", curTime, obj);
+  saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10s", "o2FlowX10Changes", curTime, obj);
 }
 
 function processMinuteDweet(curTime, jsonStr) {
@@ -500,9 +500,9 @@ function processMinuteDweet(curTime, jsonStr) {
     obj.mvdel = parseFloat(obj.mvdel/1000).toFixed(1);
   }
 
-  saveSnapTransValue("mbpm", "minuteData", "mbpmValues", curTime, obj);
-  saveSnapTransValue("sbpm", "minuteData", "sbpmValues", curTime, obj);
-  saveSnapTransValue("mvdel", "minuteData", "mvdelValues", curTime, obj);
+  saveSnapTransValue("mbpm", "minuteData", "mbpmChanges", curTime, obj);
+  saveSnapTransValue("sbpm", "minuteData", "sbpmChanges", curTime, obj);
+  saveSnapTransValue("mvdel", "minuteData", "mvdelChanges", curTime, obj);
 }
 
 function processBreathDweet(curTime, jsonStr) {
@@ -510,11 +510,11 @@ function processBreathDweet(curTime, jsonStr) {
   if (!obj) return;
   if (session.stateData.error) obj.type = MAINTENANCE_BREATH;
 
-  saveSnapTransValue("peak", "breathData", "peakValues", curTime, obj);
-  saveSnapTransValue("plat", "breathData", "platValues", curTime, obj);
-  saveSnapTransValue("mpeep", "breathData", "mpeepValues", curTime, obj);
-  saveSnapTransValue("vtdel", "breathData", "vtdelValues", curTime, obj);
-  saveSnapTransValue("type", "breathData", "breathTypeValues", curTime, obj);
+  saveSnapTransValue("peak", "breathData", "peakChanges", curTime, obj);
+  saveSnapTransValue("plat", "breathData", "platChanges", curTime, obj);
+  saveSnapTransValue("mpeep", "breathData", "mpeepChanges", curTime, obj);
+  saveSnapTransValue("vtdel", "breathData", "vtdelChanges", curTime, obj);
+  saveSnapTransValue("type", "breathData", "breathTypeChanges", curTime, obj);
 }
 
 function processComplianceDweet(curTime, jsonStr) {
@@ -523,15 +523,15 @@ function processComplianceDweet(curTime, jsonStr) {
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
   if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
 
-  saveSnapTransValue("scomp", "complianceData", "scompValues", curTime, obj);
-  saveSnapTransValue("dcomp", "complianceData", "dcompValues", curTime, obj);
+  saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
+  saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
 }
 
 function processMiscDweet(curTime, jsonStr) {
   obj = parseMiscData(jsonStr);
   if (!obj) return;
 
-  saveSnapTransValue("tempC", "miscData", "tempValues", curTime, obj);
+  saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
   saveSnapValue("altitude", "miscData", curTime, obj);
 }
 
@@ -644,7 +644,7 @@ function processBnumDweet(curTime, value, jsonData) {
       'L4': "Packet loss"
     };
     session.infoMsgs.push(msg);
-    session.infoValues.push({
+    session.infoChanges.push({
       "time": curTime,
       "value": ++session.alerts.infoNum
     });
@@ -698,7 +698,7 @@ function processAlertDweet(curTime, jsonData) {
      }
      session.alerts.lastWarningTime = curTime;
      session.alerts.expectWarningMsg = true;
-     session.warningValues.push({
+     session.warningChanges.push({
        "time": curTime,
        "value": ++session.alerts.warningNum
      });
@@ -716,7 +716,7 @@ function processAlertDweet(curTime, jsonData) {
    }
    session.alerts.lastErrorTime = curTime;
    session.alerts.expectErrorMsg = true;
-   session.errorValues.push({
+   session.errorChanges.push({
      "time": curTime,
      "value": ++session.alerts.errorNum
    });

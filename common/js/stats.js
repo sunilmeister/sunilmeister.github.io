@@ -194,7 +194,7 @@ function formUsedParamString(extractedObj, paramName) {
 }
 
 function displayBreathTypeInfo() {
-  var arr = statComputer.rangeArray(session.breathTypeValues);
+  var arr = statComputer.rangeArray(session.breathTypeChanges);
   var nm = 0;
   var ns = 0;
   var ne = 0;
@@ -214,7 +214,7 @@ function displayBreathTypeInfo() {
   el.innerHTML = replaceDummyValue(ne);
 
 
-  arr = statComputer.filterValues(session.missingBreathWindows);
+  arr = statComputer.filterChanges(session.missingBreathWindows);
   var n = 0;
   for (let i = 0; i < arr.length; i++) {
     obj = arr[i];
@@ -225,17 +225,17 @@ function displayBreathTypeInfo() {
 }
 
 function displayMinMaxAvg() {
-  fillMinMaxAvgRow("peakMin", "peakMax", "peakAvg", session.peakValues);
-  fillMinMaxAvgRow("platMin", "platMax", "platAvg", session.platValues);
-  fillMinMaxAvgRow("mpeepMin", "mpeepMax", "mpeepAvg", session.mpeepValues);
-  fillMinMaxAvgRow("vtMin", "vtMax", "vtAvg", session.vtdelValues);
-  fillMinMaxAvgRow("mvMin", "mvMax", "mvAvg", session.mvdelValues);
-  fillMinMaxAvgRow("mbpmMin", "mbpmMax", "mbpmAvg", session.mbpmValues);
-  fillMinMaxAvgRow("sbpmMin", "sbpmMax", "sbpmAvg", session.sbpmValues);
-  fillMinMaxAvgRow("fiO2Min", "fiO2Max", "fiO2Avg", session.fiO2Values);
-  fillMinMaxAvgRow("scMin", "scMax", "scAvg", session.scompValues);
-  fillMinMaxAvgRow("dcMin", "dcMax", "dcAvg", session.dcompValues);
-  fillMinMaxAvgRow("tempMin", "tempMax", "tempAvg", session.tempValues);
+  fillMinMaxAvgRow("peakMin", "peakMax", "peakAvg", session.peakChanges);
+  fillMinMaxAvgRow("platMin", "platMax", "platAvg", session.platChanges);
+  fillMinMaxAvgRow("mpeepMin", "mpeepMax", "mpeepAvg", session.mpeepChanges);
+  fillMinMaxAvgRow("vtMin", "vtMax", "vtAvg", session.vtdelChanges);
+  fillMinMaxAvgRow("mvMin", "mvMax", "mvAvg", session.mvdelChanges);
+  fillMinMaxAvgRow("mbpmMin", "mbpmMax", "mbpmAvg", session.mbpmChanges);
+  fillMinMaxAvgRow("sbpmMin", "sbpmMax", "sbpmAvg", session.sbpmChanges);
+  fillMinMaxAvgRow("fiO2Min", "fiO2Max", "fiO2Avg", session.fiO2Changes);
+  fillMinMaxAvgRow("scMin", "scMax", "scAvg", session.scompChanges);
+  fillMinMaxAvgRow("dcMin", "dcMax", "dcAvg", session.dcompChanges);
+  fillMinMaxAvgRow("tempMin", "tempMax", "tempAvg", session.tempChanges);
 }
 
 function displayParamUsage() {
@@ -278,7 +278,7 @@ function displayPatientInfo() {
 
 function displayAlertsInfo() {
 
-  var arr = statComputer.filterValues(session.infoValues);
+  var arr = statComputer.filterChanges(session.infoChanges);
   var n = 0;
   for (i = 0; i < arr.length; i++) {
     if (arr[i].value) n++;
@@ -286,7 +286,7 @@ function displayAlertsInfo() {
   el = document.getElementById("numNotifications");
   el.innerHTML = replaceDummyValue(n);
 
-  arr = statComputer.filterValues(session.warningValues);
+  arr = statComputer.filterChanges(session.warningChanges);
   n = 0;
   for (i = 0; i < arr.length; i++) {
     if (arr[i].value) n++;
@@ -294,7 +294,7 @@ function displayAlertsInfo() {
   el = document.getElementById("numWarnings");
   el.innerHTML = replaceDummyValue(n);
 
-  arr = statComputer.filterValues(session.errorValues);
+  arr = statComputer.filterChanges(session.errorChanges);
   n = 0;
   for (i = 0; i < arr.length; i++) {
     if (arr[i].value) n++;

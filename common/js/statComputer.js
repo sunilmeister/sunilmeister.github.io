@@ -21,7 +21,7 @@ class StatComputer {
     this.initialize();
   }
 
-  filterValues(transitions) {
+  filterChanges(transitions) {
     return this.filter(transitions, false);
   }
 
