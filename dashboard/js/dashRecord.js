@@ -1,10 +1,87 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
+function acceptRecordingName() {
+  suffix = document.getElementById('recordName').value;
+  dbName = getNewDbName(suffix);
+  if (!dbName) return;
+  createOrOpenDb(dbName, session.recorder.creationTimeStamp);
+  InitRecorder();
+  elm = document.getElementById('recordSessionName');
+  arr = parseDbName(dbName);
+  elm.innerHTML = arr[1] + " [" + arr[2] + "]";
+
+  btn = document.getElementById('recordButton');
+  btn.innerHTML = "Pause Recording";
+  document.getElementById('recordNameDiv').style.display = "none";
+
+  session.recorder.off = false;
+  session.recorder.paused = false;
+  btn = document.getElementById("recordButton");
+  btn.innerHTML = "Stop Recording";
+  updateDashboardAndRecordingStatus();
+}
+
+function startRecording() {
+  // check for browser capability
+  if (!window.indexedDB) {
+    modalAlert("IndexedDB not available in your browser", "Use different browser");
+    return;
+  }
+  document.getElementById('recordNameDiv').style.display = "block";
+  document.getElementById('recordName').value = "New Session"
+}
+
+function resumeRecording() {
+  session.recorder.off = false;
+  session.recorder.paused = false;
+  btn = document.getElementById("recordButton");
+  btn.innerHTML = "Stop Recording";
+  updateDashboardAndRecordingStatus();
+}
+
+function closeRecording() {
+  session.recorder.off = true;
+  session.recorder.paused = false;
+  session.sessionVersion = 'UNKNOWN';
+  db.close();
+  db = null;
+  dbName = null;
+  dbReady = false;
+  btn = document.getElementById("recordButton");
+  btn.innerHTML = "Start Recording";
+  updateDashboardAndRecordingStatus();
+}
+
+function pauseRecording() {
+  session.recorder.off = false;
+  session.recorder.paused = true;
+  btn = document.getElementById("recordButton");
+  btn.innerHTML = "Resume Recording";
+  updateDashboardAndRecordingStatus();
+}
+
+function stopRecording() {
+  modalConfirm(RECORDING_STOP_TITLE, RECORDING_STOP_MSG, 
+    closeRecording, pauseRecording, null, 
+    "CLOSE Recording", "PAUSE Recording");
+}
+
+function toggleRecording() {
+  if (session.recorder.off) {
+    startRecording();
+  } else if (session.recorder.paused) {
+    resumeRecording();
+  } else {
+    stopRecording();
+  }
+  updateDashboardAndRecordingStatus();
+}
+
 function blinkRecordButton() {
   btn = document.getElementById("recordButton");
   var style = getComputedStyle(document.body)
-  if (session.recorder.paused) {
+  if (!session.recorder.off) {
     if (recordButtonForeground == "WHITE") {
       btn.style.color = style.getPropertyValue('--rsp_orange');
       recordButtonForeground = "ORANGE";
@@ -18,28 +95,6 @@ function blinkRecordButton() {
   }
 }
 
-function toggleRecording() {
-  var style = getComputedStyle(document.body)
-  btn = document.getElementById("recordButton");
-  if (session.recorder.off) {
-    // check for browser capability
-    if (!window.indexedDB) {
-      modalAlert("IndexedDB not available in your browser", "Use different browser");
-      return;
-    }
-    document.getElementById('recordNameDiv').style.display = "block";
-    document.getElementById('recordName').value = "New Session"
-  } else if (session.recorder.paused) {
-    btn.innerHTML = "Pause Recording";
-    session.recorder.off = false;
-    session.recorder.paused = false;
-  } else if (!session.recorder.paused) {
-    btn.innerHTML = "Resume Recording";
-    session.recorder.off = false;
-    session.recorder.paused = true;
-  }
-  updateDashboardAndRecordingStatus();
-}
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
@@ -70,24 +125,6 @@ function getNewDbName(dbNameSuffix) {
 
 function cancelRecordingName() {
   document.getElementById('recordNameDiv').style.display = "none";
-}
-
-function acceptRecordingName() {
-  suffix = document.getElementById('recordName').value;
-  dbName = getNewDbName(suffix);
-  if (!dbName) return;
-  createOrOpenDb(dbName, session.recorder.creationTimeStamp);
-  InitRecorder();
-  elm = document.getElementById('recordSessionName');
-  arr = parseDbName(dbName);
-  elm.innerHTML = arr[1] + " [" + arr[2] + "]";
-
-  btn = document.getElementById('recordButton');
-  btn.innerHTML = "Pause Recording";
-  session.recorder.off = false;
-  session.recorder.paused = false;
-  document.getElementById('recordNameDiv').style.display = "none";
-  updateDashboardAndRecordingStatus();
 }
 
 function insertJsonData(db, jsonData) {

@@ -296,11 +296,11 @@ function updateSnapshot() {
 
 function updateDashboardAndRecordingStatus() {
   if (awaitingFirstDweet) {
-    document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
-  } else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
-  } else if (wifiDropped) {
+  } else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+  } else if (wifiDropped) {
+    document.getElementById("DashboardActiveImg").src = "img/WhiteDot.png";
   } else {
     document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
   }
@@ -308,9 +308,9 @@ function updateDashboardAndRecordingStatus() {
   if (session.recorder.off) {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
   } else if (session.recorder.paused) {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  } else if (wifiDropped) {
     document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
+  } else if (wifiDropped) {
+    document.getElementById("RecordingActiveImg").src = "img/WhiteDot.png";
   } else {
     document.getElementById("RecordingActiveImg").src = "img/GreenDot.png";
   }
