@@ -29,4 +29,14 @@ function displayCharts() {
   createAnalysisCharts();
 }
 
-function initCharts() {}
+function initCharts() {
+  allChartDivs = [];
+  for (id in session.charts.allChartsContainerInfo) {
+    allChartDivs.push(id);
+  }
+  for (i=0; i<allChartDivs.length; i++) {
+    id = allChartDivs[i];
+    node = document.getElementById(id);
+    node.remove();
+  }
+}

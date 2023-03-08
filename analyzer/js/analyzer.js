@@ -330,12 +330,27 @@ function disableAllButtons() {
   document.getElementById("btnShape").disabled = true;
 }
 
+function initGlobals() {
+  // Create new data objects
+  if (session) delete session;
+  session = cloneObject(SessionDataTemplate);
+  session.appId = ANALYZER_APP_ID;
+  session.charts.fontSize = 15;
+  session.shapes.labelFontSize = 15;
+  session.shapes.legendFontSize = 20;
+  session.shapes.titleFontSize = 30;
+  session.shapes.stripLineFontSize = 20;
+}
+
 function resetAnalysisData() {
   initStats();
   initCharts();
+  initShapes();
   initRawDump();
   initAlerts();
   initImportExport();
+  initGlobals();
+  initDbNames();
   if ((document.getElementById("statsDiv").style.display == "block") ||
     (document.getElementById("chartsDiv").style.display == "block") ||
     (document.getElementById("shapesDiv").style.display == "block") ||
@@ -511,15 +526,7 @@ function analysisGatherDoneCallback() {
 window.onload = function () {
   showZoomReminder(600);
 
-  // Create data objects
-  session = cloneObject(SessionDataTemplate);
-  session.appId = ANALYZER_APP_ID;
-  session.charts.fontSize = 15;
-  session.shapes.labelFontSize = 15;
-  session.shapes.legendFontSize = 20;
-  session.shapes.titleFontSize = 30;
-  session.shapes.stripLineFontSize = 20;
-
+  initGlobals();
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
   session.sessionDataValid = false;

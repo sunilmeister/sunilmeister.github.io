@@ -26,3 +26,15 @@ function displayShapes() {
   }
   createAnalysisShapes();
 }
+
+function initShapes() {
+  allShapeDivs = [];
+  for (id in session.shapes.allShapesContainerInfo) {
+    allShapeDivs.push(id);
+  }
+  for (i=0; i<allShapeDivs.length; i++) {
+    id = allShapeDivs[i];
+    node = document.getElementById(id);
+    node.remove();
+  }
+}
