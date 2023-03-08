@@ -155,13 +155,13 @@ function equalParamCombos(curr, prev) {
 }
 
 function readSessionVersion(jsonData) {
-  if (session.sessionVersion != 'UNKNOWN') return;
+  if (session.analyzer.sessionVersion) return;
   for (var key in jsonData) {
     if (key == 'content') {
       for (var ckey in jsonData.content) {
         if (ckey == "SESSION_VERSION") {
-          session.sessionVersion = jsonData.content[ckey];
-          console.log("Found sessionVersion=" + session.sessionVersion);
+          session.analyzer.sessionVersion = jsonData.content[ckey];
+          console.log("Found sessionVersion=" + session.analyzer.sessionVersion);
         }
       }
     }
@@ -169,13 +169,13 @@ function readSessionVersion(jsonData) {
 }
 
 function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
-  var req = indexedDB.open(dbName, dbVersion);
+  var req = indexedDB.open(session.database.dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    sessionDbReady = true;
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
+    session.database.dbReady = true;
+    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    var store = tx.objectStore(session.database.dbObjStoreName);
     var keyReq = store.get(key);
     keyReq.onsuccess = function (event) {
       var jsonData = keyReq.result;
@@ -190,7 +190,7 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
 
 function gatherSessionData(lastRecordCallback) {
   session.analyzer.sessionDataValid = false;
-  session.sessionVersion = "UNKNOWN";
+  session.analyzer.sessionVersion= null;
   if (allDbKeys.length == 0) {
     modalAlert("Selected Session has no data", "");
     return;
@@ -628,15 +628,20 @@ function processBnumDweet(curTime, value, jsonData) {
   session.numMissingBreaths += breathsMissing;
   if (session.startSystemBreathNum == null) {
     session.startSystemBreathNum = value - session.numMissingBreaths;
+    console.log("null startSystemBreathNum=" + session.startSystemBreathNum);
   }
 
   if (breathsMissing) {
+    //console.log("prevSystemBreathNum=" + session.prevSystemBreathNum);
+    //console.log("systemBreathNum=" + session.systemBreathNum);
+    //console.log("startSystemBreathNum=" + session.startSystemBreathNum);
+    //console.log("numMissingBreaths=" + session.numMissingBreaths);
     var msg = {
       'created': curTime,
       'L1': String(breathsMissing) + " Breath(s) missed",
       'L2': "Info not received by",
       'L3': "Dashboard due to",
-      'L4': "Communication packet loss"
+      'L4': "Packet loss"
     };
     session.infoMsgs.push(msg);
     session.infoValues.push({

@@ -1,6 +1,8 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
+const APPS_VERSION = "1.0";
+
 const RESPIMATIC_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
 const ANALYZER_APP_ID = "ANALYZER";
@@ -78,8 +80,6 @@ const SHAPE_CONTAINER_CLASS = "shapeContainer";
 const ALL_SHAPES_ID = "shapesDiv";
 const SHAPE_CBOX_TREE_ROOT_ID = "shapeCheckBoxTreeRoot";
 
-const SESSION_VERSION = "1.0";
-
 const ZOOM_TITLE_STR = "PAGE ZOOM";
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
   "Use CTRL key and +/- keys to zoom " +
@@ -112,8 +112,8 @@ const PDF_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>"
 const RECORDING_STOP_TITLE = "Close or Pause Recording";
 const RECORDING_STOP_MSG = "<span style='font-size:var(--swalTextFontSize);'><pre>"
   + "If CLOSED, a new recording can be started\n"
-  + "only with a new database during the current session\n"
+  + "only with a new database\n"
   + "\n"
   + "If PAUSED, the recording can be resumed\n"
-  + "with the same database during the current session\n"
+  + "with the same database\n"
   + "</pre></span>"

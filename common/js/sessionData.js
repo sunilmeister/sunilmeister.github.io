@@ -6,11 +6,8 @@ var SessionDataTemplate = {
   appId: null,
   
   // currently open session
-  sessionVersion: "UNKNOWN",
-  sessionDbName: "",
-  sessionDbReady: false,
-  sessionDurationInMs: 0,
   sessionDataValid: true,
+  sessionDurationInMs: 0,
   startDate: null,
   dashboardBreathNum: 0,
   systemBreathNum: null,
@@ -20,6 +17,17 @@ var SessionDataTemplate = {
   lastValidBreathTime: null,
   statTablesConstructed: false,
 
+  database: {
+    db:  null,
+    dbVersion:  1,
+    dbName:  "",
+    dbNamePrefix:  "",
+    dbReady:  false,
+    dbPrimaryKey:  'created',
+    dbObjStoreName:  "",
+    allDbKeys:  {},
+  },
+  
   reportRange: {
     rolling: true,
     initBnum: null,
@@ -222,14 +230,15 @@ var SessionDataTemplate = {
   // Below is used by Analyzer
   // /////////////////////////////////////////////
   analyzer: {
-    logStartTime: null,
-    logEndTime: null,
-    analysisStartTime: null,
-    analysisEndTime: null,
-    analysisStartBreath: 0,
-    analysisEndBreath: 0,
-    logStartBreath: 0,
-    logEndBreath: 0,
+    sessionVersion:         null,
+    logStartTime:           null,
+    logEndTime:             null,
+    analysisStartTime:      null,
+    analysisEndTime:        null,
+    analysisStartBreath:    0,
+    analysisEndBreath:      0,
+    logStartBreath:         0,
+    logEndBreath:           0,
   },
 
   // /////////////////////////////////////////////
@@ -247,8 +256,8 @@ var SessionDataTemplate = {
     creationTimeStamp:  null,
     accumulatedState:   {},
     prevDweetRecorded:  false,
+    versionRecorded:    false,
   },
-
 
 };
 

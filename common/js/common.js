@@ -1,16 +1,8 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const dbVersion = 1;
-const dbPrimaryKey = 'created';
 var respimaticUid = "";
 var respimaticTag = "";
-var dbNamePrefix = "";
-var dbObjStoreName = "";
-var db = null;
-var dbReady = false;
-var dbName = "";
-var allDbKeys = {};
 
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
@@ -19,8 +11,8 @@ function initDbNames() {
     respimaticUid = sessionStorage.getItem("respimaticUid");
     respimaticTag = sessionStorage.getItem("respimaticTag");
   }
-  dbNamePrefix = respimaticUid;
-  dbObjStoreName = respimaticUid;
+  session.database.dbNamePrefix = respimaticUid;
+  session.database.dbObjStoreName = respimaticUid;
 }
 // /////////////////////////////////////////////
 // milliseconds to dates
@@ -359,51 +351,51 @@ function isValidDatabaseName(dname) {
 }
 
 function createOrOpenDb(name, timeStamp) {
-  var dbReq = indexedDB.open(name, dbVersion);
+  session.database.dbName = name;
+  var dbReq = indexedDB.open(name, session.database.dbVersion);
   // Fires when the version of the database goes up, or the database is created
   // for the first time
   dbReq.onupgradeneeded = function (event) {
-    db = event.target.result;
+    session.database.db = event.target.result;
     // Object stores in databases are where data are stored.
     var dbObjStore;
-    if (!db.objectStoreNames.contains(dbObjStoreName)) {
-      dbObjStore = db.createObjectStore(dbObjStoreName, {
-        keyPath: dbPrimaryKey
+    if (!session.database.db.objectStoreNames.contains(session.database.dbObjStoreName)) {
+      dbObjStore = session.database.db.createObjectStore(session.database.dbObjStoreName, {
+        keyPath: session.database.dbPrimaryKey
       });
     } else {
-      dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
+      dbObjStore = dbReq.transaction.objectStore(session.database.dbObjStoreName);
     }
   }
   // Fires once the database is opened (and onupgradeneeded completes, if
   // onupgradeneeded was called)
   dbReq.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
-    db = event.target.result;
-    dbReady = true;
-    registerDbName(dbName);
+    session.database.db = event.target.result;
+    session.database.dbReady = true;
+    registerDbName(session.database.dbName);
   }
   // Fires when we can't open the database
   dbReq.onerror = function (event) {
-    dbReady = false;
+    session.database.dbReady = false;
     modalAlert('Error opening session ' + event.target.errorCode);
   }
   // Fires when there's another open connection to the same database
   dbReq.onblocked = function (event) {
-    dbReady = false;
-    db = event.target.result;
-    db.close();
+    session.database.dbReady = false;
+    session.database.db = event.target.result;
+    session.database.db.close();
     modalAlert("Database version updated, Close all LOGGER tabs, reload the page.");
   }
 }
 
 function exportDb(dbName, fileName) {
   var getAll = [];
-  var req = indexedDB.open(dbName, dbVersion);
+  var req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
-    // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
+    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    var store = tx.objectStore(session.database.dbObjStoreName);
     store.openCursor().onsuccess = function (evt) {
       var cursor = evt.target.result;
       if (cursor) {

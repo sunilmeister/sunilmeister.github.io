@@ -56,7 +56,7 @@ function selectDbRow(row) {
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
-  session.sessionDbName = dbName;
+  session.database.dbName = dbName;
   var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   sessionBannerHTML = sessionInfo.innerHTML;
@@ -91,8 +91,6 @@ function doDeleteDbRow(arg) {
   deleteDb(name);
   // remove from HTML table
   row.parentNode.removeChild(row);
-  // return the name just in case
-  return dbName;
 }
 
 function selectRowBtn(btn) {
@@ -156,22 +154,22 @@ function doDeleteAllDbs() {
 }
 
 function checkDbReady() {
-  if (session.sessionDbReady && session.sessionDbName) {
-    if (session.sessionVersion != SESSION_VERSION) {
+  if (session.database.dbReady && session.database.dbName) {
+    if (session.analyzer.sessionVersion != APPS_VERSION) {
       modalAlert("VERSION MISMATCH",
         "Session recorded with Software Version " + session.sessionVersion +
-        "\nCurrent Software Version is " + SESSION_VERSION +
-        "\n\nOlder Version " + session.sessionVersion + " not supported");
+        "\nCurrent Software Version is " + APPS_VERSION + "\n" +
+        "\nVersion " + session.analyzer.sessionVersion + " not supported");
       return false;
     }
     return true;
   }
 
-  if (!session.sessionDbName) {
+  if (!session.database.dbName) {
     modalAlert('No Session Selected","Please Select Session for Analysis');
     return false;
   }
-  nameTm = parseDbName(session.sessionDbName);
+  nameTm = parseDbName(session.database.dbName);
   sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
   modalAlert('Session ' + sessionName + '\nNot yet ready","Please try again');
   return false;
@@ -282,14 +280,14 @@ function initSession(dbName) {
     return;
   }
   resetAnalysisData();
-  var req = indexedDB.open(dbName, dbVersion);
+  var req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    session.sessionDbReady = true;
-    session.sessionDbName = dbName;
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
+    session.database.dbReady = true;
+    session.database.dbName = dbName;
+    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    var store = tx.objectStore(session.database.dbObjStoreName);
     var keyReq = store.getAllKeys();
     keyReq.onsuccess = function (event) {
       var keys = event.target.result;
@@ -488,7 +486,7 @@ function analysisGatherDoneCallback() {
   if (!checkDbReady()) return;
 
   session.sessionDataValid = true;
-  session.sessionDbReady = true;
+  session.database.dbReady = true;
 
   session.analyzer.logStartBreath = 1;
   session.analyzer.logEndBreath = session.breathTimes.length - 1;
@@ -525,8 +523,8 @@ window.onload = function () {
   initDbNames();
   document.title = respimaticTag + " (ANALYZER)";
   session.sessionDataValid = false;
-  session.sessionDbName = "";
-  session.sessionDbReady = false;
+  session.database.dbName = "";
+  session.database.dbReady = false;
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   var sessionInfo = document.getElementById("sessionNameSelector");

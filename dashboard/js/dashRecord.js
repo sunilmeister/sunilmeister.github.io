@@ -3,12 +3,12 @@
 // ////////////////////////////////////////////////////
 function acceptRecordingName() {
   suffix = document.getElementById('recordName').value;
-  dbName = getNewDbName(suffix);
-  if (!dbName) return;
-  createOrOpenDb(dbName, session.recorder.creationTimeStamp);
+  session.database.dbName = getNewDbName(suffix);
+  if (!session.database.dbName) return;
+  createOrOpenDb(session.database.dbName, session.recorder.creationTimeStamp);
   InitRecorder();
   elm = document.getElementById('recordSessionName');
-  arr = parseDbName(dbName);
+  arr = parseDbName(session.database.dbName);
   elm.innerHTML = arr[1] + " [" + arr[2] + "]";
 
   btn = document.getElementById('recordButton');
@@ -41,14 +41,13 @@ function resumeRecording() {
 }
 
 function closeRecording() {
-  db.close();
-  db = null;
-  dbName = null;
-  dbReady = false;
+  session.database.db.close();
+  session.database.db = null;
+  session.database.dbName = null;
+  session.database.dbReady = false;
 
   // Initialize all recorder variables
-  session.recorder = cloneObject(SessionDataTemplatesessionDataTemplate.recorder);
-  session.sessionVersion = 'UNKNOWN' ;
+  session.recorder = cloneObject(SessionDataTemplate.recorder);
 
   btn = document.getElementById("recordButton");
   btn.innerHTML = "Start Recording";
@@ -56,6 +55,13 @@ function closeRecording() {
 }
 
 function pauseRecording() {
+  // Initialize all recorder variables
+  versionRecorded = session.recorder.versionRecord;
+  creationTimeStamp = session.recorder.creationTimeStamp;
+  session.recorder = cloneObject(SessionDataTemplate.recorder);
+  session.recorder.versionRecorded = versionRecorded;
+  session.recorder.creationTimeStamp = creationTimeStamp;
+
   session.recorder.off = false;
   session.recorder.paused = true;
   btn = document.getElementById("recordButton");
@@ -113,7 +119,7 @@ function getNewDbName(dbNameSuffix) {
   dmy = dd + "-" + mm + "-" + yyyy;
   nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
   if (!dbNameSuffix) return "";
-  name = dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
+  name = session.database.dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
   if (!isValidDatabaseName(dbNameSuffix)) {
     modalAlert("Invalid Session name", dbNameSuffix + "\nTry again");
     return "";
@@ -129,10 +135,10 @@ function cancelRecordingName() {
   document.getElementById('recordNameDiv').style.display = "none";
 }
 
-function insertJsonData(db, jsonData) {
+function insertJsonData(jsonData) {
   // Start a database transaction and get the notes object store
-  var tx = db.transaction([dbObjStoreName], 'readwrite');
-  var store = tx.objectStore(dbObjStoreName);
+  var tx = session.database.db.transaction([session.database.dbObjStoreName], 'readwrite');
+  var store = tx.objectStore(session.database.dbObjStoreName);
   store.add(jsonData); // Wait for the database transaction to complete
   tx.oncomplete = function () {}
   tx.onerror = function (event) {
@@ -226,9 +232,9 @@ function processRecordDweet(d) {
   recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     if (doRecord) {
-      if (db && session.sessionVersion == 'UNKNOWN') {
-        session.sessionVersion = SESSION_VERSION;
-        d.content.SESSION_VERSION = session.sessionVersion;
+      if (session.database.db && !session.recorder.versionRecorded) {
+        session.recorder.versionRecorded = true;
+        d.content.SESSION_VERSION = APPS_VERSION;
       }
       if (!session.recorder.prevDweetRecorded) {
         // Add on the session.recorder.accumulatedState state first
@@ -236,7 +242,7 @@ function processRecordDweet(d) {
         // console.log(d);
       }
       recordBox.innerText = JSON.stringify(d, null, ". ");
-      if (db) insertJsonData(db, d);
+      if (session.database.db) insertJsonData(d);
       session.recorder.prevDweetRecorded = doRecord;
     }
   }

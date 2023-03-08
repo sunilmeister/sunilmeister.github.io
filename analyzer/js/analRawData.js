@@ -9,13 +9,14 @@ function displayJsonRawData(jsonData) {
 }
 
 function displayJsonRecord(key) {
-  var req = indexedDB.open(dbName, dbVersion);
+  var req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     var db = event.target.result;
-    sessionDbReady = true;
-    var tx = db.transaction(dbObjStoreName, 'readonly');
-    var store = tx.objectStore(dbObjStoreName);
+    session.database.db = db;
+    session.database.dbReady = true;
+    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    var store = tx.objectStore(session.database.dbObjStoreName);
     var keyReq = store.get(key);
     keyReq.onsuccess = function (event) {
       jsonData = keyReq.result;

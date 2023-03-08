@@ -18,7 +18,6 @@ function createDashboardCharts() {
   }
 
   for (id in session.charts.allChartsContainerInfo) {
-    console.log("dashCharts render");
     session.charts.allChartsContainerInfo[id].render();
   }
 
