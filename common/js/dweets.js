@@ -474,23 +474,23 @@ function processParamDweet(curTime, jsonStr) {
   }
   updatePendingParamState();
 
-  saveSnapComboValue("vt", "paramDataInUse", "vts", curTime, obj);
-  saveSnapComboValue("pmax", "paramDataInUse", "pmaxs", curTime, obj);
-  saveSnapComboValue("ipeep", "paramDataInUse", "ipeeps", curTime, obj);
-  saveSnapComboValue("ps", "paramDataInUse", "pss", curTime, obj);
-  saveSnapComboValue("mode", "paramDataInUse", "modes", curTime, obj);
-  saveSnapComboValue("tps", "paramDataInUse", "tpss", curTime, obj);
-  saveSnapComboValue("ie", "paramDataInUse", "ies", curTime, obj);
-  saveSnapComboValue("rr", "paramDataInUse", "rrs", curTime, obj);
+  saveSnapComboValue("vt", "paramDataInUse", "vtUsed", curTime, obj);
+  saveSnapComboValue("pmax", "paramDataInUse", "pmaxUsed", curTime, obj);
+  saveSnapComboValue("ipeep", "paramDataInUse", "ipeepUsed", curTime, obj);
+  saveSnapComboValue("ps", "paramDataInUse", "psUsed", curTime, obj);
+  saveSnapComboValue("mode", "paramDataInUse", "modeUsed", curTime, obj);
+  saveSnapComboValue("tps", "paramDataInUse", "tpsUsed", curTime, obj);
+  saveSnapComboValue("ie", "paramDataInUse", "ieUsed", curTime, obj);
+  saveSnapComboValue("rr", "paramDataInUse", "rrUsed", curTime, obj);
 }
 
 function processFiO2Dweet(curTime, jsonStr) {
   obj = parseFiO2Data(jsonStr);
   if (!obj) return;
 
-  saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2s", "fiO2Changes", curTime, obj);
-  saveSnapComboTransValue("o2Purity", "fiO2Data", "o2Puritys", "o2PurityChanges", curTime, obj);
-  saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10s", "o2FlowX10Changes", curTime, obj);
+  saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2Used", "fiO2Changes", curTime, obj);
+  saveSnapComboTransValue("o2Purity", "fiO2Data", "o2PurityUsed", "o2PurityChanges", curTime, obj);
+  saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10Used", "o2FlowX10Changes", curTime, obj);
 }
 
 function processMinuteDweet(curTime, jsonStr) {

@@ -109,7 +109,7 @@ const PDF_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>"
   "Else you must download the file to view" +
   "</pre></span>";
 
-const RECORDING_STOP_TITLE = "Close or Pause Recording";
+const RECORDING_STOP_TITLE = "Stop Recording";
 const RECORDING_STOP_MSG = "<span style='font-size:var(--swalTextFontSize);'><pre>"
   + "If CLOSED, a new recording can be started\n"
   + "only with a new database\n"
