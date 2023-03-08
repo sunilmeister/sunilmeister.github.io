@@ -41,13 +41,15 @@ function resumeRecording() {
 }
 
 function closeRecording() {
-  session.recorder.off = true;
-  session.recorder.paused = false;
-  session.sessionVersion = 'UNKNOWN';
   db.close();
   db = null;
   dbName = null;
   dbReady = false;
+
+  // Initialize all recorder variables
+  session.recorder = cloneObject(SessionDataTemplatesessionDataTemplate.recorder);
+  session.sessionVersion = 'UNKNOWN' ;
+
   btn = document.getElementById("recordButton");
   btn.innerHTML = "Start Recording";
   updateDashboardAndRecordingStatus();

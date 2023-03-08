@@ -438,7 +438,7 @@ function receivedNewShape() {
     icon: 'info',
     title: ON_DEMAND_TITLE_STR,
     text: ON_DEMAND_MESSAGE_STR,
-    width: session.modalWidth,
+    width: 800,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
