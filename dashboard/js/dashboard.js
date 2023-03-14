@@ -447,7 +447,8 @@ function receivedNewShape() {
 }
 
 window.onload = function () {
-  showZoomReminder(600);
+  setModalWidth(600);
+  showZoomReminder();
 
   finishedLoading = false;
   initDivElements();

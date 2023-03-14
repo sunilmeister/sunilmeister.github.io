@@ -13,7 +13,8 @@ var fiO2Knob = null;
 var purityKnob = null;
 
 window.onload = function () {
-  showZoomReminder(600);
+  setModalWidth(600);
+  showZoomReminder();
 
   installVtKnob();
   installRrKnob();

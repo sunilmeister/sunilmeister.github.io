@@ -339,7 +339,8 @@ function launchFiO2() {
 }
 
 window.onload = function () {
-  showZoomReminder(600);
+  setModalWidth(600);
+  showZoomReminder();
 
   var elm = document.getElementById("mainDiv");
   elm.style.display = "block";

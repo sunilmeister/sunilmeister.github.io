@@ -4,6 +4,17 @@
 var respimaticUid = "";
 var respimaticTag = "";
 
+///////////////////////////////////////////////////////
+// For modal warnings errors, confirmations etc.
+///////////////////////////////////////////////////////
+var modalWidth = 600; // default modal width
+function setModalWidth(w) {
+  modalWidth = w;
+}
+
+///////////////////////////////////////////////////////
+// must be done before accessing any indexedDb database
+///////////////////////////////////////////////////////
 function initDbNames() {
   respimaticUid = getCookie(uidCookieName);
   respimaticTag = getCookie(tagCookieName);
@@ -525,18 +536,14 @@ function o2PurityAtAltitudeMtr(mtr) {
   return o2PurityAtAltitudeFt(mtr * 3.28);
 }
 
-// various modals
-var modalWidth = 900; // default - overriden by showZoomReminder
 
-function showZoomReminder(width) {
-  modalWidth = width;
+function showZoomReminder() {
   if (getCookie(zoomReminderOffCookieName) == "OFF") return;
   Swal.fire({
     icon: 'info',
     position: 'bottom',
     title: ZOOM_TITLE_STR,
     html: ZOOM_MESSAGE_STR,
-    //width: modalWidth,
     showConfirmButton: false,
     color: 'white',
     background: '#2C94BC',
@@ -578,7 +585,6 @@ function showEditIconReminder() {
     position: 'bottom-end',
     title: EDIT_ICON_TITLE_STR,
     html: EDIT_ICON_MESSAGE_STR,
-    //width: modalWidth,
     showConfirmButton: true,
     color: 'white',
     background: '#2C94BC',

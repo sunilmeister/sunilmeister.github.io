@@ -392,10 +392,15 @@ class ChartBox {
       transitions: session.breathTypeChanges,
       yFormat: breathTypeFormatter,
       yInterval: 1,
-      //graphType: "stepArea"
+      graphType: "scatter"
     };
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var graph = this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    this.setBreathTypeMarkers(graph);
+    return graph;
+  }
+
+  setBreathTypeMarkers(graph) {
   }
 
   createScompGraph(reuseAxisNum) {

@@ -524,7 +524,8 @@ function analysisGatherDoneCallback() {
 }
 
 window.onload = function () {
-  showZoomReminder(600);
+  setModalWidth(600);
+  showZoomReminder();
 
   initGlobals();
   initDbNames();
