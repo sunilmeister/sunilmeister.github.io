@@ -16,6 +16,7 @@ var paramInfoTemplate = {
   transitions: [],
   color: null,
   graphType: 'stepLine',
+  breathType: null,
 };
 var yAxisInfoTemplate = {
   primary: true,
@@ -86,7 +87,11 @@ class ChartPane {
 
     var xyPoints;
     if (this.paramInfo.graphType == "scatter") {
-      xyPoints = this.createScatterXYPoints(breathTimes);
+      if (!this.paramInfo.breathType) {
+        xyPoints = this.createScatterXYPoints(breathTimes);
+      } else {
+        xyPoints = this.createSpanXYPoints(breathTimes);
+      }
     } else {
       xyPoints = this.createContinuousXYPoints(breathTimes);
     }
@@ -286,13 +291,12 @@ class ChartPane {
     var xyPoints = [];
     var xval, yval, ignoreDatapoint;
     var prevXval = -1;
+    var b = minBnum;
 
     for (let t = 1; t < transitions.length; t++) {
       var cTime = transitions[t].time;
       //console.log("cTime " + cTime);
-      for (let b = 1; b < breathTimes.length; b++) {
-        if (b > maxBnum) break;
-        if (b < minBnum) continue;
+      for (b = minBnum; b <= maxBnum; b++) {
         if (breathTimes[b] == cTime) {
           //console.log("bTime " + breathTimes[b]);
           yval = transitions[t].value;
@@ -304,6 +308,82 @@ class ChartPane {
             else prevXval = xval;
           } else {
             xval = b;
+          }
+          if (!ignoreDatapoint) {
+            xyPoints.push({
+              "x": xval,
+              "y": yval,
+            });
+          }
+          break;
+        }
+      }
+    }
+
+    var chartData = {};
+    chartData.type = this.paramInfo.graphType;
+    chartData.showInLegend = true;
+    chartData.dataPoints = cloneObject(xyPoints);
+    if (this.markerInfo.type) chartData.markerType = this.markerInfo.type;
+    if (this.markerInfo.color) chartData.markerColor = this.markerInfo.color;
+    if (this.markerInfo.label) chartData.indexLabel = this.markerInfo.label;
+    if (this.markerInfo.size) chartData.markerSize = this.markerInfo.size;
+    return chartData;
+  }
+
+ createSpanXYPoints(breathTimes) {
+    var initBnum = this.rangeX.initBnum;
+    var minBnum = this.rangeX.minBnum;
+    var maxBnum = this.rangeX.maxBnum;
+    var initTime = this.rangeX.initTime;
+    var minTime = this.rangeX.minTime;
+    var maxTime = this.rangeX.maxTime;
+    var transitions = this.paramInfo.transitions;
+    var bType = this.paramInfo.breathType;
+    var timeSpans = [];
+
+    if (transitions.length == 0) {
+      console.log("No transitions for createSpanXYPoints");
+      return null;
+    }
+
+    var xyPoints = [];
+    var xval, yval, ignoreDatapoint;
+    var prevXval = -1;
+    var startTime = null;
+    var endTime = null;
+
+    //console.log("transitions"); console.log(transitions);
+    for (let t = 1; t < transitions.length; t++) {
+      yval = transitions[t].value;
+      if (yval == bType) {
+        if (!startTime) startTime = transitions[t].time;
+        if (t==transitions.length-1) endTime = breathTimes[breathTimes.length-1];
+      } else if (startTime) {
+        endTime = transitions[t].time;
+      }
+      if (!(startTime && endTime)) continue;
+      timeSpans.push({startTime:startTime, endTime:endTime});
+      startTime = endTime = null;
+    }
+    //console.log("timeSpans"); console.log(timeSpans);
+
+    // now we have an array of startTime and endTime for bType breaths
+    var bnum = minBnum;
+    yval = bType;
+    for (let i = 0; i < timeSpans.length; i++) {
+      startTime = timeSpans[i].startTime;
+      endTime = timeSpans[i].endTime;
+      for (bnum = minBnum; bnum < maxBnum; bnum++) {
+        if ((breathTimes[bnum] >= startTime) && (breathTimes[bnum] <= endTime)) {
+          ignoreDatapoint = false;
+          if (this.timeUnits) {
+            var ms = new Date(breathTimes[bnum]) - initTime;
+            xval = Math.round(ms / 1000);
+            if (xval <= prevXval) ignoreDatapoint = true;
+            else prevXval = xval;
+          } else {
+            xval = bnum;
           }
           if (!ignoreDatapoint) {
             xyPoints.push({

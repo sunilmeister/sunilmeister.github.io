@@ -7,7 +7,7 @@ function breathTypeFormatter(e) {
   if (e.value == NO_BREATH) return '.';
   if (e.value == SPONTANEOUS_BREATH) return 'S';
   if (e.value == MANDATORY_BREATH) return 'M';
-  else return 'E';
+  else return 'X';
 }
 
 class ChartBox {
@@ -45,7 +45,9 @@ class ChartBox {
     document.getElementById("Minute").checked = this.options["Minute"];
     document.getElementById("Mandatory").checked = this.options["Mandatory"];
     document.getElementById("Spontaneous").checked = this.options["Spontaneous"];
-    document.getElementById("BreathType").checked = this.options["BreathType"];
+    document.getElementById("MBreath").checked = this.options["MBreath"];
+    document.getElementById("SBreath").checked = this.options["SBreath"];
+    document.getElementById("EBreath").checked = this.options["EBreath"];
     document.getElementById("Static").checked = this.options["Static"];
     document.getElementById("Dynamic").checked = this.options["Dynamic"];
     document.getElementById("FiO2").checked = this.options["FiO2"];
@@ -71,7 +73,9 @@ class ChartBox {
     this.options["Minute"] = document.getElementById("Minute").checked;
     this.options["Mandatory"] = document.getElementById("Mandatory").checked;
     this.options["Spontaneous"] = document.getElementById("Spontaneous").checked;
-    this.options["BreathType"] = document.getElementById("BreathType").checked;
+    this.options["MBreath"] = document.getElementById("MBreath").checked;
+    this.options["SBreath"] = document.getElementById("SBreath").checked;
+    this.options["EBreath"] = document.getElementById("EBreath").checked;
     this.options["Static"] = document.getElementById("Static").checked;
     this.options["Dynamic"] = document.getElementById("Dynamic").checked;
     this.options["FiO2"] = document.getElementById("FiO2").checked;
@@ -141,7 +145,9 @@ class ChartBox {
     bpmAxisNum = this.createMbpmGraph(bpmAxisNum);
 
     var btypeAxisNum = null;
-    btypeAxisNum = this.createBreathTypeGraph(btypeAxisNum);
+    btypeAxisNum = this.createMBreathGraph(btypeAxisNum);
+    btypeAxisNum = this.createSBreathGraph(btypeAxisNum);
+    btypeAxisNum = this.createEBreathGraph(btypeAxisNum);
 
     var compAxisNum = null;
     compAxisNum = this.createScompGraph(compAxisNum);
@@ -336,40 +342,6 @@ class ChartBox {
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
-  createBreathTypeGraph(reuseAxisNum) {
-    if (!this.options.BreathType) return reuseAxisNum;
-
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: 2,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Breath Type"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "BreathType Mandatory/Spontaneous/Error",
-      color: "#E78A61",
-      transitions: session.breathTypeChanges,
-      yFormat: breathTypeFormatter,
-      yInterval: 1,
-      graphType: "scatter"
-    };
-
-    var graph = this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
-    this.setBreathTypeMarkers(graph);
-    return graph;
-  }
-
-  setBreathTypeMarkers(graph) {
-  }
-
   createScompGraph(reuseAxisNum) {
     if (!this.options.Static) return reuseAxisNum;
 
@@ -435,6 +407,87 @@ class ChartBox {
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
+
+  createMBreathGraph(reuseAxisNum) {
+    if (!this.options.MBreath) return reuseAxisNum;
+
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "lime";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Breath Type";
+
+    var markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'circle';
+    markerInfo.color = 'lime';
+    markerInfo.label = 'M';
+    markerInfo.size = 25;
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Mandatory";
+    paramInfo.color = "lime";
+    paramInfo.transitions = session.breathTypeChanges;
+    paramInfo.graphType = "scatter";
+    paramInfo.breathType = MANDATORY_BREATH;
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+   }
+
+  createSBreathGraph(reuseAxisNum) {
+    if (!this.options.SBreath) return reuseAxisNum;
+
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "salmon";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Breath Type";
+
+    var markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'circle';
+    markerInfo.color = 'salmon';
+    markerInfo.label = 'S';
+    markerInfo.size = 25;
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Spontaneous";
+    paramInfo.color = "salmon";
+    paramInfo.transitions = session.breathTypeChanges;
+    paramInfo.graphType = "scatter";
+    paramInfo.breathType = SPONTANEOUS_BREATH;
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+   }
+
+  createEBreathGraph(reuseAxisNum) {
+    if (!this.options.EBreath) return reuseAxisNum;
+
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "orange";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Breath Type";
+
+    var markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'circle';
+    markerInfo.color = 'orange';
+    markerInfo.label = 'X';
+    markerInfo.size = 25;
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Maintenance";
+    paramInfo.color = "orange";
+    paramInfo.transitions = session.breathTypeChanges;
+    paramInfo.graphType = "scatter";
+    paramInfo.breathType = MAINTENANCE_BREATH;
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+   }
 
   createNotificationGraph(reuseAxisNum) {
     if (!this.options.Notifications) return reuseAxisNum;
