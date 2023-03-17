@@ -443,7 +443,7 @@ function setTimeInterval() {
 
   setAnalysisRanges(false);
   updateSelectedDuration();
-  resetAnalysisData();
+  //resetAnalysisData();
   refreshActivePane();
 }
 
@@ -468,7 +468,7 @@ function setFullInterval() {
 
   setAnalysisRanges(false);
   updateSelectedDuration();
-  resetAnalysisData();
+  //resetAnalysisData();
   refreshActivePane();
 }
 
@@ -491,7 +491,7 @@ function resetTimeInterval() {
 
   setAnalysisRanges(true);
   updateSelectedDuration();
-  resetAnalysisData();
+  //resetAnalysisData();
   document.getElementById("analysisWindowDiv").style.display = "block";
 
   refreshActivePane();

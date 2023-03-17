@@ -114,12 +114,11 @@ class ChartBox {
   }
 
   createChart() {
-    this.chart = new LineChart(
+    this.chart = new ChartPane(
       this.options.title,
       this.containerBodyDiv.offsetHeight,
       this.options.timeUnits,
-      this.rangeX,
-      false
+      this.rangeX
     );
     this.createIndividualGraphs();
   }
@@ -157,216 +156,184 @@ class ChartBox {
     flagAxisNum = this.createNotificationGraph(flagAxisNum);
 
     var pctAxisNum = null;
-    pctAxisNum = this.createFiO2Graph(pctAxisNum);
     pctAxisNum = this.createPurityGraph(pctAxisNum);
+    pctAxisNum = this.createFiO2Graph(pctAxisNum);
   }
 
   createPeakGraph(reuseAxisNum) {
     if (!this.options.Peak) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Pressure (cm H20)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Peak Pressure (cm H20)",
-      color: "red",
-      transitions: session.peakChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "red";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Pressure (cm H20)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Peak Pressure (cm H20)";
+    paramInfo.color = "red";
+    paramInfo.transitions = session.peakChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createPlatGraph(reuseAxisNum) {
     if (!this.options.Plat) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Pressure (cm H20)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Plateau Pressure (cm H20)",
-      color: "silver",
-      transitions: session.platChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "silver";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Pressure (cm H20)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Plateau Pressure (cm H20)";
+    paramInfo.color = "silver";
+    paramInfo.transitions = session.platChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createPeepGraph(reuseAxisNum) {
     if (!this.options.PEEP) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Pressure (cm H20)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Peep Pressure (cm H20)",
-      color: "green",
-      transitions: session.mpeepChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "green";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Pressure (cm H20)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Peep Pressure (cm H20)";
+    paramInfo.color = "green";
+    paramInfo.transitions = session.mpeepChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createVtdelGraph(reuseAxisNum) {
     if (!this.options.Tidal) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Volume (ml)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Tidal Volume (ml)",
-      color: "purple",
-      transitions: session.vtdelChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "purple";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Volume (ml)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Tidal Volume (ml)";
+    paramInfo.color = "purple";
+    paramInfo.transitions = session.vtdelChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createMvdelGraph(reuseAxisNum) {
     if (!this.options.Minute) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: 20,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Minute Volume (litres/min)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Minute Volume (litres/min)",
-      color: "olive",
-      transitions: session.mvdelChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "olive";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 20;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Minute Volume (litres/min)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Minute Volume (litres/min)";
+    paramInfo.color = "olive";
+    paramInfo.transitions = session.mvdelChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createO2FlowGraph(reuseAxisNum) {
     if (!this.options.O2Flow) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: 20,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Minute Volume (litres/min)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "O2 Flow Rate (litres/min)",
-      color: "Indigo",
-      transitions: session.o2FlowX10Changes
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "indigo";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 20;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Minute Volume (litres/min)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "O2 Flow Rate (litres/min)";
+    paramInfo.color = "indigo";
+    paramInfo.transitions = session.o2FlowX10Changes;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createSbpmGraph(reuseAxisNum) {
     if (!this.options.Spontaneous) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Breaths per Min (bpm)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Spontaneous BPM (bpm)",
-      color: "Maroon",
-      transitions: session.sbpmChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "maroon";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Breaths per Min (bpm)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Spontaneous BPM (bpm)";
+    paramInfo.color = "maroon";
+    paramInfo.transitions = session.sbpmChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createMbpmGraph(reuseAxisNum) {
     if (!this.options.Mandatory) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Breaths per Min (bpm)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Mandatory BPM (bpm)",
-      color: "Violet",
-      transitions: session.mbpmChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "violet";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Breaths per Min (bpm)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Mandatory BPM (bpm)";
+    paramInfo.color = "violet";
+    paramInfo.transitions = session.mbpmChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createBreathTypeGraph(reuseAxisNum) {
@@ -406,209 +373,188 @@ class ChartBox {
   createScompGraph(reuseAxisNum) {
     if (!this.options.Static) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Compliance (ml/cm H20)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Static Compliance (ml/cm H20)",
-      color: "Navy",
-      transitions: session.scompChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "navy";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Compliance (ml/cm H20)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Static Compliance (ml/cm H20)";
+    paramInfo.color = "navy";
+    paramInfo.transitions = session.scompChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createDcompGraph(reuseAxisNum) {
     if (!this.options.Dynamic) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Compliance (ml/cm H20)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Dynamic Compliance (ml/cm H20)",
-      color: "Crimson",
-      transitions: session.dcompChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "crimson";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Compliance (ml/cm H20)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Dynamic Compliance (ml/cm H20)";
+    paramInfo.color = "crimson";
+    paramInfo.transitions = session.dcompChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createTempGraph(reuseAxisNum) {
     if (!this.options.Temperature) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: -20,
-      yMax: 70,
-      reuseAxisNum: reuseAxisNum,
-      yName: "System Temp (deg C)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "System Temp (deg C)",
-      color: "Fuchsia",
-      transitions: session.tempChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "fuchsia";
+    yAxisInfo.yMin = -25;
+    yAxisInfo.yMax = 75;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "System Temp (deg C)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
-  }
+    var markerInfo = cloneObject(markerInfoTemplate);
 
-  createWarningGraph(reuseAxisNum) {
-    if (!this.options.Warnings) return reuseAxisNum;
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "System Temp (deg C)";
+    paramInfo.color = "fuchsia";
+    paramInfo.transitions = session.tempChanges;
+    paramInfo.graphType = "stepLine";
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "System Alerts"
-    };
-    var flags = {
-      warning: true,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "Warnings",
-      color: "Orange",
-      transitions: session.warningChanges
-    };
-
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createNotificationGraph(reuseAxisNum) {
     if (!this.options.Notifications) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "System Alerts"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: true
-    }
-    var paramInfo = {
-      name: "Notifications",
-      color: "Yellow",
-      transitions: session.infoChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "blue";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "System Alerts";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'square';
+    markerInfo.color = 'lightblue';
+    markerInfo.label = 'N';
+    markerInfo.size = 25;
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Notifications";
+    paramInfo.color = "lightblue";
+    paramInfo.transitions = session.infoChanges;
+    paramInfo.graphType = "scatter";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+   }
+
+  createWarningGraph(reuseAxisNum) {
+    if (!this.options.Warnings) return reuseAxisNum;
+
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "blue";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "System Alerts";
+
+    var markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'square';
+    markerInfo.color = 'lightorange';
+    markerInfo.label = 'W';
+    markerInfo.size = 25;
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Warnings";
+    paramInfo.color = "lightorange";
+    paramInfo.transitions = session.warningChanges;
+    paramInfo.graphType = "scatter";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createErrorGraph(reuseAxisNum) {
     if (!this.options.Errors) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "System Alerts"
-    };
-    var flags = {
-      warning: false,
-      error: true,
-      info: false
-    };
-    var paramInfo = {
-      name: "Errors",
-      color: "Pink",
-      transitions: session.errorChanges
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "blue";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = null;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "System Alerts";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
-  }
+    var markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'square';
+    markerInfo.color = 'lightred';
+    markerInfo.label = 'X';
+    markerInfo.size = 25;
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Errors";
+    paramInfo.color = "lightred";
+    paramInfo.transitions = session.errorChanges;
+    paramInfo.graphType = "scatter";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);  }
 
   createFiO2Graph(reuseAxisNum) {
     if (!this.options.FiO2) return reuseAxisNum;
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Percentage (%)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "FiO2 (%)",
-      color: "Brown",
-      transitions: session.fiO2Changes
-    };
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "brown";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 100;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Percentage (%)";
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "FiO2 (%)";
+    paramInfo.color = "brown";
+    paramInfo.transitions = session.fiO2Changes;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
   createPurityGraph(reuseAxisNum) {
     if (!this.options.O2Purity) return reuseAxisNum;
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "lightgreen";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 100;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Percentage (%)";
 
-    var reuse = (reuseAxisNum != null);
-    var yAxisInfo = {
-      primary: true,
-      reuse: reuse,
-      yMin: 0,
-      yMax: null,
-      reuseAxisNum: reuseAxisNum,
-      yName: "Percentage (%)"
-    };
-    var flags = {
-      warning: false,
-      error: false,
-      info: false
-    };
-    var paramInfo = {
-      name: "O2 Purity (%)",
-      color: "lightGreen",
-      transitions: session.o2PurityChanges
-    };
+    var markerInfo = cloneObject(markerInfoTemplate);
 
-    return this.chart.addGraph(yAxisInfo, session.breathTimes, flags, paramInfo);
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "O2 Purity (%)";
+    paramInfo.color = "lightgreen";
+    paramInfo.transitions = session.o2PurityChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
 
 }
+

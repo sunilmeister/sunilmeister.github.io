@@ -613,7 +613,6 @@ function processBnumDweet(curTime, value, jsonData) {
     // update number of breaths for the last combo
     session.usedParamCombos[session.usedParamCombos.length - 1].value.numBreaths++;
   }
-  session.breathTimes.push(curTime);
 
   if (session.prevSystemBreathNum == null) { // initialize
     session.prevSystemBreathNum = value - 1;
@@ -629,25 +628,6 @@ function processBnumDweet(curTime, value, jsonData) {
   if (session.startSystemBreathNum == null) {
     session.startSystemBreathNum = value - session.numMissingBreaths;
     console.log("null startSystemBreathNum=" + session.startSystemBreathNum);
-  }
-
-  if (breathsMissing) {
-    //console.log("prevSystemBreathNum=" + session.prevSystemBreathNum);
-    //console.log("systemBreathNum=" + session.systemBreathNum);
-    //console.log("startSystemBreathNum=" + session.startSystemBreathNum);
-    //console.log("numMissingBreaths=" + session.numMissingBreaths);
-    var msg = {
-      'created': curTime,
-      'L1': String(breathsMissing) + " Breath(s) missed",
-      'L2': "Info not received by",
-      'L3': "Dashboard due to",
-      'L4': "Packet loss"
-    };
-    session.infoMsgs.push(msg);
-    session.infoChanges.push({
-      "time": curTime,
-      "value": ++session.alerts.infoNum
-    });
   }
 
   updateRangeOnNewBreath();
@@ -680,7 +660,20 @@ function processBnumDweet(curTime, value, jsonData) {
       "lineColor": "black",
       "autoCalculate": true
     });
+    var msg = {
+      'created': curTime,
+      'L1': String(breathsMissing) + " Breath(s) missed",
+      'L2': "Info not received by",
+      'L3': "Dashboard due to",
+      'L4': "Packet loss"
+    };
+    session.infoMsgs.push(msg);
+    session.infoChanges.push({
+      "time": curTime,
+      "value": ++session.alerts.infoNum
+    });
   }
+  session.breathTimes.push(curTime);
   session.lastValidBreathTime = curTime;
 }
 
