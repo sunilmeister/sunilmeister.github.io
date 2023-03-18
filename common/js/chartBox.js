@@ -4,12 +4,18 @@
 
 // Special function for Y-axis of Breath Types
 function breathTypeFormatter(e) {
-  console.log("Formatter");
-  console.log(e);
-  if (e.value == NO_BREATH) return '.';
   if (e.value == SPONTANEOUS_BREATH) return 'S';
   if (e.value == MANDATORY_BREATH) return 'M';
-  else return 'X';
+  if (e.value == MAINTENANCE_BREATH) return 'X';
+  else return '';
+}
+
+// Special function for Y-axis of System Alerts
+function alertFormatter(e) {
+  if (e.value == NOTIFICATION_YVAL) return 'N';
+  if (e.value == WARNING_YVAL) return 'W';
+  if (e.value == ERROR_YVAL) return 'X';
+  else return '';
 }
 
 class ChartBox {
@@ -504,6 +510,7 @@ class ChartBox {
     yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
+    yAxisInfo.yFormat = alertFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'square';
@@ -531,6 +538,7 @@ class ChartBox {
     yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
+    yAxisInfo.yFormat = alertFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'triangle';
@@ -558,6 +566,7 @@ class ChartBox {
     yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
+    yAxisInfo.yFormat = alertFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'cross';

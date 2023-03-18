@@ -205,9 +205,12 @@ class ChartPane {
     if (this.yAxisInfo.yMin != null) Yaxis.minimum = this.yAxisInfo.yMin;
     if (this.yAxisInfo.yMax != null) Yaxis.maximum = this.yAxisInfo.yMax;
     if (this.yAxisInfo.yInterval != null) Yaxis.interval = this.yAxisInfo.yInterval;
-    if (this.yAxisInfo.yFormat != null) Yaxis.labelFormatter = this.yAxisInfo.yFormat;
     Yaxis.suffix = "";
-    return cloneObject(Yaxis);
+    var y = cloneObject(Yaxis);
+    if (this.yAxisInfo.yFormat != null) {
+      y.labelFormatter = this.yAxisInfo.yFormat;
+    }
+    return y;
   }
 
   createContinuousXYPoints(breathTimes) {
@@ -299,10 +302,8 @@ class ChartPane {
 
     for (let t = 1; t < transitions.length; t++) {
       var cTime = transitions[t].time;
-      //console.log("cTime " + cTime);
       for (b = minBnum; b <= maxBnum; b++) {
         if (breathTimes[b] == cTime) {
-          //console.log("bTime " + breathTimes[b]);
           yval = transitions[t].value;
           ignoreDatapoint = false;
           if (this.timeUnits) {
@@ -358,7 +359,6 @@ class ChartPane {
     var startTime = null;
     var endTime = null;
 
-    //console.log("transitions"); console.log(transitions);
     for (let t = 1; t < transitions.length; t++) {
       yval = transitions[t].value;
       if (yval == bType) {
@@ -371,7 +371,6 @@ class ChartPane {
       timeSpans.push({startTime:startTime, endTime:endTime});
       startTime = endTime = null;
     }
-    //console.log("timeSpans"); console.log(timeSpans);
 
     // now we have an array of startTime and endTime for bType breaths
     var bnum = minBnum;
@@ -420,7 +419,7 @@ class ChartPane {
     if (this.yAxisInfo.yInterval) {
       Yaxis.interval = this.yAxisInfo.yInterval;
     }
-    this.chartJson.axisY.push(cloneObject(Yaxis));
+    this.chartJson.axisY.push(Yaxis);
     xyPoints.axisYIndex = axisNum;
     this.chartJson.data.push(cloneObject(xyPoints));
     return axisNum;
@@ -439,7 +438,7 @@ class ChartPane {
   addXYPointsSecondaryYNew(Yaxis, xyPoints) {
     xyPoints.name = this.paramInfo.name;
     xyPoints.color = this.paramInfo.color;
-    this.chartJson.axisY2 = cloneObject(Yaxis);
+    this.chartJson.axisY2 = Yaxis;
     xyPoints.axisYType = "secondary";
     this.chartJson.data.push(cloneObject(xyPoints));
   }
