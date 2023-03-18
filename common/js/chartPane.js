@@ -111,7 +111,7 @@ class ChartPane {
       }
     } else {
       if (yAxisInfo.primary) {
-        return this.addXYPointsPrimaryYReuse(yAxisInfo.reuseAxisNum, xyPoints);
+        return this.addXYPointsPrimaryYReuse(xyPoints);
       } else {
         this.addXYPointsSecondaryYReuse(xyPoints);
         return null;
@@ -427,7 +427,8 @@ class ChartPane {
   }
 
   // return Y-axis number for possible reuse
-  addXYPointsPrimaryYReuse(axisNum, xyPoints) {
+  addXYPointsPrimaryYReuse(xyPoints) {
+    var axisNum = this.yAxisInfo.reuseAxisNum;
     xyPoints.name = this.paramInfo.name;
     xyPoints.color = this.paramInfo.color;
     xyPoints.axisYIndex = axisNum;

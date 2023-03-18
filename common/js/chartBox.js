@@ -519,7 +519,7 @@ class ChartBox {
     paramInfo.snapYval = NOTIFICATION_YVAL;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
-   }
+  }
 
   createWarningGraph(reuseAxisNum) {
     if (!this.options.Warnings) return reuseAxisNum;
@@ -534,13 +534,13 @@ class ChartBox {
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'square';
-    markerInfo.color = 'lightorange';
+    markerInfo.color = 'yellow';
     markerInfo.label = 'W';
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Warnings";
-    paramInfo.color = "lightorange";
+    paramInfo.color = "yellow";
     paramInfo.transitions = session.warningChanges;
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = WARNING_YVAL;
@@ -561,18 +561,19 @@ class ChartBox {
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'square';
-    markerInfo.color = 'lightred';
+    markerInfo.color = 'salmon';
     markerInfo.label = 'X';
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Errors";
-    paramInfo.color = "lightred";
+    paramInfo.color = "salmon";
     paramInfo.transitions = session.errorChanges;
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = ERROR_YVAL;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);  }
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+  }
 
   createFiO2Graph(reuseAxisNum) {
     if (!this.options.FiO2) return reuseAxisNum;
