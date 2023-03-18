@@ -208,12 +208,8 @@ function gatherSessionData(lastRecordCallback) {
 
 function processJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
-  alertsProcessed = false;
+  processAlertDweet(curTime, jsonData);
   for (var key in jsonData) {
-    if (!alertsProcessed) {
-      processAlertDweet(curTime, jsonData);
-      alertsProcessed = true;
-    }
     if (key == 'content') {
       for (var ckey in jsonData.content) {
         value = jsonData.content[ckey];
