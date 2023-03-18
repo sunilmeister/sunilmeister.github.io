@@ -379,7 +379,7 @@ class ChartPane {
       startTime = timeSpans[i].startTime;
       endTime = timeSpans[i].endTime;
       for (bnum = minBnum; bnum < maxBnum; bnum++) {
-        if ((breathTimes[bnum] >= startTime) && (breathTimes[bnum] <= endTime)) {
+        if ((breathTimes[bnum] >= startTime) && (breathTimes[bnum] < endTime)) {
           ignoreDatapoint = false;
           if (this.timeUnits) {
             var ms = new Date(breathTimes[bnum]) - initTime;
