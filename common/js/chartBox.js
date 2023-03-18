@@ -436,7 +436,7 @@ class ChartBox {
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Mandatory";
+    paramInfo.name = "Mandatory Breath";
     paramInfo.color = "lime";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
@@ -465,7 +465,7 @@ class ChartBox {
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Spontaneous";
+    paramInfo.name = "Spontaneous Breath";
     paramInfo.color = "orange";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
@@ -494,7 +494,7 @@ class ChartBox {
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Maintenance";
+    paramInfo.name = "Maintenance Breath";
     paramInfo.color = "salmon";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
@@ -523,7 +523,7 @@ class ChartBox {
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Notifications";
+    paramInfo.name = "Notification";
     paramInfo.color = "lightblue";
     paramInfo.transitions = session.infoChanges;
     paramInfo.graphType = "scatter";
@@ -552,7 +552,7 @@ class ChartBox {
     markerInfo.size = 30;
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Warnings";
+    paramInfo.name = "Warning";
     paramInfo.color = "wheat";
     paramInfo.transitions = session.warningChanges;
     paramInfo.graphType = "scatter";
@@ -581,7 +581,7 @@ class ChartBox {
     markerInfo.size = 15;
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Errors";
+    paramInfo.name = "Error";
     paramInfo.color = "salmon";
     paramInfo.transitions = session.errorChanges;
     paramInfo.graphType = "scatter";
