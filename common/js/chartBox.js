@@ -533,14 +533,14 @@ class ChartBox {
     yAxisInfo.yName = "System Alerts";
 
     var markerInfo = cloneObject(markerInfoTemplate);
-    markerInfo.type = 'square';
-    markerInfo.color = 'yellow';
+    markerInfo.type = 'triangle';
+    markerInfo.color = 'wheat';
     markerInfo.label = 'W';
-    markerInfo.size = 25;
+    markerInfo.size = 30;
 
     var paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Warnings";
-    paramInfo.color = "yellow";
+    paramInfo.color = "wheat";
     paramInfo.transitions = session.warningChanges;
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = WARNING_YVAL;
@@ -560,10 +560,10 @@ class ChartBox {
     yAxisInfo.yName = "System Alerts";
 
     var markerInfo = cloneObject(markerInfoTemplate);
-    markerInfo.type = 'square';
+    markerInfo.type = 'cross';
     markerInfo.color = 'salmon';
-    markerInfo.label = 'X';
-    markerInfo.size = 25;
+    //markerInfo.label = 'X';
+    markerInfo.size = 15;
 
     var paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Errors";
