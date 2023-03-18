@@ -2,20 +2,15 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-// Special function for Y-axis of Breath Types
-function breathTypeFormatter(e) {
+// Special function for Y-axis of markers
+function markerFormatter(e) {
   if (e.value == SPONTANEOUS_BREATH) return 'S';
   if (e.value == MANDATORY_BREATH) return 'M';
   if (e.value == MAINTENANCE_BREATH) return 'X';
-  else return '';
-}
-
-// Special function for Y-axis of System Alerts
-function alertFormatter(e) {
   if (e.value == NOTIFICATION_YVAL) return 'N';
   if (e.value == WARNING_YVAL) return 'W';
-  if (e.value == ERROR_YVAL) return 'X';
-  else return '';
+  if (e.value == ERROR_YVAL) return 'E';
+  return '';
 }
 
 class ChartBox {
@@ -152,10 +147,13 @@ class ChartBox {
     bpmAxisNum = this.createSbpmGraph(bpmAxisNum);
     bpmAxisNum = this.createMbpmGraph(bpmAxisNum);
 
-    var btypeAxisNum = null;
-    btypeAxisNum = this.createMBreathGraph(btypeAxisNum);
-    btypeAxisNum = this.createSBreathGraph(btypeAxisNum);
-    btypeAxisNum = this.createEBreathGraph(btypeAxisNum);
+    var markerAxisNum = null;
+    markerAxisNum = this.createMBreathGraph(markerAxisNum);
+    markerAxisNum = this.createSBreathGraph(markerAxisNum);
+    markerAxisNum = this.createEBreathGraph(markerAxisNum);
+    markerAxisNum = this.createErrorGraph(markerAxisNum);
+    markerAxisNum = this.createWarningGraph(markerAxisNum);
+    markerAxisNum = this.createNotificationGraph(markerAxisNum);
 
     var compAxisNum = null;
     compAxisNum = this.createScompGraph(compAxisNum);
@@ -163,11 +161,6 @@ class ChartBox {
 
     var tempAxisNum = null;
     tempAxisNum = this.createTempGraph(tempAxisNum);
-
-    var flagAxisNum = null;
-    flagAxisNum = this.createErrorGraph(flagAxisNum);
-    flagAxisNum = this.createWarningGraph(flagAxisNum);
-    flagAxisNum = this.createNotificationGraph(flagAxisNum);
 
     var pctAxisNum = null;
     pctAxisNum = this.createPurityGraph(pctAxisNum);
@@ -426,8 +419,8 @@ class ChartBox {
     yAxisInfo.yMax = 8;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "Breath Type";
-    yAxisInfo.yFormat = breathTypeFormatter;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
@@ -455,8 +448,8 @@ class ChartBox {
     yAxisInfo.yMax = 8;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "Breath Type";
-    yAxisInfo.yFormat = breathTypeFormatter;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
@@ -484,8 +477,8 @@ class ChartBox {
     yAxisInfo.yMax = 8;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "Breath Type";
-    yAxisInfo.yFormat = breathTypeFormatter;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
@@ -513,8 +506,8 @@ class ChartBox {
     yAxisInfo.yMax = 8;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "System Alerts";
-    yAxisInfo.yFormat = alertFormatter;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'square';
@@ -542,8 +535,8 @@ class ChartBox {
     yAxisInfo.yMax = 8;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "System Alerts";
-    yAxisInfo.yFormat = alertFormatter;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'triangle';
@@ -571,8 +564,8 @@ class ChartBox {
     yAxisInfo.yMax = 8;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "System Alerts";
-    yAxisInfo.yFormat = alertFormatter;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'cross';
