@@ -264,13 +264,18 @@ class ChartPane {
         xval = i + minBnum - 1;
       }
       if (!ignoreDatapoint) {
-        var yval;
-        if (this.paramInfo.snapYval) yval = this.paramInfo.snapYval;
-        else yval = yDatapoints[i];
-        xyPoints.push({
-          "x": xval,
-          "y": yval,
-        });
+        if (this.paramInfo.snapYval) {
+          xyPoints.push({
+            "x": xval,
+            "y": this.paramInfo.snapYval,
+            "toolTipContent": this.paramInfo.name + '# ' + yDatapoints[i],
+          });
+        } else {
+          xyPoints.push({
+            "x": xval,
+            "y": yDatapoints[i],
+          });
+        }
       }
     }
 
@@ -315,11 +320,18 @@ class ChartPane {
             xval = b;
           }
           if (!ignoreDatapoint) {
-            if (this.paramInfo.snapYval) yval = this.paramInfo.snapYval;
-            xyPoints.push({
-              "x": xval,
-              "y": yval,
-            });
+            if (this.paramInfo.snapYval) {
+              xyPoints.push({
+                "x": xval,
+                "y": this.paramInfo.snapYval,
+                "toolTipContent": this.paramInfo.name + '# ' + yval,
+              });
+            } else {
+              xyPoints.push({
+                "x": xval,
+                "y": yval,
+              });
+            }
           }
           break;
         }
@@ -390,11 +402,18 @@ class ChartPane {
             xval = bnum;
           }
           if (!ignoreDatapoint) {
-            if (this.paramInfo.snapYval) yval = this.paramInfo.snapYval;
-            xyPoints.push({
-              "x": xval,
-              "y": yval,
-            });
+            if (this.paramInfo.snapYval) {
+              xyPoints.push({
+                "x": xval,
+                "y": this.paramInfo.snapYval,
+                "toolTipContent": this.paramInfo.name,
+              });
+            } else {
+              xyPoints.push({
+                "x": xval,
+                "y": yval,
+              });
+            }
           }
         }
       }
