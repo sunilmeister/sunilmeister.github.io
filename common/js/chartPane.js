@@ -17,6 +17,7 @@ var paramInfoTemplate = {
   color: null,
   graphType: 'stepLine',
   breathType: null,
+  snapYval: null,
 };
 var yAxisInfoTemplate = {
   primary: true,
@@ -110,7 +111,7 @@ class ChartPane {
       }
     } else {
       if (yAxisInfo.primary) {
-        return this.addXYPointsPrimaryYReuse(yAxisInfo, xyPoints);
+        return this.addXYPointsPrimaryYReuse(yAxisInfo.reuseAxisNum, xyPoints);
       } else {
         this.addXYPointsSecondaryYReuse(xyPoints);
         return null;
@@ -260,9 +261,12 @@ class ChartPane {
         xval = i + minBnum - 1;
       }
       if (!ignoreDatapoint) {
+        var yval;
+        if (this.paramInfo.snapYval) yval = this.paramInfo.snapYval;
+        else yval = yDatapoints[i];
         xyPoints.push({
           "x": xval,
-          "y": yDatapoints[i]
+          "y": yval,
         });
       }
     }
@@ -310,6 +314,7 @@ class ChartPane {
             xval = b;
           }
           if (!ignoreDatapoint) {
+            if (this.paramInfo.snapYval) yval = this.paramInfo.snapYval;
             xyPoints.push({
               "x": xval,
               "y": yval,
@@ -386,6 +391,7 @@ class ChartPane {
             xval = bnum;
           }
           if (!ignoreDatapoint) {
+            if (this.paramInfo.snapYval) yval = this.paramInfo.snapYval;
             xyPoints.push({
               "x": xval,
               "y": yval,

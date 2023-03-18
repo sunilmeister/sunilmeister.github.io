@@ -58,7 +58,7 @@ function disassembleAndQueueDweet(d) {
     if (!startMillis) startMillis = Number(millis);
     if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
       // replace CLEAR_ALL with a preconstructed dweet
-      fragment = cloneObject(clearAllDweet);
+      // fragment = cloneObject(clearAllDweet);
     }
     fragment.MILLIS = Number(millis);
     fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));

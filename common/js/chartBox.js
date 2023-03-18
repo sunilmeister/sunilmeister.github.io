@@ -4,6 +4,8 @@
 
 // Special function for Y-axis of Breath Types
 function breathTypeFormatter(e) {
+  console.log("Formatter");
+  console.log(e);
   if (e.value == NO_BREATH) return '.';
   if (e.value == SPONTANEOUS_BREATH) return 'S';
   if (e.value == MANDATORY_BREATH) return 'M';
@@ -413,11 +415,12 @@ class ChartBox {
 
     var yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
-    yAxisInfo.color = "lime";
+    yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = null;
+    yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breath Type";
+    yAxisInfo.yFormat = breathTypeFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
@@ -440,21 +443,22 @@ class ChartBox {
 
     var yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
-    yAxisInfo.color = "salmon";
+    yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = null;
+    yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breath Type";
+    yAxisInfo.yFormat = breathTypeFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
-    markerInfo.color = 'salmon';
+    markerInfo.color = 'orange';
     markerInfo.label = 'S';
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous";
-    paramInfo.color = "salmon";
+    paramInfo.color = "orange";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
     paramInfo.breathType = SPONTANEOUS_BREATH;
@@ -467,21 +471,22 @@ class ChartBox {
 
     var yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
-    yAxisInfo.color = "orange";
+    yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = null;
+    yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breath Type";
+    yAxisInfo.yFormat = breathTypeFormatter;
 
     var markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
-    markerInfo.color = 'orange';
+    markerInfo.color = 'salmon';
     markerInfo.label = 'X';
     markerInfo.size = 25;
 
     var paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Maintenance";
-    paramInfo.color = "orange";
+    paramInfo.color = "salmon";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
     paramInfo.breathType = MAINTENANCE_BREATH;
@@ -496,7 +501,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = null;
+    yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
 
@@ -511,6 +516,7 @@ class ChartBox {
     paramInfo.color = "lightblue";
     paramInfo.transitions = session.infoChanges;
     paramInfo.graphType = "scatter";
+    paramInfo.snapYval = NOTIFICATION_YVAL;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
    }
@@ -522,7 +528,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = null;
+    yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
 
@@ -537,6 +543,7 @@ class ChartBox {
     paramInfo.color = "lightorange";
     paramInfo.transitions = session.warningChanges;
     paramInfo.graphType = "scatter";
+    paramInfo.snapYval = WARNING_YVAL;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
   }
@@ -548,7 +555,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = null;
+    yAxisInfo.yMax = 4;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
 
@@ -563,6 +570,7 @@ class ChartBox {
     paramInfo.color = "lightred";
     paramInfo.transitions = session.errorChanges;
     paramInfo.graphType = "scatter";
+    paramInfo.snapYval = ERROR_YVAL;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);  }
 
