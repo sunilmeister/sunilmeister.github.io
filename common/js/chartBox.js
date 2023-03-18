@@ -423,7 +423,8 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 4;
+    yAxisInfo.yMax = 8;
+    yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breath Type";
     yAxisInfo.yFormat = breathTypeFormatter;
@@ -451,7 +452,8 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 4;
+    yAxisInfo.yMax = 8;
+    yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breath Type";
     yAxisInfo.yFormat = breathTypeFormatter;
@@ -479,7 +481,8 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 4;
+    yAxisInfo.yMax = 8;
+    yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breath Type";
     yAxisInfo.yFormat = breathTypeFormatter;
@@ -507,7 +510,8 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 4;
+    yAxisInfo.yMax = 8;
+    yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
     yAxisInfo.yFormat = alertFormatter;
@@ -535,7 +539,8 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 4;
+    yAxisInfo.yMax = 8;
+    yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
     yAxisInfo.yFormat = alertFormatter;
@@ -563,7 +568,8 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 4;
+    yAxisInfo.yMax = 8;
+    yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Alerts";
     yAxisInfo.yFormat = alertFormatter;

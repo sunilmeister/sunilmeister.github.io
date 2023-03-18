@@ -20,9 +20,9 @@ const MANDATORY_BREATH = 1;
 const SPONTANEOUS_BREATH = 2;
 const MAINTENANCE_BREATH = 3;
 
-const NOTIFICATION_YVAL = 1;
-const WARNING_YVAL = 2;
-const ERROR_YVAL = 3;
+const NOTIFICATION_YVAL = 5;
+const WARNING_YVAL = 6;
+const ERROR_YVAL = 7;
 
 const MODE_DECODER = [
   "CMV",
