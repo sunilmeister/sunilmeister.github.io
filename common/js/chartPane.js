@@ -16,7 +16,7 @@ var paramInfoTemplate = {
   transitions: [],
   color: null,
   graphType: 'stepLine',
-  breathType: null,
+  selectVal: null,
   snapYval: null,
 };
 var yAxisInfoTemplate = {
@@ -88,7 +88,7 @@ class ChartPane {
 
     var xyPoints;
     if (this.paramInfo.graphType == "scatter") {
-      if (!this.paramInfo.breathType) {
+      if (!this.paramInfo.selectVal) {
         xyPoints = this.createScatterXYPoints(breathTimes);
       } else {
         xyPoints = this.createSpanXYPoints(breathTimes);
@@ -357,7 +357,7 @@ class ChartPane {
     var minTime = this.rangeX.minTime;
     var maxTime = this.rangeX.maxTime;
     var transitions = this.paramInfo.transitions;
-    var bType = this.paramInfo.breathType;
+    var selectVal = this.paramInfo.selectVal;
     var timeSpans = [];
 
     if (transitions.length == 0) {
@@ -373,7 +373,7 @@ class ChartPane {
 
     for (let t = 1; t < transitions.length; t++) {
       yval = transitions[t].value;
-      if (yval == bType) {
+      if (yval == selectVal) {
         if (!startTime) startTime = transitions[t].time;
         if (t==transitions.length-1) endTime = breathTimes[breathTimes.length-1];
       } else if (startTime) {
@@ -384,9 +384,9 @@ class ChartPane {
       startTime = endTime = null;
     }
 
-    // now we have an array of startTime and endTime for bType breaths
+    // now we have an array of startTime and endTime for selectVal breaths
     var bnum = minBnum;
-    yval = bType;
+    yval = selectVal;
     for (let i = 0; i < timeSpans.length; i++) {
       startTime = timeSpans[i].startTime;
       endTime = timeSpans[i].endTime;

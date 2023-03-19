@@ -433,7 +433,7 @@ class ChartBox {
     paramInfo.color = "lime";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
-    paramInfo.breathType = MANDATORY_BREATH;
+    paramInfo.selectVal = MANDATORY_BREATH;
     paramInfo.snapYval = MANDATORY_BREATH;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -463,7 +463,7 @@ class ChartBox {
     paramInfo.color = "orange";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
-    paramInfo.breathType = SPONTANEOUS_BREATH;
+    paramInfo.selectVal = SPONTANEOUS_BREATH;
     paramInfo.snapYval = SPONTANEOUS_BREATH;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -493,7 +493,7 @@ class ChartBox {
     paramInfo.color = "salmon";
     paramInfo.transitions = session.breathTypeChanges;
     paramInfo.graphType = "scatter";
-    paramInfo.breathType = MAINTENANCE_BREATH;
+    paramInfo.selectVal = MAINTENANCE_BREATH;
     paramInfo.snapYval = MAINTENANCE_BREATH;
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
