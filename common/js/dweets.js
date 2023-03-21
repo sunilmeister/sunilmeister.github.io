@@ -222,7 +222,7 @@ function processJsonRecord(jsonData) {
             if ((partsArray.length == 0) || (partsArray[0] != "PW")) {
               //console.log("Expecting PWEND or PW slice but found=" + ckey);
               //console.log("Graphing anyway with PWEND()");
-              processPwendDweet();
+              processPwendDweet("");
               shapeBreathClosed = true;
               expectingPWEND = false;
             }
@@ -286,8 +286,19 @@ function shapeCollectedSamples(slices) {
 
 function processPwstartDweet(str) {
   if (!shapeBreathClosed) {
-    processPwendDweet();
+    processPwendDweet("");
     shapeBreathClosed = true;
+  }
+
+  if (str="") {
+    // No PWSTART arguments
+    // Wait for PWEND to provide them
+    shapeBreathClosed = false;
+    shapeBreathPartial = false;
+    prevShapeSliceNum = -1;
+    shapeSliceNum = -1;
+    shapeSlices = [];
+    return;
   }
 
   arr = parseJSONSafely(str);
@@ -315,7 +326,7 @@ function processPwstartDweet(str) {
 function processPwendDweet(str) {
   // PWEND key has the following value format
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval]
-  if (typeof str != 'undefined') {
+  if (str != "") {
     arr = parseJSONSafely(str);
     if (arr && (arr.length == 5)) {
       shapeActualSamples = arr[2];
@@ -338,7 +349,7 @@ function processPwendDweet(str) {
   }
 
   if (!session.shapes.breathNum || shapeBreathClosed) {
-    //console.log("Missing PWSTART for PWEND=" + str);
+    //console.log("Missing PWSTART args for PWEND=" + str);
     prevShapeSliceNum = -1;
     shapeSliceNum = -1;
     shapeSlices = [];
