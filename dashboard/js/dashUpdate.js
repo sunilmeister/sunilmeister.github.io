@@ -296,11 +296,11 @@ function updateSnapshot() {
 
 function updateDashboardAndRecordingStatus() {
   if (awaitingFirstDweet) {
-    document.getElementById("DashboardActiveImg").src = "img/RedDot.png";
+    document.getElementById("DashboardActiveImg").src = "img/WhiteDot.png";
   } else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
   } else if (wifiDropped) {
-    document.getElementById("DashboardActiveImg").src = "img/WhiteDot.png";
+    document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
   } else {
     document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
   }

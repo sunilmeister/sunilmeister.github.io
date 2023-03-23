@@ -49,7 +49,7 @@ function selectDbRow(row) {
   if ((typeof row == 'undefined') || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected Session", "Select by clicking on a table row\nTry again!");
+      modalAlert("No selected Recording", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
@@ -70,13 +70,13 @@ function deleteDbRow(row) {
   if (typeof row == 'undefined') {
     row = getSelectedTableRow();
     if (!row) {
-      modalAlert("No selected Session", "Select by clicking on a table row\nTry again!");
+      modalAlert("No selected Recording", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
 
   msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
-  modalConfirm("Delete Session", msg, doDeleteDbRow, null, {
+  modalConfirm("Delete Recording", msg, doDeleteDbRow, null, {
       row: row
     },
     "DELETE", "DO NOT DELETE");
@@ -129,7 +129,7 @@ function listAllDbs() {
 }
 
 function deleteAllDbs() {
-  modalConfirm("Delete All Saved Sessions", "", doDeleteAllDbs, null, null,
+  modalConfirm("Delete All Saved Recordings", "", doDeleteAllDbs, null, null,
     "DELETE ALL", "DO NOT DELETE");
 }
 
@@ -157,7 +157,7 @@ function checkDbReady() {
   if (session.database.dbReady && session.database.dbName) {
     if (session.analyzer.sessionVersion != APPS_VERSION) {
       modalAlert("VERSION MISMATCH",
-        "Session recorded with Software Version " + session.sessionVersion +
+        "Recorded with Software Version " + session.sessionVersion +
         "\nCurrent Software Version is " + APPS_VERSION + "\n" +
         "\nVersion " + session.analyzer.sessionVersion + " not supported");
       return false;
@@ -166,12 +166,12 @@ function checkDbReady() {
   }
 
   if (!session.database.dbName) {
-    modalAlert('No Session Selected","Please Select Session for Analysis');
+    modalAlert('No Recording Selected","Please Select Recording for Analysis');
     return false;
   }
   nameTm = parseDbName(session.database.dbName);
   sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
-  modalAlert('Session ' + sessionName + '\nNot yet ready","Please try again');
+  modalAlert('Recording ' + sessionName + '\nNot yet ready","Please try again');
   return false;
 }
 
@@ -186,7 +186,7 @@ function selectSession() {
 
 function selectImport() {
   document.getElementById("importDiv").style.display = "block";
-  document.getElementById("importSessionName").value = "Imported Session";
+  document.getElementById("importSessionName").value = "Imported Recording";
   if (session.sessionDataValid) enableAllButtons();
 }
 
@@ -276,7 +276,7 @@ function selectRawData() {
 
 function initSession(dbName) {
   if (!dbName) {
-    modalAlert("No Session selected", "Please Select Session");
+    modalAlert("No Recording selected", "Please Select Recording");
     return;
   }
   resetAnalysisData();
@@ -293,7 +293,7 @@ function initSession(dbName) {
       var keys = event.target.result;
       allDbKeys = keys;
       if (keys.length == 0) {
-        modalAlert("Selected Session has no data", "");
+        modalAlert("Selected Recording has no data", "");
         return;
       }
       session.analyzer.logStartTime = new Date(keys[0]);
@@ -536,7 +536,7 @@ window.onload = function () {
   var heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   var sessionInfo = document.getElementById("sessionNameSelector");
-  sessionInfo.innerHTML = 'No Selected Session';
+  sessionInfo.innerHTML = 'No Selected Recording';
 
   var exportFileNameInput = document.getElementById("exportFileName");
   exportFileNameInput.addEventListener("keypress", function (event) {

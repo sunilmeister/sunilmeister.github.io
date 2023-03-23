@@ -69,13 +69,13 @@
       <center>
         <div style="font-size: 1.8rem;">
           <br>
-          <label for="fileSelector">Session File to Import</label>
+          <label for="fileSelector">Recording File to Import</label>
           <br>
           <br>
           <input type="file" id=fileSelector accept=".xml" style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
           <br>
           <br>
-          <label for="importSessionName">Session Name to Create</label>
+          <label for="importSessionName">Recording Name to Create</label>
           <br>
           <br>
           <input id=importSessionName style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
@@ -131,7 +131,7 @@
                 <td id=priorNumBreaths align="center">--</td>
               </tr>
             </table>
-            <br>
+            <hr><br>
             <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
               <tr>
@@ -146,36 +146,24 @@
           </center>
           <br>
         </div>
-        <br>
-        <br>
+        <br><br>
 
         <center>
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
-            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION ACTIONS</b></p>
-            <br>
-            <button id=btnSelect class=sidebarButton onclick='selectSession()'>Manage Sessions</button>
-            <br>
-            <button id=btnRaw class=sidebarButton onclick='selectRawData()'>Session Raw Data</button>
-            <br>
-            <br>
-          </div>
-        </center>
-
-        <br>
-        <br>
-        <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
-            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>WINDOW ACTIONS</b></p>
-            <br>
+            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ACTIONS</b></p>
+            <br><hr>
+            <button id=btnSelect class=sidebarButton onclick='selectSession()'>Manage Recordings</button>
+            <br><br>
+            <button id=btnRaw class=sidebarButton onclick='selectRawData()'>Recording Raw Data</button>
+            <br><hr>
             <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
-            <br>
+            <br><br>
             <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
-            <br>
+            <br><br>
             <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
-            <br>
+            <br><br>
             <button id=btnShape class=sidebarButton onclick='selectShapes()'>View Breath Shapes</button>
-            <br>
-            <br>
+            <br><br>
           </div>
         </center>
 
@@ -187,7 +175,8 @@
       <div id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; background-color:var(--rsp_darkblue); font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
         <div style="margin-bottom:10px;">
           <center>
-            <p id=sessionNameSlider style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2.2rem; "> No Selected Session
+            <p id=sessionNameSlider style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue);
+            color:white;font-size:2.2rem; "> No Selected Recording
           </center>
         </div>
         <div id=analysisRangeSliderDiv style="margin-top:0px; padding-left:20px; padding-right:20px;font-size:1.3rem; ">
@@ -204,24 +193,27 @@
       <div id=selectorDiv style="display: none; margin-bottom:20px; max-width:900px;">
         <div style="margin-bottom:20px; width:900px;">
           <center>
-            <p class=shadowDiv5 id=sessionNameSelector style="margin-top:-50px; margin-bottom:-50px; background-color:var(--rsp_mediumblue); color:white;font-size:2rem; "> No Selected Session
+            <p class=shadowDiv5 id=sessionNameSelector style="margin-top:-50px; margin-bottom:-50px;
+            background-color:var(--rsp_mediumblue); color:white;font-size:2rem; "> No Selected Recording
           </center>
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:712px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.4rem; ">
+        <div class=shadowDiv5 style="height:698px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.4rem; ">
 
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
             <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/plus.png" width=35px height=35px></button>
             <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" width=35px height=35px></button>
             <br>
-            <center>RESPIMATIC-100 Session Databases</center>
+            <center>RESPIMATIC-100 Recordings</center>
           </div>
 
           <table id='dbTable' className="dbTableStyle" style="font-size:25px; width:100%">
             <thead>
               <tr>
-                <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Session Name</th>
+                <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px;
+                background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid
+                var(--rsp_darkblue);">Recording Name</th>
                 <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
                 <th align="center" style="padding: 8px 8px; font-size: 30px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
               </tr>
@@ -412,7 +404,7 @@
             <div id=errorColDiv class=column style="font-size: 1rem;">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
-                  Session Errors</h2>
+                  Recorded Errors</h2>
               </center>
               <div class=shadowDiv5 id=errorDiv style="height:675px; margin-left:0px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollErrorDiv style="font-size:1rem; text-align: left;">
@@ -422,7 +414,7 @@
             <div id=warningColDiv class=column style="font-size: 1rem; ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
-                  Session Warnings</h2>
+                  Recorded Warnings</h2>
               </center>
               <div class=shadowDiv5 id=warningDiv style="height:675px; margin-left:10px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollWarningDiv style="font-size:16; text-align: left">
@@ -432,7 +424,7 @@
             <div id=infoColDiv class=column style="font-size: 1rem; ">
               <center>
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
-                  Session Information</h2>
+                  Recorded Information</h2>
               </center>
               <div class=shadowDiv5 id=infoDiv style="height:675px; margin-left:10px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollInfoDiv style="font-size:16; text-align: left">
@@ -446,13 +438,14 @@
       <div id=rawDataDiv style="display: none; margin-bottom:20px;">
         <div style="margin-bottom:20px;;">
           <center>
-            <p class=shadowDiv5 id=sessionNameData style="margin-top:-50px; margin-bottom:0px; background-color:var(--rsp_mediumblue); color:white;font-size:2em; "> No Selected Session
+            <p class=shadowDiv5 id=sessionNameData style="margin-top:-50px; margin-bottom:0px;
+            background-color:var(--rsp_mediumblue); color:white;font-size:2em; "> No Selected Recording
           </center>
         </div>
         <center>
           <h2 style="color:var(--rsp_darkblue); font-size:1.5em; ">
-            Raw JSON Session Data</h2>
-          <div class=shadowDiv5 style="margin-right:10px; height:795px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            Raw JSON Recording Data</h2>
+          <div class=shadowDiv5 style="margin-right:10px; height:784px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id=scrollRawDataDiv style="font-size:1rem; text-align: left">
           </div>
 

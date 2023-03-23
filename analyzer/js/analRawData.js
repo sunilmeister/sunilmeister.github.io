@@ -41,7 +41,7 @@ function displayRawData() {
   }
   if (dataDisplayed) return;
   if (allDbKeys.length == 0) {
-    modalAlert("Selected Session has no data", "");
+    modalAlert("Selected Recording has no data", "");
     return;
   }
   for (i = 0; i < allDbKeys.length; i++) {
