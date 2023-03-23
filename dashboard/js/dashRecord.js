@@ -29,7 +29,7 @@ function startRecording() {
     return;
   }
   document.getElementById('recordNameDiv').style.display = "block";
-  document.getElementById('recordName').value = "New Session"
+  document.getElementById('recordName').value = "New Recording"
 }
 
 function resumeRecording() {
@@ -121,10 +121,10 @@ function getNewDbName(dbNameSuffix) {
   if (!dbNameSuffix) return "";
   name = session.database.dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
   if (!isValidDatabaseName(dbNameSuffix)) {
-    modalAlert("Invalid Session name", dbNameSuffix + "\nTry again");
+    modalAlert("Invalid Recording name", dbNameSuffix + "\nTry again");
     return "";
   } else if (checkDbExists(name)) {
-    modalAlert("Session name already exists", dbNameSuffix + "\nTry again");
+    modalAlert("Recording name already exists", dbNameSuffix + "\nTry again");
     return "";
   }
 
