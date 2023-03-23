@@ -149,15 +149,15 @@ function updateStateDivsFromSessionData() {
 }
 
 function updateParamDivsFromSessionData() {
-  updateDivValue(vtValELM, session.paramDataOnDisplay.vt);
-  updateDivValue(pmaxValELM, session.paramDataOnDisplay.pmax);
-  updateDivValue(ipeepValELM, session.paramDataOnDisplay.ipeep);
-  updateDivValue(psValELM, session.paramDataOnDisplay.ps);
-  updateDivValue(modeValELM, session.paramDataOnDisplay.mode);
-  updateDivValue(tpsValELM, session.paramDataOnDisplay.tps);
-  updateDivValue(tpsUnitsValELM, session.paramDataOnDisplay.tpsUnits);
-  updateDivValue(ieValELM, session.paramDataOnDisplay.ie);
-  updateDivValue(rrValELM, session.paramDataOnDisplay.rr);
+  updateDivValue(vtValELM, session.paramDataInUse.vt);
+  updateDivValue(pmaxValELM, session.paramDataInUse.pmax);
+  updateDivValue(ipeepValELM, session.paramDataInUse.ipeep);
+  updateDivValue(psValELM, session.paramDataInUse.ps);
+  updateDivValue(modeValELM, session.paramDataInUse.mode);
+  updateDivValue(tpsValELM, session.paramDataInUse.tps);
+  updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
+  updateDivValue(ieValELM, session.paramDataInUse.ie);
+  updateDivValue(rrValELM, session.paramDataInUse.rr);
 }
 
 function updateFiO2DivsFromSessionData() {
