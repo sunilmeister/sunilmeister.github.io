@@ -484,15 +484,19 @@ function processParamDweet(curTime, jsonStr) {
     session.paramDataInUse = cloneObject(obj);
   }
   updatePendingParamState();
+  //console.log("pre OnDisplay"); console.log(session.paramDataOnDisplay);
+  //console.log("pre InUse"); console.log(session.paramDataInUse);
 
-  saveSnapComboValue("vt", "paramDataInUse", "vtUsed", curTime, obj);
-  saveSnapComboValue("pmax", "paramDataInUse", "pmaxUsed", curTime, obj);
-  saveSnapComboValue("ipeep", "paramDataInUse", "ipeepUsed", curTime, obj);
-  saveSnapComboValue("ps", "paramDataInUse", "psUsed", curTime, obj);
-  saveSnapComboValue("mode", "paramDataInUse", "modeUsed", curTime, obj);
-  saveSnapComboValue("tps", "paramDataInUse", "tpsUsed", curTime, obj);
-  saveSnapComboValue("ie", "paramDataInUse", "ieUsed", curTime, obj);
-  saveSnapComboValue("rr", "paramDataInUse", "rrUsed", curTime, obj);
+  saveSnapComboValue("vt", "paramDataInUse", "vtUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("pmax", "paramDataInUse", "pmaxUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("ipeep", "paramDataInUse", "ipeepUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("ps", "paramDataInUse", "psUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("mode", "paramDataInUse", "modeUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("tps", "paramDataInUse", "tpsUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("ie", "paramDataInUse", "ieUsed", curTime, session.paramDataInUse);
+  saveSnapComboValue("rr", "paramDataInUse", "rrUsed", curTime, session.paramDataInUse);
+  //console.log("post OnDisplay"); console.log(session.paramDataOnDisplay);
+  //console.log("post InUse"); console.log(session.paramDataInUse);
 }
 
 function processFiO2Dweet(curTime, jsonStr) {
