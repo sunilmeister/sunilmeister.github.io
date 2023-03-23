@@ -290,7 +290,7 @@ function processPwstartDweet(str) {
     shapeBreathClosed = true;
   }
 
-  if (str="") {
+  if (str=="") {
     // No PWSTART arguments
     // Wait for PWEND to provide them
     shapeBreathClosed = false;

@@ -68,7 +68,9 @@ function validFloatNumber(num) {
 
 function isObject(object) {
   return object != null && typeof object === 'object';
-}  function parseJSONSafely(str) {
+}  
+
+function parseJSONSafely(str) {
   try {
     return JSON.parse(str);
   } catch (e) {
