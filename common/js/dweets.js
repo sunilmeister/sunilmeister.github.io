@@ -438,7 +438,7 @@ function processStateDweet(curTime, jsonStr) {
   if (obj.state == session.stateData.state) return;
 
   obj.prevState = session.stateData.state;
-  session.stateData = obj;
+  session.stateData = cloneObject(obj);
   session.stateChanges.push({
     "time": curTime,
     "value": obj.state
@@ -479,9 +479,9 @@ function processParamDweet(curTime, jsonStr) {
   obj = parseParamData(jsonStr);
   if (!obj) return;
 
-  session.paramDataOnDisplay = obj;
+  session.paramDataOnDisplay = cloneObject(obj);
   if (!obj.pending) {
-    session.paramDataInUse = obj;
+    session.paramDataInUse = cloneObject(obj);
   }
   updatePendingParamState();
 
