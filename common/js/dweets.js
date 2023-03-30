@@ -525,11 +525,11 @@ function processBreathDweet(curTime, jsonStr) {
   if (!obj) return;
   if (session.stateData.error) obj.type = MAINTENANCE_BREATH;
 
-  saveSnapTransValue("peak", "breathData", "peakChanges", curTime, obj);
-  saveSnapTransValue("plat", "breathData", "platChanges", curTime, obj);
-  saveSnapTransValue("mpeep", "breathData", "mpeepChanges", curTime, obj);
+  saveSnapTransValueNull("peak", "breathData", "peakChanges", curTime, obj);
+  saveSnapTransValueNull("plat", "breathData", "platChanges", curTime, obj);
+  saveSnapTransValueNull("mpeep", "breathData", "mpeepChanges", curTime, obj);
   saveSnapTransValue("vtdel", "breathData", "vtdelChanges", curTime, obj);
-  saveSnapTransValue("type", "breathData", "breathTypeChanges", curTime, obj);
+  saveSnapTransValueNull("type", "breathData", "breathTypeChanges", curTime, obj);
 }
 
 function processComplianceDweet(curTime, jsonStr) {
@@ -548,6 +548,13 @@ function processMiscDweet(curTime, jsonStr) {
 
   saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
   saveSnapValue("altitude", "miscData", curTime, obj);
+}
+
+function saveSnapValueNull(paramName, parentName, curTime, newVal) {
+  value = newVal[paramName];
+  if (value === session[parentName][paramName]) return;
+
+  session[parentName][paramName] = value;
 }
 
 function saveSnapValue(paramName, parentName, curTime, newVal) {
@@ -570,6 +577,12 @@ function saveComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
       "value": value
     });
   }
+}
+
+function saveSnapComboValueNull(paramName, parentName, uniqArrName, curTime, newVal) {
+  // first check for combo
+  saveComboValue(paramName, parentName, uniqArrName, curTime, newVal);
+  saveSnapValueNull(paramName, parentName, curTime, newVal);
 }
 
 function saveSnapComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
@@ -599,6 +612,12 @@ function saveSnapComboTransValue(paramName, parentName, uniqArrName, valArrName,
   // first check for transition
   saveTransValue(paramName, parentName, valArrName, curTime, newVal);
   saveSnapComboValue(paramName, parentName, uniqArrName, curTime, newVal);
+}
+
+function saveSnapTransValueNull(paramName, parentName, valArrName, curTime, newVal) {
+  // first check for transition
+  saveTransValue(paramName, parentName, valArrName, curTime, newVal);
+  saveSnapValueNull(paramName, parentName, curTime, newVal);
 }
 
 function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) {
