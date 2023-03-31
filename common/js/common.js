@@ -541,6 +541,10 @@ function o2PurityAtAltitudeMtr(mtr) {
 
 function showZoomReminder() {
   if (getCookie(zoomReminderOffCookieName) == "OFF") return;
+
+  var modalColor = 
+    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  
   Swal.fire({
     icon: 'info',
     position: 'bottom',
@@ -548,7 +552,7 @@ function showZoomReminder() {
     html: ZOOM_MESSAGE_STR,
     showConfirmButton: false,
     color: 'white',
-    background: '#2C94BC',
+    background: modalColor,
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
@@ -582,6 +586,10 @@ function showZoomReminder() {
 
 function showEditIconReminder() {
   if (getCookie(editReminderOffCookieName) == "OFF") return;
+
+  var modalColor = 
+    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  
   Swal.fire({
     icon: 'info',
     position: 'bottom-end',
@@ -589,7 +597,7 @@ function showEditIconReminder() {
     html: EDIT_ICON_MESSAGE_STR,
     showConfirmButton: true,
     color: 'white',
-    background: '#2C94BC',
+    background: modalColor,
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
@@ -658,13 +666,17 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
   if (typeof cancelText == 'undefined') {
     cancelText = "CANCEL";
   }
+
+  var modalColor = 
+    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  
   Swal.fire({
     icon: 'question',
     title: title,
     html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
     width: modalWidth,
     color: 'white',
-    background: '#2C94BC',
+    background: modalColor,
     showConfirmButton: true,
     showCancelButton: true,
     confirmButtonText: confirmText,

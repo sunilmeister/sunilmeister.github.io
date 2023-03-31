@@ -109,7 +109,7 @@ span {
 .popupClass {
   width: 800px;
   height: 300px;
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_modal);
   color: white;
 
   font-size: 2.5rem;
@@ -134,9 +134,3 @@ span {
   font-family: 'Verdana' !important;
 }
 
-/*
-body.swal2-shown > [aria-hidden="true"] {
-  transition: 0.1s filter;
-  filter: blur(10px);
-}
-*/

@@ -6,7 +6,7 @@
 
 :root {
   --rsp_darkblue: 	#0D3E51;
-  --rsp_mediumblue: 	#2C94BC;
+  --rsp_mediumblue: #2C94BC;
   --rsp_blue: 		#71C7EC;
   --rsp_lightblue: 	#D5F3FE;
   --rsp_darkgreen: 	#1E453E;
@@ -15,6 +15,7 @@
   --rsp_yellow: 	#E7C800;
   --rsp_orange: 	#E95F0A;
   --rsp_darkred: 	#B22222;
+  --rsp_modal: 	    #708090;
 
   --colorMandatoryVC:   #FCF3CF; 
   --colorSpontaneousVC: #D6EAF8; 
