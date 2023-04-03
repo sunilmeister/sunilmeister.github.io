@@ -40,7 +40,7 @@ var SessionDataTemplate = {
     missingTime: []
   },
 
-  inProgess: {
+  inProgress: {
     charts:     false,
     shapes:     false,
     alerts:     false,
