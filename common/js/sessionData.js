@@ -40,6 +40,13 @@ var SessionDataTemplate = {
     missingTime: []
   },
 
+  inProgess: {
+    charts:     false,
+    shapes:     false,
+    alerts:     false,
+    stats:      false,
+  },
+
   // ////////////////////////////////////////////////////
   // data collected from dweets
   // ////////////////////////////////////////////////////
@@ -205,7 +212,6 @@ var SessionDataTemplate = {
   charts : {
     rangeLimit: MAX_CHART_DATAPOINTS,
     fontSize: 25,
-    creationInProgress: false,
     allChartsContainerInfo: {},
     boxTree: null,
   },

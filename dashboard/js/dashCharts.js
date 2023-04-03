@@ -5,8 +5,8 @@
 var firstTimeChartsEntry = true;
 
 function createDashboardCharts() {
-  if (session.charts.creationInProgress) return;
-  session.charts.creationInProgress = true;
+  if (session.inProgress.charts) return;
+  session.inProgress.charts = true;
 
   if (numberOfExistingCharts() == 0) {
     chartInsertOnTop(); // always have chart box for user to start with
@@ -21,7 +21,7 @@ function createDashboardCharts() {
     session.charts.allChartsContainerInfo[id].render();
   }
 
-  session.charts.creationInProgress = false;
+  session.inProgress.charts = false;
 }
 
 ////////////////////////////////////////////////////////

@@ -5,8 +5,8 @@
 var firstTimeShapesEntry = true;
 
 function createDashboardShapes() {
-  if (session.shapes.creationInProgress) return;
-  session.shapes.creationInProgress = true;
+  if (session.inProgress.shapes) return;
+  session.inProgress.shapes = true;
 
   if (numberOfExistingShapes() == 0) {
     shapeInsertOnTop(); // always have shape box for user to start with
@@ -21,7 +21,7 @@ function createDashboardShapes() {
     session.shapes.allShapesContainerInfo[id].render();
   }
 
-  session.shapes.creationInProgress = false;
+  session.inProgress.shapes = false;
 }
 
 function rollingShapeRange() {

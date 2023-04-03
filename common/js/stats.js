@@ -309,6 +309,9 @@ function displayStats() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
+  if (session.inProgress.stats) return;
+  session.inProgress.stats = true;
+
   if (!session.statTablesConstructed) {
     //console.log("Constructing Tables");
     constructStatMinMaxTable();
@@ -329,6 +332,8 @@ function displayStats() {
   el.innerHTML = "System Deployment Altitude: (" 
     + session.miscData.altitude + " ft) or ("
     + Math.floor(session.miscData.altitude * 0.305) + " mtrs)" ;
+
+  session.inProgress.stats = false;
 }
 
 function initStats() {
