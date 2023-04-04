@@ -116,7 +116,7 @@
 
         <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
           <center>
-            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>RECORDED DATA</b></p>
+            <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>RECORDED DATA</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
               <tr>
                 <td align="left">&nbspBreaths</td>
@@ -131,7 +131,7 @@
                 <td id=priorNumBreaths align="center">--</td>
               </tr>
             </table>
-            <hr><br>
+            <br>
             <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
               <tr>
@@ -149,19 +149,23 @@
         <br><br>
 
         <center>
+          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.5rem; ">
+            <button id=btnSelect class=sidebarButton onclick='selectSession()' style='font-size: 1.6rem;'><b>Select Recording</b></button>
+            <br>
+          </div>
+          <br><br>
+
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
-            <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ACTIONS</b></p>
-            <br><hr>
-            <button id=btnSelect class=sidebarButton onclick='selectSession()'>Manage Recordings</button>
-            <br><br>
-            <button id=btnRaw class=sidebarButton onclick='selectRawData()'>Recording Raw Data</button>
-            <br><hr>
+            <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
+            <br>
+            <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
+            <br>
             <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
-            <br><br>
+            <br>
             <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
-            <br><br>
+            <br>
             <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
-            <br><br>
+            <br>
             <button id=btnShape class=sidebarButton onclick='selectShapes()'>View Breath Shapes</button>
             <br><br>
           </div>
@@ -199,7 +203,7 @@
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:698px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.4rem; ">
+        <div class=shadowDiv5 style="height:692px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.4rem; ">
 
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
             <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/plus.png" width=35px height=35px></button>
@@ -399,7 +403,7 @@
       </div>
 
       <center>
-        <div id=alertsDiv style="display: none; margin-left: -15px; margin-bottom:10px; font-size:1.3rem;">
+        <div id=alertsDiv style="display: none; margin-left: -15px; margin-top: -10px; margin-bottom:10px; font-size:1.3rem;">
           <div class=row style="margin-top:10px; ">
             <div id=errorColDiv class=column style="font-size: 1rem;">
               <center>
