@@ -329,13 +329,15 @@ function launchAnalyzer() {
   if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
-  //window.location.assign("analyzer/respimatic.analyzer.html");
   window.open("../analyzer/analyzer.html");
 }
 
 function launchFiO2() {
-  // window.location.assign("fio2/respimatic.fio2Calc.html");
   window.open("../fio2Calc/fio2Calc.html");
+}
+
+function launchPsv() {
+  window.open("../psvCalc/psvCalc.html");
 }
 
 window.onload = function () {
