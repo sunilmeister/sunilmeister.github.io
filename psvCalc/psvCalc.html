@@ -35,24 +35,27 @@
 
       <center>
         <img src="img/Psv.png" alt="Title" width=380rem height=110rem >
-        <div class=content style="font-size: 2rem;  background-color:var(--rsp_mediumblue); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
+        <div class=content style="font-size: 2rem;  background-color:var(--rsp_darkblue); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
           <b>
-            <p style="font-size:1.7rem; padding-bottom:-1.5rem; padding-top:1.5rem;">Target Minute Volume</p>
+            <p style="font-size:1.7rem; padding-bottom:-1.5rem; margin-top:-0.5rem;">Target Minute Volume</p>
             </b>
-          <p style="font-size:1.5rem; padding-bottom:-1rem; margin-top:-1rem;">(litres/min)</p>
+          <p style="font-size:1.5rem; padding-bottom:-1rem; margin-top:-1.5rem; margin-bottom: 0.5rem;">(litres/min)</p>
           <input type="number" id=mVol name="mVol" autofocus min=2.0 max=18.0 step=0.5 value=10.0
           style="font-size:1.5rem; width:5em;" onchange='mVolChanged()'>
           <br>
-          <br>
+          <hr>
         </div>
         <br>
-        <br>
-        <div id=vtRrDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin-left:2rem; margin-right:2rem;">
+        <div style="background-color:var(--rsp_mediumblue); color:white; margin-bottom:-1rem;">
+        <p style="font-size:1.7rem; padding-bottom:-1.5rem;margin-top:-0.5rem;">Backup Mandatory Breaths</p>
+        <p style="font-size:1.2rem; padding-bottom:-1.5rem; margin-top:-1.5rem;">(In case of missing Spontaneous Breaths)</p>
+        </div>
+        <div id=vtRrDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin-left:1rem; margin-right:1rem;">
           <div id=vtDiv style="float:left;">
-            <p style="clear:both;"> VT (ml)
+            <p style="clear:both; margin-bottom:0rem;"> VT (ml)
           </div>
           <div id=rrDiv style="float:right;">
-            <p style="clear:both;"> RR (bpm)
+            <p style="clear:both;margin-bottom:0rem;"> RR (bpm)
           </div>
           <br>
         </div>
