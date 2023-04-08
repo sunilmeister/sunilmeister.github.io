@@ -62,6 +62,7 @@ var SessionDataTemplate = {
 
   pendingParamsData: {
     vt : null,
+    mvX10 : null,
     pmax : null,
     ipeep : null,
     ps : null,
@@ -75,6 +76,7 @@ var SessionDataTemplate = {
   paramDataOnDisplay: {
     pending : null,
     vt : null,
+    mvX10 : null,
     pmax : null,
     ipeep : null,
     ps : null,
@@ -88,6 +90,7 @@ var SessionDataTemplate = {
   paramDataInUse: {
     pending : null,
     vt : null,
+    mvX10 : null,
     pmax : null,
     ipeep : null,
     ps : null,
@@ -158,6 +161,7 @@ var SessionDataTemplate = {
   // sets of unique values encountered
   modeUsed:                [],
   vtUsed:                  [],
+  mvX10Used:               [],
   rrUsed:                  [],
   ieUsed:                  [],
   ipeepUsed:               [],

@@ -113,6 +113,8 @@ var modeValELM = null;
 var tpsValELM = null;
 var ieValELM = null;
 var rrValELM = null;
+var vtMvTitleELM = null;
+var vtMvUnitsELM = null;
 
 function initDivElements() {
   stateDIV = document.getElementById("StateDiv");
@@ -159,6 +161,9 @@ function initDivElements() {
   modeValELM = document.getElementById("MODE");
   ieValELM = document.getElementById("IE");
   rrValELM = document.getElementById("RR");
+  vtMvTitleELM = document.getElementById('VtMvTitle');
+  vtMvUnitsELM = document.getElementById('VtMvUnits');
+
 }
   
   

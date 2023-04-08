@@ -39,6 +39,7 @@ function updatePendingSettings(blink) {
   pend = session.pendingParamsData;
   updatePendingIndividualSetting(blink, "MODEDiv", pend.mode);
   updatePendingIndividualSetting(blink, "VTDiv", pend.vt);
+  updatePendingIndividualSetting(blink, "VTDiv", pend.mvX10);
   updatePendingIndividualSetting(blink, "RRDiv", pend.rr);
   updatePendingIndividualSetting(blink, "IEDiv", pend.ie);
   updatePendingIndividualSetting(blink, "IPEEPDiv", pend.ipeep);
@@ -149,15 +150,26 @@ function updateStateDivsFromSessionData() {
 }
 
 function updateParamDivsFromSessionData() {
-  updateDivValue(vtValELM, session.paramDataInUse.vt);
+  // Switch between PSV and other modes
+  if (session.paramDataInUse.mode == "PSV") {
+    vtMvTitleELM.innerHTML = "Minute Volume";
+    vtMvUnitsELM.innerHTML = "(litres/min)";
+    updateDivValue(ieValELM, null);
+    updateDivValue(rrValELM, null);
+    updateDivValue(vtValELM, session.paramDataInUse.mvX10/10);
+  } else {
+    vtMvTitleELM.innerHTML = "Tidal Volume";
+    vtMvUnitsELM.innerHTML = "(ml)";
+    updateDivValue(ieValELM, session.paramDataInUse.ie);
+    updateDivValue(rrValELM, session.paramDataInUse.rr);
+    updateDivValue(vtValELM, session.paramDataInUse.vt);
+  }
   updateDivValue(pmaxValELM, session.paramDataInUse.pmax);
   updateDivValue(ipeepValELM, session.paramDataInUse.ipeep);
   updateDivValue(psValELM, session.paramDataInUse.ps);
   updateDivValue(modeValELM, session.paramDataInUse.mode);
   updateDivValue(tpsValELM, session.paramDataInUse.tps);
   updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
-  updateDivValue(ieValELM, session.paramDataInUse.ie);
-  updateDivValue(rrValELM, session.paramDataInUse.rr);
 }
 
 function updateFiO2DivsFromSessionData() {
