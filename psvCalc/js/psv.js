@@ -73,30 +73,16 @@ function setRrValue(rr) {
 }
 
 function updatePsvCalculationMvolChange(mvol) {
-  for (let rr = 10; rr <= 30; rr++) {
-    let vt = mvol * 1000 / rr ;
-    //console.log ("mvol=" + mvol + " vt=" + vt + " rr=" + rr);
-    if ((vt < 200) || (vt > 600)) continue;
-    setRrValue(rr);
-    setVtValue(vt);
-    return;
-  }
+  splitMvIntoVtRr(mvol);
 }
 
 function updatePsvCalculationVtChange(vt) {
   let rr = mvol * 1000 / vt;
   if ((rr < 10) || (rr > 30))  {
-    for (rr = 10; rr <= 30; rr++) {
-      vt = mvol * 1000 / rr ;
-      console.log ("mvol=" + mvol + " vt=" + vt + " rr=" + rr);
-      if ((vt >= 200) && (vt <= 600)) break;
-    }
-    vt = mvol * 1000 / rr; 
     modalAlert("Inconsistent", "Resulting Respiration rate is not within" + 
       "\nthe RR range (10 - 30) bpm" +
       "\nSetting VT/RR to consistent values");
-    setVtValue(vt);
-    setRrValue(rr);
+    splitMvIntoVtRr(mvol);
     return;
   }
   setRrValue(rr);
@@ -105,18 +91,28 @@ function updatePsvCalculationVtChange(vt) {
 function updatePsvCalculationRrChange(rr) {
   let vt = mvol * 1000 / rr;
   if ((vt < 200) || (vt > 600)) {
-    for (rr = 10; rr <= 30; rr++) {
-      vt = mvol * 1000 / rr ;
-      if ((vt >= 200) && (vt <= 600)) break;
-    }
-    vt = mvol * 1000 / rr; 
     modalAlert("Inconsistent", "Resulting Tidal volume is not within" + 
       "\nthe VT range (200 - 600) ml" +
       "\nSetting VT/RR to consistent values");
-    setVtValue(vt);
-    setRrValue(rr);
+    splitMvIntoVtRr(mvol);
     return;
   }
   setVtValue(vt);
 }
 
+function splitMvIntoVtRr(mvol) {
+  let rrMin = null;
+  let rrMax = null;
+  for (let rr = 10; rr <= 30; rr++) {
+    vt = mvol * 1000 / rr ;
+    if ((vt >= 200) && (vt <= 600)) {
+      if (rrMin) rrMax = rr;
+      else rrMin = rr;
+    }
+  }
+  if (!rrMax) rrMax = rrMin;
+  rr = Math.floor((rrMax + rrMin) / 2);
+  vt = mvol * 1000 / rr ;
+  setRrValue(rr);
+  setVtValue(vt);
+}
