@@ -39,7 +39,7 @@ function updatePendingSettings(blink) {
   pend = session.pendingParamsData;
   updatePendingIndividualSetting(blink, "MODEDiv", pend.mode);
   updatePendingIndividualSetting(blink, "VTDiv", pend.vt);
-  updatePendingIndividualSetting(blink, "VTDiv", pend.mvX10);
+  updatePendingIndividualSetting(blink, "VTDiv", pend.mv);
   updatePendingIndividualSetting(blink, "RRDiv", pend.rr);
   updatePendingIndividualSetting(blink, "IEDiv", pend.ie);
   updatePendingIndividualSetting(blink, "IPEEPDiv", pend.ipeep);
@@ -156,7 +156,7 @@ function updateParamDivsFromSessionData() {
     vtMvUnitsELM.innerHTML = "(litres/min)";
     updateDivValue(ieValELM, null);
     updateDivValue(rrValELM, null);
-    updateDivValue(vtValELM, session.paramDataInUse.mvX10/10);
+    updateDivValue(vtValELM, session.paramDataInUse.mv);
   } else {
     vtMvTitleELM.innerHTML = "Tidal Volume";
     vtMvUnitsELM.innerHTML = "(ml)";

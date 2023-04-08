@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function checkForUndefined(val) {
+  if (val === null) return "--";
   if (typeof val == 'undefined') return "?";
   return val;
 }
@@ -18,12 +19,21 @@ function displayUsedCombos() {
     var row = table.insertRow();
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.mode);
-    cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.vt);
-    cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.rr);
-    cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.ie);
+    if (combo.value.mode == "PSV") {
+      cell = row.insertCell();
+      cell.innerHTML = checkForUndefined(combo.value.mv);
+      cell = row.insertCell();
+      cell.innerHTML = checkForUndefined(null);
+      cell = row.insertCell();
+      cell.innerHTML = checkForUndefined(null);
+    } else {
+      cell = row.insertCell();
+      cell.innerHTML = checkForUndefined(combo.value.vt);
+      cell = row.insertCell();
+      cell.innerHTML = checkForUndefined(combo.value.rr);
+      cell = row.insertCell();
+      cell.innerHTML = checkForUndefined(combo.value.ie);
+    }
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.ipeep);
     cell = row.insertCell();
@@ -109,6 +119,7 @@ function constructStatParamTable() {
   var table = document.getElementById("statsParamTable");
   paramTableRow(table, "Ventilation Mode", "mode", "mode");
   paramTableRow(table, "Tidal Volume", "ml", "vt");
+  paramTableRow(table, "Minute Volume", "l/min", "mv");
   paramTableRow(table, "Respiration Rate", "bpm", "rr");
   paramTableRow(table, "I:E Ratio", "ratio", "ie");
   paramTableRow(table, "PEEP Pressure", "cmH20", "ipeep");
@@ -147,7 +158,7 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
 }
 
 function extractUsedParamsFromCombos() {
-  var pNames = ["mode", "vt", "rr", "ie", "ipeep", "pmax", "ps", "tps", "fiO2"];
+  var pNames = ["mode", "vt", "mv", "rr", "ie", "ipeep", "pmax", "ps", "tps", "fiO2"];
   var obj = {};
 
   if (session.usedParamCombos.length == 0) {
@@ -245,6 +256,8 @@ function displayParamUsage() {
   el.innerHTML = formUsedParamString(obj, "mode");
   el = document.getElementById("vt");
   el.innerHTML = formUsedParamString(obj, "vt");
+  el = document.getElementById("mv");
+  el.innerHTML = formUsedParamString(obj, "mv");
   el = document.getElementById("rr");
   el.innerHTML = formUsedParamString(obj, "rr");
   el = document.getElementById("ie");

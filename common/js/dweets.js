@@ -67,7 +67,7 @@ function parseParamData(jsonStr) {
     tpsUnits :  (arr[6] == -1) ? null : TPS_DECODER[arr[6]].units,
     ie :        (arr[7] == -1) ? null : EI_DECODER[arr[7]],
     rr :        (arr[8] == -1) ? null : arr[8],
-    mvX10 :     (arr[9] == -1) ? null : arr[9],
+    mv :        (arr[9] == -1) ? null : arr[9]/10,
   }
   return val;
 }
@@ -454,8 +454,8 @@ function updatePendingParamState() {
   if (p1.vt == p2.vt) p.vt = false;
   else p.vt = true;
 
-  if (p1.mvX10 == p2.mvX10) p.mvX10 = false;
-  else p.mvX10 = true;
+  if (p1.mv == p2.mv) p.mv = false;
+  else p.mv = true;
 
   if (p1.pmax == p2.pmax) p.pmax = false;
   else p.pmax = true;
@@ -492,7 +492,7 @@ function processParamDweet(curTime, jsonStr) {
   //console.log("pre InUse"); console.log(session.paramDataInUse);
 
   saveSnapComboValue("vt", "paramDataInUse", "vtUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("mvX10", "paramDataInUse", "mvX10Used", curTime, session.paramDataInUse);
+  saveSnapComboValue("mv", "paramDataInUse", "mvUsed", curTime, session.paramDataInUse);
   saveSnapComboValue("pmax", "paramDataInUse", "pmaxUsed", curTime, session.paramDataInUse);
   saveSnapComboValue("ipeep", "paramDataInUse", "ipeepUsed", curTime, session.paramDataInUse);
   saveSnapComboValue("ps", "paramDataInUse", "psUsed", curTime, session.paramDataInUse);
