@@ -113,6 +113,13 @@ function splitMvIntoVtRr(mvol) {
   if (!rrMax) rrMax = rrMin;
   rr = Math.floor((rrMax + rrMin) / 2);
   vt = mvol * 1000 / rr ;
+  for (let v = 200; v <= 600; v += 100) {
+    if (vt <= v) {
+      vt = v;
+      break;
+    }
+  }
+  rr = Math.floor(mvol * 1000 / vt);
   setRrValue(rr);
   setVtValue(vt);
 }
