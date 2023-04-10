@@ -21,7 +21,7 @@ function breathShapeXaxisFormatter(e) {
   else return iPart;
 }
 
-class BreathShapes {
+class ShapePane {
 
   constructor(title, height, rangeX, menu) {
     this.graphType = "spline";
@@ -49,6 +49,8 @@ class BreathShapes {
     };
     this.chart = null;
     this.menu = menu;
+    this.containerDiv = null;
+    this.numSelectedShapesInRange = 0;
 
     this.addXaxis();
   }
@@ -107,12 +109,30 @@ class BreathShapes {
   }
 
   render(containerDiv) {
+    this.containerDiv = containerDiv;
+    var numShapes = this.numSelectedShapesInRange;
+    if (numShapes <= session.shapes.confirmThreshold) {
+      this.renderWithoutConfirm();
+    } else {
+       modalConfirm("Too many Breath Shapes", 
+        "It may take time to render " + numShapes + " shapes\n" +
+        "Use the Range Selector to limit the number", 
+        this.renderWithoutConfirm.bind(this), null, null, "RENDER", "CANCEL");
+    }
+  }
+
+  renderWithoutConfirm() {
     if (this.chart) {
       this.chart.destroy();
       this.chart = null;
     }
-    this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
+    this.chart = new CanvasJS.Chart(this.containerDiv, this.chartJson);
     this.chart.render();
+
+    // update the threshold
+    if (this.numSelectedShapesInRange >  session.shapes.confirmThreshold) {
+       session.shapes.confirmThreshold = this.numSelectedShapesInRange;
+    }
   }
 
   destroy() {
@@ -192,6 +212,7 @@ class BreathShapes {
     var initBnum = this.rangeX.initBnum;
     var minBnum = this.rangeX.minBnum;
     var maxBnum = this.rangeX.maxBnum;
+    this.numSelectedShapesInRange = 0;
 
     // init Breaks in the graph
     var Xaxis = this.chartJson.axisX;
@@ -217,6 +238,7 @@ class BreathShapes {
       if (!session.breathTimes[breathNum]) {
         continue;
       }
+      this.numSelectedShapesInRange++;
       var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
       var initXval = xval;
       Xaxis.scaleBreaks.customBreaks.push({
@@ -296,6 +318,5 @@ class BreathShapes {
     var minTime = this.rangeX.minTime;
     return (minTime - initTime) / 1000;
   }
-
 
 };

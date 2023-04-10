@@ -65,7 +65,7 @@ class ShapeBox {
   }
 
   createChart() {
-    this.chart = new BreathShapes(
+    this.chart = new ShapePane(
       this.options.title,
       this.containerBodyDiv.offsetHeight,
       this.rangeX,
