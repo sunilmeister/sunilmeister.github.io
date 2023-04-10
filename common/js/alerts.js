@@ -92,3 +92,10 @@ function displayAlerts() {
 
   session.inProgress.alerts = false;
 }
+
+function numberOfExistingAlerts() {
+  return 
+    session.infoMsgs.length +
+    session.warningMsgs.length +
+    session.errorMsgs.length ;
+}

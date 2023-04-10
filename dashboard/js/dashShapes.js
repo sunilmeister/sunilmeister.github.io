@@ -8,7 +8,7 @@ function createDashboardShapes() {
   if (session.inProgress.shapes) return;
   session.inProgress.shapes = true;
 
-  if (numberOfExistingShapes() == 0) {
+  if (numberOfExistingShapeBoxes() == 0) {
     shapeInsertOnTop(); // always have shape box for user to start with
   }
 

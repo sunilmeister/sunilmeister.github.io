@@ -21,6 +21,9 @@ var currentViewIsSnapshot = true;
 
 var updatePaused = false;
 var updateInProgress = false;
+var prevUpdateNumBreaths = -1;
+var prevUpdateNumShapes = -1;
+var prevUpdateNumAlerts = -1;
 
 var wifiDropped = false;
 var wifiDroppedBlink = 0;

@@ -91,6 +91,10 @@ function createNewShapeContainer() {
 }
 
 function numberOfExistingShapes() {
+  return session.shapes.data.length;
+}
+
+function numberOfExistingShapeBoxes() {
   return (Object.keys(session.shapes.allShapesContainerInfo).length);
 }
 

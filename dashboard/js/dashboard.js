@@ -121,11 +121,31 @@ function processDashboardDweet(d) {
 }
 
 function createDashboards() {
+  // update Snapshot on every dweet
   if ((currentView == "snapshots") && !updatePaused) updateSnapshot();
-  if ((currentView == "charts") && !updatePaused) createDashboardCharts();
-  if ((currentView == "stats") && !updatePaused) createDashboardStats();
-  if ((currentView == "alerts") && !updatePaused) createDashboardAlerts();
-  if ((currentView == "shapes") && !updatePaused) createDashboardShapes();
+
+  // update rest of the views selectively
+  currNumBreaths = session.dashboardBreathNum;
+  currNumAlerts = numberOfExistingAlerts();
+  currNumShapes = numberOfExistingShapes();
+
+  if ((currentView == "charts") && !updatePaused) {
+    if (prevUpdateNumBreaths != currNumBreaths) createDashboardCharts();
+    prevUpdateNumBreaths = currNumBreaths;
+  }
+  if ((currentView == "stats") && !updatePaused) {
+    if (prevUpdateNumBreaths != currNumBreaths) createDashboardStats();
+    prevUpdateNumBreaths = currNumBreaths;
+  }
+  if ((currentView == "alerts") && !updatePaused) {
+    if (prevUpdateNumAlerts != currNumAlerts) createDashboardAlerts();
+    prevUpdateNumAlerts = currNumAlerts;
+  }
+  if ((currentView == "shapes") && !updatePaused) {
+    if (prevUpdateNumShapes != currNumShapes) createDashboardShapes();
+    prevUpdateNumShapes = currNumShapes;
+  }
+
 }
 
 function snapshotProcessJsonRecord(d) {
