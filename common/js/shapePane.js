@@ -50,7 +50,7 @@ class ShapePane {
     this.chart = null;
     this.menu = menu;
     this.containerDiv = null;
-    this.numSelectedShapesInRange = 0;
+    this.numSelectedShapes = 0;
 
     this.addXaxis();
   }
@@ -97,6 +97,22 @@ class ShapePane {
     return n;
   }
 
+  numSelectedShapesInRange() {
+    var minBnum = session.reportRange.minBnum;
+    var maxBnum = session.reportRange.maxBnum;
+    var n = 0;
+    for (let i = 0; i < session.shapes.data.length; i++) {
+      var breathNum = session.shapes.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+      if (breathNum < minBnum) continue;
+      if (breathNum > maxBnum) break;
+      var breathInfo = session.shapes.data[i].breathInfo;
+      if (!this.breathSelectedInMenu(breathInfo)) continue;
+      n++;
+    }
+    return n;
+  }
+
+
   addGraph() {
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";
@@ -110,8 +126,8 @@ class ShapePane {
 
   render(containerDiv) {
     this.containerDiv = containerDiv;
-    var numShapes = this.numSelectedShapesInRange;
-    if (numShapes <= session.shapes.confirmThreshold) {
+    this.numSelectedShapes = this.numSelectedShapesInRange();
+    if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
       this.renderWithoutConfirm();
     } else {
        modalConfirm("Too many Breath Shapes", 
@@ -130,8 +146,8 @@ class ShapePane {
     this.chart.render();
 
     // update the threshold
-    if (this.numSelectedShapesInRange >  session.shapes.confirmThreshold) {
-       session.shapes.confirmThreshold = this.numSelectedShapesInRange;
+    if (this.numSelectedShapes >  session.shapes.confirmThreshold) {
+       session.shapes.confirmThreshold = this.numSelectedShapes;
     }
   }
 
@@ -212,7 +228,7 @@ class ShapePane {
     var initBnum = this.rangeX.initBnum;
     var minBnum = this.rangeX.minBnum;
     var maxBnum = this.rangeX.maxBnum;
-    this.numSelectedShapesInRange = 0;
+    this.numSelectedShapes = 0;
 
     // init Breaks in the graph
     var Xaxis = this.chartJson.axisX;
@@ -238,7 +254,7 @@ class ShapePane {
       if (!session.breathTimes[breathNum]) {
         continue;
       }
-      this.numSelectedShapesInRange++;
+      this.numSelectedShapes++;
       var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
       var initXval = xval;
       Xaxis.scaleBreaks.customBreaks.push({
