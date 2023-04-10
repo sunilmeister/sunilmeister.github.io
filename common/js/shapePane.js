@@ -49,7 +49,6 @@ class ShapePane {
     };
     this.chart = null;
     this.menu = menu;
-    this.containerDiv = null;
     this.numSelectedShapes = 0;
 
     this.addXaxis();
@@ -114,6 +113,21 @@ class ShapePane {
 
 
   addGraph() {
+    this.numSelectedShapes = this.numSelectedShapesInRange();
+    if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
+      this.addGraphNoConfirm();
+    } else {
+       modalConfirm("Too many Breath Shapes", 
+        "It may take time to render " + this.numSelectedShapes + " shapes\n" +
+        "Range Selector can be used to limit the number", 
+        this.addGraphNoConfirm.bind(this), null, null, "RENDER", "CANCEL");    }
+  }
+
+  addGraphNoConfirm() {
+    // update the threshold
+    if (this.numSelectedShapes >  session.shapes.confirmThreshold) {
+       session.shapes.confirmThreshold = this.numSelectedShapes;
+    }
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";
     var xyPoints = this.createXYPoints();
@@ -125,30 +139,12 @@ class ShapePane {
   }
 
   render(containerDiv) {
-    this.containerDiv = containerDiv;
-    this.numSelectedShapes = this.numSelectedShapesInRange();
-    if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
-      this.renderWithoutConfirm();
-    } else {
-       modalConfirm("Too many Breath Shapes", 
-        "It may take time to render " + numShapes + " shapes\n" +
-        "Use the Range Selector to limit the number", 
-        this.renderWithoutConfirm.bind(this), null, null, "RENDER", "CANCEL");
-    }
-  }
-
-  renderWithoutConfirm() {
     if (this.chart) {
       this.chart.destroy();
       this.chart = null;
     }
-    this.chart = new CanvasJS.Chart(this.containerDiv, this.chartJson);
+    this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
     this.chart.render();
-
-    // update the threshold
-    if (this.numSelectedShapes >  session.shapes.confirmThreshold) {
-       session.shapes.confirmThreshold = this.numSelectedShapes;
-    }
   }
 
   destroy() {
@@ -228,7 +224,6 @@ class ShapePane {
     var initBnum = this.rangeX.initBnum;
     var minBnum = this.rangeX.minBnum;
     var maxBnum = this.rangeX.maxBnum;
-    this.numSelectedShapes = 0;
 
     // init Breaks in the graph
     var Xaxis = this.chartJson.axisX;
@@ -254,7 +249,6 @@ class ShapePane {
       if (!session.breathTimes[breathNum]) {
         continue;
       }
-      this.numSelectedShapes++;
       var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
       var initXval = xval;
       Xaxis.scaleBreaks.customBreaks.push({
