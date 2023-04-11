@@ -66,25 +66,25 @@ function doImport(file, fileName, dbName) {
   reader.onload = function (evt) {
     importJsonArray = parseJSONSafely(evt.target.result);
     if (!importJsonArray) importJsonArray = [];
-    var dbReq = window.indexedDB.open(dbName, dbVersion);
+    var dbReq = window.indexedDB.open(dbName, session.database.dbVersion);
     dbReq.onupgradeneeded = function (event) {
       // Save the IDBDatabase interface
       var db = event.target.result;
       var dbObjStore;
-      if (!db.objectStoreNames.contains(dbObjStoreName)) {
-        dbObjStore = db.createObjectStore(dbObjStoreName, {
-          keyPath: dbPrimaryKey
+      if (!db.objectStoreNames.contains(session.database.dbObjStoreName)) {
+        dbObjStore = db.createObjectStore(session.database.dbObjStoreName, {
+          keyPath: session.database.dbPrimaryKey
         });
       } else {
-        dbObjStore = dbReq.transaction.objectStore(dbObjStoreName);
+        dbObjStore = dbReq.transaction.objectStore(session.database.dbObjStoreName);
       }
     };
     dbReq.onsuccess = function (event) {
       var db = event.target.result;
       for (i = 0; i < importJsonArray.length; i++) {
         jsonData = importJsonArray[i];
-        var tx = db.transaction([dbObjStoreName], 'readwrite');
-        var store = tx.objectStore(dbObjStoreName);
+        var tx = db.transaction([session.database.dbObjStoreName], 'readwrite');
+        var store = tx.objectStore(session.database.dbObjStoreName);
         store.add(jsonData);
       }
       // free up memory ASAP

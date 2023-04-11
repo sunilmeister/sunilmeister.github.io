@@ -125,6 +125,10 @@ function findAncestorChartBodyNode(node) {
 }
 
 function createAllCharts() {
+  if (!session.sessionDataValid) {
+    modalAlert("Data Gathering in process", "Give us a second and try again");
+    return;
+  }
   if (session.inProgress.charts) return;
   session.inProgress.charts = true;
 

@@ -165,11 +165,11 @@ function snapshotProcessJsonRecord(d) {
 }
 
 function createDashboardStats() {
-  displayStats();
+  createAllStats();
 }
 
 function createDashboardAlerts() {
-  displayAlerts();
+  createAllAlerts();
 }
 
 function blinkFlowRate() {

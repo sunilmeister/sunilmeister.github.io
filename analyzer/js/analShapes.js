@@ -2,22 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function createAnalysisShapes() {
-  createAllShapes();
-}
-
-function displayShapes() {
-  //console.log("displayShapes");
-  if (!session.sessionDataValid) {
-    modalAlert("Data Gathering in process", "Give us a second and try again");
-    return;
-  }
-  if (numberOfExistingShapeBoxes() == 0) {
-    shapeInsertOnTop(); // always have shape box for user to start with
-  }
-  createAnalysisShapes();
-}
-
 function initShapes() {
   allShapeDivs = [];
   for (id in session.shapes.allShapesContainerInfo) {

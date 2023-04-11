@@ -316,8 +316,8 @@ function displayAlertsInfo() {
   el.innerHTML = replaceDummyValue(n);
 }
 
-function displayStats() {
-  //console.log("displayStats");
+function createAllStats() {
+  //console.log("createAllStats");
   if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;

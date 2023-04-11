@@ -208,7 +208,7 @@ function selectStats() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
 
-  displayStats();
+  createAllStats();
 }
 
 function selectAlerts() {
@@ -224,7 +224,7 @@ function selectAlerts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
 
-  displayAlerts();
+  createAllAlerts();
 }
 
 function selectShapes() {
@@ -240,7 +240,7 @@ function selectShapes() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnShape").disabled = true;
 
-  displayShapes();
+  createAllShapes();
 }
 
 function selectCharts() {
@@ -256,7 +256,7 @@ function selectCharts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
 
-  displayCharts();
+  createAllCharts();
 }
 
 function selectRawData() {
@@ -411,13 +411,13 @@ function setAnalysisRanges(rolling) {
 
 function refreshActivePane() {
   if (document.getElementById("statsDiv").style.display == "block") {
-    displayStats();
+    createAllStats();
   } else if (document.getElementById("chartsDiv").style.display == "block") {
-    displayCharts();
+    createAllCharts();
   } else if (document.getElementById("alertsDiv").style.display == "block") {
-    displayAlerts();
+    createAllAlerts();
   } else if (document.getElementById("shapesDiv").style.display == "block") {
-    displayShapes();
+    createAllShapes();
   }
 }
 

@@ -125,6 +125,10 @@ function findAncestorShapeBodyNode(node) {
 }
 
 function createAllShapes() {
+  if (!session.sessionDataValid) {
+    modalAlert("Data Gathering in process", "Give us a second and try again");
+    return;
+  }
   if (session.inProgress.shapes) return;
   session.inProgress.shapes = true;
 
