@@ -123,3 +123,25 @@ function findAncestorShapeContainerNode(node) {
 function findAncestorShapeBodyNode(node) {
   return findAncestorNodeByClassName(node, SHAPE_BODY_CLASS);
 }
+
+function createAllShapes() {
+  if (session.inProgress.shapes) return;
+  session.inProgress.shapes = true;
+
+  if (numberOfExistingShapeBoxes() == 0) {
+    shapeInsertOnTop(); // always have shape box for user to start with
+  }
+
+  if (session.shapes.firstTimeShapesEntry) {
+    showEditIconReminder();
+    session.shapes.firstTimeShapesEntry = false;
+  }
+
+  for (id in session.shapes.allShapesContainerInfo) {
+    session.shapes.allShapesContainerInfo[id].render();
+  }
+
+  session.inProgress.shapes = false;
+}
+
+

@@ -2,17 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var firstTimeShapesEntry = true;
-
 function createAnalysisShapes() {
-  if (firstTimeShapesEntry) {
-    showEditIconReminder();
-    firstTimeShapesEntry = false;
-  }
-
-  for (id in session.shapes.allShapesContainerInfo) {
-    session.shapes.allShapesContainerInfo[id].render();
-  }
+  createAllShapes();
 }
 
 function displayShapes() {
