@@ -713,8 +713,17 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
   }).then((result) => {
     if (result.isConfirmed) {
       if (confirmFn) confirmFn(callbackArgs);
-    } else if (result.isDismissed) {
+    } else if (result.isDismissed || result.isDenied) {
       if (cancelFn) cancelFn(callbackArgs);
+      Swal.fire({
+        icon: 'info',
+        title: 'Cancelled!',
+        text: 'No action taken',
+        width: modalWidth,
+        color: 'white',
+        background: modalColor,
+        showConfirmButton: false,
+      })
     }
   })
 }
