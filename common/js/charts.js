@@ -147,7 +147,7 @@ function createAllCharts() {
     modalConfirm("Too many Chart Datapoints", 
       "It may take time to render " + session.charts.numChartDatapoints + " datapoints\n" +
       "Use the Range Selector to limit the number", 
-      renderAllCharts, cancelRenderAllCharts, null, "CONTINUE", "CANCEL");
+      renderAllCharts, cancelRenderAllCharts, null, "UPDATE", "DO NOT UPDATE");
     return;
   }
 }

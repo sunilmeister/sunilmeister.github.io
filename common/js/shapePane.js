@@ -120,7 +120,7 @@ class ShapePane {
        modalConfirm("Too many Breath Shapes", 
         "It may take time to render " + this.numSelectedShapes + " shapes\n" +
         "Range Selector can be used to limit the number", 
-        this.addGraphNoConfirm.bind(this), null, null, "RENDER", "CANCEL");    }
+        this.addGraphNoConfirm.bind(this), null, null, "UPDATE", "DO NOT UPDATE");    }
   }
 
   addGraphNoConfirm() {
