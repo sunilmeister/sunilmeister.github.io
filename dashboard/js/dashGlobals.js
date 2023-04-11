@@ -21,7 +21,7 @@ var currentViewIsSnapshot = true;
 
 var updatePaused = false;
 var updateInProgress = false;
-var prevUpdateNumBreaths = -1;
+var prevUpdateRange = {rolling:false};
 var prevUpdateNumShapes = -1;
 var prevUpdateNumAlerts = -1;
 

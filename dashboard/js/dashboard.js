@@ -121,31 +121,35 @@ function processDashboardDweet(d) {
 }
 
 function createDashboards() {
+  if (updatePaused) return;
+
   // update Snapshot on every dweet
   if ((currentView == "snapshots") && !updatePaused) updateSnapshot();
 
   // update rest of the views selectively
-  currNumBreaths = session.dashboardBreathNum;
+  if (equalObjects(prevUpdateRange,  session.reportRange)) return;
+
+  bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
+  prevUpdateRange = cloneObject(session.reportRange);
+
+  if (currentView == "charts") createDashboardCharts();
+  if (currentView == "stats") createDashboardStats();
+
   currNumAlerts = numberOfExistingAlerts();
+  if (currentView == "alerts") {
+    if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
+      createDashboardAlerts();
+      prevUpdateNumAlerts = currNumAlerts;
+    }
+  }  
+
   currNumShapes = numberOfExistingShapes();
-
-  if ((currentView == "charts") && !updatePaused) {
-    if (prevUpdateNumBreaths != currNumBreaths) createDashboardCharts();
-    prevUpdateNumBreaths = currNumBreaths;
+  if (currentView == "shapes") {
+    if (!bothRolling || (prevUpdateNumShapes != currNumShapes)) {
+      createDashboardShapes();
+      prevUpdateNumShapes = currNumShapes;
+    }
   }
-  if ((currentView == "stats") && !updatePaused) {
-    if (prevUpdateNumBreaths != currNumBreaths) createDashboardStats();
-    prevUpdateNumBreaths = currNumBreaths;
-  }
-  if ((currentView == "alerts") && !updatePaused) {
-    if (prevUpdateNumAlerts != currNumAlerts) createDashboardAlerts();
-    prevUpdateNumAlerts = currNumAlerts;
-  }
-  if ((currentView == "shapes") && !updatePaused) {
-    if (prevUpdateNumShapes != currNumShapes) createDashboardShapes();
-    prevUpdateNumShapes = currNumShapes;
-  }
-
 }
 
 function snapshotProcessJsonRecord(d) {
