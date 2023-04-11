@@ -81,11 +81,37 @@ function parseJSONSafely(str) {
   }
 }
 
+/*
 function cloneObject(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
+*/
 
-function equalObj(object1, object2) {
+function cloneObject(obj) {
+  if (null == obj || "object" != typeof obj) return obj;
+  if (obj instanceof Date) {
+    var copy = new Date();
+    copy.setTime(obj.getTime());
+    return copy;
+  }
+  if (obj instanceof Array) {
+    var copy = [];
+    for (var i = 0, len = obj.length; i < len; i++) {
+      copy[i] = cloneObject(obj[i]);
+    }
+    return copy;
+  }
+  if (obj instanceof Object) {
+    var copy = {};
+    for (var attr in obj) {
+      if (obj.hasOwnProperty(attr)) copy[attr] = cloneObject(obj[attr]);
+    }
+    return copy;
+  }
+  throw new Error("Unable to copy obj this object.");
+}
+
+function equalObjects(object1, object2) {
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
   if (keys1.length !== keys2.length) {
@@ -96,7 +122,7 @@ function equalObj(object1, object2) {
     const val2 = object2[key];
     const areObjects = isObject(val1) && isObject(val2);
     if (
-      (areObjects && !equalObj(val1, val2)) ||
+      (areObjects && !equalObjects(val1, val2)) ||
       (!areObjects && (val1 !== val2))
     ) {
       return false;

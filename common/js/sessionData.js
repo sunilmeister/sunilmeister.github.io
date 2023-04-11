@@ -219,6 +219,8 @@ var SessionDataTemplate = {
     allChartsContainerInfo: {},
     boxTree: null,
     confirmThreshold: CHART_CONFIRM_THRESHOLD,
+    firstTimeChartsEntry: true,
+    numChartDatapoints: 0,
   },
 
   // Below is stuff for detailed breath pressure shapes
@@ -237,6 +239,7 @@ var SessionDataTemplate = {
     boxTree: null,
     stripLineFontSize: 50,
     confirmThreshold: SHAPE_CONFIRM_THRESHOLD,
+    firstTimeShapesEntry: true,
   },
 
   // /////////////////////////////////////////////

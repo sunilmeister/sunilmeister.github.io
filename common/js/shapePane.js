@@ -126,7 +126,7 @@ class ShapePane {
   addGraphNoConfirm() {
     // update the threshold
     if (this.numSelectedShapes >  session.shapes.confirmThreshold) {
-       session.shapes.confirmThreshold = this.numSelectedShapes;
+       session.shapes.confirmThreshold = this.numSelectedShapes + SHAPE_CONFIRM_INCREMENT;
     }
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";

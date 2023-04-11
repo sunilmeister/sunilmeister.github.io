@@ -123,3 +123,49 @@ function findAncestorChartContainerNode(node) {
 function findAncestorChartBodyNode(node) {
   return findAncestorNodeByClassName(node, CHART_BODY_CLASS);
 }
+
+function createAllCharts() {
+  if (session.inProgress.charts) return;
+  session.inProgress.charts = true;
+
+  if (numberOfExistingCharts() == 0) {
+    chartInsertOnTop(); // always have chart box for user to start with
+  }
+
+  if (session.charts.firstTimeChartsEntry) {
+    showEditIconReminder();
+    session.charts.firstTimeChartsEntry = false;
+  }
+
+  // check for too many datapoints to render
+  session.charts.numChartDatapoints 
+      = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
+  if (session.charts.numChartDatapoints <= session.charts.confirmThreshold) {
+    renderAllCharts();
+    return;
+  } else {
+    modalConfirm("Too many Chart Datapoints", 
+      "It may take time to render " + session.charts.numChartDatapoints + " datapoints\n" +
+      "Use the Range Selector to limit the number", 
+      renderAllCharts, cancelRenderAllCharts, null, "CONTINUE", "CANCEL");
+    return;
+  }
+}
+
+function cancelRenderAllCharts() {
+  session.inProgress.charts = false;
+}
+
+function renderAllCharts() {
+  for (id in session.charts.allChartsContainerInfo) {
+    session.charts.allChartsContainerInfo[id].render();
+  }
+  session.inProgress.charts = false;
+
+  // update the warning threshold
+  if (session.charts.numChartDatapoints > session.charts.confirmThreshold) {
+    session.charts.confirmThreshold = session.charts.numChartDatapoints + CHART_CONFIRM_THRESHOLD_INCREMENT;
+  }
+}
+
+

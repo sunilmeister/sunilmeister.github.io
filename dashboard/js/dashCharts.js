@@ -2,26 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var firstTimeChartsEntry = true;
-
 function createDashboardCharts() {
-  if (session.inProgress.charts) return;
-  session.inProgress.charts = true;
-
-  if (numberOfExistingCharts() == 0) {
-    chartInsertOnTop(); // always have chart box for user to start with
-  }
-
-  if (firstTimeChartsEntry) {
-    showEditIconReminder();
-    firstTimeChartsEntry = false;
-  }
-
-  for (id in session.charts.allChartsContainerInfo) {
-    session.charts.allChartsContainerInfo[id].render();
-  }
-
-  session.inProgress.charts = false;
+  createAllCharts();
 }
 
 ////////////////////////////////////////////////////////

@@ -128,6 +128,9 @@ function createDashboards() {
 
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
+  //console.log("session.reportRange"); console.log(session.reportRange);
+  //console.log("prevUpdateRange"); console.log(prevUpdateRange);
+  //console.log("**** Not equal");
 
   bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
   prevUpdateRange = cloneObject(session.reportRange);
