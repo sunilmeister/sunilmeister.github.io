@@ -203,7 +203,7 @@ function selectStats() {
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
   var sessionInfo = document.getElementById("sessionNameSlider");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = "Select Breath Range for '" + sessionBannerHTML + "'";
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
@@ -400,7 +400,7 @@ function updateSelectedDuration() {
   }
 
   elm = document.getElementById("selectedBreathRange");
-  elm.innerHTML = String(session.analyzer.analysisStartBreath) + ',' + session.analyzer.analysisEndBreath;
+  elm.innerHTML = String(session.analyzer.analysisStartBreath) + '-' + session.analyzer.analysisEndBreath;
   elm = document.getElementById("priorNumBreaths");
   elm.innerHTML = String(session.startSystemBreathNum - 1);
 }
@@ -619,7 +619,7 @@ function changeAnalysisWindowButtonsColor(bgd) {
 function flashAnalysisWindowButtons() {
   analysisButtonsFlashed = true;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_lightgreen');
+  bgd = style.getPropertyValue('--rsp_mediumblue');
   changeAnalysisWindowButtonsColor(bgd);
 }
 

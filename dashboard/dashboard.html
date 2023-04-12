@@ -10,9 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
+
     <link href="css/sizes.css" rel="stylesheet" />
     <link href="../common/css/colors.css" rel="stylesheet" />
     <link href="../common/css/common.css" rel="stylesheet" />
+    <link href="../common/css/noUi.css" rel="stylesheet" />
     <link href="../common/css/iconButton.css" rel="stylesheet" />
     <link href="../common/css/sidebarButton.css" rel="stylesheet" />
     <link href="../common/css/chart.css" rel="stylesheet" />
@@ -20,9 +25,6 @@
     <link href="../common/css/shapesLegend.css" rel="stylesheet" />
     <link href="css/sidebar.css" rel="stylesheet" />
     <link href="css/dashboard.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.15/dist/sweetalert2.all.min.js"></script>
@@ -171,7 +173,10 @@
 
       <div id=nonMenuArea class=dashboard-pane>
 
-        <div id=rangeWindowDiv style="margin-top:35px; margin-bottom: -25px; background-color:var(--rsp_darkblue); display:none;">
+        <div id=rangeWindowDiv style="margin-top:0px; margin-bottom: -25px; background-color:var(--rsp_darkblue); color: white; display:none;">
+          <center>
+          <p style="font-size: 1.4rem; margin-bottom:0px; margin-top:0px;">Select Breath Range
+          </center>
           <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
           </div>
           <center>

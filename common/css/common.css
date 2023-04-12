@@ -74,14 +74,6 @@ span {
   border-right: 0px solid white;
 }
 
-.noUi-tooltip {
-  display: none;
-}
-
-.noUi-active .noUi-tooltip {
-  display: block;
-}
-
 .statsTableStyle td {
   padding: 0 5px 0 0;
   /* Only right padding*/
@@ -95,15 +87,6 @@ span {
 .shadowDiv10 {
   -webkit-box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
   box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* For range slider */
-.noUi-tooltip {
-  display: none;
-}
-
-.noUi-active .noUi-tooltip {
-  display: block;
 }
 
 .popupClass {

@@ -1,0 +1,28 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+.noUi-connect {
+    background-color: var(--rsp_mediumblue);
+}
+
+/*
+.noUi-base{
+    background-color: var(--rsp_lightblue);
+}
+*/
+
+.noUi-tooltip {
+  display: block;
+  font-size: var(--noUiTooltipSize);
+}
+
+.noUi-active .noUi-tooltip {
+  display: block;
+}
+
+.noUi-handle {
+    background-color: var(--rsp_mediumblue);
+}
