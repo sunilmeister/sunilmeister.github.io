@@ -108,7 +108,8 @@ function parseBreathData(jsonStr) {
     plat :  (arr[1] == -1) ? null : arr[1],
     mpeep : (arr[2] == -1) ? null : arr[2],
     vtdel : (arr[3] == -1) ? null : arr[3],
-    type :  (arr[4] == -1) ? null : arr[4],
+    iqdel : (arr[4] == -1) ? null : arr[4],
+    type :  (arr[5] == -1) ? null : arr[5],
   }
   return val;
 }
@@ -379,7 +380,7 @@ function processPwendDweet(str) {
   }
 
   // store it for later use
-  session.shapes.data.push({
+  session.shapes.pwData.push({
     "partial": shapeBreathPartial,
     "systemBreathNum": session.shapes.breathNum,
     "breathInfo": session.shapes.breathInfo,
@@ -535,6 +536,10 @@ function processBreathDweet(curTime, jsonStr) {
   saveSnapTransValueNull("mpeep", "breathData", "mpeepChanges", curTime, obj);
   saveSnapTransValue("vtdel", "breathData", "vtdelChanges", curTime, obj);
   saveSnapTransValueNull("type", "breathData", "breathTypeChanges", curTime, obj);
+
+  session.breathData.iqdel = obj.iqdel;
+  session.breathData.qmult = obj.vtdel / obj.iqdel;
+
 }
 
 function processComplianceDweet(curTime, jsonStr) {

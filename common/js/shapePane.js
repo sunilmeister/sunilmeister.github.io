@@ -87,8 +87,8 @@ class ShapePane {
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
     var n = 0;
-    for (let i = 0; i < session.shapes.data.length; i++) {
-      var breathNum = session.shapes.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+    for (let i = 0; i < session.shapes.pwData.length; i++) {
+      var breathNum = session.shapes.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       n++;
@@ -100,11 +100,11 @@ class ShapePane {
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
     var n = 0;
-    for (let i = 0; i < session.shapes.data.length; i++) {
-      var breathNum = session.shapes.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+    for (let i = 0; i < session.shapes.pwData.length; i++) {
+      var breathNum = session.shapes.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
-      var breathInfo = session.shapes.data[i].breathInfo;
+      var breathInfo = session.shapes.pwData[i].breathInfo;
       if (!this.breathSelectedInMenu(breathInfo)) continue;
       n++;
     }
@@ -234,12 +234,12 @@ class ShapePane {
     var prevXval = 0;
     this.chartJson.axisX.stripLines = [];
 
-    for (let i = 0; i < session.shapes.data.length; i++) {
-      var breathNum = session.shapes.data[i].systemBreathNum - session.startSystemBreathNum + 1;
-      var sampleInterval = session.shapes.data[i].sampleInterval;
-      var breathInfo = session.shapes.data[i].breathInfo;
-      var samples = session.shapes.data[i].samples;
-      var partial = session.shapes.data[i].partial;
+    for (let i = 0; i < session.shapes.pwData.length; i++) {
+      var breathNum = session.shapes.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
+      var sampleInterval = session.shapes.pwData[i].sampleInterval;
+      var breathInfo = session.shapes.pwData[i].breathInfo;
+      var samples = session.shapes.pwData[i].samples;
+      var partial = session.shapes.pwData[i].partial;
       var prefix = partial ? "Partial " : "";
 
       if (breathNum < minBnum) continue;

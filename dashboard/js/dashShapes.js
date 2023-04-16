@@ -7,10 +7,10 @@ function createDashboardShapes() {
 }
 
 function rollingShapeRange() {
-  startShape = session.shapes.data.length - SHAPE_MAX_CHARTS;
+  startShape = session.shapes.pwData.length - SHAPE_MAX_CHARTS;
   if (startShape < 0) startShape = 0;
-  if (session.shapes.data.length) {
-    minBnum = session.shapes.data[startShape].systemBreathNum - session.startSystemBreathNum + 1
+  if (session.shapes.pwData.length) {
+    minBnum = session.shapes.pwData[startShape].systemBreathNum - session.startSystemBreathNum + 1
   } else {
     minBnum = 0;
   }
@@ -22,7 +22,7 @@ function updateShapeRange() {
 
   if (!session.reportRange.rolling || sliderCommitPending) return;
   if (session.reportRange.rolling) {
-    if (session.reportRange.rolling && session.shapes.data.length > SHAPE_MAX_CHARTS) {
+    if (session.reportRange.rolling && session.shapes.pwData.length > SHAPE_MAX_CHARTS) {
       rollingShapeRange();
     } else {
       session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);

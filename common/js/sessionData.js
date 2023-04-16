@@ -117,6 +117,8 @@ var SessionDataTemplate = {
     plat : null,
     mpeep : null,
     vtdel : null,
+    iqdel : null,
+    qmult : null,
     type : null,
   },
 
@@ -225,7 +227,8 @@ var SessionDataTemplate = {
 
   // Below is stuff for detailed breath pressure shapes
   shapes: {
-    data: [],
+    pwData: [],
+    dpwData: [],
     breathNum: null,
     breathInfo: null,
     newShapeCallback: null,
