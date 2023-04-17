@@ -7,13 +7,18 @@ var shapeSampleInterval = null;
 var shapeActualSamples = null;
 var shapeBreathClosed = true;
 var shapeSlices = [];
-var shapeSliceNum = -1;
-var prevShapeSliceNum = -1;
+var pwShapeSliceNum = -1;
+var pwPrevShapeSliceNum = -1;
+var dpwShapeSliceNum = -1;
+var dpwPrevShapeSliceNum = -1;
 var expectingPWEND = false;
+var expectingDPWEND = false;
 
 function shapeWaveformKey(key) {
   var prefix = String(key).substr(0,2);
   if (prefix == "PW") return true;
+  prefix = String(key).substr(0,3);
+  if (prefix == "DPW") return true;
   return false;
 }
 
@@ -100,7 +105,7 @@ function parseMinuteData(jsonStr) {
 
 function parseBreathData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 5)) {
+  if (!arr || (arr.length != 6)) {
     return null;
   }
   val = {
@@ -139,8 +144,6 @@ function parseMiscData(jsonStr) {
 }
 
 function equalParamCombos(curr, prev) {
-  //console.log("curr"); console.log(curr);
-  //console.log("prev"); console.log(prev);
   if (
     (curr.value.mode == prev.value.mode) &&
     (curr.value.vt == prev.value.vt) &&
@@ -231,6 +234,21 @@ function processJsonRecord(jsonData) {
           }
         }
 
+        // close off DPW samples if missing a closing dweet
+        if (expectingDPWEND) {
+          // if anything else, close of with DPWEND
+          if (ckey != "DPWEND") {
+            partsArray = ckey.split('_');
+            if ((partsArray.length == 0) || (partsArray[0] != "DPW")) {
+              //console.log("Expecting DPWEND or DPW slice but found=" + ckey);
+              //console.log("Graphing anyway with DPWEND()");
+              processPwendDweet("");
+              shapeBreathClosed = true;
+              expectingDPWEND = false;
+            }
+          }
+        }
+
         // process each keyword
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
@@ -257,16 +275,24 @@ function processJsonRecord(jsonData) {
           session.patientData.age = value;
         } else if (ckey == "PID") {
           session.patientData.pid = value;
-        } else if (ckey == "PWSTART") {
-          processPwstartDweet(value);
         } else if (ckey == "PWPERIOD") {
           session.shapes.sendPeriod = value;
+        } else if (ckey == "PWSTART") {
+          processPwstartDweet(value);
+          expectingPWEND = true;
         } else if (ckey == "PWEND") {
           processPwendDweet(value);
+          expectingPWEND = false;
+        } else if (ckey == "DPWSTART") {
+          processPwstartDweet(value);
+          expectingDPWEND = true;
+        } else if (ckey == "DPWEND") {
+          processPwendDweet(value);
+          expectingDPWEND = false;
         } else {
           partsArray = ckey.split('_');
           if (partsArray.length == 0) continue;
-          if (partsArray[0] != "PW") continue;
+          if ((partsArray[0] != "PW") && (partsArray[0] != "DPW")) continue;
           sNum = partsArray[1];
           processPwsliceDweet(sNum, value);
         }
@@ -297,8 +323,10 @@ function processPwstartDweet(str) {
     // Wait for PWEND to provide them
     shapeBreathClosed = false;
     shapeBreathPartial = false;
-    prevShapeSliceNum = -1;
-    shapeSliceNum = -1;
+    pwPrevShapeSliceNum = -1;
+    pwShapeSliceNum = -1;
+    dpwPrevShapeSliceNum = -1;
+    dpwShapeSliceNum = -1;
     shapeSlices = [];
     return;
   }
@@ -310,7 +338,6 @@ function processPwstartDweet(str) {
     shapeSampleInterval = null;
     return;;
   }
-  expectingPWEND = true;
   // PWSTART key has the following value format
   // arr = [breathNum, breathInfo, expectedSamples, sampleInterval]
   session.shapes.breathNum = arr[0];
@@ -320,8 +347,10 @@ function processPwstartDweet(str) {
   session.shapes.onDemand = arr[4] ? true : false;
   shapeBreathClosed = false;
   shapeBreathPartial = false;
-  prevShapeSliceNum = -1;
-  shapeSliceNum = -1;
+  pwPrevShapeSliceNum = -1;
+  pwShapeSliceNum = -1;
+  dpwPrevShapeSliceNum = -1;
+  dpwShapeSliceNum = -1;
   shapeSlices = [];
 }
 
@@ -352,8 +381,10 @@ function processPwendDweet(str) {
 
   if (!session.shapes.breathNum || shapeBreathClosed) {
     //console.log("Missing PWSTART args for PWEND=" + str);
-    prevShapeSliceNum = -1;
-    shapeSliceNum = -1;
+    pwPrevShapeSliceNum = -1;
+    pwShapeSliceNum = -1;
+    dpwPrevShapeSliceNum = -1;
+    dpwShapeSliceNum = -1;
     shapeSlices = [];
     shapeBreathPartial = false;
     shapeBreathClosed = true;
@@ -365,7 +396,12 @@ function processPwendDweet(str) {
   for (i = 0; i < shapeSlices.length; i++) {
     slice = shapeSlices[i];
     for (j = 0; j < slice.sliceData.length; j++) {
-      samples.push(slice.sliceData[j]);
+      d = slice.sliceData[j];
+      if ((d !== null) && expectingDPWEND) {
+        // Convert delta pressure to flow value
+        d = Math.sqrt(d) * session.breathData.qmult;
+      }
+      samples.push(d);
     }
   }
   shapeSlices = [];
@@ -379,8 +415,15 @@ function processPwendDweet(str) {
     samples.push(null);
   }
 
+  var holdingArray = null;
+  if (expectingPWEND) {
+    holdingArray = session.shapes.pwData;
+  } else {
+    holdingArray = session.shapes.dpwData;
+  }
+
   // store it for later use
-  session.shapes.pwData.push({
+  holdingArray.push({
     "partial": shapeBreathPartial,
     "systemBreathNum": session.shapes.breathNum,
     "breathInfo": session.shapes.breathInfo,
@@ -389,13 +432,15 @@ function processPwendDweet(str) {
     "samples": cloneObject(samples),
   });
 
-  expectingPWEND = false;
   shapeBreathPartial = false;
   shapeBreathClosed = true;
   if (session.shapes.newShapeCallback) session.shapes.newShapeCallback(session.shapes.breathNum);
 }
 
 function processPwsliceDweet(receivedSliceNum, str) {
+  //console.log("expectingPWEND=" + expectingPWEND);
+  //console.log("session.shapes.breathNum=" + session.shapes.breathNum + " shapeBreathClosed=" + shapeBreathClosed);
+
   if (!session.shapes.breathNum || shapeBreathClosed) {
     shapeBreathPartial = false;
     shapeBreathClosed = true;
@@ -406,12 +451,24 @@ function processPwsliceDweet(receivedSliceNum, str) {
   if (!arr || (arr.length != 2)) {
     return;
   }
-  shapeSliceNum = Number(arr[0]);
 
-  if ((shapeSliceNum != prevShapeSliceNum + 1) || (shapeSliceNum != receivedSliceNum)) {
+  let sliceNum = null;
+  let prevSliceNum = null;
+  if (expectingPWEND) {
+    pwShapeSliceNum = Number(arr[0]);
+    sliceNum = pwShapeSliceNum;
+    prevSliceNum = pwPrevShapeSliceNum;
+  } else {
+    dpwShapeSliceNum = Number(arr[0]);
+    sliceNum = dpwShapeSliceNum;
+    prevSliceNum = dpwPrevShapeSliceNum;
+  }
+  //console.log("sliceNum=" + sliceNum + " prevSliceNum=" + prevSliceNum);
+
+  if ((sliceNum != prevSliceNum + 1) || (sliceNum != receivedSliceNum)) {
     // stuff empty slices
     shapeBreathPartial = true;
-    for (i = prevShapeSliceNum + 1; i < shapeSliceNum; i++) {
+    for (i = prevSliceNum + 1; i < sliceNum; i++) {
       samples = [];
       if (!session.shapes.expectedSamplesPerSlice) session.shapes.expectedSamplesPerSlice = SHAPE_MAX_SAMPLES_PER_SLICE;
       for (j = 0; j < session.shapes.expectedSamplesPerSlice; j++) {
@@ -425,10 +482,15 @@ function processPwsliceDweet(receivedSliceNum, str) {
   }
 
   shapeSlices.push({
-    "sliceNum": shapeSliceNum,
+    "sliceNum": sliceNum,
     sliceData: cloneObject(arr[1])
   });
-  prevShapeSliceNum = shapeSliceNum;
+
+  if (expectingPWEND) {
+    pwPrevShapeSliceNum = sliceNum;
+  } else {
+    dpwPrevShapeSliceNum = sliceNum;
+  }
 }
 
 // /////////////////////////////////////////////////////
@@ -538,7 +600,7 @@ function processBreathDweet(curTime, jsonStr) {
   saveSnapTransValueNull("type", "breathData", "breathTypeChanges", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
-  session.breathData.qmult = obj.vtdel / obj.iqdel;
+  session.breathData.qmult = (obj.vtdel / obj.iqdel) * Q_SCALE_FACTOR * 1000;
 
 }
 
