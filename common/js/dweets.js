@@ -397,9 +397,13 @@ function processPwendDweet(str) {
     slice = shapeSlices[i];
     for (j = 0; j < slice.sliceData.length; j++) {
       d = slice.sliceData[j];
-      if ((d !== null) && expectingDPWEND) {
-        // Convert delta pressure to flow value
-        d = Math.sqrt(d) * session.breathData.qmult;
+      if (expectingDPWEND) {
+        if ((d !== null) && (session.breathData.qmult>10)) {
+          // Convert delta pressure to flow value
+          d = Math.sqrt(d) * session.breathData.qmult;
+        } else {
+          d = null;
+        }
       }
       samples.push(d);
     }

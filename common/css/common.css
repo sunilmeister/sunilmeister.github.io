@@ -67,12 +67,14 @@ tr {
   border-collapse: collapse;
 }
 
+/*
 span {
   height: 1rem;
   margin-right: 0px;
   margin-left: 0px;
   border-right: 0px solid white;
 }
+*/
 
 .statsTableStyle td {
   padding: 0 5px 0 0;

@@ -1,0 +1,47 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Flip</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
+    <link rel="icon" type="image/png" href="../common/img/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="../common/css/common.css" />
+    <link rel="stylesheet" href="../flip/flip.min.css" />
+    <link rel="stylesheet" href="flip.css" />
+
+    <script src=../flip/flip.min.js></script>
+    <script src=flip.js></script>
+  </head>
+
+  <body style="font-family='verdana'">
+
+<div class="tick" data-did-init="handleTickInit">
+
+    <span data-layout="horizontal fit">
+
+        <span data-repeat="true" data-transform="arrive(5, .01) -> round -> split -> delay(rtl, 100, 150)">
+
+            <span data-view="flip"></span>
+
+        </span>
+
+    </span>
+
+</div>
+
+  </body>
+
+</html>

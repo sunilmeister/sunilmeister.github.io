@@ -15,6 +15,7 @@ var startMillis = 0;
 var simulatedMillis = 0;
 var lastDweetInMs = 0;
 var startSystemDate = new Date();
+var prevAlarmErrorNum = -1;
 
 var currentView = "snapshots";
 var currentViewIsSnapshot = true;

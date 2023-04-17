@@ -117,6 +117,17 @@ function processDashboardDweet(d) {
   snapshotProcessJsonRecord(d);
   processJsonRecord(d);
   createDashboards();
+
+  if (prevAlarmErrorNum != (session.errorMsgs.length - 1)) {
+    prevAlarmErrorNum = session.errorMsgs.length - 1;
+    let title = "Error encountered Breath# " + session.dashboardBreathNum;
+    let msg = session.errorMsgs[prevAlarmErrorNum].L1 + "\n"
+        + session.errorMsgs[prevAlarmErrorNum].L2 + "\n"
+        + session.errorMsgs[prevAlarmErrorNum].L3 + "\n"
+        + session.errorMsgs[prevAlarmErrorNum].L4;
+    modalAlert(title, msg);
+  }
+
   return d;
 }
 
