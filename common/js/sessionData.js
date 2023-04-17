@@ -228,7 +228,7 @@ var SessionDataTemplate = {
   // Below is stuff for detailed breath pressure shapes
   shapes: {
     pwData: [],
-    dpwData: [],
+    flowData: [],
     breathNum: null,
     breathInfo: null,
     newShapeCallback: null,

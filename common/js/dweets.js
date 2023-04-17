@@ -419,7 +419,7 @@ function processPwendDweet(str) {
   if (expectingPWEND) {
     holdingArray = session.shapes.pwData;
   } else {
-    holdingArray = session.shapes.dpwData;
+    holdingArray = session.shapes.flowData;
   }
 
   // store it for later use

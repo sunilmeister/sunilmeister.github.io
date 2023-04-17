@@ -50,6 +50,8 @@ class ShapePane {
     this.chart = null;
     this.menu = menu;
     this.numSelectedShapes = 0;
+    this.data = session.shapes.pwData;
+    this.isFlowGraph = false;
 
     this.addXaxis();
   }
@@ -87,8 +89,8 @@ class ShapePane {
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
     var n = 0;
-    for (let i = 0; i < session.shapes.pwData.length; i++) {
-      var breathNum = session.shapes.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
+    for (let i = 0; i < this.data.length; i++) {
+      var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       n++;
@@ -100,11 +102,11 @@ class ShapePane {
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
     var n = 0;
-    for (let i = 0; i < session.shapes.pwData.length; i++) {
-      var breathNum = session.shapes.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
+    for (let i = 0; i < this.data.length; i++) {
+      var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
-      var breathInfo = session.shapes.pwData[i].breathInfo;
+      var breathInfo = this.data[i].breathInfo;
       if (!this.breathSelectedInMenu(breathInfo)) continue;
       n++;
     }
@@ -113,7 +115,27 @@ class ShapePane {
 
 
   addGraph() {
+    this.addPressureGraph();
+    this.addFlowGraph();
+  }
+
+  addPressureGraph() {
     this.numSelectedShapes = this.numSelectedShapesInRange();
+    this.data = session.shapes.pwData;
+    this.isFlowGraph = false;
+    if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
+      this.addGraphNoConfirm();
+    } else {
+       modalConfirm("Too many Breath Shapes", 
+        "It may take time to render " + this.numSelectedShapes + " shapes\n" +
+        "Range Selector can be used to limit the number", 
+        this.addGraphNoConfirm.bind(this), null, null, "UPDATE", "DO NOT UPDATE");    }
+  }
+
+  addFlowGraph() {
+    this.numSelectedShapes = this.numSelectedShapesInRange();
+    this.data = session.shapes.flowData;
+    this.isFlowGraph = true;
     if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
       this.addGraphNoConfirm();
     } else {
@@ -134,6 +156,13 @@ class ShapePane {
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
 
+    if (this.isFlowGraph) {
+      paramName = "Flow (ml/sec)"
+      paramColor = "magenta";
+    } else {
+      paramName = "Pressure (mmH2O)"
+      paramColor = "blue";
+    }
     var yAxis = this.createYaxis(paramName, paramColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
   }
@@ -227,19 +256,21 @@ class ShapePane {
 
     // init Breaks in the graph
     var Xaxis = this.chartJson.axisX;
-    Xaxis.scaleBreaks = {};
-    Xaxis.scaleBreaks.customBreaks = [];
+    if (!this.isFlowGraph) {
+      Xaxis.scaleBreaks = {};
+      Xaxis.scaleBreaks.customBreaks = [];
+      this.chartJson.axisX.stripLines = [];
+    }
 
     var xyPoints = [];
     var prevXval = 0;
-    this.chartJson.axisX.stripLines = [];
 
-    for (let i = 0; i < session.shapes.pwData.length; i++) {
-      var breathNum = session.shapes.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
-      var sampleInterval = session.shapes.pwData[i].sampleInterval;
-      var breathInfo = session.shapes.pwData[i].breathInfo;
-      var samples = session.shapes.pwData[i].samples;
-      var partial = session.shapes.pwData[i].partial;
+    for (let i = 0; i < this.data.length; i++) {
+      var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+      var sampleInterval = this.data[i].sampleInterval;
+      var breathInfo = this.data[i].breathInfo;
+      var samples = this.data[i].samples;
+      var partial = this.data[i].partial;
       var prefix = partial ? "Partial " : "";
 
       if (breathNum < minBnum) continue;
@@ -251,21 +282,26 @@ class ShapePane {
       }
       var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
       var initXval = xval;
-      Xaxis.scaleBreaks.customBreaks.push({
-        startValue: prevXval ? (prevXval + 100) / 1000 : 0,
-        endValue: (xval - 100) / 1000,
-        color: "orange",
-        type: "zigzag"
-      });
+      if (!this.isFlowGraph) {
+        Xaxis.scaleBreaks.customBreaks.push({
+          startValue: prevXval ? (prevXval + 100) / 1000 : 0,
+          endValue: (xval - 100) / 1000,
+          color: "orange",
+          type: "zigzag"
+        });
+      }
 
       // Make sure that the graphs do not connect end-to-end
       xyPoints.push({
         "x": (xval - 200) / 1000,
         "y": null
       });
+
       var stripLine = {};
-      stripLine.color = this.getStripColor(breathInfo);
-      stripLine.startValue = (xval - 200) / 1000;
+      if (!this.isFlowGraph) {
+        stripLine.color = this.getStripColor(breathInfo);
+        stripLine.startValue = (xval - 200) / 1000;
+      }
 
       for (let j = 0; j < samples.length; j++) {
         xyPoints.push({
@@ -276,20 +312,23 @@ class ShapePane {
       }
       prevXval = xval;
 
-      stripLine.endValue = (xval) / 1000;
-      stripLine.label = prefix + "Breath #" + breathNum;
-      stripLine.labelPlacement = "inside";
-      stripLine.labelAlign = "near";
-      stripLine.labelWrap = true;
-      stripLine.labelMaxWidth = 80;
-      stripLine.labelFontColor = "grey";
-      stripLine.labelFontSize = session.shapes.stripLineFontSize;
-      Xaxis.stripLines.push(cloneObject(stripLine));
+      if (!this.isFlowGraph) {
+        stripLine.endValue = (xval) / 1000;
+        //stripLine.label = prefix + "Breath #" + breathNum;
+        stripLine.label = "Breath #" + breathNum;
+        stripLine.labelPlacement = "inside";
+        stripLine.labelAlign = "near";
+        stripLine.labelWrap = true;
+        stripLine.labelMaxWidth = 80;
+        stripLine.labelFontColor = "grey";
+        stripLine.labelFontSize = session.shapes.stripLineFontSize;
+        Xaxis.stripLines.push(cloneObject(stripLine));
+      }
     }
 
     var chartData = {};
     chartData.type = this.graphType;
-    chartData.showInLegend = false;
+    chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;
   }
@@ -309,13 +348,20 @@ class ShapePane {
   }
 
   addXYPoints(Yaxis, name, color, xyPoints) {
-    var axisNum = this.chartJson.axisY.length;
     xyPoints.name = name;
     xyPoints.color = color;
-    this.chartJson.axisY.push(cloneObject(Yaxis));
-    xyPoints.axisYIndex = axisNum;
-    this.chartJson.data.push(cloneObject(xyPoints));
-    return axisNum;
+    if (this.isFlowGraph) {
+      this.chartJson.axisY2 = cloneObject(Yaxis);
+      xyPoints.axisYType = "secondary";
+      this.chartJson.data.push(cloneObject(xyPoints));
+      return 0;
+    } else {
+      var axisNum = this.chartJson.axisY.length;
+      this.chartJson.axisY.push(cloneObject(Yaxis));
+      xyPoints.axisYIndex = axisNum;
+      this.chartJson.data.push(cloneObject(xyPoints));
+      return axisNum;
+    }
   }
 
   calculateXaxisInterval() {
@@ -330,3 +376,4 @@ class ShapePane {
   }
 
 };
+
