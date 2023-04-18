@@ -765,6 +765,8 @@ function toggleDataSeries(e) {
 }
 
 function animateNumberValue(obj, start, end, duration) {
+  start = Number(start);
+  end = Number(end);
   if (isNaN(start) || isNaN(end)) {
     obj.innerText = end;
     return;

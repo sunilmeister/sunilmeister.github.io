@@ -45,7 +45,7 @@ function updatePendingSettings(blink) {
   updatePendingIndividualSetting(blink, "IPEEPDiv", pend.ipeep);
   updatePendingIndividualSetting(blink, "PMAXDiv", pend.pmax);
   updatePendingIndividualSetting(blink, "PSDiv", pend.ps);
-  updatePendingIndividualSetting(blink, "TPSDiv", pend.ps);
+  updatePendingIndividualSetting(blink, "TPSDiv", pend.tps);
 }
 
 function updatePending(blink) {
@@ -120,6 +120,16 @@ function displayMessageLine(lineTag, value) {
   elm.innerHTML = mvalue;
 }
 
+function animateDivValue(div, value) {
+  if (Number(div.innerText) == value) return;
+  animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
+}
+
+function animateDivToValue(div, value) {
+  if (Number(div.innerText) == value) return;
+  animateNumberValueTo(div, value);
+}
+
 function updateDivValue(div, value) {
   var txt;
   if (value === null) txt = "--";
@@ -161,12 +171,12 @@ function updateParamDivsFromSessionData() {
     vtMvTitleELM.innerHTML = "Tidal Volume";
     vtMvUnitsELM.innerHTML = "(ml)";
     updateDivValue(ieValELM, session.paramDataInUse.ie);
-    updateDivValue(rrValELM, session.paramDataInUse.rr);
-    updateDivValue(vtValELM, session.paramDataInUse.vt);
+    animateDivValue(rrValELM, session.paramDataInUse.rr);
+    animateDivValue(vtValELM, session.paramDataInUse.vt);
   }
-  updateDivValue(pmaxValELM, session.paramDataInUse.pmax);
-  updateDivValue(ipeepValELM, session.paramDataInUse.ipeep);
-  updateDivValue(psValELM, session.paramDataInUse.ps);
+  animateDivValue(pmaxValELM, session.paramDataInUse.pmax);
+  animateDivValue(ipeepValELM, session.paramDataInUse.ipeep);
+  animateDivValue(psValELM, session.paramDataInUse.ps);
   updateDivValue(modeValELM, session.paramDataInUse.mode);
   updateDivValue(tpsValELM, session.paramDataInUse.tps);
   updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
@@ -203,7 +213,7 @@ function updateBreathTypeFromSessionData() {
 
 function updateBreathDivsFromSessionData() {
   updateBreathTypeFromSessionData();
-  updateDivValue(vtdelValELM, session.breathData.vtdel);
+  animateDivToValue(vtdelValELM, session.breathData.vtdel);
 
   peakGauge.setValue(session.breathData.peak);
   platGauge.setValue(session.breathData.plat);
@@ -217,8 +227,8 @@ function updateMinuteDivsFromSessionData() {
 }
 
 function updateCompDivsFromSessionData() {
-  updateDivValue(scompValELM, session.complianceData.scomp);
-  updateDivValue(dcompValELM, session.complianceData.dcomp);
+  animateDivToValue(scompValELM, session.complianceData.scomp);
+  animateDivToValue(dcompValELM, session.complianceData.dcomp);
 }
 
 function updateMiscDivsFromSessionData() {
