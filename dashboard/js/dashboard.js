@@ -101,17 +101,13 @@ function processDashboardDweet(d) {
   sessionDurationInMs = curDate - session.startDate;
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
-  elm = document.getElementById("dashboardBreathNum");
-  pd = document.getElementById("pausedOrDuring");
-  if (updatePaused) {
-    pd.innerHTML = "&nbspPaused At";
-    elm.innerHTML = breathPausedAt;
-  } else {
-    pd.innerHTML = "&nbspDetected";
-    elm.innerHTML = session.dashboardBreathNum;
-  }
   elm = document.getElementById("numMissedBreaths");
   elm.innerHTML = session.numMissingBreaths;
+
+  if (!updatePaused) {
+    elm = document.getElementById("numBreaths");
+    animateNumberValueTo(elm, session.dashboardBreathNum);
+  }
 
   checkFiO2Calculation(d);
   snapshotProcessJsonRecord(d);
@@ -199,17 +195,31 @@ function blinkFlowRate() {
 
 function blinkPauseButton() {
   btn = document.getElementById("btnPause");
+  ttl = document.getElementById("breathsHeading");
+  bnum = document.getElementById("numBreaths");
   var style = getComputedStyle(document.body)
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
       btn.style.color = style.getPropertyValue('--rsp_orange');
+      ttl.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+      bnum.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+      ttl.innerHTML = "Dashboard Paused"
+      bnum.innerHTML = breathPausedAt;
       pauseButtonForeground = "ORANGE";
     } else {
       btn.style.color = 'white';
+      ttl.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
+      bnum.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
+      ttl.innerHTML = "CURRENT BREATH"
+      bnum.innerHTML = session.dashboardBreathNum;
       pauseButtonForeground = "WHITE";
     }
   } else {
     btn.style.color = 'white';
+    ttl.style.backgroundColor = style.getPropertyValue('--rsp_mediumblue');
+    bnum.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
+    ttl.innerHTML = "CURRENT BREATH"
+    bnum.innerHTML = session.dashboardBreathNum;
     pauseButtonForeground = "WHITE";
   }
 }
@@ -398,11 +408,6 @@ function togglePause() {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
     breathPausedAt = session.dashboardBreathNum;
-    pd = document.getElementById("pausedOrDuring");
-    pd.innerHTML = "&nbspPaused At";
-    elm = document.getElementById("dashboardBreathNum");
-    elm.innerHTML = breathPausedAt;
-    //console.log("Peak Dweet Queue usage = " + dweetQ.peakSize());
   }
   updateDashboardAndRecordingStatus();
 }

@@ -6,8 +6,8 @@
 .sidebarColumn {
   width: 15.5rem;
   background-color: var(--rsp_blue);
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
 }
 
 .sidebar {

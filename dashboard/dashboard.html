@@ -83,12 +83,20 @@
     </div>
 
     <div id=fullDashboard style="min-height:60rem;">
-      <div id=sideMenuBar class=sidebarColumn>
+      <div id=sideMenuBar class=sidebarColumn style="margin-top:0.2rem; margin-bottm:0.2rem;">
         <div class=sidebar>
 
+         <div class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
+            <center>
+              <p id=breathsHeading
+              style="font-size:1rem;font-weight: bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;">CURRENT BREATH</p>
+              <p id=numBreaths
+              style="font-size:2.5rem;font-weight: bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_darkblue);padding-bottom:5px;">0</p>
+            </center>
+          </div>
           <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_darkblue); color:white;">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION TIMES</b></p>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>CURRENT SESSION</b></p>
               <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
                 <tr>
                   <td align="left">&nbspStart</td>
@@ -98,22 +106,12 @@
                   <td align="left">&nbspDuration</td>
                   <td id=logTimeDuration align="center">00:00:00</td>
                 </tr>
-              </table>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SESSION BREATHS</b></p>
-              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
                 <tr>
-                  <td id=pausedOrDuring align="left">&nbspDetected</td>
-                  <td id=dashboardBreathNum align="center">0</td>
-                </tr>
-                <tr>
-                  <td id=missedBreaths align="left">&nbspLost</td>
+                  <td id=missedBreaths align="left">&nbspMissed Breaths</td>
                   <td id=numMissedBreaths align="center">0</td>
                 </tr>
-              </table>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>PRIOR to SESSION</b></p>
-              <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
                 <tr>
-                  <td align="left">&nbspBreaths</td>
+                  <td align="left">&nbspPrior Breaths</td>
                   <td id=priorBreathNum align="center">--</td>
                 </tr>
               </table>
@@ -151,7 +149,7 @@
           </div>
 
           <center>
-            <div class=shadowDiv10 id=fiO2Calc style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white;">
+            <div class=shadowDiv10 id=fiO2Calc style="margin-top:1.6rem; margin-bottom:0.4rem; background-color:var(--rsp_darkblue); color:white;">
               <center>
                 <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0px;"><b>FiO<sub>2</sub> SETTINGS</b></p>
               </center>

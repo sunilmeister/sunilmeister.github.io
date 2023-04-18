@@ -1,5 +1,15 @@
-    function handleTickInit(tick) {
+    function incValue() {
+      tick.value = tick.value+5;
+    }
 
+    function decValue() {
+      tick.value = tick.value-5;
+    }
+
+    function handleTickInit(tick) {
+      tick.value = 1234;
+
+/*
         // update the value every 5 seconds
         var interval = Tick.helper.duration(5, 'seconds');
 
@@ -35,5 +45,6 @@
             tick.value = valueOffset + (loops * valuePerInterval);
 
         }, 1000);
+      */
     }
 

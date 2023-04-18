@@ -24,6 +24,8 @@ const NOTIFICATION_YVAL = 5;
 const WARNING_YVAL = 6;
 const ERROR_YVAL = 7;
 
+const ANIMATE_NUMBER_DURATION = 1000;
+
 const MODE_DECODER = [
   "CMV",
   "ACV",
