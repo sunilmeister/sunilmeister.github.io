@@ -147,6 +147,9 @@ function createDashboards() {
 
   currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
+    //console.log("bothRolling=" + bothRolling);
+    //console.log("prevUpdateNumAlerts=" + prevUpdateNumAlerts);
+    //console.log("currNumAlerts=" + currNumAlerts);
     if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
       createDashboardAlerts();
       prevUpdateNumAlerts = currNumAlerts;
