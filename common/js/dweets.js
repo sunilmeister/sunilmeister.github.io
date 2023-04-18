@@ -772,6 +772,7 @@ function processBnumDweet(curTime, value, jsonData) {
     });
     var msg = {
       'created': curTime,
+      'breathNum': session.breathTimes.length,
       'L1': String(breathsMissing) + " Breath(s) missed",
       'L2': "Info not received by",
       'L3': "Dashboard due to",
@@ -792,6 +793,7 @@ function processAlertDweet(curTime, jsonData) {
     if (session.alerts.expectWarningMsg) { // back to back with Previous msg not yet fully received
       var msg = {
         'created': session.alerts.lastWarningTime,
+        'breathNum': session.breathTimes.length,
         'L1': session.alerts.L1,
         'L2': session.alerts.L2,
         'L3': session.alerts.L3,
@@ -810,6 +812,7 @@ function processAlertDweet(curTime, jsonData) {
    if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
      var msg = {
        'created': session.alerts.lastErrorTime,
+       'breathNum': session.breathTimes.length,
        'L1': session.alerts.L1,
        'L2': session.alerts.L2,
        'L3': session.alerts.L3,
@@ -836,6 +839,7 @@ function processAlertDweet(curTime, jsonData) {
         }
         var msg = {
           'created': msgTime,
+          'breathNum': session.breathTimes.length,
           'L1': session.alerts.L1,
           'L2': session.alerts.L2,
           'L3': session.alerts.L3,

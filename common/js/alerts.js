@@ -5,7 +5,9 @@ function displayJsonAlerts(prefix, scrollbox, jsonData) {
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_darkblue');
   var newElement = document.createElement('p');
-  newElement.innerHTML = prefix + "DateTime: " + dateToStr(jsonData.created);
+  console.log(jsonData);
+  newElement.innerHTML = prefix + "Breath#" + jsonData.breathNum +
+    " DateTime: " + dateToStr(jsonData.created);
   newElement.style.backgroundColor = bgd;
   newElement.style.color = "white";
   scrollbox.appendChild(newElement);

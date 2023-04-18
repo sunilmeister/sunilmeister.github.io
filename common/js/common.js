@@ -66,6 +66,11 @@ function validFloatNumber(num) {
 }
 
 
+function isUndefined(v) {
+  if (typeof v == 'undefined') return true;
+  return false;
+}
+
 function isObject(object) {
   return object != null && typeof object === 'object';
 }  
