@@ -4,7 +4,7 @@
 
 function checkForUndefined(val) {
   if (val === null) return "--";
-  if (typeof val == 'undefined') return "?";
+  if (isUndefined(val)) return "?";
   return val;
 }
 
@@ -142,7 +142,7 @@ function constructStatMiscTable() {
 }
 
 function replaceDummyValue(value) {
-  if ((value == null) || (typeof value == 'undefined')) str = "----";
+  if ((value == null) || isUndefined(value)) str = "----";
   else if (value == 'undefined') str = "----";
   else str = String(value);
   return str;
@@ -173,8 +173,8 @@ function extractUsedParamsFromCombos() {
     for (j = 0; j < pNames.length; j++) {
       pName = pNames[j];
       p = params[pName];
-      if (typeof p == 'undefined') continue;
-      if (typeof obj[pName] == 'undefined') {
+      if (isUndefined(p)) continue;
+      if (isUndefined(obj[pName])) {
         obj[pName] = [p];
       } else {
         if (obj[pName].indexOf(p) == -1) {
@@ -187,11 +187,11 @@ function extractUsedParamsFromCombos() {
 }
 
 function formUsedParamString(extractedObj, paramName) {
-  if (typeof extractedObj == 'undefined') {
+  if (isUndefined(extractedObj)) {
     return "?";
   }
   var extractedArray = extractedObj[paramName];
-  if (typeof extractedArray == 'undefined') {
+  if (isUndefined(extractedArray)) {
     return "?";
   }
 

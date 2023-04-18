@@ -100,7 +100,7 @@ function numberOfExistingCharts() {
 
 function findChartContainerId(id) {
   obj = session.charts.allChartsContainerInfo[id];
-  if (!obj || (typeof obj == 'undefined')) return null;
+  if (!obj || isUndefined(obj)) return null;
   return obj;
 }
 

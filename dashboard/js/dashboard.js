@@ -15,21 +15,21 @@ function checkFiO2Calculation(d) {
   var newO2Flow = reqO2Flow;
   var change = false;
   value = d.content["FIO2"];
-  if (typeof value != "undefined") {
+  if (!isUndefined(value)) {
     if (validDecimalInteger(value) && (value <= 100)) {
       newFiO2 = value;
       change = true;
     }
   }
   value = d.content["O2PURITY"];
-  if (typeof value != "undefined") {
+  if (!isUndefined(value)) {
     if (validDecimalInteger(value) && (value <= 100)) {
       newPurity = value;
       change = true;
     }
   }
   value = d.content["O2FLOWX10"];
-  if (typeof value != "undefined") {
+  if (!isUndefined(value)) {
     if (validDecimalInteger(value)) {
       newO2Flow = value;
       change = true;
@@ -49,14 +49,14 @@ function disassembleAndQueueDweet(d) {
     key = String(fragmentIndex);
     fragmentIndex++;
 
-    if (typeof d.content[key] == "undefined") break;
+    if (isUndefined(d.content[key])) break;
     fragment = d.content[key];
     millisStr = fragment.MILLIS;
     millis = parseChecksumString(millisStr);
     if (millis == null) continue // ignore this malformed dweet
 
     if (!startMillis) startMillis = Number(millis);
-    if (typeof fragment.content['CLEAR_ALL'] != "undefined") {
+    if (!isUndefined(fragment.content['CLEAR_ALL'])) {
       // replace CLEAR_ALL with a preconstructed dweet
       // fragment = cloneObject(clearAllDweet);
     }
@@ -772,7 +772,7 @@ function FetchAndExecuteFromQueue() {
     if (simulatedMillis < millis) break;
 
     d = dweetQ.pop();
-    if (typeof d.content["BNUM"] != "undefined") {
+    if (!isUndefined(d.content["BNUM"])) {
       session.dashboardBreathNum++;
       session.systemBreathNum = parseChecksumString(d.content["BNUM"]);
       if (session.startSystemBreathNum == null) {

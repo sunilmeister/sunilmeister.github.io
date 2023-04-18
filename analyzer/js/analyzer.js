@@ -46,7 +46,7 @@ function listDbTableRow(item, index) {
 }
 
 function selectDbRow(row) {
-  if ((typeof row == 'undefined') || (row.tagName != "TR")) {
+  if (isUndefined(row) || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected Recording", "Select by clicking on a table row\nTry again!");
@@ -67,7 +67,7 @@ function selectDbRow(row) {
 }
 
 function deleteDbRow(row) {
-  if (typeof row == 'undefined') {
+  if (isUndefined(row)) {
     row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected Recording", "Select by clicking on a table row\nTry again!");

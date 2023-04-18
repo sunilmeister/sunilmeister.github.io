@@ -23,7 +23,7 @@ function listDbExportTableRow(item, index) {
 }
 
 function rowDbName(row) {
-  if (typeof row == 'undefined') {
+  if (isUndefined(row)) {
     row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected Recording", "Select by clicking on a table row");
@@ -37,7 +37,7 @@ function rowDbName(row) {
 }
 
 function exportDbRow(row) {
-  if (typeof row == 'undefined') {
+  if (isUndefined(row)) {
     row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected Recording", "Select by clicking on a table row\nTry again!");

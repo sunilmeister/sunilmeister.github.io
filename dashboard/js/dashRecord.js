@@ -150,7 +150,7 @@ function createAccumulatedDweet(d) {
   // Note that the signalling messages have already been removed
   // in session.recorder.accumulatedState
   for (const k in session.recorder.accumulatedState) {
-    if (typeof d.content[k] == 'undefined') {
+    if (isUndefined(d.content[k])) {
       d.content[k] = session.recorder.accumulatedState[k];
     }
   }
@@ -167,7 +167,7 @@ function processRecordDweet(d) {
   var skipRecording = false;
   if (session.stateData.initial) skipRecording = true;
 
-  if (typeof d.content['WMSG'] != 'undefined') {
+  if (!isUndefined(d.content['WMSG'])) {
     session.recorder.expectWarningMsg = true;
     session.recorder.accumulatedState['L1'] = "";
     session.recorder.accumulatedState['L2'] = "";
@@ -176,7 +176,7 @@ function processRecordDweet(d) {
     session.recorder.l1Valid = session.recorder.l2Valid = 
              session.recorder.l3Valid = session.recorder.l4Valid = false;
   }
-  if (typeof d.content['EMSG'] != 'undefined') {
+  if (!isUndefined(d.content['EMSG'])) {
     session.recorder.expectErrorMsg = true;
     session.recorder.accumulatedState['L1'] = "";
     session.recorder.accumulatedState['L2'] = "";
@@ -195,10 +195,10 @@ function processRecordDweet(d) {
     }
   }
   if (session.recorder.expectWarningMsg || session.recorder.expectErrorMsg) {
-    if (typeof d.content['L1'] != 'undefined') session.recorder.l1Valid = true;
-    if (typeof d.content['L2'] != 'undefined') session.recorder.l2Valid = true;
-    if (typeof d.content['L3'] != 'undefined') session.recorder.l3Valid = true;
-    if (typeof d.content['L4'] != 'undefined') session.recorder.l4Valid = true;
+    if (!isUndefined(d.content['L1'])) session.recorder.l1Valid = true;
+    if (!isUndefined(d.content['L2'])) session.recorder.l2Valid = true;
+    if (!isUndefined(d.content['L3'])) session.recorder.l3Valid = true;
+    if (!isUndefined(d.content['L4'])) session.recorder.l4Valid = true;
   }
   if (!session.recorder.expectWarningMsg && !session.recorder.expectErrorMsg && !skipRecording) {
     // Get rid of messages except in INITIAL state or when the attention is ON
@@ -211,7 +211,7 @@ function processRecordDweet(d) {
   for (let key in d.content) {
     // get key value pairs
     value = d.content[key];
-    if (typeof session.recorder.accumulatedState[key] == 'undefined') {
+    if (isUndefined(session.recorder.accumulatedState[key])) {
       session.recorder.accumulatedState[key] = value;
     } else {
       prevValue = session.recorder.accumulatedState[key];

@@ -102,7 +102,7 @@ function exportSystemInfo() {
 }
 
 function selectSystemInfo(row) {
-  if ((typeof row == 'undefined') || (row.tagName != "TR")) {
+  if (isUndefined(row) || (row.tagName != "TR")) {
     row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected item", "Select by clicking on a table row\nTry again!");
@@ -146,7 +146,7 @@ function doRemove(args) {
 }
 
 function removeSystem(uid, tag, noconfirm) {
-  if (typeof noconfirm == 'undefined') noconfirm = false;
+  if (isUndefined(noconfirm)) noconfirm = false;
   confirmMsg =
     "System TAG: " + tag +
     "\nSystem UID: " + uid;
@@ -172,7 +172,7 @@ function removeSystemInfo(tag) {
 }
 
 function removeSystemInfoRow(row) {
-  if (typeof row == 'undefined') {
+  if (isUndefined(row)) {
     row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected item", "Select by clicking on a table row\nTry again!");

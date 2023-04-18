@@ -100,7 +100,7 @@ function numberOfExistingShapeBoxes() {
 
 function findShapeContainerId(id) {
   obj = session.shapes.allShapesContainerInfo[id];
-  if (!obj || (typeof obj == 'undefined')) return null;
+  if (!obj || isUndefined(obj)) return null;
   return obj;
 }
 

@@ -187,7 +187,7 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
       readSessionVersion(jsonData);
       processJsonRecord(jsonData);
       if (lastRecord) {
-        if (typeof lastRecordCallback != 'undefined') lastRecordCallback();
+        if (!isUndefined(lastRecordCallback)) lastRecordCallback();
       }
     }
   }
@@ -789,7 +789,7 @@ function processBnumDweet(curTime, value, jsonData) {
 }
 
 function processAlertDweet(curTime, jsonData) { 
-  if (typeof jsonData.content["WMSG"] != 'undefined') {
+  if (!isUndefined(jsonData.content["WMSG"])) {
     if (session.alerts.expectWarningMsg) { // back to back with Previous msg not yet fully received
       var msg = {
         'created': session.alerts.lastWarningTime,
@@ -808,7 +808,7 @@ function processAlertDweet(curTime, jsonData) {
        "value": ++session.alerts.warningNum
      });
   }
-  if (typeof jsonData.content["EMSG"] != 'undefined') {
+  if (!isUndefined(jsonData.content["EMSG"])) {
    if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
      var msg = {
        'created': session.alerts.lastErrorTime,
