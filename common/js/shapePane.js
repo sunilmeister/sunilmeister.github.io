@@ -303,12 +303,26 @@ class ShapePane {
         stripLine.startValue = (xval - 200) / 1000;
       }
 
+      var lastY = null;
+      var lastX = null;
       for (let j = 0; j < samples.length; j++) {
-        xyPoints.push({
-          "x": xval / 1000,
-          "y": samples[j]
-        });
+        if (samples[j] !== null) {
+          lastY = samples[j];
+          lastX = xval;
+        console.log("lastX=" + lastX);
+          xyPoints.push({
+            "x": lastX / 1000,
+            "y": lastY
+          });
+        }
         xval += sampleInterval;
+      }
+      if (this.isFlowGraph) {
+        console.log("lastX=" + lastX);
+        xyPoints.push({
+          "x": (lastX + sampleInterval) / 1000,
+          "y": 0
+        });
       }
       prevXval = xval;
 
