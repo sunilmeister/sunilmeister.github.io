@@ -400,7 +400,11 @@ function processPwendDweet(str) {
       if (expectingDPWEND) {
         if ((d !== null) && (session.breathData.qmult>10)) {
           // Convert delta pressure to flow value
-          d = Math.sqrt(d) * session.breathData.qmult;
+          if (d > FLOW_THRESHOLD_DELTAP) {
+            d = Math.sqrt(d) * session.breathData.qmult;
+          } else {
+            d = 0;
+          }
         } else {
           d = null;
         }
