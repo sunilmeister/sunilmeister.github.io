@@ -309,7 +309,6 @@ class ShapePane {
         if (samples[j] !== null) {
           lastY = samples[j];
           lastX = xval;
-        console.log("lastX=" + lastX);
           xyPoints.push({
             "x": lastX / 1000,
             "y": lastY
