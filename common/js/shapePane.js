@@ -282,16 +282,6 @@ class ShapePane {
       }
       var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
       var initXval = xval;
-      if (!this.isFlowGraph) {
-        Xaxis.scaleBreaks.customBreaks.push({
-          startValue: prevXval ? (prevXval + 100) / 1000 : 0,
-          endValue: (xval - 100) / 1000,
-          color: "orange",
-          type: "zigzag"
-        });
-      }
-
-      // Make sure that the graphs do not connect end-to-end
       xyPoints.push({
         "x": (xval - 200) / 1000,
         "y": null
@@ -317,15 +307,14 @@ class ShapePane {
         xval += sampleInterval;
       }
       if (this.isFlowGraph) {
-        console.log("lastX=" + lastX);
         xyPoints.push({
           "x": (lastX + sampleInterval) / 1000,
           "y": 0
         });
       }
-      prevXval = xval;
 
       if (!this.isFlowGraph) {
+        // Do strip lines
         stripLine.endValue = (xval) / 1000;
         //stripLine.label = prefix + "Breath #" + breathNum;
         stripLine.label = "Breath #" + breathNum;
@@ -336,6 +325,16 @@ class ShapePane {
         stripLine.labelFontColor = "grey";
         stripLine.labelFontSize = session.shapes.stripLineFontSize;
         Xaxis.stripLines.push(cloneObject(stripLine));
+
+        // Do custom scaleBreaks
+        // Make sure that the graphs do not connect end-to-end
+        Xaxis.scaleBreaks.customBreaks.push({
+          startValue: prevXval,
+          endValue: stripLine.startValue - 0.1,
+          color: "orange",
+          type: "zigzag"
+        });
+        prevXval = stripLine.endValue + 0.1;
       }
     }
 
