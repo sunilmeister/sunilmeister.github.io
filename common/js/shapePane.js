@@ -299,10 +299,18 @@ class ShapePane {
         if (samples[j] !== null) {
           lastY = samples[j];
           lastX = xval;
-          xyPoints.push({
-            "x": lastX / 1000,
-            "y": lastY
-          });
+          if (partial) {
+            xyPoints.push({
+              "x": lastX / 1000,
+              "y": lastY,
+              "lineDashType": "dashDot"
+            });
+          } else {
+            xyPoints.push({
+              "x": lastX / 1000,
+              "y": lastY
+            });
+          }
         }
         xval += sampleInterval;
       }
