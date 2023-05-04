@@ -271,7 +271,7 @@ class ShapePane {
       var sampleInterval = this.data[i].sampleInterval;
       var breathInfo = this.data[i].breathInfo;
       var samples = this.data[i].samples;
-      partial = this.data[i].partial;
+      if (this.data[i].partial) partial = true;
 
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
