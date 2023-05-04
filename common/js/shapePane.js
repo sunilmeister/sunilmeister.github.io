@@ -265,13 +265,13 @@ class ShapePane {
     var xyPoints = [];
     var prevXval = 0;
 
+    var partial  = false;
     for (let i = 0; i < this.data.length; i++) {
       var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
       var sampleInterval = this.data[i].sampleInterval;
       var breathInfo = this.data[i].breathInfo;
       var samples = this.data[i].samples;
-      var partial = this.data[i].partial;
-      var prefix = partial ? "Partial " : "";
+      partial = this.data[i].partial;
 
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
@@ -340,6 +340,7 @@ class ShapePane {
 
     var chartData = {};
     chartData.type = this.graphType;
+    if (partial) chartData.lineDashType = "dashDot";
     chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;
