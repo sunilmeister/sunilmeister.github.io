@@ -105,7 +105,7 @@ function processDashboardDweet(d) {
   elm.innerHTML = session.numMissingBreaths;
 
   if (!updatePaused) {
-    elm = document.getElementById("numBreaths");
+    elm = document.getElementById("breathNum");
     animateNumberValueTo(elm, session.dashboardBreathNum);
   }
 
@@ -199,7 +199,7 @@ function blinkFlowRate() {
 function blinkPauseButton() {
   btn = document.getElementById("btnPause");
   ttl = document.getElementById("breathsHeading");
-  bnum = document.getElementById("numBreaths");
+  bnum = document.getElementById("breathNum");
   var style = getComputedStyle(document.body)
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
