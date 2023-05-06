@@ -11,7 +11,9 @@ function shapeInsertOnTop() {
   //console.log("shapeInsertOnTop ");
   newContainer = createNewShapeContainer();
   allShapes.insertBefore(newContainer, allShapes.firstChild);
-  removeShapeEditMenu();
+  // Open edit menu for the new shape box
+  enode = findChildNodeByClass(newContainer, "iconButton");
+  shapeEdit(enode);
 }
 
 function shapeInsert(bnode) {
@@ -19,7 +21,9 @@ function shapeInsert(bnode) {
   //console.log("shapeInsert " + containerNode.id);
   newContainer = createNewShapeContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
-  removeShapeEditMenu();
+  // Open edit menu for the new shape box
+  enode = findChildNodeByClass(newContainer, "iconButton");
+  shapeEdit(enode);
 }
 
 function shapeAppend(bnode) {
@@ -27,7 +31,9 @@ function shapeAppend(bnode) {
   //console.log("shapeAppend " + containerNode.id);
   newContainer = createNewShapeContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
-  removeShapeEditMenu();
+  // Open edit menu for the new shape box
+  enode = findChildNodeByClass(newContainer, "iconButton");
+  shapeEdit(enode);
 }
 
 function shapeEdit(bnode) {
@@ -52,8 +58,9 @@ function shapeDelete(bnode) {
   if (numberOfExistingShapes() == 0) {
     modalWarning("SHAPE BOX", "No shape container left\nCreating new empty one");
     shapeInsertOnTop();
+  } else {
+    removeShapeEditMenu();
   }
-  removeShapeEditMenu();
 }
 
 function removeShapeEditMenu() {
@@ -137,7 +144,7 @@ function createAllShapes() {
   }
 
   if (session.shapes.firstTimeShapesEntry) {
-    showEditIconReminder();
+    //showEditIconReminder();
     session.shapes.firstTimeShapesEntry = false;
   }
 

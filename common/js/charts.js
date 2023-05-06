@@ -15,7 +15,9 @@ function chartInsertOnTop() {
   //console.log("chartInsertOnTop ");
   newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, allCharts.firstChild);
-  removeChartEditMenu();
+  // Open edit menu for the new chart box
+  enode = findChildNodeByClass(newContainer, "iconButton");
+  chartEdit(enode);
 }
 
 function chartInsert(bnode) {
@@ -23,7 +25,9 @@ function chartInsert(bnode) {
   //console.log("chartInsert " + containerNode.id);
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
-  removeChartEditMenu();
+  // Open edit menu for the new chart box
+  enode = findChildNodeByClass(newContainer, "iconButton");
+  chartEdit(enode);
 }
 
 function chartAppend(bnode) {
@@ -31,7 +35,9 @@ function chartAppend(bnode) {
   //console.log("chartAppend " + containerNode.id);
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
-  removeChartEditMenu();
+  // Open edit menu for the new chart box
+  enode = findChildNodeByClass(newContainer, "iconButton");
+  chartEdit(enode);
 }
 
 function chartEdit(bnode) {
@@ -56,8 +62,9 @@ function chartDelete(bnode) {
   if (numberOfExistingCharts() == 0) {
     modalWarning("CHART BOX", "No chart container left\nCreating new empty one");
     chartInsertOnTop();
+  } else {
+    removeChartEditMenu();
   }
-  removeChartEditMenu();
 }
 
 function removeChartEditMenu() {
@@ -137,7 +144,7 @@ function createAllCharts() {
   }
 
   if (session.charts.firstTimeChartsEntry) {
-    showEditIconReminder();
+    //showEditIconReminder();
     session.charts.firstTimeChartsEntry = false;
   }
 
