@@ -761,7 +761,16 @@ function findChildNodeByClass(node, className) {
 }
 
 function findAncestorNodeByClassName(node, className) {
-  if (node.className == className) return node;
+  let cString = node.className;
+  if (cString) {
+    let cNames = cString.split(' ');
+    for (let c = 0; c < cNames.length; c++) {
+      if (cNames[c] == className) {
+        return node;
+      }
+    }
+  }
+
   if (node.parentNode) return findAncestorNodeByClassName(node.parentNode, className);
   return null;
 }
