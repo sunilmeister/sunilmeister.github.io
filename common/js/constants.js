@@ -73,6 +73,8 @@ const CHART_FONT_SIZE = 50;
 const CHART_INTERLACED_COLOR = 'white';
 const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB';
 
+const EDIT_ICON_CLASS = "editIconButton";
+
 const CHART_CONTAINER_ID_PREFIX = "chartContainer";
 const CHART_CONTAINER_TEMPLATE_ID = "chartContainerTemplate";
 const CHART_EDIT_MENU_TEMPLATE_ID = "chartEditMenuTemplate";

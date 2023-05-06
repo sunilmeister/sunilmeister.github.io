@@ -16,7 +16,7 @@ function chartInsertOnTop() {
   newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, allCharts.firstChild);
   // Open edit menu for the new chart box
-  enode = findChildNodeByClass(newContainer, "iconButton");
+  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
 
@@ -26,7 +26,7 @@ function chartInsert(bnode) {
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
   // Open edit menu for the new chart box
-  enode = findChildNodeByClass(newContainer, "iconButton");
+  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
 
@@ -36,7 +36,7 @@ function chartAppend(bnode) {
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
   // Open edit menu for the new chart box
-  enode = findChildNodeByClass(newContainer, "iconButton");
+  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
 

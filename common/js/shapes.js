@@ -12,7 +12,7 @@ function shapeInsertOnTop() {
   newContainer = createNewShapeContainer();
   allShapes.insertBefore(newContainer, allShapes.firstChild);
   // Open edit menu for the new shape box
-  enode = findChildNodeByClass(newContainer, "iconButton");
+  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   shapeEdit(enode);
 }
 
@@ -22,7 +22,7 @@ function shapeInsert(bnode) {
   newContainer = createNewShapeContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
   // Open edit menu for the new shape box
-  enode = findChildNodeByClass(newContainer, "iconButton");
+  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   shapeEdit(enode);
 }
 
@@ -32,7 +32,7 @@ function shapeAppend(bnode) {
   newContainer = createNewShapeContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
   // Open edit menu for the new shape box
-  enode = findChildNodeByClass(newContainer, "iconButton");
+  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   shapeEdit(enode);
 }
 

@@ -739,8 +739,15 @@ function findChildNodeByClass(node, className) {
   if (!children) return null;
 
   for (let i = 0; i < children.length; i++) {
-    if (children[i].className == className) {
-      return children[i];
+    // a node can have multiple class names
+    let cString = children[i].className;
+    if (cString) {
+      let cNames = cString.split(' ');
+      for (let c = 0; c < cNames.length; c++) {
+        if (cNames[c] == className) {
+          return children[i];
+        }
+      }
     }
   }
 
