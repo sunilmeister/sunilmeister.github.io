@@ -1,16 +1,16 @@
-.shapesLegendDiv {
+.wavesLegendDiv {
    font-size: var(--colorLegendFontSize);
    color: blue;
 }
 
-.shapeLegend {
+.waveLegend {
   float: left;
   margin-right: 10px;
   margin-bottom: 10px;
   border: 2px solid black; 
 }
 
-.shapeLegendText {
+.waveLegendText {
   margin-top: 0px;
   margin-bottom: 0px;
   padding-left: 10px;

@@ -8,12 +8,12 @@
 
   --noUiTooltipSize: 0.7rem;
 
-  --shapeContainerPadding: 21rem;
-  --shapeBodyHeight: 20rem;
-  --shapeMenuIndent: 1rem;
-  --shapeMenuFontSize: 1rem;
-  --shapeMenuBannerHeight: 2.5rem;
-  --shapeMenuIconSize: 1rem;
+  --waveContainerPadding: 21rem;
+  --waveBodyHeight: 20rem;
+  --waveMenuIndent: 1rem;
+  --waveMenuFontSize: 1rem;
+  --waveMenuBannerHeight: 2.5rem;
+  --waveMenuIconSize: 1rem;
 
   --colorLegendSize: 1.5rem;
   --colorLegendFontSize: 1.2rem;

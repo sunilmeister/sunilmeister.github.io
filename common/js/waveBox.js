@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-class ShapeBox {
+class WaveBox {
   // containerBodyDiv is an HTML object
   constructor(containerBodyDiv) {
     this.containerBodyDiv = containerBodyDiv;
@@ -37,7 +37,7 @@ class ShapeBox {
     document.getElementById("MaintenanceB").checked = this.options.MaintenanceB;
     document.getElementById("ErrorB").checked = this.options.ErrorB;
     document.getElementById("AbnormalB").checked = this.options.AbnormalB;
-    document.getElementById("ShapeTitleId").value = this.options.title;
+    document.getElementById("WaveTitleId").value = this.options.title;
   }
 
   // Update stored options from the HTML dropdown menu
@@ -50,7 +50,7 @@ class ShapeBox {
     this.options.MaintenanceB = document.getElementById("MaintenanceB").checked;
     this.options.ErrorB = document.getElementById("ErrorB").checked;
     this.options.AbnormalB = document.getElementById("AbnormalB").checked;
-    this.options.title = document.getElementById("ShapeTitleId").value;
+    this.options.title = document.getElementById("WaveTitleId").value;
   }
 
   ////////////////////////////////////////////////////////
@@ -65,7 +65,7 @@ class ShapeBox {
   }
 
   createChart() {
-    this.chart = new ShapePane(
+    this.chart = new WavePane(
       this.options.title,
       this.containerBodyDiv.offsetHeight,
       this.rangeX,

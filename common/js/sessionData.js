@@ -42,7 +42,7 @@ var SessionDataTemplate = {
 
   inProgress: {
     charts:     false,
-    shapes:     false,
+    waves:     false,
     alerts:     false,
     stats:      false,
   },
@@ -225,24 +225,24 @@ var SessionDataTemplate = {
     numChartDatapoints: 0,
   },
 
-  // Below is stuff for detailed breath pressure shapes
-  shapes: {
+  // Below is stuff for detailed breath pressure waves
+  waves: {
     pwData: [],
     flowData: [],
     breathNum: null,
     breathInfo: null,
-    newShapeCallback: null,
+    newWaveCallback: null,
     sendPeriod: null,
     onDemand: false,
     labelFontSize: 20,
     legendFontSize: 20,
     titleFontSize: 40,
     expectedSamplesPerSlice: null,
-    allShapesContainerInfo: {},
+    allWavesContainerInfo: {},
     boxTree: null,
     stripLineFontSize: 50,
-    confirmThreshold: SHAPE_CONFIRM_THRESHOLD,
-    firstTimeShapesEntry: true,
+    confirmThreshold: WAVE_CONFIRM_THRESHOLD,
+    firstTimeWavesEntry: true,
   },
 
   // /////////////////////////////////////////////

@@ -27,8 +27,8 @@
     <link rel="stylesheet" href="../common/css/sidebarButton.css" />
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
     <link rel="stylesheet" href="../common/css/chart.css" />
-    <link rel="stylesheet" href="../common/css/shape.css" />
-    <link rel="stylesheet" href="../common/css/shapesLegend.css" />
+    <link rel="stylesheet" href="../common/css/wave.css" />
+    <link rel="stylesheet" href="../common/css/wavesLegend.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.7.0/nouislider.min.js"></script>
@@ -42,7 +42,7 @@
     <script src="../common/js/hidePopups.js"></script>
     <script src="../common/js/checkboxTree.js"></script>
     <script src="../common/js/chartPane.js"></script>
-    <script src="../common/js/shapePane.js"></script>
+    <script src="../common/js/wavePane.js"></script>
     <script src="../common/js/statComputer.js"></script>
     <script src="../common/js/rangeSlider.js"></script>
     <script src="../common/js/circularGauge.js"></script>
@@ -51,16 +51,16 @@
     <script src="../common/js/sessionData.js"></script>
     <script src="../common/js/dweets.js"></script>
     <script src="../common/js/charts.js"></script>
-    <script src="../common/js/shapes.js"></script>
+    <script src="../common/js/waves.js"></script>
     <script src="../common/js/stats.js"></script>
     <script src="../common/js/alerts.js"></script>
     <script src="../common/js/download.js"></script>
     <script src="../common/js/chartBox.js"></script>
-    <script src="../common/js/shapeBox.js"></script>
+    <script src="../common/js/waveBox.js"></script>
     <script src="../common/js/selectTableRow.js"></script>
     <script src="js/analImportExport.js"></script>
     <script src="js/analCharts.js"></script>
-    <script src="js/analShapes.js"></script>
+    <script src="js/analWaves.js"></script>
     <script src="js/analRawData.js"></script>
     <script src="js/analyzer.js"></script>
   </head>
@@ -167,7 +167,7 @@
             <br>
             <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
             <br>
-            <button id=btnShape class=sidebarButton onclick='selectShapes()'>View Breath Shapes</button>
+            <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
             <br><br>
           </div>
         </center>
@@ -353,48 +353,48 @@
       <div id=chartsDiv style="display: none; margin-bottom:20px;">
       </div>
 
-      <div id=shapesDiv style="display: none; margin-bottom:20px;">
-        <div class=shapesLegendDiv>
-          <div class=shapeLegend>
+      <div id=wavesDiv style="display: none; margin-bottom:20px;">
+        <div class=wavesLegendDiv>
+          <div class=waveLegend>
             <center>
-              <p class=shapeLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
+              <p class=waveLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
                 <br>
-                <p class=shapeLegendText style="padding-top:0px; background-color:var(--colorMandatoryVC);">Volume Control
+                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVC);">Volume Control
             </center>
           </div>
-          <div class=shapeLegend>
+          <div class=waveLegend>
             <center>
-              <p class=shapeLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
+              <p class=waveLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
                 <br>
-                <p class=shapeLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVC);">Volume Control
+                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVC);">Volume Control
             </center>
           </div>
-          <div class=shapeLegend>
+          <div class=waveLegend>
             <center>
-              <p class=shapeLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
+              <p class=waveLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
                 <br>
-                <p class=shapeLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPS);">Pressure Control
+                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPS);">Pressure Control
             </center>
           </div>
-          <div class=shapeLegend>
+          <div class=waveLegend>
             <center>
-              <p class=shapeLegendText style="background-color:var(--colorError);">Error Causing
+              <p class=waveLegendText style="background-color:var(--colorError);">Error Causing
                 <br>
-                <p class=shapeLegendText style="padding-top:0px; background-color:var(--colorError);">Breath
+                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorError);">Breath
             </center>
           </div>
-          <div class=shapeLegend>
+          <div class=waveLegend>
             <center>
-              <p class=shapeLegendText style="background-color:var(--colorMaintenance);">Maintenance
+              <p class=waveLegendText style="background-color:var(--colorMaintenance);">Maintenance
                 <br>
-                <p class=shapeLegendText style="padding-top:0px; background-color:var(--colorMaintenance);">Breath
+                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMaintenance);">Breath
             </center>
           </div>
-          <div class=shapeLegend>
+          <div class=waveLegend>
             <center>
-              <p class=shapeLegendText style="background-color:var(--colorAbnormal);">Abnormal
+              <p class=waveLegendText style="background-color:var(--colorAbnormal);">Abnormal
                 <br>
-                <p class=shapeLegendText style="padding-top:0px; background-color:var(--colorAbnormal);">Breath Shape
+                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorAbnormal);">Breath Wave
             </center>
           </div>
           <div style="clear:both">
@@ -628,77 +628,77 @@
       </div>
     </template>
 
-    <template id=shapeContainerTemplate>
-      <div class=shapeContainer>
-        <div class=shapeBanner>
-          <button class=iconButton style="float:left;" onClick="shapeAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Shape Box"><img src="../common/img/plus.png" width=20px height=20px></button>
-          <button class=iconButton style="float:right;" onClick="shapeDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
-          <button class='editIconButton iconButton' style="float:right;" onClick="shapeEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
+    <template id=waveContainerTemplate>
+      <div class=waveContainer>
+        <div class=waveBanner>
+          <button class=iconButton style="float:left;" onClick="waveAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Wave Box"><img src="../common/img/plus.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="waveDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
+          <button class='editIconButton iconButton' style="float:right;" onClick="waveEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
           <br>
         </div>
-        <div class=shapeBody>
+        <div class=waveBody>
         </div>
       </div>
     </template>
 
-    <template id=shapeEditMenuTemplate>
-      <div id=shapeDropDownMenu class=shapeEditMenu style="background-color: var(--rsp_lightblue);">
-        <div class=shapeEditMenuBanner>
-          <button class=iconButton onClick="shapeMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
-          <button class=iconButton onClick="shapeMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
+    <template id=waveEditMenuTemplate>
+      <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
+        <div class=waveEditMenuBanner>
+          <button class=iconButton onClick="waveMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/check.png" width=20px height=20px></button>
+          <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
           <br>
         </div>
 
-        <div id=shapeTitleDiv style="background-color: var(--rsp_lightblue)">
+        <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
           <center>
             <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
             <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
-              <input id=ShapeTitleId class=shapeEditMenuTitle type="text" id=title name="title">
+              <input id=WaveTitleId class=waveEditMenuTitle type="text" id=title name="title">
             </div>
           </center>
         </div>
-        <div id=shapeCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px;">
+        <div id=waveCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px;">
           <center>
             <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
           </center>
           <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
-            <input type="checkbox" id=All onclick='shapeTreeCheckboxClicked(this)'>
+            <input type="checkbox" id=All onclick='waveTreeCheckboxClicked(this)'>
             <label for=All>All</label>
-            <div class=shapeIndentDiv>
+            <div class=waveIndentDiv>
               <br>
-              <input type="checkbox" id=MandatoryB onclick='shapeTreeCheckboxClicked(this)'>
+              <input type="checkbox" id=MandatoryB onclick='waveTreeCheckboxClicked(this)'>
               <label for=MandatoryB>Mandatory Breaths</label>
-              <div class=shapeIndentDiv>
-                <input type="checkbox" id=MandatoryVC onclick='shapeTreeCheckboxClicked(this)'>
+              <div class=waveIndentDiv>
+                <input type="checkbox" id=MandatoryVC onclick='waveTreeCheckboxClicked(this)'>
                 <label for=MandatoryVC>Volume Controlled</label>
               </div>
             </div>
             <br>
-            <div class=shapeIndentDiv>
-              <input type="checkbox" id=SpontaneousB onclick='shapeTreeCheckboxClicked(this)'>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=SpontaneousB onclick='waveTreeCheckboxClicked(this)'>
               <label for=SpontaneousB>Spontaneous Breaths</label>
-              <div class=shapeIndentDiv>
-                <input type="checkbox" id=SpontaneousVC onclick='shapeTreeCheckboxClicked(this)'>
+              <div class=waveIndentDiv>
+                <input type="checkbox" id=SpontaneousVC onclick='waveTreeCheckboxClicked(this)'>
                 <label for=SpontaneousVC>Volume Controlled</label>
               </div>
-              <div class=shapeIndentDiv>
-                <input type="checkbox" id=SpontaneousPS onclick='shapeTreeCheckboxClicked(this)'>
+              <div class=waveIndentDiv>
+                <input type="checkbox" id=SpontaneousPS onclick='waveTreeCheckboxClicked(this)'>
                 <label for=SpontaneousPS>Pressure Supported&nbsp</label>
               </div>
               <br>
             </div>
-            <div class=shapeIndentDiv>
-              <input type="checkbox" id=MaintenanceB onclick='shapeTreeCheckboxClicked(this)'>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=MaintenanceB onclick='waveTreeCheckboxClicked(this)'>
               <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
               <br>
             </div>
-            <div class=shapeIndentDiv>
-              <input type="checkbox" id=ErrorB onclick='shapeTreeCheckboxClicked(this)'>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=ErrorB onclick='waveTreeCheckboxClicked(this)'>
               <label for=ErrorB>Include Error Breaths</label>
               <br>
             </div>
-            <div class=shapeIndentDiv>
-              <input type="checkbox" id=AbnormalB onclick='shapeTreeCheckboxClicked(this)'>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=AbnormalB onclick='waveTreeCheckboxClicked(this)'>
               <label for=AbnormalB>Include Abnormal Breaths</label>
             </div>
             <br>

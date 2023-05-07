@@ -227,20 +227,20 @@ function selectAlerts() {
   createAllAlerts();
 }
 
-function selectShapes() {
+function selectWaves() {
   if (!checkDbReady()) return;
   if (!checkValidAnalysisDuration()) return;
 
   undisplayAllPanes();
-  document.getElementById("shapesDiv").style.display = "block";
+  document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
   var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
-  document.getElementById("btnShape").disabled = true;
+  document.getElementById("btnWave").disabled = true;
 
-  createAllShapes();
+  createAllWaves();
 }
 
 function selectCharts() {
@@ -318,7 +318,7 @@ function enableAllButtons() {
   document.getElementById("btnStat").disabled = false;
   document.getElementById("btnChart").disabled = false;
   document.getElementById("btnAlert").disabled = false;
-  document.getElementById("btnShape").disabled = false;
+  document.getElementById("btnWave").disabled = false;
 }
 
 function disableAllButtons() {
@@ -327,7 +327,7 @@ function disableAllButtons() {
   document.getElementById("btnStat").disabled = true;
   document.getElementById("btnChart").disabled = true;
   document.getElementById("btnAlert").disabled = true;
-  document.getElementById("btnShape").disabled = true;
+  document.getElementById("btnWave").disabled = true;
 }
 
 function initGlobals() {
@@ -336,16 +336,16 @@ function initGlobals() {
   session = cloneObject(SessionDataTemplate);
   session.appId = ANALYZER_APP_ID;
   session.charts.fontSize = 15;
-  session.shapes.labelFontSize = 15;
-  session.shapes.legendFontSize = 20;
-  session.shapes.titleFontSize = 30;
-  session.shapes.stripLineFontSize = 20;
+  session.waves.labelFontSize = 15;
+  session.waves.legendFontSize = 20;
+  session.waves.titleFontSize = 30;
+  session.waves.stripLineFontSize = 20;
 }
 
 function resetAnalysisData() {
   initStats();
   initCharts();
-  initShapes();
+  initWaves();
   initRawDump();
   initAlerts();
   initImportExport();
@@ -353,7 +353,7 @@ function resetAnalysisData() {
   initDbNames();
   if ((document.getElementById("statsDiv").style.display == "block") ||
     (document.getElementById("chartsDiv").style.display == "block") ||
-    (document.getElementById("shapesDiv").style.display == "block") ||
+    (document.getElementById("wavesDiv").style.display == "block") ||
     (document.getElementById("alertsDiv").style.display == "block")) {
     document.getElementById("analysisWindowDiv").style.display = "block";
   }
@@ -364,7 +364,7 @@ function undisplayAllPanes() {
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("alertsDiv").style.display = "none";
-  document.getElementById("shapesDiv").style.display = "none";
+  document.getElementById("wavesDiv").style.display = "none";
   document.getElementById("analysisWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
@@ -416,8 +416,8 @@ function refreshActivePane() {
     createAllCharts();
   } else if (document.getElementById("alertsDiv").style.display == "block") {
     createAllAlerts();
-  } else if (document.getElementById("shapesDiv").style.display == "block") {
-    createAllShapes();
+  } else if (document.getElementById("wavesDiv").style.display == "block") {
+    createAllWaves();
   }
 }
 

@@ -4,9 +4,9 @@
 
 // //////////////////////////////////////////////////////
 // Recommended sequence
-// 1. construct BreathShapes object
+// 1. construct BreathWaves object
 // 2. add Graph
-// 3. Render BreathShapes object
+// 3. Render BreathWaves object
 // 
 // The constructor inputs are
 // Title of chart
@@ -15,13 +15,13 @@
 //           initBnum:Number, minBnum:Number, maxBnum:Number, 
 //           initTime:Date, minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
-function breathShapeXaxisFormatter(e) {
+function breathWaveXaxisFormatter(e) {
   iPart = Math.floor(e.value);
   if (Number(iPart) != Number(e.value)) return ""
   else return iPart;
 }
 
-class ShapePane {
+class WavePane {
 
   constructor(title, height, rangeX, menu) {
     this.graphType = "spline";
@@ -32,7 +32,7 @@ class ShapePane {
       title: {
         text: title,
         padding: 10,
-        fontSize: session.shapes.titleFontSize
+        fontSize: session.waves.titleFontSize
       },
       axisY: [],
       toolTip: {
@@ -41,7 +41,7 @@ class ShapePane {
       legend: {
         cursor: "pointer",
         itemclick: toggleDataSeries,
-        fontSize: session.shapes.legendFontSize
+        fontSize: session.waves.legendFontSize
       },
       height: height,
       backgroundColor: "#D5F3FE",
@@ -49,8 +49,8 @@ class ShapePane {
     };
     this.chart = null;
     this.menu = menu;
-    this.numSelectedShapes = 0;
-    this.data = session.shapes.pwData;
+    this.numSelectedWaves = 0;
+    this.data = session.waves.pwData;
     this.isFlowGraph = false;
 
     this.addXaxis();
@@ -85,7 +85,7 @@ class ShapePane {
     return false;
   }
 
-  numShapesInRange() {
+  numWavesInRange() {
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
     var n = 0;
@@ -98,7 +98,7 @@ class ShapePane {
     return n;
   }
 
-  numSelectedShapesInRange() {
+  numSelectedWavesInRange() {
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
     var n = 0;
@@ -120,35 +120,35 @@ class ShapePane {
   }
 
   addPressureGraph() {
-    this.numSelectedShapes = this.numSelectedShapesInRange();
-    this.data = session.shapes.pwData;
+    this.numSelectedWaves = this.numSelectedWavesInRange();
+    this.data = session.waves.pwData;
     this.isFlowGraph = false;
-    if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
+    if (this.numSelectedWaves <= session.waves.confirmThreshold) {
       this.addGraphNoConfirm();
     } else {
-       modalConfirm("Too many Breath Shapes", 
-        "It may take time to render " + this.numSelectedShapes + " shapes\n" +
+       modalConfirm("Too many Breath Waveforms", 
+        "It may take time to render " + this.numSelectedWaves + " Waveforms\n" +
         "Range Selector can be used to limit the number", 
         this.addGraphNoConfirm.bind(this), null, null, "UPDATE", "DO NOT UPDATE");    }
   }
 
   addFlowGraph() {
-    this.numSelectedShapes = this.numSelectedShapesInRange();
-    this.data = session.shapes.flowData;
+    this.numSelectedWaves = this.numSelectedWavesInRange();
+    this.data = session.waves.flowData;
     this.isFlowGraph = true;
-    if (this.numSelectedShapes <= session.shapes.confirmThreshold) {
+    if (this.numSelectedWaves <= session.waves.confirmThreshold) {
       this.addGraphNoConfirm();
     } else {
-       modalConfirm("Too many Breath Shapes", 
-        "It may take time to render " + this.numSelectedShapes + " shapes\n" +
+       modalConfirm("Too many Breath Waveforms", 
+        "It may take time to render " + this.numSelectedWaves + " Waveforms\n" +
         "Range Selector can be used to limit the number", 
         this.addGraphNoConfirm.bind(this), null, null, "UPDATE", "DO NOT UPDATE");    }
   }
 
   addGraphNoConfirm() {
     // update the threshold
-    if (this.numSelectedShapes >  session.shapes.confirmThreshold) {
-       session.shapes.confirmThreshold = this.numSelectedShapes + SHAPE_CONFIRM_INCREMENT;
+    if (this.numSelectedWaves >  session.waves.confirmThreshold) {
+       session.waves.confirmThreshold = this.numSelectedWaves + WAVE_CONFIRM_INCREMENT;
     }
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";
@@ -196,8 +196,8 @@ class ShapePane {
     Xaxis.minimum = this.calculateXaxisMinimum();
     Xaxis.gridColor = "grey";
     Xaxis.gridThickness = 1;
-    Xaxis.labelFontSize = session.shapes.labelFontSize;
-    Xaxis.labelFormatter = breathShapeXaxisFormatter;
+    Xaxis.labelFontSize = session.waves.labelFontSize;
+    Xaxis.labelFormatter = breathWaveXaxisFormatter;
     this.chartJson.axisX = Xaxis;
   }
 
@@ -331,7 +331,7 @@ class ShapePane {
         stripLine.labelWrap = true;
         stripLine.labelMaxWidth = 80;
         stripLine.labelFontColor = "grey";
-        stripLine.labelFontSize = session.shapes.stripLineFontSize;
+        stripLine.labelFontSize = session.waves.stripLineFontSize;
         Xaxis.stripLines.push(cloneObject(stripLine));
 
         // Do custom scaleBreaks

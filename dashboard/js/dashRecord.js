@@ -218,7 +218,7 @@ function processRecordDweet(d) {
       if (prevValue != value) {
         session.recorder.accumulatedState[key] = value;
       } else {
-        if (!shapeWaveformKey(key)) delete d.content[key];
+        if (!waveWaveformKey(key)) delete d.content[key];
       }
     }
   }

@@ -6,12 +6,12 @@
   --chartMenuBannerHeight: 2rem;
   --chartMenuIconSize: 1rem;
 
-  --shapeContainerPadding: 21rem;
-  --shapeBodyHeight: 20rem;
-  --shapeMenuIndent: 1rem;
-  --shapeMenuFontSize: 1rem;
-  --shapeMenuBannerHeight: 2rem;
-  --shapeMenuIconSize: 1.5rem;
+  --waveContainerPadding: 21rem;
+  --waveBodyHeight: 20rem;
+  --waveMenuIndent: 1rem;
+  --waveMenuFontSize: 1rem;
+  --waveMenuBannerHeight: 2rem;
+  --waveMenuIconSize: 1.5rem;
 
   --noUiTooltipSize: 0.6rem;
 

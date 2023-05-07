@@ -58,12 +58,12 @@ const ERROR_STATE = 3;
 const FLOW_THRESHOLD_DELTAP = 4;
 const Q_SCALE_FACTOR = 8;
 
-const SHAPE_MAX_CHARTS = 10;
-const SHAPE_CONFIRM_THRESHOLD = 20;
-const SHAPE_CONFIRM_INCREMENT = 20;
-const SHAPE_MAX_SAMPLES_PER_BREATH = 64
-const SHAPE_MAX_SAMPLES_PER_SLICE = 8;
-const SHAPE_MAX_SLICES = 8;
+const WAVE_MAX_CHARTS = 10;
+const WAVE_CONFIRM_THRESHOLD = 20;
+const WAVE_CONFIRM_INCREMENT = 20;
+const WAVE_MAX_SAMPLES_PER_BREATH = 64
+const WAVE_MAX_SAMPLES_PER_SLICE = 8;
+const WAVE_MAX_SLICES = 8;
 
 const MAX_CHART_DATAPOINTS = 60;
 const CHART_CONFIRM_THRESHOLD = 500;
@@ -86,16 +86,16 @@ const CHART_CONTAINER_CLASS = "chartContainer";
 const ALL_CHARTS_ID = "chartsDiv";
 const CHART_CBOX_TREE_ROOT_ID = "chartCheckBoxTreeRoot";
 
-const SHAPE_CONTAINER_ID_PREFIX = "shapeContainer";
-const SHAPE_CONTAINER_TEMPLATE_ID = "shapeContainerTemplate";
-const SHAPE_EDIT_MENU_TEMPLATE_ID = "shapeEditMenuTemplate";
-const SHAPE_BODY_CLASS = "shapeBody";
-const SHAPE_BANNER_CLASS = "shapeBanner";
-const SHAPE_EDIT_SHAPE_MENU_CLASS = "shapeEditMenu";
-const SHAPE_EDIT_SHAPE_MENU_ID = "shapeDropDownMenu";
-const SHAPE_CONTAINER_CLASS = "shapeContainer";
-const ALL_SHAPES_ID = "shapesDiv";
-const SHAPE_CBOX_TREE_ROOT_ID = "shapeCheckBoxTreeRoot";
+const WAVE_CONTAINER_ID_PREFIX = "waveContainer";
+const WAVE_CONTAINER_TEMPLATE_ID = "waveContainerTemplate";
+const WAVE_EDIT_MENU_TEMPLATE_ID = "waveEditMenuTemplate";
+const WAVE_BODY_CLASS = "waveBody";
+const WAVE_BANNER_CLASS = "waveBanner";
+const WAVE_EDIT_WAVE_MENU_CLASS = "waveEditMenu";
+const WAVE_EDIT_WAVE_MENU_ID = "waveDropDownMenu";
+const WAVE_CONTAINER_CLASS = "waveContainer";
+const ALL_WAVES_ID = "wavesDiv";
+const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM";
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
@@ -106,9 +106,9 @@ const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>
   "the mouse wheel to zoom in/out." +
   "</pre></span>";
 
-const ON_DEMAND_TITLE_STR = "On-Demand Breath Shape";
+const ON_DEMAND_TITLE_STR = "On-Demand Breath Waveform";
 const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Press 'View Breath Shapes' to view" +
+  "Press 'View Waveforms' to view" +
   "</pre></span>";
 
 const EDIT_ICON_TITLE_STR = "SELECT CHART ITEMS";

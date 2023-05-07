@@ -156,11 +156,11 @@ function createDashboards() {
     }
   }  
 
-  currNumShapes = numberOfExistingShapes();
-  if (currentView == "shapes") {
-    if (!bothRolling || (prevUpdateNumShapes != currNumShapes)) {
-      createDashboardShapes();
-      prevUpdateNumShapes = currNumShapes;
+  currNumWaves = numberOfExistingWaves();
+  if (currentView == "waves") {
+    if (!bothRolling || (prevUpdateNumWaves != currNumWaves)) {
+      createDashboardWaves();
+      prevUpdateNumWaves = currNumWaves;
     }
   }
 }
@@ -233,13 +233,13 @@ function changeToSnapshotView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnShapes").disabled = false;
+  document.getElementById("btnWaves").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  shapes = document.getElementById("shapes-pane");
+  waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "snapshots";
   snapshot.style.display = "inline-grid";
@@ -247,7 +247,7 @@ function changeToSnapshotView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-  shapes.style.display = "none";
+  waves.style.display = "none";
   rangeWindowDiv.style.display = "none";
 }
 
@@ -257,13 +257,13 @@ function changeToChartView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnShapes").disabled = false;
+  document.getElementById("btnWaves").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  shapes = document.getElementById("shapes-pane");
+  waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "charts";
   snapshot.style.display = "none";
@@ -271,7 +271,7 @@ function changeToChartView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-  shapes.style.display = "none";
+  waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
@@ -279,32 +279,32 @@ function changeToChartView() {
   createDashboardCharts();
 }
 
-function changeToShapeView() {
+function changeToWaveView() {
   document.getElementById("btnSnapshots").disabled = false;
   document.getElementById("btnCharts").disabled = false;
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnShapes").disabled = true;
+  document.getElementById("btnWaves").disabled = true;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  shapes = document.getElementById("shapes-pane");
+  waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
-  currentView = "shapes";
+  currentView = "waves";
   snapshot.style.display = "none";
   charts.style.display = "none";
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "none";
-  shapes.style.display = "block";
+  waves.style.display = "block";
   document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
-  updateShapeRangeOnEntry();
-  createDashboardShapes();
+  updateWaveRangeOnEntry();
+  createDashboardWaves();
 }
 
 function changeToStatView() {
@@ -313,13 +313,13 @@ function changeToStatView() {
   document.getElementById("btnStats").disabled = true;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnShapes").disabled = false;
+  document.getElementById("btnWaves").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  shapes = document.getElementById("shapes-pane");
+  waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "stats";
   snapshot.style.display = "none";
@@ -327,7 +327,7 @@ function changeToStatView() {
   stats.style.display = "block";
   alerts.style.display = "none";
   records.style.display = "none";
-  shapes.style.display = "none";
+  waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
@@ -341,13 +341,13 @@ function changeToAlertView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = true;
   document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnShapes").disabled = false;
+  document.getElementById("btnWaves").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  shapes = document.getElementById("shapes-pane");
+  waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "alerts";
   snapshot.style.display = "none";
@@ -355,7 +355,7 @@ function changeToAlertView() {
   stats.style.display = "none";
   alerts.style.display = "block";
   records.style.display = "none";
-  shapes.style.display = "none";
+  waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "block";
@@ -369,13 +369,13 @@ function changeToRecordView() {
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = true;
-  document.getElementById("btnShapes").disabled = false;
+  document.getElementById("btnWaves").disabled = false;
   snapshot = document.getElementById("snapshot-pane");
   charts = document.getElementById("chart-pane");
   stats = document.getElementById("stat-pane");
   alerts = document.getElementById("alert-pane");
   records = document.getElementById("record-pane");
-  shapes = document.getElementById("shapes-pane");
+  waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "records";
   snapshot.style.display = "none";
@@ -383,7 +383,7 @@ function changeToRecordView() {
   stats.style.display = "none";
   alerts.style.display = "none";
   records.style.display = "block";
-  shapes.style.display = "none";
+  waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
   rangeWindowDiv.style.display = "none";
@@ -394,7 +394,7 @@ function updateRangeOnNewBreath() {
   if (currentView == "charts") updateChartRange();
   if (currentView == "stats") updateStatRange();
   if (currentView == "alerts") updateAlertRange();
-  if (currentView == "shapes") updateShapeRange();
+  if (currentView == "waves") updateWaveRange();
 }
 
 function togglePause() {
@@ -406,7 +406,7 @@ function togglePause() {
     if (currentView == "charts") createDashboardCharts();
     if (currentView == "stats") createDashboardStats();
     if (currentView == "alerts") createDashboardAlerts();
-    if (currentView == "shapes") createDashboardShapes();
+    if (currentView == "waves") createDashboardWaves();
   } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
@@ -475,11 +475,11 @@ function installTempGauge() {
   tempGauge.setProperty('readonly', true);
 }
 
-function receivedNewShape() {
-  if (currentView == "shapes") return;
-  if ((session.shapes.sendPeriod) && !session.shapes.onDemand) return;
+function receivedNewWave() {
+  if (currentView == "waves") return;
+  if ((session.waves.sendPeriod) && !session.waves.onDemand) return;
 
-  console.log("On demand snapshot received pwBreathNum=" + session.shapes.pwBreathNum);
+  console.log("On demand snapshot received pwBreathNum=" + session.waves.pwBreathNum);
   Swal.fire({
     icon: 'info',
     title: ON_DEMAND_TITLE_STR,
@@ -502,11 +502,11 @@ window.onload = function () {
   session = cloneObject(SessionDataTemplate);
   session.appId = DASHBOARD_APP_ID;
   session.charts.fontSize = 12;
-  session.shapes.labelFontSize = 12;
-  session.shapes.legendFontSize = 15;
-  session.shapes.titleFontSize = 30;
-  session.shapes.stripLineFontSize = 20;
-  session.shapes.newPwDataCallback = receivedNewShape;
+  session.waves.labelFontSize = 12;
+  session.waves.legendFontSize = 15;
+  session.waves.titleFontSize = 30;
+  session.waves.stripLineFontSize = 20;
+  session.waves.newPwDataCallback = receivedNewWave;
 
   initDbNames();
   InitRecorder();
@@ -697,7 +697,7 @@ function resetTimeInterval(btn) {
   if (currentView == "charts") updateChartRange();
   if (currentView == "stats") updateStatRange();
   if (currentView == "alerts") updateAlertRange();
-  if (currentView == "shapes") updateShapeRange();
+  if (currentView == "waves") updateWaveRange();
 
   createDashboards();
   sliderCommitPending = false;

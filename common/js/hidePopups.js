@@ -1,4 +1,4 @@
-// Remove Chart & Shape edit menus if clicked outside
+// Remove Chart & Wave edit menus if clicked outside
 // Also hide any divs of popupClass
 document.addEventListener('click', function (event) {
   // check if a button is clicked
@@ -12,13 +12,13 @@ document.addEventListener('click', function (event) {
   if (buttonClicked) return;
 
   var cMenu = document.getElementById(CHART_EDIT_CHART_MENU_ID);
-  var sMenu = document.getElementById(SHAPE_EDIT_SHAPE_MENU_ID);
+  var sMenu = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
 
   if (cMenu && !cMenu.contains(event.target)) {
     removeChartEditMenu();
   }
   if (sMenu && !sMenu.contains(event.target)) {
-    removeShapeEditMenu();
+    removeWaveEditMenu();
   }
 
   var popups = document.getElementsByClassName('popupClass');

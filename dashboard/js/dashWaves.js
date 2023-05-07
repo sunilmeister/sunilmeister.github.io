@@ -2,28 +2,28 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function createDashboardShapes() {
-  createAllShapes();
+function createDashboardWaves() {
+  createAllWaves();
 }
 
-function rollingShapeRange() {
-  startShape = session.shapes.pwData.length - SHAPE_MAX_CHARTS;
-  if (startShape < 0) startShape = 0;
-  if (session.shapes.pwData.length) {
-    minBnum = session.shapes.pwData[startShape].systemBreathNum - session.startSystemBreathNum + 1
+function rollingWaveRange() {
+  startWave = session.waves.pwData.length - WAVE_MAX_CHARTS;
+  if (startWave < 0) startWave = 0;
+  if (session.waves.pwData.length) {
+    minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
   } else {
     minBnum = 0;
   }
   session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
 }
 
-function updateShapeRange() {
+function updateWaveRange() {
   rangeSlider.setRange([1, session.dashboardBreathNum]);
 
   if (!session.reportRange.rolling || sliderCommitPending) return;
   if (session.reportRange.rolling) {
-    if (session.reportRange.rolling && session.shapes.pwData.length > SHAPE_MAX_CHARTS) {
-      rollingShapeRange();
+    if (session.reportRange.rolling && session.waves.pwData.length > WAVE_MAX_CHARTS) {
+      rollingWaveRange();
     } else {
       session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
     }
@@ -34,10 +34,10 @@ function updateShapeRange() {
   }
 }
 
-function updateShapeRangeOnEntry() {
+function updateWaveRangeOnEntry() {
   if (!session.reportRange.rolling) return;
 
-  rollingShapeRange();
+  rollingWaveRange();
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;

@@ -4,29 +4,29 @@
 // ////////////////////////////////////////////////////
 */
 
-.shapeIndentDiv {
-  margin-left: var(--shapeMenuIndent);
+.waveIndentDiv {
+  margin-left: var(--waveMenuIndent);
 }
 
-.shapeContainer {
+.waveContainer {
   margin-top: 20px;
   font-family: verdana;
   margin-right:1rem;
   width:100%;
   position: relative;
-  padding-bottom: var(--shapeContainerPadding);
+  padding-bottom: var(--waveContainerPadding);
 }
 
-.shapeBanner {
+.waveBanner {
   background-color: var(--rsp_darkblue);
-  height:var(--shapeMenuBannerHeight);
+  height:var(--waveMenuBannerHeight);
 }
 
-.shapeEditMenuTitle {
-  font-size:var(--shapeMenuFontSize);
+.waveEditMenuTitle {
+  font-size:var(--waveMenuFontSize);
 }
 
-.shapeEditMenu {
+.waveEditMenu {
   display: inline-block; 
   position: relative;
   float: right;
@@ -34,19 +34,19 @@
   border-color:var(--rsp_blue);
   opacity:1;
   z-index: 20;
-  font-size:var(--shapeMenuFontSize);
+  font-size:var(--waveMenuFontSize);
 }
 
-.shapeEditMenuBanner {
+.waveEditMenuBanner {
   background-color: var(--rsp_darkblue);
   display: flex; 
   justify-content:flex-end;
-  height:var(--shapeMenuBannerHeight);
+  height:var(--waveMenuBannerHeight);
 }
 
-.shapeBody {
+.waveBody {
   background-color: var(--rsp_lightblue);
-  height: var(--shapeBodyHeight);
+  height: var(--waveBodyHeight);
   margin-right:1rem;
   width:100%;
   position:absolute;
