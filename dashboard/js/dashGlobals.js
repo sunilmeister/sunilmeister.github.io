@@ -23,6 +23,7 @@ var currentViewIsSnapshot = true;
 var updatePaused = false;
 var updateInProgress = false;
 var prevUpdateRange = {rolling:false};
+var prevUpdateNumWaves = -1;
 var prevUpdateNumShapes = -1;
 var prevUpdateNumAlerts = -1;
 
