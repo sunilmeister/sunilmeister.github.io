@@ -445,14 +445,14 @@ function createOrOpenDb(name, timeStamp) {
   // Fires when we can't open the database
   dbReq.onerror = function (event) {
     session.database.dbReady = false;
-    modalAlert('Error opening session ' + event.target.errorCode);
+    modalAlert('Error opening session ' + event.target.errorCode,"Database Error");
   }
   // Fires when there's another open connection to the same database
   dbReq.onblocked = function (event) {
     session.database.dbReady = false;
     session.database.db = event.target.result;
     session.database.db.close();
-    modalAlert("Database version updated, Close all LOGGER tabs, reload the page.");
+    modalAlert("Database version updated, Close all LOGGER tabs, reload the page.","Database Error");
   }
 }
 

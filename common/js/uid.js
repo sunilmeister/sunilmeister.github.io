@@ -9,10 +9,11 @@ var templateSystemId = {
   sw: null
 };
 
-function createSystemUidTagObj(uid, tag) {
-  obj = cloneObj(templateSystemId);
+function createSystemUidTagObj(uid, tag, sw) {
+  obj = cloneObject(templateSystemId);
   obj.uid = uid;
   obj.tag = tag;
+  obj.sw = sw;
   return obj;
 }
 
@@ -34,10 +35,10 @@ function initKnownRespimaticSystems() {
   }
 }
 
-function saveNewRespimaticSystemId(uid, tag) {
+function saveNewRespimaticSystemId(uid, tag, sw) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
-  obj = createSystemUidTagObj(uid, tag);
+  obj = createSystemUidTagObj(uid, tag, sw);
   knownRespimaticSystems.push(obj);
   knownRespimaticSystems.sort(compareSystemUidTagObj);
   localStorage.setItem(

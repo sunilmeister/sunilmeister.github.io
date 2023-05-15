@@ -53,7 +53,9 @@ fileReader.addEventListener('load', (e) => {
   for (i = 0; i < systems.length; i++) {
     uid = systems[i].uid;
     tag = systems[i].tag;
-    if (!silentAddSystemTagUidInfo(uid, tag)) {
+    sw = systems[i].sw;
+    if (typeof sw == "Object") sw = cloneObject(sw);
+    if (!silentAddSystemTagUidInfo(uid, tag, sw)) {
       modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag + "')",
         "Either the UID is invalid\n" +
         "Or the TAG already exists");
@@ -68,7 +70,11 @@ function importFile() {
   elm = document.getElementById("fileSelector");
   var fileName = elm.value;
   var file = elm.files[0];
-  fileReader.readAsText(file, "UTF-8");
+  if (file) {
+    fileReader.readAsText(file, "UTF-8");
+  } else {
+    modalAlert('File not found', 'Import cancelled');
+  }
 }
 
 function cancelImport() {
@@ -195,7 +201,7 @@ function exitSystemInfo() {
 }
 
 
-function silentAddSystemTagUidInfo(uid, tag) {
+function silentAddSystemTagUidInfo(uid, tag, sw) {
   uid = uid.toUpperCase();
   if (!validSystemUid(uid)) {
     return false;
@@ -204,7 +210,7 @@ function silentAddSystemTagUidInfo(uid, tag) {
     return false;
   }
 
-  saveNewRespimaticSystemId(uid, tag);
+  saveNewRespimaticSystemId(uid, tag, sw);
   populateSystemUidTagHtmlTable("knownSystemsTable");
   var ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
