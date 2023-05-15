@@ -17,6 +17,12 @@ var SessionDataTemplate = {
   lastValidBreathTime: null,
   statTablesConstructed: false,
 
+  embeddedSwVersion: {
+    major: null,
+    minor: null,
+    board: null,
+  },
+
   database: {
     db:  null,
     dbVersion:  1,

@@ -5,11 +5,12 @@
 var knownRespimaticSystems = [];
 var templateSystemId = {
   uid: "",
-  tag: ""
+  tag: "",
+  sw: null
 };
 
 function createSystemUidTagObj(uid, tag) {
-  obj = JSON.parse(JSON.stringify(templateSystemId));
+  obj = cloneObj(templateSystemId);
   obj.uid = uid;
   obj.tag = tag;
   return obj;
@@ -81,6 +82,26 @@ function findSystemUid(tag) {
   return obj.uid;
 }
 
+function appendSwVersionToUid() {
+  if (isUndefined(session)) return;
+  if (knownRespimaticSystems.length == 0) {
+    initKnownRespimaticSystems();
+  }
+
+  obj = findSystemUidObj(respimaticUid);
+  if (!obj) return;
+
+  obj.sw = [session.embeddedSwVersion.major,
+            session.embeddedSwVersion.minor,
+            session.embeddedSwVersion.board];
+
+  localStorage.setItem(
+    respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+
+  //console.log("append SW");
+  //console.log(knownRespimaticSystems);
+}
+
 function removeSystemUidTagInfo(uid, tag) {
   for (var i = 0; i < knownRespimaticSystems.length; i++) {
     obj = knownRespimaticSystems[i];
@@ -94,13 +115,20 @@ function removeSystemUidTagInfo(uid, tag) {
   return "";
 }
 
-function appendSystemUidTagHtmlRow(table, uid, tag) {
+function convertSwVersionToStr(sw) {
+  if ((sw===null) || isUndefined(sw)) return "unknown";
+  return String(sw[0]) + "." + sw[1] + "." +sw[2];
+}
+
+function appendSystemUidTagHtmlRow(table, uid, tag, sw) {
   row = table.insertRow();
   row.style.cursor = "pointer";
   cell = row.insertCell();
   cell.innerHTML = tag;
   cell = row.insertCell();
   cell.innerHTML = uid;
+  cell = row.insertCell();
+  cell.innerHTML = convertSwVersionToStr(sw);
   cell = row.insertCell();
   cell.innerHTML = checkButtonHTML("selectUidRow", 15, "Select");
   cell = row.insertCell();
@@ -116,7 +144,7 @@ function populateSystemUidTagHtmlTable(tableId) {
     table.deleteRow(1);
   }
   for (const obj of knownRespimaticSystems) {
-    appendSystemUidTagHtmlRow(table, obj.uid, obj.tag);
+    appendSystemUidTagHtmlRow(table, obj.uid, obj.tag, obj.sw);
   }
 }
 

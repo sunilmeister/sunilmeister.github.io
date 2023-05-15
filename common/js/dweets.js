@@ -56,6 +56,19 @@ function parseStateData(jsonStr) {
   return val;
 }
 
+function parseSwData(jsonStr) {
+  arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 3)) {
+    return null;
+  }
+  val = {
+    major : arr[0],
+    minor : arr[1],
+    board : arr[2],
+  }
+  return val;
+}
+
 function parseParamData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 10)) {
@@ -253,6 +266,9 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
           processBnumDweet(curTime, value, jsonData);
+        } else if (ckey == "SW") {
+          //console.log("Found SW " + value);
+          processSwDweet(curTime, value);
         } else if (ckey == "STATE") {
           processStateDweet(curTime, value);
         } else if (ckey == "PARAM") {
@@ -548,6 +564,18 @@ function updatePendingParamState() {
 
   if (p1.rr == p2.rr) p.rr = false;
   else p.rr = true;
+}
+
+function processSwDweet(curTime, jsonStr) {
+  obj = parseSwData(jsonStr);
+  if (!obj) return;
+
+  if (session.embeddedSwVersion.major === null) {
+    session.embeddedSwVersion.major = obj.major;
+    session.embeddedSwVersion.minor = obj.minor;
+    session.embeddedSwVersion.board = obj.board;
+    appendSwVersionToUid();
+  }
 }
 
 function processParamDweet(curTime, jsonStr) {
