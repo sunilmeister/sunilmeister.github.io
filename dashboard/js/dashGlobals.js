@@ -176,7 +176,7 @@ function initDivElements() {
 
 }
   
-const DORMANT_TITLE_STR = "DASHBOARD is Idle";
+const DORMANT_TITLE_STR = "DASHBOARD is idle";
 const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
 "No communication from Respimatic System for <b></b> (hh:mm:ss)<br>" +
 "<br>Alert will close automatically when communication is established" +
