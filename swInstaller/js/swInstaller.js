@@ -7,6 +7,10 @@ var knownRespimaticReleases = [
   {rel:"1.0.1", created:"16-May-2023"}
 ];
 
+function displayStepByStep() {
+  modalAlert("Work-in-progress");
+}
+
 function installLoader() {
   modalInfo("Install Freematics<br>Arduino Builder", 
   "Execute downloaded file on your Windows laptop.<br>" +
