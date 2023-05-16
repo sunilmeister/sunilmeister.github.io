@@ -21,7 +21,7 @@
 .lineButton {
   font-size:22px;
   height:40px;
-  width:300px;
+  width:320px;
   margin-top:0px;
   background-color:var(--rsp_darkblue);
   border-width:0;
@@ -39,3 +39,12 @@
   transform: translateY(4px);
 }
 
+table, th, td {
+  border: 2px solid;
+  border-collapse: collapse;
+  border-color: var(--rsp_mediumblue);
+}
+th, td {
+  background-color: var(--rsp_mediumblue);
+  text-align: center;
+}

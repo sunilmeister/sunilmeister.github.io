@@ -8,7 +8,13 @@ var knownRespimaticReleases = [
 ];
 
 function installLoader() {
-  modalInfo("Install Release Loader", "Execute the downloaded file on your laptop");
+  modalInfo("Install Freematics<br>Arduino Builder", 
+  "Execute downloaded file on your Windows laptop.<br>" +
+  "<br>This installation needs to be done only once." +
+  "<br>It can then be used to upload any SW release" +
+  "<br>to any target Respimatic100 system.<br>" +
+  "<br><b>Follow link for Step-by-step Instructions.</b>"
+  );
 }
 
 function downloadRelease(btn) {
@@ -16,9 +22,15 @@ function downloadRelease(btn) {
   rel = rowNode.cells[0].innerHTML;
   //console.log(rel);
   modalInfo("Install Release " + rel, 
-    "Unzip the downloaded zip file '" + rel + ".zip'<br>" + 
-    "Use installed Loader to install both the files<br>" +
-    "found in the unzipped folder");
+    "Unzip downloaded zip file '" + rel + ".zip'<br>" + 
+    "<br>Use installed Freematics Arduino Builder to" +
+    "<br>upload both files found in the unzipped folder" + 
+    "<br>to the target Respimatic100 system<br>" +
+    "<br>Dashboard.ino.nodemcu.bin" +
+    "<br>&" +
+    "<br>Respimatic100.ino.mega.hex<br>" +
+    "<br><b>Follow link for Step-by-step Instructions.</b>"
+    );
 }
 
 function populateReleaseTable() {
@@ -34,13 +46,14 @@ function populateReleaseTable() {
 
 function appendReleaseRow(table, rel, created) {
   row = table.insertRow();
+  row.style.cursor = "pointer";
+  
   cell = row.insertCell();
   cell.innerHTML = rel; 
   cell = row.insertCell();
   cell.innerHTML = created;
   cell = row.insertCell();
-  cell.innerHTML = downloadButtonHTML(rel, "downloadRelease", 15, "Download");
-  //console.log(cell.innerHTML);
+  cell.innerHTML = downloadButtonHTML(rel, "downloadRelease", 20, "Download");
   return row;
 }
 
