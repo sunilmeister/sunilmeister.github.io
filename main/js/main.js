@@ -319,6 +319,10 @@ function rememberNewSystem() {
   checkAndAddNewSystemInfo(newSysUid, newSysTag);
 }
 
+function launchSwInstaller() {
+  window.open("../swInstaller/swInstaller.html");
+}
+
 function launchDocs() {
   window.open("../doc/doc.html");
 }

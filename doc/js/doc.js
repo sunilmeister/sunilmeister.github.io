@@ -48,15 +48,18 @@ function slideDeck() {
 
 window.onload = function () {
   if (getCookie(pdfReminderOffCookieName) != "OFF") {
+    var modalColor = 
+    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  
+
     Swal.fire({
       icon: 'info',
-      position: 'bottom-end',
       title: PDF_TITLE_STR,
       html: PDF_MESSAGE_STR,
-      //width: 600,
+      width: 650,
       showConfirmButton: true,
       color: 'white',
-      background: '#2C94BC',
+      background: modalColor,
       showConfirmButton: true,
       confirmButtonColor: '#0D3E51',
       confirmButtonText: 'DISMISS',
@@ -78,7 +81,6 @@ window.onload = function () {
           animate__faster
         `
       },
-      grow: 'row',
       timerProgressBar: true,
       timer: 5000
     }).then((result) => {

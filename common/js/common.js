@@ -592,7 +592,6 @@ function showZoomReminder() {
     width: modalWidth*1.5,
     title: ZOOM_TITLE_STR,
     html: ZOOM_MESSAGE_STR,
-    showConfirmButton: false,
     color: 'white',
     background: modalColor,
     showConfirmButton: true,
@@ -670,6 +669,25 @@ function modalWarning(title, msg) {
     width: modalWidth,
     color: 'white',
     background: '#4D5656',
+    showConfirmButton: true,
+    confirmButtonColor: '#0D3E51',
+    confirmButtonText: 'DISMISS',
+    showCloseButton: true,
+  })
+}
+
+function modalInfo(title, msg) {
+  var modalColor = 
+    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  
+
+  Swal.fire({
+    icon: 'info',
+    title: title,
+    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
+    width: modalWidth,
+    color: 'white',
+    background: modalColor,
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
