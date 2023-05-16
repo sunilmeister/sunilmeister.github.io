@@ -9,6 +9,7 @@ var SessionDataTemplate = {
   sessionDataValid: true,
   sessionDurationInMs: 0,
   startDate: null,
+  launchDate: null,
   dashboardBreathNum: 0,
   systemBreathNum: null,
   prevSystemBreathNum: null,

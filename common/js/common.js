@@ -86,12 +86,6 @@ function parseJSONSafely(str) {
   }
 }
 
-/*
-function cloneObject(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-*/
-
 function cloneObject(obj) {
   if (null == obj || "object" != typeof obj) return obj;
   if (obj instanceof Date) {
@@ -256,6 +250,23 @@ function strToDate(dateStr, timeStr) {
   date = new Date(isoString);
   date.setMilliseconds(0);
   return date;
+}
+
+function msToHMS(ms) {
+    // 1- Convert to seconds:
+    let seconds = ms / 1000;
+    // 2- Extract hours:
+    const hours = parseInt( seconds / 3600 ); // 3,600 seconds in 1 hour
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = parseInt( seconds / 60 ); // 60 seconds in 1 minute
+    // 4- Keep only seconds not extracted to minutes:
+    seconds = seconds % 60;
+
+    hh = (hours < 10) ? "0" + hours : String(hours);
+    mm = (minutes < 10) ? "0" + minutes : String(minutes);
+    ss = (seconds < 10) ? "0" + seconds : String(seconds);
+    return hh + ":" + mm + ":" + ss;
 }
 
 function closestNonNullEntryIndex(arr, index) {
@@ -578,7 +589,7 @@ function showZoomReminder() {
   
   Swal.fire({
     icon: 'info',
-    position: 'bottom',
+    width: modalWidth*1.5,
     title: ZOOM_TITLE_STR,
     html: ZOOM_MESSAGE_STR,
     showConfirmButton: false,
@@ -592,20 +603,11 @@ function showZoomReminder() {
     denyButtonText: "STOP Reminders!",
     showCloseButton: true,
     showClass: {
-      popup: `
-        animate__animated
-        animate__fadeInUp
-        animate__faster
-      `
+      popup: `animate__animated animate__fadeInUp`
     },
     hideClass: {
-      popup: `
-        animate__animated
-        animate__fadeOutDown
-        animate__faster
-      `
+      popup: `animate__animated animate__fadeOutDown`
     },
-    grow: 'row',
     timerProgressBar: true,
     timer: 5000
   }).then((result) => {

@@ -378,7 +378,7 @@ function displayWifiDropped() {
     elm.innerHTML = "No Message from device";
     elm = document.getElementById("Mline3");
     savedL3 = elm.innerHTML;
-    elm.innerHTML = "for a while";
+    elm.innerHTML = "for " + dormantTimeInSec + " secs";
     elm = document.getElementById("Mline4");
     savedL4 = elm.innerHTML;
     elm.innerHTML = "&nbsp";

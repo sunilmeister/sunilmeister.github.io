@@ -74,6 +74,8 @@ function getCurrentSimulatedMillis() {
 
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function (d) {
+    dormantTimeInSec = 0;
+    autoCloseDormantPopup();
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -501,6 +503,7 @@ window.onload = function () {
 
   session = cloneObject(SessionDataTemplate);
   session.appId = DASHBOARD_APP_ID;
+  session.launchDate = new Date();
   session.charts.fontSize = 12;
   session.waves.labelFontSize = 12;
   session.waves.legendFontSize = 15;
@@ -745,9 +748,21 @@ function HandlePeriodicTasks() {
   }
   if (awaitingFirstDweet) {
     displayWifiUnconnected();
+    if (dormantPopupManualCloseTime) {
+      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+        if (!dormantPopupDisplayed) showDormantPopup();
+      }
+    } else if ((new Date() - session.launchDate) >= MAX_DWEET_INTERVAL_IN_MS) {
+      if (!dormantPopupDisplayed) showDormantPopup();
+    }
   } else if ((dweetQ.size() == 0) &&
     ((simulatedMillis - lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
     displayWifiDropped();
+    if (dormantPopupManualCloseTime) {
+      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+        if (!dormantPopupDisplayed) showDormantPopup();
+      }
+    } else if (!dormantPopupDisplayed) showDormantPopup();
   } else {
     displayNormalMessages();
   }
@@ -796,3 +811,57 @@ function FetchAndExecuteFromQueue() {
   }
   return;
 }
+
+function autoCloseDormantPopup() {
+  if (dormantPopupDisplayed) {
+    Swal.close();
+    dormantPopupManualCloseTime = null;
+  }
+}
+
+function showDormantPopup() {
+  dormantPopupDisplayed = true;
+  dormantPopupManualCloseTime = null;
+  var modalColor = 
+    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  
+  let dormantTimerInterval;
+  Swal.fire({
+    icon: 'info',
+    title: DORMANT_TITLE_STR,
+    html: DORMANT_MESSAGE_STR,
+    color: 'white',
+    background: modalColor,
+    showConfirmButton: true,
+    confirmButtonColor: '#0D3E51',
+    confirmButtonText: 'DISMISS',
+    showCloseButton: true,
+    showClass: {
+      popup: `animate__animated animate__fadeInDown`
+    },
+    hideClass: {
+      popup: `animate__animated animate__fadeOutUp`
+    },
+    didOpen: () => {
+      const b = Swal.getHtmlContainer().querySelector('b');
+      dormantTimerInterval = setInterval(() => {
+        b.textContent = msToHMS(1000*dormantTimeInSec);
+      }, 1000)
+    },
+    willClose: () => {
+      clearInterval(dormantTimerInterval)
+      dormantPopupDisplayed = false;
+      dormantPopupManualCloseTime = new Date();
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      dormantPopupDisplayed = false;
+      dormantPopupManualCloseTime = new Date();
+    }
+  })
+}
+
+setInterval(() => {
+        dormantTimeInSec++;
+      }, 1000)
+

@@ -73,7 +73,7 @@ function importFile() {
   if (file) {
     fileReader.readAsText(file, "UTF-8");
   } else {
-    modalAlert('File not found', 'Import cancelled');
+    modalAlert('File not found', 'Import Cancelled');
   }
 }
 

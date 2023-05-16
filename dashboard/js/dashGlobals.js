@@ -5,6 +5,7 @@
 const TIMEOUT_INTERVAL_IN_MS = 200;
 const BLINK_INTERVAL_IN_MS = 1000;
 const MAX_DWEET_INTERVAL_IN_MS = 30000;
+const MAX_DORMANT_CLOSE_DURATION_IN_MS = 60000;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
@@ -16,6 +17,10 @@ var simulatedMillis = 0;
 var lastDweetInMs = 0;
 var startSystemDate = new Date();
 var prevAlarmErrorNum = -1;
+
+var dormantTimeInSec = 0;
+var dormantPopupDisplayed = false;
+var dormantPopupManualCloseTime = null;
 
 var currentView = "snapshots";
 var currentViewIsSnapshot = true;
@@ -171,4 +176,8 @@ function initDivElements() {
 
 }
   
-  
+const DORMANT_TITLE_STR = "DASHBOARD DORMANT";
+const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
+"No communication from Respimatic System for <b></b> (hh:mm:ss)<br>" +
+"<br>Alert will close automatically when communication is established" +
+"<br>Or you can close it manually"

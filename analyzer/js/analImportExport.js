@@ -102,9 +102,15 @@ function cancelImport() {
 function importFile() {
   elm = document.getElementById("fileSelector");
   var fileName = elm.value;
-  if (!fileName) return;
+  if (!fileName) {
+    modalAlert("File not found", "Import Cancelled");
+    return;
+  }
   var file = elm.files[0];
-  if (!file) return;
+  if (!file) {
+    modalAlert("File not found", "Import Cancelled");
+    return;
+  }
   elm = document.getElementById("importSessionName");
   sessionName = elm.value;
   var name = "";
