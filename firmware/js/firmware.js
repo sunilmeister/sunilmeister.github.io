@@ -8,7 +8,7 @@ var knownRespimaticReleases = [
 ];
 
 function displayStepByStep() {
-  modalAlert("Work-in-progress");
+  window.open("Firmware-Update-Steps.html", "_blank");
 }
 
 function installLoader() {
