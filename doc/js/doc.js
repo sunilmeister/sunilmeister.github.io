@@ -20,30 +20,48 @@ function opManual() {
   document.getElementById('opManualDiv').style.display = "block";
   document.getElementById('webAppsDiv').style.display = "none";
   document.getElementById('slideDeckDiv').style.display = "none";
+  document.getElementById('firmwareDeckDiv').style.display = "none";
 
   disable('opManualBtn', 'opManualImg');
   enable('webAppsBtn', 'webAppsImg');
   enable('slideDeckBtn', 'slideDeckImg');
+  enable('firmwareDeckBtn', 'firmwareDeckImg');
 }
 
 function webApps() {
   document.getElementById('opManualDiv').style.display = "none";
   document.getElementById('webAppsDiv').style.display = "block";
   document.getElementById('slideDeckDiv').style.display = "none";
+  document.getElementById('firmwareDeckDiv').style.display = "none";
 
   enable('opManualBtn', 'opManualImg');
   disable('webAppsBtn', 'webAppsImg');
   enable('slideDeckBtn', 'slideDeckImg');
+  enable('firmwareDeckBtn', 'firmwareDeckImg');
 }
 
 function slideDeck() {
   document.getElementById('opManualDiv').style.display = "none";
   document.getElementById('webAppsDiv').style.display = "none";
   document.getElementById('slideDeckDiv').style.display = "block";
+  document.getElementById('firmwareDeckDiv').style.display = "none";
 
   enable('opManualBtn', 'opManualImg');
   enable('webAppsBtn', 'webAppsImg');
   disable('slideDeckBtn', 'slideDeckImg');
+  enable('firmwareDeckBtn', 'firmwareDeckImg');
+}
+
+function firmwareDeck() {
+  document.getElementById('opManualDiv').style.display = "none";
+  document.getElementById('webAppsDiv').style.display = "none";
+  document.getElementById('slideDeckDiv').style.display = "none";
+  document.getElementById('firmwareDeckDiv').style.display = "block";
+
+  enable('opManualBtn', 'opManualImg');
+  enable('webAppsBtn', 'webAppsImg');
+  enable('slideDeckBtn', 'slideDeckImg');
+  disable('firmwareDeckBtn', 'firmwareDeckImg');
 }
 
 window.onload = function () {
