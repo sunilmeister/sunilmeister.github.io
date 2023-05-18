@@ -53,9 +53,9 @@ fileReader.addEventListener('load', (e) => {
   for (i = 0; i < systems.length; i++) {
     uid = systems[i].uid;
     tag = systems[i].tag;
-    sw = systems[i].sw;
-    if (typeof sw == "Object") sw = cloneObject(sw);
-    if (!silentAddSystemTagUidInfo(uid, tag, sw)) {
+    fw = systems[i].fw;
+    if (typeof fw == "Object") fw = cloneObject(fw);
+    if (!silentAddSystemTagUidInfo(uid, tag, fw)) {
       modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag + "')",
         "Either the UID is invalid\n" +
         "Or the TAG already exists");
@@ -201,7 +201,7 @@ function exitSystemInfo() {
 }
 
 
-function silentAddSystemTagUidInfo(uid, tag, sw) {
+function silentAddSystemTagUidInfo(uid, tag, fw) {
   uid = uid.toUpperCase();
   if (!validSystemUid(uid)) {
     return false;
@@ -210,7 +210,7 @@ function silentAddSystemTagUidInfo(uid, tag, sw) {
     return false;
   }
 
-  saveNewRespimaticSystemId(uid, tag, sw);
+  saveNewRespimaticSystemId(uid, tag, fw);
   populateSystemUidTagHtmlTable("knownSystemsTable");
   var ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
@@ -320,7 +320,7 @@ function rememberNewSystem() {
 }
 
 function launchSwInstaller() {
-  window.open("../swInstaller/swInstaller.html");
+  window.open("../firmware/firmware.html");
 }
 
 function launchDocs() {

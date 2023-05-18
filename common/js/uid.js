@@ -6,14 +6,14 @@ var knownRespimaticSystems = [];
 var templateSystemId = {
   uid: "",
   tag: "",
-  sw: null
+  fw: null
 };
 
-function createSystemUidTagObj(uid, tag, sw) {
+function createSystemUidTagObj(uid, tag, fw) {
   obj = cloneObject(templateSystemId);
   obj.uid = uid;
   obj.tag = tag;
-  obj.sw = sw;
+  obj.fw = fw;
   return obj;
 }
 
@@ -35,10 +35,10 @@ function initKnownRespimaticSystems() {
   }
 }
 
-function saveNewRespimaticSystemId(uid, tag, sw) {
+function saveNewRespimaticSystemId(uid, tag, fw) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
-  obj = createSystemUidTagObj(uid, tag, sw);
+  obj = createSystemUidTagObj(uid, tag, fw);
   knownRespimaticSystems.push(obj);
   knownRespimaticSystems.sort(compareSystemUidTagObj);
   localStorage.setItem(
@@ -92,7 +92,7 @@ function appendSwVersionToUid() {
   obj = findSystemUidObj(respimaticUid);
   if (!obj) return;
 
-  obj.sw = [session.embeddedSwVersion.major,
+  obj.fw = [session.embeddedSwVersion.major,
             session.embeddedSwVersion.minor,
             session.embeddedSwVersion.board];
 
@@ -116,12 +116,12 @@ function removeSystemUidTagInfo(uid, tag) {
   return "";
 }
 
-function convertSwVersionToStr(sw) {
-  if ((sw===null) || isUndefined(sw)) return "unknown";
-  return String(sw[0]) + "." + sw[1] + "." +sw[2];
+function convertSwVersionToStr(fw) {
+  if ((fw===null) || isUndefined(fw)) return "unknown";
+  return String(fw[0]) + "." + fw[1] + "." +fw[2];
 }
 
-function appendSystemUidTagHtmlRow(table, uid, tag, sw) {
+function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
   row = table.insertRow();
   row.style.cursor = "pointer";
   cell = row.insertCell();
@@ -129,7 +129,7 @@ function appendSystemUidTagHtmlRow(table, uid, tag, sw) {
   cell = row.insertCell();
   cell.innerHTML = uid;
   cell = row.insertCell();
-  cell.innerHTML = convertSwVersionToStr(sw);
+  cell.innerHTML = convertSwVersionToStr(fw);
   cell = row.insertCell();
   cell.innerHTML = checkButtonHTML("selectUidRow", 15, "Select");
   cell = row.insertCell();
@@ -145,7 +145,7 @@ function populateSystemUidTagHtmlTable(tableId) {
     table.deleteRow(1);
   }
   for (const obj of knownRespimaticSystems) {
-    appendSystemUidTagHtmlRow(table, obj.uid, obj.tag, obj.sw);
+    appendSystemUidTagHtmlRow(table, obj.uid, obj.tag, obj.fw);
   }
 }
 
