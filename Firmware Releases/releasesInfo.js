@@ -1,0 +1,9 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// List all releases that you want to provide access to
+// ////////////////////////////////////////////////////
+
+var knownRespimaticReleases = [
+  {rel:"1.0.1", created:"16-May-2023"}
+];
+

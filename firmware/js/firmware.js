@@ -3,10 +3,6 @@
 // Must include respimatic.uid.js prior to this file
 // ////////////////////////////////////////////////////
 
-var knownRespimaticReleases = [
-  {rel:"1.0.1", created:"16-May-2023"}
-];
-
 function displayStepByStep() {
   window.open("Firmware-Update-Steps.html", "_blank");
 }
