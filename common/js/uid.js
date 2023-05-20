@@ -92,9 +92,24 @@ function appendSwVersionToUid() {
   obj = findSystemUidObj(respimaticUid);
   if (!obj) return;
 
-  obj.fw = [session.embeddedSwVersion.major,
+  let fw = [session.embeddedSwVersion.major,
             session.embeddedSwVersion.minor,
             session.embeddedSwVersion.board];
+
+  if (obj.fw) { // already has a firmware version
+    // check if the new one is the latest
+    lvStr = knownRespimaticReleases[0].rel;
+    vStr = convertSwVersionToStr(fw);
+    if (lvStr != vStr) {
+      modalWarning("Respimatic System Firware out-of-date",
+        "Latest Released Firmware Version is " + lvStr
+        + "<br>Current System version is " + vStr
+        + "<br><br>To update, click on 'Update System Firmware'"
+        + "<br>on the respimatic.com main menu"
+        + "<br><br>Update at any convenient time" );
+    }
+  }
+  obj.fw = cloneObject(fw);
 
   localStorage.setItem(
     respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
