@@ -136,6 +136,7 @@ function deleteAllDbs() {
 function doDeleteAllDbs() {
   //clear any existing table being shown
   var table = document.getElementById("dbTable");
+  if (!table) return;
   numRows = table.rows.length;
   for (i = 1; i < numRows; i++) {
     row = table.rows[1];
@@ -144,6 +145,7 @@ function doDeleteAllDbs() {
     table.deleteRow(1);
   }
   table = document.getElementById("dbExportTable");
+  if (!table) return;
   numRows = table.rows.length;
   for (i = 1; i < numRows; i++) {
     row = table.rows[1];
@@ -155,11 +157,11 @@ function doDeleteAllDbs() {
 
 function checkDbReady() {
   if (session.database.dbReady && session.database.dbName) {
-    if (session.analyzer.sessionVersion != APPS_VERSION) {
+    if (session.analyzer.recVersion != CURRENT_RECORDING_VERSION) {
       modalAlert("VERSION MISMATCH",
-        "Recorded with Software Version " + session.sessionVersion +
-        "\nCurrent Software Version is " + APPS_VERSION + "\n" +
-        "\nVersion " + session.analyzer.sessionVersion + " not supported");
+        "Recorded with Software Version " + session.recVersion +
+        "\nCurrent Software Version is " + CURRENT_RECORDING_VERSION + "\n" +
+        "\nVersion " + session.analyzer.recVersion + " not supported");
       return false;
     }
     return true;

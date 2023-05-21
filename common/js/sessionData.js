@@ -256,7 +256,7 @@ var SessionDataTemplate = {
   // Below is used by Analyzer
   // /////////////////////////////////////////////
   analyzer: {
-    sessionVersion:         null,
+    recVersion:             null,
     logStartTime:           null,
     logEndTime:             null,
     analysisStartTime:      null,

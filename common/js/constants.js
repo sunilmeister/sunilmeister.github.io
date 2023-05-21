@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const APPS_VERSION = "1.1";
+const CURRENT_RECORDING_VERSION = "1.1";
 
 const RESPIMATIC_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
@@ -100,10 +100,10 @@ const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
 const ZOOM_TITLE_STR = "PAGE ZOOM";
 const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
   "Use CTRL key and +/- keys to zoom " +
-  "till the full page is visible." +
+  "\ntill the full page is visible." +
   "\n" +
-  "Or hold down the CTRL key and use " +
-  "the mouse wheel to zoom in/out." +
+  "\nOr hold down the CTRL key and use " +
+  "\nthe mouse wheel to zoom in/out." +
   "</pre></span>";
 
 const ON_DEMAND_TITLE_STR = "On-Demand Breath Waveform";

@@ -59,7 +59,7 @@ function appendReleaseRow(table, rel, created) {
 
 function downloadButtonHTML(rel, onClickFunction, size, title) {
   className = "iconButton";
-  htmlStr = '<a href="../Firmware Releases/' + rel + '.zip" download>' +
+  htmlStr = '<a href="releases/' + rel + '.zip" download>' +
     '<button class="' + className + '" title="' + title + '"' +
     ' onClick="' + onClickFunction + '(this)"' +
     ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)">' +

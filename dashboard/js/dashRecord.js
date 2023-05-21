@@ -234,7 +234,7 @@ function processRecordDweet(d) {
     if (doRecord) {
       if (session.database.db && !session.recorder.versionRecorded) {
         session.recorder.versionRecorded = true;
-        d.content.SESSION_VERSION = APPS_VERSION;
+        d.content.RECORDING_VERSION = CURRENT_RECORDING_VERSION;
       }
       if (!session.recorder.prevDweetRecorded) {
         // Add on the session.recorder.accumulatedState state first
