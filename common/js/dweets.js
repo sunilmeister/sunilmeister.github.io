@@ -267,7 +267,7 @@ function processJsonRecord(jsonData) {
           //console.log("Found BNUM " + value);
           processBnumDweet(curTime, value, jsonData);
         } else if (ckey == "SW") {
-          //console.log("Found SW " + value);
+          console.log("Found SW " + value);
           processSwDweet(curTime, value);
         } else if (ckey == "STATE") {
           processStateDweet(curTime, value);
