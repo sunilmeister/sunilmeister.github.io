@@ -101,7 +101,7 @@ function appendSwVersionToUid() {
     lvStr = knownRespimaticReleases[0].rel;
     vStr = convertSwVersionToStr(fw);
     if (lvStr != vStr) {
-      modalWarning("Respimatic System Firmware out-of-date",
+      modalWarning("Respimatic System Firmware not the latest",
         "Latest Released Firmware Version is " + lvStr
         + "<br>Current System version is " + vStr
         + "<br><br>To update, click on 'Update System Firmware'"
