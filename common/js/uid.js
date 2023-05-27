@@ -92,9 +92,9 @@ function appendSwVersionToUid() {
   obj = findSystemUidObj(respimaticUid);
   if (!obj) return;
 
-  let fw = [session.embeddedSwVersion.major,
-            session.embeddedSwVersion.minor,
-            session.embeddedSwVersion.board];
+  let fw = [session.firmwareVersion.major,
+            session.firmwareVersion.minor,
+            session.firmwareVersion.board];
 
   if (obj.fw) { // already has a firmware version
     // check if the new one is the latest

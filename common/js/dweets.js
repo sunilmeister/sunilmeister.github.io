@@ -266,8 +266,8 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
           processBnumDweet(curTime, value, jsonData);
-        } else if (ckey == "SW") {
-          //console.log("Found SW " + value);
+        } else if (ckey == "FWVER") {
+          //console.log("Found FWVER " + value);
           processSwDweet(curTime, value);
         } else if (ckey == "STATE") {
           processStateDweet(curTime, value);
@@ -570,10 +570,10 @@ function processSwDweet(curTime, jsonStr) {
   obj = parseSwData(jsonStr);
   if (!obj) return;
 
-  if (session.embeddedSwVersion.major === null) {
-    session.embeddedSwVersion.major = obj.major;
-    session.embeddedSwVersion.minor = obj.minor;
-    session.embeddedSwVersion.board = obj.board;
+  if (session.firmwareVersion.major === null) {
+    session.firmwareVersion.major = obj.major;
+    session.firmwareVersion.minor = obj.minor;
+    session.firmwareVersion.board = obj.board;
     appendSwVersionToUid();
   }
 }

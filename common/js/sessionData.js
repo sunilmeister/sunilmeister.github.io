@@ -18,7 +18,7 @@ var SessionDataTemplate = {
   lastValidBreathTime: null,
   statTablesConstructed: false,
 
-  embeddedSwVersion: {
+  firmwareVersion: {
     major: null,
     minor: null,
     board: null,
