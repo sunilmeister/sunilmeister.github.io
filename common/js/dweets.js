@@ -805,7 +805,7 @@ function processBnumDweet(curTime, value, jsonData) {
     var msg = {
       'created': curTime,
       'breathNum': session.breathTimes.length,
-      'L1': String(breathsMissing) + " Breath(s) missed",
+      'L1': String(breathsMissing) + " Interval(s) missed",
       'L2': "Info not received by",
       'L3': "Dashboard due to",
       'L4': "Packet loss"
