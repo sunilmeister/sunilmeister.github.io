@@ -6,7 +6,7 @@
 // ////////////////////////////////////////////////////
 
 var knownRespimaticReleases = [
-  {rel:"1.1.1", created:"29-May-2023"},
+  {rel:"1.1.1", created:"31-May-2023"},
   {rel:"1.0.1", created:"16-May-2023"},
 ];
 
