@@ -3,21 +3,17 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 */
-.sidebarColumn {
-  width: 10rem;
-  padding-right: 0.4rem;
-  background-color: var(--rsp_blue);
+.btn-pane {
+  margin-right: 10px; 
+  float:left;
+  background-color:var(--rsp_lightblue);
 }
 
-.sidebar {
-  width: 10rem;
-  font-size: 1.2rem;
-}
-
-.sidebar div {
-  padding: 1rem;
-  font-size: 1.2rem;
-  display: block;
+.doc-btn {
+  background-color:var(--rsp_mediumblue); 
+  color:white; 
+  border:none; 
+  font-size:1rem;
 }
 
 .body-pane {

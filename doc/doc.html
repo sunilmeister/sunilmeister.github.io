@@ -31,67 +31,78 @@
 
   <body style="font-family='verdana'">
 
-    <div id=sideMenuBar class=sidebarColumn>
-      <img src='../common/img/Docs.png' width=165px>
-      <div class=sidebar>
+    <div id=sideMenuBar >
+      <div >
 
         <div style="font-size:1.3rem; ">
-          <center>
-            <div id=opManualBtn class=shadowDiv5 style="background-color:var(--rsp_lightblue);">
+            <div id=faqManualBtnDiv class='shadowDiv5 btn-pane' >
+	      <center>
+              <img id=faqManualImg class=imgButton src="img/faqManual.png" onclick='faqManual()' title='FAQ'>
+	      </center>
+	      <button id=btnFaqManual class=doc-btn onclick='faqManual()' >Frequently Asked</button>
+            </div>
+
+            <div id=opManualBtnDiv class='shadowDiv5 btn-pane' >
+	      <center>
               <img id=opManualImg class=imgButton src="img/opManual.png" onclick='opManual()' title='Operating Manual'>
-              <button id=btnOpManual class=sidebarButton onclick='opManual()' style="background-color:var(--rsp_mediumblue); color:white; border:none; font-size:1rem;">Operating Manual</button>
+	      </center>
+	      <button id=btnOpManual class=doc-btn onclick='opManual()' >Operating Manual</button>
 
             </div>
-            <br>
-            <div id=webAppsBtn class=shadowDiv5 style="background-color:var(--rsp_lightblue);">
+
+            <div id=webAppsBtnDiv class='shadowDiv5 btn-pane' >
+	      <center>
               <img id=webAppsImg class=imgButton src="img/webApps.png" onclick='webApps()' title='Web Applications Manual'>
-              <button id=btnOpManual class=sidebarButton onclick='webApps()' style="background-color:var(--rsp_mediumblue); color:white; border:none; font-size:1rem;">Web Applications</button>
+	      </center>
+              <button id=btnWebApps class=doc-btn onclick='webApps()' >Web Applications</button>
             </div>
-            <br>
-            <div id=slideDeckBtn class=shadowDiv5 style="background-color:var(--rsp_lightblue);">
+
+            <div id=slideDeckBtnDiv class='shadowDiv5 btn-pane' >
+	      <center>
               <img id=slideDeckImg class=imgButton src="img/slideDeck.png" onclick='slideDeck()' title='Technical Slide Deck'>
-              <button id=btnOpManual class=sidebarButton onclick='slideDeck()' style="background-color:var(--rsp_mediumblue); color:white; border:none; font-size:1rem;">Technical Slide Deck
+	      </center>
+              <button id=btnSlideDeck class=doc-btn onclick='slideDeck()' >Technical Deck
               </button>
             </div>
-            <br>
-            <div id=firmwareDeckBtn class=shadowDiv5 style="background-color:var(--rsp_lightblue);">
+
+            <div id=firmwareDeckBtnDiv class='shadowDiv5 btn-pane' >
+	      <center>
               <img id=firmwareDeckImg class=imgButton src="img/firmwareDeck.png" onclick='firmwareDeck()' title='Firmware Update Deck'>
-              <button id=btnOpManual class=sidebarButton onclick='firmwareDeck()' style="background-color:var(--rsp_mediumblue); color:white; border:none; font-size:1rem;">Firmware Update Steps
+	      </center>
+              <button id=btnFirmwareDeck class=doc-btn onclick='firmwareDeck()' >Firmware Update
               </button>
             </div>
-          </center>
+
         </div>
       </div>
     </div>
 
-    <div id=nonMenuArea class='body-pane shadowDiv5' style="float:left;background-color:var(--rsp_mediumblue);
-    color:white;">
-      <div id=opManualDiv style="display:none; width=880px">
-        <center>
-          <h2>Respimatic 100 Operating Manual</h2>
-          <embed src="pdf/Operating Manual.pdf" type="application/pdf" width="850" height="870">
-        </center>
+    <div id=nonMenuArea class='body-pane' style="clear:both;background-color:white;
+    color:var(--rsp_mediumblue);">
+      <br><hr>
+      <div id=faqManualDiv style="display:none; ">
+          <h2>Respimatic 100 Frequently Asked Questions</h2>
+          <embed src="pdf/FAQ Manual.pdf" type="application/pdf" width="850" height="870">
       </div>
 
-      <div id=webAppsDiv style="display:none; width=880px">
-        <center>
+      <div id=opManualDiv style="display:none; ">
+          <h2>Respimatic 100 Operating Manual</h2>
+          <embed src="pdf/Operating Manual.pdf" type="application/pdf" width="850" height="870">
+      </div>
+
+      <div id=webAppsDiv style="display:none; width=600px">
           <h2>Respimatic 100 Web Applications</h2>
           <embed src="pdf/Web Apps.pdf" type="application/pdf" width="850" height="870">
-        </center>
       </div>
 
       <div id=slideDeckDiv style="display:none; width=950px">
-        <center>
           <h2>Respimatic 100 Technical Slide Deck</h2>
           <embed src="pdf/Technical Slide Deck.pdf" type="application/pdf" width="950" height="580">
-        </center>
       </div>
 
       <div id=firmwareDeckDiv style="display:none; width=950px">
-        <center>
           <h2>Respimatic 100 Firmware Update Steps</h2>
           <embed src="pdf/Firmware Update Steps.pdf" type="application/pdf" width="950" height="580">
-        </center>
       </div>
     </div>
 
