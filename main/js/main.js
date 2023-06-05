@@ -323,8 +323,27 @@ function launchSwInstaller() {
   window.open("../firmware/firmware.html");
 }
 
-function launchDocs() {
+function checkDocPassword(pwd) {
+  const ACCESS_KEY = "KnockKnock@Respimatic";
+  return (pwd == ACCESS_KEY);
+}
+
+function submitDocPassword() {
+  document.getElementById("passwordDiv").style.display = "none";
+  pwd = document.getElementById("password").value;
+  if (!checkDocPassword(pwd)) {
+    modalAlert("Invalid Access Key", "Please contact Technical Support");
+    return;
+  }
   window.open("../doc/doc.html");
+}
+
+function cancelDocPassword() {
+  document.getElementById("passwordDiv").style.display = "none";
+}
+
+function launchDocs() {
+  document.getElementById("passwordDiv").style.display = "block";
 }
 
 function launchDashboard() {
