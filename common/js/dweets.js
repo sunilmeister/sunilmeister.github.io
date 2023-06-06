@@ -636,7 +636,7 @@ function processBreathDweet(curTime, jsonStr) {
   saveSnapTransValueNull("type", "breathData", "breathTypeChanges", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
-  session.breathData.qmult = (obj.vtdel / obj.iqdel) * Q_SCALE_FACTOR * 1000;
+  session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
 
 }
 
