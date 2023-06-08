@@ -135,6 +135,7 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Mandatory Breaths", "numMandatory");
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
+  miscTableRow(table, "Number of CMV-mode Spontaneous Breaths", "numCmvSpont");
   miscTableRow(table, "Number of Missing Intervals (Packet loss)", "numMissingBreaths");
   miscTableRow(table, "Number of Notifications", "numNotifications");
   miscTableRow(table, "Number of Warnings", "numWarnings");
@@ -232,6 +233,13 @@ function displayBreathTypeInfo() {
     n += (obj.endValue - obj.startValue);
   }
   el = document.getElementById("numMissingBreaths");
+  el.innerHTML = replaceDummyValue(n);
+
+  arr = statComputer.filterChanges(session.cmvSpontChanges);
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i].value) n++;
+  }
+  el = document.getElementById("numCmvSpont");
   el.innerHTML = replaceDummyValue(n);
 }
 

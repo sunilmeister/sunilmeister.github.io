@@ -17,6 +17,7 @@ var SessionDataTemplate = {
   numMissingBreaths: 0,
   lastValidBreathTime: null,
   statTablesConstructed: false,
+  cmvSpontDetections: 0,
 
   firmwareVersion: {
     major: null,
@@ -137,6 +138,7 @@ var SessionDataTemplate = {
   miscData: {
     tempC : null,
     altitude : null,
+    cmvSpontDetections: 0,
   },
 
   patientData: {
@@ -163,6 +165,7 @@ var SessionDataTemplate = {
   fiO2Changes:           [{"time":0, "value":null}],
   o2PurityChanges:       [{"time":0, "value":null}],
   o2FlowX10Changes:      [{"time":0, "value":null}],
+  cmvSpontChanges:       [{"time":0, "value":null}],
   infoChanges:           [{"time":0, "value":null}],
   warningChanges:        [{"time":0, "value":null}],
   errorChanges:          [{"time":0, "value":null}],

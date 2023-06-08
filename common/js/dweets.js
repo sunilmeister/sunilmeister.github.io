@@ -279,6 +279,12 @@ function processJsonRecord(jsonData) {
           processMinuteDweet(curTime, value);
         } else if (ckey == "BREATH") {
           processBreathDweet(curTime, value);
+        } else if (ckey == "CMV_SPONT") {
+          session.cmvSpontChanges.push({
+            "time": curTime,
+            "value": value
+          });
+          processCmvSpontDweet(curTime, value);
         } else if (ckey == "COMP") {
           processComplianceDweet(curTime, value);
         } else if (ckey == "MISC") {
@@ -638,6 +644,53 @@ function processBreathDweet(curTime, jsonStr) {
   session.breathData.iqdel = obj.iqdel;
   session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
 
+}
+
+function processComplianceDweet(curTime, jsonStr) {
+  obj = parseComplianceData(jsonStr);
+  if (!obj) return;
+  if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
+  if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
+
+  saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
+  saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
+}
+
+function processMiscDweet(curTime, jsonStr) {
+  obj = parseMiscData(jsonStr);
+  if (!obj) return;
+
+  saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
+  saveSnapValue("altitude", "miscData", curTime, obj);
+}
+
+function saveSnapValueNull(paramName, parentName, curTime, newVal) {
+  value = newVal[paramName];
+  if (value === session[parentName][paramName]) return;
+
+  session[parentName][paramName] = value;
+}
+
+function saveSnapValue(paramName, parentName, curTime, newVal) {
+  value = newVal[paramName];
+  if (value === null) return;
+  if (value == session[parentName][paramName]) return;
+
+  session[parentName][paramName] = value;
+}
+
+function saveComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
+  value = newVal[paramName];
+  if (value === null) return;
+
+  session.currParamCombo.value[paramName] = value;
+  if ((session[uniqArrName].length == 0) 
+       || (session[uniqArrName].indexOf(value) == -1)) {
+    session[uniqArrName].push({
+      "time": curTime,
+      "value": value
+    });
+  }
 }
 
 function processComplianceDweet(curTime, jsonStr) {
