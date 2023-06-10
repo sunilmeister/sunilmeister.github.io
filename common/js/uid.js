@@ -146,7 +146,7 @@ function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
   cell = row.insertCell();
   cell.innerHTML = convertSwVersionToStr(fw);
   cell = row.insertCell();
-  cell.innerHTML = checkButtonHTML("selectUidRow", 15, "Select");
+  cell.innerHTML = submitButtonHTML("selectUidRow", 15, "Select");
   cell = row.insertCell();
   cell.innerHTML = trashButtonHTML("removeUidRow", 15, "Remove");
   return row;
