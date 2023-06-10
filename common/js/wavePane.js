@@ -24,7 +24,7 @@ function breathWaveXaxisFormatter(e) {
 class WavePane {
 
   constructor(title, height, rangeX, menu) {
-    this.graphType = "spline";
+    this.graphType = "splineArea";
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
@@ -158,10 +158,10 @@ class WavePane {
 
     if (this.isFlowGraph) {
       paramName = "Flow (ml/sec)"
-      paramColor = "magenta";
+      paramColor = "#9966ff";
     } else {
       paramName = "Pressure (mmH2O)"
-      paramColor = "blue";
+      paramColor = "olive";
     }
     var yAxis = this.createYaxis(paramName, paramColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
@@ -330,7 +330,8 @@ class WavePane {
         stripLine.labelAlign = "near";
         stripLine.labelWrap = true;
         stripLine.labelMaxWidth = 80;
-        stripLine.labelFontColor = "grey";
+        stripLine.labelFontColor = "black";
+        stripLine.labelBackgroundColor = "none";
         stripLine.labelFontSize = session.waves.stripLineFontSize;
         Xaxis.stripLines.push(cloneObject(stripLine));
 
