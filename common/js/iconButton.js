@@ -2,6 +2,11 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function selectButtonHTML(onClickFunction, size, title) {
+  pngFileName = "select";
+  return iconButtonHTML(pngFileName, size, onClickFunction, title);
+}
+
 function submitButtonHTML(onClickFunction, size, title) {
   pngFileName = "submit";
   return iconButtonHTML(pngFileName, size, onClickFunction, title);

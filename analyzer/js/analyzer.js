@@ -30,7 +30,7 @@ function listDbTableRow(item, index) {
   cell.innerHTML = nameTm[2];
 
   cell = row.insertCell();
-  cell.innerHTML = submitButtonHTML("selectRowBtn", 25, "Select");
+  cell.innerHTML = selectButtonHTML("selectRowBtn", 25, "Select");
   cell = row.insertCell();
   cell.innerHTML = exportButtonHTML("exportRowBtn", 25, "Export");
   cell = row.insertCell();
