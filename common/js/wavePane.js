@@ -172,6 +172,7 @@ class WavePane {
       this.chart.destroy();
       this.chart = null;
     }
+	this.chartJson.animationEnabled = true;
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
     this.chart.render();
   }
