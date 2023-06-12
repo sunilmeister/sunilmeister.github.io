@@ -806,6 +806,7 @@ function FetchAndExecuteFromQueue() {
   }
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
+    modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
     console.log("Dweets way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
