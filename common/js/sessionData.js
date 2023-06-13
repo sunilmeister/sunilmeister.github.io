@@ -239,6 +239,7 @@ var SessionDataTemplate = {
   waves: {
     pwData: [],
     flowData: [],
+    tooFewDatapoints: [],
     breathNum: null,
     breathInfo: null,
     newWaveCallback: null,

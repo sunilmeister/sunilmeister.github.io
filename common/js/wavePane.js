@@ -236,6 +236,10 @@ class WavePane {
     return style.getPropertyValue('--rsp_yellow');;
   }
 
+  tooFewDatapoints(breathNum) {
+    return session.waves.tooFewDatapoints.includes(breathNum);
+  }
+
   createYaxis(title, color, minY, maxY) {
     var Yaxis = {};
     Yaxis.title = title;
@@ -322,16 +326,23 @@ class WavePane {
         });
       }
 
+      var labelFontColor = "black";
+      var labelText = "#" + breathNum;
+      var labelAlign = "near";
+      if (this.tooFewDatapoints(breathNum)) {
+        labelFontColor = "red";
+        labelText = "XXXX #" + breathNum;
+        labelAlign = "far";
+      }
       if (!this.isFlowGraph) {
         // Do strip lines
         stripLine.endValue = (xval) / 1000;
-        //stripLine.label = prefix + "Breath #" + breathNum;
-        stripLine.label = "Breath #" + breathNum;
+        stripLine.label = labelText;
         stripLine.labelPlacement = "inside";
-        stripLine.labelAlign = "near";
+        stripLine.labelAlign = labelAlign;
         stripLine.labelWrap = true;
         stripLine.labelMaxWidth = 80;
-        stripLine.labelFontColor = "black";
+        stripLine.labelFontColor = labelFontColor;
         stripLine.labelBackgroundColor = "none";
         stripLine.labelFontSize = session.waves.stripLineFontSize;
         Xaxis.stripLines.push(cloneObject(stripLine));
