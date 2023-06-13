@@ -446,6 +446,7 @@ function processPwendDweet(str) {
   }
 
   // check how many null samples we have in the first 60% where the details are
+  var bnum = session.systemBreathNum - session.startSystemBreathNum;
   var checkLimit = Math.floor(WAVE_MAX_SAMPLES_PER_BREATH * 6 / 10);
   var nullCount = 0;
   for (j = 0; j < checkLimit; j++) {
@@ -454,7 +455,6 @@ function processPwendDweet(str) {
   if (nullCount > (checkLimit/3)) {
     console.log("Too few datapoints for waveform=" + 
       (nullCount/checkLimit) + "for breath " + bnum);
-    var bnum = session.systemBreathNum - session.startSystemBreathNum;
     if (!session.waves.tooFewDatapoints.includes(bnum)) {
       session.waves.tooFewDatapoints.push(bnum);
     }
@@ -463,8 +463,10 @@ function processPwendDweet(str) {
   var holdingArray = null;
   if (expectingPWEND) {
     holdingArray = session.waves.pwData;
+    session.waves.pwRecordedBreaths.push(bnum);
   } else {
     holdingArray = session.waves.flowData;
+    session.waves.flowRecordedBreaths.push(bnum);
   }
 
   // store it for later use

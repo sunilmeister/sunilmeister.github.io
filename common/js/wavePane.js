@@ -152,18 +152,22 @@ class WavePane {
     }
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";
+    var axisColor = "black";
+    var lineColor = "black";
     var xyPoints = this.createXYPoints();
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
 
     if (this.isFlowGraph) {
       paramName = "Flow (ml/sec)"
-      paramColor = "#9966ff";
+      axisColor = "black";
+      paramColor = "gold";
     } else {
       paramName = "Pressure (mmH2O)"
-      paramColor = "olive";
+      axisColor = "black";
+      paramColor = "limegreen";
     }
-    var yAxis = this.createYaxis(paramName, paramColor, 0, null);
+    var yAxis = this.createYaxis(paramName, axisColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
   }
 
@@ -237,7 +241,12 @@ class WavePane {
   }
 
   tooFewDatapoints(breathNum) {
-    return session.waves.tooFewDatapoints.includes(breathNum);
+    if (session.waves.tooFewDatapoints.includes(breathNum)) {
+      return true;
+    }
+    return !(
+      session.waves.pwRecordedBreaths.includes(breathNum) && 
+      session.waves.flowRecordedBreaths.includes(breathNum));
   }
 
   createYaxis(title, color, minY, maxY) {
@@ -308,7 +317,7 @@ class WavePane {
             xyPoints.push({
               "x": lastX / 1000,
               "y": lastY,
-              "lineDashType": "dashDot"
+              "lineDashType": "longDashDotDot"
             });
           } else {
             xyPoints.push({
@@ -326,12 +335,12 @@ class WavePane {
         });
       }
 
-      var labelFontColor = "black";
+      var labelFontColor = "darkgreen";
       var labelText = "#" + breathNum;
       var labelAlign = "near";
       if (this.tooFewDatapoints(breathNum)) {
         labelFontColor = "red";
-        labelText = "XXXX #" + breathNum;
+        //labelText = "XXXX #" + breathNum;
         labelAlign = "far";
       }
       if (!this.isFlowGraph) {
@@ -361,6 +370,8 @@ class WavePane {
 
     var chartData = {};
     chartData.type = this.graphType;
+    chartData.lineColor = "black";
+    chartData.markerSize = 0;
     chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;
