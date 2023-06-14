@@ -230,7 +230,6 @@ var SessionDataTemplate = {
     fontSize: 25,
     allChartsContainerInfo: {},
     boxTree: null,
-    confirmThreshold: CHART_CONFIRM_THRESHOLD,
     firstTimeChartsEntry: true,
     numChartDatapoints: 0,
   },
@@ -254,7 +253,6 @@ var SessionDataTemplate = {
     allWavesContainerInfo: {},
     boxTree: null,
     stripLineFontSize: 50,
-    confirmThreshold: WAVE_CONFIRM_THRESHOLD,
     firstTimeWavesEntry: true,
   },
 

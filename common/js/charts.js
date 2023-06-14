@@ -151,15 +151,14 @@ function createAllCharts() {
   // check for too many datapoints to render
   session.charts.numChartDatapoints 
       = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
-  if (session.charts.numChartDatapoints <= session.charts.confirmThreshold) {
+  if (session.charts.numChartDatapoints <= CHART_ALERT_THRESHOLD) {
     renderAllCharts();
     return;
   } else {
-    modalConfirm("Too many Chart Datapoints", 
-      "It may take time to render " + session.charts.numChartDatapoints + " datapoints\n" +
-      "Use the Range Selector to limit the number", 
-      renderAllCharts, cancelRenderAllCharts, null, "UPDATE", "DO NOT UPDATE");
-    return;
+      modalAlert("Too many Chart Datapoints (" + session.charts.numChartDatapoints +")", 
+        "Use Range Selector to select " + CHART_ALERT_THRESHOLD + " or less"
+        + "\nchart datapoints to display"); 
+      return;
   }
 }
 
@@ -172,11 +171,6 @@ function renderAllCharts() {
     session.charts.allChartsContainerInfo[id].render();
   }
   session.inProgress.charts = false;
-
-  // update the warning threshold
-  if (session.charts.numChartDatapoints > session.charts.confirmThreshold) {
-    session.charts.confirmThreshold = session.charts.numChartDatapoints + CHART_CONFIRM_THRESHOLD_INCREMENT;
-  }
 }
 
 

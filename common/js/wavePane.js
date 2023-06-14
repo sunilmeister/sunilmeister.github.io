@@ -123,33 +123,31 @@ class WavePane {
     this.numSelectedWaves = this.numSelectedWavesInRange();
     this.data = session.waves.pwData;
     this.isFlowGraph = false;
-    if (this.numSelectedWaves <= session.waves.confirmThreshold) {
+    if (this.numSelectedWaves <= WAVE_ALERT_THRESHOLD) {
       this.addGraphNoConfirm();
     } else {
-       modalConfirm("Too many Breath Waveforms", 
-        "It may take time to render " + this.numSelectedWaves + " Waveforms\n" +
-        "Range Selector can be used to limit the number", 
-        this.addGraphNoConfirm.bind(this), null, null, "UPDATE", "DO NOT UPDATE");    }
+       modalAlert("Too many Breath Waveforms (" + this.numSelectedWaves +")", 
+        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
+        + "\nto waveforms to display");
+    }
   }
 
   addFlowGraph() {
     this.numSelectedWaves = this.numSelectedWavesInRange();
     this.data = session.waves.flowData;
     this.isFlowGraph = true;
-    if (this.numSelectedWaves <= session.waves.confirmThreshold) {
+    if (this.numSelectedWaves <= WAVE_ALERT_THRESHOLD) {
       this.addGraphNoConfirm();
     } else {
-       modalConfirm("Too many Breath Waveforms", 
-        "It may take time to render " + this.numSelectedWaves + " Waveforms\n" +
-        "Range Selector can be used to limit the number", 
-        this.addGraphNoConfirm.bind(this), null, null, "UPDATE", "DO NOT UPDATE");    }
+      /* Alert already issued before
+       modalAlert("Too many Breath Waveforms (" + this.numSelectedWaves +")", 
+        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + "or less"
+        "to waveforms to display", 
+      */
+    }
   }
 
   addGraphNoConfirm() {
-    // update the threshold
-    if (this.numSelectedWaves >  session.waves.confirmThreshold) {
-       session.waves.confirmThreshold = this.numSelectedWaves + WAVE_CONFIRM_INCREMENT;
-    }
     var paramName = "Pressure (mm H2O)"
     var paramColor = "blue";
     var axisColor = "black";
@@ -177,7 +175,7 @@ class WavePane {
       this.chart = null;
     }
 	this.chartJson.animationEnabled = true;
-	this.chartJson.animationDuration = 1500;
+	this.chartJson.animationDuration = 1000;
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
     this.chart.render();
   }
