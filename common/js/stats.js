@@ -236,6 +236,7 @@ function displayBreathTypeInfo() {
   el.innerHTML = replaceDummyValue(n);
 
   arr = statComputer.filterChanges(session.cmvSpontChanges);
+  n = 0;
   for (i = 0; i < arr.length; i++) {
     if (arr[i].value) n++;
   }
