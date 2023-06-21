@@ -138,12 +138,6 @@ class WavePane {
     this.isFlowGraph = true;
     if (this.numSelectedWaves <= WAVE_ALERT_THRESHOLD) {
       this.addGraphNoConfirm();
-    } else {
-      /* Alert already issued before
-       modalAlert("Too many Breath Waveforms (" + this.numSelectedWaves +")", 
-        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + "or less"
-        "to waveforms to display", 
-      */
     }
   }
 
@@ -159,11 +153,11 @@ class WavePane {
     if (this.isFlowGraph) {
       paramName = "Flow (ml/sec)"
       axisColor = "black";
-      paramColor = "gold";
+      paramColor = "#ECF0F1";
     } else {
       paramName = "Pressure (mmH2O)"
       axisColor = "black";
-      paramColor = "limegreen";
+      paramColor = "#AED6F1";
     }
     var yAxis = this.createYaxis(paramName, axisColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
@@ -226,21 +220,28 @@ class WavePane {
     if (bInfo.Abnormal)
       return style.getPropertyValue('--colorAbnormal');
 
-    if (bInfo.isMaintenance)
-      return style.getPropertyValue('--colorMaintenance');
-
-    if (bInfo.isMandatory && bInfo.isVC)
-      return style.getPropertyValue('--colorMandatoryVC');
-    if (!bInfo.isMandatory && bInfo.isVC)
-      return style.getPropertyValue('--colorSpontaneousVC');
-    if (!bInfo.isMandatory && !bInfo.isVC)
-      return style.getPropertyValue('--colorSpontaneousPS');
+    if (bInfo.isMaintenance) {
+      if (bInfo.isMandatory && bInfo.isVC)
+        return style.getPropertyValue('--colorMandatoryVCMaint');
+      if (!bInfo.isMandatory && bInfo.isVC)
+        return style.getPropertyValue('--colorSpontaneousVCMaint');
+      if (!bInfo.isMandatory && !bInfo.isVC)
+        return style.getPropertyValue('--colorSpontaneousPSMaint');
+    } else {
+      if (bInfo.isMandatory && bInfo.isVC)
+        return style.getPropertyValue('--colorMandatoryVC');
+      if (!bInfo.isMandatory && bInfo.isVC)
+        return style.getPropertyValue('--colorSpontaneousVC');
+      if (!bInfo.isMandatory && !bInfo.isVC)
+        return style.getPropertyValue('--colorSpontaneousPS');
+    }
 
     return style.getPropertyValue('--rsp_yellow');;
   }
 
   tooFewDatapoints(breathNum) {
     if (session.waves.tooFewDatapoints.includes(breathNum)) {
+      console.log("includes");
       return true;
     }
     return !(

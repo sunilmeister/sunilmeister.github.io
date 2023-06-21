@@ -150,14 +150,16 @@
           </center>
           <br>
         </div>
-        <br><br>
+        <br>
+        <br>
 
         <center>
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.5rem; ">
             <button id=btnSelect class=sidebarButton onclick='selectSession()' style='font-size: 1.6rem;'><b>Select Recording</b></button>
             <br>
           </div>
-          <br><br>
+          <br>
+          <br>
 
           <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
             <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
@@ -171,7 +173,8 @@
             <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
             <br>
             <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
-            <br><br>
+            <br>
+            <br>
           </div>
         </center>
 
@@ -191,8 +194,7 @@
         </div>
         <center>
           <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
-          <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)'
-          onmouseout='outIconButton(this)' title='Set'><img src="../common/img/select.png" width=25px height=25px></button>
+          <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/select.png" width=25px height=25px></button>
           <button class=iconButton id=btnCancelInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=25px height=25px></button>
           <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=25px height=25px></button>
           <br>
@@ -359,51 +361,82 @@
 
       <div id=wavesDiv style="display: none; margin-bottom:20px;">
         <div class=wavesLegendDiv>
-          <div class=waveLegend>
+          <div class=wavesLegendCategory>
             <center>
-              <p class=waveLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
-                <br>
-                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVC);">Volume Control
+              <p style="margin:0;">Normal Breaths
             </center>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVC);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVC);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPS);">Pressure Control
+              </center>
+            </div>
           </div>
-          <div class=waveLegend>
+          <div class=wavesLegendCategory>
             <center>
-              <p class=waveLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
-                <br>
-                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVC);">Volume Control
+              <p style="margin:0;">Maintenance Breaths
             </center>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorMandatoryVCMaint);">Mandatory
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVCMaint);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousVCMaint);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVCMaint);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousPSMaint);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPSMaint);">Pressure Control
+              </center>
+            </div>
           </div>
-          <div class=waveLegend>
+
+          <div class=wavesLegendCategory>
             <center>
-              <p class=waveLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
-                <br>
-                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPS);">Pressure Control
+              <p style="margin:0;">Exception Breaths
             </center>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorAbnormal);">Abnormal 
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorAbnormal);">Seeming Breath
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorError);">Error 
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorError);">Causing Breath
+              </center>
+            </div>
           </div>
-          <div class=waveLegend>
-            <center>
-              <p class=waveLegendText style="background-color:var(--colorError);">Error Causing
-                <br>
-                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorError);">Breath
-            </center>
-          </div>
-          <div class=waveLegend>
-            <center>
-              <p class=waveLegendText style="background-color:var(--colorMaintenance);">Maintenance
-                <br>
-                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMaintenance);">Breath
-            </center>
-          </div>
-          <div class=waveLegend>
-            <center>
-              <p class=waveLegendText style="background-color:var(--colorAbnormal);">Abnormal
-                <br>
-                <p class=waveLegendText style="padding-top:0px; background-color:var(--colorAbnormal);">Breath Wave
-            </center>
-          </div>
+
           <div style="clear:both">
             <p style="color:black;">Broken lines indicate some missing datapoints
-            <p style="color:red; margin-top:-15px;">Red label indicates too many missing datapoints
+              <p style="color:red; margin-top:-15px;">Red label indicates too many missing datapoints
           </div>
         </div>
       </div>
@@ -485,8 +518,7 @@
     <template id=chartEditMenuTemplate>
       <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
         <div class=chartEditMenuBanner>
-          <button class=iconButton onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)'
-          onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/select.png" width=20px height=20px></button>
+          <button class=iconButton onClick="chartMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/select.png" width=20px height=20px></button>
           <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
           <br>
         </div>
@@ -650,8 +682,7 @@
     <template id=waveEditMenuTemplate>
       <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
         <div class=waveEditMenuBanner>
-          <button class=iconButton onClick="waveMenuSubmit(this)" onmouseover='overIconButton(this)'
-          onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/select.png" width=20px height=20px></button>
+          <button class=iconButton onClick="waveMenuSubmit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Accept"><img src="../common/img/select.png" width=20px height=20px></button>
           <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
           <br>
         </div>
@@ -717,4 +748,3 @@
   </body>
 
 </html>
-

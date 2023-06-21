@@ -3,10 +3,15 @@
    color: blue;
 }
 
+.wavesLegendCategory {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 2px solid black; 
+}
+
 .waveLegend {
   float: left;
-  margin-right: 5px;
-  margin-bottom: 5px;
   border: 2px solid black; 
 }
 

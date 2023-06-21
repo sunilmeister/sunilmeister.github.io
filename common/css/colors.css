@@ -17,10 +17,12 @@
   --rsp_darkred: 	#B22222;
   --rsp_modal: 	    #708090;
 
-  --colorMandatoryVC:   #FCF3CF; 
-  --colorSpontaneousVC: #D6EAF8; 
-  --colorSpontaneousPS: #98FB98; 
-  --colorMaintenance:   #FBFCFC; 
-  --colorError:         #EC7063; 
-  --colorAbnormal:      #F39C12; 
+  --colorMandatoryVC:             #E4FDE1; 
+  --colorSpontaneousVC:           #C6EDC3; 
+  --colorSpontaneousPS:           #A7DCA5; 
+  --colorMandatoryVCMaint:        #FFFDD0; 
+  --colorSpontaneousVCMaint:      #FFFF8F; 
+  --colorSpontaneousPSMaint:      #FFEA00; 
+  --colorAbnormal:                #FFC370; 
+  --colorError:                   #FD7272; 
 }
