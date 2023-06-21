@@ -239,14 +239,13 @@ class WavePane {
     return style.getPropertyValue('--rsp_yellow');;
   }
 
-  tooFewDatapoints(breathNum) {
-    if (session.waves.tooFewDatapoints.includes(breathNum)) {
-      console.log("includes");
+  tooFewDatapoints(sysBreathNum) {
+    if (session.waves.tooFewDatapoints.includes(sysBreathNum)) {
       return true;
     }
     return !(
-      session.waves.pwRecordedBreaths.includes(breathNum) && 
-      session.waves.flowRecordedBreaths.includes(breathNum));
+      session.waves.pwRecordedBreaths.includes(sysBreathNum) && 
+      session.waves.flowRecordedBreaths.includes(sysBreathNum));
   }
 
   createYaxis(title, color, minY, maxY) {
@@ -281,7 +280,8 @@ class WavePane {
 
     var partial  = false;
     for (let i = 0; i < this.data.length; i++) {
-      var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+      var sysBreathNum = this.data[i].systemBreathNum;
+      var breathNum = sysBreathNum - session.startSystemBreathNum;
       var sampleInterval = this.data[i].sampleInterval;
       var breathInfo = this.data[i].breathInfo;
       var samples = this.data[i].samples;
@@ -338,7 +338,8 @@ class WavePane {
       var labelFontColor = "darkgreen";
       var labelText = "#" + breathNum;
       var labelAlign = "near";
-      if (this.tooFewDatapoints(breathNum)) {
+      if (this.tooFewDatapoints(sysBreathNum)) {
+        console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
         //labelText = "XXXX #" + breathNum;
         labelAlign = "far";
