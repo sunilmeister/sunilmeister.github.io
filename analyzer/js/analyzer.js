@@ -14,7 +14,7 @@ if (!window.indexedDB) {
 function listDbTableRow(item, index) {
   nameTm = parseDbName(item);
   // only list databases for the currently selected system
-  if (nameTm[0] != respimaticUid) return;
+  if (nameTm[0] != respimaticUid) return false;
   var table = document.getElementById("dbTable");
   var row = table.insertRow();
   row.style.cursor = "pointer";
@@ -43,6 +43,7 @@ function listDbTableRow(item, index) {
     row.style.backgroundColor = style.getPropertyValue('--rsp_blue');
   }
 
+  return true;
 }
 
 function selectDbRow(row) {
@@ -122,10 +123,12 @@ function listAllDbs() {
     table.deleteRow(1);
   }
   var retrieved_dbs = getAllDbs();
-  if (!retrieved_dbs) return;
+  if (!retrieved_dbs) return 0;
+  var count = 0;
   for (i = retrieved_dbs.length - 1; i >= 0; i--) {
-    listDbTableRow(retrieved_dbs[i], i);
+    if (listDbTableRow(retrieved_dbs[i], i)) count++;
   }
+  return count;
 }
 
 function deleteAllDbs() {
@@ -180,10 +183,14 @@ function checkDbReady() {
 function selectSession() {
   undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
+  document.getElementById("noRecordingsDiv").style.display = "none";
 
   if (session.sessionDataValid) enableAllButtons();
 
-  listAllDbs();
+  if (!listAllDbs()) {
+    document.getElementById("selectorDiv").style.display = "none";
+    document.getElementById("noRecordingsDiv").style.display = "block";
+  }
 }
 
 function selectImport() {
