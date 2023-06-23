@@ -102,6 +102,35 @@ function exportFile() {
     fileName, "text/xml");
 }
 
+function deleteHistoryBtn() {
+  var msg = "";
+  if (document.getElementById("cookiesDelete").checked) {
+    deleteAllCookies();
+    msg += "\nDeleted ALL Cookies" ;
+  }
+  if (document.getElementById("recordingsDelete").checked) {
+    deleteAllRecordings();
+    msg += "\nDeleted ALL Recordings" ;
+  }
+  if (document.getElementById("systemsDelete").checked) {
+    deleteAllSystemUIDs();
+    var ddList = document.getElementById("SYSTEM_NAME");
+    createDropdownSelect(ddList, knownRespimaticSystems);
+    ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
+    msg += "\nDeleted ALL System UID History" ;
+  }
+  if (msg) modalInfo("", msg);
+  document.getElementById("deleteHistoryDiv").style.display = "none";
+}
+
+function cancelDeleteHistoryBtn() {
+  document.getElementById("deleteHistoryDiv").style.display = "none";
+}
+
+function deleteSelectedHistory() {
+  document.getElementById("deleteHistoryDiv").style.display = "block";
+}
+
 function exportSystemInfo() {
   document.getElementById("exportDiv").style.display = "block";
   document.getElementById("exportFileName").value = "Respimatic Systems Table";

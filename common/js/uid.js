@@ -9,6 +9,12 @@ var templateSystemId = {
   fw: null
 };
 
+function deleteAllSystemUIDs() {
+  knownRespimaticSystems = [];
+  localStorage.setItem(
+    respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+}
+
 function createSystemUidTagObj(uid, tag, fw) {
   obj = cloneObject(templateSystemId);
   obj.uid = uid;

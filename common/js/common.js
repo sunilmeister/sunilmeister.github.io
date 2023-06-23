@@ -25,6 +25,15 @@ function initDbNames() {
   session.database.dbNamePrefix = respimaticUid;
   session.database.dbObjStoreName = respimaticUid;
 }
+
+function deleteAllRecordings() {
+  var retrieved_dbs = getAllDbs();
+  for (i = 0; i < retrieved_dbs.length; i++) {
+    deleteDb(retrieved_dbs[i]);
+  }  
+  localStorage.setItem(localStorageDbName, "[]");
+}
+
 // /////////////////////////////////////////////
 // milliseconds to dates
 // /////////////////////////////////////////////
