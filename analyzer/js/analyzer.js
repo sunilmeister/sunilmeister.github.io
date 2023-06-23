@@ -184,12 +184,12 @@ function selectSession() {
   undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
   document.getElementById("noRecordingsDiv").style.display = "none";
-
-  if (session.sessionDataValid) enableAllButtons();
+  enableAllButtons();
 
   if (!listAllDbs()) {
     document.getElementById("selectorDiv").style.display = "none";
     document.getElementById("noRecordingsDiv").style.display = "block";
+    disableAllButtons();
   }
 }
 
@@ -331,6 +331,7 @@ function enableAllButtons() {
 }
 
 function disableAllButtons() {
+  // Never disable the select session
   //document.getElementById("btnSelect").disabled = true;
   document.getElementById("btnRaw").disabled = true;
   document.getElementById("btnStat").disabled = true;
