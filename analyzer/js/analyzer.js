@@ -81,12 +81,12 @@ function deleteDbRow(row) {
   }
 
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
-  msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
   if (dbName == session.database.dbName) {
-    modalAlert("Cannot Delete " + msg, "Recording currently in use");
+    modalAlert("Cannot Delete", "Recording currently in use\n" + sessionBannerHTML);
     return;
   }
 
+  msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
   modalConfirm("Delete Recording", msg, doDeleteDbRow, null, {
       row: row
     },
@@ -143,6 +143,10 @@ function listAllDbs() {
 }
 
 function deleteAllDbs() {
+  if (sessionBannerHTML) {
+    modalAlert("Cannot Delete ALL", "Recording currently in use\n" + sessionBannerHTML);
+    return;
+  }
   modalConfirm("Delete All Saved Recordings", "", doDeleteAllDbs, null, null,
     "DELETE ALL", "DO NOT DELETE");
 }
@@ -212,7 +216,7 @@ function selectSession() {
     bgd = style.getPropertyValue('--rsp_mediumblue');
     bnr.style.backgroundColor = bgd;
     enableAllButtons();
-  } else {
+   } else {
     bnr.innerHTML = "No Selected Recording";
     bgd = style.getPropertyValue('--rsp_darkred');
     bnr.style.backgroundColor = bgd;
