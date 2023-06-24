@@ -80,7 +80,7 @@ function waveMenuSubmit(bnode) {
   containerNode = findAncestorWaveContainerNode(bnode);
   box = session.waves.allWavesContainerInfo[containerNode.id];
   box.updateOptions(WAVE_EDIT_WAVE_MENU_ID);
-  removeWaveEditMenu();
+  //removeWaveEditMenu();
   box.render();
 }
 
@@ -121,6 +121,7 @@ function removeWaveContainerId(id) {
 
 function waveTreeCheckboxClicked(cbox) {
   session.waves.boxTree.CheckboxClicked(cbox);
+  waveMenuSubmit(cbox);
 }
 
 function findAncestorWaveContainerNode(node) {

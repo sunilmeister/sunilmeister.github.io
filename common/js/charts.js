@@ -84,7 +84,7 @@ function chartMenuSubmit(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
   box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateOptions(CHART_EDIT_CHART_MENU_ID);
-  removeChartEditMenu();
+  //removeChartEditMenu();
   box.render();
 }
 
@@ -121,6 +121,7 @@ function removeChartContainerId(id) {
 
 function chartTreeCheckboxClicked(cbox) {
   session.charts.boxTree.CheckboxClicked(cbox);
+  chartMenuSubmit(cbox);
 }
 
 function findAncestorChartContainerNode(node) {
