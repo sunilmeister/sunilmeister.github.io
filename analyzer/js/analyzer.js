@@ -58,7 +58,11 @@ function selectDbRow(row) {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
+  var style = getComputedStyle(document.body)
+  bgd = style.getPropertyValue('--rsp_mediumblue');
   var sessionInfo = document.getElementById("sessionNameSelector");
+
+  sessionInfo.style.backgroundColor = bgd;
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   sessionBannerHTML = sessionInfo.innerHTML;
   initSession(dbName);
@@ -76,7 +80,13 @@ function deleteDbRow(row) {
     }
   }
 
+  dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
+  if (dbName == session.database.dbName) {
+    modalAlert("Cannot Delete " + msg, "Recording currently in use");
+    return;
+  }
+
   modalConfirm("Delete Recording", msg, doDeleteDbRow, null, {
       row: row
     },
@@ -92,6 +102,7 @@ function doDeleteDbRow(arg) {
   deleteDb(name);
   // remove from HTML table
   row.parentNode.removeChild(row);
+  selectSession();
 }
 
 function selectRowBtn(btn) {
@@ -147,6 +158,7 @@ function doDeleteAllDbs() {
     deleteDb(name);
     table.deleteRow(1);
   }
+  selectSession();
   table = document.getElementById("dbExportTable");
   if (!table) return;
   numRows = table.rows.length;
@@ -156,6 +168,7 @@ function doDeleteAllDbs() {
     deleteDb(name);
     table.deleteRow(1);
   }
+  selectSession();
 }
 
 function checkDbReady() {
@@ -183,12 +196,26 @@ function checkDbReady() {
 function selectSession() {
   undisplayAllPanes();
   document.getElementById("selectorDiv").style.display = "block";
-  document.getElementById("noRecordingsDiv").style.display = "none";
   enableAllButtons();
 
-  if (!listAllDbs()) {
-    document.getElementById("selectorDiv").style.display = "none";
-    document.getElementById("noRecordingsDiv").style.display = "block";
+  numSessions = listAllDbs();
+  var bnr = document.getElementById("sessionNameSelector");
+  var style = getComputedStyle(document.body)
+
+  if (!numSessions) {
+    bnr.innerHTML = "No Recordings Found. Use Dashboard to record";
+    bgd = style.getPropertyValue('--rsp_darkred');
+    bnr.style.backgroundColor = bgd;
+    disableAllButtons();
+  } else if (sessionBannerHTML) {
+    bnr.innerHTML = sessionBannerHTML;
+    bgd = style.getPropertyValue('--rsp_mediumblue');
+    bnr.style.backgroundColor = bgd;
+    enableAllButtons();
+  } else {
+    bnr.innerHTML = "No Selected Recording";
+    bgd = style.getPropertyValue('--rsp_darkred');
+    bnr.style.backgroundColor = bgd;
     disableAllButtons();
   }
 }

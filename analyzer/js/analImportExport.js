@@ -90,7 +90,7 @@ function doImport(file, fileName, dbName) {
       // free up memory ASAP
       importJsonArray = [];
       registerDbName(dbName);
-      listAllDbs();
+      selectSession();
     }
   }
 }
