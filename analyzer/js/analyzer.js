@@ -243,7 +243,7 @@ function selectStats() {
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
   var sessionInfo = document.getElementById("sessionNameSlider");
-  sessionInfo.innerHTML = "Select Breath Range for '" + sessionBannerHTML + "'";
+  sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
@@ -465,7 +465,6 @@ function refreshActivePane() {
 function setTimeInterval() {
   if (!sliderCommitPending) return;
   sliderCommitPending = false;
-  unflashAnalysisWindowButtons();
   values = analysisRangeSlider.getSlider();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
@@ -490,7 +489,6 @@ function setTimeInterval() {
 
 function setFullInterval() {
   sliderCommitPending = false;
-  unflashAnalysisWindowButtons();
   values = analysisRangeSlider.getRange();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
@@ -513,17 +511,8 @@ function setFullInterval() {
   refreshActivePane();
 }
 
-function cancelTimeInterval() {
-  if (!sliderCommitPending) return;
-  sliderCommitPending = false;
-  unflashAnalysisWindowButtons();
-  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
-  updateSelectedDuration();
-}
-
 function resetTimeInterval() {
   sliderCommitPending = false;
-  unflashAnalysisWindowButtons();
   session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
   session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
   session.analyzer.analysisStartTime = session.analyzer.logStartTime;
@@ -602,7 +591,7 @@ window.onload = function () {
   menuBarWidth = menuBar.offsetWidth;
   var nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth + 50) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
   //console.log("menuBarWidth = " + menuBarWidth);
 
@@ -615,20 +604,6 @@ window.onload = function () {
 function selectExit() {
   //window.location.assign("../index.html");
   window.open('', '_self').close();
-}
-
-var intervalId = setInterval(function () {
-  blinkAnalysisWindowButtons();
-}, 1000);
-var analysisButtonsFlashed = false;
-
-function blinkAnalysisWindowButtons() {
-  if (!sliderCommitPending) return;
-  if (analysisButtonsFlashed) {
-    unflashAnalysisWindowButtons();
-  } else {
-    flashAnalysisWindowButtons();
-  }
 }
 
 function outIconButton(btn) {
@@ -655,20 +630,6 @@ function changeAnalysisWindowButtonsColor(bgd) {
   changeIconButtonColor(document.getElementById("btnCancelInterval"), bgd);
   changeIconButtonColor(document.getElementById("btnResetInterval"), bgd);
   changeIconButtonColor(document.getElementById("btnFullInterval"), bgd);
-}
-
-function flashAnalysisWindowButtons() {
-  analysisButtonsFlashed = true;
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_mediumblue');
-  changeAnalysisWindowButtonsColor(bgd);
-}
-
-function unflashAnalysisWindowButtons() {
-  analysisButtonsFlashed = false;
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('white');
-  changeAnalysisWindowButtonsColor(bgd);
 }
 
 var cumulativeChartBreaths = 0;
@@ -704,14 +665,12 @@ function createAnalysisRangeSlider() {
   setAnalysisRanges(true);
   updateSelectedDuration();
 
-  unflashAnalysisWindowButtons();
-
   if (session.analyzer.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "");
   }
 }
 
 function analysisRangeSliderCallback() {
-  flashAnalysisWindowButtons();
   sliderCommitPending = true;
+  setTimeInterval();
 }

@@ -567,7 +567,7 @@ window.onload = function () {
   menuBarWidth = menuBar.offsetWidth;
   var nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth + 50) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
   //console.log("menuBarWidth = " + menuBarWidth);
 }
@@ -598,7 +598,6 @@ function createRangeSlider(div) {
 
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
-  flashBreathWindowButtons();
   sliderCommitPending = true;
   values = chartRangeSlider.getSlider();
   bmin = parseInt(values[0]);
@@ -644,25 +643,8 @@ function colorBreathWindowButtons(bgd) {
   setBackGroundBreathWindowButton('btnFullInterval', bgd);
 }
 
-breathWindowButtonsFlashed = false;
-
-function flashBreathWindowButtons() {
-  breathWindowButtonsFlashed = true;
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_mediumblue');
-  colorBreathWindowButtons(bgd);
-}
-
-function unflashBreathWindowButtons() {
-  breathWindowButtonsFlashed = false;
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('white');
-  colorBreathWindowButtons(bgd);
-}
-
-function setTimeInterval(btn) {
+function setTimeInterval() {
   if (!sliderCommitPending) return;
-  unflashBreathWindowButtons();
   values = rangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
@@ -673,25 +655,8 @@ function setTimeInterval(btn) {
   sliderCommitPending = false;
 }
 
-var saveRange = null;
-
-function cancelTimeInterval(btn) {
-  if (!sliderCommitPending) return;
-  unflashBreathWindowButtons();
-  if (saveRange) {
-    session.reportRange = saveRange;
-  } else {
-    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
-  }
-  stopSliderCallback = true;
-  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
-  stopSliderCallback = false;
-  sliderCommitPending = false;
-}
-
-function resetTimeInterval(btn) {
+function resetTimeInterval() {
   saveRange = null;
-  unflashBreathWindowButtons();
   session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -706,8 +671,7 @@ function resetTimeInterval(btn) {
   sliderCommitPending = false;
 }
 
-function setFullInterval(btn) {
-  unflashBreathWindowButtons();
+function setFullInterval() {
   values = rangeSlider.getRange();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
@@ -723,11 +687,11 @@ function setFullInterval(btn) {
 
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
-  flashBreathWindowButtons();
   sliderCommitPending = true;
   values = rangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
+  setTimeInterval();
 }
 
 function HandlePeriodicTasks() {
@@ -740,10 +704,6 @@ function HandlePeriodicTasks() {
     blinkPauseButton();
     blinkRecordButton();
     blinkFlowRate();
-    if (sliderCommitPending) {
-      if (breathWindowButtonsFlashed) unflashBreathWindowButtons();
-      else flashBreathWindowButtons();
-    }
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   if (awaitingFirstDweet) {

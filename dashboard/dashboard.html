@@ -171,18 +171,16 @@
 
       <div id=nonMenuArea class=dashboard-pane>
 
-        <div id=rangeWindowDiv style="margin-top:0px; margin-bottom: -25px; background-color:var(--rsp_darkblue); color: white; display:none;">
-          <center>
-            <p style="font-size: 1.4rem; margin-bottom:0px; margin-top:0px;">Select Breath Range
-          </center>
+        <div id=rangeWindowDiv style="margin-top:25px; margin-bottom: -25px; color: white; display:none;">
           <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
           </div>
-          <center>
-            <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
-            <button class=iconButton id=btnSetInterval onClick='setTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Set'><img src="../common/img/select.png" width=20px height=20px></button>
-            <button class=iconButton id=btnCancelInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='cancelTimeInterval(this)' style="float:right;" title='Cancel'><img src="../common/img/close.png" width=20px height=20px></button>
-            <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=20px height=20px></button>
-          </center>
+          <div style="background-color:var(--rsp_darkblue); color:white; margin-top: 10px; padding-bottom:20px;">
+            <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
+            <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=25px height=25px></button>
+            <center>
+              <p style="margin-top: 10px; margin-bottom:-12px; font-size:1.8rem; "> Breath Range Selector
+            </center>
+          </div>
         </div>
 
         <div id=record-pane style="width:40rem; font-size:1.2rem; display:none">
