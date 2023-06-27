@@ -203,9 +203,10 @@ function selectSession() {
   enableAllButtons();
 
   numSessions = listAllDbs();
-  var bnr = document.getElementById("sessionNameSelector");
+  var bnr = document.getElementById("sessionNameSlider");
   var style = getComputedStyle(document.body)
 
+console.log("Here 4");
   if (!numSessions) {
     bnr.innerHTML = "No Recordings Found. Use Dashboard to record";
     bgd = style.getPropertyValue('--rsp_darkred');
@@ -242,7 +243,7 @@ function selectStats() {
   undisplayAllPanes();
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSlider");
+  var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -258,7 +259,7 @@ function selectAlerts() {
   undisplayAllPanes();
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSlider");
+  var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -274,7 +275,7 @@ function selectWaves() {
   undisplayAllPanes();
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSlider");
+  var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -290,7 +291,7 @@ function selectCharts() {
   undisplayAllPanes();
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSlider");
+  var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -567,6 +568,7 @@ window.onload = function () {
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
+console.log("Here 1");
 
   var exportFileNameInput = document.getElementById("exportFileName");
   exportFileNameInput.addEventListener("keypress", function (event) {
@@ -584,6 +586,7 @@ window.onload = function () {
     }
   });
 
+console.log("Here 2");
   undisplayAllPanes();
   disableAllButtons();
   var menuBar = document.getElementById("sideMenuBar");
@@ -598,6 +601,7 @@ window.onload = function () {
   session.reportRange = createReportRange(false, 0, 0);
 
   resetAnalysisData();
+console.log("Here 3");
   selectSession();
 }
 
