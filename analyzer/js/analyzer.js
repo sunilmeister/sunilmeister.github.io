@@ -60,7 +60,7 @@ function selectDbRow(row) {
   session.database.dbName = dbName;
   var style = getComputedStyle(document.body)
   bgd = style.getPropertyValue('--rsp_mediumblue');
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  var sessionInfo = document.getElementById("sliderCaption");
 
   sessionInfo.style.backgroundColor = bgd;
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
@@ -206,7 +206,6 @@ function selectSession() {
   var bnr = document.getElementById("sessionNameSlider");
   var style = getComputedStyle(document.body)
 
-console.log("Here 4");
   if (!numSessions) {
     bnr.innerHTML = "No Recordings Found. Use Dashboard to record";
     bgd = style.getPropertyValue('--rsp_darkred');
@@ -243,7 +242,7 @@ function selectStats() {
   undisplayAllPanes();
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  var sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -259,7 +258,7 @@ function selectAlerts() {
   undisplayAllPanes();
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  var sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -275,7 +274,7 @@ function selectWaves() {
   undisplayAllPanes();
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  var sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -291,7 +290,7 @@ function selectCharts() {
   undisplayAllPanes();
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  var sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -568,7 +567,6 @@ window.onload = function () {
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   var sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
-console.log("Here 1");
 
   var exportFileNameInput = document.getElementById("exportFileName");
   exportFileNameInput.addEventListener("keypress", function (event) {
@@ -586,7 +584,6 @@ console.log("Here 1");
     }
   });
 
-console.log("Here 2");
   undisplayAllPanes();
   disableAllButtons();
   var menuBar = document.getElementById("sideMenuBar");
@@ -601,7 +598,6 @@ console.log("Here 2");
   session.reportRange = createReportRange(false, 0, 0);
 
   resetAnalysisData();
-console.log("Here 3");
   selectSession();
 }
 
