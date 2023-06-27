@@ -89,6 +89,12 @@ function findSystemUid(tag) {
   return obj.uid;
 }
 
+function recordedDataCompatible(fromRelease, toRelease) {
+  if (fromRelease == toRelease) return true;
+  // Needs to get more intelligent
+  return false;
+}
+
 function appendSwVersionToUid() {
   if (isUndefined(session)) return;
   if (knownRespimaticSystems.length == 0) {

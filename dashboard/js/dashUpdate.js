@@ -233,9 +233,9 @@ function updateCompDivsFromSessionData() {
 
 function updateMiscDivsFromSessionData() {
   altF = " <small><small>ft</small></small>";
-  updateDivValue(altfDIV, session.miscData.altitude + altF);
+  updateDivValue(altfDIV, session.miscData.altInFt + altF);
   altM = " <small><small>m</small></small>";
-  updateDivValue(altmDIV, Math.floor(session.miscData.altitude*0.305) + altM);
+  updateDivValue(altmDIV, session.miscData.altInM + altM);
 
   tempGauge.setValue(session.miscData.tempC);
 }
@@ -274,8 +274,8 @@ function updateSnapshot() {
     } else if (key == 'AGE') {
       updateDivValue(pline2DIV, String(session.patientData.age));
     } else if (key == 'PID') {
-      updateDivValue(pline3DIV, String(session.patientData.pid));
-      //console.log("session.patientData.pid:" + session.patientData.pid);
+      var pid = "[ID: " + String(session.patientData.pid) + "]";
+      updateDivValue(pline3DIV, pid);
     }
 
     // state

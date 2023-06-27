@@ -137,7 +137,10 @@ var SessionDataTemplate = {
 
   miscData: {
     tempC : null,
-    altitude : null,
+    altInFt : null,
+    altInM : null,
+    o2Pct : null,
+    locationName: null,
     cmvSpontDetections: 0,
   },
 

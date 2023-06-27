@@ -177,8 +177,8 @@ function doDeleteAllDbs() {
 
 function checkDbReady() {
   if (session.database.dbReady && session.database.dbName) {
-    if (session.analyzer.recVersion != CURRENT_RECORDING_VERSION) {
-      modalAlert("VERSION MISMATCH",
+    if (recordedDataCompatible(session.analyzer.recVersion, CURRENT_RECORDING_VERSION)) {
+      modalAlert("VERSION INCOMPATIBLE",
         "Recorded with Software Version " + session.recVersion +
         "\nCurrent Software Version is " + CURRENT_RECORDING_VERSION + "\n" +
         "\nVersion " + session.analyzer.recVersion + " not supported");

@@ -146,12 +146,14 @@ function parseComplianceData(jsonStr) {
 
 function parseMiscData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 2)) {
+  if (!arr || (arr.length != 4)) {
     return null;
   }
   val = {
     tempC : arr[0],
-    altitude : arr[1],
+    altInFt : arr[1],
+    altInM : arr[2],
+    o2Pct : arr[3],
   }
   return val;
 }
@@ -289,6 +291,8 @@ function processJsonRecord(jsonData) {
           processComplianceDweet(curTime, value);
         } else if (ckey == "MISC") {
           processMiscDweet(curTime, value);
+        } else if (ckey == "LOC") {
+          session.miscData.locationName = value;
         } else if (ckey == "FNAME") {
           session.patientData.fname = value;
         } else if (ckey == "LNAME") {
@@ -677,7 +681,9 @@ function processMiscDweet(curTime, jsonStr) {
   if (!obj) return;
 
   saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
-  saveSnapValue("altitude", "miscData", curTime, obj);
+  saveSnapValue("altInFt", "miscData", curTime, obj);
+  saveSnapValue("altInM", "miscData", curTime, obj);
+  saveSnapValue("o2Pct", "miscData", curTime, obj);
 }
 
 function saveSnapValueNull(paramName, parentName, curTime, newVal) {
@@ -717,14 +723,6 @@ function processComplianceDweet(curTime, jsonStr) {
 
   saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
   saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
-}
-
-function processMiscDweet(curTime, jsonStr) {
-  obj = parseMiscData(jsonStr);
-  if (!obj) return;
-
-  saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
-  saveSnapValue("altitude", "miscData", curTime, obj);
 }
 
 function saveSnapValueNull(paramName, parentName, curTime, newVal) {

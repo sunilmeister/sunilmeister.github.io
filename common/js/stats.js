@@ -284,18 +284,35 @@ function displayParamUsage() {
 }
 
 function displayPatientInfo() {
+  var patientName = "";
+  if (session.patientData.fname) {
+    patientName += session.patientData.fname;
+  }
+  if (session.patientData.lname) {
+    patientName += " " + session.patientData.lname;
+  }
   el = document.getElementById("pName");
-  if (session.patientName) {
-    el.innerHTML = "Patient Name: " + session.patientName;
+  if (patientName) {
+    el.innerHTML = "Patient Name: " + patientName;
   } else {
-    el.innerHTML = "Patient Name: UNKNOWN";
+    el.innerHTML = "Patient Name: ?";
   }
+
+  var patientInfo = "";
+  if (session.patientData.age) {
+    patientInfo = session.patientData.age;
+  } else {
+    patientInfo = "Age: ?";
+  }
+
+  if (session.patientData.pid) {
+    patientInfo += " [ID: " + session.patientData.pid + "]";
+  } else {
+    patientInfo += " [ID: ?]";
+  }
+
   el = document.getElementById("pInfo");
-  if (session.patientInfo) {
-    el.innerHTML = "Patient Info: " + session.patientInfo;
-  } else {
-    el.innerHTML = "Patient Info: UNKNOWN";
-  }
+  el.innerHTML = "Patient Info: " + patientInfo;
 }
 
 function displayAlertsInfo() {
@@ -350,10 +367,23 @@ function createAllStats() {
   displayPatientInfo();
   displayAlertsInfo();
 
+  el = document.getElementById("location");
+  el.innerHTML = "System Location: " + "?" ;
+  if (session.miscData.locationName) {
+    el.innerHTML = "System Location: " + session.miscData.locationName;
+  }
   el = document.getElementById("altitude");
-  el.innerHTML = "System Deployment Altitude: (" 
-    + session.miscData.altitude + " ft) or ("
-    + Math.floor(session.miscData.altitude * 0.305) + " mtrs)" ;
+  el.innerHTML = "Location Altitude: " + "?" ;
+  if (session.miscData.altInFt) {
+    el.innerHTML = "Location Altitude: " 
+      + session.miscData.altInFt + " ft ("
+      + session.miscData.altInM + " mtrs)" ;
+  }
+  el = document.getElementById("o2Percentage");
+  el.innerHTML = "Location Atmospheric Oxygen: " + "?" ;
+  if (session.miscData.altInFt) {
+    el.innerHTML = "Location Atmospheric Oxygen: " + session.miscData.o2Pct;
+  }
 
   session.inProgress.stats = false;
 }
