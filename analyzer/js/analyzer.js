@@ -203,7 +203,7 @@ function selectSession() {
   enableAllButtons();
 
   numSessions = listAllDbs();
-  var bnr = document.getElementById("sessionNameSlider");
+  var bnr = document.getElementById("sessionNameSelector");
   var style = getComputedStyle(document.body)
 
   if (!numSessions) {
