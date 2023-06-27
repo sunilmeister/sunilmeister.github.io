@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const CURRENT_RECORDING_VERSION = "2.2";
+const CURRENT_RECORDING_VERSION = "1.2";
 
 const RESPIMATIC_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
