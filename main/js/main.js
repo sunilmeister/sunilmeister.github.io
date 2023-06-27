@@ -353,7 +353,7 @@ function launchSwInstaller() {
 }
 
 function checkDocPassword(pwd) {
-  const ACCESS_KEY = "KnockKnock@Respimatic";
+  const ACCESS_KEY = "Docs@Respimatic100";
   return (pwd == ACCESS_KEY);
 }
 
