@@ -274,7 +274,7 @@ function selectWaves() {
   undisplayAllPanes();
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  var sessionInfo = document.getElementById("sessionNameSlider");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
