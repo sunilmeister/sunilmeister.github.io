@@ -68,7 +68,7 @@
     <script src="js/analyzer.js"></script>
   </head>
 
-  <body style="font-family='verdana'">
+  <body style="font-family:verdana">
     <div id=importDiv class=popupClass style="width:850px; height:450px; display: none">
       <center>
         <div style="font-size: 1.8rem;">
@@ -118,10 +118,10 @@
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
-        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
+        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.2rem; ">
           <center>
             <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>RECORDED DATA</b></p>
-            <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
+            <table style="border-collapse:unset; border:none; font-size:1.2rem; width:100%; margin-top:10px;">
               <tr>
                 <td align="left">&nbspBreaths</td>
                 <td id=logNumBreaths align="center">--</td>
@@ -137,7 +137,7 @@
             </table>
             <br>
             <p style="margin-bottom:0;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
-            <table style="border-collapse:unset; border:none; font-size:1.3rem; width:100%; margin-top:10px;">
+            <table style="border-collapse:unset; border:none; font-size:1.2rem; width:100%; margin-top:10px;">
               <tr>
                 <td align="left">&nbspBreathRange</td>
                 <td id=selectedBreathRange align="center">--</td>
@@ -161,7 +161,7 @@
           <br>
           <br>
 
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; ">
+          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; ">
             <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
             <br>
             <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
@@ -184,7 +184,7 @@
     <div id=nonMenuArea class=body-pane>
 
       <div id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
-        <div id=analysisRangeSliderDiv style="margin-top:25px; padding-left:20px; padding-right:20px;font-size:1.3rem; ">
+        <div id=analysisRangeSliderDiv style="margin-top:25px; padding-left:20px; padding-right:20px;font-size:1.25rem; ">
         </div>
         <div style="background-color:var(--rsp_darkblue); color:white; margin-top: 10px; padding-bottom:20px;">
           <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
@@ -199,28 +199,28 @@
         <div style="margin-bottom:20px; width:900px;">
           <center>
             <p class=shadowDiv5 id=sessionNameSelector style="margin-top:-50px; margin-bottom:-50px;
-            background-color:var(--rsp_mediumblue); color:white;font-size:2rem; "> No Selected Recording
+            background-color:var(--rsp_mediumblue); color:white;font-size:1.75rem; "> No Selected Recording
           </center>
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:692px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.4rem; ">
+        <div class=shadowDiv5 style="height:692px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.2rem; ">
 
-          <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
-            <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/plus.png" width=35px height=35px></button>
-            <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" width=35px height=35px></button>
+          <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.4em;">
+            <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/plus.png" width=30px height=30px></button>
+            <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" width=30px height=30px></button>
             <br>
             <center>RESPIMATIC-100 Recordings</center>
           </div>
 
-          <table id='dbTable' className="dbTableStyle" style="font-size:25px; width:100%">
+          <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
             <thead>
               <tr>
-                <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px;
+                <th align="center" style="padding: 8px 8px; font-size: 20px; min-width:300px;
                 background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid
                 var(--rsp_darkblue);">Recording Name</th>
-                <th align="center" style="padding: 8px 8px; font-size: 30px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
-                <th align="center" style="padding: 8px 8px; font-size: 30px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
+                <th align="center" style="padding: 8px 8px; font-size: 20px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                <th align="center" style="padding: 8px 8px; font-size: 20px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
               </tr>
 
             </thead>
@@ -231,8 +231,8 @@
           <br>
           <div class=shadowDiv5 id=SYSDiv style="height:100%; width:30%; float:left; background-color:var(--rsp_darkblue); color:white;font-size:1.4rem;">
             <center>
-              <p style="font-size:1.4rem; "><b>SYSTEM UID</b>
-                <p id='SysUid' style="font-size:1.2rem; ">
+              <p style="font-size:1.3rem; "><b>SYSTEM UID</b>
+                <p id='SysUid' style="font-size:1.1rem; ">
             </center>
           </div>
           <div class=shadowDiv5 id=logosDiv style="height:100%; margin-left:31%; background-color:var(--rsp_darkblue);">
@@ -252,7 +252,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Parameters Measured</h2>
             </center>
-            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
+            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Parameter</th>
@@ -268,7 +268,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Miscellaneous Information</h2>
             </center>
-            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
+            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Information</th>
@@ -283,7 +283,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
                 Static Information</h2>
             </center>
-            <div style="font-size: 1.1rem">
+            <div style="font-size: 1.25rem">
               <p id=pName style="margin-bottom: -20px;"></p>
               <p id=pInfo></p>
               <p id=location style="margin-bottom: -20px;">UNKNOWN</p>
@@ -299,7 +299,7 @@
                 </center>
 
                 <center>
-                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.2rem; width:100%">
+                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
                     <tr>
                       <th align="left" style="background-color:lightgray; ">
                         Parameter</th>
@@ -318,7 +318,7 @@
                 </center>
 
                 <center>
-                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
+                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.25rem; width:100%">
                     <tr>
                       <th style="background-color:lightgray;">
                         MODE</th>
@@ -439,35 +439,36 @@
       </div>
 
       <center>
-        <div id=alertsDiv style="display: none; margin-left: -15px; margin-top: -20px; margin-bottom:10px; font-size:1.3rem;">
+        <div id=alertsDiv style="display: none; margin-left: -50px; margin-top: -20px; margin-bottom:10px;
+        font-size:1.2rem;">
           <div class=row style="margin-top:10px; ">
-            <div id=errorColDiv class=column style="font-size: 1rem;">
+            <div id=errorColDiv class=column style="font-size: 0.9rem;">
               <center>
-                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
                   Recorded Errors</h2>
               </center>
               <div class=shadowDiv5 id=errorDiv style="height:675px; margin-left:0px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollErrorDiv style="font-size:1rem; text-align: left;">
+                <p id=scrollErrorDiv style="font-size:0.9rem; text-align: left;">
               </div>
             </div>
 
-            <div id=warningColDiv class=column style="font-size: 1rem; ">
+            <div id=warningColDiv class=column style="font-size: 0.9rem; margin-left:5px; ">
               <center>
-                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
                   Recorded Warnings</h2>
               </center>
-              <div class=shadowDiv5 id=warningDiv style="height:675px; margin-left:10px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollWarningDiv style="font-size:16; text-align: left">
+              <div class=shadowDiv5 id=warningDiv style="height:675px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                <p id=scrollWarningDiv style="font-size:0.9rem; text-align: left">
               </div>
             </div>
 
-            <div id=infoColDiv class=column style="font-size: 1rem; ">
+            <div id=infoColDiv class=column style="font-size: 0.9rem; margin-left:5px; ">
               <center>
-                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; ">
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
                   Recorded Information</h2>
               </center>
-              <div class=shadowDiv5 id=infoDiv style="height:675px; margin-left:10px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=scrollInfoDiv style="font-size:16; text-align: left">
+              <div class=shadowDiv5 id=infoDiv style="height:675px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                <p id=scrollInfoDiv style="font-size:0.9rem; text-align: left">
               </div>
             </div>
 

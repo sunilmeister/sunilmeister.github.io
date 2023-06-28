@@ -2,21 +2,29 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function rollingAlertRange() {
+  minBnum = session.dashboardBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
+  if (minBnum <= 0) minBnum = 1;
+  session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
+}
+
 function updateAlertRange() {
-  rangeSlider.setRange([1, session.dashboardBreathNum]);
-  if (session.reportRange.rolling && !sliderCommitPending) {
-    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
-    stopSliderCallback = true;
-    rangeSlider.setSlider([1, session.dashboardBreathNum]);
-    stopSliderCallback = false;
-  }
+  session.alerts.rangeLimit = session.dashboardBreathNum;
+  rangeSlider.setRange([1, session.alerts.rangeLimit]);
+
+  // if range is not "full"
+  if (!session.reportRange.rolling || sliderCommitPending) return;
+  if (session.reportRange.rolling) rollingAlertRange();
+
+  stopSliderCallback = true;
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  stopSliderCallback = false;
 }
 
 function updateAlertRangeOnEntry() {
-  if (session.reportRange.rolling) {
-    session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
-    stopSliderCallback = true;
-    rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
-    stopSliderCallback = false;
-  }
+  if (!session.reportRange.rolling) return;
+  rollingAlertRange();
+  stopSliderCallback = true;
+  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  stopSliderCallback = false;
 }

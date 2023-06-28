@@ -27,6 +27,7 @@ function listDbTableRow(item, index) {
   cell = row.insertCell();
   cell.style.paddingTop = "8px";
   cell.style.paddingBottom = "8px";
+  cell.style.textAlign = "center";
   cell.innerHTML = nameTm[2];
 
   cell = row.insertCell();

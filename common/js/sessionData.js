@@ -213,6 +213,7 @@ var SessionDataTemplate = {
 
   // error and warning messages
   alerts: {
+    rangeLimit: ALERT_NUM_ROLLING_BREATHS,
     attention: false,
     expectWarningMsg: false,
     expectErrorMsg: false,
@@ -237,8 +238,14 @@ var SessionDataTemplate = {
     numChartDatapoints: 0,
   },
 
-  // Below is stuff for detailed breath pressure waves
+  // Below is stuff for stats
+  stats: {
+    rangeLimit: STAT_NUM_ROLLING_BREATHS,
+  },
+
+  // Below is stuff for detailed breath waveforms
   waves: {
+    rangeLimit: WAVE_NUM_ROLLING_BREATHS,
     pwData: [],
     flowData: [],
     pwRecordedBreaths: [],
