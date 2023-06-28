@@ -4,7 +4,7 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 18rem;
+  width: 17rem;
   background-color: var(--rsp_blue);
   padding-bottom: 1rem;
   padding-top: 1rem;
@@ -14,19 +14,19 @@
 }
 
 .sidebar {
-  width: 16rem;
-  font-size: 1.2rem;
+  width: 15rem;
+  font-size: 1.1rem;
   margin-left: 1rem;
 }
 
 .sidebar div {
   padding: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   display: block;
 }
 
 .body-pane {
   margin-right: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
