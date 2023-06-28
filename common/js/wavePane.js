@@ -339,7 +339,7 @@ class WavePane {
       var labelText = "#" + breathNum;
       var labelAlign = "near";
       if (this.tooFewDatapoints(sysBreathNum)) {
-        console.log("Too few datapoints #" + sysBreathNum);
+        //console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
         //labelText = "XXXX #" + breathNum;
         labelAlign = "far";

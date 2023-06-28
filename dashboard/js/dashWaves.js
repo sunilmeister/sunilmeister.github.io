@@ -7,7 +7,7 @@ function createDashboardWaves() {
 }
 
 function rollingWaveRange() {
-  startWave = session.waves.pwData.length - WAVE_MAX_CHARTS;
+  startWave = session.waves.pwData.length - WAVE_NUM_ROLLING_BREATHS;
   if (startWave < 0) startWave = 0;
   if (session.waves.pwData.length) {
     minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
@@ -22,7 +22,7 @@ function updateWaveRange() {
 
   if (!session.reportRange.rolling || sliderCommitPending) return;
   if (session.reportRange.rolling) {
-    if (session.reportRange.rolling && session.waves.pwData.length > WAVE_MAX_CHARTS) {
+    if (session.reportRange.rolling && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
       rollingWaveRange();
     } else {
       session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);

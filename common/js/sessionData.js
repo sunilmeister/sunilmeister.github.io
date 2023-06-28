@@ -229,7 +229,7 @@ var SessionDataTemplate = {
 
   // chart transitions etc.
   charts : {
-    rangeLimit: MAX_CHART_DATAPOINTS,
+    rangeLimit: CHART_NUM_ROLLING_BREATHS,
     fontSize: 25,
     allChartsContainerInfo: {},
     boxTree: null,

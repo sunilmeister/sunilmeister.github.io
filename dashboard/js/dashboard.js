@@ -588,7 +588,7 @@ function createRangeSlider(div) {
   rangeSlider = new IntRangeSlider(
     div,
     0,
-    MAX_CHART_DATAPOINTS,
+    CHART_NUM_ROLLING_BREATHS,
     0,
     0,
     1
