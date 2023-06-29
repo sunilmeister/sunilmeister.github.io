@@ -382,7 +382,7 @@ function createAllStats() {
   el = document.getElementById("o2Percentage");
   el.innerHTML = "Location Atmospheric Oxygen: " + "?" ;
   if (session.miscData.altInFt) {
-    el.innerHTML = "Location Atmospheric Oxygen: " + session.miscData.o2Pct;
+    el.innerHTML = "Location Atmospheric Oxygen: " + session.miscData.o2Pct + "%";
   }
 
   session.inProgress.stats = false;
