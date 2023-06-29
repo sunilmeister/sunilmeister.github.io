@@ -831,9 +831,10 @@
           <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
             <form name="XunitsForm" style="padding-top:12px;">
               <center>
-                <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked>
+                <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked onclick='submitChartXaxis(this)'>
+
                 <label for=BNUM>Breath Number</label>
-                <input type="radio" id=TIME name="XAxisUnits" value="TIME">
+                <input type="radio" id=TIME name="XAxisUnits" value="TIME" onclick='submitChartXaxis(this)'>
                 <label for=TIME>Breath Times</label>
               </center>
             </form>

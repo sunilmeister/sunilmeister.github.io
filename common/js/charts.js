@@ -174,4 +174,6 @@ function renderAllCharts() {
   session.inProgress.charts = false;
 }
 
-
+function submitChartXaxis(bnode) {
+  chartMenuSubmit(bnode);
+}
