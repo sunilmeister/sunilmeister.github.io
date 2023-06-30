@@ -455,7 +455,7 @@ function processPwendDweet(str) {
   for (j = 0; j < checkLimit; j++) {
     if (samples[j] === null) nullCount++;
   }
-  if (nullCount > (checkLimit/3)) {
+  if (nullCount > (4*checkLimit/10)) {
     //console.log("Too few datapoints for waveform=" + 
       //(nullCount/checkLimit) + "for breath " + session.waves.breathNum);
     if (!session.waves.tooFewDatapoints.includes(session.waves.breathNum)) {
