@@ -7,6 +7,7 @@ function createDashboardWaves() {
 }
 
 function rollingWaveRange() {
+  var minBnum = 0;
   startWave = session.waves.pwData.length - WAVE_NUM_ROLLING_BREATHS;
   if (startWave < 0) startWave = 0;
   if (session.waves.pwData.length) {
