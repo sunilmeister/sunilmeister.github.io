@@ -30,7 +30,6 @@ class StatComputer {
   }
 
   filter(transitions, keepOneBefore) {
-    if (this.xRange.rolling) return transitions;
     var arr = [];
     var minDate = (this.breathTimes[this.xRange.minBnum]);
     var maxDate = (this.breathTimes[this.xRange.maxBnum]);
@@ -92,8 +91,7 @@ class StatComputer {
           curValue = transitions[curIx].value;
         }
       }
-      if (this.xRange.rolling ||
-        ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum))) {
+      if ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum)) {
         arr.push({
           "time": new Date(this.breathTimes[i]),
           "value": curValue
@@ -171,8 +169,7 @@ class StatComputer {
           curValue = transitions[curIx].value;
         }
       }
-      if (this.xRange.rolling ||
-        ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum))) {
+      if ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum)) {
         this.computedValuesPerBreath.push(curValue);
       }
     }
