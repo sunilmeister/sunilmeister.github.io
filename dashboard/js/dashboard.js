@@ -751,13 +751,14 @@ function FetchAndExecuteFromQueue() {
 
     d = dweetQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
-      session.dashboardBreathNum++;
       session.systemBreathNum = parseChecksumString(d.content["BNUM"]);
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
         elm.innerHTML = String(session.systemBreathNum - 1);
       }
+      session.dashboardBreathNum = 
+        session.systemBreathNum - session.startSystemBreathNum + 1;
     }
     var dCopy; // a copy of the dweet
     dCopy = cloneObject(d);
