@@ -5,7 +5,8 @@
 */
 
 .noUi-connect {
-    background-color: var(--rsp_mediumblue);
+    background-color: var(--rsp_brightgreen);
+    cursor: crosshair;
 }
 
 /*
@@ -24,5 +25,10 @@
 }
 
 .noUi-handle {
-    background-color: var(--rsp_mediumblue);
+    background-color: var(--rsp_lightgreen);
+    cursor: ew-resize;
+}
+
+.noUi-handle:hover {
+    background-color: var(--rsp_brightgreen);
 }
