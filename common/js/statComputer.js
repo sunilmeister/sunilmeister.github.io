@@ -65,7 +65,7 @@ class StatComputer {
         arr.push(cloneObject(cloneObject(prevItem)));
         prevItem = null;
       } else if (transitions.length) {
-        arr.push(cloneObject(cloneObject(transitions[0])));
+        arr.push(cloneObject(transitions[0]));
       }
     }
     return arr;
