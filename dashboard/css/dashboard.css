@@ -12,16 +12,16 @@
   grid-area: 1 / 1 / 5 / 8;
   font-family: monospace;
   font-size: 2rem;
-  color: white;
-  background-color: var(--rsp_mediumblue);
+  color: var(--rsp_darkblue);
+  background-color: var(--rsp_brightgreen);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
 .Alert {
   grid-area: 1 / 9 / 3 / 12;
-  background-color: var(--rsp_green);
-  color: white;
+  color: var(--rsp_darkblue);
+  background-color: var(--rsp_brightgreen);
   font-size: 2rem;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -37,9 +37,9 @@
 
 .State {
   grid-area: 3 / 9 / 5 / 12;
-  background-color: var(--rsp_mediumblue);
   font-size: 1.5rem;
-  color: white;
+  color: var(--rsp_darkblue);
+  background-color: var(--rsp_brightgreen);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
@@ -48,7 +48,8 @@
   grid-area: 1 / 13 / 5 / 19;
   font-size: 2rem;
   color: white;
-  background-color: var(--rsp_mediumblue);
+  color: var(--rsp_darkblue);
+  background-color: var(--rsp_brightgreen);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }

@@ -52,7 +52,7 @@ var lastDweetTick = 0;
 var dweetIntervalCounter = 0;
 var finishedLoading = false;
 
-var messagesBackground = "MEDIUMBLUE";
+var messagesBackground = "BRIGHTGREEN";
 var alertBackground = "GREEN";
 var pendingBackground = "MEDIUMBLUE";
 var flowDivBackground = "DARKBLUE";
@@ -69,6 +69,7 @@ var darkblueColor;
 var darkredColor;
 var greenColor;
 var orangeColor;
+var brightgreenColor;
 
 var desiredFiO2 = 21;
 var o2Purity = 21;

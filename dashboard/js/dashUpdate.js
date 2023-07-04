@@ -78,8 +78,8 @@ function updateAlert(blink) {
       elm.style.backgroundColor = darkredColor;
       alertBackground = "DARKRED";
     } else if (blink) {
-      elm.style.backgroundColor = mediumblueColor;
-      alertBackground = "MEDIUMBLUE";
+      elm.style.backgroundColor = brightgreenColor;
+      alertBackground = "BRIGHTGREEN";
     }
     if (alertImage != "ERROR") {
       document.getElementById("AlertImg").src = "img/Error.svg";
@@ -90,8 +90,8 @@ function updateAlert(blink) {
       elm.style.backgroundColor = orangeColor;
       alertBackground = "ORANGE";
     } else if (blink) {
-      elm.style.backgroundColor = mediumblueColor;
-      alertBackground = "MEDIUMBLUE";
+      elm.style.backgroundColor = brightgreenColor;
+      alertBackground = "BRIGHTGREEN";
     }
     if (alertImage != "WARNING") {
       document.getElementById("AlertImg").src = "img/Warning.svg";
@@ -110,10 +110,11 @@ function updateAlert(blink) {
 }
 
 function displayMessageLine(lineTag, value) {
-  if (messagesBackground != "MEDIUMBLUE") {
+  if (messagesBackground != "BRIGHTGREEN") {
     elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = mediumblueColor;
-    messagesBackground = "MEDIUMBLUE";
+    elm.style.backgroundColor = brightgreenColor;
+    elm.style.color = darkblueColor;
+    messagesBackground = "BRIGHTGREEN";
   }
   elm = document.getElementById(lineTag);
   mvalue = formMessageLine(value);
@@ -340,10 +341,11 @@ function updateDashboardAndRecordingStatus() {
 
 function displayNormalMessages() {
   wifiDropped = false;
-  if (messagesBackground == "MEDIUMBLUE") return;
+  if (messagesBackground == "BRIGHTGREEN") return;
   elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = mediumblueColor;
-  messagesBackground = "MEDIUMBLUE";
+  elm.style.backgroundColor = brightgreenColor;
+  elm.style.color = darkblueColor;
+  messagesBackground = "BRIGHTGREEN";
   updateDashboardAndRecordingStatus();
 }
 
@@ -355,8 +357,9 @@ function displayWifiDropped() {
   wifiDroppedBlink = 0;
   if (messagesBackground == "ORANGE") {
     elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = mediumblueColor;
-    messagesBackground = "MEDIUMBLUE";
+    elm.style.backgroundColor = brightgreenColor;
+    elm.style.color = darkblueColor;
+    messagesBackground = "BRIGHTGREEN";
     elm = document.getElementById("Mline1");
     elm.innerHTML = savedL1;
     elm = document.getElementById("Mline2");
@@ -368,6 +371,7 @@ function displayWifiDropped() {
   } else {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = orangeColor;
+    elm.style.color = "white";
     messagesBackground = "ORANGE";
     updateDashboardAndRecordingStatus();
     elm = document.getElementById("Mline1");
