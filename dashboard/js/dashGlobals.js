@@ -68,8 +68,9 @@ var blueColor;
 var darkblueColor;
 var darkredColor;
 var greenColor;
-var orangeColor;
+var mediumgreenColor;
 var brightgreenColor;
+var orangeColor;
 
 var desiredFiO2 = 21;
 var o2Purity = 21;

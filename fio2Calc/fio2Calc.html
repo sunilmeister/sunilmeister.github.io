@@ -35,7 +35,8 @@
 
       <center>
         <img src="img/FiO2.png" alt="Title" width=360rem height=100rem>
-        <div class=content style="font-size: 2rem; border-style: solid; border-color:white; background-color:var(--rsp_mediumblue); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
+        <div class=content style="font-size: 2rem; border-style: solid; border-color:white;
+        background-color:var(--rsp_mediumgreen); color:white; margin-left: 0.375rem; margin-right: 0.375rem; margin-bottom: -0.8rem">
           <b>
             <p style="font-size:1.7rem; padding-bottom:-1rem;">Required Incoming O<sub>2</sub> Flow</p>
 	    <p id=o2FlowRate>0.0 (litres/min)</p>
@@ -45,9 +46,10 @@
         <br>
         <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin-left:2rem; margin-right:2rem;">
           <label for="altitude" style="font-size:1.5rem; ">Altitude:
-            <input type="number" id=altitude name="altitude" autofocus value="0" style="font-size:1.5rem; width:12rem;" onchange="altChanged()">
+            <input type="number" id=altitude name="altitude" autofocus value="0" style="font-size:1.5rem;
+            width:12rem;background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);" onchange="altChanged()">
           </label>
-          <select name="altitudeUnits" id=altitudeUnits onchange="altChanged()" style="font-size:1.3rem;">
+          <select name="altitudeUnits" id=altitudeUnits onchange="altChanged()" style="font-size:1.3rem;background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);">
             <option value="feet">feet</option>
             <option value="meters">meters</option>
           </select>

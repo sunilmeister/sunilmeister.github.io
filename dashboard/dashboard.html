@@ -89,18 +89,19 @@
       <div id=sideMenuBar class=sidebarColumn style="margin-top:0.2rem; margin-bottm:0.2rem;">
         <div class=sidebar>
 
-          <div class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_brightgreen);color:var(--rsp_darkblue); font-size:1rem;">
+          <div class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
             <center>
-              <p id=breathsHeading style="font-size:1rem;font-weight: bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_brightgreen);color:var(--rsp_darkblue); ;padding-bottom:5px;">CURRENT BREATH</p>
+              <p id=breathsHeading style="font-size:1rem;font-weight:
+              bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); ;padding-bottom:5px;">CURRENT BREATH</p>
               <p id=breathNum style="font-size:2.5rem;font-weight:
-              bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_brightgreen);
+              bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);
               color: var(--rsp_darkblue); padding-bottom:5px;">0</p>
             </center>
           </div>
-          <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_brightgreen); color:var(--rsp_darkblue);">
+          <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);">
             <center>
               <p
-              style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_brightgreen);color:var(--rsp_darkblue); padding-bottom:5px;"><b>CURRENT SESSION</b></p>
+              style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); padding-bottom:5px;"><b>CURRENT SESSION</b></p>
               <table style="border-collapse:unset; border:none; font-size:0.9rem; width:100%">
                 <tr>
                   <td align="left">&nbspStart</td>
@@ -122,6 +123,23 @@
             </center>
           </div>
 
+          <center>
+            <div class=shadowDiv10 id=fiO2Calc style="margin-top:1.6rem; margin-bottom:0.4rem; background-color:var(--rsp_darkblue); color:white;">
+              <div id=flowDiv style="background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); 
+              padding-top:0.4rem;">
+                <p style="font-size:1.2rem; margin-top:-2px; margin-bottom:0px;">Set O<sub>2</sub> Flow Rate
+                <p id=o2FlowRate style="font-size:1.2rem; font-weight: bold; margin-bottom:2px; margin-top:-2px;">0.0 (litres/min)
+              </div>
+              <div id=purityDiv style="background-color:var(--rsp_darkblue); color:white;margin-bottom:-2px;">
+                <p style="font-size:1rem; margin-bottom:0px;">O<sub>2</sub> Source Purity (%)
+              </div>
+              <br>
+              <div id=fiO2Div style="background-color:var(--rsp_darkblue); color:white;margin-top:-1.75rem;">
+                <p style="font-size:1rem; margin-bottom:0px;">Desired FiO<sub>2</sub> (%)
+              </div>
+            </div>
+          </center>
+
           <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
             <center>
               <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
@@ -130,18 +148,19 @@
 
             <button id=btnCharts class=sidebarButton onclick='changeToChartView()'>View Charts</button>
 
+            <button id=btnWaves class=sidebarButton onclick='changeToWaveView()'>View Waveforms</button>
+
             <button id=btnStats class=sidebarButton onclick='changeToStatView()'>View Statistics</button>
 
             <button id=btnAlerts class=sidebarButton onclick='changeToAlertView()'>View Alerts</button>
 
-            <button id=btnWaves class=sidebarButton onclick='changeToWaveView()'>View Waveforms</button>
             <button id=btnRecording class=sidebarButton onclick='changeToRecordView()'>View Recording</button>
 
             <br>
             <br>
           </div>
 
-          <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
+          <div class=shadowDiv10 style="margin-top:1rem; margin-bottom:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
             <center>
               <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>TURN ON/OFF</b></p>
             </center>
@@ -151,24 +170,6 @@
 
           </div>
 
-          <center>
-            <div class=shadowDiv10 id=fiO2Calc style="margin-top:1.6rem; margin-bottom:0.4rem; background-color:var(--rsp_darkblue); color:white;">
-              <center>
-                <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0px;"><b>FiO<sub>2</sub> SETTINGS</b></p>
-              </center>
-              <div id=purityDiv style="background-color:var(--rsp_darkblue); color:white;margin-bottom:-0.5rem;">
-                <p style="font-size:1rem; margin-bottom:-0.5rem;">O<sub>2</sub> Source Purity (%)
-              </div>
-              <div id=fiO2Div style="background-color:var(--rsp_darkblue); color:white;margin-top:-1.75rem;">
-                <p style="font-size:1rem; margin-bottom:-0.5rem;">Desired FiO<sub>2</sub> (%)
-              </div>
-              <div id=flowDiv style="background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); margin-top:-0.5rem">
-                <p style="font-size:1rem;">Set O<sub>2</sub> Flow Rate
-                  <p id=o2FlowRate style="font-size:0.9rem; font-weight: bold;">0.0 (litres/min)
-              </div>
-            </div>
-          </center>
-
         </div>
       </div>
 
@@ -177,7 +178,7 @@
         <div id=rangeWindowDiv style="margin-top:25px; margin-bottom: -25px; color: white; display:none;">
           <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
           </div>
-          <div style="background-color:var(--rsp_green); color:white; margin-top: 10px; padding-bottom:20px;">
+          <div style="background-color:var(--rsp_mediumgreen); color:white; margin-top: 10px; padding-bottom:20px;">
             <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
             <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=25px height=25px></button>
             <center>
@@ -186,9 +187,9 @@
           </div>
         </div>
 
-        <div id=record-pane style="width:40rem; font-size:1.2rem; display:none">
+        <div id=record-pane style="width:50rem; font-size:1.2rem; display:none">
           <center>
-            <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem; margin-top:-20px;">
+            <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-20px;">
               No Active Session
               <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=recordBox style="font-size:1.1rem; text-align: left">

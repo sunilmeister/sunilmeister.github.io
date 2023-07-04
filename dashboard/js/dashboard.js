@@ -188,9 +188,9 @@ function blinkFlowRate() {
   flowDiv = document.getElementById("flowDiv");
   var style = getComputedStyle(document.body)
   if (flowDivBackground == "DARKBLUE") {
-    flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_brightgreen');
+    flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
     flowDiv.style.color = style.getPropertyValue('--rsp_darkblue');
-    flowDivBackground = "BRIGHTGREEN";
+    flowDivBackground = "MEDIUMGREEN";
   } else {
     flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
     flowDiv.style.color = "white";
@@ -213,16 +213,16 @@ function blinkPauseButton() {
       pauseButtonForeground = "ORANGE";
     } else {
       btn.style.color = 'white';
-      ttl.style.backgroundColor = style.getPropertyValue('--rsp_brightgreen');
-      bnum.style.backgroundColor = style.getPropertyValue('--rsp_brightgreen');
+      ttl.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
+      bnum.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
       ttl.innerHTML = "CURRENT BREATH"
       bnum.innerHTML = session.dashboardBreathNum;
       pauseButtonForeground = "WHITE";
     }
   } else {
     btn.style.color = 'white';
-    ttl.style.backgroundColor = style.getPropertyValue('--rsp_brightgreen');
-    bnum.style.backgroundColor = style.getPropertyValue('--rsp_brightgreen');
+    ttl.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
+    bnum.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
     ttl.innerHTML = "CURRENT BREATH"
     bnum.innerHTML = session.dashboardBreathNum;
     pauseButtonForeground = "WHITE";
@@ -531,6 +531,7 @@ window.onload = function () {
   greenColor = style.getPropertyValue('--rsp_green');
   orangeColor = style.getPropertyValue('--rsp_orange');
   brightgreenColor = style.getPropertyValue('--rsp_brightgreen');
+  mediumgreenColor = style.getPropertyValue('--rsp_mediumgreen');
   snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";
   charts = document.getElementById("chart-pane");

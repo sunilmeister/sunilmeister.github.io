@@ -60,7 +60,7 @@ function selectDbRow(row) {
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_lightgreen');
+  bgd = style.getPropertyValue('--rsp_mediumgreen');
   var sessionInfo = document.getElementById("sliderCaption");
 
   sessionInfo.style.backgroundColor = bgd;
@@ -214,7 +214,7 @@ function selectSession() {
     disableAllButtons();
   } else if (sessionBannerHTML) {
     bnr.innerHTML = sessionBannerHTML;
-    bgd = style.getPropertyValue('--rsp_lightgreen');
+    bgd = style.getPropertyValue('--rsp_mediumgreen');
     bnr.style.backgroundColor = bgd;
     enableAllButtons();
    } else {
