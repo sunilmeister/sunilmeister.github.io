@@ -7,6 +7,8 @@
 .noUi-connect {
     background-color: var(--rsp_brightgreen);
     cursor: crosshair;
+    border-style: outset;
+    border-width: 2px;
 }
 
 /*
@@ -18,6 +20,7 @@
 .noUi-tooltip {
   display: block;
   font-size: var(--noUiTooltipSize);
+  background-color: var(--rsp_brightgreen);
 }
 
 .noUi-active .noUi-tooltip {
@@ -27,6 +30,8 @@
 .noUi-handle {
     background-color: var(--rsp_lightgreen);
     cursor: ew-resize;
+    border-style: outset;
+    border-width: 2px;
 }
 
 .noUi-handle:hover {
