@@ -3,7 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function selectButtonHTML(onClickFunction, size, title) {
-  pngFileName = "select";
+  pngFileName = "check";
   return iconButtonHTML(pngFileName, size, onClickFunction, title);
 }
 
@@ -57,7 +57,7 @@ function outIconBtn(btn) {
 
 function overIconBtn(btn) {
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_lightblue');
+  bgd = style.getPropertyValue('--rsp_brightgreen');
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
   btn.firstElementChild.style.backgroundColor = bgd;

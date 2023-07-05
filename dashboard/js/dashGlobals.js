@@ -3,7 +3,7 @@
 // ////////////////////////////////////////////////////
 
 const TIMEOUT_INTERVAL_IN_MS = 200;
-const BLINK_INTERVAL_IN_MS = 1000;
+const BLINK_INTERVAL_IN_MS = 3000;
 const MAX_DWEET_INTERVAL_IN_MS = 30000;
 const MAX_DORMANT_CLOSE_DURATION_IN_MS = 60000;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;

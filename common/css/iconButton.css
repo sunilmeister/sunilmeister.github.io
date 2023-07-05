@@ -19,14 +19,14 @@
 }
 
 .iconButton:hover{
-  background-color: var(--rsp_lightblue);
-  border-color: var(--rsp_lightblue);
+  background-color: var(--rsp_brightgreen);
+  border-color: var(--rsp_brightgreen);
   opacity:1; 
 }
 
 .iconButton:active{
-  background-color: var(--rsp_blue);
-  border-color: var(--rsp_blue);
+  background-color: var(--rsp_mediumgreen);
+  border-color: var(--rsp_mediumgreen);
   box-shadow: 0 6px white;
   transform: translateY(4px);
 }

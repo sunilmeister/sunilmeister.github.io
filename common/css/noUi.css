@@ -6,7 +6,7 @@
 
 .noUi-connect {
     background-color: var(--rsp_brightgreen);
-    cursor: crosshair;
+    cursor: pointer;
     border-style: outset;
     border-width: 2px;
 }
@@ -29,7 +29,7 @@
 
 .noUi-handle {
     background-color: var(--rsp_lightgreen);
-    cursor: ew-resize;
+    cursor: grab;
     border-style: outset;
     border-width: 2px;
 }

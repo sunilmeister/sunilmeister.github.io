@@ -619,7 +619,7 @@ function outIconButton(btn) {
 
 function overIconButton(btn) {
   var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_lightblue');
+  bgd = style.getPropertyValue('--rsp_brightgreen');
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
   //console.log("hover");
