@@ -192,7 +192,7 @@ function blinkFlowRate() {
     flowDivBackground = "MEDIUMGREEN";
   } else {
     flowDiv.style.backgroundColor = palette.darkblue;
-    flowDiv.style.color = "white";
+    flowDiv.style.color = palette.brightgreen;
     flowDivBackground = "DARKBLUE";
   }
 }
@@ -421,16 +421,16 @@ function selectExit() {
 }
 
 function installFiO2Gauge() {
-  var bgColor = palette.mediumblue;
-  var fgColor = 'white';
+  var bgColor = 'white';
+  var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('fiO2Div');
   fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
 }
 
 function installPurityGauge() {
-  var bgColor = palette.mediumblue;
-  var fgColor = 'white';
+  var bgColor = 'white';
+  var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('purityDiv');
   purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
@@ -439,7 +439,7 @@ function installPurityGauge() {
 
 function installPeakGauge() {
   var bgColor = palette.darkblue;
-  var fgColor = 'white';
+  var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('PeakGauge');
   peakGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
@@ -447,7 +447,7 @@ function installPeakGauge() {
 
 function installPlatGauge() {
   var bgColor = palette.darkblue;
-  var fgColor = 'white';
+  var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('PlatGauge');
   platGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
@@ -455,7 +455,7 @@ function installPlatGauge() {
 
 function installPeepGauge() {
   var bgColor = palette.darkblue;
-  var fgColor = 'white';
+  var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('PeepGauge');
   peepGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
@@ -463,7 +463,7 @@ function installPeepGauge() {
 
 function installTempGauge() {
   var bgColor = palette.darkblue;
-  var fgColor = palette.mediumblue;
+  var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('TempGauge');
   tempGauge = new CircularGauge(containerDiv, 90, fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);

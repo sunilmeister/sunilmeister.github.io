@@ -59,15 +59,15 @@ function updatePending(blink) {
       pendingBackground = "ORANGE";
     } else if (blink) {
       elm = document.getElementById("PendingDiv");
-      elm.style.backgroundColor = palette.mediumblue;
-      pendingBackground = "MEDIUMBLUE";
+      elm.style.backgroundColor = palette.lightgreen;
+      pendingBackground = "LIGHTGREEN";
     }
   } else {
     elm = document.getElementById("PendingDiv");
-    elm.style.backgroundColor = palette.mediumblue;
+    elm.style.backgroundColor = palette.lightgreen;
     elm = document.getElementById("Pending");
     elm.innerHTML = "No Pending Changes";
-    pendingBackground = "MEDIUMBLUE";
+    pendingBackground = "LIGHTGREEN";
   }
 }
 

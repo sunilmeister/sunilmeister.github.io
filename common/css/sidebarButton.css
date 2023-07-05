@@ -38,8 +38,7 @@
 
 .sidebarButton:disabled,
 .sidebarButton[disabled]{
-  color: white;
-  color: orange;
+  color: grey;
   cursor: not-allowed;
   pointer-events: all !important;
 }

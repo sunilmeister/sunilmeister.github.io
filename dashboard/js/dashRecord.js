@@ -8,7 +8,7 @@ function acceptRecordingName() {
   createOrOpenDb(session.database.dbName, session.recorder.creationTimeStamp);
   InitRecorder();
   elm = document.getElementById('recordSessionName');
-  elm.style.backgroundColor = mediumgreenColor;
+  elm.style.backgroundColor = palette.mediumgreen;
   arr = parseDbName(session.database.dbName);
   elm.innerHTML = arr[1] + " [" + arr[2] + "]";
 
