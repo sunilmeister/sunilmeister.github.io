@@ -13,10 +13,10 @@ function blinkSettingValue(pending, containerDiv, valueDiv) {
   if (pending) {
     updatePending(false);
     elm = document.getElementById(containerDiv);
-    elm.style.backgroundColor = orangeColor;
+    elm.style.backgroundColor = palette.orange;
   } else {
     elm = document.getElementById(containerDiv);
-    elm.style.backgroundColor = mediumblueColor;
+    elm.style.backgroundColor = palette.mediumblue;
   }
 }
 
@@ -25,13 +25,13 @@ function updatePendingIndividualSetting(blink, div, pendingSetting) {
   if (session.paramDataOnDisplay.pending) {
     if (pendingSetting && blink) {
       if (pendingBackground != "ORANGE") {
-        elm.style.backgroundColor = orangeColor;
+        elm.style.backgroundColor = palette.orange;
       } else {
-        elm.style.backgroundColor = mediumblueColor;
+        elm.style.backgroundColor = palette.mediumblue;
       }
     }
   } else if (pendingBackground != "MEDIUMBLUE") {
-    elm.style.backgroundColor = mediumblueColor;
+    elm.style.backgroundColor = palette.mediumblue;
   }
 }
 
@@ -55,16 +55,16 @@ function updatePending(blink) {
     elm.innerHTML = "Pending Changes";
     if (pendingBackground != "ORANGE") {
       elm = document.getElementById("PendingDiv");
-      elm.style.backgroundColor = orangeColor;
+      elm.style.backgroundColor = palette.orange;
       pendingBackground = "ORANGE";
     } else if (blink) {
       elm = document.getElementById("PendingDiv");
-      elm.style.backgroundColor = mediumblueColor;
+      elm.style.backgroundColor = palette.mediumblue;
       pendingBackground = "MEDIUMBLUE";
     }
   } else {
     elm = document.getElementById("PendingDiv");
-    elm.style.backgroundColor = mediumblueColor;
+    elm.style.backgroundColor = palette.mediumblue;
     elm = document.getElementById("Pending");
     elm.innerHTML = "No Pending Changes";
     pendingBackground = "MEDIUMBLUE";
@@ -75,10 +75,10 @@ function updateAlert(blink) {
   elm = document.getElementById("AlertDiv");
   if (session.stateData.error) {
     if (alertBackground != "DARKRED") {
-      elm.style.backgroundColor = darkredColor;
+      elm.style.backgroundColor = palette.darkred;
       alertBackground = "DARKRED";
     } else if (blink) {
-      elm.style.backgroundColor = greenColor;
+      elm.style.backgroundColor = palette.green;
       alertBackground = "GREEN";
     }
     if (alertImage != "ERROR") {
@@ -87,10 +87,10 @@ function updateAlert(blink) {
     }
   } else if (session.alerts.attention || wifiDropped) {
     if (alertBackground != "ORANGE") {
-      elm.style.backgroundColor = orangeColor;
+      elm.style.backgroundColor = palette.orange;
       alertBackground = "ORANGE";
     } else if (blink) {
-      elm.style.backgroundColor = greenColor;
+      elm.style.backgroundColor = palette.green;
       alertBackground = "GREEN";
     }
     if (alertImage != "WARNING") {
@@ -99,7 +99,7 @@ function updateAlert(blink) {
     }
   } else {
     if (alertBackground != "GREEN") {
-      elm.style.backgroundColor = greenColor;
+      elm.style.backgroundColor = palette.green;
       alertBackground = "GREEN";
     }
     if (alertImage != "OK") {
@@ -112,8 +112,8 @@ function updateAlert(blink) {
 function displayMessageLine(lineTag, value) {
   if (messagesBackground != "MEDIUMGREEN") {
     elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = mediumgreenColor;
-    elm.style.color = darkblueColor;
+    elm.style.backgroundColor = palette.mediumgreen;
+    elm.style.color = palette.darkblue;
     messagesBackground = "MEDIUMGREEN";
   }
   elm = document.getElementById(lineTag);
@@ -343,8 +343,8 @@ function displayNormalMessages() {
   wifiDropped = false;
   if (messagesBackground == "MEDIUMGREEN") return;
   elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = mediumgreenColor;
-  elm.style.color = darkblueColor;
+  elm.style.backgroundColor = palette.mediumgreen;
+  elm.style.color = palette.darkblue;
   messagesBackground = "MEDIUMGREEN";
   updateDashboardAndRecordingStatus();
 }
@@ -357,8 +357,8 @@ function displayWifiDropped() {
   wifiDroppedBlink = 0;
   if (messagesBackground == "ORANGE") {
     elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = mediumgreenColor;
-    elm.style.color = darkblueColor;
+    elm.style.backgroundColor = palette.mediumgreen;
+    elm.style.color = palette.darkblue;
     messagesBackground = "MEDIUMGREEN";
     elm = document.getElementById("Mline1");
     elm.innerHTML = savedL1;
@@ -370,7 +370,7 @@ function displayWifiDropped() {
     elm.innerHTML = savedL4;
   } else {
     elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = orangeColor;
+    elm.style.backgroundColor = palette.orange;
     elm.style.color = "white";
     messagesBackground = "ORANGE";
     updateDashboardAndRecordingStatus();
@@ -393,11 +393,11 @@ function displayWifiUnconnected() {
   wifiDropped = true;
   if (messagesBackground == "ORANGE") return;
   elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = orangeColor;
+  elm.style.backgroundColor = palette.orange;
   messagesBackground = "ORANGE";
   updateDashboardAndRecordingStatus();
   elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = orangeColor;
+  elm.style.backgroundColor = palette.orange;
   elm = document.getElementById("Mline1");
   elm.innerHTML = "Awaiting Internet";
   elm = document.getElementById("Mline2");

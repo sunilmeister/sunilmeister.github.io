@@ -200,7 +200,6 @@ class WavePane {
   }
 
   getLineColor(breathInfo) {
-    var style = getComputedStyle(document.body)
     var bInfo = parseBreathInfo(breathInfo);
 
     // The order below matters
@@ -210,33 +209,32 @@ class WavePane {
   }
 
   getStripColor(breathInfo) {
-    var style = getComputedStyle(document.body)
     var bInfo = parseBreathInfo(breathInfo);
 
     // The order below matters
     if (bInfo.isError)
-      return style.getPropertyValue('--colorError');
+      return palette.Error;
 
     if (bInfo.Abnormal)
-      return style.getPropertyValue('--colorAbnormal');
+      return palette.Abnormal;
 
     if (bInfo.isMaintenance) {
       if (bInfo.isMandatory && bInfo.isVC)
-        return style.getPropertyValue('--colorMandatoryVCMaint');
+        return palette.MandatoryVCMaint;
       if (!bInfo.isMandatory && bInfo.isVC)
-        return style.getPropertyValue('--colorSpontaneousVCMaint');
+        return palette.SpontaneousVCMaint;
       if (!bInfo.isMandatory && !bInfo.isVC)
-        return style.getPropertyValue('--colorSpontaneousPSMaint');
+        return palette.SpontaneousPSMaint;
     } else {
       if (bInfo.isMandatory && bInfo.isVC)
-        return style.getPropertyValue('--colorMandatoryVC');
+        return palette.MandatoryVC;
       if (!bInfo.isMandatory && bInfo.isVC)
-        return style.getPropertyValue('--colorSpontaneousVC');
+        return palette.SpontaneousVC;
       if (!bInfo.isMandatory && !bInfo.isVC)
-        return style.getPropertyValue('--colorSpontaneousPS');
+        return palette.SpontaneousPS;
     }
 
-    return style.getPropertyValue('--rsp_yellow');;
+    return palette.yellow;
   }
 
   tooFewDatapoints(sysBreathNum) {

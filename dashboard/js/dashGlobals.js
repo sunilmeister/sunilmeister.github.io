@@ -64,14 +64,6 @@ var alertImage = "OK";
 var blinkInterval = 0;
 var prevBlinkTimeInMs = (new Date()).getTime();
 
-var blueColor;
-var darkblueColor;
-var darkredColor;
-var greenColor;
-var mediumgreenColor;
-var brightgreenColor;
-var orangeColor;
-
 var desiredFiO2 = 21;
 var o2Purity = 21;
 var reqO2Flow = 0;

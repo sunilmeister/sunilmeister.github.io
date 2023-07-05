@@ -3,8 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function enable(btn, img) {
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_mediumblue');
+  bgd = palette.mediumblue;
   document.getElementById(btn).style.backgroundColor = bgd;
   document.getElementById(btn).style.color = 'white';
   document.getElementById(btn).style.cursor = "pointer";
@@ -12,9 +11,8 @@ function enable(btn, img) {
 }
 
 function disable(btn, img) {
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_lightblue');
-  fgd = style.getPropertyValue('--rsp_mediumblue');
+  bgd = palette.lightblue;
+  fgd = palette.mediumblue;
   document.getElementById(btn).style.backgroundColor = bgd;
   document.getElementById(btn).style.color = fgd;
   document.getElementById(btn).style.cursor = "not-allowed";
@@ -93,9 +91,7 @@ function firmwareDeck() {
 
 window.onload = function () {
   if (getCookie(pdfReminderOffCookieName) != "OFF") {
-    var modalColor = 
-    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
-  
+    var modalColor = palette.modal;
 
     Swal.fire({
       icon: 'info',

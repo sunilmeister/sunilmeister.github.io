@@ -89,10 +89,9 @@ function toggleRecording() {
 
 function blinkRecordButton() {
   btn = document.getElementById("recordButton");
-  var style = getComputedStyle(document.body)
   if (!session.recorder.off) {
     if (recordButtonForeground == "WHITE") {
-      btn.style.color = style.getPropertyValue('--rsp_orange');
+      btn.style.color = palette.orange;
       recordButtonForeground = "ORANGE";
     } else {
       btn.style.color = 'white';

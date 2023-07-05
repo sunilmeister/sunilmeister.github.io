@@ -186,13 +186,12 @@ function createDashboardAlerts() {
 
 function blinkFlowRate() {
   flowDiv = document.getElementById("flowDiv");
-  var style = getComputedStyle(document.body)
   if (flowDivBackground == "DARKBLUE") {
-    flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
-    flowDiv.style.color = style.getPropertyValue('--rsp_darkblue');
+    flowDiv.style.backgroundColor = palette.mediumgreen;
+    flowDiv.style.color = palette.darkblue;
     flowDivBackground = "MEDIUMGREEN";
   } else {
-    flowDiv.style.backgroundColor = style.getPropertyValue('--rsp_darkblue');
+    flowDiv.style.backgroundColor = palette.darkblue;
     flowDiv.style.color = "white";
     flowDivBackground = "DARKBLUE";
   }
@@ -202,27 +201,26 @@ function blinkPauseButton() {
   btn = document.getElementById("btnPause");
   ttl = document.getElementById("breathsHeading");
   bnum = document.getElementById("breathNum");
-  var style = getComputedStyle(document.body)
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
-      btn.style.color = style.getPropertyValue('--rsp_orange');
-      ttl.style.backgroundColor = style.getPropertyValue('--rsp_orange');
-      bnum.style.backgroundColor = style.getPropertyValue('--rsp_orange');
+      btn.style.color = palette.orange;
+      ttl.style.backgroundColor = palette.orange;
+      bnum.style.backgroundColor = palette.orange;
       ttl.innerHTML = "Dashboard Paused"
       bnum.innerHTML = breathPausedAt;
       pauseButtonForeground = "ORANGE";
     } else {
       btn.style.color = 'white';
-      ttl.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
-      bnum.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
+      ttl.style.backgroundColor = palette.mediumgreen;
+      bnum.style.backgroundColor = palette.mediumgreen;
       ttl.innerHTML = "CURRENT BREATH"
       bnum.innerHTML = session.dashboardBreathNum;
       pauseButtonForeground = "WHITE";
     }
   } else {
     btn.style.color = 'white';
-    ttl.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
-    bnum.style.backgroundColor = style.getPropertyValue('--rsp_mediumgreen');
+    ttl.style.backgroundColor = palette.mediumgreen;
+    bnum.style.backgroundColor = palette.mediumgreen;
     ttl.innerHTML = "CURRENT BREATH"
     bnum.innerHTML = session.dashboardBreathNum;
     pauseButtonForeground = "WHITE";
@@ -423,8 +421,7 @@ function selectExit() {
 }
 
 function installFiO2Gauge() {
-  var style = getComputedStyle(document.body);
-  var bgColor = style.getPropertyValue('--rsp_mediumblue');
+  var bgColor = palette.mediumblue;
   var fgColor = 'white';
   var containerDiv = document.getElementById('fiO2Div');
   fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
@@ -432,8 +429,7 @@ function installFiO2Gauge() {
 }
 
 function installPurityGauge() {
-  var style = getComputedStyle(document.body);
-  var bgColor = style.getPropertyValue('--rsp_mediumblue');
+  var bgColor = palette.mediumblue;
   var fgColor = 'white';
   var containerDiv = document.getElementById('purityDiv');
   purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
@@ -442,8 +438,7 @@ function installPurityGauge() {
 }
 
 function installPeakGauge() {
-  var style = getComputedStyle(document.body);
-  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var bgColor = palette.darkblue;
   var fgColor = 'white';
   var containerDiv = document.getElementById('PeakGauge');
   peakGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
@@ -451,8 +446,7 @@ function installPeakGauge() {
 }
 
 function installPlatGauge() {
-  var style = getComputedStyle(document.body);
-  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var bgColor = palette.darkblue;
   var fgColor = 'white';
   var containerDiv = document.getElementById('PlatGauge');
   platGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
@@ -460,8 +454,7 @@ function installPlatGauge() {
 }
 
 function installPeepGauge() {
-  var style = getComputedStyle(document.body)
-  var bgColor = style.getPropertyValue('--rsp_darkblue');
+  var bgColor = palette.darkblue;
   var fgColor = 'white';
   var containerDiv = document.getElementById('PeepGauge');
   peepGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
@@ -469,9 +462,8 @@ function installPeepGauge() {
 }
 
 function installTempGauge() {
-  var style = getComputedStyle(document.body)
-  var bgColor = style.getPropertyValue('--rsp_darkblue');
-  var fgColor = style.getPropertyValue('--rsp_mediumblue');
+  var bgColor = palette.darkblue;
+  var fgColor = palette.mediumblue;
   var containerDiv = document.getElementById('TempGauge');
   tempGauge = new CircularGauge(containerDiv, 90, fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
@@ -523,15 +515,6 @@ window.onload = function () {
   }
   initStats();
   initAlerts();
-  var style = getComputedStyle(document.body)
-  blueColor = style.getPropertyValue('--rsp_blue');
-  mediumblueColor = style.getPropertyValue('--rsp_mediumblue');
-  darkblueColor = style.getPropertyValue('--rsp_darkblue');
-  darkredColor = style.getPropertyValue('--rsp_darkred');
-  greenColor = style.getPropertyValue('--rsp_green');
-  orangeColor = style.getPropertyValue('--rsp_orange');
-  brightgreenColor = style.getPropertyValue('--rsp_brightgreen');
-  mediumgreenColor = style.getPropertyValue('--rsp_mediumgreen');
   snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";
   charts = document.getElementById("chart-pane");
@@ -618,8 +601,7 @@ function outIconButton(btn) {
 }
 
 function overIconButton(btn) {
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_brightgreen');
+  bgd = palette.brightgreen;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
   //console.log("hover");
@@ -789,8 +771,7 @@ function showDormantPopup() {
 
   dormantPopupDisplayed = true;
   dormantPopupManualCloseTime = null;
-  var modalColor = 
-    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  var modalColor = palette.modal;
   
   let dormantTimerInterval;
   Swal.fire({

@@ -593,8 +593,7 @@ function o2PurityAtAltitudeMtr(mtr) {
 function showZoomReminder() {
   if (getCookie(zoomReminderOffCookieName) == "OFF") return;
 
-  var modalColor = 
-    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  var modalColor = palette.modal;
   
   Swal.fire({
     icon: 'info',
@@ -628,8 +627,7 @@ function showZoomReminder() {
 function showEditIconReminder() {
   if (getCookie(editReminderOffCookieName) == "OFF") return;
 
-  var modalColor = 
-    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  var modalColor = palette.modal;
   
   Swal.fire({
     icon: 'info',
@@ -686,9 +684,7 @@ function modalWarning(title, msg) {
 }
 
 function modalInfo(title, msg) {
-  var modalColor = 
-    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
-  
+  var modalColor = palette.modal;
 
   Swal.fire({
     icon: 'info',
@@ -727,8 +723,7 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
     cancelText = "CANCEL";
   }
 
-  var modalColor = 
-    getComputedStyle(document.body).getPropertyValue('--rsp_modal');
+  var modalColor = palette.modal;
   
   Swal.fire({
     icon: 'question',

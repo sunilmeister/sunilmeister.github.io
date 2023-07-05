@@ -2,8 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 function displayJsonAlerts(prefix, scrollbox, jsonData) {
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_darkblue');
+  bgd = palette.darkblue;
   var newElement = document.createElement('p');
   newElement.innerHTML = prefix + "Breath#" + jsonData.breathNum +
     " DateTime: " + dateToStr(jsonData.created);

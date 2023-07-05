@@ -3,23 +3,34 @@
 // ////////////////////////////////////////////////////
 
 var palette = {
-  darkblue
-  mediumblue
-  blue
-  lightblue
-  brightblue
-  darkgreen
-  green
-  mediumgreen
-  lightgreen
-  brightgreen
-  yellow
-  orange
-  darkred
+  darkblue:	    null,
+  mediumblue:	null,
+  blue:	        null,
+  lightblue:	null,
+  brightblue:	null,
+  darkgreen:	null,
+  green:	    null,
+  mediumgreen:	null,
+  lightgreen:	null,
+  brightgreen:	null,
+  yellow:	    null,
+  orange:	    null,
+  darkred:	    null,
+  modal:	    null,
+
+  MandatoryVC:	        null,
+  SpontaneousVC:	    null,
+  SpontaneousPS:	    null,
+  MandatoryVCMaint:	    null,
+  SpontaneousVCMaint:	null,
+  SpontaneousPSMaint:	null,
+  Abnormal:	            null,
+  Error:	            null,
+
 };
 
-window.onload = function () {
-  var style = getComputedStyle(document.body)
+window.addEventListener("load", function() {
+  var style = getComputedStyle(document.body);
   
   palette.darkblue = style.getPropertyValue('--rsp_darkblue');
   palette.mediumblue = style.getPropertyValue('--rsp_mediumblue');
@@ -34,4 +45,14 @@ window.onload = function () {
   palette.yellow = style.getPropertyValue('--rsp_yellow');
   palette.orange = style.getPropertyValue('--rsp_orange');
   palette.darkred = style.getPropertyValue('--rsp_darkred');
-}
+  palette.modal = style.getPropertyValue('--rsp_modal');
+
+  palette.MandatoryVC = style.getPropertyValue('--colorMandatoryVC');
+  palette.SpontaneousVC = style.getPropertyValue('--colorSpontaneousVC');
+  palette.SpontaneousPS = style.getPropertyValue('--colorSpontaneousPS');
+  palette.MandatoryVCMaint = style.getPropertyValue('--colorMandatoryVCMaint');
+  palette.SpontaneousVCMaint = style.getPropertyValue('--colorSpontaneousVCMaint');
+  palette.SpontaneousPSMaint = style.getPropertyValue('--colorSpontaneousPSMaint');
+  palette.Abnormal = style.getPropertyValue('--colorAbnormal');
+  palette.Error = style.getPropertyValue('--colorError');
+})

@@ -40,8 +40,7 @@ function listDbTableRow(item, index) {
   // Highlight selected database
   banner = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   if (sessionBannerHTML == banner) {
-    var style = getComputedStyle(document.body)
-    row.style.backgroundColor = style.getPropertyValue('--rsp_blue');
+    row.style.backgroundColor = palette.blue;
   }
 
   return true;
@@ -59,8 +58,7 @@ function selectDbRow(row) {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_mediumgreen');
+  bgd = palette.mediumgreen;
   var sessionInfo = document.getElementById("sliderCaption");
 
   sessionInfo.style.backgroundColor = bgd;
@@ -205,21 +203,20 @@ function selectSession() {
 
   numSessions = listAllDbs();
   var bnr = document.getElementById("sessionNameSelector");
-  var style = getComputedStyle(document.body)
 
   if (!numSessions) {
     bnr.innerHTML = "No Recordings Found. Use Dashboard to record";
-    bgd = style.getPropertyValue('--rsp_darkred');
+    bgd = palette.darkred;
     bnr.style.backgroundColor = bgd;
     disableAllButtons();
   } else if (sessionBannerHTML) {
     bnr.innerHTML = sessionBannerHTML;
-    bgd = style.getPropertyValue('--rsp_mediumgreen');
+    bgd = palette.mediumgreen;
     bnr.style.backgroundColor = bgd;
     enableAllButtons();
    } else {
     bnr.innerHTML = "No Selected Recording";
-    bgd = style.getPropertyValue('--rsp_darkred');
+    bgd = palette.darkred;
     bnr.style.backgroundColor = bgd;
     disableAllButtons();
   }
@@ -613,8 +610,7 @@ function outIconButton(btn) {
 }
 
 function overIconButton(btn) {
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_brightgreen');
+  bgd = palette.brightgreen;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
 }

@@ -56,8 +56,7 @@ function outIconBtn(btn) {
 }
 
 function overIconBtn(btn) {
-  var style = getComputedStyle(document.body)
-  bgd = style.getPropertyValue('--rsp_brightgreen');
+  bgd = palette.brightgreen;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
   btn.firstElementChild.style.backgroundColor = bgd;
@@ -65,7 +64,7 @@ function overIconBtn(btn) {
 
   if (btn.parentNode.parentNode.tagName == "TR") {
     saveBackgroundColor = btn.parentNode.parentNode.style.backgroundColor;
-    bgd = style.getPropertyValue('--rsp_blue');
+    bgd = palette.blue;
     btn.parentNode.parentNode.style.backgroundColor = bgd;
   }
 }
