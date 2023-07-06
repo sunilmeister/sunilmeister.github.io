@@ -14,6 +14,12 @@
   color:white; 
   border:none; 
   font-size:1rem;
+  cursor: pointer;
+}
+
+.doc-btn:hover:not([disabled]) {
+  background-color: var(--rsp_brightgreen);
+  color:var(--rsp_mediumblue); 
 }
 
 .body-pane {
@@ -27,7 +33,7 @@
 }
 
 .imgButton:hover:not([disabled]) {
-  background-color: white;
+  background-color: var(--rsp_brightgreen);
 }
 
 
