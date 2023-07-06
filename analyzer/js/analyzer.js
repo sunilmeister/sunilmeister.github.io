@@ -58,10 +58,10 @@ function selectDbRow(row) {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
-  bgd = palette.mediumgreen;
   var sessionInfo = document.getElementById("sliderCaption");
 
-  sessionInfo.style.backgroundColor = bgd;
+  sessionInfo.style.backgroundColor = palette.green;
+  sessionInfo.style.color = palette.brightgreen;
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   sessionBannerHTML = sessionInfo.innerHTML;
   initSession(dbName);
@@ -211,13 +211,13 @@ function selectSession() {
     disableAllButtons();
   } else if (sessionBannerHTML) {
     bnr.innerHTML = sessionBannerHTML;
-    bgd = palette.mediumgreen;
-    bnr.style.backgroundColor = bgd;
+    bnr.style.backgroundColor = palette.green;
+    bnr.style.color = palette.brightgreen;
     enableAllButtons();
    } else {
     bnr.innerHTML = "No Selected Recording";
-    bgd = palette.darkred;
-    bnr.style.backgroundColor = bgd;
+    bnr.style.backgroundColor = palette.darkred;
+    bnr.style.color = "white";
     disableAllButtons();
   }
 }
@@ -305,6 +305,7 @@ function selectRawData() {
   document.getElementById("rawDataDiv").style.display = "block";
   var sessionInfo = document.getElementById("sessionNameData");
   sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.style.color = palette.brightgreen;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnRaw").disabled = true;

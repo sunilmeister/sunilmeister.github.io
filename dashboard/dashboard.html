@@ -90,7 +90,7 @@
       <div id=sideMenuBar class=sidebarColumn style="margin-top:0.2rem; margin-bottm:0.2rem;">
         <div class=sidebar>
 
-          <div class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
+          <div id=curBreathDiv class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
             <center>
               <p id=breathsHeading style="font-size:1rem;font-weight:
               bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); ;padding-bottom:5px;">CURRENT BREATH</p>
@@ -99,7 +99,7 @@
               color: var(--rsp_darkblue); padding-bottom:5px;">0</p>
             </center>
           </div>
-          <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);">
+          <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_green); color:white;">
             <center>
               <p
               style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); padding-bottom:5px;"><b>CURRENT SESSION</b></p>
@@ -131,11 +131,11 @@
                 <p style="font-size:1.2rem; margin-top:-2px; margin-bottom:0px;">Set O<sub>2</sub> Flow Rate
                 <p id=o2FlowRate style="font-size:1.2rem; font-weight: bold; margin-bottom:2px; margin-top:-2px;">0.0 (litres/min)
               </div>
-              <div id=purityDiv style="background-color:var(--rsp_darkblue); color:var(--rsp_brightgreen);margin-bottom:-2px;">
+              <div id=purityDiv style="background-color:var(--rsp_green); color:var(--rsp_paleblue);margin-bottom:-2px;">
                 <p style="font-size:1rem; margin-bottom:0px;">O<sub>2</sub> Source Purity (%)
               </div>
               <br>
-              <div id=fiO2Div style="background-color:var(--rsp_darkblue); color:var(--rsp_brightgreen);margin-top:-1.75rem;">
+              <div id=fiO2Div style="background-color:var(--rsp_green); color:var(--rsp_paleblue);margin-top:-1.75rem;">
                 <p style="font-size:1rem; margin-bottom:0px;">Desired FiO<sub>2</sub> (%)
               </div>
             </div>
@@ -179,7 +179,7 @@
         <div id=rangeWindowDiv style="margin-top:25px; margin-bottom: -25px; color: white; display:none;">
           <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
           </div>
-          <div style="background-color:var(--rsp_mediumgreen); color:white; margin-top: 10px; padding-bottom:20px;">
+          <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 10px; padding-bottom:20px;">
             <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
             <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=25px height=25px></button>
             <center>
@@ -191,7 +191,7 @@
         <div id=record-pane style="width:50rem; font-size:1.2rem; display:none">
           <center>
             <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-20px;">
-              No Active Session
+              No Active Recording
               <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=recordBox style="font-size:1.1rem; text-align: left">
               </div>
@@ -456,7 +456,7 @@
 
           <div class=Patient>
             <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem;
-            margin-bottom:0rem;background-color:var(--rsp_green); color: white; font-size:1.4rem;"><b>Patient Information</b>
+            margin-bottom:0rem;background-color:var(--rsp_darkblue); color: white; font-size:1.4rem;"><b>Patient Information</b>
 
               <p id=Pline1 style="font-size:1.3rem; margin-top:1.5rem; margin-bottom:0rem;">
                 _____________
@@ -563,24 +563,25 @@
                 <div id=TempGauge></div>
           </div>
           <div class=Altitude>
-            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
+            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.25rem;
+            background-color:var(--rsp_darkblue);color:white;">
               Altitude
               <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.75rem; padding-top:0.125rem;
-              padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
+              padding-bottom:0.25rem; background-color:var(--rsp_darkblue);color:white;">
                 ft (m)
                 <p id=AltF style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem;
-                font-weight:bold;color:var(--rsp_brightgreen);">
+                font-weight:bold;">
                   __
                   <br>
                   <p id=AltM style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem;
-                  font-weight:bold;color:var(--rsp_brightgreen);">
+                  font-weight:bold;">
                     __
           </div>
 
           <div class=Breath>
-            <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_brightgreen); font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
+            <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue); font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
               Previous
-              <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_brightgreen); font-size:1.1rem;padding-bottom:0.5rem; background-color:var(--rsp_darkblue);">
+              <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue); font-size:1.1rem;padding-bottom:0.5rem; background-color:var(--rsp_darkblue);">
                 Breath
                 <p id=BreathType style="margin-top:1rem; margin-bottom:1rem; font-size:1rem; font-weight: bold;">
                   None

@@ -28,7 +28,7 @@
 }
 
 .noUi-handle {
-    background-color: var(--rsp_lightgreen);
+    background-color: var(--rsp_green);
     cursor: grab;
     border-style: outset;
     border-width: 2px;

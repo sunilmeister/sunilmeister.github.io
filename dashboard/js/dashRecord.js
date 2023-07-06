@@ -8,7 +8,8 @@ function acceptRecordingName() {
   createOrOpenDb(session.database.dbName, session.recorder.creationTimeStamp);
   InitRecorder();
   elm = document.getElementById('recordSessionName');
-  elm.style.backgroundColor = palette.mediumgreen;
+  elm.style.backgroundColor = palette.green;
+  elm.style.color = palette.brightgreen;
   arr = parseDbName(session.database.dbName);
   elm.innerHTML = arr[1] + " [" + arr[2] + "]";
 
@@ -53,6 +54,7 @@ function closeRecording() {
   btn = document.getElementById("recordButton");
   btn.innerHTML = "Start Recording";
   updateDashboardAndRecordingStatus();
+  blankRecordingBox();
 }
 
 function pauseRecording() {
@@ -76,6 +78,15 @@ function stopRecording() {
     "CLOSE Recording", "PAUSE Recording");
 }
 
+function blankRecordingBox() {
+  elm = document.getElementById('recordSessionName');
+  elm.style.backgroundColor = palette.darkred;
+  elm.style.color = "white";
+  elm.innerHTML = "No Active Recording"
+  recordBox = document.getElementById("recordBox");
+  recordBox.innerHTML = "";
+}
+
 function toggleRecording() {
   if (session.recorder.off) {
     startRecording();
@@ -88,6 +99,7 @@ function toggleRecording() {
 }
 
 function blinkRecordButton() {
+  /*
   btn = document.getElementById("recordButton");
   if (!session.recorder.off) {
     if (recordButtonForeground == "WHITE") {
@@ -101,6 +113,7 @@ function blinkRecordButton() {
     btn.style.color = 'white';
     recordButtonForeground = "WHITE";
   }
+  */
 }
 
 // ///////////////////////////////////////////////////////

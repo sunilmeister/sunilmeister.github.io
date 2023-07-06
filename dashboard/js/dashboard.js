@@ -165,6 +165,12 @@ function createDashboards() {
       prevUpdateNumWaves = currNumWaves;
     }
   }
+
+  if (currentView == "records") {
+    if (!session.database.dbName) {
+      blankRecordingBox();
+    }
+  }
 }
 
 function snapshotProcessJsonRecord(d) {
@@ -201,11 +207,13 @@ function blinkPauseButton() {
   btn = document.getElementById("btnPause");
   ttl = document.getElementById("breathsHeading");
   bnum = document.getElementById("breathNum");
+  bdiv = document.getElementById("curBreathDiv");
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
       btn.style.color = palette.orange;
       ttl.style.backgroundColor = palette.orange;
       bnum.style.backgroundColor = palette.orange;
+      bdiv.style.backgroundColor = palette.orange;
       ttl.innerHTML = "Dashboard Paused"
       bnum.innerHTML = breathPausedAt;
       pauseButtonForeground = "ORANGE";
@@ -213,6 +221,7 @@ function blinkPauseButton() {
       btn.style.color = 'white';
       ttl.style.backgroundColor = palette.mediumgreen;
       bnum.style.backgroundColor = palette.mediumgreen;
+      bdiv.style.backgroundColor = palette.mediumgreen;
       ttl.innerHTML = "CURRENT BREATH"
       bnum.innerHTML = session.dashboardBreathNum;
       pauseButtonForeground = "WHITE";
@@ -421,7 +430,7 @@ function selectExit() {
 }
 
 function installFiO2Gauge() {
-  var bgColor = 'white';
+  var bgColor = palette.darkblue;
   var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('fiO2Div');
   fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
@@ -429,7 +438,7 @@ function installFiO2Gauge() {
 }
 
 function installPurityGauge() {
-  var bgColor = 'white';
+  var bgColor = palette.darkblue;
   var fgColor = palette.brightgreen;
   var containerDiv = document.getElementById('purityDiv');
   purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);

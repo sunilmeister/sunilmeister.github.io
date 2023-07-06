@@ -119,68 +119,69 @@
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
-        <div class=shadowDiv5 style="background-color:var(--rsp_mediumgreen); color:white; font-size:1.1rem; ">
+        <div class=shadowDiv5 style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);; font-size:1.1rem; ">
           <center>
-            <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_green);padding-bottom:5px;"><b>RECORDED DATA</b></p>
+            <p style="margin-bottom:0;margin-top:12px; padding-bottom:5px;"><b>RECORDED DATA</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
             margin-top:10px;color:var(--rsp_darkblue);">
-              <tr>
+              <tr style="height:2rem;">
                 <td align="left">&nbspBreaths</td>
                 <td id=logNumBreaths align="center">--</td>
               </tr>
-              <tr>
+              <tr style="height:2rem;">
                 <td align="left">&nbspDuration</td>
                 <td id=logTimeDuration align="center">--:--:--</td>
               </tr>
-              <tr>
+              <tr style="height:2rem;">
                 <td align="left">&nbspPriorBreaths</td>
                 <td id=priorNumBreaths align="center">--</td>
               </tr>
             </table>
-            <br>
-            <p style="margin-bottom:0;background-color:var(--rsp_green);padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
-            <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%; margin-top:10px;color:var(--rsp_darkblue);">
-              <tr>
+          </center>
+        </div>
+        <div class=shadowDiv5 style="background-color:var(--rsp_green); color:var(--rsp_brightgreen);; font-size:1.1rem; ">
+          <center>
+            <p style="margin-bottom:0;padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
+            <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
+            margin-top:10px;color:var(--rsp_brightgreen);">
+              <tr style="height:2rem;">
                 <td align="left">&nbspBreathRange</td>
                 <td id=selectedBreathRange align="center">--</td>
               </tr>
-              <tr>
+              <tr style="height:2rem;">
                 <td align="left">&nbspDuration</td>
                 <td id=selectedTimeDuration align="center">--:--:--</td>
               </tr>
             </table>
           </center>
-          <br>
         </div>
         <br>
+      </div>
+      <br>
+
+      <center>
+          <button id=btnSelect class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:250px; font-size:25px;
+          border:none; margin:1rem;" onclick='selectSession()'>Select Recording</button>
+          </center>
+          <br>
         <br>
 
-        <center>
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.5rem; ">
-            <button id=btnSelect class=sidebarButton onclick='selectSession()' style='font-size: 1.4rem;'>Select Recording</button>
-            <br>
-          </div>
+        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
+          <br>
+          <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
+          <br>
+          <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
+          <br>
+          <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
+          <br>
+          <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
+          <br>
+          <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
           <br>
           <br>
+        </div>
 
-          <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; ">
-            <p style="margin-bottom:0;margin-top:12px; background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
-            <br>
-            <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
-            <br>
-            <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
-            <br>
-            <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
-            <br>
-            <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
-            <br>
-            <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
-            <br>
-            <br>
-          </div>
-        </center>
-
-      </div>
+    </div>
     </div>
 
     <div id=nonMenuArea class=body-pane>
@@ -188,7 +189,7 @@
       <div id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
         <div id=analysisRangeSliderDiv style="margin-top:25px; padding-left:20px; padding-right:20px;font-size:1.25rem; ">
         </div>
-        <div style="background-color:var(--rsp_mediumgreen); color:white; margin-top: 10px; padding-bottom:20px;">
+        <div style="background-color:var(--rsp_green); color:white; margin-top: 10px; padding-bottom:20px;">
           <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
           <center>
             <p id=sliderCaption style="margin-top: 10px; margin-bottom:-12px; font-size:1.8rem; "> Breath Range Selector
@@ -205,11 +206,10 @@
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:692px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.2rem; ">
+        <div class=shadowDiv5 style="height:655px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.2rem; ">
 
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.4em;">
-            <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)'
-            onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/import.png" width=30px height=30px></button>
+            <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/import.png" width=30px height=30px></button>
             <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" width=30px height=30px></button>
             <br>
             <center>RESPIMATIC-100 Recordings</center>
@@ -448,7 +448,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
                   Recorded Errors</h2>
               </center>
-              <div class=shadowDiv5 id=errorDiv style="height:675px; margin-left:0px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id=errorDiv style="height:650px; margin-left:0px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollErrorDiv style="font-size:1rem; text-align: left;">
               </div>
             </div>
@@ -458,7 +458,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
                   Recorded Warnings</h2>
               </center>
-              <div class=shadowDiv5 id=warningDiv style="height:675px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id=warningDiv style="height:650px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollWarningDiv style="font-size:1rem; text-align: left">
               </div>
             </div>
@@ -468,7 +468,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
                   Recorded Information</h2>
               </center>
-              <div class=shadowDiv5 id=infoDiv style="height:675px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+              <div class=shadowDiv5 id=infoDiv style="height:650px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
                 <p id=scrollInfoDiv style="font-size:1rem; text-align: left">
               </div>
             </div>
@@ -481,11 +481,11 @@
         <div style="margin-bottom:20px;;">
           <center>
             <p class=shadowDiv5 id=sessionNameData style="margin-top:-50px; margin-bottom:0px;
-            background-color:var(--rsp_mediumgreen); color:white;font-size:2em; "> No Selected Recording
+            background-color:var(--rsp_green); color:brightgreen;font-size:2em; "> No Selected Recording
           </center>
         </div>
         <center>
-          <div class=shadowDiv5 style="margin-right:10px; height:810px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+          <div class=shadowDiv5 style="margin-right:10px; height:785px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id=scrollRawDataDiv style="font-size:1rem; text-align: left">
           </div>
 
