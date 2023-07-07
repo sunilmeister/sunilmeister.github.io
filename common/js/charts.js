@@ -156,9 +156,10 @@ function createAllCharts() {
     renderAllCharts();
     return;
   } else {
-      modalAlert("Too many Chart Datapoints (" + session.charts.numChartDatapoints +")", 
+      modalAlert("Too many Breaths selected (" + session.charts.numChartDatapoints +")", 
         "Use Range Selector to select " + CHART_ALERT_THRESHOLD + " or less"
-        + "\nchart datapoints to display"); 
+        + "\nbreaths to display"); 
+      cancelRenderAllCharts();
       return;
   }
 }
