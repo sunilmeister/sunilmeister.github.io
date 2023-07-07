@@ -75,6 +75,7 @@ function getCurrentSimulatedMillis() {
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function (d) {
     dormantTimeInSec = 0;
+    wifiDropped = false;
     autoCloseDormantPopup();
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();

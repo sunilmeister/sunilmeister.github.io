@@ -25,6 +25,10 @@ var SessionDataTemplate = {
     board: null,
   },
 
+  wifi: {
+    drops: [], // {time: , value: {dropAt: , reconnectAt: }
+  },
+
   database: {
     db:  null,
     dbVersion:  1,

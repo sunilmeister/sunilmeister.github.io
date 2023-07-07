@@ -22,6 +22,19 @@ function waveWaveformKey(key) {
   return false;
 }
 
+function parseWifiData(jsonStr) {
+  arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 2)) {
+    return null;
+  }
+  val = {
+    dropAt : arr[0],
+    reconnectAt : arr[1],
+  }
+
+  return val;
+}
+
 function parseStateData(jsonStr) {
   val = {
     prevState : null,
@@ -291,6 +304,9 @@ function processJsonRecord(jsonData) {
           processComplianceDweet(curTime, value);
         } else if (ckey == "MISC") {
           processMiscDweet(curTime, value);
+        } else if (ckey == "WIFI_STATS") {
+          processWifiDweet(curTime, value);
+          console.log("WIFI_STATS " + value);
         } else if (ckey == "LOC") {
           session.miscData.locationName = value;
         } else if (ckey == "FNAME") {
@@ -546,6 +562,16 @@ function processPwsliceDweet(receivedSliceNum, str) {
 // /////////////////////////////////////////////////////
 // All other dweets below
 // /////////////////////////////////////////////////////
+function processWifiDweet(curTime, jsonStr) {
+  obj = parseWifiData(jsonStr);
+  if (!obj) return;
+
+  session.wifi.drops.push({
+    "time": curTime,
+    "value": cloneObject(obj)
+  });
+}
+
 function processStateDweet(curTime, jsonStr) {
   obj = parseStateData(jsonStr);
   if (!obj) return;
