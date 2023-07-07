@@ -87,7 +87,7 @@
     </div>
 
     <div id=fullDashboard style="min-height:60rem;">
-      <div id=sideMenuBar class=sidebarColumn style="margin-top:0.2rem; margin-bottm:0.2rem;">
+      <div id=sideMenuBar class=sidebarColumn >
         <div class=sidebar>
 
           <div id=curBreathDiv class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
@@ -135,15 +135,16 @@
                 <p style="font-size:1rem; margin-bottom:0px;">O<sub>2</sub> Source Purity (%)
               </div>
               <br>
-              <div id=fiO2Div style="background-color:var(--rsp_green); color:var(--rsp_paleblue);margin-top:-1.75rem; padding-bottom:0px;">
+              <div id=fiO2Div style="background-color:var(--rsp_green); color:var(--rsp_paleblue);margin-top:-2rem; padding-bottom:0px;">
                 <p style="font-size:1rem; margin-bottom:0px;">Desired FiO<sub>2</sub> (%)
               </div>
             </div>
           </center>
 
-          <div class=shadowDiv10 style="margin-top:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
+          <div class=shadowDiv10 style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
+            <br>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:-5px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
             </center>
             <button id=btnSnapshots class=sidebarButton onclick='changeToSnapshotView()' disabled>View Snapshots</button>
 
@@ -163,7 +164,8 @@
 
           <div class=shadowDiv10 style="margin-top:1rem; margin-bottom:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>TURN ON/OFF</b></p>
+            <br>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:-5px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>TURN ON/OFF</b></p>
             </center>
             <button id=btnPause class=sidebarButton onclick='togglePause()'>Pause Dashboard</button>
 

@@ -48,8 +48,6 @@ function createAllAlerts() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (session.inProgress.alerts) return;
-  session.inProgress.alerts = true;
 
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
@@ -85,7 +83,6 @@ function createAllAlerts() {
     displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i]);
   }
 
-  session.inProgress.alerts = false;
 }
 
 function numberOfExistingAlerts() {

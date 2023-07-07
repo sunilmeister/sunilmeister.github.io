@@ -137,8 +137,6 @@ function createAllCharts() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (session.inProgress.charts) return;
-  session.inProgress.charts = true;
 
   if (numberOfExistingCharts() == 0) {
     chartInsertOnTop(); // always have chart box for user to start with
@@ -159,20 +157,14 @@ function createAllCharts() {
       modalAlert("Too many Breaths selected (" + session.charts.numChartDatapoints +")", 
         "Use Range Selector to select " + CHART_ALERT_THRESHOLD + " or less"
         + "\nbreaths to display"); 
-      cancelRenderAllCharts();
       return;
   }
-}
-
-function cancelRenderAllCharts() {
-  session.inProgress.charts = false;
 }
 
 function renderAllCharts() {
   for (id in session.charts.allChartsContainerInfo) {
     session.charts.allChartsContainerInfo[id].render();
   }
-  session.inProgress.charts = false;
 }
 
 function submitChartXaxis(bnode) {

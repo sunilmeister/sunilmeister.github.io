@@ -52,13 +52,6 @@ var SessionDataTemplate = {
     missingTime: []
   },
 
-  inProgress: {
-    charts:     false,
-    waves:     false,
-    alerts:     false,
-    stats:      false,
-  },
-
   // ////////////////////////////////////////////////////
   // data collected from dweets
   // ////////////////////////////////////////////////////

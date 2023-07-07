@@ -348,8 +348,6 @@ function createAllStats() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (session.inProgress.stats) return;
-  session.inProgress.stats = true;
 
   if (!session.statTablesConstructed) {
     //console.log("Constructing Tables");
@@ -385,7 +383,6 @@ function createAllStats() {
     el.innerHTML = "Location Atmospheric Oxygen: " + session.miscData.o2Pct + "%";
   }
 
-  session.inProgress.stats = false;
 }
 
 function initStats() {

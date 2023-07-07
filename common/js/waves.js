@@ -137,8 +137,6 @@ function createAllWaves() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-  if (session.inProgress.waves) return;
-  session.inProgress.waves = true;
 
   if (numberOfExistingWaveBoxes() == 0) {
     waveInsertOnTop(); // always have wave box for user to start with
@@ -153,7 +151,6 @@ function createAllWaves() {
     session.waves.allWavesContainerInfo[id].render();
   }
 
-  session.inProgress.waves = false;
 }
 
 
