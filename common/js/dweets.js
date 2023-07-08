@@ -111,7 +111,7 @@ function parseFiO2Data(jsonStr) {
   val = {
     fiO2 :      (arr[0] == -1) ? null : arr[0],
     o2Purity :  (arr[1] == -1) ? null : arr[1],
-    o2FlowX10 : (arr[2] == -1) ? null : arr[2]/10,
+    o2FlowX10 : (arr[2] == -1) ? null : arr[2],
   }
   return val;
 }
@@ -306,7 +306,7 @@ function processJsonRecord(jsonData) {
           processMiscDweet(curTime, value);
         } else if (ckey == "WIFI_STATS") {
           processWifiDweet(curTime, value);
-          console.log("WIFI_STATS " + value);
+          //console.log("WIFI_STATS " + value);
         } else if (ckey == "LOC") {
           session.miscData.locationName = value;
         } else if (ckey == "FNAME") {
@@ -569,6 +569,20 @@ function processWifiDweet(curTime, jsonStr) {
   session.wifi.drops.push({
     "time": curTime,
     "value": cloneObject(obj)
+  });
+
+  var msg = {
+    'created': curTime,
+    'breathNum': obj.reconnectAt,
+    'L1': "Auto Recovered from",
+    'L2': "Dropped WIFI or",
+    'L3': "Server Disconnection",
+    'L4': ""
+  };
+  session.infoMsgs.push(msg);
+  session.infoChanges.push({
+    "time": curTime,
+    "value": ++session.alerts.infoNum
   });
 }
 
