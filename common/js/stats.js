@@ -137,6 +137,7 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
   miscTableRow(table, "Number of CMV-mode Spontaneous Breaths", "numCmvSpont");
   miscTableRow(table, "Number of Missing Intervals (Packet loss)", "numMissingBreaths");
+  miscTableRow(table, "Number of WiFi or Server Disconnects", "numWifiDrops");
   miscTableRow(table, "Number of Notifications", "numNotifications");
   miscTableRow(table, "Number of Warnings", "numWarnings");
   miscTableRow(table, "Number of Errors", "numErrors");
@@ -226,11 +227,11 @@ function displayBreathTypeInfo() {
   el.innerHTML = replaceDummyValue(ne);
 
 
-  arr = statComputer.filterChanges(session.missingBreathWindows);
+  arr = statComputer.filterChanges(session.missingBreaths);
   var n = 0;
   for (let i = 0; i < arr.length; i++) {
     obj = arr[i];
-    n += (obj.endValue - obj.startValue);
+    n += obj.value;
   }
   el = document.getElementById("numMissingBreaths");
   el.innerHTML = replaceDummyValue(n);
@@ -242,6 +243,10 @@ function displayBreathTypeInfo() {
   }
   el = document.getElementById("numCmvSpont");
   el.innerHTML = replaceDummyValue(n);
+
+  arr = statComputer.filterChanges(session.wifi.drops);
+  el = document.getElementById("numWifiDrops");
+  el.innerHTML = replaceDummyValue(arr.length);
 }
 
 function displayMinMaxAvg() {

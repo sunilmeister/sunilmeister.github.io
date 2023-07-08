@@ -35,7 +35,8 @@ class StatComputer {
     var maxDate = (this.breathTimes[this.xRange.maxBnum]);
 
     var prevItem = null;
-    for (let i = 1; i < transitions.length; i++) {
+    for (let i = 0; i < transitions.length; i++) {
+      if (transitions[i].time === null) continue;
       var tDate = new Date(transitions[i].time);
       if (tDate > maxDate) {
         if (keepOneBefore && (arr.length == 0)) {
