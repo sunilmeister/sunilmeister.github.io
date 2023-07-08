@@ -376,16 +376,16 @@ function displayWifiDropped() {
     updateDashboardAndRecordingStatus();
     elm = document.getElementById("Mline1");
     savedL1 = elm.innerHTML;
-    elm.innerHTML = "&nbsp";
+    elm.innerHTML = "No Message from";
     elm = document.getElementById("Mline2");
     savedL2 = elm.innerHTML;
-    elm.innerHTML = "No Message from device";
+    elm.innerHTML = "Respimatic100 UID";
     elm = document.getElementById("Mline3");
     savedL3 = elm.innerHTML;
-    elm.innerHTML = "for " + dormantTimeInSec + " secs";
+    elm.innerHTML = respimaticUid;
     elm = document.getElementById("Mline4");
     savedL4 = elm.innerHTML;
-    elm.innerHTML = "&nbsp";
+    elm.innerHTML = "for " + dormantTimeInSec + " secs";
   }
 }
 
