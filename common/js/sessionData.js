@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 var SessionDataTemplate = {
+  internetOnline: true,
   appId: null,
   
   // currently open session
@@ -328,5 +329,54 @@ function createReportRange(rolling, minBnum, maxBnum) {
   range.missingBnum = cloneObject(session.missingBreathWindows);
   range.missingTime = cloneObject(session.missingTimeWindows);
   return range;
+}
+
+/////////////////////////////////////////////////////
+// Periodically check the internet online status
+/////////////////////////////////////////////////////
+setInterval(async () => {
+  testUrl('http://google.com');
+}, 5000); // check every 5 secs
+
+function testUrl(url) {
+  if (!session) return; // nowhere to store result
+  var wasOnline = session.internetOnline;
+  ping(url).then(function(delta) {
+    session.internetOnline = true;
+    //if (!wasOnline) alert("System is online");
+  }).catch(function(error) {
+    session.internetOnline = false;
+    //if (wasOnline) alert("System is offline");
+  });
+};
+
+// Pings a url.
+// @param  {String} url
+// @return {Promise} promise that resolves to a ping (ms, float).
+function ping(url) {
+    return new Promise(function(resolve, reject) {
+      var start = (new Date()).getTime();
+      var response = function() { 
+        var delta = ((new Date()).getTime() - start);
+        resolve(delta); 
+      };
+      request_image(url).then(response).catch(response);
+        
+      // Set a timeout for max-pings, 5s.
+      setTimeout(function() { reject(Error('Timeout')); }, 5000);
+  });
+}
+
+ // Creates and loads an image element by url.
+ // @param  {String} url
+ // @return {Promise} promise that resolves to an image element or
+ //                   fails to an Error.
+function request_image(url) {
+    return new Promise(function(resolve, reject) {
+        var img = new Image();
+        img.onload = function() { resolve(img); };
+        img.onerror = function() { reject(url); };
+        img.src = url + '?random-no-cache=' + Math.floor((1 + Math.random()) * 0x10000).toString(16);
+    });
 }
 

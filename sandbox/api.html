@@ -1,0 +1,19 @@
+<head>
+    <script src="./XXX.js"></script>
+    <script>
+    function connectFn() {
+      elm = document.getElementById('uid');
+      uid = elm.value;
+      console.log("======== Calling XXX(" + uid + ")");
+      XXX(uid, function (timeStamp, jsonData) {
+        console.log("-------- " + timeStamp);
+        console.log(jsonData);
+        console.log("--------");
+      })
+    };
+    </script>
+</head>
+<body>
+    <input id='uid' type='text' value='ABCD'></input>
+    <button onclick='connectFn()'>CONNECT</button>
+</body>

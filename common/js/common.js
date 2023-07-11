@@ -3,26 +3,6 @@
 // ////////////////////////////////////////////////////
 var respimaticUid = "";
 var respimaticTag = "";
-var internetOnline = true;
-
-///////////////////////////////////////////////////////
-// try loading a 1-pixel image every 5secs
-// to check if you are online or offline
-///////////////////////////////////////////////////////
-const checkOnlineStatus = async () => {
-  try {
-    const online = await fetch("../../common/img/1pixel.png"); 
-    return online.status >= 200 && online.status < 300; // either true or false
-  } catch (err) {
-    return false; // definitely offline
-  }
-};
-
-// Periodically check the internet
-setInterval(async () => {
-  //const result = await checkOnlineStatus();
-  //internetOnline = result;
-}, 5000); // check every 5 secs
 
 ///////////////////////////////////////////////////////
 // For modal warnings errors, confirmations etc.
