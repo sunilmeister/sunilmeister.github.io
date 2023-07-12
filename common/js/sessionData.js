@@ -115,6 +115,8 @@ var SessionDataTemplate = {
   minuteData: {
     mbpm : null,
     sbpm : null,
+    smvdel : null,
+    mmvdel : null,
     mvdel : null,
   },
 
@@ -153,6 +155,8 @@ var SessionDataTemplate = {
   breathTimes:          [null],
   stateChanges:          [{"time":0, "value":null}],
   vtdelChanges:          [{"time":0, "value":null}],
+  mmvdelChanges:         [{"time":0, "value":null}],
+  smvdelChanges:         [{"time":0, "value":null}],
   mvdelChanges:          [{"time":0, "value":null}],
   sbpmChanges:           [{"time":0, "value":null}],
   mbpmChanges:           [{"time":0, "value":null}],

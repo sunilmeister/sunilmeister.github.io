@@ -375,6 +375,14 @@ function launchDocs() {
   document.getElementById("passwordDiv").style.display = "block";
 }
 
+function launchTest() {
+  if (!setSelectedRespimaticTagFromDD()) {
+    return;
+  }
+  //window.location.assign("dashboard/respimatic.dashboard.html");
+  window.open("../dashboard/dashboard_test.html");
+}
+
 function launchDashboard() {
   if (!setSelectedRespimaticTagFromDD()) {
     return;

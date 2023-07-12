@@ -118,13 +118,15 @@ function parseFiO2Data(jsonStr) {
 
 function parseMinuteData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 3)) {
+  if (!arr || (arr.length != 4)) {
     return null;
   }
   val = {
     mbpm :  (arr[0] == -1) ? null : arr[0],
     sbpm :  (arr[1] == -1) ? null : arr[1],
-    mvdel : (arr[2] == -1) ? null : arr[2],
+    mmvdel : (arr[2] == -1) ? null : arr[2],
+    smvdel : (arr[3] == -1) ? null : arr[3],
+    mvdel: null,
   }
   return val;
 }
@@ -681,12 +683,17 @@ function processFiO2Dweet(curTime, jsonStr) {
 function processMinuteDweet(curTime, jsonStr) {
   obj = parseMinuteData(jsonStr);
   if (!obj) return;
-  if (obj.mvdel) {
-    obj.mvdel = parseFloat(obj.mvdel/1000).toFixed(1);
+  if (obj.mmvdel !== null) { // valid minute volume
+    obj.mmvdel = parseFloat(obj.mmvdel/1000).toFixed(1);
+    obj.smvdel = parseFloat(obj.smvdel/1000).toFixed(1);
+    mv = Number(obj.mmvdel) + Number(obj.smvdel);
+    obj.mvdel = mv.toFixed(1);
   }
 
   saveSnapTransValue("mbpm", "minuteData", "mbpmChanges", curTime, obj);
   saveSnapTransValue("sbpm", "minuteData", "sbpmChanges", curTime, obj);
+  saveSnapTransValue("mmvdel", "minuteData", "mmvdelChanges", curTime, obj);
+  saveSnapTransValue("smvdel", "minuteData", "smvdelChanges", curTime, obj);
   saveSnapTransValue("mvdel", "minuteData", "mvdelChanges", curTime, obj);
 }
 
