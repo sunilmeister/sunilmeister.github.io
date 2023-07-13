@@ -118,11 +118,11 @@ class StatComputer {
       if (sum == null) sum = val;
       else sum += val;
 
-      if (!this.computedMin) this.computedMin = val;
-      else if (val < this.computedMin) this.computedMin = val;
+      if (!this.computedMin) this.computedMin = val.toFixed(1);
+      else if (val < this.computedMin) this.computedMin = val.toFixed(1);
 
-      if (!this.computedMax) this.computedMax = val;
-      else if (val > this.computedMax) this.computedMax = val;
+      if (!this.computedMax) this.computedMax = val.toFixed(1);
+      else if (val > this.computedMax) this.computedMax = val.toFixed(1);
     }
 
     if (sum != null) {

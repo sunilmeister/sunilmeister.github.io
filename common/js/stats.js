@@ -106,12 +106,14 @@ function constructStatMinMaxTable() {
   minMaxTableRow(table, "Plateau Pressure", "cmH20", "platMin", "platMax", "platAvg");
   minMaxTableRow(table, "PEEP Pressure", "cmH20", "mpeepMin", "mpeepMax", "mpeepAvg");
   minMaxTableRow(table, "Tidal Volume Delivered", "ml", "vtMin", "vtMax", "vtAvg");
-  minMaxTableRow(table, "Minute Volume Delivered", "litres/min", "mvMin", "mvMax", "mvAvg");
+  minMaxTableRow(table, "Total Minute Volume", "litres/min", "mvMin", "mvMax", "mvAvg");
+  minMaxTableRow(table, "Mandatory Minute Volume", "litres/min", "mmvMin", "mmvMax", "mmvAvg");
+  minMaxTableRow(table, "Spontaneous Minute Volume", "litres/min", "smvMin", "smvMax", "smvAvg");
   minMaxTableRow(table, "Mandatory BPM", "bpm", "mbpmMin", "mbpmMax", "mbpmAvg");
   minMaxTableRow(table, "Spontaneous BPM", "bpm", "sbpmMin", "sbpmMax", "sbpmAvg");
   minMaxTableRow(table, "FIO2", "%", "fiO2Min", "fiO2Max", "fiO2Avg");
-  minMaxTableRow(table, "Instantaneous Static Compliance", "ml/cmH20", "scMin", "scMax", "scAvg");
-  minMaxTableRow(table, "Instantaneous Dynamic Compliance", "ml/cmH20", "dcMin", "dcMax", "dcAvg");
+  minMaxTableRow(table, "Static DeltaV/DeltaP", "ml/cmH20", "scMin", "scMax", "scAvg");
+  minMaxTableRow(table, "Dynamic DeltaV/DeltaP", "ml/cmH20", "dcMin", "dcMax", "dcAvg");
   minMaxTableRow(table, "System Temperature", "degC", "tempMin", "tempMax", "tempAvg");
 }
 
@@ -255,6 +257,8 @@ function displayMinMaxAvg() {
   fillMinMaxAvgRow("mpeepMin", "mpeepMax", "mpeepAvg", session.mpeepChanges);
   fillMinMaxAvgRow("vtMin", "vtMax", "vtAvg", session.vtdelChanges);
   fillMinMaxAvgRow("mvMin", "mvMax", "mvAvg", session.mvdelChanges);
+  fillMinMaxAvgRow("mmvMin", "mmvMax", "mmvAvg", session.mmvdelChanges);
+  fillMinMaxAvgRow("smvMin", "smvMax", "smvAvg", session.smvdelChanges);
   fillMinMaxAvgRow("mbpmMin", "mbpmMax", "mbpmAvg", session.mbpmChanges);
   fillMinMaxAvgRow("sbpmMin", "sbpmMax", "sbpmAvg", session.sbpmChanges);
   fillMinMaxAvgRow("fiO2Min", "fiO2Max", "fiO2Avg", session.fiO2Changes);
