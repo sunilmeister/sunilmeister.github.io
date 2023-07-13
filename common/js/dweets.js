@@ -879,6 +879,7 @@ function processBnumDweet(curTime, value, jsonData) {
     breathsMissing = value - 1;
   } else {
     breathsMissing = session.systemBreathNum - session.prevSystemBreathNum - 1;
+    if (breathsMissing < 0) breathsMissing = 0;
   }
   session.numMissingBreaths += breathsMissing;
   if (session.startSystemBreathNum == null) {
