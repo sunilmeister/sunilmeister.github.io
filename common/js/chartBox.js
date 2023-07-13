@@ -402,12 +402,12 @@ class ChartBox {
     yAxisInfo.yMin = 0;
     yAxisInfo.yMax = null;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "Compliance (ml/cm H20)";
+    yAxisInfo.yName = "DeltaV/DeltaP (ml/cm H20)";
 
     var markerInfo = cloneObject(markerInfoTemplate);
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Static Compliance (ml/cm H20)";
+    paramInfo.name = "Static DeltaV/DeltaP (ml/cm H20)";
     paramInfo.color = "navy";
     paramInfo.transitions = session.scompChanges;
     paramInfo.graphType = "stepLine";
@@ -424,12 +424,12 @@ class ChartBox {
     yAxisInfo.yMin = 0;
     yAxisInfo.yMax = null;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
-    yAxisInfo.yName = "Compliance (ml/cm H20)";
+    yAxisInfo.yName = "DeltaV/DeltaP (ml/cm H20)";
 
     var markerInfo = cloneObject(markerInfoTemplate);
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Dynamic Compliance (ml/cm H20)";
+    paramInfo.name = "Dynamic DeltaV/DeltaP (ml/cm H20)";
     paramInfo.color = "crimson";
     paramInfo.transitions = session.dcompChanges;
     paramInfo.graphType = "stepLine";
