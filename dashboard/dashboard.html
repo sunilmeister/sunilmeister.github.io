@@ -496,7 +496,7 @@
           </div>
 
           <div class=Volume>
-            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Estimated Delivered Volume
+            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Delivered Volumes
           </div>
           <div class=Tidal>
             <p class=measuredHeadingCls>
@@ -515,24 +515,24 @@
                   (l/min)
           </div>
 
-          <div class=Compliance>
-            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Estimated Instant Compliance
+          <div class=MinuteVols>
+            <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1rem;">Minute Volume Breakdown
           </div>
-          <div class=Dynamic>
+          <div class=MinuteVol_M>
             <p class=measuredHeadingCls>
-              Dynamic
-              <p id=DCOMP class=measuredValueCls>
+              Mandatory
+              <p id=MMVDEL class=measuredValueCls>
                 __
                 <p class=measuredUnitsCls>
-                  (ml/cm H<sub>2</sub>O)
+                  (l/min)
           </div>
-          <div class=Static>
+          <div class=MinuteVol_S>
             <p class=measuredHeadingCls>
-              Static
-              <p id=SCOMP class=measuredValueCls>
+              Patient
+              <p id=SMVDEL class=measuredValueCls>
                 __
                 <p class=measuredUnitsCls>
-                  (ml/cm H<sub>2</sub>O)
+                  (l/min)
           </div>
 
           <div class=BPM>
@@ -561,7 +561,7 @@
           <div class=Temp>
             <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.125rem; background-color:var(--rsp_darkblue);">
               Temperature
-              <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.5rem; padding-top:0.125rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
+              <p style="font-size:0.8rem;margin-top:0rem; margin-bottom:0.5rem; padding-top:0.125rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
                 <sup>o</sup>C
                 <div id=TempGauge></div>
           </div>
@@ -569,7 +569,7 @@
             <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.1rem;padding-top:0.25rem;
             background-color:var(--rsp_darkblue);color:white;">
               Altitude
-              <p style="font-size:1rem;margin-top:0rem; margin-bottom:0.75rem; padding-top:0.125rem;
+              <p style="font-size:0.8rem;margin-top:0rem; margin-bottom:0.75rem; padding-top:0.125rem;
               padding-bottom:0.25rem; background-color:var(--rsp_darkblue);color:white;">
                 ft (m)
                 <p id=AltF style="margin-top:1rem; margin-bottom:0rem; font-size:1.25rem;
@@ -581,16 +581,19 @@
                     __
           </div>
 
-          <div class=Breath>
-            <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue); font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
-              Previous
-              <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue); font-size:1.1rem;padding-bottom:0.5rem; background-color:var(--rsp_darkblue);">
-                Breath
-                <p id=BreathType style="margin-top:1rem; margin-bottom:1rem; font-size:1rem; font-weight: bold;">
-                  None
-                  <div>
-                    <img id=ImgBreath src="img/WhiteDot.png" alt="LED" style="margin-top:0.5rem" width="30rem" height="30rem">
-                  </div>
+          <div class=Compliance>
+            <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue);
+            font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
+              DeltaV/DeltaP
+            <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue);
+            font-size:0.8rem;padding-top:0.25rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
+              (ml/cmH<sub>2</sub>O)
+                <p style="margin-top:0.25rem; margin-bottom:-0.25rem; font-size:1rem;">Dynamic
+                <p id=DCOMP style="margin-top:0.25rem; margin-bottom:1rem; font-size:1.4rem; font-weight: bold;">
+                  __
+                <p style="margin-top:-0.5rem; margin-bottom:-0.25rem; font-size:1rem;">Static
+                <p id=SCOMP style="margin-top:0.25rem; margin-bottom:-0.25rem; font-size:1.4rem; font-weight: bold;">
+                  __
           </div>
 
           <div class=Parameters>

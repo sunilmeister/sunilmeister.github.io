@@ -122,11 +122,19 @@ function displayMessageLine(lineTag, value) {
 }
 
 function animateDivValue(div, value) {
+  if (div.innerText === null) {
+    div.innerHTML = "--";
+    return;
+  }
   if (Number(div.innerText) == value) return;
   animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
 }
 
 function animateDivToValue(div, value) {
+  if (div.innerText === null) {
+    div.innerHTML = "--";
+    return;
+  }
   if (Number(div.innerText) == value) return;
   animateNumberValueTo(div, value);
 }
@@ -192,6 +200,7 @@ function updateFiO2DivsFromSessionData() {
 }
 
 function updateBreathTypeFromSessionData() {
+  /*
   switch (session.breathData.type) {
     case MANDATORY_BREATH:
       imgBreathDIV.src = "img/YellowDot.png";
@@ -210,6 +219,7 @@ function updateBreathTypeFromSessionData() {
       breathTypeValELM.innerHTML = "None";
       break;
   }
+  */
 }
 
 function updateBreathDivsFromSessionData() {
@@ -225,6 +235,8 @@ function updateMinuteDivsFromSessionData() {
   updateDivValue(sbpmValELM, session.minuteData.sbpm);
   updateDivValue(mbpmValELM, session.minuteData.mbpm);
   updateDivValue(mvdelValELM, session.minuteData.mvdel);
+  updateDivValue(mmvdelValELM, session.minuteData.mmvdel);
+  updateDivValue(smvdelValELM, session.minuteData.smvdel);
 }
 
 function updateCompDivsFromSessionData() {

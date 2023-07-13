@@ -92,7 +92,7 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-.Dynamic {
+.MinuteVol_M {
   grid-area: 13 / 4 / 15 / 6;
   background-color: var(--rsp_green);
   color: var(--rsp_brightgreen);
@@ -101,7 +101,7 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-.Static {
+.MinuteVol_S {
   grid-area: 13 / 6 / 15 / 8;
   background-color: var(--rsp_green);
   color: var(--rsp_brightgreen);
@@ -110,7 +110,7 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-.Compliance {
+.MinuteVols {
   grid-area: 12 / 4 / 13 / 8;
   background-color: var(--rsp_darkblue);
   color: white;
@@ -206,7 +206,7 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-.Breath {
+.Compliance {
   grid-area: 12 / 9 / 15 / 12;
   color: var(--rsp_brightgreen);
   background-color: var(--rsp_green);
