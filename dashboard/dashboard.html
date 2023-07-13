@@ -528,7 +528,7 @@
           </div>
           <div class=MinuteVol_S>
             <p class=measuredHeadingCls>
-              Patient
+              Spontaneous
               <p id=SMVDEL class=measuredValueCls>
                 __
                 <p class=measuredUnitsCls>
@@ -548,7 +548,7 @@
           </div>
           <div class=SBPM>
             <p class=measuredHeadingCls>
-              Patient
+              Spontaneous
               <p id=SBPM class=measuredValueCls>
                 __
                 <p class=measuredUnitsCls>
@@ -753,8 +753,16 @@
               <label for=Tidal>Tidal Volume</label>
             </div>
             <div class=chartIndentDiv>
-              <input type="checkbox" id=Minute onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Minute>Minute Volume</label>
+              <input type="checkbox" id=MinuteTotal onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MinuteTotal>Total Minute Volume</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=MinuteMand onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MinuteMand>Mandatory Minute Volume</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=MinuteSpont onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MinuteSpont>Spontaneous Minute Volume</label>
             </div>
           </div>
           <br>
@@ -791,14 +799,14 @@
           <br>
           <div style="background-color: var(--rsp_lightblue);">
             <input type="checkbox" id=Compliances onclick='chartTreeCheckboxClicked(this)'>
-            <label for=Compliances>Instant Lung Compliances</label>
+            <label for=Compliances>Instant Lung DeltaV/DeltaP</label>
             <div class=chartIndentDiv>
               <input type="checkbox" id=Dynamic onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Dynamic>Instant Dynamic Lung Compliance&nbsp</label>
+              <label for=Dynamic>Dynamic Lung DeltaV/DeltaP</label>
             </div>
             <div class=chartIndentDiv>
               <input type="checkbox" id=Static onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Static>Instant Static Lung Compliance</label>
+              <label for=Static>Static Lung DeltaV/DeltaP</label>
             </div>
           </div>
           <br>
@@ -811,11 +819,11 @@
             </div>
             <div class=chartIndentDiv>
               <input type="checkbox" id=O2Flow onclick='chartTreeCheckboxClicked(this)'>
-              <label for=O2Flow>Incoming Oxygen Flow Required</label>
+              <label for=O2Flow>Incoming O2 Flow Required</label>
             </div>
             <div class=chartIndentDiv>
               <input type="checkbox" id=O2Purity onclick='chartTreeCheckboxClicked(this)'>
-              <label for=O2Purity>Incoming Oxygen Purity</label>
+              <label for=O2Purity>Incoming O2 Purity</label>
             </div>
           </div>
           <br>

@@ -45,7 +45,9 @@ class ChartBox {
     document.getElementById("Plat").checked = this.options["Plat"];
     document.getElementById("PEEP").checked = this.options["PEEP"];
     document.getElementById("Tidal").checked = this.options["Tidal"];
-    document.getElementById("Minute").checked = this.options["Minute"];
+    document.getElementById("MinuteTotal").checked = this.options["MinuteTotal"];
+    document.getElementById("MinuteSpont").checked = this.options["MinuteSpont"];
+    document.getElementById("MinuteMand").checked = this.options["MinuteMand"];
     document.getElementById("Mandatory").checked = this.options["Mandatory"];
     document.getElementById("Spontaneous").checked = this.options["Spontaneous"];
     document.getElementById("MBreath").checked = this.options["MBreath"];
@@ -73,7 +75,9 @@ class ChartBox {
     this.options["Plat"] = document.getElementById("Plat").checked;
     this.options["PEEP"] = document.getElementById("PEEP").checked;
     this.options["Tidal"] = document.getElementById("Tidal").checked;
-    this.options["Minute"] = document.getElementById("Minute").checked;
+    this.options["MinuteTotal"] = document.getElementById("MinuteTotal").checked;
+    this.options["MinuteSpont"] = document.getElementById("MinuteSpont").checked;
+    this.options["MinuteMand"] = document.getElementById("MinuteMand").checked;
     this.options["Mandatory"] = document.getElementById("Mandatory").checked;
     this.options["Spontaneous"] = document.getElementById("Spontaneous").checked;
     this.options["MBreath"] = document.getElementById("MBreath").checked;
@@ -141,6 +145,8 @@ class ChartBox {
 
     var mvAxisNum = null;
     mvAxisNum = this.createMvdelGraph(mvAxisNum);
+    mvAxisNum = this.createMMvdelGraph(mvAxisNum);
+    mvAxisNum = this.createSMvdelGraph(mvAxisNum);
     mvAxisNum = this.createO2FlowGraph(mvAxisNum);
 
     var bpmAxisNum = null;
@@ -256,7 +262,7 @@ class ChartBox {
   }
 
   createMvdelGraph(reuseAxisNum) {
-    if (!this.options.Minute) return reuseAxisNum;
+    if (!this.options.MinuteTotal) return reuseAxisNum;
 
     var yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
@@ -269,9 +275,53 @@ class ChartBox {
     var markerInfo = cloneObject(markerInfoTemplate);
 
     var paramInfo = cloneObject(paramInfoTemplate);
-    paramInfo.name = "Minute Volume (litres/min)";
+    paramInfo.name = "Total Minute Volume (litres/min)";
     paramInfo.color = "olive";
     paramInfo.transitions = session.mvdelChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+  }
+
+  createMMvdelGraph(reuseAxisNum) {
+    if (!this.options.MinuteMand) return reuseAxisNum;
+
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "olive";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 20;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Minute Volume (litres/min)";
+
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Mandatory Minute Volume (litres/min)";
+    paramInfo.color = "blueviolet";
+    paramInfo.transitions = session.mmvdelChanges;
+    paramInfo.graphType = "stepLine";
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+  }
+
+  createSMvdelGraph(reuseAxisNum) {
+    if (!this.options.MinuteSpont) return reuseAxisNum;
+
+    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "olive";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 20;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Minute Volume (litres/min)";
+
+    var markerInfo = cloneObject(markerInfoTemplate);
+
+    var paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Spontaneous Minute Volume (litres/min)";
+    paramInfo.color = "salmon";
+    paramInfo.transitions = session.smvdelChanges;
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
