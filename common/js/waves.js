@@ -6,11 +6,11 @@
 // Below are all waveform user-interface utilities
 /////////////////////////////////////////////////////////////////
 
-function waveInsertOnTop() {
+function waveInsertInitial() {
   allWaves = document.getElementById(ALL_WAVES_ID);
-  //console.log("waveInsertOnTop ");
+  //console.log("waveInsertInitial ");
   newContainer = createNewWaveContainer();
-  allWaves.insertBefore(newContainer, allWaves.firstChild);
+  allWaves.insertBefore(newContainer, null);
   // Open edit menu for the new wave box
   enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
@@ -57,7 +57,7 @@ function waveDelete(bnode) {
   containerNode.remove();
   if (numberOfExistingWaves() == 0) {
     modalWarning("WAVEFORM BOX", "No Waveform container left\nCreating new empty one");
-    waveInsertOnTop();
+    waveInsertInitial();
   } else {
     removeWaveEditMenu();
   }
@@ -139,7 +139,7 @@ function createAllWaves() {
   }
 
   if (numberOfExistingWaveBoxes() == 0) {
-    waveInsertOnTop(); // always have wave box for user to start with
+    waveInsertInitial(); // always have wave box for user to start with
   }
 
   if (session.waves.firstTimeWavesEntry) {

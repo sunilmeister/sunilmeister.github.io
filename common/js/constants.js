@@ -6,6 +6,7 @@ const CURRENT_RECORDING_VERSION = "1.2";
 const RESPIMATIC_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
 const ANALYZER_APP_ID = "ANALYZER";
+const RECORDER_APP_ID = "RECORDER";
 
 const zoomReminderOffCookieName = "ZOOM_REMINDER_COOKIE";
 const editReminderOffCookieName = "EDIT_REMINDER_COOKIE";

@@ -10,11 +10,11 @@
 // Below are all chart user-interface utilities
 /////////////////////////////////////////////////////////////////
 
-function chartInsertOnTop() {
+function chartInsertInitial() {
   allCharts = document.getElementById(ALL_CHARTS_ID);
-  //console.log("chartInsertOnTop ");
+  //console.log("chartInsertInitial ");
   newContainer = createNewChartContainer();
-  allCharts.insertBefore(newContainer, allCharts.firstChild);
+  allCharts.insertBefore(newContainer, null);
   // Open edit menu for the new chart box
   enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
@@ -61,7 +61,7 @@ function chartDelete(bnode) {
   containerNode.remove();
   if (numberOfExistingCharts() == 0) {
     modalWarning("CHART BOX", "No chart container left\nCreating new empty one");
-    chartInsertOnTop();
+    chartInsertInitial();
   } else {
     removeChartEditMenu();
   }
@@ -139,7 +139,7 @@ function createAllCharts() {
   }
 
   if (numberOfExistingCharts() == 0) {
-    chartInsertOnTop(); // always have chart box for user to start with
+    chartInsertInitial(); // always have chart box for user to start with
   }
 
   if (session.charts.firstTimeChartsEntry) {
