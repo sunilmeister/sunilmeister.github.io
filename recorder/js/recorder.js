@@ -2,6 +2,9 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function updateRecordingIndicator() {
+}
+
 function disassembleAndQueueDweet(d) {
   fragmentIndex = 0;
   while (1) {

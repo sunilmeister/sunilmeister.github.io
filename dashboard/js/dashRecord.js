@@ -12,4 +12,25 @@ function updateRecordingIndicator() {
   }
 }
 
+function exportRecording() {
+  if (session.recorder.off) {
+    modalAlert("EXPORT Failed", "No Active Recording");
+    return;
+  }
+  document.getElementById("exportDiv").style.display = "block";
+  document.getElementById("exportFileName").value = "Exported Recording";
+}
+
+function exportFile() {
+  fileName = document.getElementById("exportFileName").value;
+  if (fileName) {
+    exportDb(session.database.dbName, fileName);
+    document.getElementById("exportDiv").style.display = "none";
+  }
+}
+
+function cancelExport() {
+  document.getElementById("exportDiv").style.display = "none";
+}
+
 

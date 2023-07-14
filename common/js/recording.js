@@ -235,7 +235,7 @@ function processRecordDweet(d) {
         d = createAccumulatedDweet(d);
         // console.log(d);
       }
-      recordBox.innerText = JSON.stringify(d, null, 2);
+      recordBox.innerText = JSON.stringify(d, null, ". ");
       if (session.database.db) insertJsonData(d);
       session.recorder.prevDweetRecorded = doRecord;
     }
