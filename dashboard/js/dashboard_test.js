@@ -520,7 +520,6 @@ window.onload = function () {
   session.waves.newPwDataCallback = receivedNewWave;
 
   initDbNames();
-  InitRecorder();
   var heading = document.getElementById("SysUid");
   if (respimaticTag) {
     document.title = respimaticTag + " (DASHBOARD)"
@@ -702,7 +701,6 @@ function HandlePeriodicTasks() {
   blinkInterval = invokeTimeInMs - prevBlinkTimeInMs;
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkPauseButton();
-    blinkRecordButton();
     blinkFlowRate();
     prevBlinkTimeInMs = invokeTimeInMs;
   }

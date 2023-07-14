@@ -329,7 +329,7 @@ function updateSnapshot() {
   }
 }
 
-function updateDashboardAndRecordingStatus() {
+function updateDashboardIndicator() {
   if (awaitingFirstDweet) {
     document.getElementById("DashboardActiveImg").src = "img/WhiteDot.png";
   } else if (updatePaused) {
@@ -339,16 +339,11 @@ function updateDashboardAndRecordingStatus() {
   } else {
     document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
   }
+}
 
-  if (session.recorder.off) {
-    document.getElementById("RecordingActiveImg").src = "img/WhiteDot.png";
-  } else if (session.recorder.paused) {
-    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-  } else if (wifiDropped) {
-    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-  } else {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-  }
+function updateDashboardAndRecordingStatus() {
+  updateDashboardIndicator();
+  updateRecordingIndicator();
 }
 
 function displayNormalMessages() {
