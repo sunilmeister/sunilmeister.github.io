@@ -5,10 +5,13 @@
 function updateRecordingIndicator() {
   if (session.recorder.off) {
     document.getElementById("RecordingActiveImg").src = "img/WhiteDot.png";
+    document.getElementById("RecordIndicator").src = "img/WhiteDot.png";
   } else if (session.recorder.paused) {
     document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
+    document.getElementById("RecordIndicator").src = "img/YellowDot.png";
   } else {
     document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
+    document.getElementById("RecordIndicator").src = "img/RedDot.png";
   }
 }
 

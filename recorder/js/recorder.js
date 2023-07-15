@@ -15,6 +15,13 @@ const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
 
 function updateRecordingIndicator() {
+  if (session.recorder.off) {
+    document.getElementById("RecordIndicator").src = "img/WhiteDot.png";
+  } else if (session.recorder.paused) {
+    document.getElementById("RecordIndicator").src = "img/YellowDot.png";
+  } else {
+    document.getElementById("RecordIndicator").src = "img/RedDot.png";
+  }
 }
 
 function disassembleAndQueueDweet(d) {
