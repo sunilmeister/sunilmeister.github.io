@@ -9,7 +9,7 @@ var simulatedMillis = 0;
 var lastDweetInMs = 0;
 var startSystemDate = new Date();
 var awaitingFirstDweet = true;
-var dweetQ;
+var dweetQ = null;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
