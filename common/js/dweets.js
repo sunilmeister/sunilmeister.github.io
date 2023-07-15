@@ -14,14 +14,6 @@ var dpwPrevShapeSliceNum = -1;
 var expectingPWEND = false;
 var expectingDPWEND = false;
 
-function waveWaveformKey(key) {
-  var prefix = String(key).substr(0,2);
-  if (prefix == "PW") return true;
-  prefix = String(key).substr(0,3);
-  if (prefix == "DPW") return true;
-  return false;
-}
-
 function parseWifiData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {

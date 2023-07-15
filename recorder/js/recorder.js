@@ -2,6 +2,17 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var simulatedTimeInMs = 0;
+var startimulatedTimeInMs = 0;
+var startMillis = 0;
+var simulatedMillis = 0;
+var lastDweetInMs = 0;
+var startSystemDate = new Date();
+var awaitingFirstDweet = true;
+const INIT_RECORDING_INTERVAL_IN_MS = 5000;
+const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
+
+
 function updateRecordingIndicator() {
 }
 
@@ -34,12 +45,8 @@ function getCurrentSimulatedMillis() {
   return startSimulatedMillis + deltaTimeInMs;
 }
 
-var awaitingFirstDweet = true;
 function waitForDweets() {
   dweetio.listen_for(respimaticUid, function (d) {
-    dormantTimeInSec = 0;
-    wifiDropped = false;
-    autoCloseDormantPopup();
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -62,7 +69,7 @@ function waitForDweets() {
   })
 }
 
-function processRecorderDweet(d) {
+function updateRecorderSummary(d) {
   curDate = new Date(d.created);
   sessionDurationInMs = curDate - session.startDate;
   elm = document.getElementById("logTimeDuration");
@@ -70,20 +77,8 @@ function processRecorderDweet(d) {
   elm = document.getElementById("numMissedBreaths");
   elm.innerHTML = session.numMissingBreaths;
 
-  if (!updatePaused) {
-    elm = document.getElementById("breathNum");
-    animateNumberValueTo(elm, session.dashboardBreathNum);
-  }
-
-  if (prevAlarmErrorNum != (session.errorMsgs.length - 1)) {
-    prevAlarmErrorNum = session.errorMsgs.length - 1;
-    let title = "Error encountered Breath# " + session.dashboardBreathNum;
-    let msg = session.errorMsgs[prevAlarmErrorNum].L1 + "\n"
-        + session.errorMsgs[prevAlarmErrorNum].L2 + "\n"
-        + session.errorMsgs[prevAlarmErrorNum].L3 + "\n"
-        + session.errorMsgs[prevAlarmErrorNum].L4;
-    modalAlert(title, msg);
-  }
+  elm = document.getElementById("breathNum");
+  animateNumberValueTo(elm, session.dashboardBreathNum);
 
   return d;
 }
@@ -98,7 +93,6 @@ window.onload = function () {
   session.launchDate = new Date();
 
   initDbNames();
-  InitRecorder();
   if (respimaticTag) {
     document.title = respimaticTag + " (RECORDER)"
   } else {
@@ -137,57 +131,6 @@ window.onbeforeunload = function (e) {
   }
 }
 
-function createRangeSlider(div) {
-  if (rangeSlider) return;
-  rangeSlider = new IntRangeSlider(
-    div,
-    0,
-    CHART_NUM_ROLLING_BREATHS,
-    0,
-    0,
-    1
-  );
-  rangeSlider.setChangeCallback(rangeSliderCallback);
-}
-
-function rangeSliderCallback() {
-  if (stopSliderCallback) return;
-  sliderCommitPending = true;
-  values = chartRangeSlider.getSlider();
-  bmin = parseInt(values[0]);
-  bmax = parseInt(values[1]);
-
-  stopSliderCallback = true;
-  rangeSlider.setSlider([bmin, bmax]);
-  stopSliderCallback = false;
-}
-
-function outIconButton(btn) {
-  btn.style.backgroundColor = "white";
-  btn.style.borderColor = "white";
-  //console.log("out");
-  //console.log(btn);
-}
-
-function overIconButton(btn) {
-  bgd = palette.brightgreen;
-  btn.style.backgroundColor = bgd;
-  btn.style.borderColor = bgd;
-  //console.log("hover");
-  //console.log(btn);
-}
-
-function setBackGroundBreathWindowButton(id, bgd) {
-  el = document.getElementById(id);
-  el.style.backgroundColor = bgd;
-  el.style.borderColor = bgd;
-  el.style.opacity = 1;
-
-  el = el.firstElementChild;
-  el.style.backgroundColor = bgd;
-  el.style.borderColor = bgd;
-  el.style.opacity = 1;
-}
 
 const TIMEOUT_INTERVAL_IN_MS = 200;
 
@@ -222,16 +165,37 @@ function FetchAndExecuteFromQueue() {
       session.dashboardBreathNum = 
         session.systemBreathNum - session.startSystemBreathNum + 1;
     }
-    processRecordDweet(d);
+    updateRecorderSummary(d);
+    dCopy = cloneObject(d);
+    processRecordDweet(dCopy);
   }
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
-    modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
+    modalAlert("Recorder out of Sync", "Something went wrong\nPlease relaunch the Recorder");
     console.log("Dweets way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
   return;
 }
 
-function InitRecorder() {
+function exportRecording() {
+  if (session.recorder.off) {
+    modalAlert("EXPORT Failed", "No Active Recording");
+    return;
+  }
+  document.getElementById("exportDiv").style.display = "block";
+  document.getElementById("exportFileName").value = "Exported Recording";
 }
+
+function exportFile() {
+  fileName = document.getElementById("exportFileName").value;
+  if (fileName) {
+    exportDb(session.database.dbName, fileName);
+    document.getElementById("exportDiv").style.display = "none";
+  }
+}
+
+function cancelExport() {
+  document.getElementById("exportDiv").style.display = "none";
+}
+

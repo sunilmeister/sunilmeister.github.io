@@ -379,15 +379,20 @@ function launchTest() {
   if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
-  //window.location.assign("dashboard/respimatic.dashboard.html");
   window.open("../dashboard/dashboard_test.html");
+}
+
+function launchRecorder() {
+  if (!setSelectedRespimaticTagFromDD()) {
+    return;
+  }
+  window.open("../recorder/recorder.html");
 }
 
 function launchDashboard() {
   if (!setSelectedRespimaticTagFromDD()) {
     return;
   }
-  //window.location.assign("dashboard/respimatic.dashboard.html");
   window.open("../dashboard/dashboard.html");
 }
 

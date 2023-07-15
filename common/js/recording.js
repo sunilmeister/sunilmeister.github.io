@@ -241,3 +241,13 @@ function processRecordDweet(d) {
     }
   }
 }
+
+function waveWaveformKey(key) {
+  var prefix = String(key).substr(0,2);
+  if (prefix == "PW") return true;
+  prefix = String(key).substr(0,3);
+  if (prefix == "DPW") return true;
+  return false;
+}
+
+
