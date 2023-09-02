@@ -1,0 +1,35 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://respimaticlisten.atmanirbhar.org/static/js/respimaticlistenfor.js"></script>
+
+    <script>
+    function callbackFn(msg, timeStamp, jsonData) {
+      if (msg) {
+        console.log("-------- ERROR");
+        console.log(msg);
+        return;
+      }
+      console.log("-------- TIMESTAMP");
+      console.log(timeStamp);
+      console.log("-------- JSONDATA");
+      console.log(jsonData);
+      console.log("--------");
+    }
+
+    function connectFn() {
+      var uid = $('#uid').val(); // Get the value of uid from the input field
+      console.log("Starting respimaticListenFor " + uid);
+      respimaticListenFor(uid, callbackFn);
+    }
+
+    </script>
+</head>
+
+
+
+
+<body>
+    <input id='uid' type='text' value='UID_28615E07D6013C4A'></input>
+    <button onclick='connectFn()'>CONNECT</button>
+</body>
+
