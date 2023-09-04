@@ -306,7 +306,7 @@ var SessionDataTemplate = {
 var session = null;
 
 function createReportRange(rolling, minBnum, maxBnum) {
-  range = {};
+  var range = cloneObject(session.reportRange);
   range.rolling = rolling;
   range.initBnum = 1;
   range.minBnum = minBnum;

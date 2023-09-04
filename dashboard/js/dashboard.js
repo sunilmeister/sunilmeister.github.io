@@ -237,6 +237,41 @@ function blinkPauseButton() {
   }
 }
 
+function enterBreathInterval () {
+  document.getElementById("fromBreath").value = session.reportRange.minBnum;
+  document.getElementById("toBreath").value = session.reportRange.maxBnum;
+  document.getElementById("enterRangeDiv").style.display = "block";
+}
+
+function acceptBreathRange () {
+  var fromBreath = document.getElementById("fromBreath").value;
+  var toBreath = document.getElementById("toBreath").value;
+  //console.log("From " + fromBreath + " to " + toBreath);
+  document.getElementById("enterRangeDiv").style.display = "none";
+
+  var badRange = false;
+  badRange = badRange || (fromBreath <= 0);
+  badRange = badRange || (toBreath <= 0);
+  badRange = badRange || (toBreath > session.dashboardBreathNum);
+  badRange = badRange || (fromBreath >= toBreath);
+
+  if (badRange) {
+    modalAlert("Invalid Breath Range", "Try again!");
+    return;
+  }
+
+  stopSliderCallback = true;
+  rangeSlider.setSlider([fromBreath, toBreath]);
+  stopSliderCallback = false;
+
+  sliderCommitPending = true;
+  setTimeInterval();
+}
+
+function cancelBreathRange () {
+  document.getElementById("enterRangeDiv").style.display = "none";
+}
+
 function changeToSnapshotView() {
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("btnCharts").disabled = false;
@@ -629,19 +664,11 @@ function setBackGroundBreathWindowButton(id, bgd) {
   el.style.opacity = 1;
 }
 
-function colorBreathWindowButtons(bgd) {
-  setBackGroundBreathWindowButton('btnSetInterval', bgd);
-  setBackGroundBreathWindowButton('btnCancelInterval', bgd);
-  setBackGroundBreathWindowButton('btnResetInterval', bgd);
-  setBackGroundBreathWindowButton('btnFullInterval', bgd);
-}
-
 function setTimeInterval() {
   if (!sliderCommitPending) return;
   values = rangeSlider.getSlider();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveRange = session.reportRange;
   session.reportRange = createReportRange(false, bmin, bmax);
 
   createDashboards();
@@ -649,7 +676,6 @@ function setTimeInterval() {
 }
 
 function resetTimeInterval() {
-  saveRange = null;
   session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -668,7 +694,6 @@ function setFullInterval() {
   values = rangeSlider.getRange();
   bmin = parseInt(values[0]);
   bmax = parseInt(values[1]);
-  saveRange = session.reportRange;
   session.reportRange = createReportRange(false, bmin, bmax);
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
