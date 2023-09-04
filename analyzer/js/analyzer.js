@@ -444,7 +444,7 @@ function acceptBreathRange () {
   var badRange = false;
   badRange = badRange || (fromBreath <= 0);
   badRange = badRange || (toBreath <= 0);
-  //badRange = badRange || (toBreath > session.dashboardBreathNum);
+  badRange = badRange || (toBreath > session.analyzer.logEndBreath);
   badRange = badRange || (fromBreath >= toBreath);
 
   if (badRange) {
