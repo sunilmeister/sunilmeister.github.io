@@ -116,6 +116,32 @@
       </center>
     </div>
 
+    <div id=enterRangeDiv class=popupClass style="width:600px; height:300px; display: none">
+      <center>
+        <div style="font-size: 30px; ">
+          <br>
+          <label for="fromBreath">Starting Breath Number</label>
+          <input id=fromBreath style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
+          <br>
+          <br>
+          <label for="toBreath">&nbsp&nbspEnding Breath Number</label>
+          <input id=toBreath style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
+          <br>
+          <br>
+          <br>
+          <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:250px;
+          font-size:30px;" onclick='acceptBreathRange()'>CHANGE</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:250px; font-size:30px;"
+          onclick='cancelBreathRange()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+
+
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
@@ -191,6 +217,8 @@
         </div>
         <div style="background-color:var(--rsp_green); color:white; margin-top: 10px; padding-bottom:20px;">
           <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
+          <button class=iconButton id=btnEnterInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='enterBreathInterval(this)' style="float:left;" title='Default'><img src="../common/img/pen.png" width=20px height=20px></button>
+
           <center>
             <p id=sliderCaption style="margin-top: 10px; margin-bottom:-12px; font-size:1.8rem; "> Breath Range Selector
           </center>

@@ -430,6 +430,40 @@ function updateLogDuration() {
   }
 }
 
+function enterBreathInterval () {
+  document.getElementById("fromBreath").value = session.reportRange.minBnum;
+  document.getElementById("toBreath").value = session.reportRange.maxBnum;
+  document.getElementById("enterRangeDiv").style.display = "block";
+}
+
+function acceptBreathRange () {
+  var fromBreath = document.getElementById("fromBreath").value;
+  var toBreath = document.getElementById("toBreath").value;
+  document.getElementById("enterRangeDiv").style.display = "none";
+
+  var badRange = false;
+  badRange = badRange || (fromBreath <= 0);
+  badRange = badRange || (toBreath <= 0);
+  //badRange = badRange || (toBreath > session.dashboardBreathNum);
+  badRange = badRange || (fromBreath >= toBreath);
+
+  if (badRange) {
+    modalAlert("Invalid Breath Range", "Try again!");
+    return;
+  }
+
+  stopSliderCallback = true;
+  analysisRangeSlider.setSlider([fromBreath, toBreath]);
+  stopSliderCallback = false;
+
+  sliderCommitPending = true;
+  setTimeInterval();
+}
+
+function cancelBreathRange () {
+  document.getElementById("enterRangeDiv").style.display = "none";
+}
+
 function updateSelectedDuration() {
   elm = document.getElementById("selectedTimeDuration");
   var diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
@@ -445,8 +479,8 @@ function updateSelectedDuration() {
   elm.innerHTML = String(session.startSystemBreathNum - 1);
 }
 
-function setAnalysisRanges(rolling) {
-  session.reportRange = createReportRange(rolling, session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath);
+function setAnalysisRanges() {
+  session.reportRange = createReportRange(false, session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath);
 }
 
 function refreshActivePane() {
@@ -478,9 +512,9 @@ function setTimeInterval() {
   session.analyzer.analysisEndBreath = e;
   session.analyzer.analysisStartTime = session.breathTimes[s];
   session.analyzer.analysisEndTime = session.breathTimes[e];
-  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
+  analysisRangeSlider.setSlider([s, e]);
 
-  setAnalysisRanges(false);
+  setAnalysisRanges();
   updateSelectedDuration();
   //resetAnalysisData();
   refreshActivePane();
@@ -504,7 +538,7 @@ function setFullInterval() {
   session.analyzer.analysisEndTime = session.breathTimes[e];
   analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
 
-  setAnalysisRanges(false);
+  setAnalysisRanges();
   updateSelectedDuration();
   //resetAnalysisData();
   refreshActivePane();
@@ -518,7 +552,7 @@ function resetTimeInterval() {
   session.analyzer.analysisEndTime = session.analyzer.logEndTime;
   analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
 
-  setAnalysisRanges(true);
+  setAnalysisRanges();
   updateSelectedDuration();
   //resetAnalysisData();
   document.getElementById("analysisWindowDiv").style.display = "block";
@@ -546,7 +580,7 @@ function analysisGatherDoneCallback() {
   }
 
   enableAllButtons();
-  setAnalysisRanges(true);
+  setAnalysisRanges();
   updateSelectedDuration();
 
   createAnalysisRangeSlider();
@@ -660,7 +694,7 @@ function createAnalysisRangeSlider() {
   elm = document.getElementById("logNumBreaths");
   elm.innerHTML = session.analyzer.analysisEndBreath;
 
-  setAnalysisRanges(true);
+  setAnalysisRanges();
   updateSelectedDuration();
 
   if (session.analyzer.logEndBreath == 0) {
