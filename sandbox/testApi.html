@@ -3,6 +3,9 @@
     <script src="https://respimaticlisten.atmanirbhar.org/static/js/respimaticlistenfor.js"></script>
 
     <script>
+    ////////////////////////////////////////////////////////////////////////////
+    // I will provide the callbackFn - it should not be in respimaticlistenfor.js
+    ////////////////////////////////////////////////////////////////////////////
     function callbackFn(msg, timeStamp, jsonData) {
       if (msg) {
         console.log("-------- ERROR");
@@ -16,9 +19,16 @@
       console.log("--------");
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // I will provide the connectFn - it should not be in respimaticlistenfor.js
+    ////////////////////////////////////////////////////////////////////////////
     function connectFn() {
       var uid = $('#uid').val(); // Get the value of uid from the input field
       console.log("Starting respimaticListenFor " + uid);
+
+      //////////////////////////////////////////////////////
+      // Below is the ONLY function I want you to provide
+      //////////////////////////////////////////////////////
       respimaticListenFor(uid, callbackFn);
     }
 
@@ -29,7 +39,13 @@
 
 
 <body>
-    <input id='uid' type='text' value='UID_28615E07D6013C4A'></input>
+    //////////////////////////////////////////////////////////////////
+    // Dont worry about the button etc.
+    // It is only for testing 
+    // None of the button stuff should be in respimaticlistenfor
+    // In the real code, I will call the function at an appropriate time
+    //////////////////////////////////////////////////////////////////
+    <input id='uid' type='text' value='UID_28705904000000EE'></input>
     <button onclick='connectFn()'>CONNECT</button>
 </body>
 
