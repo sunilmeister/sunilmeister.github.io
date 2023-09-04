@@ -257,7 +257,7 @@ class ChartPane {
       ignoreDatapoint = false;
       if (this.timeUnits) {
         var ms = new Date(breathTimes[i + minBnum - 1]) - initTime;
-        xval = Math.round(ms / 1000);
+        xval = (ms / 1000);
         if (xval <= prevXval) ignoreDatapoint = true;
         else prevXval = xval;
       } else {
@@ -313,7 +313,7 @@ class ChartPane {
           ignoreDatapoint = false;
           if (this.timeUnits) {
             var ms = new Date(breathTimes[b]) - initTime;
-            xval = Math.round(ms / 1000);
+            xval = (ms / 1000);
             if (xval <= prevXval) ignoreDatapoint = true;
             else prevXval = xval;
           } else {
@@ -395,7 +395,7 @@ class ChartPane {
           ignoreDatapoint = false;
           if (this.timeUnits) {
             var ms = new Date(breathTimes[bnum]) - initTime;
-            xval = Math.round(ms / 1000);
+            xval = (ms / 1000);
             if (xval <= prevXval) ignoreDatapoint = true;
             else prevXval = xval;
           } else {
