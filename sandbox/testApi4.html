@@ -1,0 +1,30 @@
+<head>
+    <script src="https://dweet.io/client/dweet.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="respimaticMessages.js"></script>
+</head>
+
+<script>
+  // A simple callback function
+  function callbackFn(jsonObject) {
+    if (!jsonObject) {
+      console.log("-------- ERROR");
+      return;
+    }
+    console.log(jsonObject);
+  }
+
+// Executed on button click
+  function buttonClickFn() {
+    var uid = $('#uid').val(); // Get the value of uid from the input field
+    console.log("Starting waitForRespimaticMessages " + uid);
+    waitForRespimaticMessages(uid, callbackFn);
+  }
+</script>
+
+<body>
+  <br><br>
+  <input id='uid' type='text' value='UID_28705904000000EE'></input>
+  <button onclick='buttonClickFn()'>CONNECT</button>
+</body>
+

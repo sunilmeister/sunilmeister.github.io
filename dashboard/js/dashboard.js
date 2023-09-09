@@ -73,7 +73,7 @@ function getCurrentSimulatedMillis() {
 }
 
 function waitForDweets() {
-  dweetio.listen_for(respimaticUid, function (d) {
+  waitForRespimaticMessages(respimaticUid, function (d) {
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
