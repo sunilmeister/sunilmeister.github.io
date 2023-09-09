@@ -569,10 +569,19 @@ function analysisGatherDoneCallback() {
   session.analyzer.logStartBreath = 1;
   session.analyzer.logEndBreath = session.breathTimes.length - 1;
 
-  session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
-  session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
-  session.analyzer.analysisStartTime = session.analyzer.logStartTime;
-  session.analyzer.analysisEndTime = session.analyzer.logEndTime;
+  var n = session.analyzer.analysisEndBreath - analysisStartBreath;
+  if (n < 20) {
+    session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
+    session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
+    session.analyzer.analysisStartTime = session.analyzer.logStartTime;
+    session.analyzer.analysisEndTime = session.analyzer.logEndTime;
+  } else {
+    session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
+    session.analyzer.analysisEndBreath = session.analyzer.logStartBreath + 19;
+    session.analyzer.analysisStartTime = session.analyzer.logStartTime;
+    session.analyzer.analysisEndTime = 
+      session.breathTimes[session.analyzer.analysisEndBreath];
+  }
 
   if (session.analyzer.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "Select another session");
