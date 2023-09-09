@@ -569,7 +569,7 @@ function analysisGatherDoneCallback() {
   session.analyzer.logStartBreath = 1;
   session.analyzer.logEndBreath = session.breathTimes.length - 1;
 
-  var n = session.analyzer.analysisEndBreath - analysisStartBreath;
+  var n = session.analyzer.logEndBreath - session.analyzer.logStartBreath;
   if (n < 20) {
     session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
     session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
@@ -701,7 +701,7 @@ function createAnalysisRangeSlider() {
   elm = document.getElementById("analysisWindowDiv");
   elm.style.display = "none";
   elm = document.getElementById("logNumBreaths");
-  elm.innerHTML = session.analyzer.analysisEndBreath;
+  elm.innerHTML = session.analyzer.logEndBreath;
 
   setAnalysisRanges();
   updateSelectedDuration();
