@@ -125,8 +125,6 @@ function appendSwVersionToUid() {
   localStorage.setItem(
     respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
 
-  //console.log("append SW");
-  //console.log(knownRespimaticSystems);
 }
 
 function removeSystemUidTagInfo(uid, tag) {

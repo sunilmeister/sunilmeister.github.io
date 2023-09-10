@@ -54,7 +54,7 @@ function getCurrentSimulatedMillis() {
 }
 
 function waitForDweets() {
-  dweetio.listen_for(respimaticUid, function (d) {
+  waitForRespimaticMessages(respimaticUid, function (d) {
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -66,7 +66,6 @@ function waitForDweets() {
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
-      //console.log("simulatedMillis=" + simulatedMillis);
       session.startDate = new Date(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
@@ -180,7 +179,7 @@ function FetchAndExecuteFromQueue() {
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
     modalAlert("Recorder out of Sync", "Something went wrong\nPlease relaunch the Recorder");
-    console.log("Dweets way ahead of simulated time " + millis +
+    console.error("Dweets way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
   return;

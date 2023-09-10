@@ -9,7 +9,6 @@ function createDashboardCharts() {
 ////////////////////////////////////////////////////////
 
 function rollingChartRange() {
-  //console.log("chart rolling=" + session.reportRange.rolling);
   var minBnum = session.dashboardBreathNum - CHART_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
   session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);

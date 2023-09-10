@@ -8,7 +8,6 @@
 
 function waveInsertInitial() {
   allWaves = document.getElementById(ALL_WAVES_ID);
-  //console.log("waveInsertInitial ");
   newContainer = createNewWaveContainer();
   allWaves.insertBefore(newContainer, null);
   // Open edit menu for the new wave box
@@ -18,7 +17,6 @@ function waveInsertInitial() {
 
 function waveInsert(bnode) {
   containerNode = findAncestorWaveContainerNode(bnode);
-  //console.log("waveInsert " + containerNode.id);
   newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
   // Open edit menu for the new wave box
@@ -28,7 +26,6 @@ function waveInsert(bnode) {
 
 function waveAppend(bnode) {
   containerNode = findAncestorWaveContainerNode(bnode);
-  //console.log("waveAppend " + containerNode.id);
   newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
   // Open edit menu for the new wave box
@@ -39,7 +36,6 @@ function waveAppend(bnode) {
 function waveEdit(bnode) {
   removeWaveEditMenu();
   containerNode = findAncestorWaveContainerNode(bnode);
-  //console.log("waveEdit " + containerNode.id);
   temp = document.getElementById(WAVE_EDIT_MENU_TEMPLATE_ID);
   template = findChildNodeByClass(temp.content, WAVE_EDIT_WAVE_MENU_CLASS);
   node = template.cloneNode(true);
@@ -52,7 +48,6 @@ function waveEdit(bnode) {
 
 function waveDelete(bnode) {
   containerNode = findAncestorWaveContainerNode(bnode);
-  //console.log("waveDelete " + containerNode.id);
   removeWaveContainerId(containerNode.id);
   containerNode.remove();
   if (numberOfExistingWaves() == 0) {
@@ -72,7 +67,6 @@ function removeWaveEditMenu() {
 
 function waveMenuCancel(bnode) {
   containerNode = findAncestorWaveContainerNode(bnode);
-  console.log("waveMenuCancel " + containerNode.id);
   removeWaveEditMenu();
 }
 

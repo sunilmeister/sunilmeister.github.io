@@ -76,7 +76,7 @@ class StatComputer {
     var arr = [];
     if (transitions.length <= 1) {
       // First one is always a dummy
-      console.log("No transitions for statComputer");
+      //console.log("No transitions for statComputer");
       return transitions;
     }
 
@@ -155,7 +155,7 @@ class StatComputer {
   // transitions is the transition array for a param
   trimArray(transitions) {
     if (transitions.length == 0) {
-      console.log("No transitions for statComputer");
+      //console.log("No transitions for statComputer");
       return;
     }
 

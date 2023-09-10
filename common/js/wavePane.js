@@ -58,7 +58,6 @@ class WavePane {
 
   breathSelectedInMenu(breathInfo) {
     var bInfo = parseBreathInfo(breathInfo);
-    //console.log(bInfo);
     // Order below is important
     if (this.menu.ErrorB) {
       if (bInfo.isError) return true;

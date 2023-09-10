@@ -75,7 +75,6 @@ function parseSwData(jsonStr) {
 }
 
 function parseBnumData(jsonStr) {
-  //console.log("BNUM string : " + jsonStr);
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
@@ -859,7 +858,7 @@ function processBnumDweet(curTime, value, jsonData) {
 
   var bnumValue = obj.bnum;
   if (bnumValue == null) {
-    console.log("Bad BNUM value = " + value + " sys = " + session.systemBreathNum);
+    console.warn("Bad BNUM value = " + value + " sys = " + session.systemBreathNum);
     return; // will count as missing
   }
   value = Number(bnumValue);
@@ -897,8 +896,8 @@ function processBnumDweet(curTime, value, jsonData) {
   updateRangeOnNewBreath();
   session.prevSystemBreathNum = value;
   if (breathsMissing) {
-    console.log("Breaths Missing =" + breathsMissing);
-    console.log("Before systemBreathNum=" + session.systemBreathNum);
+    console.warn("Breaths Missing =" + breathsMissing);
+    console.warn("Before systemBreathNum=" + session.systemBreathNum);
     session.missingBreaths.push({
       "time": curTime,
       "value": breathsMissing

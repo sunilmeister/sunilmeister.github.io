@@ -166,7 +166,7 @@ function extractUsedParamsFromCombos() {
   var obj = {};
 
   if (session.usedParamCombos.length == 0) {
-    console.log("session.usedParamCombos is empty");
+    console.warn("session.usedParamCombos is empty");
     return;
   }
 
@@ -352,14 +352,12 @@ function displayAlertsInfo() {
 }
 
 function createAllStats() {
-  //console.log("createAllStats");
   if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
 
   if (!session.statTablesConstructed) {
-    //console.log("Constructing Tables");
     constructStatMinMaxTable();
     constructStatParamTable();
     constructStatMiscTable();
@@ -395,7 +393,6 @@ function createAllStats() {
 }
 
 function initStats() {
-  //console.log("initStats");
   session.statTablesConstructed = false;
   table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;

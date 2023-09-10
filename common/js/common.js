@@ -88,8 +88,7 @@ function parseJSONSafely(str) {
   try {
     return JSON.parse(str);
   } catch (e) {
-    console.error("JSON parsing failed due to syntax error");
-    console.log(str);
+    console.error("JSON parsing failed due to syntax error\n" + str);
     // Return a default object, or null based on use case.
     return null;
   }
@@ -144,7 +143,6 @@ function equalObjects(object1, object2) {
 function parseBreathInfo(num) {
   num = Number(num);
   var obj = {};
-  //console.log("num = 0x" + num.toString(16));
 
   for (i = 0; i < 5; i++) {
     bit = num & 0x1;
@@ -289,7 +287,6 @@ function closestNonNullEntryIndex(arr, index) {
     if (arr[i]) return i;
   }
 
-  //console.log("closestNonNullEntryIndex: No non-null entry in the array");
   return null;
 }
 
@@ -567,8 +564,8 @@ function parseChecksumString(tstr) {
   num = arr[0];
   ccs = checksum(num);
   if (arr[1] != ccs) {
-    console.log("Bad ChecksumString =" + num + " checksum=" + tokens[0]);
-    console.log("Computed checksum=" + ccs);
+    console.error("Bad ChecksumString =" + num + " checksum=" + tokens[0] +
+      "\nComputed checksum=" + ccs);
     return null;
   }
   return num;

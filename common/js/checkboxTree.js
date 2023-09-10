@@ -34,7 +34,6 @@ class CheckboxTree {
     }
     if (!foundDivChild) {
       var cbox = this.GetCboxForDiv(elem);
-      //console.log(cbox.id);
       this.leafCheckboxes.push(cbox);
     }
   }

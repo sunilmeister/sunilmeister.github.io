@@ -138,9 +138,6 @@ function createDashboards() {
 
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
-  //console.log("session.reportRange"); console.log(session.reportRange);
-  //console.log("prevUpdateRange"); console.log(prevUpdateRange);
-  //console.log("**** Not equal");
 
   bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
   prevUpdateRange = cloneObject(session.reportRange);
@@ -150,9 +147,6 @@ function createDashboards() {
 
   currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
-    //console.log("bothRolling=" + bothRolling);
-    //console.log("prevUpdateNumAlerts=" + prevUpdateNumAlerts);
-    //console.log("currNumAlerts=" + currNumAlerts);
     if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
       createDashboardAlerts();
       prevUpdateNumAlerts = currNumAlerts;
@@ -246,7 +240,6 @@ function enterBreathInterval () {
 function acceptBreathRange () {
   var fromBreath = document.getElementById("fromBreath").value;
   var toBreath = document.getElementById("toBreath").value;
-  //console.log("From " + fromBreath + " to " + toBreath);
   document.getElementById("enterRangeDiv").style.display = "none";
 
   var badRange = false;
@@ -640,16 +633,12 @@ function rangeSliderCallback() {
 function outIconButton(btn) {
   btn.style.backgroundColor = "white";
   btn.style.borderColor = "white";
-  //console.log("out");
-  //console.log(btn);
 }
 
 function overIconButton(btn) {
   bgd = palette.brightgreen;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
-  //console.log("hover");
-  //console.log(btn);
 }
 
 function setBackGroundBreathWindowButton(id, bgd) {
@@ -769,9 +758,7 @@ function FetchAndExecuteFromQueue() {
     d = dweetQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
       bnumContent = d.content["BNUM"];
-      //console.log("BNUM content");
       bnumObj = parseJSONSafely(bnumContent);
-      //console.log(bnumObj[0]);
       session.systemBreathNum = bnumObj[0];
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
@@ -789,7 +776,7 @@ function FetchAndExecuteFromQueue() {
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
     modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
-    console.log("Dweets way ahead of simulated time " + millis +
+    console.error("Dweets way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
   return;

@@ -12,7 +12,6 @@
 
 function chartInsertInitial() {
   allCharts = document.getElementById(ALL_CHARTS_ID);
-  //console.log("chartInsertInitial ");
   newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, null);
   // Open edit menu for the new chart box
@@ -22,7 +21,6 @@ function chartInsertInitial() {
 
 function chartInsert(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
-  //console.log("chartInsert " + containerNode.id);
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
   // Open edit menu for the new chart box
@@ -32,7 +30,6 @@ function chartInsert(bnode) {
 
 function chartAppend(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
-  //console.log("chartAppend " + containerNode.id);
   newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
   // Open edit menu for the new chart box
@@ -43,7 +40,6 @@ function chartAppend(bnode) {
 function chartEdit(bnode) {
   removeChartEditMenu();
   containerNode = findAncestorChartContainerNode(bnode);
-  //console.log("chartEdit " + containerNode.id);
   temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
   template = findChildNodeByClass(temp.content, CHART_EDIT_CHART_MENU_CLASS);
   node = template.cloneNode(true);
@@ -56,7 +52,6 @@ function chartEdit(bnode) {
 
 function chartDelete(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
-  //console.log("chartDelete " + containerNode.id);
   removeChartContainerId(containerNode.id);
   containerNode.remove();
   if (numberOfExistingCharts() == 0) {
@@ -76,7 +71,6 @@ function removeChartEditMenu() {
 
 function chartMenuCancel(bnode) {
   containerNode = findAncestorChartContainerNode(bnode);
-  console.log("chartMenuCancel " + containerNode.id);
   removeChartEditMenu();
 }
 

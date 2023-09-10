@@ -27,14 +27,12 @@ function displayJsonRecord(key) {
 var dataDisplayed = false;
 
 function initRawDump() {
-  //console.log("initRawData");
   var scrollbox = document.getElementById('scrollRawDataDiv');
   scrollbox.innerHTML = "";
   dataDisplayed = false;
 }
 
 function displayRawData() {
-  //console.log("displayRawData");
   if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;

@@ -16,7 +16,6 @@ class WaveBox {
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
-    //console.log("session.reportRange=" + session.reportRange);
     if (!session.reportRange) {
       this.rangeX = null;
       return; // reportRange is a global variable

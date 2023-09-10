@@ -4,7 +4,6 @@
 var importJsonArray = [];
 
 function initImportExport() {
-  //console.log("initImportExport");
   importJsonArray = [];
 }
 

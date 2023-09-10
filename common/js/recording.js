@@ -136,7 +136,7 @@ function insertJsonData(jsonData) {
   store.add(jsonData); // Wait for the database transaction to complete
   tx.oncomplete = function () {}
   tx.onerror = function (event) {
-    console.log('Error storing data! ' + event.target.errorCode);
+    console.error('Error storing data! ' + event.target.errorCode);
   }
 }
 
@@ -233,7 +233,6 @@ function processRecordDweet(d) {
       if (!session.recorder.prevDweetRecorded) {
         // Add on the session.recorder.accumulatedState state first
         d = createAccumulatedDweet(d);
-        // console.log(d);
       }
       recordBox.innerText = JSON.stringify(d, null, ". ");
       if (session.database.db) insertJsonData(d);
