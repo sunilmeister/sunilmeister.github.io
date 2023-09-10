@@ -112,10 +112,11 @@ class StatComputer {
     var num = 0;
     for (let i = 0; i < this.computedValuesPerBreath.length; i++) {
       var val = this.computedValuesPerBreath[i];
-      if (val == null) continue;
+      if (val === null) continue;
+      else if (val == 0) continue;
       num++;
 
-      if (sum == null) sum = val;
+      if (sum === null) sum = val;
       else sum += val;
 
       if (!this.computedMin) this.computedMin = val.toFixed(1);
