@@ -74,6 +74,19 @@ function parseSwData(jsonStr) {
   return val;
 }
 
+function parseBnumData(jsonStr) {
+  //console.log("BNUM string : " + jsonStr);
+  arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 2)) {
+    return null;
+  }
+  val = {
+    bnum : arr[0],
+    btime : arr[1],
+  }
+  return val;
+}
+
 function parseParamData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 10)) {
@@ -841,8 +854,10 @@ function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) 
 }
 
 function processBnumDweet(curTime, value, jsonData) {
-  if (value === null) return;
-  var bnumValue = parseChecksumString(value);
+  obj = parseBnumData(value);
+  if (!obj) return;
+
+  var bnumValue = obj.bnum;
   if (bnumValue == null) {
     console.log("Bad BNUM value = " + value + " sys = " + session.systemBreathNum);
     return; // will count as missing

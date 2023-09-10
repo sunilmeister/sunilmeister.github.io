@@ -88,7 +88,7 @@ function parseJSONSafely(str) {
   try {
     return JSON.parse(str);
   } catch (e) {
-    console.log("JSON parsing failed due to syntax error");
+    console.error("JSON parsing failed due to syntax error");
     console.log(str);
     // Return a default object, or null based on use case.
     return null;

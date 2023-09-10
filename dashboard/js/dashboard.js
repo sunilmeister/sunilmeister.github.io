@@ -768,7 +768,11 @@ function FetchAndExecuteFromQueue() {
 
     d = dweetQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
-      session.systemBreathNum = parseChecksumString(d.content["BNUM"]);
+      bnumContent = d.content["BNUM"];
+      //console.log("BNUM content");
+      bnumObj = parseJSONSafely(bnumContent);
+      //console.log(bnumObj[0]);
+      session.systemBreathNum = bnumObj[0];
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
         elm = document.getElementById("priorBreathNum");
