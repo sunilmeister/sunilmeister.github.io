@@ -36,7 +36,7 @@ function respimaticListenFor(uidString, callbackFn) {
 // This function does the actual listening
 function executeRespimaticListenFor(uidString, callbackFn) {
  $.ajax({
-      url: 'https://respimaticlisten.atmanirbhar.org/display_json_response',
+      url: 'http://respimaticlisten.atmanirbhar.org/display_json_response',
       method: 'POST',
       data: {uid: uidString}
   })
