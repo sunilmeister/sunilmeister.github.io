@@ -134,7 +134,7 @@ function createDashboards() {
   if (updatePaused) return;
 
   // update Snapshot on every dweet
-  if ((currentView == "snapshots") && !updatePaused) updateSnapshot();
+  updateSnapshot();
 
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
