@@ -45,22 +45,35 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
-    var beforeBreath = combo.value.startingBreath;
-    var nb = combo.value.numBreaths;
+    var comboBreathsInRange = null;
     var minBnum = session.reportRange.minBnum;
     var maxBnum = session.reportRange.maxBnum;
-    if (beforeBreath < minBnum) {
-      nb = nb - (minBnum - beforeBreath - 1);
-    }
-    var tb = session.breathTimes.length - 1;
-    if (tb > maxBnum) {
-      nb = nb - (tb - maxBnum);
+    var minComboBnum = combo.value.startingBreath;
+    var maxComboBnum = minComboBnum + nb;
+
+    if ((minBnum > maxComboBnum) || (maxBnum < minComboBnum)) {
+      // No intersection
+      comboBreathsInRange = 0;
+    } else if ((minBnum >= minComboBnum) && (maxBnum <= maxComboBnum)) {
+      // Range is superset of the combo numBreaths
+      comboBreathsInRange = maxComboBnum - minComboBnum + 1;
+    } else if ((minBnum < minComboBnum) && (maxBnum > maxComboBnum)) {
+      // Range is totally within combo numBreaths
+      comboBreathsInRange = maxBnum - minBnum + 1;
+    } else if ((minBnum >= minComboBnum) && (maxBnum > maxComboBnum)) {
+      // Range min is within but max is outside the range
+      comboBreathsInRange = maxComboBnum - minBnum + 1;
+    } else if ((minBnum < minComboBnum) && (maxBnum <= maxComboBnum)) {
+      // Range min is outside but max is within the range
+      comboBreathsInRange = maxBnum - minComboBnum + 1;
+    } else {
+      comboBreathsInRange = null;
     }
 
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(nb);
+    cell.innerHTML = checkForUndefined(comboBreathsInRange);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(beforeBreath);
+    cell.innerHTML = checkForUndefined(minComboBnum);
   }
 }
 /////////////////////////////////////////////////////////////////

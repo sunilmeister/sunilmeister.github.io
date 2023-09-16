@@ -25,6 +25,7 @@ function waitForRespimaticMessages(uidString, callbackFn) {
 // None of the below functions should be called by the Dashboard
 // These are private functions
 ////////////////////////////////////////////////////////////////////////////////
+var prevResponseTimestamp = null;
 function respimaticListenFor(uidString, callbackFn) {
   // Call the real work function immediately
   executeRespimaticListenFor(uidString, callbackFn);
@@ -38,30 +39,37 @@ function executeRespimaticListenFor(uidString, callbackFn) {
  $.ajax({
       url: 'http://respimaticlisten.atmanirbhar.org/display_json_response',
       method: 'POST',
-      data: {uid: uidString}
-  })
-  .done(function (response) {
-    var timestamp = response.timestamp;
-    var jsonObject = response.jsonData;
+      data: {uid: uidString},
+      success: function (response) {
+        var timestamp = response.timestamp;
+        if (prevResponseTimestamp === null) {
+          prevResponseTimestamp = timestamp;
+        } else if (prevResponseTimestamp == timestamp) {
+          // This is a repeat - do not call the callbackFn
+          return;
+        } else {
+          prevResponseTimestamp = timestamp;
+        }
 
-    if (response.data === 'success') {
-      // change the response to be in dweet format
-      // so that the rest of the code does not have to change
-      // when switching from dweet to respimaticListenFor
-      dweetFormat = imitateDweetFormat(jsonObject);
-      callbackFn(dweetFormat); // Pass the response to the callbackFn
-    } 
-  })
-  .fail(function (error) {
-    callbackFn(null); // Signal error to callbackFn
-  });
+        console.log(response)
+        var jsonObject = response.jsonData;
+        if (response.data == 'success') {
+          console.log(timestamp,jsonObject);
+          // change the response to be in dweet format
+          // so that the rest of the code does not have to change
+          // when switching from dweet to respimaticListenFor
+          var dweetObj = imitateDweetFormat(uidString, timeStamp, jsonObject);
+          callbackFn(dweetObj); // Pass the response to the callbackFn
+        }
+      }
+    });
 }
 
 function imitateDweetFormat(uidString, timeStamp, jsonObject) {
-  var dweetFormat = {
+  var dweetObj = {
     "thing": uidString,
     "created": new Date(timeStamp),
     "content" : jsonObject.content,
   };
-  return dweetFormat;
+  return dweetObj;
 }
