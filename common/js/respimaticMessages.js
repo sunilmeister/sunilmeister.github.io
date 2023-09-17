@@ -25,7 +25,7 @@ function waitForRespimaticMessages(uidString, callbackFn) {
 // None of the below functions should be called by the Dashboard
 // These are private functions
 ////////////////////////////////////////////////////////////////////////////////
-var prevResponseTimestamp = null;
+var prevResponseTimestamp = Date();
 function respimaticListenFor(uidString, callbackFn) {
   // Call the real work function immediately
   executeRespimaticListenFor(uidString, callbackFn);
@@ -42,9 +42,7 @@ function executeRespimaticListenFor(uidString, callbackFn) {
       data: {uid: uidString},
       success: function (response) {
         var timestamp = response.timestamp;
-        if (prevResponseTimestamp === null) {
-          prevResponseTimestamp = timestamp;
-        } else if (prevResponseTimestamp == timestamp) {
+        if (prevResponseTimestamp == timestamp) {
           // This is a repeat - do not call the callbackFn
           return;
         } else {
