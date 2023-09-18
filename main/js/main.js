@@ -462,10 +462,24 @@ window.onload = function () {
     }
   });
 
-  console.log("Checking " + BROADCAST_UID);
+  //console.log("Checking " + BROADCAST_UID);
   waitForRespimaticMessages(BROADCAST_UID, function (d) {
-    console.log("**** Following System came online");
-    console.log(d);
+    newUid = d.content.PRESENT;
+    time = Date(d.created);
+    detectedRespimaticSystemLogin(time, newUid);
+    //console.log(d);
   })
   
 };
+
+function detectedRespimaticSystemLogin(time, newUid) {
+  //console.log("**** " + newUid + " online" + " at " + time);
+  obj = findSystemUidObj(newUid);
+  var msg = "";
+  if (obj) {
+    msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
+  } else {
+    msg += "UID: " + obj.uid ;
+  }
+  modalInfo("Detected Respimatic 100 System login", msg);
+}
