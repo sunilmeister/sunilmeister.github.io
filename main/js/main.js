@@ -461,4 +461,11 @@ window.onload = function () {
       document.getElementById("addSystemBtn").click();
     }
   });
+
+  console.log("Checking " + BROADCAST_UID);
+  waitForRespimaticMessages(BROADCAST_UID, function (d) {
+    console.log("**** Following System came online");
+    console.log(d);
+  })
+  
 };
