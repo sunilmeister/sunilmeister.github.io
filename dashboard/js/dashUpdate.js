@@ -74,6 +74,7 @@ function updatePending(blink) {
 function updateAlert(blink) {
   elm = document.getElementById("AlertDiv");
   if (session.stateData.error) {
+    startErrorBeep();
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = palette.darkred;
       alertBackground = "DARKRED";
@@ -86,6 +87,7 @@ function updateAlert(blink) {
       alertImage = "ERROR";
     }
   } else if (session.alerts.attention || wifiDropped) {
+    startWarningBeep();
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = palette.orange;
       alertBackground = "ORANGE";
@@ -98,6 +100,7 @@ function updateAlert(blink) {
       alertImage = "WARNING";
     }
   } else {
+    stopAllBeeps();
     if (alertBackground != "GREEN") {
       elm.style.backgroundColor = palette.green;
       alertBackground = "GREEN";
