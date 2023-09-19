@@ -11,6 +11,15 @@ document.addEventListener('click', function (event) {
   // Let the button listener take care of stuff
   if (buttonClicked) return;
 
+  var spanClicked = (event.target.nodeName == "SPAN");
+  if (!spanClicked && event.target.parentNode) {
+    // check parent for ispan buttons
+    spanClicked = (event.target.parentNode.nodeName == "SPAN");
+  }
+
+  // Let the span listener take care of stuff
+  if (spanClicked) return;
+
   var cMenu = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   var sMenu = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
 
