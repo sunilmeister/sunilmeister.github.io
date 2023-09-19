@@ -31,12 +31,15 @@ function disableWarningBeep() {
 }
 
 function toggleWarningBeep() { 
-  var img = document.getElementById("btnWarningImg"); 
+  var imgMenu = document.getElementById("btnWarningImg"); 
+  var imgStatus = document.getElementById("WarningActiveImg"); 
   if (warningBeepEnabled) {
-    img.src = "../common/img/audioOff.png";
+    imgMenu.src = "../common/img/audioOff.png";
+    imgStatus.src = "../common/img/audioOff.png";
     warningBeepEnabled = false;
   } else {
-    img.src = "../common/img/audioOn.png";
+    imgMenu.src = "../common/img/audioOn.png";
+    imgStatus.src = "../common/img/audioOn.png";
     warningBeepEnabled = true;
   }
 }
@@ -70,12 +73,15 @@ function disableErrorBeep() {
 }
 
 function toggleErrorBeep() { 
-  var img = document.getElementById("btnErrorImg"); 
+  var imgMenu = document.getElementById("btnErrorImg"); 
+  var imgStatus = document.getElementById("ErrorActiveImg"); 
   if (errorBeepEnabled) {
-    img.src = "../common/img/audioOff.png";
+    imgMenu.src = "../common/img/audioOff.png";
+    imgStatus.src = "../common/img/audioOff.png";
     errorBeepEnabled = false;
   } else {
-    img.src = "../common/img/audioOn.png";
+    imgMenu.src = "../common/img/audioOn.png";
+    imgStatus.src = "../common/img/audioOn.png";
     errorBeepEnabled = true;
   }
 }
