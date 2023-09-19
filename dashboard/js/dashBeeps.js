@@ -30,6 +30,17 @@ function disableWarningBeep() {
   warningBeepEnabled = false;
 }
 
+function toggleWarningBeep() { 
+  var img = document.getElementById("btnWarningImg"); 
+  if (warningBeepEnabled) {
+    img.src = "../common/img/audioOff.png";
+    warningBeepEnabled = false;
+  } else {
+    img.src = "../common/img/audioOn.png";
+    warningBeepEnabled = true;
+  }
+}
+
 //////////////////////////////////////////////
 // Error Beeps
 //////////////////////////////////////////////
@@ -58,6 +69,17 @@ function disableErrorBeep() {
   errorBeepEnabled = false;
 }
 
+function toggleErrorBeep() { 
+  var img = document.getElementById("btnErrorImg"); 
+  if (errorBeepEnabled) {
+    img.src = "../common/img/audioOff.png";
+    errorBeepEnabled = false;
+  } else {
+    img.src = "../common/img/audioOn.png";
+    errorBeepEnabled = true;
+  }
+}
+
 //////////////////////////////////////////////
 // All Beeps
 //////////////////////////////////////////////
@@ -75,6 +97,15 @@ function disableAllBeeps() {
   disableWarningBeep();
   disableErrorBeep();
 }
+
+function openAudioControl() {
+  document.getElementById("audioControlDiv").style.display = "block"; 
+}
+
+function dismissAudioControl() {
+  document.getElementById("audioControlDiv").style.display = "none"; 
+}
+
 
 //////////////////////////////////////////////
 // Beep buttons

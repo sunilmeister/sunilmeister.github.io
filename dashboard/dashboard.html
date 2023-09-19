@@ -100,6 +100,28 @@
       </center>
     </div>
 
+    <div id=audioControlDiv class=popupClass style="width:600px; height:350px; display: none">
+      <center>
+        <div>
+          <p style="font-size: 40px;">Audio Alarms
+          <br>
+          <p style="font-size: 30px; ">Warning Beeps
+          <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)'
+          onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png"
+          width=25px height=25px></button>
+          <p style="font-size: 30px; ">Error Beeps
+          <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)'
+          onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png"
+          width=25px height=25px></button>
+          <br>
+          <br>
+          <button class=button style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='dismissAudioControl()'>DONE</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
 
 
     <div id=enterRangeDiv class=popupClass style="width:600px; height:300px; display: none">
@@ -229,7 +251,7 @@
             <br>
               <p style="font-size:1rem;margin-bottom:0;margin-top:-5px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>TURN ON/OFF</b></p>
             </center>
-            <button id=btnAudio class=sidebarButton onclick='toggleAudio()'>Enable Audio Alarms</button>
+            <button id=btnAudio class=sidebarButton onclick='openAudioControl()'>Control Audio Alarms</button>
             <button id=recordButton class=sidebarButton onclick='changeRecordingStatus()' >Start Recording</button>
             <button id=btnPause class=sidebarButton onclick='togglePause()' style="margin-bottom:1rem;">Pause Dashboard</button>
           </div>
