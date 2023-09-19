@@ -154,6 +154,7 @@ function updateStateDivsFromSessionData() {
   if (session.stateData.state !== session.stateData.prevState) {
     session.alerts.attention = false; // entering initial state
     updateAlert(false);
+    session.stateData.prevState = session.stateData.state;
   }
 
   if (session.stateData.initial) {
@@ -265,9 +266,11 @@ function updateSnapshot() {
       if (value==1) {
         updateAlert(true);
         session.alerts.attention = true;
+        console.log("attention=true");
       } else {
         updateAlert(false);
         session.alerts.attention = false;
+        console.log("attention=false");
       }
     }
     // Message lines
