@@ -12,6 +12,7 @@
 // If jsonObject is null it signifies an error
 ////////////////////////////////////////////////////////////////////////////////
 const USE_DWEET_FOR_MESSAGES = false;
+const LISTEN_INTERVAL_IN_MS = 10;
 
 function waitForRespimaticMessages(uidString, callbackFn) {
   if (USE_DWEET_FOR_MESSAGES) {
@@ -31,7 +32,8 @@ function respimaticListenFor(uidString, callbackFn) {
   executeRespimaticListenFor(uidString, callbackFn);
 
   // After that call the real work function every 10ms
-  intervalId = setInterval(executeRespimaticListenFor(uidString, callbackFn), 10);
+  intervalId = setInterval(executeRespimaticListenFor(uidString, callbackFn), 
+                           LISTEN_INTERVAL_IN_MS);
 }
 
 // This function does the actual listening
@@ -51,6 +53,10 @@ function executeRespimaticListenFor(uidString, callbackFn) {
 
         console.log(response)
         var jsonObject = response.jsonData;
+        if (jsonObject === null) return;
+        if (typeof jsonObject !== 'object') return;
+        if (Object.keys(jsonObject).length === 0) return;
+
         if (response.data == 'success') {
           console.log(timestamp,jsonObject);
           // change the response to be in dweet format

@@ -249,6 +249,7 @@ function acceptBreathRange () {
   badRange = badRange || (fromBreath >= toBreath);
 
   if (badRange) {
+    // console.log("Badrange: from " + fromBreath + " to " + toBreath);
     modalAlert("Invalid Breath Range", "Try again!");
     return;
   }

@@ -266,11 +266,11 @@ function updateSnapshot() {
       if (value==1) {
         updateAlert(true);
         session.alerts.attention = true;
-        console.log("attention=true");
+        //console.log("attention=true");
       } else {
         updateAlert(false);
         session.alerts.attention = false;
-        console.log("attention=false");
+        //console.log("attention=false");
       }
     }
     // Message lines
