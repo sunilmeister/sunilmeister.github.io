@@ -856,6 +856,11 @@ function processBnumDweet(curTime, value, jsonData) {
   obj = parseBnumData(value);
   if (!obj) return;
 
+  // BNUM time is more accurate - use that for breathTimes
+  if (!session.firstBreathDweetTime) session.firstBreathDweetTime = curTime;
+  if (!session.firstBreathBnumTime) session.firstBreathBnumTime = obj.btime;
+  var breathTime = addMsToDate(session.firstBreathDweetTime, obj.btime - session.firstBreathBnumTime);
+
   var bnumValue = obj.bnum;
   if (bnumValue == null) {
     console.warn("Bad BNUM value = " + value + " sys = " + session.systemBreathNum);
@@ -899,7 +904,7 @@ function processBnumDweet(curTime, value, jsonData) {
     console.warn("Breaths Missing =" + breathsMissing);
     console.warn("Before systemBreathNum=" + session.systemBreathNum);
     session.missingBreaths.push({
-      "time": curTime,
+      "time": breathTime,
       "value": breathsMissing
     });
     // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
@@ -918,13 +923,13 @@ function processBnumDweet(curTime, value, jsonData) {
     if (!session.lastValidBreathTime) session.lastValidBreathTime = session.startDate;
     session.missingTimeWindows.push({
       "startValue": ((new Date(session.lastValidBreathTime) - session.startDate) / 1000) + 0.5,
-      "endValue": ((new Date(curTime) - session.startDate) / 1000) - 0.5,
+      "endValue": ((new Date(breathTime) - session.startDate) / 1000) - 0.5,
       "type": "zigzag",
       "lineColor": "black",
       "autoCalculate": true
     });
     var msg = {
-      'created': curTime,
+      'created': breathTime,
       'breathNum': session.breathTimes.length,
       'L1': String(breathsMissing) + " Interval(s) missed",
       'L2': "Info not received by",
@@ -933,12 +938,12 @@ function processBnumDweet(curTime, value, jsonData) {
     };
     session.infoMsgs.push(msg);
     session.infoChanges.push({
-      "time": curTime,
+      "time": breathTime,
       "value": ++session.alerts.infoNum
     });
   }
-  session.breathTimes.push(curTime);
-  session.lastValidBreathTime = curTime;
+  session.breathTimes.push(breathTime);
+  session.lastValidBreathTime = breathTime;
 }
 
 function processAlertDweet(curTime, jsonData) { 
