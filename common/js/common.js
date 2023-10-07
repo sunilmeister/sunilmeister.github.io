@@ -173,18 +173,18 @@ function parseBreathInfo(num) {
 }
 
 function convertMS(milliseconds) {
-  var day, hour, minute, seconds;
+  var days, hours, minutes, seconds;
   seconds = Math.floor(milliseconds / 1000);
-  minute = Math.floor(seconds / 60);
+  minutes = Math.floor(seconds / 60);
   seconds = seconds % 60;
-  hour = Math.floor(minute / 60);
-  minute = minute % 60;
-  day = Math.floor(hour / 24);
-  hour = hour % 24;
+  hours = Math.floor(minutes / 60);
+  minutes = minutes % 60;
+  days = Math.floor(hours / 24);
+  hours = hours % 24;
   return {
-    day: day,
-    hour: hour,
-    minute: minute,
+    days: days,
+    hours: hours,
+    minutes: minutes,
     seconds: seconds
   };
 }
@@ -225,15 +225,15 @@ function dateToTimeStr(d) {
 
 function msToTimeStr(milliseconds) {
   var d = convertMS(milliseconds);
-  days = d.day;
-  hours = d.hour;
-  minutes = d.minute;
-  seconds = d.seconds;
-  hours = days * 24 + hours;
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
-  return hours + ":" + minutes + ":" + seconds;
+  var days = d.days;
+  var hours = d.hours;
+  var minutes = d.minutes;
+  var seconds = d.seconds;
+  var hours = days * 24 + hours;
+  var strHours = (hours < 10) ? "0" + String(hours) : String(hours);
+  var strMinutes = (minutes < 10) ? "0" + String(minutes) : String(minutes);
+  var strSeconds = (seconds < 10) ? "0" + String(seconds) : String(seconds);
+  return strHours + ":" + strMinutes + ":" + strSeconds;
 }
 
 function strToDate(dateStr, timeStr) {

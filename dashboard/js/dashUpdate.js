@@ -83,7 +83,7 @@ function updateAlert(blink) {
       alertBackground = "GREEN";
     }
     if (alertImage != "ERROR") {
-      document.getElementById("AlertImg").src = "img/Error.svg";
+      document.getElementById("AlertImg").src = "img/Error.png";
       alertImage = "ERROR";
     }
   } else if (session.alerts.attention || wifiDropped) {
@@ -96,7 +96,7 @@ function updateAlert(blink) {
       alertBackground = "GREEN";
     }
     if (alertImage != "WARNING") {
-      document.getElementById("AlertImg").src = "img/Warning.svg";
+      document.getElementById("AlertImg").src = "img/Warning.png";
       alertImage = "WARNING";
     }
   } else {
