@@ -26,7 +26,7 @@ class CircularGauge {
   }
 
   setValue(value) {
-    if (value) {
+    if (value !== null) {
       this.gauge.setValue(value);
     } else {
       this.gauge.setValue(); // NaN
