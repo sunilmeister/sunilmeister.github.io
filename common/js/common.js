@@ -172,7 +172,7 @@ function parseBreathInfo(num) {
   return obj;
 }
 
-function convertMS(milliseconds) {
+function convertMStoHHMMSS(milliseconds) {
   var days, hours, minutes, seconds;
   seconds = Math.floor(milliseconds / 1000);
   minutes = Math.floor(seconds / 60);
@@ -224,7 +224,7 @@ function dateToTimeStr(d) {
 }
 
 function msToTimeStr(milliseconds) {
-  var d = convertMS(milliseconds);
+  var d = convertMStoHHMMSS(milliseconds);
   var days = d.days;
   var hours = d.hours;
   var minutes = d.minutes;

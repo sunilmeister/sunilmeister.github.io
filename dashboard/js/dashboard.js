@@ -90,6 +90,8 @@ function waitForDweets() {
       startSystemDate = new Date();
       //console.log("simulatedMillis=" + simulatedMillis);
       session.startDate = new Date(d.created);
+      elm = document.getElementById("logStartDate");
+      elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
@@ -104,8 +106,6 @@ function processDashboardDweet(d) {
   sessionDurationInMs = curDate - session.startDate;
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
-  elm = document.getElementById("numMissedBreaths");
-  elm.innerHTML = session.numMissingBreaths;
 
   if (!updatePaused) {
     elm = document.getElementById("breathNum");

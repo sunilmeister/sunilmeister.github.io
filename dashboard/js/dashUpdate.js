@@ -130,7 +130,11 @@ function animateDivValue(div, value) {
     return;
   }
   if (Number(div.innerText) == value) return;
-  animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
+  if (dweetQ.size() < 20) {
+    animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
+  } else {
+    div.innerText = value;
+  }
 }
 
 function animateDivToValue(div, value) {
@@ -139,7 +143,11 @@ function animateDivToValue(div, value) {
     return;
   }
   if (Number(div.innerText) == value) return;
-  animateNumberValueTo(div, value);
+  if (dweetQ.size() < 20) {
+    animateNumberValueTo(div, value);
+  } else {
+    div.innerText = value;
+  }
 }
 
 function updateDivValue(div, value) {

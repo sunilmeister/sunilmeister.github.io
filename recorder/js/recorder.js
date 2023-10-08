@@ -67,6 +67,8 @@ function waitForDweets() {
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
       session.startDate = new Date(d.created);
+      elm = document.getElementById("logStartDate");
+      elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
@@ -81,8 +83,6 @@ function updateRecorderSummary(d) {
   sessionDurationInMs = curDate - session.startDate;
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
-  elm = document.getElementById("numMissedBreaths");
-  elm.innerHTML = session.numMissingBreaths;
 
   elm = document.getElementById("breathNum");
   animateNumberValueTo(elm, session.dashboardBreathNum);
