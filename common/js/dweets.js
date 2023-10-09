@@ -967,9 +967,7 @@ function processAlertDweet(curTime, jsonData) {
      });
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
-    console.log("Error#" + (session.alerts.errorNum + 1) + " @ breath# " + session.breathTimes.length);
    if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
-    console.log("Back2Back Error#" + (session.alerts.errorNum + 1) + " @ breath# " + session.breathTimes.length);
      var msg = {
        'created': session.alerts.lastErrorTime,
        'breathNum': session.breathTimes.length,
