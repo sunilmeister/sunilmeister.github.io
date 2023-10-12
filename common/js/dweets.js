@@ -15,13 +15,14 @@ var expectingPWEND = false;
 var expectingDPWEND = false;
 
 function parseWifiData(jsonStr) {
+  console.log("Wifi " + jsonStr);
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
   }
   val = {
-    dropAt : arr[0],
-    reconnectAt : arr[1],
+    dropAt : arr[0] - session.startSystemBreathNum + 1,
+    reconnectAt : arr[1] - session.startSystemBreathNum + 1,
   }
 
   return val;

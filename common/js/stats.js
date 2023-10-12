@@ -260,9 +260,9 @@ function displayBreathTypeInfo() {
   el = document.getElementById("numCmvSpont");
   el.innerHTML = replaceDummyValue(n);
 
-  arr = statComputer.filterChanges(session.wifi.drops);
+  //arr = statComputer.filterChanges(session.wifi.drops);
   el = document.getElementById("numWifiDrops");
-  el.innerHTML = replaceDummyValue(arr.length);
+  el.innerHTML = replaceDummyValue(session.wifi.drops.length);
 }
 
 function displayMinMaxAvg() {

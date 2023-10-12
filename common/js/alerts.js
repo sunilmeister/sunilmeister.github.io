@@ -52,10 +52,8 @@ function createAllAlerts() {
   var scrollbox = document.getElementById('scrollErrorDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.errorMsgs.length; i++) {
-    if (session.errorMsgs[i].created >
-      session.breathTimes[session.reportRange.maxBnum]) continue;
-    if (session.errorMsgs[i].created <
-      session.breathTimes[session.reportRange.minBnum]) continue;
+    if (session.errorMsgs[i].breathNum > session.reportRange.maxBnum) continue;
+    if (session.errorMsgs[i].breathNum < session.reportRange.minBnum) continue;
 
     prefix = "ERROR #" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, session.errorMsgs[i]);
@@ -63,10 +61,8 @@ function createAllAlerts() {
   scrollbox = document.getElementById('scrollWarningDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.warningMsgs.length; i++) {
-    if (session.warningMsgs[i].created >
-      session.breathTimes[session.reportRange.maxBnum]) continue;
-    if (session.warningMsgs[i].created <
-      session.breathTimes[session.reportRange.minBnum]) continue;
+    if (session.warningMsgs[i].breathNum > session.reportRange.maxBnum) continue;
+    if (session.warningMsgs[i].breathNum < session.reportRange.minBnum) continue;
 
     prefix = "WARNING #" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, session.warningMsgs[i]);
@@ -74,10 +70,8 @@ function createAllAlerts() {
   scrollbox = document.getElementById('scrollInfoDiv');
   scrollbox.innerHTML = "";
   for (i = 0; i < session.infoMsgs.length; i++) {
-    if (session.infoMsgs[i].created >
-      session.breathTimes[session.reportRange.maxBnum]) continue;
-    if (session.infoMsgs[i].created <
-      session.breathTimes[session.reportRange.minBnum]) continue;
+    if (session.infoMsgs[i].breathNum > session.reportRange.maxBnum) continue;
+    if (session.infoMsgs[i].breathNum < session.reportRange.minBnum) continue;
 
     prefix = "INFO #" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i]);
