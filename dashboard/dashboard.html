@@ -101,19 +101,23 @@
       </center>
     </div>
 
-    <div id=audioControlDiv class=popupClass style="width:600px; height:350px; display: none">
+    <div id=audioControlDiv class=popupClass style="width:600px; height:400px; display: none">
       <center>
         <div>
           <p style="font-size: 40px;">Audio Alarms
           <br>
-          <p style="font-size: 30px; ">Warning Beeps
+          <p style="font-size: 30px; ">Warning
           <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)'
-          onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png"
-          width=25px height=25px></button>
-          <p style="font-size: 30px; ">Error Beeps
+          onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOn.png" width=25px height=25px></button>
+          <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;"
+          onchange='changeWarningVolume()'> 
+          <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+
+          <p style="font-size: 30px; ">&nbsp&nbsp&nbsp&nbspError
           <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)'
-          onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png"
-          width=25px height=25px></button>
+          onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOn.png" width=25px height=25px></button>
+          <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeErrorVolume()'> 
+          <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
           <br>
           <br>
           <button class=button style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='dismissAudioControl()'>DONE</button>
@@ -766,13 +770,13 @@
           <div class=Indicators style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
             <span onclick=openAudioControl() style="cursor:pointer;">
             <p align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1rem;">&nbsp<img
-            id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" width="17rem"
+            id=WarningActiveImg src="../common/img/audioOn.png" alt="LED" width="17rem"
             height="17rem">&nbsp&nbsp&nbsp&nbspWarning</p>
             </span>
 
             <span onclick=openAudioControl() style="cursor:pointer;">
             <p align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:1rem; padding-bottom:0; font-size:1rem;">&nbsp<img
-            id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" width="17rem"
+            id=ErrorActiveImg src="../common/img/audioOn.png" alt="LED" width="17rem"
             height="17rem">&nbsp&nbsp&nbsp&nbspError</p>
             </span>
 
