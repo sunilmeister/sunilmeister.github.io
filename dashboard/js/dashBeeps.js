@@ -175,11 +175,15 @@ function disableAllBeeps() {
 }
 
 function openAudioControl() {
+  warningBeepSample = false;
+  errorBeepSample = false;
   document.getElementById("audioControlDiv").style.display = "block"; 
   stopAllBeeps();
 }
 
 function dismissAudioControl() {
+  warningBeepSample = false;
+  errorBeepSample = false;
   document.getElementById("audioControlDiv").style.display = "none"; 
 }
 
