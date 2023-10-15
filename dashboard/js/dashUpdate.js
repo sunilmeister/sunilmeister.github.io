@@ -290,11 +290,32 @@ function updateSnapshot() {
       if (session.patientData.fname) pname = session.patientData.fname;
       if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
       updateDivValue(pline1DIV, pname);
-    } else if (key == 'AGE') {
-      updateDivValue(pline2DIV, String(session.patientData.age));
-    } else if (key == 'PID') {
-      var pid = "[ID: " + String(session.patientData.pid) + "]";
-      updateDivValue(pline3DIV, pid);
+    } else if (key == 'PSTATS') {
+      var pline2 = "";
+      if (session.patientData.gender) {
+        pline2 = "Gender: " + session.patientData.gender;
+      } else {
+        pline2 = "Gender: ?";
+      }
+      if (session.patientData.age) {
+        pline2 += "&nbsp&nbspAge: " + session.patientData.age + "yr";
+      } else {
+        pline2 += "&nbsp&nbspAge: ?";
+      }
+      updateDivValue(pline2DIV, pline2);
+
+      var pline3 = "";
+      if (session.patientData.weight) {
+        pline3 = "Weight: " + session.patientData.weight + "kg";
+      } else {
+        pline3 = "Weight: ?";
+      }
+      if (session.patientData.height) {
+        pline3 += "&nbsp&nbspHeight: " + session.patientData.height + "cm";
+      } else {
+        pline3 += "&nbsp&nbspHeight: ?";
+      }
+      updateDivValue(pline3DIV, pline3);
     }
 
     // state

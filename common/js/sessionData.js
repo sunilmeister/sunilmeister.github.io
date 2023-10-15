@@ -149,8 +149,10 @@ var SessionDataTemplate = {
   patientData: {
     fname : null,
     lname : null,
+    gender : null,
     age : null,
-    pid : null,
+    weight : null,
+    height : null,
   },
 
   // value transitions arrays

@@ -14,8 +14,26 @@ var dpwPrevShapeSliceNum = -1;
 var expectingPWEND = false;
 var expectingDPWEND = false;
 
+function parsePstats(jsonStr) {
+  jsonStr = jsonStr.replace(/\'/g, '"');
+  //console.log("PStats = " + jsonStr);
+  arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 4)) {
+    return null;
+  }
+
+  val = {
+    gender: (arr[0] = 'M') ? "Male" : "Female",
+    age: arr[1] ? arr[1] : null,
+    weight: arr[2] ? arr[2] : null,
+    height: arr[3] ? arr[3] : null,
+  }
+
+  return val;
+}
+
 function parseWifiData(jsonStr) {
-  console.log("Wifi " + jsonStr);
+  //console.log("Wifi " + jsonStr);
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
@@ -320,10 +338,8 @@ function processJsonRecord(jsonData) {
           session.patientData.fname = value;
         } else if (ckey == "LNAME") {
           session.patientData.lname = value;
-        } else if (ckey == "AGE") {
-          session.patientData.age = value;
-        } else if (ckey == "PID") {
-          session.patientData.pid = value;
+        } else if (ckey == "PSTATS") {
+          processPstatsDweet(curTime, value);
         } else if (ckey == "PWPERIOD") {
           session.waves.sendPeriod = value;
         } else if (ckey == "PWSTART") {
@@ -569,6 +585,16 @@ function processPwsliceDweet(receivedSliceNum, str) {
 // /////////////////////////////////////////////////////
 // All other dweets below
 // /////////////////////////////////////////////////////
+function processPstatsDweet(curTime, jsonStr) {
+  obj = parsePstats(jsonStr);
+  if (!obj) return;
+
+  session.patientData.gender = obj.gender;
+  session.patientData.age = obj.age;
+  session.patientData.weight = obj.weight;
+  session.patientData.height = obj.height;
+}
+
 function processWifiDweet(curTime, jsonStr) {
   obj = parseWifiData(jsonStr);
   if (!obj) return;

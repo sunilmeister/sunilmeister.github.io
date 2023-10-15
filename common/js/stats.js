@@ -321,21 +321,37 @@ function displayPatientInfo() {
     el.innerHTML = "Patient Name: ?";
   }
 
-  var patientInfo = "";
+  var pInfo1 = "";
+  if (session.patientData.gender) {
+    pInfo1 = "Gender: " + session.patientData.gender;
+  } else {
+    pInfo1 = "Gender: ?";
+  }
+
   if (session.patientData.age) {
-    patientInfo = session.patientData.age;
+    pInfo1 += "&nbsp&nbspAge: " + session.patientData.age + "yr";
   } else {
-    patientInfo = "Age: ?";
+    pInfo1 += "&nbsp&nbspAge: ?";
   }
 
-  if (session.patientData.pid) {
-    patientInfo += " [ID: " + session.patientData.pid + "]";
+  el = document.getElementById("pInfo1");
+  el.innerHTML = pInfo1;
+
+  var pInfo2 = "";
+  if (session.patientData.weight) {
+    pInfo2 = "Weight: " + session.patientData.weight + "kg";
   } else {
-    patientInfo += " [ID: ?]";
+    pInfo2 = "Weight: ?";
   }
 
-  el = document.getElementById("pInfo");
-  el.innerHTML = "Patient Info: " + patientInfo;
+  if (session.patientData.height) {
+    pInfo2 += "&nbsp&nbspHeight: " + session.patientData.height + "cm";
+  } else {
+    pInfo2 += "&nbsp&nbspHeight: ?";
+  }
+
+  el = document.getElementById("pInfo2");
+  el.innerHTML = pInfo2;
 }
 
 function displayAlertsInfo() {

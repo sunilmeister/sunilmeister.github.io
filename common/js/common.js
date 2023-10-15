@@ -522,24 +522,6 @@ function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
   return (f * O2FLOW_SAFETY_BOOST_PERCENT) / 100;
 }
 
-// returns an array [gender, age, pid]
-// from a pattern like "[ID] (M) Age"
-// returns null if badly formed
-function parsePatientInfo(str) {
-  let re = /\[.*\]\s+\([MF]\)\s+.+/i;
-  if (!str.match(re)) {
-    return null;
-  }
-  tokens = str.split('[');
-  tokens = tokens[1].split(']');
-  pid = tokens[0].trim();
-  tokens = tokens[1].split(' ');
-  age = tokens[2];
-  tokens = tokens[1].split('(');
-  tokens = tokens[1].split(')');
-  gender = tokens[0];
-  return [gender, age, pid];
-}
 // calculate checksum of a 32-bit number
 // returns a byte checksum
 function checksum(num) {
