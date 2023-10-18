@@ -27,7 +27,7 @@ function initDbNames() {
 }
 
 function deleteAllRecordings() {
-  var retrieved_dbs = getAllDbs();
+  let retrieved_dbs = getAllDbs();
   for (i = 0; i < retrieved_dbs.length; i++) {
     deleteDb(retrieved_dbs[i]);
   }  
@@ -49,7 +49,7 @@ function dateStrToMs(dStr) {
 }
 
 function addMsToDate(date, ms) {
-  var mill = date.valueOf(); // Get millisecond value from date
+  let mill = date.valueOf(); // Get millisecond value from date
   mill += ms;
   return new Date(mill);
 }
@@ -97,20 +97,20 @@ function parseJSONSafely(str) {
 function cloneObject(obj) {
   if (null == obj || "object" != typeof obj) return obj;
   if (obj instanceof Date) {
-    var copy = new Date();
+    let copy = new Date();
     copy.setTime(obj.getTime());
     return copy;
   }
   if (obj instanceof Array) {
-    var copy = [];
-    for (var i = 0, len = obj.length; i < len; i++) {
+    let copy = [];
+    for (let i = 0, len = obj.length; i < len; i++) {
       copy[i] = cloneObject(obj[i]);
     }
     return copy;
   }
   if (obj instanceof Object) {
-    var copy = {};
-    for (var attr in obj) {
+    let copy = {};
+    for (let attr in obj) {
       if (obj.hasOwnProperty(attr)) copy[attr] = cloneObject(obj[attr]);
     }
     return copy;
@@ -142,7 +142,7 @@ function equalObjects(object1, object2) {
 // {isMaintenance,isAbnormal,isError,isVC,isMandatory}
 function parseBreathInfo(num) {
   num = Number(num);
-  var obj = {};
+  let obj = {};
 
   for (i = 0; i < 5; i++) {
     bit = num & 0x1;
@@ -173,7 +173,7 @@ function parseBreathInfo(num) {
 }
 
 function convertMStoHHMMSS(milliseconds) {
-  var days, hours, minutes, seconds;
+  let days, hours, minutes, seconds;
   seconds = Math.floor(milliseconds / 1000);
   minutes = Math.floor(seconds / 60);
   seconds = seconds % 60;
@@ -192,12 +192,12 @@ function convertMStoHHMMSS(milliseconds) {
 function dateToStr(d) {
   if (!d) return null;
   date = new Date(d);
-  var dd = String(date.getDate()).padStart(2, '0');
-  var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = date.getFullYear();
-  var hrs = String(date.getHours()).padStart(2, '0');
-  var min = String(date.getMinutes()).padStart(2, '0');
-  var sec = String(date.getSeconds()).padStart(2, '0');
+  let dd = String(date.getDate()).padStart(2, '0');
+  let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = date.getFullYear();
+  let hrs = String(date.getHours()).padStart(2, '0');
+  let min = String(date.getMinutes()).padStart(2, '0');
+  let sec = String(date.getSeconds()).padStart(2, '0');
   dmy = dd + "-" + mm + "-" + yyyy;
   dtStr = '[' + dmy + ']' + hrs + ":" + min + ":" + sec;
   return dtStr;
@@ -206,9 +206,9 @@ function dateToStr(d) {
 function dateToDateStr(d) {
   if (!d) return null;
   date = new Date(d);
-  var dd = String(date.getDate()).padStart(2, '0');
-  var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = date.getFullYear();
+  let dd = String(date.getDate()).padStart(2, '0');
+  let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = date.getFullYear();
   dtStr = dd + "-" + mm + "-" + yyyy;
   return dtStr;
 }
@@ -216,23 +216,23 @@ function dateToDateStr(d) {
 function dateToTimeStr(d) {
   if (!d) return null;
   date = new Date(d);
-  var hrs = String(date.getHours()).padStart(2, '0');
-  var min = String(date.getMinutes()).padStart(2, '0');
-  var sec = String(date.getSeconds()).padStart(2, '0');
+  let hrs = String(date.getHours()).padStart(2, '0');
+  let min = String(date.getMinutes()).padStart(2, '0');
+  let sec = String(date.getSeconds()).padStart(2, '0');
   tmStr = hrs + ":" + min + ":" + sec;
   return tmStr;
 }
 
 function msToTimeStr(milliseconds) {
-  var d = convertMStoHHMMSS(milliseconds);
-  var days = d.days;
-  var hours = d.hours;
-  var minutes = d.minutes;
-  var seconds = d.seconds;
-  var hours = days * 24 + hours;
-  var strHours = (hours < 10) ? "0" + String(hours) : String(hours);
-  var strMinutes = (minutes < 10) ? "0" + String(minutes) : String(minutes);
-  var strSeconds = (seconds < 10) ? "0" + String(seconds) : String(seconds);
+  let d = convertMStoHHMMSS(milliseconds);
+  let days = d.days;
+  let hours = d.hours;
+  let minutes = d.minutes;
+  let seconds = d.seconds;
+  hours = days * 24 + hours;
+  let strHours = (hours < 10) ? "0" + String(hours) : String(hours);
+  let strMinutes = (minutes < 10) ? "0" + String(minutes) : String(minutes);
+  let strSeconds = (seconds < 10) ? "0" + String(seconds) : String(seconds);
   return strHours + ":" + strMinutes + ":" + strSeconds;
 }
 
@@ -337,9 +337,9 @@ function tpsValid(str) {
 // Cookie functions
 // /////////////////////////////////////////////
 function setCookie(cname, cvalue) {
-  var d = new Date();
+  let d = new Date();
   d.setFullYear(d.getFullYear() + 1);
-  var expiry = d.toUTCString();
+  let expiry = d.toUTCString();
   document.cookie = cname + "=" + cvalue + "; expires=" + expiry +
     ";path=/; SameSite=None;Secure";
 }
@@ -351,18 +351,18 @@ function deleteAllCookies() {
 }
 
 function deleteCookie(cname) {
-  var d = new Date();
+  let d = new Date();
   d.setFullYear(d.getFullYear() - 1);
-  var expiry = d.toUTCString();
+  let expiry = d.toUTCString();
   document.cookie = cname + "=; expires=" + expiry;
 }
 
 function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    let c = ca[i];
     while (c.charAt(0) == ' ') {
       c = c.substring(1);
     }
@@ -376,12 +376,12 @@ function getCookie(cname) {
 // Database functions
 // /////////////////////////////////////////////
 function checkDbExists(dbName) {
-  var retrieved_dbs = localStorage.getItem(localStorageDbName);
-  var respimatic_dbs = [];
+  let retrieved_dbs = localStorage.getItem(localStorageDbName);
+  let respimatic_dbs = [];
   if (retrieved_dbs) {
     respimatic_dbs = JSON.parse(retrieved_dbs);
   } else return false;
-  var ix;
+  let ix;
   if (respimatic_dbs.length) {
     ix = respimatic_dbs.indexOf(dbName);
   } else {
@@ -402,8 +402,8 @@ function getAllDbs() {
 
 function deleteDb(dbName) {
   // Keep track of databases currently existing
-  var retrieved_dbs = getAllDbs();
-  var ix;
+  let retrieved_dbs = getAllDbs();
+  let ix;
   if (retrieved_dbs.length) {
     ix = retrieved_dbs.indexOf(dbName);
   } else {
@@ -413,7 +413,7 @@ function deleteDb(dbName) {
     retrieved_dbs.splice(ix, 1);
     localStorage.setItem(localStorageDbName, JSON.stringify(retrieved_dbs));
   }
-  var request = indexedDB.deleteDatabase(dbName);
+  let request = indexedDB.deleteDatabase(dbName);
   return request;
 }
 
@@ -426,7 +426,7 @@ function parseDbName(name) {
 // Open/Create Database 
 // ///////////////////////////////////////////////////////
 function isValidDatabaseName(dname) {
-  var format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
+  let format = /[!@#$%^&*()+\=\[\]{};':"\\|,.<>\/?]+/;
   if (format.test(dname)) {
     return false;
   } else {
@@ -436,13 +436,13 @@ function isValidDatabaseName(dname) {
 
 function createOrOpenDb(name, timeStamp) {
   session.database.dbName = name;
-  var dbReq = indexedDB.open(name, session.database.dbVersion);
+  let dbReq = indexedDB.open(name, session.database.dbVersion);
   // Fires when the version of the database goes up, or the database is created
   // for the first time
   dbReq.onupgradeneeded = function (event) {
     session.database.db = event.target.result;
     // Object stores in databases are where data are stored.
-    var dbObjStore;
+    let dbObjStore;
     if (!session.database.db.objectStoreNames.contains(session.database.dbObjStoreName)) {
       dbObjStore = session.database.db.createObjectStore(session.database.dbObjStoreName, {
         keyPath: session.database.dbPrimaryKey
@@ -474,14 +474,14 @@ function createOrOpenDb(name, timeStamp) {
 }
 
 function exportDb(dbName, fileName) {
-  var getAll = [];
-  var req = indexedDB.open(dbName, session.database.dbVersion);
+  let getAll = [];
+  let req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
-    var db = event.target.result;
-    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
-    var store = tx.objectStore(session.database.dbObjStoreName);
+    let db = event.target.result;
+    let tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    let store = tx.objectStore(session.database.dbObjStoreName);
     store.openCursor().onsuccess = function (evt) {
-      var cursor = evt.target.result;
+      let cursor = evt.target.result;
       if (cursor) {
         getAll.push(cursor.value);
         cursor.continue();
@@ -494,12 +494,12 @@ function exportDb(dbName, fileName) {
 
 function registerDbName(dbName) {
   // Keep track of databases currently existing
-  var retrieved_dbs = localStorage.getItem(localStorageDbName);
-  var respimatic_dbs = [];
+  let retrieved_dbs = localStorage.getItem(localStorageDbName);
+  let respimatic_dbs = [];
   if (retrieved_dbs) {
     respimatic_dbs = JSON.parse(retrieved_dbs);
   }
-  var ix;
+  let ix;
   if (respimatic_dbs.length) {
     ix = respimatic_dbs.indexOf(dbName);
   } else {
@@ -546,7 +546,7 @@ function parseChecksumString(tstr) {
   num = arr[0];
   ccs = checksum(num);
   if (arr[1] != ccs) {
-    console.error("Bad ChecksumString =" + num + " checksum=" + tokens[0] +
+    console.error("Bad ChecksumString =" + num + " checksum=" + arr[1] +
       "\nComputed checksum=" + ccs);
     return null;
   }
@@ -572,7 +572,7 @@ function o2PurityAtAltitudeMtr(mtr) {
 function showZoomReminder() {
   if (getCookie(zoomReminderOffCookieName) == "OFF") return;
 
-  var modalColor = palette.modal;
+  let modalColor = palette.modal;
   
   Swal.fire({
     icon: 'info',
@@ -606,7 +606,7 @@ function showZoomReminder() {
 function showEditIconReminder() {
   if (getCookie(editReminderOffCookieName) == "OFF") return;
 
-  var modalColor = palette.modal;
+  let modalColor = palette.modal;
   
   Swal.fire({
     icon: 'info',
@@ -663,7 +663,7 @@ function modalWarning(title, msg) {
 }
 
 function modalInfo(title, msg) {
-  var modalColor = palette.modal;
+  let modalColor = palette.modal;
 
   Swal.fire({
     icon: 'info',
@@ -702,7 +702,7 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
     cancelText = "CANCEL";
   }
 
-  var modalColor = palette.modal;
+  let modalColor = palette.modal;
   
   Swal.fire({
     icon: 'question',
@@ -737,8 +737,8 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
 }
 
 function findChildNodeByClass(node, className) {
-  var res = null;
-  var children = node.childNodes;
+  let res = null;
+  let children = node.childNodes;
   if (!children) return null;
 
   for (let i = 0; i < children.length; i++) {
@@ -796,11 +796,11 @@ function animateNumberValue(obj, start, end, duration) {
     return;
   }
   if (start === end) return;
-  var range = end - start;
-  var current = start;
-  var increment = end > start? 1 : -1;
-  var stepTime = Math.abs(Math.floor(duration / range));
-  var timer = setInterval(function() {
+  let range = end - start;
+  let current = start;
+  let increment = end > start? 1 : -1;
+  let stepTime = Math.abs(Math.floor(duration / range));
+  let timer = setInterval(function() {
       current += increment;
       obj.innerText = current;
       if (current == end) {

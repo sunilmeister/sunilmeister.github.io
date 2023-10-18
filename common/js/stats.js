@@ -2,6 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var statComputer = null;
+
 function checkForUndefined(val) {
   if (val === null) return "--";
   if (isUndefined(val)) return "?";
@@ -9,14 +11,14 @@ function checkForUndefined(val) {
 }
 
 function displayUsedCombos() {
-  var table = document.getElementById("statsComboTable");
+  let table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
-  var arr = statComputer.filterTransitions(session.usedParamCombos);
+  let arr = statComputer.filterTransitions(session.usedParamCombos);
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     if (combo.value.numBreaths == 0) continue;
-    var row = table.insertRow();
+    let row = table.insertRow();
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.mode);
     if (combo.value.mode == "PSV") {
@@ -45,18 +47,18 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
-    var comboBreathsInRange = null;
-    var minBnum = session.reportRange.minBnum;
-    var maxBnum = session.reportRange.maxBnum - 1;
-    var minComboBnum = combo.value.startingBreath;
-    var maxComboBnum = minComboBnum + combo.value.numBreaths - 1;
+    let comboBreathsInRange = null;
+    let minBnum = session.reportRange.minBnum;
+    let maxBnum = session.reportRange.maxBnum - 1;
+    let minComboBnum = combo.value.startingBreath;
+    let maxComboBnum = minComboBnum + combo.value.numBreaths - 1;
 
     //console.log("minBnum=" + minBnum);
     //console.log("maxBnum=" + maxBnum);
     //console.log("minComboBnum=" + minComboBnum);
     //console.log("maxComboBnum=" + maxComboBnum);
 
-    var minB, maxB;
+    let minB, maxB;
     if (minBnum < minComboBnum) minB = minComboBnum;
     else minB = minBnum;
     if (maxBnum > maxComboBnum) maxB = maxComboBnum;
@@ -115,7 +117,7 @@ function minMaxTableRow(table, field, units, minDiv, maxDiv, avgDiv) {
 }
 
 function constructStatMinMaxTable() {
-  var table = document.getElementById("statsMinMaxTable");
+  let table = document.getElementById("statsMinMaxTable");
   minMaxTableRow(table, "Peak Pressure", "cmH20", "peakMin", "peakMax", "peakAvg");
   minMaxTableRow(table, "Plateau Pressure", "cmH20", "platMin", "platMax", "platAvg");
   minMaxTableRow(table, "PEEP Pressure", "cmH20", "mpeepMin", "mpeepMax", "mpeepAvg");
@@ -132,7 +134,7 @@ function constructStatMinMaxTable() {
 }
 
 function constructStatParamTable() {
-  var table = document.getElementById("statsParamTable");
+  let table = document.getElementById("statsParamTable");
   paramTableRow(table, "Ventilation Mode", "mode", "mode");
   paramTableRow(table, "Tidal Volume", "ml", "vt");
   paramTableRow(table, "Minute Volume", "l/min", "mv");
@@ -146,7 +148,7 @@ function constructStatParamTable() {
 }
 
 function constructStatMiscTable() {
-  var table = document.getElementById("statsMiscTable");
+  let table = document.getElementById("statsMiscTable");
   miscTableRow(table, "Number of Breaths", "numBreaths");
   miscTableRow(table, "Number of Mandatory Breaths", "numMandatory");
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
@@ -166,8 +168,6 @@ function replaceDummyValue(value) {
   return str;
 }
 
-var statComputer = null;
-
 function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
   statComputer.computeMinMaxAvg(transitions);
   document.getElementById(minDivId).innerHTML = replaceDummyValue(statComputer.computedMin);
@@ -176,15 +176,15 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, transitions) {
 }
 
 function extractUsedParamsFromCombos() {
-  var pNames = ["mode", "vt", "mv", "rr", "ie", "ipeep", "pmax", "ps", "tps", "fiO2"];
-  var obj = {};
+  let pNames = ["mode", "vt", "mv", "rr", "ie", "ipeep", "pmax", "ps", "tps", "fiO2"];
+  let obj = {};
 
   if (session.usedParamCombos.length == 0) {
     console.warn("session.usedParamCombos is empty");
     return;
   }
 
-  var arr = statComputer.filterTransitions(session.usedParamCombos);
+  let arr = statComputer.filterTransitions(session.usedParamCombos);
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     params = combo.value;
@@ -208,14 +208,14 @@ function formUsedParamString(extractedObj, paramName) {
   if (isUndefined(extractedObj)) {
     return "?";
   }
-  var extractedArray = extractedObj[paramName];
+  let extractedArray = extractedObj[paramName];
   if (isUndefined(extractedArray)) {
     return "?";
   }
 
-  var str = "";
+  let str = "";
   for (i = 0; i < extractedArray.length; i++) {
-    var p = extractedArray[i];
+    let p = extractedArray[i];
     if (i == 0) str = p;
     else str = str + "," + p;
   }
@@ -223,10 +223,10 @@ function formUsedParamString(extractedObj, paramName) {
 }
 
 function displayBreathTypeInfo() {
-  var arr = statComputer.rangeArray(session.breathTypeChanges);
-  var nm = 0;
-  var ns = 0;
-  var ne = 0;
+  let arr = statComputer.rangeArray(session.breathTypeChanges);
+  let nm = 0;
+  let ns = 0;
+  let ne = 0;
   for (let i = 0; i < arr.length; i++) {
     value = arr[i].value;
     if (value == SPONTANEOUS_BREATH) ns++;
@@ -244,7 +244,7 @@ function displayBreathTypeInfo() {
 
 
   arr = statComputer.filterChanges(session.missingBreaths);
-  var n = 0;
+  let n = 0;
   for (let i = 0; i < arr.length; i++) {
     obj = arr[i];
     n += obj.value;
@@ -282,7 +282,7 @@ function displayMinMaxAvg() {
 }
 
 function displayParamUsage() {
-  var obj = extractUsedParamsFromCombos();
+  let obj = extractUsedParamsFromCombos();
 
   el = document.getElementById("mode");
   el.innerHTML = formUsedParamString(obj, "mode");
@@ -307,7 +307,7 @@ function displayParamUsage() {
 }
 
 function displayPatientInfo() {
-  var patientName = "";
+  let patientName = "";
   if (session.patientData.fname) {
     patientName += session.patientData.fname;
   }
@@ -321,7 +321,7 @@ function displayPatientInfo() {
     el.innerHTML = "Patient Name: ?";
   }
 
-  var pInfo1 = "";
+  let pInfo1 = "";
   if (session.patientData.gender) {
     pInfo1 = "Gender: " + session.patientData.gender;
   } else {
@@ -337,7 +337,7 @@ function displayPatientInfo() {
   el = document.getElementById("pInfo1");
   el.innerHTML = pInfo1;
 
-  var pInfo2 = "";
+  let pInfo2 = "";
   if (session.patientData.weight) {
     pInfo2 = "Weight: " + session.patientData.weight + "kg";
   } else {
@@ -356,8 +356,8 @@ function displayPatientInfo() {
 
 function displayAlertsInfo() {
 
-  var arr = statComputer.filterChanges(session.infoChanges);
-  var n = 0;
+  let arr = statComputer.filterChanges(session.infoChanges);
+  let n = 0;
   for (i = 0; i < arr.length; i++) {
     if (arr[i].value) n++;
   }

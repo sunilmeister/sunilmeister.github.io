@@ -107,7 +107,7 @@ window.onload = function () {
   }
 
   // Treat <ENTER> as accept button
-  var recordNameInput = document.getElementById("recordName");
+  let recordNameInput = document.getElementById("recordName");
   recordNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -119,17 +119,17 @@ window.onload = function () {
   dweetQ = new Queue();
   waitForDweets();
   finishedLoading = true;
-  var menuBar = document.getElementById("sideMenuBar");
-  menuBarHeight = menuBar.offsetHeight;
-  menuBarWidth = menuBar.offsetWidth;
-  var nonMenuArea = document.getElementById("nonMenuArea");
+  let menuBar = document.getElementById("sideMenuBar");
+  let menuBarHeight = menuBar.offsetHeight;
+  let menuBarWidth = menuBar.offsetWidth;
+  let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
 }
 
 window.onbeforeunload = function (e) {
   if (db) db.close();
-  var msg = 'Charts waveform history will be lost';
+  let msg = 'Charts waveform history will be lost';
   if (session.dashboardBreathNum != 0) {
     if (!session.recorder.off) {
       msg = msg + '\nAlso recording will stop';
@@ -154,10 +154,9 @@ setTimeout(function periodicCheck() {
 
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
-  var millis;
   while (1) {
     if (dweetQ.size() == 0) break;
-    d = dweetQ.peek();
+    let d = dweetQ.peek();
     millis = Number(d.MILLIS);
     if (simulatedMillis < millis) break;
 
@@ -166,14 +165,14 @@ function FetchAndExecuteFromQueue() {
       session.systemBreathNum = parseChecksumString(d.content["BNUM"]);
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
-        elm = document.getElementById("priorBreathNum");
+        let elm = document.getElementById("priorBreathNum");
         elm.innerHTML = String(session.systemBreathNum - 1);
       }
       session.dashboardBreathNum = 
         session.systemBreathNum - session.startSystemBreathNum + 1;
     }
     updateRecorderSummary(d);
-    dCopy = cloneObject(d);
+    let dCopy = cloneObject(d);
     processRecordDweet(dCopy);
   }
 
@@ -195,7 +194,7 @@ function exportRecording() {
 }
 
 function exportFile() {
-  fileName = document.getElementById("exportFileName").value;
+  let fileName = document.getElementById("exportFileName").value;
   if (fileName) {
     exportDb(session.database.dbName, fileName);
     document.getElementById("exportDiv").style.display = "none";

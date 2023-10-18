@@ -18,8 +18,8 @@ function installLoader() {
 }
 
 function downloadRelease(btn) {
-  rowNode = btn.parentNode.parentNode.parentNode;
-  rel = rowNode.cells[0].innerHTML;
+  let rowNode = btn.parentNode.parentNode.parentNode;
+  let rel = rowNode.cells[0].innerHTML;
   //console.log(rel);
   modalInfo("Install Release " + rel, 
     "Unzip downloaded zip file '" + rel + ".zip'<br>" + 
@@ -34,9 +34,9 @@ function downloadRelease(btn) {
 }
 
 function populateReleaseTable() {
-  var table = document.getElementById("knownReleasesTable");
-  var rowCount = table.rows.length;
-  for (var i = 1; i < rowCount; i++) {
+  let table = document.getElementById("knownReleasesTable");
+  let rowCount = table.rows.length;
+  for (let i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
   for (const obj of knownRespimaticReleases) {
@@ -45,10 +45,10 @@ function populateReleaseTable() {
 }
 
 function appendReleaseRow(table, rel, created) {
-  row = table.insertRow();
+  let row = table.insertRow();
   row.style.cursor = "pointer";
   
-  cell = row.insertCell();
+  let cell = row.insertCell();
   cell.innerHTML = rel; 
   cell = row.insertCell();
   cell.innerHTML = created;
@@ -58,8 +58,8 @@ function appendReleaseRow(table, rel, created) {
 }
 
 function downloadButtonHTML(rel, onClickFunction, size, title) {
-  className = "iconButton";
-  htmlStr = '<a href="releases/' + rel + '.zip" download>' +
+  let className = "iconButton";
+  let htmlStr = '<a href="releases/' + rel + '.zip" download>' +
     '<button class="' + className + '" title="' + title + '"' +
     ' onClick="' + onClickFunction + '(this)"' +
     ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)">' +

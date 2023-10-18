@@ -24,37 +24,37 @@ class CheckboxTree {
   }
 
   CollectLeafCboxes(elem) {
-    var foundDivChild = false;
+    let foundDivChild = false;
     for (let i = 0; i < elem.childNodes.length; i++) {
-      var child = elem.childNodes[i];
+      let child = elem.childNodes[i];
       if (child.tagName == "DIV") {
         foundDivChild = true;
         this.CollectLeafCboxes(child);
       }
     }
     if (!foundDivChild) {
-      var cbox = this.GetCboxForDiv(elem);
+      let cbox = this.GetCboxForDiv(elem);
       this.leafCheckboxes.push(cbox);
     }
   }
 
   GetCboxForDiv(elem) {
     for (let i = 0; i < elem.childNodes.length; i++) {
-      var child = elem.childNodes[i];
+      let child = elem.childNodes[i];
       if (child.type == "checkbox") return child;
     }
     return null;
   }
 
   CollectChildCboxes(elem) {
-    var cboxes = [];
+    let cboxes = [];
     for (let i = 0; i < elem.childNodes.length; i++) {
-      var child = elem.childNodes[i];
+      let child = elem.childNodes[i];
       if (child.tagName == "DIV") {
-        var arr = child.childNodes;
+        let arr = child.childNodes;
         if (!arr) continue;
         for (let j = 0; j < arr.length; j++) {
-          var cbox = arr[j];
+          let cbox = arr[j];
           if (cbox.type == "checkbox") cboxes.push(cbox);
         }
       }
@@ -63,51 +63,51 @@ class CheckboxTree {
   }
 
   CollectChildDivs(elem) {
-    var divs = [];
+    let divs = [];
     for (let i = 0; i < elem.childNodes.length; i++) {
-      var child = elem.childNodes[i];
+      let child = elem.childNodes[i];
       if (child.tagName == "DIV") divs.push(child);
     }
     return divs;
   }
 
   PropagateClickDownwards(elem, checked) {
-    var divs = this.CollectChildDivs(elem);
+    let divs = this.CollectChildDivs(elem);
     for (let i = 0; i < divs.length; i++) {
-      var cDiv = divs[i];
+      let cDiv = divs[i];
       this.PropagateClickDownwards(cDiv, checked);
     }
 
-    var cboxes = this.CollectChildCboxes(elem);
+    let cboxes = this.CollectChildCboxes(elem);
     for (let i = 0; i < cboxes.length; i++) {
-      var cbox = cboxes[i];
+      let cbox = cboxes[i];
       cbox.checked = checked;
     }
   }
 
   createSpace(width) {
-    var sp = String('..');
+    let sp = String('..');
     return sp.repeat(width);
   }
 
   PropagateBottomUp(elem) {
     if (!elem) return;
-    var elemCbox = null;
+    let elemCbox = null;
 
     if (elem.id != this.treeRootId) elemCbox = this.GetCboxForDiv(elem);
 
     // must create a local copy of the array else recusion wont work!
-    var divs = this.CollectChildDivs(elem);
-    var localDivs = divs.concat([]);
+    let divs = this.CollectChildDivs(elem);
+    let localDivs = divs.concat([]);
 
     for (let i = 0; i < localDivs.length; i++) {
       this.PropagateBottomUp(localDivs[i]);
     }
 
-    var cboxStatus = null;
-    var cboxes = this.CollectChildCboxes(elem);
+    let cboxStatus = null;
+    let cboxes = this.CollectChildCboxes(elem);
     for (let i = 0; i < cboxes.length; i++) {
-      var cbox = cboxes[i];
+      let cbox = cboxes[i];
       if (cbox.indeterminate) {
         cboxStatus = "indeterminate";
         break;

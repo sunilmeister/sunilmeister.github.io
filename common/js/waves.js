@@ -6,48 +6,50 @@
 // Below are all waveform user-interface utilities
 /////////////////////////////////////////////////////////////////
 
+var currentWaveContainerNum = 0;
+
 function waveInsertInitial() {
-  allWaves = document.getElementById(ALL_WAVES_ID);
-  newContainer = createNewWaveContainer();
+  let allWaves = document.getElementById(ALL_WAVES_ID);
+  let newContainer = createNewWaveContainer();
   allWaves.insertBefore(newContainer, null);
   // Open edit menu for the new wave box
-  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
 }
 
 function waveInsert(bnode) {
-  containerNode = findAncestorWaveContainerNode(bnode);
-  newContainer = createNewWaveContainer();
+  let containerNode = findAncestorWaveContainerNode(bnode);
+  let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
   // Open edit menu for the new wave box
-  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
 }
 
 function waveAppend(bnode) {
-  containerNode = findAncestorWaveContainerNode(bnode);
-  newContainer = createNewWaveContainer();
+  let containerNode = findAncestorWaveContainerNode(bnode);
+  let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
   // Open edit menu for the new wave box
-  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
 }
 
 function waveEdit(bnode) {
   removeWaveEditMenu();
-  containerNode = findAncestorWaveContainerNode(bnode);
-  temp = document.getElementById(WAVE_EDIT_MENU_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content, WAVE_EDIT_WAVE_MENU_CLASS);
-  node = template.cloneNode(true);
+  let containerNode = findAncestorWaveContainerNode(bnode);
+  let temp = document.getElementById(WAVE_EDIT_MENU_TEMPLATE_ID);
+  let template = findChildNodeByClass(temp.content, WAVE_EDIT_WAVE_MENU_CLASS);
+  let node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
   session.waves.boxTree = new CheckboxTree(WAVE_CBOX_TREE_ROOT_ID);
-  box = session.waves.allWavesContainerInfo[containerNode.id];
+  let box = session.waves.allWavesContainerInfo[containerNode.id];
   box.updateMenu(WAVE_EDIT_WAVE_MENU_ID);
   session.waves.boxTree.PropagateFromLeafCheckboxes();
 }
 
 function waveDelete(bnode) {
-  containerNode = findAncestorWaveContainerNode(bnode);
+  let containerNode = findAncestorWaveContainerNode(bnode);
   removeWaveContainerId(containerNode.id);
   containerNode.remove();
   if (numberOfExistingWaves() == 0) {
@@ -60,33 +62,31 @@ function waveDelete(bnode) {
 
 function removeWaveEditMenu() {
   if (session.waves.boxTree) delete session.waves.boxTree;
-  menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
+  let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
   if (!menuDiv) return;
   menuDiv.remove();
 }
 
 function waveMenuCancel(bnode) {
-  containerNode = findAncestorWaveContainerNode(bnode);
+  let containerNode = findAncestorWaveContainerNode(bnode);
   removeWaveEditMenu();
 }
 
 function waveMenuSubmit(bnode) {
-  containerNode = findAncestorWaveContainerNode(bnode);
-  box = session.waves.allWavesContainerInfo[containerNode.id];
+  let containerNode = findAncestorWaveContainerNode(bnode);
+  let box = session.waves.allWavesContainerInfo[containerNode.id];
   box.updateOptions(WAVE_EDIT_WAVE_MENU_ID);
   //removeWaveEditMenu();
   box.render();
 }
 
-var currentWaveContainerNum = 0;
-
 function createNewWaveContainer() {
-  temp = document.getElementById(WAVE_CONTAINER_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content, WAVE_CONTAINER_CLASS);
-  node = template.cloneNode(true);
+  let temp = document.getElementById(WAVE_CONTAINER_TEMPLATE_ID);
+  let template = findChildNodeByClass(temp.content, WAVE_CONTAINER_CLASS);
+  let node = template.cloneNode(true);
   node.id = WAVE_CONTAINER_ID_PREFIX + (currentWaveContainerNum++);
-  body = findChildNodeByClass(node, WAVE_BODY_CLASS);
-  box = new WaveBox(body);
+  let body = findChildNodeByClass(node, WAVE_BODY_CLASS);
+  let box = new WaveBox(body);
   storeWaveContainerId(node.id, box);
   return node;
 }
@@ -100,7 +100,7 @@ function numberOfExistingWaveBoxes() {
 }
 
 function findWaveContainerId(id) {
-  obj = session.waves.allWavesContainerInfo[id];
+  let obj = session.waves.allWavesContainerInfo[id];
   if (!obj || isUndefined(obj)) return null;
   return obj;
 }
@@ -141,10 +141,9 @@ function createAllWaves() {
     session.waves.firstTimeWavesEntry = false;
   }
 
-  for (id in session.waves.allWavesContainerInfo) {
+  for (let id in session.waves.allWavesContainerInfo) {
     session.waves.allWavesContainerInfo[id].render();
   }
 
 }
-
 

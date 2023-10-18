@@ -86,7 +86,7 @@ class ChartPane {
     this.paramInfo = paramInfo;
     this.markerInfo = markerInfo;
 
-    var xyPoints;
+    let xyPoints = null;
     if (this.paramInfo.graphType == "scatter") {
       if (!this.paramInfo.selectVal) {
         xyPoints = this.createScatterXYPoints(breathTimes);
@@ -100,7 +100,7 @@ class ChartPane {
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
 
-    var yAxis = null;
+    let yAxis = null;
     if (yAxisInfo.reuseAxisNum == null) {
       yAxis = this.createYaxis();
       if (yAxisInfo.primary) {
@@ -142,8 +142,8 @@ class ChartPane {
 
   // X axis is the same for all charts in our application
   addXaxis() {
-    var Xaxis = {};
-    var missingWindows = [];
+    let Xaxis = {};
+    let missingWindows = [];
     if (this.timeUnits) {
       Xaxis.title = "Elapsed Time (secs)";
       missingWindows = this.rangeX.missingTime;
@@ -163,30 +163,30 @@ class ChartPane {
   }
 
   calculateXaxisInterval() {
-    var initBnum = this.rangeX.initBnum;
-    var minBnum = this.rangeX.minBnum;
-    var maxBnum = this.rangeX.maxBnum;
-    var initTime = this.rangeX.initTime;
-    var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
-    var numPoints = 0;
+    let initBnum = this.rangeX.initBnum;
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+    let initTime = this.rangeX.initTime;
+    let minTime = this.rangeX.minTime;
+    let maxTime = this.rangeX.maxTime;
+    let numPoints = 0;
     if (this.timeUnits) {
       numPoints = (maxTime - minTime) / 1000;
     } else {
       numPoints = maxBnum - minBnum + 1;
     }
-    var interval = Math.ceil(numPoints / CHART_XAXIS_MAX_TICK_MARKS);
+    let interval = Math.ceil(numPoints / CHART_XAXIS_MAX_TICK_MARKS);
     return interval;
   }
 
 
   calculateXaxisMinimum() {
-    var initBnum = this.rangeX.initBnum;
-    var minBnum = this.rangeX.minBnum;
-    var maxBnum = this.rangeX.maxBnum;
-    var initTime = this.rangeX.initTime;
-    var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
+    let initBnum = this.rangeX.initBnum;
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+    let initTime = this.rangeX.initTime;
+    let minTime = this.rangeX.minTime;
+    let maxTime = this.rangeX.maxTime;
     if (this.timeUnits) {
       return Math.floor(minTime - initTime) / 1000;
     } else {
@@ -195,7 +195,7 @@ class ChartPane {
   }
 
   createYaxis() {
-    var Yaxis = {};
+    let Yaxis = {};
     Yaxis.title = this.yAxisInfo.yName;
     Yaxis.lineColor = this.yAxisInfo.color;
     Yaxis.tickColor = this.yAxisInfo.color;
@@ -206,7 +206,7 @@ class ChartPane {
     if (this.yAxisInfo.yMax != null) Yaxis.maximum = this.yAxisInfo.yMax;
     if (this.yAxisInfo.yInterval != null) Yaxis.interval = this.yAxisInfo.yInterval;
     Yaxis.suffix = "";
-    var y = cloneObject(Yaxis);
+    let y = cloneObject(Yaxis);
     if (this.yAxisInfo.yFormat != null) {
       y.labelFormatter = this.yAxisInfo.yFormat;
     }
@@ -214,26 +214,26 @@ class ChartPane {
   }
 
   createContinuousXYPoints(breathTimes) {
-    var initBnum = this.rangeX.initBnum;
-    var minBnum = this.rangeX.minBnum;
-    var maxBnum = this.rangeX.maxBnum;
-    var initTime = this.rangeX.initTime;
-    var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
-    var transitions = this.paramInfo.transitions;
+    let initBnum = this.rangeX.initBnum;
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+    let initTime = this.rangeX.initTime;
+    let minTime = this.rangeX.minTime;
+    let maxTime = this.rangeX.maxTime;
+    let transitions = this.paramInfo.transitions;
 
     if (transitions.length == 0) {
       console.log("No transitions for createContinuousXYPoints");
       return null;
     }
-    var yDatapoints = [];
-    var xyPoints = [];
-    var numPoints = maxBnum - minBnum + 1;
+    let yDatapoints = [];
+    let xyPoints = [];
+    let numPoints = maxBnum - minBnum + 1;
 
     // Collect Y dapoints
-    var curValue = 0;
-    var curIx = 0;
-    var curValue = transitions[0].value; // guaranteed to have at least one entry
+    let curValue = 0;
+    let curIx = 0;
+    curValue = transitions[0].value; // guaranteed to have at least one entry
     for (let i = 1; i < breathTimes.length; i++) {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
@@ -250,13 +250,13 @@ class ChartPane {
     }
 
     // Attach X dataPoints
-    var xval;
-    var prevXval = -1;
-    var ignoreDatapoint = false;
+    let xval;
+    let prevXval = -1;
+    let ignoreDatapoint = false;
     for (let i = 0; i < numPoints; i++) {
       ignoreDatapoint = false;
       if (this.timeUnits) {
-        var ms = new Date(breathTimes[i + minBnum - 1]) - initTime;
+        let ms = new Date(breathTimes[i + minBnum - 1]) - initTime;
         xval = (ms / 1000);
         if (xval <= prevXval) ignoreDatapoint = true;
         else prevXval = xval;
@@ -279,7 +279,7 @@ class ChartPane {
       }
     }
 
-    var chartData = {};
+    let chartData = {};
     chartData.type = this.paramInfo.graphType;
     chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
@@ -287,32 +287,32 @@ class ChartPane {
   }
 
   createScatterXYPoints(breathTimes) {
-    var initBnum = this.rangeX.initBnum;
-    var minBnum = this.rangeX.minBnum;
-    var maxBnum = this.rangeX.maxBnum;
-    var initTime = this.rangeX.initTime;
-    var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
-    var transitions = this.paramInfo.transitions;
+    let initBnum = this.rangeX.initBnum;
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+    let initTime = this.rangeX.initTime;
+    let minTime = this.rangeX.minTime;
+    let maxTime = this.rangeX.maxTime;
+    let transitions = this.paramInfo.transitions;
 
     if (transitions.length == 0) {
       console.log("No transitions for createScatterXYPoints");
       return null;
     }
 
-    var xyPoints = [];
-    var xval, yval, ignoreDatapoint;
-    var prevXval = -1;
-    var b = minBnum;
+    let xyPoints = [];
+    let xval, yval, ignoreDatapoint;
+    let prevXval = -1;
+    let b = minBnum;
 
     for (let t = 1; t < transitions.length; t++) {
-      var cTime = transitions[t].time;
+      let cTime = transitions[t].time;
       for (b = minBnum; b <= maxBnum; b++) {
         if (breathTimes[b] == cTime) {
           yval = transitions[t].value;
           ignoreDatapoint = false;
           if (this.timeUnits) {
-            var ms = new Date(breathTimes[b]) - initTime;
+            let ms = new Date(breathTimes[b]) - initTime;
             xval = (ms / 1000);
             if (xval <= prevXval) ignoreDatapoint = true;
             else prevXval = xval;
@@ -338,7 +338,7 @@ class ChartPane {
       }
     }
 
-    var chartData = {};
+    let chartData = {};
     chartData.type = this.paramInfo.graphType;
     chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
@@ -350,26 +350,26 @@ class ChartPane {
   }
 
  createSpanXYPoints(breathTimes) {
-    var initBnum = this.rangeX.initBnum;
-    var minBnum = this.rangeX.minBnum;
-    var maxBnum = this.rangeX.maxBnum;
-    var initTime = this.rangeX.initTime;
-    var minTime = this.rangeX.minTime;
-    var maxTime = this.rangeX.maxTime;
-    var transitions = this.paramInfo.transitions;
-    var selectVal = this.paramInfo.selectVal;
-    var timeSpans = [];
+    let initBnum = this.rangeX.initBnum;
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+    let initTime = this.rangeX.initTime;
+    let minTime = this.rangeX.minTime;
+    let maxTime = this.rangeX.maxTime;
+    let transitions = this.paramInfo.transitions;
+    let selectVal = this.paramInfo.selectVal;
+    let timeSpans = [];
 
     if (transitions.length == 0) {
       console.log("No transitions for createSpanXYPoints");
       return null;
     }
 
-    var xyPoints = [];
-    var xval, yval, ignoreDatapoint;
-    var prevXval = -1;
-    var startTime = null;
-    var endTime = null;
+    let xyPoints = [];
+    let xval, yval, ignoreDatapoint;
+    let prevXval = -1;
+    let startTime = null;
+    let endTime = null;
 
     for (let t = 1; t < transitions.length; t++) {
       yval = transitions[t].value;
@@ -385,7 +385,7 @@ class ChartPane {
     }
 
     // now we have an array of startTime and endTime for selectVal breaths
-    var bnum = minBnum;
+    let bnum = minBnum;
     yval = selectVal;
     for (let i = 0; i < timeSpans.length; i++) {
       startTime = timeSpans[i].startTime;
@@ -394,7 +394,7 @@ class ChartPane {
         if ((breathTimes[bnum] >= startTime) && (breathTimes[bnum] < endTime)) {
           ignoreDatapoint = false;
           if (this.timeUnits) {
-            var ms = new Date(breathTimes[bnum]) - initTime;
+            let ms = new Date(breathTimes[bnum]) - initTime;
             xval = (ms / 1000);
             if (xval <= prevXval) ignoreDatapoint = true;
             else prevXval = xval;
@@ -419,7 +419,7 @@ class ChartPane {
       }
     }
 
-    var chartData = {};
+    let chartData = {};
     chartData.type = this.paramInfo.graphType;
     chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
@@ -432,7 +432,7 @@ class ChartPane {
 
   // return Y-axis number for possible reuse
   addXYPointsPrimaryYNew(Yaxis, xyPoints) {
-    var axisNum = this.chartJson.axisY.length;
+    let axisNum = this.chartJson.axisY.length;
     xyPoints.name = this.paramInfo.name;
     xyPoints.color = this.paramInfo.color;
     if (this.yAxisInfo.yInterval) {
@@ -446,7 +446,7 @@ class ChartPane {
 
   // return Y-axis number for possible reuse
   addXYPointsPrimaryYReuse(xyPoints) {
-    var axisNum = this.yAxisInfo.reuseAxisNum;
+    let axisNum = this.yAxisInfo.reuseAxisNum;
     xyPoints.name = this.paramInfo.name;
     xyPoints.color = this.paramInfo.color;
     xyPoints.axisYIndex = axisNum;
@@ -470,12 +470,12 @@ class ChartPane {
   }
 
   addDummyY2axis() {
-    var minX = this.chartJson.axisX.minimum;
-    var minY = this.chartJson.axisY[0].minimum;
-    var maxY = this.chartJson.axisY[0].maximum;
-    var color = this.chartJson.backgroundColor;
+    let minX = this.chartJson.axisX.minimum;
+    let minY = this.chartJson.axisY[0].minimum;
+    let maxY = this.chartJson.axisY[0].maximum;
+    let color = this.chartJson.backgroundColor;
 
-    var Y2axis = {};
+    let Y2axis = {};
     Y2axis.title = "Dummy";
     Y2axis.lineColor = color;
     Y2axis.tickColor = color;

@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-saveRange = null;
+var saveRange = null;
 
 function createRangeSlider(div) {
   dashboardRangeSlider = new IntRangeSlider(
@@ -19,9 +19,9 @@ function createRangeSlider(div) {
 function setTimeInterval(btn) {
   if (!sliderCommitPending) return;
   unflashBreathWindowButtons();
-  values = dashboardRangeSlider.getSlider();
-  bmin = parseInt(values[0]);
-  bmax = parseInt(values[1]);
+  let values = dashboardRangeSlider.getSlider();
+  let bmin = parseInt(values[0]);
+  let bmax = parseInt(values[1]);
   saveRange = session.reportRange;
   session.reportRange = createReportRange(false, bmin, bmax);
 

@@ -11,7 +11,7 @@ function initSelectRowTable(tableId, doubleClickFn) {
 }
 
 function highlightSelectedRow(e) {
-  var selected = selectRowTable.getElementsByClassName('selectedTableRow');
+  let selected = selectRowTable.getElementsByClassName('selectedTableRow');
   if (selected[0]) selected[0].className = '';
   if (e.target.parentNode.getElementsByTagName('th').length == 0) {
     // not the header row
@@ -20,7 +20,7 @@ function highlightSelectedRow(e) {
 }
 
 function getSelectedTableRow() {
-  var element = document.querySelectorAll('.selectedTableRow');
+  let element = document.querySelectorAll('.selectedTableRow');
   if (element[0] !== undefined) { //it must be selected
     return element[0];
   }

@@ -10,13 +10,13 @@ var templateSystemId = {
 };
 
 function deleteAllSystemUIDs() {
-  knownRespimaticSystems = [];
+  let knownRespimaticSystems = [];
   localStorage.setItem(
     respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
 }
 
 function createSystemUidTagObj(uid, tag, fw) {
-  obj = cloneObject(templateSystemId);
+  let obj = cloneObject(templateSystemId);
   obj.uid = uid;
   obj.tag = tag;
   obj.fw = fw;
@@ -32,7 +32,7 @@ function compareSystemUidTagObj(a, b) {
 }
 
 function initKnownRespimaticSystems() {
-  var str = localStorage.getItem(respimaticSystemsLocalStorage);
+  let str = localStorage.getItem(respimaticSystemsLocalStorage);
   if (str) {
     knownRespimaticSystems = JSON.parse(str);
     knownRespimaticSystems.sort(compareSystemUidTagObj);
@@ -44,7 +44,7 @@ function initKnownRespimaticSystems() {
 function saveNewRespimaticSystemId(uid, tag, fw) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
-  obj = createSystemUidTagObj(uid, tag, fw);
+  let obj = createSystemUidTagObj(uid, tag, fw);
   knownRespimaticSystems.push(obj);
   knownRespimaticSystems.sort(compareSystemUidTagObj);
   localStorage.setItem(
@@ -53,7 +53,7 @@ function saveNewRespimaticSystemId(uid, tag, fw) {
 
 function findRespimaticTagIndex(tag) {
   tag = tag.toUpperCase();
-  i = 0;
+  let i = 0;
   for (const obj of knownRespimaticSystems) {
     if (obj.tag == tag) return i;
     i++;
@@ -78,13 +78,13 @@ function findSystemTagObj(tag) {
 }
 
 function findSystemTag(uid) {
-  obj = findSystemUidObj(uid);
+  let obj = findSystemUidObj(uid);
   if (!obj) return "";
   return obj.tag;
 }
 
 function findSystemUid(tag) {
-  obj = findSystemTagObj(tag);
+  let obj = findSystemTagObj(tag);
   if (!obj) return "";
   return obj.uid;
 }
@@ -100,7 +100,7 @@ function appendSwVersionToUid() {
     initKnownRespimaticSystems();
   }
 
-  obj = findSystemUidObj(respimaticUid);
+  let obj = findSystemUidObj(respimaticUid);
   if (!obj) return;
 
   let fw = [session.firmwareVersion.major,
@@ -109,8 +109,8 @@ function appendSwVersionToUid() {
 
   if (obj.fw) { // already has a firmware version
     // check if the new one is the latest
-    lvStr = knownRespimaticReleases[0].rel;
-    vStr = convertSwVersionToStr(fw);
+    let lvStr = knownRespimaticReleases[0].rel;
+    let vStr = convertSwVersionToStr(fw);
     if (lvStr != vStr) {
       modalWarning("Respimatic System Firmware not the latest",
         "Latest Released Firmware Version is " + lvStr
@@ -128,8 +128,8 @@ function appendSwVersionToUid() {
 }
 
 function removeSystemUidTagInfo(uid, tag) {
-  for (var i = 0; i < knownRespimaticSystems.length; i++) {
-    obj = knownRespimaticSystems[i];
+  for (let i = 0; i < knownRespimaticSystems.length; i++) {
+    let obj = knownRespimaticSystems[i];
     if (obj.tag != tag) continue;
     if (obj.uid != uid) continue;
     knownRespimaticSystems.splice(i, 1);
@@ -146,9 +146,9 @@ function convertSwVersionToStr(fw) {
 }
 
 function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
-  row = table.insertRow();
+  let row = table.insertRow();
   row.style.cursor = "pointer";
-  cell = row.insertCell();
+  let cell = row.insertCell();
   cell.innerHTML = tag;
   cell = row.insertCell();
   cell.innerHTML = uid;
@@ -163,9 +163,9 @@ function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
 
 function populateSystemUidTagHtmlTable(tableId) {
   initKnownRespimaticSystems();
-  var table = document.getElementById(tableId);
-  var rowCount = table.rows.length;
-  for (var i = 1; i < rowCount; i++) {
+  let table = document.getElementById(tableId);
+  let rowCount = table.rows.length;
+  for (let i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
   for (const obj of knownRespimaticSystems) {
@@ -174,12 +174,12 @@ function populateSystemUidTagHtmlTable(tableId) {
 }
 
 function validSystemUid(uid) {
-  var uid_length = uid.length;
+  let uid_length = uid.length;
   if (uid_length != 20) return false;
-  var pos = uid.indexOf(RESPIMATIC_UID_PREFIX);
+  let pos = uid.indexOf(RESPIMATIC_UID_PREFIX);
   if (pos != 0) return false;
-  var hex_str = uid.substr(4);
-  var re = /[0-9A-Fa-f]{16}/g;
+  let hex_str = uid.substr(4);
+  let re = /[0-9A-Fa-f]{16}/g;
   if (re.test(hex_str)) return true;
   return false;
 }

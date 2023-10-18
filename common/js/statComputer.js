@@ -30,14 +30,14 @@ class StatComputer {
   }
 
   filter(transitions, keepOneBefore) {
-    var arr = [];
-    var minDate = (this.breathTimes[this.xRange.minBnum]);
-    var maxDate = (this.breathTimes[this.xRange.maxBnum]);
+    let arr = [];
+    let minDate = (this.breathTimes[this.xRange.minBnum]);
+    let maxDate = (this.breathTimes[this.xRange.maxBnum]);
 
-    var prevItem = null;
+    let prevItem = null;
     for (let i = 0; i < transitions.length; i++) {
       if (transitions[i].time === null) continue;
-      var tDate = new Date(transitions[i].time);
+      let tDate = new Date(transitions[i].time);
       if (tDate > maxDate) {
         if (keepOneBefore && (arr.length == 0)) {
           if (prevItem) {
@@ -73,7 +73,7 @@ class StatComputer {
   }
 
   rangeArray(transitions) {
-    var arr = [];
+    let arr = [];
     if (transitions.length <= 1) {
       // First one is always a dummy
       //console.log("No transitions for statComputer");
@@ -81,9 +81,9 @@ class StatComputer {
     }
 
     // Collect param datapoints per breath
-    var curValue = 0;
-    var curIx = 0;
-    var curValue = transitions[0].value; // guaranteed to have at least one entry
+    let curValue = 0;
+    let curIx = 0;
+    curValue = transitions[0].value; // guaranteed to have at least one entry
     for (let i = 1; i < this.breathTimes.length; i++) {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
@@ -108,10 +108,10 @@ class StatComputer {
     this.initialize();
     this.trimArray(transitions);
 
-    var sum = null;
-    var num = 0;
+    let sum = null;
+    let num = 0;
     for (let i = 0; i < this.computedValuesPerBreath.length; i++) {
-      var val = this.computedValuesPerBreath[i];
+      let val = this.computedValuesPerBreath[i];
       if (val === null) continue;
       else if (val == 0) continue;
       num++;
@@ -127,7 +127,7 @@ class StatComputer {
     }
 
     if (sum != null) {
-      var avg = sum / num;
+      let avg = sum / num;
       this.computedAvg = avg.toFixed(1);
     }
   }
@@ -160,9 +160,9 @@ class StatComputer {
     }
 
     // Collect param datapoints per breath
-    var curValue = 0;
-    var curIx = 0;
-    var curValue = transitions[0].value; // guaranteed to have at least one entry
+    let curValue = 0;
+    let curIx = 0;
+    curValue = transitions[0].value; // guaranteed to have at least one entry
     for (let i = 1; i < this.breathTimes.length; i++) {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;

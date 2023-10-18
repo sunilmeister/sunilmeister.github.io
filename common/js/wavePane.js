@@ -57,7 +57,7 @@ class WavePane {
   }
 
   breathSelectedInMenu(breathInfo) {
-    var bInfo = parseBreathInfo(breathInfo);
+    let bInfo = parseBreathInfo(breathInfo);
     // Order below is important
     if (this.menu.ErrorB) {
       if (bInfo.isError) return true;
@@ -70,7 +70,7 @@ class WavePane {
     }
 
     // Exceptional Breaths taken care of above
-    var isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
+    let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
 
     if (this.menu.MandatoryVC) {
       if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
@@ -85,11 +85,11 @@ class WavePane {
   }
 
   numWavesInRange() {
-    var minBnum = session.reportRange.minBnum;
-    var maxBnum = session.reportRange.maxBnum;
-    var n = 0;
+    let minBnum = session.reportRange.minBnum;
+    let maxBnum = session.reportRange.maxBnum;
+    let n = 0;
     for (let i = 0; i < this.data.length; i++) {
-      var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+      let breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       n++;
@@ -98,14 +98,14 @@ class WavePane {
   }
 
   numSelectedWavesInRange() {
-    var minBnum = session.reportRange.minBnum;
-    var maxBnum = session.reportRange.maxBnum;
-    var n = 0;
+    let minBnum = session.reportRange.minBnum;
+    let maxBnum = session.reportRange.maxBnum;
+    let n = 0;
     for (let i = 0; i < this.data.length; i++) {
-      var breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
+      let breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
-      var breathInfo = this.data[i].breathInfo;
+      let breathInfo = this.data[i].breathInfo;
       if (!this.breathSelectedInMenu(breathInfo)) continue;
       n++;
     }
@@ -141,11 +141,11 @@ class WavePane {
   }
 
   addGraphNoConfirm() {
-    var paramName = "Pressure (mm H2O)"
-    var paramColor = "blue";
-    var axisColor = "black";
-    var lineColor = "black";
-    var xyPoints = this.createXYPoints();
+    let paramName = "Pressure (mm H2O)"
+    let paramColor = "blue";
+    let axisColor = "black";
+    let lineColor = "black";
+    let xyPoints = this.createXYPoints();
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
 
@@ -158,7 +158,7 @@ class WavePane {
       axisColor = "black";
       paramColor = "#AED6F1";
     }
-    var yAxis = this.createYaxis(paramName, axisColor, 0, null);
+    let yAxis = this.createYaxis(paramName, axisColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
   }
 
@@ -186,7 +186,7 @@ class WavePane {
 
   // X axis is the same for all charts in our application
   addXaxis() {
-    var Xaxis = {};
+    let Xaxis = {};
     Xaxis.title = "Elapsed Time (secs)";
     Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval();
@@ -199,7 +199,7 @@ class WavePane {
   }
 
   getLineColor(breathInfo) {
-    var bInfo = parseBreathInfo(breathInfo);
+    let bInfo = parseBreathInfo(breathInfo);
 
     // The order below matters
     if (bInfo.isError) return 'white';
@@ -208,7 +208,7 @@ class WavePane {
   }
 
   getStripColor(breathInfo) {
-    var bInfo = parseBreathInfo(breathInfo);
+    let bInfo = parseBreathInfo(breathInfo);
 
     // The order below matters
     if (bInfo.isError)
@@ -246,7 +246,7 @@ class WavePane {
   }
 
   createYaxis(title, color, minY, maxY) {
-    var Yaxis = {};
+    let Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
@@ -260,28 +260,28 @@ class WavePane {
   }
 
   createXYPoints() {
-    var initBnum = this.rangeX.initBnum;
-    var minBnum = this.rangeX.minBnum;
-    var maxBnum = this.rangeX.maxBnum;
+    let initBnum = this.rangeX.initBnum;
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
 
     // init Breaks in the graph
-    var Xaxis = this.chartJson.axisX;
+    let Xaxis = this.chartJson.axisX;
     if (!this.isFlowGraph) {
       Xaxis.scaleBreaks = {};
       Xaxis.scaleBreaks.customBreaks = [];
       this.chartJson.axisX.stripLines = [];
     }
 
-    var xyPoints = [];
-    var prevXval = 0;
+    let xyPoints = [];
+    let prevXval = 0;
 
-    var partial  = false;
+    let partial  = false;
     for (let i = 0; i < this.data.length; i++) {
-      var sysBreathNum = this.data[i].systemBreathNum;
-      var breathNum = sysBreathNum - session.startSystemBreathNum;
-      var sampleInterval = this.data[i].sampleInterval;
-      var breathInfo = this.data[i].breathInfo;
-      var samples = this.data[i].samples;
+      let sysBreathNum = this.data[i].systemBreathNum;
+      let breathNum = sysBreathNum - session.startSystemBreathNum;
+      let sampleInterval = this.data[i].sampleInterval;
+      let breathInfo = this.data[i].breathInfo;
+      let samples = this.data[i].samples;
       partial = this.data[i].partial;
 
       if (breathNum < minBnum) continue;
@@ -291,21 +291,21 @@ class WavePane {
       if (!session.breathTimes[breathNum]) {
         continue;
       }
-      var xval = session.breathTimes[breathNum] - this.rangeX.initTime;
-      var initXval = xval;
+      let xval = session.breathTimes[breathNum] - this.rangeX.initTime;
+      let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,
         "y": null
       });
 
-      var stripLine = {};
+      let stripLine = {};
       if (!this.isFlowGraph) {
         stripLine.color = this.getStripColor(breathInfo);
         stripLine.startValue = (xval - 200) / 1000;
       }
 
-      var lastY = null;
-      var lastX = null;
+      let lastY = null;
+      let lastX = null;
       for (let j = 0; j < samples.length; j++) {
         if (samples[j] !== null) {
           lastY = samples[j];
@@ -332,9 +332,9 @@ class WavePane {
         });
       }
 
-      var labelFontColor = "darkgreen";
-      var labelText = "#" + breathNum;
-      var labelAlign = "near";
+      let labelFontColor = "darkgreen";
+      let labelText = "#" + breathNum;
+      let labelAlign = "near";
       if (this.tooFewDatapoints(sysBreathNum)) {
         //console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
@@ -366,7 +366,7 @@ class WavePane {
       }
     }
 
-    var chartData = {};
+    let chartData = {};
     chartData.type = this.graphType;
     chartData.lineColor = "black";
     chartData.markerSize = 0;
@@ -376,7 +376,7 @@ class WavePane {
   }
 
   createYaxis(title, color, minY, maxY) {
-    var Yaxis = {};
+    let Yaxis = {};
     Yaxis.title = title;
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
@@ -398,7 +398,7 @@ class WavePane {
       this.chartJson.data.push(cloneObject(xyPoints));
       return 0;
     } else {
-      var axisNum = this.chartJson.axisY.length;
+      let axisNum = this.chartJson.axisY.length;
       this.chartJson.axisY.push(cloneObject(Yaxis));
       xyPoints.axisYIndex = axisNum;
       this.chartJson.data.push(cloneObject(xyPoints));
@@ -412,8 +412,8 @@ class WavePane {
 
 
   calculateXaxisMinimum() {
-    var initTime = this.rangeX.initTime;
-    var minTime = this.rangeX.minTime;
+    let initTime = this.rangeX.initTime;
+    let minTime = this.rangeX.minTime;
     return (minTime - initTime) / 1000;
   }
 

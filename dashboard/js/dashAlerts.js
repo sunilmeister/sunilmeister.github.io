@@ -3,7 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function rollingAlertRange() {
-  var minBnum = session.dashboardBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
+  let minBnum = session.dashboardBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
   session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
 }

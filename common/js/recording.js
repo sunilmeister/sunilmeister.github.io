@@ -6,17 +6,17 @@ function cancelRecordingName() {
 }
 
 function acceptRecordingName() {
-  suffix = document.getElementById('recordName').value;
+  let suffix = document.getElementById('recordName').value;
   session.database.dbName = getNewDbName(suffix);
   if (!session.database.dbName) return;
   createOrOpenDb(session.database.dbName, session.recorder.creationTimeStamp);
-  elm = document.getElementById('recordSessionName');
+  let elm = document.getElementById('recordSessionName');
   elm.style.backgroundColor = palette.green;
   elm.style.color = palette.brightgreen;
-  arr = parseDbName(session.database.dbName);
+  let arr = parseDbName(session.database.dbName);
   elm.innerHTML = arr[1] + " [" + arr[2] + "]";
 
-  btn = document.getElementById('recordButton');
+  let btn = document.getElementById('recordButton');
   btn.innerHTML = "Stop Recording";
   document.getElementById('recordNameDiv').style.display = "none";
 
@@ -41,7 +41,7 @@ function startNewRecording() {
 function resumeRecording() {
   session.recorder.off = false;
   session.recorder.paused = false;
-  btn = document.getElementById("recordButton");
+  let btn = document.getElementById("recordButton");
   btn.innerHTML = "Stop Recording";
   updateRecordingIndicator();
 }
@@ -55,7 +55,7 @@ function closeRecording() {
   // Initialize all recorder variables
   session.recorder = cloneObject(SessionDataTemplate.recorder);
 
-  btn = document.getElementById("recordButton");
+  let btn = document.getElementById("recordButton");
   btn.innerHTML = "Start Recording";
   blankRecordingBox();
   updateRecordingIndicator();
@@ -63,15 +63,15 @@ function closeRecording() {
 
 function pauseRecording() {
   // Initialize all recorder variables
-  versionRecorded = session.recorder.versionRecord;
-  creationTimeStamp = session.recorder.creationTimeStamp;
+  let versionRecorded = session.recorder.versionRecord;
+  let creationTimeStamp = session.recorder.creationTimeStamp;
   session.recorder = cloneObject(SessionDataTemplate.recorder);
   session.recorder.versionRecorded = versionRecorded;
   session.recorder.creationTimeStamp = creationTimeStamp;
 
   session.recorder.off = false;
   session.recorder.paused = true;
-  btn = document.getElementById("recordButton");
+  let btn = document.getElementById("recordButton");
   btn.innerHTML = "Resume Recording";
   updateRecordingIndicator();
 }
@@ -83,7 +83,7 @@ function stopRecording() {
 }
 
 function blankRecordingBox() {
-  elm = document.getElementById('recordSessionName');
+  let elm = document.getElementById('recordSessionName');
   elm.style.backgroundColor = palette.darkred;
   elm.style.color = "white";
   elm.innerHTML = "No Active Recording"
@@ -105,17 +105,17 @@ function changeRecordingStatus() {
 // Database Functions 
 // ///////////////////////////////////////////////////////
 function getNewDbName(dbNameSuffix) {
-  var name = "";
-  today = new Date();
+  let name = "";
+  let today = new Date();
   session.recorder.creationTimeStamp = today;
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
-  var hrs = String(today.getHours()).padStart(2, '0');
-  var min = String(today.getMinutes()).padStart(2, '0');
-  var sec = String(today.getSeconds()).padStart(2, '0');
-  dmy = dd + "-" + mm + "-" + yyyy;
-  nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = today.getFullYear();
+  let hrs = String(today.getHours()).padStart(2, '0');
+  let min = String(today.getMinutes()).padStart(2, '0');
+  let sec = String(today.getSeconds()).padStart(2, '0');
+  let dmy = dd + "-" + mm + "-" + yyyy;
+  let nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
   if (!dbNameSuffix) return "";
   name = session.database.dbNamePrefix + '|' + dbNameSuffix + "|" + nameTagTime;
   if (!isValidDatabaseName(dbNameSuffix)) {
@@ -131,8 +131,8 @@ function getNewDbName(dbNameSuffix) {
 
 function insertJsonData(jsonData) {
   // Start a database transaction and get the notes object store
-  var tx = session.database.db.transaction([session.database.dbObjStoreName], 'readwrite');
-  var store = tx.objectStore(session.database.dbObjStoreName);
+  let tx = session.database.db.transaction([session.database.dbObjStoreName], 'readwrite');
+  let store = tx.objectStore(session.database.dbObjStoreName);
   store.add(jsonData); // Wait for the database transaction to complete
   tx.oncomplete = function () {}
   tx.onerror = function (event) {
@@ -153,12 +153,12 @@ function createAccumulatedDweet(d) {
 
 function initRecordingPrevContent() {
   // periodically keep clearing session.recorder.accumulatedState state if not recording
-  doRecord = (!session.recorder.off && !session.recorder.paused);
+  let doRecord = (!session.recorder.off && !session.recorder.paused);
   if (!doRecord) session.recorder.accumulatedState = {};
 }
 
 function processRecordDweet(d) {
-  var skipRecording = false;
+  let skipRecording = false;
   if (session.stateData.initial) skipRecording = true;
 
   if (!isUndefined(d.content['WMSG'])) {
@@ -204,11 +204,11 @@ function processRecordDweet(d) {
   // prune the content if same as previous
   for (let key in d.content) {
     // get key value pairs
-    value = d.content[key];
+    let value = d.content[key];
     if (isUndefined(session.recorder.accumulatedState[key])) {
       session.recorder.accumulatedState[key] = value;
     } else {
-      prevValue = session.recorder.accumulatedState[key];
+      let prevValue = session.recorder.accumulatedState[key];
       if (prevValue != value) {
         session.recorder.accumulatedState[key] = value;
       } else {
@@ -216,14 +216,14 @@ function processRecordDweet(d) {
       }
     }
   }
-  var emptyContent = true;
+  let emptyContent = true;
   for (let key in d.content) {
     emptyContent = false;
     break;
   }
 
-  doRecord = (!session.recorder.off && !session.recorder.paused);
-  recordBox = document.getElementById("recordBox");
+  let doRecord = (!session.recorder.off && !session.recorder.paused);
+  let recordBox = document.getElementById("recordBox");
   if (!emptyContent) {
     if (doRecord) {
       if (session.database.db && !session.recorder.versionRecorded) {
@@ -242,7 +242,7 @@ function processRecordDweet(d) {
 }
 
 function waveWaveformKey(key) {
-  var prefix = String(key).substr(0,2);
+  let prefix = String(key).substr(0,2);
   if (prefix == "PW") return true;
   prefix = String(key).substr(0,3);
   if (prefix == "DPW") return true;

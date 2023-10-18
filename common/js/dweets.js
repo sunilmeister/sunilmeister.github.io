@@ -214,9 +214,9 @@ function equalParamCombos(curr, prev) {
 
 function readSessionVersion(jsonData) {
   if (session.analyzer.recVersion) return;
-  for (var key in jsonData) {
+  for (let key in jsonData) {
     if (key == 'content') {
-      for (var ckey in jsonData.content) {
+      for (let ckey in jsonData.content) {
         if (ckey == "RECORDING_VERSION") {
           session.analyzer.recVersion = jsonData.content[ckey];
           console.log("Found Recording Version=" + session.analyzer.recVersion);
@@ -227,16 +227,16 @@ function readSessionVersion(jsonData) {
 }
 
 function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
-  var req = indexedDB.open(session.database.dbName, session.database.dbVersion);
+  let req = indexedDB.open(session.database.dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
-    var db = event.target.result;
+    let db = event.target.result;
     session.database.dbReady = true;
-    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
-    var store = tx.objectStore(session.database.dbObjStoreName);
-    var keyReq = store.get(key);
+    let tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    let store = tx.objectStore(session.database.dbObjStoreName);
+    let keyReq = store.get(key);
     keyReq.onsuccess = function (event) {
-      var jsonData = keyReq.result;
+      let jsonData = keyReq.result;
       readSessionVersion(jsonData);
       processJsonRecord(jsonData);
       if (lastRecord) {
@@ -253,7 +253,7 @@ function gatherSessionData(lastRecordCallback) {
     modalAlert("Selected Session has no data", "");
     return;
   }
-  var lastRecord = false;
+  let lastRecord = false;
   for (i = 0; i < allDbKeys.length; i++) {
     key = allDbKeys[i];
     if (i == (allDbKeys.length - 1)) {
@@ -267,9 +267,9 @@ function gatherSessionData(lastRecordCallback) {
 function processJsonRecord(jsonData) {
   curTime = new Date(jsonData.created);
   processAlertDweet(curTime, jsonData);
-  for (var key in jsonData) {
+  for (let key in jsonData) {
     if (key == 'content') {
-      for (var ckey in jsonData.content) {
+      for (let ckey in jsonData.content) {
         value = jsonData.content[ckey];
 
         // close off PW samples if missing a closing dweet
@@ -489,8 +489,8 @@ function processPwendDweet(str) {
   }
 
   // check how many null samples we have in the first 60% where the details are
-  var checkLimit = Math.floor(WAVE_MAX_SAMPLES_PER_BREATH * 6 / 10);
-  var nullCount = 0;
+  let checkLimit = Math.floor(WAVE_MAX_SAMPLES_PER_BREATH * 6 / 10);
+  let nullCount = 0;
   for (j = 0; j < checkLimit; j++) {
     if (samples[j] === null) nullCount++;
   }
@@ -502,7 +502,7 @@ function processPwendDweet(str) {
     }
   }
 
-  var holdingArray = null;
+  let holdingArray = null;
   if (expectingPWEND) {
     holdingArray = session.waves.pwData;
     session.waves.pwRecordedBreaths.push(session.waves.breathNum);
@@ -604,7 +604,7 @@ function processWifiDweet(curTime, jsonStr) {
     "value": cloneObject(obj)
   });
 
-  var msg = {
+  let msg = {
     'created': curTime,
     'breathNum': obj.reconnectAt,
     'L1': "Auto Recovered from",
@@ -633,9 +633,9 @@ function processStateDweet(curTime, jsonStr) {
 }
 
 function updatePendingParamState() {
-  var p1 = session.paramDataOnDisplay;
-  var p2 = session.paramDataInUse;
-  var p = session.pendingParamsData;
+  let p1 = session.paramDataOnDisplay;
+  let p2 = session.paramDataInUse;
+  let p = session.pendingParamsData;
 
   if (p1.vt == p2.vt) p.vt = false;
   else p.vt = true;
@@ -886,9 +886,9 @@ function processBnumDweet(curTime, value, jsonData) {
   // BNUM time is more accurate - use that for breathTimes
   if (!session.firstBreathDweetTime) session.firstBreathDweetTime = curTime;
   if (!session.firstBreathBnumTime) session.firstBreathBnumTime = obj.btime;
-  var breathTime = addMsToDate(session.firstBreathDweetTime, obj.btime - session.firstBreathBnumTime);
+  let breathTime = addMsToDate(session.firstBreathDweetTime, obj.btime - session.firstBreathBnumTime);
 
-  var bnumValue = obj.bnum;
+  let bnumValue = obj.bnum;
   if (bnumValue == null) {
     console.warn("Bad BNUM value = " + value + " sys = " + session.systemBreathNum);
     return; // will count as missing
@@ -955,7 +955,7 @@ function processBnumDweet(curTime, value, jsonData) {
       "lineColor": "black",
       "autoCalculate": true
     });
-    var msg = {
+    let msg = {
       'created': breathTime,
       'breathNum': session.breathTimes.length,
       'L1': String(breathsMissing) + " Interval(s) missed",
@@ -976,7 +976,7 @@ function processBnumDweet(curTime, value, jsonData) {
 function processAlertDweet(curTime, jsonData) { 
   if (!isUndefined(jsonData.content["WMSG"])) {
     if (session.alerts.expectWarningMsg) { // back to back with Previous msg not yet fully received
-      var msg = {
+      let msg = {
         'created': session.alerts.lastWarningTime,
         'breathNum': session.breathTimes.length,
         'L1': session.alerts.L1,
@@ -995,7 +995,7 @@ function processAlertDweet(curTime, jsonData) {
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
    if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
-     var msg = {
+     let msg = {
        'created': session.alerts.lastErrorTime,
        'breathNum': session.breathTimes.length,
        'L1': session.alerts.L1,
@@ -1012,17 +1012,17 @@ function processAlertDweet(curTime, jsonData) {
      "value": ++session.alerts.errorNum
    });
   }
-  for (var ckey in jsonData.content) {
+  for (let ckey in jsonData.content) {
     value = jsonData.content[ckey];
     if (session.alerts.L1 && session.alerts.L2 && session.alerts.L3 && session.alerts.L4) {
       if (session.alerts.expectErrorMsg || session.alerts.expectWarningMsg) {
-        var msgTime;
+        let msgTime;
         if (session.alerts.expectWarningMsg) {
           msgTime = session.alerts.lastWarningTime;
         } else {
           msgTime = session.alerts.lastErrorTime;
         }
-        var msg = {
+        let msg = {
           'created': msgTime,
           'breathNum': session.breathTimes.length,
           'L1': session.alerts.L1,

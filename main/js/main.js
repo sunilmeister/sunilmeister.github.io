@@ -6,8 +6,8 @@
 function createDropdownSelect(sysList, values) {
   sysList.innerHTML = "";
   for (const obj of values) {
-    var option = document.createElement("option");
-    tag = obj.tag;
+    let option = document.createElement("option");
+    let tag = obj.tag;
     option.value = tag;
     option.text = tag.charAt(0).toUpperCase() + tag.slice(1);
     sysList.appendChild(option);
@@ -22,19 +22,19 @@ function setSelectedSystem(uid, tag) {
   sessionStorage.setItem("respimaticUid", respimaticUid);
   sessionStorage.setItem("respimaticTag", respimaticTag);
 
-  var ddList = document.getElementById("SYSTEM_NAME");
+  let ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
   ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
 }
 
 function setSelectedRespimaticTagFromDD() {
-  var ddList = document.getElementById("SYSTEM_NAME");
-  var tag = ddList.value;
+  let ddList = document.getElementById("SYSTEM_NAME");
+  let tag = ddList.value;
   if (!tag) {
     modalAlert("No RESPIMATIC-100 System selected", "");
     return false;
   }
-  uid = findSystemUid(tag);
+  let uid = findSystemUid(tag);
   setSelectedSystem(uid, tag);
   return true;
 }
@@ -42,7 +42,7 @@ function setSelectedRespimaticTagFromDD() {
 var fileReader = new FileReader();
 fileReader.addEventListener('load', (e) => {
   const data = e.target.result;
-  systems = parseJSONSafely(data);
+  let systems = parseJSONSafely(data);
   if ((systems == null) || (systems.length == 0)) {
     modalAlert("File does not have valid data", "");
     cancelImport();
@@ -50,10 +50,10 @@ fileReader.addEventListener('load', (e) => {
   }
 
   //console.log(systems);
-  for (i = 0; i < systems.length; i++) {
-    uid = systems[i].uid;
-    tag = systems[i].tag;
-    fw = systems[i].fw;
+  for (let i = 0; i < systems.length; i++) {
+    let uid = systems[i].uid;
+    let tag = systems[i].tag;
+    let fw = systems[i].fw;
     if (typeof fw == "Object") fw = cloneObject(fw);
     if (!silentAddSystemTagUidInfo(uid, tag, fw)) {
       modalAlert("Failed to add (UID='" + uid + "', TAG='" + tag + "')",
@@ -61,15 +61,15 @@ fileReader.addEventListener('load', (e) => {
         "Or the TAG already exists");
     }
   }
-  var ddList = document.getElementById("SYSTEM_NAME");
+  let ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
   cancelImport();
 });
 
 function importFile() {
-  elm = document.getElementById("fileSelector");
-  var fileName = elm.value;
-  var file = elm.files[0];
+  let elm = document.getElementById("fileSelector");
+  let fileName = elm.value;
+  let file = elm.files[0];
   if (file) {
     fileReader.readAsText(file, "UTF-8");
   } else {
@@ -97,13 +97,13 @@ function exportFile() {
     return;
   }
   //console.log(JSON.stringify(knownRespimaticSystems));
-  fileName = document.getElementById("exportFileName").value;
+  let fileName = document.getElementById("exportFileName").value;
   if (fileName) download(JSON.stringify(knownRespimaticSystems, null, 1),
     fileName, "text/xml");
 }
 
 function deleteHistoryBtn() {
-  var msg = "";
+  let msg = "";
   if (document.getElementById("cookiesDelete").checked) {
     deleteAllCookies();
     msg += "\nDeleted ALL Cookies" ;
@@ -114,7 +114,7 @@ function deleteHistoryBtn() {
   }
   if (document.getElementById("systemsDelete").checked) {
     deleteAllSystemUIDs();
-    var ddList = document.getElementById("SYSTEM_NAME");
+    let ddList = document.getElementById("SYSTEM_NAME");
     createDropdownSelect(ddList, knownRespimaticSystems);
     ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
     msg += "\nDeleted ALL System UID History" ;
@@ -138,20 +138,20 @@ function exportSystemInfo() {
 
 function selectSystemInfo(row) {
   if (isUndefined(row) || (row.tagName != "TR")) {
-    row = getSelectedTableRow();
+    let row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected item", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
 
-  tag = row.children[0].firstChild.data;
-  uid = row.children[1].firstChild.data;
+  let tag = row.children[0].firstChild.data;
+  let uid = row.children[1].firstChild.data;
   setSelectedSystem(uid, tag);
 
-  elm = document.getElementById("knownSystems");
+  let elm = document.getElementById("knownSystems");
   elm.style.display = "none";
-  var elm = document.getElementById("mainDiv");
+  elm = document.getElementById("mainDiv");
   elm.style.display = "block";
 
   document.getElementById("exportDiv").style.display = "none";
@@ -159,11 +159,11 @@ function selectSystemInfo(row) {
 }
 
 function doRemove(args) {
-  uid = args.uid;
-  tag = args.tag;
+  let uid = args.uid;
+  let tag = args.tag;
 
-  removedTag = removeSystemUidTagInfo(uid, tag);
-  var ddList = document.getElementById("SYSTEM_NAME");
+  let removedTag = removeSystemUidTagInfo(uid, tag);
+  let ddList = document.getElementById("SYSTEM_NAME");
 
   if (knownRespimaticSystems.length) {
     if (removedTag == respimaticTag) {
@@ -182,7 +182,7 @@ function doRemove(args) {
 
 function removeSystem(uid, tag, noconfirm) {
   if (isUndefined(noconfirm)) noconfirm = false;
-  confirmMsg =
+  let confirmMsg =
     "System TAG: " + tag +
     "\nSystem UID: " + uid;
   if (!noconfirm) {
@@ -208,22 +208,22 @@ function removeSystemInfo(tag) {
 
 function removeSystemInfoRow(row) {
   if (isUndefined(row)) {
-    row = getSelectedTableRow();
+    let row = getSelectedTableRow();
     if (!row) {
       modalAlert("No selected item", "Select by clicking on a table row\nTry again!");
       return;
     }
   }
 
-  tag = row.children[0].firstChild.data;
-  uid = row.children[1].firstChild.data;
+  let tag = row.children[0].firstChild.data;
+  let uid = row.children[1].firstChild.data;
   removeSystem(uid, tag);
 }
 
 function exitSystemInfo() {
-  elm = document.getElementById("knownSystems");
+  let elm = document.getElementById("knownSystems");
   elm.style.display = "none";
-  var elm = document.getElementById("mainDiv");
+  elm = document.getElementById("mainDiv");
   elm.style.display = "block";
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
@@ -241,7 +241,7 @@ function silentAddSystemTagUidInfo(uid, tag, fw) {
 
   saveNewRespimaticSystemId(uid, tag, fw);
   populateSystemUidTagHtmlTable("knownSystemsTable");
-  var ddList = document.getElementById("SYSTEM_NAME");
+  let ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
   return true;
 }
@@ -251,12 +251,12 @@ function cancelNewSystemBtn() {
 }
 
 function addNewSystemBtn() {
-  tag = document.getElementById("newSysTAG").value;
+  let tag = document.getElementById("newSysTAG").value;
   tag = tag.toUpperCase();
-  uid = document.getElementById("newSysUID").value;
+  let uid = document.getElementById("newSysUID").value;
   uid = uid.toUpperCase();
 
-  var table = document.getElementById("knownSystemsTable");
+  let table = document.getElementById("knownSystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
     modalAlert("TAG='" + tag + "' already exists", "Try again!");
     return;
@@ -284,8 +284,8 @@ function removeUidRow(btn) {
 }
 
 function doRemoveAllUidRows(btn) {
-  for (i = 0; i < knownRespimaticSystems.length;) {
-    sys = knownRespimaticSystems[i];
+  for (let i = 0; i < knownRespimaticSystems.length;) {
+    let sys = knownRespimaticSystems[i];
     removeSystem(sys.uid, sys.tag, true);
   }
 }
@@ -297,7 +297,7 @@ function removeAllUidRows(btn) {
 }
 
 function knownSystemInfo() {
-  var elm = document.getElementById("mainDiv");
+  let elm = document.getElementById("mainDiv");
   elm.style.display = "none";
   elm = document.getElementById("knownSystems");
   elm.style.display = "block";
@@ -329,8 +329,8 @@ function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
 }
 
 function rememberNewSystem() {
-  var elm = document.getElementById('newSysName');
-  newSysTag = elm.value;
+  let elm = document.getElementById('newSysName');
+  let newSysTag = elm.value;
   if (!newSysTag) {
     modalAlert("Must enter System TAG", "Try again!");
     return;
@@ -338,7 +338,7 @@ function rememberNewSystem() {
   newSysTag = newSysTag.toUpperCase();
 
   elm = document.getElementById('newSysUid');
-  newSysUid = elm.value;
+  let newSysUid = elm.value;
   if (!newSysTag) {
     modalAlert("Must enter System UID", "Try again!");
     return;
@@ -359,7 +359,7 @@ function checkDocPassword(pwd) {
 
 function submitDocPassword() {
   document.getElementById("passwordDiv").style.display = "none";
-  pwd = document.getElementById("password").value;
+  let pwd = document.getElementById("password").value;
   if (!checkDocPassword(pwd)) {
     modalAlert("Invalid Access Key", "Please contact Technical Support");
     return;
@@ -415,7 +415,7 @@ window.onload = function () {
   setModalWidth(600);
   showZoomReminder();
 
-  var elm = document.getElementById("mainDiv");
+  let elm = document.getElementById("mainDiv");
   elm.style.display = "block";
   elm = document.getElementById("knownSystems");
   elm.style.display = "none";
@@ -425,10 +425,10 @@ window.onload = function () {
   initKnownRespimaticSystems();
 
   // create dropdown list
-  var ddList = document.getElementById("SYSTEM_NAME");
+  let ddList = document.getElementById("SYSTEM_NAME");
   createDropdownSelect(ddList, knownRespimaticSystems);
-  uid = getCookie(uidCookieName);
-  tag = getCookie(tagCookieName);
+  let uid = getCookie(uidCookieName);
+  let tag = getCookie(tagCookieName);
 
   if (uid && tag) {
     setSelectedSystem(uid, tag);
@@ -438,7 +438,7 @@ window.onload = function () {
     ddList.selectedIndex = -1;
   }
 
-  var exportFileNameInput = document.getElementById("exportFileName");
+  let exportFileNameInput = document.getElementById("exportFileName");
   exportFileNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -446,7 +446,7 @@ window.onload = function () {
     }
   });
 
-  var newSysUidInput = document.getElementById("newSysUID");
+  let newSysUidInput = document.getElementById("newSysUID");
   newSysUidInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -454,7 +454,7 @@ window.onload = function () {
     }
   });
 
-  var newSysTagInput = document.getElementById("newSysTAG");
+  let newSysTagInput = document.getElementById("newSysTAG");
   newSysTagInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -464,22 +464,26 @@ window.onload = function () {
 
   //console.log("Checking " + BROADCAST_UID);
   waitForRespimaticMessages(BROADCAST_UID, function (d) {
-    newUid = d.content.PRESENT;
-    time = Date(d.created);
-    detectedRespimaticSystemLogin(time, newUid);
+    let newUid = d.content.PRESENT;
+    let loginOtp = d.content.OTP;
+    let time = Date(d.created);
+    detectedRespimaticSystemLogin(time, newUid, loginOtp);
     //console.log(d);
   })
   
 };
 
-function detectedRespimaticSystemLogin(time, newUid) {
+function detectedRespimaticSystemLogin(time, newUid, otp) {
   //console.log("**** " + newUid + " online" + " at " + time);
-  obj = findSystemUidObj(newUid);
-  var msg = "";
+  let obj = findSystemUidObj(newUid);
+  let msg = "";
   if (obj) {
     msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
+    modalInfo("Detected Respimatic 100 System login", msg);
   } else {
-    msg += "UID: " + obj.uid ;
+    checkAndAddSystemInfo(obj.uid, otp) ;
   }
-  modalInfo("Detected Respimatic 100 System login", msg);
+}
+
+function checkAndAddSystemInfo(newUid, otp) {
 }

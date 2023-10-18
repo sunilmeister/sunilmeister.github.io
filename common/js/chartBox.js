@@ -29,7 +29,7 @@ class ChartBox {
     this.cleanupCharts();
     if (!session.reportRange) {
       this.rangeX = null;
-      return; // reportRange is a global variable
+      return; 
     }
 
     this.rangeX = session.reportRange;
@@ -101,17 +101,17 @@ class ChartBox {
   // Below are all private methods
   ////////////////////////////////////////////////////////
   getXunitsValue() {
-    var elem = document.getElementById("TIME");
+    let elem = document.getElementById("TIME");
     if (elem.checked) return "TIME";
     else return "BNUM";
   }
 
   setXunitsValue() {
     if (this.options.timeUnits) {
-      var r = document.getElementById("TIME");
+      let r = document.getElementById("TIME");
       r.checked = true;
     } else {
-      var r = document.getElementById("BNUM");
+      let r = document.getElementById("BNUM");
       r.checked = true;
     }
   }
@@ -135,25 +135,25 @@ class ChartBox {
   }
 
   createIndividualGraphs() {
-    var pressureAxisNum = null;
+    let pressureAxisNum = null;
     pressureAxisNum = this.createPeakGraph(pressureAxisNum);
     pressureAxisNum = this.createPlatGraph(pressureAxisNum);
     pressureAxisNum = this.createPeepGraph(pressureAxisNum);
 
-    var vtAxisNum = null;
+    let vtAxisNum = null;
     vtAxisNum = this.createVtdelGraph(vtAxisNum);
 
-    var mvAxisNum = null;
+    let mvAxisNum = null;
     mvAxisNum = this.createMvdelGraph(mvAxisNum);
     mvAxisNum = this.createMMvdelGraph(mvAxisNum);
     mvAxisNum = this.createSMvdelGraph(mvAxisNum);
     mvAxisNum = this.createO2FlowGraph(mvAxisNum);
 
-    var bpmAxisNum = null;
+    let bpmAxisNum = null;
     bpmAxisNum = this.createSbpmGraph(bpmAxisNum);
     bpmAxisNum = this.createMbpmGraph(bpmAxisNum);
 
-    var markerAxisNum = null;
+    let markerAxisNum = null;
     markerAxisNum = this.createMBreathGraph(markerAxisNum);
     markerAxisNum = this.createSBreathGraph(markerAxisNum);
     markerAxisNum = this.createEBreathGraph(markerAxisNum);
@@ -161,14 +161,14 @@ class ChartBox {
     markerAxisNum = this.createWarningGraph(markerAxisNum);
     markerAxisNum = this.createNotificationGraph(markerAxisNum);
 
-    var compAxisNum = null;
+    let compAxisNum = null;
     compAxisNum = this.createScompGraph(compAxisNum);
     compAxisNum = this.createDcompGraph(compAxisNum);
 
-    var tempAxisNum = null;
+    let tempAxisNum = null;
     tempAxisNum = this.createTempGraph(tempAxisNum);
 
-    var pctAxisNum = null;
+    let pctAxisNum = null;
     pctAxisNum = this.createPurityGraph(pctAxisNum);
     pctAxisNum = this.createFiO2Graph(pctAxisNum);
   }
@@ -176,7 +176,7 @@ class ChartBox {
   createPeakGraph(reuseAxisNum) {
     if (!this.options.Peak) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "red";
     yAxisInfo.yMin = 0;
@@ -184,9 +184,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Pressure (cm H20)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Peak Pressure (cm H20)";
     paramInfo.color = "red";
     paramInfo.transitions = session.peakChanges;
@@ -198,7 +198,7 @@ class ChartBox {
   createPlatGraph(reuseAxisNum) {
     if (!this.options.Plat) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "silver";
     yAxisInfo.yMin = 0;
@@ -206,9 +206,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Pressure (cm H20)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Plateau Pressure (cm H20)";
     paramInfo.color = "silver";
     paramInfo.transitions = session.platChanges;
@@ -220,7 +220,7 @@ class ChartBox {
   createPeepGraph(reuseAxisNum) {
     if (!this.options.PEEP) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
@@ -228,9 +228,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Pressure (cm H20)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Peep Pressure (cm H20)";
     paramInfo.color = "green";
     paramInfo.transitions = session.mpeepChanges;
@@ -242,7 +242,7 @@ class ChartBox {
   createVtdelGraph(reuseAxisNum) {
     if (!this.options.Tidal) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "purple";
     yAxisInfo.yMin = 0;
@@ -250,9 +250,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Volume (ml)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Tidal Volume (ml)";
     paramInfo.color = "purple";
     paramInfo.transitions = session.vtdelChanges;
@@ -264,7 +264,7 @@ class ChartBox {
   createMvdelGraph(reuseAxisNum) {
     if (!this.options.MinuteTotal) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "olive";
     yAxisInfo.yMin = 0;
@@ -272,9 +272,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Minute Volume (litres/min)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Total Minute Volume (litres/min)";
     paramInfo.color = "olive";
     paramInfo.transitions = session.mvdelChanges;
@@ -286,7 +286,7 @@ class ChartBox {
   createMMvdelGraph(reuseAxisNum) {
     if (!this.options.MinuteMand) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "olive";
     yAxisInfo.yMin = 0;
@@ -294,9 +294,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Minute Volume (litres/min)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Mandatory Minute Volume (litres/min)";
     paramInfo.color = "blueviolet";
     paramInfo.transitions = session.mmvdelChanges;
@@ -308,7 +308,7 @@ class ChartBox {
   createSMvdelGraph(reuseAxisNum) {
     if (!this.options.MinuteSpont) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "olive";
     yAxisInfo.yMin = 0;
@@ -316,9 +316,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Minute Volume (litres/min)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous Minute Volume (litres/min)";
     paramInfo.color = "salmon";
     paramInfo.transitions = session.smvdelChanges;
@@ -330,7 +330,7 @@ class ChartBox {
   createO2FlowGraph(reuseAxisNum) {
     if (!this.options.O2Flow) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "indigo";
     yAxisInfo.yMin = 0;
@@ -338,9 +338,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Minute Volume (litres/min)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "O2 Flow Rate (litres/min)";
     paramInfo.color = "indigo";
     paramInfo.transitions = session.o2FlowX10Changes;
@@ -352,7 +352,7 @@ class ChartBox {
   createSbpmGraph(reuseAxisNum) {
     if (!this.options.Spontaneous) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "maroon";
     yAxisInfo.yMin = 0;
@@ -360,9 +360,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breaths per Min (bpm)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous BPM (bpm)";
     paramInfo.color = "maroon";
     paramInfo.transitions = session.sbpmChanges;
@@ -374,7 +374,7 @@ class ChartBox {
   createMbpmGraph(reuseAxisNum) {
     if (!this.options.Mandatory) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "violet";
     yAxisInfo.yMin = 0;
@@ -382,9 +382,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Breaths per Min (bpm)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Mandatory BPM (bpm)";
     paramInfo.color = "violet";
     paramInfo.transitions = session.mbpmChanges;
@@ -396,7 +396,7 @@ class ChartBox {
   createScompGraph(reuseAxisNum) {
     if (!this.options.Static) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "navy";
     yAxisInfo.yMin = 0;
@@ -404,9 +404,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "DeltaV/DeltaP (ml/cm H20)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Static DeltaV/DeltaP (ml/cm H20)";
     paramInfo.color = "navy";
     paramInfo.transitions = session.scompChanges;
@@ -418,7 +418,7 @@ class ChartBox {
   createDcompGraph(reuseAxisNum) {
     if (!this.options.Dynamic) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "crimson";
     yAxisInfo.yMin = 0;
@@ -426,9 +426,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "DeltaV/DeltaP (ml/cm H20)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Dynamic DeltaV/DeltaP (ml/cm H20)";
     paramInfo.color = "crimson";
     paramInfo.transitions = session.dcompChanges;
@@ -440,7 +440,7 @@ class ChartBox {
   createTempGraph(reuseAxisNum) {
     if (!this.options.Temperature) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "fuchsia";
     yAxisInfo.yMin = -25;
@@ -448,9 +448,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "System Temp (deg C)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "System Temp (deg C)";
     paramInfo.color = "fuchsia";
     paramInfo.transitions = session.tempChanges;
@@ -462,7 +462,7 @@ class ChartBox {
   createMBreathGraph(reuseAxisNum) {
     if (!this.options.MBreath) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
@@ -472,13 +472,13 @@ class ChartBox {
     yAxisInfo.yName = "Markers";
     yAxisInfo.yFormat = markerFormatter;
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
     markerInfo.color = 'lime';
     markerInfo.label = 'M';
     markerInfo.size = 25;
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Mandatory Breath";
     paramInfo.color = "lime";
     paramInfo.transitions = session.breathTypeChanges;
@@ -492,7 +492,7 @@ class ChartBox {
   createSBreathGraph(reuseAxisNum) {
     if (!this.options.SBreath) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
@@ -502,13 +502,13 @@ class ChartBox {
     yAxisInfo.yName = "Markers";
     yAxisInfo.yFormat = markerFormatter;
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
     markerInfo.color = 'orange';
     markerInfo.label = 'S';
     markerInfo.size = 25;
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous Breath";
     paramInfo.color = "orange";
     paramInfo.transitions = session.breathTypeChanges;
@@ -522,7 +522,7 @@ class ChartBox {
   createEBreathGraph(reuseAxisNum) {
     if (!this.options.EBreath) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
@@ -532,13 +532,13 @@ class ChartBox {
     yAxisInfo.yName = "Markers";
     yAxisInfo.yFormat = markerFormatter;
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'circle';
     markerInfo.color = 'salmon';
     markerInfo.label = 'X';
     markerInfo.size = 25;
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Maintenance Breath";
     paramInfo.color = "salmon";
     paramInfo.transitions = session.breathTypeChanges;
@@ -552,7 +552,7 @@ class ChartBox {
   createNotificationGraph(reuseAxisNum) {
     if (!this.options.Notifications) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
@@ -562,13 +562,13 @@ class ChartBox {
     yAxisInfo.yName = "Markers";
     yAxisInfo.yFormat = markerFormatter;
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'square';
     markerInfo.color = 'lightblue';
     markerInfo.label = 'N';
     markerInfo.size = 25;
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Notification";
     paramInfo.color = "lightblue";
     paramInfo.transitions = session.infoChanges;
@@ -581,7 +581,7 @@ class ChartBox {
   createWarningGraph(reuseAxisNum) {
     if (!this.options.Warnings) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
@@ -591,13 +591,13 @@ class ChartBox {
     yAxisInfo.yName = "Markers";
     yAxisInfo.yFormat = markerFormatter;
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'triangle';
     markerInfo.color = 'wheat';
     markerInfo.label = 'W';
     markerInfo.size = 30;
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Warning";
     paramInfo.color = "wheat";
     paramInfo.transitions = session.warningChanges;
@@ -610,7 +610,7 @@ class ChartBox {
   createErrorGraph(reuseAxisNum) {
     if (!this.options.Errors) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
@@ -620,13 +620,13 @@ class ChartBox {
     yAxisInfo.yName = "Markers";
     yAxisInfo.yFormat = markerFormatter;
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
     markerInfo.type = 'cross';
     markerInfo.color = 'salmon';
     //markerInfo.label = 'X';
     markerInfo.size = 15;
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Error";
     paramInfo.color = "salmon";
     paramInfo.transitions = session.errorChanges;
@@ -639,7 +639,7 @@ class ChartBox {
   createFiO2Graph(reuseAxisNum) {
     if (!this.options.FiO2) return reuseAxisNum;
 
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "brown";
     yAxisInfo.yMin = 0;
@@ -647,9 +647,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Percentage (%)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "FiO2 (%)";
     paramInfo.color = "brown";
     paramInfo.transitions = session.fiO2Changes;
@@ -660,7 +660,7 @@ class ChartBox {
 
   createPurityGraph(reuseAxisNum) {
     if (!this.options.O2Purity) return reuseAxisNum;
-    var yAxisInfo = cloneObject(yAxisInfoTemplate);
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
     yAxisInfo.primary = true;
     yAxisInfo.color = "lightgreen";
     yAxisInfo.yMin = 0;
@@ -668,9 +668,9 @@ class ChartBox {
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Percentage (%)";
 
-    var markerInfo = cloneObject(markerInfoTemplate);
+    let markerInfo = cloneObject(markerInfoTemplate);
 
-    var paramInfo = cloneObject(paramInfoTemplate);
+    let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "O2 Purity (%)";
     paramInfo.color = "lightgreen";
     paramInfo.transitions = session.o2PurityChanges;

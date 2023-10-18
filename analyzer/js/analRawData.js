@@ -1,33 +1,34 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
+var dataDisplayed = false;
+
 function displayJsonRawData(jsonData) {
-  var scrollbox = document.getElementById('scrollRawDataDiv');
-  var newElement = document.createElement('p');
+  let scrollbox = document.getElementById('scrollRawDataDiv');
+  let newElement = document.createElement('p');
   newElement.innerText = newElement.textContent = JSON.stringify(jsonData);
   scrollbox.appendChild(newElement);
 }
 
 function displayJsonRecord(key) {
-  var req = indexedDB.open(dbName, session.database.dbVersion);
+  let req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
-    var db = event.target.result;
+    let db = event.target.result;
     session.database.db = db;
     session.database.dbReady = true;
-    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
-    var store = tx.objectStore(session.database.dbObjStoreName);
-    var keyReq = store.get(key);
+    let tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    let store = tx.objectStore(session.database.dbObjStoreName);
+    let keyReq = store.get(key);
     keyReq.onsuccess = function (event) {
       jsonData = keyReq.result;
       displayJsonRawData(jsonData);
     }
   }
 }
-var dataDisplayed = false;
 
 function initRawDump() {
-  var scrollbox = document.getElementById('scrollRawDataDiv');
+  let scrollbox = document.getElementById('scrollRawDataDiv');
   scrollbox.innerHTML = "";
   dataDisplayed = false;
 }

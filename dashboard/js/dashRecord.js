@@ -25,7 +25,7 @@ function exportRecording() {
 }
 
 function exportFile() {
-  fileName = document.getElementById("exportFileName").value;
+  let fileName = document.getElementById("exportFileName").value;
   if (fileName) {
     exportDb(session.database.dbName, fileName);
     document.getElementById("exportDiv").style.display = "none";
@@ -35,5 +35,4 @@ function exportFile() {
 function cancelExport() {
   document.getElementById("exportDiv").style.display = "none";
 }
-
 

@@ -19,7 +19,7 @@ function toggleWarningSample() {
 }
 
 function startWarningBeep() { 
-  var warningBeep = document.getElementById("warningBeep"); 
+  let warningBeep = document.getElementById("warningBeep"); 
   if (document.getElementById("audioControlDiv").style.display == "block") {
     if (warningBeepSample) {
       stopAllBeeps();
@@ -55,8 +55,8 @@ function disableWarningBeep() {
 }
 
 function toggleWarningBeep() { 
-  var imgMenu = document.getElementById("btnWarningImg"); 
-  var imgStatus = document.getElementById("WarningActiveImg"); 
+  let imgMenu = document.getElementById("btnWarningImg"); 
+  let imgStatus = document.getElementById("WarningActiveImg"); 
   if (warningBeepEnabled) {
     imgMenu.src = "../common/img/audioOff.png";
     imgStatus.src = "../common/img/audioOff.png";
@@ -96,7 +96,7 @@ function toggleErrorSample() {
 }
 
 function startErrorBeep() { 
-  var errorBeep = document.getElementById("errorBeep"); 
+  let errorBeep = document.getElementById("errorBeep"); 
   if (document.getElementById("audioControlDiv").style.display == "block") {
     if (errorBeepSample) {
       stopAllBeeps();
@@ -132,8 +132,8 @@ function disableErrorBeep() {
 }
 
 function toggleErrorBeep() { 
-  var imgMenu = document.getElementById("btnErrorImg"); 
-  var imgStatus = document.getElementById("ErrorActiveImg"); 
+  let imgMenu = document.getElementById("btnErrorImg"); 
+  let imgStatus = document.getElementById("ErrorActiveImg"); 
   if (errorBeepEnabled) {
     imgMenu.src = "../common/img/audioOff.png";
     imgStatus.src = "../common/img/audioOff.png";
@@ -192,7 +192,7 @@ function dismissAudioControl() {
 // Beep buttons
 //////////////////////////////////////////////
 function toggleAudio() {
-  var btnAudio = document.getElementById("btnAudio"); 
+  let btnAudio = document.getElementById("btnAudio"); 
   if (errorBeepEnabled && warningBeepEnabled) {
     disableAllBeeps();
     btnAudio.textContent = "Enable Audio Alarms" ;

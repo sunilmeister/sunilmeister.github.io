@@ -5,6 +5,9 @@
 var analysisRangeSlider = null;
 var sessionBannerHTML = null;
 var sliderCommitPending = false;
+var exportRowDiv = null;
+var cumulativeChartBreaths = 0;
+
 if (!window.indexedDB) {
   modalAlert("IndexedDB not available in your browser", "Switch browsers");
 }
@@ -12,13 +15,13 @@ if (!window.indexedDB) {
 // Database Functions 
 // ///////////////////////////////////////////////////////
 function listDbTableRow(item, index) {
-  nameTm = parseDbName(item);
+  let nameTm = parseDbName(item);
   // only list databases for the currently selected system
   if (nameTm[0] != respimaticUid) return false;
-  var table = document.getElementById("dbTable");
-  var row = table.insertRow();
+  let table = document.getElementById("dbTable");
+  let row = table.insertRow();
   row.style.cursor = "pointer";
-  var cell;
+  let cell;
   cell = row.insertCell();
   cell.style.paddingRight = "25px";
   cell.style.paddingTop = "8px";
@@ -58,7 +61,7 @@ function selectDbRow(row) {
   // grab the tag field from the first cell in the same row
   dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
-  var sessionInfo = document.getElementById("sliderCaption");
+  let sessionInfo = document.getElementById("sliderCaption");
 
   sessionInfo.style.backgroundColor = palette.green;
   sessionInfo.style.color = palette.brightgreen;
@@ -108,8 +111,6 @@ function selectRowBtn(btn) {
   selectDbRow(btn.parentNode.parentNode);
 }
 
-var exportRowDiv = null;
-
 function exportRowBtn(btn) {
   exportRowDiv = btn.parentNode.parentNode;
   document.getElementById("exportDiv").style.display = "block";
@@ -127,15 +128,15 @@ function deleteRowBtn(btn) {
 function listAllDbs() {
   initSelectRowTable("dbTable", selectDbRow);
   //clear any existing table being shown
-  var table = document.getElementById("dbTable");
-  var rowCount = table.rows.length;
-  for (var i = 1; i < rowCount; i++) {
+  let table = document.getElementById("dbTable");
+  let rowCount = table.rows.length;
+  for (let i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-  var retrieved_dbs = getAllDbs();
+  let retrieved_dbs = getAllDbs();
   if (!retrieved_dbs) return 0;
-  var count = 0;
-  for (i = retrieved_dbs.length - 1; i >= 0; i--) {
+  let count = 0;
+  for (let i = retrieved_dbs.length - 1; i >= 0; i--) {
     if (listDbTableRow(retrieved_dbs[i], i)) count++;
   }
   return count;
@@ -152,7 +153,7 @@ function deleteAllDbs() {
 
 function doDeleteAllDbs() {
   //clear any existing table being shown
-  var table = document.getElementById("dbTable");
+  let table = document.getElementById("dbTable");
   if (!table) return;
   numRows = table.rows.length;
   for (i = 1; i < numRows; i++) {
@@ -202,7 +203,7 @@ function selectSession() {
   enableAllButtons();
 
   numSessions = listAllDbs();
-  var bnr = document.getElementById("sessionNameSelector");
+  let bnr = document.getElementById("sessionNameSelector");
 
   if (!numSessions) {
     bnr.innerHTML = "No Recordings Found. Use Dashboard to record";
@@ -240,7 +241,7 @@ function selectStats() {
   undisplayAllPanes();
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sliderCaption");
+  let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -256,7 +257,7 @@ function selectAlerts() {
   undisplayAllPanes();
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sliderCaption");
+  let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -272,7 +273,7 @@ function selectWaves() {
   undisplayAllPanes();
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sliderCaption");
+  let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -288,7 +289,7 @@ function selectCharts() {
   undisplayAllPanes();
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("analysisWindowDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sliderCaption");
+  let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
@@ -303,7 +304,7 @@ function selectRawData() {
 
   undisplayAllPanes();
   document.getElementById("rawDataDiv").style.display = "block";
-  var sessionInfo = document.getElementById("sessionNameData");
+  let sessionInfo = document.getElementById("sessionNameData");
   sessionInfo.innerHTML = sessionBannerHTML;
   sessionInfo.style.color = palette.brightgreen;
 
@@ -319,17 +320,17 @@ function initSession(dbName) {
     return;
   }
   resetAnalysisData();
-  var req = indexedDB.open(dbName, session.database.dbVersion);
+  let req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
-    var db = event.target.result;
+    let db = event.target.result;
     session.database.dbReady = true;
     session.database.dbName = dbName;
-    var tx = db.transaction(session.database.dbObjStoreName, 'readonly');
-    var store = tx.objectStore(session.database.dbObjStoreName);
-    var keyReq = store.getAllKeys();
+    let tx = db.transaction(session.database.dbObjStoreName, 'readonly');
+    let store = tx.objectStore(session.database.dbObjStoreName);
+    let keyReq = store.getAllKeys();
     keyReq.onsuccess = function (event) {
-      var keys = event.target.result;
+      let keys = event.target.result;
       allDbKeys = keys;
       if (keys.length == 0) {
         modalAlert("Selected Recording has no data", "");
@@ -413,7 +414,7 @@ function undisplayAllPanes() {
 
 function checkValidAnalysisDuration() {
   //return true;
-  var diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
+  let diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
   if (diff <= 0) {
     modalAlert("Analysis EndTime must be greater than StartTime", "");
     return false;
@@ -421,8 +422,8 @@ function checkValidAnalysisDuration() {
 }
 
 function updateLogDuration() {
-  var diff = session.analyzer.logEndTime - session.analyzer.logStartTime;
-  elm = document.getElementById("logTimeDuration");
+  let diff = session.analyzer.logEndTime - session.analyzer.logStartTime;
+  let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
   } else {
@@ -437,11 +438,11 @@ function enterBreathInterval () {
 }
 
 function acceptBreathRange () {
-  var fromBreath = document.getElementById("fromBreath").value;
-  var toBreath = document.getElementById("toBreath").value;
+  let fromBreath = document.getElementById("fromBreath").value;
+  let toBreath = document.getElementById("toBreath").value;
   document.getElementById("enterRangeDiv").style.display = "none";
 
-  var badRange = false;
+  let badRange = false;
   badRange = badRange || (fromBreath <= 0);
   badRange = badRange || (toBreath <= 0);
   badRange = badRange || (toBreath > session.analyzer.logEndBreath);
@@ -465,8 +466,8 @@ function cancelBreathRange () {
 }
 
 function updateSelectedDuration() {
-  elm = document.getElementById("selectedTimeDuration");
-  var diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
+  let elm = document.getElementById("selectedTimeDuration");
+  let diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
   } else {
@@ -569,7 +570,7 @@ function analysisGatherDoneCallback() {
   session.analyzer.logStartBreath = 1;
   session.analyzer.logEndBreath = session.breathTimes.length - 1;
 
-  var n = session.analyzer.logEndBreath - session.analyzer.logStartBreath;
+  let n = session.analyzer.logEndBreath - session.analyzer.logStartBreath;
   if (n < 20) {
     session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
     session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
@@ -605,12 +606,12 @@ window.onload = function () {
   session.sessionDataValid = false;
   session.database.dbName = "";
   session.database.dbReady = false;
-  var heading = document.getElementById("SysUid");
+  let heading = document.getElementById("SysUid");
   heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
-  var sessionInfo = document.getElementById("sessionNameSelector");
+  let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 
-  var exportFileNameInput = document.getElementById("exportFileName");
+  let exportFileNameInput = document.getElementById("exportFileName");
   exportFileNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -618,7 +619,7 @@ window.onload = function () {
     }
   });
 
-  var importSessionNameInput = document.getElementById("importSessionName");
+  let importSessionNameInput = document.getElementById("importSessionName");
   importSessionNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -628,10 +629,10 @@ window.onload = function () {
 
   undisplayAllPanes();
   disableAllButtons();
-  var menuBar = document.getElementById("sideMenuBar");
+  let menuBar = document.getElementById("sideMenuBar");
   menuBarHeight = menuBar.offsetHeight;
   menuBarWidth = menuBar.offsetWidth;
-  var nonMenuArea = document.getElementById("nonMenuArea");
+  let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(5 - menuBarHeight) + "px";
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
@@ -672,8 +673,6 @@ function changeAnalysisWindowButtonsColor(bgd) {
   changeIconButtonColor(document.getElementById("btnResetInterval"), bgd);
   changeIconButtonColor(document.getElementById("btnFullInterval"), bgd);
 }
-
-var cumulativeChartBreaths = 0;
 
 function updateRangeOnNewBreath(num) {
   session.reportRange.minBnum = 1;

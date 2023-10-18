@@ -3,25 +3,24 @@
 // ////////////////////////////////////////////////////
 
 function formMessageLine(str) {
-  value = str.trim();
+  let value = str.trim();
   if (value == "") return "&nbsp";
-  mvalue = value.replace(/ /g, "&nbsp");
+  let mvalue = value.replace(/ /g, "&nbsp");
   return mvalue;
 }
 
 function blinkSettingValue(pending, containerDiv, valueDiv) {
+  let elm = document.getElementById(containerDiv);
   if (pending) {
     updatePending(false);
-    elm = document.getElementById(containerDiv);
     elm.style.backgroundColor = palette.orange;
   } else {
-    elm = document.getElementById(containerDiv);
     elm.style.backgroundColor = palette.mediumblue;
   }
 }
 
 function updatePendingIndividualSetting(blink, div, pendingSetting) {
-  elm = document.getElementById(div);
+  let elm = document.getElementById(div);
   if (session.paramDataOnDisplay.pending) {
     if (pendingSetting && blink) {
       if (pendingBackground != "ORANGE") {
@@ -36,7 +35,7 @@ function updatePendingIndividualSetting(blink, div, pendingSetting) {
 }
 
 function updatePendingSettings(blink) {
-  pend = session.pendingParamsData;
+  let pend = session.pendingParamsData;
   updatePendingIndividualSetting(blink, "MODEDiv", pend.mode);
   updatePendingIndividualSetting(blink, "VTDiv", pend.vt);
   updatePendingIndividualSetting(blink, "VTDiv", pend.mv);
@@ -49,6 +48,7 @@ function updatePendingSettings(blink) {
 }
 
 function updatePending(blink) {
+  let elm;
   updatePendingSettings(blink);
   if (session.paramDataOnDisplay.pending) {
     elm = document.getElementById("Pending");
@@ -72,7 +72,7 @@ function updatePending(blink) {
 }
 
 function updateAlert(blink) {
-  elm = document.getElementById("AlertDiv");
+  let elm = document.getElementById("AlertDiv");
   if (session.stateData.error) {
     startErrorBeep();
     if (alertBackground != "DARKRED") {
@@ -113,6 +113,7 @@ function updateAlert(blink) {
 }
 
 function displayMessageLine(lineTag, value) {
+  let elm;
   if (messagesBackground != "MEDIUMGREEN") {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = palette.mediumgreen;
@@ -120,7 +121,7 @@ function displayMessageLine(lineTag, value) {
     messagesBackground = "MEDIUMGREEN";
   }
   elm = document.getElementById(lineTag);
-  mvalue = formMessageLine(value);
+  let mvalue = formMessageLine(value);
   elm.innerHTML = mvalue;
 }
 
@@ -143,7 +144,7 @@ function animateDivToValue(div, value) {
 }
 
 function updateDivValue(div, value) {
-  var txt;
+  let txt;
   if (value === null) txt = "--";
   else txt = value;
   div.innerHTML = txt;
@@ -249,9 +250,9 @@ function updateCompDivsFromSessionData() {
 }
 
 function updateMiscDivsFromSessionData() {
-  altF = " <small><small>ft</small></small>";
+  let altF = " <small><small>ft</small></small>";
   updateDivValue(altfDIV, session.miscData.altInFt + altF);
-  altM = " <small><small>m</small></small>";
+  let altM = " <small><small>m</small></small>";
   updateDivValue(altmDIV, session.miscData.altInM + altM);
 
   tempGauge.setValue(session.miscData.tempC);
@@ -261,7 +262,7 @@ function updateSnapshot() {
   let d = updatedDweetContent;
   for (let key in d.content) {
     // get key value pairs
-    value = d.content[key];
+    let value = d.content[key];
     if (key == 'ATT') {
       if (value==1) {
         updateAlert(true);
@@ -286,12 +287,12 @@ function updateSnapshot() {
 
     // Patient info
     else if ((key == 'FNAME') || (key == 'LNAME')) {
-      var pname = "--" ;
+      let pname = "--" ;
       if (session.patientData.fname) pname = session.patientData.fname;
       if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
       updateDivValue(pline1DIV, pname);
     } else if (key == 'PSTATS') {
-      var pline2 = "";
+      let pline2 = "";
       if (session.patientData.gender) {
         pline2 = "Gender: " + session.patientData.gender;
       } else {
@@ -304,7 +305,7 @@ function updateSnapshot() {
       }
       updateDivValue(pline2DIV, pline2);
 
-      var pline3 = "";
+      let pline3 = "";
       if (session.patientData.weight) {
         pline3 = "Weight: " + session.patientData.weight + "kg";
       } else {
@@ -376,7 +377,7 @@ function updateDashboardAndRecordingStatus() {
 function displayNormalMessages() {
   wifiDropped = false;
   if (messagesBackground == "MEDIUMGREEN") return;
-  elm = document.getElementById("MessagesDiv");
+  let elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = palette.mediumgreen;
   elm.style.color = palette.darkblue;
   messagesBackground = "MEDIUMGREEN";
@@ -389,6 +390,7 @@ function displayWifiDropped() {
   wifiDroppedBlink++;
   if (wifiDroppedBlink != 3) return;
   wifiDroppedBlink = 0;
+  let elm;
   if (messagesBackground == "ORANGE") {
     elm = document.getElementById("MessagesDiv");
     elm.style.backgroundColor = palette.mediumgreen;
@@ -426,7 +428,7 @@ function displayWifiDropped() {
 function displayWifiUnconnected() {
   wifiDropped = true;
   if (messagesBackground == "ORANGE") return;
-  elm = document.getElementById("MessagesDiv");
+  let elm = document.getElementById("MessagesDiv");
   elm.style.backgroundColor = palette.orange;
   messagesBackground = "ORANGE";
   updateDashboardAndRecordingStatus();

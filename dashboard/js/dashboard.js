@@ -5,16 +5,16 @@
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   fiO2Gauge.setValue(fiO2);
   purityGauge.setValue(o2Purity);
-  elm = document.getElementById("o2FlowRate");
+  let elm = document.getElementById("o2FlowRate");
   elm.innerHTML = parseFloat(o2Flow / 10).toFixed(1) + " (litres/min)";
 }
 
 function checkFiO2Calculation(d) {
-  var newFiO2 = desiredFiO2;
-  var newPurity = o2Purity;
-  var newO2Flow = reqO2Flow;
-  var change = false;
-  value = d.content["FIO2"];
+  let newFiO2 = desiredFiO2;
+  let newPurity = o2Purity;
+  let newO2Flow = reqO2Flow;
+  let change = false;
+  let value = d.content["FIO2"];
   if (!isUndefined(value)) {
     if (validDecimalInteger(value) && (value <= 100)) {
       newFiO2 = value;
@@ -44,15 +44,15 @@ function checkFiO2Calculation(d) {
 }
 
 function disassembleAndQueueDweet(d) {
-  fragmentIndex = 0;
+  let fragmentIndex = 0;
   while (1) {
-    key = String(fragmentIndex);
+    let key = String(fragmentIndex);
     fragmentIndex++;
 
     if (isUndefined(d.content[key])) break;
     fragment = d.content[key];
-    millisStr = fragment.MILLIS;
-    millis = parseChecksumString(millisStr);
+    let millisStr = fragment.MILLIS;
+    let millis = parseChecksumString(millisStr);
     if (millis == null) continue // ignore this malformed dweet
 
     if (!startMillis) startMillis = Number(millis);
@@ -67,8 +67,8 @@ function disassembleAndQueueDweet(d) {
 }
 
 function getCurrentSimulatedMillis() {
-  curDate = new Date();
-  deltaTimeInMs = curDate - startSystemDate;
+  let curDate = new Date();
+  let deltaTimeInMs = curDate - startSystemDate;
   return startSimulatedMillis + deltaTimeInMs;
 }
 
@@ -81,8 +81,8 @@ function waitForDweets() {
       initRecordingPrevContent();
     }
     if (awaitingFirstDweet) {
-      millisStr = d.content["0"].MILLIS
-      millis = parseChecksumString(millisStr);
+      let millisStr = d.content["0"].MILLIS
+      let millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed dweet
 
       simulatedMillis = Number(millis);
@@ -90,7 +90,7 @@ function waitForDweets() {
       startSystemDate = new Date();
       //console.log("simulatedMillis=" + simulatedMillis);
       session.startDate = new Date(d.created);
-      elm = document.getElementById("logStartDate");
+      let elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
@@ -102,9 +102,9 @@ function waitForDweets() {
 }
 
 function processDashboardDweet(d) {
-  curDate = new Date(d.created);
-  sessionDurationInMs = curDate - session.startDate;
-  elm = document.getElementById("logTimeDuration");
+  let curDate = new Date(d.created);
+  let sessionDurationInMs = curDate - session.startDate;
+  let elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
 
   if (!updatePaused) {
@@ -139,13 +139,13 @@ function createDashboards() {
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
 
-  bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
+  let bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
   prevUpdateRange = cloneObject(session.reportRange);
 
   if (currentView == "charts") createDashboardCharts();
   if (currentView == "stats") createDashboardStats();
 
-  currNumAlerts = numberOfExistingAlerts();
+  let currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
     if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
       createDashboardAlerts();
@@ -153,7 +153,7 @@ function createDashboards() {
     }
   }  
 
-  currNumWaves = numberOfExistingWaves();
+  let currNumWaves = numberOfExistingWaves();
   if (currentView == "waves") {
     if (!bothRolling || (prevUpdateNumWaves != currNumWaves)) {
       createDashboardWaves();
@@ -172,7 +172,7 @@ function snapshotProcessJsonRecord(d) {
   updatedDweetContent.created = d.created;
   for (let key in d.content) {
     // get key value pairs
-    value = d.content[key];
+    let value = d.content[key];
     updatedDweetContent.content[key] = value;
   }
 }
@@ -186,7 +186,7 @@ function createDashboardAlerts() {
 }
 
 function blinkFlowRate() {
-  flowDiv = document.getElementById("flowDiv");
+  let flowDiv = document.getElementById("flowDiv");
   if (flowDivBackground == "DARKBLUE") {
     flowDiv.style.backgroundColor = palette.mediumgreen;
     flowDiv.style.color = palette.darkblue;
@@ -199,10 +199,10 @@ function blinkFlowRate() {
 }
 
 function blinkPauseButton() {
-  btn = document.getElementById("btnPause");
-  ttl = document.getElementById("breathsHeading");
-  bnum = document.getElementById("breathNum");
-  bdiv = document.getElementById("curBreathDiv");
+  let btn = document.getElementById("btnPause");
+  let ttl = document.getElementById("breathsHeading");
+  let bnum = document.getElementById("breathNum");
+  let bdiv = document.getElementById("curBreathDiv");
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
       btn.style.color = palette.orange;
@@ -238,11 +238,11 @@ function enterBreathInterval () {
 }
 
 function acceptBreathRange () {
-  var fromBreath = document.getElementById("fromBreath").value;
-  var toBreath = document.getElementById("toBreath").value;
+  let fromBreath = document.getElementById("fromBreath").value;
+  let toBreath = document.getElementById("toBreath").value;
   document.getElementById("enterRangeDiv").style.display = "none";
 
-  var badRange = false;
+  let badRange = false;
   badRange = badRange || (fromBreath <= 0);
   badRange = badRange || (toBreath <= 0);
   badRange = badRange || (toBreath > session.dashboardBreathNum);
@@ -273,12 +273,12 @@ function changeToSnapshotView() {
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = false;
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-  waves = document.getElementById("waves-pane");
+  let snapshot = document.getElementById("snapshot-pane");
+  let charts = document.getElementById("chart-pane");
+  let stats = document.getElementById("stat-pane");
+  let alerts = document.getElementById("alert-pane");
+  let records = document.getElementById("record-pane");
+  let waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "snapshots";
   snapshot.style.display = "inline-grid";
@@ -297,12 +297,12 @@ function changeToChartView() {
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = false;
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-  waves = document.getElementById("waves-pane");
+  let snapshot = document.getElementById("snapshot-pane");
+  let charts = document.getElementById("chart-pane");
+  let stats = document.getElementById("stat-pane");
+  let alerts = document.getElementById("alert-pane");
+  let records = document.getElementById("record-pane");
+  let waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "charts";
   snapshot.style.display = "none";
@@ -325,12 +325,12 @@ function changeToWaveView() {
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = true;
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-  waves = document.getElementById("waves-pane");
+  let snapshot = document.getElementById("snapshot-pane");
+  let charts = document.getElementById("chart-pane");
+  let stats = document.getElementById("stat-pane");
+  let alerts = document.getElementById("alert-pane");
+  let records = document.getElementById("record-pane");
+  let waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "waves";
   snapshot.style.display = "none";
@@ -353,12 +353,12 @@ function changeToStatView() {
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = false;
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-  waves = document.getElementById("waves-pane");
+  let snapshot = document.getElementById("snapshot-pane");
+  let charts = document.getElementById("chart-pane");
+  let stats = document.getElementById("stat-pane");
+  let alerts = document.getElementById("alert-pane");
+  let records = document.getElementById("record-pane");
+  let waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "stats";
   snapshot.style.display = "none";
@@ -381,12 +381,12 @@ function changeToAlertView() {
   document.getElementById("btnAlerts").disabled = true;
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = false;
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-  waves = document.getElementById("waves-pane");
+  let snapshot = document.getElementById("snapshot-pane");
+  let charts = document.getElementById("chart-pane");
+  let stats = document.getElementById("stat-pane");
+  let alerts = document.getElementById("alert-pane");
+  let records = document.getElementById("record-pane");
+  let waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "alerts";
   snapshot.style.display = "none";
@@ -409,12 +409,12 @@ function changeToRecordView() {
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = true;
   document.getElementById("btnWaves").disabled = false;
-  snapshot = document.getElementById("snapshot-pane");
-  charts = document.getElementById("chart-pane");
-  stats = document.getElementById("stat-pane");
-  alerts = document.getElementById("alert-pane");
-  records = document.getElementById("record-pane");
-  waves = document.getElementById("waves-pane");
+  let snapshot = document.getElementById("snapshot-pane");
+  let charts = document.getElementById("chart-pane");
+  let stats = document.getElementById("stat-pane");
+  let alerts = document.getElementById("alert-pane");
+  let records = document.getElementById("record-pane");
+  let waves = document.getElementById("waves-pane");
   if (updatePaused) togglePause();
   currentView = "records";
   snapshot.style.display = "none";
@@ -437,7 +437,7 @@ function updateRangeOnNewBreath() {
 }
 
 function togglePause() {
-  elm = document.getElementById("btnPause");
+  let elm = document.getElementById("btnPause");
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
@@ -460,50 +460,50 @@ function selectExit() {
 }
 
 function installFiO2Gauge() {
-  var bgColor = palette.darkblue;
-  var fgColor = palette.brightgreen;
-  var containerDiv = document.getElementById('fiO2Div');
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('fiO2Div');
   fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
 }
 
 function installPurityGauge() {
-  var bgColor = palette.darkblue;
-  var fgColor = palette.brightgreen;
-  var containerDiv = document.getElementById('purityDiv');
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('purityDiv');
   purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
 
 }
 
 function installPeakGauge() {
-  var bgColor = palette.darkblue;
-  var fgColor = palette.brightgreen;
-  var containerDiv = document.getElementById('PeakGauge');
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('PeakGauge');
   peakGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
 }
 
 function installPlatGauge() {
-  var bgColor = palette.darkblue;
-  var fgColor = palette.brightgreen;
-  var containerDiv = document.getElementById('PlatGauge');
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('PlatGauge');
   platGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
 }
 
 function installPeepGauge() {
-  var bgColor = palette.darkblue;
-  var fgColor = palette.brightgreen;
-  var containerDiv = document.getElementById('PeepGauge');
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('PeepGauge');
   peepGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
 }
 
 function installTempGauge() {
-  var bgColor = palette.darkblue;
-  var fgColor = palette.brightgreen;
-  var containerDiv = document.getElementById('TempGauge');
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('TempGauge');
   tempGauge = new CircularGauge(containerDiv, 90, fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
@@ -543,7 +543,7 @@ window.onload = function () {
   session.waves.newPwDataCallback = receivedNewWave;
 
   initDbNames();
-  var heading = document.getElementById("SysUid");
+  let heading = document.getElementById("SysUid");
   if (respimaticTag) {
     document.title = respimaticTag + " (DASHBOARD)"
     heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
@@ -553,11 +553,11 @@ window.onload = function () {
   }
   initStats();
   initAlerts();
-  snapshot = document.getElementById("snapshot-pane");
+  let snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";
-  charts = document.getElementById("chart-pane");
+  let charts = document.getElementById("chart-pane");
   charts.style.display = "none";
-  stats = document.getElementById("stat-pane");
+  let stats = document.getElementById("stat-pane");
   stats.style.display = "none";
   // Install all gauges
   installPurityGauge();
@@ -573,7 +573,7 @@ window.onload = function () {
   createRangeSlider(sliderDiv);
 
   // Treat <ENTER> as accept button
-  var recordNameInput = document.getElementById("recordName");
+  let recordNameInput = document.getElementById("recordName");
   recordNameInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -585,10 +585,10 @@ window.onload = function () {
   dweetQ = new Queue();
   waitForDweets();
   finishedLoading = true;
-  var menuBar = document.getElementById("sideMenuBar");
-  menuBarHeight = menuBar.offsetHeight;
-  menuBarWidth = menuBar.offsetWidth;
-  var nonMenuArea = document.getElementById("nonMenuArea");
+  let menuBar = document.getElementById("sideMenuBar");
+  let menuBarHeight = menuBar.offsetHeight;
+  let menuBarWidth = menuBar.offsetWidth;
+  let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
   //console.log("menuBarHeight = " + menuBarHeight);
@@ -597,7 +597,7 @@ window.onload = function () {
 
 window.onbeforeunload = function (e) {
   if (db) db.close();
-  var msg = 'Charts waveform history will be lost';
+  let msg = 'Charts waveform history will be lost';
   if (session.dashboardBreathNum != 0) {
     if (!session.recorder.off) {
       msg = msg + '\nAlso recording will stop';
@@ -622,9 +622,9 @@ function createRangeSlider(div) {
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
   sliderCommitPending = true;
-  values = chartRangeSlider.getSlider();
-  bmin = parseInt(values[0]);
-  bmax = parseInt(values[1]);
+  let values = chartRangeSlider.getSlider();
+  let bmin = parseInt(values[0]);
+  let bmax = parseInt(values[1]);
 
   stopSliderCallback = true;
   rangeSlider.setSlider([bmin, bmax]);
@@ -637,13 +637,13 @@ function outIconButton(btn) {
 }
 
 function overIconButton(btn) {
-  bgd = palette.brightgreen;
+  let bgd = palette.brightgreen;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
 }
 
 function setBackGroundBreathWindowButton(id, bgd) {
-  el = document.getElementById(id);
+  let el = document.getElementById(id);
   el.style.backgroundColor = bgd;
   el.style.borderColor = bgd;
   el.style.opacity = 1;
@@ -656,9 +656,9 @@ function setBackGroundBreathWindowButton(id, bgd) {
 
 function setTimeInterval() {
   if (!sliderCommitPending) return;
-  values = rangeSlider.getSlider();
-  bmin = parseInt(values[0]);
-  bmax = parseInt(values[1]);
+  let values = rangeSlider.getSlider();
+  let bmin = parseInt(values[0]);
+  let bmax = parseInt(values[1]);
   session.reportRange = createReportRange(false, bmin, bmax);
 
   createDashboards();
@@ -681,9 +681,9 @@ function resetTimeInterval() {
 }
 
 function setFullInterval() {
-  values = rangeSlider.getRange();
-  bmin = parseInt(values[0]);
-  bmax = parseInt(values[1]);
+  let values = rangeSlider.getRange();
+  let bmin = parseInt(values[0]);
+  let bmax = parseInt(values[1]);
   session.reportRange = createReportRange(false, bmin, bmax);
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -696,9 +696,9 @@ function setFullInterval() {
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
   sliderCommitPending = true;
-  values = rangeSlider.getSlider();
-  bmin = parseInt(values[0]);
-  bmax = parseInt(values[1]);
+  let values = rangeSlider.getSlider();
+  let bmin = parseInt(values[0]);
+  let bmax = parseInt(values[1]);
   setTimeInterval();
 }
 
@@ -706,8 +706,8 @@ function HandlePeriodicTasks() {
   if (!finishedLoading) return;
   updateAlert(true);
   updatePending(true);
-  var invokeTimeInMs = (new Date()).getTime();
-  blinkInterval = invokeTimeInMs - prevBlinkTimeInMs;
+  let invokeTimeInMs = (new Date()).getTime();
+  let blinkInterval = invokeTimeInMs - prevBlinkTimeInMs;
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkPauseButton();
     blinkFlowRate();
@@ -749,27 +749,27 @@ setTimeout(function periodicCheck() {
 
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
-  var millis;
+  let millis;
   while (1) {
     if (dweetQ.size() == 0) break;
-    d = dweetQ.peek();
-    millis = Number(d.MILLIS);
+    let d = dweetQ.peek();
+    let millis = Number(d.MILLIS);
     if (simulatedMillis < millis) break;
 
     d = dweetQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
-      bnumContent = d.content["BNUM"];
-      bnumObj = parseJSONSafely(bnumContent);
+      let bnumContent = d.content["BNUM"];
+      let bnumObj = parseJSONSafely(bnumContent);
       session.systemBreathNum = bnumObj[0];
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
-        elm = document.getElementById("priorBreathNum");
+        let elm = document.getElementById("priorBreathNum");
         elm.innerHTML = String(session.systemBreathNum - 1);
       }
       session.dashboardBreathNum = 
         session.systemBreathNum - session.startSystemBreathNum + 1;
     }
-    var dCopy; // a copy of the dweet
+    let dCopy; // a copy of the dweet
     dCopy = cloneObject(d);
     processDashboardDweet(d);
     processRecordDweet(dCopy);
@@ -796,7 +796,7 @@ function showDormantPopup() {
 
   dormantPopupDisplayed = true;
   dormantPopupManualCloseTime = null;
-  var modalColor = palette.modal;
+  let modalColor = palette.modal;
   
   let dormantTimerInterval;
   Swal.fire({

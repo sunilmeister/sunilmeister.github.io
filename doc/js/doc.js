@@ -3,7 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function enable(btn, img) {
-  bgd = palette.mediumblue;
+  let bgd = palette.mediumblue;
   document.getElementById(btn).style.backgroundColor = bgd;
   document.getElementById(btn).style.color = 'white';
   document.getElementById(btn).style.cursor = "pointer";
@@ -11,8 +11,8 @@ function enable(btn, img) {
 }
 
 function disable(btn, img) {
-  bgd = palette.lightblue;
-  fgd = palette.mediumblue;
+  let bgd = palette.lightblue;
+  let fgd = palette.mediumblue;
   document.getElementById(btn).style.backgroundColor = bgd;
   document.getElementById(btn).style.color = fgd;
   document.getElementById(btn).style.cursor = "not-allowed";
@@ -91,7 +91,7 @@ function firmwareDeck() {
 
 window.onload = function () {
   if (getCookie(pdfReminderOffCookieName) != "OFF") {
-    var modalColor = palette.modal;
+    let modalColor = palette.modal;
 
     Swal.fire({
       icon: 'info',

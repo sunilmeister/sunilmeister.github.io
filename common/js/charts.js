@@ -11,47 +11,47 @@
 /////////////////////////////////////////////////////////////////
 
 function chartInsertInitial() {
-  allCharts = document.getElementById(ALL_CHARTS_ID);
-  newContainer = createNewChartContainer();
+  let allCharts = document.getElementById(ALL_CHARTS_ID);
+  let newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, null);
   // Open edit menu for the new chart box
-  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
 
 function chartInsert(bnode) {
-  containerNode = findAncestorChartContainerNode(bnode);
-  newContainer = createNewChartContainer();
+  let containerNode = findAncestorChartContainerNode(bnode);
+  let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
   // Open edit menu for the new chart box
-  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
 
 function chartAppend(bnode) {
-  containerNode = findAncestorChartContainerNode(bnode);
-  newContainer = createNewChartContainer();
+  let containerNode = findAncestorChartContainerNode(bnode);
+  let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
   // Open edit menu for the new chart box
-  enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
 
 function chartEdit(bnode) {
   removeChartEditMenu();
-  containerNode = findAncestorChartContainerNode(bnode);
-  temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content, CHART_EDIT_CHART_MENU_CLASS);
-  node = template.cloneNode(true);
+  let containerNode = findAncestorChartContainerNode(bnode);
+  let temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
+  let template = findChildNodeByClass(temp.content, CHART_EDIT_CHART_MENU_CLASS);
+  let node = template.cloneNode(true);
   containerNode.insertBefore(node, bnode.parentNode.nextSibling);
   session.charts.boxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID);
-  box = session.charts.allChartsContainerInfo[containerNode.id];
+  let box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateMenu(CHART_EDIT_CHART_MENU_ID);
   session.charts.boxTree.PropagateFromLeafCheckboxes();
 }
 
 function chartDelete(bnode) {
-  containerNode = findAncestorChartContainerNode(bnode);
+  let containerNode = findAncestorChartContainerNode(bnode);
   removeChartContainerId(containerNode.id);
   containerNode.remove();
   if (numberOfExistingCharts() == 0) {
@@ -64,19 +64,19 @@ function chartDelete(bnode) {
 
 function removeChartEditMenu() {
   if (session.charts.boxTree) delete session.charts.boxTree;
-  menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
+  let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
   menuDiv.remove();
 }
 
 function chartMenuCancel(bnode) {
-  containerNode = findAncestorChartContainerNode(bnode);
+  let containerNode = findAncestorChartContainerNode(bnode);
   removeChartEditMenu();
 }
 
 function chartMenuSubmit(bnode) {
-  containerNode = findAncestorChartContainerNode(bnode);
-  box = session.charts.allChartsContainerInfo[containerNode.id];
+  let containerNode = findAncestorChartContainerNode(bnode);
+  let box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateOptions(CHART_EDIT_CHART_MENU_ID);
   //removeChartEditMenu();
   box.render();
@@ -85,12 +85,12 @@ function chartMenuSubmit(bnode) {
 var currentChartContainerNum = 0;
 
 function createNewChartContainer() {
-  temp = document.getElementById(CHART_CONTAINER_TEMPLATE_ID);
-  template = findChildNodeByClass(temp.content, CHART_CONTAINER_CLASS);
-  node = template.cloneNode(true);
+  let temp = document.getElementById(CHART_CONTAINER_TEMPLATE_ID);
+  let template = findChildNodeByClass(temp.content, CHART_CONTAINER_CLASS);
+  let node = template.cloneNode(true);
   node.id = CHART_CONTAINER_ID_PREFIX + (currentChartContainerNum++);
-  body = findChildNodeByClass(node, CHART_BODY_CLASS);
-  box = new ChartBox(body);
+  let body = findChildNodeByClass(node, CHART_BODY_CLASS);
+  let box = new ChartBox(body);
   storeChartContainerId(node.id, box);
   return node;
 }
@@ -100,7 +100,7 @@ function numberOfExistingCharts() {
 }
 
 function findChartContainerId(id) {
-  obj = session.charts.allChartsContainerInfo[id];
+  let obj = session.charts.allChartsContainerInfo[id];
   if (!obj || isUndefined(obj)) return null;
   return obj;
 }
@@ -156,7 +156,7 @@ function createAllCharts() {
 }
 
 function renderAllCharts() {
-  for (id in session.charts.allChartsContainerInfo) {
+  for (let id in session.charts.allChartsContainerInfo) {
     session.charts.allChartsContainerInfo[id].render();
   }
 }

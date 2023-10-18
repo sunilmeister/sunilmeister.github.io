@@ -31,7 +31,7 @@ var palette = {
 };
 
 window.addEventListener("load", function() {
-  var style = getComputedStyle(document.body);
+  let style = getComputedStyle(document.body);
   
   palette.darkblue = style.getPropertyValue('--rsp_darkblue');
   palette.mediumblue = style.getPropertyValue('--rsp_mediumblue');

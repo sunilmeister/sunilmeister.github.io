@@ -3,14 +3,14 @@
 // ////////////////////////////////////////////////////
 
 function initCharts() {
-  allChartDivs = [];
-  for (id in session.charts.allChartsContainerInfo) {
+  let allChartDivs = [];
+  for (let id in session.charts.allChartsContainerInfo) {
     allChartDivs.push(id);
   }
   session.charts.allChartsContainerInfo = {};
-  for (i=0; i<allChartDivs.length; i++) {
-    id = allChartDivs[i];
-    node = document.getElementById(id);
+  for (let i=0; i<allChartDivs.length; i++) {
+    let id = allChartDivs[i];
+    let node = document.getElementById(id);
     node.remove();
   }
 }
