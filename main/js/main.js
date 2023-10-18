@@ -479,7 +479,7 @@ function detectedRespimaticSystemLogin(time, newUid, otp) {
   let msg = "";
   if (obj) {
     msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
-    modalInfo("Detected Respimatic 100 System login", msg);
+    modalInfo("Detected KNOWN Respimatic 100 System login", msg);
   } else {
     checkAndAddSystemInfo(obj.uid, otp) ;
   }
