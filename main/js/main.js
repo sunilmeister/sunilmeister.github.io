@@ -479,9 +479,10 @@ function detectedRespimaticSystemLogin(time, newUid, otp) {
   let msg = "";
   if (obj) {
     msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
-    modalInfo("Detected KNOWN Respimatic 100 System login", msg);
+    modalInfo("Login detected from a RECOGNIZED System", msg);
   } else {
     checkAndAddSystemInfo(obj.uid, otp) ;
+    modalInfo("Login detected from an UNRECOGNIZED System", msg);
   }
 }
 
