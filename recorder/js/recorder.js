@@ -154,6 +154,7 @@ setTimeout(function periodicCheck() {
 
 function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
+  let millis;
   while (1) {
     if (dweetQ.size() == 0) break;
     let d = dweetQ.peek();
@@ -162,7 +163,9 @@ function FetchAndExecuteFromQueue() {
 
     d = dweetQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
-      session.systemBreathNum = parseChecksumString(d.content["BNUM"]);
+      let bnumContent = d.content["BNUM"];
+      let bnumObj = parseJSONSafely(bnumContent);
+      session.systemBreathNum = bnumObj[0];
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
         let elm = document.getElementById("priorBreathNum");
