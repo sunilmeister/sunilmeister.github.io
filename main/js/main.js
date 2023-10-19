@@ -266,6 +266,8 @@ function addNewSystemBtn() {
     modalAlert("Invalid System UID='" + uid + "'", "Try again!");
     return;
   }
+  document.getElementById("newSysTAG").value = "";
+  document.getElementById("newSysUID").value = "";
   silentAddSystemTagUidInfo(uid, tag);
   document.getElementById("addSystemDiv").style.display = "none";
 }
@@ -487,45 +489,36 @@ function detectedRespimaticSystemLogin(time, newUid, otp) {
 }
 
 function checkAndAddSystemInfo(newUid, otp) {
-  let elm = document.getElementById("detectedSysUID");
-  elm.innerHTML = newUid;
   if (!validSystemUid(newUid)) {
     return;
   }
   elm = document.getElementById("detectedSysOTP");
   elm.setAttribute("receivedVAL", otp);
+  elm.setAttribute("receivedUID", newUid);
   elm = document.getElementById("addDetectedSystemDiv");
   elm.style.display = "block";
 }
 
 function addDetectedSystemBtn() {
-  let elm = document.getElementById("detectedSysTAG");
-  let sysTAG = elm.value;
-  elm = document.getElementById("detectedSysUID");
-  let sysUID = elm.innerText;
-  elm = document.getElementById("detectedSysOTP");
+  let elm = document.getElementById("detectedSysOTP");
   let sysOTP = elm.getAttribute("receivedVAL");
+  let sysUID = elm.getAttribute("receivedUID");
   let otp = elm.value;
-  //console.log("SysOTP=" + sysOTP + " UID=" + sysUID + " otp=" + otp);
-
-  if (!sysTAG) {
-    modalAlert("System TAG undefined", "Try again!");
-    return;
-  }
 
   if ((otp===null) || (otp=="") || (sysOTP==null)) {
     modalAlert("OTP Mismatch", "Try again!");
   } else if (Number(otp) != Number(sysOTP)) {
     modalAlert("OTP Mismatch", "Try again!");
   } else {
-    let table = document.getElementById("knownSystemsTable");
-    if (findSystemTagObj(sysTAG)) { // tag already exists
-      modalAlert("TAG='" + sysTAG + "' already exists", "Try again!");
-      return;
-    }
-    silentAddSystemTagUidInfo(sysUID, sysTAG);
+    elm = document.getElementById("detectedSysOTP");
+    elm.removeAttribute("receivedVAL");
+    elm.removeAttribute("receivedUID");
     elm = document.getElementById("addDetectedSystemDiv");
     elm.style.display = "none";
+    elm = document.getElementById("newSysUID");
+    elm.value = sysUID;
+    elm = document.getElementById("addSystemDiv");
+    elm.style.display = "block";
   }
 }
 
