@@ -84,17 +84,41 @@
         <div>
           <br>
           <br>
-          <label for="newSysTAG">System TAG</label>
-          <input id=newSysTAG style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
-          <br>
-          <br>
           <label for="newSysUID">System UID</label>
           <input id=newSysUID style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+          <br>
+          <br>
+          <label for="newSysTAG">System TAG</label>
+          <input id=newSysTAG style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
           <br>
           <br>
           <br>
           <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=addNewSystemBtn()>ADD System</button>
           <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelNewSystemBtn()>CANCEL</button>
+        </div>
+      </center>
+    </div>
+
+    <div id=addDetectedSystemDiv class=popupClassPersistent style="width:45rem; height:28rem; font-size: 1.5rem;
+    display: none">
+      <center>
+        <div>
+          <p style="font-size:2.5rem; margin-top:1.5rem;" >ADD Detected System using OTP
+          <br>
+          <p style="font-size:1.75rem; margin-bottom:-1.5rem;" >Detected System UID
+          <p id=detectedSysUID style="color:white;font-size: 1.75rem;">UID_AAAABBBBCCCCDDDD</p>
+          <br>
+          <label for="detectedSysTAG">System TAG</label>
+          <input id=detectedSysTAG style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+          <br>
+          <br>
+          <label for="detectedSysOTP">OTP from System Front Panel</label>
+          <input id=detectedSysOTP style="width: 4rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+          <br>
+          <br>
+          <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; "
+          onclick=addDetectedSystemBtn()>ADD System</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelDetectedSystemBtn()>CANCEL</button>
         </div>
       </center>
     </div>
@@ -198,7 +222,7 @@
               <thead>
                 <tr>
                   <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 5px 5px; font-size:1.2em">System Tag</th>
-                  <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.2em">System UID</th>
+                  <th align="center" style="min-width:220px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.2em">System UID</th>
                   <th align="center" style="min-width:100px; background-color:var(--rsp_lightblue); color:
                   var(--rsp_darkblue);  padding: 5px 5px; font-size:1.2em">FW Version</th> <th align="center" colspan="2" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 5px 5px; font-size:1.2em">Actions</th>
                 </tr>

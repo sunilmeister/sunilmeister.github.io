@@ -481,10 +481,55 @@ function detectedRespimaticSystemLogin(time, newUid, otp) {
     msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
     modalInfo("Login detected from a RECOGNIZED System", msg);
   } else {
-    checkAndAddSystemInfo(obj.uid, otp) ;
+    checkAndAddSystemInfo(newUid, otp) ;
     modalInfo("Login detected from an UNRECOGNIZED System", msg);
   }
 }
 
 function checkAndAddSystemInfo(newUid, otp) {
+  let elm = document.getElementById("detectedSysUID");
+  elm.innerHTML = newUid;
+  if (!validSystemUid(newUid)) {
+    return;
+  }
+  elm = document.getElementById("detectedSysOTP");
+  elm.setAttribute("receivedVAL", otp);
+  elm = document.getElementById("addDetectedSystemDiv");
+  elm.style.display = "block";
+}
+
+function addDetectedSystemBtn() {
+  let elm = document.getElementById("detectedSysTAG");
+  let sysTAG = elm.value;
+  elm = document.getElementById("detectedSysUID");
+  let sysUID = elm.innerText;
+  elm = document.getElementById("detectedSysOTP");
+  let sysOTP = elm.getAttribute("receivedVAL");
+  let otp = elm.value;
+  //console.log("SysOTP=" + sysOTP + " UID=" + sysUID + " otp=" + otp);
+
+  if (!sysTAG) {
+    modalAlert("System TAG undefined", "Try again!");
+    return;
+  }
+
+  if ((otp===null) || (otp=="") || (sysOTP==null)) {
+    modalAlert("OTP Mismatch", "Try again!");
+  } else if (Number(otp) != Number(sysOTP)) {
+    modalAlert("OTP Mismatch", "Try again!");
+  } else {
+    let table = document.getElementById("knownSystemsTable");
+    if (findSystemTagObj(sysTAG)) { // tag already exists
+      modalAlert("TAG='" + sysTAG + "' already exists", "Try again!");
+      return;
+    }
+    silentAddSystemTagUidInfo(sysUID, sysTAG);
+    elm = document.getElementById("addDetectedSystemDiv");
+    elm.style.display = "none";
+  }
+}
+
+function cancelDetectedSystemBtn() {
+  let elm = document.getElementById("addDetectedSystemDiv");
+  elm.style.display = "none";
 }
