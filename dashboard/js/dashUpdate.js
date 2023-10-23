@@ -425,24 +425,3 @@ function displayWifiDropped() {
   }
 }
 
-function displayWifiUnconnected() {
-  wifiDropped = true;
-  if (messagesBackground == "ORANGE") return;
-  let elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = palette.orange;
-  messagesBackground = "ORANGE";
-  updateDashboardAndRecordingStatus();
-  elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = palette.orange;
-  elm = document.getElementById("Mline1");
-  elm.innerHTML = "Awaiting Internet";
-  elm = document.getElementById("Mline2");
-  elm.innerHTML = "Connection";
-  elm = document.getElementById("Mline3");
-  elm.innerHTML = "Connect RESPIMATIC100";
-  elm = document.getElementById("Mline4");
-  elm.innerHTML = "to Wi-Fi";
-}
-
-
-

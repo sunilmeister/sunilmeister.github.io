@@ -581,6 +581,11 @@ window.onload = function () {
     }
   });
 
+  displayMessageLine("Mline1", banner1);
+  displayMessageLine("Mline2", banner2);
+  displayMessageLine("Mline3", banner3);
+  displayMessageLine("Mline4", banner4);
+
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
   waitForDweets();
@@ -714,10 +719,15 @@ function HandlePeriodicTasks() {
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   if (awaitingFirstDweet) {
-    displayWifiUnconnected();
+    let timeAwaitingFirstDweet = new Date() - dashboardLaunchTime ;
+    if (timeAwaitingFirstDweet > MAX_AWAIT_FIRST_DWEET_IN_MS) {
+      displayWifiDropped();
+    }
     if (dormantPopupManualCloseTime) {
       if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
-        if (!dormantPopupDisplayed) showDormantPopup();
+        if (!dormantPopupDisplayed) {
+          showDormantPopup();
+        }
       }
     } else if ((new Date() - session.launchDate) >= MAX_DWEET_INTERVAL_IN_MS) {
       if (!dormantPopupDisplayed) showDormantPopup();

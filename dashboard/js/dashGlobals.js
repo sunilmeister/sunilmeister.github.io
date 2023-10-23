@@ -6,14 +6,17 @@ const TIMEOUT_INTERVAL_IN_MS = 200;
 const BLINK_INTERVAL_IN_MS = 3000;
 const MAX_DWEET_INTERVAL_IN_MS = 30000;
 const MAX_DORMANT_CLOSE_DURATION_IN_MS = 60000;
+const MAX_AWAIT_FIRST_DWEET_IN_MS = 60000;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
 var datasource_name = "RESPIMATIC100";
+var dashboardLaunchTime = new Date();
 var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
 var simulatedMillis = 0;
+var lastDweetInMs = 0;
 var lastDweetInMs = 0;
 var startSystemDate = new Date();
 var prevAlarmErrorNum = -1;
@@ -183,3 +186,16 @@ const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" 
 "No communication from Respimatic System for <b></b> (hh:mm:ss)<br>" +
 "<br>Alert will close automatically when communication is established" +
 "<br>Or you can close it manually"
+
+var banner1 =
+"&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;";
+
+var banner2 =
+"&blk34;&blk34;&nbsp;&nbsp;&#82;&#69;&#83;&#80;&#73;&#77;&#65;&#84;&#73;&#67;&nbsp;&nbsp;&#49;&#48;&#48;&nbsp;&nbsp;&blk34;&blk34;";
+
+var banner3 =
+"&blk34;&blk34;&nbsp;&nbsp;&nbsp;&#77;&#97;&#100;&#101;&nbsp;&#105;&#110;&nbsp;&#73;&#110;&#100;&#105;&#97;&nbsp;&nbsp;&nbsp;&blk34;&blk34;";
+
+var banner4 =
+"&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;";
+
