@@ -188,14 +188,14 @@ const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" 
 "<br>Or you can close it manually"
 
 var banner1 =
-"&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;";
+"&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;";
 
 var banner2 =
-"&blk34;&blk34;&nbsp;&nbsp;&#82;&#69;&#83;&#80;&#73;&#77;&#65;&#84;&#73;&#67;&nbsp;&nbsp;&#49;&#48;&#48;&nbsp;&nbsp;&blk34;&blk34;";
+"&blk34;&blk34;&blk34;&nbsp;&nbsp;&#82;&#69;&#83;&#80;&#73;&#77;&#65;&#84;&#73;&#67;&nbsp;&nbsp;&#49;&#48;&#48;&nbsp;&nbsp;&blk34;&blk34;&blk34;";
 
 var banner3 =
-"&blk34;&blk34;&nbsp;&nbsp;&nbsp;&#77;&#97;&#100;&#101;&nbsp;&#105;&#110;&nbsp;&#73;&#110;&#100;&#105;&#97;&nbsp;&nbsp;&nbsp;&blk34;&blk34;";
+"&blk34;&blk34;&blk34;&nbsp;&nbsp;&nbsp;&#77;&#97;&#100;&#101;&nbsp;&#105;&#110;&nbsp;&#73;&#110;&#100;&#105;&#97;&nbsp;&nbsp;&nbsp;&blk34;&blk34;&blk34;";
 
 var banner4 =
-"&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;";
+"&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;&blk34;";
 
