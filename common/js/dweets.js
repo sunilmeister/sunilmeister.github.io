@@ -466,7 +466,8 @@ function processPwendDweet(str) {
         if ((d !== null) && (session.breathData.qmult>10)) {
           // Convert delta pressure to flow value
           if (d > 0) {
-            d = Math.round(Math.sqrt(d) * session.breathData.qmult) / Q_SCALE_FACTOR;
+            d = Math.round(Math.sqrt(d) * session.breathData.qmult / Q_SCALE_FACTOR);
+            //console.log("d=" + d);
           } else {
             d = 0;
           }
@@ -740,7 +741,7 @@ function processBreathDweet(curTime, jsonStr) {
   saveSnapTransValueNull("type", "breathData", "breathTypeChanges", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
-  session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * 1000;
+  session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
 
 }
 
