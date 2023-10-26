@@ -60,7 +60,7 @@ const STANDBY_STATE = 1;
 const ACTIVE_STATE = 2;
 const ERROR_STATE = 3;
 
-const FLOW_THRESHOLD_DELTAP = 2;
+// For calculating flow from deltaP Q
 const Q_SCALE_FACTOR = 8;
 
 const WAVE_NUM_ROLLING_BREATHS = 12;
