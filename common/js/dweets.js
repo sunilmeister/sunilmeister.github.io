@@ -461,21 +461,16 @@ function processPwendDweet(str) {
   for (i = 0; i < waveSlices.length; i++) {
     slice = waveSlices[i];
     for (j = 0; j < slice.sliceData.length; j++) {
-      d = slice.sliceData[j];
+      Q = slice.sliceData[j];
       if (expectingDPWEND) {
-        if ((d !== null) && (session.breathData.qmult>10)) {
-          // Convert delta pressure to flow value
-          if (d > 0) {
-            d = Math.round(Math.sqrt(d) * session.breathData.qmult / Q_SCALE_FACTOR);
-            //console.log("d=" + d);
-          } else {
-            d = 0;
-          }
+        if ((Q !== null) && (session.breathData.qmult>10)) {
+          // Convert Q pressure to flow value
+          Q = Math.round(Q * session.breathData.qmult / Q_SCALE_FACTOR);
         } else {
-          d = null;
+          Q = null;
         }
       }
-      samples.push(d);
+      samples.push(Q);
     }
   }
   waveSlices = [];
