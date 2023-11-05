@@ -409,7 +409,7 @@ function processPwstartDweet(str) {
   session.waves.breathInfo = arr[1];
   waveExpectedSamplesPerSlice = arr[2];
   waveSampleInterval = arr[3];
-  session.waves.onDemand = arr[4] ? true : false;
+  session.waves.onDemand = arr[4] ? false : true;
   waveBreathClosed = false;
   waveBreathPartial = false;
   pwPrevShapeSliceNum = -1;
@@ -431,7 +431,7 @@ function processPwendDweet(str) {
         session.waves.breathNum = arr[0];
         session.waves.breathInfo = arr[1];
         waveSampleInterval = arr[3];
-        session.waves.onDemand = arr[4] ? true : false;
+        session.waves.onDemand = arr[4] ? false : true;
       }
     } else {
       //console.log("Bad PWEND=" + str);
