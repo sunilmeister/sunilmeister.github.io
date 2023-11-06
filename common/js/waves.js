@@ -46,6 +46,8 @@ function waveEdit(bnode) {
   let box = session.waves.allWavesContainerInfo[containerNode.id];
   box.updateMenu(WAVE_EDIT_WAVE_MENU_ID);
   session.waves.boxTree.PropagateFromLeafCheckboxes();
+  let titleNode = document.getElementById("WaveTitleId");
+  titleNode.addEventListener("keypress", waveTitleKeypressListener);
 }
 
 function waveDelete(bnode) {
@@ -64,6 +66,8 @@ function removeWaveEditMenu() {
   if (session.waves.boxTree) delete session.waves.boxTree;
   let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
   if (!menuDiv) return;
+  let titleNode = document.getElementById("WaveTitleId");
+  titleNode.addEventListener("keypress", waveTitleKeypressListener);
   menuDiv.remove();
 }
 
@@ -147,3 +151,10 @@ function createAllWaves() {
 
 }
 
+function waveTitleKeypressListener(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let titleNode = document.getElementById("WaveTitleId");
+    waveMenuSubmit(titleNode);
+  }
+}

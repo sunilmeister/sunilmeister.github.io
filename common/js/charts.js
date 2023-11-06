@@ -48,6 +48,9 @@ function chartEdit(bnode) {
   let box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateMenu(CHART_EDIT_CHART_MENU_ID);
   session.charts.boxTree.PropagateFromLeafCheckboxes();
+  // Treat <ENTER> as accept button for TITLE
+  let titleNode = document.getElementById("ChartTitleId");
+  titleNode.addEventListener("keypress", chartTitleKeypressListener);
 }
 
 function chartDelete(bnode) {
@@ -66,6 +69,8 @@ function removeChartEditMenu() {
   if (session.charts.boxTree) delete session.charts.boxTree;
   let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
+  let titleNode = document.getElementById("ChartTitleId");
+  titleNode.removeEventListener("keypress", chartTitleKeypressListener);
   menuDiv.remove();
 }
 
@@ -163,4 +168,12 @@ function renderAllCharts() {
 
 function submitChartXaxis(bnode) {
   chartMenuSubmit(bnode);
+}
+
+function chartTitleKeypressListener(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    let titleNode = document.getElementById("ChartTitleId");
+    chartMenuSubmit(titleNode);
+  }
 }
