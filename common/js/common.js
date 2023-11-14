@@ -224,7 +224,7 @@ function dateToTimeStr(d) {
 }
 
 function msToTimeStr(milliseconds) {
-  let d = convertMStoHHMMSS(milliseconds);
+  let d = convertMStoHHMMSS(Math.abs(milliseconds));
   let days = d.days;
   let hours = d.hours;
   let minutes = d.minutes;

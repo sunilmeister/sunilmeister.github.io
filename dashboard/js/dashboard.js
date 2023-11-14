@@ -103,7 +103,7 @@ function waitForDweets() {
 
 function processDashboardDweet(d) {
   let curDate = new Date(d.created);
-  let sessionDurationInMs = curDate - session.startDate;
+  let sessionDurationInMs = Math.abs(curDate - session.startDate);
   let elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToTimeStr(sessionDurationInMs);
 
