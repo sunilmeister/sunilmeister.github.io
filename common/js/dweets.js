@@ -789,45 +789,6 @@ function saveComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
   }
 }
 
-function processComplianceDweet(curTime, jsonStr) {
-  obj = parseComplianceData(jsonStr);
-  if (!obj) return;
-  if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
-  if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
-
-  saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
-  saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
-}
-
-function saveSnapValueNull(paramName, parentName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value === session[parentName][paramName]) return;
-
-  session[parentName][paramName] = value;
-}
-
-function saveSnapValue(paramName, parentName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value === null) return;
-  if (value == session[parentName][paramName]) return;
-
-  session[parentName][paramName] = value;
-}
-
-function saveComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value === null) return;
-
-  session.currParamCombo.value[paramName] = value;
-  if ((session[uniqArrName].length == 0) 
-       || (session[uniqArrName].indexOf(value) == -1)) {
-    session[uniqArrName].push({
-      "time": curTime,
-      "value": value
-    });
-  }
-}
-
 function saveSnapComboValueNull(paramName, parentName, uniqArrName, curTime, newVal) {
   // first check for combo
   saveComboValue(paramName, parentName, uniqArrName, curTime, newVal);
@@ -873,6 +834,23 @@ function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) 
   // first check for transition
   saveTransValue(paramName, parentName, valArrName, curTime, newVal);
   saveSnapValue(paramName, parentName, curTime, newVal);
+}
+
+function processComplianceDweet(curTime, jsonStr) {
+  obj = parseComplianceData(jsonStr);
+  if (!obj) return;
+  if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
+  if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
+
+  saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
+  saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
+}
+
+function saveSnapValueNull(paramName, parentName, curTime, newVal) {
+  value = newVal[paramName];
+  if (value === session[parentName][paramName]) return;
+
+  session[parentName][paramName] = value;
 }
 
 function processBnumDweet(curTime, value, jsonData) {
