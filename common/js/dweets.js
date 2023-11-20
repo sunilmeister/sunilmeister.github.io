@@ -265,6 +265,12 @@ function gatherSessionData(lastRecordCallback) {
 
 
 function processJsonRecord(jsonData) {
+
+  // Snap message time to breath times instead of dweet times
+  if (session.lastValidBreathTime) {
+    jsonData.created = new Date(session.lastValidBreathTime);
+  }
+
   curTime = new Date(jsonData.created);
   processAlertDweet(curTime, jsonData);
   for (let key in jsonData) {
