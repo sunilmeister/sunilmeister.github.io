@@ -954,11 +954,13 @@ function processBnumDweet(curTime, value, jsonData) {
 }
 
 function processAlertDweet(curTime, jsonData) { 
+  let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
+    ewBreathNum = jsonData.content.WMSG;
     if (session.alerts.expectWarningMsg) { // back to back with Previous msg not yet fully received
       let msg = {
         'created': session.alerts.lastWarningTime,
-        'breathNum': session.breathTimes.length,
+        'breathNum': ewBreathNum,
         'L1': session.alerts.L1,
         'L2': session.alerts.L2,
         'L3': session.alerts.L3,
@@ -974,10 +976,11 @@ function processAlertDweet(curTime, jsonData) {
      });
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
+    ewBreathNum = jsonData.content.EMSG;
    if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
      let msg = {
        'created': session.alerts.lastErrorTime,
-       'breathNum': session.breathTimes.length,
+       'breathNum': ewBreathNum,
        'L1': session.alerts.L1,
        'L2': session.alerts.L2,
        'L3': session.alerts.L3,
@@ -1004,7 +1007,7 @@ function processAlertDweet(curTime, jsonData) {
         }
         let msg = {
           'created': msgTime,
-          'breathNum': session.breathTimes.length,
+          'breathNum': ewBreathNum,
           'L1': session.alerts.L1,
           'L2': session.alerts.L2,
           'L3': session.alerts.L3,
