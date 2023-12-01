@@ -440,29 +440,12 @@ window.onload = function () {
     ddList.selectedIndex = -1;
   }
 
-  let exportFileNameInput = document.getElementById("exportFileName");
-  exportFileNameInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("exportFileBtn").click();
-    }
-  });
-
-  let newSysUidInput = document.getElementById("newSysUID");
-  newSysUidInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("addSystemBtn").click();
-    }
-  });
-
-  let newSysTagInput = document.getElementById("newSysTAG");
-  newSysTagInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("addSystemBtn").click();
-    }
-  });
+  // Treat <ENTER> as accept button
+  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
+  new KeypressEnterSubmit('newSysUID', 'addSystemBtn');
+  new KeypressEnterSubmit('newSysTAG', 'addSystemBtn');
+  new KeypressEnterSubmit('detectedSysOTP', 'addDetectedSystemBtn');
+  new KeypressEnterSubmit('password', 'passwordBtn');
 
   //console.log("Checking " + BROADCAST_UID);
   waitForRespimaticMessages(BROADCAST_UID, function (d) {

@@ -573,13 +573,10 @@ window.onload = function () {
   createRangeSlider(sliderDiv);
 
   // Treat <ENTER> as accept button
-  let recordNameInput = document.getElementById("recordName");
-  recordNameInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("acceptRecordNameBtn").click();
-    }
-  });
+  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
+  new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
+  new KeypressEnterSubmit('fromBreath', 'acceptRangeBtn');
+  new KeypressEnterSubmit('toBreath', 'acceptRangeBtn');
 
   displayMessageLine("Mline1", banner1);
   displayMessageLine("Mline2", banner2);

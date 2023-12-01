@@ -10,12 +10,12 @@ class KeypressEnterSubmit {
     this.inputElem = document.getElementById(inputElemId);
     this.submitButton = document.getElementById(submitButtonId);
     this.inputElem.addEventListener("keypress", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      this.submitButton.click();
-    }
-  });
-}
-
+      if (event.key === "Enter") {
+        event.preventDefault();
+        //console.log("SUBMIT");
+        this.submitButton.click();
+      }
+    });
+  }
 }
 

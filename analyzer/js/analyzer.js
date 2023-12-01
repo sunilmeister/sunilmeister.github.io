@@ -611,22 +611,6 @@ window.onload = function () {
   let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 
-  let exportFileNameInput = document.getElementById("exportFileName");
-  exportFileNameInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("exportFileBtn").click();
-    }
-  });
-
-  let importSessionNameInput = document.getElementById("importSessionName");
-  importSessionNameInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("importFileBtn").click();
-    }
-  });
-
   undisplayAllPanes();
   disableAllButtons();
   let menuBar = document.getElementById("sideMenuBar");
@@ -639,6 +623,11 @@ window.onload = function () {
   //console.log("menuBarWidth = " + menuBarWidth);
 
   session.reportRange = createReportRange(false, 0, 0);
+
+  // All forms
+  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
+  new KeypressEnterSubmit('fromBreath', 'acceptRangeBtn');
+  new KeypressEnterSubmit('toBreath', 'acceptRangeBtn');
 
   resetAnalysisData();
   selectSession();
@@ -714,3 +703,4 @@ function analysisRangeSliderCallback() {
   sliderCommitPending = true;
   setTimeInterval();
 }
+

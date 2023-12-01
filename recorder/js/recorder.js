@@ -107,13 +107,8 @@ window.onload = function () {
   }
 
   // Treat <ENTER> as accept button
-  let recordNameInput = document.getElementById("recordName");
-  recordNameInput.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("acceptRecordNameBtn").click();
-    }
-  });
+  new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
+  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
 
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
