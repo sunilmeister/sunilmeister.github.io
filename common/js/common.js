@@ -813,3 +813,22 @@ function animateNumberValueTo(obj, end) {
   start = Number(obj.innerText);
   animateNumberValue(obj, start, end, ANIMATE_NUMBER_DURATION);
 }
+
+function updateDocumentTitle() {
+  let title = "" ;
+  if (session.patientData.fname) title = session.patientData.fname;
+  if (session.patientData.lname) title += " " + session.patientData.lname;
+
+  if (respimaticTag) {
+    title += "[" + respimaticTag + "]" ;
+  } else {
+    title += "[??]" ;
+  }
+
+  title += " " +  session.appId;
+
+  document.title = title;
+  return title;
+}
+
+

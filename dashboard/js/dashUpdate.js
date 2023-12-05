@@ -291,7 +291,7 @@ function updateSnapshot() {
       if (session.patientData.fname) pname = session.patientData.fname;
       if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
       updateDivValue(pline1DIV, pname);
-      updateDashboardTitle();
+      updateDocumentTitle();
     } else if (key == 'PSTATS') {
       let pline2 = "";
       if (session.patientData.gender) {
@@ -356,19 +356,6 @@ function updateSnapshot() {
       updateMiscDivsFromSessionData();
     }
   }
-}
-
-function updateDashboardTitle() {
-  let title = "" ;
-  if (!respimaticTag) {
-    title = "[??] DASHBOARD";
-  } else {
-    if (session.patientData.fname) title = session.patientData.fname;
-    if (session.patientData.lname) title += session.patientData.lname;
-    title += "[" + respimaticTag + "] DASHBOARD";
-  }
-  document.title = title;
-  return title;
 }
 
 function updateDashboardIndicator() {

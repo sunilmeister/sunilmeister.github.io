@@ -348,6 +348,7 @@ function initSession(dbName) {
       updateLogDuration();
       disableAllButtons();
       gatherSessionData(analysisGatherDoneCallback);
+      updateDocumentTitle();
     }
   }
 }
@@ -602,7 +603,8 @@ window.onload = function () {
 
   initGlobals();
   initDbNames();
-  document.title = respimaticTag + " (ANALYZER)";
+  updateDocumentTitle();
+
   session.sessionDataValid = false;
   session.database.dbName = "";
   session.database.dbReady = false;

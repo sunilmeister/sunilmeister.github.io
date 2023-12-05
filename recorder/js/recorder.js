@@ -98,6 +98,7 @@ window.onload = function () {
   session = cloneObject(SessionDataTemplate);
   session.appId = RECORDER_APP_ID;
   session.launchDate = new Date();
+  updateDocumentTitle();
 
   initDbNames();
   if (respimaticTag) {
