@@ -545,12 +545,12 @@ window.onload = function () {
   initDbNames();
   let heading = document.getElementById("SysUid");
   if (respimaticTag) {
-    document.title = respimaticTag + " (DASHBOARD)"
     heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
   } else {
-    document.title = "NOT SPECIFIED"
     heading.innerHTML = "NOT SPECIFIED"
   }
+  updateDashboardTitle();  
+
   initStats();
   initAlerts();
   let snapshot = document.getElementById("snapshot-pane");
