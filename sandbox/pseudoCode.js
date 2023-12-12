@@ -20,7 +20,7 @@
 
 var uidTable = {};
 
-function respimaticListen() {
+function inspireListen() {
   // Check for HTTP POST
   if (httpPostReceived()) { // check for received POST
     let timestamp = new Date();
@@ -58,5 +58,5 @@ function respimaticListen() {
   }
 }
 
-// Make respimaticListen run every X ms
-setInterval(respimaticListen,10);
+// Make inspireListen run every X ms
+setInterval(inspireListen,10);

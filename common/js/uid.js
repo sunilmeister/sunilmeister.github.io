@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var knownRespimaticSystems = [];
+var knownInspireSystems = [];
 var templateSystemId = {
   uid: "",
   tag: "",
@@ -10,9 +10,9 @@ var templateSystemId = {
 };
 
 function deleteAllSystemUIDs() {
-  let knownRespimaticSystems = [];
+  let knownInspireSystems = [];
   localStorage.setItem(
-    respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+    inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
 }
 
 function createSystemUidTagObj(uid, tag, fw) {
@@ -31,30 +31,30 @@ function compareSystemUidTagObj(a, b) {
   } else return 0;
 }
 
-function initKnownRespimaticSystems() {
-  let str = localStorage.getItem(respimaticSystemsLocalStorage);
+function initKnownInspireSystems() {
+  let str = localStorage.getItem(inspireSystemsLocalStorage);
   if (str) {
-    knownRespimaticSystems = JSON.parse(str);
-    knownRespimaticSystems.sort(compareSystemUidTagObj);
+    knownInspireSystems = JSON.parse(str);
+    knownInspireSystems.sort(compareSystemUidTagObj);
   } else {
-    knownRespimaticSystems = [];
+    knownInspireSystems = [];
   }
 }
 
-function saveNewRespimaticSystemId(uid, tag, fw) {
+function saveNewInspireSystemId(uid, tag, fw) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
   let obj = createSystemUidTagObj(uid, tag, fw);
-  knownRespimaticSystems.push(obj);
-  knownRespimaticSystems.sort(compareSystemUidTagObj);
+  knownInspireSystems.push(obj);
+  knownInspireSystems.sort(compareSystemUidTagObj);
   localStorage.setItem(
-    respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+    inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
 }
 
-function findRespimaticTagIndex(tag) {
+function findInspireTagIndex(tag) {
   tag = tag.toUpperCase();
   let i = 0;
-  for (const obj of knownRespimaticSystems) {
+  for (const obj of knownInspireSystems) {
     if (obj.tag == tag) return i;
     i++;
   }
@@ -63,7 +63,7 @@ function findRespimaticTagIndex(tag) {
 
 function findSystemUidObj(uid) {
   uid = uid.toUpperCase();
-  for (const obj of knownRespimaticSystems) {
+  for (const obj of knownInspireSystems) {
     if (obj.uid == uid) return obj;
   }
   return null;
@@ -71,7 +71,7 @@ function findSystemUidObj(uid) {
 
 function findSystemTagObj(tag) {
   tag = tag.toUpperCase();
-  for (const obj of knownRespimaticSystems) {
+  for (const obj of knownInspireSystems) {
     if (obj.tag == tag) return obj;
   }
   return null;
@@ -96,11 +96,11 @@ function recordedDataCompatible(fromVersion, toVersion) {
 
 function appendSwVersionToUid() {
   if (isUndefined(session)) return;
-  if (knownRespimaticSystems.length == 0) {
-    initKnownRespimaticSystems();
+  if (knownInspireSystems.length == 0) {
+    initKnownInspireSystems();
   }
 
-  let obj = findSystemUidObj(respimaticUid);
+  let obj = findSystemUidObj(inspireUid);
   if (!obj) return;
 
   let fw = [session.firmwareVersion.major,
@@ -109,32 +109,32 @@ function appendSwVersionToUid() {
 
   if (obj.fw) { // already has a firmware version
     // check if the new one is the latest
-    let lvStr = knownRespimaticReleases[0].rel;
+    let lvStr = knownInspireReleases[0].rel;
     let vStr = convertSwVersionToStr(fw);
     if (lvStr != vStr) {
-      modalWarning("Respimatic System Firmware not the latest",
+      modalWarning("Inspire System Firmware not the latest",
         "Latest Released Firmware Version is " + lvStr
         + "<br>Current System version is " + vStr
         + "<br><br>To update, click on 'Update System Firmware'"
-        + "<br>on the respimatic.com main menu"
+        + "<br>on the inspire.com main menu"
         + "<br><br>Update at any convenient time" );
     }
   }
   obj.fw = cloneObject(fw);
 
   localStorage.setItem(
-    respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+    inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
 
 }
 
 function removeSystemUidTagInfo(uid, tag) {
-  for (let i = 0; i < knownRespimaticSystems.length; i++) {
-    let obj = knownRespimaticSystems[i];
+  for (let i = 0; i < knownInspireSystems.length; i++) {
+    let obj = knownInspireSystems[i];
     if (obj.tag != tag) continue;
     if (obj.uid != uid) continue;
-    knownRespimaticSystems.splice(i, 1);
+    knownInspireSystems.splice(i, 1);
     localStorage.setItem(
-      respimaticSystemsLocalStorage, JSON.stringify(knownRespimaticSystems));
+      inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
     return tag;
   }
   return "";
@@ -162,13 +162,13 @@ function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
 }
 
 function populateSystemUidTagHtmlTable(tableId) {
-  initKnownRespimaticSystems();
+  initKnownInspireSystems();
   let table = document.getElementById(tableId);
   let rowCount = table.rows.length;
   for (let i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-  for (const obj of knownRespimaticSystems) {
+  for (const obj of knownInspireSystems) {
     appendSystemUidTagHtmlRow(table, obj.uid, obj.tag, obj.fw);
   }
 }
@@ -176,7 +176,7 @@ function populateSystemUidTagHtmlTable(tableId) {
 function validSystemUid(uid) {
   let uid_length = uid.length;
   if (uid_length != 20) return false;
-  let pos = uid.indexOf(RESPIMATIC_UID_PREFIX);
+  let pos = uid.indexOf(INSPIRE_UID_PREFIX);
   if (pos != 0) return false;
   let hex_str = uid.substr(4);
   let re = /[0-9A-Fa-f]{16}/g;

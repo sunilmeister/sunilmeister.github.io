@@ -10,7 +10,7 @@ const MAX_AWAIT_FIRST_DWEET_IN_MS = 60000;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
-var datasource_name = "RESPIMATIC100";
+var datasource_name = "INSPIRE-100";
 var dashboardLaunchTime = new Date();
 var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
@@ -183,7 +183,7 @@ function initDivElements() {
   
 const DORMANT_TITLE_STR = "DASHBOARD is idle";
 const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
-"No communication from Respimatic System for <b></b> (hh:mm:ss)<br>" +
+"No communication from Inspire-100 System for <b></b> (hh:mm:ss)<br>" +
 "<br>Alert will close automatically when communication is established" +
 "<br>Or you can close it manually"
 

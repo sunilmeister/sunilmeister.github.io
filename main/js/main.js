@@ -1,6 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
-// Must include respimatic.uid.js prior to this file
+// Must include inspire.uid.js prior to this file
 // ////////////////////////////////////////////////////
 
 function createDropdownSelect(sysList, values) {
@@ -15,23 +15,23 @@ function createDropdownSelect(sysList, values) {
 }
 
 function setSelectedSystem(uid, tag) {
-  respimaticUid = uid;
-  respimaticTag = tag;
-  setCookie(uidCookieName, respimaticUid);
-  setCookie(tagCookieName, respimaticTag);
-  sessionStorage.setItem("respimaticUid", respimaticUid);
-  sessionStorage.setItem("respimaticTag", respimaticTag);
+  inspireUid = uid;
+  inspireTag = tag;
+  setCookie(uidCookieName, inspireUid);
+  setCookie(tagCookieName, inspireTag);
+  sessionStorage.setItem("inspireUid", inspireUid);
+  sessionStorage.setItem("inspireTag", inspireTag);
 
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownRespimaticSystems);
-  ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
+  createDropdownSelect(ddList, knownInspireSystems);
+  ddList.selectedIndex = findInspireTagIndex(inspireTag);
 }
 
-function setSelectedRespimaticTagFromDD() {
+function setSelectedInspireTagFromDD() {
   let ddList = document.getElementById("SYSTEM_NAME");
   let tag = ddList.value;
   if (!tag) {
-    modalAlert("No RESPIMATIC-100 System selected", "");
+    modalAlert("No INSPIRE-100 System selected", "");
     return false;
   }
   let uid = findSystemUid(tag);
@@ -62,7 +62,7 @@ fileReader.addEventListener('load', (e) => {
     }
   }
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownRespimaticSystems);
+  createDropdownSelect(ddList, knownInspireSystems);
   cancelImport();
 });
 
@@ -92,13 +92,13 @@ function cancelExport() {
 function exportFile() {
   document.getElementById("exportDiv").style.display = "none";
 
-  if ((knownRespimaticSystems == null) || (knownRespimaticSystems.length == 0)) {
+  if ((knownInspireSystems == null) || (knownInspireSystems.length == 0)) {
     modalAlert("Systems Table is empty", "");
     return;
   }
-  //console.log(JSON.stringify(knownRespimaticSystems));
+  //console.log(JSON.stringify(knownInspireSystems));
   let fileName = document.getElementById("exportFileName").value;
-  if (fileName) download(JSON.stringify(knownRespimaticSystems, null, 1),
+  if (fileName) download(JSON.stringify(knownInspireSystems, null, 1),
     fileName, "text/xml");
 }
 
@@ -115,8 +115,8 @@ function deleteHistoryBtn() {
   if (document.getElementById("systemsDelete").checked) {
     deleteAllSystemUIDs();
     let ddList = document.getElementById("SYSTEM_NAME");
-    createDropdownSelect(ddList, knownRespimaticSystems);
-    ddList.selectedIndex = findRespimaticTagIndex(respimaticTag);
+    createDropdownSelect(ddList, knownInspireSystems);
+    ddList.selectedIndex = findInspireTagIndex(inspireTag);
     msg += "\nDeleted ALL System UID History" ;
   }
   if (msg) modalInfo("", msg);
@@ -133,7 +133,7 @@ function deleteSelectedHistory() {
 
 function exportSystemInfo() {
   document.getElementById("exportDiv").style.display = "block";
-  document.getElementById("exportFileName").value = "Respimatic Systems Table";
+  document.getElementById("exportFileName").value = "Inspire Systems Table";
 }
 
 function selectSystemInfo(row) {
@@ -165,16 +165,16 @@ function doRemove(args) {
   let removedTag = removeSystemUidTagInfo(uid, tag);
   let ddList = document.getElementById("SYSTEM_NAME");
 
-  if (knownRespimaticSystems.length) {
-    if (removedTag == respimaticTag) {
-      setSelectedSystem(knownRespimaticSystems[0].uid, knownRespimaticSystems[0].tag);
+  if (knownInspireSystems.length) {
+    if (removedTag == inspireTag) {
+      setSelectedSystem(knownInspireSystems[0].uid, knownInspireSystems[0].tag);
     }
   } else {
-    respimaticTag = "";
-    respimaticUid = "";
+    inspireTag = "";
+    inspireUid = "";
     ddList.selectedIndex = -1;
   }
-  createDropdownSelect(ddList, knownRespimaticSystems);
+  createDropdownSelect(ddList, knownInspireSystems);
 
   populateSystemUidTagHtmlTable("knownSystemsTable");
   initSelectRowTable("knownSystemsTable", selectSystemInfo);
@@ -200,10 +200,10 @@ function removeSystem(uid, tag, noconfirm) {
 }
 
 function removeSystemInfo(tag) {
-  if (!setSelectedRespimaticTagFromDD()) {
+  if (!setSelectedInspireTagFromDD()) {
     return;
   }
-  removeSystem(respimaticUid, respimaticTag);
+  removeSystem(inspireUid, inspireTag);
 }
 
 function removeSystemInfoRow(row) {
@@ -239,10 +239,10 @@ function silentAddSystemTagUidInfo(uid, tag, fw) {
     return false;
   }
 
-  saveNewRespimaticSystemId(uid, tag, fw);
+  saveNewInspireSystemId(uid, tag, fw);
   populateSystemUidTagHtmlTable("knownSystemsTable");
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownRespimaticSystems);
+  createDropdownSelect(ddList, knownInspireSystems);
   return true;
 }
 
@@ -286,8 +286,8 @@ function removeUidRow(btn) {
 }
 
 function doRemoveAllUidRows(btn) {
-  for (let i = 0; i < knownRespimaticSystems.length;) {
-    let sys = knownRespimaticSystems[i];
+  for (let i = 0; i < knownInspireSystems.length;) {
+    let sys = knownInspireSystems[i];
     removeSystem(sys.uid, sys.tag, true);
   }
 }
@@ -312,20 +312,20 @@ function knownSystemInfo() {
 
 function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
   if (!validSystemUid(newSysUid)) {
-    modalAlert("Invalid RESPIMATIC-100 UID: " + newSysUid,
+    modalAlert("Invalid INSPIRE-100 UID: " + newSysUid,
       "Must be RSP_ followed by 16-digit HEX number\nTry again!");
     return;
   }
   if (findSystemTagObj(newSysTag)) { // tag already exists
-    modalAlert("Duplicate RESPIMATIC-100 System TAG: " + newSysTag,
+    modalAlert("Duplicate INSPIRE-100 System TAG: " + newSysTag,
       "Try again!");
     return;
   }
 
-  saveNewRespimaticSystemId(newSysUid, newSysTag);
+  saveNewInspireSystemId(newSysUid, newSysTag);
   setSelectedSystem(newSysUid, newSysTag);
 
-  modalAlert("New RESPIMATIC-100 System Info",
+  modalAlert("New INSPIRE-100 System Info",
     "System TAG: " + newSysTag +
     "\nSystem UID: " + newSysUid);
 }
@@ -355,7 +355,7 @@ function launchSwInstaller() {
 }
 
 function checkDocPassword(pwd) {
-  const ACCESS_KEY = "Docs@Respimatic100";
+  const ACCESS_KEY = "Docs@Inspire-100";
   return (pwd == ACCESS_KEY);
 }
 
@@ -378,28 +378,28 @@ function launchDocs() {
 }
 
 function launchTest() {
-  if (!setSelectedRespimaticTagFromDD()) {
+  if (!setSelectedInspireTagFromDD()) {
     return;
   }
   window.open("../dashboard/dashboard_test.html");
 }
 
 function launchRecorder() {
-  if (!setSelectedRespimaticTagFromDD()) {
+  if (!setSelectedInspireTagFromDD()) {
     return;
   }
   window.open("../recorder/recorder.html");
 }
 
 function launchDashboard() {
-  if (!setSelectedRespimaticTagFromDD()) {
+  if (!setSelectedInspireTagFromDD()) {
     return;
   }
   window.open("../dashboard/dashboard.html");
 }
 
 function launchAnalyzer() {
-  if (!setSelectedRespimaticTagFromDD()) {
+  if (!setSelectedInspireTagFromDD()) {
     return;
   }
   window.open("../analyzer/analyzer.html");
@@ -424,19 +424,19 @@ window.onload = function () {
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 
-  initKnownRespimaticSystems();
+  initKnownInspireSystems();
 
   // create dropdown list
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownRespimaticSystems);
+  createDropdownSelect(ddList, knownInspireSystems);
   let uid = getCookie(uidCookieName);
   let tag = getCookie(tagCookieName);
 
   if (uid && tag) {
     setSelectedSystem(uid, tag);
   } else {
-    respimaticTag = "";
-    respimaticUid = "";
+    inspireTag = "";
+    inspireUid = "";
     ddList.selectedIndex = -1;
   }
 
@@ -448,17 +448,17 @@ window.onload = function () {
   new KeypressEnterSubmit('password', 'passwordBtn');
 
   //console.log("Checking " + BROADCAST_UID);
-  waitForRespimaticMessages(BROADCAST_UID, function (d) {
+  waitForInspireMessages(BROADCAST_UID, function (d) {
     let newUid = d.content.PRESENT;
     let loginOtp = d.content.OTP;
     let time = Date(d.created);
-    detectedRespimaticSystemLogin(time, newUid, loginOtp);
+    detectedInspireSystemLogin(time, newUid, loginOtp);
     //console.log(d);
   })
   
 };
 
-function detectedRespimaticSystemLogin(time, newUid, otp) {
+function detectedInspireSystemLogin(time, newUid, otp) {
   //console.log("**** " + newUid + " online" + " at " + time);
   let obj = findSystemUidObj(newUid);
   let msg = "";

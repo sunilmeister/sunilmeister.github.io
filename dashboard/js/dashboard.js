@@ -73,7 +73,7 @@ function getCurrentSimulatedMillis() {
 }
 
 function waitForDweets() {
-  waitForRespimaticMessages(respimaticUid, function (d) {
+  waitForInspireMessages(inspireUid, function (d) {
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
@@ -544,12 +544,12 @@ window.onload = function () {
 
   initDbNames();
   let heading = document.getElementById("SysUid");
-  if (respimaticTag) {
-    heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+  if (inspireTag) {
+    heading.innerHTML = inspireUid + "<br>(" + inspireTag + ")";
   } else {
     heading.innerHTML = "NOT SPECIFIED"
   }
-  updateDashboardTitle();  
+  updateDocumentTitle();  
 
   initStats();
   initAlerts();

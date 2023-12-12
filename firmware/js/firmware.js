@@ -1,6 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
-// Must include respimatic.uid.js prior to this file
+// Must include inspire.uid.js prior to this file
 // ////////////////////////////////////////////////////
 
 function displayStepByStep() {
@@ -12,7 +12,7 @@ function installLoader() {
   "Execute downloaded file on your Windows laptop.<br>" +
   "<br>This installation needs to be done only once." +
   "<br>It can be used to upload any Firmware release" +
-  "<br>to any target Respimatic100 system.<br>" +
+  "<br>to any target Inspire-100 system.<br>" +
   "<br><b>Follow link for Step-by-step Instructions.</b>"
   );
 }
@@ -25,10 +25,10 @@ function downloadRelease(btn) {
     "Unzip downloaded zip file '" + rel + ".zip'<br>" + 
     "<br>Use installed Freematics Arduino Builder to" +
     "<br>upload both files found in the unzipped folder" + 
-    "<br>to the target Respimatic100 system<br>" +
+    "<br>to the target Inspire-100 system<br>" +
     "<br>Dashboard.ino.nodemcu.bin" +
     "<br>&" +
-    "<br>Respimatic100.ino.mega.hex<br>" +
+    "<br>Inspire-100.ino.mega.hex<br>" +
     "<br><b>Follow link for Step-by-step Instructions.</b>"
     );
 }
@@ -39,7 +39,7 @@ function populateReleaseTable() {
   for (let i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-  for (const obj of knownRespimaticReleases) {
+  for (const obj of knownInspireReleases) {
     appendReleaseRow(table, obj.rel, obj.created);
   }
 }

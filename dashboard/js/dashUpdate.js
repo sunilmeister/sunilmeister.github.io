@@ -416,10 +416,10 @@ function displayWifiDropped() {
     elm.innerHTML = "No Message from";
     elm = document.getElementById("Mline2");
     savedL2 = elm.innerHTML;
-    elm.innerHTML = "Respimatic100 UID";
+    elm.innerHTML = "Inspire-100 UID";
     elm = document.getElementById("Mline3");
     savedL3 = elm.innerHTML;
-    elm.innerHTML = respimaticUid;
+    elm.innerHTML = inspireUid;
     elm = document.getElementById("Mline4");
     savedL4 = elm.innerHTML;
     elm.innerHTML = "for " + dormantTimeInSec + " secs";

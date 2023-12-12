@@ -10,7 +10,7 @@ function initImportExport() {
 function listDbExportTableRow(item, index) {
   nameTm = parseDbName(item);
   // only list databases for the currently selected system
-  if (nameTm[0] != respimaticUid) return;
+  if (nameTm[0] != inspireUid) return;
   let table = document.getElementById("dbExportTable");
   let row = table.insertRow();
   let cell;
@@ -31,7 +31,7 @@ function rowDbName(row) {
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  let dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   return dbName;
 }
 
@@ -124,7 +124,7 @@ function importFile() {
   let dmy = dd + "-" + mm + "-" + yyyy;
   let nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
   do {
-    let dbName = respimaticUid + '|' + sessionName + "|" + nameTagTime;
+    let dbName = inspireUid + '|' + sessionName + "|" + nameTagTime;
     if (checkDbExists(dbName)) {
       modalAlert("Recording name already exists\n" + sessionName, "Try again");
     } else break;

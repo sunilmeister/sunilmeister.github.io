@@ -17,7 +17,7 @@ if (!window.indexedDB) {
 function listDbTableRow(item, index) {
   let nameTm = parseDbName(item);
   // only list databases for the currently selected system
-  if (nameTm[0] != respimaticUid) return false;
+  if (nameTm[0] != inspireUid) return false;
   let table = document.getElementById("dbTable");
   let row = table.insertRow();
   row.style.cursor = "pointer";
@@ -59,7 +59,7 @@ function selectDbRow(row) {
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
   let sessionInfo = document.getElementById("sliderCaption");
 
@@ -82,7 +82,7 @@ function deleteDbRow(row) {
     }
   }
 
-  dbName = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   if (dbName == session.database.dbName) {
     modalAlert("Cannot Delete", "Recording currently in use\n" + sessionBannerHTML);
     return;
@@ -99,7 +99,7 @@ function doDeleteDbRow(arg) {
   row = arg.row;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   // Delete the actual database
   deleteDb(name);
   // remove from HTML table
@@ -158,7 +158,7 @@ function doDeleteAllDbs() {
   numRows = table.rows.length;
   for (i = 1; i < numRows; i++) {
     row = table.rows[1];
-    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+    name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
     deleteDb(name);
     table.deleteRow(1);
   }
@@ -168,7 +168,7 @@ function doDeleteAllDbs() {
   numRows = table.rows.length;
   for (i = 1; i < numRows; i++) {
     row = table.rows[1];
-    name = respimaticUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+    name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
     deleteDb(name);
     table.deleteRow(1);
   }
@@ -609,7 +609,7 @@ window.onload = function () {
   session.database.dbName = "";
   session.database.dbReady = false;
   let heading = document.getElementById("SysUid");
-  heading.innerHTML = respimaticUid + "<br>(" + respimaticTag + ")";
+  heading.innerHTML = inspireUid + "<br>(" + inspireTag + ")";
   let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 

@@ -1,8 +1,8 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-var respimaticUid = "";
-var respimaticTag = "";
+var inspireUid = "";
+var inspireTag = "";
 
 ///////////////////////////////////////////////////////
 // For modal warnings errors, confirmations etc.
@@ -16,14 +16,14 @@ function setModalWidth(w) {
 // must be done before accessing any indexedDb database
 ///////////////////////////////////////////////////////
 function initDbNames() {
-  respimaticUid = getCookie(uidCookieName);
-  respimaticTag = getCookie(tagCookieName);
-  if (!respimaticUid) {
-    respimaticUid = sessionStorage.getItem("respimaticUid");
-    respimaticTag = sessionStorage.getItem("respimaticTag");
+  inspireUid = getCookie(uidCookieName);
+  inspireTag = getCookie(tagCookieName);
+  if (!inspireUid) {
+    inspireUid = sessionStorage.getItem("inspireUid");
+    inspireTag = sessionStorage.getItem("inspireTag");
   }
-  session.database.dbNamePrefix = respimaticUid;
-  session.database.dbObjStoreName = respimaticUid;
+  session.database.dbNamePrefix = inspireUid;
+  session.database.dbObjStoreName = inspireUid;
 }
 
 function deleteAllRecordings() {
@@ -377,13 +377,13 @@ function getCookie(cname) {
 // /////////////////////////////////////////////
 function checkDbExists(dbName) {
   let retrieved_dbs = localStorage.getItem(localStorageDbName);
-  let respimatic_dbs = [];
+  let inspire_dbs = [];
   if (retrieved_dbs) {
-    respimatic_dbs = JSON.parse(retrieved_dbs);
+    inspire_dbs = JSON.parse(retrieved_dbs);
   } else return false;
   let ix;
-  if (respimatic_dbs.length) {
-    ix = respimatic_dbs.indexOf(dbName);
+  if (inspire_dbs.length) {
+    ix = inspire_dbs.indexOf(dbName);
   } else {
     ix = -1;
   }
@@ -495,19 +495,19 @@ function exportDb(dbName, fileName) {
 function registerDbName(dbName) {
   // Keep track of databases currently existing
   let retrieved_dbs = localStorage.getItem(localStorageDbName);
-  let respimatic_dbs = [];
+  let inspire_dbs = [];
   if (retrieved_dbs) {
-    respimatic_dbs = JSON.parse(retrieved_dbs);
+    inspire_dbs = JSON.parse(retrieved_dbs);
   }
   let ix;
-  if (respimatic_dbs.length) {
-    ix = respimatic_dbs.indexOf(dbName);
+  if (inspire_dbs.length) {
+    ix = inspire_dbs.indexOf(dbName);
   } else {
     ix = -1;
   }
   if (ix == -1) {
-    respimatic_dbs.push(dbName);
-    localStorage.setItem(localStorageDbName, JSON.stringify(respimatic_dbs));
+    inspire_dbs.push(dbName);
+    localStorage.setItem(localStorageDbName, JSON.stringify(inspire_dbs));
   }
 }
 
@@ -819,8 +819,8 @@ function updateDocumentTitle() {
   if (session.patientData.fname) title = session.patientData.fname;
   if (session.patientData.lname) title += " " + session.patientData.lname;
 
-  if (respimaticTag) {
-    title += "[" + respimaticTag + "]" ;
+  if (inspireTag) {
+    title += "[" + inspireTag + "]" ;
   } else {
     title += "[??]" ;
   }

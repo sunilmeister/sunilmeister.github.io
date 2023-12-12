@@ -3,19 +3,19 @@
 // ////////////////////////////////////////////////////
 const CURRENT_RECORDING_VERSION = "1.2";
 
-const RESPIMATIC_UID_PREFIX = "UID_";
+const INSPIRE_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
 const ANALYZER_APP_ID = "ANALYZER";
 const RECORDER_APP_ID = "RECORDER";
-const BROADCAST_UID = RESPIMATIC_UID_PREFIX + "0000000000000000";
+const BROADCAST_UID = INSPIRE_UID_PREFIX + "0000000000000000";
 
 const zoomReminderOffCookieName = "ZOOM_REMINDER_COOKIE";
 const editReminderOffCookieName = "EDIT_REMINDER_COOKIE";
 const pdfReminderOffCookieName = "PDF_REMINDER_COOKIE";
-const respimaticSystemsLocalStorage = "KNOWN_RESPIMATIC_SYSTEMS";
-const uidCookieName = "RESPIMATIC_UID_COOKIE";
-const tagCookieName = "RESPIMATIC_TAG_COOKIE";
-const localStorageDbName = "respimatic_dbs";
+const inspireSystemsLocalStorage = "KNOWN_INSPIRE_SYSTEMS";
+const uidCookieName = "INSPIRE_UID_COOKIE";
+const tagCookieName = "INSPIRE_TAG_COOKIE";
+const localStorageDbName = "inspire_dbs";
 
 const NO_BREATH = 0;
 const MANDATORY_BREATH = 1;

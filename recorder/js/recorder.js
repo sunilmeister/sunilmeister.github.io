@@ -54,7 +54,7 @@ function getCurrentSimulatedMillis() {
 }
 
 function waitForDweets() {
-  waitForRespimaticMessages(respimaticUid, function (d) {
+  waitForInspireMessages(inspireUid, function (d) {
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -101,8 +101,8 @@ window.onload = function () {
   updateDocumentTitle();
 
   initDbNames();
-  if (respimaticTag) {
-    document.title = respimaticTag + " (RECORDER)"
+  if (inspireTag) {
+    document.title = inspireTag + " (RECORDER)"
   } else {
     document.title = "NOT SPECIFIED"
   }
