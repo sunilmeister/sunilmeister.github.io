@@ -6,7 +6,7 @@
 // ////////////////////////////////////////////////////
 
 var knownInspireReleases = [
-  {rel:"3.1.1", created:"1-Dec-2023"},
+  {rel:"3.1.1", created:"13-Dec-2023"},
   {rel:"1.1.1", created:"16-Oct-2023"},
   {rel:"1.0.1", created:"16-May-2023"},
 ];
