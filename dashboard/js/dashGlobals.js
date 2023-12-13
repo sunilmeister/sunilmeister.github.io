@@ -191,10 +191,10 @@ var banner1 =
 "&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;";
 
 var banner2 =
-"&block;&block;&nbsp;&nbsp;&#82;&#69;&#83;&#80;&#73;&#77;&#65;&#84;&#73;&#67;&nbsp;&nbsp;&#49;&#48;&#48;&nbsp;&nbsp;&block;&block;";
+"&block;&block;&nbsp;&nbsp;&nbsp;&nbspINSPIRE-100&nbsp;&nbsp;&nbsp;&nbsp;&block;&block;";
 
 var banner3 =
-"&block;&block;&nbsp;&nbsp;&nbsp;&#77;&#97;&#100;&#101;&nbsp;&#105;&#110;&nbsp;&#73;&#110;&#100;&#105;&#97;&nbsp;&nbsp;&nbsp;&block;&block;";
+"&block;&block;&nbsp;&nbsp;&nbspMade in India&nbsp;&nbsp;&nbsp;&block;&block;";
 
 var banner4 =
 "&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;";
