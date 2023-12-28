@@ -26,9 +26,9 @@ function downloadRelease(btn) {
     "<br>Use installed Freematics Arduino Builder to" +
     "<br>upload both files found in the unzipped folder" + 
     "<br>to the target Inspire-100 system<br>" +
-    "<br>Dashboard.ino.nodemcu.bin" +
+    "<br>Inspire-100_slave.ino.nodemcu.bin" +
     "<br>&" +
-    "<br>Inspire-100.ino.mega.hex<br>" +
+    "<br>Inspire-100_master.ino.mega.hex<br>" +
     "<br><b>Follow link for Step-by-step Instructions.</b>"
     );
 }
