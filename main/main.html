@@ -87,11 +87,11 @@
           <br>
           <br>
           <label for="newSysUID" style="font-size:1.75rem;">System UID</label>
-          <input id=newSysUID style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+          <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
           <br>
           <br>
           <label for="newSysTAG" style="font-size:1.75rem;">System TAG</label>
-          <input id=newSysTAG style="width: 20rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+          <input id=newSysTAG style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
           <br>
           <br>
           <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=addNewSystemBtn()>ADD System</button>
@@ -202,8 +202,11 @@
       <div id=knownSystems style="display:none">
         <div style="height:32rem;">
           <center>
+            <div style="background-color:var(--rsp_brightgreen); color:var(--rsp_darkblue); font-size:1.6em; ">
+							<p style="margin-top:0px;margin-bottom:10px;"><b>INSPIRE-100</b>&nbsp&nbsp<i>Table of Known Systems</i>
+						</div>
             <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;">
-              <button class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=25px height=25px></button>Systems Table
+              <button class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=25px height=25px></button>
               <button class=iconButton onClick="removeAllUidRows(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title='Delete ALL'><img src="../common/img/trash-bin.png" width=25px height=25px></button>
               <button class=iconButton onClick="addSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title='Add System'><img src="../common/img/plus.png" width=25px height=25px></button>
               <button class=iconButton onClick="importSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title=Import><img src="../common/img/import.png" width=25px height=25px></button>
@@ -229,15 +232,10 @@
         </div>
 
       </div>
-      <div>
-        <hr>
+			<br>
+      <div style="background-color:var(--rsp_darkblue); font-size:0.9rem;">
         <center>
-          <img src="../common/img/Logos.png" alt="Title" width=350rem height=60rem />
-        </center>
-      </div>
-      <div style="background-color:white; font-size:0.9rem;">
-        <center>
-          <a href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Freepik - Flaticon</a>
+          <a style="color:white;" href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Freepik - Flaticon</a>
         </center>
       </div>
     </div>
