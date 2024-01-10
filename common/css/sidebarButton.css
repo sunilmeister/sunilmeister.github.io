@@ -45,4 +45,9 @@
   pointer-events: all !important;
 }
 
+.pButton:hover {
+  transform: translateY(-2px);
+  color: var(--rsp_blue);
+	font-weight: bold;
+}
 
