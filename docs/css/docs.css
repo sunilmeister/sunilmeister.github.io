@@ -18,26 +18,10 @@
   /* Chrome, Safari, Opera */
 }
 
-.lineButton {
+.docHrefCls {
   font-size:22px;
-  height:40px;
-  width:300px;
-  margin-top:0px;
-  background-color:var(--rsp_darkblue);
-  border-width:0;
-  color:white; 
-  cursor: pointer;
 }
 
-.lineButton:hover {
-  color:var(--rsp_blue);
-  transform: translateY(-4px);
-	font-weight: bold;
-}
-
-.lineButton:active {
-  color:var(--rsp_mediumblue);
-  transform: translateY(4px);
-	font-weight: bold;
-}
-
+a:link { color: white; text-decoration: none; font-weight: normal; }
+a:visited { color: white; text-decoration: none; font-weight: normal; }
+a:hover {color:var(--rsp_blue);text-decoration: none; font-weight: bold; }

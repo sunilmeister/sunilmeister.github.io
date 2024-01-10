@@ -12,10 +12,12 @@
 .confirmBtnSwal:hover {
   color:var(--rsp_blue);
   transform: translateY(-4px);
+	font-weight: bold;
 }
 
 .confirmBtnSwal:active {
   color:var(--rsp_mediumblue);
   transform: translateY(4px);
+	font-weight: bold;
 }
 

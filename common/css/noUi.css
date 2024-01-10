@@ -35,5 +35,6 @@
 }
 
 .noUi-handle:hover {
+	  font-weight: bold;
     background-color: var(--rsp_brightgreen);
 }

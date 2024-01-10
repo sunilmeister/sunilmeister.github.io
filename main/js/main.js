@@ -366,7 +366,7 @@ function submitDocPassword() {
     modalAlert("Invalid Access Key", "Please contact Technical Support");
     return;
   }
-  window.open("../doc/doc.html");
+  window.open("../docs/docs.html");
 }
 
 function cancelDocPassword() {
