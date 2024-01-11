@@ -26,22 +26,28 @@ a:link {
 	color: white;
   text-decoration: none;
   font-weight: normal;
+	display: block;
 }
 
 a:visited { 
 	color: white;
   text-decoration: none;
   font-weight: normal;
+	display: block;
 }
 
 a:active {
 	color:var(--rsp_blue);
   text-decoration: none;
   font-weight: bold;
+	display: block;
+  transform: translateY(4px);
 }
 
 a:hover {
 	color:var(--rsp_blue);
   text-decoration: none;
   font-weight: bold;
+	display: block;
+  transform: translateY(-4px);
 }
