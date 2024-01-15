@@ -125,7 +125,10 @@ function processDashboardDweet(d) {
         + session.errorMsgs[prevAlarmErrorNum].L3 + "\n"
         + session.errorMsgs[prevAlarmErrorNum].L4;
     modalAlert(title, msg);
-  }
+		startErrorBeep();
+  } else {
+		stopErrorBeep();
+	}
 
   return d;
 }
