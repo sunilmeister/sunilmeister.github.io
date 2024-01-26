@@ -258,6 +258,13 @@ function updateMiscDivsFromSessionData() {
   tempGauge.setValue(session.miscData.tempC);
 }
 
+function updateLcdWindow() {
+  displayMessageLine("Mline1", pendingL1);
+  displayMessageLine("Mline2", pendingL2);
+  displayMessageLine("Mline3", pendingL3);
+  displayMessageLine("Mline4", pendingL4);
+}
+
 function updateSnapshot() {
   let d = updatedDweetContent;
   for (let key in d.content) {
@@ -276,13 +283,17 @@ function updateSnapshot() {
     }
     // Message lines
     else if (key == 'L1') {
-      displayMessageLine("Mline1", value);
+			pendingL1 = value;
+			pendingL2 = "";
+			pendingL3 = "";
+			pendingL4 = "";
     } else if (key == 'L2') {
-      displayMessageLine("Mline2", value);
+			pendingL2 = value;
     } else if (key == 'L3') {
-      displayMessageLine("Mline3", value);
+			pendingL3 = value;
     } else if (key == 'L4') {
-      displayMessageLine("Mline4", value);
+			pendingL4 = value;
+			updateLcdWindow();
     }
 
     // Patient info

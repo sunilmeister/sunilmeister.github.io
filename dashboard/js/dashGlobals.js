@@ -42,6 +42,11 @@ var savedL2 = "";
 var savedL3 = "";
 var savedL4 = "";
 
+var pendingL1 = "";
+var pendingL2 = "";
+var pendingL3 = "";
+var pendingL4 = "";
+
 var breathPausedAt = 0;
 
 var updatedDweetContent = {
