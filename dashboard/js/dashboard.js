@@ -56,10 +56,6 @@ function disassembleAndQueueDweet(d) {
     if (millis == null) continue // ignore this malformed dweet
 
     if (!startMillis) startMillis = Number(millis);
-    if (!isUndefined(fragment.content['CLEAR_ALL'])) {
-      // replace CLEAR_ALL with a preconstructed dweet
-      // fragment = cloneObject(clearAllDweet);
-    }
     fragment.MILLIS = Number(millis);
     fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));
     dweetQ.push(cloneObject(fragment));
@@ -77,6 +73,9 @@ function waitForDweets() {
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
+		// ignore old dweets
+		if (d.created < dashboardLaunchTime) return;
+
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -529,6 +528,7 @@ function receivedNewWave() {
 }
 
 window.onload = function () {
+	dashboardLaunchTime = new Date();
   setModalWidth(600);
   showZoomReminder();
 
@@ -764,9 +764,13 @@ function FetchAndExecuteFromQueue() {
     if (dweetQ.size() == 0) break;
     let d = dweetQ.peek();
     let millis = Number(d.MILLIS);
+		//console.log("millis",millis);
+		//console.log("simulatedMillis",simulatedMillis);
     if (simulatedMillis < millis) break;
 
     d = dweetQ.pop();
+		if (isUndefined(d["content"])) break;
+
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseJSONSafely(bnumContent);

@@ -414,7 +414,9 @@ function launchPsv() {
 }
 
 window.onload = function () {
-  setModalWidth(600);
+  let portalStartDate = Date();
+
+	setModalWidth(600);
   showZoomReminder();
 
   let elm = document.getElementById("mainDiv");
@@ -452,7 +454,11 @@ window.onload = function () {
     let newUid = d.content.PRESENT;
     let loginOtp = d.content.OTP;
     let time = Date(d.created);
-    detectedInspireSystemLogin(time, newUid, loginOtp);
+
+		// Discard old messages
+	  if (time > portalStartDate) {
+      detectedInspireSystemLogin(time, newUid, loginOtp);
+		}
     //console.log(d);
   })
   

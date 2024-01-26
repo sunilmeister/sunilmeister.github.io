@@ -10,14 +10,13 @@ async function fetch_api_getone(uid) {
             "Content-type": "application/json"
         },
         body: JSON.stringify({
-            UID: 'Patiant no. 2'
-            //UID: 'UID_28615E07D6013C4A'
+            UID: 'UID_28615E07D6013C4A'
         })
     }
 
     console.log(option.body);
 
-    const getoneAPI = "https://inter-ventilator.onrender.com/message/getone";
+    const getoneAPI = "http://103.159.68.39:3001/message/getone";
 
     const api = await fetch(getoneAPI,option)
         .then((res) => res.json())
@@ -34,5 +33,6 @@ async function fetch_api_getone(uid) {
 
 <body>
   <br><br>
-  <button onclick='buttonClickFn()'>CONNECT</button>
+  <button onclick='buttonClickFn()'>GetOne</button>
 </body>
+

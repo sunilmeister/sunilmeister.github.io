@@ -3,6 +3,13 @@
 // ////////////////////////////////////////////////////
 const CURRENT_RECORDING_VERSION = "1.2";
 
+////////////////////////////////////////////////////////////////////////////////
+// Switch between using dweetio.listen_for and inspireListenFor
+// by changing the constant USE_DWEET_FOR_MESSAGES
+////////////////////////////////////////////////////////////////////////////////
+const USE_DWEET_FOR_MESSAGES = false;
+const MESSAGE_LISTEN_INTERVAL_IN_MS = 330;
+
 const INSPIRE_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
 const ANALYZER_APP_ID = "ANALYZER";
