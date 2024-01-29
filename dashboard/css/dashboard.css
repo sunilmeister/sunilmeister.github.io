@@ -188,20 +188,11 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-.Temp {
-  grid-area: 6 / 9 / 9 / 12;
+.FiO2 {
+  grid-area: 6 / 9 / 12 / 12;
   color: var(--rsp_paleblue);
   font-size: 1.5rem;
-  background-color: var(--rsp_green);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
-}
-
-.Altitude {
-  grid-area: 9 / 9 / 12 / 12;
-  color: var(--rsp_brightgreen);
-  font-size: 1.5rem;
-  background-color: var(--rsp_green);
+  background-color: var(--rsp_darkblue);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
@@ -361,7 +352,7 @@
   padding-bottom:0.25rem; 
   margin-top:0rem; 
   margin-bottom:0.5rem; 
-  font-size:0.9rem;
+  font-size:1.1rem;
   background-color:var(--rsp_darkblue);
 }
 
@@ -369,6 +360,7 @@
   margin-top:0rem; 
   margin-bottom:0.75rem; 
   font-size:1rem;
+  font-weight:bold;
   padding-top:0.125rem; 
   padding-bottom:0.15rem; 
   background-color:var(--rsp_darkblue);
@@ -377,7 +369,7 @@
 .paramValueCls {
   margin-top:0rem; 
   margin-bottom:0.315rem; 
-  font-size:1.8rem; 
+  font-size:1.9rem; 
   font-weight:bold;
 }
 
@@ -393,13 +385,13 @@
   background-color:var(--rsp_darkblue); 
   margin-top:0rem; 
   margin-bottom:0rem; 
-  font-size:0.9rem;
+  font-size:1.1rem;
 }
 
 .measuredValueCls {
-  margin-top:1.25rem; 
+  margin-top:1rem; 
   margin-bottom:0.625rem; 
-  font-size:1.8rem; 
+  font-size:1.9rem; 
   font-weight:bold;
 }
 

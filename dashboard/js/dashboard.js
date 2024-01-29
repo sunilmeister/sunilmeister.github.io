@@ -3,10 +3,14 @@
 // ////////////////////////////////////////////////////
 
 function updateFiO2Display(fiO2, o2Purity, o2Flow) {
-  fiO2Gauge.setValue(fiO2);
-  purityGauge.setValue(o2Purity);
-  let elm = document.getElementById("o2FlowRate");
-  elm.innerHTML = parseFloat(o2Flow / 10).toFixed(1) + " (litres/min)";
+  //fiO2Gauge.setValue(fiO2);
+  //purityGauge.setValue(o2Purity);
+  let elm = document.getElementById("fiO2Value");
+  elm.innerHTML = String(fiO2) + '%';
+  elm = document.getElementById("o2PurityValue");
+  elm.innerHTML = String(o2Purity) + '%';
+  elm = document.getElementById("o2FlowRate");
+  elm.innerHTML = parseFloat(o2Flow / 10).toFixed(1);
 }
 
 function checkFiO2Calculation(d) {
@@ -189,14 +193,14 @@ function createDashboardAlerts() {
 
 function blinkFlowRate() {
   let flowDiv = document.getElementById("flowDiv");
-  if (flowDivBackground == "DARKBLUE") {
+  if (flowDivBackground == "GREEN") {
     flowDiv.style.backgroundColor = palette.mediumgreen;
     flowDiv.style.color = palette.darkblue;
     flowDivBackground = "MEDIUMGREEN";
   } else {
-    flowDiv.style.backgroundColor = palette.darkblue;
-    flowDiv.style.color = palette.brightgreen;
-    flowDivBackground = "DARKBLUE";
+    flowDiv.style.backgroundColor = palette.green;
+    flowDiv.style.color = "white"
+    flowDivBackground = "GREEN";
   }
 }
 
@@ -207,7 +211,7 @@ function blinkPauseButton() {
   let bdiv = document.getElementById("curBreathDiv");
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
-      btn.style.color = palette.orange;
+      //btn.style.color = palette.orange;
       ttl.style.backgroundColor = palette.orange;
       bnum.style.backgroundColor = palette.orange;
       bdiv.style.backgroundColor = palette.orange;
@@ -215,7 +219,7 @@ function blinkPauseButton() {
       bnum.innerHTML = breathPausedAt;
       pauseButtonForeground = "ORANGE";
     } else {
-      btn.style.color = 'white';
+      //btn.style.color = 'white';
       ttl.style.backgroundColor = palette.mediumgreen;
       bnum.style.backgroundColor = palette.mediumgreen;
       bdiv.style.backgroundColor = palette.mediumgreen;
@@ -224,7 +228,7 @@ function blinkPauseButton() {
       pauseButtonForeground = "WHITE";
     }
   } else {
-    btn.style.color = 'white';
+    //btn.style.color = 'white';
     ttl.style.backgroundColor = palette.mediumgreen;
     bnum.style.backgroundColor = palette.mediumgreen;
     ttl.innerHTML = "CURRENT BREATH"
@@ -563,8 +567,8 @@ window.onload = function () {
   let stats = document.getElementById("stat-pane");
   stats.style.display = "none";
   // Install all gauges
-  installPurityGauge();
-  installFiO2Gauge();
+  //installPurityGauge();
+  //installFiO2Gauge();
   installPeakGauge();
   installPlatGauge();
   installPeepGauge();
