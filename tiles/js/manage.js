@@ -9,6 +9,14 @@ function isTileObj(name) {
 	return (ix == 0);
 }
 
+function updateActiveTileUidObj(uid, newObj) {
+	let uidObj = activeTiles[uid];
+	uidObj.patient = newObj.patient;
+	uidObj.state = newObj.state;
+	uidObj.breaths = newObj.breaths;
+	uidObj.attention = newObj.attention;
+}
+
 function getAllActiveUidObjs() {
 	let uidObjs = [];
 	let allKeys = Object.keys(sessionStorage);
@@ -19,7 +27,7 @@ function getAllActiveUidObjs() {
 			// check if it is inactive and remove
 			let updatedAt = new Date(uidObj.updatedAt);
 			let now = new Date();
-			if ((now.getTime() - updatedAt.getTime()) > 4*TILE_UPDATE_INTERVAL_IN_MS) {
+			if ((now.getTime() - updatedAt.getTime()) > 10*TILE_UPDATE_INTERVAL_IN_MS) {
 				//console.log("Removing", key);
 				sessionStorage.removeItem(key);
 			} else {
@@ -35,6 +43,7 @@ function updatePage() {
 	//console.log("# uidObjs in session storage", uidObjs.length);
 
 	// first remove tiles that were active and now are not
+	// and update those that survive
 	let uidsToDelete = [];
   for (const uid in activeTiles) {
 		let uidObj = activeTiles[uid];
@@ -42,6 +51,7 @@ function updatePage() {
 		for (let i=0; i<uidObjs.length; i++) {
 			if (uidObjs[i].uid == uid) {
 				found = true;
+				updateActiveTileUidObj(uid, uidObjs[i]);
 				break;
 			}
 		}

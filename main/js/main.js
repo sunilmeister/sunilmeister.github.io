@@ -377,11 +377,8 @@ function launchDocs() {
   document.getElementById("passwordDiv").style.display = "block";
 }
 
-function launchTest() {
-  if (!setSelectedInspireTagFromDD()) {
-    return;
-  }
-  window.open("../dashboard/dashboard_test.html");
+function tilesView() {
+  window.open("../tiles/tiles.html");
 }
 
 function launchRecorder() {
