@@ -19,17 +19,17 @@ function updateActiveTileUidObj(uid, newObj) {
 
 function getAllActiveUidObjs() {
 	let uidObjs = [];
-	let allKeys = Object.keys(sessionStorage);
+	let allKeys = Object.keys(localStorage);
 	for (let i=0; i< allKeys.length; i++) {
 		let key = allKeys[i];
 		if (isTileObj(key)) {
-			let uidObj = JSON.parse(sessionStorage.getItem(key));
+			let uidObj = JSON.parse(localStorage.getItem(key));
 			// check if it is inactive and remove
 			let updatedAt = new Date(uidObj.updatedAt);
 			let now = new Date();
 			if ((now.getTime() - updatedAt.getTime()) > 10*TILE_UPDATE_INTERVAL_IN_MS) {
 				//console.log("Removing", key);
-				sessionStorage.removeItem(key);
+				localStorage.removeItem(key);
 			} else {
 			  uidObjs.push(cloneObject(uidObj));
 			}

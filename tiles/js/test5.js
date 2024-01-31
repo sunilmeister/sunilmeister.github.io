@@ -50,7 +50,7 @@ function test5() {
 	let uidObj = test5Uids[test5Index++];
 	uidObj.updatedAt = Date();
 	let key = ACTIVE_UID_PREFIX + uidObj.uid;
-	sessionStorage.setItem(key, JSON.stringify(uidObj));
+	localStorage.setItem(key, JSON.stringify(uidObj));
 }
 
 setInterval(() => {

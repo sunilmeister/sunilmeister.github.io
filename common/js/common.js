@@ -840,26 +840,29 @@ function updateActiveTile(uid) {
   if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
 
 	let state = "";
-	if (session.stateData.initial) {
-		state = "INIT";
+	if (session.stateData.error) {
+		state = "ERROR";
   } else if (session.stateData.standby) {
 		state = "STANDBY";
   } else if (session.stateData.active) {
 		state = "ACTIVE";
   } else {
-		state = "ERROR";
+		state = "INIT";
   }
+
+	let breathNum = 0;
+	if (session.systemBreathNum) breathNum = session.systemBreathNum;
 
 	let uidObj = {
 		uid: uid,
 		updatedAt: new Date(),
 		patient: pname,
 		state: state,
-		breaths: session.systemBreathNum,
+		breaths: breathNum,
 		attention: session.alerts.attention,
 	}
 
-	console.log(keyName);
-  sessionStorage.setItem(keyName, JSON.stringify(uidObj));
+	//console.log("localStorage setItem",keyName);
+  localStorage.setItem(keyName, JSON.stringify(uidObj));
 }
 
