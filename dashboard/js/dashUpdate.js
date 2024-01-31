@@ -83,7 +83,7 @@ function updateAlert(blink) {
       alertBackground = "GREEN";
     }
     if (alertImage != "ERROR") {
-      document.getElementById("AlertImg").src = "img/Error.png";
+      document.getElementById("AlertImg").src = "../common/img/Error.png";
       alertImage = "ERROR";
     }
   } else if (session.alerts.attention || wifiDropped) {
@@ -96,7 +96,7 @@ function updateAlert(blink) {
       alertBackground = "GREEN";
     }
     if (alertImage != "WARNING") {
-      document.getElementById("AlertImg").src = "img/Warning.png";
+      document.getElementById("AlertImg").src = "../common/img/Warning.png";
       alertImage = "WARNING";
     }
   } else {
@@ -106,7 +106,7 @@ function updateAlert(blink) {
       alertBackground = "GREEN";
     }
     if (alertImage != "OK") {
-      document.getElementById("AlertImg").src = "img/OK.png";
+      document.getElementById("AlertImg").src = "../common/img/OK.png";
       alertImage = "OK";
     }
   }
@@ -160,16 +160,16 @@ function updateStateDivsFromSessionData() {
 
   if (session.stateData.initial) {
     stateDIV.innerHTML = "<b>INITIALIZE</b>";
-    imgStateDIV.src = "img/WhiteDot.png";
+    imgStateDIV.src = "../common/img/WhiteDot.png";
   } else if (session.stateData.standby) {
     stateDIV.innerHTML = "<b>STANDBY</b>";
-    imgStateDIV.src = "img/YellowDot.png";
+    imgStateDIV.src = "../common/img/YellowDot.png";
   } else if (session.stateData.active) {
     stateDIV.innerHTML = "<b>ACTIVE</b>";
-    imgStateDIV.src = "img/GreenDot.png";
+    imgStateDIV.src = "../common/img/GreenDot.png";
   } else {
     stateDIV.innerHTML = "<b>ERROR</b>";
-    imgStateDIV.src = "img/RedDot.png";
+    imgStateDIV.src = "../common/img/RedDot.png";
   }
 }
 
@@ -208,19 +208,19 @@ function updateBreathTypeFromSessionData() {
   /*
   switch (session.breathData.type) {
     case MANDATORY_BREATH:
-      imgBreathDIV.src = "img/YellowDot.png";
+      imgBreathDIV.src = "../common/img/YellowDot.png";
       breathTypeValELM.innerHTML = "Mandatory";
       break;
     case SPONTANEOUS_BREATH:
-      imgBreathDIV.src = "img/GreenDot.png";
+      imgBreathDIV.src = "../common/img/GreenDot.png";
       breathTypeValELM.innerHTML = "Spontaneous";
       break;
     case MAINTENANCE_BREATH:
-      imgBreathDIV.src = "img/RedDot.png";
+      imgBreathDIV.src = "../common/img/RedDot.png";
       breathTypeValELM.innerHTML = "Maintenance";
       break;
     default:
-      imgBreathDIV.src = "img/WhiteDot.png";
+      imgBreathDIV.src = "../common/img/WhiteDot.png";
       breathTypeValELM.innerHTML = "None";
       break;
   }
@@ -371,13 +371,13 @@ function updateSnapshot() {
 
 function updateDashboardIndicator() {
   if (awaitingFirstDweet) {
-    document.getElementById("DashboardActiveImg").src = "img/WhiteDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
   } else if (updatePaused) {
-    document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
   } else if (wifiDropped) {
-    document.getElementById("DashboardActiveImg").src = "img/YellowDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
   } else {
-    document.getElementById("DashboardActiveImg").src = "img/GreenDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
   }
 }
 

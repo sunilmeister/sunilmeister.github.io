@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Inspire-100 Tiles</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <!-- Enable responsive view on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="icon" type="image/png" href="../common/img/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+
+  <link href="css/tiles.css" rel="stylesheet" />
+  <link href="../common/css/colors.css" rel="stylesheet" />
+  <link href="../common/css/common.css" rel="stylesheet" />
+
+  <script src="../external/hacktimer/HackTimer.min.js"></script>
+  <script src="../external/nouislider/nouislider.min.js"></script>
+  <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="../external/canvasjs/canvasjs.min.js"></script>
+  <script src="../external/pure-knob-master/pureknob.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="../common/js/inspireMessages.js"></script>
+
+  <script src="../common/js/constants.js"></script>
+  <script src="../common/js/palette.js"></script>
+  <script src="../common/js/uid.js"></script>
+  <script src="../common/js/common.js"></script>
+  <script src="../common/js/modalPopup.js"></script>
+  <script src="../common/js/hidePopups.js"></script>
+  <script src="../common/js/enterSubmit.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/styles.js"></script>
+  <script src="js/tiles.js"></script>
+</head>
+
+<body class="no-touch">
+
+  <div class="wrapTiles" id=topDiv>
+	</div>
+    
+<!-- 
+// ////////////////////////////////////////////////////
+// Below are all templates only
+// ////////////////////////////////////////////////////
+-->
+  <template id=tileTemplate>
+    <div class=tile>
+			<center>
+      <div class=tileContent>
+				<p class=patientName></p>
+				<p class=statusCaption>Status</p>
+        <div class=State>
+          <img class=StateImg src="../dashboard/img/WhiteDot.png" alt="LED" style="margin-top:0.75rem" width="70rem" height="70rem">
+        </div>
+				<div class=Alert>
+          <img class=AlertImg src="../dashboard/img/OK.png" alt="Alarm" style="margin-top:1rem" height=70rem; width=70rem;>
+        </div>
+				<div style="clear: both;">
+				<p class=breathCaption>Breaths Delivered</p>
+				<p class=breathNum></p>
+				</div>
+        <div class=tileUid></div>
+			</div>
+			</center>
+    </div>
+  </template>
+
+</body>
+
+</html>

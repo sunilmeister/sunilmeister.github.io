@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #EEE;
+  font-family: verdana;
+	font-size: 1rem;
+}
+.wrapTiles {
+  overflow: hidden;
+  margin: 10px;
+}
+.tile {
+  float: left;
+  position: relative;
+  width: 20%;
+  padding-bottom: 20%;
+	border-style: outset;
+  border-width: 5px;
+}
+.tileContent {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 10px;
+  bottom: 10px;
+  overflow: hidden;
+}
+.tileContent img {
+  width: 100%;
+}
+.tileContent .tileUid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: -50px;
+  background: #000;
+  background: rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  padding: 10px;
+  text-align: center;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .tileUid {
+  margin-bottom: 0;
+}
+@media only screen and (max-width : 480px) {
+  /* Smartphone view: 1 tile */
+  .tile {
+    width: 100%;
+    padding-bottom: 100%;
+  }
+}
+@media only screen and (max-width : 650px) and (min-width : 481px) {
+  /* Tablet view: 2 tiles */
+  .tile {
+    width: 50%;
+    padding-bottom: 50%;
+  }
+}
+@media only screen and (max-width : 1050px) and (min-width : 651px) {
+  /* Small desktop / ipad view: 3 tiles */
+  .tile {
+    width: 33.3%;
+    padding-bottom: 33.3%;
+  }
+}
+@media only screen and (max-width : 1290px) and (min-width : 1051px) {
+  /* Medium desktop: 4 tiles */
+  .tile {
+    width: 25%;
+    padding-bottom: 25%;
+  }
+}
+
+.statusCaption {
+	background-color: darkgray;
+	color: white;
+	font-size: 1.5rem;
+}
+
+.breathCaption {
+	background-color: darkgray;
+	color: white;
+	font-size: 1.5rem;
+}
+
+.patientName {
+	color: black;
+	font-size: 2rem;
+	margin-top: -0.25rem;
+}
+
+.ventMode {
+	color: black;
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-top: -0.5rem;
+}
+
+.breathNum {
+	color: black;
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-top: -0.5rem;
+	margin-bottom:-0.5rem;
+}
+
+.Alert {
+	float: right;
+	margin-top: -1.75rem;
+	margin-right: 1.5rem;
+}
+
+.State {
+	float: left;
+	margin-top: -1.75rem;
+	margin-left: 1.5rem;
+}
