@@ -852,13 +852,14 @@ function updateActiveTile(uid) {
 
 	let uidObj = {
 		uid: uid,
-		updatedAt: Date(),
+		updatedAt: new Date(),
 		patient: pname,
 		state: state,
 		breaths: session.systemBreathNum,
 		attention: session.alerts.attention,
 	}
 
+	console.log(keyName);
   sessionStorage.setItem(keyName, JSON.stringify(uidObj));
 }
 

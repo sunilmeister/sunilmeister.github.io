@@ -160,16 +160,16 @@ function updateStateDivsFromSessionData() {
 
   if (session.stateData.initial) {
     stateDIV.innerHTML = "<b>INITIALIZE</b>";
-    imgStateDIV.src = "../common/img/WhiteDot.png";
+    imgStateDIV.src = "../common/img/InitialLED.png";
   } else if (session.stateData.standby) {
     stateDIV.innerHTML = "<b>STANDBY</b>";
-    imgStateDIV.src = "../common/img/YellowDot.png";
+    imgStateDIV.src = "../common/img/StandbyLED.png";
   } else if (session.stateData.active) {
     stateDIV.innerHTML = "<b>ACTIVE</b>";
-    imgStateDIV.src = "../common/img/GreenDot.png";
+    imgStateDIV.src = "../common/img/ActiveLED.png";
   } else {
     stateDIV.innerHTML = "<b>ERROR</b>";
-    imgStateDIV.src = "../common/img/RedDot.png";
+    imgStateDIV.src = "../common/img/ErrorLED.png";
   }
 }
 
@@ -204,31 +204,7 @@ function updateFiO2DivsFromSessionData() {
   );
 }
 
-function updateBreathTypeFromSessionData() {
-  /*
-  switch (session.breathData.type) {
-    case MANDATORY_BREATH:
-      imgBreathDIV.src = "../common/img/YellowDot.png";
-      breathTypeValELM.innerHTML = "Mandatory";
-      break;
-    case SPONTANEOUS_BREATH:
-      imgBreathDIV.src = "../common/img/GreenDot.png";
-      breathTypeValELM.innerHTML = "Spontaneous";
-      break;
-    case MAINTENANCE_BREATH:
-      imgBreathDIV.src = "../common/img/RedDot.png";
-      breathTypeValELM.innerHTML = "Maintenance";
-      break;
-    default:
-      imgBreathDIV.src = "../common/img/WhiteDot.png";
-      breathTypeValELM.innerHTML = "None";
-      break;
-  }
-  */
-}
-
 function updateBreathDivsFromSessionData() {
-  updateBreathTypeFromSessionData();
   animateDivToValue(vtdelValELM, session.breathData.vtdel);
 
   peakGauge.setValue(session.breathData.peak);
@@ -371,13 +347,13 @@ function updateSnapshot() {
 
 function updateDashboardIndicator() {
   if (awaitingFirstDweet) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/InitialLED.png";
   } else if (updatePaused) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/StandbyLED.png";
   } else if (wifiDropped) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/StandbyLED.png";
   } else {
-    document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/ActiveLED.png";
   }
 }
 

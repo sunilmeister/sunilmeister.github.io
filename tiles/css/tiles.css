@@ -16,6 +16,7 @@ body {
   padding-bottom: 20%;
 	border-style: outset;
   border-width: 5px;
+  margin: 5px;
 }
 .tileContent {
   position: absolute;
@@ -78,31 +79,25 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 
 .statusCaption {
 	background-color: darkgray;
-	color: white;
+	color: black;
 	font-size: 1.5rem;
 }
 
 .breathCaption {
 	background-color: darkgray;
-	color: white;
+	color: black;
 	font-size: 1.5rem;
 }
 
 .patientName {
-	color: black;
+	color: white;
 	font-size: 2rem;
+	font-weight: bold;
 	margin-top: -0.25rem;
 }
 
-.ventMode {
-	color: black;
-	font-size: 2.5rem;
-	font-weight: bold;
-	margin-top: -0.5rem;
-}
-
 .breathNum {
-	color: black;
+	color: white;
 	font-size: 2.5rem;
 	font-weight: bold;
 	margin-top: -0.5rem;

@@ -19,5 +19,6 @@ var colorIndex = 0;
 function getNextTileColor() {
 	let color = tileColors[colorIndex++];
 	if (colorIndex == tileColors.length) colorIndex = 0;
-	return color;
+	//return color;
+	return "#5B7C99";
 }

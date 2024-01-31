@@ -7,13 +7,13 @@ function updateTileImages(uidObj) {
 
   let stateImg = findChildNodeByClass(tile, 'StateImg');
 	if (uidObj.state == 'ERROR') {
-		stateImg.src = '../common/img/RedDot.png'
+		stateImg.src = '../common/img/ErrorLED.png'
 	} else if (uidObj.state == 'ACTIVE') {
-		stateImg.src = '../common/img/GreenDot.png'
+		stateImg.src = '../common/img/ActiveLED.png'
 	} else if (uidObj.state == 'STANDBY') {
-		stateImg.src = '../common/img/YellowDot.png'
+		stateImg.src = '../common/img/StandbyLED.png'
 	} else {
-		stateImg.src = '../common/img/WhiteDot.png'
+		stateImg.src = '../common/img/InitialLED.png'
 	}
 
   let alertImg = findChildNodeByClass(tile, 'AlertImg');
