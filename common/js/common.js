@@ -832,3 +832,33 @@ function updateDocumentTitle() {
 }
 
 
+function updateActiveTile(uid) {
+	let keyName = ACTIVE_UID_PREFIX + uid;
+
+  let pname = "--" ;
+  if (session.patientData.fname) pname = session.patientData.fname;
+  if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
+
+	let state = "";
+	if (session.stateData.initial) {
+		state = "INIT";
+  } else if (session.stateData.standby) {
+		state = "STANDBY";
+  } else if (session.stateData.active) {
+		state = "ACTIVE";
+  } else {
+		state = "ERROR";
+  }
+
+	let uidObj = {
+		uid: uid,
+		updatedAt: Date(),
+		patient: pname,
+		state: state,
+		breaths: session.systemBreathNum,
+		attention: session.alerts.attention,
+	}
+
+  sessionStorage.setItem(keyName, JSON.stringify(uidObj));
+}
+

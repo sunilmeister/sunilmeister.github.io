@@ -1,36 +1,6 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-var activeUids = {
-	UID_1111222233334444: {
-		uid: 'UID_1111222233334444',
-		patient: 'Elmer Fudd',
-		state: 'INIT',
-		breaths: 0,
-		attention: false,
-	},
-	UID_5555666677778888: {
-		uid: 'UID_5555666677778888',
-		patient: 'Bugs Bunny',
-		state: 'STANDBY',
-		breaths: 564,
-		attention: false,
-	},
-	UID_AAAABBBBCCCCDDDD: {
-		uid: 'UID_AAAABBBBCCCCDDDD',
-		patient: 'Mickey Mouse',
-		state: 'ACTIVE',
-		breaths: 78532,
-		attention: true,
-	},
-	UID_0000222244446666: {
-		uid: 'UID_0000222244446666',
-		patient: 'James Bond',
-		state: 'ERROR',
-		breaths: 20134,
-		attention: true,
-	},
-};
 
 function updateTileImages(uidObj) {
 	let tile = uidObj.tile;
@@ -127,17 +97,9 @@ function addTile(uidObj) {
 }
 
 function deleteTile(uidObj) {
-}
-
-function createTiles() {
-  for (const uid in activeUids) {
-		let uidObj = activeUids[uid];
-		addTile(uidObj);
-		updateTileContents(uidObj);
-	}
-
-	// Change styles AFTER all tiles have been updated
-	resizeTiles();
+	let topDiv = document.getElementById('topDiv');
+	let tile = uidObj.tile;
+	topDiv.removeChild(tile);
 }
 
 var tileBlinkColor = false;
@@ -145,8 +107,8 @@ function blinkTiles() {
 	if (!tileBlinkColor) tileBlinkColor = true;
 	else tileBlinkColor = null;
 
-  for (const uid in activeUids) {
-		let uidObj = activeUids[uid];
+  for (const uid in activeTiles) {
+		let uidObj = activeTiles[uid];
 
 		if (!uidObj.attention && !(uidObj.state == 'ERROR')) continue;
 		let tileColor = uidObj.tileColor;
@@ -171,19 +133,15 @@ setInterval(() => {
 	blinkTiles();
 }, 1000)
 
-function resizeTiles() {
-  for (const uid in activeUids) {
-		let uidObj = activeUids[uid];
+function resizeAllTiles() {
+  for (const uid in activeTiles) {
+		let uidObj = activeTiles[uid];
 		updateTileStyles(uidObj);
 	}
 }
 
 window.onresize = function() {
-	resizeTiles();
-}
-
-window.onload = function () {
-  createTiles();
+	resizeAllTiles();
 }
 
 $(function(){
