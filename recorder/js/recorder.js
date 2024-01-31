@@ -204,3 +204,7 @@ function cancelExport() {
   document.getElementById("exportDiv").style.display = "none";
 }
 
+setInterval(() => {
+	updateActiveTile(inspireUid);
+}, 2000)
+

@@ -853,6 +853,11 @@ function showDormantPopup() {
 }
 
 setInterval(() => {
-        dormantTimeInSec++;
-      }, 1000)
+  dormantTimeInSec++;
+}, 1000)
+
+setInterval(() => {
+	updateActiveTile(inspireUid);
+}, 2000)
+
 
