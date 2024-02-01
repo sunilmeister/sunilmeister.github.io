@@ -17,28 +17,28 @@ let test6Uids = [
 		uid: 'UID_6666666666666666',
 		patient: 'Batman Robin',
 		state: 'ACTIVE',
-		breaths: 65,
+		breaths: 8,
 		attention: false,
 	},
 	{
 		uid: 'UID_6666666666666666',
 		patient: 'Batman Robin',
 		state: 'ACTIVE',
-		breaths: 67,
+		breaths: 16,
 		attention: false,
 	},
 	{
 		uid: 'UID_6666666666666666',
 		patient: 'Batman Robin',
 		state: 'ACTIVE',
-		breaths: 66,
+		breaths: 32,
 		attention: false,
 	},
 	{
 		uid: 'UID_6666666666666666',
 		patient: 'Batman Robin',
 		state: 'ERROR',
-		breaths: 634,
+		breaths: 48,
 		attention: false,
 	},
 ];
@@ -55,6 +55,6 @@ function test6() {
 
 setInterval(() => {
 	test6();
-}, 6000)
+}, 3500)
 
 

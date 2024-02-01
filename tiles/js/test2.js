@@ -38,7 +38,7 @@ let test2Uids = [
 		uid: 'UID_2222222222222222',
 		patient: 'Bugs Bunny',
 		state: 'ERROR',
-		breaths: 634,
+		breaths: 98,
 		attention: true,
 	},
 ];

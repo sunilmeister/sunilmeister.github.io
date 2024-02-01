@@ -17,28 +17,28 @@ let test5Uids = [
 		uid: 'UID_5555555555555555',
 		patient: 'The Joker',
 		state: 'ACTIVE',
-		breaths: 65,
+		breaths: 32,
 		attention: false,
 	},
 	{
 		uid: 'UID_5555555555555555',
 		patient: 'The Joker',
 		state: 'ACTIVE',
-		breaths: 67,
+		breaths: 64,
 		attention: false,
 	},
 	{
 		uid: 'UID_5555555555555555',
 		patient: 'The Joker',
 		state: 'ACTIVE',
-		breaths: 66,
+		breaths: 128,
 		attention: false,
 	},
 	{
 		uid: 'UID_5555555555555555',
 		patient: 'The Joker',
 		state: 'ACTIVE',
-		breaths: 634,
+		breaths: 256,
 		attention: false,
 	},
 ];
@@ -55,6 +55,6 @@ function test5() {
 
 setInterval(() => {
 	test5();
-}, 5000)
+}, 3000)
 
 

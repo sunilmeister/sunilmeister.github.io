@@ -24,21 +24,21 @@ let test4Uids = [
 		uid: 'UID_4444444444444444',
 		patient: 'James Bond',
 		state: 'ACTIVE',
-		breaths: 67,
+		breaths: 367,
 		attention: false,
 	},
 	{
 		uid: 'UID_4444444444444444',
 		patient: 'James Bond',
 		state: 'ACTIVE',
-		breaths: 66,
+		breaths: 466,
 		attention: false,
 	},
 	{
 		uid: 'UID_4444444444444444',
 		patient: 'James Bond',
 		state: 'ACTIVE',
-		breaths: 634,
+		breaths: 545,
 		attention: false,
 	},
 ];
@@ -55,6 +55,6 @@ function test4() {
 
 setInterval(() => {
 	test4();
-}, 4000)
+}, 2000)
 
 
