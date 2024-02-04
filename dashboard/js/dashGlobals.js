@@ -198,7 +198,7 @@ var banner2 =
 "&block;&block;&nbsp;&nbsp;&nbsp;&nbspINSPIRE-100&nbsp;&nbsp;&nbsp;&nbsp;&block;&block;";
 
 var banner3 =
-"&block;&block;&nbsp;&nbsp;&nbspMade in India&nbsp;&nbsp;&nbsp;&block;&block;";
+"&block;&block;&nbsp;&nbsp;&nbsp&nbsp;&nbsp;TekMedika&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&block;&block;";
 
 var banner4 =
 "&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;&block;";
