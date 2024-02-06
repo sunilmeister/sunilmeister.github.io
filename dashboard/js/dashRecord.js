@@ -4,14 +4,14 @@
 
 function updateRecordingIndicator() {
   if (session.recorder.off) {
-    document.getElementById("RecordingActiveImg").src = "img/WhiteDot.png";
-    document.getElementById("RecordIndicator").src = "img/WhiteDot.png";
+    document.getElementById("RecordingActiveImg").src = "../common/img/WhiteDot.png";
+    document.getElementById("RecordIndicator").src = "../common/img/WhiteDot.png";
   } else if (session.recorder.paused) {
-    document.getElementById("RecordingActiveImg").src = "img/YellowDot.png";
-    document.getElementById("RecordIndicator").src = "img/YellowDot.png";
+    document.getElementById("RecordingActiveImg").src = "../common/img/YellowDot.png";
+    document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
   } else {
-    document.getElementById("RecordingActiveImg").src = "img/RedDot.png";
-    document.getElementById("RecordIndicator").src = "img/RedDot.png";
+    document.getElementById("RecordingActiveImg").src = "../common/img/RedDot.png";
+    document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
   }
 }
 

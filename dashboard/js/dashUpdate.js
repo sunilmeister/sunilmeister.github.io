@@ -347,13 +347,13 @@ function updateSnapshot() {
 
 function updateDashboardIndicator() {
   if (awaitingFirstDweet) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/InitialLED.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
   } else if (updatePaused) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/StandbyLED.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
   } else if (wifiDropped) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/StandbyLED.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
   } else {
-    document.getElementById("DashboardActiveImg").src = "../common/img/ActiveLED.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
   }
 }
 
