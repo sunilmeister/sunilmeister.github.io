@@ -191,8 +191,8 @@ const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" 
 "<br>Alert will close automatically when communication is established" +
 "<br>Or you can close it manually"
 
-var banner1 = "<big><big><b>INSPIRE-100";
-var banner2 = "&nbsp";
+var banner1 = "&nbsp";
+var banner2 = "<big><big><b>INSPIRE-100</b>";
 var banner3 = "TekMedika Pvt. Ltd." ;
-var banner4 = "&nbsp";
+var banner4 = "";
 
