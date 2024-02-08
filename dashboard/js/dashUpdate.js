@@ -3,9 +3,9 @@
 // ////////////////////////////////////////////////////
 
 function formMessageLine(str) {
-  let value = str.trim();
-  if (value == "") return "&nbsp";
-  let mvalue = value.replace(/ /g, "&nbsp");
+  //let value = str.trim();
+  if (str == "") return "&nbsp";
+  let mvalue = str.replace(/ /g, "&nbsp");
   return mvalue;
 }
 
