@@ -3,10 +3,22 @@
 // ////////////////////////////////////////////////////
 
 function formMessageLine(str) {
-  //let value = str.trim();
-  if (str == "") return "&nbsp";
-  let mvalue = str.replace(/ /g, "&nbsp");
-  return mvalue;
+	const spanBegin = "<span class=UniMono>";
+	const spanEnd = "</span>";
+
+	let mstr = "";
+	for (let i = 0; i < str.length; i++) {
+		let code = str.charCodeAt(i);
+		let isASCII = (code >= 0) && (code <= 127);
+		let cstr = String.fromCodePoint(code);
+		if (isASCII) {
+	  	if (cstr == ' ') cstr = '&nbsp';
+	  	mstr += cstr;
+		} else {
+			mstr += spanBegin + cstr + spanEnd;
+		}
+	}
+	return mstr;
 }
 
 function blinkSettingValue(pending, containerDiv, valueDiv) {

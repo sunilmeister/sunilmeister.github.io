@@ -18,6 +18,13 @@
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
+.UniMono {
+  font-size: 1.28rem;
+	font-weight: bold;
+	vertical-align: middle;
+	color: black;
+}
+
 .Alert {
   grid-area: 1 / 9 / 3 / 12;
   color: var(--rsp_darkblue);
