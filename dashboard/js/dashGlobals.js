@@ -42,11 +42,6 @@ var savedL2 = "";
 var savedL3 = "";
 var savedL4 = "";
 
-var pendingL1 = "";
-var pendingL2 = "";
-var pendingL3 = "";
-var pendingL4 = "";
-
 var breathPausedAt = 0;
 
 var updatedDweetContent = {
@@ -191,8 +186,8 @@ const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" 
 "<br>Alert will close automatically when communication is established" +
 "<br>Or you can close it manually"
 
-var banner1 = "&nbsp";
-var banner2 = "<big><big><b>INSPIRE-100</b>";
+var banner1 = "<small><small>&nbsp";
+var banner2 = "<big><b>INSPIRE-100</b>";
 var banner3 = "TekMedika Pvt. Ltd." ;
-var banner4 = "";
+var banner4 = "&nbsp";
 
