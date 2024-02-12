@@ -318,7 +318,7 @@
 
 .Logo {
   grid-area: 15 / 9 / 17 / 19;
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_mediumblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
