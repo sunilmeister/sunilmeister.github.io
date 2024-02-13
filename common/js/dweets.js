@@ -956,7 +956,7 @@ function processBnumDweet(curTime, value, jsonData) {
 function processAlertDweet(curTime, jsonData) { 
   let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
-    ewBreathNum = jsonData.content.WMSG;
+    ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum;
     if (session.alerts.expectWarningMsg) { // back to back with Previous msg not yet fully received
       let msg = {
         'created': session.alerts.lastWarningTime,
@@ -976,7 +976,7 @@ function processAlertDweet(curTime, jsonData) {
      });
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
-    ewBreathNum = jsonData.content.EMSG;
+    ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum;
    if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
      let msg = {
        'created': session.alerts.lastErrorTime,
