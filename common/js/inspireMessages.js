@@ -25,7 +25,7 @@ var inspireListenIntervalId = null;
 
 async function inspireGetone(uidString) {
 	let payload = {};
-  const getoneAPI = "http://103.159.68.39:3003/message/getone";
+  const getoneAPI = "https://103.159.68.39:3003/message/getone";
   let option = {
       method: 'POST',
       headers:{
