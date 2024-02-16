@@ -31,6 +31,7 @@ async function inspireGetone(uidString) {
       headers:{
           "Content-type": "application/json"
       },
+			rejectUnauthorized: false,
       body: JSON.stringify({ UID: uidString })
   }
   const api = await fetch(getoneAPI,option)
