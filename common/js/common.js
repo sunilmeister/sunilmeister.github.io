@@ -833,6 +833,9 @@ function updateDocumentTitle() {
 
 
 function updateActiveTile(uid) {
+	if (isUndefined(session)) return;
+	if (!session) return;
+
 	let keyName = ACTIVE_UID_PREFIX + uid;
 
   let pname = "--" ;
