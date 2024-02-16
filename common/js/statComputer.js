@@ -162,7 +162,7 @@ class StatComputer {
     // Collect param datapoints per breath
     let curValue = 0;
     let curIx = 0;
-		let dummyTansitioniValue = null;
+		let dummyTansitionValue = null;
     curValue = transitions[0].value; // guaranteed to have at least one entry
     for (let i = 1; i < this.breathTimes.length; i++) {
       if (curIx == transitions.length - 1) {
@@ -176,7 +176,15 @@ class StatComputer {
       }
 
       if (i <= this.xRange.minBnum) {
-				dummyTansitioniValue = curValue;
+				dummyTansitionValue = curValue;
+			} else {
+				// make sure there is a transition at minBnum
+				if (this.computedValuesPerBreath.length == 0) {
+					if (dummyTansitionValue) {
+						// put in the last transition before minBnum
+     				this.computedValuesPerBreath.push(dummyTansitioniValue);
+					}
+				}
 			}
 
       if ((i <= this.xRange.maxBnum) && (i >= this.xRange.minBnum)) {
@@ -184,12 +192,6 @@ class StatComputer {
       }
     }
 
-		if (this.computedValuesPerBreath.length == 0) {
-			if (dummyTansitioniValue) {
-				// put in the last transition before minBnum
-      	this.computedValuesPerBreath.push(dummyTansitioniValue);
-			}
-		}
   }
 
   initialize() {
