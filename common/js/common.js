@@ -833,14 +833,14 @@ function updateDocumentTitle() {
 
 
 function updateActiveTile(uid) {
-	if (isUndefined(session)) return;
-	if (!session) return;
+	let title = "";
 
-	let keyName = ACTIVE_UID_PREFIX + uid;
-
-  let pname = "--" ;
-  if (session.patientData.fname) pname = session.patientData.fname;
-  if (session.patientData.lname) pname = pname + " " + session.patientData.lname;
+	if (isUndefined(session) || !session) {
+		title = uid;
+  } else {
+  	if (session.patientData.fname) title = session.patientData.fname;
+  	if (session.patientData.lname) title = title + " " + session.patientData.lname;
+	}
 
 	let state = "";
 	if (session.stateData.error) {
@@ -859,13 +859,14 @@ function updateActiveTile(uid) {
 	let uidObj = {
 		uid: uid,
 		updatedAt: new Date(),
-		patient: pname,
+		tileTitle: title,
 		state: state,
 		breaths: breathNum,
 		attention: session.alerts.attention,
 	}
 
 	//console.log("localStorage setItem",keyName);
+	let keyName = ACTIVE_UID_PREFIX + uid;
   localStorage.setItem(keyName, JSON.stringify(uidObj));
 }
 

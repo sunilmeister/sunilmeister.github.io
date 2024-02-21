@@ -89,7 +89,7 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 	font-size: 1.5rem;
 }
 
-.patientName {
+.tileName {
 	color: white;
 	font-size: 2rem;
 	font-weight: bold;

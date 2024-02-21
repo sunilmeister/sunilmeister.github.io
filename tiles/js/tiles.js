@@ -28,13 +28,13 @@ function updateTileImages(uidObj) {
 
 function updateTileContents(uidObj) {
 	let tile = uidObj.tile;
-	let patient = uidObj.patient;
+	let title = uidObj.tileTitle;
 	let breaths = uidObj.breaths;
 	let uid = uidObj.uid;
 
 	let elem = null;
-	elem = findChildNodeByClass(tile,'patientName');
-	elem.innerHTML = patient;
+	elem = findChildNodeByClass(tile,'title');
+	elem.innerHTML = title;
 
 	elem = findChildNodeByClass(tile,'breathNum');
 	elem.innerHTML = breaths;
@@ -58,10 +58,10 @@ function updateTileStyles(uidObj) {
 	changeFontSize(tile, 'statusCaption', captionFontSize);
 	changeFontSize(tile, 'breathCaption', captionFontSize);
 
-	let patientNameFontSize = tileSize * 30 / 315;
-	let patientNameMtop = tileSize * (-4) / 315;
-	changeFontSize(tile, 'patientName', patientNameFontSize);
-	changeMarginTop(tile, 'patientName', patientNameMtop);
+	let titleNameFontSize = tileSize * 30 / 315;
+	let titleNameMtop = tileSize * (-4) / 315;
+	changeFontSize(tile, 'titleName', titleNameFontSize);
+	changeMarginTop(tile, 'titleName', titleNameMtop);
 
 	let breathNumFontSize = tileSize * 40 / 315;
 	let breathNumMtop = tileSize * (-8) / 315;

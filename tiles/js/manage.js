@@ -11,7 +11,7 @@ function isTileObj(name) {
 
 function updateActiveTileUidObj(uid, newObj) {
 	let uidObj = activeTiles[uid];
-	uidObj.patient = newObj.patient;
+	uidObj.tileTitle = newObj.tileTitle;
 	uidObj.state = newObj.state;
 	uidObj.breaths = newObj.breaths;
 	uidObj.attention = newObj.attention;
