@@ -510,6 +510,7 @@ function processPwendDweet(str) {
     session.waves.pwRecordedBreaths.push(session.waves.breathNum);
   } else {
     holdingArray = session.waves.flowData;
+		samples = movingAvgFilter(samples, FLOW_FILTER_WINDOW);
     session.waves.flowRecordedBreaths.push(session.waves.breathNum);
   }
 

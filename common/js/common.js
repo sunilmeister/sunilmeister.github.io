@@ -522,6 +522,26 @@ function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
   return (f * O2FLOW_SAFETY_BOOST_PERCENT) / 100;
 }
 
+function movingAvgFilter(samples, windowSize) {
+	let arr = [];
+  let ws = windowSize;
+
+  for (let i = 0; i < samples.length; i++) {
+    if ((i + 1) < windowSize) {
+        ws = i+1;
+    } else {
+        ws = windowSize;
+    }
+    let sum = 0;
+    for (let j = 0; j < ws; j++) {
+        sum += samples[(i-j)];
+    }
+    arr.push(sum / ws);
+  }
+
+	return cloneObject(arr);
+}
+
 // calculate checksum of a 32-bit number
 // returns a byte checksum
 function checksum(num) {
