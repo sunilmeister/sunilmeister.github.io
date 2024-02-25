@@ -32,8 +32,9 @@ function updateTileContents(uidObj) {
 	let breaths = uidObj.breaths;
 	let uid = uidObj.uid;
 
+	console.log(tile);
 	let elem = null;
-	elem = findChildNodeByClass(tile,'title');
+	elem = findChildNodeByClass(tile,'tileName');
 	elem.innerHTML = title;
 
 	elem = findChildNodeByClass(tile,'breathNum');
