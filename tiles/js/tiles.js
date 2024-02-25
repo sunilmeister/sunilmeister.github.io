@@ -59,10 +59,10 @@ function updateTileStyles(uidObj) {
 	changeFontSize(tile, 'statusCaption', captionFontSize);
 	changeFontSize(tile, 'breathCaption', captionFontSize);
 
-	let titleNameFontSize = tileSize * 30 / 315;
-	let titleNameMtop = tileSize * (-4) / 315;
-	changeFontSize(tile, 'titleName', titleNameFontSize);
-	changeMarginTop(tile, 'titleName', titleNameMtop);
+	let tileNameFontSize = tileSize * 30 / 315;
+	let tileNameMtop = tileSize * (-4) / 315;
+	changeFontSize(tile, 'tileName', tileNameFontSize);
+	changeMarginTop(tile, 'tileName', tileNameMtop);
 
 	let breathNumFontSize = tileSize * 40 / 315;
 	let breathNumMtop = tileSize * (-8) / 315;
