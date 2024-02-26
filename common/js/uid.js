@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var knownInspireSystems = [];
+var myInspireSystems = [];
 var templateSystemId = {
   uid: "",
   tag: "",
@@ -10,9 +10,9 @@ var templateSystemId = {
 };
 
 function deleteAllSystemUIDs() {
-  let knownInspireSystems = [];
+  myInspireSystems = [];
   localStorage.setItem(
-    inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
+    inspireSystemsLocalStorage, JSON.stringify(myInspireSystems));
 }
 
 function createSystemUidTagObj(uid, tag, fw) {
@@ -34,10 +34,10 @@ function compareSystemUidTagObj(a, b) {
 function initKnownInspireSystems() {
   let str = localStorage.getItem(inspireSystemsLocalStorage);
   if (str) {
-    knownInspireSystems = JSON.parse(str);
-    knownInspireSystems.sort(compareSystemUidTagObj);
+    myInspireSystems = JSON.parse(str);
+    myInspireSystems.sort(compareSystemUidTagObj);
   } else {
-    knownInspireSystems = [];
+    myInspireSystems = [];
   }
 }
 
@@ -45,16 +45,16 @@ function saveNewInspireSystemId(uid, tag, fw) {
   uid = uid.toUpperCase();
   tag = tag.toUpperCase();
   let obj = createSystemUidTagObj(uid, tag, fw);
-  knownInspireSystems.push(obj);
-  knownInspireSystems.sort(compareSystemUidTagObj);
+  myInspireSystems.push(obj);
+  myInspireSystems.sort(compareSystemUidTagObj);
   localStorage.setItem(
-    inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
+    inspireSystemsLocalStorage, JSON.stringify(myInspireSystems));
 }
 
 function findInspireTagIndex(tag) {
   tag = tag.toUpperCase();
   let i = 0;
-  for (const obj of knownInspireSystems) {
+  for (const obj of myInspireSystems) {
     if (obj.tag == tag) return i;
     i++;
   }
@@ -63,7 +63,7 @@ function findInspireTagIndex(tag) {
 
 function findSystemUidObj(uid) {
   uid = uid.toUpperCase();
-  for (const obj of knownInspireSystems) {
+  for (const obj of myInspireSystems) {
     if (obj.uid == uid) return obj;
   }
   return null;
@@ -71,7 +71,7 @@ function findSystemUidObj(uid) {
 
 function findSystemTagObj(tag) {
   tag = tag.toUpperCase();
-  for (const obj of knownInspireSystems) {
+  for (const obj of myInspireSystems) {
     if (obj.tag == tag) return obj;
   }
   return null;
@@ -96,7 +96,7 @@ function recordedDataCompatible(fromVersion, toVersion) {
 
 function appendSwVersionToUid() {
   if (isUndefined(session)) return;
-  if (knownInspireSystems.length == 0) {
+  if (myInspireSystems.length == 0) {
     initKnownInspireSystems();
   }
 
@@ -123,25 +123,25 @@ function appendSwVersionToUid() {
   obj.fw = cloneObject(fw);
 
   localStorage.setItem(
-    inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
+    inspireSystemsLocalStorage, JSON.stringify(myInspireSystems));
 
 }
 
 function removeSystemUidTagInfo(uid, tag) {
-  for (let i = 0; i < knownInspireSystems.length; i++) {
-    let obj = knownInspireSystems[i];
+  for (let i = 0; i < myInspireSystems.length; i++) {
+    let obj = myInspireSystems[i];
     if (obj.tag != tag) continue;
     if (obj.uid != uid) continue;
-    knownInspireSystems.splice(i, 1);
+    myInspireSystems.splice(i, 1);
     localStorage.setItem(
-      inspireSystemsLocalStorage, JSON.stringify(knownInspireSystems));
+      inspireSystemsLocalStorage, JSON.stringify(myInspireSystems));
     return tag;
   }
   return "";
 }
 
 function convertSwVersionToStr(fw) {
-  if ((fw===null) || isUndefined(fw)) return "unknown";
+  if ((fw===null) || isUndefined(fw)) return "????";
   return String(fw[0]) + "." + fw[1] + "." +fw[2];
 }
 
@@ -168,7 +168,7 @@ function populateSystemUidTagHtmlTable(tableId) {
   for (let i = 1; i < rowCount; i++) {
     table.deleteRow(1);
   }
-  for (const obj of knownInspireSystems) {
+  for (const obj of myInspireSystems) {
     appendSystemUidTagHtmlRow(table, obj.uid, obj.tag, obj.fw);
   }
 }

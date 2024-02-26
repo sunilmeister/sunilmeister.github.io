@@ -91,7 +91,7 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 
 .tileName {
 	color: white;
-	font-size: 2rem;
+	font-size: 2.5rem;
 	font-weight: bold;
 	margin-top: -0.25rem;
 }
@@ -99,6 +99,14 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 .breathNum {
 	color: white;
 	font-size: 2.5rem;
+	font-weight: bold;
+	margin-top: -0.5rem;
+	margin-bottom:-0.5rem;
+}
+
+.activeState {
+	color: red;
+	font-size: 2.0rem;
 	font-weight: bold;
 	margin-top: -0.5rem;
 	margin-bottom:-0.5rem;

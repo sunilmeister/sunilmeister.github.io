@@ -856,8 +856,4 @@ setInterval(() => {
   dormantTimeInSec++;
 }, 1000)
 
-setInterval(() => {
-	updateActiveTile(inspireUid);
-}, 2000)
-
 

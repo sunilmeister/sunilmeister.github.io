@@ -255,7 +255,7 @@ function gatherSessionData(lastRecordCallback) {
   }
   let lastRecord = false;
   for (i = 0; i < allDbKeys.length; i++) {
-    key = allDbKeys[i];
+    let key = allDbKeys[i];
     if (i == (allDbKeys.length - 1)) {
       lastRecord = true;
     }
@@ -271,12 +271,12 @@ function processJsonRecord(jsonData) {
     jsonData.created = new Date(session.lastValidBreathTime);
   }
 
-  curTime = new Date(jsonData.created);
+  let curTime = new Date(jsonData.created);
   processAlertDweet(curTime, jsonData);
   for (let key in jsonData) {
     if (key == 'content') {
       for (let ckey in jsonData.content) {
-        value = jsonData.content[ckey];
+        let value = jsonData.content[ckey];
 
         // close off PW samples if missing a closing dweet
         if (expectingPWEND) {

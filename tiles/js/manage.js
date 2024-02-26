@@ -2,87 +2,101 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+// ////////////////////////////////////////////////////
+//	activeTiles object is like below
+//  {uid : 
+//  	{
+//  		tile: DOMelement, 
+//  		tileName: ,
+//  		tileColor: , 
+//  		updated: Date, 
+//  		content: {
+//  			patientFName: ,
+//  			patientLName: ,
+//  			activeState: ,
+//  			attention: ,
+//  			breaths: ,
+//  		}
+//  	}
+//  },
+//  ...
+// ////////////////////////////////////////////////////
 var activeTiles = {};
 
-function isTileObj(name) {
-  const ix = name.indexOf(ACTIVE_UID_PREFIX);
-	return (ix == 0);
+async function getUidRecentMessage(uid) {
+	return {};
 }
 
-function updateActiveTileUidObj(uid, newObj) {
-	let uidObj = activeTiles[uid];
-	uidObj.tileTitle = newObj.tileTitle;
-	uidObj.state = newObj.state;
-	uidObj.breaths = newObj.breaths;
-	uidObj.attention = newObj.attention;
+async function updateUidContents(uid) {
+	let msg = await getUidRecentMessage(uid);
+  parseAndUpdateUidContents(uid, msg);
 }
 
-function getAllActiveUidObjs() {
-	let uidObjs = [];
-	let allKeys = Object.keys(localStorage);
-	for (let i=0; i< allKeys.length; i++) {
-		let key = allKeys[i];
-		if (isTileObj(key)) {
-			let uidObj = JSON.parse(localStorage.getItem(key));
-			// check if it is inactive and remove
-			let updatedAt = new Date(uidObj.updatedAt);
-			let now = new Date();
-			if ((now.getTime() - updatedAt.getTime()) > 10*TILE_UPDATE_INTERVAL_IN_MS) {
-				//console.log("Removing", key);
-				localStorage.removeItem(key);
-			} else {
-			  uidObjs.push(cloneObject(uidObj));
-			}
-		}
-	}
-	return uidObjs;
+function parseAndUpdateUidContents(uid, jsonData) {
+  let curTime = new Date(jsonData.created);
+	let content = activeTiles[uid].content;
+	activeTiles[uid].updated = curTime;
+
+  for (let key in jsonData) {
+    if (key == 'content') {
+      for (let ckey in jsonData.content) {
+        let value = jsonData.content[ckey];
+        if (ckey == "BNUM") {
+        } else if (ckey == "FWVER") {
+        } else if (ckey == "STATE") {
+        } else if (ckey == "FNAME") {
+        } else if (ckey == "LNAME") {
+        } else if (ckey == "ATT") {
+				}
+      }
+    }
+  }
+
+	updateTileContents(uid);
+	resizeAllTiles();
 }
 
 function updatePage() {
-	let uidObjs = getAllActiveUidObjs();
-	//console.log("# uidObjs in session storage", uidObjs.length);
-
-	// first remove tiles that were active and now are not
-	// and update those that survive
-	let uidsToDelete = [];
+	// update the data in all tiles
   for (const uid in activeTiles) {
-		let uidObj = activeTiles[uid];
+		updateUidContents(uid);
+	}
+}
+
+function AddRemoveTiles() {
+	initKnownInspireSystems();
+
+	// Add systems if required
+	for (let i=0; i<myInspireSystems.length; i++) {
+		let obj = myInspireSystems[i];
+		let uid = obj.uid;
+		let tag = obj.tag;
+		if (isUndefined(activeTiles[uid])) {
+			let content = {};
+			content.state = "UNKNOWN";
+			content.breaths = 0;
+			content.activeState = false;
+			content.attention = false;
+			addTile(uid, tag, content);
+			updateTileContents(uid);
+		}
+	}
+
+	// Remove systems if required
+  for (const uid in activeTiles) {
 		let found = false;
-		for (let i=0; i<uidObjs.length; i++) {
-			if (uidObjs[i].uid == uid) {
+		for (let i=0; i<myInspireSystems.length; i++) {
+			let obj = myInspireSystems[i];
+			if (obj.uid == uid) {
 				found = true;
-				updateActiveTileUidObj(uid, uidObjs[i]);
 				break;
 			}
 		}
+
 		if (!found) {
-			uidsToDelete.push(uid);
+			deleteTile(uid);
+			console.log('Removing tile');
 		}
-	}
-	for (let i=0; i<uidsToDelete.length; i++) {
-		let uid = uidsToDelete[i];
-		let uidObj = activeTiles[uid];
-		deleteTile(uidObj);
-		//console.log("Deleting", uid);
-		delete activeTiles[uid];
-		//console.log("After Deleting", activeTiles);
-	}
-
-	// then add new tiles
-	for (let i=0; i<uidObjs.length; i++) {
-		let uid = uidObjs[i].uid;
-		let uidObj = activeTiles[uid];
-		if (isUndefined(uidObj)) {
-			//console.log("Adding", uid);
-			activeTiles[uid] = cloneObject(uidObjs[i]);
-			addTile(activeTiles[uid]);
-		}
-	}
-
-	// then update all tiles
-  for (const uid in activeTiles) {
-		let uidObj = activeTiles[uid];
-		updateTileContents(uidObj);
 	}
 
 	// then resize
@@ -90,6 +104,7 @@ function updatePage() {
 }
 
 setInterval(() => {
+	AddRemoveTiles();
 	updatePage();
 }, 2000)
 

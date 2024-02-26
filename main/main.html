@@ -170,18 +170,17 @@
             <p style="margin-top:0px;margin-bottom:10px;">&nbsp&nbsp<b>INSPIRE-100</b> <i>Web Applications</i>&nbsp&nbsp
           </div>
           <div class=content style="font-size: 1.5rem;">
-            <button class=lineButton onclick="tilesView()">Show ALL Monitored Systems</button>
-            <hr>
-            <button class=lineButton onclick="addSystemInfo()">Add a System</button>
+            <button class=lineButton onclick="tilesView()">Display ALL My Systems</button>
+						<br>
+            <button class=lineButton onclick="mySystemInfo()">Manage My Systems</button>
             <br>
-            <button class=lineButton onclick="knownSystemInfo()">Manage My Systems</button>
+            <button class=lineButton onclick="addSystemInfo()">Add My System</button>
             <hr>
-            <label style="margin-bottom:0px; font-size:28px">Select a System</label>
+            <label style="margin-bottom:0px; font-size:28px">Select My System</label>
             <br>
             <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 5px; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" />
             </select>
             <br>
-            <hr>
             <button class=lineButton onclick="launchDashboard()">Launch Dashboard</button>
             <br>
             <button class=lineButton onclick="launchAnalyzer()">Launch Analyzer</button>
@@ -189,18 +188,18 @@
             <button class=lineButton onclick="launchRecorder()">Launch Recorder</button>
             <br>
             <hr>
+            <button class=lineButton onclick="launchDocs()">View Documentation</button>
+            <hr>
             <button class=lineButton onclick="launchSwInstaller()">Update System Firmware</button>
             <hr>
             <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
-            <br>
-            <button class=lineButton onclick="launchDocs()">View Documentation</button>
-            <br>
+            <hr>
           </div>
         </center>
         <div style="margin-bottom:-1rem;">
           <center>
-            <button class=lineButton onclick="deleteSelectedHistory()" style="font-size:1rem; height:1rem;
-            width:7.5rem; margin-top:0.625rem;">Delete History</button>
+            <button class=lineButton onclick="deleteSelectedHistory()" style="font-size:1.2rem; height:1rem;
+            width:10rem; margin-top:0.625rem;">Delete History</button>
           </center>
           <br>
         </div>
@@ -212,8 +211,8 @@
         </div>
       </div>
 
-      <div id=knownSystems style="display:none">
-        <div style="height:60em; width:48em">
+      <div id=mySystems style="display:none">
+        <div style="height:60em; width:50em">
           <center>
             <div style="background-color:var(--rsp_mediumblue);">
               <img src="../common/img/systems-logo.png" alt="Title" width=770rem height=140rem; style="margin-top: 5px; " />
@@ -228,7 +227,7 @@
             </div>
 
             <br>
-            <table id=knownSystemsTable style="border:solid; font-size:1.5em;">
+            <table id=mySystemsTable style="border:solid; font-size:1.5em;">
               <thead>
                 <tr>
                   <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 10px 10px; ">System Tag</th>

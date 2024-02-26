@@ -23,7 +23,7 @@ function setSelectedSystem(uid, tag) {
   sessionStorage.setItem("inspireTag", inspireTag);
 
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownInspireSystems);
+  createDropdownSelect(ddList, myInspireSystems);
   ddList.selectedIndex = findInspireTagIndex(inspireTag);
 }
 
@@ -62,7 +62,7 @@ fileReader.addEventListener('load', (e) => {
     }
   }
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownInspireSystems);
+  createDropdownSelect(ddList, myInspireSystems);
   cancelImport();
 });
 
@@ -92,13 +92,13 @@ function cancelExport() {
 function exportFile() {
   document.getElementById("exportDiv").style.display = "none";
 
-  if ((knownInspireSystems == null) || (knownInspireSystems.length == 0)) {
+  if ((myInspireSystems == null) || (myInspireSystems.length == 0)) {
     modalAlert("Systems Table is empty", "");
     return;
   }
-  //console.log(JSON.stringify(knownInspireSystems));
+  //console.log(JSON.stringify(myInspireSystems));
   let fileName = document.getElementById("exportFileName").value;
-  if (fileName) download(JSON.stringify(knownInspireSystems, null, 1),
+  if (fileName) download(JSON.stringify(myInspireSystems, null, 1),
     fileName, "text/xml");
 }
 
@@ -115,7 +115,7 @@ function deleteHistoryBtn() {
   if (document.getElementById("systemsDelete").checked) {
     deleteAllSystemUIDs();
     let ddList = document.getElementById("SYSTEM_NAME");
-    createDropdownSelect(ddList, knownInspireSystems);
+    createDropdownSelect(ddList, myInspireSystems);
     ddList.selectedIndex = findInspireTagIndex(inspireTag);
     msg += "\nDeleted ALL System UID History" ;
   }
@@ -149,7 +149,7 @@ function selectSystemInfo(row) {
   let uid = row.children[1].firstChild.data;
   setSelectedSystem(uid, tag);
 
-  let elm = document.getElementById("knownSystems");
+  let elm = document.getElementById("mySystems");
   elm.style.display = "none";
   elm = document.getElementById("mainDiv");
   elm.style.display = "block";
@@ -165,19 +165,19 @@ function doRemove(args) {
   let removedTag = removeSystemUidTagInfo(uid, tag);
   let ddList = document.getElementById("SYSTEM_NAME");
 
-  if (knownInspireSystems.length) {
+  if (myInspireSystems.length) {
     if (removedTag == inspireTag) {
-      setSelectedSystem(knownInspireSystems[0].uid, knownInspireSystems[0].tag);
+      setSelectedSystem(myInspireSystems[0].uid, myInspireSystems[0].tag);
     }
   } else {
     inspireTag = "";
     inspireUid = "";
     ddList.selectedIndex = -1;
   }
-  createDropdownSelect(ddList, knownInspireSystems);
+  createDropdownSelect(ddList, myInspireSystems);
 
-  populateSystemUidTagHtmlTable("knownSystemsTable");
-  initSelectRowTable("knownSystemsTable", selectSystemInfo);
+  populateSystemUidTagHtmlTable("mySystemsTable");
+  initSelectRowTable("mySystemsTable", selectSystemInfo);
 }
 
 function removeSystem(uid, tag, noconfirm) {
@@ -221,7 +221,7 @@ function removeSystemInfoRow(row) {
 }
 
 function exitSystemInfo() {
-  let elm = document.getElementById("knownSystems");
+  let elm = document.getElementById("mySystems");
   elm.style.display = "none";
   elm = document.getElementById("mainDiv");
   elm.style.display = "block";
@@ -240,9 +240,9 @@ function silentAddSystemTagUidInfo(uid, tag, fw) {
   }
 
   saveNewInspireSystemId(uid, tag, fw);
-  populateSystemUidTagHtmlTable("knownSystemsTable");
+  populateSystemUidTagHtmlTable("mySystemsTable");
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownInspireSystems);
+  createDropdownSelect(ddList, myInspireSystems);
   return true;
 }
 
@@ -256,7 +256,7 @@ function addNewSystemBtn() {
   let uid = document.getElementById("newSysUID").value;
   uid = uid.toUpperCase();
 
-  let table = document.getElementById("knownSystemsTable");
+  let table = document.getElementById("mySystemsTable");
   if (findSystemTagObj(tag)) { // tag already exists
     modalAlert("TAG='" + tag + "' already exists", "Try again!");
     return;
@@ -286,8 +286,8 @@ function removeUidRow(btn) {
 }
 
 function doRemoveAllUidRows(btn) {
-  for (let i = 0; i < knownInspireSystems.length;) {
-    let sys = knownInspireSystems[i];
+  for (let i = 0; i < myInspireSystems.length;) {
+    let sys = myInspireSystems[i];
     removeSystem(sys.uid, sys.tag, true);
   }
 }
@@ -298,16 +298,16 @@ function removeAllUidRows(btn) {
     "REMOVE", "DO NOT REMOVE");
 }
 
-function knownSystemInfo() {
+function mySystemInfo() {
   let elm = document.getElementById("mainDiv");
   elm.style.display = "none";
-  elm = document.getElementById("knownSystems");
+  elm = document.getElementById("mySystems");
   elm.style.display = "block";
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 
-  populateSystemUidTagHtmlTable("knownSystemsTable");
-  initSelectRowTable("knownSystemsTable", selectSystemInfo);
+  populateSystemUidTagHtmlTable("mySystemsTable");
+  initSelectRowTable("mySystemsTable", selectSystemInfo);
 }
 
 function checkAndAddNewSystemInfo(newSysUid, newSysTag) {
@@ -418,7 +418,7 @@ window.onload = function () {
 
   let elm = document.getElementById("mainDiv");
   elm.style.display = "block";
-  elm = document.getElementById("knownSystems");
+  elm = document.getElementById("mySystems");
   elm.style.display = "none";
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
@@ -427,7 +427,7 @@ window.onload = function () {
 
   // create dropdown list
   let ddList = document.getElementById("SYSTEM_NAME");
-  createDropdownSelect(ddList, knownInspireSystems);
+  createDropdownSelect(ddList, myInspireSystems);
   let uid = getCookie(uidCookieName);
   let tag = getCookie(tagCookieName);
 
