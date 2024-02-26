@@ -7,8 +7,8 @@
 //  {uid : 
 //  	{
 //  		tile: DOMelement, 
-//  		tileName: ,
 //  		tileColor: , 
+//  		systemTag: ,
 //  		updated: Date, 
 //  		content: {
 //  			patientFName: ,
@@ -73,7 +73,9 @@ function AddRemoveTiles() {
 		let tag = obj.tag;
 		if (isUndefined(activeTiles[uid])) {
 			let content = {};
-			content.state = "UNKNOWN";
+			content.patientFName = "";
+			content.patientLName = "";
+			content.state = "";
 			content.breaths = 0;
 			content.activeState = false;
 			content.attention = false;

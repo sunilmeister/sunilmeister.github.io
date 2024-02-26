@@ -46,13 +46,30 @@ function updateTileImages(uid) {
 	}
 }
 
+function formTileTitle(uid) {
+	if (isUndefined(activeTiles[uid])) return "";
+
+	let fName = activeTiles[uid].content.patientFName;
+	let lName = activeTiles[uid].content.patientLName;
+
+	if ((fName == "") && (lName == "")) return activeTiles[uid].systemTag;
+
+	let title = "";
+	if (fName != "") title = fName;
+	if (lName != "") {
+		if (title != "") title += " ";
+		title += lName;
+	}
+	return title;
+}
+
 function updateTileContents(uid) {
 	if (isUndefined(activeTiles[uid])) return;
 
 	let tile = activeTiles[uid].tile;
 	let content = activeTiles[uid].content;
 
-	let title = activeTiles[uid].tileName;
+	let title = formTileTitle(uid);
 	let breaths = content.breaths;
 
 	let elem = null;
@@ -151,7 +168,7 @@ function updateTileStyles(uid) {
 	changeMarginRight(tile, 'Alert', imageDivMright);
 }
 
-function addTile(uid, tileName, content) {
+function addTile(uid, sysTag, content) {
 	if (!isUndefined(activeTiles[uid])) return;
 
 	let topDiv = document.getElementById('topDiv');
@@ -165,11 +182,10 @@ function addTile(uid, tileName, content) {
 
 	activeTiles[uid] = {};
 	activeTiles[uid].updated = new Date();
-	activeTiles[uid].tileName = tileName;
+	activeTiles[uid].systemTag = sysTag;
 	activeTiles[uid].tile = newTile;
 	activeTiles[uid].tileColor = tileColor;
 	activeTiles[uid].content = cloneObject(content);
-	console.log(content);
 
 	topDiv.appendChild(newTile);
 }
