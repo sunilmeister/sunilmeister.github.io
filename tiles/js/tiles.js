@@ -9,7 +9,7 @@ function updateTileImages(uid) {
 	let content = activeTiles[uid].content;
 
   let stateImg = findChildNodeByClass(tile, 'StateImg');
-	if (!content.activeState) {
+	if (!activeTiles[uid].active) {
 		stateImg.src = '../common/img/Sleep.png'
 	} else if (content.state == 'ERROR') {
 		stateImg.src = '../common/img/ErrorLED.png'
@@ -22,7 +22,7 @@ function updateTileImages(uid) {
 	}
 
   let alertImg = findChildNodeByClass(tile, 'AlertImg');
-	if (!content.activeState) {
+	if (!activeTiles[uid].active) {
 		alertImg.src = '../common/img/Inactive.png'
 	} else if (content.state == 'ERROR') {
 		alertImg.src = '../common/img/Error.png'
@@ -32,14 +32,14 @@ function updateTileImages(uid) {
 		alertImg.src = '../common/img/OK.png'
 	}
 
-	if (content.activeState) {
+	if (activeTiles[uid].active) {
 		tile.style.backgroundColor = getActiveTileColorBG();
 	} else {
 		tile.style.backgroundColor = getInactiveTileColorBG();
 	}
 
   let elem = findChildNodeByClass(tile, 'statusCaption');
-	if (content.activeState) {
+	if (activeTiles[uid].active) {
 		elem.innerHTML = "Transmitting" ;
 	} else {
 		elem.innerHTML = "NOT Transmitting" ;
@@ -78,14 +78,14 @@ function updateTileContents(uid) {
 
 	elem = findChildNodeByClass(tile,'breathNum');
 	elem.innerHTML = breaths;
-	if (content.activeState) {
+	if (activeTiles[uid].active) {
 		elem.style.color = getActiveTileColorFG();
 	} else {
 		elem.style.color = getInactiveTileColorFG();
 	}
 
-	elem = findChildNodeByClass(tile,'activeState');
-	if (content.activeState) {
+	elem = findChildNodeByClass(tile,'active');
+	if (activeTiles[uid].active) {
 		elem.innerHTML = "ACTIVE";
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -97,7 +97,7 @@ function updateTileContents(uid) {
 	elem.innerHTML = uid;
 
 	elem = findChildNodeByClass(tile,'statusCaption');
-	if (content.activeState) {
+	if (activeTiles[uid].active) {
 		elem.style.backgroundColor = getActiveCaptionColorBG();
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -106,7 +106,7 @@ function updateTileContents(uid) {
 	}
 
 	elem = findChildNodeByClass(tile,'breathCaption');
-	if (content.activeState) {
+	if (activeTiles[uid].active) {
 		elem.style.backgroundColor = getActiveCaptionColorBG();
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -149,9 +149,9 @@ function updateTileStyles(uid) {
 	let activeFontSize = tileSize * 28 / 315;
 	let activeMtop = tileSize * (-12) / 315;
 	let activeMbot = tileSize * (-6) / 315;
-	changeFontSize(tile, 'activeState', activeFontSize);
-	changeMarginTop(tile, 'activeState', activeMtop);
-	changeMarginBottom(tile, 'activeState', activeMbot);
+	changeFontSize(tile, 'active', activeFontSize);
+	changeMarginTop(tile, 'active', activeMtop);
+	changeMarginBottom(tile, 'active', activeMbot);
 
 	let imageSize = tileSize * 60 / 315;
 	let imageDivMtop = tileSize * (-32) / 315;
@@ -181,6 +181,7 @@ function addTile(uid, sysTag, content) {
 	newTile.style.color = fgColor;
 
 	activeTiles[uid] = {};
+	activeTiles[uid].active = false;
 	activeTiles[uid].updated = new Date();
 	activeTiles[uid].systemTag = sysTag;
 	activeTiles[uid].tile = newTile;

@@ -6,15 +6,15 @@
 //	activeTiles object is like below
 //  {uid : 
 //  	{
+// 			active: true,
 //  		tile: DOMelement, 
 //  		tileColor: , 
 //  		systemTag: ,
 //  		updated: Date, 
 //  		content: {
-	//  		state: ,
+//  			state: ,
 //  			patientFName: ,
 //  			patientLName: ,
-//  			activeState: ,
 //  			attention: ,
 //  			breaths: ,
 //  			firmware: ,
@@ -25,20 +25,56 @@
 // ////////////////////////////////////////////////////
 var activeTiles = {};
 
-async function getUidRecentMessage(uid) {
-	return {};
+async function updateUidContent(uid) {
+	let jsonContent = {};
+  if (USE_DWEET_FOR_MESSAGES) {
+		dweetio.get_latest_dweet_for(uid, function(err, dweet){
+			var jsonContent = dweet[0];
+			if (!jsonContent) return;
+  		let timestamp = new Date(jsonContent.created);
+			let prevTMS = activeTiles[uid].updated.getTime();
+			let currTMS = timestamp.getTime();
+			if (prevTMS < currTMS) {
+				disassembleAndProcessDweet(uid, jsonContent);
+  		}
+		});
+		
+	} else {
+		let jsonContent = await inspireGetone(uid);
+		if (jsonContent.status != 'ok') return;
+  	let payload = jsonContent.response.content;
+  	if (payload === null) return;
+  	if (typeof payload !== 'object') return;
+  	if (Object.keys(payload).length == 0) return;
+
+  	let timestamp = new Date(jsonContent.response.updatedAt);
+		let prevTMS = activeTiles[uid].updated.getTime();
+		let currTMS = timestamp.getTime();
+		if (prevTMS < currTMS) {
+			disassembleAndProcessDweet(uid, jsonContent);
+  	}
+	}
 }
 
-async function updateUidContents(uid) {
-	let msg = await getUidRecentMessage(uid);
-  parseAndUpdateUidContents(uid, msg);
+function disassembleAndProcessDweet(uid, d) {
+  if (isUndefined(d.content)) return;
+  let fragmentIndex = 0;
+  while (1) {
+    let key = String(fragmentIndex);
+    fragmentIndex++;
+
+    if (isUndefined(d.content[key])) break;
+    fragment = d.content[key];
+		fragment.created = new Date(d.created);
+    parseAndUpdateUidContents(uid, cloneObject(fragment));
+  }
 }
 
 function parseAndUpdateUidContents(uid, jsonData) {
   let curTime = new Date(jsonData.created);
 	let content = activeTiles[uid].content;
 	activeTiles[uid].updated = curTime;
-	activeTiles[uid].activeState = true;
+	activeTiles[uid].active = true;
 
   for (let key in jsonData) {
     if (key == 'content') {
@@ -88,7 +124,7 @@ function parseAndUpdateUidContents(uid, jsonData) {
 function updatePage() {
 	// update the data in all tiles
   for (const uid in activeTiles) {
-		updateUidContents(uid);
+		updateUidContent(uid);
 	}
 }
 
@@ -106,7 +142,6 @@ function AddRemoveTiles() {
 			content.patientLName = "";
 			content.state = "";
 			content.breaths = 0;
-			content.activeState = false;
 			content.attention = false;
 			addTile(uid, tag, content);
 			updateTileContents(uid);
@@ -126,7 +161,6 @@ function AddRemoveTiles() {
 
 		if (!found) {
 			deleteTile(uid);
-			console.log('Removing tile');
 		}
 	}
 

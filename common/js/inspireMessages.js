@@ -43,7 +43,7 @@ async function inspireGetone(uidString) {
 
 async function executeInspireListenFor(uidString, callbackFn) {
 	let getoneContent = await inspireGetone(uidString);
-	if (getoneContent.status != 'ok') return;;
+	if (getoneContent.status != 'ok') return;
 
   let timestamp = new Date(getoneContent.response.updatedAt);
 
