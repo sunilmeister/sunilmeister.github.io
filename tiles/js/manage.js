@@ -36,7 +36,14 @@ async function updateUidContent(uid) {
 			let currTMS = timestamp.getTime();
 			if (prevTMS < currTMS) {
 				disassembleAndProcessDweet(uid, jsonContent);
-  		}
+  		} else {
+				// Check for dormancy
+				let now = new Date();
+				if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
+					activeTiles[uid].active = false;
+					updateTileContents(uid);
+				}
+			}
 		});
 		
 	} else {
@@ -56,6 +63,13 @@ async function updateUidContent(uid) {
   		// when switching from dweet to inspireListenFor
   		let dweetObj = dweetFormat(uid, timestamp, jsonContent);
 			disassembleAndProcessDweet(uid, dweetObj);
+ 		} else {
+			// Check for dormancy
+			let now = new Date();
+			if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
+				activeTiles[uid].active = false;
+				updateTileContents(uid);
+			}
   	}
 	}
 }
@@ -122,7 +136,6 @@ function parseAndUpdateUidContents(uid, jsonData) {
   }
 
 	updateTileContents(uid);
-	resizeAllTiles();
 }
 
 const MAX_DORMANT_TIME_IN_MS = 20000;
@@ -130,11 +143,8 @@ function updatePage() {
 	// update the data in all tiles
   for (const uid in activeTiles) {
 		updateUidContent(uid);
-		let now = new Date();
-		if ((now.getTime() - activeTiles[uid].updated.getTime()) > MAX_DORMANT_TIME_IN_MS) {
-			activeTiles[uid].active = false;
-		}
 	}
+	resizeAllTiles();
 }
 
 function AddRemoveTiles() {
