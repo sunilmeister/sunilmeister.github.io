@@ -51,7 +51,11 @@ async function updateUidContent(uid) {
 		let prevTMS = activeTiles[uid].updated.getTime();
 		let currTMS = timestamp.getTime();
 		if (prevTMS < currTMS) {
-			disassembleAndProcessDweet(uid, jsonContent);
+  		// change the response to be in dweet format
+  		// so that the rest of the code does not have to change
+  		// when switching from dweet to inspireListenFor
+  		let dweetObj = dweetFormat(uid, timestamp, jsonContent);
+			disassembleAndProcessDweet(uid, dweetObj);
   	}
 	}
 }
@@ -121,10 +125,15 @@ function parseAndUpdateUidContents(uid, jsonData) {
 	resizeAllTiles();
 }
 
+const MAX_DORMANT_TIME_IN_MS = 20000;
 function updatePage() {
 	// update the data in all tiles
   for (const uid in activeTiles) {
 		updateUidContent(uid);
+		let now = new Date();
+		if ((now.getTime() - activeTiles[uid].updated.getTime()) > MAX_DORMANT_TIME_IN_MS) {
+			activeTiles[uid].active = false;
+		}
 	}
 }
 
