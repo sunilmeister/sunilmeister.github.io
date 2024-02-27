@@ -93,8 +93,7 @@ function parseAndUpdateUidContents(uid, jsonData) {
 	activeTiles[uid].updated = curTime;
 	if (!activeTiles[uid].active) {
 		// initialize
-		content.state = "INITIAL";
-		content.breaths = 0;
+		activeTiles[uid].content = cloneObject(initialTileContent());
 	}
 	activeTiles[uid].active = true;
 
