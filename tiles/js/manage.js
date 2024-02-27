@@ -92,6 +92,11 @@ function parseAndUpdateUidContents(uid, jsonData) {
   let curTime = new Date(jsonData.created);
 	let content = activeTiles[uid].content;
 	activeTiles[uid].updated = curTime;
+	if (!activeTiles[uid].active) {
+		// initialize
+		content.state = "INITIAL";
+		content.breaths = 0;
+	}
 	activeTiles[uid].active = true;
 
   for (let key in jsonData) {
@@ -105,7 +110,23 @@ function parseAndUpdateUidContents(uid, jsonData) {
   				}
         } else if (ckey == "FWVER") {
 					content.firmware = value;
-        } else if (ckey == "STATE") {
+        } else if (ckey == "PARAM") {
+        	let obj = parseParamData(value);
+					if (!obj) continue;
+					content.mode = obj.mode;
+					content.vt = obj.vt;
+					content.mv = obj.mv;
+					content.rr = obj.rr;
+					content.ie = obj.ie;
+					content.ps = obj.ps;
+					content.tps = obj.tps;
+					content.ipeep = obj.ipeep;
+					content.pmax = obj.pmax;
+        } else if (ckey == "FIO2") {
+        	let obj = parseFiO2Data(value);
+					if (!obj) continue;
+					content.fiO2 = obj.fiO2;
+				} else if (ckey == "STATE") {
   				switch (value) {
     				case 2 : 
 							content.state = "STANDBY";
@@ -187,8 +208,41 @@ function AddRemoveTiles() {
 	resizeAllTiles();
 }
 
+var activeViewIsState = true;
+function toggleActiveView() {
+  for (const uid in activeTiles) {
+		if (!activeTiles[uid].active) continue;
+		let tile = activeTiles[uid].tile;
+		let content = activeTiles[uid].content;
+
+		let stateDiv = findChildNodeByClass(tile,'StateContent');
+		let paramDivNonPSV = findChildNodeByClass(tile,'ParamContentNonPSV');
+		let paramDivPSV = findChildNodeByClass(tile,'ParamContentPSV');
+
+		if (activeViewIsState) {
+			activeViewIsState = false;
+			stateDiv.style.display = "none";
+			if (MODE_DECODER[content.mode] == "PSV") {
+				paramDivPSV.style.display = "block";
+			} else {
+				paramDivNonPSV.style.display = "block";
+			}
+		} else {
+			activeViewIsState = true;
+			stateDiv.style.display = "block";
+			paramDivPSV.style.display = "none";
+			paramDivNonPSV.style.display = "none";
+		}
+	}
+}
+
 setInterval(() => {
 	AddRemoveTiles();
 	updatePage();
 }, 2000)
+
+setInterval(() => {
+	toggleActiveView();
+}, 6000)
+
 

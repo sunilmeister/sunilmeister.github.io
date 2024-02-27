@@ -589,7 +589,7 @@ function processPwsliceDweet(receivedSliceNum, str) {
 // All other dweets below
 // /////////////////////////////////////////////////////
 function processPstatsDweet(curTime, jsonStr) {
-  obj = parsePstats(jsonStr);
+  let obj = parsePstats(jsonStr);
   if (!obj) return;
 
   session.patientData.gender = obj.gender;
@@ -599,7 +599,7 @@ function processPstatsDweet(curTime, jsonStr) {
 }
 
 function processWifiDweet(curTime, jsonStr) {
-  obj = parseWifiData(jsonStr);
+  let obj = parseWifiData(jsonStr);
   if (!obj) return;
 
   session.wifi.drops.push({
@@ -623,7 +623,7 @@ function processWifiDweet(curTime, jsonStr) {
 }
 
 function processStateDweet(curTime, jsonStr) {
-  obj = parseStateData(jsonStr);
+  let obj = parseStateData(jsonStr);
   if (!obj) return;
   if (obj.state == session.stateData.state) return;
 
@@ -669,7 +669,7 @@ function updatePendingParamState() {
 }
 
 function processSwDweet(curTime, jsonStr) {
-  obj = parseSwData(jsonStr);
+  let obj = parseSwData(jsonStr);
   if (!obj) return;
 
   if (session.firmwareVersion.major === null) {
@@ -681,7 +681,7 @@ function processSwDweet(curTime, jsonStr) {
 }
 
 function processParamDweet(curTime, jsonStr) {
-  obj = parseParamData(jsonStr);
+  let obj = parseParamData(jsonStr);
   if (!obj) return;
 
   session.paramDataOnDisplay = cloneObject(obj);
@@ -706,7 +706,7 @@ function processParamDweet(curTime, jsonStr) {
 }
 
 function processFiO2Dweet(curTime, jsonStr) {
-  obj = parseFiO2Data(jsonStr);
+  let obj = parseFiO2Data(jsonStr);
   if (!obj) return;
 
   saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2Used", "fiO2Changes", curTime, obj);
@@ -715,7 +715,7 @@ function processFiO2Dweet(curTime, jsonStr) {
 }
 
 function processMinuteDweet(curTime, jsonStr) {
-  obj = parseMinuteData(jsonStr);
+  let obj = parseMinuteData(jsonStr);
   if (!obj) return;
   if (obj.mmvdel !== null) { // valid minute volume
     obj.mmvdel = parseFloat(obj.mmvdel/1000).toFixed(1);
@@ -732,7 +732,7 @@ function processMinuteDweet(curTime, jsonStr) {
 }
 
 function processBreathDweet(curTime, jsonStr) {
-  obj = parseBreathData(jsonStr);
+  let obj = parseBreathData(jsonStr);
   if (!obj) return;
   if (session.stateData.error) obj.type = MAINTENANCE_BREATH;
 
@@ -748,7 +748,7 @@ function processBreathDweet(curTime, jsonStr) {
 }
 
 function processComplianceDweet(curTime, jsonStr) {
-  obj = parseComplianceData(jsonStr);
+  let obj = parseComplianceData(jsonStr);
   if (!obj) return;
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
   if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
@@ -758,7 +758,7 @@ function processComplianceDweet(curTime, jsonStr) {
 }
 
 function processMiscDweet(curTime, jsonStr) {
-  obj = parseMiscData(jsonStr);
+  let obj = parseMiscData(jsonStr);
   if (!obj) return;
 
   saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
@@ -844,7 +844,7 @@ function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) 
 }
 
 function processComplianceDweet(curTime, jsonStr) {
-  obj = parseComplianceData(jsonStr);
+  let obj = parseComplianceData(jsonStr);
   if (!obj) return;
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
   if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
@@ -861,7 +861,7 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
 }
 
 function processBnumDweet(curTime, value, jsonData) {
-  obj = parseBnumData(value);
+  let obj = parseBnumData(value);
   if (!obj) return;
 
   // BNUM time is more accurate - use that for breathTimes

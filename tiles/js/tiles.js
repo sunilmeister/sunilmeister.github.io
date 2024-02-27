@@ -63,6 +63,21 @@ function formTileTitle(uid) {
 	return title;
 }
 
+function updateTileParams(uid) {
+	if (isUndefined(activeTiles[uid])) return;
+
+	let tile = activeTiles[uid].tile;
+	let content = activeTiles[uid].content;
+
+	changeParamValue("MODEvalue",content.mode);
+	changeParamValue("VTvalue",content.vt);
+	changeParamValue("RRvalue",content.rr);
+	changeParamValue("IEvalue",content.ie);
+	changeParamValue("FiO2value",content.fiO2);
+	changeParamValue("PSvalue",content.ps);
+	changeParamValue("MVvalue",content.mv);
+}
+
 function updateTileContents(uid) {
 	if (isUndefined(activeTiles[uid])) return;
 
@@ -114,10 +129,31 @@ function updateTileContents(uid) {
 		elem.style.color = getInactiveTileColorFG();
 	}
 
+	updateTileParams(uid);
 	updateTileImages(uid);
 }
 
-function updateTileStyles(uid) {
+const REF_TILE_SIZE = 315;
+function scaleSize(tileSize, s) {
+	return tileSize * s / REF_TILE_SIZE;
+}
+
+function updateTileSizes(uid) {
+	updateTileSizesState(uid);
+	updateTileSizesParams(uid);
+}
+
+function updateTileSizesParams(uid) {
+	if (isUndefined(activeTiles[uid])) return;
+
+	let tile = activeTiles[uid].tile;
+	let content = activeTiles[uid].content;
+
+	let tileSize = tile.clientHeight;
+}
+
+
+function updateTileSizesState(uid) {
 	if (isUndefined(activeTiles[uid])) return;
 
 	let tile = activeTiles[uid].tile;
@@ -125,47 +161,47 @@ function updateTileStyles(uid) {
 
 	let tileSize = tile.clientHeight;
 
-	let uidFontSize = tileSize * 16 / 315;
-	let uidPadding = tileSize * 10 / 315;
-	changeFontSize(tile, 'tileUid', uidFontSize);
-	changePadding(tile, 'tileUid', uidPadding);
+	let uidFontSize = scaleSize(tileSize, 16);
+	let uidPadding = scaleSize(tileSize, 10);
+	changeFontSize('tileUid', uidFontSize);
+	changePadding('tileUid', uidPadding);
 
-	let captionFontSize = tileSize * 24 / 315;
-	changeFontSize(tile, 'statusCaption', captionFontSize);
-	changeFontSize(tile, 'breathCaption', captionFontSize);
+	let captionFontSize = scaleSize(tileSize, 24);
+	changeFontSize('statusCaption', captionFontSize);
+	changeFontSize('breathCaption', captionFontSize);
 
-	let tileNameFontSize = tileSize * 30 / 315;
-	let tileNameMtop = tileSize * (-4) / 315;
-	changeFontSize(tile, 'tileName', tileNameFontSize);
-	changeMarginTop(tile, 'tileName', tileNameMtop);
+	let tileNameFontSize = scaleSize(tileSize, 30);
+	let tileNameMtop = scaleSize(tileSize, -4);
+	changeFontSize('tileName', tileNameFontSize);
+	changeMarginTop('tileName', tileNameMtop);
 
-	let breathNumFontSize = tileSize * 32 / 315;
-	let breathNumMtop = tileSize * (-12) / 315;
-	let breathNumMbot = tileSize * (8) / 315;
-	changeFontSize(tile, 'breathNum', breathNumFontSize);
-	changeMarginTop(tile, 'breathNum', breathNumMtop);
-	changeMarginBottom(tile, 'breathNum', breathNumMbot);
+	let breathNumFontSize = scaleSize(tileSize, 32);
+	let breathNumMtop = scaleSize(tileSize, -12);
+	let breathNumMbot = scaleSize(tileSize,8);
+	changeFontSize('breathNum', breathNumFontSize);
+	changeMarginTop('breathNum', breathNumMtop);
+	changeMarginBottom('breathNum', breathNumMbot);
 
-	let activeFontSize = tileSize * 28 / 315;
-	let activeMtop = tileSize * (-12) / 315;
-	let activeMbot = tileSize * (-6) / 315;
-	changeFontSize(tile, 'active', activeFontSize);
-	changeMarginTop(tile, 'active', activeMtop);
-	changeMarginBottom(tile, 'active', activeMbot);
+	let activeFontSize = scaleSize(tileSize, 28);
+	let activeMtop = scaleSize(tileSize, -12);
+	let activeMbot = scaleSize(tileSize, -6);
+	changeFontSize('active', activeFontSize);
+	changeMarginTop('active', activeMtop);
+	changeMarginBottom('active', activeMbot);
 
-	let imageSize = tileSize * 60 / 315;
-	let imageDivMtop = tileSize * (-32) / 315;
-	let imageDivMbot = tileSize * (20) / 315;
-	let imageDivMleft = tileSize * 54 / 315;
-	let imageDivMright = tileSize * 54 / 315;
-	changeImageSize(tile, 'StateImg', imageSize);
-	changeMarginTop(tile, 'State', imageDivMtop);
-	changeMarginBottom(tile, 'State', imageDivMbot);
-	changeMarginLeft(tile, 'State', imageDivMleft);
-	changeImageSize(tile, 'AlertImg', imageSize);
-	changeMarginTop(tile, 'Alert', imageDivMtop);
-	changeMarginBottom(tile, 'Alert', imageDivMbot);
-	changeMarginRight(tile, 'Alert', imageDivMright);
+	let imageSize = scaleSize(tileSize, 60);
+	let imageDivMtop = scaleSize(tileSize, -32);
+	let imageDivMbot = scaleSize(tileSize, 20);
+	let imageDivMleft = scaleSize(tileSize, 54);
+	let imageDivMright = scaleSize(tileSize, 54);
+	changeImageSize('StateImg', imageSize);
+	changeMarginTop('State', imageDivMtop);
+	changeMarginBottom('State', imageDivMbot);
+	changeMarginLeft('State', imageDivMleft);
+	changeImageSize('AlertImg', imageSize);
+	changeMarginTop('Alert', imageDivMtop);
+	changeMarginBottom('Alert', imageDivMbot);
+	changeMarginRight('Alert', imageDivMright);
 }
 
 function addTile(uid, sysTag, content) {
@@ -236,7 +272,7 @@ setInterval(() => {
 
 function resizeAllTiles() {
   for (const uid in activeTiles) {
-		updateTileStyles(uid);
+		updateTileSizes(uid);
 	}
 }
 

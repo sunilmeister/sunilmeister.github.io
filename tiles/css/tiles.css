@@ -123,3 +123,52 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 	margin-top: -1.75rem;
 	margin-left: 1.5rem;
 }
+
+.StateContent {
+	display: block;
+}
+
+.ParamContentNonPSV {
+	display: none;
+	margin-top: -10px;
+}
+
+.ParamContentPSV {
+	display: none;
+	margin-top: 50px;
+}
+
+.ParamRow {
+	clear: both;
+}
+
+.ParamFloatLeft {
+	float: left;
+	border-style: solid;
+	border-color: white;
+	width: 42%;
+	margin: 5px;
+}
+
+.ParamFloatRight {
+	float: right;
+	border-style: solid;
+	border-color: white;
+	width: 42%;
+	margin: 5px;
+}
+
+.ParamName {
+	font-size: 28px;
+	font-weight: bold;
+	color: white;
+	background-color: gray;
+	margin: 5px;
+}
+
+.ParamValue {
+	font-size: 28px;
+	font-weight: bold;
+	color: white;
+	margin: 5px;
+}

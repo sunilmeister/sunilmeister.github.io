@@ -1,80 +1,125 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <meta charset="UTF-8">
-  <title>Inspire-100 Tiles</title>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <!-- Enable responsive view on mobile devices -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <link rel="icon" type="image/png" href="../common/img/favicon.png">
-
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
-
-  <link href="css/tiles.css" rel="stylesheet" />
-  <link href="../common/css/colors.css" rel="stylesheet" />
-  <link href="../common/css/common.css" rel="stylesheet" />
-
-  <script src="../external/hacktimer/HackTimer.min.js"></script>
-  <script src="../external/nouislider/nouislider.min.js"></script>
-  <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
-  <script src="../external/canvasjs/canvasjs.min.js"></script>
-  <script src="../external/pure-knob-master/pureknob.js"></script>
-
-  <script src="https://dweet.io/client/dweet.io.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="../common/js/inspireMessages.js"></script>
-
-  <script src="../common/js/constants.js"></script>
-  <script src="../common/js/palette.js"></script>
-  <script src="../common/js/uid.js"></script>
-  <script src="../common/js/common.js"></script>
-  <script src="../common/js/modalPopup.js"></script>
-  <script src="../common/js/hidePopups.js"></script>
-  <script src="../common/js/enterSubmit.js"></script>
-  <script src="js/colors.js"></script>
-  <script src="js/styles.js"></script>
-  <script src="js/tiles.js"></script>
-  <script src="js/manage.js"></script>
-</head>
-
-<body class="no-touch">
-
-  <div class="wrapTiles" id=topDiv>
-	</div>
-    
-<!-- 
+  <head>
+    <meta charset="UTF-8">
+    <title>Inspire-100 Tiles</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <!-- Enable responsive view on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="icon" type="image/png" href="../common/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+    <link href="css/tiles.css" rel="stylesheet" />
+    <link href="../common/css/colors.css" rel="stylesheet" />
+    <link href="../common/css/common.css" rel="stylesheet" />
+    <script src="../external/hacktimer/HackTimer.min.js"></script>
+    <script src="../external/nouislider/nouislider.min.js"></script>
+    <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../external/canvasjs/canvasjs.min.js"></script>
+    <script src="../external/pure-knob-master/pureknob.js"></script>
+    <script src="https://dweet.io/client/dweet.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../common/js/inspireMessages.js"></script>
+    <script src="../common/js/constants.js"></script>
+    <script src="../common/js/palette.js"></script>
+    <script src="../common/js/uid.js"></script>
+    <script src="../common/js/common.js"></script>
+    <script src="../common/js/modalPopup.js"></script>
+    <script src="../common/js/hidePopups.js"></script>
+    <script src="../common/js/enterSubmit.js"></script>
+    <script src="../common/js/dweets.js"></script>
+    <script src="js/colors.js"></script>
+    <script src="js/styles.js"></script>
+    <script src="js/tiles.js"></script>
+    <script src="js/manage.js"></script>
+  </head>
+  <body class="no-touch">
+    <div class="wrapTiles" id=topDiv></div>
+    <!-- 
 // ////////////////////////////////////////////////////
 // Below are all templates only
 // ////////////////////////////////////////////////////
 -->
-  <template id=tileTemplate>
-    <div class=tile>
-			<center>
-      <div class=tileContent>
-				<p class=tileName></p>
-				<p class=statusCaption>NOT Transmitting</p>
-        <div class=State>
-          <img class=StateImg src="../common/img/InitialLED.png" alt="LED" style="margin-top:1.55rem" width="60rem" height="60rem">
-        </div>
-				<div class=Alert>
-          <img class=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:1.5rem" height=60rem; width=60rem;>
-        </div>
-				<div style="clear: both;">
-				<p class=breathCaption>Last Recorded Breath#</p>
-				<p class=breathNum></p>
-				<p class=active></p>
-				</div>
-        <div class=tileUid></div>
-			</div>
-			</center>
-    </div>
-  </template>
-
-</body>
-
+    <template id=tileTemplate>
+      <div class=tile>
+        <center>
+          <div class=tileContent>
+            <p class=tileName></p>
+            <div class=StateContent>
+              <p class=statusCaption>NOT Transmitting</p>
+              <div class=State>
+                <img class=StateImg src="../common/img/InitialLED.png" alt="LED" style="margin-top:1.55rem" width="60rem" height="60rem">
+              </div>
+              <div class=Alert>
+                <img class=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:1.5rem" height=60rem; width=60rem;>
+              </div>
+              <div style="clear: both;">
+                <p class=breathCaption>Last Recorded Breath#</p>
+                <p class=breathNum></p>
+                <p class=active></p>
+              </div>
+            </div>
+            <div class=ParamContentNonPSV>
+              <div class=ParamRow>
+                <div class=ParamFloatLeft>
+                  <p class=ParamName>MODE</p>
+                  <p class='ParamValue MODEvalue'>SIMV</p>
+                </div>
+                <div class=ParamFloatRight>
+                  <p class=ParamName>VT</p>
+                  <p class='ParamValue VTvalue'>600</p>
+                </div>
+              </div>
+              <div class=ParamRow>
+                <div class=ParamFloatLeft>
+                  <p class=ParamName>RR</p>
+                  <p class='ParamValue RRvalue'>20</p>
+                </div>
+                <div class=ParamFloatRight>
+                  <p class=ParamName>I:E</p>
+                  <p class='ParamValue IEvalue'>1:2</p>
+                </div>
+              </div>
+              <div class=ParamRow>
+                <div class=ParamFloatLeft>
+                  <p class=ParamName>FiO2</p>
+                  <p class='ParamValue FiO2value'>60%</p>
+                </div>
+                <div class=ParamFloatRight>
+                  <p class=ParamName>PS</p>
+                  <p class='ParamValue PSvalue'>30</p>
+                </div>
+              </div>
+            </div>
+            <div class=ParamContentPSV>
+              <div class=ParamRow>
+                <div class=ParamFloatLeft>
+                  <p class=ParamName>MODE</p>
+                  <p class='ParamValue MODEvalue'>PSV</p>
+                </div>
+                <div class=ParamFloatRight>
+                  <p class=ParamName>MV</p>
+                  <p class='ParamValue MVvalue'>10.5</p>
+                </div>
+              </div>
+              <div class=ParamRow>
+                <div class=ParamFloatLeft>
+                  <p class=ParamName>FiO2</p>
+                  <p class='ParamValue FiO2value'>50%</p>
+                </div>
+                <div class=ParamFloatRight>
+                  <p class=ParamName>PS</p>
+                  <p class='ParamValue PSvalue'>35</p>
+                </div>
+              </div>
+            </div>
+            <div class=tileUid></div>
+          </div>
+        </center>
+      </div>
+    </template>
+  </body>
 </html>
