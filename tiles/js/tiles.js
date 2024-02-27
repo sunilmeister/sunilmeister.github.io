@@ -2,50 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function updateTileImages(uid) {
-	if (isUndefined(activeTiles[uid])) return;
-
-	let tile = activeTiles[uid].tile;
-	let content = activeTiles[uid].content;
-
-  let stateImg = findChildNodeByClass(tile, 'StateImg');
-	if (!activeTiles[uid].active) {
-		stateImg.src = '../common/img/Sleep.png'
-	} else if (content.state == 'ERROR') {
-		stateImg.src = '../common/img/ErrorLED.png'
-	} else if (content.state == 'ACTIVE') {
-		stateImg.src = '../common/img/ActiveLED.png'
-	} else if (content.state == 'STANDBY') {
-		stateImg.src = '../common/img/StandbyLED.png'
-	} else {
-		stateImg.src = '../common/img/InitialLED.png'
-	}
-
-  let alertImg = findChildNodeByClass(tile, 'AlertImg');
-	if (!activeTiles[uid].active) {
-		alertImg.src = '../common/img/Inactive.png'
-	} else if (content.state == 'ERROR') {
-		alertImg.src = '../common/img/Error.png'
-	} else if (content.attention) {
-		alertImg.src = '../common/img/Warning.png'
-	} else {
-		alertImg.src = '../common/img/OK.png'
-	}
-
-	if (activeTiles[uid].active) {
-		tile.style.backgroundColor = getActiveTileColorBG();
-	} else {
-		tile.style.backgroundColor = getInactiveTileColorBG();
-	}
-
-  let elem = findChildNodeByClass(tile, 'statusCaption');
-	if (activeTiles[uid].active) {
-		elem.innerHTML = "Transmitting" ;
-	} else {
-		elem.innerHTML = "NOT Transmitting" ;
-	}
-}
-
 function formTileTitle(uid) {
 	if (isUndefined(activeTiles[uid])) return "";
 
@@ -63,6 +19,12 @@ function formTileTitle(uid) {
 	return title;
 }
 
+function updateTileContents(uid) {
+	updateTileParams(uid);
+	updateTileState(uid);
+	updateTileImages(uid);
+}
+
 function updateTileParams(uid) {
 	if (isUndefined(activeTiles[uid])) return;
 
@@ -78,7 +40,7 @@ function updateTileParams(uid) {
 	changeParamValue("MVvalue",content.mv);
 }
 
-function updateTileContents(uid) {
+function updateTileState(uid) {
 	if (isUndefined(activeTiles[uid])) return;
 
 	let tile = activeTiles[uid].tile;
@@ -128,9 +90,50 @@ function updateTileContents(uid) {
 		elem.style.backgroundColor = getInactiveCaptionColorBG();
 		elem.style.color = getInactiveTileColorFG();
 	}
+}
 
-	updateTileParams(uid);
-	updateTileImages(uid);
+function updateTileImages(uid) {
+	if (isUndefined(activeTiles[uid])) return;
+
+	let tile = activeTiles[uid].tile;
+	let content = activeTiles[uid].content;
+
+  let stateImg = findChildNodeByClass(tile, 'StateImg');
+	if (!activeTiles[uid].active) {
+		stateImg.src = '../common/img/Sleep.png'
+	} else if (content.state == 'ERROR') {
+		stateImg.src = '../common/img/ErrorLED.png'
+	} else if (content.state == 'ACTIVE') {
+		stateImg.src = '../common/img/ActiveLED.png'
+	} else if (content.state == 'STANDBY') {
+		stateImg.src = '../common/img/StandbyLED.png'
+	} else {
+		stateImg.src = '../common/img/InitialLED.png'
+	}
+
+  let alertImg = findChildNodeByClass(tile, 'AlertImg');
+	if (!activeTiles[uid].active) {
+		alertImg.src = '../common/img/Inactive.png'
+	} else if (content.state == 'ERROR') {
+		alertImg.src = '../common/img/Error.png'
+	} else if (content.attention) {
+		alertImg.src = '../common/img/Warning.png'
+	} else {
+		alertImg.src = '../common/img/OK.png'
+	}
+
+	if (activeTiles[uid].active) {
+		tile.style.backgroundColor = getActiveTileColorBG();
+	} else {
+		tile.style.backgroundColor = getInactiveTileColorBG();
+	}
+
+  let elem = findChildNodeByClass(tile, 'statusCaption');
+	if (activeTiles[uid].active) {
+		elem.innerHTML = "Transmitting" ;
+	} else {
+		elem.innerHTML = "NOT Transmitting" ;
+	}
 }
 
 const REF_TILE_SIZE = 315;
@@ -139,8 +142,8 @@ function scaleSize(tileSize, s) {
 }
 
 function updateTileSizes(uid) {
-	updateTileSizesState(uid);
 	updateTileSizesParams(uid);
+	updateTileSizesState(uid);
 }
 
 function updateTileSizesParams(uid) {
@@ -150,6 +153,17 @@ function updateTileSizesParams(uid) {
 	let content = activeTiles[uid].content;
 
 	let tileSize = tile.clientHeight;
+
+	changeMarginTop('ParamContentNonPSV', scaleSize(tileSize, -10));
+	changeMarginTop('ParamContentPSV', scaleSize(tileSize, 50));
+	changeMargin('ParamFloatLeft', scaleSize(tileSize, 5));
+	changeMargin('ParamFloatRight', scaleSize(tileSize, 5));
+
+	changeFontSize('ParamName', scaleSize(tileSize, 20));
+	changeMargin('ParamName', scaleSize(tileSize, 5));
+
+	changeFontSize('ParamValue', scaleSize(tileSize, 20));
+	changeMargin('ParamValue', scaleSize(tileSize, 5));
 }
 
 

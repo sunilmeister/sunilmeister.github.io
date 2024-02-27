@@ -10,6 +10,14 @@ function changeParamValue(className, value) {
 	}
 }
 
+function changeMargin(className, size) {
+	let elems = document.getElementsByClassName(className);
+	for (let i=0; i<elems.length; i++) {
+  	let elem = elems[i];
+		elem.style.margin = String(Math.floor(size)) + "px";
+	}
+}
+
 function changeMarginTop(className, size) {
 	let elems = document.getElementsByClassName(className);
 	for (let i=0; i<elems.length; i++) {

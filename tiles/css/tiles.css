@@ -160,7 +160,6 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 
 .ParamName {
 	font-size: 28px;
-	font-weight: bold;
 	color: white;
 	background-color: gray;
 	margin: 5px;
