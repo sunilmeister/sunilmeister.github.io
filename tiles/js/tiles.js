@@ -159,7 +159,7 @@ function updateTileSizesParams(uid) {
 	changeMargin('ParamFloatLeft', scaleSize(tileSize, 5));
 	changeMargin('ParamFloatRight', scaleSize(tileSize, 5));
 
-	changeFontSize('ParamName', scaleSize(tileSize, 20));
+	changeFontSize('ParamName', scaleSize(tileSize, 15));
 	changeMargin('ParamName', scaleSize(tileSize, 5));
 
 	changeFontSize('ParamValue', scaleSize(tileSize, 20));
@@ -204,8 +204,8 @@ function updateTileSizesState(uid) {
 	changeMarginBottom('active', activeMbot);
 
 	let imageSize = scaleSize(tileSize, 60);
-	let imageDivMtop = scaleSize(tileSize, -32);
-	let imageDivMbot = scaleSize(tileSize, 20);
+	let imageDivMtop = scaleSize(tileSize, -40);
+	let imageDivMbot = scaleSize(tileSize, 10);
 	let imageDivMleft = scaleSize(tileSize, 54);
 	let imageDivMright = scaleSize(tileSize, 54);
 	changeImageSize('StateImg', imageSize);
