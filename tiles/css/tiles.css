@@ -29,6 +29,7 @@ body {
 .tileContent img {
   width: 100%;
 }
+
 .tileContent .tileUid {
   position: absolute;
   bottom: 0;
@@ -80,48 +81,34 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 .statusCaption {
 	background-color: darkgray;
 	color: black;
-	font-size: 1.5rem;
 }
 
 .breathCaption {
 	background-color: darkgray;
 	color: black;
-	font-size: 1.5rem;
 }
 
 .tileName {
 	color: white;
-	font-size: 2.5rem;
 	font-weight: bold;
-	margin-top: -0.25rem;
 }
 
 .breathNum {
 	color: white;
-	font-size: 2.5rem;
 	font-weight: bold;
-	margin-top: -0.5rem;
-	margin-bottom:-0.5rem;
 }
 
 .active {
 	color: red;
-	font-size: 2.0rem;
 	font-weight: bold;
-	margin-top: -0.5rem;
-	margin-bottom:-0.5rem;
 }
 
 .Alert {
 	float: right;
-	margin-top: -1.75rem;
-	margin-right: 1.5rem;
 }
 
 .State {
 	float: left;
-	margin-top: -1.75rem;
-	margin-left: 1.5rem;
 }
 
 .StateContent {
@@ -130,12 +117,10 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 
 .ParamContentNonPSV {
 	display: none;
-	margin-top: -10px;
 }
 
 .ParamContentPSV {
 	display: none;
-	margin-top: 50px;
 }
 
 .ParamRow {
@@ -147,7 +132,6 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 	border-style: solid;
 	border-color: white;
 	width: 42%;
-	margin: 5px;
 }
 
 .ParamFloatRight {
@@ -155,19 +139,14 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 	border-style: solid;
 	border-color: white;
 	width: 42%;
-	margin: 5px;
 }
 
 .ParamName {
-	font-size: 28px;
 	color: white;
 	background-color: gray;
-	margin: 5px;
 }
 
 .ParamValue {
-	font-size: 28px;
 	font-weight: bold;
 	color: white;
-	margin: 5px;
 }
