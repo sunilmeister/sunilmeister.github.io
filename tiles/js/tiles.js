@@ -52,6 +52,11 @@ function updateTileState(uid) {
 	let elem = null;
 	elem = findChildNodeByClass(tile,'tileName');
 	elem.innerHTML = title;
+	if (activeTiles[uid].active) {
+		elem.style.color = getActiveTileColorFG();
+	} else {
+		elem.style.color = getInactiveTileColorFG();
+	}
 
 	elem = findChildNodeByClass(tile,'breathNum');
 	elem.innerHTML = breaths;
@@ -235,7 +240,6 @@ function addTile(uid, sysTag, content) {
 	activeTiles[uid].updated = new Date();
 	activeTiles[uid].systemTag = sysTag;
 	activeTiles[uid].tile = newTile;
-	activeTiles[uid].tileColor = tileColor;
 	activeTiles[uid].content = cloneObject(content);
 
 	topDiv.appendChild(newTile);
@@ -261,18 +265,18 @@ function blinkTiles() {
 		let content = activeTiles[uid].content;
 
 		if (!content.attention && !(content.state == 'ERROR')) continue;
-		let tileColor = activeTiles[uid].tileColor;
+		let tileColor = getActiveTileColorBG();
 		let tile = activeTiles[uid].tile;
 
 		if (content.state == 'ERROR') {
 			if (tileBlinkColor) {
-				tile.style.backgroundColor = "darkorange";
+				tile.style.backgroundColor = "#B22222";
 			} else {
 				tile.style.backgroundColor = tileColor;
 			}
 		} else if (content.attention) {
 			if (tileBlinkColor) {
-				tile.style.backgroundColor = "gold";
+				tile.style.backgroundColor = "orange";
 			} else {
 				tile.style.backgroundColor = tileColor;
 			}

@@ -11,7 +11,7 @@ function getActiveTileColorFG() {
 }
 
 function getInactiveTileColorBG() {
-	return "#BF9000";
+	return "#EAFBFE";
 }
 
 function getInactiveTileColorFG() {

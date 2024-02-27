@@ -8,7 +8,6 @@
 //  	{
 // 			active: true,
 //  		tile: DOMelement, 
-//  		tileColor: , 
 //  		systemTag: ,
 //  		updated: Date, 
 //  		content: {
@@ -168,6 +167,28 @@ function updatePage() {
 	resizeAllTiles();
 }
 
+function initialTileContent() {
+	let content = {};
+	content.patientFName = "";
+	content.patientLName = "";
+	content.state = "";
+	content.breaths = 0;
+	content.attention = false;
+
+	content.mode = "--";
+	content.vt = "--";
+	content.mv = "--";
+	content.rr = "--";
+	content.ie = "--";
+	content.ps = "--";
+	content.tps = "--";
+	content.ipeep = "--";
+	content.pmax = "--";
+	content.fiO2 = "--";
+
+	return content;
+}
+
 function AddRemoveTiles() {
 	initKnownInspireSystems();
 
@@ -177,13 +198,7 @@ function AddRemoveTiles() {
 		let uid = obj.uid;
 		let tag = obj.tag;
 		if (isUndefined(activeTiles[uid])) {
-			let content = {};
-			content.patientFName = "";
-			content.patientLName = "";
-			content.state = "";
-			content.breaths = 0;
-			content.attention = false;
-			addTile(uid, tag, content);
+			addTile(uid, tag, initialTileContent());
 			updateTileContents(uid);
 		}
 	}
@@ -222,7 +237,7 @@ function toggleActiveView() {
 		if (activeViewIsState) {
 			activeViewIsState = false;
 			stateDiv.style.display = "none";
-			if (MODE_DECODER[content.mode] == "PSV") {
+			if (content.mode == "PSV") {
 				paramDivPSV.style.display = "block";
 			} else {
 				paramDivNonPSV.style.display = "block";
