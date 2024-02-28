@@ -261,6 +261,7 @@ setInterval(() => {
 }, 6000)
 
 window.onload = function () {
+	AddRemoveTiles();
 	disableAllBeeps();
 	openAudioControl();
 }

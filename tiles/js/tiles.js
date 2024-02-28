@@ -283,13 +283,13 @@ function blinkTiles() {
 
 		if (content.state == 'ERROR') {
 			if (tileBlinkColor) {
-				tile.style.backgroundColor = "#B22222";
+				tile.style.backgroundColor = "#EE4B2B";
 			} else {
 				tile.style.backgroundColor = tileColor;
 			}
 		} else if (content.attention) {
 			if (tileBlinkColor) {
-				tile.style.backgroundColor = "orange";
+				tile.style.backgroundColor = "#F28C28";
 			} else {
 				tile.style.backgroundColor = tileColor;
 			}
