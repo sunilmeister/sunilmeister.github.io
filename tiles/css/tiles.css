@@ -5,10 +5,12 @@ body {
   font-family: verdana;
 	font-size: 1rem;
 }
+
 .wrapTiles {
   overflow: hidden;
   margin: 10px;
 }
+
 .tile {
   float: left;
   position: relative;
@@ -18,6 +20,7 @@ body {
   border-width: 5px;
   margin: 5px;
 }
+
 .tileContent {
   position: absolute;
   left: 10px;
@@ -26,6 +29,7 @@ body {
   bottom: 10px;
   overflow: hidden;
 }
+
 .tileContent img {
   width: 100%;
 }
@@ -46,9 +50,11 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
+
 body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .tileUid {
   margin-bottom: 0;
 }
+
 @media only screen and (max-width : 480px) {
   /* Smartphone view: 1 tile */
   .tile {
@@ -149,4 +155,12 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 .ParamValue {
 	font-weight: bold;
 	color: white;
+}
+
+.AudioControl {
+	font-weight: bold;
+	font-size: 20px;
+	color: gray;
+	padding: 10px;
+	cursor: pointer;
 }

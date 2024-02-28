@@ -204,6 +204,20 @@ function blinkFlowRate() {
   }
 }
 
+//////////////////////////////////////////////
+// Beep buttons
+//////////////////////////////////////////////
+function toggleAudio() {
+  let btnAudio = document.getElementById("btnAudio"); 
+  if (errorBeepEnabled && warningBeepEnabled) {
+    disableAllBeeps();
+    btnAudio.textContent = "Enable Audio Alarms" ;
+  } else {
+    enableAllBeeps();
+    btnAudio.textContent = "Mute Audio Alarms" ;
+  }
+}
+
 function blinkPauseButton() {
   let btn = document.getElementById("btnPause");
   let ttl = document.getElementById("breathsHeading");
@@ -533,7 +547,8 @@ function receivedNewWave() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
-  setModalWidth(600);
+	enableAllBeeps();  
+	setModalWidth(600);
   showZoomReminder();
 
   finishedLoading = false;

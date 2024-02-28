@@ -59,11 +59,11 @@ function toggleWarningBeep() {
   let imgStatus = document.getElementById("WarningActiveImg"); 
   if (warningBeepEnabled) {
     imgMenu.src = "../common/img/audioOff.png";
-    imgStatus.src = "../common/img/audioOff.png";
+    if (imgStatus) imgStatus.src = "../common/img/audioOff.png";
     disableWarningBeep();
   } else {
     imgMenu.src = "../common/img/audioOn.png";
-    imgStatus.src = "../common/img/audioOn.png";
+    if (imgStatus) imgStatus.src = "../common/img/audioOn.png";
     enableWarningBeep();
   }
 }
@@ -136,11 +136,11 @@ function toggleErrorBeep() {
   let imgStatus = document.getElementById("ErrorActiveImg"); 
   if (errorBeepEnabled) {
     imgMenu.src = "../common/img/audioOff.png";
-    imgStatus.src = "../common/img/audioOff.png";
+    if (imgStatus) imgStatus.src = "../common/img/audioOff.png";
     disableErrorBeep();
   } else {
     imgMenu.src = "../common/img/audioOn.png";
-    imgStatus.src = "../common/img/audioOn.png";
+    if (imgStatus) imgStatus.src = "../common/img/audioOn.png";
     enableErrorBeep();
   }
 }
@@ -177,6 +177,21 @@ function disableAllBeeps() {
 function openAudioControl() {
   warningBeepSample = false;
   errorBeepSample = false;
+
+  let imgMenu = document.getElementById("btnErrorImg"); 
+  if (errorBeepEnabled) {
+    imgMenu.src = "../common/img/audioOn.png";
+	} else {
+    imgMenu.src = "../common/img/audioOff.png";
+	}
+
+  imgMenu = document.getElementById("btnWarningImg"); 
+  if (warningBeepEnabled) {
+    imgMenu.src = "../common/img/audioOn.png";
+	} else {
+    imgMenu.src = "../common/img/audioOff.png";
+	}
+
   document.getElementById("audioControlDiv").style.display = "block"; 
   stopAllBeeps();
 }
@@ -186,19 +201,3 @@ function dismissAudioControl() {
   errorBeepSample = false;
   document.getElementById("audioControlDiv").style.display = "none"; 
 }
-
-
-//////////////////////////////////////////////
-// Beep buttons
-//////////////////////////////////////////////
-function toggleAudio() {
-  let btnAudio = document.getElementById("btnAudio"); 
-  if (errorBeepEnabled && warningBeepEnabled) {
-    disableAllBeeps();
-    btnAudio.textContent = "Enable Audio Alarms" ;
-  } else {
-    enableAllBeeps();
-    btnAudio.textContent = "Mute Audio Alarms" ;
-  }
-}
-

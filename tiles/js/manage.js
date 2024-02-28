@@ -28,7 +28,8 @@ async function updateUidContent(uid) {
 	let jsonContent = {};
   if (USE_DWEET_FOR_MESSAGES) {
 		dweetio.get_latest_dweet_for(uid, function(err, dweet){
-			var jsonContent = dweet[0];
+			if (!dweet) return;
+			let jsonContent = dweet[0];
 			if (!jsonContent) return;
   		let timestamp = new Date(jsonContent.created);
 			let prevTMS = activeTiles[uid].updated.getTime();
@@ -259,4 +260,7 @@ setInterval(() => {
 	toggleActiveView();
 }, 6000)
 
-
+window.onload = function () {
+	disableAllBeeps();
+	openAudioControl();
+}

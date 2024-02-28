@@ -15,13 +15,13 @@
     <link href="css/tiles.css" rel="stylesheet" />
     <link href="../common/css/colors.css" rel="stylesheet" />
     <link href="../common/css/common.css" rel="stylesheet" />
+    <script src="https://dweet.io/client/dweet.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../external/hacktimer/HackTimer.min.js"></script>
     <script src="../external/nouislider/nouislider.min.js"></script>
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/canvasjs/canvasjs.min.js"></script>
     <script src="../external/pure-knob-master/pureknob.js"></script>
-    <script src="https://dweet.io/client/dweet.io.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../common/js/inspireMessages.js"></script>
     <script src="../common/js/constants.js"></script>
     <script src="../common/js/palette.js"></script>
@@ -30,6 +30,8 @@
     <script src="../common/js/modalPopup.js"></script>
     <script src="../common/js/hidePopups.js"></script>
     <script src="../common/js/enterSubmit.js"></script>
+    <script src="../common/js/audioAlerts.js"></script>
+    <script src="../common/js/iconButton.js"></script>
     <script src="../common/js/dweets.js"></script>
     <script src="js/colors.js"></script>
     <script src="js/styles.js"></script>
@@ -37,8 +39,48 @@
     <script src="js/manage.js"></script>
   </head>
   <body class="no-touch">
-    <div class="wrapTiles" id=topDiv></div>
-    <!-- 
+  <audio id="warningBeep">
+    <source src="../common/mp3/warningBeep.mp3" type="audio/mp3">
+  </audio>
+
+  <audio id="errorBeep">
+    <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
+  </audio>
+
+  <div id=audioControlDiv class=popupClass style="width:600px; height:400px; display: none">
+    <center>
+      <div>
+        <p style="font-size: 40px;">Audio Alarms
+          <br>
+        <p style="font-size: 30px; ">Warning
+          <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOn.png" width=25px height=25px></button>
+          <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeWarningVolume()'>
+          <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+
+        <p style="font-size: 30px; ">&nbsp&nbsp&nbsp&nbspError
+          <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOn.png" width=25px height=25px></button>
+          <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeErrorVolume()'>
+          <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+          <br>
+          <br>
+          <button class=button style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='dismissAudioControl()'>DONE</button>
+          <br>
+          <br>
+
+      </div>
+    </center>
+  </div>
+
+  <div class="wrapTiles" id=topDiv>
+		<div class=AudioControl onclick='openAudioControl()'> 
+			&nbsp&nbsp&nbsp&nbspWarning Audio
+			<img id=WarningActiveImg src="../common/img/audioOff.png" width=25px height=25px>
+			&nbsp&nbsp&nbsp&nbspError Audio
+			<img id=ErrorActiveImg src="../common/img/audioOff.png" width=25px height=25px>
+		</div>
+	</div>
+
+<!-- 
 // ////////////////////////////////////////////////////
 // Below are all templates only
 // ////////////////////////////////////////////////////
