@@ -23,6 +23,7 @@ function updateTileContents(uid) {
 	updateTileParams(uid);
 	updateTileState(uid);
 	updateTileImages(uid);
+	updateAudioAlerts();
 }
 
 function updateTileParams(uid) {
@@ -156,7 +157,6 @@ function updateAudioControlSizes() {
 	if (!currentTileSize) return;
 	let tileSize = currentTileSize;
 
-	console.log("tileSize", tileSize);
 	changeWidth('AudioControl', scaleSize(305, tileSize));
 	changeMargin('AudioControl', scaleSize(5, tileSize));
 	changeFontSize('AudioControl', scaleSize(tileSize, 26));
@@ -300,6 +300,28 @@ function blinkTiles() {
 setInterval(() => {
 	blinkTiles();
 }, 1000)
+
+function updateAudioAlerts() {
+	if (!errorBeepEnabled && !warningBeepEnabled) return;
+	let foundError = false;
+	let foundWarning = false;
+
+  for (const uid in activeTiles) {
+		if (activeTiles[uid].content.attention) foundWarning = true;
+		if (activeTiles[uid].content.state == "ERROR") foundError = true;
+	}
+
+	if (foundError) {
+		startErrorBeep();
+		stopWarningBeep();
+	} else if (foundWarning) {
+		stopErrorBeep();
+		startWarningBeep();
+	} else {
+		stopErrorBeep();
+		stopWarningBeep();
+	}
+}
 
 function resizeAllTiles() {
   for (const uid in activeTiles) {
