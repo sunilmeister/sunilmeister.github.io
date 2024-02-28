@@ -47,7 +47,7 @@
     <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
   </audio>
 
-  <div id=audioControlDiv class=popupClass style="width:600px; height:400px; display: none">
+  <div id=audioControlDiv class=popupClassPersistent style="width:600px; height:400px; display: none">
     <center>
       <div>
         <p style="font-size: 40px;">Audio Alarms
@@ -72,11 +72,16 @@
   </div>
 
   <div class="wrapTiles" id=topDiv>
-		<div class=AudioControl onclick='openAudioControl()'> 
-			&nbsp&nbsp&nbsp&nbspWarning Audio
-			<img id=WarningActiveImg src="../common/img/audioOff.png" width=25px height=25px>
-			&nbsp&nbsp&nbsp&nbspError Audio
-			<img id=ErrorActiveImg src="../common/img/audioOff.png" width=25px height=25px>
+		<div style="margin:10px;"> 
+			<div class=AudioControl onclick='openAudioControl()' >
+				&nbspWarning Audio
+				<img id=WarningActiveImg src="../common/img/audioOff.png" width=25px height=25px>
+			</div>
+			<div class=AudioControl onclick='openAudioControl()' >
+				&nbsp&nbspError Audio
+				<img id=ErrorActiveImg src="../common/img/audioOff.png" width=25px height=25px>
+			</div>
+			<div style="clear:both"> </div>
 		</div>
 	</div>
 

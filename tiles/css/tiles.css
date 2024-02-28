@@ -160,7 +160,9 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 .AudioControl {
 	font-weight: bold;
 	font-size: 20px;
-	color: gray;
+	background-color: gray;
+	color: white;
 	padding: 10px;
 	cursor: pointer;
+	float: left;
 }
