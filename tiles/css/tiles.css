@@ -162,7 +162,10 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 	font-size: 20px;
 	background-color: gray;
 	color: white;
-	padding: 10px;
+	margin: 5px;
+	padding: 5px;
 	cursor: pointer;
 	float: left;
+	border-style: outset;
+  border-width: 5px;
 }

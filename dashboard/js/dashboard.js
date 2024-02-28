@@ -547,9 +547,11 @@ function receivedNewWave() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
-	enableAllBeeps();  
 	setModalWidth(600);
   showZoomReminder();
+
+	disableAllBeeps();  
+	openAudioControl();
 
   finishedLoading = false;
   initDivElements();

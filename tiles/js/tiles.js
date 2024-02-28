@@ -151,6 +151,18 @@ function updateTileSizes(uid) {
 	updateTileSizesState(uid);
 }
 
+var currentTileSize = 0;
+function updateAudioControlSizes() {
+	if (!currentTileSize) return;
+	let tileSize = currentTileSize;
+
+	console.log("tileSize", tileSize);
+	changeWidth('AudioControl', scaleSize(305, tileSize));
+	changeMargin('AudioControl', scaleSize(5, tileSize));
+	changeFontSize('AudioControl', scaleSize(tileSize, 26));
+	changeImageSize('AudioControlImg', scaleSize(tileSize, 28));
+}
+
 function updateTileSizesParams(uid) {
 	if (isUndefined(activeTiles[uid])) return;
 
@@ -158,6 +170,7 @@ function updateTileSizesParams(uid) {
 	let content = activeTiles[uid].content;
 
 	let tileSize = tile.clientHeight;
+	currentTileSize = tileSize;
 
 	changeMarginTop('ParamContentNonPSV', scaleSize(tileSize, -10));
 	changeMarginTop('ParamContentPSV', scaleSize(tileSize, 50));
@@ -292,6 +305,7 @@ function resizeAllTiles() {
   for (const uid in activeTiles) {
 		updateTileSizes(uid);
 	}
+	updateAudioControlSizes();
 }
 
 window.onresize = function() {

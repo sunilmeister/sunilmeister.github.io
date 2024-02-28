@@ -2,6 +2,14 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function changeWidth(className, size) {
+	let elems = document.getElementsByClassName(className);
+	for (let i=0; i<elems.length; i++) {
+  	let elem = elems[i];
+		elem.style.width = String(Math.floor(size)) + "px";
+	}
+}
+
 function changeParamValue(className, value) {
 	let elems = document.getElementsByClassName(className);
 	for (let i=0; i<elems.length; i++) {
