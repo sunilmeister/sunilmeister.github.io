@@ -61,7 +61,7 @@ async function updateUidContent(uid) {
   		// change the response to be in dweet format
   		// so that the rest of the code does not have to change
   		// when switching from dweet to inspireListenFor
-  		let dweetObj = dweetFormat(uid, timestamp, jsonContent);
+  		let dweetObj = dweetFormat(uid, timestamp, jsonContent.response.content);
 			disassembleAndProcessDweet(uid, dweetObj);
  		} else {
 			// Check for dormancy
