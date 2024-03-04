@@ -43,15 +43,14 @@
   </head>
 
   <body style="font-family: verdana">
-    <div id=exportDiv class=popupClass style="width:45rem; height:20rem; display: none">
+    <div id=exportDiv class=popupClass style="width:25rem; height:25rem; display: none">
       <center>
-        <div style="font-size: 1.6rem;">
+        <div style="font-size: 2rem;">
+          <br>
+          <label for="exportFileName">Export File Name (.xml)</label>
           <br>
           <br>
-          <label for="exportFileName">Export File Name (extension will be .xml)</label>
-          <br>
-          <br>
-          <input id=exportFileName style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
+          <input id=exportFileName style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem;" />
           <br>
           <br>
           <br>
@@ -64,13 +63,13 @@
       </center>
     </div>
 
-    <div id=importDiv class=popupClass style="height:15rem; width:40rem; font-size:1.5rem; display: none">
+    <div id=importDiv class=popupClass style="height:18rem; width:30rem; font-size:2rem; display: none">
       <center>
         <br>
         <label for="fileSelector">Systems File to Import</label>
         <br>
         <br>
-        <input type="file" id=fileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.4rem;" />
+        <input type="file" id=fileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
         <br>
         <br>
         <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=importFile()>IMPORT</button>
