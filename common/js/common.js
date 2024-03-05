@@ -608,14 +608,25 @@ function showZoomReminder() {
     denyButtonColor: '#B22222',
     denyButtonText: "STOP Reminders!",
     showCloseButton: true,
-    showClass: {
-      popup: `animate__animated animate__fadeInUp`
+    timerProgressBar: true,
+    timer: 5500,
+		didOpen: () => {
+    	Swal.showLoading();
+    	const tmr = Swal.getPopup().querySelector("b");
+    	timerInterval = setInterval(() => {
+				const secsLeft = Math.ceil(Swal.getTimerLeft() / 1000);
+      	tmr.textContent = secsLeft;
+    	}, 1000);
+  	},
+  	willClose: () => {
+    	clearInterval(timerInterval);
+  	},
+		showClass: {
+      popup: `animate__animated animate__fadeInUp `
     },
     hideClass: {
-      popup: `animate__animated animate__fadeOutDown`
+      popup: `animate__animated animate__fadeOutDown `
     },
-    timerProgressBar: true,
-    timer: 5000
   }).then((result) => {
     if (result.isDenied) {
       setCookie(zoomReminderOffCookieName, "OFF");

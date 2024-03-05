@@ -91,9 +91,10 @@ function updateRecorderSummary(d) {
 }
 
 window.onload = function () {
-  setModalWidth(600);
-
   finishedLoading = false;
+
+	setModalWidth(600);
+  showZoomReminder();
 
   session = cloneObject(SessionDataTemplate);
   session.appId = RECORDER_APP_ID;

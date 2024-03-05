@@ -114,8 +114,10 @@ const ALL_WAVES_ID = "wavesDiv";
 const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
 
 const ZOOM_TITLE_STR = "PAGE ZOOM";
-const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Use CTRL key and +/- keys to zoom " +
+const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
+	"I will close in <b></b> seconds" + 
+	"<pre>" +
+  "\nUse CTRL key and +/- keys to zoom " +
   "\ntill the full page is visible." +
   "\n" +
   "\nOr hold down the CTRL key and use " +
