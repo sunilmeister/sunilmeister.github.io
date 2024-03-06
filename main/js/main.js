@@ -447,7 +447,7 @@ window.onload = function () {
   new KeypressEnterSubmit('password', 'passwordBtn');
 
   //console.log("Checking " + BROADCAST_UID);
-  waitForInspireMessages(BROADCAST_UID, function (d) {
+  waitForHwPosts(BROADCAST_UID, function (d) {
     let newUid = d.content.PRESENT;
     let loginOtp = d.content.OTP;
     let time = Date(d.created);

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// The dashboard should ONLY use waitForInspireMessages(uidString, callbackFn)
+// The dashboard should ONLY use waitForHwPosts(uidString, callbackFn)
 // Switching between dweet.io and  is done in this file ONLY
 // Rest of the dashboard code does not have to know that it is switched
 ////////////////////////////////////////////////////////////////////////////////
@@ -8,7 +8,7 @@
 // callbackFn format is callbackFn(jsonPayload)
 // If jsonPayload is null it signifies an error
 ////////////////////////////////////////////////////////////////////////////////
-function waitForInspireMessages(uidString, callbackFn) {
+function waitForHwPosts(uidString, callbackFn) {
   if (USE_DWEET_FOR_MESSAGES) {
     dweetio.listen_for(uidString, callbackFn);
   } else {

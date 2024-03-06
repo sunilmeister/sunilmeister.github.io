@@ -53,8 +53,8 @@ function getCurrentSimulatedMillis() {
   return startSimulatedMillis + deltaTimeInMs;
 }
 
-function waitForDweets() {
-  waitForInspireMessages(inspireUid, function (d) {
+function waitForChirps() {
+  waitForHwPosts(inspireUid, function (d) {
     if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -114,7 +114,7 @@ window.onload = function () {
 
   // now wait for dweets and act accordingly
   dweetQ = new Queue();
-  waitForDweets();
+  waitForChirps();
   finishedLoading = true;
   let menuBar = document.getElementById("sideMenuBar");
   let menuBarHeight = menuBar.offsetHeight;
