@@ -1,0 +1,24 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+:root {
+  --rsp_darkblue: 	#0D3E51;
+  --rsp_mediumblue: #2C94BC;
+  --rsp_blue: 			#71C7EC;
+  --rsp_lightblue: 	#D5F3FE;
+  --rsp_paleblue: 	#EAFBFE;
+  --rsp_brightblue: #0096FF;
+  --rsp_darkgreen: 	#1E453E;
+  --rsp_green: 			#097969;
+  --rsp_mediumgreen:#32cd32;
+  --rsp_lightgreen:	#58D68D;
+  --rsp_brightgreen:#0FFF50;
+  --rsp_yellow: 		#E7C800;
+  --rsp_orange: 		#E95F0A;
+  --rsp_darkred: 		#B22222;
+  --rsp_logogrey: 	#5B7C99;
+  --rsp_modal: 	    #5B7C99;
+}
