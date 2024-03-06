@@ -266,19 +266,19 @@ function gatherSessionData(lastRecordCallback) {
 
 function processJsonRecord(jsonData) {
 
-  // Snap message time to breath times instead of dweet times
+  // Snap message time to breath times instead of chirp times
   if (session.lastValidBreathTime) {
     jsonData.created = new Date(session.lastValidBreathTime);
   }
 
   let curTime = new Date(jsonData.created);
-  processAlertDweet(curTime, jsonData);
+  processAlertChirp(curTime, jsonData);
   for (let key in jsonData) {
     if (key == 'content') {
       for (let ckey in jsonData.content) {
         let value = jsonData.content[ckey];
 
-        // close off PW samples if missing a closing dweet
+        // close off PW samples if missing a closing chirp
         if (expectingPWEND) {
           // if anything else, close of with PWEND
           if (ckey != "PWEND") {
@@ -286,14 +286,14 @@ function processJsonRecord(jsonData) {
             if ((partsArray.length == 0) || (partsArray[0] != "PW")) {
               //console.log("Expecting PWEND or PW slice but found=" + ckey);
               //console.log("Graphing anyway with PWEND()");
-              processPwendDweet("");
+              processPwendChirp("");
               waveBreathClosed = true;
               expectingPWEND = false;
             }
           }
         }
 
-        // close off DPW samples if missing a closing dweet
+        // close off DPW samples if missing a closing chirp
         if (expectingDPWEND) {
           // if anything else, close of with DPWEND
           if (ckey != "DPWEND") {
@@ -301,7 +301,7 @@ function processJsonRecord(jsonData) {
             if ((partsArray.length == 0) || (partsArray[0] != "DPW")) {
               //console.log("Expecting DPWEND or DPW slice but found=" + ckey);
               //console.log("Graphing anyway with DPWEND()");
-              processPwendDweet("");
+              processPwendChirp("");
               waveBreathClosed = true;
               expectingDPWEND = false;
             }
@@ -311,32 +311,32 @@ function processJsonRecord(jsonData) {
         // process each keyword
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
-          processBnumDweet(curTime, value, jsonData);
+          processBnumChirp(curTime, value, jsonData);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
-          processSwDweet(curTime, value);
+          processSwChirp(curTime, value);
         } else if (ckey == "STATE") {
-          processStateDweet(curTime, value);
+          processStateChirp(curTime, value);
         } else if (ckey == "PARAM") {
-          processParamDweet(curTime, value);
+          processParamChirp(curTime, value);
         } else if (ckey == "FIO2") {
-          processFiO2Dweet(curTime, value);
+          processFiO2Chirp(curTime, value);
         } else if (ckey == "MINUTE") {
-          processMinuteDweet(curTime, value);
+          processMinuteChirp(curTime, value);
         } else if (ckey == "BREATH") {
-          processBreathDweet(curTime, value);
+          processBreathChirp(curTime, value);
         } else if (ckey == "CMV_SPONT") {
           session.cmvSpontChanges.push({
             "time": curTime,
             "value": value
           });
-          processCmvSpontDweet(curTime, value);
+          processCmvSpontChirp(curTime, value);
         } else if (ckey == "COMP") {
-          processComplianceDweet(curTime, value);
+          processComplianceChirp(curTime, value);
         } else if (ckey == "MISC") {
-          processMiscDweet(curTime, value);
+          processMiscChirp(curTime, value);
         } else if (ckey == "WIFI_STATS") {
-          processWifiDweet(curTime, value);
+          processWifiChirp(curTime, value);
           //console.log("WIFI_STATS " + value);
         } else if (ckey == "LOC") {
           session.miscData.locationName = value;
@@ -345,27 +345,27 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "LNAME") {
           session.patientData.lname = value;
         } else if (ckey == "PSTATS") {
-          processPstatsDweet(curTime, value);
+          processPstatsChirp(curTime, value);
         } else if (ckey == "PWPERIOD") {
           session.waves.sendPeriod = value;
         } else if (ckey == "PWSTART") {
-          processPwstartDweet(value);
+          processPwstartChirp(value);
           expectingPWEND = true;
         } else if (ckey == "PWEND") {
-          processPwendDweet(value);
+          processPwendChirp(value);
           expectingPWEND = false;
         } else if (ckey == "DPWSTART") {
-          processPwstartDweet(value);
+          processPwstartChirp(value);
           expectingDPWEND = true;
         } else if (ckey == "DPWEND") {
-          processPwendDweet(value);
+          processPwendChirp(value);
           expectingDPWEND = false;
         } else {
           partsArray = ckey.split('_');
           if (partsArray.length == 0) continue;
           if ((partsArray[0] != "PW") && (partsArray[0] != "DPW")) continue;
           sNum = partsArray[1];
-          processPwsliceDweet(sNum, value);
+          processPwsliceChirp(sNum, value);
         }
       }
     }
@@ -383,9 +383,9 @@ function waveCollectedSamples(slices) {
   return num;
 }
 
-function processPwstartDweet(str) {
+function processPwstartChirp(str) {
   if (!waveBreathClosed) {
-    processPwendDweet("");
+    processPwendChirp("");
     waveBreathClosed = true;
   }
 
@@ -425,7 +425,7 @@ function processPwstartDweet(str) {
   waveSlices = [];
 }
 
-function processPwendDweet(str) {
+function processPwendChirp(str) {
   // PWEND key has the following value format
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval]
   if (str != "") {
@@ -529,7 +529,7 @@ function processPwendDweet(str) {
   if (session.waves.newShapeCallback) session.waves.newShapeCallback(session.waves.breathNum);
 }
 
-function processPwsliceDweet(receivedSliceNum, str) {
+function processPwsliceChirp(receivedSliceNum, str) {
   //console.log("expectingPWEND=" + expectingPWEND);
   //console.log("session.waves.breathNum=" + session.waves.breathNum + " waveBreathClosed=" + waveBreathClosed);
 
@@ -586,9 +586,9 @@ function processPwsliceDweet(receivedSliceNum, str) {
 }
 
 // /////////////////////////////////////////////////////
-// All other dweets below
+// All other chirps below
 // /////////////////////////////////////////////////////
-function processPstatsDweet(curTime, jsonStr) {
+function processPstatsChirp(curTime, jsonStr) {
   let obj = parsePstats(jsonStr);
   if (!obj) return;
 
@@ -598,7 +598,7 @@ function processPstatsDweet(curTime, jsonStr) {
   session.patientData.height = obj.height;
 }
 
-function processWifiDweet(curTime, jsonStr) {
+function processWifiChirp(curTime, jsonStr) {
   let obj = parseWifiData(jsonStr);
   if (!obj) return;
 
@@ -622,7 +622,7 @@ function processWifiDweet(curTime, jsonStr) {
   });
 }
 
-function processStateDweet(curTime, jsonStr) {
+function processStateChirp(curTime, jsonStr) {
   let obj = parseStateData(jsonStr);
   if (!obj) return;
   if (obj.state == session.stateData.state) return;
@@ -668,7 +668,7 @@ function updatePendingParamState() {
   else p.rr = true;
 }
 
-function processSwDweet(curTime, jsonStr) {
+function processSwChirp(curTime, jsonStr) {
   let obj = parseSwData(jsonStr);
   if (!obj) return;
 
@@ -680,7 +680,7 @@ function processSwDweet(curTime, jsonStr) {
   }
 }
 
-function processParamDweet(curTime, jsonStr) {
+function processParamChirp(curTime, jsonStr) {
   let obj = parseParamData(jsonStr);
   if (!obj) return;
 
@@ -705,7 +705,7 @@ function processParamDweet(curTime, jsonStr) {
   //console.log("post InUse"); console.log(session.paramDataInUse);
 }
 
-function processFiO2Dweet(curTime, jsonStr) {
+function processFiO2Chirp(curTime, jsonStr) {
   let obj = parseFiO2Data(jsonStr);
   if (!obj) return;
 
@@ -714,7 +714,7 @@ function processFiO2Dweet(curTime, jsonStr) {
   saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10Used", "o2FlowX10Changes", curTime, obj);
 }
 
-function processMinuteDweet(curTime, jsonStr) {
+function processMinuteChirp(curTime, jsonStr) {
   let obj = parseMinuteData(jsonStr);
   if (!obj) return;
   if (obj.mmvdel !== null) { // valid minute volume
@@ -731,7 +731,7 @@ function processMinuteDweet(curTime, jsonStr) {
   saveSnapTransValue("mvdel", "minuteData", "mvdelChanges", curTime, obj);
 }
 
-function processBreathDweet(curTime, jsonStr) {
+function processBreathChirp(curTime, jsonStr) {
   let obj = parseBreathData(jsonStr);
   if (!obj) return;
   if (session.stateData.error) obj.type = MAINTENANCE_BREATH;
@@ -747,7 +747,7 @@ function processBreathDweet(curTime, jsonStr) {
 
 }
 
-function processComplianceDweet(curTime, jsonStr) {
+function processComplianceChirp(curTime, jsonStr) {
   let obj = parseComplianceData(jsonStr);
   if (!obj) return;
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
@@ -757,7 +757,7 @@ function processComplianceDweet(curTime, jsonStr) {
   saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
 }
 
-function processMiscDweet(curTime, jsonStr) {
+function processMiscChirp(curTime, jsonStr) {
   let obj = parseMiscData(jsonStr);
   if (!obj) return;
 
@@ -843,7 +843,7 @@ function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) 
   saveSnapValue(paramName, parentName, curTime, newVal);
 }
 
-function processComplianceDweet(curTime, jsonStr) {
+function processComplianceChirp(curTime, jsonStr) {
   let obj = parseComplianceData(jsonStr);
   if (!obj) return;
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
@@ -860,14 +860,14 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
   session[parentName][paramName] = value;
 }
 
-function processBnumDweet(curTime, value, jsonData) {
+function processBnumChirp(curTime, value, jsonData) {
   let obj = parseBnumData(value);
   if (!obj) return;
 
   // BNUM time is more accurate - use that for breathTimes
-  if (!session.firstBreathDweetTime) session.firstBreathDweetTime = curTime;
+  if (!session.firstBreathChirpTime) session.firstBreathChirpTime = curTime;
   if (!session.firstBreathBnumTime) session.firstBreathBnumTime = obj.btime;
-  let breathTime = addMsToDate(session.firstBreathDweetTime, obj.btime - session.firstBreathBnumTime);
+  let breathTime = addMsToDate(session.firstBreathChirpTime, obj.btime - session.firstBreathBnumTime);
 
   let bnumValue = obj.bnum;
   if (bnumValue == null) {
@@ -954,7 +954,7 @@ function processBnumDweet(curTime, value, jsonData) {
   session.lastValidBreathTime = breathTime;
 }
 
-function processAlertDweet(curTime, jsonData) { 
+function processAlertChirp(curTime, jsonData) { 
   let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
     ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum;

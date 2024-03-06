@@ -140,7 +140,7 @@ function insertJsonData(jsonData) {
   }
 }
 
-function createAccumulatedDweet(d) {
+function createAccumulatedChirp(d) {
   // Note that the signalling messages have already been removed
   // in session.recorder.accumulatedState
   for (const k in session.recorder.accumulatedState) {
@@ -157,7 +157,7 @@ function initRecordingPrevContent() {
   if (!doRecord) session.recorder.accumulatedState = {};
 }
 
-function processRecordDweet(d) {
+function processRecordChirp(d) {
   let skipRecording = false;
   if (session.stateData.initial) skipRecording = true;
 
@@ -230,13 +230,13 @@ function processRecordDweet(d) {
         session.recorder.versionRecorded = true;
         d.content.RECORDING_VERSION = CURRENT_RECORDING_VERSION;
       }
-      if (!session.recorder.prevDweetRecorded) {
+      if (!session.recorder.prevChirpRecorded) {
         // Add on the session.recorder.accumulatedState state first
-        d = createAccumulatedDweet(d);
+        d = createAccumulatedChirp(d);
       }
       recordBox.innerText = JSON.stringify(d, null, ". ");
       if (session.database.db) insertJsonData(d);
-      session.recorder.prevDweetRecorded = doRecord;
+      session.recorder.prevChirpRecorded = doRecord;
     }
   }
 }

@@ -35,7 +35,7 @@ async function updateUidContent(uid) {
 			let prevTMS = activeTiles[uid].updated.getTime();
 			let currTMS = timestamp.getTime();
 			if (prevTMS < currTMS) {
-				disassembleAndProcessDweet(uid, jsonContent);
+				disassembleAndProcessChirp(uid, jsonContent);
   		} else {
 				// Check for dormancy
 				let now = new Date();
@@ -58,11 +58,11 @@ async function updateUidContent(uid) {
 		let prevTMS = activeTiles[uid].updated.getTime();
 		let currTMS = timestamp.getTime();
 		if (prevTMS < currTMS) {
-  		// change the response to be in dweet format
+  		// change the response to be in chirp format
   		// so that the rest of the code does not have to change
   		// when switching from dweet to inspireListenFor
-  		let dweetObj = dweetFormat(uid, timestamp, jsonContent.response.content);
-			disassembleAndProcessDweet(uid, dweetObj);
+  		let chirpObj = chirpFormat(uid, timestamp, jsonContent.response.content);
+			disassembleAndProcessChirp(uid, chirpObj);
  		} else {
 			// Check for dormancy
 			let now = new Date();
@@ -74,7 +74,7 @@ async function updateUidContent(uid) {
 	}
 }
 
-function disassembleAndProcessDweet(uid, d) {
+function disassembleAndProcessChirp(uid, d) {
   if (isUndefined(d.content)) return;
   let fragmentIndex = 0;
   while (1) {

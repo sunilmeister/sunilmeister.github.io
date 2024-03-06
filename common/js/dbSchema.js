@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-// Dweet schema
+// Chirp schema
 var jsonRecordSchema = {
   created: 0,
   content: {

@@ -47,7 +47,7 @@ function checkFiO2Calculation(d) {
   }
 }
 
-function disassembleAndQueueDweet(d) {
+function disassembleAndQueueChirp(d) {
   let fragmentIndex = 0;
   while (1) {
     let key = String(fragmentIndex);
@@ -57,12 +57,12 @@ function disassembleAndQueueDweet(d) {
     fragment = d.content[key];
     let millisStr = fragment.MILLIS;
     let millis = parseChecksumString(millisStr);
-    if (millis == null) continue // ignore this malformed dweet
+    if (millis == null) continue // ignore this malformed chirp
 
     if (!startMillis) startMillis = Number(millis);
     fragment.MILLIS = Number(millis);
     fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));
-    dweetQ.push(cloneObject(fragment));
+    chirpQ.push(cloneObject(fragment));
   }
 }
 
@@ -77,16 +77,16 @@ function waitForChirps() {
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
-		// ignore old dweets
+		// ignore old chirps
 		if (d.created < dashboardLaunchTime) return;
 
-    if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
-    if (awaitingFirstDweet) {
+    if (awaitingFirstChirp) {
       let millisStr = d.content["0"].MILLIS
       let millis = parseChecksumString(millisStr);
-      if (millis == null) return; // ignore this malformed dweet
+      if (millis == null) return; // ignore this malformed chirp
 
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
@@ -98,13 +98,13 @@ function waitForChirps() {
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
-    awaitingFirstDweet = false;
-    lastDweetInMs = simulatedMillis;
-    disassembleAndQueueDweet(d);
+    awaitingFirstChirp = false;
+    lastChirpInMs = simulatedMillis;
+    disassembleAndQueueChirp(d);
   })
 }
 
-function processDashboardDweet(d) {
+function processDashboardChirp(d) {
   let curDate = new Date(d.created);
   let sessionDurationInMs = Math.abs(curDate - session.startDate);
   let elm = document.getElementById("logTimeDuration");
@@ -139,7 +139,7 @@ function processDashboardDweet(d) {
 function createDashboards() {
   if (updatePaused) return;
 
-  // update Snapshot on every dweet
+  // update Snapshot on every chirp
   updateSnapshot();
 
   // update rest of the views selectively
@@ -175,11 +175,11 @@ function createDashboards() {
 }
 
 function snapshotProcessJsonRecord(d) {
-  updatedDweetContent.created = d.created;
+  updatedChirpContent.created = d.created;
   for (let key in d.content) {
     // get key value pairs
     let value = d.content[key];
-    updatedDweetContent.content[key] = value;
+    updatedChirpContent.content[key] = value;
   }
 }
 
@@ -607,8 +607,8 @@ window.onload = function () {
   displayMessageLine("Mline3", banner3);
   displayMessageLine("Mline4", banner4);
 
-  // now wait for dweets and act accordingly
-  dweetQ = new Queue();
+  // now wait for chirps and act accordingly
+  chirpQ = new Queue();
   waitForChirps();
   finishedLoading = true;
   let menuBar = document.getElementById("sideMenuBar");
@@ -739,9 +739,9 @@ function HandlePeriodicTasks() {
     blinkFlowRate();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
-  if (awaitingFirstDweet) {
-    let timeAwaitingFirstDweet = new Date() - dashboardLaunchTime ;
-    if (timeAwaitingFirstDweet > MAX_AWAIT_FIRST_DWEET_IN_MS) {
+  if (awaitingFirstChirp) {
+    let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
+    if (timeAwaitingFirstChirp > MAX_AWAIT_FIRST_CHIRP_IN_MS) {
       displayWifiDropped();
     }
     if (dormantPopupManualCloseTime) {
@@ -750,11 +750,11 @@ function HandlePeriodicTasks() {
           showDormantPopup();
         }
       }
-    } else if ((new Date() - session.launchDate) >= MAX_DWEET_INTERVAL_IN_MS) {
+    } else if ((new Date() - session.launchDate) >= MAX_CHIRP_INTERVAL_IN_MS) {
       if (!dormantPopupDisplayed) showDormantPopup();
     }
-  } else if ((dweetQ.size() == 0) &&
-    ((simulatedMillis - lastDweetInMs) >= MAX_DWEET_INTERVAL_IN_MS)) {
+  } else if ((chirpQ.size() == 0) &&
+    ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
     displayWifiDropped();
     if (dormantPopupManualCloseTime) {
       if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
@@ -767,12 +767,12 @@ function HandlePeriodicTasks() {
 }
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstDweet) {
+  if (!awaitingFirstChirp) {
     simulatedMillis = getCurrentSimulatedMillis();
   }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
-  if (dweetQ && dweetQ.size()) {
+  if (chirpQ && chirpQ.size()) {
     FetchAndExecuteFromQueue();
   }
   setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
@@ -782,14 +782,14 @@ function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
   let millis;
   while (1) {
-    if (dweetQ.size() == 0) break;
-    let d = dweetQ.peek();
+    if (chirpQ.size() == 0) break;
+    let d = chirpQ.peek();
     let millis = Number(d.MILLIS);
 		//console.log("millis",millis);
 		//console.log("simulatedMillis",simulatedMillis);
     if (simulatedMillis < millis) break;
 
-    d = dweetQ.pop();
+    d = chirpQ.pop();
 		if (isUndefined(d["content"])) break;
 
     if (!isUndefined(d.content["BNUM"])) {
@@ -804,15 +804,15 @@ function FetchAndExecuteFromQueue() {
       session.dashboardBreathNum = 
         session.systemBreathNum - session.startSystemBreathNum + 1;
     }
-    let dCopy; // a copy of the dweet
+    let dCopy; // a copy of the chirp
     dCopy = cloneObject(d);
-    processDashboardDweet(d);
-    processRecordDweet(dCopy);
+    processDashboardChirp(d);
+    processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
+  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULAION_TIMES) {
     modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
-    console.error("Dweets way ahead of simulated time " + millis +
+    console.error("Chirps way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
   return;

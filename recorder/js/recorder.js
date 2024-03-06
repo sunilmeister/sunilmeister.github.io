@@ -6,10 +6,10 @@ var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
 var simulatedMillis = 0;
-var lastDweetInMs = 0;
+var lastChirpInMs = 0;
 var startSystemDate = new Date();
-var awaitingFirstDweet = true;
-var dweetQ = null;
+var awaitingFirstChirp = true;
+var chirpQ = null;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
 
@@ -24,7 +24,7 @@ function updateRecordingIndicator() {
   }
 }
 
-function disassembleAndQueueDweet(d) {
+function disassembleAndQueueChirp(d) {
   fragmentIndex = 0;
   while (1) {
     key = String(fragmentIndex);
@@ -34,16 +34,16 @@ function disassembleAndQueueDweet(d) {
     fragment = d.content[key];
     millisStr = fragment.MILLIS;
     millis = parseChecksumString(millisStr);
-    if (millis == null) continue // ignore this malformed dweet
+    if (millis == null) continue // ignore this malformed chirp
 
     if (!startMillis) startMillis = Number(millis);
     if (!isUndefined(fragment.content['CLEAR_ALL'])) {
-      // replace CLEAR_ALL with a preconstructed dweet
-      // fragment = cloneObject(clearAllDweet);
+      // replace CLEAR_ALL with a preconstructed chirp
+      // fragment = cloneObject(clearAllChirp);
     }
     fragment.MILLIS = Number(millis);
     fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));
-    dweetQ.push(cloneObject(fragment));
+    chirpQ.push(cloneObject(fragment));
   }
 }
 
@@ -55,13 +55,13 @@ function getCurrentSimulatedMillis() {
 
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
-    if (simulatedMillis - lastDweetInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
-    if (awaitingFirstDweet) {
+    if (awaitingFirstChirp) {
       millisStr = d.content["0"].MILLIS
       millis = parseChecksumString(millisStr);
-      if (millis == null) return; // ignore this malformed dweet
+      if (millis == null) return; // ignore this malformed chirp
 
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
@@ -72,9 +72,9 @@ function waitForChirps() {
       elm = document.getElementById("logStartTime");
       elm.innerHTML = dateToTimeStr(d.created);
     }
-    awaitingFirstDweet = false;
-    lastDweetInMs = simulatedMillis;
-    disassembleAndQueueDweet(d);
+    awaitingFirstChirp = false;
+    lastChirpInMs = simulatedMillis;
+    disassembleAndQueueChirp(d);
   })
 }
 
@@ -112,8 +112,8 @@ window.onload = function () {
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
   new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
 
-  // now wait for dweets and act accordingly
-  dweetQ = new Queue();
+  // now wait for chirps and act accordingly
+  chirpQ = new Queue();
   waitForChirps();
   finishedLoading = true;
   let menuBar = document.getElementById("sideMenuBar");
@@ -139,11 +139,11 @@ window.onbeforeunload = function (e) {
 const TIMEOUT_INTERVAL_IN_MS = 200;
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstDweet) {
+  if (!awaitingFirstChirp) {
     simulatedMillis = getCurrentSimulatedMillis();
   }
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
-  if (dweetQ && dweetQ.size()) {
+  if (chirpQ && chirpQ.size()) {
     FetchAndExecuteFromQueue();
   }
   setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
@@ -153,12 +153,12 @@ function FetchAndExecuteFromQueue() {
   if (!finishedLoading) return;
   let millis;
   while (1) {
-    if (dweetQ.size() == 0) break;
-    let d = dweetQ.peek();
+    if (chirpQ.size() == 0) break;
+    let d = chirpQ.peek();
     millis = Number(d.MILLIS);
     if (simulatedMillis < millis) break;
 
-    d = dweetQ.pop();
+    d = chirpQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseJSONSafely(bnumContent);
@@ -173,12 +173,12 @@ function FetchAndExecuteFromQueue() {
     }
     updateRecorderSummary(d);
     let dCopy = cloneObject(d);
-    processRecordDweet(dCopy);
+    processRecordChirp(dCopy);
   }
 
   if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
     modalAlert("Recorder out of Sync", "Something went wrong\nPlease relaunch the Recorder");
-    console.error("Dweets way ahead of simulated time " + millis +
+    console.error("Chirps way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
   }
   return;

@@ -17,7 +17,7 @@ var SessionDataTemplate = {
   startSystemBreathNum: null,
   numMissingBreaths: 0,
   lastValidBreathTime: null,
-  firstBreathDweetTime: null,
+  firstBreathChirpTime: null,
   firstBreathBnumTime: null,
   statTablesConstructed: false,
   cmvSpontDetections: 0,
@@ -56,7 +56,7 @@ var SessionDataTemplate = {
   },
 
   // ////////////////////////////////////////////////////
-  // data collected from dweets
+  // data collected from chirps
   // ////////////////////////////////////////////////////
 
   stateData: {
@@ -301,7 +301,7 @@ var SessionDataTemplate = {
     paused:             false,
     creationTimeStamp:  null,
     accumulatedState:   {},
-    prevDweetRecorded:  false,
+    prevChirpRecorded:  false,
     versionRecorded:    false,
   },
 

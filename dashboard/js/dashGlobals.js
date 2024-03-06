@@ -4,11 +4,11 @@
 
 const TIMEOUT_INTERVAL_IN_MS = 200;
 const BLINK_INTERVAL_IN_MS = 3000;
-const MAX_DWEET_INTERVAL_IN_MS = 30000;
+const MAX_CHIRP_INTERVAL_IN_MS = 30000;
 const MAX_DORMANT_CLOSE_DURATION_IN_MS = 60000;
-const MAX_AWAIT_FIRST_DWEET_IN_MS = 60000;
+const MAX_AWAIT_FIRST_CHIRP_IN_MS = 60000;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
-const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
+const MAX_DIFF_CHIRP_SIMULAION_TIMES = 10000;
 
 var datasource_name = "INSPIRE-100";
 var dashboardLaunchTime = new Date();
@@ -16,8 +16,8 @@ var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
 var simulatedMillis = 0;
-var lastDweetInMs = 0;
-var lastDweetInMs = 0;
+var lastChirpInMs = 0;
+var lastChirpInMs = 0;
 var startSystemDate = new Date();
 var prevAlarmErrorNum = -1;
 
@@ -44,14 +44,14 @@ var savedL4 = "";
 
 var breathPausedAt = 0;
 
-var updatedDweetContent = {
+var updatedChirpContent = {
   "content": {}
 };
-var awaitingFirstDweet = true;
-var dweetQ = null;
+var awaitingFirstChirp = true;
+var chirpQ = null;
 var periodicTickCount = 0;
-var lastDweetTick = 0;
-var dweetIntervalCounter = 0;
+var lastChirpTick = 0;
+var chirpIntervalCounter = 0;
 var finishedLoading = false;
 
 var messagesBackground = "BRIGHTGREEN";

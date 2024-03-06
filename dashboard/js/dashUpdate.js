@@ -248,7 +248,7 @@ function updateMiscDivsFromSessionData() {
 }
 
 function updateSnapshot() {
-  let d = updatedDweetContent;
+  let d = updatedChirpContent;
   for (let key in d.content) {
     // get key value pairs
     let value = d.content[key];
@@ -348,7 +348,7 @@ function updateSnapshot() {
 }
 
 function updateDashboardIndicator() {
-  if (awaitingFirstDweet) {
+  if (awaitingFirstChirp) {
     document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
   } else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";

@@ -1,6 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // The dashboard should ONLY use waitForHwPosts(uidString, callbackFn)
-// Switching between dweet.io and  is done in this file ONLY
+// Switching between dweet.io and  our own API is done in this file ONLY
 // Rest of the dashboard code does not have to know that it is switched
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 function waitForHwPosts(uidString, callbackFn) {
   if (USE_DWEET_FOR_MESSAGES) {
-    dweetio.listen_for(uidString, callbackFn);
+    chirpio.listen_for(uidString, callbackFn);
   } else {
     inspireListenFor(uidString, callbackFn);
   }
@@ -60,12 +60,12 @@ async function executeInspireListenFor(uidString, callbackFn) {
   }
   prevResponseTimestamp = new Date(timestamp);
 
-  // change the response to be in dweet format
+  // change the response to be in chirp format
   // so that the rest of the code does not have to change
-  // when switching from dweet to inspireListenFor
-  let dweetObj = dweetFormat(uidString, timestamp, payload);
-  //console.log(timestamp,dweetObj);
-  callbackFn(dweetObj); // Pass the response to the callbackFn
+  // when switching from chirp to inspireListenFor
+  let chirpObj = chirpFormat(uidString, timestamp, payload);
+  //console.log(timestamp,chirpObj);
+  callbackFn(chirpObj); // Pass the response to the callbackFn
 }
 
 function inspireListenFor(uidString, callbackFn) {
@@ -77,11 +77,11 @@ function inspireListenFor(uidString, callbackFn) {
         MESSAGE_LISTEN_INTERVAL_IN_MS);
 }
 
-function dweetFormat(uidString, timeStamp, payload) {
-  var dweetObj = {
+function chirpFormat(uidString, timeStamp, payload) {
+  var chirpObj = {
     "thing": uidString,
     "created": new Date(timeStamp),
     "content" : payload,
   };
-  return cloneObject(dweetObj);
+  return cloneObject(chirpObj);
 }
