@@ -48,7 +48,7 @@
     <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
   </audio>
 
-  <div id=audioControlDiv class=popupClassPersistent style="width:300px; height:400px; display: none">
+  <div id=audioControlDiv class=popupClassPersistent style="width:350px; height:450px; display: none">
     <center>
       <div>
         <p style="font-size: 30px;">Audio Alarms
@@ -58,10 +58,13 @@
           <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeWarningVolume()'>
           <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
 
+				<br>
+				<br>
         <p style="font-size: 20px; ">&nbsp&nbsp&nbsp&nbspError
           <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOn.png" width=20px height=20px></button>
           <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeErrorVolume()'>
           <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+          <br>
           <br>
           <br>
           <button class=button style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='dismissAudioControl()'>DONE</button>
