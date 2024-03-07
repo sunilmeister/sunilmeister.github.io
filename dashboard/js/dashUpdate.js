@@ -125,6 +125,27 @@ function updateAlert(blink) {
   }
 }
 
+function updateMessageLine(value, prev) {
+	if (prev !== null) {
+		// incomplete previous message
+		msgL1 = msgL2 = msgL3 = msgL4 = null;
+	}
+	if (!value) value = "&nbsp";
+	return value;
+}
+
+function displayMessageLines() {
+	// Wait for all 4 lines
+	if ((msgL1===null) || (msgL2===null) || (msgL3===null) || (msgL4===null)) {
+		return;
+	}
+	displayMessageLine("Mline1", msgL1);
+ 	displayMessageLine("Mline2", msgL2);
+ 	displayMessageLine("Mline3", msgL3);
+ 	displayMessageLine("Mline4", msgL4);
+	msgL1 = msgL2 = msgL3 = msgL4 = null;
+}
+
 function displayMessageLine(lineTag, value) {
   let elm;
   if (messagesBackground != "MEDIUMGREEN") {
@@ -256,22 +277,24 @@ function updateSnapshot() {
       if (value==1) {
         updateAlert(true);
         session.alerts.attention = true;
-        //console.log("attention=true");
       } else {
         updateAlert(false);
         session.alerts.attention = false;
-        //console.log("attention=false");
       }
     }
     // Message lines
     else if (key == 'L1') {
-  		displayMessageLine("Mline1", value);
+			msgL1 = updateMessageLine(value, msgL1);
+  		displayMessageLines();
     } else if (key == 'L2') {
-  		displayMessageLine("Mline2", value);
+			msgL2 = updateMessageLine(value, msgL2);
+  		displayMessageLines();
     } else if (key == 'L3') {
-  		displayMessageLine("Mline3", value);
+			msgL3 = updateMessageLine(value, msgL3);
+  		displayMessageLines();
     } else if (key == 'L4') {
-  		displayMessageLine("Mline4", value);
+			msgL4 = updateMessageLine(value, msgL4);
+  		displayMessageLines();
     }
 
     // Patient info

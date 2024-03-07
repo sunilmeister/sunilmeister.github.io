@@ -37,6 +37,10 @@ var prevUpdateNumAlerts = -1;
 var wifiDropped = false;
 var wifiDroppedBlink = 0;
 
+var msgL1 = null;
+var msgL2 = null;
+var msgL3 = null;
+var msgL4 = null;
 var savedL1 = "";
 var savedL2 = "";
 var savedL3 = "";
