@@ -270,6 +270,10 @@ function updateMiscDivsFromSessionData() {
 
 function updateSnapshot() {
   let d = updatedChirpContent;
+
+	// If any line is missing the entire message will be discarded
+	msgL1 = msgL2 = msgL3 = msgL4 = null;
+
   for (let key in d.content) {
     // get key value pairs
     let value = d.content[key];
