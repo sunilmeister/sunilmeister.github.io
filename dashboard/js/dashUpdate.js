@@ -125,11 +125,7 @@ function updateAlert(blink) {
   }
 }
 
-function updateMessageLine(value, prev) {
-	if (prev !== null) {
-		// incomplete previous message
-		msgL1 = msgL2 = msgL3 = msgL4 = null;
-	}
+function updateMessageLine(value) {
 	if (!value) value = "&nbsp";
 	return value;
 }
@@ -288,16 +284,16 @@ function updateSnapshot() {
     }
     // Message lines
     else if (key == 'L1') {
-			msgL1 = updateMessageLine(value, msgL1);
+			msgL1 = updateMessageLine(value);
   		displayMessageLines();
     } else if (key == 'L2') {
-			msgL2 = updateMessageLine(value, msgL2);
+			msgL2 = updateMessageLine(value);
   		displayMessageLines();
     } else if (key == 'L3') {
-			msgL3 = updateMessageLine(value, msgL3);
+			msgL3 = updateMessageLine(value);
   		displayMessageLines();
     } else if (key == 'L4') {
-			msgL4 = updateMessageLine(value, msgL4);
+			msgL4 = updateMessageLine(value);
   		displayMessageLines();
     }
 
