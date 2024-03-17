@@ -343,7 +343,7 @@ function createReportRange(rolling, minBnum, maxBnum) {
 // Periodically check the internet online status
 /////////////////////////////////////////////////////
 setInterval(async () => {
-  testUrl('http://google.com');
+  testUrl('https://google.com');
 }, 5000); // check every 5 secs
 
 function testUrl(url) {
