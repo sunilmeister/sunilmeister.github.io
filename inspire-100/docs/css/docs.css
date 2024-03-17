@@ -1,0 +1,53 @@
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: Verdana;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  padding: 8px;
+  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  transform: translate(-50%, -50%);
+  /* (x, y)  => position */
+  -ms-transform: translate(-50%, -50%);
+  /* IE 9 */
+  -webkit-transform: translate(-50%, -50%);
+  /* Chrome, Safari, Opera */
+}
+
+.docHrefCls {
+  font-size:22px;
+}
+
+a:link { 
+	color: white;
+  text-decoration: none;
+  font-weight: normal;
+	display: block;
+}
+
+a:visited { 
+	color: white;
+  text-decoration: none;
+  font-weight: normal;
+	display: block;
+}
+
+a:active {
+	color:var(--rsp_blue);
+  text-decoration: none;
+  font-weight: bold;
+	display: block;
+  transform: translateY(4px);
+}
+
+a:hover {
+	color:var(--rsp_blue);
+  text-decoration: none;
+  font-weight: bold;
+	display: block;
+  transform: translateY(-4px);
+}

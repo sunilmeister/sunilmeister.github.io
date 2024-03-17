@@ -1,0 +1,171 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #EEE;
+  font-family: verdana;
+	font-size: 1rem;
+}
+
+.wrapTiles {
+  overflow: hidden;
+  margin: 10px;
+}
+
+.tile {
+  float: left;
+  position: relative;
+  width: 20%;
+  padding-bottom: 20%;
+	border-style: outset;
+  border-width: 5px;
+  margin: 5px;
+}
+
+.tileContent {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 10px;
+  bottom: 10px;
+  overflow: hidden;
+}
+
+.tileContent img {
+  width: 100%;
+}
+
+.tileContent .tileUid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-bottom: -55px;
+  background: #000;
+  background: rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  padding: 10px;
+  text-align: center;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .tileUid {
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width : 480px) {
+  /* Smartphone view: 1 tile */
+  .tile {
+    width: 100%;
+    padding-bottom: 100%;
+  }
+}
+@media only screen and (max-width : 650px) and (min-width : 481px) {
+  /* Tablet view: 2 tiles */
+  .tile {
+    width: 50%;
+    padding-bottom: 50%;
+  }
+}
+@media only screen and (max-width : 1050px) and (min-width : 651px) {
+  /* Small desktop / ipad view: 3 tiles */
+  .tile {
+    width: 25%;
+    padding-bottom: 25%;
+  }
+}
+@media only screen and (max-width : 1290px) and (min-width : 1051px) {
+  /* Medium desktop: 4 tiles */
+  .tile {
+    width: 20%;
+    padding-bottom: 20%;
+  }
+}
+
+.statusCaption {
+	background-color: darkgray;
+	color: black;
+}
+
+.breathCaption {
+	background-color: darkgray;
+	color: black;
+}
+
+.tileName {
+	color: white;
+	font-weight: bold;
+}
+
+.breathNum {
+	color: white;
+	font-weight: bold;
+}
+
+.active {
+	color: red;
+	font-weight: bold;
+}
+
+.Alert {
+	float: right;
+}
+
+.State {
+	float: left;
+}
+
+.StateContent {
+	display: block;
+}
+
+.ParamContentNonPSV {
+	display: none;
+}
+
+.ParamContentPSV {
+	display: none;
+}
+
+.ParamRow {
+	clear: both;
+}
+
+.ParamFloatLeft {
+	float: left;
+	border-style: solid;
+	border-color: white;
+	width: 42%;
+}
+
+.ParamFloatRight {
+	float: right;
+	border-style: solid;
+	border-color: white;
+	width: 42%;
+}
+
+.ParamName {
+	color: white;
+	background-color: gray;
+}
+
+.ParamValue {
+	font-weight: bold;
+	color: white;
+}
+
+.AudioControl {
+	font-weight: bold;
+	font-size: 20px;
+	background-color: #0D3E51;
+	color: white;
+	margin: 5px;
+	padding: 5px;
+	cursor: pointer;
+	float: left;
+	border-style: outset;
+  border-width: 5px;
+}

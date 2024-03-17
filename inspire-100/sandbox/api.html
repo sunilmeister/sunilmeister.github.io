@@ -1,0 +1,38 @@
+<head>
+</head>
+
+<script>
+async function fetch_api_getone(uid) {
+
+    let option = {
+        method: 'POST',
+        headers:{
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            UID: 'UID_28615E07D6013C4A'
+        })
+    }
+
+    console.log(option.body);
+
+    const getoneAPI = "http://103.159.68.39:3001/message/getone";
+
+    const api = await fetch(getoneAPI,option)
+        .then((res) => res.json())
+        .then((json) => console.log(json))
+        .catch((err) => console.log(err))
+
+}
+
+// Executed on button click
+  function buttonClickFn() {
+    fetch_api_getone();
+  }
+</script>
+
+<body>
+  <br><br>
+  <button onclick='buttonClickFn()'>GetOne</button>
+</body>
+

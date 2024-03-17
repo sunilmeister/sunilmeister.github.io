@@ -1,0 +1,58 @@
+{% load static %} 
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+</head>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var intervalId; // Variable to store the interval ID
+  
+        function respimaticListenFor(uid) {
+            
+            $.ajax({
+                url: 'display_json_response',
+                method: 'POST',
+                data: {
+                    uid: uid
+                },
+                success: function (response) {
+                 console.log(response)
+                    var timestamp = response.timestamp;
+                  var jsondata = response.jsonData;
+  
+                if (response.data == 'success')
+                  console.log(timestamp,jsondata);
+                else {
+                  console.log("UID does not match");
+                }
+                }
+            });
+        }
+  
+        // Define the button click event handler
+        function connectButtonClick() {
+            var uid = $('#uid').val(); // Get the value of uid from the input field
+            respimaticListenFor(uid);
+            //Start the interval after clicking the button
+            
+            intervalId = setInterval(function () {
+                respimaticListenFor(uid);
+            },10);
+        }
+  
+        // Add event listener to the button
+        $('#connectButton').click(connectButtonClick);
+    });
+
+</script>
+<body>
+    <input id="uid" type="text" value="UID_28705904000000EE">
+    <!-- Button with id attribute -->
+    <button id="connectButton">CONNECT</button>
+</body>
+</html>
+
+<!--<a href="{% static 'js/yyy.js' %}" target="_blank">Open yyy.js</a>-->
+

@@ -1,0 +1,252 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Inspire-100 WebAPPS</title>
+    <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
+
+    <link rel="icon" type="image/png" href="../common/img/favicon.png" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />    <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="../common/css/common.css" />
+    <link rel="stylesheet" href="../common/css/selectTableRow.css" />
+    <link rel="stylesheet" href="css/sizes.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="https://dweet.io/client/dweet.io.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../common/js/hwPosts.js"></script>
+
+    <script src="../common/js/constants.js"></script>
+    <script src="../common/js/palette.js"></script>
+    <script src="../firmware/releases/releasesInfo.js"></script>
+    <script src="../common/js/common.js"></script>
+    <script src="../common/js/modalPopup.js"></script>
+    <script src="../common/js/hidePopups.js"></script>
+    <script src="../common/js/download.js"></script>
+    <script src="../common/js/iconButton.js"></script>
+    <script src="../common/js/selectTableRow.js"></script>
+    <script src="../common/js/uid.js"></script>
+    <script src="../common/js/enterSubmit.js"></script>
+    <script src="js/main.js"></script>
+
+  </head>
+
+  <body style="font-family: verdana">
+    <div id=exportDiv class=popupClass style="width:25rem; height:25rem; display: none">
+      <center>
+        <div style="font-size: 2rem;">
+          <br>
+          <label for="exportFileName">Export File Name (.xml)</label>
+          <br>
+          <br>
+          <input id=exportFileName style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem;" />
+          <br>
+          <br>
+          <br>
+          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:16rem;" onclick=exportFile()>EXPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:16rem;" onclick=cancelExport()>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+    <div id=importDiv class=popupClass style="height:18rem; width:30rem; font-size:2rem; display: none">
+      <center>
+        <br>
+        <label for="fileSelector">Systems File to Import</label>
+        <br>
+        <br>
+        <input type="file" id=fileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
+        <br>
+        <br>
+        <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=importFile()>IMPORT</button>
+        <button class=button style="background-color:var(--rsp_darkred); width:12.5rem;" onclick=cancelImport()>CANCEL</button>
+        <br>
+        <br>
+      </center>
+    </div>
+
+    <div id=addSystemDiv class=popupClass style="width:37.5rem; height:25rem; font-size: 1.5rem; display: none">
+      <center>
+        <div>
+          <p style="font-size:2.5rem; margin-top:1.5rem; ">ADD new System
+            <br>
+            <br>
+            <label for="newSysUID" style="font-size:1.75rem;">System UID</label>
+            <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+            <br>
+            <br>
+            <label for="newSysTAG" style="font-size:1.75rem;">System TAG</label>
+            <input id=newSysTAG style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+            <br>
+            <br>
+            <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=addNewSystemBtn()>ADD System</button>
+            <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelNewSystemBtn()>CANCEL</button>
+        </div>
+      </center>
+    </div>
+
+    <div id=addDetectedSystemDiv class=popupClassPersistent style="width:45rem; height:18rem; font-size: 1.5rem;
+    display: none">
+      <center>
+        <div>
+          <p style="font-size:2.5rem; margin-top:1.5rem;">ADD Detected System using OTP
+            <br>
+            <br>
+            <label for="detectedSysOTP" style="font-size:1.75rem;">OTP from System Front Panel</label>
+            <input id=detectedSysOTP style="width: 4rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+            <br>
+            <br>
+            <button id=addDetectedSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=addDetectedSystemBtn()>ENTER OTP</button>
+            <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelDetectedSystemBtn()>CANCEL</button>
+        </div>
+      </center>
+    </div>
+
+    <div id=deleteHistoryDiv class=popupClass style="width:37.5rem; height:18rem; font-size: 1.5rem; display: none">
+      <center>
+        <div>
+          <br>
+          <br>
+          <input type="checkbox" id="cookiesDelete"> Delete ALL Cookies
+          <br>
+          <input type="checkbox" id="recordingsDelete"> Delete ALL Recordings
+          <br>
+          <input type="checkbox" id="systemsDelete"> Delete ALL System UID History
+          <br>
+          <br>
+          <br>
+          <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=deleteHistoryBtn()>DELETE</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelDeleteHistoryBtn()>CANCEL</button>
+        </div>
+      </center>
+    </div>
+
+    <div id=passwordDiv class=popupClass style="width:45rem; height:20rem; display: none">
+      <center>
+        <div style="font-size: 1.6rem;">
+          <br>
+          <br>
+          <label for="password">Access Key</label>
+          <br>
+          <br>
+          <input id=password style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
+          <br>
+          <br>
+          <br>
+          <button id=passwordBtn class=button style="background-color:var(--rsp_darkblue); width:16rem;" onclick=submitDocPassword()>SUBMIT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:16rem;" onclick=cancelDocPassword()>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+    <div id=wrapper class=wrapper>
+
+      <div id=mainDiv style="display:block;">
+        <div style="background-color:var(--rsp_mediumblue);">
+          <center>
+            <img src="../common/img/Logo-horizontal.png" alt="Title" width=360rem height=120rem style="margin-top: 5px; margin-right:-10px; margin-left:-10px;" />
+          </center>
+        </div>
+        <center>
+          <div style="background-color:var(--rsp_mediumblue); color:white; font-size:2.0em;   -webkit-text-stroke-width: 1px; -webkit-text-stroke-color: var(--rsp_darkblue);">
+            <p style="margin-top:0px;margin-bottom:10px;">&nbsp&nbsp<b>INSPIRE-100</b> <i>Web Applications</i>&nbsp&nbsp
+          </div>
+          <div class=content style="font-size: 1.5rem;">
+            <button class=lineButton onclick="tilesView()">Display ALL My Systems</button>
+						<br>
+            <button class=lineButton onclick="mySystemInfo()">Manage My Systems</button>
+            <br>
+            <button class=lineButton onclick="addSystemInfo()">Add My System</button>
+            <hr>
+            <label style="margin-bottom:0px; font-size:28px">Select My System</label>
+            <br>
+            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 5px; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" />
+            </select>
+            <br>
+            <button class=lineButton onclick="launchDashboard()">Launch Dashboard</button>
+            <br>
+            <button class=lineButton onclick="launchAnalyzer()">Launch Analyzer</button>
+            <br>
+            <button class=lineButton onclick="launchRecorder()">Launch Recorder</button>
+            <br>
+            <hr>
+            <button class=lineButton onclick="launchDocs()">View Documentation</button>
+            <hr>
+            <button class=lineButton onclick="launchSwInstaller()">Update System Firmware</button>
+            <hr>
+            <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
+            <hr>
+          </div>
+        </center>
+        <div style="margin-bottom:-1rem;">
+          <center>
+            <button class=lineButton onclick="deleteSelectedHistory()" style="font-size:1.2rem; height:1rem;
+            width:10rem; margin-top:0.625rem;">Delete History</button>
+          </center>
+          <br>
+        </div>
+
+        <div style="background-color:var(--rsp_darkblue); font-size:0.9rem; margin-top:20px; margin-bottom:-20px">
+          <center>
+            <a style="color:white;" href="https://www.flaticon.com/free-icons/right" title="right icons">Right icons created by Freepik - Flaticon</a>
+          </center>
+        </div>
+      </div>
+
+      <div id=mySystems style="display:none">
+        <div style="height:60em; width:50em">
+          <center>
+            <div style="background-color:var(--rsp_mediumblue);">
+              <img src="../common/img/systems-logo.png" alt="Title" width=770rem height=140rem; style="margin-top: 5px; " />
+            </div>
+            <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5em;margin-top:10px;">
+              <button class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:left" title='Back to Main Menu'><img src="../common/img/back.png" width=30px height=30px></button>
+              <button class=iconButton onClick="removeAllUidRows(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title='Delete ALL'><img src="../common/img/trash-bin.png" width=30px height=30px></button>
+              <button class=iconButton onClick="addSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title='Add System'><img src="../common/img/plus.png" width=30px height=30px></button>
+              <button class=iconButton onClick="importSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title=Import><img src="../common/img/import.png" width=30px height=30px></button>
+              <button class=iconButton onClick="exportSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) style="float:right" title=Export><img src="../common/img/export.png" width=30px height=30px></button>
+              <br>
+            </div>
+
+            <br>
+            <table id=mySystemsTable style="border:solid; font-size:1.5em;">
+              <thead>
+                <tr>
+                  <th align="center" style="min-width:200px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 10px 10px; ">System Tag</th>
+                  <th align="center" style="min-width:300px; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 10px 10px; ">System UID</th>
+                  <th align="center" style="min-width:100px; background-color:var(--rsp_lightblue); color:
+                  var(--rsp_darkblue);  padding: 10px 10px; ">FW Version</th>
+                  <th align="center" colspan="2" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 10px 10px; ">Actions</th>
+                </tr>
+              </thead>
+            </table>
+            </font>
+            <br>
+          </center>
+        </div>
+
+      </div>
+      <br>
+    </div>
+
+  </body>
+
+</html>

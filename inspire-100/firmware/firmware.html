@@ -1,0 +1,88 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Inspire-100 Update Firmware</title>
+    <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
+
+    <link rel="icon" type="image/png" href="../common/img/favicon.png" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="../common/css/common.css" />
+    <link rel="stylesheet" href="../common/css/selectTableRow.css" />
+    <link rel="stylesheet" href="css/sizes.css" />
+    <link rel="stylesheet" href="css/firmware.css" />
+
+    <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+
+    <script src="../common/js/constants.js"></script>
+    <script src="../common/js/palette.js"></script>
+    <script src="../firmware/releases/releasesInfo.js"></script>
+    <script src="../common/js/common.js"></script>
+    <script src="../common/js/modalPopup.js"></script>
+    <script src="../common/js/hidePopups.js"></script>
+    <script src="../common/js/download.js"></script>
+    <script src="../common/js/iconButton.js"></script>
+    <script src="../common/js/selectTableRow.js"></script>
+    <script src="../common/js/uid.js"></script>
+    <script src="js/firmware.js"></script>
+
+  </head>
+
+  <body style="font-family: verdana">
+    <div id=wrapper class=wrapper>
+
+      <div id=mainDiv style="display:block">
+        <center>
+          <div style="background-color:var(--rsp_mediumblue);">
+            <img src="img/firmware-logo.png" alt="Title" width=400rem height=140rem />
+          </div>
+          <br>
+          <div class=content style="font-size: 1.5rem;">
+            <a href="../docs/pdf/Firmware Update Steps.pdf" target="_blank">
+				    Step-by-step Instructions
+				    </a>
+            <br>
+            <hr>
+            <a href="https://sourceforge.net/projects/arduinodev/files/ArduinoBuilder/FreematicsArduinoBuilder-1.0.13-win32.exe/download" target="_blank" rel="noopener noreferrer">
+              <button class=lineButton onclick="installLoader()">Arduino Builder
+                <br>One-time Download</button>
+            </a>
+            <hr>
+          </div>
+        </center>
+      </div>
+      <div id=knownReleases style="display:block">
+        <div style="max-height:24rem; overflow:auto;background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);">
+          <center>
+            <p style="font-size: 1.4rem; margin-bottom:-12px; margin-top:4px;">Select and Download Release</p>
+            <br>
+            <table id=knownReleasesTable style="font-size:1.4rem; color:white">
+              <thead>
+                <tr>
+                  <th align="left" style="min-width:100px; background-color:var(--rsp_darkblue); color: white; padding: 5px 5px; ">Version</th>
+                  <th align="left" style="min-width:200px; background-color:var(--rsp_darkblue); color: white;  padding: 5px 5px; ">Release Date</th>
+                  <th align="center" style="background-color:var(--rsp_darkblue); color: white; padding: 5px 5px; ">Get</th>
+                </tr>
+              </thead>
+            </table>
+            <br>
+          </center>
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+
+</html>

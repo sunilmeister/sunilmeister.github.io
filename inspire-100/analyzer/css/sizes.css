@@ -1,0 +1,30 @@
+:root {
+  --chartContainerPadding: 21rem;
+  --chartBodyHeight: 20rem;
+  --chartMenuIndent: 1rem;
+  --chartMenuFontSize: 1rem;
+  --chartMenuBannerHeight: 2.5rem;
+  --chartMenuIconSize: 1rem;
+
+  --noUiTooltipSize: 0.7rem;
+
+  --waveContainerPadding: 21rem;
+  --waveBodyHeight: 20rem;
+  --waveMenuIndent: 1rem;
+  --waveMenuFontSize: 1rem;
+  --waveMenuBannerHeight: 2.5rem;
+  --waveMenuIconSize: 1rem;
+
+  --colorLegendSize: 1.5rem;
+  --colorLegendFontSize: 1.2rem;
+
+  --columnPadding: 1rem;
+  --sidebarBtnHeight: 3rem;
+  --sidebarBtnWidth: 12rem;
+  --sidebarBtnFontSize: 1.4rem;
+  --sidebarBtnPadding: 0.35rem 0.35rem;
+  --sidebarBtnMargin: 0.15rem 0.15rem 0rem 0.6rem;
+  --swalFontSize: 1.2rem;
+  --swalTextFontSize: 1.5rem;
+}
+

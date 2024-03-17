@@ -1,0 +1,19 @@
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="duration.js"></script>
+</head>
+
+<script>
+  // Executed on button click
+  function buttonClickFn() {
+    var ms = $('#ms').val(); 
+    console.log("hh:mm:ss = " + msToTimeStr(Number(ms)));
+  }
+</script>
+
+<body>
+  <br><br>
+  <input id='ms' type='text' value='0000000000'></input>
+  <button onclick='buttonClickFn()'>CONVERT</button>
+</body>
+

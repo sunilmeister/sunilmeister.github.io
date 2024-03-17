@@ -1,0 +1,782 @@
+<!-- 
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+-->
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Inspire-100</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width = device-width, initial-scale = 0.9, user-scalable = yes" />
+    <link rel="icon" type="image/png" href="../common/img/favicon.png">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <link rel="stylesheet" href="css/sizes.css" />
+    <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="../common/css/common.css" />
+    <link rel="stylesheet" href="../common/css/noUi.css" />
+    <link rel="stylesheet" href="../common/css/iconButton.css" />
+    <link rel="stylesheet" href="../common/css/sidebarButton.css" />
+    <link rel="stylesheet" href="../common/css/selectTableRow.css" />
+    <link rel="stylesheet" href="../common/css/chart.css" />
+    <link rel="stylesheet" href="../common/css/wave.css" />
+    <link rel="stylesheet" href="../common/css/wavesLegend.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+
+    <script src="../external/nouislider/nouislider.min.js"></script>
+    <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../external/canvasjs/canvasjs.min.js"></script>
+
+    <script src="../common/js/constants.js"></script>
+    <script src="../common/js/palette.js"></script>
+    <script src="../firmware/releases/releasesInfo.js"></script>
+    <script src="../common/js/uid.js"></script>
+    <script src="../common/js/iconButton.js"></script>
+    <script src="../common/js/common.js"></script>
+    <script src="../common/js/modalPopup.js"></script>
+    <script src="../common/js/hidePopups.js"></script>
+    <script src="../common/js/checkboxTree.js"></script>
+    <script src="../common/js/chartPane.js"></script>
+    <script src="../common/js/wavePane.js"></script>
+    <script src="../common/js/statComputer.js"></script>
+    <script src="../common/js/rangeSlider.js"></script>
+    <script src="../common/js/circularGauge.js"></script>
+    <script src="../common/js/queue.js"></script>
+    <script src="../common/js/dbSchema.js"></script>
+    <script src="../common/js/sessionData.js"></script>
+    <script src="../common/js/chirps.js"></script>
+    <script src="../common/js/charts.js"></script>
+    <script src="../common/js/waves.js"></script>
+    <script src="../common/js/stats.js"></script>
+    <script src="../common/js/alerts.js"></script>
+    <script src="../common/js/download.js"></script>
+    <script src="../common/js/chartBox.js"></script>
+    <script src="../common/js/waveBox.js"></script>
+    <script src="../common/js/selectTableRow.js"></script>
+    <script src="../common/js/enterSubmit.js"></script>
+    <script src="js/analImportExport.js"></script>
+    <script src="js/analCharts.js"></script>
+    <script src="js/analWaves.js"></script>
+    <script src="js/analRawData.js"></script>
+    <script src="js/analyzer.js"></script>
+  </head>
+
+  <body style="font-family:verdana">
+    <div id=importDiv class=popupClass style="width:600px; height:450px; display: none">
+      <center>
+        <div style="font-size: 2rem;">
+          <br>
+          <label for="fileSelector">Recording File to Import</label>
+          <br>
+          <br>
+          <input type="file" id=fileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <br>
+          <br>
+          <label for="importSessionName">Recording Name to Create</label>
+          <br>
+          <br>
+          <input id=importSessionName style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <br>
+          <br>
+          <br>
+          <button id=importFileBtn class=button style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='importFile()'>IMPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:250px; font-size:30px;" onclick='cancelImport()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+    <div id=exportDiv class=popupClass style="width:500px; height:350px; display: none">
+      <center>
+        <div style="font-size: 30px; ">
+          <br>
+          <label for="exportFileName">Export File Name (.xml)</label>
+          <br>
+          <br>
+          <input id=exportFileName style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
+          <br>
+          <br>
+          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='exportFile()'>EXPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:250px; font-size:30px;" onclick='cancelExport()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+    <div id=enterRangeDiv class=popupClass style="width:600px; height:300px; display: none">
+      <center>
+        <div style="font-size: 30px; ">
+          <br>
+          <label for="fromBreath">Starting Breath Number</label>
+          <input id=fromBreath style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
+          <br>
+          <br>
+          <label for="toBreath">&nbsp&nbspEnding Breath Number</label>
+          <input id=toBreath style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
+          <br>
+          <br>
+          <br>
+          <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:250px;
+          font-size:30px;" onclick='acceptBreathRange()'>CHANGE</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:250px; font-size:30px;"
+          onclick='cancelBreathRange()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
+
+
+    <div id=sideMenuBar class=sidebarColumn>
+      <div class=sidebar>
+
+        <div class=shadowDiv5 style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);; font-size:1.1rem; ">
+          <center>
+            <p style="margin-bottom:0;margin-top:12px; padding-bottom:5px;"><b>RECORDED DATA</b></p>
+            <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
+            margin-top:10px;color:var(--rsp_darkblue);">
+              <tr style="height:2rem;">
+                <td align="left">&nbspBreaths</td>
+                <td id=logNumBreaths align="center">--</td>
+              </tr>
+              <tr style="height:2rem;">
+                <td align="left">&nbspDuration</td>
+                <td id=logTimeDuration align="center">--:--:--</td>
+              </tr>
+              <tr style="height:2rem;">
+                <td align="left">&nbspPriorBreaths</td>
+                <td id=priorNumBreaths align="center">--</td>
+              </tr>
+            </table>
+          </center>
+        </div>
+        <div class=shadowDiv5 style="background-color:var(--rsp_green); color:var(--rsp_brightgreen);; font-size:1.1rem; ">
+          <center>
+            <p style="margin-bottom:0;padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
+            <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
+            margin-top:10px;color:var(--rsp_brightgreen);">
+              <tr style="height:2rem;">
+                <td align="left">&nbspBreathRange</td>
+                <td id=selectedBreathRange align="center">--</td>
+              </tr>
+              <tr style="height:2rem;">
+                <td align="left">&nbspDuration</td>
+                <td id=selectedTimeDuration align="center">--:--:--</td>
+              </tr>
+            </table>
+          </center>
+        </div>
+        <br>
+      </div>
+      <br>
+
+      <center>
+          <button id=btnSelect class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:250px; font-size:25px;
+          border:none; margin:1rem;" onclick='selectSession()'>Select Recording</button>
+          </center>
+          <br>
+        <br>
+
+        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
+          <br>
+          <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
+          <br>
+          <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
+          <br>
+          <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
+          <br>
+          <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
+          <br>
+          <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
+          <br>
+          <br>
+        </div>
+
+    </div>
+    </div>
+
+    <div id=nonMenuArea class=body-pane>
+
+      <div id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
+        <div id=analysisRangeSliderDiv style="margin-top:25px; padding-left:20px; padding-right:20px;font-size:1.25rem; ">
+        </div>
+        <div style="background-color:var(--rsp_green); color:white; margin-top: 10px; padding-bottom:20px;">
+          <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
+          <button class=iconButton id=btnEnterInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='enterBreathInterval(this)' style="float:left;" title='Default'><img src="../common/img/pen.png" width=20px height=20px></button>
+
+          <center>
+            <p id=sliderCaption style="margin-top: 10px; margin-bottom:-12px; font-size:1.8rem; "> Breath Range Selector
+          </center>
+        </div>
+      </div>
+
+      <div id=selectorDiv style="display: none; margin-bottom:20px; max-width:900px;">
+        <div style="margin-bottom:20px; width:900px;">
+          <center>
+            <p class=shadowDiv5 id=sessionNameSelector style="margin-top:-50px; margin-bottom:-50px;
+            background-color:var(--rsp_mediumblue); color:white;font-size:1.75rem; "> No Selected Recording
+          </center>
+        </div>
+        <br>
+        <br>
+        <div class=shadowDiv5 style="height:655px; line-height:0.9rem; padding:5px; background-color:var(--rsp_darkblue); color:white; border:4px var(--rsp_lightblue); font-size:1.2rem; ">
+
+          <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.4em;">
+            <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/import.png" width=30px height=30px></button>
+            <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" width=30px height=30px></button>
+            <br>
+            <center>INSPIRE-100 Recordings</center>
+          </div>
+
+          <table id='dbTable' className="dbTableStyle" style="font-size:20px; width:100%">
+            <thead>
+              <tr>
+                <th align="center" style="padding: 8px 8px; font-size: 24px; min-width:300px;
+                background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid
+                var(--rsp_darkblue);">Recording Name</th>
+                <th align="center" style="padding: 8px 8px; font-size: 24px; min-width:300px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                <th align="center" style="padding: 8px 8px; font-size: 24px; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
+              </tr>
+
+            </thead>
+          </table>
+        </div>
+        <div style="margin-top:-1.5rem;">
+          <br>
+          <br>
+          <div class=shadowDiv5 id=SYSDiv style="height:100%; width:30%; float:left; background-color:var(--rsp_darkblue); color:white;font-size:1.4rem;">
+            <center>
+              <p style="font-size:1.15rem; "><b>SYSTEM UID</b>
+                <p id='SysUid' style="font-size:1.1rem; ">
+            </center>
+          </div>
+          <div class=shadowDiv5 id=logosDiv style="height:100%; margin-left:31%; background-color:var(--rsp_mediumblue);">
+            <center>
+              <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 7px; margin-left:0px;" width=600px height=110px>
+            </center>
+          </div>
+        </div>
+      </div>
+      </center>
+
+      <div id=statsDiv style="display: none; margin-top:-15px;">
+        <div class=row>
+
+          <div id=measured-pane class=column style="font-size: 1.4rem">
+            <center>
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                Parameters Measured</h2>
+            </center>
+            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+              <tr>
+                <th align="left" style="background-color:lightgray; ">
+                  Parameter</th>
+                <th align="left" style="background-color:lightgray; ">Units
+                </th>
+                <th align="right" style="background-color:lightgray;">Min</th>
+                <th align="right" style="background-color:lightgray;">Max</th>
+                <th align="right" style="background-color:lightgray;">Avg</th>
+              </tr>
+            </table>
+
+            <center>
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                Miscellaneous Information</h2>
+            </center>
+            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+              <tr>
+                <th align="left" style="background-color:lightgray; ">
+                  Information</th>
+                <th align="left" style="background-color:lightgray; ">Value
+                </th>
+              </tr>
+            </table>
+          </div>
+
+          <div id=stats-pane class=column style="font-size: 1.4rem">
+            <center>
+              <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                Static Information</h2>
+            </center>
+            <div style="font-size: 1.25rem">
+              <p id=pName style="margin-bottom: -20px;"></p>
+              <p id=pInfo></p>
+              <p id=location style="margin-bottom: -20px;">UNKNOWN</p>
+              <p id=altitude style="margin-bottom: -20px;">UNKNOWN</p>
+              <p id=o2Percentage>UNKNOWN</p>
+
+            </div>
+            <center>
+              <div id=staticStats style="font-size: 1.4rem">
+                <center>
+                  <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                      Parameter Settings Used</h2>
+                </center>
+
+                <center>
+                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+                    <tr>
+                      <th align="left" style="background-color:lightgray; ">
+                        Parameter</th>
+                      <th align="left" style="background-color:lightgray; ">
+                        Units
+                      </th>
+                      <th align="left" style="background-color:lightgray;">
+                        Values</th>
+                    </tr>
+                  </table>
+                </center>
+
+                <center>
+                  <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                      Sequence of Parameter Combinations</h2>
+                </center>
+
+                <center>
+                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.25rem; width:100%">
+                    <tr>
+                      <th style="background-color:lightgray;">
+                        MODE</th>
+                      <th style="background-color:lightgray;">
+                        VT/MV </th>
+                      <th style="background-color:lightgray;">
+                        &nbsp;RR&nbsp;</th>
+                      <th style="background-color:lightgray;">
+                        I:E</th>
+                      <th style="background-color:lightgray;">
+                        PEEP</th>
+                      <th style="background-color:lightgray;">
+                        PMAX</th>
+                      <th style="background-color:lightgray;">
+                        &nbsp;&nbsp;PS&nbsp;&nbsp;</th>
+                      <th style="background-color:lightgray;">
+                        TPS</th>
+                      <th style="background-color:lightgray;">
+                        FIO2</th>
+                      <th style="background-color:lightgray;">
+                        # of BREATHS</th>
+                      <th style="background-color:lightgray;">
+                        Before BREATH#</th>
+                    </tr>
+                  </table>
+                </center>
+
+              </div>
+
+            </center>
+          </div>
+        </div>
+      </div>
+
+      <div id=chartsDiv style="display: none; margin-bottom:20px; margin-top: 25px;">
+      </div>
+
+      <div id=wavesDiv style="display: none; margin-bottom:20px; margin-top: 25px;">
+        <div class=wavesLegendDiv>
+          <div class=wavesLegendCategory>
+            <center>
+              <p style="margin:0;">Normal Breaths
+            </center>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVC);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVC);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPS);">Pressure Control
+              </center>
+            </div>
+          </div>
+          <div class=wavesLegendCategory>
+            <center>
+              <p style="margin:0;">Maintenance Breaths
+            </center>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorMandatoryVCMaint);">Mandatory
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVCMaint);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousVCMaint);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVCMaint);">Volume Control
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorSpontaneousPSMaint);">Spontaneous
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPSMaint);">Pressure Control
+              </center>
+            </div>
+          </div>
+
+          <div class=wavesLegendCategory>
+            <center>
+              <p style="margin:0;">Exception Breaths
+            </center>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorAbnormal);">Abnormal
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorAbnormal);">Seeming Breath
+              </center>
+            </div>
+            <div class=waveLegend>
+              <center>
+                <p class=waveLegendText style="background-color:var(--colorError);">Error
+                  <br>
+                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorError);">Causing Breath
+              </center>
+            </div>
+          </div>
+
+          <div style="clear:both">
+            <p style="color:black;">Broken lines indicate some missing datapoints
+              <p style="color:red; margin-top:-15px;">Red label indicates too many missing datapoints
+          </div>
+        </div>
+      </div>
+
+      <center>
+        <div id=alertsDiv style="display: none; font-size:1.2rem;">
+          <div class=row style="margin-top:10px; ">
+            <div id=errorColDiv class=column style="font-size: 1rem;">
+              <center>
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
+                  Recorded Errors</h2>
+              </center>
+              <div class=shadowDiv5 id=errorDiv style="height:650px; margin-left:0px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                <p id=scrollErrorDiv style="font-size:1rem; text-align: left;">
+              </div>
+            </div>
+
+            <div id=warningColDiv class=column style="font-size: 1rem; margin-left:5px; ">
+              <center>
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
+                  Recorded Warnings</h2>
+              </center>
+              <div class=shadowDiv5 id=warningDiv style="height:650px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                <p id=scrollWarningDiv style="font-size:1rem; text-align: left">
+              </div>
+            </div>
+
+            <div id=infoColDiv class=column style="font-size: 1rem; margin-left:5px; ">
+              <center>
+                <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:1.5rem; ">
+                  Recorded Information</h2>
+              </center>
+              <div class=shadowDiv5 id=infoDiv style="height:650px; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+                <p id=scrollInfoDiv style="font-size:1rem; text-align: left">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </center>
+
+      <div id=rawDataDiv style="display: none; margin-bottom:20px;">
+        <div style="margin-bottom:20px;;">
+          <center>
+            <p class=shadowDiv5 id=sessionNameData style="margin-top:-50px; margin-bottom:0px;
+            background-color:var(--rsp_green); color:brightgreen;font-size:2em; "> No Selected Recording
+          </center>
+        </div>
+        <center>
+          <div class=shadowDiv5 style="margin-right:10px; height:785px; line-height:1em; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <p id=scrollRawDataDiv style="font-size:1rem; text-align: left">
+          </div>
+
+        </center>
+      </div>
+
+    </div>
+
+    <!-- 
+// ////////////////////////////////////////////////////
+// Below are all templates only
+// ////////////////////////////////////////////////////
+-->
+    <template id=chartContainerTemplate>
+      <div class=chartContainer>
+        <div class=chartBanner>
+          <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img src="../common/img/plus.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
+          <button class='editIconButton iconButton' style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
+          <br>
+        </div>
+        <div class=chartBody>
+        </div>
+      </div>
+    </template>
+
+    <template id=chartEditMenuTemplate>
+      <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
+        <div class=chartEditMenuBanner>
+          <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
+          <br>
+        </div>
+
+        <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
+            <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
+              <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title">
+            </div>
+          </center>
+        </div>
+        <div id=chartCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
+            <input type="checkbox" id=Presssures onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Presssures>Pressures</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Peak onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Peak>Peak Pressure</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Plat onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Plat>Plateau Pressure</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=PEEP onclick='chartTreeCheckboxClicked(this)'>
+              <label for=PEEP>PEEP Pressure</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=Volumes onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Volumes>Volumes</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Tidal onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Tidal>Tidal Volume</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=MinuteTotal onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MinuteTotal>Total Minute Volume</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=MinuteMand onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MinuteMand>Mandatory Minute Volume</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=MinuteSpont onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MinuteSpont>Spontaneous Minute Volume</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=BPM onclick='chartTreeCheckboxClicked(this)'>
+            <label for=BPM>Breaths per minute</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Mandatory onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Mandatory>Mandatory BPM</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Spontaneous onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Spontaneous>Spontaneous BPM</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue)">
+            <input type="checkbox" id=BTYPE onclick='chartTreeCheckboxClicked(this)'>
+            <label for=BTYPE>Breath Type</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=MBreath onclick='chartTreeCheckboxClicked(this)'>
+              <label for=MBreath>Mandatory Breath</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=SBreath onclick='chartTreeCheckboxClicked(this)'>
+              <label for=SBreath>Spontaneous Breath</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=EBreath onclick='chartTreeCheckboxClicked(this)'>
+              <label for=EBreath>Maintenance Breath</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue);">
+            <input type="checkbox" id=Compliances onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Compliances>Instant Lung DeltaV/DeltaP</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Dynamic onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Dynamic>Dynamic Lung DeltaV/DeltaP</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Static onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Static>Static Lung DeltaV/DeltaP</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox" id=Oxygen onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Oxygen>Oxygen Related</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=FiO2 onclick='chartTreeCheckboxClicked(this)'>
+              <label for=FiO2>FiO2</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=O2Flow onclick='chartTreeCheckboxClicked(this)'>
+              <label for=O2Flow>Incoming O2 Flow Required</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=O2Purity onclick='chartTreeCheckboxClicked(this)'>
+              <label for=O2Purity>Incoming O2 Purity</label>
+            </div>
+          </div>
+          <br>
+          <div style="background-color: var(--rsp_lightblue); ">
+            <input type="checkbox" id=Miscellaneous onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Miscellaneous>Miscellaneous</label>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Errors onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Errors>System Errors</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Warnings onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Warnings>System Warnings</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Notifications onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Notifications>System Notifications</label>
+            </div>
+            <div class=chartIndentDiv>
+              <input type="checkbox" id=Temperature onclick='chartTreeCheckboxClicked(this)'>
+              <label for=Temperature>System Temperature</label>
+            </div>
+          </div>
+        </div>
+        <div id=XAxisUnits style="margin-top:-20px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-bottom:0px;">X-axis Units</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
+            <form name="XunitsForm" style="padding-top:12px;">
+              <center>
+                <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked onclick='submitChartXaxis(this)'>
+                <label for=BNUM>Breath Number</label>
+                <input type="radio" id=TIME name="XAxisUnits" value="TIME" onclick='submitChartXaxis(this)'>
+                <label for=TIME>Breath Times</label>
+              </center>
+            </form>
+            <br>
+          </div>
+          <br>
+        </div>
+      </div>
+    </template>
+
+    <template id=waveContainerTemplate>
+      <div class=waveContainer>
+        <div class=waveBanner>
+          <button class=iconButton style="float:left;" onClick="waveAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Wave Box"><img src="../common/img/plus.png" width=20px height=20px></button>
+          <button class=iconButton style="float:right;" onClick="waveDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=20px height=20px></button>
+          <button class='editIconButton iconButton' style="float:right;" onClick="waveEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=20px height=20px></button>
+          <br>
+        </div>
+        <div class=waveBody>
+        </div>
+      </div>
+    </template>
+
+    <template id=waveEditMenuTemplate>
+      <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
+        <div class=waveEditMenuBanner>
+          <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=20px height=20px></button>
+          <br>
+        </div>
+
+        <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
+            <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
+              <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title">
+            </div>
+          </center>
+        </div>
+        <div id=waveCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px;">
+          <center>
+            <p style="font-size:1.2em; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+          </center>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-10px; ">
+            <input type="checkbox" id=All onclick='waveTreeCheckboxClicked(this)'>
+            <label for=All>All</label>
+            <div class=waveIndentDiv>
+              <br>
+              <input type="checkbox" id=MandatoryB onclick='waveTreeCheckboxClicked(this)'>
+              <label for=MandatoryB>Mandatory Breaths</label>
+              <div class=waveIndentDiv>
+                <input type="checkbox" id=MandatoryVC onclick='waveTreeCheckboxClicked(this)'>
+                <label for=MandatoryVC>Volume Controlled</label>
+              </div>
+            </div>
+            <br>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=SpontaneousB onclick='waveTreeCheckboxClicked(this)'>
+              <label for=SpontaneousB>Spontaneous Breaths</label>
+              <div class=waveIndentDiv>
+                <input type="checkbox" id=SpontaneousVC onclick='waveTreeCheckboxClicked(this)'>
+                <label for=SpontaneousVC>Volume Controlled</label>
+              </div>
+              <div class=waveIndentDiv>
+                <input type="checkbox" id=SpontaneousPS onclick='waveTreeCheckboxClicked(this)'>
+                <label for=SpontaneousPS>Pressure Supported&nbsp</label>
+              </div>
+              <br>
+            </div>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=MaintenanceB onclick='waveTreeCheckboxClicked(this)'>
+              <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
+              <br>
+            </div>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=ErrorB onclick='waveTreeCheckboxClicked(this)'>
+              <label for=ErrorB>Include Error Breaths</label>
+              <br>
+            </div>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=AbnormalB onclick='waveTreeCheckboxClicked(this)'>
+              <label for=AbnormalB>Include Abnormal Breaths</label>
+            </div>
+            <br>
+          </div>
+        </div>
+      </div>
+    </template>
+
+  </body>
+
+</html>

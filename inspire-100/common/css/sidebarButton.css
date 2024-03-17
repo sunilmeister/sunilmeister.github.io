@@ -1,0 +1,53 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+.sidebarButton {
+  appearance: none;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  border-width: 0;
+  cursor: pointer;
+  display: inline-flex;
+  height: var(--sidebarBtnHeight);
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding: var(--sidebarBtnPadding);
+  margin: var(--sidebarBtnMargin);
+  font-size: var(--sidebarBtnFontSize);
+  width: var(--sidebarBtnWidth);
+  position: relative;
+  cursor: pointer;
+}
+
+.sidebarButton:focus:not([disabled]) {
+}
+
+.sidebarButton:hover:not([disabled]) {
+  transform: translateY(-2px);
+  color: var(--rsp_blue);
+	font-weight: bold;
+}
+
+.sidebarButton:active:not([disabled]) {
+  box-shadow: #D6D6E7 0 3px 7px outset;
+  transform: translateY(2px);
+  color: var(--rsp_mediumblue);
+	font-weight: bold;
+}
+
+.sidebarButton:disabled,
+.sidebarButton[disabled]{
+  color: grey;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+.pButton:hover {
+  transform: translateY(-2px);
+  color: var(--rsp_blue);
+	font-weight: bold;
+}
+

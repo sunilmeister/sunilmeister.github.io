@@ -1,0 +1,20 @@
+.wavesLegendDiv {
+   font-size: var(--colorLegendFontSize);
+   color: blue;
+}
+
+.waveLegend {
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 2px solid black; 
+}
+
+.waveLegendText {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
