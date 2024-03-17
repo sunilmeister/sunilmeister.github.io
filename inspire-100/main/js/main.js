@@ -410,8 +410,9 @@ function launchPsv() {
   window.open("../psvCalc/psvCalc.html");
 }
 
+var portalStartDate = null;
 window.onload = function () {
-  let portalStartDate = Date();
+  portalStartDate = new Date();
 
 	setModalWidth(600);
   showZoomReminder();
