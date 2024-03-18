@@ -267,17 +267,25 @@ function dashboardAlreadyOpen(uid) {
 function tileClick(tile) {
 	let uidDiv = findChildNodeByClass(tile,'tileUid');
 	let uid = uidDiv.innerText;
-	console.log(uid);
+	let tag = findSystemTag(uid);
+	console.log(uid, tag);
 
 	// first check if system is active and transmitting
 	if (!activeTiles[uid].active) {
-    modalAlert("System inactive or not transmitting", uid);
+    modalAlert("System either inactive or not transmitting", uid + '[' + tag ']');
 		return;
 	}
 
 	// now check if system dashboard is already open in the browser
 	if (dashboardAlreadyOpen(uid)) {
+    modalAlert("System Dashboard already open", uid + '[' + tag ']');
+		return;
 	} else {
+  	setCookie(uidCookieName, uid);
+  	setCookie(tagCookieName, tag);
+  	sessionStorage.setItem("inspireUid", uid);
+  	sessionStorage.setItem("inspireTag", tag);
+  	window.open("../dashboard/dashboard.html");
 	}
 }
 
