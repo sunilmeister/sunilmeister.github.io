@@ -451,10 +451,10 @@ window.onload = function () {
   waitForHwPosts(BROADCAST_UID, function (d) {
     let newUid = d.content.PRESENT;
     let loginOtp = d.content.OTP;
-    let time = Date(d.created);
+    let time = new Date(d.created);
 
 		// Discard old messages
-	  if (time > portalStartDate) {
+	  if (time.getTime() > portalStartDate.getTime()) {
       detectedInspireSystemLogin(time, newUid, loginOtp);
 		}
     //console.log(d);

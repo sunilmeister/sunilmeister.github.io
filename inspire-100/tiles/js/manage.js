@@ -260,25 +260,21 @@ setInterval(() => {
 	toggleActiveView();
 }, 6000)
 
-function dashboardAlreadyOpen(uid) {
-	return false;
-}
-
 function tileClick(tile) {
 	let uidDiv = findChildNodeByClass(tile,'tileUid');
 	let uid = uidDiv.innerText;
 	let tag = findSystemTag(uid);
-	console.log(uid, tag);
+	//console.log(uid, tag);
 
 	// first check if system is active and transmitting
 	if (!activeTiles[uid].active) {
-    modalAlert("System either inactive or not transmitting", uid + '[' + tag ']');
+    modalAlert("System either inactive or not transmitting", uid + '[' + tag + ']');
 		return;
 	}
 
 	// now check if system dashboard is already open in the browser
-	if (dashboardAlreadyOpen(uid)) {
-    modalAlert("System Dashboard already open", uid + '[' + tag ']');
+	if (isDashboardActive(uid)) {
+    modalAlert("System Dashboard already open", uid + '[' + tag + ']');
 		return;
 	} else {
   	setCookie(uidCookieName, uid);

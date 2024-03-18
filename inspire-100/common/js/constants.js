@@ -9,6 +9,7 @@ const CURRENT_RECORDING_VERSION = "1.0";
 ////////////////////////////////////////////////////////////////////////////////
 const USE_DWEET_FOR_MESSAGES = false;
 const MESSAGE_LISTEN_INTERVAL_IN_MS = 500;
+const MAX_DASHBOARD_PING_DELAY_IN_MS = 2000;
 
 const INSPIRE_UID_PREFIX = "UID_";
 const DASHBOARD_APP_ID = "DASHBOARD";
@@ -20,6 +21,7 @@ const zoomReminderOffCookieName = "ZOOM_REMINDER_COOKIE";
 const editReminderOffCookieName = "EDIT_REMINDER_COOKIE";
 const pdfReminderOffCookieName = "PDF_REMINDER_COOKIE";
 const inspireSystemsLocalStorage = "KNOWN_INSPIRE_SYSTEMS";
+const inspireDashboardsLocalStorage = "INSPIRE_DASHBOARDS";
 const uidCookieName = "INSPIRE_UID_COOKIE";
 const tagCookieName = "INSPIRE_TAG_COOKIE";
 const localStorageDbName = "inspire_dbs";

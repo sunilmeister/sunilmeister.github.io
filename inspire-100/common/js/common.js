@@ -492,6 +492,32 @@ function exportDb(dbName, fileName) {
   }
 }
 
+function registerDashboardPing(uid) {
+  // Keep track of dashboards currently active
+  let retrieved = localStorage.getItem(inspireDashboardsLocalStorage);
+  let obj = {};
+  if (retrieved) {
+    obj = JSON.parse(retrieved);
+  }
+	obj[uid] = new Date();
+  localStorage.setItem(inspireDashboardsLocalStorage, JSON.stringify(obj));
+}
+
+function isDashboardActive(uid) {
+  // Keep track of dashboards currently active
+  let retrieved = localStorage.getItem(inspireDashboardsLocalStorage);
+  if (!retrieved) return false;
+
+  obj = JSON.parse(retrieved);
+	if (isUndefined(obj[uid])) return false;
+
+	let lastPing = new Date(obj[uid]);
+	let now = new Date();
+	let ms = now.getTime() - lastPing.getTime();
+	if (ms > MAX_DASHBOARD_PING_DELAY_IN_MS) return false;
+	return true;
+}
+
 function registerDbName(dbName) {
   // Keep track of databases currently existing
   let retrieved_dbs = localStorage.getItem(localStorageDbName);

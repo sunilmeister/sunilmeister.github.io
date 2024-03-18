@@ -810,7 +810,7 @@ function FetchAndExecuteFromQueue() {
     processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULAION_TIMES) {
+  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULATION_TIMES) {
     modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
     console.error("Chirps way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);
@@ -872,5 +872,9 @@ function showDormantPopup() {
 setInterval(() => {
   dormantTimeInSec++;
 }, 1000)
+
+setInterval(() => {
+	registerDashboardPing(inspireUid);
+}, PING_INTERVAL_IN_MS)
 
 
