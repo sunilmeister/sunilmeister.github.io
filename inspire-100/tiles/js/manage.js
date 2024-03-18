@@ -260,6 +260,27 @@ setInterval(() => {
 	toggleActiveView();
 }, 6000)
 
+function dashboardAlreadyOpen(uid) {
+	return false;
+}
+
+function tileClick(tile) {
+	let uidDiv = findChildNodeByClass(tile,'tileUid');
+	let uid = uidDiv.innerText;
+	console.log(uid);
+
+	// first check if system is active and transmitting
+	if (!activeTiles[uid].active) {
+    modalAlert("System inactive or not transmitting", uid);
+		return;
+	}
+
+	// now check if system dashboard is already open in the browser
+	if (dashboardAlreadyOpen(uid)) {
+	} else {
+	}
+}
+
 window.onload = function () {
 	AddRemoveTiles();
 	disableAllBeeps();

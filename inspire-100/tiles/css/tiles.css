@@ -19,6 +19,7 @@ body {
 	border-style: outset;
   border-width: 5px;
   margin: 5px;
+	cursor: pointer;
 }
 
 .tileContent {
