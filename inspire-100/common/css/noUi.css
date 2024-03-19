@@ -6,7 +6,7 @@
 
 .noUi-connect {
     background-color: var(--rsp_brightgreen);
-    cursor: pointer;
+    cursor: grab;
     border-style: outset;
     border-width: 2px;
 }
@@ -29,9 +29,9 @@
 
 .noUi-handle {
     background-color: var(--rsp_green);
-    cursor: grab;
     border-style: outset;
     border-width: 2px;
+    cursor: grab;
 }
 
 .noUi-handle:hover {

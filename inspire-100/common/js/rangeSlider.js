@@ -22,7 +22,8 @@ class IntRangeSlider {
         sliderMax
       ],
       connect: [false, true, false],
-      // handle labels
+  		behaviour: 'drag',    
+			// handle labels
       tooltips: [{
           to: function (n) {
             return String(parseInt(n));
