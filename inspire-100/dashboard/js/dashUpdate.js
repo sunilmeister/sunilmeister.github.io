@@ -282,6 +282,24 @@ function updateSnapshot() {
   let d = updatedChirpContent;
 	// console.log(d);
 
+  // Message lines
+	if (!isUndefined(d.content.L1)) {
+		msgL1 = updateMessageLine(d.content.L1);
+		msgL2 = null; msgL3 = null; msgL4 = null;
+	}
+	if (!isUndefined(d.content.L2)) {
+		msgL2 = updateMessageLine(d.content.L2);
+		msgL3 = null; msgL4 = null;
+	}
+	if (!isUndefined(d.content.L3)) {
+		msgL3 = updateMessageLine(d.content.L3);
+		msgL4 = null;
+	}
+	if (!isUndefined(d.content.L4)) {
+		msgL4 = updateMessageLine(d.content.L4);
+ 		displayMessageLines();
+	}
+
   for (let key in d.content) {
     // get key value pairs
     let value = d.content[key];
@@ -293,23 +311,6 @@ function updateSnapshot() {
         updateAlert(false);
         session.alerts.attention = false;
       }
-    }
-    // Message lines
-    else if (key == 'L1') {
-			msgL1 = updateMessageLine(value);
-			msgL2 = null; msgL3 = null; msgL4 = null;
-  		displayMessageLines();
-    } else if (key == 'L2') {
-			msgL2 = updateMessageLine(value);
-			msgL3 = null; msgL4 = null;
-  		displayMessageLines();
-    } else if (key == 'L3') {
-			msgL3 = updateMessageLine(value);
-			msgL4 = null;
-  		displayMessageLines();
-    } else if (key == 'L4') {
-			msgL4 = updateMessageLine(value);
-  		displayMessageLines();
     }
 
     // Patient info
