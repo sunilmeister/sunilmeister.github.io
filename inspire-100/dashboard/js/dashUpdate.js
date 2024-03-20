@@ -280,10 +280,7 @@ function debugMessageLines(value) {
 
 function updateSnapshot() {
   let d = updatedChirpContent;
-	console.log(d);
-
-	// If any line is missing the entire message will be discarded
-	clearAllMessageLines();
+	// console.log(d);
 
   for (let key in d.content) {
     // get key value pairs
@@ -300,19 +297,18 @@ function updateSnapshot() {
     // Message lines
     else if (key == 'L1') {
 			msgL1 = updateMessageLine(value);
-			// debugMessageLines(value);
+			msgL2 = null; msgL3 = null; msgL4 = null;
   		displayMessageLines();
     } else if (key == 'L2') {
 			msgL2 = updateMessageLine(value);
-			// debugMessageLines(value);
+			msgL3 = null; msgL4 = null;
   		displayMessageLines();
     } else if (key == 'L3') {
 			msgL3 = updateMessageLine(value);
-			// debugMessageLines(value);
+			msgL4 = null;
   		displayMessageLines();
     } else if (key == 'L4') {
 			msgL4 = updateMessageLine(value);
-			// debugMessageLines(value);
   		displayMessageLines();
     }
 

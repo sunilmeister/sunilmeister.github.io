@@ -115,8 +115,8 @@ function processDashboardChirp(d) {
     animateNumberValueTo(elm, session.dashboardBreathNum);
   }
 
+	updatedChirpContent = cloneObject(d);
   checkFiO2Calculation(d);
-  snapshotProcessJsonRecord(d);
   processJsonRecord(d);
   createDashboards();
 
@@ -171,15 +171,6 @@ function createDashboards() {
     if (!session.database.dbName) {
       blankRecordingBox();
     }
-  }
-}
-
-function snapshotProcessJsonRecord(d) {
-  updatedChirpContent.created = d.created;
-  for (let key in d.content) {
-    // get key value pairs
-    let value = d.content[key];
-    updatedChirpContent.content[key] = value;
   }
 }
 
