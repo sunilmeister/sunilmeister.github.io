@@ -130,16 +130,22 @@ function updateMessageLine(value) {
 	return value;
 }
 
+function clearAllMessageLines() {
+	msgL1 = null;
+	msgL2 = null;
+	msgL3 = null;
+	msgL4 = null;
+}
+
 function displayMessageLines() {
 	// Wait for all 4 lines
-	if ((msgL1===null) || (msgL2===null) || (msgL3===null) || (msgL4===null)) {
-		return;
+	if (msgL1 && msgL2 && msgL3 && msgL4) { 
+		displayMessageLine("Mline1", msgL1);
+ 		displayMessageLine("Mline2", msgL2);
+ 		displayMessageLine("Mline3", msgL3);
+ 		displayMessageLine("Mline4", msgL4);
+		clearAllMessageLines();
 	}
-	displayMessageLine("Mline1", msgL1);
- 	displayMessageLine("Mline2", msgL2);
- 	displayMessageLine("Mline3", msgL3);
- 	displayMessageLine("Mline4", msgL4);
-	msgL1 = msgL2 = msgL3 = msgL4 = null;
 }
 
 function displayMessageLine(lineTag, value) {
@@ -264,11 +270,20 @@ function updateMiscDivsFromSessionData() {
   tempGauge.setValue(session.miscData.tempC);
 }
 
+function debugMessageLines(value) {
+	console.log("Value", value);
+	console.log("msgL1", msgL1);
+	console.log("msgL2", msgL2);
+	console.log("msgL3", msgL3);
+	console.log("msgL4", msgL4);
+}
+
 function updateSnapshot() {
   let d = updatedChirpContent;
+	console.log(d);
 
 	// If any line is missing the entire message will be discarded
-	msgL1 = msgL2 = msgL3 = msgL4 = null;
+	clearAllMessageLines();
 
   for (let key in d.content) {
     // get key value pairs
@@ -285,15 +300,19 @@ function updateSnapshot() {
     // Message lines
     else if (key == 'L1') {
 			msgL1 = updateMessageLine(value);
+			// debugMessageLines(value);
   		displayMessageLines();
     } else if (key == 'L2') {
 			msgL2 = updateMessageLine(value);
+			// debugMessageLines(value);
   		displayMessageLines();
     } else if (key == 'L3') {
 			msgL3 = updateMessageLine(value);
+			// debugMessageLines(value);
   		displayMessageLines();
     } else if (key == 'L4') {
 			msgL4 = updateMessageLine(value);
+			// debugMessageLines(value);
   		displayMessageLines();
     }
 
