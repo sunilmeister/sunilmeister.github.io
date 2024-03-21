@@ -958,7 +958,8 @@ function processAlertChirp(curTime, jsonData) {
   let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
     ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum;
-    if (session.alerts.expectWarningMsg) { // back to back with Previous msg not yet fully received
+    if (session.alerts.expectWarningMsg) { 
+			// back to back with Previous msg not yet fully received
       let msg = {
         'created': session.alerts.lastWarningTime,
         'breathNum': ewBreathNum,
@@ -978,7 +979,8 @@ function processAlertChirp(curTime, jsonData) {
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
     ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum;
-   if (session.alerts.expectErrorMsg) { // back to back with Previous msg not yet fully received
+   if (session.alerts.expectErrorMsg) { 
+		 // back to back with Previous msg not yet fully received
      let msg = {
        'created': session.alerts.lastErrorTime,
        'breathNum': ewBreathNum,
@@ -996,51 +998,55 @@ function processAlertChirp(curTime, jsonData) {
      "value": ++session.alerts.errorNum
    });
   }
-  for (let ckey in jsonData.content) {
-    value = jsonData.content[ckey];
-    if (session.alerts.L1 && session.alerts.L2 && session.alerts.L3 && session.alerts.L4) {
-      if (session.alerts.expectErrorMsg || session.alerts.expectWarningMsg) {
-        let msgTime;
-        if (session.alerts.expectWarningMsg) {
-          msgTime = session.alerts.lastWarningTime;
-        } else {
-          msgTime = session.alerts.lastErrorTime;
-        }
-        let msg = {
-          'created': msgTime,
-          'breathNum': ewBreathNum,
-          'L1': session.alerts.L1,
-          'L2': session.alerts.L2,
-          'L3': session.alerts.L3,
-          'L4': session.alerts.L4
-        };
-        if (session.alerts.expectWarningMsg) {
-          session.warningMsgs.push(msg);
-        } else {
-          session.errorMsgs.push(msg);
-        }
-        session.alerts.expectWarningMsg = false;
-        session.alerts.expectErrorMsg = false;
-        session.alerts.L1 = session.alerts.L2 = session.alerts.L3 = session.alerts.L4 = "";
+
+	// Message lines
+  if (session.alerts.expectWarningMsg || session.alerts.expectErrorMsg) {
+  	if (!isUndefined(jsonData.content.L1)) {
+  		session.alerts.L1 = jsonData.content.L1;
+  		session.alerts.L2 = null; 
+  		session.alerts.L3 = null; 
+  		session.alerts.L4 = null;
+  	}
+  	if (!isUndefined(jsonData.content.L2)) {
+  		session.alerts.L2 = jsonData.content.L2;
+  		session.alerts.L3 = null; 
+  		session.alerts.L4 = null;
+  	}
+  	if (!isUndefined(jsonData.content.L3)) {
+  		session.alerts.L3 = jsonData.content.L3;
+  		session.alerts.L4 = null;
+  	}
+  	if (!isUndefined(jsonData.content.L4)) {
+  		session.alerts.L4 = jsonData.content.L4;
+  	}
+
+  	if (session.alerts.L1 && session.alerts.L2 && session.alerts.L3 && session.alerts.L4) {
+      let msgTime;
+      if (session.alerts.expectWarningMsg) {
+        msgTime = session.alerts.lastWarningTime;
+      } else {
+        msgTime = session.alerts.lastErrorTime;
       }
+      let msg = {
+        'created': msgTime,
+        'breathNum': ewBreathNum,
+        'L1': session.alerts.L1,
+        'L2': session.alerts.L2,
+        'L3': session.alerts.L3,
+        'L4': session.alerts.L4
+      };
+      if (session.alerts.expectWarningMsg) {
+        session.warningMsgs.push(msg);
+      } else {
+        session.errorMsgs.push(msg);
+      }
+      session.alerts.expectWarningMsg = false;
+      session.alerts.expectErrorMsg = false;
+  		session.alerts.L1 = null; 
+  		session.alerts.L2 = null; 
+  		session.alerts.L3 = null; 
+  		session.alerts.L4 = null;
     }
-    if (ckey == "L1") {
-      if (session.alerts.expectWarningMsg || session.alerts.expectErrorMsg) {
-        if (!session.alerts.L1) session.alerts.L1 = jsonData.content['L1'];
-      }
-    } else if (ckey == "L2") {
-      if (session.alerts.expectWarningMsg || session.alerts.expectErrorMsg) {
-        if (!session.alerts.L2) session.alerts.L2 = jsonData.content['L2'];
-      }
-    } else if (ckey == "L3") {
-      if (session.alerts.expectWarningMsg || session.alerts.expectErrorMsg) {
-        if (!session.alerts.L3) session.alerts.L3 = jsonData.content['L3'];
-      }
-    } else if (ckey == "L4") {
-      if (session.alerts.expectWarningMsg || session.alerts.expectErrorMsg) {
-        if (!session.alerts.L4) session.alerts.L4 = jsonData.content['L4'];
-      }
-    }
-  }
+	}
 }
 
