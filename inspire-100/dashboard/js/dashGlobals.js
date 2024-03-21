@@ -49,9 +49,6 @@ var savedL4 = "";
 
 var breathPausedAt = 0;
 
-var updatedChirpContent = {
-  "content": {}
-};
 var awaitingFirstChirp = true;
 var chirpQ = null;
 var periodicTickCount = 0;

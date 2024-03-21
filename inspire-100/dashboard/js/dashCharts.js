@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function createDashboardCharts() {
+function createDashboardCharts(chirp) {
   createAllCharts();
 }
 

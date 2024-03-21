@@ -278,31 +278,28 @@ function debugMessageLines(value) {
 	console.log("msgL4", msgL4);
 }
 
-function updateSnapshot() {
-  let d = updatedChirpContent;
-	// console.log(d);
-
+function updateSnapshot(chirp) {
   // Message lines
-	if (!isUndefined(d.content.L1)) {
-		msgL1 = updateMessageLine(d.content.L1);
+	if (!isUndefined(chirp.content.L1)) {
+		msgL1 = updateMessageLine(chirp.content.L1);
 		msgL2 = null; msgL3 = null; msgL4 = null;
 	}
-	if (!isUndefined(d.content.L2)) {
-		msgL2 = updateMessageLine(d.content.L2);
+	if (!isUndefined(chirp.content.L2)) {
+		msgL2 = updateMessageLine(chirp.content.L2);
 		msgL3 = null; msgL4 = null;
 	}
-	if (!isUndefined(d.content.L3)) {
-		msgL3 = updateMessageLine(d.content.L3);
+	if (!isUndefined(chirp.content.L3)) {
+		msgL3 = updateMessageLine(chirp.content.L3);
 		msgL4 = null;
 	}
-	if (!isUndefined(d.content.L4)) {
-		msgL4 = updateMessageLine(d.content.L4);
+	if (!isUndefined(chirp.content.L4)) {
+		msgL4 = updateMessageLine(chirp.content.L4);
  		displayMessageLines();
 	}
 
-  for (let key in d.content) {
+  for (let key in chirp.content) {
     // get key value pairs
-    let value = d.content[key];
+    let value = chirp.content[key];
     if (key == 'ATT') {
       if (value==1) {
         updateAlert(true);

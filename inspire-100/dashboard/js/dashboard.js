@@ -115,10 +115,10 @@ function processDashboardChirp(d) {
     animateNumberValueTo(elm, session.dashboardBreathNum);
   }
 
-	updatedChirpContent = cloneObject(d);
+	let dClone = cloneObject(d);
   checkFiO2Calculation(d);
   processJsonRecord(d);
-  createDashboards();
+  createDashboards(dClone);
 
   if (prevAlarmErrorNum != (session.errorMsgs.length - 1)) {
     prevAlarmErrorNum = session.errorMsgs.length - 1;
@@ -136,11 +136,11 @@ function processDashboardChirp(d) {
   return d;
 }
 
-function createDashboards() {
+function createDashboards(chirp) {
   if (updatePaused) return;
 
   // update Snapshot on every chirp
-  updateSnapshot();
+  updateSnapshot(chirp);
 
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
@@ -148,13 +148,13 @@ function createDashboards() {
   let bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
   prevUpdateRange = cloneObject(session.reportRange);
 
-  if (currentView == "charts") createDashboardCharts();
-  if (currentView == "stats") createDashboardStats();
+  if (currentView == "charts") createDashboardCharts(chirp);
+  if (currentView == "stats") createDashboardStats(chirp);
 
   let currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
     if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
-      createDashboardAlerts();
+      createDashboardAlerts(chirp);
       prevUpdateNumAlerts = currNumAlerts;
     }
   }  
@@ -162,7 +162,7 @@ function createDashboards() {
   let currNumWaves = numberOfExistingWaves();
   if (currentView == "waves") {
     if (!bothRolling || (prevUpdateNumWaves != currNumWaves)) {
-      createDashboardWaves();
+      createDashboardWaves(chirp);
       prevUpdateNumWaves = currNumWaves;
     }
   }
@@ -174,12 +174,12 @@ function createDashboards() {
   }
 }
 
-function createDashboardStats() {
-  createAllStats();
+function createDashboardStats(chirp) {
+  createAllStats(chirp);
 }
 
-function createDashboardAlerts() {
-  createAllAlerts();
+function createDashboardAlerts(chirp) {
+  createAllAlerts(chirp);
 }
 
 function blinkFlowRate() {
