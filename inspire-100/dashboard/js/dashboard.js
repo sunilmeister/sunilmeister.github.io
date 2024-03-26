@@ -228,7 +228,7 @@ function blinkPauseButton() {
       ttl.style.backgroundColor = palette.mediumgreen;
       bnum.style.backgroundColor = palette.mediumgreen;
       bdiv.style.backgroundColor = palette.mediumgreen;
-      ttl.innerHTML = "CURRENT BREATH"
+      ttl.innerHTML = "LOGGED BREATHS"
       bnum.innerHTML = session.dashboardBreathNum;
       pauseButtonForeground = "WHITE";
     }
@@ -236,7 +236,7 @@ function blinkPauseButton() {
     //btn.style.color = 'white';
     ttl.style.backgroundColor = palette.mediumgreen;
     bnum.style.backgroundColor = palette.mediumgreen;
-    ttl.innerHTML = "CURRENT BREATH"
+    ttl.innerHTML = "LOGGED BREATHS"
     bnum.innerHTML = session.dashboardBreathNum;
     pauseButtonForeground = "WHITE";
   }
