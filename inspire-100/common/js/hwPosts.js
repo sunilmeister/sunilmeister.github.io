@@ -20,8 +20,9 @@ function waitForHwPosts(uidString, callbackFn) {
 // None of the below functions should be called by the Dashboard
 // These are private functions
 ////////////////////////////////////////////////////////////////////////////////
-var prevResponseTimestamp = new Date();
+var prevResponseTimestamp = null;
 var inspireListenIntervalId = null;
+var apiRepeatTime = null;
 
 async function inspireGetone(uidString) {
 	let payload = {};
@@ -52,11 +53,24 @@ async function executeInspireListenFor(uidString, callbackFn) {
   if (typeof payload !== 'object') return;
   if (Object.keys(payload).length == 0) return;
 
-	let prevTMS = prevResponseTimestamp.getTime();
-	let currTMS = timestamp.getTime();
-	if (prevTMS == currTMS) {
-    // This is a repeat - do not call the callbackFn
-    return;
+	if (prevResponseTimestamp) {
+		let prevTMS = prevResponseTimestamp.getTime();
+		let currTMS = timestamp.getTime();
+		if (prevTMS == currTMS) {
+    	// This is a repeat - do not call the callbackFn
+			/*
+			if (!apiRepeatTime || (apiRepeatTime.getTime() != timestamp.getTime())) {
+				console.log("API getone repeat updatedAt=", timestamp);
+				apiRepeatTime = new Date(timestamp);
+			}
+			*/
+    	return;
+  	}
+		if (prevTMS > currTMS) {
+    	// ERROR
+			console.error("API getone updatedAt=", timestamp, " Prev=", prevResponseTimestamp); 
+    	return;
+		}
   }
   prevResponseTimestamp = new Date(timestamp);
 
