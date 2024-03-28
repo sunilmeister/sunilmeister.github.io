@@ -114,7 +114,11 @@ function parseAndUpdateUidContents(uid, jsonData) {
 					if (!obj) continue;
 					content.mode = obj.mode;
 					content.vt = obj.vt;
-					content.mv = obj.mv;
+					if (obj.mv) {
+						content.mv = obj.mv;
+					} else {
+						content.mv = "--";
+					}
 					content.rr = obj.rr;
 					content.ie = obj.ie;
 					content.ps = obj.ps;

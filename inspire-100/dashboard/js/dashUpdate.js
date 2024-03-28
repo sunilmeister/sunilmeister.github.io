@@ -216,7 +216,11 @@ function updateParamDivsFromSessionData() {
     vtMvUnitsELM.innerHTML = "(litres/min)";
     updateDivValue(ieValELM, null);
     updateDivValue(rrValELM, null);
-    updateDivValue(vtValELM, session.paramDataInUse.mv);
+		if (session.paramDataInUse.mv) {
+    	updateDivValue(vtValELM, session.paramDataInUse.mv);
+		} else {
+    	updateDivValue(vtValELM, null);
+		}
   } else {
     vtMvTitleELM.innerHTML = "Tidal Volume";
     vtMvUnitsELM.innerHTML = "(ml)";
