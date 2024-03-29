@@ -8,7 +8,7 @@ const CURRENT_RECORDING_VERSION = "1.0";
 // by changing the constant USE_DWEET_FOR_MESSAGES
 ////////////////////////////////////////////////////////////////////////////////
 const USE_DWEET_FOR_MESSAGES = false;
-const MESSAGE_LISTEN_INTERVAL_IN_MS = 100;
+const MESSAGE_LISTEN_INTERVAL_IN_MS = 350;
 const MAX_DASHBOARD_PING_DELAY_IN_MS = 2000;
 
 const INSPIRE_UID_PREFIX = "UID_";
