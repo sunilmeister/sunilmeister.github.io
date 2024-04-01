@@ -19,6 +19,7 @@ var startMillis = 0;
 var simulatedMillis = 0;
 var lastChirpInMs = 0;
 var lastChirpInMs = 0;
+var latestChirp = null;
 var startSystemDate = new Date();
 var prevAlarmErrorNum = -1;
 

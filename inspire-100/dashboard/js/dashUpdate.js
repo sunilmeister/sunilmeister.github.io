@@ -282,7 +282,8 @@ function debugMessageLines(value) {
 	console.log("msgL4", msgL4);
 }
 
-function updateSnapshot(chirp) {
+function updateSnapshot() {
+	let chirp = latestChirp;
   // Message lines
 	if (!isUndefined(chirp.content.L1)) {
 		msgL1 = updateMessageLine(chirp.content.L1);

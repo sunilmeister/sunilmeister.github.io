@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function createDashboardWaves(chirp) {
+function createDashboardWaves() {
   createAllWaves();
 }
 

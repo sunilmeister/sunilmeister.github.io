@@ -115,10 +115,10 @@ function processDashboardChirp(d) {
     animateNumberValueTo(elm, session.dashboardBreathNum);
   }
 
-	let dClone = cloneObject(d);
+	latestChirp = cloneObject(d);
   checkFiO2Calculation(d);
   processJsonRecord(d);
-  createDashboards(dClone);
+  createDashboards();
 
   if (prevAlarmErrorNum != (session.errorMsgs.length - 1)) {
     prevAlarmErrorNum = session.errorMsgs.length - 1;
@@ -136,11 +136,11 @@ function processDashboardChirp(d) {
   return d;
 }
 
-function createDashboards(chirp) {
+function createDashboards() {
   if (updatePaused) return;
 
   // update Snapshot on every chirp
-  updateSnapshot(chirp);
+  updateSnapshot();
 
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
@@ -148,8 +148,8 @@ function createDashboards(chirp) {
   let bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
   prevUpdateRange = cloneObject(session.reportRange);
 
-  if (currentView == "charts") createDashboardCharts(chirp);
-  if (currentView == "stats") createDashboardStats(chirp);
+  if (currentView == "charts") createDashboardCharts();
+  if (currentView == "stats") createDashboardStats();
 
   let currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
@@ -162,7 +162,7 @@ function createDashboards(chirp) {
   let currNumWaves = numberOfExistingWaves();
   if (currentView == "waves") {
     if (!bothRolling || (prevUpdateNumWaves != currNumWaves)) {
-      createDashboardWaves(chirp);
+      createDashboardWaves();
       prevUpdateNumWaves = currNumWaves;
     }
   }
@@ -216,7 +216,6 @@ function blinkPauseButton() {
   let bdiv = document.getElementById("curBreathDiv");
   if (updatePaused) {
     if (pauseButtonForeground == "WHITE") {
-      //btn.style.color = palette.orange;
       ttl.style.backgroundColor = palette.orange;
       bnum.style.backgroundColor = palette.orange;
       bdiv.style.backgroundColor = palette.orange;
@@ -224,7 +223,6 @@ function blinkPauseButton() {
       bnum.innerHTML = breathPausedAt;
       pauseButtonForeground = "ORANGE";
     } else {
-      //btn.style.color = 'white';
       ttl.style.backgroundColor = palette.mediumgreen;
       bnum.style.backgroundColor = palette.mediumgreen;
       bdiv.style.backgroundColor = palette.mediumgreen;
@@ -233,9 +231,9 @@ function blinkPauseButton() {
       pauseButtonForeground = "WHITE";
     }
   } else {
-    //btn.style.color = 'white';
     ttl.style.backgroundColor = palette.mediumgreen;
     bnum.style.backgroundColor = palette.mediumgreen;
+    bdiv.style.backgroundColor = palette.mediumgreen;
     ttl.innerHTML = "LOGGED BREATHS"
     bnum.innerHTML = session.dashboardBreathNum;
     pauseButtonForeground = "WHITE";
