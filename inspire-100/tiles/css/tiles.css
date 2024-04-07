@@ -16,8 +16,6 @@ body {
   position: relative;
   width: 20%;
   padding-bottom: 20%;
-	border-style: outset;
-  border-width: 5px;
   margin: 5px;
 	cursor: pointer;
 }
@@ -167,6 +165,4 @@ body.no-touch .tileContent:hover .tileUid, body.touch .tileContent.touchFocus .t
 	padding: 5px;
 	cursor: pointer;
 	float: left;
-	border-style: outset;
-  border-width: 5px;
 }

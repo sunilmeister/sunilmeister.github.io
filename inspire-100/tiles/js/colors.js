@@ -3,7 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function getActiveTileColorBG() {
-	return "#5B7C99";
+	return "#006600";
 }
 
 function getActiveTileColorFG() {
@@ -11,7 +11,7 @@ function getActiveTileColorFG() {
 }
 
 function getInactiveTileColorBG() {
-	return "#EAFBFE";
+	return "#BEBEBE";
 }
 
 function getInactiveTileColorFG() {
