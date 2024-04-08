@@ -270,11 +270,18 @@ function updateParamDivsFromSessionData() {
 }
 
 function updateFiO2DivsFromSessionData() {
-  updateFiO2Display(
+	if (session.fiO2Data.externalMixer) {
+		document.getElementById("reservoirFiO2").style.display = "none";
+		document.getElementById("externalFiO2").style.display = "block";
+	} else {
+		document.getElementById("reservoirFiO2").style.display = "block";
+		document.getElementById("externalFiO2").style.display = "none";
+  	updateFiO2Display(
     session.fiO2Data.fiO2,
     session.fiO2Data.o2Purity,
     session.fiO2Data.o2FlowX10
-  );
+  	);
+	}
 }
 
 function updateBreathDivsFromSessionData() {
