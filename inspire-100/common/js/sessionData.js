@@ -109,6 +109,7 @@ var SessionDataTemplate = {
   },
 
   fiO2Data: {
+		externalMixer: false,
     fiO2 : null,
     o2Purity : null,
     o2FlowX10 : null,

@@ -128,13 +128,14 @@ function parseParamData(jsonStr) {
 
 function parseFiO2Data(jsonStr) {
   arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 3)) {
+  if (!arr || (arr.length != 4)) {
     return null;
   }
   val = {
-    fiO2 :      (arr[0] == -1) ? null : arr[0],
-    o2Purity :  (arr[1] == -1) ? null : arr[1],
-    o2FlowX10 : (arr[2] == -1) ? null : arr[2],
+    extMixer :   arr[0] ? true : false,
+    fiO2 :      (arr[1] == -1) ? null : arr[1],
+    o2Purity :  (arr[2] == -1) ? null : arr[2],
+    o2FlowX10 : (arr[3] == -1) ? null : arr[3],
   }
   return val;
 }
@@ -709,6 +710,7 @@ function processFiO2Chirp(curTime, jsonStr) {
   let obj = parseFiO2Data(jsonStr);
   if (!obj) return;
 
+  session.fiO2Data.externalMixer =  obj.extMixer;
   saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2Used", "fiO2Changes", curTime, obj);
   saveSnapComboTransValue("o2Purity", "fiO2Data", "o2PurityUsed", "o2PurityChanges", curTime, obj);
   saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10Used", "o2FlowX10Changes", curTime, obj);
