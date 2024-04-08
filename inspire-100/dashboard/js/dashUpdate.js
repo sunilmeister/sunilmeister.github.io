@@ -186,15 +186,26 @@ function updateDivValue(div, value) {
   div.innerHTML = txt;
 }
 
-function updateStateDivsFromSessionData() {
-  // Change of state
-  if (session.stateData.state !== session.stateData.prevState) {
-    session.alerts.attention = false; // entering initial state
-    updateAlert(false);
-    session.stateData.prevState = session.stateData.state;
-  }
+var blankStateImg = true;
+function blinkStateImage() {
+	if (blankStateImg) {
+		updateStateImage();
+		blankStateImg = false;
+	} else {
+    imgStateDIV.src = "../common/img/BlankLED.png";
+		blankStateImg = true;
+	}
+}
 
-  if (session.stateData.initial) {
+setInterval(function () {
+	blinkStateImage();
+}, FAST_BLINK_INTERVAL_IN_MS)
+
+function updateStateImage() {
+  if (session.stateData.state === null) {
+    imgStateDIV.src = "../common/img/BlankLED.png";
+    stateDIV.innerHTML = "<b>UNKNOWN</b>";
+	} else if (session.stateData.initial) {
     stateDIV.innerHTML = "<b>INITIALIZE</b>";
     imgStateDIV.src = "../common/img/InitialLED.png";
   } else if (session.stateData.standby) {
@@ -207,6 +218,28 @@ function updateStateDivsFromSessionData() {
     stateDIV.innerHTML = "<b>ERROR</b>";
     imgStateDIV.src = "../common/img/ErrorLED.png";
   }
+}
+
+setTimeout(function periodicCheck() {
+  if (!awaitingFirstChirp) {
+    simulatedMillis = getCurrentSimulatedMillis();
+  }
+  HandlePeriodicTasks();
+  // Main update loop executed every PERIODIC_INTERVAL_IN_MS
+  if (chirpQ && chirpQ.size()) {
+    FetchAndExecuteFromQueue();
+  }
+  setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
+}, TIMEOUT_INTERVAL_IN_MS)
+
+function updateStateDivsFromSessionData() {
+  // Change of state
+  if (session.stateData.state !== session.stateData.prevState) {
+    session.alerts.attention = false; // entering initial state
+    updateAlert(false);
+    session.stateData.prevState = session.stateData.state;
+  }
+  updateStateImage();
 }
 
 function updateParamDivsFromSessionData() {
