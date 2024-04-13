@@ -6,7 +6,7 @@ const APP_FOLDER_NAME = "../firmware/appReleases/";
 
 function findAndDownloadLatestAppRelease(json) {
 	// get latest release number
-	if (!json || isUndefined(json[0]) || isUndefine(json[0].release)) {
+	if (!json || isUndefined(json[0]) || isUndefined(json[0].release)) {
 		modalAlert("Bad JSON", "appReleases.json");
 		return;
 	}
