@@ -351,8 +351,7 @@ function rememberNewSystem() {
 }
 
 function installFirmwareApp() {
-  //window.open("../firmware/firmware.html");
-  modalAlert("Firmware Upgrade App", "Not Yet Implemented!");
+	downloadAppZipFile();
 }
 
 function checkDocPassword(pwd) {

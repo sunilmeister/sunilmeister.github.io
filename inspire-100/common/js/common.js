@@ -888,3 +888,18 @@ function updateDocumentTitle() {
   return title;
 }
 
+function detectOS() {
+	let os = "UNKNOWN"; 
+	if (navigator.appVersion.indexOf("Win") != -1) os =  "Windows"; 
+	else if (navigator.appVersion.indexOf("Mac") != -1) os =  "MacOS"; 
+	else if (navigator.appVersion.indexOf("X11") != -1) os =  "Unix"; 
+	else if (navigator.appVersion.indexOf("Linux") != -1) os =  "Linux"; 
+	return os;
+}
+
+function readJsonFile(fileName, callbackFn) {
+	fetch(fileName)
+    .then((response) => response.json())
+    .then((json) => callbackFn(json))
+  	.catch(error => console.error(fileName, 'Error reading JSON:', error));
+}
