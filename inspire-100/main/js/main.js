@@ -350,8 +350,9 @@ function rememberNewSystem() {
   checkAndAddNewSystemInfo(newSysUid, newSysTag);
 }
 
-function launchSwInstaller() {
-  window.open("../firmware/firmware.html");
+function installFirmwareApp() {
+  //window.open("../firmware/firmware.html");
+  modalAlert("Firmware Upgrade App", "Not Yet Implemented!");
 }
 
 function checkDocPassword(pwd) {
