@@ -15,9 +15,9 @@ function findAndDownloadLatestAppRelease(json) {
 	let fileName = "INSPIRE-100-fwApp" ;
 	let os = detectOS();
 	if (os == "Windows") {
-		fileName = "Win" + fileName;
+		fileName = fileName + "Win";
 	} else if (os == "MacOS") {
-		fileName = "Mac" + fileName;
+		fileName = fileName + "Mac";
 	} else {
 		modalAlert("Operating System not supported", os);
 		return;
@@ -27,7 +27,7 @@ function findAndDownloadLatestAppRelease(json) {
 
 	console.log("OS", os);
 	console.log("Latest Version", version);
-	console.log("Downloading File", version);
+	console.log("Downloading File", fileName);
 
 	// CREATE A LINK ELEMENT IN DOM
 	let elm = document.createElement('a');  
