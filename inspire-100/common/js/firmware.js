@@ -12,16 +12,18 @@ function findAndDownloadLatestAppRelease(json) {
 	}
 	let version = json[0].release;
 	let folderName = APP_FOLDER_NAME + version + "/";
-	let fileName = ".zip" ;
+	let fileName = "INSPIRE-100-fwApp" ;
 	let os = detectOS();
 	if (os == "Windows") {
-		fileName = "AppWin" + fileName;
+		fileName = "Win" + fileName;
 	} else if (os == "MacOS") {
-		fileName = "AppMac" + fileName;
+		fileName = "Mac" + fileName;
 	} else {
 		modalAlert("Operating System not supported", os);
 		return;
 	}
+
+	fileName += ".zip";
 
 	console.log("OS", os);
 	console.log("Latest Version", version);
