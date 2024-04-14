@@ -29,18 +29,12 @@ function findAndDownloadLatestAppRelease(json) {
 	console.log("Latest Version", version);
 	console.log("Downloading File", fileName);
 
-	// CREATE A LINK ELEMENT IN DOM
-	let elm = document.createElement('a');  
-  elm.href = folderName + fileName;  
-	// SET ELEMENT CREATED 'ATTRIBUTE' TO DOWNLOAD, FILENAME PARAM AUTOMATICALLY
-  elm.setAttribute('download', fileName); 
-  document.body.appendChild(elm);
-	elm.click();
- 	document.body.removeChild(elm);
+	downloadFileFromURL(fileName, folderName + fileName);
+	modalInfo(fileName + " Downloaded", "Double-click on file to extract");
 }
 
 function downloadAppZipFile() {
 	let jsonFileName = APP_FOLDER_NAME + "appReleases.json" ;
-	console.log("Reading File", jsonFileName);
+	console.log("Reading JSON File", jsonFileName);
 	readJsonFile(jsonFileName, findAndDownloadLatestAppRelease);
 }

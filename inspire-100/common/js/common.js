@@ -903,3 +903,14 @@ function readJsonFile(fileName, callbackFn) {
     .then((json) => callbackFn(json))
   	.catch(error => console.error(fileName, 'Error reading JSON:', error));
 }
+
+function downloadFileFromURL(dstFileName, srcURL) {
+	// CREATE A LINK ELEMENT IN DOM
+	let elm = document.createElement('a');  
+  elm.href = srcURL;  
+	// SET ELEMENT CREATED 'ATTRIBUTE' TO DOWNLOAD, FILENAME PARAM AUTOMATICALLY
+  elm.setAttribute('download', dstFileName); 
+  document.body.appendChild(elm);
+	elm.click();
+ 	document.body.removeChild(elm);
+}
