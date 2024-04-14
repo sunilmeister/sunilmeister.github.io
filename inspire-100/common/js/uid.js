@@ -107,9 +107,9 @@ function appendSwVersionToUid() {
             session.firmwareVersion.minor,
             session.firmwareVersion.board];
 
-  if (obj.fw) { // already has a firmware version
+  if (obj.fw && fwReleases) { // already has a firmware version
     // check if the new one is the latest
-    let lvStr = knownInspireReleases[0].rel;
+    let lvStr = fwReleases[0].release;
     let vStr = convertSwVersionToStr(fw);
     if (lvStr != vStr) {
       modalWarning("Inspire System Firmware not the latest",
