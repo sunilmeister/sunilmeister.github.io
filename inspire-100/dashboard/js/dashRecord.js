@@ -15,6 +15,25 @@ function updateRecordingIndicator() {
   }
 }
 
+var blankRecordingImg = true;
+function blinkRecordingIndicator() {
+  if (session.recorder.off) return;
+	if (blankRecordingImg) {
+  	if (session.recorder.paused) {
+    	document.getElementById("RecordingActiveImg").src = "../common/img/YellowDot.png";
+    	document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
+		} else {
+    	document.getElementById("RecordingActiveImg").src = "../common/img/RedDot.png";
+    	document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
+		}
+		blankRecordingImg = false;
+	} else {
+		blankRecordingImg = true;
+    document.getElementById("RecordingActiveImg").src = "../common/img/BlankLED.png";
+    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
+	}
+}
+
 function exportRecording() {
   if (session.recorder.off) {
     modalAlert("EXPORT Failed", "No Active Recording");

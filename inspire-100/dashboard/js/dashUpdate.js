@@ -199,6 +199,8 @@ function blinkStateImage() {
 
 setInterval(function () {
 	blinkStateImage();
+	blinkRecordingIndicator();
+	blinkDashboardIndicator();
 }, FAST_BLINK_INTERVAL_IN_MS)
 
 function updateStateImage() {
@@ -438,6 +440,25 @@ function updateDashboardIndicator() {
   } else {
     document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
   }
+}
+
+var blankDashImg = true;
+function blinkDashboardIndicator() {
+	if (blankDashImg) {
+		blankDashImg = false;
+  	if (awaitingFirstChirp) {
+    	document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
+  	} else if (updatePaused) {
+    	document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
+  	} else if (wifiDropped) {
+    	document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
+  	} else {
+    	document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
+  	}
+	} else {
+		blankDashImg = true;
+   	document.getElementById("DashboardActiveImg").src = "../common/img/BlankLED.png";
+	}
 }
 
 function updateDashboardAndRecordingStatus() {
