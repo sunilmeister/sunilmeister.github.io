@@ -15,7 +15,7 @@ function updateRecordingIndicator() {
   }
 }
 
-var blankRecordingImg = true;
+var blankRecordingImg = false;
 function blinkRecordingIndicator() {
   if (session.recorder.off) return;
 	if (blankRecordingImg) {

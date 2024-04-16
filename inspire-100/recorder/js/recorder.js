@@ -12,7 +12,24 @@ var awaitingFirstChirp = true;
 var chirpQ = null;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
+const FAST_BLINK_INTERVAL_IN_MS = 1000;
 
+
+var blankIndicator = false;
+function blinkRecordingIndicator() {
+  if (session.recorder.off) return;
+	if (blankIndicator) {
+  	if (session.recorder.paused) {
+    	document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
+		} else {
+    	document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
+		}
+		blankIndicator = false;
+	} else {
+    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
+		blankIndicator = true;
+	}
+}
 
 function updateRecordingIndicator() {
   if (session.recorder.off) {
@@ -23,6 +40,10 @@ function updateRecordingIndicator() {
     document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
   }
 }
+
+setInterval(function () {
+	blinkRecordingIndicator();
+}, FAST_BLINK_INTERVAL_IN_MS)
 
 function disassembleAndQueueChirp(d) {
   fragmentIndex = 0;
