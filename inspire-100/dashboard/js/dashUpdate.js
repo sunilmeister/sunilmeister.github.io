@@ -204,7 +204,7 @@ setInterval(function () {
 }, FAST_BLINK_INTERVAL_IN_MS)
 
 function updateStateImage() {
-  if (session.stateData.state === null) {
+  if (!session.stateData || !session.stateData.state) {
     imgStateDIV.src = "../common/img/BlankLED.png";
     stateDIV.innerHTML = "<b>UNKNOWN</b>";
 	} else if (session.stateData.initial) {
