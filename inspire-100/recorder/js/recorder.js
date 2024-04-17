@@ -33,7 +33,7 @@ function blinkRecordingIndicator() {
 
 function updateRecordingIndicator() {
   if (session.recorder.off) {
-    document.getElementById("RecordIndicator").src = "../common/img/WhiteDot.png";
+    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
   } else if (session.recorder.paused) {
     document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
   } else {

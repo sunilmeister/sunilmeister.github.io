@@ -424,7 +424,7 @@ function updateSnapshot() {
 
 function updateDashboardIndicator() {
   if (awaitingFirstChirp) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
+    document.getElementById("DashboardActiveImg").src = "../common/img/BlankLED.png";
   } else if (updatePaused) {
     document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
   } else if (wifiDropped) {
@@ -440,7 +440,7 @@ function blinkDashboardIndicator() {
 	if (blankDashImg) {
 		blankDashImg = false;
   	if (awaitingFirstChirp) {
-    	document.getElementById("DashboardActiveImg").src = "../common/img/WhiteDot.png";
+    	document.getElementById("DashboardActiveImg").src = "../common/img/BlankLED.png";
   	} else if (updatePaused) {
     	document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
   	} else if (wifiDropped) {

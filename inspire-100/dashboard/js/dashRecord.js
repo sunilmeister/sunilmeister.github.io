@@ -4,8 +4,8 @@
 
 function updateRecordingIndicator() {
   if (session.recorder.off) {
-    document.getElementById("RecordingActiveImg").src = "../common/img/WhiteDot.png";
-    document.getElementById("RecordIndicator").src = "../common/img/WhiteDot.png";
+    document.getElementById("RecordingActiveImg").src = "../common/img/BlankLED.png";
+    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
   } else if (session.recorder.paused) {
     document.getElementById("RecordingActiveImg").src = "../common/img/YellowDot.png";
     document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
