@@ -204,7 +204,7 @@ setInterval(function () {
 }, FAST_BLINK_INTERVAL_IN_MS)
 
 function updateStateImage() {
-  if (!session.stateData || !session.stateData.state) {
+  if (!session || !session.stateData.state) {
     imgStateDIV.src = "../common/img/BlankLED.png";
     stateDIV.innerHTML = "<b>UNKNOWN</b>";
 	} else if (session.stateData.initial) {
@@ -430,7 +430,7 @@ function updateDashboardIndicator() {
   }
 }
 
-var blankDashImg = true;
+var blankDashImg = false;
 function blinkDashboardIndicator() {
 	if (blankDashImg) {
 		blankDashImg = false;
