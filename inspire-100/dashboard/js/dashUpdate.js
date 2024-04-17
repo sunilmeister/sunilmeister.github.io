@@ -222,18 +222,6 @@ function updateStateImage() {
   }
 }
 
-setTimeout(function periodicCheck() {
-  if (!awaitingFirstChirp) {
-    simulatedMillis = getCurrentSimulatedMillis();
-  }
-  HandlePeriodicTasks();
-  // Main update loop executed every PERIODIC_INTERVAL_IN_MS
-  if (chirpQ && chirpQ.size()) {
-    FetchAndExecuteFromQueue();
-  }
-  setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
-}, TIMEOUT_INTERVAL_IN_MS)
-
 function updateStateDivsFromSessionData() {
   // Change of state
   if (session.stateData.state !== session.stateData.prevState) {
