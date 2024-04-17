@@ -214,13 +214,13 @@ function equalParamCombos(curr, prev) {
 }
 
 function readSessionVersion(jsonData) {
-  if (session.analyzer.recVersion) return;
+  if (session.playback.recVersion) return;
   for (let key in jsonData) {
     if (key == 'content') {
       for (let ckey in jsonData.content) {
         if (ckey == "RECORDING_VERSION") {
-          session.analyzer.recVersion = jsonData.content[ckey];
-          console.log("Found Recording Version=" + session.analyzer.recVersion);
+          session.playback.recVersion = jsonData.content[ckey];
+          console.log("Found Recording Version=" + session.playback.recVersion);
         }
       }
     }
@@ -248,8 +248,8 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
 }
 
 function gatherSessionData(lastRecordCallback) {
-  session.analyzer.sessionDataValid = false;
-  session.analyzer.recVersion= null;
+  session.playback.sessionDataValid = false;
+  session.playback.recVersion= null;
   if (allDbKeys.length == 0) {
     modalAlert("Selected Session has no data", "");
     return;

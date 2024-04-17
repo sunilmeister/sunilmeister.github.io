@@ -395,11 +395,11 @@ function launchDashboard() {
   window.open("../dashboard/dashboard.html");
 }
 
-function launchAnalyzer() {
+function launchPlayback() {
   if (!setSelectedInspireTagFromDD()) {
     return;
   }
-  window.open("../analyzer/analyzer.html");
+  window.open("../playback/playback.html");
 }
 
 function launchFiO2() {

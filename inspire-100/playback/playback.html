@@ -9,7 +9,7 @@
 
   <head>
     <meta charset="UTF-8">
-    <title>Inspire-100</title>
+    <title>Inspire-100 Playback</title>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
@@ -64,11 +64,11 @@
     <script src="../common/js/waveBox.js"></script>
     <script src="../common/js/selectTableRow.js"></script>
     <script src="../common/js/enterSubmit.js"></script>
-    <script src="js/analImportExport.js"></script>
-    <script src="js/analCharts.js"></script>
-    <script src="js/analWaves.js"></script>
-    <script src="js/analRawData.js"></script>
-    <script src="js/analyzer.js"></script>
+    <script src="js/playImportExport.js"></script>
+    <script src="js/playCharts.js"></script>
+    <script src="js/playWaves.js"></script>
+    <script src="js/playRawData.js"></script>
+    <script src="js/playback.js"></script>
   </head>
 
   <body style="font-family:verdana">
@@ -168,7 +168,7 @@
         </div>
         <div class=shadowDiv5 style="background-color:var(--rsp_green); color:var(--rsp_brightgreen);; font-size:1.1rem; ">
           <center>
-            <p style="margin-bottom:0;padding-bottom:5px;"><b>ANALYSIS WINDOW</b></p>
+            <p style="margin-bottom:0;padding-bottom:5px;"><b>PLAYBACK WINDOW</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
             margin-top:10px;color:var(--rsp_brightgreen);">
               <tr style="height:2rem;">
@@ -213,8 +213,8 @@
 
     <div id=nonMenuArea class=body-pane>
 
-      <div id=analysisWindowDiv style="margin-top:0px; margin-bottom:10px; font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
-        <div id=analysisRangeSliderDiv style="margin-top:25px; padding-left:20px; padding-right:20px;font-size:1.25rem; ">
+      <div id=playbackWindowDiv style="margin-top:0px; margin-bottom:10px; font-size:1.5em ;display:none; margin-bottom:10px; padding-bottom:5px; ">
+        <div id=playbackRangeSliderDiv style="margin-top:25px; padding-left:20px; padding-right:20px;font-size:1.25rem; ">
         </div>
         <div style="background-color:var(--rsp_green); color:white; margin-top: 10px; padding-bottom:20px;">
           <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=20px height=20px></button>
@@ -268,7 +268,7 @@
           </div>
           <div class=shadowDiv5 id=logosDiv style="height:100%; margin-left:31%; background-color:var(--rsp_mediumblue);">
             <center>
-              <img src="img/analyzer-title-logos.png" alt="Title" style="margin-top: 7px; margin-left:0px;" width=600px height=110px>
+              <img src="img/playback-title-logos.png" alt="Title" style="margin-top: 7px; margin-left:0px;" width=600px height=110px>
             </center>
           </div>
         </div>
@@ -316,7 +316,8 @@
             </center>
             <div style="font-size: 1.25rem">
               <p id=pName style="margin-bottom: -20px;"></p>
-              <p id=pInfo></p>
+              <p id=pInfo1 style="margin-bottom: -20px;"></p>
+              <p id=pInfo2></p>
               <p id=location style="margin-bottom: -20px;">UNKNOWN</p>
               <p id=altitude style="margin-bottom: -20px;">UNKNOWN</p>
               <p id=o2Percentage>UNKNOWN</p>

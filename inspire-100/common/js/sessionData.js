@@ -215,7 +215,7 @@ var SessionDataTemplate = {
   usedParamCombos: [],
 
   // /////////////////////////////////////////////
-  // Below are used both by Analyzer and Dashboard
+  // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
 
   // error and warning messages
@@ -274,22 +274,22 @@ var SessionDataTemplate = {
   },
 
   // /////////////////////////////////////////////
-  // Below is used by Analyzer
+  // Below is used by Playback
   // /////////////////////////////////////////////
-  analyzer: {
+  playback: {
     recVersion:             null,
     logStartTime:           null,
     logEndTime:             null,
-    analysisStartTime:      null,
-    analysisEndTime:        null,
-    analysisStartBreath:    0,
-    analysisEndBreath:      0,
+    playbackStartTime:     	null,
+    playbackEndTime:        null,
+    playbackStartBreath:    0,
+    playbackEndBreath:      0,
     logStartBreath:         0,
     logEndBreath:           0,
   },
 
   // /////////////////////////////////////////////
-  // Below is used by Analyzer
+  // Below is used by Recorder
   // /////////////////////////////////////////////
   recorder: {
     expectErrorMsg:     false,

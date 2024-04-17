@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var analysisRangeSlider = null;
+var playbackRangeSlider = null;
 var sessionBannerHTML = null;
 var sliderCommitPending = false;
 var exportRowDiv = null;
@@ -177,18 +177,18 @@ function doDeleteAllDbs() {
 
 function checkDbReady() {
   if (session.database.dbReady && session.database.dbName) {
-    if (!recordedDataCompatible(session.analyzer.recVersion, CURRENT_RECORDING_VERSION)) {
+    if (!recordedDataCompatible(session.playback.recVersion, CURRENT_RECORDING_VERSION)) {
       modalAlert("VERSION INCOMPATIBLE",
-        "Recorded with Software Version " + session.analyzer.recVersion +
+        "Recorded with Software Version " + session.playback.recVersion +
         "\nCurrent Software Version is " + CURRENT_RECORDING_VERSION + "\n" +
-        "\nVersion " + session.analyzer.recVersion + " not supported");
+        "\nVersion " + session.playback.recVersion + " not supported");
       return false;
     }
     return true;
   }
 
   if (!session.database.dbName) {
-    modalAlert('No Recording Selected","Please Select Recording for Analysis');
+    modalAlert('No Recording Selected","Please Select Recording for Playback');
     return false;
   }
   nameTm = parseDbName(session.database.dbName);
@@ -236,11 +236,11 @@ function selectExport() {
 
 function selectStats() {
   if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
+  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
   document.getElementById("statsDiv").style.display = "block";
-  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
@@ -252,11 +252,11 @@ function selectStats() {
 
 function selectAlerts() {
   if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
+  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
   document.getElementById("alertsDiv").style.display = "block";
-  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
@@ -268,11 +268,11 @@ function selectAlerts() {
 
 function selectWaves() {
   if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
+  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
   document.getElementById("wavesDiv").style.display = "block";
-  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
@@ -284,11 +284,11 @@ function selectWaves() {
 
 function selectCharts() {
   if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
+  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
   document.getElementById("chartsDiv").style.display = "block";
-  document.getElementById("analysisWindowDiv").style.display = "block";
+  document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
   sessionInfo.innerHTML = sessionBannerHTML;
 
@@ -300,7 +300,7 @@ function selectCharts() {
 
 function selectRawData() {
   if (!checkDbReady()) return;
-  if (!checkValidAnalysisDuration()) return;
+  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
   document.getElementById("rawDataDiv").style.display = "block";
@@ -319,7 +319,7 @@ function initSession(dbName) {
     modalAlert("No Recording selected", "Please Select Recording");
     return;
   }
-  resetAnalysisData();
+  resetPlaybackData();
   let req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
@@ -336,18 +336,18 @@ function initSession(dbName) {
         modalAlert("Selected Recording has no data", "");
         return;
       }
-      session.analyzer.logStartTime = new Date(keys[0]);
-      session.analyzer.logStartTime.setMilliseconds(0);
-      session.analyzer.logEndTime = new Date(keys[keys.length - 1]);
-      session.analyzer.logEndTime.setMilliseconds(0);
-      session.analyzer.analysisStartTime = new Date(session.analyzer.logStartTime);
-      session.analyzer.analysisEndTime = new Date(session.analyzer.logEndTime);
-      session.startDate = session.analyzer.logStartTime;
+      session.playback.logStartTime = new Date(keys[0]);
+      session.playback.logStartTime.setMilliseconds(0);
+      session.playback.logEndTime = new Date(keys[keys.length - 1]);
+      session.playback.logEndTime.setMilliseconds(0);
+      session.playback.playbackStartTime = new Date(session.playback.logStartTime);
+      session.playback.playbackEndTime = new Date(session.playback.logEndTime);
+      session.startDate = session.playback.logStartTime;
 
       updateSelectedDuration();
       updateLogDuration();
       disableAllButtons();
-      gatherSessionData(analysisGatherDoneCallback);
+      gatherSessionData(playbackGatherDoneCallback);
       updateDocumentTitle();
     }
   }
@@ -376,7 +376,7 @@ function initGlobals() {
   // Create new data objects
   if (session) delete session;
   session = cloneObject(SessionDataTemplate);
-  session.appId = ANALYZER_APP_ID;
+  session.appId = PLAYBACK_APP_ID;
   session.charts.fontSize = 15;
   session.waves.labelFontSize = 15;
   session.waves.legendFontSize = 20;
@@ -384,7 +384,7 @@ function initGlobals() {
   session.waves.stripLineFontSize = 20;
 }
 
-function resetAnalysisData() {
+function resetPlaybackData() {
   initStats();
   initCharts();
   initWaves();
@@ -397,7 +397,7 @@ function resetAnalysisData() {
     (document.getElementById("chartsDiv").style.display == "block") ||
     (document.getElementById("wavesDiv").style.display == "block") ||
     (document.getElementById("alertsDiv").style.display == "block")) {
-    document.getElementById("analysisWindowDiv").style.display = "block";
+    document.getElementById("playbackWindowDiv").style.display = "block";
   }
 }
 
@@ -407,23 +407,23 @@ function undisplayAllPanes() {
   document.getElementById("rawDataDiv").style.display = "none";
   document.getElementById("alertsDiv").style.display = "none";
   document.getElementById("wavesDiv").style.display = "none";
-  document.getElementById("analysisWindowDiv").style.display = "none";
+  document.getElementById("playbackWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("exportDiv").style.display = "none";
 }
 
-function checkValidAnalysisDuration() {
+function checkValidPlaybackDuration() {
   //return true;
-  let diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
+  let diff = session.playback.playbackEndTime - session.playback.playbackStartTime;
   if (diff <= 0) {
-    modalAlert("Analysis EndTime must be greater than StartTime", "");
+    modalAlert("Playback EndTime must be greater than StartTime", "");
     return false;
   } else return true;
 }
 
 function updateLogDuration() {
-  let diff = session.analyzer.logEndTime - session.analyzer.logStartTime;
+  let diff = session.playback.logEndTime - session.playback.logStartTime;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
@@ -446,7 +446,7 @@ function acceptBreathRange () {
   let badRange = false;
   badRange = badRange || (fromBreath <= 0);
   badRange = badRange || (toBreath <= 0);
-  badRange = badRange || (toBreath > session.analyzer.logEndBreath);
+  badRange = badRange || (toBreath > session.playback.logEndBreath);
   badRange = badRange || (fromBreath >= toBreath);
 
   if (badRange) {
@@ -455,7 +455,7 @@ function acceptBreathRange () {
   }
 
   stopSliderCallback = true;
-  analysisRangeSlider.setSlider([fromBreath, toBreath]);
+  playbackRangeSlider.setSlider([fromBreath, toBreath]);
   stopSliderCallback = false;
 
   sliderCommitPending = true;
@@ -468,7 +468,7 @@ function cancelBreathRange () {
 
 function updateSelectedDuration() {
   let elm = document.getElementById("selectedTimeDuration");
-  let diff = session.analyzer.analysisEndTime - session.analyzer.analysisStartTime;
+  let diff = session.playback.playbackEndTime - session.playback.playbackStartTime;
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
   } else {
@@ -476,13 +476,13 @@ function updateSelectedDuration() {
   }
 
   elm = document.getElementById("selectedBreathRange");
-  elm.innerHTML = String(session.analyzer.analysisStartBreath) + '-' + session.analyzer.analysisEndBreath;
+  elm.innerHTML = String(session.playback.playbackStartBreath) + '-' + session.playback.playbackEndBreath;
   elm = document.getElementById("priorNumBreaths");
   elm.innerHTML = String(session.startSystemBreathNum - 1);
 }
 
-function setAnalysisRanges() {
-  session.reportRange = createReportRange(false, session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath);
+function setPlaybackRanges() {
+  session.reportRange = createReportRange(false, session.playback.playbackStartBreath, session.playback.playbackEndBreath);
 }
 
 function refreshActivePane() {
@@ -500,7 +500,7 @@ function refreshActivePane() {
 function setTimeInterval() {
   if (!sliderCommitPending) return;
   sliderCommitPending = false;
-  values = analysisRangeSlider.getSlider();
+  values = playbackRangeSlider.getSlider();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
@@ -510,21 +510,21 @@ function setTimeInterval() {
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
-  session.analyzer.analysisStartBreath = s;
-  session.analyzer.analysisEndBreath = e;
-  session.analyzer.analysisStartTime = session.breathTimes[s];
-  session.analyzer.analysisEndTime = session.breathTimes[e];
-  analysisRangeSlider.setSlider([s, e]);
+  session.playback.playbackStartBreath = s;
+  session.playback.playbackEndBreath = e;
+  session.playback.playbackStartTime = session.breathTimes[s];
+  session.playback.playbackEndTime = session.breathTimes[e];
+  playbackRangeSlider.setSlider([s, e]);
 
-  setAnalysisRanges();
+  setPlaybackRanges();
   updateSelectedDuration();
-  //resetAnalysisData();
+  //resetPlaybackData();
   refreshActivePane();
 }
 
 function setFullInterval() {
   sliderCommitPending = false;
-  values = analysisRangeSlider.getRange();
+  values = playbackRangeSlider.getRange();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
@@ -534,67 +534,67 @@ function setFullInterval() {
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
-  session.analyzer.analysisStartBreath = s;
-  session.analyzer.analysisEndBreath = e;
-  session.analyzer.analysisStartTime = session.breathTimes[s];
-  session.analyzer.analysisEndTime = session.breathTimes[e];
-  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
+  session.playback.playbackStartBreath = s;
+  session.playback.playbackEndBreath = e;
+  session.playback.playbackStartTime = session.breathTimes[s];
+  session.playback.playbackEndTime = session.breathTimes[e];
+  playbackRangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
 
-  setAnalysisRanges();
+  setPlaybackRanges();
   updateSelectedDuration();
-  //resetAnalysisData();
+  //resetPlaybackData();
   refreshActivePane();
 }
 
 function resetTimeInterval() {
   sliderCommitPending = false;
-  session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
-  session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
-  session.analyzer.analysisStartTime = session.analyzer.logStartTime;
-  session.analyzer.analysisEndTime = session.analyzer.logEndTime;
-  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
+  session.playback.playbackStartBreath = session.playback.logStartBreath;
+  session.playback.playbackEndBreath = session.playback.logEndBreath;
+  session.playback.playbackStartTime = session.playback.logStartTime;
+  session.playback.playbackEndTime = session.playback.logEndTime;
+  playbackRangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
 
-  setAnalysisRanges();
+  setPlaybackRanges();
   updateSelectedDuration();
-  //resetAnalysisData();
-  document.getElementById("analysisWindowDiv").style.display = "block";
+  //resetPlaybackData();
+  document.getElementById("playbackWindowDiv").style.display = "block";
 
   refreshActivePane();
 }
 
-function analysisGatherDoneCallback() {
+function playbackGatherDoneCallback() {
   if (!checkDbReady()) return;
 
   session.sessionDataValid = true;
   session.database.dbReady = true;
 
-  session.analyzer.logStartBreath = 1;
-  session.analyzer.logEndBreath = session.breathTimes.length - 1;
+  session.playback.logStartBreath = 1;
+  session.playback.logEndBreath = session.breathTimes.length - 1;
 
-  let n = session.analyzer.logEndBreath - session.analyzer.logStartBreath;
+  let n = session.playback.logEndBreath - session.playback.logStartBreath;
   if (n < 20) {
-    session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
-    session.analyzer.analysisEndBreath = session.analyzer.logEndBreath;
-    session.analyzer.analysisStartTime = session.analyzer.logStartTime;
-    session.analyzer.analysisEndTime = session.analyzer.logEndTime;
+    session.playback.playbackStartBreath = session.playback.logStartBreath;
+    session.playback.playbackEndBreath = session.playback.logEndBreath;
+    session.playback.playbackStartTime = session.playback.logStartTime;
+    session.playback.playbackEndTime = session.playback.logEndTime;
   } else {
-    session.analyzer.analysisStartBreath = session.analyzer.logStartBreath;
-    session.analyzer.analysisEndBreath = session.analyzer.logStartBreath + 19;
-    session.analyzer.analysisStartTime = session.analyzer.logStartTime;
-    session.analyzer.analysisEndTime = 
-      session.breathTimes[session.analyzer.analysisEndBreath];
+    session.playback.playbackStartBreath = session.playback.logStartBreath;
+    session.playback.playbackEndBreath = session.playback.logStartBreath + 19;
+    session.playback.playbackStartTime = session.playback.logStartTime;
+    session.playback.playbackEndTime = 
+      session.breathTimes[session.playback.playbackEndBreath];
   }
 
-  if (session.analyzer.logEndBreath == 0) {
+  if (session.playback.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "Select another session");
     return;
   }
 
   enableAllButtons();
-  setAnalysisRanges();
+  setPlaybackRanges();
   updateSelectedDuration();
 
-  createAnalysisRangeSlider();
+  createPlaybackRangeSlider();
 }
 
 window.onload = function () {
@@ -631,7 +631,7 @@ window.onload = function () {
   new KeypressEnterSubmit('fromBreath', 'acceptRangeBtn');
   new KeypressEnterSubmit('toBreath', 'acceptRangeBtn');
 
-  resetAnalysisData();
+  resetPlaybackData();
   selectSession();
 }
 
@@ -658,7 +658,7 @@ function changeIconButtonColor(btn, bgd) {
   btn.firstElementChild.style.borderColor = bgd;
 }
 
-function changeAnalysisWindowButtonsColor(bgd) {
+function changePlaybackWindowButtonsColor(bgd) {
   changeIconButtonColor(document.getElementById("btnSetInterval"), bgd);
   changeIconButtonColor(document.getElementById("btnCancelInterval"), bgd);
   changeIconButtonColor(document.getElementById("btnResetInterval"), bgd);
@@ -670,38 +670,38 @@ function updateRangeOnNewBreath(num) {
   session.reportRange.maxBnum += num;
 }
 
-function createAnalysisRangeSlider() {
-  // Create analysis range slider
-  if (!analysisRangeSlider) {
-    analysisRangeSliderDiv = document.getElementById('analysisRangeSliderDiv');
-    analysisRangeSlider = new IntRangeSlider(
-      analysisRangeSliderDiv,
-      session.analyzer.analysisStartBreath,
-      session.analyzer.analysisEndBreath,
-      session.analyzer.analysisStartBreath,
-      session.analyzer.analysisEndBreath,
+function createPlaybackRangeSlider() {
+  // Create playback range slider
+  if (!playbackRangeSlider) {
+    playbackRangeSliderDiv = document.getElementById('playbackRangeSliderDiv');
+    playbackRangeSlider = new IntRangeSlider(
+      playbackRangeSliderDiv,
+      session.playback.playbackStartBreath,
+      session.playback.playbackEndBreath,
+      session.playback.playbackStartBreath,
+      session.playback.playbackEndBreath,
       1
     );
-    analysisRangeSlider.setChangeCallback(analysisRangeSliderCallback);
+    playbackRangeSlider.setChangeCallback(playbackRangeSliderCallback);
   }
 
-  analysisRangeSlider.setRange([session.analyzer.logStartBreath, session.analyzer.logEndBreath]);
-  analysisRangeSlider.setSlider([session.analyzer.analysisStartBreath, session.analyzer.analysisEndBreath]);
+  playbackRangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
+  playbackRangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
 
-  elm = document.getElementById("analysisWindowDiv");
+  elm = document.getElementById("playbackWindowDiv");
   elm.style.display = "none";
   elm = document.getElementById("logNumBreaths");
-  elm.innerHTML = session.analyzer.logEndBreath;
+  elm.innerHTML = session.playback.logEndBreath;
 
-  setAnalysisRanges();
+  setPlaybackRanges();
   updateSelectedDuration();
 
-  if (session.analyzer.logEndBreath == 0) {
+  if (session.playback.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "");
   }
 }
 
-function analysisRangeSliderCallback() {
+function playbackRangeSliderCallback() {
   sliderCommitPending = true;
   setTimeInterval();
 }
