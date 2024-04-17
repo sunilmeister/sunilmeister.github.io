@@ -23,6 +23,7 @@ function formMessageLine(str) {
 }
 
 function blinkSettingValue(pending, containerDiv, valueDiv) {
+	if (!session) return;
   let elm = document.getElementById(containerDiv);
   if (pending) {
     updatePending(false);
@@ -188,6 +189,7 @@ function updateDivValue(div, value) {
 
 var blankStateImg = true;
 function blinkStateImage() {
+	if (!session) return;
 	if (blankStateImg) {
 		updateStateImage();
 		blankStateImg = false;
@@ -198,13 +200,15 @@ function blinkStateImage() {
 }
 
 setInterval(function () {
+	if (!session) return;
 	blinkStateImage();
 	blinkRecordingIndicator();
 	blinkDashboardIndicator();
 }, FAST_BLINK_INTERVAL_IN_MS)
 
 function updateStateImage() {
-  if (!session || !session.stateData.state) {
+	if (!session) return;
+  if (!session.stateData.state) {
     imgStateDIV.src = "../common/img/BlankLED.png";
     stateDIV.innerHTML = "<b>UNKNOWN</b>";
 	} else if (session.stateData.initial) {
@@ -432,6 +436,7 @@ function updateDashboardIndicator() {
 
 var blankDashImg = false;
 function blinkDashboardIndicator() {
+	if (!session) return;
 	if (blankDashImg) {
 		blankDashImg = false;
   	if (awaitingFirstChirp) {
