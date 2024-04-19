@@ -82,10 +82,11 @@
       </center>
     </div>
 
-    <div id=addSystemDiv class=popupClass style="width:25rem; height:25rem; font-size: 1.5rem; display: none">
+    <div id=addSystemDiv class=popupClass style="width:25rem; height:22rem; font-size: 1.5rem; display: none">
       <center>
         <div>
-          <p style="font-size:2.5rem; margin-top:1.5rem; ">ADD new System
+          <p style="font-size:2.0rem; margin-top:1.0rem; ">ADD new System
+            <br>
             <br>
             <label for="newSysUID" style="font-size:1.75rem;">System UID</label>
             <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
@@ -117,21 +118,19 @@
       </center>
     </div>
 
-    <div id=deleteHistoryDiv class=popupClass style="width:37.5rem; height:18rem; font-size: 1.5rem; display: none">
-      <center>
+    <div id=deleteHistoryDiv class=popupClass style="width:25rem; height:14rem; font-size: 1.5rem; display: none">
         <div>
-          <br>
           <br>
           <input type="checkbox" id="cookiesDelete"> Delete ALL Cookies
           <br>
           <input type="checkbox" id="recordingsDelete"> Delete ALL Recordings
           <br>
-          <input type="checkbox" id="systemsDelete"> Delete ALL System UID History
+          <input type="checkbox" id="systemsDelete"> Delete ALL UID History
           <br>
           <br>
-          <br>
-          <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=deleteHistoryBtn()>DELETE</button>
-          <button class=button style="background-color:var(--rsp_darkred); width:12.5rem; " onclick=cancelDeleteHistoryBtn()>CANCEL</button>
+      <center>
+          <button class=button style="background-color:var(--rsp_darkblue); width:10rem; " onclick=deleteHistoryBtn()>DELETE</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:10rem; " onclick=cancelDeleteHistoryBtn()>CANCEL</button>
         </div>
       </center>
     </div>
@@ -162,11 +161,11 @@
       <div id=mainDiv style="display:block;">
         <div style="background-color:var(--rsp_mediumblue);">
           <center>
-            <img src="../common/img/Logo-horizontal.png" alt="Title" width=360rem height=120rem style="margin-top: 5px; margin-right:-10px; margin-left:-10px;" />
+            <img src="../common/img/Logo-horizontal.png" alt="Title" width=320rem height=100rem style="margin-top: 5px; margin-right:-10px; margin-left:-10px;" />
           </center>
         </div>
         <center>
-          <div style="background-color:var(--rsp_mediumblue); color:white; font-size:2.0em;   -webkit-text-stroke-width: 1px; -webkit-text-stroke-color: var(--rsp_darkblue);">
+          <div style="background-color:var(--rsp_mediumblue); color:white; font-size:1.8em;   -webkit-text-stroke-width: 1px; -webkit-text-stroke-color: var(--rsp_darkblue);">
             <p style="margin-top:0px;margin-bottom:10px;">&nbsp&nbsp<b>INSPIRE-100</b> <i>Web Applications</i>&nbsp&nbsp
           </div>
           <div class=content style="font-size: 1.5rem;">
@@ -175,7 +174,7 @@
             <button class=lineButton onclick="mySystemInfo()">Manage My Systems</button>
             <br>
             <button class=lineButton onclick="addSystemInfo()">Add My System</button>
-            <hr>
+						<hr>
             <label style="margin-bottom:0px; font-size:28px">Select My System</label>
             <br>
             <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 5px; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" />
