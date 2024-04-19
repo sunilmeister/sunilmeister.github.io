@@ -5,9 +5,9 @@
   font-family: Arial;
   background-color: var(--rsp_darkblue);
   color: white;
-  padding: 8px;
-  -webkit-box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.4);
-  box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  -webkit-box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem rgba(0, 0, 0, 0.4);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   transform: translate(-50%, -50%);

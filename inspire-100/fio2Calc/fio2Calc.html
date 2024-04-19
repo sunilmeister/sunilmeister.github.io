@@ -37,21 +37,21 @@
 
       <center>
         <div style="background-color:var(--rsp_mediumblue); clear:both;">
-          <img src="img/fio2-logo.png" alt="Title" width=450rem height=150rem style="margin-right:5px; margin-left:5px;">
+          <img src="img/fio2-logo.png" alt="Title" width=350rem height=120rem style="margin-right:0.2rem; margin-left:0.2rem;">
         </div>
-        <div class=content style="font-size: 2rem; border-style: solid; border-color:white;
+        <div class=content style="font-size: 1.5rem; border-style: solid; border-color:white;
         background-color:var(--rsp_logogrey); color:white; margin-top:0.5rem; margin-bottom: -0.8rem">
           <b>
-            <p style="font-size:1.7rem; padding-bottom:-1rem;">Required Incoming O<sub>2</sub> Flow</p>
+            <p style="font-size:1.5rem; padding-bottom:-1rem;">Required Incoming O<sub>2</sub> Flow</p>
 	    <p id=o2FlowRate>0.0 (litres/min)</p>
           </b>
         </div>
         <br>
         <br>
-        <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin-left:1.8rem; margin-right:1.8rem;">
-          <label for="altitude" style="font-size:1.5rem; ">Altitude:
+        <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; ">
+          <label for="altitude" style="font-size:1.4rem; ">Altitude:
             <input type="number" id=altitude name="altitude" autofocus value="0" style="font-size:1.5rem;
-            width:12rem;background-color:white; color:var(--rsp_darkblue);" onchange="altChanged()">
+            width:10rem;background-color:white; color:var(--rsp_darkblue);" onchange="altChanged()">
           </label>
           <select name="altitudeUnits" id=altitudeUnits onchange="altChanged()" style="font-size:1.3rem;background-color:white; color:var(--rsp_darkblue);">
             <option value="feet">feet</option>
@@ -59,26 +59,23 @@
           </select>
         </div>
         <br>
-        <br>
 
-        <div id=vtRrDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin-left:2rem; margin-right:2rem;">
+        <div id=vtRrDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; margin-left:1rem; margin-right:1rem; ">
           <div id=vtDiv style="float:left;">
-            <p style="clear:both;"> Desired VT (ml)
+            <p style="clear:both; margin-bottom:0rem;"> Desired VT (ml)
           </div>
           <div id=rrDiv style="float:right;">
-            <p style="clear:both;"> Desired RR (bpm)
+            <p style="clear:both; margin-bottom:0rem;"> Desired RR (bpm)
           </div>
-          <br>
         </div>
 
-        <div id=oxygenDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin-left:2rem; margin-right:2rem;">
+        <div id=oxygenDiv style="background-color:var(--rsp_darkblue); color:white; font-size:1.3rem; margin-left:1rem; margin-right:1rem; ">
           <div id=purityDiv style="float:left;">
-            <p style="clear:both;"> O<sub>2</sub> Purity (%)
+            <p style="clear:both; margin-bottom:-0.2rem;"> O<sub>2</sub> Purity (%)
           </div>
           <div id=fiO2Div style="float:right;">
-            <p style="clear:both;"> Desired FiO<sub>2</sub> (%)
+            <p style="clear:both; margin-bottom:-0.2rem;"> Desired FiO<sub>2</sub> (%)
           </div>
-          <br>
         </div>
 
     </div>

@@ -5,9 +5,9 @@
   font-family: Verdana;
   background-color: var(--rsp_darkblue);
   color: white;
-  padding: 8px;
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  -webkit-box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   transform: translate(-50%, -50%);
@@ -19,7 +19,7 @@
 }
 
 .docHrefCls {
-  font-size:22px;
+  font-size:1.2rem;
 }
 
 a:link { 
@@ -41,7 +41,7 @@ a:active {
   text-decoration: none;
   font-weight: bold;
 	display: block;
-  transform: translateY(4px);
+  transform: translateY(0.2rem);
 }
 
 a:hover {
@@ -49,5 +49,5 @@ a:hover {
   text-decoration: none;
   font-weight: bold;
 	display: block;
-  transform: translateY(-4px);
+  transform: translateY(-0.2rem);
 }

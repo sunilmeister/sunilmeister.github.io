@@ -5,9 +5,9 @@
   font-family: Arial;
   background-color: var(--rsp_darkblue);
   color: white;
-  padding: 8px;
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  -webkit-box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   transform: translate(-50%, -50%);
@@ -19,10 +19,10 @@
 }
 
 .lineButton {
-  font-size:28px;
-  height:40px;
-  width:420px;
-  margin-top:0px;
+  font-size:1.6rem;
+  height:2.2rem;
+  width:23rem;
+  margin-top:0;
   background-color:var(--rsp_darkblue);
   border-width:0;
   color:white; 
@@ -31,13 +31,13 @@
 
 .lineButton:hover {
   color:var(--rsp_blue);
-  transform: translateY(-4px);
+  transform: translateY(-0.2rem);
 	font-weight: bold;
 }
 
 .lineButton:active {
   color:var(--rsp_mediumblue);
-  transform: translateY(4px);
+  transform: translateY(0.2rem);
 	font-weight: bold;
 }
 
