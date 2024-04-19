@@ -6,12 +6,11 @@
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
 }
 
 .navbar {
   overflow: hidden;
-  background-color: #333; 
+  background-color: #333;
 }
 
 .navbar a {
@@ -23,12 +22,12 @@ body {
   text-decoration: none;
 }
 
-.subnav {
+.dropdown {
   float: left;
   overflow: hidden;
 }
 
-.subnav .subnavbtn {
+.dropdown .dropbtn {
   font-size: 16px;  
   border: none;
   outline: none;
@@ -39,77 +38,80 @@ body {
   margin: 0;
 }
 
-.navbar a:hover, .subnav:hover .subnavbtn {
+.navbar a:hover, .dropdown:hover .dropbtn {
   background-color: blue;
 }
 
-.subnav-content {
+.dropdown-content {
   display: none;
   position: absolute;
-  left: 0;
   background-color: blue;
-  width: 100%;
+	color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
 
-.subnav-content a {
-  float: left;
+.dropdown-content a {
+  float: none;
   color: white;
+  padding: 12px 16px;
   text-decoration: none;
+  display: block;
+  text-align: left;
 }
 
-.subnav-content a:hover {
-  background-color: #eee;
-  color: black;
+.dropdown-content a:hover {
+  background-color: #ddd;
+	color: blue;
 }
 
-.subnav:hover .subnav-content {
+.dropdown:hover .dropdown-content {
   display: block;
 }
 </style>
 </head>
-<body>
+<body style="background-color:white;">
 
 <div class="navbar">
-  <a href="#home">Home</a>
-  <div class="subnav">
-    <button class="subnavbtn">Snapshots <i class="fa fa-caret-down"></i></button>
-    <div class="subnav-content">
-      <a href="#mParams">Measured Params</a>
-      <a href="#iParams">Input Params</a>
-      <a href="#fiO2">FiO2</a>
+  <a href="#">Home</a>
+  <div class="dropdown">
+    <button class="dropbtn">Snapshots 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#">Measured Params</a>
+      <a href="#">Input Settings</a>
+      <a href="#">FiO2</a>
     </div>
   </div> 
-  <a href="#charts">Charts</a>
-  <a href="#waveforms">Waveforms</a>
-  <div class="subnav">
-    <button class="subnavbtn">Statistics <i class="fa fa-caret-down"></i></button>
-    <div class="subnav-content">
-      <a href="#mStats">Measured Params</a>
-      <a href="#settings">Settings Used</a>
-      <a href="#sequence">Settings Sequence</a>
-      <a href="#misc">Misc</a>
+  <div class="dropdown">
+    <button class="dropbtn">Statistics 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#">Measured Params</a>
+      <a href="#">Settings Used</a>
+      <a href="#">Settings Sequence</a>
+      <a href="#">Miscellaneous</a>
     </div>
   </div> 
-  <div class="subnav">
-    <button class="subnavbtn">Alerts <i class="fa fa-caret-down"></i></button>
-    <div class="subnav-content">
-      <a href="#errors">Errors</a>
-      <a href="#warnings">Warnings</a>
-      <a href="#notif">Notifications</a>
+  <div class="dropdown">
+    <button class="dropbtn">Alerts 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#">Errors</a>
+      <a href="#">Warnings</a>
+      <a href="#">Notifications</a>
     </div>
-  </div>
+  </div> 
+  <a href="#">Charts</a>
+  <a href="#">Waveforms</a>
 </div>
 
-<div style="padding:0 16px">
-	<br><br>
-	<br><br>
-	<br><br>
-	<br><br>
-	<br><br>
-	<br><br>
-  <p>Hover over the "Snapshots", "Statistics" or "Alerts" link to see the sub navigation menu.</p>
-</div>
+<br><br>
+<h3>Dropdown Menu inside a Navigation Bar</h3>
 
 </body>
 </html>

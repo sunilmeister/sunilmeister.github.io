@@ -153,7 +153,7 @@ function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
   cell = row.insertCell();
   cell.innerHTML = uid;
   cell = row.insertCell();
-  cell.innerHTML = convertSwVersionToStr(fw);
+  cell.innerHTML = "<center>" + convertSwVersionToStr(fw) + "</center>";
   cell = row.insertCell();
   cell.innerHTML = selectButtonHTML("selectUidRow", 25, "Select");
   cell = row.insertCell();
