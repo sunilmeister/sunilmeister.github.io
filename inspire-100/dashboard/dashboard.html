@@ -84,26 +84,26 @@
     <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
   </audio>
 
-  <div id=audioControlDiv class=popupClassPersistent style="width:350px; height:450px; display: none">
+  <div id=audioControlDiv class=popupClassPersistent style="width:20rem; height:30rem; display: none">
     <center>
       <div>
-        <p style="font-size: 30px;">Audio Alarms
+        <p style="font-size: 2rem;">Audio Alarms
           <br>
-        <p style="font-size: 20px; ">Warning
+        <p style="font-size: 1.2rem; ">Warning
           <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
-          <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeWarningVolume()'>
+          <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeWarningVolume()'>
           <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
 
 				<br>
 				<br>
-        <p style="font-size: 20px; ">&nbsp&nbsp&nbsp&nbspError
+        <p style="font-size: 1.2rem; ">&nbsp&nbsp&nbsp&nbspError
           <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
-          <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeErrorVolume()'>
+          <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeErrorVolume()'>
           <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
           <br>
           <br>
           <br>
-          <button class=button style="background-color:var(--rsp_darkblue); width:200px; font-size:20px;" onclick='dismissAudioControl()'>DISMISS</button>
+          <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.2rem;" onclick='dismissAudioControl()'>DISMISS</button>
           <br>
           <br>
 
@@ -131,9 +131,9 @@
     </center>
   </div>
 
-  <div id=enterRangeDiv class=popupClass style="width:600px; height:300px; display: none">
+  <div id=enterRangeDiv class=popupClass style="width:30rem; height:22rem; display: none">
     <center>
-      <div style="font-size: 30px; ">
+      <div style="font-size: 2rem; ">
         <br>
         <label for="fromBreath">Starting Breath Number</label>
         <input id=fromBreath style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
@@ -143,29 +143,9 @@
         <input id=toBreath style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
         <br>
         <br>
-        <br>
-        <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:250px;
-          font-size:30px;" onclick='acceptBreathRange()'>CHANGE</button>
-        <button class=button style="background-color:var(--rsp_darkred); width:250px; font-size:30px;" onclick='cancelBreathRange()'>CANCEL</button>
-        <br>
-        <br>
-
-      </div>
-    </center>
-  </div>
-
-  <div id=exportDiv class=popupClass style="width:500px; height:350px; display: none">
-    <center>
-      <div style="font-size: 30px; ">
-        <br>
-        <label for="exportFileName">Export File Name (.xml)</label>
-        <br>
-        <br>
-        <input id=exportFileName style="width: 40rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem; " />
-        <br>
-        <br>
-        <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:250px; font-size:30px;" onclick='exportFile()'>EXPORT</button>
-        <button class=button style="background-color:var(--rsp_darkred); width:250px; font-size:30px;" onclick='cancelExport()'>CANCEL</button>
+        <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:12rem;
+          font-size:2rem;" onclick='acceptBreathRange()'>CHANGE</button>
+        <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:2rem;" onclick='cancelBreathRange()'>CANCEL</button>
         <br>
         <br>
 
@@ -180,16 +160,16 @@
         <div id=curBreathDiv class=shadowDiv10 style="margin-top:1rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
           <center>
             <p id=breathsHeading style="font-size:1.1rem;font-weight:
-              bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
+              bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
               ;padding-bottom:0.3rem;padding-top:0.3rem;">LOGGED BREATHS</p>
             <p id=breathNum style="margin-bottom:-0.3rem; font-size:2.5rem;font-weight:
-              bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);
+              bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);
               color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
           </center>
         </div>
         <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_green); color:white;">
           <center>
-            <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;color:white; padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
+            <p style="font-size:1rem;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;color:white; padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
             <table style="border-collapse:unset; border:none; font-size:0.8rem; width:100%">
               <tr>
                 <td align="left">&nbspStart Date</td>
@@ -233,7 +213,7 @@
         <div class=shadowDiv10 style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
           <center>
             <br>
-            <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>SELECT VIEW</b></p>
+            <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>SELECT VIEW</b></p>
           </center>
           <button id=btnSnapshots class=sidebarButton onclick='changeToSnapshotView()' disabled>View Snapshots</button>
 
@@ -254,7 +234,7 @@
         <div class=shadowDiv10 style="margin-bottom:1.2rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
           <center>
             <br>
-            <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>TURN ON/OFF</b></p>
+            <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>TURN ON/OFF</b></p>
           </center>
           <button id=btnAudio class=sidebarButton onclick='openAudioControl()'>Audio Alarms</button>
           <button id=recordButton class=sidebarButton onclick='changeRecordingStatus()'>Start Recording</button>
@@ -266,15 +246,15 @@
 
     <div id=nonMenuArea class=dashboard-pane>
 
-      <div id=rangeWindowDiv style="margin-top:25px; margin-bottom: -25px; color: white; display:none;">
+      <div id=rangeWindowDiv style="margin-top:1.5rem; margin-bottom: -1.5rem; color: white; display:none;">
         <div id=rangeSliderDiv style="padding-left:0.3rem; padding-right:0.3rem;font-size:0.6rem;">
         </div>
-        <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 10px; padding-bottom:20px;">
+        <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 0.6rem; padding-bottom:1.2rem;">
           <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" style="float:right;" title='Maximize'><img src="../common/img/maximize.png" style="width:1.2rem; height:1.2rem;"></button>
           <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" style="width:1.2rem; height:1.2rem;"></button>
           <button class=iconButton id=btnEnterInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='enterBreathInterval(this)' style="float:left;" title='Default'><img src="../common/img/pen.png" style="width:1.2rem; height:1.2rem;"></button>
           <center>
-            <p style="margin-top: 10px; margin-bottom:-12px; font-size:1.8rem; "> Breath Range Selector
+            <p style="margin-top: 0.6rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
           </center>
         </div>
       </div>
@@ -284,9 +264,9 @@
         <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left; width:2.5rem; height:2.5rem;">
 
         <center>
-          <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-20px;">
+          <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-1.2rem;">
             No Active Recording
-          <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
+          <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
             <p id=recordBox style="font-size:1.1rem; text-align: left">
           </div>
         </center>
@@ -299,7 +279,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white;font-size:2rem;">
                 Session Errors</h2>
             </center>
-            <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollErrorDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -309,7 +289,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Session Warnings</h2>
             </center>
-            <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollWarningDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -319,7 +299,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_blue); color:var(--rsp_darkblue);font-size:2rem;">
                 Session Notifications</h2>
             </center>
-            <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_blue); color:var(--rsp_darkblue); border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_blue); color:var(--rsp_darkblue); border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollInfoDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -368,11 +348,11 @@
                 Static Information</h2>
             </center>
             <div style="font-size:1.2rem;">
-              <p id=pName style="margin-bottom: -20px;"></p>
-              <p id=pInfo1 style="margin-bottom: -20px;"></p>
+              <p id=pName style="margin-bottom: -1.2rem;"></p>
+              <p id=pInfo1 style="margin-bottom: -1.2rem;"></p>
               <p id=pInfo2></p>
-              <p id=location style="margin-bottom: -20px;">UNKNOWN</p>
-              <p id=altitude style="margin-bottom: -20px;">UNKNOWN</p>
+              <p id=location style="margin-bottom: -1.2rem;">UNKNOWN</p>
+              <p id=altitude style="margin-bottom: -1.2rem;">UNKNOWN</p>
               <p id=o2Percentage>UNKNOWN</p>
 
             </div>
@@ -439,12 +419,12 @@
       </div>
 
       <div id=chart-pane style="display:none">
-        <div id=chartsDiv style="margin-bottom:20px; margin-top:50px;">
+        <div id=chartsDiv style="margin-bottom:1.2rem; margin-top:3rem;">
         </div>
       </div>
 
       <div id=waves-pane style="display:none">
-        <div id=wavesDiv style="margin-bottom:20px; margin-top:50px;">
+        <div id=wavesDiv style="margin-bottom:1.2rem; margin-top:3rem;">
           <div class=wavesLegendDiv>
             <div class=wavesLegendCategory>
               <center>
@@ -454,21 +434,21 @@
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVC);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryVC);">Volume Control
                 </center>
               </div>
               <div class=waveLegend>
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVC);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousVC);">Volume Control
                 </center>
               </div>
               <div class=waveLegend>
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPS);">Pressure Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousPS);">Pressure Control
                 </center>
               </div>
             </div>
@@ -480,21 +460,21 @@
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorMandatoryVCMaint);">Mandatory
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorMandatoryVCMaint);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryVCMaint);">Volume Control
                 </center>
               </div>
               <div class=waveLegend>
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorSpontaneousVCMaint);">Spontaneous
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousVCMaint);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousVCMaint);">Volume Control
                 </center>
               </div>
               <div class=waveLegend>
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorSpontaneousPSMaint);">Spontaneous
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorSpontaneousPSMaint);">Pressure Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousPSMaint);">Pressure Control
                 </center>
               </div>
             </div>
@@ -507,14 +487,14 @@
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorAbnormal);">Abnormal
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorAbnormal);">Seeming Breath
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorAbnormal);">Seeming Breath
                 </center>
               </div>
               <div class=waveLegend>
                 <center>
                   <p class=waveLegendText style="background-color:var(--colorError);">Error
                     <br>
-                  <p class=waveLegendText style="padding-top:0px; background-color:var(--colorError);">Causing Breath
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorError);">Causing Breath
                 </center>
               </div>
             </div>
@@ -674,8 +654,8 @@
               <div id=flowDiv style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); margin-top:-1.5rem;">
 								<p style="font-size:1.1rem; padding-top:0.25rem;"><b>Required O<sub>2</sub></b>
 								<p style="font-size:1.1rem; margin-top:-1.25rem;"><b>Flow Rate</b>
-                <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:2px; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
-                <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-2px; padding-bottom:0.5rem;">(litres/min)
+                <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:0.1rem; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
+                <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-0.1rem; padding-bottom:0.5rem;">(litres/min)
               </div>
               <div id=purityDiv style="background-color:var(--rsp_mediumblue); color:white;">
 								<p style="font-size:1.1rem; margin-top:-0.5rem;padding-top:0.5rem;background-color:var(--rsp_darkblue);">O<sub>2</sub> Source Purity                 
@@ -837,17 +817,17 @@
       <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
         <center>
           <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-          <div style="background-color: var(--rsp_lightblue); margin-top:-20px">
+          <div style="background-color: var(--rsp_lightblue); margin-top:-1.2rem">
             <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title">
 
           </div>
         </center>
       </div>
-      <div id=chartCheckBoxTreeRoot style="margin-top:-20px; padding-bottom:10px;">
+      <div id=chartCheckBoxTreeRoot style="margin-top:-1.2rem; padding-bottom:0.6rem;">
         <center>
           <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
         </center>
-        <div style="background-color: var(--rsp_lightblue); margin-top:-10px;">
+        <div style="background-color: var(--rsp_lightblue); margin-top:-0.6rem;">
           <input type="checkbox" id=Presssures onclick='chartTreeCheckboxClicked(this)'>
           <label for=Presssures>Pressures</label>
           <div class=chartIndentDiv>
@@ -967,12 +947,12 @@
           </div>
         </div>
       </div>
-      <div id=XAxisUnits style="margin-top:-20px;">
+      <div id=XAxisUnits style="margin-top:-1.2rem;">
         <center>
-          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-bottom:0px;">X-axis Units</p>
+          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-bottom:0;">X-axis Units</p>
         </center>
-        <div style="background-color: var(--rsp_lightblue); margin-bottom:-16px;">
-          <form name="XunitsForm" style="padding-top:12px;">
+        <div style="background-color: var(--rsp_lightblue); margin-bottom:-1rem;">
+          <form name="XunitsForm" style="padding-top:0.8rem;">
             <center>
               <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked onclick='submitChartXaxis(this)'>
 
@@ -1009,16 +989,16 @@
       <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
         <center>
           <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-          <div style="background-color: var(--rsp_lightblue); margin-top:-10px">
+          <div style="background-color: var(--rsp_lightblue); margin-top:-0.6rem">
             <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title">
           </div>
         </center>
       </div>
-      <div id=waveCheckBoxTreeRoot style="margin-top:-10px; padding-bottom:10px;">
+      <div id=waveCheckBoxTreeRoot style="margin-top:-0.6rem; padding-bottom:0.6rem;">
         <center>
           <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
         </center>
-        <div style="background-color: var(--rsp_lightblue); margin-top:-5px;">
+        <div style="background-color: var(--rsp_lightblue); margin-top:-0.3rem;">
           <input type="checkbox" id=All onclick='waveTreeCheckboxClicked(this)'>
           <label for=All>All</label>
           <div class=waveIndentDiv>

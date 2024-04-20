@@ -586,7 +586,6 @@ window.onload = function () {
   createRangeSlider(sliderDiv);
 
   // Treat <ENTER> as accept button
-  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
   new KeypressEnterSubmit('fromBreath', 'acceptRangeBtn');
   new KeypressEnterSubmit('toBreath', 'acceptRangeBtn');
