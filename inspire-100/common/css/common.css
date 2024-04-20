@@ -9,19 +9,19 @@
   appearance: none;
   background-color: var(--rsp_mediumblue);
   color: white;
-  border-radius: 6px;
+  border-radius: 0.4rem;
   border-width: 0;
-  box-shadow: var(--rsp_blue) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-shadow: var(--rsp_blue) 0 0.2rem 0.2rem,rgba(45, 35, 66, 0.3) 0 0.5rem 0.8rem -0.2rem,#D6D6E7 0 -0.2rem 0 inset;
   box-sizing: white;
   cursor: pointer;
   display: inline-flex;
-  height: 40px;
+  height: 2.5rem;
   justify-content: center;
   line-height: 1;
   list-style: none;
   overflow: hidden;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
   margin: 10px 4px;
   position: relative;
   text-align: center;
@@ -79,13 +79,13 @@ span {
 */
 
 .statsTableStyle td {
-  padding: 0 5px 0 0;
+  padding: 0 0.3rem 0 0;
   /* Only right padding*/
 }
 
 .shadowDiv5 {
-  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.4);
 }
 
 .shadowDiv10 {
@@ -111,20 +111,20 @@ span {
   left:50%;
   transform: translate(-50%,-50%);
 
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 1rem 0.8rem;
 
   display:none;
 }
 
 .popupClassPersistent {
-  width: 800px;
-  height: 300px;
+  width: 40rem;
+  height: 20rem;
   background-color: var(--rsp_modal);
   color: white;
 
   font-size: 2.5rem;
   font-family: verdana;
-  padding: 10px;
+  padding: 0.6rem;
   z-index: 9;
   opacity: 1;
 
@@ -134,7 +134,7 @@ span {
   left:50%;
   transform: translate(-50%,-50%);
 
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0rem 1.2rem 2.4rem, rgba(0, 0, 0, 0.22) 0rem 1rem 0.8rem;
 
   display:none;
 }

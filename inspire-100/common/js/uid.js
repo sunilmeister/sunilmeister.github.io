@@ -155,9 +155,9 @@ function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
   cell = row.insertCell();
   cell.innerHTML = "<center>" + convertSwVersionToStr(fw) + "</center>";
   cell = row.insertCell();
-  cell.innerHTML = selectButtonHTML("selectUidRow", 25, "Select");
+  cell.innerHTML = selectButtonHTML("selectUidRow", 1.5, "Select");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("removeUidRow", 25, "Remove");
+  cell.innerHTML = trashButtonHTML("removeUidRow", 1.5, "Remove");
   return row;
 }
 

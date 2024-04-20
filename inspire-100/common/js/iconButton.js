@@ -38,7 +38,7 @@ function iconButtonHTML(pngFileName, size, onClickFunction, title) {
     ' onClick="' + onClickFunction + '(this)"' +
     ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)">' +
     ' <img  src="../common/img/' + pngFileName + '.png"' +
-    ' width=' + size + 'px height=' + size + 'px></button>'
+    ' style="width:' + size + 'rem; height:' + size + 'rem;"></button>'
   return htmlStr;
 }
 
