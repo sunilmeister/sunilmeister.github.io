@@ -15,7 +15,7 @@ function listDbExportTableRow(item, index) {
   let row = table.insertRow();
   let cell;
   cell = row.insertCell();
-  cell.style.paddingRight = "25px";
+  cell.style.paddingRight = "1.5rem";
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
   cell.innerHTML = nameTm[2];

@@ -23,13 +23,13 @@ function listDbTableRow(item, index) {
   row.style.cursor = "pointer";
   let cell;
   cell = row.insertCell();
-  cell.style.paddingRight = "25px";
-  cell.style.paddingTop = "8px";
-  cell.style.paddingBottom = "8px";
+  cell.style.paddingRight = "1.5rem";
+  cell.style.paddingTop = "0.5rem";
+  cell.style.paddingBottom = "0.5rem";
   cell.innerHTML = nameTm[1];
   cell = row.insertCell();
-  cell.style.paddingTop = "8px";
-  cell.style.paddingBottom = "8px";
+  cell.style.paddingTop = "0.5rem";
+  cell.style.paddingBottom = "0.5rem";
   cell.style.textAlign = "center";
   cell.innerHTML = nameTm[2];
 
