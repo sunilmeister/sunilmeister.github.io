@@ -168,7 +168,6 @@ function updatePage() {
   for (const uid in activeTiles) {
 		updateUidContent(uid);
 	}
-	resizeAllTiles();
 }
 
 function initialTileContent() {
@@ -222,9 +221,6 @@ function AddRemoveTiles() {
 			deleteTile(uid);
 		}
 	}
-
-	// then resize
-	resizeAllTiles();
 }
 
 var activeViewIsState = true;

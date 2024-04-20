@@ -142,100 +142,6 @@ function updateTileImages(uid) {
 	}
 }
 
-const REF_TILE_SIZE = 315;
-function scaleSize(tileSize, s) {
-	return tileSize * s / REF_TILE_SIZE;
-}
-
-function updateTileSizes(uid) {
-	updateTileSizesParams(uid);
-	updateTileSizesState(uid);
-}
-
-var currentTileSize = 0;
-function updateAudioControlSizes() {
-	if (!currentTileSize) return;
-	let tileSize = currentTileSize;
-
-	changeWidth('AudioControl', scaleSize(305, tileSize));
-	changeMargin('AudioControl', scaleSize(5, tileSize));
-	changeFontSize('AudioControl', scaleSize(tileSize, 26));
-	changeImageSize('AudioControlImg', scaleSize(tileSize, 28));
-}
-
-function updateTileSizesParams(uid) {
-	if (isUndefined(activeTiles[uid])) return;
-
-	let tile = activeTiles[uid].tile;
-	let content = activeTiles[uid].content;
-
-	let tileSize = tile.clientHeight;
-	currentTileSize = tileSize;
-
-	changeMarginTop('ParamContentNonPSV', scaleSize(tileSize, -10));
-	changeMarginTop('ParamContentPSV', scaleSize(tileSize, 50));
-	changeMargin('ParamFloatLeft', scaleSize(tileSize, 5));
-	changeMargin('ParamFloatRight', scaleSize(tileSize, 5));
-
-	changeFontSize('ParamName', scaleSize(tileSize, 15));
-	changeMargin('ParamName', scaleSize(tileSize, 5));
-
-	changeFontSize('ParamValue', scaleSize(tileSize, 20));
-	changeMargin('ParamValue', scaleSize(tileSize, 5));
-}
-
-
-function updateTileSizesState(uid) {
-	if (isUndefined(activeTiles[uid])) return;
-
-	let tile = activeTiles[uid].tile;
-	let content = activeTiles[uid].content;
-
-	let tileSize = tile.clientHeight;
-
-	let uidFontSize = scaleSize(tileSize, 16);
-	let uidPadding = scaleSize(tileSize, 10);
-	changeFontSize('tileUid', uidFontSize);
-	changePadding('tileUid', uidPadding);
-
-	let captionFontSize = scaleSize(tileSize, 24);
-	changeFontSize('statusCaption', captionFontSize);
-	changeFontSize('breathCaption', captionFontSize);
-
-	let tileNameFontSize = scaleSize(tileSize, 30);
-	let tileNameMtop = scaleSize(tileSize, -4);
-	changeFontSize('tileName', tileNameFontSize);
-	changeMarginTop('tileName', tileNameMtop);
-
-	let breathNumFontSize = scaleSize(tileSize, 32);
-	let breathNumMtop = scaleSize(tileSize, -12);
-	let breathNumMbot = scaleSize(tileSize,8);
-	changeFontSize('breathNum', breathNumFontSize);
-	changeMarginTop('breathNum', breathNumMtop);
-	changeMarginBottom('breathNum', breathNumMbot);
-
-	let activeFontSize = scaleSize(tileSize, 28);
-	let activeMtop = scaleSize(tileSize, -12);
-	let activeMbot = scaleSize(tileSize, -6);
-	changeFontSize('active', activeFontSize);
-	changeMarginTop('active', activeMtop);
-	changeMarginBottom('active', activeMbot);
-
-	let imageSize = scaleSize(tileSize, 60);
-	let imageDivMtop = scaleSize(tileSize, -40);
-	let imageDivMbot = scaleSize(tileSize, 10);
-	let imageDivMleft = scaleSize(tileSize, 54);
-	let imageDivMright = scaleSize(tileSize, 54);
-	changeImageSize('StateImg', imageSize);
-	changeMarginTop('State', imageDivMtop);
-	changeMarginBottom('State', imageDivMbot);
-	changeMarginLeft('State', imageDivMleft);
-	changeImageSize('AlertImg', imageSize);
-	changeMarginTop('Alert', imageDivMtop);
-	changeMarginBottom('Alert', imageDivMbot);
-	changeMarginRight('Alert', imageDivMright);
-}
-
 function addTile(uid, sysTag, content) {
 	if (!isUndefined(activeTiles[uid])) return;
 
@@ -301,6 +207,14 @@ setInterval(() => {
 	blinkTiles();
 }, 1000)
 
+function changeParamValue(className, value) {
+	let elems = document.getElementsByClassName(className);
+	for (let i=0; i<elems.length; i++) {
+  	let elem = elems[i];
+		elem.innerHTML = value;
+	}
+}
+
 function updateAudioAlerts() {
 	if (!errorBeepEnabled && !warningBeepEnabled) return;
 	let foundError = false;
@@ -321,17 +235,6 @@ function updateAudioAlerts() {
 		stopErrorBeep();
 		stopWarningBeep();
 	}
-}
-
-function resizeAllTiles() {
-  for (const uid in activeTiles) {
-		updateTileSizes(uid);
-	}
-	updateAudioControlSizes();
-}
-
-window.onresize = function() {
-	resizeAllTiles();
 }
 
 $(function(){
