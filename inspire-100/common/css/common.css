@@ -22,7 +22,7 @@
   overflow: hidden;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
-  margin: 10px 4px;
+  margin: 0.6rem 0.2rem;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -32,24 +32,24 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow,transform;
-  font-size: 22px;
+  font-size: 1.3rem;
   cursor: pointer;
 }
 
 .button:focus {
-  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  box-shadow: #D6D6E7 0 0 0 0.2rem inset, rgba(45, 35, 66, 0.4) 0 0.2rem 0.2rem, rgba(45, 35, 66, 0.3) 0 0.5rem 0.8rem -0.2rem, #D6D6E7 0 -0.2rem 0 inset;
 }
 
 .button:hover {
 	font-weight: bold;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-  transform: translateY(-2px);
+  box-shadow: rgba(45, 35, 66, 0.4) 0 0.2rem 0.5rem, rgba(45, 35, 66, 0.3) 0 0.5rem 0.8rem -0.2rem, #D6D6E7 0 -0.2rem 0 inset;
+  transform: translateY(-0.2rem);
 }
 
 .button:active {
 	font-weight: bold;
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
+  box-shadow: #D6D6E7 0 0.2rem 0.5rem inset;
+  transform: translateY(0.2rem);
 }
 
 /* A row of equal columns that sits next to each other */
@@ -65,18 +65,9 @@
 
 table,
 tr {
-  border-bottom: 1px solid white;
+  border-bottom: 0.1rem solid white;
   border-collapse: collapse;
 }
-
-/*
-span {
-  height: 1rem;
-  margin-right: 0px;
-  margin-left: 0px;
-  border-right: 0px solid white;
-}
-*/
 
 .statsTableStyle td {
   padding: 0 0.3rem 0 0;
@@ -89,19 +80,19 @@ span {
 }
 
 .shadowDiv10 {
-  -webkit-box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
-  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0.6rem 0.6rem 0.6rem 0.6rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.6rem 0.6rem 0.6rem 0.6rem rgba(0, 0, 0, 0.4);
 }
 
 .popupClass {
-  width: 800px;
-  height: 300px;
+  width: 40rem;
+  height: 20rem;
   background-color: var(--rsp_modal);
   color: white;
 
   font-size: 2.5rem;
   font-family: verdana;
-  padding: 10px;
+  padding: 0.6rem;
   z-index: 10;
   opacity: 1;
 
@@ -111,7 +102,7 @@ span {
   left:50%;
   transform: translate(-50%,-50%);
 
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 1rem 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1.2rem 2rem, rgba(0, 0, 0, 0.22) 0 1rem 0.8rem;
 
   display:none;
 }

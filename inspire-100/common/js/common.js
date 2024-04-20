@@ -4,19 +4,46 @@
 var inspireUid = "";
 var inspireTag = "";
 
-///////////////////////////////////////////////////////
-// For modal warnings errors, confirmations etc.
-///////////////////////////////////////////////////////
-var modalWidth = 600; // default modal width
-function setModalWidth(w) {
-  modalWidth = w;
+function setRootFontSize() {
+	const root = document.documentElement;
+	const width = window.innerWidth;
+
+	// Set the root font size based on the screen width
+	if (width >= 1200) {
+  	root.style.fontSize = "16px";
+	} else if (width >= 992) {
+  	root.style.fontSize = "14px";
+	} else if (width >= 650) {
+  	root.style.fontSize = "12px";
+	} else {
+  	root.style.fontSize = "10px";
+	}
 }
+
+
+// Add an event listener to the window load event
+window.addEventListener("load", () => {
+	setRootFontSize();
+});
+
+// Add an event listener to the window resize event
+window.addEventListener("resize", () => {
+	setRootFontSize();
+});
 
 ///////////////////////////////////////////////////////
 //// Useful conversion from REM to PX
 ///////////////////////////////////////////////////////
 function convertRemToPixels(rem) {    
     return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+///////////////////////////////////////////////////////
+// For modal warnings errors, confirmations etc.
+///////////////////////////////////////////////////////
+var modalWidth = 600; // default modal width
+function setModalWidth(w) {
+  modalWidth = w;
 }
 
 ///////////////////////////////////////////////////////

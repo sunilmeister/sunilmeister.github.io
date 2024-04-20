@@ -28,8 +28,8 @@ body {
   background: #000;
   background: rgba(0, 0, 0, 0.5);
   color: #FFF;
-  padding: 0.6rem;
   text-align: center;
+	padding: 0.5rem;
 }
 
 body.no-touch .tileContent:hover body.touch .tileContent.touchFocus {
@@ -91,6 +91,7 @@ body.no-touch .tileContent:hover body.touch .tileContent.touchFocus {
 
 .ParamFloatLeft {
 	float: left;
+	border-width: 0.1rem;
 	border-style: solid;
 	border-color: white;
 	width: 42%;
@@ -98,6 +99,7 @@ body.no-touch .tileContent:hover body.touch .tileContent.touchFocus {
 
 .ParamFloatRight {
 	float: right;
+	border-width: 0.1rem;
 	border-style: solid;
 	border-color: white;
 	width: 42%;
