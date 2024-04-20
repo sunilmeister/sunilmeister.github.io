@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="UTF-8">
     <title>Inspire-100 Tiles</title>
@@ -12,10 +13,11 @@
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link href="css/tiles.css" rel="stylesheet" />
     <link href="../common/css/colors.css" rel="stylesheet" />
     <link href="../common/css/common.css" rel="stylesheet" />
+    <link href="../common/css/iconButton.css" rel="stylesheet" />
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../external/hacktimer/HackTimer.min.js"></script>
@@ -38,48 +40,57 @@
     <script src="js/tiles.js"></script>
     <script src="js/manage.js"></script>
   </head>
+
   <body class="no-touch">
-  <audio id="warningBeep">
-    <source src="../common/mp3/warningBeep.mp3" type="audio/mp3">
-  </audio>
+    <audio id="warningBeep">
+      <source src="../common/mp3/warningBeep.mp3" type="audio/mp3">
+    </audio>
 
-  <audio id="errorBeep">
-    <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
-  </audio>
+    <audio id="errorBeep">
+      <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
+    </audio>
 
-  <div id=audioControlDiv class=popupClassPersistent style="width:20rem; height:30rem; display: none">
-    <center>
-      <div>
-        <p style="font-size: 2rem;">Audio Alarms
-          <br>
-        <p style="font-size: 1.2rem; ">Warning
-          <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
-          <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeWarningVolume()'>
-          <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+    <div id=audioControlDiv class=popupClassPersistent style="width:20rem; height:30rem; display: none">
+      <center>
+        <div>
+          <p style="font-size: 2rem;">Audio Alarms
+            <br>
+            <p style="font-size: 1.2rem; ">Warning
+              <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
+              <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeWarningVolume()'>
+              <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
 
-				<br>
-				<br>
-        <p style="font-size: 1.2rem; ">&nbsp&nbsp&nbsp&nbspError
-          <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
-          <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeErrorVolume()'>
-          <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
-          <br>
-          <br>
-          <br>
-          <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.2rem;" onclick='dismissAudioControl()'>DISMISS</button>
-          <br>
-          <br>
+              <br>
+              <br>
+              <p style="font-size: 1.2rem; ">&nbsp&nbsp&nbsp&nbspError
+                <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
+                <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeErrorVolume()'>
+                <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+                <br>
+                <br>
+                <br>
+                <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.2rem;" onclick='dismissAudioControl()'>DISMISS</button>
+                <br>
+                <br>
 
+        </div>
+      </center>
+    </div>
+
+    <div class="wrapTiles" id=topDiv>
+      <div class=AudioControl onclick='openAudioControl()'>
+        <div style="float:left;">
+          <img class=AudioControlImg id=WarningActiveImg src="../common/img/audioOff.png" style="width:2rem; height:2rem;"> &nbspWarning Beeps
+        </div>
+        <div style="float:left;">
+          &nbsp&nbsp&nbsp&nbsp
+          <img class=AudioControlImg id=ErrorActiveImg src="../common/img/audioOff.png" style="width:2rem; height:2rem;"> &nbspError Beeps
+        </div>
       </div>
-    </center>
-  </div>
+      <div style="clear:both"> </div>
+    </div>
 
-
-	<img src="../common/img/Audio.png" style="width:5rem; height:5rem;" onclick='openAudioControl()'>
-  <div class="wrapTiles" id=topDiv>
-	</div>
-
-<!-- 
+    <!-- 
 // ////////////////////////////////////////////////////
 // Below are all templates only
 // ////////////////////////////////////////////////////
@@ -92,12 +103,11 @@
             <div class=StateContent>
               <p class=statusCaption>NOT Transmitting</p>
               <div class=State>
-								&nbsp
+                &nbsp
                 <img class=StateImg src="../common/img/InitialLED.png" alt="LED" style="margin-top:-0.5rem; margin-bottom:0.5rem; width:4rem; height:4rem;">
               </div>
               <div class=Alert>
-                <img class=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:-0.5rem; margin-bottom:0.5rem; width=4rem; height:4rem;">
-								&nbsp
+                <img class=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:-0.5rem; margin-bottom:0.5rem; width=4rem; height:4rem;"> &nbsp
               </div>
               <div style="clear: both;">
                 <p class=breathCaption>Last Recorded Breath#</p>
@@ -165,4 +175,5 @@
       </div>
     </template>
   </body>
+
 </html>

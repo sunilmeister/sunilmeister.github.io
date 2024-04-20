@@ -13,7 +13,7 @@ body {
 .tile {
   float: left;
   position: relative;
-  width: 15rem;
+  width: 16rem;
   margin: 0.3rem;
 	cursor: pointer;
 }
@@ -24,7 +24,7 @@ body {
 }
 
 .tileUid {
-	font-size: 0.9rem;
+	font-size: 1rem;
   background: #000;
   background: rgba(0, 0, 0, 0.5);
   color: #FFF;
@@ -49,6 +49,7 @@ body.no-touch .tileContent:hover body.touch .tileContent.touchFocus {
 .tileName {
 	color: white;
 	font-weight: bold;
+	font-size: 1.2rem;
 }
 
 .breathNum {
@@ -114,4 +115,28 @@ body.no-touch .tileContent:hover body.touch .tileContent.touchFocus {
 	color: white;
 	font-size:1rem;
 }
+
+.AudioControl {
+	height: 2.5rem;
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: #0D3E51;
+	margin: 0.3rem;
+	padding: 0.3rem;
+	cursor: pointer;
+}
+
+.AudioControl:hover{
+  background-color: gray;
+  border-color: gray;
+  opacity:1; 
+}
+
+.AudioControl:active{
+  background-color: var(--rsp_mediumgreen);
+  border-color: var(--rsp_mediumgreen);
+  box-shadow: 0 0.4rem white;
+  transform: translateY(0.2rem);
+}
+
 
