@@ -3,32 +3,23 @@
 // ////////////////////////////////////////////////////
 var inspireUid = "";
 var inspireTag = "";
+var appResizeFunction = null;
+var appScaleFactor = 1.0;
 
-function setRootFontSize() {
+function setRootFontSize(appScaling) {
+	if (isUndefined(appScaling)) appScaling = 1.0;
 	const root = document.documentElement;
 	const width = window.innerWidth;
 
-	// Set the root font size based on the screen width
-	if (width >= 1200) {
-  	root.style.fontSize = "16px";
-	} else if (width >= 992) {
-  	root.style.fontSize = "14px";
-	} else if (width >= 650) {
-  	root.style.fontSize = "12px";
-	} else {
-  	root.style.fontSize = "10px";
-	}
+	appScaleFactor = appScaling;
+ 	root.style.fontSize = String(16*appScaleFactor*width/1600) + "px";
+	if (appResizeFunction) appResizeFunction();
 }
 
 
-// Add an event listener to the window load event
-window.addEventListener("load", () => {
-	setRootFontSize();
-});
-
 // Add an event listener to the window resize event
 window.addEventListener("resize", () => {
-	setRootFontSize();
+	setRootFontSize(appScaleFactor);
 });
 
 ///////////////////////////////////////////////////////

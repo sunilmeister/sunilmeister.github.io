@@ -17,8 +17,6 @@
   display: inline-flex;
   height: 2.5rem;
   justify-content: center;
-  line-height: 1;
-  list-style: none;
   overflow: hidden;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
@@ -32,7 +30,7 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow,transform;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 

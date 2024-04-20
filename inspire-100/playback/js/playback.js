@@ -598,6 +598,9 @@ function playbackGatherDoneCallback() {
 }
 
 window.onload = function () {
+	appScaleFactor = 0.8;
+	setRootFontSize(appScaleFactor);
+
   setModalWidth(600);
   showZoomReminder();
 
@@ -615,14 +618,8 @@ window.onload = function () {
 
   undisplayAllPanes();
   disableAllButtons();
-  let menuBar = document.getElementById("sideMenuBar");
-  menuBarHeight = menuBar.offsetHeight;
-  menuBarWidth = menuBar.offsetWidth;
-  let nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(5 - menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
-  //console.log("menuBarHeight = " + menuBarHeight);
-  //console.log("menuBarWidth = " + menuBarWidth);
+	appResize();
+	appResizeFunction = appResize;
 
   session.reportRange = createReportRange(false, 0, 0);
 
@@ -633,6 +630,15 @@ window.onload = function () {
 
   resetPlaybackData();
   selectSession();
+}
+
+function appResize() {
+  let menuBar = document.getElementById("sideMenuBar");
+  let menuBarHeight = menuBar.offsetHeight;
+  let menuBarWidth = menuBar.offsetWidth;
+  let nonMenuArea = document.getElementById("nonMenuArea");
+  nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
+  nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
 }
 
 function selectExit() {

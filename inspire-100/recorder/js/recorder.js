@@ -113,6 +113,8 @@ function updateRecorderSummary(d) {
 
 window.onload = function () {
   finishedLoading = false;
+	appScaleFactor = 0.8;
+	setRootFontSize(appScaleFactor);
 
 	setModalWidth(600);
   showZoomReminder();
@@ -137,6 +139,11 @@ window.onload = function () {
   chirpQ = new Queue();
   waitForChirps();
   finishedLoading = true;
+	appResize();
+	appResizeFunction = appResize;
+}
+
+function appResize() {
   let menuBar = document.getElementById("sideMenuBar");
   let menuBarHeight = menuBar.offsetHeight;
   let menuBarWidth = menuBar.offsetWidth;

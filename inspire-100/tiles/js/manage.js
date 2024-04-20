@@ -288,6 +288,9 @@ function tileClick(tile) {
 }
 
 window.onload = function () {
+	appScaleFactor = 1.25;
+	setRootFontSize(appScaleFactor);
+
 	AddRemoveTiles();
 	disableAllBeeps();
 	openAudioControl();

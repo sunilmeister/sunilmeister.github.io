@@ -472,6 +472,7 @@ function installFiO2Gauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('fiO2Div');
+	containerDiv.innerHTML = "";
   fiO2Gauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
 }
@@ -480,6 +481,7 @@ function installPurityGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('purityDiv');
+	containerDiv.innerHTML = "";
   purityGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
 
@@ -489,7 +491,8 @@ function installPeakGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PeakGauge');
-  peakGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
+	containerDiv.innerHTML = "";
+  peakGauge = new CircularGauge(containerDiv, convertRemToPixels(6.6), fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
 }
 
@@ -497,7 +500,8 @@ function installPlatGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PlatGauge');
-  platGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
+	containerDiv.innerHTML = "";
+  platGauge = new CircularGauge(containerDiv, convertRemToPixels(6.6), fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
 }
 
@@ -505,7 +509,8 @@ function installPeepGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PeepGauge');
-  peepGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
+	containerDiv.innerHTML = "";
+  peepGauge = new CircularGauge(containerDiv, convertRemToPixels(6.6), fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
 }
 
@@ -513,7 +518,8 @@ function installTempGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('TempGauge');
-  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, -20, 70);
+	containerDiv.innerHTML = "";
+  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(6.0), fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
 
@@ -536,6 +542,9 @@ function receivedNewWave() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
+	appScaleFactor = 1.0;
+	setRootFontSize(appScaleFactor);
+
 	setModalWidth(600);
   showZoomReminder();
 
@@ -599,14 +608,21 @@ window.onload = function () {
   chirpQ = new Queue();
   waitForChirps();
   finishedLoading = true;
+	appResize();
+	appResizeFunction = appResize;
+}
+
+function appResize() {
   let menuBar = document.getElementById("sideMenuBar");
   let menuBarHeight = menuBar.offsetHeight;
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
-  //console.log("menuBarHeight = " + menuBarHeight);
-  //console.log("menuBarWidth = " + menuBarWidth);
+	installPeakGauge();
+	installPlatGauge();
+	installPeepGauge();
+	installTempGauge();
 }
 
 window.onbeforeunload = function (e) {

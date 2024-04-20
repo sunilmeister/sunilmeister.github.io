@@ -414,6 +414,9 @@ var portalStartDate = null;
 window.onload = function () {
   portalStartDate = new Date();
 
+	appScaleFactor = 1.0;
+	setRootFontSize(appScaleFactor);
+
 	setModalWidth(600);
   showZoomReminder();
 
