@@ -472,7 +472,7 @@ function installFiO2Gauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('fiO2Div');
-  fiO2Gauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
+  fiO2Gauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, 21, 100);
   fiO2Gauge.setProperty('readonly', true);
 }
 
@@ -480,7 +480,7 @@ function installPurityGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('purityDiv');
-  purityGauge = new CircularGauge(containerDiv, 75, fgColor, bgColor, 21, 100);
+  purityGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, 21, 100);
   purityGauge.setProperty('readonly', true);
 
 }
@@ -489,7 +489,7 @@ function installPeakGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PeakGauge');
-  peakGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
+  peakGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
   peakGauge.setProperty('readonly', true);
 }
 
@@ -497,7 +497,7 @@ function installPlatGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PlatGauge');
-  platGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
+  platGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
   platGauge.setProperty('readonly', true);
 }
 
@@ -505,7 +505,7 @@ function installPeepGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PeepGauge');
-  peepGauge = new CircularGauge(containerDiv, 110, fgColor, bgColor, 0, 70);
+  peepGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
   peepGauge.setProperty('readonly', true);
 }
 
@@ -513,7 +513,7 @@ function installTempGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('TempGauge');
-  tempGauge = new CircularGauge(containerDiv, 90, fgColor, bgColor, -20, 70);
+  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
 

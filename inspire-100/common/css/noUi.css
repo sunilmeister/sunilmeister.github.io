@@ -8,7 +8,7 @@
     background-color: var(--rsp_brightgreen);
     cursor: grab;
     border-style: outset;
-    border-width: 2px;
+    border-width: 0.1rem;
 }
 
 /*
@@ -30,7 +30,7 @@
 .noUi-handle {
     background-color: var(--rsp_green);
     border-style: outset;
-    border-width: 2px;
+    border-width: 0.1rem;
     cursor: grab;
 }
 

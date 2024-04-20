@@ -90,14 +90,14 @@
         <p style="font-size: 30px;">Audio Alarms
           <br>
         <p style="font-size: 20px; ">Warning
-          <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" width=20px height=20px></button>
+          <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
           <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeWarningVolume()'>
           <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
 
 				<br>
 				<br>
         <p style="font-size: 20px; ">&nbsp&nbsp&nbsp&nbspError
-          <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" width=20px height=20px></button>
+          <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
           <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:100px;" onchange='changeErrorVolume()'>
           <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
           <br>
@@ -122,8 +122,8 @@
 
         <br>
         <br>
-        <button id=acceptRecordNameBtn class=button style="background-color:var(--rsp_darkblue); padding:5px; width:10rem; height:2rem;" onclick='acceptRecordingName()'>RECORD</button>
-        <button class=button style="background-color:var(--rsp_darkred); padding:5px; width:10rem; height:2rem;" onclick='cancelRecordingName()'>CANCEL</button>
+        <button id=acceptRecordNameBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='acceptRecordingName()'>RECORD</button>
+        <button class=button style="background-color:var(--rsp_darkred); padding:0.3rem; width:10rem; height:2rem;" onclick='cancelRecordingName()'>CANCEL</button>
         <br>
         <br>
 
@@ -181,15 +181,15 @@
           <center>
             <p id=breathsHeading style="font-size:1.1rem;font-weight:
               bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
-              ;padding-bottom:5px;padding-top:5px;">LOGGED BREATHS</p>
-            <p id=breathNum style="margin-bottom:-5px; font-size:2.5rem;font-weight:
+              ;padding-bottom:0.3rem;padding-top:0.3rem;">LOGGED BREATHS</p>
+            <p id=breathNum style="margin-bottom:-0.3rem; font-size:2.5rem;font-weight:
               bold;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumgreen);
-              color: var(--rsp_darkblue); padding-bottom:5px;">0</p>
+              color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
           </center>
         </div>
         <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_green); color:white;">
           <center>
-            <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;color:white; padding-bottom:5px;"><b>CURRENT SESSION</b></p>
+            <p style="font-size:1rem;margin-bottom:0;margin-top:10px;margin-left:10px;margin-right:10px;color:white; padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
             <table style="border-collapse:unset; border:none; font-size:0.8rem; width:100%">
               <tr>
                 <td align="left">&nbspStart Date</td>
@@ -233,7 +233,7 @@
         <div class=shadowDiv10 style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
           <center>
             <br>
-            <p style="font-size:1rem;margin-bottom:0;margin-top:-5px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>SELECT VIEW</b></p>
+            <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>SELECT VIEW</b></p>
           </center>
           <button id=btnSnapshots class=sidebarButton onclick='changeToSnapshotView()' disabled>View Snapshots</button>
 
@@ -254,7 +254,7 @@
         <div class=shadowDiv10 style="margin-bottom:1.2rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
           <center>
             <br>
-            <p style="font-size:1rem;margin-bottom:0;margin-top:-5px;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:5px;"><b>TURN ON/OFF</b></p>
+            <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:10px;margin-right:10px;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>TURN ON/OFF</b></p>
           </center>
           <button id=btnAudio class=sidebarButton onclick='openAudioControl()'>Audio Alarms</button>
           <button id=recordButton class=sidebarButton onclick='changeRecordingStatus()'>Start Recording</button>
@@ -267,12 +267,12 @@
     <div id=nonMenuArea class=dashboard-pane>
 
       <div id=rangeWindowDiv style="margin-top:25px; margin-bottom: -25px; color: white; display:none;">
-        <div id=rangeSliderDiv style="padding-left:5px; padding-right:5px;font-size:0.6rem;">
+        <div id=rangeSliderDiv style="padding-left:0.3rem; padding-right:0.3rem;font-size:0.6rem;">
         </div>
         <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 10px; padding-bottom:20px;">
-          <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" style="float:right;" title='Maximize'><img src="../common/img/maximize.png" width=25px height=25px></button>
-          <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" width=25px height=25px></button>
-          <button class=iconButton id=btnEnterInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='enterBreathInterval(this)' style="float:left;" title='Default'><img src="../common/img/pen.png" width=25px height=25px></button>
+          <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" style="float:right;" title='Maximize'><img src="../common/img/maximize.png" style="width:1.2rem; height:1.2rem;"></button>
+          <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" style="width:1.2rem; height:1.2rem;"></button>
+          <button class=iconButton id=btnEnterInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='enterBreathInterval(this)' style="float:left;" title='Default'><img src="../common/img/pen.png" style="width:1.2rem; height:1.2rem;"></button>
           <center>
             <p style="margin-top: 10px; margin-bottom:-12px; font-size:1.8rem; "> Breath Range Selector
           </center>
@@ -280,13 +280,13 @@
       </div>
 
       <div id=record-pane style="width:50rem; font-size:1.2rem; display:none">
-        <button class=iconButton onClick="exportRecording()" style="float:right" title=Export><img src="../common/img/export.png" width=25px height=25px></button>
-        <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left" width="40rem" height="40rem">
+        <button class=iconButton onClick="exportRecording()" style="float:right" title=Export><img src="../common/img/export.png" style="width:1.2rem; height:1.2rem;"></button>
+        <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left; width:2.5rem; height:2.5rem;">
 
         <center>
           <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-20px;">
             No Active Recording
-          <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:5px; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
+          <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-20px;padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:4px var(--rsp_lightblue); font-family: 'Cousine'">
             <p id=recordBox style="font-size:1.1rem; text-align: left">
           </div>
         </center>
@@ -299,7 +299,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white;font-size:2rem;">
                 Session Errors</h2>
             </center>
-            <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollErrorDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -309,7 +309,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Session Warnings</h2>
             </center>
-            <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:10px var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollWarningDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -319,7 +319,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_blue); color:var(--rsp_darkblue);font-size:2rem;">
                 Session Notifications</h2>
             </center>
-            <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:5px; background-color:var(--rsp_blue); color:var(--rsp_darkblue); border:10px var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_blue); color:var(--rsp_darkblue); border:10px var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollInfoDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -520,7 +520,7 @@
             </div>
             <div style="clear:both">
               <p style="color:black;">Broken lines indicate few missing datapoints
-              <p style="color:red; margin-top:-15px;">Red label indicates too many missing datapoints
+              <p style="color:red; margin-top:-1rem;">Red label indicates too many missing datapoints
             </div>
           </div>
         </div>
@@ -548,10 +548,10 @@
         </div>
 
         <div id=AlertDiv class=Alert>
-          <img id=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:1rem" height=70rem; width=70rem;>
+          <img id=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:1rem; height:4.5rem; width:4.5rem;">
         </div>
         <div id=StateDiv class=State>
-          <img id=StateImg src="../common/img/BlankLED.png" alt="LED" style="margin-top:0.5rem;margin-bottom: -0.75rem;" width="60rem" height="60rem">
+          <img id=StateImg src="../common/img/BlankLED.png" alt="LED" style="margin-top:0.5rem;margin-bottom: -0.75rem; width:4rem; height:4rem;">
           <p id=State style="margin-top:0.5rem; font-size:1rem;"><b>UNKNOWN</b>
         </div>
 
@@ -661,7 +661,7 @@
 						<p style="font-size:1.1rem;margin-top:-0.5rem;padding-top:0.5rem;background-color:var(--rsp_darkblue); color:white;"><b>O<sub>2</sub> Blender</b>
 						<p style="font-size:1.1rem;margin-top:-1.1rem;background-color:var(--rsp_darkblue); color:white;"><b>Installed</b>
 						<br>
-            <img src="img/OxygenBlender.png" alt="O2Blender" style="margin-top:1rem; padding-bottom:1rem;" width=140px height=200px>
+            <img src="img/OxygenBlender.png" alt="O2Blender" style="margin-top:1rem; padding-bottom:1rem; width:9rem height:12rem;">
 						<br>
 						<p style="font-size:1.1rem;margin-top:0rem;color:var(--rsp_darkgreen);"><b>External</b>
 						<p style="font-size:1.1rem;margin-top:-1.1rem;color:var(--rsp_darkgreen);"><b>FiO<sub>2</sub> Control</b>
@@ -674,8 +674,8 @@
               <div id=flowDiv style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); margin-top:-1.5rem;">
 								<p style="font-size:1.1rem; padding-top:0.25rem;"><b>Required O<sub>2</sub></b>
 								<p style="font-size:1.1rem; margin-top:-1.25rem;"><b>Flow Rate</b>
-                <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:2px; margin-top:-15px;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
-                <p style="font-size:1rem; margin-bottom:5px; margin-top:-2px; padding-bottom:0.5rem;">(litres/min)
+                <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:2px; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
+                <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-2px; padding-bottom:0.5rem;">(litres/min)
               </div>
               <div id=purityDiv style="background-color:var(--rsp_mediumblue); color:white;">
 								<p style="font-size:1.1rem; margin-top:-0.5rem;padding-top:0.5rem;background-color:var(--rsp_darkblue);">O<sub>2</sub> Source Purity                 
@@ -782,26 +782,26 @@
 
         <div class=Indicators style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
           <span onclick=openAudioControl() style="cursor:pointer;">
-            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" width="17rem" height="17rem">&nbsp&nbsp&nbsp&nbspWarning</p>
+            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspWarning</p>
           </span>
 
           <span onclick=openAudioControl() style="cursor:pointer;">
-            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" width="17rem" height="17rem">&nbsp&nbsp&nbsp&nbspError</p>
+            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspError</p>
           </span>
 
           <span onclick=changeRecordingStatus() style="cursor:pointer;">
-            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=RecordingActiveImg src="../common/img/BlankLED.png" alt="LED" width="17rem" height="17rem">&nbsp&nbsp&nbsp&nbspRecording</p>
+            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=RecordingActiveImg src="../common/img/BlankLED.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspRecording</p>
           </span>
 
           <span onclick=togglePause() style="cursor:pointer;">
-            <p class=pButton align="left" style="margin-top:0.2rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=DashboardActiveImg src="../common/img/GreenDot.png" alt="LED" width="17rem" height="17rem">&nbsp&nbsp&nbsp&nbspDashboard</p>
+            <p class=pButton align="left" style="margin-top:0.2rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=DashboardActiveImg src="../common/img/GreenDot.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspDashboard</p>
           </span>
 
         </div>
 
         <div class=Logo>
           <center>
-            <img src="img/dashboard-title-logos.png" alt="Title" style="margin-top:0.6rem; margin-left:0rem" width="481rem" height="92rem">
+            <img src="img/dashboard-title-logos.png" alt="Title" style="margin-top:0.6rem; margin-left:0rem; width:30rem; height:5.8rem;">
           </center>
         </div>
 
@@ -817,9 +817,9 @@
   <template id=chartContainerTemplate>
     <div class=chartContainer>
       <div class=chartBanner>
-        <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" width=15px height=15px></button>
-        <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" width=15px height=15px></button>
-        <button class='editIconButton iconButton' style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png" width=15px height=15px></button>
+        <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" style="width:1rem; height:1rem;"></button>
+        <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" style="width:1rem; height:1rem;"></button>
+        <button class='editIconButton iconButton' style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png" style="width:1rem; height:1rem;"></button>
         <br>
       </div>
       <div class=chartBody>
@@ -830,7 +830,7 @@
   <template id=chartEditMenuTemplate>
     <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
       <div class=chartEditMenuBanner>
-        <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" width=15px height=15px></button>
+        <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" style="width:1rem; height:1rem;"></button>
         <br>
       </div>
 
@@ -990,9 +990,9 @@
   <template id=waveContainerTemplate>
     <div class=waveContainer>
       <div class=waveBanner>
-        <button class=iconButton style="float:left;" onClick="waveAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Wave Box"><img src="../common/img/plus.png" width=15px height=15px></button>
-        <button class=iconButton style="float:right;" onClick="waveDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" width=15px height=15px></button>
-        <button class='editIconButton iconButton' style="float:right;" onClick="waveEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" width=15px height=15px></button>
+        <button class=iconButton style="float:left;" onClick="waveAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Wave Box"><img src="../common/img/plus.png" style="width:1rem; height:1rem;"></button>
+        <button class=iconButton style="float:right;" onClick="waveDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" style="width:1rem; height:1rem;"></button>
+        <button class='editIconButton iconButton' style="float:right;" onClick="waveEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" style="width:1rem; height:1rem;"></button>
         <br>
       </div>
       <div class=waveBody>
@@ -1002,7 +1002,7 @@
   <template id=waveEditMenuTemplate>
     <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
       <div class=waveEditMenuBanner>
-        <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" width=15px height=15px></button>
+        <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" style="width:1rem; height:1rem;"></button>
         <br>
       </div>
 

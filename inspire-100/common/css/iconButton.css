@@ -12,8 +12,8 @@
   text-decoration: none;
   cursor: pointer;
   opacity: 0.7;
-  font-size: 16px;
-  margin: 5px;
+  font-size: 1rem;
+  margin: 0.3rem;
   opacity:1; 
   cursor: pointer;
 }
@@ -27,8 +27,8 @@
 .iconButton:active{
   background-color: var(--rsp_mediumgreen);
   border-color: var(--rsp_mediumgreen);
-  box-shadow: 0 6px white;
-  transform: translateY(4px);
+  box-shadow: 0 0.4rem white;
+  transform: translateY(0.2rem);
 }
 
 .editIconButton {

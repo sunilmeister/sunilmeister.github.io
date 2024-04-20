@@ -144,3 +144,26 @@ span {
   font-family: 'Verdana' !important;
 }
 
+/* Root font-size for different screens */
+@media only screen and (max-width : 480px) {
+  /* Smartphone view */
+  html { font-size: 10;}
+}
+
+@media only screen and (max-width : 650px) and (min-width : 481px) {
+  /* Tablet view */
+  html { font-size: 12;}
+  * { transform: scale(0.6); transform-origin: 0 0; }
+}
+
+@media only screen and (max-width : 1050px) and (min-width : 651px) {
+  /* Small desktop / ipad view */
+  html { font-size: 14;}
+  * { transform: scale(0.8); transform-origin: 0 0; }
+}
+
+@media only screen and (max-width : 1290px) and (min-width : 1051px) {
+  /* Medium desktop */
+  html { font-size: 16;}
+}
+

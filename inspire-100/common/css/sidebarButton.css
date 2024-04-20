@@ -26,14 +26,14 @@
 }
 
 .sidebarButton:hover:not([disabled]) {
-  transform: translateY(-2px);
+  transform: translateY(-0.2rem);
   color: var(--rsp_blue);
 	font-weight: bold;
 }
 
 .sidebarButton:active:not([disabled]) {
-  box-shadow: #D6D6E7 0 3px 7px outset;
-  transform: translateY(2px);
+  box-shadow: #D6D6E7 0 2rem 0.4rem outset;
+  transform: translateY(0.2rem);
   color: var(--rsp_mediumblue);
 	font-weight: bold;
 }
@@ -46,7 +46,7 @@
 }
 
 .pButton:hover {
-  transform: translateY(-2px);
+  transform: translateY(-0.2rem);
   color: var(--rsp_blue);
 	font-weight: bold;
 }

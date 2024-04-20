@@ -5,21 +5,21 @@
 
 .wavesLegendCategory {
   float: left;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  border: 2px solid black; 
+  margin-right: 0.7rem;
+  margin-bottom: 0.7rem;
+  border: 0.1rem solid black; 
 }
 
 .waveLegend {
   float: left;
-  border: 2px solid black; 
+  border: 0.1rem solid black; 
 }
 
 .waveLegendText {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
 }

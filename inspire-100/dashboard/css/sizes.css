@@ -1,5 +1,5 @@
 :root {
-  --chartContainerPadding: 26rem;
+  --chartContainerPadding: 23rem;
   --chartBodyHeight: 20rem;
   --chartMenuIndent: 1rem;
   --chartMenuFontSize: 1rem;
@@ -24,7 +24,7 @@
   --sidebarBtnFontSize: 1.2rem;
   --sidebarBtnPadding: 0.35rem 0.35rem;
   --sidebarBtnMargin: 0.15rem 0.15rem 0rem 0.6rem;
-  --swalFontSize: 1.2rem;
-  --swalTextFontSize: 1em;
+  --swalFontSize: 1.4rem;
+  --swalTextFontSize: 1.2rem;
 }
 
