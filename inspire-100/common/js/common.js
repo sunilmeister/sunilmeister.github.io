@@ -57,7 +57,7 @@ function isZooming(){
 
 // Check if the browser is on a mobile
 function isMobileBrowser() {
-	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+	if (/Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   	return true;
 	} else {
   	return false;
