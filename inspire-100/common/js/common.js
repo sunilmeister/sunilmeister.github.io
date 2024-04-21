@@ -12,7 +12,10 @@ function setRootFontSize(appScaling) {
 	const width = window.innerWidth;
 
 	appScaleFactor = appScaling;
- 	root.style.fontSize = String(16*appScaleFactor*width/1600) + "px";
+ 	let fontSize = 18*appScaleFactor*width/1400;
+	if (fontSize > 18) fontSize = 18;
+
+ 	root.style.fontSize = String(fontSize) + "px";
 	if (appResizeFunction) appResizeFunction();
 }
 
