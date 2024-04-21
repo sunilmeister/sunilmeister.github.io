@@ -12,13 +12,13 @@
     <title>Inspire-100 Playback</title>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <link rel="stylesheet" href="css/sizes.css" />
     <link rel="stylesheet" href="../common/css/colors.css" />
@@ -130,16 +130,13 @@
           <br>
           <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:12rem;
           font-size:1.5rem;" onclick='acceptBreathRange()'>CHANGE</button>
-          <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;"
-          onclick='cancelBreathRange()'>CANCEL</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelBreathRange()'>CANCEL</button>
           <br>
           <br>
 
         </div>
       </center>
     </div>
-
-
 
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
@@ -185,26 +182,26 @@
       <br>
 
       <center>
-          <button id=btnSelect class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem;
+        <button id=btnSelect class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem;
           border:none; margin:1rem;" onclick='selectSession()'>Select Recording</button>
-          </center>
-          <br>
-        <br>
+      </center>
+      <br>
+      <br>
 
-        <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
-          <br>
-          <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
-          <br>
-          <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
-          <br>
-          <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
-          <br>
-          <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
-          <br>
-          <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
-          <br>
-          <br>
-        </div>
+      <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
+        <br>
+        <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
+        <br>
+        <button id=btnWave class=sidebarButton onclick='selectWaves()'>View Waveforms</button>
+        <br>
+        <button id=btnStat class=sidebarButton onclick='selectStats()'>View Statistics</button>
+        <br>
+        <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
+        <br>
+        <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
+        <br>
+        <br>
+      </div>
 
     </div>
     </div>
@@ -233,27 +230,27 @@
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:40rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.2rem; ">
+        <div class=shadowDiv5 style="height:40.5rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.2rem; ">
 
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.6rem;">
             <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/import.png" style="width:2rem; height:2rem;"></button>
             <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL"><img src="../common/img/trash-bin.png" style="width:2rem; height:2rem;"></button>
             <br>
             <center>INSPIRE-100 Recordings</center>
-          </div>
 
-          <table id='dbTable' className="dbTableStyle" style="font-size:1.3rem; width:100%">
-            <thead>
-              <tr>
-                <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.5rem; min-width:18rem;
+            <table id='dbTable' className="dbTableStyle" style="font-size:1.3rem; width:100%">
+              <thead>
+                <tr>
+                  <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.5rem; min-width:18rem;
                 background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid
                 var(--rsp_darkblue);">Recording Name</th>
-                <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.5rem; min-width:18rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
-                <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.5rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
-              </tr>
+                  <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.5rem; min-width:18rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                  <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.5rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
+                </tr>
 
-            </thead>
-          </table>
+              </thead>
+            </table>
+          </div>
         </div>
         <div style="margin-top:-1.5rem;">
           <br>
