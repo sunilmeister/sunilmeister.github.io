@@ -542,7 +542,7 @@ function receivedNewWave() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
-	appScaleFactor = 0.75;
+	appScaleFactor = computeAppScalingFactor("sideMenuBar");
 	setRootFontSize(appScaleFactor);
 
 	disableAllBeeps();  

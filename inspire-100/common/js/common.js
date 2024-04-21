@@ -5,15 +5,62 @@ var inspireUid = "";
 var inspireTag = "";
 var appResizeFunction = null;
 var appScaleFactor = 1.0;
+const maxScreenUsage = 0.9;
 
+// ///////////////////////////////////////////////////////
+// Scale using both height and width
+// ///////////////////////////////////////////////////////
+function computeAppScalingFactorHeightWidth(topLevelId) {
+	let elem = document.getElementById(topLevelId);
+	let appH = elem.offsetHeight;
+	let appW = elem.offsetWidth;
+	//console.log("appH", appH , "appW", appW);
+
+	let w = window.innerWidth;
+	let h = window.innerHeight;
+	let winW = w *  window.devicePixelRatio;
+	let winH = h *  window.devicePixelRatio;
+	//console.log("winH", winH , "winW", winW);
+
+	let usableW = winW*maxScreenUsage;
+	let usableH = winH*maxScreenUsage;
+
+	let scale = Math.max(usableH/appH, usableW/appW);
+	//console.log("scale", scale);
+	return scale;
+}
+
+// ///////////////////////////////////////////////////////
+// Scale using only height
+// ///////////////////////////////////////////////////////
+function computeAppScalingFactor(topLevelId) {
+	let elem = document.getElementById(topLevelId);
+	let appH = elem.offsetHeight;
+	//console.log("appH", appH);
+
+	let h = window.innerHeight;
+	let winH = h *  window.devicePixelRatio;
+	//console.log("winH", winH);
+
+	let usableH = winH*maxScreenUsage;
+	//console.log("usableH", usableH);
+
+	let scale = usableH/appH;
+	//console.log("scale", scale);
+	return scale;
+}
+
+// ///////////////////////////////////////////////////////
+// Figure out the root font size for proper scaling etc.
+// ///////////////////////////////////////////////////////
 function setRootFontSize(appScaling) {
 	if (isUndefined(appScaling)) appScaling = 1.0;
 	const root = document.documentElement;
-	const width = window.innerWidth;
+	const width = window.innerWidth ;
 
 	appScaleFactor = appScaling;
- 	let fontSize = 18*appScaleFactor*width/1400;
-	if (fontSize > 18) fontSize = 18;
+ 	let fontSize = Math.floor(16*appScaleFactor*width/1200);
+	if (fontSize > 16) fontSize = 16;
 
  	root.style.fontSize = String(fontSize) + "px";
 	if (appResizeFunction) appResizeFunction();
@@ -21,12 +68,10 @@ function setRootFontSize(appScaling) {
 
 
 // Check whether true resize or simply zoom
-var pxRatio = window.devicePixelRatio 
-	            || (window.screen.availWidth / document.documentElement.clientWidth);
+var pxRatio = window.devicePixelRatio; 
 
 function isZooming(){
-	let newPxRatio = window.devicePixelRatio 
-	            || (window.screen.availWidth / document.documentElement.clientWidth);
+	let newPxRatio = window.devicePixelRatio ;
   if(newPxRatio != pxRatio){
     pxRatio = newPxRatio;
     //console.log("zooming");

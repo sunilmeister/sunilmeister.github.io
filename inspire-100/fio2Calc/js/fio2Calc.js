@@ -11,8 +11,23 @@ var altitude = 0;
 var altitudeUnits = "feet";
 var fiO2Knob = null;
 var purityKnob = null;
+var vtKnob = null;
+var rrKnob = null;
 
 window.onload = function () {
+	appScaleFactor = computeAppScalingFactor("wrapper");
+	setRootFontSize(appScaleFactor);
+
+  installVtKnob();
+  installRrKnob();
+  installPurityKnob();
+  installFiO2Knob();
+
+	appResize();
+	appResizeFunction = appResize;
+}
+
+function appResize() {
   installVtKnob();
   installRrKnob();
   installPurityKnob();
@@ -45,14 +60,18 @@ function installVtKnob() {
   var bgColor = 'black';
   var fgColor = '#88ff88';
   var containerDiv = document.getElementById('vtDiv');
-  const knob = new CircularGauge(containerDiv, convertRemToPixels(8), fgColor, bgColor, 0, 8);
-  knob.setValue(4);
-  knob.setChangeCallback(vtKnobListener);
+	if (vtKnob) {
+    containerDiv.removeChild(containerDiv.lastChild);
+	}
+	
+  vtKnob = new CircularGauge(containerDiv, convertRemToPixels(7), fgColor, bgColor, 0, 8);
+  vtKnob.setValue(4);
+  vtKnob.setChangeCallback(vtKnobListener);
 
-  knob.setProperty('fnStringToValue', function (string) {
+  vtKnob.setProperty('fnStringToValue', function (string) {
     return (parseInt(string) - 200) / 50;
   });
-  knob.setProperty('fnValueToString', function (value) {
+  vtKnob.setProperty('fnValueToString', function (value) {
     return ((value * 50) + 200).toString();
   });
 }
@@ -66,9 +85,13 @@ function installRrKnob() {
   var bgColor = 'black';
   var fgColor = '#88ff88';
   var containerDiv = document.getElementById('rrDiv');
-  const knob = new CircularGauge(containerDiv, convertRemToPixels(8), fgColor, bgColor, 10, 30);
-  knob.setValue(15);
-  knob.setChangeCallback(rrKnobListener);
+	if (rrKnob) {
+    containerDiv.removeChild(containerDiv.lastChild);
+	}
+	
+  rrKnob = new CircularGauge(containerDiv, convertRemToPixels(7), fgColor, bgColor, 10, 30);
+  rrKnob.setValue(15);
+  rrKnob.setChangeCallback(rrKnobListener);
 }
 
 var settingFiO2KnobValues = false;
@@ -103,7 +126,11 @@ function installFiO2Knob() {
   var bgColor = 'black';
   var fgColor = '#88ff88';
   var containerDiv = document.getElementById('fiO2Div');
-  fiO2Knob = new CircularGauge(containerDiv, convertRemToPixels(8), fgColor, bgColor, 21, 100);
+	if (fiO2Knob) {
+    containerDiv.removeChild(containerDiv.lastChild);
+	}
+	
+  fiO2Knob = new CircularGauge(containerDiv, convertRemToPixels(7), fgColor, bgColor, 21, 100);
   fiO2Knob.setValue(21);
   fiO2Knob.setChangeCallback(fiO2KnobListener);
 }
@@ -118,7 +145,11 @@ function installPurityKnob() {
   var bgColor = 'black';
   var fgColor = '#88ff88';
   var containerDiv = document.getElementById('purityDiv');
-  purityKnob = new CircularGauge(containerDiv, convertRemToPixels(8), fgColor, bgColor, 21, 100);
+	if (purityKnob) {
+    containerDiv.removeChild(containerDiv.lastChild);
+	}
+	
+  purityKnob = new CircularGauge(containerDiv, convertRemToPixels(7), fgColor, bgColor, 21, 100);
   purityKnob.setValue(21);
   purityKnob.setChangeCallback(purityKnobListener);
 }
