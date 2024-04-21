@@ -10,31 +10,41 @@ var appScaleFactor = 1.0;
 // Figure out the root font size for proper scaling etc.
 // ///////////////////////////////////////////////////////
 function setRootFontSize(orientation) {
-	if (!orientation) {
+	let isPortrait = true;
+	if (isUndefined(orientation) || !orientation) {
 		if (isMobileBrowser()) {
 			if (window.matchMedia("(orientation: portrait)").matches) {
-				orientation = "portrait";
+				isPortrait = true;
 			} else {
-				orientation = "landscape";
+				isPortrait = false;
 			}
 		} else {
-			orientation = "portrait";
+			isPortrait = true;
 		}
-	}
-	const root = document.documentElement;
-	const width = window.innerWidth * window.devicePixelRatio;
-	const height = window.innerHeight * window.devicePixelRatio;
-
-	let fontSize = 16;
-	if (orientation == "portrait") {
- 		fontSize = Math.floor(16*appScaleFactor*width/1200);
+	} else if (orientation == "portrait") {
+		isPortrait = true;
 	} else {
- 		fontSize = Math.floor(16*appScaleFactor*height/1000);
+		isPortrait = false;
+	}
+
+	let root = document.documentElement;
+	let width = window.innerWidth * window.devicePixelRatio;
+	let height = window.innerHeight * window.devicePixelRatio;
+	console.log("height", height, "width", width, "pxRatio", window.devicePixelRatio, "appScaleFactor", appScaleFactor);
+
+	let fontSize = 16 * appScaleFactor;
+	let totalSize = 0;
+	if (isPortrait) {
+ 		totalSize = fontSize*width;
+ 		fontSize = Math.floor(totalSize/1200);
+	} else {
+ 		totalSize = fontSize*height;
+ 		fontSize = Math.floor(totalSize/1000);
 	}
 
 	if (fontSize > 16) fontSize = 16;
 	if (fontSize < 4) fontSize = 4;
-	console.log("root font-size", fontSize);
+	console.log(orientation,"totalSize", totalSize, "root font-size", fontSize);
  	root.style.fontSize = String(fontSize) + "px";
 	if (appResizeFunction) appResizeFunction();
 }
@@ -89,13 +99,13 @@ window.addEventListener("resize", function() {
   // Clear the previous timeout.
   clearTimeout(resizeTimeout);
 
-  // Set a new timeout to execute the function after 50 milliseconds.
+  // Set a new timeout to execute the function after 250 milliseconds.
   resizeTimeout = setTimeout(function() {
   	// Now resize if not zooming
 		if (!isZooming()) {
-			setRootFontSize(null);
+			setRootFontSize();
 		}
-  }, 50);
+  }, 250);
 });
 
 ///////////////////////////////////////////////////////
