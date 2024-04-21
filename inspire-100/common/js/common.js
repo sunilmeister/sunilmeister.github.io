@@ -31,7 +31,7 @@ function setRootFontSize(orientation) {
 	let width = window.innerWidth / window.devicePixelRatio;
 	let height = window.innerHeight / window.devicePixelRatio;
 	//console.log("height", height, "width", width, "pxRatio", window.devicePixelRatio, "appScaleFactor", appScaleFactor);
-
+	alert("dpr=" + window.devicePixelRatio + " height=" + height + " width=" + width);
 	let fontSize = 18 * appScaleFactor;
 	let totalSize = 0;
 	if (isPortrait) {
@@ -44,7 +44,8 @@ function setRootFontSize(orientation) {
 
 	if (fontSize > 18) fontSize = 18;
 	if (fontSize < 4) fontSize = 4;
-	console.log(totalSize", totalSize, "root font-size", fontSize);
+	//console.log("totalSize", totalSize, "root font-size", fontSize);
+	alert("root font-size=" + fontSize);
  	root.style.fontSize = String(fontSize) + "px";
 	if (appResizeFunction) appResizeFunction();
 }
