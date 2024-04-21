@@ -598,7 +598,7 @@ function playbackGatherDoneCallback() {
 }
 
 window.onload = function () {
-	appScaleFactor = 0.9;
+	appScaleFactor = 0.6;
 	setRootFontSize();
 
   initGlobals();
