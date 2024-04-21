@@ -82,21 +82,47 @@ function isZooming(){
   }
 }
 
+// Check if the browser is on a mobile
+function isMobileBrowser() {
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  	return true;
+	} else {
+  	return false;
+	}
+}
+
+// Check for change in orientation
+let portraitScreen = window.matchMedia("(orientation: portrait)");
+portraitScreen.addEventListener("change", function(e) {
+  if (e.matches) {
+    // Portrait mode
+		setRootFontSize(appScaleFactor);
+  } else {
+    // Landscape
+		setRootFontSize(appScaleFactor);
+  }
+})
+
 // Create a variable to store the timeout ID.
 var resizeTimeout;
 
 // Add an event listener for the resize event.
 window.addEventListener("resize", function() {
+	if (isMobileBrowser()) {
+		// Handled above in the orientation change listener
+		return;
+	}
+
   // Clear the previous timeout.
   clearTimeout(resizeTimeout);
 
-  // Set a new timeout to execute the function after 100 milliseconds.
+  // Set a new timeout to execute the function after 50 milliseconds.
   resizeTimeout = setTimeout(function() {
   	// Now resize if not zooming
 		if (!isZooming()) {
 			setRootFontSize(appScaleFactor);
 		}
-  }, 100);
+  }, 50);
 });
 
 ///////////////////////////////////////////////////////

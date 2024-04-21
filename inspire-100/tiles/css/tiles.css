@@ -32,10 +32,6 @@ body {
 	padding: 0.5rem;
 }
 
-body.no-touch .tileContent:hover body.touch .tileContent.touchFocus {
-  margin-bottom: 0;
-}
-
 .statusCaption {
 	background-color: darkgray;
 	color: black;
