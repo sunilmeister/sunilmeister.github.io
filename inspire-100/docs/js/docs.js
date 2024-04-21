@@ -1,5 +1,5 @@
 window.onload = function () {
-	appScaleFactor = computeAppScalingFactor("wrapper");
+	appScaleFactor = 1.1;
 	setRootFontSize(appScaleFactor);
 }
 

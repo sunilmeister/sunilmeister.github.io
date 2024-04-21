@@ -5,63 +5,36 @@ var inspireUid = "";
 var inspireTag = "";
 var appResizeFunction = null;
 var appScaleFactor = 1.0;
-const maxScreenUsage = 0.9;
-
-// ///////////////////////////////////////////////////////
-// Scale using both height and width
-// ///////////////////////////////////////////////////////
-function computeAppScalingFactorHeightWidth(topLevelId) {
-	let elem = document.getElementById(topLevelId);
-	let appH = elem.offsetHeight;
-	let appW = elem.offsetWidth;
-	//console.log("appH", appH , "appW", appW);
-
-	let w = window.innerWidth;
-	let h = window.innerHeight;
-	let winW = w *  window.devicePixelRatio;
-	let winH = h *  window.devicePixelRatio;
-	//console.log("winH", winH , "winW", winW);
-
-	let usableW = winW*maxScreenUsage;
-	let usableH = winH*maxScreenUsage;
-
-	let scale = Math.max(usableH/appH, usableW/appW);
-	//console.log("scale", scale);
-	return scale;
-}
-
-// ///////////////////////////////////////////////////////
-// Scale using only height
-// ///////////////////////////////////////////////////////
-function computeAppScalingFactor(topLevelId) {
-	let elem = document.getElementById(topLevelId);
-	let appH = elem.offsetHeight;
-	//console.log("appH", appH);
-
-	let h = window.innerHeight;
-	let winH = h *  window.devicePixelRatio;
-	//console.log("winH", winH);
-
-	let usableH = winH*maxScreenUsage;
-	//console.log("usableH", usableH);
-
-	let scale = usableH/appH;
-	//console.log("scale", scale);
-	return scale;
-}
 
 // ///////////////////////////////////////////////////////
 // Figure out the root font size for proper scaling etc.
 // ///////////////////////////////////////////////////////
-function setRootFontSize(appScaling) {
-	if (isUndefined(appScaling)) appScaling = 1.0;
+function setRootFontSize(orientation) {
+	if (!orientation) {
+		if (isMobileBrowser()) {
+			if (window.matchMedia("(orientation: portrait)").matches) {
+				orientation = "portrait";
+			} else {
+				orientation = "landscape";
+			}
+		} else {
+			orientation = "portrait";
+		}
+	}
 	const root = document.documentElement;
-	const width = window.innerWidth ;
+	const width = window.innerWidth * window.devicePixelRatio;
+	const height = window.innerHeight * window.devicePixelRatio;
 
-	appScaleFactor = appScaling;
- 	let fontSize = Math.floor(16*appScaleFactor*width/1200);
+	let fontSize = 16;
+	if (orientation == "portrait") {
+ 		fontSize = Math.floor(16*appScaleFactor*width/1200);
+	} else {
+ 		fontSize = Math.floor(16*appScaleFactor*height/1000);
+	}
+
 	if (fontSize > 16) fontSize = 16;
-
+	if (fontSize < 4) fontSize = 4;
+	console.log("root font-size", fontSize);
  	root.style.fontSize = String(fontSize) + "px";
 	if (appResizeFunction) appResizeFunction();
 }
@@ -96,10 +69,10 @@ let portraitScreen = window.matchMedia("(orientation: portrait)");
 portraitScreen.addEventListener("change", function(e) {
   if (e.matches) {
     // Portrait mode
-		setRootFontSize(appScaleFactor);
+		setRootFontSize("portrait");
   } else {
     // Landscape
-		setRootFontSize(appScaleFactor);
+		setRootFontSize("landscape");
   }
 })
 
@@ -120,7 +93,7 @@ window.addEventListener("resize", function() {
   resizeTimeout = setTimeout(function() {
   	// Now resize if not zooming
 		if (!isZooming()) {
-			setRootFontSize(appScaleFactor);
+			setRootFontSize(null);
 		}
   }, 50);
 });

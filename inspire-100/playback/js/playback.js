@@ -598,7 +598,7 @@ function playbackGatherDoneCallback() {
 }
 
 window.onload = function () {
-	appScaleFactor = computeAppScalingFactor("nonMenuArea");
+	appScaleFactor = 0.9;
 	setRootFontSize(appScaleFactor);
 
   initGlobals();

@@ -288,7 +288,7 @@ function tileClick(tile) {
 }
 
 window.onload = function () {
-	appScaleFactor = 1.25;
+	appScaleFactor = 1.0;
 	setRootFontSize(appScaleFactor);
 
 	AddRemoveTiles();
