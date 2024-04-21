@@ -9,23 +9,20 @@ select {
   -moz-appearance: none; 
   /* for Safari, Chrome, Opera */ 
   -webkit-appearance: none; 
-	outline:0.1rem solid;
-	border-style: solid;
-	border-width: 0.1rem;
+	outline:none;
+	border-style: none;
 } 
   
 /* for IE10 */ 
 select::-ms-expand { 
   display: none; 
-	outline:0.1rem solid;
-	border-style: solid;
-	border-width: 0.1rem;
+	outline:none;
+	border-style: none;
 } 
 
 select[data-chosen] {
-	outline:0.1rem solid;
-	border-style: solid;
-	border-width: 0.1rem;
+	outline:none;
+	border-style: none;
 }
 
 hr {
@@ -34,21 +31,18 @@ hr {
 }
 
 input {
-	outline:0.1rem solid;
-	border-style: solid;
-	border-width: 0.1rem;
+	outline:none;
+	border-style: none;
 }
 
 input:focus {
-	outline:0.1rem solid;
-	border-style: solid;
-	border-width: 0.1rem;
+	outline:none;
+	border-style: none;
 }
 
 input:active {
-	outline:0.1rem solid;
-	border-style: solid;
-	border-width: 0.1rem;
+	outline:none;
+	border-style: none;
 }
 
 .button {
