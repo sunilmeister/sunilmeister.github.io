@@ -37,11 +37,21 @@ function isZooming(){
   }
 }
 
-// Add an event listener to the window resize event
-window.addEventListener("resize", () => {
-	if (!isZooming()) {
-		setRootFontSize(appScaleFactor);
-	}
+// Create a variable to store the timeout ID.
+var resizeTimeout;
+
+// Add an event listener for the resize event.
+window.addEventListener("resize", function() {
+  // Clear the previous timeout.
+  clearTimeout(resizeTimeout);
+
+  // Set a new timeout to execute the function after 250 milliseconds.
+  resizeTimeout = setTimeout(function() {
+  	// Now resize if not zooming
+		if (!isZooming()) {
+			setRootFontSize(appScaleFactor);
+		}
+  }, 250);
 });
 
 ///////////////////////////////////////////////////////
