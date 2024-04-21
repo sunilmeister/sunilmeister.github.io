@@ -17,9 +17,28 @@ function setRootFontSize(appScaling) {
 }
 
 
+// Check whether true resize or simply zoom
+var pxRatio = window.devicePixelRatio 
+	            || (window.screen.availWidth / document.documentElement.clientWidth);
+
+function isZooming(){
+	let newPxRatio = window.devicePixelRatio 
+	            || (window.screen.availWidth / document.documentElement.clientWidth);
+  if(newPxRatio != pxRatio){
+    pxRatio = newPxRatio;
+    //console.log("zooming");
+    return true;
+  } else {
+    //console.log("just resizing");
+    return false;
+  }
+}
+
 // Add an event listener to the window resize event
 window.addEventListener("resize", () => {
-	setRootFontSize(appScaleFactor);
+	if (!isZooming()) {
+		setRootFontSize(appScaleFactor);
+	}
 });
 
 ///////////////////////////////////////////////////////
@@ -32,10 +51,7 @@ function convertRemToPixels(rem) {
 ///////////////////////////////////////////////////////
 // For modal warnings errors, confirmations etc.
 ///////////////////////////////////////////////////////
-var modalWidth = 600; // default modal width
-function setModalWidth(w) {
-  modalWidth = w;
-}
+var modalWidth = "35rem"; // default modal width
 
 ///////////////////////////////////////////////////////
 // must be done before accessing any indexedDb database
@@ -639,51 +655,6 @@ function o2PurityAtAltitudeMtr(mtr) {
   return o2PurityAtAltitudeFt(mtr * 3.28);
 }
 
-
-function showZoomReminder() {
-  if (getCookie(zoomReminderOffCookieName) == "OFF") return;
-
-  let modalColor = palette.modal;
-  
-  Swal.fire({
-    icon: 'info',
-    width: modalWidth*1.5,
-    title: ZOOM_TITLE_STR,
-    html: ZOOM_MESSAGE_STR,
-    color: 'white',
-    background: modalColor,
-    showConfirmButton: true,
-    confirmButtonColor: '#0D3E51',
-    confirmButtonText: 'DISMISS',
-    showDenyButton: true,
-    denyButtonColor: '#B22222',
-    denyButtonText: "STOP Reminders!",
-    showCloseButton: true,
-    timerProgressBar: true,
-    timer: 5500,
-		didOpen: () => {
-    	Swal.showLoading();
-    	const tmr = Swal.getPopup().querySelector("b");
-    	timerInterval = setInterval(() => {
-				const secsLeft = Math.ceil(Swal.getTimerLeft() / 1000);
-      	tmr.textContent = secsLeft;
-    	}, 1000);
-  	},
-  	willClose: () => {
-    	clearInterval(timerInterval);
-  	},
-		showClass: {
-      popup: `animate__animated animate__fadeInUp `
-    },
-    hideClass: {
-      popup: `animate__animated animate__fadeOutDown `
-    },
-  }).then((result) => {
-    if (result.isDenied) {
-      setCookie(zoomReminderOffCookieName, "OFF");
-    }
-  })
-}
 
 function showEditIconReminder() {
   if (getCookie(editReminderOffCookieName) == "OFF") return;

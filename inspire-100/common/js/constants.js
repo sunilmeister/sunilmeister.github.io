@@ -17,7 +17,6 @@ const PLAYBACK_APP_ID = "PLAYBACK";
 const RECORDER_APP_ID = "RECORDER";
 const BROADCAST_UID = INSPIRE_UID_PREFIX + "0000000000000000";
 
-const zoomReminderOffCookieName = "ZOOM_REMINDER_COOKIE";
 const editReminderOffCookieName = "EDIT_REMINDER_COOKIE";
 const pdfReminderOffCookieName = "PDF_REMINDER_COOKIE";
 const inspireSystemsLocalStorage = "KNOWN_INSPIRE_SYSTEMS";
@@ -114,17 +113,6 @@ const WAVE_EDIT_WAVE_MENU_ID = "waveDropDownMenu";
 const WAVE_CONTAINER_CLASS = "waveContainer";
 const ALL_WAVES_ID = "wavesDiv";
 const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
-
-const ZOOM_TITLE_STR = "PAGE ZOOM";
-const ZOOM_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
-	"I will close in <b></b> seconds" + 
-	"<pre>" +
-  "\nUse CTRL key and +/- keys to zoom " +
-  "\ntill the full page is visible." +
-  "\n" +
-  "\nOr hold down the CTRL key and use " +
-  "\nthe mouse wheel to zoom in/out." +
-  "</pre></span>";
 
 const ON_DEMAND_TITLE_STR = "On-Demand Breath Waveform";
 const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +

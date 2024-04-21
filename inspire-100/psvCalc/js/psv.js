@@ -12,9 +12,6 @@ var vtKnob = null;
 var rrKnob = null;
 
 window.onload = function () {
-  setModalWidth(600);
-  showZoomReminder();
-
   installVtKnob();
   installRrKnob();
 }

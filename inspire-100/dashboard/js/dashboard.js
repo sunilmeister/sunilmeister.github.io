@@ -545,9 +545,6 @@ window.onload = function () {
 	appScaleFactor = 1.0;
 	setRootFontSize(appScaleFactor);
 
-	setModalWidth(600);
-  showZoomReminder();
-
 	disableAllBeeps();  
 	openAudioControl();
 

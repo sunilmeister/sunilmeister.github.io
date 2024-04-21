@@ -601,9 +601,6 @@ window.onload = function () {
 	appScaleFactor = 0.8;
 	setRootFontSize(appScaleFactor);
 
-  setModalWidth(600);
-  showZoomReminder();
-
   initGlobals();
   initDbNames();
   updateDocumentTitle();

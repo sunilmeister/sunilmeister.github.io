@@ -116,9 +116,6 @@ window.onload = function () {
 	appScaleFactor = 0.8;
 	setRootFontSize(appScaleFactor);
 
-	setModalWidth(600);
-  showZoomReminder();
-
   session = cloneObject(SessionDataTemplate);
   session.appId = RECORDER_APP_ID;
   session.launchDate = new Date();

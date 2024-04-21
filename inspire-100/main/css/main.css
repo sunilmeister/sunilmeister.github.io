@@ -20,8 +20,8 @@
 
 .lineButton {
   font-size:1.6rem;
-  height:2.2rem;
-  width:23rem;
+  height:2.5rem;
+  width:28rem;
   margin-top:0;
   background-color:var(--rsp_darkblue);
   border-width:0;
@@ -40,4 +40,5 @@
   transform: translateY(0.2rem);
 	font-weight: bold;
 }
+
 
