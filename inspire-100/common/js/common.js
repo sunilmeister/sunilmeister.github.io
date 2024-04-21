@@ -28,8 +28,8 @@ function setRootFontSize(orientation) {
 	}
 
 	let root = document.documentElement;
-	let width = window.innerWidth * window.devicePixelRatio;
-	let height = window.innerHeight * window.devicePixelRatio;
+	let width = window.innerWidth / window.devicePixelRatio;
+	let height = window.innerHeight / window.devicePixelRatio;
 	console.log("height", height, "width", width, "pxRatio", window.devicePixelRatio, "appScaleFactor", appScaleFactor);
 
 	let fontSize = 18 * appScaleFactor;
@@ -39,7 +39,7 @@ function setRootFontSize(orientation) {
  		fontSize = (totalSize/1400);
 	} else {
  		totalSize = fontSize*height;
- 		fontSize = (totalSize/1000);
+ 		fontSize = (totalSize/800);
 	}
 
 	if (fontSize > 18) fontSize = 18;
