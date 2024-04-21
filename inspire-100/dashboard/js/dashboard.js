@@ -519,7 +519,7 @@ function installTempGauge() {
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('TempGauge');
 	containerDiv.innerHTML = "";
-  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(6.0), fgColor, bgColor, -20, 70);
+  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(5.6), fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
 
@@ -609,17 +609,21 @@ window.onload = function () {
 	appResizeFunction = appResize;
 }
 
-function appResize() {
+function alignSidebar() {
   let menuBar = document.getElementById("sideMenuBar");
   let menuBarHeight = menuBar.offsetHeight;
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
+}
+
+function appResize() {
 	installPeakGauge();
 	installPlatGauge();
 	installPeepGauge();
 	installTempGauge();
+	alignSidebar();
 }
 
 window.onbeforeunload = function (e) {
