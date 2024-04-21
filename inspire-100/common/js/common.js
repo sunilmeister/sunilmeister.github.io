@@ -45,13 +45,13 @@ window.addEventListener("resize", function() {
   // Clear the previous timeout.
   clearTimeout(resizeTimeout);
 
-  // Set a new timeout to execute the function after 250 milliseconds.
+  // Set a new timeout to execute the function after 100 milliseconds.
   resizeTimeout = setTimeout(function() {
   	// Now resize if not zooming
 		if (!isZooming()) {
 			setRootFontSize(appScaleFactor);
 		}
-  }, 250);
+  }, 100);
 });
 
 ///////////////////////////////////////////////////////
