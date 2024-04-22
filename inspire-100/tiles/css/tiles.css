@@ -7,13 +7,15 @@ body {
 }
 
 .wrapTiles {
-  margin: 0.6rem;
+  margin: 0rem;
 }
 
 .activeTilesCls {
+  margin: 0.6rem;
 }
 
-.dormantTilesDiv {
+.dormantTilesCls {
+  margin: 0.6rem;
 }
 
 .tile {
@@ -123,12 +125,10 @@ body {
 .AudioControl {
 	height: 2.5rem;
 	width: 32rem;
+  margin: 0.6rem;
 	font-weight: bold;
 	font-size: 1.4rem;
 	color: white;
-	margin: 0.3rem;
-	padding: 0.3rem;
   background-color: var(--rsp_darkblue);
 }
-
 

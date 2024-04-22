@@ -150,6 +150,7 @@ function updatePage() {
   for (const uid in allSystems) {
 		updateUidContent(uid);
 	}
+	setRootFontSize();
 }
 
 function initialTileContent() {
@@ -208,13 +209,19 @@ function AddRemoveTiles() {
 var activeViewIsState = true;
 function toggleActiveView() {
   for (const uid in allSystems) {
-		if (!allSystems[uid].active) continue;
 		let tile = allSystems[uid].tile;
 		let content = allSystems[uid].content;
 
 		let stateDiv = findChildNodeByClass(tile,'StateContent');
 		let paramDivNonPSV = findChildNodeByClass(tile,'ParamContentNonPSV');
 		let paramDivPSV = findChildNodeByClass(tile,'ParamContentPSV');
+
+		if (!allSystems[uid].active) {
+			stateDiv.style.display = "block";
+			paramDivPSV.style.display = "none";
+			paramDivNonPSV.style.display = "none";
+			continue;
+		}
 
 		if (activeViewIsState) {
 			activeViewIsState = false;
@@ -273,4 +280,7 @@ window.onload = function () {
 	AddRemoveTiles();
 	disableAllBeeps();
 	openAudioControl();
+	appScaleFactor = 1.0;
+	setRootFontSize();
+
 }
