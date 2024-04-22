@@ -61,9 +61,34 @@ function setRootFontSizeMobile(orient) {
 	if (appResizeFunction) appResizeFunction();
 }
 
+// Check for change in orientation
+var portraitScreen = window.matchMedia("(orientation: portrait)");
+var orientation = portraitScreen.matches ? "portrait" : "landscape";
+portraitScreen.addEventListener("change", function(e) {
+  if (e.matches) {
+		orientation = "portrait";
+  } else {
+		orientation = "landscape";
+  }
+	setRootFontSizeMobile(orientation);
+})
+
+
+// Check if the browser is on a mobile
+function isMobileBrowser() {
+	if (/Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  	return true;
+	} else {
+  	return false;
+	}
+}
+
 function setRootFontSize() {
 	if (isMobileBrowser()) {
-		alert("Mobile orientation=" + orientation);
+		if (isUndefined(portraitScreen)) {
+			portraitScreen = window.matchMedia("(orientation: portrait)");
+			orientation = portraitScreen.matches ? "portrait" : "landscape";
+		}
 		setRootFontSizeMobile(orientation);
 	} else {
 		setRootFontSizeLaptop();
@@ -81,28 +106,6 @@ function isZooming(){
     return false;
   }
 }
-
-// Check if the browser is on a mobile
-function isMobileBrowser() {
-	if (/Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  	return true;
-	} else {
-  	return false;
-	}
-}
-
-// Check for change in orientation
-var portraitScreen = window.matchMedia("(orientation: portrait)");
-var orientation = portraitScreen.matches ? "portrait" : "landscape";
-portraitScreen.addEventListener("change", function(e) {
-  if (e.matches) {
-		orientation = "portrait";
-  } else {
-		orientation = "landscape";
-  }
-	setRootFontSizeMobile(orientation);
-})
-
 
 // Add an event listener for the resize event.
 var resizeTimeout;
