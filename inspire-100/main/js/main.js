@@ -414,7 +414,7 @@ var portalStartDate = null;
 window.onload = function () {
   portalStartDate = new Date();
 
-	appScaleFactor = 0.7;
+	appScaleFactor = 0.8;
 	setRootFontSize();
 
   let elm = document.getElementById("mainDiv");

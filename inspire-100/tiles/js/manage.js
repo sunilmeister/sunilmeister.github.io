@@ -279,7 +279,7 @@ window.onload = function () {
 	AddRemoveTiles();
 	disableAllBeeps();
 	openAudioControl();
-	appScaleFactor = 1.0;
+	appScaleFactor = 0.7;
 	setRootFontSize();
 
 }

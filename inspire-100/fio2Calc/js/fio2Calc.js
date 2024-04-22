@@ -15,7 +15,7 @@ var vtKnob = null;
 var rrKnob = null;
 
 window.onload = function () {
-	appScaleFactor = 0.75;
+	appScaleFactor = 0.8;
 	setRootFontSize();
 
   installVtKnob();
