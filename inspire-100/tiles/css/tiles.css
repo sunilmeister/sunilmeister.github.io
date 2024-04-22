@@ -116,18 +116,21 @@ body {
 
 .AudioControl {
 	height: 2.5rem;
+	width: 32rem;
 	font-weight: bold;
-	font-size: 1.5rem;
-	color: #0D3E51;
+	font-size: 1.4rem;
+	color: white;
 	margin: 0.3rem;
 	padding: 0.3rem;
 	cursor: pointer;
+  background-color: var(--rsp_darkblue);
 }
 
 .AudioControl:hover{
   background-color: gray;
   border-color: gray;
   opacity:1; 
+  transform: translateY(0.2rem);
 }
 
 .AudioControl:active{
