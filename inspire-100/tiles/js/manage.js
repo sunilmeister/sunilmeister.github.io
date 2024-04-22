@@ -150,7 +150,6 @@ function updatePage() {
   for (const uid in allSystems) {
 		updateUidContent(uid);
 	}
-	setRootFontSize();
 }
 
 function initialTileContent() {
