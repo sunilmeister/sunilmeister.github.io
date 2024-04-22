@@ -174,7 +174,6 @@ function moveTileToDormant(uid) {
 
 	let tile = allSystems[uid].tile;
 	
-	activeTilesDiv.removeChild(tile);
 	dormantTilesDiv.appendChild(tile);
 }
 
@@ -188,7 +187,6 @@ function moveTileToActive(uid) {
 
 	let tile = allSystems[uid].tile;
 	
-	dormantTilesDiv.removeChild(tile);
 	activeTilesDiv.appendChild(tile);
 }
 
