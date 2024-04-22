@@ -4,7 +4,8 @@
 var appResizeFunction = null;
 var appScaleFactor = 1.0;
 const laptopParams = { width: 1500, height: 800, fontSize: 18 };
-const mobileParams = { width: 320, height: 480, fontSize: 13 };
+//const laptopParams = { width: 380, height: 800, fontSize: 13 };
+const mobileParams = { width: 380, height: 800, fontSize: 13 };
 
 // ///////////////////////////////////////////////////////
 // Figure out the root font size for proper scaling etc.
@@ -34,8 +35,10 @@ function setRootFontSizeLaptop() {
 function setRootFontSizeMobile(orient) {
 	const minFontSize = 6;
 	const maxFontSize = 17;
-	let width = screen.width;
-	let height = screen.height;
+	//let width = 375;
+	//let height = 812;
+	let width = window.innerWidth / dpxRatio;
+	let height = window.innerHeight / dpxRatio;
 	let wFontSize = (mobileParams.fontSize * width) / mobileParams.width;
 	let hFontSize = (mobileParams.fontSize * height) / mobileParams.height;
 	let fontSize = 0;
@@ -59,8 +62,10 @@ function setRootFontSizeMobile(orient) {
 
 function setRootFontSize() {
 	if (isMobileBrowser()) {
+		alert("Mobile orientation=" + orientation);
 		setRootFontSizeMobile(orientation);
 	} else {
+		//setRootFontSizeMobile("landscape");
 		setRootFontSizeLaptop();
 	}
 }
