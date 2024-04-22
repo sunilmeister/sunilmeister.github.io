@@ -15,6 +15,7 @@
     <link href="../common/css/colors.css" rel="stylesheet" />
     <link href="../common/css/common.css" rel="stylesheet" />
     <link href="../common/css/iconButton.css" rel="stylesheet" />
+    <link href="../common/css/sidebarButton.css" rel="stylesheet" />
     <script src="https://dweet.io/client/dweet.io.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../external/hacktimer/HackTimer.min.js"></script>
@@ -75,15 +76,18 @@
     </div>
 
     <div class="wrapTiles" id=topDiv>
-      <div class=AudioControl onclick='openAudioControl()'>
+      <div class=AudioControl>
         <div style="float:left;">
-          <img class=AudioControlImg id=WarningActiveImg src="../common/img/audioOff.png" style="width:2rem; height:2rem;"> &nbspWarning Beeps
+           <span onclick=openAudioControl() style="cursor:pointer;">
+            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.5rem;">&nbsp<img id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.5rem; height:1.5rem;">&nbspWarnings</p>
+          </span>
+				</div>
+
+        <div style="float:right;">
+          <span onclick=openAudioControl() style="cursor:pointer;">
+            <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:1rem; padding-bottom:0; font-size:1.5rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.5rem; height:1.5rem;">&nbspErrors&nbsp&nbsp&nbsp</p>
+          </span>
         </div>
-        <div style="float:left;">
-          &nbsp&nbsp&nbsp&nbsp
-          <img class=AudioControlImg id=ErrorActiveImg src="../common/img/audioOff.png" style="width:2rem; height:2rem;"> &nbspError Beeps
-        </div>
-      </div>
       <div style="clear:both"> </div>
     </div>
 

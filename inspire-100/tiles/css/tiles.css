@@ -122,22 +122,7 @@ body {
 	color: white;
 	margin: 0.3rem;
 	padding: 0.3rem;
-	cursor: pointer;
   background-color: var(--rsp_darkblue);
-}
-
-.AudioControl:hover{
-  background-color: gray;
-  border-color: gray;
-  opacity:1; 
-  transform: translateY(0.2rem);
-}
-
-.AudioControl:active{
-  background-color: var(--rsp_mediumgreen);
-  border-color: var(--rsp_mediumgreen);
-  box-shadow: 0 0.4rem white;
-  transform: translateY(0.2rem);
 }
 
 
