@@ -192,7 +192,6 @@ function openAudioControl() {
     imgMenu.src = "../common/img/audioOff.png";
 	}
 
-	console.log("OPEN");
   document.getElementById("audioControlDiv").style.display = "block"; 
   stopAllBeeps();
 }
@@ -200,6 +199,5 @@ function openAudioControl() {
 function dismissAudioControl() {
   warningBeepSample = false;
   errorBeepSample = false;
-	console.log("DISMISS");
   document.getElementById("audioControlDiv").style.display = "none"; 
 }

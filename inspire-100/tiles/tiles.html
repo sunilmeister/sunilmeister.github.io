@@ -54,14 +54,14 @@
           <p style="font-size: 2rem;">Audio Alarms
             <br>
           <p style="font-size: 1.2rem; ">Warning
-            <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
+            <button class=iconButton id=btnWarningBeep onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnWarningImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
             <input type="range" id="warningVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeWarningVolume()'>
             <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
   
   				<br>
   				<br>
           <p style="font-size: 1.2rem; ">&nbsp&nbsp&nbsp&nbspError
-            <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
+            <button class=iconButton id=btnErrorBeep onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='ON/OFF'><img id=btnErrorImg src="../common/img/audioOff.png" style="width:1.2rem; height:1.2rem;"></button>
             <input type="range" id="errorVolume" value="50" style="accent-color:var(--rsp_brightgreen); width:6rem;" onchange='changeErrorVolume()'>
             <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
             <br>
@@ -75,7 +75,7 @@
       </center>
     </div>
 
-    <div class="wrapTiles" id=topDiv>
+    <div class="wrapTiles" id=topTilesDiv>
       <div class=AudioControl>
         <div style="float:left;">
            <span onclick=openAudioControl() style="cursor:pointer;">
@@ -88,8 +88,17 @@
             <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:1rem; padding-bottom:0; font-size:1.5rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.5rem; height:1.5rem;">&nbspErrors&nbsp&nbsp&nbsp</p>
           </span>
         </div>
-      <div style="clear:both"> </div>
+			</div>
     </div>
+		<div>
+
+    <div style="clear:both"> </div>
+		<hr>
+		<div id=activeTilesDiv class=activeTilesCls> </div>
+    <div style="clear:both"> </div>
+		<hr>
+		<div id=dormantTilesDiv class=dormantTilesCls> </div>
+		</div>
 
     <!-- 
 // ////////////////////////////////////////////////////

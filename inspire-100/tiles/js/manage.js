@@ -2,28 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-// ////////////////////////////////////////////////////
-//	activeTiles object is like below
-//  {uid : 
-//  	{
-// 			active: true,
-//  		tile: DOMelement, 
-//  		systemTag: ,
-//  		updated: Date, 
-//  		content: {
-//  			state: ,
-//  			patientFName: ,
-//  			patientLName: ,
-//  			attention: ,
-//  			breaths: ,
-//  			firmware: ,
-//  		}
-//  	}
-//  },
-//  ...
-// ////////////////////////////////////////////////////
-var activeTiles = {};
-
 async function updateUidContent(uid) {
 	let jsonContent = {};
   if (USE_DWEET_FOR_MESSAGES) {
@@ -32,7 +10,7 @@ async function updateUidContent(uid) {
 			let jsonContent = dweet[0];
 			if (!jsonContent) return;
   		let timestamp = new Date(jsonContent.created);
-			let prevTMS = activeTiles[uid].updated.getTime();
+			let prevTMS = allSystems[uid].updated.getTime();
 			let currTMS = timestamp.getTime();
 			if (prevTMS < currTMS) {
 				disassembleAndProcessChirp(uid, jsonContent);
@@ -40,7 +18,9 @@ async function updateUidContent(uid) {
 				// Check for dormancy
 				let now = new Date();
 				if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
-					activeTiles[uid].active = false;
+					if (allSystems[uid].active) {
+						moveTileToDormant(uid);
+					}
 					updateTileContents(uid);
 				}
 			}
@@ -55,7 +35,7 @@ async function updateUidContent(uid) {
   	if (Object.keys(payload).length == 0) return;
 
   	let timestamp = new Date(jsonContent.response.updatedAt);
-		let prevTMS = activeTiles[uid].updated.getTime();
+		let prevTMS = allSystems[uid].updated.getTime();
 		let currTMS = timestamp.getTime();
 		if (prevTMS < currTMS) {
   		// change the response to be in chirp format
@@ -67,7 +47,9 @@ async function updateUidContent(uid) {
 			// Check for dormancy
 			let now = new Date();
 			if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
-				activeTiles[uid].active = false;
+				if (allSystems[uid].active) {
+					moveTileToDormant(uid);
+				}
 				updateTileContents(uid);
 			}
   	}
@@ -90,13 +72,13 @@ function disassembleAndProcessChirp(uid, d) {
 
 function parseAndUpdateUidContents(uid, jsonData) {
   let curTime = new Date(jsonData.created);
-	let content = activeTiles[uid].content;
-	activeTiles[uid].updated = curTime;
-	if (!activeTiles[uid].active) {
+	let content = allSystems[uid].content;
+	allSystems[uid].updated = curTime;
+	if (!allSystems[uid].active) {
 		// initialize
-		activeTiles[uid].content = cloneObject(initialTileContent());
+		allSystems[uid].content = cloneObject(initialTileContent());
+		moveTileToActive(uid);
 	}
-	activeTiles[uid].active = true;
 
   for (let key in jsonData) {
     if (key == 'content') {
@@ -165,7 +147,7 @@ function parseAndUpdateUidContents(uid, jsonData) {
 const MAX_DORMANT_TIME_IN_MS = 20000;
 function updatePage() {
 	// update the data in all tiles
-  for (const uid in activeTiles) {
+  for (const uid in allSystems) {
 		updateUidContent(uid);
 	}
 }
@@ -200,14 +182,14 @@ function AddRemoveTiles() {
 		let obj = myInspireSystems[i];
 		let uid = obj.uid;
 		let tag = obj.tag;
-		if (isUndefined(activeTiles[uid])) {
+		if (isUndefined(allSystems[uid])) {
 			addTile(uid, tag, initialTileContent());
 			updateTileContents(uid);
 		}
 	}
 
 	// Remove systems if required
-  for (const uid in activeTiles) {
+  for (const uid in allSystems) {
 		let found = false;
 		for (let i=0; i<myInspireSystems.length; i++) {
 			let obj = myInspireSystems[i];
@@ -225,10 +207,10 @@ function AddRemoveTiles() {
 
 var activeViewIsState = true;
 function toggleActiveView() {
-  for (const uid in activeTiles) {
-		if (!activeTiles[uid].active) continue;
-		let tile = activeTiles[uid].tile;
-		let content = activeTiles[uid].content;
+  for (const uid in allSystems) {
+		if (!allSystems[uid].active) continue;
+		let tile = allSystems[uid].tile;
+		let content = allSystems[uid].content;
 
 		let stateDiv = findChildNodeByClass(tile,'StateContent');
 		let paramDivNonPSV = findChildNodeByClass(tile,'ParamContentNonPSV');
@@ -268,7 +250,7 @@ function tileClick(tile) {
 
 	/*
 	// first check if system is active and transmitting
-	if (!activeTiles[uid].active) {
+	if (!allSystems[uid].active) {
     modalAlert("System either inactive or not transmitting", uid + '[' + tag + ']');
 		return;
 	}
@@ -288,9 +270,6 @@ function tileClick(tile) {
 }
 
 window.onload = function () {
-	appScaleFactor = 1.0;
-	setRootFontSize();
-
 	AddRemoveTiles();
 	disableAllBeeps();
 	openAudioControl();

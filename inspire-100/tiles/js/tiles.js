@@ -2,13 +2,35 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+// ////////////////////////////////////////////////////
+//	allSystems object is like below
+//  {uid : 
+//  	{
+// 			active: true,
+//  		tile: DOMelement, 
+//  		systemTag: ,
+//  		updated: Date, 
+//  		content: {
+//  			state: ,
+//  			patientFName: ,
+//  			patientLName: ,
+//  			attention: ,
+//  			breaths: ,
+//  			firmware: ,
+//  		}
+//  	}
+//  },
+//  ...
+// ////////////////////////////////////////////////////
+var allSystems = {};
+
 function formTileTitle(uid) {
-	if (isUndefined(activeTiles[uid])) return "";
+	if (isUndefined(allSystems[uid])) return "";
 
-	let fName = activeTiles[uid].content.patientFName;
-	let lName = activeTiles[uid].content.patientLName;
+	let fName = allSystems[uid].content.patientFName;
+	let lName = allSystems[uid].content.patientLName;
 
-	if ((fName == "") && (lName == "")) return activeTiles[uid].systemTag;
+	if ((fName == "") && (lName == "")) return allSystems[uid].systemTag;
 
 	let title = "";
 	if (fName != "") title = fName;
@@ -27,10 +49,10 @@ function updateTileContents(uid) {
 }
 
 function updateTileParams(uid) {
-	if (isUndefined(activeTiles[uid])) return;
+	if (isUndefined(allSystems[uid])) return;
 
-	let tile = activeTiles[uid].tile;
-	let content = activeTiles[uid].content;
+	let tile = allSystems[uid].tile;
+	let content = allSystems[uid].content;
 
 	changeParamValue("MODEvalue",content.mode);
 	changeParamValue("VTvalue",content.vt);
@@ -42,10 +64,10 @@ function updateTileParams(uid) {
 }
 
 function updateTileState(uid) {
-	if (isUndefined(activeTiles[uid])) return;
+	if (isUndefined(allSystems[uid])) return;
 
-	let tile = activeTiles[uid].tile;
-	let content = activeTiles[uid].content;
+	let tile = allSystems[uid].tile;
+	let content = allSystems[uid].content;
 
 	let title = formTileTitle(uid);
 	let breaths = content.breaths;
@@ -53,7 +75,7 @@ function updateTileState(uid) {
 	let elem = null;
 	elem = findChildNodeByClass(tile,'tileName');
 	elem.innerHTML = title;
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		elem.style.color = getActiveTileColorFG();
 	} else {
 		elem.style.color = getInactiveTileColorFG();
@@ -61,14 +83,14 @@ function updateTileState(uid) {
 
 	elem = findChildNodeByClass(tile,'breathNum');
 	elem.innerHTML = breaths;
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		elem.style.color = getActiveTileColorFG();
 	} else {
 		elem.style.color = getInactiveTileColorFG();
 	}
 
 	elem = findChildNodeByClass(tile,'active');
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		elem.innerHTML = "ACTIVE";
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -80,7 +102,7 @@ function updateTileState(uid) {
 	elem.innerHTML = uid;
 
 	elem = findChildNodeByClass(tile,'statusCaption');
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		elem.style.backgroundColor = getActiveCaptionColorBG();
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -89,7 +111,7 @@ function updateTileState(uid) {
 	}
 
 	elem = findChildNodeByClass(tile,'breathCaption');
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		elem.style.backgroundColor = getActiveCaptionColorBG();
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -99,13 +121,13 @@ function updateTileState(uid) {
 }
 
 function updateTileImages(uid) {
-	if (isUndefined(activeTiles[uid])) return;
+	if (isUndefined(allSystems[uid])) return;
 
-	let tile = activeTiles[uid].tile;
-	let content = activeTiles[uid].content;
+	let tile = allSystems[uid].tile;
+	let content = allSystems[uid].content;
 
   let stateImg = findChildNodeByClass(tile, 'StateImg');
-	if (!activeTiles[uid].active) {
+	if (!allSystems[uid].active) {
 		stateImg.src = '../common/img/Sleep.png'
 	} else if (content.state == 'ERROR') {
 		stateImg.src = '../common/img/ErrorLED.png'
@@ -118,7 +140,7 @@ function updateTileImages(uid) {
 	}
 
   let alertImg = findChildNodeByClass(tile, 'AlertImg');
-	if (!activeTiles[uid].active) {
+	if (!allSystems[uid].active) {
 		alertImg.src = '../common/img/Inactive.png'
 	} else if (content.state == 'ERROR') {
 		alertImg.src = '../common/img/Error.png'
@@ -128,24 +150,52 @@ function updateTileImages(uid) {
 		alertImg.src = '../common/img/OK.png'
 	}
 
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		tile.style.backgroundColor = getActiveTileColorBG();
 	} else {
 		tile.style.backgroundColor = getInactiveTileColorBG();
 	}
 
   let elem = findChildNodeByClass(tile, 'statusCaption');
-	if (activeTiles[uid].active) {
+	if (allSystems[uid].active) {
 		elem.innerHTML = "Transmitting" ;
 	} else {
 		elem.innerHTML = "NOT Transmitting" ;
 	}
 }
 
-function addTile(uid, sysTag, content) {
-	if (!isUndefined(activeTiles[uid])) return;
+function moveTileToDormant(uid) {
+	if (!allSystems[uid].active) return;
+	allSystems[uid].active = false;
+	updateTileImages(uid);
 
-	let topDiv = document.getElementById('topDiv');
+	let activeTilesDiv = document.getElementById('activeTilesDiv');
+	let dormantTilesDiv = document.getElementById('dormantTilesDiv');
+
+	let tile = allSystems[uid].tile;
+	
+	activeTilesDiv.removeChild(tile);
+	dormantTilesDiv.appendChild(tile);
+}
+
+function moveTileToActive(uid) {
+	if (allSystems[uid].active) return;
+	allSystems[uid].active = true;
+	updateTileImages(uid);
+
+	let activeTilesDiv = document.getElementById('activeTilesDiv');
+	let dormantTilesDiv = document.getElementById('dormantTilesDiv');
+
+	let tile = allSystems[uid].tile;
+	
+	dormantTilesDiv.removeChild(tile);
+	activeTilesDiv.appendChild(tile);
+}
+
+function addTile(uid, sysTag, content) {
+	if (!isUndefined(allSystems[uid])) return;
+
+	let dormantTilesDiv = document.getElementById('dormantTilesDiv');
 	let temp = document.getElementById('tileTemplate');
   let template = findChildNodeByClass(temp.content, 'tile');
  	let newTile = template.cloneNode(true);
@@ -154,25 +204,30 @@ function addTile(uid, sysTag, content) {
 	newTile.style.backgroundColor = tileColor;
 	newTile.style.color = fgColor;
 
-	activeTiles[uid] = {};
-	activeTiles[uid].active = false;
-	activeTiles[uid].updated = new Date();
-	activeTiles[uid].systemTag = sysTag;
-	activeTiles[uid].tile = newTile;
-	activeTiles[uid].content = cloneObject(content);
+	allSystems[uid] = {};
+	allSystems[uid].active = false;
+	allSystems[uid].updated = new Date();
+	allSystems[uid].systemTag = sysTag;
+	allSystems[uid].tile = newTile;
+	allSystems[uid].content = cloneObject(content);
 
-	topDiv.appendChild(newTile);
+	dormantTilesDiv.appendChild(newTile);
 }
 
 function deleteTile(uid) {
-	if (isUndefined(activeTiles[uid])) return;
+	if (isUndefined(allSystems[uid])) return;
 
-	let tile = activeTiles[uid].tile;
+	let tile = allSystems[uid].tile;
 
-	let topDiv = document.getElementById('topDiv');
-	topDiv.removeChild(tile);
+	if (allSystems[uid].active) {
+		let activeTilesDiv = document.getElementById('activeTilesDiv');
+		activeTilesDiv.removeChild(tile);
+	} else {
+		let dormantTilesDiv = document.getElementById('dormantTilesDiv');
+		dormantTilesDiv.removeChild(tile);
+	}
 
-	delete activeTiles[uid];
+	delete allSystems[uid];
 }
 
 var tileBlinkColor = false;
@@ -180,12 +235,12 @@ function blinkTiles() {
 	if (!tileBlinkColor) tileBlinkColor = true;
 	else tileBlinkColor = null;
 
-  for (const uid in activeTiles) {
-		let content = activeTiles[uid].content;
+  for (const uid in allSystems) {
+		let content = allSystems[uid].content;
 
 		if (!content.attention && !(content.state == 'ERROR')) continue;
 		let tileColor = getActiveTileColorBG();
-		let tile = activeTiles[uid].tile;
+		let tile = allSystems[uid].tile;
 
 		if (content.state == 'ERROR') {
 			if (tileBlinkColor) {
@@ -220,9 +275,9 @@ function updateAudioAlerts() {
 	let foundError = false;
 	let foundWarning = false;
 
-  for (const uid in activeTiles) {
-		if (activeTiles[uid].content.attention) foundWarning = true;
-		if (activeTiles[uid].content.state == "ERROR") foundError = true;
+  for (const uid in allSystems) {
+		if (allSystems[uid].content.attention) foundWarning = true;
+		if (allSystems[uid].content.state == "ERROR") foundError = true;
 	}
 
 	if (foundError) {
@@ -236,18 +291,4 @@ function updateAudioAlerts() {
 		stopWarningBeep();
 	}
 }
-
-$(function(){
-  // See if this is a touch device
-  if ('ontouchstart' in window)
-  {
-    // Set the correct body class
-    $('body').removeClass('no-touch').addClass('touch');
-    
-    // Add the touch toggle to show text
-    $('div.tileContent').click(function(){
-      $(this).closest('.tileContent').toggleClass('touchFocus');
-    });
-  }
-});
 
