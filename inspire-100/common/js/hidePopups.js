@@ -30,14 +30,24 @@ document.addEventListener('click', function (event) {
     removeWaveEditMenu();
   }
 
-  let popups = document.getElementsByClassName('popupClass');
-  if (!popups) return;
+  let popupsCenter = document.getElementsByClassName('popupClassCenter');
+  if (popupsCenter) {
+  	for (let i = 0; i < popupsCenter.length; i++) {
+    	let popup = popupsCenter[i];
+    	if (!popup.contains(event.target)) {
+      	popup.style.display = "none";
+    	}
+		}
+  }
 
-  for (i = 0; i < popups.length; i++) {
-    popup = popups[i];
-    if (!popup.contains(event.target)) {
-      popup.style.display = "none";
-    }
+  let popupsTopLeft = document.getElementsByClassName('popupClassTopLeft');
+  if (popupsTopLeft) {
+  	for (let i = 0; i < popupsTopLeft.length; i++) {
+    	let popup = popupsTopLeft[i];
+    	if (!popup.contains(event.target)) {
+      	popup.style.display = "none";
+    	}
+		}
   }
 
 });
