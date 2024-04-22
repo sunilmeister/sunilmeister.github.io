@@ -4,7 +4,7 @@
 var appResizeFunction = null;
 var appScaleFactor = 1.0;
 const laptopParams = { width: 1500, height: 800, fontSize: 18 };
-const mobileParams = { width: 380, height: 800, fontSize: 13 };
+const mobileParams = { width: 380, height: 850, fontSize: 13 };
 
 // ///////////////////////////////////////////////////////
 // Figure out the root font size for proper scaling etc.
@@ -33,7 +33,7 @@ function setRootFontSizeLaptop() {
 
 function setRootFontSizeMobile(orient) {
 	if (isUndefined(orient)) orient = "portrait";
-	const minFontSize = 6;
+	const minFontSize = 4;
 	const maxFontSize = 17;
 	//let width = 375;
 	//let height = 812;
@@ -50,11 +50,11 @@ function setRootFontSizeMobile(orient) {
 	}
 	fontSize *= appScaleFactor;
 
-	alert("height=" + height + "\nwidth=" + width + "\nappScaleFactor=" + appScaleFactor);
+	//alert("height=" + height + "\nwidth=" + width + "\nappScaleFactor=" + appScaleFactor);
 
 	if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
-	alert("root fontSize=" + fontSize);
+	//alert("root fontSize=" + fontSize);
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";
@@ -84,7 +84,6 @@ function isZooming(){
 
 // Check if the browser is on a mobile
 function isMobileBrowser() {
-	//return true;
 	if (/Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   	return true;
 	} else {
