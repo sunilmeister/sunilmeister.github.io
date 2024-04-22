@@ -92,7 +92,7 @@ function isMobileBrowser() {
 }
 
 // Check for change in orientation
-var orientation = null;
+var orientation = portraitScreen.matches ? "portrait" : "landscape";
 var portraitScreen = window.matchMedia("(orientation: portrait)");
 portraitScreen.addEventListener("change", function(e) {
   if (e.matches) {
