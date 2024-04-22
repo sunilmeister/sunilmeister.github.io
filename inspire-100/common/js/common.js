@@ -27,6 +27,16 @@ function setRootFontSize(orientation) {
 		isPortrait = false;
 	}
 
+	let wLimit = 0;
+	let hLimit = 0;
+	if (isMobileBrowser()) {
+		wLimit = 400;
+		hLimit = 800;
+	} else {
+		wLimit = 1400;
+		hLimit = 800;
+	}
+
 	let root = document.documentElement;
 	let width = window.innerWidth / window.devicePixelRatio;
 	let height = window.innerHeight / window.devicePixelRatio;
@@ -36,10 +46,10 @@ function setRootFontSize(orientation) {
 	let totalSize = 0;
 	if (isPortrait) {
  		totalSize = fontSize*width;
- 		fontSize = (totalSize/1400);
+ 		fontSize = (totalSize/wLimit);
 	} else {
  		totalSize = fontSize*height;
- 		fontSize = (totalSize/800);
+ 		fontSize = (totalSize/hLimit);
 	}
 
 	if (fontSize > 18) fontSize = 18;
