@@ -135,11 +135,7 @@ tr {
   z-index: 10;
   opacity: 1;
 
-  /* for vertical center */
   position:absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
 
   box-shadow: rgba(0, 0, 0, 0.3) 0 1.2rem 2rem, rgba(0, 0, 0, 0.22) 0 1rem 0.8rem;
 

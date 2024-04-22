@@ -38,7 +38,7 @@
     <script src="js/manage.js"></script>
   </head>
 
-  <body class="no-touch">
+  <body>
     <audio id="warningBeep">
       <source src="../common/mp3/warningBeep.mp3" type="audio/mp3">
     </audio>
@@ -47,6 +47,8 @@
       <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
     </audio>
 
+
+    <div class="wrapTiles" id=topDiv>
     <div id=audioControlDiv class=popupClass style="width:20rem; height:30rem; display: none">
       <center>
         <div>
@@ -73,8 +75,6 @@
         </div>
       </center>
     </div>
-
-    <div class="wrapTiles" id=topDiv>
       <div class=AudioControl onclick='openAudioControl()'>
         <div style="float:left;">
           <img class=AudioControlImg id=WarningActiveImg src="../common/img/audioOff.png" style="width:2rem; height:2rem;"> &nbspWarning Beeps
