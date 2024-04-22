@@ -546,7 +546,7 @@ window.onload = function () {
 	setRootFontSize();
 
 	disableAllBeeps();  
-	openAudioControl();
+	//openAudioControl();
 
   finishedLoading = false;
   initDivElements();

@@ -293,5 +293,5 @@ window.onload = function () {
 
 	AddRemoveTiles();
 	disableAllBeeps();
-	openAudioControl();
+	//openAudioControl();
 }
