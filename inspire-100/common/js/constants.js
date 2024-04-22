@@ -18,7 +18,6 @@ const RECORDER_APP_ID = "RECORDER";
 const BROADCAST_UID = INSPIRE_UID_PREFIX + "0000000000000000";
 
 const editReminderOffCookieName = "EDIT_REMINDER_COOKIE";
-const pdfReminderOffCookieName = "PDF_REMINDER_COOKIE";
 const inspireSystemsLocalStorage = "KNOWN_INSPIRE_SYSTEMS";
 const inspireDashboardsLocalStorage = "INSPIRE_DASHBOARDS";
 const uidCookieName = "INSPIRE_UID_COOKIE";
@@ -124,13 +123,6 @@ const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>
   "Press EDIT (PEN icon) on the banner" +
   "\n" +
   "to select Chart items to display" +
-  "</pre></span>";
-
-const PDF_TITLE_STR = "INSTALL PDF VIEWER";
-const PDF_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Either Install PDF Viewer Browser extension " +
-  "\n" +
-  "Else you must download the file to view" +
   "</pre></span>";
 
 const RECORDING_STOP_TITLE = "Stop Recording";
