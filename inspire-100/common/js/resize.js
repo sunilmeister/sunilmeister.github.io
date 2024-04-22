@@ -33,6 +33,7 @@ function setRootFontSizeLaptop() {
 }
 
 function setRootFontSizeMobile(orient) {
+	if (isUndefined(orient)) orient = "portrait";
 	const minFontSize = 6;
 	const maxFontSize = 17;
 	//let width = 375;
@@ -62,9 +63,10 @@ function setRootFontSizeMobile(orient) {
 
 function setRootFontSize() {
 	if (isMobileBrowser()) {
-		alert("Mobile orientation=" + orientation);
+		//alert("Mobile orientation=" + orientation);
 		setRootFontSizeMobile(orientation);
 	} else {
+		//alert("Mobile orientation=" + orientation);
 		//setRootFontSizeMobile("landscape");
 		setRootFontSizeLaptop();
 	}
