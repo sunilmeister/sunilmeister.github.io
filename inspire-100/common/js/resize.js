@@ -4,7 +4,6 @@
 var appResizeFunction = null;
 var appScaleFactor = 1.0;
 const laptopParams = { width: 1500, height: 800, fontSize: 18 };
-//const laptopParams = { width: 380, height: 800, fontSize: 13 };
 const mobileParams = { width: 380, height: 800, fontSize: 13 };
 
 // ///////////////////////////////////////////////////////
@@ -38,6 +37,7 @@ function setRootFontSizeMobile(orient) {
 	const maxFontSize = 17;
 	//let width = 375;
 	//let height = 812;
+	let dpxRatio = window.devicePixelRatio;
 	let width = window.innerWidth / dpxRatio;
 	let height = window.innerHeight / dpxRatio;
 	let wFontSize = (mobileParams.fontSize * width) / mobileParams.width;
@@ -63,11 +63,9 @@ function setRootFontSizeMobile(orient) {
 
 function setRootFontSize() {
 	if (isMobileBrowser()) {
-		//alert("Mobile orientation=" + orientation);
+		alert("Mobile orientation=" + orientation);
 		setRootFontSizeMobile(orientation);
 	} else {
-		//alert("Mobile orientation=" + orientation);
-		//setRootFontSizeMobile("landscape");
 		setRootFontSizeLaptop();
 	}
 }
@@ -86,6 +84,7 @@ function isZooming(){
 
 // Check if the browser is on a mobile
 function isMobileBrowser() {
+	//return true;
 	if (/Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   	return true;
 	} else {
