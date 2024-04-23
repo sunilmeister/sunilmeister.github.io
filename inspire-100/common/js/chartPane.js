@@ -90,6 +90,13 @@ class ChartPane {
       		stripLine.labelFontSize = session.charts.stripLineFontSize;
 				}
 			}
+			let customBreaks = axisX.scaleBreaks.customBreaks;
+			if (customBreaks) {
+				for (let i=0; i<axisX.customBreaks.length; i++) {
+					let cb = customBreaks[i];
+					cb.lineThickness = session.waves.stripLineThickness;
+				}
+			}
 		}
 
 		let axisY = this.chartJson.axisY;
@@ -180,7 +187,7 @@ class ChartPane {
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
-      Xaxis.scaleBreaks = {};
+      Xaxis.scaleBreaks = {type: "straight", color:"orange"};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
     }
     this.chartJson.axisX = Xaxis;

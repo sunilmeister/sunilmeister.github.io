@@ -72,6 +72,14 @@ class WavePane {
       		stripLine.labelFontSize = session.waves.stripLineFontSize;
 				}
 			}
+
+			let customBreaks = axisX.scaleBreaks.customBreaks;
+			if (customBreaks) {
+				for (let i=0; i<axisX.customBreaks.length; i++) {
+					let cb = customBreaks[i];
+					cb.lineThickness = session.waves.stripLineThickness;
+				}
+			}
 		}
 
 		let axisY = this.chartJson.axisY;
@@ -295,7 +303,7 @@ class WavePane {
     // init Breaks in the graph
     let Xaxis = this.chartJson.axisX;
     if (!this.isFlowGraph) {
-      Xaxis.scaleBreaks = {};
+      Xaxis.scaleBreaks = {type: "straight", color:"orange"};
       Xaxis.scaleBreaks.customBreaks = [];
       this.chartJson.axisX.stripLines = [];
     }
@@ -387,8 +395,7 @@ class WavePane {
         Xaxis.scaleBreaks.customBreaks.push({
           startValue: prevXval,
           endValue: stripLine.startValue - 0.1,
-          color: "orange",
-          type: "zigzag"
+					lineThickness: session.waves.stripLineThickness,
         });
         prevXval = stripLine.endValue + 0.1;
       }

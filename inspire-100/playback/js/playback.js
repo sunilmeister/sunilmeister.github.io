@@ -373,25 +373,29 @@ function disableAllButtons() {
 }
 
 function resizeChartsWaves() {
-	const rootStyle = document.documentElement.style;
+  let style = getComputedStyle(document.body);
 
   session.waves.labelFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--waveLabelFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
   session.waves.legendFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--waveLegendFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
   session.waves.titleFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--waveTitleFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
   session.waves.stripLineFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--waveStripLineFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
+  session.waves.stripLineThickness = 
+		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineThickness'));
 
   session.charts.labelFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--chartLabelFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--chartLabelFontSize'));
   session.charts.legendFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--chartLegendFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--chartLegendFontSize'));
   session.charts.titleFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--chartTitleFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--chartTitleFontSize'));
   session.charts.stripLineFontSize = 
-		convertRemToPixels(rootStyle.getPropertyValue('--chartStripLineFontSize'));
+		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineFontSize'));
+  session.charts.stripLineThickness = 
+		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineThickness'));
 
 	resizeAllCharts();
 	resizeAllWaves();
