@@ -238,11 +238,13 @@ var SessionDataTemplate = {
   // chart transitions etc.
   charts : {
     rangeLimit: CHART_NUM_ROLLING_BREATHS,
-    fontSize: 25,
     allChartsContainerInfo: {},
     boxTree: null,
-    firstTimeChartsEntry: true,
     numChartDatapoints: 0,
+    labelFontSize: 10,
+    legendFontSize: 12,
+    titleFontSize: 30,
+    stripLineFontSize: 20,
   },
 
   // Below is stuff for stats
@@ -263,14 +265,13 @@ var SessionDataTemplate = {
     newWaveCallback: null,
     sendPeriod: null,
     onDemand: false,
-    labelFontSize: 20,
-    legendFontSize: 20,
-    titleFontSize: 40,
     expectedSamplesPerSlice: null,
     allWavesContainerInfo: {},
     boxTree: null,
-    stripLineFontSize: 50,
-    firstTimeWavesEntry: true,
+    labelFontSize: 10,
+    legendFontSize: 12,
+    titleFontSize: 30,
+    stripLineFontSize: 20,
   },
 
   // /////////////////////////////////////////////
@@ -308,7 +309,7 @@ var SessionDataTemplate = {
 
 };
 
-var session = null;
+var session = cloneObject(SessionDataTemplate);
 
 function createReportRange(rolling, minBnum, maxBnum) {
   let range = cloneObject(session.reportRange);

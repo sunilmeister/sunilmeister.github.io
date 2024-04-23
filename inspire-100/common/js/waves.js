@@ -130,6 +130,21 @@ function findAncestorWaveBodyNode(node) {
   return findAncestorNodeByClassName(node, WAVE_BODY_CLASS);
 }
 
+function resizeAllWaves() {
+  for (let id in session.waves.allWavesContainerInfo) {
+    let box = session.waves.allWavesContainerInfo[id];
+		box.resizeFonts();
+  }
+
+	renderAllWaves();
+}
+
+function renderAllWaves() {
+  for (let id in session.waves.allWavesContainerInfo) {
+    session.waves.allWavesContainerInfo[id].render();
+  }
+}
+
 function createAllWaves() {
   if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
@@ -140,15 +155,7 @@ function createAllWaves() {
     waveInsertInitial(); // always have wave box for user to start with
   }
 
-  if (session.waves.firstTimeWavesEntry) {
-    //showEditIconReminder();
-    session.waves.firstTimeWavesEntry = false;
-  }
-
-  for (let id in session.waves.allWavesContainerInfo) {
-    session.waves.allWavesContainerInfo[id].render();
-  }
-
+	renderAllWaves();
 }
 
 function waveTitleKeypressListener(event) {

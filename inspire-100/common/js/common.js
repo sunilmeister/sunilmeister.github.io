@@ -8,7 +8,14 @@ var inspireTag = "";
 //// Useful conversion from REM to PX
 ///////////////////////////////////////////////////////
 function convertRemToPixels(rem) {    
-    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+  return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
+function convertRemToPixelsInt(rem) {    
+	let val = convertRemToPixels(rem);
+	val = Math.floor(val);
+	if (val <=0) val = 1;
+  return val;
 }
 
 ///////////////////////////////////////////////////////

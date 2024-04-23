@@ -56,7 +56,35 @@ class WavePane {
     this.addXaxis();
   }
 
-  breathSelectedInMenu(breathInfo) {
+  // resize according to latest sessionData
+ 	resizeFonts() {
+		// do for only one graph
+    if (this.isFlowGraph) return;
+
+		this.chartJson.legend.fontSize = session.waves.legendFontSize;
+		this.chartJson.title.fontSize = session.waves.titleFontSize;
+		let axisX = this.chartJson.axisX;
+		if (axisX) {
+    	axisX.labelFontSize = session.waves.labelFontSize;
+			if (axisX.stripLines) {
+				for (let i=0; i<axisX.stripLines.length; i++) {
+					let stripLine = axisX.stripLines[i];
+      		stripLine.labelFontSize = session.waves.stripLineFontSize;
+				}
+			}
+		}
+
+		let axisY = this.chartJson.axisY;
+		if (axisY) {
+    	axisY.labelFontSize = session.charts.labelFontSize;
+		}
+		let axisY2 = this.chartJson.axisY2;
+		if (axisY2) {
+    	axisY2.labelFontSize = session.charts.labelFontSize;
+		}
+	}
+
+	breathSelectedInMenu(breathInfo) {
     let bInfo = parseBreathInfo(breathInfo);
     // Order below is important
     if (this.menu.ErrorB) {
@@ -188,12 +216,11 @@ class WavePane {
   addXaxis() {
     let Xaxis = {};
     Xaxis.title = "Elapsed Time (secs)";
-    Xaxis.fontSize = CHART_FONT_SIZE;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
+		Xaxis.labelFontSize = session.waves.labelFontSize;
     Xaxis.gridColor = "grey";
     Xaxis.gridThickness = 1;
-    Xaxis.labelFontSize = session.waves.labelFontSize;
     Xaxis.labelFormatter = breathWaveXaxisFormatter;
     this.chartJson.axisX = Xaxis;
   }
@@ -250,6 +277,7 @@ class WavePane {
     Yaxis.title = title;
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
+   	Yaxis.labelFontSize = session.charts.labelFontSize;
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
@@ -380,6 +408,7 @@ class WavePane {
     Yaxis.title = title;
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
+   	Yaxis.labelFontSize = session.charts.labelFontSize;
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
@@ -407,7 +436,7 @@ class WavePane {
   }
 
   calculateXaxisInterval() {
-    return 0.2;
+    return 1.0;
   }
 
 

@@ -6,12 +6,24 @@
   --chartMenuBannerHeight: 2rem;
   --chartMenuIconSize: 1rem;
 
+	/* ALL below in REM */
+  --chartLabelFontSize: 0.6;
+  --chartLegendFontSize: 0.8;
+  --chartTitleFontSize: 1.8;
+  --chartStripLineFontSize: 1.2;
+
   --waveContainerPadding: 21rem;
   --waveBodyHeight: 20rem;
   --waveMenuIndent: 1rem;
   --waveMenuFontSize: 1rem;
   --waveMenuBannerHeight: 2rem;
   --waveMenuIconSize: 1.5rem;
+
+	/* ALL below in REM */
+  --waveLabelFontSize: 0.6;
+  --waveLegendFontSize: 0.8;
+  --waveTitleFontSize: 1.8;
+  --waveStripLineFontSize: 1.2;
 
   --noUiTooltipSize: 0.6rem;
 

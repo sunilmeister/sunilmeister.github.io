@@ -372,16 +372,36 @@ function disableAllButtons() {
   document.getElementById("btnWave").disabled = true;
 }
 
+function resizeChartsWaves() {
+	const rootStyle = document.documentElement.style;
+
+  session.waves.labelFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveLabelFontSize'));
+  session.waves.legendFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveLegendFontSize'));
+  session.waves.titleFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveTitleFontSize'));
+  session.waves.stripLineFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveStripLineFontSize'));
+
+  session.charts.labelFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartLabelFontSize'));
+  session.charts.legendFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartLegendFontSize'));
+  session.charts.titleFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartTitleFontSize'));
+  session.charts.stripLineFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartStripLineFontSize'));
+
+	resizeAllCharts();
+	resizeAllWaves();
+}
+
 function initGlobals() {
   // Create new data objects
   if (session) delete session;
   session = cloneObject(SessionDataTemplate);
   session.appId = PLAYBACK_APP_ID;
-  session.charts.fontSize = 15;
-  session.waves.labelFontSize = 15;
-  session.waves.legendFontSize = 20;
-  session.waves.titleFontSize = 30;
-  session.waves.stripLineFontSize = 20;
 }
 
 function resetPlaybackData() {
@@ -600,6 +620,7 @@ function playbackGatherDoneCallback() {
 window.onload = function () {
 	appScaleFactor = 0.7;
 	setRootFontSize();
+	resizeChartsWaves();
 
   initGlobals();
   initDbNames();
@@ -636,6 +657,7 @@ function appResize() {
   let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
+	resizeChartsWaves();
 }
 
 function selectExit() {

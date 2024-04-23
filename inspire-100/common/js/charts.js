@@ -141,11 +141,6 @@ function createAllCharts() {
     chartInsertInitial(); // always have chart box for user to start with
   }
 
-  if (session.charts.firstTimeChartsEntry) {
-    //showEditIconReminder();
-    session.charts.firstTimeChartsEntry = false;
-  }
-
   // check for too many datapoints to render
   session.charts.numChartDatapoints 
       = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
@@ -164,6 +159,15 @@ function renderAllCharts() {
   for (let id in session.charts.allChartsContainerInfo) {
     session.charts.allChartsContainerInfo[id].render();
   }
+}
+
+function resizeAllCharts() {
+  for (let id in session.charts.allChartsContainerInfo) {
+    let box = session.charts.allChartsContainerInfo[id];
+		box.resizeFonts();
+	}
+
+	renderAllCharts();
 }
 
 function submitChartXaxis(bnode) {

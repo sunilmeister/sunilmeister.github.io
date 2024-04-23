@@ -11,6 +11,12 @@ class WaveBox {
     this.rangeX = null;
   }
 
+	// Resize according to latest sessionData
+	resizeFonts() {
+		if (this.chart) this.chart.resizeFonts();
+	}
+
+	//
   // rangeX = {rolling:, 
   //           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}

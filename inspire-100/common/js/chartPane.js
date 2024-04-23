@@ -59,7 +59,6 @@ class ChartPane {
       zoomType: "x",
       title: {
         text: title,
-        padding: 10
       },
       axisY: [],
       toolTip: {
@@ -68,7 +67,7 @@ class ChartPane {
       legend: {
         cursor: "pointer",
         itemclick: toggleDataSeries,
-        fontSize: session.charts.fontSize
+        fontSize: session.charts.legendFontSize
       },
       height: height,
       backgroundColor: "#D5F3FE",
@@ -77,6 +76,31 @@ class ChartPane {
 
     this.addXaxis();
   }
+
+  // resize according to latest sessionData
+ 	resizeFonts() {
+		this.chartJson.legend.fontSize = session.charts.legendFontSize;
+		this.chartJson.title.fontSize = session.charts.titleFontSize;
+		let axisX = this.chartJson.axisX;
+		if (axisX) {
+    	axisX.labelFontSize = session.charts.labelFontSize;
+			if (axisX.stripLines) {
+				for (let i=0; i<axisX.stripLines.length; i++) {
+					let stripLine = axisX.stripLines[i];
+      		stripLine.labelFontSize = session.charts.stripLineFontSize;
+				}
+			}
+		}
+
+		let axisY = this.chartJson.axisY;
+		if (axisY) {
+    	axisY.labelFontSize = session.charts.labelFontSize;
+		}
+		let axisY2 = this.chartJson.axisY2;
+		if (axisY2) {
+    	axisY2.labelFontSize = session.charts.labelFontSize;
+		}
+	}
 
   // returns the Y-axis number for possible reuse
   // or null if no graph created
@@ -152,7 +176,7 @@ class ChartPane {
       missingWindows = this.rangeX.missingBnum;
     }
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
-    Xaxis.fontSize = CHART_FONT_SIZE;
+    Xaxis.fontSize =  session.charts.labelFontSize
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
     if (missingWindows && missingWindows.length) {
@@ -199,6 +223,7 @@ class ChartPane {
     Yaxis.title = this.yAxisInfo.yName;
     Yaxis.lineColor = this.yAxisInfo.color;
     Yaxis.tickColor = this.yAxisInfo.color;
+   	Yaxis.labelFontSize = session.charts.labelFontSize;
     Yaxis.labelFontColor = this.yAxisInfo.color;
     Yaxis.titleFontColor = this.yAxisInfo.color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;

@@ -554,12 +554,9 @@ window.onload = function () {
   session = cloneObject(SessionDataTemplate);
   session.appId = DASHBOARD_APP_ID;
   session.launchDate = new Date();
-  session.charts.fontSize = 12;
-  session.waves.labelFontSize = 12;
-  session.waves.legendFontSize = 15;
-  session.waves.titleFontSize = 30;
-  session.waves.stripLineFontSize = 20;
+
   session.waves.newPwDataCallback = receivedNewWave;
+	resizeChartsWaves();
 
   initDbNames();
   let heading = document.getElementById("SysUid");
@@ -618,7 +615,33 @@ function alignSidebar() {
   nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
 }
 
+function resizeChartsWaves() {
+	const rootStyle = document.documentElement.style;
+	
+  session.waves.labelFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveLabelFontSize'));
+  session.waves.legendFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveLegendFontSize'));
+  session.waves.titleFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveTitleFontSize'));
+  session.waves.stripLineFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--waveStripLineFontSize'));
+
+  session.charts.labelFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartLabelFontSize'));
+  session.charts.legendFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartLegendFontSize'));
+  session.charts.titleFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartTitleFontSize'));
+  session.charts.stripLineFontSize = 
+		convertRemToPixels(rootStyle.getPropertyValue('--chartStripLineFontSize'));
+
+	resizeAllCharts();
+	resizeAllWaves();
+}
+
 function appResize() {
+	resizeChartsWaves();
 	installPeakGauge();
 	installPlatGauge();
 	installPeepGauge();
