@@ -73,11 +73,13 @@ class WavePane {
 				}
 			}
 
-			let customBreaks = axisX.scaleBreaks.customBreaks;
-			if (customBreaks) {
-				for (let i=0; i<axisX.customBreaks.length; i++) {
-					let cb = customBreaks[i];
-					cb.lineThickness = session.waves.stripLineThickness;
+			if (axisX.scaleBreaks) {
+				let customBreaks = axisX.scaleBreaks.customBreaks;
+				if (customBreaks) {
+					for (let i=0; i<axisX.customBreaks.length; i++) {
+						let cb = customBreaks[i];
+						cb.lineThickness = session.waves.stripLineThickness;
+					}
 				}
 			}
 		}
