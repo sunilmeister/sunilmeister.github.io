@@ -2,16 +2,17 @@
 // Also hide any divs of popupClass
 document.addEventListener('click', function (event) {
   // check if a button is clicked
-  let imageClicked = (event.target.nodeName == "IMG");
+  let iconButtonClicked = (event.target.className == "iconButton");
+  if (iconButtonClicked) return;
+
   let buttonClicked = (event.target.nodeName == "BUTTON");
-  if (!buttonClicked && !imageClicked && event.target.parentNode) {
+  if (!buttonClicked && event.target.parentNode) {
     // check parent for icon buttons
     buttonClicked = (event.target.parentNode.nodeName == "BUTTON");
   }
 
   // Let the button listener take care of stuff
   if (buttonClicked) return;
-  if (imageClicked) return;
 
   let spanClicked = (event.target.nodeName == "SPAN");
   if (!spanClicked && event.target.parentNode) {
