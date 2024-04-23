@@ -6,7 +6,7 @@ function createDashboardWaves() {
   createAllWaves();
 }
 
-function rollingWaveRange() {
+function movingWaveRange() {
   let minBnum = 0;
   let startWave = session.waves.pwData.length - WAVE_NUM_ROLLING_BREATHS;
   if (startWave < 0) startWave = 0;
@@ -21,10 +21,10 @@ function rollingWaveRange() {
 function updateWaveRange() {
   rangeSlider.setRange([1, session.dashboardBreathNum]);
 
-  if (!session.reportRange.rolling || sliderCommitPending) return;
-  if (session.reportRange.rolling) {
-    if (session.reportRange.rolling && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
-      rollingWaveRange();
+  if (!session.reportRange.moving || sliderCommitPending) return;
+  if (session.reportRange.moving) {
+    if (session.reportRange.moving && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
+      movingWaveRange();
     } else {
       session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
     }
@@ -36,9 +36,9 @@ function updateWaveRange() {
 }
 
 function updateWaveRangeOnEntry() {
-  if (!session.reportRange.rolling) return;
+  if (!session.reportRange.moving) return;
 
-  rollingWaveRange();
+  movingWaveRange();
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;

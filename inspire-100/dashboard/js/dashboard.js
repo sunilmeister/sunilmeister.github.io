@@ -145,7 +145,7 @@ function createDashboards() {
   // update rest of the views selectively
   if (equalObjects(prevUpdateRange,  session.reportRange)) return;
 
-  let bothRolling = session.reportRange.rolling && prevUpdateRange.rolling;
+  let bothRolling = session.reportRange.moving && prevUpdateRange.moving;
   prevUpdateRange = cloneObject(session.reportRange);
 
   if (currentView == "charts") createDashboardCharts();

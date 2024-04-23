@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function rollingAlertRange() {
+function movingAlertRange() {
   let minBnum = session.dashboardBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
   session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
@@ -13,8 +13,8 @@ function updateAlertRange() {
   rangeSlider.setRange([1, session.alerts.rangeLimit]);
 
   // if range is not "full"
-  if (!session.reportRange.rolling || sliderCommitPending) return;
-  if (session.reportRange.rolling) rollingAlertRange();
+  if (!session.reportRange.moving || sliderCommitPending) return;
+  if (session.reportRange.moving) movingAlertRange();
 
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -22,8 +22,8 @@ function updateAlertRange() {
 }
 
 function updateAlertRangeOnEntry() {
-  if (!session.reportRange.rolling) return;
-  rollingAlertRange();
+  if (!session.reportRange.moving) return;
+  movingAlertRange();
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;

@@ -7,7 +7,7 @@
 // breathTimes array
 // xRange is an object of the form
 // {
-//     rolling: true,
+//     moving: true,
 //     minBnum:null , 
 //     maxBnum:null ,
 //     missingBnum:[]

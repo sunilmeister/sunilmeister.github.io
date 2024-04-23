@@ -8,7 +8,7 @@ function createDashboardCharts() {
 
 ////////////////////////////////////////////////////////
 
-function rollingChartRange() {
+function movingChartRange() {
   let minBnum = session.dashboardBreathNum - CHART_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
   session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
@@ -19,8 +19,8 @@ function updateChartRange() {
   rangeSlider.setRange([1, session.charts.rangeLimit]);
 
   // if range is not "full"
-  if (!session.reportRange.rolling || sliderCommitPending) return;
-  if (session.reportRange.rolling) rollingChartRange();
+  if (!session.reportRange.moving || sliderCommitPending) return;
+  if (session.reportRange.moving) movingChartRange();
 
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -28,8 +28,8 @@ function updateChartRange() {
 }
 
 function updateChartRangeOnEntry() {
-  if (!session.reportRange.rolling) return;
-  rollingChartRange();
+  if (!session.reportRange.moving) return;
+  movingChartRange();
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;

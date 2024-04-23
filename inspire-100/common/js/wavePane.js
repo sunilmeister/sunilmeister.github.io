@@ -11,7 +11,7 @@
 // The constructor inputs are
 // Title of chart
 // Height in pixels
-// rangeX = {rolling:, 
+// rangeX = {moving:, 
 //           initBnum:Number, minBnum:Number, maxBnum:Number, 
 //           initTime:Date, minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
