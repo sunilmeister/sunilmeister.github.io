@@ -4,43 +4,22 @@
 // ////////////////////////////////////////////////////
 */
 
-select { 
-  /* for Firefox */ 
-  -moz-appearance: none; 
-  /* for Safari, Chrome, Opera */ 
-  -webkit-appearance: none; 
-	outline:none;
-	border-style: none;
-} 
-  
-/* for IE10 */ 
-select::-ms-expand { 
-  display: none; 
-	outline:none;
-	border-style: none;
-} 
-
-select[data-chosen] {
-	outline:none;
-	border-style: none;
-}
-
 hr {
 	border-style: solid;
 	border-width: 0.1rem;
 }
 
-input {
+input[type="select"] {
 	outline:none;
 	border-style: none;
 }
 
-input:focus {
+input[type="select"]:focus {
 	outline:none;
 	border-style: none;
 }
 
-input:active {
+input[type="select"]:active {
 	outline:none;
 	border-style: none;
 }
@@ -197,3 +176,29 @@ tr {
 	width: 1rem;
 	height: 1rem;
 }
+
+.audioSlider {
+  -webkit-appearance: none;
+	width: 6rem;
+  height : 1rem;
+}
+/* --------------------------- webkit browsers */
+.audioSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: var(--rsp_darkblue);
+	width: 1rem;
+  height : 1rem;
+  overflow: visible;
+  cursor: pointer;
+}
+/* -------------------------- Firefox */
+.audioSlider::-moz-range-thumb { 
+  -moz-appearance: none;
+  background-color: var(--rsp_darkblue);
+	width: 1rem;
+  height : 1rem;
+  overflow: visible;
+  cursor: pointer;
+}
+/* Remove dotted outline from range input element focused in Firefox */
+.audioSlider::-moz-focus-outer { border: 0; }
