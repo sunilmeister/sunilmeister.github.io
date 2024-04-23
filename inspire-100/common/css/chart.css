@@ -19,7 +19,7 @@
 .chartBanner {
   background-color: var(--rsp_darkblue);
   height:var(--chartMenuBannerHeight);
-	margin-bottom:0.2rem;
+	margin-bottom:0.3rem;
 }
 
 .chartEditMenuTitle {
