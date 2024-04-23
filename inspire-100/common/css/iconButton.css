@@ -6,10 +6,9 @@
 
 .iconButton {
   background-color: white;
-  border-color: white;
+  border-style: outset;
+	border-width: 0.2rem;
   color: var(--rsp_darkblue);
-  text-align: center;
-  text-decoration: none;
   cursor: pointer;
   opacity: 0.7;
   margin: 0.3rem;

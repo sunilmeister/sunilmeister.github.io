@@ -250,12 +250,15 @@
         <div id=rangeSliderDiv style="padding-left:0.3rem; padding-right:0.3rem;font-size:0.6rem; height:1.3rem;">
         </div>
         <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 0.6rem; padding-bottom:1.2rem;">
-          <button class=iconButton id=btnFullInterval onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right;" style="float:right;" title='Maximize'><img src="../common/img/maximize.png" style="width:1.2rem; height:1.2rem;"></button>
-          <button class=iconButton id=btnResetInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='resetTimeInterval(this)' style="float:left;" title='Default'><img src="../common/img/rolling.png" style="width:1.2rem; height:1.2rem;"></button>
-          <button class=iconButton id=btnEnterInterval onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' onClick='enterBreathInterval(this)' style="float:left;" title='Default'><img src="../common/img/pen.png" style="width:1.2rem; height:1.2rem;"></button>
+
+
+					<img src="../common/img/maximize.png" id=btnFullInterval class=iconButton onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/rolling.png" id=btnResetInterval class=iconButton onClick='resetTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
           <center>
-            <p style="margin-top: 0.6rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
+            <p id=sliderCaption style="margin-top: 0.7rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
           </center>
+
         </div>
       </div>
 
