@@ -800,9 +800,9 @@
   <template id=chartContainerTemplate>
     <div class=chartContainer>
       <div class=chartBanner>
-        <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Add Chart Box'><img src="../common/img/plus.png" style="width:1rem; height:1rem;"></button>
-        <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Delete'><img src="../common/img/trash-bin.png" style="width:1rem; height:1rem;"></button>
-        <button class='editIconButton iconButton' style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Edit'><img src="../common/img/pen.png" style="width:1rem; height:1rem;"></button>
+				<img src="../common/img/plus.png" class=iconButton title='Add Box' onClick='chartAppend(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1rem; height:1rem;">
+				<img src="../common/img/trash-bin.png" class=iconButton title='Delete' onClick='chartDelete(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1rem; height:1rem;">
+				<img src="../common/img/pen.png" class='iconButton editIconButton' title='Edit' onClick='chartEdit(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1rem; height:1rem;">
         <br>
       </div>
       <div class=chartBody>
@@ -813,7 +813,7 @@
   <template id=chartEditMenuTemplate>
     <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
       <div class=chartEditMenuBanner>
-        <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Cancel'><img src="../common/img/close.png" style="width:1rem; height:1rem;"></button>
+				<img src="../common/img/close.png" class=iconButton title='Cancel' onClick='chartMenuCancel(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1rem; height:1rem;">
         <br>
       </div>
 

@@ -524,254 +524,255 @@
 // Below are all templates only
 // ////////////////////////////////////////////////////
 -->
-    <template id=chartContainerTemplate>
-      <div class=chartContainer>
-        <div class=chartBanner>
-          <button class=iconButton style="float:left;" onClick="chartAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Chart Box"><img src="../common/img/plus.png" style="width:1.3rem; height:1.3rem;"></button>
-          <button class=iconButton style="float:right;" onClick="chartDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" style="width:1.3rem; height:1.3rem;"></button>
-          <button class='editIconButton iconButton' style="float:right;" onClick="chartEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" style="width:1.3rem; height:1.3rem;"></button>
-          <br>
+  <template id=chartContainerTemplate>
+    <div class=chartContainer>
+      <div class=chartBanner>
+				<img src="../common/img/plus.png" class=iconButton title='Add Box' onClick='chartAppend(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.4rem; height:1.4rem;">
+				<img src="../common/img/trash-bin.png" class=iconButton title='Delete' onClick='chartDelete(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.4rem; height:1.4rem;">
+				<img src="../common/img/pen.png" class='iconButton editIconButton' title='Edit' onClick='chartEdit(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.4rem; height:1.4rem;">
+        <br>
+      </div>
+      <div class=chartBody>
+      </div>
+    </div>
+  </template>
+
+  <template id=chartEditMenuTemplate>
+    <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
+      <div class=chartEditMenuBanner>
+					<img src="../common/img/close.png" class=iconButton title='Cancel' onClick='chartMenuCancel(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1rem; height:1rem;">
+
+        <br>
+      </div>
+
+      <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
+        <center>
+          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-1.3rem">
+            <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title">
+          </div>
+        </center>
+      </div>
+      <div id=chartCheckBoxTreeRoot style="margin-top:-1.3rem; padding-bottom:0.7rem;">
+        <center>
+          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+        </center>
+        <div style="background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
+          <input type="checkbox" id=Presssures class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=Presssures>Pressures</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Peak class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Peak>Peak Pressure</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Plat class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Plat>Plateau Pressure</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=PEEP class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=PEEP>PEEP Pressure</label>
+          </div>
         </div>
-        <div class=chartBody>
+        <br>
+        <div style="background-color: var(--rsp_lightblue)">
+          <input type="checkbox" id=Volumes class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=Volumes>Volumes</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Tidal class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Tidal>Tidal Volume</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=MinuteTotal class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=MinuteTotal>Total Minute Volume</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=MinuteMand class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=MinuteMand>Mandatory Minute Volume</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=MinuteSpont class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=MinuteSpont>Spontaneous Minute Volume</label>
+          </div>
+        </div>
+        <br>
+        <div style="background-color: var(--rsp_lightblue)">
+          <input type="checkbox" id=BPM class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=BPM>Breaths per minute</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Mandatory class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Mandatory>Mandatory BPM</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Spontaneous class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Spontaneous>Spontaneous BPM</label>
+          </div>
+        </div>
+        <br>
+        <div style="background-color: var(--rsp_lightblue)">
+          <input type="checkbox" id=BTYPE class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=BTYPE>Breath Type</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=MBreath class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=MBreath>Mandatory Breath</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=SBreath class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=SBreath>Spontaneous Breath</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=EBreath class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=EBreath>Maintenance Breath</label>
+          </div>
+        </div>
+        <br>
+        <div style="background-color: var(--rsp_lightblue);">
+          <input type="checkbox" id=Compliances class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=Compliances>Instant Lung DeltaV/DeltaP</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Dynamic class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Dynamic>Dynamic Lung DeltaV/DeltaP</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Static class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Static>Static Lung DeltaV/DeltaP</label>
+          </div>
+        </div>
+        <br>
+        <div style="background-color: var(--rsp_lightblue); ">
+          <input type="checkbox" id=Oxygen class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=Oxygen>Oxygen Related</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=FiO2 class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=FiO2>FiO2</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=O2Flow class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=O2Flow>Incoming O2 Flow Required</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=O2Purity class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=O2Purity>Incoming O2 Purity</label>
+          </div>
+        </div>
+        <br>
+        <div style="background-color: var(--rsp_lightblue); ">
+          <input type="checkbox" id=Miscellaneous class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+          <label for=Miscellaneous>Miscellaneous</label>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Errors class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Errors>System Errors</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Warnings class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Warnings>System Warnings</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Notifications class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Notifications>System Notifications</label>
+          </div>
+          <div class=chartIndentDiv>
+            <input type="checkbox" id=Temperature class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
+            <label for=Temperature>System Temperature</label>
+          </div>
         </div>
       </div>
-    </template>
+      <div id=XAxisUnits style="margin-top:-1.3rem;">
+        <center>
+          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-bottom:0;">X-axis Units</p>
+        </center>
+        <div style="background-color: var(--rsp_lightblue); margin-bottom:-1rem;">
+          <form name="XunitsForm" style="padding-top:0.8rem;">
+            <center>
+              <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked onclick='submitChartXaxis(this)'>
+              <label for=BNUM>Breath Number</label>
+              <input type="radio" id=TIME name="XAxisUnits" value="TIME" onclick='submitChartXaxis(this)'>
+              <label for=TIME>Breath Times</label>
+            </center>
+          </form>
+          <br>
+        </div>
+        <br>
+      </div>
+    </div>
+  </template>
 
-    <template id=chartEditMenuTemplate>
-      <div id=chartDropDownMenu class=chartEditMenu style="background-color: var(--rsp_lightblue);">
-        <div class=chartEditMenuBanner>
-          <button class=iconButton onClick="chartMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" style="width:1.3rem; height:1.3rem;"></button>
-          <br>
-        </div>
+  <template id=waveContainerTemplate>
+    <div class=waveContainer>
+      <div class=waveBanner>
+        <button class=iconButton style="float:left;" onClick="waveAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Wave Box"><img src="../common/img/plus.png" style="width:1.3rem; height:1.3rem;"></button>
+        <button class=iconButton style="float:right;" onClick="waveDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" style="width:1.3rem; height:1.3rem;"></button>
+        <button class='editIconButton iconButton' style="float:right;" onClick="waveEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" style="width:1.3rem; height:1.3rem;"></button>
+        <br>
+      </div>
+      <div class=waveBody>
+      </div>
+    </div>
+  </template>
 
-        <div id=chartTitleDiv style="background-color: var(--rsp_lightblue)">
-          <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-            <div style="background-color: var(--rsp_lightblue); margin-top:-1.3rem">
-              <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title">
-            </div>
-          </center>
-        </div>
-        <div id=chartCheckBoxTreeRoot style="margin-top:-1.3rem; padding-bottom:0.7rem;">
-          <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
-          </center>
-          <div style="background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
-            <input type="checkbox" id=Presssures class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=Presssures>Pressures</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Peak class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Peak>Peak Pressure</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Plat class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Plat>Plateau Pressure</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=PEEP class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=PEEP>PEEP Pressure</label>
-            </div>
+  <template id=waveEditMenuTemplate>
+    <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
+      <div class=waveEditMenuBanner>
+        <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" style="width:1.3rem; height:1.3rem;"></button>
+        <br>
+      </div>
+
+      <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
+        <center>
+          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-1.3rem">
+            <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title">
           </div>
-          <br>
-          <div style="background-color: var(--rsp_lightblue)">
-            <input type="checkbox" id=Volumes class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=Volumes>Volumes</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Tidal class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Tidal>Tidal Volume</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=MinuteTotal class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=MinuteTotal>Total Minute Volume</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=MinuteMand class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=MinuteMand>Mandatory Minute Volume</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=MinuteSpont class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=MinuteSpont>Spontaneous Minute Volume</label>
-            </div>
-          </div>
-          <br>
-          <div style="background-color: var(--rsp_lightblue)">
-            <input type="checkbox" id=BPM class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=BPM>Breaths per minute</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Mandatory class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Mandatory>Mandatory BPM</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Spontaneous class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Spontaneous>Spontaneous BPM</label>
-            </div>
-          </div>
-          <br>
-          <div style="background-color: var(--rsp_lightblue)">
-            <input type="checkbox" id=BTYPE class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=BTYPE>Breath Type</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=MBreath class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=MBreath>Mandatory Breath</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=SBreath class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=SBreath>Spontaneous Breath</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=EBreath class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=EBreath>Maintenance Breath</label>
-            </div>
-          </div>
-          <br>
-          <div style="background-color: var(--rsp_lightblue);">
-            <input type="checkbox" id=Compliances class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=Compliances>Instant Lung DeltaV/DeltaP</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Dynamic class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Dynamic>Dynamic Lung DeltaV/DeltaP</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Static class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Static>Static Lung DeltaV/DeltaP</label>
-            </div>
-          </div>
-          <br>
-          <div style="background-color: var(--rsp_lightblue); ">
-            <input type="checkbox" id=Oxygen class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=Oxygen>Oxygen Related</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=FiO2 class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=FiO2>FiO2</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=O2Flow class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=O2Flow>Incoming O2 Flow Required</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=O2Purity class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=O2Purity>Incoming O2 Purity</label>
-            </div>
-          </div>
-          <br>
-          <div style="background-color: var(--rsp_lightblue); ">
-            <input type="checkbox" id=Miscellaneous class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-            <label for=Miscellaneous>Miscellaneous</label>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Errors class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Errors>System Errors</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Warnings class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Warnings>System Warnings</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Notifications class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Notifications>System Notifications</label>
-            </div>
-            <div class=chartIndentDiv>
-              <input type="checkbox" id=Temperature class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
-              <label for=Temperature>System Temperature</label>
-            </div>
-          </div>
-        </div>
-        <div id=XAxisUnits style="margin-top:-1.3rem;">
-          <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-bottom:0;">X-axis Units</p>
-          </center>
-          <div style="background-color: var(--rsp_lightblue); margin-bottom:-1rem;">
-            <form name="XunitsForm" style="padding-top:0.8rem;">
-              <center>
-                <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked onclick='submitChartXaxis(this)'>
-                <label for=BNUM>Breath Number</label>
-                <input type="radio" id=TIME name="XAxisUnits" value="TIME" onclick='submitChartXaxis(this)'>
-                <label for=TIME>Breath Times</label>
-              </center>
-            </form>
+        </center>
+      </div>
+      <div id=waveCheckBoxTreeRoot style="margin-top:-1.3rem; padding-bottom:0.7rem;">
+        <center>
+          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
+        </center>
+        <div style="background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
+          <input type="checkbox" id=All class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+          <label for=All>All</label>
+          <div class=waveIndentDiv>
             <br>
+            <input type="checkbox" id=MandatoryB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=MandatoryB>Mandatory Breaths</label>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=MandatoryVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+              <label for=MandatoryVC>Volume Controlled</label>
+            </div>
           </div>
           <br>
-        </div>
-      </div>
-    </template>
-
-    <template id=waveContainerTemplate>
-      <div class=waveContainer>
-        <div class=waveBanner>
-          <button class=iconButton style="float:left;" onClick="waveAppend(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Add Wave Box"><img src="../common/img/plus.png" style="width:1.3rem; height:1.3rem;"></button>
-          <button class=iconButton style="float:right;" onClick="waveDelete(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Delete"><img src="../common/img/trash-bin.png" style="width:1.3rem; height:1.3rem;"></button>
-          <button class='editIconButton iconButton' style="float:right;" onClick="waveEdit(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Edit"><img src="../common/img/pen.png" style="width:1.3rem; height:1.3rem;"></button>
-          <br>
-        </div>
-        <div class=waveBody>
-        </div>
-      </div>
-    </template>
-
-    <template id=waveEditMenuTemplate>
-      <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
-        <div class=waveEditMenuBanner>
-          <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" style="width:1.3rem; height:1.3rem;"></button>
-          <br>
-        </div>
-
-        <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
-          <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-            <div style="background-color: var(--rsp_lightblue); margin-top:-1.3rem">
-              <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title">
-            </div>
-          </center>
-        </div>
-        <div id=waveCheckBoxTreeRoot style="margin-top:-1.3rem; padding-bottom:0.7rem;">
-          <center>
-            <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
-          </center>
-          <div style="background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
-            <input type="checkbox" id=All class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-            <label for=All>All</label>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=SpontaneousB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=SpontaneousB>Spontaneous Breaths</label>
             <div class=waveIndentDiv>
-              <br>
-              <input type="checkbox" id=MandatoryB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=MandatoryB>Mandatory Breaths</label>
-              <div class=waveIndentDiv>
-                <input type="checkbox" id=MandatoryVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-                <label for=MandatoryVC>Volume Controlled</label>
-              </div>
-            </div>
-            <br>
-            <div class=waveIndentDiv>
-              <input type="checkbox" id=SpontaneousB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=SpontaneousB>Spontaneous Breaths</label>
-              <div class=waveIndentDiv>
-                <input type="checkbox" id=SpontaneousVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-                <label for=SpontaneousVC>Volume Controlled</label>
-              </div>
-              <div class=waveIndentDiv>
-                <input type="checkbox" id=SpontaneousPS class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-                <label for=SpontaneousPS>Pressure Supported&nbsp</label>
-              </div>
-              <br>
+              <input type="checkbox" id=SpontaneousVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+              <label for=SpontaneousVC>Volume Controlled</label>
             </div>
             <div class=waveIndentDiv>
-              <input type="checkbox" id=MaintenanceB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
-              <br>
-            </div>
-            <div class=waveIndentDiv>
-              <input type="checkbox" id=ErrorB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=ErrorB>Include Error Breaths</label>
-              <br>
-            </div>
-            <div class=waveIndentDiv>
-              <input type="checkbox" id=AbnormalB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=AbnormalB>Include Abnormal Breaths</label>
+              <input type="checkbox" id=SpontaneousPS class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+              <label for=SpontaneousPS>Pressure Supported&nbsp</label>
             </div>
             <br>
           </div>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=MaintenanceB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
+            <br>
+          </div>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=ErrorB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=ErrorB>Include Error Breaths</label>
+            <br>
+          </div>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=AbnormalB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=AbnormalB>Include Abnormal Breaths</label>
+          </div>
+          <br>
         </div>
       </div>
-    </template>
+    </div>
+  </template>
 
   </body>
 
