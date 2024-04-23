@@ -1,22 +1,31 @@
 /*
-CanvasJS Angular Charts - https://canvasjs.com/
-Copyright 2022 fenopix
+CanvasJS Angular Chart- https://canvasjs.com/
+Copyright 2024 fenopix
 
 --------------------- License Information --------------------
-CanvasJS is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
-https://canvasjs.com/license/
+The software in CanvasJS Angular Chart is free and open-source. But, CanvasJS Angular Chart relies on CanvasJS Chart which requires a valid CanvasJS Chart license for commercial use. Please refer to the following link for further details https://canvasjs.com/license/
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
+
 /*tslint:disable*/
 /*eslint-disable*/
 /*jshint ignore:start*/
 import { Component, AfterViewInit, OnChanges, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 declare var require: any;
-var CanvasJS = require('./canvasjs.min');
+if(typeof document === 'object' && !!document) {
+	//@ts-ignore
+	var CanvasJS = require('./canvasjs.min');
+}
 
 @Component({
-  selector: 'canvasjs-chart',
-  template: '<div id="{{chartContainerId}}" [ngStyle]="styles"></div>'
+	selector: 'canvasjs-chart',
+	template: '<div *ngIf="isDOMPresent" id="{{chartContainerId}}" [ngStyle]="styles"></div>'
 })
 
 class CanvasJSChart implements AfterViewInit, OnChanges, OnDestroy {
@@ -25,20 +34,21 @@ class CanvasJSChart implements AfterViewInit, OnChanges, OnDestroy {
 	chartContainerId: any;
 	prevChartOptions: any;
 	shouldUpdateChart = false;
+	isDOMPresent = typeof document === "object" && !!document;
 
 	@Input()
-		options: any;
+	options: any;
 	@Input()
-		styles: any;
-		
+	styles: any;
+
 	@Output()
-		chartInstance = new EventEmitter<object>();
-		
+	chartInstance = new EventEmitter<object>();
+
 	constructor() {
 		this.options = this.options ? this.options : {};
 		this.styles = this.styles ? this.styles : { width: "100%", position: "relative" };
 		this.styles.height = this.options.height ? this.options.height + "px" : "400px";
-		
+
 		this.chartContainerId = 'canvasjs-angular-chart-container-' + CanvasJSChart._cjsChartContainerId++;
 	}
 
@@ -47,8 +57,8 @@ class CanvasJSChart implements AfterViewInit, OnChanges, OnDestroy {
 			this.shouldUpdateChart = true;
 		}
 	}
-	
-	ngOnChanges() {				
+
+	ngOnChanges() {
 		//Update Chart Options & Render
 		if(this.shouldUpdateChart && this.chart) {
 			this.chart.options = this.options;
@@ -57,12 +67,14 @@ class CanvasJSChart implements AfterViewInit, OnChanges, OnDestroy {
 			this.prevChartOptions = this.options;
 		}
 	}
-	
-	ngAfterViewInit() {		
-	  this.chart = new CanvasJS.Chart(this.chartContainerId, this.options);
-	  this.chart.render();
-	  this.prevChartOptions = this.options;
-	  this.chartInstance.emit(this.chart);
+
+	ngAfterViewInit() {
+		if(this.isDOMPresent) {
+			this.chart = new CanvasJS.Chart(this.chartContainerId, this.options);
+			this.chart.render();
+			this.prevChartOptions = this.options;
+			this.chartInstance.emit(this.chart);
+		}
 	}
 
 	ngOnDestroy() {

@@ -20,6 +20,7 @@
 .waveBanner {
   background-color: var(--rsp_darkblue);
   height:var(--waveMenuBannerHeight);
+	margin-bottom:0.2rem;
 }
 
 .waveEditMenuTitle {
