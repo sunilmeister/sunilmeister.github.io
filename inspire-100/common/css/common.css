@@ -193,4 +193,7 @@ tr {
   font-family: 'Verdana' !important;
 }
 
-
+.menuCheckBox {
+	width: 1rem;
+	height: 1rem;
+}
