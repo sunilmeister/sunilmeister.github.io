@@ -92,8 +92,8 @@ class ChartPane {
 			}
 			if (axisX.scaleBreaks) {
 				let customBreaks = axisX.scaleBreaks.customBreaks;
-				if (!isUndefined(customBreaks)) {
-					for (let i=0; i<axisX.customBreaks.length; i++) {
+				if (!isUndefined(customBreaks) && customBreaks) {
+					for (let i=0; i<customBreaks.length; i++) {
 						let cb = customBreaks[i];
 						cb.lineThickness = session.waves.stripLineThickness;
 					}

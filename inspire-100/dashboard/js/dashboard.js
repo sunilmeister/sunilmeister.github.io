@@ -662,7 +662,9 @@ function resizeChartsWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineThickness'));
 
 	resizeAllCharts();
+  if (currentView == "charts") renderAllCharts();
 	resizeAllWaves();
+  if (currentView == "waves") renderAllWaves();
 }
 
 function appResize() {

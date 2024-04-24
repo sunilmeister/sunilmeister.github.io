@@ -398,7 +398,13 @@ function resizeChartsWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineThickness'));
 
 	resizeAllCharts();
+  if (document.getElementById("chartsDiv").style.display == "block") {
+  	renderAllCharts();
+	}
 	resizeAllWaves();
+  if (document.getElementById("wavesDiv").style.display == "block") {
+  	renderAllWaves();
+	}
 }
 
 function initGlobals() {

@@ -167,7 +167,7 @@ function resizeAllCharts() {
 		box.resizeFonts();
 	}
 
-	renderAllCharts();
+	// renderAllCharts();
 }
 
 function submitChartXaxis(bnode) {

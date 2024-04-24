@@ -136,7 +136,7 @@ function resizeAllWaves() {
 		box.resizeFonts();
   }
 
-	renderAllWaves();
+	//renderAllWaves();
 }
 
 function renderAllWaves() {
