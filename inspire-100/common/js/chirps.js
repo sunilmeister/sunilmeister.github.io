@@ -926,16 +926,14 @@ function processBnumChirp(curTime, value, jsonData) {
     session.missingBreathWindows.push({
       "startValue": lastBreathNum + 0.5,
       "endValue": lastBreathNum + breathsMissing + 0.5,
-      "type": "straight",
-      "lineColor": "orange",
+			"lineThickness": session.waves.stripLineThickness,
       "autoCalculate": true
     });
     if (!session.lastValidBreathTime) session.lastValidBreathTime = session.startDate;
     session.missingTimeWindows.push({
       "startValue": ((new Date(session.lastValidBreathTime) - session.startDate) / 1000) + 0.5,
       "endValue": ((new Date(breathTime) - session.startDate) / 1000) - 0.5,
-      "type": "straight",
-      "lineColor": "orange",
+			"lineThickness": session.waves.stripLineThickness,
       "autoCalculate": true
     });
     let msg = {
