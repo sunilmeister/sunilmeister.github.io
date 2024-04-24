@@ -60,6 +60,7 @@ var finishedLoading = false;
 
 var messagesBackground = "BRIGHTGREEN";
 var alertBackground = "GREEN";
+var sliderDivBackground = "NONE";
 var pendingBackground = "MEDIUMBLUE";
 var flowDivBackground = "DARKBLUE";
 var pauseButtonForeground = "MEDIUMBLUE";

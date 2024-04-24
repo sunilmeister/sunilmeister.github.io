@@ -75,7 +75,7 @@ class WavePane {
 
 			if (axisX.scaleBreaks) {
 				let customBreaks = axisX.scaleBreaks.customBreaks;
-				if (customBreaks) {
+				if (!isUndefine(customBreaks)) {
 					for (let i=0; i<axisX.customBreaks.length; i++) {
 						let cb = customBreaks[i];
 						cb.lineThickness = session.waves.stripLineThickness;

@@ -209,6 +209,25 @@ function toggleAudio() {
   }
 }
 
+function blinkSliderDiv() {
+  let div = document.getElementById("rangeWindowDiv");
+	if (!session.reportRange.moving) {
+    if (sliderDivBackground == "NONE") {
+  		document.getElementById("btnResetInterval").src = "../common/img/playOrange.png";
+    	div.style.backgroundColor = palette.orange;
+			sliderDivBackground = "ORANGE";
+		} else {
+  		document.getElementById("btnResetInterval").src = "../common/img/play.png";
+			div.style. removeProperty("background-color")
+			sliderDivBackground = "NONE";
+		}
+	} else {
+ 		document.getElementById("btnResetInterval").src = "../common/img/pause.png";
+		div.style. removeProperty("background-color")
+		sliderDivBackground = "NONE";
+	}
+}
+
 function blinkPauseButton() {
   let btn = document.getElementById("btnPause");
   let ttl = document.getElementById("breathsHeading");
@@ -247,6 +266,8 @@ function enterBreathInterval () {
 }
 
 function acceptBreathRange () {
+  document.getElementById("btnResetInterval").src = "../common/img/play.png";
+
   let fromBreath = document.getElementById("fromBreath").value;
   let toBreath = document.getElementById("toBreath").value;
   document.getElementById("enterRangeDiv").style.display = "none";
@@ -724,6 +745,13 @@ function setTimeInterval() {
 }
 
 function resetTimeInterval() {
+	if (session.reportRange.moving) {
+		session.reportRange.moving = false;
+  	document.getElementById("btnResetInterval").src = "../common/img/play.png";
+		return;
+	}
+
+  document.getElementById("btnResetInterval").src = "../common/img/pause.png";
   session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   stopSliderCallback = true;
   rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -739,6 +767,8 @@ function resetTimeInterval() {
 }
 
 function setFullInterval() {
+  document.getElementById("btnResetInterval").src = "../common/img/play.png";
+
   let values = rangeSlider.getRange();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
@@ -769,6 +799,7 @@ function HandlePeriodicTasks() {
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkPauseButton();
     blinkFlowRate();
+		blinkSliderDiv();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   if (awaitingFirstChirp) {
