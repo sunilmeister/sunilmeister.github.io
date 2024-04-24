@@ -72,6 +72,45 @@
   </head>
 
   <body style="font-family:verdana">
+  	<div id=breathRangePopup class=popupClassCenter style="display:none;">
+			<center>
+			<h5 style="padding-top:-1rem;">Selected Breath Range
+			<br><br>
+      <table class=breathRangeTable>
+        <thead>
+          <tr>
+          	<th rowspan=2></th>
+          	<th rowspan=2 style="width:6rem;">Breath Number</th>
+          	<th colspan=3>Breath Start Time</th>
+          </tr>
+          <tr>
+          <th>Day</th>
+          <th>Date</th>
+          <th>Time</th>
+          </tr>
+        </thead>
+      
+      	<tbody>
+          <tr style="height:2rem;">
+          <th>From</th>
+        	<td id=fromRangeBnum style="text-align:center;">1</td>
+          <td id=fromRangeDay></td>
+          <td id=fromRangeDate></td>
+          <td id=fromRangeTime></td>
+          </tr>
+        
+          <tr style="height:2rem;">
+          <th>Upto</th>
+        	<td id=toRangeBnum style="text-align:center;"></td>
+          <td id=toRangeDay></td>
+          <td id=toRangeDate></td>
+          <td id=toRangeTime></td>
+          </tr>
+      	</tbody>
+      </table>
+			</center>
+  	</div>
+
     <div id=importDiv class=popupClassCenter style="width:38rem; height:28rem; display: none">
       <center>
         <div style="font-size: 2rem;">
@@ -209,7 +248,7 @@
 
     <div id=nonMenuArea class=body-pane>
 
-      <div id=playbackWindowDiv style="margin-top:0; margin-bottom:0.7rem; font-size:1.5rem ;display:none; padding-bottom:0.3rem; ">
+      <div id=playbackWindowDiv style="margin-top:0; margin-bottom:0.7rem; font-size:1.5rem ;display:none; padding-bottom:0.3rem;" ondblclick='showCurrentRangeTimes()'>
         <div id=playbackRangeSliderDiv style="margin-top:1.5rem; padding-left:1.3rem; padding-right:1.3rem;font-size:1.25rem; height:1.4rem;">
         </div>
         <div style="background-color:var(--rsp_green); color:white; margin-top: 0.7rem; ">

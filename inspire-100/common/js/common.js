@@ -550,6 +550,69 @@ function registerDbName(dbName) {
 
 const O2FLOW_SAFETY_BOOST_PERCENT = 107;
 
+// return Date object or null
+function lookupBreathTime(bnum) {
+	let btimes = session.breathTimes;
+	if (!btimes) return null;
+	if (bnum >= btimes.length) return null;
+	return new Date(btimes[bnum].breathTime);
+}
+
+function showCurrentRangeTimes() {
+	let minBnum = session.reportRange.minBnum;
+	let maxBnum = session.reportRange.maxBnum;
+	if (maxBnum <= minBnum) {
+		document.getElementById('fromRangeDay').innerHTML = "---";
+		document.getElementById('fromRangeDate').innerHTML = "---";
+		document.getElementById('fromRangeTime').innerHTML = "---";
+		document.getElementById('toRangeDay').innerHTML = "---";
+		document.getElementById('toRangeDate').innerHTML = "---";
+		document.getElementById('toRangeTime').innerHTML = "---";
+		document.getElementById('fromRangeBnum').innerHTML = "---";
+		document.getElementById('toRangeBnum').innerHTML = "---";
+		return;
+	}
+	document.getElementById('fromRangeBnum').innerHTML = minBnum;
+	document.getElementById('toRangeBnum').innerHTML = maxBnum;
+
+	let minTime = session.reportRange.minTime;
+	let maxTime = session.reportRange.maxTime;
+
+ 	let mm = minTime.getMonth();
+	let dd = minTime.getDate();
+	let yyyy = minTime.getFullYear();
+	let ddStr = String(dd).padStart(2, "0");
+	let dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
+  let hour = minTime.getHours();
+  let minute = minTime.getMinutes();
+  let second = minTime.getSeconds();
+  let hourStr = hour.toString().padStart(2, "0");
+  let minuteStr = minute.toString().padStart(2, "0");
+  let secondStr = second.toString().padStart(2, "0");
+  let timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
+	document.getElementById('fromRangeDay').innerHTML = weekDays[minTime.getDay()];
+	document.getElementById('fromRangeDate').innerHTML = dateStr;
+	document.getElementById('fromRangeTime').innerHTML = timeStr;
+
+ 	mm = maxTime.getMonth();
+	dd = maxTime.getDate();
+	yyyy = maxTime.getFullYear();
+	ddStr = String(dd).padStart(2, "0");
+	dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
+  hour = maxTime.getHours();
+  maxute = maxTime.getMinutes();
+  second = maxTime.getSeconds();
+  hourStr = hour.toString().padStart(2, "0");
+  maxuteStr = maxute.toString().padStart(2, "0");
+  secondStr = second.toString().padStart(2, "0");
+  timeStr = `${hourStr}:${maxuteStr}:${secondStr}`;
+	document.getElementById('toRangeDay').innerHTML = weekDays[maxTime.getDay()];
+	document.getElementById('toRangeDate').innerHTML = dateStr;
+	document.getElementById('toRangeTime').innerHTML = timeStr;
+
+	document.getElementById('breathRangePopup').style.display = "block";
+}
+
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
   if (fiO2 == atmPurity) return 0;
   if (fiO2 < atmPurity) fiO2 = atmPurity;
@@ -625,51 +688,9 @@ function o2PurityAtAltitudeMtr(mtr) {
   return o2PurityAtAltitudeFt(mtr * 3.28);
 }
 
-
-function showEditIconReminder() {
-  if (getCookie(editReminderOffCookieName) == "OFF") return;
-
-  let modalColor = palette.modal;
-  
-  Swal.fire({
-    icon: 'info',
-    position: 'bottom-end',
-    title: EDIT_ICON_TITLE_STR,
-    html: EDIT_ICON_MESSAGE_STR,
-    showConfirmButton: true,
-    color: 'white',
-    background: modalColor,
-    showConfirmButton: true,
-    confirmButtonColor: '#0D3E51',
-    confirmButtonText: 'DISMISS',
-    showDenyButton: true,
-    denyButtonColor: '#B22222',
-    denyButtonText: "STOP Reminders!",
-    showCloseButton: true,
-    showClass: {
-      popup: `
-        animate__animated
-        animate__fadeInUp
-        animate__faster
-      `
-    },
-    hideClass: {
-      popup: `
-        animate__animated
-        animate__fadeOutDown
-        animate__faster
-      `
-    },
-    grow: 'row',
-    timerProgressBar: true,
-    timer: 5000
-  }).then((result) => {
-    if (result.isDenied) {
-      setCookie(editReminderOffCookieName, "OFF");
-    }
-  })
-}
-
+// ///////////////////////////////////////////////
+// modals for warnings, errors etc.
+// ///////////////////////////////////////////////
 function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',

@@ -2,6 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 const CURRENT_RECORDING_VERSION = "1.0";
+const weekDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
 ////////////////////////////////////////////////////////////////////////////////
 // Switch between using dweetio.listen_for and inspireListenFor

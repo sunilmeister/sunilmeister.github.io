@@ -111,6 +111,45 @@
     </center>
   </div>
 
+	<div id=breathRangePopup class=popupClassCenter style="display:none;">
+		<center>
+		<h5 style="padding-top:-1rem;">Selected Breath Range
+		<br><br>
+    <table class=breathRangeTable>
+      <thead>
+        <tr>
+        	<th rowspan=2></th>
+        	<th rowspan=2 style="width:6rem;">Breath Number</th>
+        	<th colspan=3>Breath Start Time</th>
+        </tr>
+        <tr>
+        <th>Day</th>
+        <th>Date</th>
+        <th>Time</th>
+        </tr>
+      </thead>
+    
+    	<tbody>
+        <tr style="height:2rem;">
+        <th>From</th>
+      	<td id=fromRangeBnum style="text-align:center;"></td>
+        <td id=fromRangeDay></td>
+        <td id=fromRangeDate></td>
+        <td id=fromRangeTime></td>
+        </tr>
+      
+        <tr style="height:2rem;">
+        <th>Upto</th>
+      	<td id=toRangeBnum style="text-align:center;"></td>
+        <td id=toRangeDay></td>
+        <td id=toRangeDate></td>
+        <td id=toRangeTime></td>
+        </tr>
+    	</tbody>
+    </table>
+		</center>
+	</div>
+
   <div id=recordNameDiv class=popupClassCenter style="width:30rem; height:18rem; display: none">
     <center>
       <div style="font-size: 2rem;">
@@ -246,7 +285,7 @@
 
     <div id=nonMenuArea class=dashboard-pane>
 
-      <div id=rangeWindowDiv style="margin-top:1.5rem; margin-bottom: -1.5rem; color: white; display:none;">
+      <div id=rangeWindowDiv style="margin-top:1.5rem; margin-bottom: -1.5rem; color: white; display:none;" ondblclick='showCurrentRangeTimes()'>
         <div id=rangeSliderDiv style="padding-left:0.3rem; padding-right:0.3rem;font-size:0.6rem; height:1.3rem;">
         </div>
         <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 0.6rem; padding-bottom:1.2rem;">
