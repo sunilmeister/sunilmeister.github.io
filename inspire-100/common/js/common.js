@@ -558,6 +558,25 @@ function lookupBreathTime(bnum) {
 	return new Date(btimes[bnum].breathTime);
 }
 
+function enterRangeBnum() {
+	document.getElementById('enterRangeBnumDiv').style.display = "block";
+	document.getElementById('enterRangeBtimeDiv').style.display = "none";
+}
+
+function enterRangeBtime() {
+	$('input[name="rangeFromBtime"]').daterangepicker({
+    singleDatePicker: true,
+    timePicker: true,
+		startDate: session.reportRange.minTime,
+		endDate: session.reportRange.maxTime,
+		minDate: session.startDate,
+		maxDate: addMsToDate(session.startDate,session.sessionDurationInMs),
+    showDropdowns: true,
+	});
+	document.getElementById('enterRangeBnumDiv').style.display = "none";
+	document.getElementById('enterRangeBtimeDiv').style.display = "block";
+}
+
 function showCurrentRangeTimes() {
 	let minBnum = session.reportRange.minBnum;
 	let maxBnum = session.reportRange.maxBnum;

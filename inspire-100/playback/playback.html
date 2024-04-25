@@ -20,7 +20,9 @@
     <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
-    <link rel="stylesheet" href="css/sizes.css" />
+
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+		<link rel="stylesheet" href="css/sizes.css" />
     <link rel="stylesheet" href="../common/css/colors.css" />
     <link rel="stylesheet" href="../common/css/common.css" />
     <link rel="stylesheet" href="../common/css/noUi.css" />
@@ -32,6 +34,9 @@
     <link rel="stylesheet" href="../common/css/wavesLegend.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
 
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="../external/nouislider/nouislider.min.js"></script>
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/canvasjs/canvasjs.min.js"></script>
@@ -156,20 +161,43 @@
       </center>
     </div>
 
-    <div id=enterRangeDiv class=popupClassCenter style="width:33rem; height:15rem; display: none">
+    <div id=enterRangeDiv class=popupClassCenter style="width:34rem; height:26rem; display: none">
       <center>
-        <div style="font-size: 1.5rem; ">
+			<p style="font-size:2rem;">Enter Breath Range
+			<div style="font-size:1.5rem;">
+				<hr>
+      	<input type="radio" id=enterRangeBnum name="enterRangeType" value="BNUM" checked onclick='enterRangeBnum()'>
+      	<label for=enterRangeBnum>Breath Numbers</label>
+      	<input type="radio" id=enterRangeBtime name="enterRangeType" value="BTIME" onclick='enterRangeBtime()'>
+      	<label for=enterRangeBtime>Breath Times</label>
+        <hr>
+			</div>
+        <div id=enterRangeBnumDiv style="font-size: 1.5rem; text-align: right; padding-right:4rem; display:block;">
           <br>
-          <label for="fromBreath">Starting Breath Number</label>
-          <input id=fromBreath style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
+          <label for=rangeFromBnum>Starting Breath Number</label>
+          <input id=rangeFromBnum style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
           <br>
           <br>
-          <label for="toBreath">&nbsp&nbspEnding Breath Number</label>
-          <input id=toBreath style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
+          <label for=rangeNumBreaths>Number of Breaths</label>
+          <input id=rangeNumBreaths style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
+          <br>
+				</div>
+
+        <div id=enterRangeBtimeDiv style="font-size: 1.5rem; text-align: right; padding-right:4rem; display:none;">
+          <br>
+          <label for=rangeFromBtime>Starting Breath Time</label>
+          <input id=rangeFromBtime name=rangeFromBtime style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
           <br>
           <br>
+          <label for=rangeDuration>Duration</label>
+          <input id=rangeDuration type=time style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
+          <br>
+				</div>
+
+				<div>
+					<hr>
           <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:12rem;
-          font-size:1.5rem;" onclick='acceptBreathRange()'>CHANGE</button>
+          font-size:1.5rem;" onclick='acceptBreathRange()'>SUBMIT</button>
           <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelBreathRange()'>CANCEL</button>
           <br>
           <br>

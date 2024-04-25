@@ -463,8 +463,6 @@ function updateLogDuration() {
 }
 
 function enterBreathInterval () {
-  document.getElementById("fromBreath").value = session.reportRange.minBnum;
-  document.getElementById("toBreath").value = session.reportRange.maxBnum;
   document.getElementById("enterRangeDiv").style.display = "block";
 }
 
@@ -653,8 +651,10 @@ window.onload = function () {
 
   // All forms
   new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
-  new KeypressEnterSubmit('fromBreath', 'acceptRangeBtn');
-  new KeypressEnterSubmit('toBreath', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeDuration', 'acceptRangeBtn');
 
   resetPlaybackData();
   selectSession();
