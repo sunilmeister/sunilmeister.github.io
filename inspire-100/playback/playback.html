@@ -79,10 +79,10 @@
   </head>
 
   <body style="font-family:verdana">
-  	<div id=breathRangePopup class=popupClassCenter style="display:none;">
-			<center>
-			<h5 style="padding-top:-1rem;">Selected Breath Range
-			<br><br>
+  	<div id=breathRangePopup class=popupClassCenter style="height:22rem; width:32rem; display:none;">
+  		<center>
+  		<p style="margin-bottom:-1rem;">Selected Breath Range
+  		<br><br>
       <table class=breathRangeTable>
         <thead>
           <tr>
@@ -100,7 +100,7 @@
       	<tbody>
           <tr style="height:2rem;">
           <th>From</th>
-        	<td id=fromRangeBnum style="text-align:center;">1</td>
+        	<td id=fromRangeBnum style="text-align:center;"></td>
           <td id=fromRangeDay></td>
           <td id=fromRangeDate></td>
           <td id=fromRangeTime></td>
@@ -113,9 +113,15 @@
           <td id=toRangeDate></td>
           <td id=toRangeTime></td>
           </tr>
+        
+          <tr style="height:2rem;">
+          <th>SPAN</th>
+        	<td id=spanRangeBnum style="text-align:center;"></td>
+        	<td id=spanRangeBtime colspan=3 style="text-align:center;"></td>
+          </tr>
       	</tbody>
       </table>
-			</center>
+  		</center>
   	</div>
 
     <div id=importDiv class=popupClassCenter style="width:38rem; height:28rem; display: none">

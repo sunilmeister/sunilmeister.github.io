@@ -51,6 +51,22 @@ function msToDateStr(ms) {
   return dateToStr(d);
 }
 
+function msToTimeStr(ms) {
+	let secs = ms/1000;
+  let hh = Math.floor(secs/3600);
+	secs = secs % 3600;
+  let mm = Math.floor(secs/60);
+	let ss = secs % 60;
+
+	let hhStr = hh.toString().padStart(2, 0);
+	let mmStr = mm.toString().padStart(2, 0);
+	let ssStr = ss.toString().padStart(2, 0);
+
+  let timeStr = `${hhStr}:${mmStr}:${ssStr}`;
+	return timeStr;
+
+}
+
 function dateStrToMs(dStr) {
   d = strToDate(dStr);
   return d.getTime();

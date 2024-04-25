@@ -114,10 +114,14 @@ function showCurrentRangeTimes() {
 		document.getElementById('toRangeTime').innerHTML = "---";
 		document.getElementById('fromRangeBnum').innerHTML = "---";
 		document.getElementById('toRangeBnum').innerHTML = "---";
+		document.getElementById('spanRangeBnum').innerHTML = "---";
+		document.getElementById('spanRangeBtime').innerHTML = "---";
+		document.getElementById('breathRangePopup').style.display = "block";
 		return;
 	}
 	document.getElementById('fromRangeBnum').innerHTML = minBnum;
 	document.getElementById('toRangeBnum').innerHTML = maxBnum;
+	document.getElementById('spanRangeBnum').innerHTML = maxBnum - minBnum + 1;
 
 	let minTime = session.reportRange.minTime;
 	let maxTime = session.reportRange.maxTime;
@@ -144,15 +148,18 @@ function showCurrentRangeTimes() {
 	ddStr = String(dd).padStart(2, "0");
 	dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
   hour = maxTime.getHours();
-  maxute = maxTime.getMinutes();
+  minute = maxTime.getMinutes();
   second = maxTime.getSeconds();
   hourStr = hour.toString().padStart(2, "0");
-  maxuteStr = maxute.toString().padStart(2, "0");
+  minuteStr = minute.toString().padStart(2, "0");
   secondStr = second.toString().padStart(2, "0");
-  timeStr = `${hourStr}:${maxuteStr}:${secondStr}`;
+  timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
 	document.getElementById('toRangeDay').innerHTML = weekDays[maxTime.getDay()];
 	document.getElementById('toRangeDate').innerHTML = dateStr;
 	document.getElementById('toRangeTime').innerHTML = timeStr;
+
+	let tspan = maxTime.getTime() - minTime.getTime();
+	document.getElementById('spanRangeBtime').innerHTML = msToTimeStr(tspan);
 
 	document.getElementById('breathRangePopup').style.display = "block";
 }
