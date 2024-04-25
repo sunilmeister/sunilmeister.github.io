@@ -157,3 +157,10 @@ function showCurrentRangeTimes() {
 	document.getElementById('breathRangePopup').style.display = "block";
 }
 
+window.addEventListener("load", function() {
+  new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');
+  new KeypressEnterSubmit('rangeDuration', 'acceptRangeBtn');
+});
+

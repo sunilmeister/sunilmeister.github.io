@@ -259,43 +259,6 @@ function blinkPauseButton() {
   }
 }
 
-function enterBreathInterval () {
-  document.getElementById("fromBreath").value = session.reportRange.minBnum;
-  document.getElementById("toBreath").value = session.reportRange.maxBnum;
-  document.getElementById("enterRangeDiv").style.display = "block";
-}
-
-function acceptBreathRange () {
-  document.getElementById("btnResetInterval").src = "../common/img/play.png";
-
-  let fromBreath = document.getElementById("fromBreath").value;
-  let toBreath = document.getElementById("toBreath").value;
-  document.getElementById("enterRangeDiv").style.display = "none";
-
-  let badRange = false;
-  badRange = badRange || (fromBreath <= 0);
-  badRange = badRange || (toBreath <= 0);
-  badRange = badRange || (toBreath > session.dashboardBreathNum);
-  badRange = badRange || (fromBreath >= toBreath);
-
-  if (badRange) {
-    // console.log("Badrange: from " + fromBreath + " to " + toBreath);
-    modalAlert("Invalid Breath Range", "Try again!");
-    return;
-  }
-
-  stopSliderCallback = true;
-  rangeSlider.setSlider([fromBreath, toBreath]);
-  stopSliderCallback = false;
-
-  sliderCommitPending = true;
-  setTimeInterval();
-}
-
-function cancelBreathRange () {
-  document.getElementById("enterRangeDiv").style.display = "none";
-}
-
 function changeToSnapshotView() {
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("btnCharts").disabled = false;
@@ -611,8 +574,6 @@ window.onload = function () {
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
-  new KeypressEnterSubmit('fromBreath', 'acceptRangeBtn');
-  new KeypressEnterSubmit('toBreath', 'acceptRangeBtn');
 
   displayMessageLine("Mline1", banner1);
   displayMessageLine("Mline2", banner2);
@@ -688,8 +649,8 @@ window.onbeforeunload = function (e) {
 }
 
 function createRangeSlider(div) {
-  if (rangeSlider) return;
-  rangeSlider = new IntRangeSlider(
+  if (session.rangeSlider) return;
+  session.rangeSlider = new IntRangeSlider(
     div,
     0,
     CHART_NUM_ROLLING_BREATHS,
@@ -697,7 +658,7 @@ function createRangeSlider(div) {
     0,
     1
   );
-  rangeSlider.setChangeCallback(rangeSliderCallback);
+  session.rangeSlider.setChangeCallback(rangeSliderCallback);
 }
 
 function rangeSliderCallback() {
@@ -708,7 +669,7 @@ function rangeSliderCallback() {
   let bmax = parseInt(values[1]);
 
   stopSliderCallback = true;
-  rangeSlider.setSlider([bmin, bmax]);
+  session.rangeSlider.setSlider([bmin, bmax]);
   stopSliderCallback = false;
 }
 
@@ -737,7 +698,7 @@ function setBackGroundBreathWindowButton(id, bgd) {
 
 function setTimeInterval() {
   if (!sliderCommitPending) return;
-  let values = rangeSlider.getSlider();
+  let values = session.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
   session.reportRange = createReportRange(false, bmin, bmax);
@@ -756,7 +717,7 @@ function resetTimeInterval() {
   document.getElementById("btnResetInterval").src = "../common/img/pause.png";
   session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   stopSliderCallback = true;
-  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   if (currentView == "charts") updateChartRange();
@@ -771,12 +732,12 @@ function resetTimeInterval() {
 function setFullInterval() {
   document.getElementById("btnResetInterval").src = "../common/img/play.png";
 
-  let values = rangeSlider.getRange();
+  let values = session.rangeSlider.getRange();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
   session.reportRange = createReportRange(false, bmin, bmax);
   stopSliderCallback = true;
-  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 
   createDashboards();
@@ -786,7 +747,7 @@ function setFullInterval() {
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
   sliderCommitPending = true;
-  let values = rangeSlider.getSlider();
+  let values = session.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
   setTimeInterval();

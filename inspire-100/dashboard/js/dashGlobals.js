@@ -87,7 +87,6 @@ var sliderCommitPending = false;
 var stopSliderCallback = false;
 var sliderDiv = null;
 var rangeWindowDiv = null;
-var rangeSlider = null;
 
 // Various HTML divs for updating
 var stateDIV = null;

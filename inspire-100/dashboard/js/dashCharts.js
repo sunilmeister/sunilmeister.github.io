@@ -16,14 +16,14 @@ function movingChartRange() {
 
 function updateChartRange() {
   session.charts.rangeLimit = session.dashboardBreathNum;
-  rangeSlider.setRange([1, session.charts.rangeLimit]);
+  session.rangeSlider.setRange([1, session.charts.rangeLimit]);
 
   // if range is not "full"
   if (!session.reportRange.moving || sliderCommitPending) return;
   if (session.reportRange.moving) movingChartRange();
 
   stopSliderCallback = true;
-  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 }
 
@@ -31,6 +31,6 @@ function updateChartRangeOnEntry() {
   if (!session.reportRange.moving) return;
   movingChartRange();
   stopSliderCallback = true;
-  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 }

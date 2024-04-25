@@ -19,7 +19,7 @@ function movingWaveRange() {
 }
 
 function updateWaveRange() {
-  rangeSlider.setRange([1, session.dashboardBreathNum]);
+  session.rangeSlider.setRange([1, session.dashboardBreathNum]);
 
   if (!session.reportRange.moving || sliderCommitPending) return;
   if (session.reportRange.moving) {
@@ -30,7 +30,7 @@ function updateWaveRange() {
     }
 
     stopSliderCallback = true;
-    rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+    session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
     stopSliderCallback = false;
   }
 }
@@ -40,6 +40,6 @@ function updateWaveRangeOnEntry() {
 
   movingWaveRange();
   stopSliderCallback = true;
-  rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
   stopSliderCallback = false;
 }
