@@ -2,7 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var playbackRangeSlider = null;
 var sessionBannerHTML = null;
 var sliderCommitPending = false;
 var exportRowDiv = null;
@@ -454,44 +453,13 @@ function checkValidPlaybackDuration() {
 
 function updateLogDuration() {
   let diff = session.playback.logEndTime - session.playback.logStartTime;
+	session.sessionDurationInMs = diff;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = msToTimeStr(diff);
   } else {
     elm.innerHTML = "NaN";
   }
-}
-
-function enterBreathInterval () {
-  document.getElementById("enterRangeDiv").style.display = "block";
-}
-
-function acceptBreathRange () {
-  let fromBreath = document.getElementById("fromBreath").value;
-  let toBreath = document.getElementById("toBreath").value;
-  document.getElementById("enterRangeDiv").style.display = "none";
-
-  let badRange = false;
-  badRange = badRange || (fromBreath <= 0);
-  badRange = badRange || (toBreath <= 0);
-  badRange = badRange || (toBreath > session.playback.logEndBreath);
-  badRange = badRange || (fromBreath >= toBreath);
-
-  if (badRange) {
-    modalAlert("Invalid Breath Range", "Try again!");
-    return;
-  }
-
-  stopSliderCallback = true;
-  playbackRangeSlider.setSlider([fromBreath, toBreath]);
-  stopSliderCallback = false;
-
-  sliderCommitPending = true;
-  setTimeInterval();
-}
-
-function cancelBreathRange () {
-  document.getElementById("enterRangeDiv").style.display = "none";
 }
 
 function updateSelectedDuration() {
@@ -528,7 +496,7 @@ function refreshActivePane() {
 function setTimeInterval() {
   if (!sliderCommitPending) return;
   sliderCommitPending = false;
-  values = playbackRangeSlider.getSlider();
+  values = session.rangeSlider.getSlider();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
@@ -542,7 +510,7 @@ function setTimeInterval() {
   session.playback.playbackEndBreath = e;
   session.playback.playbackStartTime = session.breathTimes[s];
   session.playback.playbackEndTime = session.breathTimes[e];
-  playbackRangeSlider.setSlider([s, e]);
+  session.rangeSlider.setSlider([s, e]);
 
   setPlaybackRanges();
   updateSelectedDuration();
@@ -552,7 +520,7 @@ function setTimeInterval() {
 
 function setFullInterval() {
   sliderCommitPending = false;
-  values = playbackRangeSlider.getRange();
+  values = session.rangeSlider.getRange();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
@@ -566,7 +534,7 @@ function setFullInterval() {
   session.playback.playbackEndBreath = e;
   session.playback.playbackStartTime = session.breathTimes[s];
   session.playback.playbackEndTime = session.breathTimes[e];
-  playbackRangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
+  session.rangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
 
   setPlaybackRanges();
   updateSelectedDuration();
@@ -580,7 +548,7 @@ function resetTimeInterval() {
   session.playback.playbackEndBreath = session.playback.logEndBreath;
   session.playback.playbackStartTime = session.playback.logStartTime;
   session.playback.playbackEndTime = session.playback.logEndTime;
-  playbackRangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
+  session.rangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
 
   setPlaybackRanges();
   updateSelectedDuration();
@@ -707,9 +675,9 @@ function updateRangeOnNewBreath(num) {
 
 function createPlaybackRangeSlider() {
   // Create playback range slider
-  if (!playbackRangeSlider) {
+  if (!session.rangeSlider) {
     playbackRangeSliderDiv = document.getElementById('playbackRangeSliderDiv');
-    playbackRangeSlider = new IntRangeSlider(
+    session.rangeSlider = new IntRangeSlider(
       playbackRangeSliderDiv,
       session.playback.playbackStartBreath,
       session.playback.playbackEndBreath,
@@ -717,11 +685,11 @@ function createPlaybackRangeSlider() {
       session.playback.playbackEndBreath,
       1
     );
-    playbackRangeSlider.setChangeCallback(playbackRangeSliderCallback);
+    session.rangeSlider.setChangeCallback(playbackRangeSliderCallback);
   }
 
-  playbackRangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
-  playbackRangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
+  session.rangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
+  session.rangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
 
   elm = document.getElementById("playbackWindowDiv");
   elm.style.display = "none";

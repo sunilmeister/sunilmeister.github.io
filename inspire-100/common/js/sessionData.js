@@ -9,6 +9,7 @@ var SessionDataTemplate = {
   // currently open session
   sessionDataValid: true,
   sessionDurationInMs: 0,
+	rangeSlider:  null,
   startDate: null,
   launchDate: null,
   dashboardBreathNum: 0,

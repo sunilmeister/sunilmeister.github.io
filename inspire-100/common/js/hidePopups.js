@@ -1,6 +1,43 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
+function checkIfEventWithinDiv(event, div) {
+	let rect = div.getBoundingClientRect();
+	return checkIfEventWithinBoundingBox(event, rect);
+}
+
+function checkIfEventWithinBoundingBox(event, boundingBox) {
+  const eventX = event.clientX;
+  const eventY = event.clientY;
+
+  const boundingBoxLeft = boundingBox.left;
+  const boundingBoxRight = boundingBox.right;
+  const boundingBoxTop = boundingBox.top;
+  const boundingBoxBottom = boundingBox.bottom;
+
+  return (
+    eventX >= boundingBoxLeft &&
+    eventX <= boundingBoxRight &&
+    eventY >= boundingBoxTop &&
+    eventY <= boundingBoxBottom
+  );
+}
+
 // Remove Chart & Wave edit menus if clicked outside
 // Also hide any divs of popupClass
 document.addEventListener('click', function (event) {
+	// calendar picking
+	let calendars = document.getElementsByClassName("daterangepicker");
+	if (calendars && calendars.length) {
+		let calendar = calendars[0];
+		if (calendar.style.display == "block") {
+			if (checkIfEventWithinDiv(event, calendar)) {
+				return;
+			}
+		}
+	}
+
   // check if a button is clicked
   let cString = event.target.className;
   if (cString) {

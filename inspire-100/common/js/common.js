@@ -1,6 +1,3 @@
-// ////////////////////////////////////////////////////
-// Author: Sunil Nanda
-// ////////////////////////////////////////////////////
 var inspireUid = "";
 var inspireTag = "";
 
@@ -558,78 +555,16 @@ function lookupBreathTime(bnum) {
 	return new Date(btimes[bnum].breathTime);
 }
 
-function enterRangeBnum() {
-	document.getElementById('enterRangeBnumDiv').style.display = "block";
-	document.getElementById('enterRangeBtimeDiv').style.display = "none";
-}
-
-function enterRangeBtime() {
-	$('input[name="rangeFromBtime"]').daterangepicker({
-    singleDatePicker: true,
-    timePicker: true,
-		startDate: session.reportRange.minTime,
-		endDate: session.reportRange.maxTime,
-		minDate: session.startDate,
-		maxDate: addMsToDate(session.startDate,session.sessionDurationInMs),
-    showDropdowns: true,
-	});
-	document.getElementById('enterRangeBnumDiv').style.display = "none";
-	document.getElementById('enterRangeBtimeDiv').style.display = "block";
-}
-
-function showCurrentRangeTimes() {
-	let minBnum = session.reportRange.minBnum;
-	let maxBnum = session.reportRange.maxBnum;
-	if (maxBnum <= minBnum) {
-		document.getElementById('fromRangeDay').innerHTML = "---";
-		document.getElementById('fromRangeDate').innerHTML = "---";
-		document.getElementById('fromRangeTime').innerHTML = "---";
-		document.getElementById('toRangeDay').innerHTML = "---";
-		document.getElementById('toRangeDate').innerHTML = "---";
-		document.getElementById('toRangeTime').innerHTML = "---";
-		document.getElementById('fromRangeBnum').innerHTML = "---";
-		document.getElementById('toRangeBnum').innerHTML = "---";
-		return;
+function lookupBreathNum(time) {
+	let t = time.getTime();
+	let n = session.breathTimes.length;
+	if (n <= 1) return 0;
+	for (let i=1; i<n; i++) {
+		bt = session.breathTimes[i].getTime();
+		//console.log(t,bt);
+		if (bt > t) return i;
 	}
-	document.getElementById('fromRangeBnum').innerHTML = minBnum;
-	document.getElementById('toRangeBnum').innerHTML = maxBnum;
-
-	let minTime = session.reportRange.minTime;
-	let maxTime = session.reportRange.maxTime;
-
- 	let mm = minTime.getMonth();
-	let dd = minTime.getDate();
-	let yyyy = minTime.getFullYear();
-	let ddStr = String(dd).padStart(2, "0");
-	let dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
-  let hour = minTime.getHours();
-  let minute = minTime.getMinutes();
-  let second = minTime.getSeconds();
-  let hourStr = hour.toString().padStart(2, "0");
-  let minuteStr = minute.toString().padStart(2, "0");
-  let secondStr = second.toString().padStart(2, "0");
-  let timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
-	document.getElementById('fromRangeDay').innerHTML = weekDays[minTime.getDay()];
-	document.getElementById('fromRangeDate').innerHTML = dateStr;
-	document.getElementById('fromRangeTime').innerHTML = timeStr;
-
- 	mm = maxTime.getMonth();
-	dd = maxTime.getDate();
-	yyyy = maxTime.getFullYear();
-	ddStr = String(dd).padStart(2, "0");
-	dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
-  hour = maxTime.getHours();
-  maxute = maxTime.getMinutes();
-  second = maxTime.getSeconds();
-  hourStr = hour.toString().padStart(2, "0");
-  maxuteStr = maxute.toString().padStart(2, "0");
-  secondStr = second.toString().padStart(2, "0");
-  timeStr = `${hourStr}:${maxuteStr}:${secondStr}`;
-	document.getElementById('toRangeDay').innerHTML = weekDays[maxTime.getDay()];
-	document.getElementById('toRangeDate').innerHTML = dateStr;
-	document.getElementById('toRangeTime').innerHTML = timeStr;
-
-	document.getElementById('breathRangePopup').style.display = "block";
+	return n-1;
 }
 
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
