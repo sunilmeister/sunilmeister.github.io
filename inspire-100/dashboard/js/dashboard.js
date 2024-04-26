@@ -154,7 +154,7 @@ function createDashboards() {
   let currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
     if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
-      createDashboardAlerts(chirp);
+      createDashboardAlerts();
       prevUpdateNumAlerts = currNumAlerts;
     }
   }  
@@ -174,12 +174,14 @@ function createDashboards() {
   }
 }
 
-function createDashboardStats(chirp) {
-  createAllStats(chirp);
+function createDashboardStats() {
+	rangeWindowDiv.style.display = "block";
+  createAllStats();
 }
 
-function createDashboardAlerts(chirp) {
-  createAllAlerts(chirp);
+function createDashboardAlerts() {
+	rangeWindowDiv.style.display = "block";
+  createAllAlerts();
 }
 
 function blinkFlowRate() {
@@ -306,7 +308,7 @@ function changeToChartView() {
   waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
   updateChartRangeOnEntry();
   createDashboardCharts();
 }
@@ -334,7 +336,7 @@ function changeToWaveView() {
   waves.style.display = "block";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
   updateWaveRangeOnEntry();
   createDashboardWaves();
 }
@@ -362,7 +364,7 @@ function changeToStatView() {
   waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
+	rangeWindowDiv.style.display = "block";
   updateStatRangeOnEntry();
   createDashboardStats();
 }
@@ -390,7 +392,7 @@ function changeToAlertView() {
   waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
+	rangeWindowDiv.style.display = "block";
   updateAlertRangeOnEntry();
   createDashboardAlerts();
 }

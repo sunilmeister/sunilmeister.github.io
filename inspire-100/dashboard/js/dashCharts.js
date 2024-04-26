@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function createDashboardCharts() {
+	rangeWindowDiv.style.display = "block";
   createAllCharts();
 }
 

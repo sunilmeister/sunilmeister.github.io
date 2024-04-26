@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function createDashboardWaves() {
+	rangeWindowDiv.style.display = "block";
   createAllWaves();
 }
 
