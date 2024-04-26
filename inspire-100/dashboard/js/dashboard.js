@@ -219,7 +219,7 @@ function blinkSliderDiv() {
     	div.style.backgroundColor = palette.orange;
 			sliderDivBackground = "ORANGE";
 		} else {
-  		document.getElementById("btnPlayInterval").src = "../common/img/play.png";
+  		//document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 			div.style. removeProperty("background-color")
 			sliderDivBackground = "NONE";
 		}
@@ -712,7 +712,7 @@ function setTimeInterval() {
 function playPauseTimeInterval() {
 	if (session.reportRange.moving) {
 		session.reportRange.moving = false;
-  	document.getElementById("btnPlayInterval").src = "../common/img/play.png";
+  	document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
 		return;
 	}
 
