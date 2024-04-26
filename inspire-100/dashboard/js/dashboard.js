@@ -306,7 +306,7 @@ function changeToChartView() {
   waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  rangeWindowDiv.style.display = "block";
+  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
   updateChartRangeOnEntry();
   createDashboardCharts();
 }
@@ -334,7 +334,7 @@ function changeToWaveView() {
   waves.style.display = "block";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  rangeWindowDiv.style.display = "block";
+  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
   updateWaveRangeOnEntry();
   createDashboardWaves();
 }
@@ -362,7 +362,7 @@ function changeToStatView() {
   waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  rangeWindowDiv.style.display = "block";
+  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
   updateStatRangeOnEntry();
   createDashboardStats();
 }
@@ -390,7 +390,7 @@ function changeToAlertView() {
   waves.style.display = "none";
   document.getElementById('recordNameDiv').style.display = "none";
 
-  rangeWindowDiv.style.display = "block";
+  if (session.breathTimes.length > 1) rangeWindowDiv.style.display = "block";
   updateAlertRangeOnEntry();
   createDashboardAlerts();
 }
