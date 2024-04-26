@@ -407,3 +407,14 @@
   margin-bottom:0rem; 
   font-size:0.8rem;
 }
+
+.rangeWindowCls {
+	border-style:solid;
+	border-color:var(--rsp_darkblue);
+	color: white;
+	border-width:0.2rem;
+ 	margin-top:1.5rem;
+ 	margin-bottom:-1.5rem;
+	display:block;
+}
+
