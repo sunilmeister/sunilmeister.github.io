@@ -20,7 +20,7 @@ function updateChartRange() {
   session.rangeSlider.setRange([1, session.charts.rangeLimit]);
 
   // if range is not "full"
-  if (!session.reportRange.moving || sliderCommitPending) return;
+  if (!session.reportRange.moving) return;
   if (session.reportRange.moving) movingChartRange();
 
   stopSliderCallback = true;

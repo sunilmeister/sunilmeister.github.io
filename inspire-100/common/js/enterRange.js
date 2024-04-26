@@ -25,7 +25,6 @@ function acceptBreathNumRange() {
   session.rangeSlider.setSlider([fromBreath, toBreath]);
   stopSliderCallback = false;
 
-  sliderCommitPending = true;
   setTimeInterval();
 
   document.getElementById("enterRangeDiv").style.display = "none";
@@ -64,7 +63,6 @@ function acceptBreathTimeRange() {
   session.rangeSlider.setSlider([fromBreath, toBreath]);
   stopSliderCallback = false;
 
-  sliderCommitPending = true;
   setTimeInterval();
 
  document.getElementById("enterRangeDiv").style.display = "none";

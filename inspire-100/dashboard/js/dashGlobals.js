@@ -83,7 +83,6 @@ var peepGauge = null;
 var tempGauge = null;
 
 // sliders
-var sliderCommitPending = false;
 var stopSliderCallback = false;
 var sliderDiv = null;
 var rangeWindowDiv = null;

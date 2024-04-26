@@ -22,7 +22,7 @@ function movingWaveRange() {
 function updateWaveRange() {
   session.rangeSlider.setRange([1, session.dashboardBreathNum]);
 
-  if (!session.reportRange.moving || sliderCommitPending) return;
+  if (!session.reportRange.moving) return;
   if (session.reportRange.moving) {
     if (session.reportRange.moving && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
       movingWaveRange();

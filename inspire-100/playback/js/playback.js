@@ -3,7 +3,6 @@
 // ////////////////////////////////////////////////////
 
 var sessionBannerHTML = null;
-var sliderCommitPending = false;
 var exportRowDiv = null;
 var cumulativeChartBreaths = 0;
 
@@ -494,8 +493,6 @@ function refreshActivePane() {
 }
 
 function setTimeInterval() {
-  if (!sliderCommitPending) return;
-  sliderCommitPending = false;
   values = session.rangeSlider.getSlider();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
@@ -539,7 +536,6 @@ function rewindTimeInterval() {
 }
 
 function fullInterval() {
-  sliderCommitPending = false;
   values = session.rangeSlider.getRange();
   s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
@@ -562,7 +558,6 @@ function fullInterval() {
 }
 
 function resetTimeInterval() {
-  sliderCommitPending = false;
   session.playback.playbackStartBreath = session.playback.logStartBreath;
   session.playback.playbackEndBreath = session.playback.logEndBreath;
   session.playback.playbackStartTime = session.playback.logStartTime;
@@ -724,7 +719,6 @@ function createPlaybackRangeSlider() {
 }
 
 function playbackRangeSliderCallback() {
-  sliderCommitPending = true;
   setTimeInterval();
 }
 

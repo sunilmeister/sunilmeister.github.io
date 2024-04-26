@@ -665,7 +665,6 @@ function createRangeSlider(div) {
 
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
-  sliderCommitPending = true;
   let values = chartRangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
@@ -699,14 +698,12 @@ function setBackGroundBreathWindowButton(id, bgd) {
 }
 
 function setTimeInterval() {
-  if (!sliderCommitPending) return;
   let values = session.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
   session.reportRange = createReportRange(false, bmin, bmax);
 
   createDashboards();
-  sliderCommitPending = false;
 }
 
 function playPauseTimeInterval() {
@@ -728,7 +725,6 @@ function playPauseTimeInterval() {
   if (currentView == "waves") updateWaveRange();
 
   createDashboards();
-  sliderCommitPending = false;
 }
 
 function rewindTimeInterval() {
@@ -736,7 +732,6 @@ function rewindTimeInterval() {
 
 	rewindRange();
   createDashboards();
-  sliderCommitPending = false;
 }
 
 function forwardTimeInterval() {
@@ -744,7 +739,6 @@ function forwardTimeInterval() {
 
 	forwardRange();
   createDashboards();
-  sliderCommitPending = false;
 }
 
 function fullInterval() {
@@ -752,12 +746,10 @@ function fullInterval() {
 
 	fullRange();
   createDashboards();
-  sliderCommitPending = false;
 }
 
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
-  sliderCommitPending = true;
   let values = session.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
