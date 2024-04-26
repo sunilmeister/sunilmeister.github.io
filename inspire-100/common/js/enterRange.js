@@ -85,6 +85,8 @@ function enterRangeBnum() {
 }
 
 function enterRangeBtime() {
+	let startDate = session.startDate;
+	if (!startDate) startDate = new Date();
 	$('input[name="rangeFromBtime"]').daterangepicker({
     singleDatePicker: true,
     timePicker: true,
@@ -92,7 +94,7 @@ function enterRangeBtime() {
 		startDate: session.reportRange.minTime,
 		endDate: session.reportRange.maxTime,
 		minDate: session.startDate,
-		maxDate: addMsToDate(session.startDate,session.sessionDurationInMs),
+		maxDate: addMsToDate(startDate,session.sessionDurationInMs),
     showDropdowns: true,
 		}, function(start, end, label) {
 			pickedDate = new Date(start);
@@ -162,6 +164,62 @@ function showCurrentRangeTimes() {
 	document.getElementById('spanRangeBtime').innerHTML = msToTimeStr(tspan);
 
 	document.getElementById('breathRangePopup').style.display = "block";
+}
+
+function fullRange() {
+  let values = session.rangeSlider.getRange();
+  let bmin = parseInt(values[0]);
+  let bmax = parseInt(values[1]);
+  session.reportRange = createReportRange(false, bmin, bmax);
+  stopSliderCallback = true;
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  stopSliderCallback = false;
+}
+
+function forwardRange() {
+  let values = session.rangeSlider.getRange();
+  let minRange = parseInt(values[0]);
+  let maxRange = parseInt(values[1]);
+	if (maxRange <= 1) return;
+
+  let bmin = session.reportRange.minBnum;
+  let bmax = session.reportRange.maxBnum;
+	let span = bmax - bmin + 1;
+
+	if ((bmax + span) > maxRange) {
+		bmax = maxRange;
+	} else {
+		bmax += span;
+	}
+	bmin = bmax - span + 1;
+
+  session.reportRange = createReportRange(false, bmin, bmax);
+  stopSliderCallback = true;
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  stopSliderCallback = false;
+}
+
+function rewindRange() {
+  let values = session.rangeSlider.getRange();
+  let minRange = parseInt(values[0]);
+  let maxRange = parseInt(values[1]);
+	if (maxRange <= 1) return;
+
+  let bmin = session.reportRange.minBnum;
+  let bmax = session.reportRange.maxBnum;
+	let span = bmax - bmin + 1;
+
+	if ((bmin - span) < minRange) {
+		bmin = minRange;
+	} else {
+		bmin -= span;
+	}
+	bmax = bmin + span - 1;
+
+  session.reportRange = createReportRange(false, bmin, bmax);
+  stopSliderCallback = true;
+  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  stopSliderCallback = false;
 }
 
 window.addEventListener("load", function() {

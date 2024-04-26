@@ -213,16 +213,16 @@ function blinkSliderDiv() {
   let div = document.getElementById("rangeWindowDiv");
 	if (!session.reportRange.moving) {
     if (sliderDivBackground == "NONE") {
-  		document.getElementById("btnResetInterval").src = "../common/img/playOrange.png";
+  		document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
     	div.style.backgroundColor = palette.orange;
 			sliderDivBackground = "ORANGE";
 		} else {
-  		document.getElementById("btnResetInterval").src = "../common/img/play.png";
+  		document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 			div.style. removeProperty("background-color")
 			sliderDivBackground = "NONE";
 		}
 	} else {
- 		document.getElementById("btnResetInterval").src = "../common/img/pause.png";
+ 		document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
 		div.style. removeProperty("background-color")
 		sliderDivBackground = "NONE";
 	}
@@ -707,14 +707,14 @@ function setTimeInterval() {
   sliderCommitPending = false;
 }
 
-function resetTimeInterval() {
+function playPauseTimeInterval() {
 	if (session.reportRange.moving) {
 		session.reportRange.moving = false;
-  	document.getElementById("btnResetInterval").src = "../common/img/play.png";
+  	document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 		return;
 	}
 
-  document.getElementById("btnResetInterval").src = "../common/img/pause.png";
+  document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
   session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
   stopSliderCallback = true;
   session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
@@ -729,17 +729,26 @@ function resetTimeInterval() {
   sliderCommitPending = false;
 }
 
-function setFullInterval() {
-  document.getElementById("btnResetInterval").src = "../common/img/play.png";
+function rewindTimeInterval() {
+  document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
-  let values = session.rangeSlider.getRange();
-  let bmin = parseInt(values[0]);
-  let bmax = parseInt(values[1]);
-  session.reportRange = createReportRange(false, bmin, bmax);
-  stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
-  stopSliderCallback = false;
+	rewindRange();
+  createDashboards();
+  sliderCommitPending = false;
+}
 
+function forwardTimeInterval() {
+  document.getElementById("btnPlayInterval").src = "../common/img/play.png";
+
+	forwardRange();
+  createDashboards();
+  sliderCommitPending = false;
+}
+
+function fullInterval() {
+  document.getElementById("btnPlayInterval").src = "../common/img/play.png";
+
+	fullRange();
   createDashboards();
   sliderCommitPending = false;
 }

@@ -73,7 +73,7 @@ function dateStrToMs(dStr) {
 }
 
 function addMsToDate(date, ms) {
-  let mill = date.valueOf(); // Get millisecond value from date
+  let mill = date.getTime(); // Get millisecond value from date
   mill += ms;
   return new Date(mill);
 }

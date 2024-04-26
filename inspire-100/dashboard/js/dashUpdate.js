@@ -318,6 +318,8 @@ function debugMessageLines(value) {
 
 function updateSnapshot() {
 	let chirp = latestChirp;
+	if (!chirp) return;
+
   // Message lines
 	if (!isUndefined(chirp.content.L1)) {
 		msgL1 = updateMessageLine(chirp.content.L1);

@@ -80,7 +80,7 @@ function createAllAlerts() {
 }
 
 function numberOfExistingAlerts() {
-  let =  session.infoMsgs.length +
+  let num =  session.infoMsgs.length +
     session.warningMsgs.length +
     session.errorMsgs.length ;
   return num;

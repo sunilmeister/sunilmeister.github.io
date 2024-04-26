@@ -518,7 +518,27 @@ function setTimeInterval() {
   refreshActivePane();
 }
 
-function setFullInterval() {
+function forwardTimeInterval() {
+	forwardRange();
+  session.playback.playbackStartBreath = session.reportRange.minBnum;
+  session.playback.playbackEndBreath = session.reportRange.maxBnum;
+  session.playback.playbackStartTime = session.reportRange.minTime;
+  session.playback.playbackEndTime = session.reportRange.maxTime;
+  updateSelectedDuration();
+  refreshActivePane();
+}
+
+function rewindTimeInterval() {
+	rewindRange();
+  session.playback.playbackStartBreath = session.reportRange.minBnum;
+  session.playback.playbackEndBreath = session.reportRange.maxBnum;
+  session.playback.playbackStartTime = session.reportRange.minTime;
+  session.playback.playbackEndTime = session.reportRange.maxTime;
+  updateSelectedDuration();
+  refreshActivePane();
+}
+
+function fullInterval() {
   sliderCommitPending = false;
   values = session.rangeSlider.getRange();
   s = parseInt(values[0]);
@@ -538,7 +558,6 @@ function setFullInterval() {
 
   setPlaybackRanges();
   updateSelectedDuration();
-  //resetPlaybackData();
   refreshActivePane();
 }
 

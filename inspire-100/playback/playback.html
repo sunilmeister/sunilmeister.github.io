@@ -288,9 +288,11 @@
         <div id=playbackRangeSliderDiv style="margin-top:1.5rem; padding-left:1.3rem; padding-right:1.3rem;font-size:1.25rem; height:1.4rem;">
         </div>
         <div style="background-color:var(--rsp_green); color:white; margin-top: 0.7rem; ">
-					<img src="../common/img/maximize.png" id=btnFullInterval class=iconButton onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/table.png" class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Manual Edit' style="float:right; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:1.8rem; height:1.8rem;">
           <center>
             <p id=sliderCaption style="padding:0.2rem; margin-top: 0.7rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
           </center>

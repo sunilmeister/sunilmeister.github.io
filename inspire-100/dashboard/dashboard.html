@@ -326,10 +326,12 @@
         <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 0.6rem; padding-bottom:1.2rem;">
 
 
-					<img src="../common/img/maximize.png" id=btnFullInterval class=iconButton onClick='setFullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/table.png" class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/pause.png" id=btnResetInterval class=iconButton onClick='resetTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Manual Edit' style="float:right; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/pause.png" id=btnPlayInterval class=iconButton onClick='playPauseTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Play/Pause' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:1.8rem; height:1.8rem;">
           <center>
             <p id=sliderCaption style="margin-top: 0.7rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
           </center>
