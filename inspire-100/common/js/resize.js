@@ -88,6 +88,8 @@ function isMobileBrowser() {
 function setRootFontSize(rootDivId) {
 	console.log("ROOT DIV", rootDivId);
 	rootDiv = document.getElementById(rootDivId);
+	//console.log(rootDiv.getBoundingClientRect());
+
 	if (isMobileBrowser()) {
 		if (isUndefined(portraitScreen)) {
 			portraitScreen = window.matchMedia("(orientation: portrait)");
