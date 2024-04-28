@@ -6,6 +6,11 @@ var pickedDate = null;
 
 function enterBreathInterval () {
   document.getElementById("enterRangeDiv").style.display = "block";
+  if (document.getElementById("enterRangeBnum").checked) {
+		enterRangeBnum();
+	} else {
+		enterRangeBtime();
+	}
 }
 
 function acceptBreathNumRange() {
@@ -78,25 +83,44 @@ function cancelBreathRange () {
 }
 
 function enterRangeBnum() {
+	let minBnum = session.reportRange.minBnum;
+	let maxBnum = session.reportRange.maxBnum;
+	document.getElementById("rangeFromBnum").value = minBnum;
+  document.getElementById("rangeNumBreaths").value = maxBnum - minBnum + 1;
 	document.getElementById('enterRangeBnumDiv').style.display = "block";
 	document.getElementById('enterRangeBtimeDiv').style.display = "none";
 }
 
 function enterRangeBtime() {
+	let selectName = 'input[name="rangeFromBtime"]';
 	let startDate = session.startDate;
 	if (!startDate) startDate = new Date();
-	$('input[name="rangeFromBtime"]').daterangepicker({
+	let minTime = session.reportRange.minTime;
+	let maxTime = session.reportRange.maxTime;
+	let ms, msStr;
+	if (minTime) { // for dashboard before any breath logged
+		ms = maxTime.getTime() - minTime.getTime();
+		msStr = msToTimeStr(ms);
+	} else {
+		msStr = "00:00:00";
+		minTime = maxTime = new Date();
+	}
+	document.getElementById("rangeDuration").value = msStr;
+
+	$(selectName).daterangepicker({
     singleDatePicker: true,
     timePicker: true,
     timePickerSeconds: true,
-		startDate: session.reportRange.minTime,
-		endDate: session.reportRange.maxTime,
+		startDate: minTime,
+		endDate: maxTime,
 		minDate: session.startDate,
 		maxDate: addMsToDate(startDate,session.sessionDurationInMs),
     showDropdowns: true,
 		}, function(start, end, label) {
 			pickedDate = new Date(start);
   	});
+
+
 	document.getElementById('enterRangeBnumDiv').style.display = "none";
 	document.getElementById('enterRangeBtimeDiv').style.display = "block";
 }
