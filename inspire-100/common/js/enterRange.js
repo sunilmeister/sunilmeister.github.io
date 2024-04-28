@@ -96,7 +96,6 @@ function enterRangeBtime() {
     showDropdowns: true,
 		}, function(start, end, label) {
 			pickedDate = new Date(start);
-    	alert("You are here");
   	});
 	document.getElementById('enterRangeBnumDiv').style.display = "none";
 	document.getElementById('enterRangeBtimeDiv').style.display = "block";
