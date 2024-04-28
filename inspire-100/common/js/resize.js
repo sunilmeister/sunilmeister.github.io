@@ -3,6 +3,8 @@
 // ////////////////////////////////////////////////////
 var appResizeFunction = null;
 var appScaleFactor = 1.0;
+var rootDiv = null;
+
 const laptopParams = { width: 1500, height: 800, fontSize: 18 };
 const mobileParams = { width: 380, height: 850, fontSize: 13 };
 
@@ -83,7 +85,9 @@ function isMobileBrowser() {
 	}
 }
 
-function setRootFontSize() {
+function setRootFontSize(rootDivId) {
+	console.log("ROOT DIV", rootDivId);
+	rootDiv = document.getElementById(rootDivId);
 	if (isMobileBrowser()) {
 		if (isUndefined(portraitScreen)) {
 			portraitScreen = window.matchMedia("(orientation: portrait)");

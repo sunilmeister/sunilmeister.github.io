@@ -16,7 +16,7 @@ var rrKnob = null;
 
 window.onload = function () {
 	appScaleFactor = 0.8;
-	setRootFontSize();
+	setRootFontSize("wrapper");
 
   installVtKnob();
   installRrKnob();

@@ -280,6 +280,6 @@ window.onload = function () {
 	disableAllBeeps();
 	openAudioControl();
 	appScaleFactor = 0.7;
-	setRootFontSize();
+	setRootFontSize("topTilesDiv");
 
 }

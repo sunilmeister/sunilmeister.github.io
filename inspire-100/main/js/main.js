@@ -415,7 +415,7 @@ window.onload = function () {
   portalStartDate = new Date();
 
 	appScaleFactor = 0.8;
-	setRootFontSize();
+	setRootFontSize("wrapper");
 
   let elm = document.getElementById("mainDiv");
   elm.style.display = "block";

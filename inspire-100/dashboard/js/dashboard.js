@@ -529,7 +529,7 @@ function receivedNewWave() {
 window.onload = function () {
 	dashboardLaunchTime = new Date();
 	appScaleFactor = 0.7;
-	setRootFontSize();
+	setRootFontSize("fullDashboard");
 
 	disableAllBeeps();  
 	openAudioControl();
