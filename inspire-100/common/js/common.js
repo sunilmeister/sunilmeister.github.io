@@ -51,7 +51,7 @@ function msToDateStr(ms) {
   return dateToStr(d);
 }
 
-function msToTimeStr(ms) {
+function msToHHMMSS(ms) {
 	let secs = ms/1000;
   let hh = Math.floor(secs/3600);
 	secs = secs % 3600;
@@ -245,19 +245,6 @@ function dateToTimeStr(d) {
   let sec = String(date.getSeconds()).padStart(2, '0');
   tmStr = hrs + ":" + min + ":" + sec;
   return tmStr;
-}
-
-function msToTimeStr(milliseconds) {
-  let d = convertMStoHHMMSS(Math.abs(milliseconds));
-  let days = d.days;
-  let hours = d.hours;
-  let minutes = d.minutes;
-  let seconds = d.seconds;
-  hours = days * 24 + hours;
-  let strHours = (hours < 10) ? "0" + String(hours) : String(hours);
-  let strMinutes = (minutes < 10) ? "0" + String(minutes) : String(minutes);
-  let strSeconds = (seconds < 10) ? "0" + String(seconds) : String(seconds);
-  return strHours + ":" + strMinutes + ":" + strSeconds;
 }
 
 function strToDate(dateStr, timeStr) {

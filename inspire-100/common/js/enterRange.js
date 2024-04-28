@@ -100,7 +100,7 @@ function enterRangeBtime() {
 	let ms, msStr;
 	if (minTime) { // for dashboard before any breath logged
 		ms = maxTime.getTime() - minTime.getTime();
-		msStr = msToTimeStr(ms);
+		msStr = msToHHMMSS(ms);
 	} else {
 		msStr = "00:00:00";
 		minTime = maxTime = new Date();
@@ -182,7 +182,7 @@ function showCurrentRangeTimes() {
 	document.getElementById('toRangeTime').innerHTML = timeStr;
 
 	let tspan = maxTime.getTime() - minTime.getTime();
-	document.getElementById('spanRangeBtime').innerHTML = msToTimeStr(tspan);
+	document.getElementById('spanRangeBtime').innerHTML = msToHHMMSS(tspan);
 
 	document.getElementById('breathRangePopup').style.display = "block";
 }

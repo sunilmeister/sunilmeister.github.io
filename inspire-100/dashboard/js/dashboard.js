@@ -108,7 +108,7 @@ function processDashboardChirp(d) {
   let curDate = new Date(d.created);
   let sessionDurationInMs = Math.abs(curDate - session.startDate);
   let elm = document.getElementById("logTimeDuration");
-  elm.innerHTML = msToTimeStr(sessionDurationInMs);
+  elm.innerHTML = msToHHMMSS(sessionDurationInMs);
 
   if (!updatePaused) {
     elm = document.getElementById("breathNum");

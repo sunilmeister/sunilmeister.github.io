@@ -455,7 +455,7 @@ function updateLogDuration() {
 	session.sessionDurationInMs = diff;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
-    elm.innerHTML = msToTimeStr(diff);
+    elm.innerHTML = msToHHMMSS(diff);
   } else {
     elm.innerHTML = "NaN";
   }
@@ -465,7 +465,7 @@ function updateSelectedDuration() {
   let elm = document.getElementById("selectedTimeDuration");
   let diff = session.playback.playbackEndTime - session.playback.playbackStartTime;
   if (diff >= 0) {
-    elm.innerHTML = msToTimeStr(diff);
+    elm.innerHTML = msToHHMMSS(diff);
   } else {
     elm.innerHTML = "NaN";
   }

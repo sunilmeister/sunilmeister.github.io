@@ -103,7 +103,7 @@ function updateRecorderSummary(d) {
   curDate = new Date(d.created);
   sessionDurationInMs = curDate - session.startDate;
   elm = document.getElementById("logTimeDuration");
-  elm.innerHTML = msToTimeStr(sessionDurationInMs);
+  elm.innerHTML = msToHHMMSS(sessionDurationInMs);
 
   elm = document.getElementById("breathNum");
   animateNumberValueTo(elm, session.dashboardBreathNum);
