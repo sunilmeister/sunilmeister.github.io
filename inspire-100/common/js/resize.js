@@ -47,18 +47,18 @@ function setRootFontSizeDevice(devFontSize) {
 	if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
 
-	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
-	console.log("appWidth", appWidth, "appHeight", appHeight );
-	console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
-	console.log("newFontSize", fontSize);
-	if (isMobileBrowser()) {
-		alert("windowWidth=" + windowWidth + "  windowHeight=" + windowHeight);
-		alert("appWidth=" + appWidth + "  appHeight=" + appHeight );
-		alert("wFontSize=" + wFontSize + "  hFontSize=" + hFontSize);
-		alert("newfontSize=" + fontSize);
-	} else {
+	//console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
+	//console.log("appWidth", appWidth, "appHeight", appHeight );
+	//console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
+	//console.log("newFontSize", fontSize);
+	//if (isMobileBrowser()) {
+		//alert("windowWidth=" + windowWidth + "  windowHeight=" + windowHeight);
+		//alert("appWidth=" + appWidth + "  appHeight=" + appHeight );
+		//alert("wFontSize=" + wFontSize + "  hFontSize=" + hFontSize);
+		//alert("newfontSize=" + fontSize);
+	//} else {
 		//alert("NON Mobile");
-	}
+	//}
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";
