@@ -529,7 +529,6 @@ function receivedNewWave() {
 window.onload = function () {
   finishedLoading = false;
 
-	setRootFontSize("fullDashboard", "sideMenuBar");
 	dashboardLaunchTime = new Date();
 
 	disableAllBeeps();  
@@ -568,6 +567,9 @@ window.onload = function () {
   installPlatGauge();
   installPeepGauge();
   installTempGauge();
+
+	// After all the gauges are installed
+	setRootFontSize("fullDashboard", "sideMenuBar");
 
   // Create range slider
   rangeWindowDiv = document.getElementById("rangeWindowDiv");

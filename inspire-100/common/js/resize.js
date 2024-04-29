@@ -10,22 +10,35 @@ var appWidth = null;
 var appHeight = null;
 
 // Design Params
-const laptopInitialFontSize = 16;
-const mobileInitialFontSize = 16;
+const laptopDevFontSize = 16;
+const mobileDevFontSize = 16;
 
 // Ensure that some margin is left on the sides
 const fontScaleFactor = 0.9;
 
+function setRootFontSize(rootWidthDivId, rootHeightDivId) {
+	//console.log("ROOT DIVs (W,H)", rootWidthDivId, rootHeightDivId);
+	rootWidthDiv = document.getElementById(rootWidthDivId);
+	rootHeightDiv = document.getElementById(rootHeightDivId);
+	appWidth = rootWidthDiv.offsetWidth;
+	appHeight = rootHeightDiv.offsetHeight;
+
+	if (isMobileBrowser()) {
+		setRootFontSizeDevice(mobileDevFontSize);
+	} else {
+		setRootFontSizeDevice(laptopDevFontSize);
+	}
+}
+
 // ///////////////////////////////////////////////////////
 // Figure out the root font size for proper scaling etc.
 // ///////////////////////////////////////////////////////
-function setRootFontSizeLaptop() {
+function setRootFontSizeDevice(devFontSize) {
 	const minFontSize = 6;
-	const maxFontSize = 18;
 	let windowWidth = window.innerWidth;
 	let windowHeight = window.innerHeight;
-	let wFontSize = (laptopInitialFontSize * windowWidth) / appWidth;
-	let hFontSize = (laptopInitialFontSize * windowHeight) / appHeight;
+	let wFontSize = (devFontSize * windowWidth) / appWidth;
+	let hFontSize = (devFontSize * windowHeight) / appHeight;
 
 	//console.log("rootDivBoundingRect",rootDivBoundingRect);
 	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
@@ -43,73 +56,12 @@ function setRootFontSizeLaptop() {
 	if (appResizeFunction) appResizeFunction();
 }
 
-function setRootFontSizeMobile(orient) {
-	if (isUndefined(orient)) orient = "portrait";
-	const minFontSize = 4;
-	const maxFontSize = 17;
-	//let width = 375;
-	//let height = 812;
-	let dpxRatio = window.devicePixelRatio;
-	let width = window.innerWidth / dpxRatio;
-	let height = window.innerHeight / dpxRatio;
-	let wFontSize = (mobileParams.fontSize * width) / mobileParams.width;
-	let hFontSize = (mobileParams.fontSize * height) / mobileParams.height;
-	let fontSize = 0;
-	if (orient == "portrait") {
-		fontSize = wFontSize;
-	} else {
-		fontSize = hFontSize;
-	}
-	fontSize *= fontScaleFactor;
-
-	//alert("height=" + height + "\nwidth=" + width + "\nfontScaleFactor=" + fontScaleFactor);
-
-	if (fontSize > maxFontSize) fontSize = maxFontSize;
-	if (fontSize < minFontSize) fontSize = minFontSize;
-	//alert("root fontSize=" + fontSize);
-
-	let root = document.documentElement;
- 	root.style.fontSize = String(fontSize) + "px";
-	if (appResizeFunction) appResizeFunction();
-}
-
-// Check for change in orientation
-var portraitScreen = window.matchMedia("(orientation: portrait)");
-var orientation = portraitScreen.matches ? "portrait" : "landscape";
-portraitScreen.addEventListener("change", function(e) {
-  if (e.matches) {
-		orientation = "portrait";
-  } else {
-		orientation = "landscape";
-  }
-	setRootFontSizeMobile(orientation);
-})
-
-
 // Check if the browser is on a mobile
 function isMobileBrowser() {
 	if (/Android|webOS|iPhone|iPad|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   	return true;
 	} else {
   	return false;
-	}
-}
-
-function setRootFontSize(rootWidthDivId, rootHeightDivId) {
-	console.log("ROOT DIVs (W,H)", rootWidthDivId, rootHeightDivId);
-	rootWidthDiv = document.getElementById(rootWidthDivId);
-	rootHeightDiv = document.getElementById(rootHeightDivId);
-	appWidth = rootWidthDiv.offsetWidth;
-	appHeight = rootHeightDiv.offsetHeight;
-
-	if (isMobileBrowser()) {
-		if (isUndefined(portraitScreen)) {
-			portraitScreen = window.matchMedia("(orientation: portrait)");
-			orientation = portraitScreen.matches ? "portrait" : "landscape";
-		}
-		setRootFontSizeMobile(orientation);
-	} else {
-		setRootFontSizeLaptop();
 	}
 }
 
@@ -128,11 +80,6 @@ function isZooming(){
 // Add an event listener for the resize event.
 var resizeTimeout;
 window.addEventListener("resize", function() {
-	if (isMobileBrowser()) {
-		// Handled above in the orientation change listener
-		return;
-	}
-
   // Clear the previous timeout.
   clearTimeout(resizeTimeout);
 
@@ -140,7 +87,11 @@ window.addEventListener("resize", function() {
   resizeTimeout = setTimeout(function() {
   	// Now resize if not zooming
 		if (!isZooming()) {
-			setRootFontSizeLaptop();
+			if (isMobileBrowser()) {
+				setRootFontSizeDevice(mobileDevFontSize);
+			} else {
+				setRootFontSizeDevice(laptopDevFontSize);
+			}
 		}
   }, 100);
 });
