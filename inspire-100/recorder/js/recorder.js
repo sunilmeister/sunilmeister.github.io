@@ -113,7 +113,6 @@ function updateRecorderSummary(d) {
 
 window.onload = function () {
   finishedLoading = false;
-	setRootFontSize("fullRecorder", "record-pane");
 
   session = cloneObject(SessionDataTemplate);
   session.appId = RECORDER_APP_ID;
@@ -134,18 +133,26 @@ window.onload = function () {
   // now wait for chirps and act accordingly
   chirpQ = new Queue();
   waitForChirps();
-  finishedLoading = true;
+
+	sidebarAlign();
+	setRootFontSize("fullRecorder", "record-pane");
+
 	appResize();
 	appResizeFunction = appResize;
+  finishedLoading = true;
 }
 
-function appResize() {
+function sidebarAlign() {
   let menuBar = document.getElementById("sideMenuBar");
   let menuBarHeight = menuBar.offsetHeight;
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
+  nonMenuArea.style.marginTop = String(convertPixelsToRem(0 - menuBarHeight)) + "rem";
+  nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth +30)) + "rem";
+}
+
+function appResize() {
+	sidebarAlign();
 }
 
 window.onbeforeunload = function (e) {

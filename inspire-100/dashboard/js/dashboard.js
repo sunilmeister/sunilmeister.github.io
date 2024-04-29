@@ -568,7 +568,9 @@ window.onload = function () {
   installPeepGauge();
   installTempGauge();
 
-	// After all the gauges are installed
+	alignSidebar();
+
+	// After all the gauges are installed and sidebar aligned
 	setRootFontSize("fullDashboard", "sideMenuBar");
 
   // Create range slider
@@ -598,8 +600,8 @@ function alignSidebar() {
   let menuBarHeight = menuBar.offsetHeight;
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(0 - menuBarHeight) + "px";
-  nonMenuArea.style.marginLeft = String(menuBarWidth + 30) + "px";
+  nonMenuArea.style.marginTop = String(convertPixelsToRem(0 - menuBarHeight)) + "rem";
+  nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth +30)) + "rem";
 }
 
 function resizeChartsWaves() {

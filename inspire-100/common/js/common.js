@@ -4,6 +4,10 @@ var inspireTag = "";
 ///////////////////////////////////////////////////////
 //// Useful conversion from REM to PX
 ///////////////////////////////////////////////////////
+function convertPixelsToRem(px) {    
+  return px / parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
 function convertRemToPixels(rem) {    
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }

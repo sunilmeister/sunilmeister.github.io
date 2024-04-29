@@ -35,21 +35,21 @@ function setRootFontSize(rootWidthDivId, rootHeightDivId) {
 // ///////////////////////////////////////////////////////
 function setRootFontSizeDevice(devFontSize) {
 	const minFontSize = 6;
+
 	let windowWidth = window.innerWidth;
 	let windowHeight = window.innerHeight;
 	let wFontSize = (devFontSize * windowWidth) / appWidth;
 	let hFontSize = (devFontSize * windowHeight) / appHeight;
 
-	//console.log("rootDivBoundingRect",rootDivBoundingRect);
-	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
-	console.log("appWidth", appWidth, "appHeight", appHeight );
-	console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
-
 	let fontSize = Math.min(wFontSize, hFontSize);
 	fontSize *= fontScaleFactor;
 	//if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
-	console.log("root fontSize", fontSize);
+
+	//console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
+	//console.log("appWidth", appWidth, "appHeight", appHeight );
+	//console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
+	//console.log("root fontSize", fontSize);
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";
