@@ -1,12 +1,20 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-var appResizeFunction = null;
-var appScaleFactor = 1.0;
-var rootDiv = null;
+var appResizeFunction = null; // callback function for app to resize stuff
 
-const laptopParams = { width: 1500, height: 800, fontSize: 18 };
-const mobileParams = { width: 380, height: 850, fontSize: 13 };
+// APP bounds
+var rootWidthDiv = null;
+var rootHeightDiv = null;
+var appWidth = null;
+var appHeight = null;
+
+// Design Params
+const laptopInitialFontSize = 16;
+const mobileInitialFontSize = 16;
+
+// Ensure that some margin is left on the sides
+const fontScaleFactor = 0.9;
 
 // ///////////////////////////////////////////////////////
 // Figure out the root font size for proper scaling etc.
@@ -14,19 +22,21 @@ const mobileParams = { width: 380, height: 850, fontSize: 13 };
 function setRootFontSizeLaptop() {
 	const minFontSize = 6;
 	const maxFontSize = 18;
-	let dpxRatio = window.devicePixelRatio;
-	let width = window.innerWidth / dpxRatio;
-	let height = window.innerHeight / dpxRatio;
-	let wFontSize = (laptopParams.fontSize * width) / laptopParams.width;
-	let hFontSize = (laptopParams.fontSize * height) / laptopParams.height;
+	let windowWidth = window.innerWidth;
+	let windowHeight = window.innerHeight;
+	let wFontSize = (laptopInitialFontSize * windowWidth) / appWidth;
+	let hFontSize = (laptopInitialFontSize * windowHeight) / appHeight;
+
+	//console.log("rootDivBoundingRect",rootDivBoundingRect);
+	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
+	console.log("appWidth", appWidth, "appHeight", appHeight );
+	console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
+
 	let fontSize = Math.min(wFontSize, hFontSize);
-	fontSize *= appScaleFactor;
-
-	//console.log("height", height, "width", width, "dpxRatio", dpxRatio, "appScaleFactor", appScaleFactor);
-
-	if (fontSize > maxFontSize) fontSize = maxFontSize;
+	fontSize *= fontScaleFactor;
+	//if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
-	//console.log("root fontSize", fontSize);
+	console.log("root fontSize", fontSize);
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";
@@ -50,9 +60,9 @@ function setRootFontSizeMobile(orient) {
 	} else {
 		fontSize = hFontSize;
 	}
-	fontSize *= appScaleFactor;
+	fontSize *= fontScaleFactor;
 
-	//alert("height=" + height + "\nwidth=" + width + "\nappScaleFactor=" + appScaleFactor);
+	//alert("height=" + height + "\nwidth=" + width + "\nfontScaleFactor=" + fontScaleFactor);
 
 	if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
@@ -85,10 +95,12 @@ function isMobileBrowser() {
 	}
 }
 
-function setRootFontSize(rootDivId) {
-	console.log("ROOT DIV", rootDivId);
-	rootDiv = document.getElementById(rootDivId);
-	//console.log(rootDiv.getBoundingClientRect());
+function setRootFontSize(rootWidthDivId, rootHeightDivId) {
+	console.log("ROOT DIVs (W,H)", rootWidthDivId, rootHeightDivId);
+	rootWidthDiv = document.getElementById(rootWidthDivId);
+	rootHeightDiv = document.getElementById(rootHeightDivId);
+	appWidth = rootWidthDiv.offsetWidth;
+	appHeight = rootHeightDiv.offsetHeight;
 
 	if (isMobileBrowser()) {
 		if (isUndefined(portraitScreen)) {

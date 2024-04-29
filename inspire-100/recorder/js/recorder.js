@@ -113,8 +113,7 @@ function updateRecorderSummary(d) {
 
 window.onload = function () {
   finishedLoading = false;
-	appScaleFactor = 0.7;
-	setRootFontSize("fullRecorder");
+	setRootFontSize("fullRecorder", "record-pane");
 
   session = cloneObject(SessionDataTemplate);
   session.appId = RECORDER_APP_ID;

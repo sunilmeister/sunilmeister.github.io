@@ -608,8 +608,7 @@ function playbackGatherDoneCallback() {
 }
 
 window.onload = function () {
-	appScaleFactor = 0.7;
-	setRootFontSize("fullPlayback");
+	setRootFontSize("fullPlayback", "sideMenuBar");
 	resizeChartsWaves();
 
   initGlobals();

@@ -527,14 +527,14 @@ function receivedNewWave() {
 }
 
 window.onload = function () {
+  finishedLoading = false;
+
+	setRootFontSize("fullDashboard", "sideMenuBar");
 	dashboardLaunchTime = new Date();
-	appScaleFactor = 0.7;
-	setRootFontSize("fullDashboard");
 
 	disableAllBeeps();  
 	openAudioControl();
 
-  finishedLoading = false;
   initDivElements();
 
   session = cloneObject(SessionDataTemplate);
@@ -585,9 +585,10 @@ window.onload = function () {
   // now wait for chirps and act accordingly
   chirpQ = new Queue();
   waitForChirps();
-  finishedLoading = true;
+
 	appResize();
 	appResizeFunction = appResize;
+  finishedLoading = true;
 }
 
 function alignSidebar() {
@@ -882,7 +883,7 @@ function showDormantPopup() {
     didOpen: () => {
       const b = Swal.getHtmlContainer().querySelector('b');
       dormantTimerInterval = setInterval(() => {
-        b.textContent = msToHMS(1000*dormantTimeInSec);
+        b.textContent = msToHHMMSS(1000*dormantTimeInSec);
       }, 1000)
     },
     willClose: () => {

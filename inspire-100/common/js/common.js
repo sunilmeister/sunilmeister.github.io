@@ -56,7 +56,7 @@ function msToHHMMSS(ms) {
   let hh = Math.floor(secs/3600);
 	secs = secs % 3600;
   let mm = Math.floor(secs/60);
-	let ss = secs % 60;
+	let ss = Math.floor(secs % 60);
 
 	let hhStr = hh.toString().padStart(2, 0);
 	let mmStr = mm.toString().padStart(2, 0);
@@ -268,23 +268,6 @@ function strToDate(dateStr, timeStr) {
   date = new Date(isoString);
   date.setMilliseconds(0);
   return date;
-}
-
-function msToHMS(ms) {
-    // 1- Convert to seconds:
-    let seconds = ms / 1000;
-    // 2- Extract hours:
-    const hours = parseInt( seconds / 3600 ); // 3,600 seconds in 1 hour
-    seconds = seconds % 3600; // seconds remaining after extracting hours
-    // 3- Extract minutes:
-    const minutes = parseInt( seconds / 60 ); // 60 seconds in 1 minute
-    // 4- Keep only seconds not extracted to minutes:
-    seconds = seconds % 60;
-
-    hh = (hours < 10) ? "0" + hours : String(hours);
-    mm = (minutes < 10) ? "0" + minutes : String(minutes);
-    ss = (seconds < 10) ? "0" + seconds : String(seconds);
-    return hh + ":" + mm + ":" + ss;
 }
 
 function closestNonNullEntryIndex(arr, index) {

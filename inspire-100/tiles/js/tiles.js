@@ -290,3 +290,10 @@ function updateAudioAlerts() {
 	}
 }
 
+window.onload = function () {
+	AddRemoveTiles();
+	disableAllBeeps();
+	openAudioControl();
+	setRootFontSize("topTilesDiv", "topTilesDiv");
+
+}

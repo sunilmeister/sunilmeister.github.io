@@ -15,14 +15,12 @@ var vtKnob = null;
 var rrKnob = null;
 
 window.onload = function () {
-	appScaleFactor = 0.8;
-	setRootFontSize("wrapper");
-
   installVtKnob();
   installRrKnob();
   installPurityKnob();
   installFiO2Knob();
 
+	setRootFontSize("wrapper", "wrapper");
 	appResize();
 	appResizeFunction = appResize;
 }

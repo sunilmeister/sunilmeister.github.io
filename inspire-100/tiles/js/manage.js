@@ -275,11 +275,3 @@ function tileClick(tile) {
 	}
 }
 
-window.onload = function () {
-	AddRemoveTiles();
-	disableAllBeeps();
-	openAudioControl();
-	appScaleFactor = 0.7;
-	setRootFontSize("topTilesDiv");
-
-}
