@@ -10,7 +10,7 @@ var appWidth = null;
 var appHeight = null;
 
 // Design Params
-const laptopDevFontSize = 15;
+const laptopDevFontSize = 16;
 const mobileDevFontSize = 15;
 
 // Ensure that some margin is left on the sides
