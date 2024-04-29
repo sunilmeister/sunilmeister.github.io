@@ -10,11 +10,11 @@ var appWidth = null;
 var appHeight = null;
 
 // Design Params
-const laptopDevFontSize = 16;
-const mobileDevFontSize = 16;
+const laptopDevFontSize = 15;
+const mobileDevFontSize = 15;
 
 // Ensure that some margin is left on the sides
-const fontScaleFactor = 0.9;
+const fontScaleFactor = 0.95;
 
 function setRootFontSize(rootWidthDivId, rootHeightDivId) {
 	//console.log("ROOT DIVs (W,H)", rootWidthDivId, rootHeightDivId);
@@ -35,21 +35,29 @@ function setRootFontSize(rootWidthDivId, rootHeightDivId) {
 // ///////////////////////////////////////////////////////
 function setRootFontSizeDevice(devFontSize) {
 	const minFontSize = 6;
+	const maxFontSize = 18;
 
-	let windowWidth = window.innerWidth;
-	let windowHeight = window.innerHeight;
+	let dpx = window.devicePixelRatio;
+	let windowWidth = window.innerWidth / dpx;
+	let windowHeight = window.innerHeight / dpx;
 	let wFontSize = (devFontSize * windowWidth) / appWidth;
 	let hFontSize = (devFontSize * windowHeight) / appHeight;
 
 	let fontSize = Math.min(wFontSize, hFontSize);
 	fontSize *= fontScaleFactor;
-	//if (fontSize > maxFontSize) fontSize = maxFontSize;
+	if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
 
-	//console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
-	//console.log("appWidth", appWidth, "appHeight", appHeight );
-	//console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
-	//console.log("root fontSize", fontSize);
+	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
+	console.log("appWidth", appWidth, "appHeight", appHeight );
+	console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
+	console.log("dpx", dpx, "newFontSize", fontSize);
+	if (isMobileBrowser()) {
+		alert("windowWidth=" + windowWidth + "  windowHeight=" + windowHeight);
+		alert("appWidth=" + appWidth + "  appHeight=" + appHeight );
+		alert("wFontSize=" + wFontSize + "  hFontSize=" + hFontSize);
+		alert("dpx=" + dpx + "newfontSize=" + fontSize);
+	}
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";

@@ -135,7 +135,7 @@ window.onload = function () {
   waitForChirps();
 
 	sidebarAlign();
-	setRootFontSize("fullRecorder", "record-pane");
+	setRootFontSize("fullRecorder", "nonMenuArea");
 
 	appResize();
 	appResizeFunction = appResize;
