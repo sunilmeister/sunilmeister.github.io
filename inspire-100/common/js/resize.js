@@ -34,10 +34,9 @@ function setRootFontSize(rootWidthDivId, rootHeightDivId) {
 // Figure out the root font size for proper scaling etc.
 // ///////////////////////////////////////////////////////
 function setRootFontSizeDevice(devFontSize) {
-	const minFontSize = 6;
+	const minFontSize = 5;
 	const maxFontSize = 18;
 
-	let dpx = window.devicePixelRatio;
 	let windowWidth = document.documentElement.clientWidth ;
 	let windowHeight = document.documentElement.clientHeight ;
 	let wFontSize = (devFontSize * windowWidth) / appWidth;
@@ -51,14 +50,14 @@ function setRootFontSizeDevice(devFontSize) {
 	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
 	console.log("appWidth", appWidth, "appHeight", appHeight );
 	console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
-	console.log("dpx", dpx, "newFontSize", fontSize);
+	console.log("newFontSize", fontSize);
 	if (isMobileBrowser()) {
 		alert("windowWidth=" + windowWidth + "  windowHeight=" + windowHeight);
 		alert("appWidth=" + appWidth + "  appHeight=" + appHeight );
 		alert("wFontSize=" + wFontSize + "  hFontSize=" + hFontSize);
-		alert("dpx=" + dpx + "newfontSize=" + fontSize);
+		alert("newfontSize=" + fontSize);
 	} else {
-		alert("NON Mobile");
+		//alert("NON Mobile");
 	}
 
 	let root = document.documentElement;
