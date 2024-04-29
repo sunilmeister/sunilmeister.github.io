@@ -37,9 +37,9 @@ function setRootFontSizeDevice(devFontSize) {
 	const minFontSize = 6;
 	const maxFontSize = 18;
 
-	let dpx = window.devicePixelRatio;
-	let windowWidth = window.innerWidth / dpx;
-	let windowHeight = window.innerHeight / dpx;
+	//let dpx = window.devicePixelRatio;
+	let windowWidth = document.documentElement.clientWidth ;
+	let windowHeight = document.documentElement.clientHeight ;
 	let wFontSize = (devFontSize * windowWidth) / appWidth;
 	let hFontSize = (devFontSize * windowHeight) / appHeight;
 
