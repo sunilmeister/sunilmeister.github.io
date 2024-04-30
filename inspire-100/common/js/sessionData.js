@@ -242,6 +242,7 @@ var SessionDataTemplate = {
     allChartsContainerInfo: {},
     boxTree: null,
     numChartDatapoints: 0,
+    sparseInterval: 1,
     labelFontSize: 10,
     legendFontSize: 12,
     titleFontSize: 30,
@@ -256,6 +257,7 @@ var SessionDataTemplate = {
   // Below is stuff for detailed breath waveforms
   waves: {
     rangeLimit: WAVE_NUM_ROLLING_BREATHS,
+    sparseInterval: 1,
     pwData: [],
     flowData: [],
     pwRecordedBreaths: [],

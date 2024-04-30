@@ -82,7 +82,7 @@ const WAVE_MAX_SAMPLES_PER_SLICE = 8;
 const WAVE_MAX_SLICES = 8;
 
 const CHART_NUM_ROLLING_BREATHS = 60;
-const CHART_ALERT_THRESHOLD = 500;
+const CHART_ALERT_THRESHOLD = 400;
 const CHART_XAXIS_MAX_TICK_MARKS = 25;
 const CHART_INTERLACED_COLOR = 'white';
 const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB';
@@ -94,6 +94,7 @@ const CHART_CONTAINER_TEMPLATE_ID = "chartContainerTemplate";
 const CHART_EDIT_MENU_TEMPLATE_ID = "chartEditMenuTemplate";
 const CHART_BODY_CLASS = "chartBody";
 const CHART_BANNER_CLASS = "chartBanner";
+const CHART_BANNER_TEXT_CLASS = "sparseIntervalMsg";
 const CHART_EDIT_CHART_MENU_CLASS = "chartEditMenu";
 const CHART_EDIT_CHART_MENU_ID = "chartDropDownMenu";
 const CHART_CONTAINER_CLASS = "chartContainer";

@@ -141,21 +141,22 @@ function createAllCharts() {
     chartInsertInitial(); // always have chart box for user to start with
   }
 
-  // check for too many datapoints to render
-  session.charts.numChartDatapoints 
-      = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
-  if (session.charts.numChartDatapoints <= CHART_ALERT_THRESHOLD) {
-    renderAllCharts();
-    return;
-  } else {
-      modalAlert("Too many Breaths selected (" + session.charts.numChartDatapoints +")", 
-        "Use Range Selector to select " + CHART_ALERT_THRESHOLD + " or less"
-        + "\nbreaths to display"); 
-      return;
-  }
+  renderAllCharts();
 }
 
 function renderAllCharts() {
+	// check for too many datapoints to render
+  let numDataPoints = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
+	//console.log("render breaths=" + numDataPoints);
+	let sparseInterval = 1;
+  if (numDataPoints > CHART_ALERT_THRESHOLD) {
+		sparseInterval = Math.ceil(numDataPoints / CHART_ALERT_THRESHOLD);
+    modalWarning("Breath Range SPAN (" + numDataPoints +") too big!", 
+        "Plotting every " + numToNth(sparseInterval) + " breath");
+	}
+	session.charts.numChartDatapoints = numDataPoints / sparseInterval;
+	session.charts.sparseInterval = sparseInterval;
+
   for (let id in session.charts.allChartsContainerInfo) {
     session.charts.allChartsContainerInfo[id].render();
   }

@@ -188,6 +188,7 @@ class ChartPane {
     Xaxis.fontSize =  session.charts.labelFontSize
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
+		//console.log("Xmin=" +  Xaxis.minimum );
     if (missingWindows && missingWindows.length) {
       Xaxis.scaleBreaks = {type: "straight", color:"orange"};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
@@ -268,7 +269,7 @@ class ChartPane {
     let curValue = 0;
     let curIx = 0;
     curValue = transitions[0].value; // guaranteed to have at least one entry
-    for (let i = 1; i < breathTimes.length; i++) {
+    for (let i = 1; i < breathTimes.length; i+=session.charts.sparseInterval) {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
@@ -287,7 +288,8 @@ class ChartPane {
     let xval;
     let prevXval = -1;
     let ignoreDatapoint = false;
-    for (let i = 0; i < numPoints; i++) {
+		let yIndex = 0;
+    for (let i = 0; i < numPoints; i+=session.charts.sparseInterval) {
       ignoreDatapoint = false;
       if (this.timeUnits) {
         let ms = new Date(breathTimes[i + minBnum - 1]) - initTime;
@@ -295,7 +297,7 @@ class ChartPane {
         if (xval <= prevXval) ignoreDatapoint = true;
         else prevXval = xval;
       } else {
-        xval = i + minBnum - 1;
+        xval = i + minBnum;
       }
       if (!ignoreDatapoint) {
         if (this.paramInfo.snapYval) {
@@ -305,10 +307,12 @@ class ChartPane {
             "toolTipContent": this.paramInfo.name + '# ' + yDatapoints[i],
           });
         } else {
+					//console.log("xval=" + xval + "	yVal=" + yDatapoints[yIndex]);
           xyPoints.push({
             "x": xval,
-            "y": yDatapoints[i],
+            "y": yDatapoints[yIndex],
           });
+					yIndex++;
         }
       }
     }
@@ -341,7 +345,7 @@ class ChartPane {
 
     for (let t = 1; t < transitions.length; t++) {
       let cTime = transitions[t].time;
-      for (b = minBnum; b <= maxBnum; b++) {
+      for (b = minBnum; b <= maxBnum; b+=session.charts.sparseInterval) {
         if (breathTimes[b] == cTime) {
           yval = transitions[t].value;
           ignoreDatapoint = false;
@@ -424,7 +428,7 @@ class ChartPane {
     for (let i = 0; i < timeSpans.length; i++) {
       startTime = timeSpans[i].startTime;
       endTime = timeSpans[i].endTime;
-      for (bnum = minBnum; bnum < maxBnum; bnum++) {
+      for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
         if ((breathTimes[bnum] >= startTime) && (breathTimes[bnum] < endTime)) {
           ignoreDatapoint = false;
           if (this.timeUnits) {
