@@ -312,7 +312,15 @@ var SessionDataTemplate = {
 
 };
 
-var session = cloneObject(SessionDataTemplate);
+var session = null;
+function createNewSession() {
+	session = cloneObject(SessionDataTemplate);
+}
+
+window.addEventListener("load", function() {
+  if (session) delete session;
+	createNewSession();
+})
 
 function createReportRange(moving, minBnum, maxBnum) {
   let range = cloneObject(session.reportRange);

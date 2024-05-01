@@ -407,8 +407,7 @@ function resizeChartsWaves() {
 
 function initGlobals() {
   // Create new data objects
-  if (session) delete session;
-  session = cloneObject(SessionDataTemplate);
+  createNewSession();
   session.appId = PLAYBACK_APP_ID;
 }
 

@@ -536,7 +536,7 @@ window.onload = function () {
 
   initDivElements();
 
-  session = cloneObject(SessionDataTemplate);
+  createNewSession();
   session.appId = DASHBOARD_APP_ID;
   session.launchDate = new Date();
 

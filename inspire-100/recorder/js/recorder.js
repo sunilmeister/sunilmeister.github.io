@@ -114,7 +114,7 @@ function updateRecorderSummary(d) {
 window.onload = function () {
   finishedLoading = false;
 
-  session = cloneObject(SessionDataTemplate);
+  createNewSession();
   session.appId = RECORDER_APP_ID;
   session.launchDate = new Date();
   updateDocumentTitle();
