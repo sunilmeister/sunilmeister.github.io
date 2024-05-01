@@ -23,9 +23,35 @@
 	};
 
 	function initParams() {
-		let params = session.params;
+		session.params.state = 			new Param("STATE", "YYY", "");
+		session.params.vtdel = 			new Param("XXX", "YYY", "ml");
+		session.params.mvdel = 			new Param("XXX", "YYY", "l/min");
+		session.params.mmvdel = 		new Param("XXX", "YYY", "l/min");
+		session.params.smvdel = 		new Param("XXX", "YYY", "l/min");
+		session.params.sbpm = 			new Param("XXX", "YYY", "bpm");
+		session.params.mbpm = 			new Param("XXX", "YYY", "bpm");
+		session.params.btype = 			new Param("XXX", "YYY", "");
+		session.params.bcontrol = 	new Param("XXX", "YYY", "");
+		session.params.scomp = 			new Param("XXX", "YYY", "UUU");
+		session.params.dcomp = 			new Param("XXX", "YYY", "UUU");
+		session.params.peak = 			new Param("XXX", "YYY", "cmH2O");
+		session.params.mpeep = 			new Param("XXX", "YYY", "cmH2O");
+		session.params.plat = 			new Param("XXX", "YYY", "cmH2O");
+		session.params.temp = 			new Param("XXX", "YYY", "degC");
+		session.params.cmvSpont = 	new Param("XXX", "YYY", "");
+		session.params.o2FlowX10 = 	new Param("XXX", "YYY", "l/min");
 
-		params.state = new Param("XXX", "YYY");
+		session.params.mode = 			new Param("XXX", "YYY", "");
+		session.params.vt = 				new Param("XXX", "YYY", "ml");
+		session.params.mv = 				new Param("XXX", "YYY", "l/min");
+		session.params.rr = 				new Param("XXX", "YYY", "bpm");
+		session.params.ie = 				new Param("XXX", "YYY", "");
+		session.params.ipeep = 			new Param("XXX", "YYY", "cmH2O");
+		session.params.pmax = 			new Param("XXX", "YYY", "cmH2O");
+		session.params.ps = 				new Param("XXX", "YYY", "cmH2O");
+		session.params.tps = 				new Param("XXX", "YYY", "");
+		session.params.fiO2 = 			new Param("XXX", "YYY", "%");
+		session.params.o2Purity = 	new Param("XXX", "YYY", "%");
 	}
 
   var paramsInfo = {
@@ -70,9 +96,10 @@
 	};
 
 	class Param {
-		constructor(name, type) {
+		constructor(name, type, units) {
 			this.name = name;
 			this.type = type;
+			this.units = units;
 			let initChange = cloneObject(paramChangeTemplate);
 			initChange.time = 0;
 			initChange.value = null;
@@ -84,6 +111,7 @@
 		// some queries
 		name() { return this.name; }
 		type() { return this.type; }
+		units() { return this.units; }
 		changes() { return this.changes; }
 
 		// each call must be monotonically increasing in time values
