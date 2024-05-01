@@ -1,22 +1,32 @@
-	var paramsType = {
-		"NATURAL_NUMBER" : null,
-		"FIXED_POINT" : null,
-		"BOOLEAN" :	["FALSE", "TRUE"],
-		"BREATH_ENUM" : ["SPONTANEOUS", "MANDATORY"],
-		"MODE_ENUM" : ["CMV", "ACV", "SIMV", "PSV"],
-		"TPS_ENUM" : [
-			"10% of Peak Flow",
-			"20% of Peak Flow",
-			"30% of Peak Flow",
-			"40% of Peak Flow",
-			"50% of Peak Flow",
-			"60% of Peak Flow",
-			"1.0 secs",
-			"1.5 secs",
-			"2.0 secs",
-			"2.5 secs",
-		],
+	const paramsType = {
+		NATURAL_NUMBER : 				"NATURAL_NUMBER",
+		FIXED_POINT : 					"FIXED_POINT",
+		PERCENT : 							"PERCENT",
+		BOOLEAN :								["FALSE", "TRUE"],
+		STATE_ENUM : 						["INITIAL", "STANDBY", "ACTIVE", "ERROR"],
+		IE_ENUM : 							["1:1", "1:2", "1:3"],
+		BREATH_TYPE_ENUM : 			["SPONTANEOUS", "MANDATORY", "MAINTENANCE"],
+		BREATH_CONTROL_ENUM : 	["VOLUME", "PRESSURE"],
+		MODE_ENUM : 						["CMV", "ACV", "SIMV", "PSV"],
+		TPS_ENUM : 							[
+														 "10% of Peak Flow",
+														 "20% of Peak Flow",
+														 "30% of Peak Flow",
+														 "40% of Peak Flow",
+														 "50% of Peak Flow",
+														 "60% of Peak Flow",
+														 "1.0 secs",
+														 "1.5 secs",
+														 "2.0 secs",
+														 "2.5 secs",
+														],
 	};
+
+	function initParams() {
+		let params = session.params;
+
+		params.state = new Param("XXX", "YYY");
+	}
 
   var paramsInfo = {
 		// measured params
@@ -71,10 +81,12 @@
 			this.changes = [initChange];
 		}
 
+		// some queries
 		name() { return this.name; }
 		type() { return this.type; }
+		changes() { return this.changes; }
 
-		// in increasing values of time only
+		// each call must be monotonically increasing in time values
 		// time is a Date object
 		addValueChange(time, value) {
 			let len = this.changes.length;
@@ -90,6 +102,7 @@
 			this.changes.push(change);
 		}
 
+		// time is a Date Object
 		valueAtTime(time) {
 			// first entry in changes is a null entry
 			if (this.changes.length == 1) return null;
@@ -97,19 +110,29 @@
 			return this.changes[ix].value;
 		}
 
+		// bnum must have been logged
 		valueAtBnum(bnum) {
 			if (!bnum) return null;
 			// first entry in breathTimes is a null entry
 			return valueAtTime(session.breathTimes[bnum]);
 		}
 
-		// return all values for surrent selected breath range
-		valuesForSelectedRange() {
-			return valuesFromBnum(session.reportRange.minBnum, session.reportRange.maxBnum);
+		// helper function to compute min/max/avg
+		function updateStats(stats, value) {
+			if (value === null) return stats;
+			stats.sum += value;
+			stats.num++;
+
+			if (stats.min === null) stats.min = value;
+			else if (stats.min > value) stats.min = value;
+
+			if (stats.max === null) stats.max = value;
+			else if (stats.max < value) stats.max = value;
 		}
 
-		// return all values logged starting from startBnum till endBnum
-		valuesFromBnum(startBnum, endBnum) {
+		// return all values logged starting from startBnum till endBnum in intervals of stepBnum
+		values(startBnum, endBnum, stepBnum) {
+			if (isUndefined(stepBnum) stepBnum = 1;
 			let values = [];
 			let endChangeIndex = this.changes.length - 1;
 			let changeIx = findLastValueChangeIndex(time);
@@ -118,10 +141,14 @@
 			values.push(value);
 
 			let endTime = session.breathTimes[endBnum];
+			let nextBnumToStore = startBnum + stepBnum;
 			for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 				let btime = session.breathTimes[bnum];
 				if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
-					values.push(value); // previously computed value
+					if (bnum == nextBnumToStore) {
+						values.push(value); // previously computed value
+						nextBnumToStore += stepBnum;
+					}
 					continue;
 				}
 
@@ -130,10 +157,50 @@
 					value = this.changes[changeIx].value; // new value
 				}
 
-				values.push(value);
+				if (bnum == nextBnumToStore) {
+					values.push(value);
+					nextBnumToStore += stepBnum;
+				}
 			}
 
 			return values;
+		}
+
+		// returns {min: , max:, avg: }
+		minMaxAvg(startBnum, endBnum, stepBnum) {
+			if (isUndefined(stepBnum) stepBnum = 1;
+			let stats = {min: null, max: null, avg:null, sum:0, num:0};
+			let endChangeIndex = this.changes.length - 1;
+			let changeIx = findLastValueChangeIndex(time);
+			if (!changeIx) return values;
+			let value = this.changes[changeIx].value;
+			stats = updateStats(stats, value);
+
+			let endTime = session.breathTimes[endBnum];
+			let nextBnumToEval = startBnum + stepBnum;
+			for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
+				let btime = session.breathTimes[bnum];
+				if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
+					if (bnum == nextBnumToEval) {
+						stats = updateStats(stats, value);
+						nextBnumToEval += stepBnum;
+					}
+					continue;
+				}
+
+				if (btime.getTime() >= this.changes[changeIx + 1].time.getTime()) {
+					changeIx++;
+					value = this.changes[changeIx].value; // new value
+				}
+
+				if (bnum == nextBnumToEval) {
+					stats = updateStats(stats, value);
+					nextBnumToEval += stepBnum;
+				}
+			}
+
+			let rval = {min: stats.min, max: stats.max, avg: stats.sum/stats.num};
+			return rval;
 		}
 
 	  // Recursive Binary search for change at or immediately before given time
