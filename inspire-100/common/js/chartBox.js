@@ -64,6 +64,8 @@ class ChartBox {
     document.getElementById("MBreath").checked = false;
     document.getElementById("SBreath").checked = false;
     document.getElementById("EBreath").checked = false;
+    document.getElementById("VCBreath").checked = false;
+    document.getElementById("PSBreath").checked = false;
     document.getElementById("Static").checked = false;
     document.getElementById("Dynamic").checked = false;
     document.getElementById("FiO2").checked = false;
@@ -97,6 +99,8 @@ class ChartBox {
     document.getElementById("MBreath").checked = this.options["MBreath"];
     document.getElementById("SBreath").checked = this.options["SBreath"];
     document.getElementById("EBreath").checked = this.options["EBreath"];
+    document.getElementById("VCBreath").checked = this.options["VCBreath"];
+    document.getElementById("PSBreath").checked = this.options["PSBreath"];
     document.getElementById("Static").checked = this.options["Static"];
     document.getElementById("Dynamic").checked = this.options["Dynamic"];
     document.getElementById("FiO2").checked = this.options["FiO2"];
@@ -127,6 +131,8 @@ class ChartBox {
     this.options["MBreath"] = document.getElementById("MBreath").checked;
     this.options["SBreath"] = document.getElementById("SBreath").checked;
     this.options["EBreath"] = document.getElementById("EBreath").checked;
+    this.options["VCBreath"] = document.getElementById("VCBreath").checked;
+    this.options["PSBreath"] = document.getElementById("PSBreath").checked;
     this.options["Static"] = document.getElementById("Static").checked;
     this.options["Dynamic"] = document.getElementById("Dynamic").checked;
     this.options["FiO2"] = document.getElementById("FiO2").checked;
