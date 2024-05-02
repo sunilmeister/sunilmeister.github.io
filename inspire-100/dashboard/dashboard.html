@@ -235,7 +235,7 @@
 
     <div id=chartTitleDiv style="background-color: var(--rsp_mediumblue); padding-bottom:0.5rem;">
       <center>
-        <p style="font-size:1.4rem; background-color: var(--rsp_mediumblue); color: white; margin-top:0.5rem; margin-bottom:0rem;;">Title</p>
+        <p style="font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white; margin-top:1rem; margin-bottom:0rem;;">Title</p>
         <div style="font-size:1.4rem; background-color: var(--rsp_mediumblue); ">
           <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title" style="width:20rem; font-size:1.5rem;">
         </div>
@@ -406,6 +406,69 @@
     </div>
 	</div>
 
+
+    <div id=waveDropDownMenu class=popupClassCenter style="width:20rem; height:auto; background-color: var(--rsp_lightblue);">
+      <div class=waveEditMenuBanner>
+        <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" style="width:1rem; height:1rem;"></button>
+        <br>
+      </div>
+
+      <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
+        <center>
+          <p style="font-size:1.4rem; background-color: var(--rsp_mediumblue); color: white; margin-top:1rem;">Title</p>
+          <div style="background-color: var(--rsp_lightblue); margin-top:-1.3rem">
+            <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title" style="font-size:1.3rem; width:15rem; margin-bottom:1.4rem;">
+          </div>
+        </center>
+      </div>
+      <div id=waveCheckBoxTreeRoot style="font-size:1rem; margin-top:-1.3rem; padding-bottom:0.7rem; color:var(--rsp_darkblue)">
+        <center>
+          <p style="font-size:1.4rem; background-color: var(--rsp_mediumblue); color: white;">Breath Types</p>
+        </center>
+        <div style="background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
+          <input type="checkbox" id=All class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+          <label for=All>All</label>
+          <div class=waveIndentDiv>
+            <br>
+            <input type="checkbox" id=MandatoryB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=MandatoryB>Mandatory Breaths</label>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=MandatoryVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+              <label for=MandatoryVC>Volume Controlled</label>
+            </div>
+          </div>
+          <br>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=SpontaneousB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=SpontaneousB>Spontaneous Breaths</label>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=SpontaneousVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+              <label for=SpontaneousVC>Volume Controlled</label>
+            </div>
+            <div class=waveIndentDiv>
+              <input type="checkbox" id=SpontaneousPS class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+              <label for=SpontaneousPS>Pressure Supported&nbsp</label>
+            </div>
+            <br>
+          </div>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=MaintenanceB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
+            <br>
+          </div>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=ErrorB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=ErrorB>Include Error Breaths</label>
+            <br>
+          </div>
+          <div class=waveIndentDiv>
+            <input type="checkbox" id=AbnormalB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
+            <label for=AbnormalB>Include Abnormal Breaths</label>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
 
   <div id=fullDashboard style="width:120rem;min-height:60rem;">
     <div id=sideMenuBar class='sidebarColumn shadowDiv10'>
@@ -1079,71 +1142,6 @@
       </div>
       <div class=waveBody>
       </div>
-  </template>
-
-  <template id=waveEditMenuTemplate>
-    <div id=waveDropDownMenu class=waveEditMenu style="background-color: var(--rsp_lightblue);">
-      <div class=waveEditMenuBanner>
-				<img src="../common/img/close.png" class=iconButton title='Cancel' onClick='waveMenuCancel(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
-        <br>
-      </div>
-
-      <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
-        <center>
-          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white; margin-top:0;">Title</p>
-          <div style="background-color: var(--rsp_lightblue); margin-top:-0.6rem">
-            <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title">
-          </div>
-        </center>
-      </div>
-      <div id=waveCheckBoxTreeRoot style="margin-top:-0.6rem; padding-bottom:0.6rem;">
-        <center>
-          <p style="font-size:1.2rem; background-color: var(--rsp_blue); color: white;">Y-axis Parameters</p>
-        </center>
-        <div style="background-color: var(--rsp_lightblue); margin-top:-0.3rem;">
-          <input type="checkbox" id=All class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-          <label for=All>All</label>
-          <div class=waveIndentDiv>
-            <br>
-            <input type="checkbox" id=MandatoryB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-            <label for=MandatoryB>Mandatory Breaths</label>
-            <div class=waveIndentDiv>
-              <input type="checkbox" id=MandatoryVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=MandatoryVC>Volume Controlled</label>
-            </div>
-          </div>
-          <br>
-          <div class=waveIndentDiv>
-            <input type="checkbox" id=SpontaneousB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-            <label for=SpontaneousB>Spontaneous Breaths</label>
-            <div class=waveIndentDiv>
-              <input type="checkbox" id=SpontaneousVC class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=SpontaneousVC>Volume Controlled</label>
-            </div>
-            <div class=waveIndentDiv>
-              <input type="checkbox" id=SpontaneousPS class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-              <label for=SpontaneousPS>Pressure Supported&nbsp</label>
-            </div>
-            <br>
-          </div>
-          <div class=waveIndentDiv>
-            <input type="checkbox" id=MaintenanceB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-            <label for=MaintenanceB>Include Maintenance Breaths&nbsp</label>
-            <br>
-          </div>
-          <div class=waveIndentDiv>
-            <input type="checkbox" id=ErrorB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-            <label for=ErrorB>Include Error Breaths</label>
-            <br>
-          </div>
-          <div class=waveIndentDiv>
-            <input type="checkbox" id=AbnormalB class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
-            <label for=AbnormalB>Include Abnormal Breaths</label>
-          </div>
-          <br>
-        </div>
-      </div>
-    </div>
   </template>
 
 </body>

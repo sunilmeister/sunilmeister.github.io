@@ -32,8 +32,20 @@ class WaveBox {
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }
 
+  clearMenu(menuId) {
+    document.getElementById("MandatoryVC").checked = false;
+    document.getElementById("SpontaneousVC").checked = false;
+    document.getElementById("SpontaneousPS").checked = false;
+    document.getElementById("MaintenanceB").checked = false;
+    document.getElementById("ErrorB").checked = false;
+    document.getElementById("AbnormalB").checked = false;
+    document.getElementById("WaveTitleId").value = "";
+  }
+
   // Update the HTML dropdown menu using stored options
   updateMenu(menuId) {
+		this.clearMenu(menuId);
+
     if (Object.keys(this.options).length == 0) return;
     if (!document.getElementById(menuId)) return;
     document.getElementById("MandatoryVC").checked = this.options.MandatoryVC;

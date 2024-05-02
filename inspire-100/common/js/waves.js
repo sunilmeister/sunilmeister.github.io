@@ -12,40 +12,29 @@ function waveInsertInitial() {
   let allWaves = document.getElementById(ALL_WAVES_ID);
   let newContainer = createNewWaveContainer();
   allWaves.insertBefore(newContainer, null);
-  // Open edit menu for the new wave box
-  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
-  waveEdit(enode);
 }
 
 function waveInsert(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
   let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
-  // Open edit menu for the new wave box
-  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
-  waveEdit(enode);
 }
 
 function waveAppend(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
   let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
-  // Open edit menu for the new wave box
-  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
-  waveEdit(enode);
 }
 
 function waveEdit(bnode) {
   removeWaveEditMenu();
+  document.getElementById(WAVE_EDIT_WAVE_MENU_ID).style.display = "block";
   let containerNode = findAncestorWaveContainerNode(bnode);
-  let temp = document.getElementById(WAVE_EDIT_MENU_TEMPLATE_ID);
-  let template = findChildNodeByClass(temp.content, WAVE_EDIT_WAVE_MENU_CLASS);
-  let node = template.cloneNode(true);
-  containerNode.insertBefore(node, bnode.parentNode.nextSibling);
-  session.waves.boxTree = new CheckboxTree(WAVE_CBOX_TREE_ROOT_ID);
+  session.waves.boxTree = new CheckboxTree(WAVE_CBOX_TREE_ROOT_ID, containerNode.id);
   let box = session.waves.allWavesContainerInfo[containerNode.id];
   box.updateMenu(WAVE_EDIT_WAVE_MENU_ID);
   session.waves.boxTree.PropagateFromLeafCheckboxes();
+  // Treat <ENTER> as accept button for TITLE
   let titleNode = document.getElementById("WaveTitleId");
   titleNode.addEventListener("keypress", waveTitleKeypressListener);
 }
@@ -57,18 +46,15 @@ function waveDelete(bnode) {
   if (numberOfExistingWaves() == 0) {
     modalWarning("WAVEFORM BOX", "No Waveform container left\nCreating new empty one");
     waveInsertInitial();
-  } else {
-    removeWaveEditMenu();
   }
+  removeWaveEditMenu();
 }
 
 function removeWaveEditMenu() {
   if (session.waves.boxTree) delete session.waves.boxTree;
   let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
   if (!menuDiv) return;
-  let titleNode = document.getElementById("WaveTitleId");
-  titleNode.addEventListener("keypress", waveTitleKeypressListener);
-  menuDiv.remove();
+	menuDiv.style.display = "none";
 }
 
 function waveMenuCancel(bnode) {
@@ -77,8 +63,8 @@ function waveMenuCancel(bnode) {
 }
 
 function waveMenuSubmit(bnode) {
-  let containerNode = findAncestorWaveContainerNode(bnode);
-  let box = session.waves.allWavesContainerInfo[containerNode.id];
+  let containerNodeId = session.waves.boxTree.BoxContainerId();
+  let box = session.waves.allWavesContainerInfo[containerNodeId];
   box.updateOptions(WAVE_EDIT_WAVE_MENU_ID);
   //removeWaveEditMenu();
   box.render();
