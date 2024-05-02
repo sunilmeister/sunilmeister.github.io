@@ -203,6 +203,12 @@ var SessionDataTemplate = {
   errorMsgs:            [],
 
   // /////////////////////////////////////////////
+  // All input and output parameters (settings and measured)
+	// Initialized during createNewSession
+  // /////////////////////////////////////////////
+	params : {},
+
+  // /////////////////////////////////////////////
   // Combinations of settings
   // /////////////////////////////////////////////
   prevParamCombo: {
@@ -315,6 +321,7 @@ var SessionDataTemplate = {
 var session = null;
 function createNewSession() {
 	session = cloneObject(SessionDataTemplate);
+	//initSessionParams();
 }
 
 window.addEventListener("load", function() {
