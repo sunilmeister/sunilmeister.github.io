@@ -14,25 +14,31 @@ function chartInsertInitial() {
   let allCharts = document.getElementById(ALL_CHARTS_ID);
   let newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, null);
-  removeChartEditMenu();
+	// Open edit menu for the new wave box
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  chartEdit(enode);
+
 }
 
 function chartInsert(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);
   let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
-  removeChartEditMenu();
+	// Open edit menu for the new wave box
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  chartEdit(enode);
 }
 
 function chartAppend(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);
   let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
-  removeChartEditMenu();
+	// Open edit menu for the new wave box
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  chartEdit(enode);
 }
 
 function chartEdit(bnode) {
-  removeChartEditMenu();
   document.getElementById(CHART_EDIT_CHART_MENU_ID).style.display="block";
   let containerNode = findAncestorChartContainerNode(bnode);
   session.charts.boxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID, containerNode.id);

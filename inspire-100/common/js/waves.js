@@ -12,22 +12,30 @@ function waveInsertInitial() {
   let allWaves = document.getElementById(ALL_WAVES_ID);
   let newContainer = createNewWaveContainer();
   allWaves.insertBefore(newContainer, null);
+ 	// Open edit menu for the new wave box
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  waveEdit(enode);
 }
 
 function waveInsert(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
   let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
+ 	// Open edit menu for the new wave box
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  waveEdit(enode);
 }
 
 function waveAppend(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
   let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
+ 	// Open edit menu for the new wave box
+  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
+  waveEdit(enode);
 }
 
 function waveEdit(bnode) {
-  removeWaveEditMenu();
   document.getElementById(WAVE_EDIT_WAVE_MENU_ID).style.display = "block";
   let containerNode = findAncestorWaveContainerNode(bnode);
   session.waves.boxTree = new CheckboxTree(WAVE_CBOX_TREE_ROOT_ID, containerNode.id);
