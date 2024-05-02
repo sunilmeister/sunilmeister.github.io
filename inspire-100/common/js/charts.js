@@ -56,11 +56,39 @@ function chartDelete(bnode) {
 }
 
 function removeChartEditMenu() {
-  if (session.charts.boxTree) delete session.charts.boxTree;
   let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
-	menuDiv.style.display = "none";
+  if (session.charts.boxTree) {
+  	let containerNodeId = session.charts.boxTree.BoxContainerId();
+  	let cdiv = document.getElementById(containerNodeId);
+  	let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
+		bdiv.style.backgroundColor = palette.darkblue;
+  	let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
+		menuDiv.style.display = "none";
+		session.charts.boxTree = null;
+	}
 }
+
+var chartMenuBlinkColor = false;
+function blinkChartMenu() {
+  if (!session.charts.boxTree) return;
+  let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
+	if (!menuDiv) return;
+ 	let containerNodeId = session.charts.boxTree.BoxContainerId();
+ 	let cdiv = document.getElementById(containerNodeId);
+ 	let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
+	if (chartMenuBlinkColor) {
+		bdiv.style.backgroundColor = palette.darkblue;
+		chartMenuBlinkColor = false;
+	} else {
+		bdiv.style.backgroundColor = palette.mediumblue;
+		chartMenuBlinkColor = true;
+	}
+}
+
+setInterval(() => {
+	blinkChartMenu();
+}, 1000)
 
 function chartMenuCancel(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);

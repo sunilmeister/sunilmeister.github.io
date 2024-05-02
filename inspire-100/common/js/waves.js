@@ -51,11 +51,39 @@ function waveDelete(bnode) {
 }
 
 function removeWaveEditMenu() {
-  if (session.waves.boxTree) delete session.waves.boxTree;
   let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
   if (!menuDiv) return;
-	menuDiv.style.display = "none";
+  if (session.waves.boxTree) {
+  	let containerNodeId = session.waves.boxTree.BoxContainerId();
+  	let cdiv = document.getElementById(containerNodeId);
+  	let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
+		bdiv.style.backgroundColor = palette.darkblue;
+  	let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
+		menuDiv.style.display = "none";
+		session.waves.boxTree = null;
+	}
 }
+
+var waveMenuBlinkColor = false;
+function blinkWaveMenu() {
+  if (!session.waves.boxTree) return;
+  let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
+	if (!menuDiv) return;
+ 	let containerNodeId = session.waves.boxTree.BoxContainerId();
+ 	let cdiv = document.getElementById(containerNodeId);
+ 	let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
+	if (waveMenuBlinkColor) {
+		bdiv.style.backgroundColor = palette.darkblue;
+		waveMenuBlinkColor = false;
+	} else {
+		bdiv.style.backgroundColor = palette.mediumblue;
+		waveMenuBlinkColor = true;
+	}
+}
+
+setInterval(() => {
+	blinkWaveMenu();
+}, 1000)
 
 function waveMenuCancel(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
