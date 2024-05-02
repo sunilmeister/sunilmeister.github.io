@@ -1,48 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Inspire-100</title>
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/png" href="../common/img/favicon.png">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <link href="../dashboard/css/sizes.css" rel="stylesheet" />
-    <link href="../common/css/colors.css" rel="stylesheet" />
-    <link href="../common/css/common.css" rel="stylesheet" />
-    <link href="../common/css/noUi.css" rel="stylesheet" />
-    <link href="../common/css/iconButton.css" rel="stylesheet" />
-    <link href="../common/css/sidebarButton.css" rel="stylesheet" />
-    <link href="../common/css/chart.css" rel="stylesheet" />
-    <link href="../common/css/wave.css" rel="stylesheet" />
-    <link href="../common/css/wavesLegend.css" rel="stylesheet" />
-    <link href="../dashboard/css/sidebar.css" rel="stylesheet" />
-    <link href="../dashboard/css/dashboard.css" rel="stylesheet" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="../external/hacktimer/HackTimer.min.js"></script>
-    <script src="../external/nouislider/nouislider.min.js"></script>
-    <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="../external/canvasjs/canvasjs.min.js"></script>
-    <script src="../external/pure-knob-master/pureknob.js"></script>
-    <script src="../external/download/download.min.js"></script>
-    <script src="https://dweet.io/client/dweet.io.min.js"></script>
-    <script src="../common/js/hwPosts.js"></script>
-  </head>
-  <body style="font-family:verdana" ;>
-    <div id=chartCheckBoxTreeRoot class=popupClassCenter style="height:auto; font-size:1rem; padding-bottom:0.6rem; width:37.5rem;">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Inspire-100</title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="../common/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link href="../dashboard/css/sizes.css" rel="stylesheet" />
+  <link href="../common/css/colors.css" rel="stylesheet" />
+  <link href="../common/css/common.css" rel="stylesheet" />
+  <link href="../common/css/noUi.css" rel="stylesheet" />
+  <link href="../common/css/iconButton.css" rel="stylesheet" />
+  <link href="../common/css/sidebarButton.css" rel="stylesheet" />
+  <link href="../common/css/chart.css" rel="stylesheet" />
+  <link href="../common/css/wave.css" rel="stylesheet" />
+  <link href="../common/css/wavesLegend.css" rel="stylesheet" />
+  <link href="../dashboard/css/sidebar.css" rel="stylesheet" />
+  <link href="../dashboard/css/dashboard.css" rel="stylesheet" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script src="../external/hacktimer/HackTimer.min.js"></script>
+  <script src="../external/nouislider/nouislider.min.js"></script>
+  <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="../external/canvasjs/canvasjs.min.js"></script>
+  <script src="../external/pure-knob-master/pureknob.js"></script>
+  <script src="../external/download/download.min.js"></script>
+  <script src="https://dweet.io/client/dweet.io.min.js"></script>
+  <script src="../common/js/hwPosts.js"></script>
+</head>
+
+<body style="font-family:verdana" ;>
+
+  <div id=chartDropDownMenu class=popupClassCenter style="height:auto; width:40rem; background-color: var(--rsp_lightblue);">
+    <div class=chartEditMenuBanner>
+      <img src="../common/img/close.png" class=iconButton title='Cancel' onClick='chartMenuCancel(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
+      <br>
+    </div>
+
+    <div id=chartTitleDiv style="background-color: var(--rsp_mediumblue); padding-bottom:0.5rem;">
       <center>
-        <p style="margin-top:0rem; font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white;">Y-axis Parameters</p>
+        <p style="font-size:1.4rem; background-color: var(--rsp_mediumblue); color: white; margin-top:0.5rem; margin-bottom:0rem;;">Title</p>
+        <div style="font-size:1.4rem; background-color: var(--rsp_mediumblue); ">
+          <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title" style="width:20rem; font-size:1.5rem;">
+        </div>
+      </center>
+    </div>
+    <br>
+
+    <div id=chartCheckBoxTreeRoot style="height:auto; font-size:1rem; padding-bottom:0.6rem; width:40rem;color: var(--rsp_darkblue); ">
+      <center>
+        <p style="margin-top:-2rem; font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white;">Y-axis Parameters</p>
       </center>
       <div>
         <div style="float:left; width:18rem; margin-left:0.5rem;">
-					<div>
+          <div>
             <input type="checkbox" id=Presssures class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Presssures>Pressures</label>
             <div class=chartIndentDiv>
@@ -59,7 +78,7 @@
             </div>
           </div>
           <br>
-					<div>
+          <div>
             <input type="checkbox" id=Volumes class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Volumes>Volumes</label>
             <div class=chartIndentDiv>
@@ -80,7 +99,7 @@
             </div>
           </div>
           <br>
-					<div>
+          <div>
             <input type="checkbox" id=Breaths class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Breaths>Breaths Information</label>
             <div class=chartIndentDiv>
@@ -93,7 +112,7 @@
             </div>
           </div>
           <br>
-					<div>
+          <div>
             <input type="checkbox" id=Compliances class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Compliances>Instant Lung DeltaV/DeltaP</label>
             <div class=chartIndentDiv>
@@ -107,7 +126,7 @@
           </div>
         </div>
         <div style="float:right; width:18rem; margin-right:0.5rem;">
-					<div>
+          <div>
             <input type="checkbox" id=BTYPE class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=BTYPE>Breath Type</label>
             <div class=chartIndentDiv>
@@ -124,7 +143,7 @@
             </div>
           </div>
           <br>
-					<div>
+          <div>
             <input type="checkbox" id=BCONTROL class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=BCONTROL>Breath Control</label>
             <div class=chartIndentDiv>
@@ -137,7 +156,7 @@
             </div>
           </div>
           <br>
-					<div>
+          <div>
             <input type="checkbox" id=Oxygen class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Oxygen>Oxygen Related</label>
             <div class=chartIndentDiv>
@@ -154,7 +173,7 @@
             </div>
           </div>
           <br>
-					<div>
+          <div>
             <input type="checkbox" id=Miscellaneous class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Miscellaneous>Miscellaneous</label>
             <div class=chartIndentDiv>
@@ -176,26 +195,29 @@
           </div>
         </div>
       </div>
-			<div style="clear:both;">
-    </div>
-    <div id=XAxisUnits style="clear:both; padding-top:0.1rem; width:37.5rem; margin-bottom:-1.8rem;">
-      <center>
-        <p style="font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white; margin-bottom:0;">X-axis Units</p>
-      </center>
-			<div>
-        <form name="XunitsForm" style="padding-top:0.8rem;">
-          <center>
-            <input type="radio" id=BNUM name="XAxisUnits" value="BNUM" checked class=menuCheckBox onclick='submitChartXaxis(this)'>
-            <label for=BNUM>Breath Number&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
-						
-            <input type="radio" id=TIME name="XAxisUnits" value="TIME" class=menuCheckBox onclick='submitChartXaxis(this)'>
-            <label for=TIME>Breath Times</label>
-          </center>
-        </form>
+      <div style="clear:both;">
+      </div>
+      <div id=XAxisUnits style="clear:both; padding-top:0.1rem; width:40rem; margin-bottom:-1.8rem;">
+        <center>
+          <p style="font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white; margin-bottom:0;">X-axis Units</p>
+        </center>
+        <div>
+          <form name="XunitsForm" style="padding-top:0.8rem;">
+            <center>
+              <input type="radio" id=chartBNUM name="XAxisUnits" value="chartBNUM" checked class=menuCheckBox onclick='submitChartXaxis(this)'>
+              <label for=chartBNUM>Breath Number&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+
+              <input type="radio" id=chartTIME name="XAxisUnits" value="chartTIME" class=menuCheckBox onclick='submitChartXaxis(this)'>
+              <label for=chartTIME>Breath Times</label>
+            </center>
+          </form>
+          <br>
+        </div>
         <br>
       </div>
-      <br>
     </div>
+	</div>
 
-	</body>
+</body>
+
 </html>

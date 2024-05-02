@@ -14,37 +14,28 @@ function chartInsertInitial() {
   let allCharts = document.getElementById(ALL_CHARTS_ID);
   let newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, null);
-  // Open edit menu for the new chart box
-  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
-  chartEdit(enode);
+  removeChartEditMenu();
 }
 
 function chartInsert(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);
   let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
-  // Open edit menu for the new chart box
-  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
-  chartEdit(enode);
+  removeChartEditMenu();
 }
 
 function chartAppend(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);
   let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
-  // Open edit menu for the new chart box
-  let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
-  chartEdit(enode);
+  removeChartEditMenu();
 }
 
 function chartEdit(bnode) {
   removeChartEditMenu();
+  document.getElementById(CHART_EDIT_CHART_MENU_ID).style.display="block";
   let containerNode = findAncestorChartContainerNode(bnode);
-  let temp = document.getElementById(CHART_EDIT_MENU_TEMPLATE_ID);
-  let template = findChildNodeByClass(temp.content, CHART_EDIT_CHART_MENU_CLASS);
-  let node = template.cloneNode(true);
-  containerNode.insertBefore(node, bnode.parentNode.nextSibling);
-  session.charts.boxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID);
+  session.charts.boxTree = new CheckboxTree(CHART_CBOX_TREE_ROOT_ID, containerNode.id);
   let box = session.charts.allChartsContainerInfo[containerNode.id];
   box.updateMenu(CHART_EDIT_CHART_MENU_ID);
   session.charts.boxTree.PropagateFromLeafCheckboxes();
@@ -60,18 +51,15 @@ function chartDelete(bnode) {
   if (numberOfExistingCharts() == 0) {
     modalWarning("CHART BOX", "No chart container left\nCreating new empty one");
     chartInsertInitial();
-  } else {
-    removeChartEditMenu();
   }
+  removeChartEditMenu();
 }
 
 function removeChartEditMenu() {
   if (session.charts.boxTree) delete session.charts.boxTree;
   let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
-  let titleNode = document.getElementById("ChartTitleId");
-  titleNode.removeEventListener("keypress", chartTitleKeypressListener);
-  menuDiv.remove();
+	menuDiv.style.display = "none";
 }
 
 function chartMenuCancel(bnode) {
@@ -80,8 +68,8 @@ function chartMenuCancel(bnode) {
 }
 
 function chartMenuSubmit(bnode) {
-  let containerNode = findAncestorChartContainerNode(bnode);
-  let box = session.charts.allChartsContainerInfo[containerNode.id];
+  let containerNodeId = session.charts.boxTree.BoxContainerId();
+  let box = session.charts.allChartsContainerInfo[containerNodeId];
   box.updateOptions(CHART_EDIT_CHART_MENU_ID);
   //removeChartEditMenu();
   box.render();
@@ -147,7 +135,6 @@ function createAllCharts() {
 function renderAllCharts() {
 	// check for too many datapoints to render
   let numDataPoints = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
-	//console.log("render breaths=" + numDataPoints);
 	let sparseInterval = 1;
   if (numDataPoints > CHART_ALERT_THRESHOLD) {
 		sparseInterval = Math.ceil(numDataPoints / CHART_ALERT_THRESHOLD);

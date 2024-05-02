@@ -3,12 +3,15 @@
 // ////////////////////////////////////////////////////
 
 class CheckboxTree {
-  constructor(treeRootId) {
+  constructor(treeRootId, boxContainerId) {
     this.treeRootId = treeRootId;
+    this.boxContainerId = boxContainerId;
     this.treeRoot = document.getElementById(treeRootId);
     this.leafCheckboxes = [];
     this.CollectLeafCboxes(this.treeRoot);
   }
+
+	BoxContainerId() { return this.boxContainerId; }
 
   CheckboxClicked(cbox) {
     this.PropagateClickDownwards(cbox.parentNode, cbox.checked);

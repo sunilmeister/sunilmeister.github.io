@@ -50,8 +50,39 @@ class ChartBox {
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }
 
+  clearMenu(menuId) {
+    if (!document.getElementById(menuId)) return;
+    document.getElementById("Peak").checked = false;
+    document.getElementById("Plat").checked = false;
+    document.getElementById("PEEP").checked = false;
+    document.getElementById("Tidal").checked = false;
+    document.getElementById("MinuteTotal").checked = false;
+    document.getElementById("MinuteSpont").checked = false;
+    document.getElementById("MinuteMand").checked = false;
+    document.getElementById("Mandatory").checked = false;
+    document.getElementById("Spontaneous").checked = false;
+    document.getElementById("MBreath").checked = false;
+    document.getElementById("SBreath").checked = false;
+    document.getElementById("EBreath").checked = false;
+    document.getElementById("Static").checked = false;
+    document.getElementById("Dynamic").checked = false;
+    document.getElementById("FiO2").checked = false;
+    document.getElementById("O2Flow").checked = false;
+    document.getElementById("O2Purity").checked = false;
+    document.getElementById("Errors").checked = false;
+    document.getElementById("Warnings").checked = false;
+    document.getElementById("Notifications").checked = false;
+    document.getElementById("Temperature").checked = false;
+
+    document.getElementById("ChartTitleId").value = "";
+    document.getElementById("chartTIME").checked = false;
+    document.getElementById("chartBNUM").checked = true;
+	}
+
   // Update the HTML dropdown menu using stored options
   updateMenu(menuId) {
+		this.clearMenu(menuId);
+
     if (Object.keys(this.options).length == 0) return;
     if (!document.getElementById(menuId)) return;
     document.getElementById("Peak").checked = this.options["Peak"];
@@ -107,24 +138,24 @@ class ChartBox {
     this.options["Temperature"] = document.getElementById("Temperature").checked;
 
     this.options["title"] = document.getElementById("ChartTitleId").value;
-    this.options["timeUnits"] = (this.getXunitsValue() == "TIME");
+    this.options["timeUnits"] = (this.getXunitsValue() == "chartTIME");
   }
 
   ////////////////////////////////////////////////////////
   // Below are all private methods
   ////////////////////////////////////////////////////////
   getXunitsValue() {
-    let elem = document.getElementById("TIME");
-    if (elem.checked) return "TIME";
-    else return "BNUM";
+    let elem = document.getElementById("chartTIME");
+    if (elem.checked) return "chartTIME";
+    else return "chartBNUM";
   }
 
   setXunitsValue() {
     if (this.options.timeUnits) {
-      let r = document.getElementById("TIME");
+      let r = document.getElementById("chartTIME");
       r.checked = true;
     } else {
-      let r = document.getElementById("BNUM");
+      let r = document.getElementById("chartBNUM");
       r.checked = true;
     }
   }
