@@ -134,7 +134,7 @@ tr {
   opacity: 1;
 
   /* for vertical center */
-  position:absolute;
+  position:fixed;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
@@ -176,7 +176,7 @@ tr {
   opacity: 1;
 
   /* for vertical center */
-  position:absolute;
+  position:fixed;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
