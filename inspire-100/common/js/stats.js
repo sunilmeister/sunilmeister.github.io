@@ -128,8 +128,8 @@ function constructStatMinMaxTable() {
   minMaxTableRow(table, "Mandatory BPM", "bpm", "mbpmMin", "mbpmMax", "mbpmAvg");
   minMaxTableRow(table, "Spontaneous BPM", "bpm", "sbpmMin", "sbpmMax", "sbpmAvg");
   minMaxTableRow(table, "FIO2", "%", "fiO2Min", "fiO2Max", "fiO2Avg");
-  minMaxTableRow(table, "Static DeltaV/DeltaP", "ml/cmH20", "scMin", "scMax", "scAvg");
-  minMaxTableRow(table, "Dynamic DeltaV/DeltaP", "ml/cmH20", "dcMin", "dcMax", "dcAvg");
+  minMaxTableRow(table, "Static &#x394V / &#x394P", "ml/cmH20", "scMin", "scMax", "scAvg");
+  minMaxTableRow(table, "Dynamic &#x394V / &#x394P", "ml/cmH20", "dcMin", "dcMax", "dcAvg");
   minMaxTableRow(table, "System Temperature", "degC", "tempMin", "tempMax", "tempAvg");
 }
 
