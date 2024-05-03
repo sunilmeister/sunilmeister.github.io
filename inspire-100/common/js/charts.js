@@ -173,7 +173,7 @@ function renderAllCharts() {
   if (numDataPoints > CHART_ALERT_THRESHOLD) {
 		sparseInterval = Math.ceil(numDataPoints / CHART_ALERT_THRESHOLD);
     modalWarning("Breath Range SPAN (" + numDataPoints +") too big!", 
-        "Plotting every " + numToNth(sparseInterval) + " breath");
+        "Using interval of " + sparseInterval + " breaths");
 	}
 	session.charts.numChartDatapoints = numDataPoints / sparseInterval;
 	session.charts.sparseInterval = sparseInterval;

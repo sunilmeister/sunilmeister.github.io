@@ -274,16 +274,6 @@ function strToDate(dateStr, timeStr) {
   return date;
 }
 
-function numToNth(num) {
-	if (num <= 0) return null;
-	else if (num == 1) return "1st" ;
-	else if (num == 2) return "2nd" ;
-	else if (num == 3) return "3rd" ;
-	else {
-		return String(num) + "th";
-	}
-}
-
 function closestNonNullEntryIndex(arr, index) {
   if (arr[index]) return index;
   // search up

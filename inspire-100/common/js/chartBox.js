@@ -40,7 +40,7 @@ class ChartBox {
  		let container = findAncestorNodeByClassName(this.containerBodyDiv, CHART_CONTAINER_CLASS);
  		let txt = findChildNodeByClass(container, CHART_BANNER_TEXT_CLASS);
 		if (session.charts.sparseInterval > 1) {
-			txt.innerHTML = "Plotted using every " + numToNth(session.charts.sparseInterval) + " breath";
+			txt.innerHTML = "Plotted with interval of " + session.charts.sparseInterval + " breaths";
 		} else {
 			txt.innerHTML = "";
 		}
