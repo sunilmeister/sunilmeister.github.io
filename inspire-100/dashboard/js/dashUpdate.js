@@ -300,10 +300,11 @@ function updateCompDivsFromSessionData() {
 }
 
 function updateMiscDivsFromSessionData() {
+  updateDivValue(locationDIV, session.miscData.locationName);
   let altF = " <small><small>ft</small></small>";
-  updateDivValue(altfDIV, session.miscData.altInFt + altF);
-  let altM = " <small><small>m</small></small>";
-  updateDivValue(altmDIV, session.miscData.altInM + altM);
+  updateDivValue(altDIV, session.miscData.altInFt + altF);
+	let atm = "AtmOxygen " + session.miscData.o2Pct + "%";
+  updateDivValue(atmDIV, atm);
 
   tempGauge.setValue(session.miscData.tempC);
 }
