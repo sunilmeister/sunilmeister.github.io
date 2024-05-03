@@ -410,9 +410,12 @@ function createAllStats() {
   el = document.getElementById("altitude");
   el.innerHTML = "Location Altitude: " + "?" ;
   if (session.miscData.altInFt) {
-    el.innerHTML = "Location Altitude: " 
-      + session.miscData.altInFt + " ft ("
-      + session.miscData.altInM + " mtrs)" ;
+    el.innerHTML = "Location Altitude: " + session.miscData.altInFt + " ft";
+  }
+  el = document.getElementById("atmPressure");
+  el.innerHTML = "Location Atmospheric Pressure: " + "?" ;
+  if (session.miscData.atmInCmH20) {
+    el.innerHTML = "Location Atmospheric Pressure: " + session.miscData.atmInCmH20 + " cmH2O";
   }
   el = document.getElementById("o2Percentage");
   el.innerHTML = "Location Atmospheric Oxygen: " + "?" ;

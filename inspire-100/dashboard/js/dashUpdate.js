@@ -302,7 +302,8 @@ function updateCompDivsFromSessionData() {
 function updateMiscDivsFromSessionData() {
   updateDivValue(locationDIV, session.miscData.locationName);
   let altF = "<small><small>ft</small></small>";
-  let atmP = " (<small><small>cmH2O</small></small>)";
+  let atmP = "<small><small>cmH2O</small></small>";
+	atmP = " (" + session.miscData.atmInCmH20 + atmP + ")";
   updateDivValue(altDIV, session.miscData.altInFt + altF + atmP);
 	let atm = "AtmOxygen " + session.miscData.o2Pct + "%";
   updateDivValue(atmDIV, atm);

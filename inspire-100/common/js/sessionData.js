@@ -142,7 +142,7 @@ var SessionDataTemplate = {
   miscData: {
     tempC : null,
     altInFt : null,
-    altInM : null,
+    atmInCmH20 : null,
     o2Pct : null,
     locationName: null,
     cmvSpontDetections: 0,

@@ -191,7 +191,7 @@ function parseMiscData(jsonStr) {
   val = {
     tempC : arr[0],
     altInFt : arr[1],
-    altInM : arr[2],
+    atmInCmH20 : arr[2],
     o2Pct : arr[3],
   }
   return val;
@@ -765,7 +765,7 @@ function processMiscChirp(curTime, jsonStr) {
 
   saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
   saveSnapValue("altInFt", "miscData", curTime, obj);
-  saveSnapValue("altInM", "miscData", curTime, obj);
+  saveSnapValue("atmInCmH20", "miscData", curTime, obj);
   saveSnapValue("o2Pct", "miscData", curTime, obj);
 }
 
