@@ -132,3 +132,11 @@ body {
   background-color: var(--rsp_darkblue);
 }
 
+.activeTilesCls {
+  background-color: #98FB98;
+}
+
+.dormantTilesCls {
+  background-color: #FFD580;
+}
+

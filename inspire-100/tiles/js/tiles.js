@@ -171,10 +171,11 @@ function moveTileToDormant(uid) {
 
 	let activeTilesDiv = document.getElementById('activeTilesDiv');
 	let dormantTilesDiv = document.getElementById('dormantTilesDiv');
+	let dummyDormantTile = document.getElementById('dummyDormantTile');
 
 	let tile = allSystems[uid].tile;
 	
-	dormantTilesDiv.appendChild(tile);
+	dormantTilesDiv.insertBefore(tile, dummyDormantTile);
 }
 
 function moveTileToActive(uid) {
@@ -184,10 +185,11 @@ function moveTileToActive(uid) {
 
 	let activeTilesDiv = document.getElementById('activeTilesDiv');
 	let dormantTilesDiv = document.getElementById('dormantTilesDiv');
+	let dummyActiveTile = document.getElementById('dummyActiveTile');
 
 	let tile = allSystems[uid].tile;
 	
-	activeTilesDiv.appendChild(tile);
+	activeTilesDiv.insertBefore(tile, dummyActiveTile);
 }
 
 function addTile(uid, sysTag, content) {
@@ -209,7 +211,8 @@ function addTile(uid, sysTag, content) {
 	allSystems[uid].tile = newTile;
 	allSystems[uid].content = cloneObject(content);
 
-	dormantTilesDiv.appendChild(newTile);
+	let dummyDormantTile = document.getElementById('dummyDormantTile');
+	dormantTilesDiv.insertBefore(newTile, dummyDormantTile);
 }
 
 function deleteTile(uid) {
