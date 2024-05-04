@@ -1,14 +1,16 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
+// Params are either a number or an enumeration
 const paramsType = {
-	NATURAL_NUMBER : 	"NATURAL_NUMBER",
-	FIXED_POINT : 		"FIXED_POINT",
-	PERCENT : 				"PERCENT",
-	BOOLEAN :					["FALSE", "TRUE"],
-	STATE : 					["INITIAL", "STANDBY", "ACTIVE", "ERROR"],
-	IE : 							["1:1", "1:2", "1:3"],
-	BREATH_TYPE : 		["SPONTANEOUS", "MANDATORY", "MAINTENANCE"],
-	BREATH_CONTROL : 	["VOLUME", "PRESSURE"],
-	MODE : 						["CMV", "ACV", "SIMV", "PSV"],
-	TPS : 						[
+	NUMBER : 					{type:"NUMBER"},
+	STATE : 					{type:"ENUM", range:["INITIAL", "STANDBY", "ACTIVE", "ERROR"]},
+	IE : 							{type:"ENUM", range:["1:1", "1:2", "1:3"]},
+	BREATH_TYPE : 		{type:"ENUM", range:["SPONTANEOUS", "MANDATORY", "MAINTENANCE"]},
+	BREATH_CONTROL : 	{type:"ENUM", range:["VOLUME", "PRESSURE"]},
+	MODE : 						{type:"ENUM", range:["CMV", "ACV", "SIMV", "PSV"]},
+	TPS : 						{type:"ENUM", range:[
 											 "10% of Peak Flow",
 											 "20% of Peak Flow",
 											 "30% of Peak Flow",
@@ -19,45 +21,51 @@ const paramsType = {
 											 "1.5 secs",
 											 "2.0 secs",
 											 "2.5 secs",
-										],
+										]},
 };
 
+// Allowed ops depending on number type. Result is always a boolean
+const paramsOps = {NUMBER:[ "==", "!=", "<", "<=", ">", ">=" ], ENUM:["==", "!="]};
+
+// Install all params
 function initSessionParams() {
 	let type = paramsType;
 	session.params.state = 			new Param("STATE", type.STATE, "");
-	session.params.vtdel = 			new Param("TIDAL_VOLUME", type.NATURAL_NUMBER, "ml");
-	session.params.mvdel = 			new Param("MINUTE_VOLUME", type.FIXED_POINT, "l/min");
-	session.params.mmvdel = 		new Param("MANDATORY_MINUTE_VOLUME", type.FIXED_POINT, "l/min");
-	session.params.smvdel = 		new Param("SPONTANEOUS_MINUTE_VOLUME", type.FIXED_POINT, "l/min");
-	session.params.sbpm = 			new Param("SPONTANEOUS_BPM", type.NATURAL_NUMBER, "bpm");
-	session.params.mbpm = 			new Param("MANDATORY_BPM", type.NATURAL_NUMBER, "bpm");
+	session.params.vtdel = 			new Param("TIDAL_VOLUME", type.NUMBER, "ml");
+	session.params.mvdel = 			new Param("MINUTE_VOLUME", type.NUMBER, "l/min");
+	session.params.mmvdel = 		new Param("MANDATORY_MINUTE_VOLUME", type.NUMBER, "l/min");
+	session.params.smvdel = 		new Param("SPONTANEOUS_MINUTE_VOLUME", type.NUMBER, "l/min");
+	session.params.sbpm = 			new Param("SPONTANEOUS_BPM", type.NUMBER, "bpm");
+	session.params.mbpm = 			new Param("MANDATORY_BPM", type.NUMBER, "bpm");
 	session.params.btype = 			new Param("BREATH_TYPE", type.BREATH_TYPE, "");
 	session.params.bcontrol = 	new Param("BREATH_CONTROL", type.BREATH_CONTROL, "");
-	session.params.scomp = 			new Param("STATIC_COMPLIANCE", type.NATURAL_NUMBER, "ml/cmH2O");
-	session.params.dcomp = 			new Param("DYNAMIC_COMPLIANCE", type.NATURAL_NUMBER, "ml/cmH2O");
-	session.params.peak = 			new Param("PEAK_PRESSURE", type.NATURAL_NUMBER, "cmH2O");
-	session.params.mpeep = 			new Param("PEEP_PRESSURE", type.NATURAL_NUMBER, "cmH2O");
-	session.params.plat = 			new Param("PLATEAU_PRESSURE", type.NATURAL_NUMBER, "cmH2O");
-	session.params.temp = 			new Param("SYSTEM_TEMPERATURE", type.NATURAL_NUMBER, "degC");
-	session.params.cmvSpont = 	new Param("CMV_SPONTANEOUS_BREATHS", type.NATURAL_NUMBER, "");
-	session.params.o2FlowX10 = 	new Param("OXYGEN_SOURCE_FLOW", type.FIXED_POINT, "l/min");
-	session.params.errors = 		new Param("ERRORS", type.NATURAL_NUMBER, "");
-	session.params.warnings = 	new Param("WARNINGS", type.NATURAL_NUMBER, "");
-	session.params.info = 			new Param("NOTIFICATIONS", type.NATURAL_NUMBER, "");
+	session.params.scomp = 			new Param("STATIC_COMPLIANCE", type.NUMBER, "ml/cmH2O");
+	session.params.dcomp = 			new Param("DYNAMIC_COMPLIANCE", type.NUMBER, "ml/cmH2O");
+	session.params.peak = 			new Param("PEAK_PRESSURE", type.NUMBER, "cmH2O");
+	session.params.mpeep = 			new Param("PEEP_PRESSURE", type.NUMBER, "cmH2O");
+	session.params.plat = 			new Param("PLATEAU_PRESSURE", type.NUMBER, "cmH2O");
+	session.params.temp = 			new Param("SYSTEM_TEMPERATURE", type.NUMBER, "degC");
+	session.params.cmvSpont = 	new Param("CMV_SPONTANEOUS_BREATHS", type.NUMBER, "");
+	session.params.o2FlowX10 = 	new Param("OXYGEN_SOURCE_FLOW", type.NUMBER, "l/min");
+	session.params.errors = 		new Param("ERRORS", type.NUMBER, "");
+	session.params.warnings = 	new Param("WARNINGS", type.NUMBER, "");
+	session.params.info = 			new Param("NOTIFICATIONS", type.NUMBER, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
-	session.params.vt = 				new Param("VT_SETTING", type.NATURAL_NUMBER, "ml");
-	session.params.mv = 				new Param("MV_SETTING", type.FIXED_POINT, "l/min");
-	session.params.rr = 				new Param("RR_SETTING", type.NATURAL_NUMBER, "bpm");
+	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");
+	session.params.mv = 				new Param("MV_SETTING", type.NUMBER, "l/min");
+	session.params.rr = 				new Param("RR_SETTING", type.NUMBER, "bpm");
 	session.params.ie = 				new Param("IE_SETTING", type.IE, "");
-	session.params.ipeep = 			new Param("PEEP_SETTING", type.NATURAL_NUMBER, "cmH2O");
-	session.params.pmax = 			new Param("PMAX_SETTING", type.NATURAL_NUMBER, "cmH2O");
-	session.params.ps = 				new Param("PS_SETTING", type.NATURAL_NUMBER, "cmH2O");
+	session.params.ipeep = 			new Param("PEEP_SETTING", type.NUMBER, "cmH2O");
+	session.params.pmax = 			new Param("PMAX_SETTING", type.NUMBER, "cmH2O");
+	session.params.ps = 				new Param("PS_SETTING", type.NUMBER, "cmH2O");
 	session.params.tps = 				new Param("TPS_SETTING", type.TPS, "");
-	session.params.fiO2 = 			new Param("FIO2_SETTING", type.NATURAL_NUMBER, "%");
-	session.params.o2Purity = 	new Param("OXYGEN_SOURCE_PURITY_SETTING", type.NATURAL_NUMBER, "%");
+	session.params.fiO2 = 			new Param("FIO2_SETTING", type.NUMBER, "%");
+	session.params.o2Purity = 	new Param("OXYGEN_SOURCE_PURITY_SETTING", type.NUMBER, "%");
 }
 
+// Class to store param values at different points in time
+// and to find their values at different times, ranges etc.
 var paramChangeTemplate = {
 	time: 	null,
 	value: 	null,
