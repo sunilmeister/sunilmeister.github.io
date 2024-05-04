@@ -133,10 +133,11 @@ body {
 }
 
 .activeTilesCls {
-  background-color: #98FB98;
+  background-color: lightgreen;
+	width:auto;
 }
 
 .dormantTilesCls {
-  background-color: #FFD580;
+  background-color: antiquewhite;
 }
 
