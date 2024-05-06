@@ -329,7 +329,7 @@ class WavePane {
       if (!session.breathTimes[breathNum]) {
         continue;
       }
-      let xval = session.breathTimes[breathNum] - this.rangeX.initTime;
+      let xval = session.breathTimes[breathNum].getTime() - this.rangeX.initTime.getTime();
       let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,

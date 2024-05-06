@@ -273,7 +273,7 @@ class ChartPane {
       if (curIx == transitions.length - 1) {
         curValue = transitions[curIx].value;
       } else {
-        if (breathTimes[i] >= transitions[curIx + 1].time) {
+        if (breathTimes[i].getTime() >= transitions[curIx + 1].time.getTime()) {
           curValue = transitions[++curIx].value;
         } else {
           curValue = transitions[curIx].value;
@@ -292,7 +292,7 @@ class ChartPane {
     for (let i = 0; i < numPoints; i+=session.charts.sparseInterval) {
       ignoreDatapoint = false;
       if (this.timeUnits) {
-        let ms = new Date(breathTimes[i + minBnum - 1]) - initTime;
+        let ms = new Date(breathTimes[i + minBnum - 1]).getTime() - initTime.getTime();
         xval = (ms / 1000);
         if (xval <= prevXval) ignoreDatapoint = true;
         else prevXval = xval;
@@ -346,11 +346,11 @@ class ChartPane {
     for (let t = 1; t < transitions.length; t++) {
       let cTime = transitions[t].time;
       for (b = minBnum; b <= maxBnum; b+=session.charts.sparseInterval) {
-        if (breathTimes[b] == cTime) {
+        if (breathTimes[b].getTime() == cTime.getTime()) {
           yval = transitions[t].value;
           ignoreDatapoint = false;
           if (this.timeUnits) {
-            let ms = new Date(breathTimes[b]) - initTime;
+            let ms = new Date(breathTimes[b]).getTime() - initTime.getTime();
             xval = (ms / 1000);
             if (xval <= prevXval) ignoreDatapoint = true;
             else prevXval = xval;
@@ -429,10 +429,10 @@ class ChartPane {
       startTime = timeSpans[i].startTime;
       endTime = timeSpans[i].endTime;
       for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
-        if ((breathTimes[bnum] >= startTime) && (breathTimes[bnum] < endTime)) {
+        if ((breathTimes[bnum].getTime() >= startTime.getTime()) && (breathTimes[bnum].getTime() < endTime.getTime())) {
           ignoreDatapoint = false;
           if (this.timeUnits) {
-            let ms = new Date(breathTimes[bnum]) - initTime;
+            let ms = new Date(breathTimes[bnum]).getTime() - initTime.getTime();
             xval = (ms / 1000);
             if (xval <= prevXval) ignoreDatapoint = true;
             else prevXval = xval;
