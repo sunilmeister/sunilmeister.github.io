@@ -201,6 +201,14 @@ tr {
 	width: 6rem;
   height : 1rem;
 }
+
+input(type="range")::-webkit-slider-thumb (
+    -webkit-appearance: none;
+    appearance: none;
+    height: 0.5rem;
+    width: 0.5rem;
+)
+
 /* --------------------------- webkit browsers */
 .audioSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
