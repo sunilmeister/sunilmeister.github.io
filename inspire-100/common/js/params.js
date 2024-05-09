@@ -98,8 +98,11 @@ class Param {
 		if (this.type.type == "NUMBER") value = Number(value);
 
 		let len = this.changes.length;
-		if (this.changes[len-1].time.getTime() >= time.getTime()) {
+		if (this.changes[len-1].time.getTime() > time.getTime()) {
 			console.error("Bad addValueChange for " + this.name);
+			return;
+		} else if (this.changes[len-1].time.getTime() == time.getTime()) {
+			this.changes[len-1].value = value; // override
 			return;
 		}
 
