@@ -130,7 +130,7 @@ var SessionDataTemplate = {
     qmult : null,
   },
 
-	breathTimes:          [null],
+	breathTimes:          [new Date(0)],
   missingBreaths:       [],
   missingBreathWindows: [],
   missingTimeWindows:   [],
