@@ -271,32 +271,32 @@ function updateFiO2DivsFromSessionData() {
 		document.getElementById("reservoirFiO2").style.display = "block";
 		document.getElementById("externalFiO2").style.display = "none";
   	updateFiO2Display(
-    session.fiO2Data.fiO2,
-    session.fiO2Data.o2Purity,
-    session.fiO2Data.o2FlowX10
+    	session.params.fiO2.LastValue(),
+    	session.params.o2Purity.LastValue(),
+    	session.params.o2FlowX10.LastValue()
   	);
 	}
 }
 
 function updateBreathDivsFromSessionData() {
-  animateDivToValue(vtdelValELM, session.breathData.vtdel);
+  animateDivToValue(vtdelValELM, session.params.vtdel.LastValue());
 
-  peakGauge.setValue(session.breathData.peak);
-  platGauge.setValue(session.breathData.plat);
-  peepGauge.setValue(session.breathData.mpeep);
+  peakGauge.setValue(session.params.peak.LastValue());
+  platGauge.setValue(session.params.plat.LastValue());
+  peepGauge.setValue(session.params.mpeep.LastValue());
 }
 
 function updateMinuteDivsFromSessionData() {
-  updateDivValue(sbpmValELM, session.minuteData.sbpm);
-  updateDivValue(mbpmValELM, session.minuteData.mbpm);
-  updateDivValue(mvdelValELM, session.minuteData.mvdel);
-  updateDivValue(mmvdelValELM, session.minuteData.mmvdel);
-  updateDivValue(smvdelValELM, session.minuteData.smvdel);
+  updateDivValue(sbpmValELM, session.params.sbpm.LastValue());
+  updateDivValue(mbpmValELM, session.params.mbpm.LastValue());
+  updateDivValue(mvdelValELM, session.params.mvdel.LastValue());
+  updateDivValue(mmvdelValELM, session.params.mmvdel.LastValue());
+  updateDivValue(smvdelValELM, session.params.smvdel.LastValue());
 }
 
 function updateCompDivsFromSessionData() {
-  animateDivToValue(scompValELM, session.complianceData.scomp);
-  animateDivToValue(dcompValELM, session.complianceData.dcomp);
+  animateDivToValue(scompValELM, session.params.scomp.LastValue());
+  animateDivToValue(dcompValELM, session.params.dcomp.LastValue());
 }
 
 function updateMiscDivsFromSessionData() {
@@ -305,10 +305,10 @@ function updateMiscDivsFromSessionData() {
   let atmP = "<small><small>cmH2O</small></small>";
 	atmP = " (" + session.miscData.atmInCmH20 + atmP + ")";
   updateDivValue(altDIV, session.miscData.altInFt + altF + atmP);
-	let atm = "AtmOxygen " + session.miscData.o2Pct + "%";
+	let atm = "AtmOxygen " + session.miscData.atmO2Pct + "%";
   updateDivValue(atmDIV, atm);
 
-  tempGauge.setValue(session.miscData.tempC);
+  tempGauge.setValue(session.params.tempC.LastValue());
 }
 
 function debugMessageLines(value) {

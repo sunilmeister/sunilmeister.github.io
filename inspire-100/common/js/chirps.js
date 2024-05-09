@@ -166,7 +166,7 @@ function parseBreathData(jsonStr) {
     mpeep : (arr[2] == -1) ? null : arr[2],
     vtdel : (arr[3] == -1) ? null : arr[3],
     iqdel : (arr[4] == -1) ? null : arr[4],
-    type :  (arr[5] == -1) ? null : arr[5],
+    btype : (arr[5] == -1) ? null : arr[5],
   }
   return val;
 }
@@ -192,7 +192,7 @@ function parseMiscData(jsonStr) {
     tempC : arr[0],
     altInFt : arr[1],
     atmInCmH20 : arr[2],
-    o2Pct : arr[3],
+    atmO2Pct : arr[3],
   }
   return val;
 }
@@ -327,10 +327,6 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "BREATH") {
           processBreathChirp(curTime, value);
         } else if (ckey == "CMV_SPONT") {
-          session.cmvSpontChanges.push({
-            "time": curTime,
-            "value": value
-          });
           processCmvSpontChirp(curTime, value);
         } else if (ckey == "COMP") {
           processComplianceChirp(curTime, value);
@@ -603,10 +599,8 @@ function processWifiChirp(curTime, jsonStr) {
   let obj = parseWifiData(jsonStr);
   if (!obj) return;
 
-  session.wifi.drops.push({
-    "time": curTime,
-    "value": cloneObject(obj)
-  });
+	session.params.wifiDrops.AddTimeValue(curTime, obj.dropAt);
+	session.params.wifiReconns.AddTimeValue(curTime, obj.reconnectAt);
 
   let msg = {
     'created': curTime,
@@ -617,10 +611,7 @@ function processWifiChirp(curTime, jsonStr) {
     'L4': ""
   };
   session.infoMsgs.push(msg);
-  session.infoChanges.push({
-    "time": curTime,
-    "value": ++session.alerts.infoNum
-  });
+  session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
 }
 
 function processStateChirp(curTime, jsonStr) {
@@ -630,10 +621,7 @@ function processStateChirp(curTime, jsonStr) {
 
   obj.prevState = session.stateData.state;
   session.stateData = cloneObject(obj);
-  session.stateChanges.push({
-    "time": curTime,
-    "value": obj.state
-  });
+  session.params.state.AddTimeValue(curTime, obj.state);
 }
 
 function updatePendingParamState() {
@@ -681,6 +669,19 @@ function processSwChirp(curTime, jsonStr) {
   }
 }
 
+function saveInputChangeAndCombo(paramName, time, parsedObj) {
+  session.currParamCombo.value[paramName] = parsedObj[paramName];
+	session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
+}
+
+function saveOutputChange(paramName, time, parsedObj) {
+	session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
+}
+
+function saveMiscValue(paramName, parsedObj) {
+	session.miscData[paramName] = parsedObj[paramName];
+}
+
 function processParamChirp(curTime, jsonStr) {
   let obj = parseParamData(jsonStr);
   if (!obj) return;
@@ -693,17 +694,15 @@ function processParamChirp(curTime, jsonStr) {
   //console.log("pre OnDisplay"); console.log(session.paramDataOnDisplay);
   //console.log("pre InUse"); console.log(session.paramDataInUse);
 
-  saveSnapComboValue("vt", "paramDataInUse", "vtUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("mv", "paramDataInUse", "mvUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("pmax", "paramDataInUse", "pmaxUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("ipeep", "paramDataInUse", "ipeepUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("ps", "paramDataInUse", "psUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("mode", "paramDataInUse", "modeUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("tps", "paramDataInUse", "tpsUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("ie", "paramDataInUse", "ieUsed", curTime, session.paramDataInUse);
-  saveSnapComboValue("rr", "paramDataInUse", "rrUsed", curTime, session.paramDataInUse);
-  //console.log("post OnDisplay"); console.log(session.paramDataOnDisplay);
-  //console.log("post InUse"); console.log(session.paramDataInUse);
+  saveInputChangeAndCombo("vt", curTime, obj);
+  saveInputChangeAndCombo("mv", curTime, obj);
+  saveInputChangeAndCombo("pmax", curTime, obj);
+  saveInputChangeAndCombo("ipeep", curTime, obj);
+  saveInputChangeAndCombo("ps", curTime, obj);
+  saveInputChangeAndCombo("mode", curTime, obj);
+  saveInputChangeAndCombo("tps", curTime, obj);
+  saveInputChangeAndCombo("ie", curTime, obj);
+  saveInputChangeAndCombo("rr", curTime, obj);
 }
 
 function processFiO2Chirp(curTime, jsonStr) {
@@ -711,9 +710,9 @@ function processFiO2Chirp(curTime, jsonStr) {
   if (!obj) return;
 
   session.fiO2Data.externalMixer =  obj.extMixer;
-  saveSnapComboTransValue("fiO2", "fiO2Data", "fiO2Used", "fiO2Changes", curTime, obj);
-  saveSnapComboTransValue("o2Purity", "fiO2Data", "o2PurityUsed", "o2PurityChanges", curTime, obj);
-  saveSnapComboTransValue("o2FlowX10", "fiO2Data", "o2FlowX10Used", "o2FlowX10Changes", curTime, obj);
+  saveInputChangeAndCombo("fiO2", curTime, obj);
+  saveInputChangeAndCombo("o2Purity", curTime, obj);
+  saveInputChangeAndCombo("o2FlowX10", curTime, obj);
 }
 
 function processMinuteChirp(curTime, jsonStr) {
@@ -726,23 +725,23 @@ function processMinuteChirp(curTime, jsonStr) {
     obj.mvdel = mv.toFixed(1);
   }
 
-  saveSnapTransValue("mbpm", "minuteData", "mbpmChanges", curTime, obj);
-  saveSnapTransValue("sbpm", "minuteData", "sbpmChanges", curTime, obj);
-  saveSnapTransValue("mmvdel", "minuteData", "mmvdelChanges", curTime, obj);
-  saveSnapTransValue("smvdel", "minuteData", "smvdelChanges", curTime, obj);
-  saveSnapTransValue("mvdel", "minuteData", "mvdelChanges", curTime, obj);
+  saveOutputChange("mbpm", curTime, obj);
+  saveOutputChange("sbpm", curTime, obj);
+  saveOutputChange("mmvdel", curTime, obj);
+  saveOutputChange("smvdel", curTime, obj);
+  saveOutputChange("mvdel", curTime, obj);
 }
 
 function processBreathChirp(curTime, jsonStr) {
   let obj = parseBreathData(jsonStr);
   if (!obj) return;
-  if (session.stateData.error) obj.type = MAINTENANCE_BREATH;
+  if (session.stateData.error) obj.btype = MAINTENANCE_BREATH;
 
-  saveSnapTransValueNull("peak", "breathData", "peakChanges", curTime, obj);
-  saveSnapTransValueNull("plat", "breathData", "platChanges", curTime, obj);
-  saveSnapTransValueNull("mpeep", "breathData", "mpeepChanges", curTime, obj);
-  saveSnapTransValue("vtdel", "breathData", "vtdelChanges", curTime, obj);
-  saveSnapTransValueNull("type", "breathData", "breathTypeChanges", curTime, obj);
+  saveOutputChange("peak", curTime, obj);
+  saveOutputChange("plat", curTime, obj);
+  saveOutputChange("mpeep", curTime, obj);
+  saveOutputChange("vtdel", curTime, obj);
+  saveOutputChange("btype", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
@@ -755,94 +754,22 @@ function processComplianceChirp(curTime, jsonStr) {
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
   if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
 
-  saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
-  saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
+  saveOutputChange("scomp", curTime, obj);
+  saveOutputChange("dcomp", curTime, obj);
 }
 
 function processMiscChirp(curTime, jsonStr) {
   let obj = parseMiscData(jsonStr);
   if (!obj) return;
 
-  saveSnapTransValue("tempC", "miscData", "tempChanges", curTime, obj);
-  saveSnapValue("altInFt", "miscData", curTime, obj);
-  saveSnapValue("atmInCmH20", "miscData", curTime, obj);
-  saveSnapValue("o2Pct", "miscData", curTime, obj);
+  saveOutputChange("tempC", curTime, obj);
+  saveMiscValue("altInFt", obj);
+  saveMiscValue("atmInCmH20", obj);
+  saveMiscValue("atmO2Pct", obj);
 }
 
-function saveSnapValueNull(paramName, parentName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value === session[parentName][paramName]) return;
-
-  session[parentName][paramName] = value;
-}
-
-function saveSnapValue(paramName, parentName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value === null) return;
-  if (value == session[parentName][paramName]) return;
-
-  session[parentName][paramName] = value;
-}
-
-function saveComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value === null) return;
-
-  session.currParamCombo.value[paramName] = value;
-  if ((session[uniqArrName].length == 0) 
-       || (session[uniqArrName].indexOf(value) == -1)) {
-    session[uniqArrName].push({
-      "time": curTime,
-      "value": value
-    });
-  }
-}
-
-function saveSnapComboValueNull(paramName, parentName, uniqArrName, curTime, newVal) {
-  // first check for combo
-  saveComboValue(paramName, parentName, uniqArrName, curTime, newVal);
-  saveSnapValueNull(paramName, parentName, curTime, newVal);
-}
-
-function saveSnapComboValue(paramName, parentName, uniqArrName, curTime, newVal) {
-  // first check for combo
-  saveComboValue(paramName, parentName, uniqArrName, curTime, newVal);
-  saveSnapValue(paramName, parentName, curTime, newVal);
-}
-
-function saveTransValue(paramName, parentName, valArrName, curTime, newVal) {
-  value = newVal[paramName];
-  if (value == session[parentName][paramName]) return; // no transition
-
-  if (value !== null) {
-    session[valArrName].push({
-        "time": curTime,
-        "value": Number(value)
-    });
-   } else {
-    session[valArrName].push({
-        "time": curTime,
-        "value": null
-    });
-  }
-}
-
-function saveSnapComboTransValue(paramName, parentName, uniqArrName, valArrName, curTime, newVal) {
-  // first check for transition
-  saveTransValue(paramName, parentName, valArrName, curTime, newVal);
-  saveSnapComboValue(paramName, parentName, uniqArrName, curTime, newVal);
-}
-
-function saveSnapTransValueNull(paramName, parentName, valArrName, curTime, newVal) {
-  // first check for transition
-  saveTransValue(paramName, parentName, valArrName, curTime, newVal);
-  saveSnapValueNull(paramName, parentName, curTime, newVal);
-}
-
-function saveSnapTransValue(paramName, parentName, valArrName, curTime, newVal) {
-  // first check for transition
-  saveTransValue(paramName, parentName, valArrName, curTime, newVal);
-  saveSnapValue(paramName, parentName, curTime, newVal);
+function processCmvSpontChirp(curTime, value) {
+  saveOutputChange("cmvSpont", curTime, value);
 }
 
 function processComplianceChirp(curTime, jsonStr) {
@@ -851,8 +778,8 @@ function processComplianceChirp(curTime, jsonStr) {
   if (obj.scomp) obj.scomp = Math.round(obj.scomp/100);
   if (obj.dcomp) obj.dcomp = Math.round(obj.dcomp/100);
 
-  saveSnapTransValue("scomp", "complianceData", "scompChanges", curTime, obj);
-  saveSnapTransValue("dcomp", "complianceData", "dcompChanges", curTime, obj);
+  saveOutputChange("scomp", curTime, obj);
+  saveOutputChange("dcomp", curTime, obj);
 }
 
 function saveSnapValueNull(paramName, parentName, curTime, newVal) {
@@ -945,10 +872,7 @@ function processBnumChirp(curTime, value, jsonData) {
       'L4': "Packet loss"
     };
     session.infoMsgs.push(msg);
-    session.infoChanges.push({
-      "time": breathTime,
-      "value": ++session.alerts.infoNum
-    });
+    session.params.infos.AddTimeValue(breathTime, ++session.alerts.infoNum);
   }
   session.breathTimes.push(breathTime);
   session.lastValidBreathTime = breathTime;
@@ -972,31 +896,25 @@ function processAlertChirp(curTime, jsonData) {
      }
      session.alerts.lastWarningTime = curTime;
      session.alerts.expectWarningMsg = true;
-     session.warningChanges.push({
-       "time": curTime,
-       "value": ++session.alerts.warningNum
-     });
+     session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
     ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum;
-   if (session.alerts.expectErrorMsg) { 
-		 // back to back with Previous msg not yet fully received
-     let msg = {
+   	if (session.alerts.expectErrorMsg) { 
+		 	// back to back with Previous msg not yet fully received
+     	let msg = {
        'created': session.alerts.lastErrorTime,
        'breathNum': ewBreathNum,
        'L1': session.alerts.L1,
        'L2': session.alerts.L2,
        'L3': session.alerts.L3,
        'L4': session.alerts.L4
-     };
-     session.errorMsgs.push(msg);
-   }
-   session.alerts.lastErrorTime = curTime;
-   session.alerts.expectErrorMsg = true;
-   session.errorChanges.push({
-     "time": curTime,
-     "value": ++session.alerts.errorNum
-   });
+     	};
+     	session.errorMsgs.push(msg);
+   	}
+   	session.alerts.lastErrorTime = curTime;
+   	session.alerts.expectErrorMsg = true;
+   	session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
   }
 
 	// Message lines

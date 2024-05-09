@@ -7,7 +7,7 @@ const paramsType = {
 	NUMBER : 					{type:"NUMBER"},
 	STATE : 					{type:"ENUM", range:["INITIAL", "STANDBY", "ACTIVE", "ERROR"]},
 	IE : 							{type:"ENUM", range:["1:1", "1:2", "1:3"]},
-	BREATH_TYPE : 		{type:"ENUM", range:["SPONTANEOUS", "MANDATORY", "MAINTENANCE"]},
+	BREATH_TYPE : 		{type:"ENUM", range:["MANDATORY", "SPONTANEOUS", "MAINTENANCE"]},
 	BREATH_CONTROL : 	{type:"ENUM", range:["VOLUME", "PRESSURE"]},
 	MODE : 						{type:"ENUM", range:["CMV", "ACV", "SIMV", "PSV"]},
 	TPS : 						{type:"ENUM", range:[
@@ -44,12 +44,14 @@ function initSessionParams() {
 	session.params.peak = 			new Param("PEAK_PRESSURE", type.NUMBER, "cmH2O");
 	session.params.mpeep = 			new Param("PEEP_PRESSURE", type.NUMBER, "cmH2O");
 	session.params.plat = 			new Param("PLATEAU_PRESSURE", type.NUMBER, "cmH2O");
-	session.params.temp = 			new Param("SYSTEM_TEMPERATURE", type.NUMBER, "degC");
+	session.params.tempC = 			new Param("SYSTEM_TEMPERATURE", type.NUMBER, "degC");
 	session.params.cmvSpont = 	new Param("CMV_SPONTANEOUS_BREATHS", type.NUMBER, "");
 	session.params.o2FlowX10 = 	new Param("OXYGEN_SOURCE_FLOW", type.NUMBER, "l/min");
 	session.params.errors = 		new Param("ERRORS", type.NUMBER, "");
 	session.params.warnings = 	new Param("WARNINGS", type.NUMBER, "");
-	session.params.info = 			new Param("NOTIFICATIONS", type.NUMBER, "");
+	session.params.infos = 			new Param("NOTIFICATIONS", type.NUMBER, "");
+	session.params.wifiDrops =	new Param("WIFI_DROPS", type.NUMBER, "");
+	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
 	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");
@@ -77,7 +79,7 @@ class Param {
 		this.type = type;
 		this.units = units;
 		let initChange = cloneObject(paramChangeTemplate);
-		initChange.time = 0;
+		initChange.time = new Date(0);
 		initChange.value = null;
 		// changes is a sorted array - monotonically increasing in time
 		// first entry is a null entry
@@ -85,82 +87,123 @@ class Param {
 	}
 
 	// some queries
-	name() { return this.name; }
-	type() { return this.type; }
-	units() { return this.units; }
-	changes() { return this.changes; }
+	Name() { return this.name; }
+	Type() { return this.type; }
+	Units() { return this.units; }
+	Changes() { return this.changes; }
 
 	// each call must be monotonically increasing in time values
 	// time is a Date object
-	addTimeValue(time, value) {
+	AddTimeValue(time, value) {
+		if (this.type.type == "NUMBER") value = Number(value);
+
 		let len = this.changes.length;
-		if (len > 1) {
-			if (this.changes[len-1].time.getTime() >= time.getTime()) {
-				console.error("Bad addValueChange for " + this.name);
-				return;
-			}
+		if (this.changes[len-1].time.getTime() >= time.getTime()) {
+			console.error("Bad addValueChange for " + this.name);
+			return;
 		}
-		let v = this.lastValue();
-		if (v = value) return; // record only changes
+
+		let v = this.LastValue();
+		if (v == value) return; // record only changes
 		let change = cloneObject(paramChangeTemplate);
 		change.time = time;
 		change.value = value;
 		this.changes.push(change);
 	}
 
-	firstValue() {
+	FirstValue() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
 		// first entry is a null entry
-		return changes[1].value;
+		return this.changes[1].value;
 	}
 
-	lastValue() {
+	FirstValueTime() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
 		// first entry is a null entry
-		return changes[len-1].value;
+		return this.changes[1].time;
+	}
+
+	LastValue() {
+		let len = this.changes.length;
+		if (len <= 1) return null;
+		// first entry is a null entry
+		return this.changes[len-1].value;
 	}
 
 	// time is a Date Object
-	valueAtTime(time) {
+	ValueAtTime(time) {
 		// first entry in changes is a null entry
 		if (this.changes.length == 1) return null;
-		let ix = findLastValueChangeIndex(time);
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime");
+			return null;
+		}
+
 		return this.changes[ix].value;
 	}
 
 	// bnum must have been logged
-	valueAtBnum(bnum) {
+	ValueAtBnum(bnum) {
 		if (!bnum) return null;
 		// first entry in breathTimes is a null entry
 		return valueAtTime(session.breathTimes[bnum]);
 	}
 
 	// helper function to compute min/max/avg
-	updateStats(stats, value) {
-		if (value === null) return stats;
-		stats.sum += value;
-		stats.num++;
+	UpdateStats(stats, value) {
+		if (isUndefined(value)) return;
 
-		if (stats.min === null) stats.min = value;
-		else if (stats.min > value) stats.min = value;
+		if (value !== null) {
+			stats.sum += value;
+			stats.num++;
 
-		if (stats.max === null) stats.max = value;
-		else if (stats.max < value) stats.max = value;
+			if (stats.min === null) stats.min = value;
+			else if (stats.min > value) stats.min = value;
+
+			if (stats.max === null) stats.max = value;
+			else if (stats.max < value) stats.max = value;
+		}
+
+		return stats;
+	}
+
+	// number of times the param changed
+	NumChanges(startBnum, endBnum) {
+		let startTime = session.breathTimes[startBnum];
+		let endTime = session.breathTimes[endBnum];
+		let count = 0;
+
+		for (let i=1; i<this.changes.length; i++) {
+			let cTime = this.changes[i].time;
+			if (cTime.getTime() < startTime.getTime()) continue;
+			if (cTime.getTime() > endTime.getTime()) break;
+			count++;
+		}
+		return count;
 	}
 
 	// return all values logged starting from startBnum till endBnum in intervals of stepBnum
-	values(startBnum, endBnum, stepBnum) {
+	Values(startBnum, endBnum, stepBnum) {
+		let startTime = session.breathTimes[startBnum];
+		let endTime = session.breathTimes[endBnum];
+
 		if (isUndefined(stepBnum)) stepBnum = 1;
 		let values = [];
 		let endChangeIndex = this.changes.length - 1;
-		let changeIx = findLastValueChangeIndex(time);
-		if (!changeIx) return values;
+		let changeIx = this.FindLastValueChangeIndex(startTime);
+		if (changeIx === null) {
+			console.error("Error during search in Param::Values");
+			return values;
+		} else if (changeIx == 0) {
+			return values;
+		}
+
 		let value = this.changes[changeIx].value;
 		values.push(value);
 
-		let endTime = session.breathTimes[endBnum];
 		let nextBnumToStore = startBnum + stepBnum;
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
@@ -187,15 +230,23 @@ class Param {
 	}
 
 	// returns an array of distinct values over the range
-	distinctValues(startBnum, endBnum) {
+	DistinctValues(startBnum, endBnum) {
+		let endTime = session.breathTimes[endBnum];
+		let startTime = session.breathTimes[startBnum];
+
 		let values = [];
 		let endChangeIndex = this.changes.length - 1;
-		let changeIx = findLastValueChangeIndex(time);
-		if (!changeIx) return values;
+		let changeIx = this.FindLastValueChangeIndex(startTime);
+		if (changeIx === null) {
+			console.error("Error during search in Param::DistinctValues");
+			return values;
+		} else if (changeIx == 0) {
+			return values;
+		}
+
 		let value = this.changes[changeIx].value;
 		values.push(value);
 
-		let endTime = session.breathTimes[endBnum];
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
@@ -213,16 +264,24 @@ class Param {
 		return values;
 	}
 
-	// returns {min: , max:, avg: }
-	countValueEqual(targetValue, startBnum, endBnum) {
+	// returns number of breaths the value was equal to target value
+	CountValueEqual(targetValue, startBnum, endBnum) {
+		let endTime = session.breathTimes[endBnum];
+		let startTime = session.breathTimes[startBnum];
+
 		let count = 0;
 		let endChangeIndex = this.changes.length - 1;
-		let changeIx = findLastValueChangeIndex(time);
-		if (!changeIx) return values;
+		let changeIx = this.FindLastValueChangeIndex(startTime);
+		if (changeIx === null) {
+			console.error("Error during search in Param::CountValueEqual");
+			return count;
+		} else if (changeIx == 0) {
+			return count;
+		}
+
 		let value = this.changes[changeIx].value;
 		if (value == targetValue) count++;
 
-		let endTime = session.breathTimes[endBnum];
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
@@ -242,19 +301,27 @@ class Param {
 	}
 
 	// returns {min: , max:, avg: }
-	minMaxAvg(startBnum, endBnum) {
+	MinMaxAvg(startBnum, endBnum) {
+		let startTime = session.breathTimes[startBnum];
+		let endTime = session.breathTimes[endBnum];
+
 		let stats = {min: null, max: null, avg:null, sum:0, num:0};
 		let endChangeIndex = this.changes.length - 1;
-		let changeIx = findLastValueChangeIndex(time);
-		if (!changeIx) return values;
-		let value = this.changes[changeIx].value;
-		stats = updateStats(stats, value);
+		let changeIx = this.FindLastValueChangeIndex(startTime);
+		if (changeIx === null) {
+			console.error("Error during search in Param::MinMaxAvg");
+			return stats;
+		} else if (changeIx == 0) {
+			return stats;
+		}
 
-		let endTime = session.breathTimes[endBnum];
+		let value = this.changes[changeIx].value;
+		stats = this.UpdateStats(stats, value);
+
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
-				stats = updateStats(stats, value);
+				stats = this.UpdateStats(stats, value);
 				continue;
 			}
 
@@ -263,7 +330,7 @@ class Param {
 				value = this.changes[changeIx].value; // new value
 			}
 
-			stats = updateStats(stats, value);
+			stats = this.UpdateStats(stats, value);
 		}
 
 		let rval = {min: stats.min, max: stats.max, avg: stats.sum/stats.num};
@@ -272,17 +339,25 @@ class Param {
 
   // Recursive Binary search for change at or immediately before given time
 	// start and end are indices
-  findLastValueChangeIndex(time, start, end) {
-  	if (isUndefined(start)) start = 1;
+	// return value of null signifies and error
+	// return value of 0 signifies an index before the first data was logged
+  FindLastValueChangeIndex(time, start, end) {
+  	if (isUndefined(start)) start = 0;
   	if (isUndefined(end)) end = this.changes.length - 1;
-  	if (end < start) return 0;
-  	if (start < 1) return 0;
-  	if (end >= this.changes.length) return 0;
+		//console.log("Find start", start, "end", end);
+
+  	if (end < start) return null;
+  	if (start < 0) return null;
+  	if (end >= this.changes.length) return null;
+
+		if (start == end) {
+    	if (this.changes[start].time.getTime() <= time.getTime()) return start;
+			else if (start > 0) return start - 1;
+			else return 0;
+		}
   
     // find the middle index
     let mid = Math.floor((start + end) / 2);
-  	if (mid <= 1) return 0;
-  
     if (this.changes[mid].time.getTime() == time.getTime()) return mid;
   
     if (this.changes[mid].time.getTime() > time.getTime()) {
@@ -292,11 +367,11 @@ class Param {
   		if (midM1 && this.changes[midM1].time.getTime() <= time.getTime()) return midM1;
   		else {
      		// If the element in the middle is greater than the time, look in the left half
-  			return this.findLastValueChangeIndex(time, start, mid - 1);
+  			return this.FindLastValueChangeIndex(time, start, mid - 1);
   		}
    	} else {
-     	// If the element in the middle is smaller than the time, look in the right half
-  		 return this.findLastValueChangeIndex(time, mid + 1, end);
+  		// If the element in the middle is smaller than the time, look in the right half
+  		return this.FindLastValueChangeIndex(time, mid + 1, end);
   	}
   }
 

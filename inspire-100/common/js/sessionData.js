@@ -29,10 +29,6 @@ var SessionDataTemplate = {
     board: null,
   },
 
-  wifi: {
-    drops: [], // {time: , value: {dropAt: , reconnectAt: }
-  },
-
   database: {
     db:  null,
     dbVersion:  1,
@@ -111,41 +107,13 @@ var SessionDataTemplate = {
 
   fiO2Data: {
 		externalMixer: false,
-    fiO2 : null,
-    o2Purity : null,
-    o2FlowX10 : null,
-  },
-
-  minuteData: {
-    mbpm : null,
-    sbpm : null,
-    smvdel : null,
-    mmvdel : null,
-    mvdel : null,
-  },
-
-  breathData: {
-    peak : null,
-    plat : null,
-    mpeep : null,
-    vtdel : null,
-    iqdel : null,
-    qmult : null,
-    type : null,
-  },
-
-  complianceData: {
-    scomp : null,
-    dcomp : null,
   },
 
   miscData: {
-    tempC : null,
     altInFt : null,
     atmInCmH20 : null,
-    o2Pct : null,
+    atmO2Pct : null,
     locationName: null,
-    cmvSpontDetections: 0,
   },
 
   patientData: {
@@ -157,44 +125,12 @@ var SessionDataTemplate = {
     height : null,
   },
 
-  // value transitions arrays
-  breathTimes:          [null],
-  stateChanges:          [{"time":0, "value":null}],
-  vtdelChanges:          [{"time":0, "value":null}],
-  mmvdelChanges:         [{"time":0, "value":null}],
-  smvdelChanges:         [{"time":0, "value":null}],
-  mvdelChanges:          [{"time":0, "value":null}],
-  sbpmChanges:           [{"time":0, "value":null}],
-  mbpmChanges:           [{"time":0, "value":null}],
-  breathTypeChanges:     [{"time":0, "value":null}],
-  scompChanges:          [{"time":0, "value":null}],
-  dcompChanges:          [{"time":0, "value":null}],
-  peakChanges:           [{"time":0, "value":null}],
-  platChanges:           [{"time":0, "value":null}],
-  mpeepChanges:          [{"time":0, "value":null}],
-  tempChanges:           [{"time":0, "value":null}],
-  fiO2Changes:           [{"time":0, "value":null}],
-  o2PurityChanges:       [{"time":0, "value":null}],
-  o2FlowX10Changes:      [{"time":0, "value":null}],
-  cmvSpontChanges:       [{"time":0, "value":null}],
-  infoChanges:           [{"time":0, "value":null}],
-  warningChanges:        [{"time":0, "value":null}],
-  errorChanges:          [{"time":0, "value":null}],
+	breathData: {
+    iqdel : null,
+    qmult : null,
+  },
 
-  // sets of unique values encountered
-  modeUsed:                [],
-  vtUsed:                  [],
-  mvUsed:                  [],
-  rrUsed:                  [],
-  ieUsed:                  [],
-  ipeepUsed:               [],
-  pmaxUsed:                [],
-  psUsed:                  [],
-  tpsUsed:                 [],
-  fiO2Used:                [],
-  o2PurityUsed:            [],
-  o2FlowX10Used:           [],
-
+	breathTimes:          [null],
   missingBreaths:       [],
   missingBreathWindows: [],
   missingTimeWindows:   [],
@@ -206,7 +142,42 @@ var SessionDataTemplate = {
   // All input and output parameters (settings and measured)
 	// Initialized during createNewSession
   // /////////////////////////////////////////////
-	params : {},
+	params : {
+		state:	null,
+		vtdel:	null,
+		mvdel:	null,
+		mmvdel:	null,
+		smvdel:	null,
+		sbpm:	null,
+		mbpm:	null,
+		btype:	null,
+		bcontrol:	null,
+		scomp:	null,
+		dcomp:	null,
+		peak:	null,
+		mpeep:	null,
+		plat:	null,
+		tempC:	null,
+		cmvSpont:	null,
+		o2FlowX10:	null,
+		errors:	null,
+		warnings:	null,
+		infos:	null,
+		wifiDrops:	null,
+		wifiReconns:	null,
+
+		mode:	null,
+		vt:	null,
+		mv:	null,
+		rr:	null,
+		ie:	null,
+		ipeep:	null,
+		pmax:	null,
+		ps:	null,
+		tps:	null,
+		fiO2:	null,
+		o2Purity:	null,
+	},
 
   // /////////////////////////////////////////////
   // Combinations of settings
@@ -321,7 +292,7 @@ var SessionDataTemplate = {
 var session = null;
 function createNewSession() {
 	session = cloneObject(SessionDataTemplate);
-	//initSessionParams();
+	initSessionParams();
 }
 
 window.addEventListener("load", function() {

@@ -13,7 +13,7 @@ var markerInfoTemplate = {
 };
 var paramInfoTemplate = {
   name: null,
-  transitions: [],
+  paramName: "",
   color: null,
   graphType: 'stepLine',
   selectVal: null,
@@ -188,7 +188,6 @@ class ChartPane {
     Xaxis.fontSize =  session.charts.labelFontSize
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
-		//console.log("Xmin=" +  Xaxis.minimum );
     if (missingWindows && missingWindows.length) {
       Xaxis.scaleBreaks = {type: "straight", color:"orange"};
       Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
@@ -255,67 +254,42 @@ class ChartPane {
     let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
-    let transitions = this.paramInfo.transitions;
+    let numPoints = maxBnum - minBnum + 1;
+		let sparseInterval = session.charts.sparseInterval;
 
-    if (transitions.length == 0) {
-      console.log("No transitions for createContinuousXYPoints");
+		let paramObj = session.params[this.paramInfo.paramName];
+		let yvals = paramObj.Values(minBnum, maxBnum, sparseInterval);
+    if (yvals.length == 0) {
+      console.log("No transitions for ", this.paramInfo.paramName);
       return null;
     }
-    let yDatapoints = [];
+
+		let xval = null;
+		let yval = null;
     let xyPoints = [];
-    let numPoints = maxBnum - minBnum + 1;
-
-    // Collect Y dapoints
-    let curValue = 0;
-    let curIx = 0;
-    curValue = transitions[0].value; // guaranteed to have at least one entry
-    for (let i = 1; i < breathTimes.length; i+=session.charts.sparseInterval) {
-      if (curIx == transitions.length - 1) {
-        curValue = transitions[curIx].value;
-      } else {
-        if (breathTimes[i].getTime() >= transitions[curIx + 1].time.getTime()) {
-          curValue = transitions[++curIx].value;
-        } else {
-          curValue = transitions[curIx].value;
-        }
-      }
-      if ((i <= maxBnum) && (i >= minBnum)) {
-        yDatapoints.push(curValue);
-      }
-    }
-
-    // Attach X dataPoints
-    let xval;
-    let prevXval = -1;
-    let ignoreDatapoint = false;
-		let yIndex = 0;
-    for (let i = 0; i < numPoints; i+=session.charts.sparseInterval) {
-      ignoreDatapoint = false;
+		for (let i=0; i<yvals.length; i++) {
+			yval = yvals[i];
+			let bnum = minBnum + (i * sparseInterval);
       if (this.timeUnits) {
-        let ms = new Date(breathTimes[i + minBnum - 1]).getTime() - initTime.getTime();
+        let ms = new Date(breathTimes[bnum]).getTime() - initTime.getTime();
         xval = (ms / 1000);
-        if (xval <= prevXval) ignoreDatapoint = true;
-        else prevXval = xval;
       } else {
-        xval = i + minBnum;
+        xval = bnum;
       }
-      if (!ignoreDatapoint) {
-        if (this.paramInfo.snapYval) {
-          xyPoints.push({
-            "x": xval,
-            "y": this.paramInfo.snapYval,
-            "toolTipContent": this.paramInfo.name + '# ' + yDatapoints[i],
-          });
-        } else {
-					//console.log("xval=" + xval + "	yVal=" + yDatapoints[yIndex]);
-          xyPoints.push({
-            "x": xval,
-            "y": yDatapoints[yIndex],
-          });
-					yIndex++;
-        }
+
+      if (this.paramInfo.snapYval) {
+        xyPoints.push({
+          "x": xval,
+          "y": this.paramInfo.snapYval,
+          "toolTipContent": this.paramInfo.name + '# ' + yDatapoints[i],
+        });
+      } else {
+        xyPoints.push({
+          "x": xval,
+          "y": yval,
+        });
       }
-    }
+		}
 
     let chartData = {};
     chartData.type = this.paramInfo.graphType;
@@ -331,45 +305,42 @@ class ChartPane {
     let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
-    let transitions = this.paramInfo.transitions;
+		let sparseInterval = session.charts.sparseInterval;
+
+		let paramObj = session.params[this.paramInfo.paramName];
+    let transitions = paramObj.Changes();
 
     if (transitions.length == 0) {
-      console.log("No transitions for createScatterXYPoints");
+      console.log("No transitions for ", this.paramInfo.paramName);
       return null;
     }
 
     let xyPoints = [];
-    let xval, yval, ignoreDatapoint;
-    let prevXval = -1;
+    let xval, yval;
     let b = minBnum;
 
     for (let t = 1; t < transitions.length; t++) {
       let cTime = transitions[t].time;
-      for (b = minBnum; b <= maxBnum; b+=session.charts.sparseInterval) {
+      for (b = minBnum; b <= maxBnum; b+=sparseInterval) {
         if (breathTimes[b].getTime() == cTime.getTime()) {
           yval = transitions[t].value;
-          ignoreDatapoint = false;
           if (this.timeUnits) {
             let ms = new Date(breathTimes[b]).getTime() - initTime.getTime();
             xval = (ms / 1000);
-            if (xval <= prevXval) ignoreDatapoint = true;
-            else prevXval = xval;
           } else {
             xval = b;
           }
-          if (!ignoreDatapoint) {
-            if (this.paramInfo.snapYval) {
-              xyPoints.push({
-                "x": xval,
-                "y": this.paramInfo.snapYval,
-                "toolTipContent": this.paramInfo.name + '# ' + yval,
-              });
-            } else {
-              xyPoints.push({
-                "x": xval,
-                "y": yval,
-              });
-            }
+          if (this.paramInfo.snapYval) {
+            xyPoints.push({
+              "x": xval,
+              "y": this.paramInfo.snapYval,
+              "toolTipContent": this.paramInfo.name + '# ' + yval,
+            });
+          } else {
+            xyPoints.push({
+              "x": xval,
+              "y": yval,
+            });
           }
           break;
         }
@@ -394,17 +365,19 @@ class ChartPane {
     let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
-    let transitions = this.paramInfo.transitions;
     let selectVal = this.paramInfo.selectVal;
     let timeSpans = [];
 
+		let paramObj = session.params[this.paramInfo.paramName];
+    let transitions = paramObj.Changes();
+
     if (transitions.length == 0) {
-      console.log("No transitions for createSpanXYPoints");
+      console.log("No transitions for ", this.paramInfo.paramName);
       return null;
     }
 
     let xyPoints = [];
-    let xval, yval, ignoreDatapoint;
+    let xval, yval;
     let prevXval = -1;
     let startTime = null;
     let endTime = null;
@@ -430,28 +403,23 @@ class ChartPane {
       endTime = timeSpans[i].endTime;
       for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
         if ((breathTimes[bnum].getTime() >= startTime.getTime()) && (breathTimes[bnum].getTime() < endTime.getTime())) {
-          ignoreDatapoint = false;
           if (this.timeUnits) {
             let ms = new Date(breathTimes[bnum]).getTime() - initTime.getTime();
             xval = (ms / 1000);
-            if (xval <= prevXval) ignoreDatapoint = true;
-            else prevXval = xval;
           } else {
             xval = bnum;
           }
-          if (!ignoreDatapoint) {
-            if (this.paramInfo.snapYval) {
-              xyPoints.push({
-                "x": xval,
-                "y": this.paramInfo.snapYval,
-                "toolTipContent": this.paramInfo.name,
-              });
-            } else {
-              xyPoints.push({
-                "x": xval,
-                "y": yval,
-              });
-            }
+          if (this.paramInfo.snapYval) {
+            xyPoints.push({
+              "x": xval,
+              "y": this.paramInfo.snapYval,
+              "toolTipContent": this.paramInfo.name,
+            });
+          } else {
+            xyPoints.push({
+              "x": xval,
+              "y": yval,
+            });
           }
         }
       }

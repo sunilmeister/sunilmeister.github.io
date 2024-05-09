@@ -239,7 +239,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Peak Pressure (cm H20)";
     paramInfo.color = "red";
-    paramInfo.transitions = session.peakChanges;
+    paramInfo.paramName = "peak";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -261,7 +261,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Plateau Pressure (cm H20)";
     paramInfo.color = "silver";
-    paramInfo.transitions = session.platChanges;
+    paramInfo.paramName = "plat";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -283,7 +283,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Peep Pressure (cm H20)";
     paramInfo.color = "green";
-    paramInfo.transitions = session.mpeepChanges;
+    paramInfo.paramName = "mpeep";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -305,7 +305,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Tidal Volume (ml)";
     paramInfo.color = "purple";
-    paramInfo.transitions = session.vtdelChanges;
+    paramInfo.paramName = "vtdel";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -327,7 +327,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Total Minute Volume (litres/min)";
     paramInfo.color = "olive";
-    paramInfo.transitions = session.mvdelChanges;
+    paramInfo.paramName = "mvdel";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -349,7 +349,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Mandatory Minute Volume (litres/min)";
     paramInfo.color = "blueviolet";
-    paramInfo.transitions = session.mmvdelChanges;
+    paramInfo.paramName = "mmvdel";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -371,7 +371,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous Minute Volume (litres/min)";
     paramInfo.color = "salmon";
-    paramInfo.transitions = session.smvdelChanges;
+    paramInfo.paramName = "smvdel";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -393,7 +393,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "O2 Flow Rate (litres/min)";
     paramInfo.color = "indigo";
-    paramInfo.transitions = session.o2FlowX10Changes;
+    paramInfo.paramName = "o2FlowX10";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -415,7 +415,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous BPM (bpm)";
     paramInfo.color = "maroon";
-    paramInfo.transitions = session.sbpmChanges;
+    paramInfo.paramName = "sbpm";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -437,7 +437,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Mandatory BPM (bpm)";
     paramInfo.color = "violet";
-    paramInfo.transitions = session.mbpmChanges;
+    paramInfo.paramName = "mbpm";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -459,7 +459,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Static DeltaV/DeltaP (ml/cm H20)";
     paramInfo.color = "navy";
-    paramInfo.transitions = session.scompChanges;
+    paramInfo.paramName = "scomp";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -481,7 +481,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Dynamic DeltaV/DeltaP (ml/cm H20)";
     paramInfo.color = "crimson";
-    paramInfo.transitions = session.dcompChanges;
+    paramInfo.paramName = "dcomp";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -503,7 +503,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "System Temp (deg C)";
     paramInfo.color = "fuchsia";
-    paramInfo.transitions = session.tempChanges;
+    paramInfo.paramName = "tempC";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -531,7 +531,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Mandatory Breath";
     paramInfo.color = "lime";
-    paramInfo.transitions = session.breathTypeChanges;
+    paramInfo.paramName = "btype";
     paramInfo.graphType = "scatter";
     paramInfo.selectVal = MANDATORY_BREATH;
     paramInfo.snapYval = MANDATORY_BREATH;
@@ -561,7 +561,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Spontaneous Breath";
     paramInfo.color = "orange";
-    paramInfo.transitions = session.breathTypeChanges;
+    paramInfo.paramName = "btype";
     paramInfo.graphType = "scatter";
     paramInfo.selectVal = SPONTANEOUS_BREATH;
     paramInfo.snapYval = SPONTANEOUS_BREATH;
@@ -591,7 +591,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Maintenance Breath";
     paramInfo.color = "salmon";
-    paramInfo.transitions = session.breathTypeChanges;
+    paramInfo.paramName = "btype";
     paramInfo.graphType = "scatter";
     paramInfo.selectVal = MAINTENANCE_BREATH;
     paramInfo.snapYval = MAINTENANCE_BREATH;
@@ -621,7 +621,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Notification";
     paramInfo.color = "lightblue";
-    paramInfo.transitions = session.infoChanges;
+    paramInfo.paramName = "infos";
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = NOTIFICATION_YVAL;
 
@@ -650,7 +650,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Warning";
     paramInfo.color = "wheat";
-    paramInfo.transitions = session.warningChanges;
+    paramInfo.paramName = "warnings";
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = WARNING_YVAL;
 
@@ -679,7 +679,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "Error";
     paramInfo.color = "salmon";
-    paramInfo.transitions = session.errorChanges;
+    paramInfo.paramName = "errors";
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = ERROR_YVAL;
 
@@ -702,7 +702,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "FiO2 (%)";
     paramInfo.color = "brown";
-    paramInfo.transitions = session.fiO2Changes;
+    paramInfo.paramName = "fiO2";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
@@ -723,7 +723,7 @@ class ChartBox {
     let paramInfo = cloneObject(paramInfoTemplate);
     paramInfo.name = "O2 Purity (%)";
     paramInfo.color = "lightgreen";
-    paramInfo.transitions = session.o2PurityChanges;
+    paramInfo.paramName = "o2Purity";
     paramInfo.graphType = "stepLine";
 
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
