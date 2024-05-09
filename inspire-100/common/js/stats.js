@@ -20,7 +20,7 @@ function displayUsedCombos() {
     if (combo.value.numBreaths == 0) continue;
     let row = table.insertRow();
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.mode);
+    cell.innerHTML = checkForUndefined(MODE_DECODER[(combo.value.mode)]);
     if (combo.value.mode == "PSV") {
       cell = row.insertCell();
       cell.innerHTML = checkForUndefined(combo.value.mv);
@@ -34,7 +34,7 @@ function displayUsedCombos() {
       cell = row.insertCell();
       cell.innerHTML = checkForUndefined(combo.value.rr);
       cell = row.insertCell();
-      cell.innerHTML = checkForUndefined(combo.value.ie);
+      cell.innerHTML = checkForUndefined(EI_DECODER[(combo.value.ie)]);
     }
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.ipeep);
@@ -162,8 +162,7 @@ function constructStatMiscTable() {
 }
 
 function replaceDummyValue(value) {
-  if ((value == null) || isUndefined(value)) str = "----";
-  else if (value == 'undefined') str = "----";
+  if ((value === null) || isUndefined(value)) str = "----";
   else str = String(value);
   return str;
 }
@@ -182,7 +181,7 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, param) {
 	}
 }
 
-function formUsedParamString(paramObj) {
+function formUsedParamString(paramObj, enums) {
 	let minBnum = session.reportRange.minBnum;
 	let maxBnum = session.reportRange.maxBnum;
 
@@ -194,6 +193,9 @@ function formUsedParamString(paramObj) {
   let str = "";
   for (i = 0; i < stats.length; i++) {
     let p = stats[i];
+		if (!isUndefined(enums)) {
+			p = enums[p];
+		}
     if (i == 0) str = p;
     else str = str + "," + p;
   }
@@ -254,7 +256,7 @@ function displayMinMaxAvg() {
 
 function displayParamUsage() {
   el = document.getElementById("mode");
-  el.innerHTML = formUsedParamString(session.params.mode);
+  el.innerHTML = formUsedParamString(session.params.mode, MODE_DECODER);
   el = document.getElementById("vt");
   el.innerHTML = formUsedParamString(session.params.vt);
   el = document.getElementById("mv");
@@ -262,7 +264,7 @@ function displayParamUsage() {
   el = document.getElementById("rr");
   el.innerHTML = formUsedParamString(session.params.rr);
   el = document.getElementById("ie");
-  el.innerHTML = formUsedParamString(session.params.ie);
+  el.innerHTML = formUsedParamString(session.params.ie, EI_DECODER);
   el = document.getElementById("ipeep");
   el.innerHTML = formUsedParamString(session.params.ipeep);
   el = document.getElementById("pmax");

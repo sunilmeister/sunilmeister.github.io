@@ -2,32 +2,51 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+// ////////////////////////////////////////////////////
 // Params are either a number or an enumeration
+// For ENUMS, each enumerator has a number associated as below
+// ////////////////////////////////////////////////////
 const paramsType = {
-	NUMBER : 					{type:"NUMBER"},
-	STATE : 					{type:"ENUM", range:["INITIAL", "STANDBY", "ACTIVE", "ERROR"]},
-	IE : 							{type:"ENUM", range:["1:1", "1:2", "1:3"]},
-	BREATH_TYPE : 		{type:"ENUM", range:["MANDATORY", "SPONTANEOUS", "MAINTENANCE"]},
-	BREATH_CONTROL : 	{type:"ENUM", range:["VOLUME", "PRESSURE"]},
-	MODE : 						{type:"ENUM", range:["CMV", "ACV", "SIMV", "PSV"]},
-	TPS : 						{type:"ENUM", range:[
-											 "10% of Peak Flow",
-											 "20% of Peak Flow",
-											 "30% of Peak Flow",
-											 "40% of Peak Flow",
-											 "50% of Peak Flow",
-											 "60% of Peak Flow",
-											 "1.0 secs",
-											 "1.5 secs",
-											 "2.0 secs",
-											 "2.5 secs",
-										]},
+	NUMBER : 					{type:"NUMBER", range:{}},
+	STATE : 					{type:"ENUM", 
+											range:{"INITIAL":0, "STANDBY":1, "ACTIVE":2, "ERROR":3}
+										},
+	IE : 							{type:"ENUM", 
+											range:{"1:1":1, "1:2":2, "1:3":3}
+										},
+	BREATH_TYPE : 		{type:"ENUM", 
+											range:{"MANDATORY":1, "SPONTANEOUS":2, "MAINTENANCE":3}
+										},
+	BREATH_CONTROL : 	{type:"ENUM", 
+											range:{"VOLUME":0, "PRESSURE":1}
+										},
+	MODE : 						{type:"ENUM", 
+											range:{"CMV":0, "ACV":1, "SIMV":2, "PSV":3}
+										},
+	TPS : 						{type:"ENUM", 
+											range:{
+											 "10% of Peak Flow":0,
+											 "20% of Peak Flow":1,
+											 "30% of Peak Flow":2,
+											 "40% of Peak Flow":3,
+											 "50% of Peak Flow":4,
+											 "60% of Peak Flow":5,
+											 "1.0 secs":6,
+											 "1.5 secs":7,
+											 "2.0 secs":8,
+											 "2.5 secs":9,
+											}
+										},
 };
 
+// ////////////////////////////////////////////////////
 // Allowed ops depending on number type. Result is always a boolean
+// ////////////////////////////////////////////////////
 const paramsOps = {NUMBER:[ "==", "!=", "<", "<=", ">", ">=" ], ENUM:["==", "!="]};
 
-// Install all params
+// ////////////////////////////////////////////////////
+// Install all params at load time
+// ////////////////////////////////////////////////////
 function initSessionParams() {
 	let type = paramsType;
 	session.params.state = 			new Param("STATE", type.STATE, "");
@@ -66,13 +85,15 @@ function initSessionParams() {
 	session.params.o2Purity = 	new Param("OXYGEN_SOURCE_PURITY_SETTING", type.NUMBER, "%");
 }
 
-// Class to store param values at different points in time
-// and to find their values at different times, ranges etc.
 var paramChangeTemplate = {
 	time: 	null,
 	value: 	null,
 };
 
+// ////////////////////////////////////////////////////
+// Class to manage param values at different points in time
+// and to find their values at different times, ranges etc.
+// ////////////////////////////////////////////////////
 class Param {
 	constructor(name, type, units) {
 		this.name = name;
@@ -95,7 +116,8 @@ class Param {
 	// each call must be monotonically increasing in time values
 	// time is a Date object
 	AddTimeValue(time, value) {
-		if (this.type.type == "NUMBER") value = Number(value);
+		// All params are a number including enums
+		value = Number(value);
 
 		let len = this.changes.length;
 		if (this.changes[len-1].time.getTime() > time.getTime()) {
@@ -354,7 +376,8 @@ class Param {
   	if (end >= this.changes.length) return null;
 
 		if (start == end) {
-    	if (this.changes[start].time.getTime() <= time.getTime()) return start;
+			if (start == 1) return start; // First transition
+			else if (this.changes[start].time.getTime() <= time.getTime()) return start;
 			else if (start > 0) return start - 1;
 			else return 0;
 		}

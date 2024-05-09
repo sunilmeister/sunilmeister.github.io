@@ -238,7 +238,7 @@ function updateStateDivsFromSessionData() {
 
 function updateParamDivsFromSessionData() {
   // Switch between PSV and other modes
-  if (session.paramDataInUse.mode == "PSV") {
+  if (MODE_DECODER[session.paramDataInUse.mode] == "PSV") {
     vtMvTitleELM.innerHTML = "Minute Volume";
     vtMvUnitsELM.innerHTML = "(litres/min)";
     updateDivValue(ieValELM, null);
@@ -251,14 +251,14 @@ function updateParamDivsFromSessionData() {
   } else {
     vtMvTitleELM.innerHTML = "Tidal Volume";
     vtMvUnitsELM.innerHTML = "(ml)";
-    updateDivValue(ieValELM, session.paramDataInUse.ie);
+    updateDivValue(ieValELM, EI_DECODER[session.paramDataInUse.ie]);
     animateDivValue(rrValELM, session.paramDataInUse.rr);
     animateDivValue(vtValELM, session.paramDataInUse.vt);
   }
   animateDivValue(pmaxValELM, session.paramDataInUse.pmax);
   animateDivValue(ipeepValELM, session.paramDataInUse.ipeep);
   animateDivValue(psValELM, session.paramDataInUse.ps);
-  updateDivValue(modeValELM, session.paramDataInUse.mode);
+  updateDivValue(modeValELM, MODE_DECODER[session.paramDataInUse.mode]);
   updateDivValue(tpsValELM, session.paramDataInUse.tps);
   updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
 }

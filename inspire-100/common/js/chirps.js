@@ -116,10 +116,10 @@ function parseParamData(jsonStr) {
     pmax :      (arr[2] == -1) ? null : arr[2],
     ipeep :     (arr[3] == -1) ? null : arr[3],
     ps :        (arr[4] == -1) ? null : arr[4],
-    mode :      (arr[5] == -1) ? null : MODE_DECODER[arr[5]],
+    mode :      (arr[5] == -1) ? null : arr[5],
     tps :       (arr[6] == -1) ? null : TPS_DECODER[arr[6]].text,
     tpsUnits :  (arr[6] == -1) ? null : TPS_DECODER[arr[6]].units,
-    ie :        (arr[7] == -1) ? null : EI_DECODER[arr[7]],
+    ie :        (arr[7] == -1) ? null : arr[7],
     rr :        (arr[8] == -1) ? null : arr[8],
     mv :        (arr[9] == -1) ? null : arr[9]/10,
   }
