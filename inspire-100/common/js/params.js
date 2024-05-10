@@ -96,6 +96,7 @@ var paramChangeTemplate = {
 // ////////////////////////////////////////////////////
 class Param {
 	constructor(name, type, units) {
+		this.debug = false;
 		this.name = name;
 		this.type = type;
 		this.units = units;
@@ -226,8 +227,12 @@ class Param {
 			return values;
 		}
 
-		let value = this.changes[changeIx].value;
-		values.push(value);
+	  let value = this.changes[changeIx].value;
+	  values.push(value);
+
+		if (startBnum == endBnum) {
+			return values;
+		}
 
 		let nextBnumToStore = startBnum + stepBnum;
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
@@ -271,6 +276,9 @@ class Param {
 
 		let value = this.changes[changeIx].value;
 		values.push(value);
+		if (startBnum == endBnum) {
+			return values;
+		}
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
@@ -300,12 +308,13 @@ class Param {
 		if (changeIx === null) {
 			console.error("Error during search in Param::CountValueEqual");
 			return count;
-		} else if (changeIx == 0) {
-			return count;
 		}
 
 		let value = this.changes[changeIx].value;
 		if (value == targetValue) count++;
+		if (startBnum == endBnum) {
+			return count;
+		}
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
@@ -327,6 +336,8 @@ class Param {
 
 	// returns {min: , max:, avg: }
 	MinMaxAvg(startBnum, endBnum) {
+		//if (this.name == "SYSTEM_TEMPERATURE") this.debug = true;
+
 		let startTime = session.breathTimes[startBnum];
 		let endTime = session.breathTimes[endBnum];
 
@@ -336,12 +347,13 @@ class Param {
 		if (changeIx === null) {
 			console.error("Error during search in Param::MinMaxAvg");
 			return stats;
-		} else if (changeIx == 0) {
-			return stats;
 		}
 
 		let value = this.changes[changeIx].value;
 		stats = this.UpdateStats(stats, value);
+		if (startBnum == endBnum) {
+			return stats;
+		}
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
@@ -362,9 +374,9 @@ class Param {
 		return rval;
 	}
 
-  // Recursive Binary search for change at or immediately before given time
-	// start and end are indices
-	// return value of null signifies and error
+  // Recursive Binary search for a value change at or immediately before given time
+	// start and end are indices into the changes array
+	// return value of null signifies error
 	// return value of 0 signifies an index before the first data was logged
   FindLastValueChangeIndex(time, start, end) {
   	if (isUndefined(start)) start = 0;
@@ -375,29 +387,34 @@ class Param {
   	if (start < 0) return null;
   	if (end >= this.changes.length) return null;
 
-		if (start == end) {
-			if (start == 1) return start; // First transition
-			else if (this.changes[start].time.getTime() <= time.getTime()) return start;
-			else if (start > 0) return start - 1;
-			else return 0;
-		}
-  
+		// if last transition was before given time
+		let endTime = this.changes[end].time;
+		if (endTime.getTime() <= time.getTime()) return end;
+
     // find the middle index
     let mid = Math.floor((start + end) / 2);
-    if (this.changes[mid].time.getTime() == time.getTime()) return mid;
+		if (mid == 0) return 0; // reached the beginning and there is no value logged
+
+		let midTime = this.changes[mid].time;
+    if (midTime.getTime() == time.getTime()) return mid;
+		else if (midTime.getTime() < time.getTime()) {
+  		// If the element in the middle is smaller than the time
+			// check the next one
+			if (mid < end) {
+				let nextTime = this.changes[mid+1].time;
+				if (nextTime.getTime() > time.getTime()) return mid;
+				else if (nextTime.getTime() == time.getTime()) return mid+1;
+			}
+			// look in the right half
+  		return this.FindLastValueChangeIndex(time, mid, end);
+		} else {
+     	// If the element in the middle is greater than the time 
+			// look in the left half
+  		return this.FindLastValueChangeIndex(time, start, mid - 1);
+		}
   
     if (this.changes[mid].time.getTime() > time.getTime()) {
-  		// check to see if the one before is less than given time
-  		// if so, that is the one
-  		let midM1 = mid - 1;
-  		if (midM1 && this.changes[midM1].time.getTime() <= time.getTime()) return midM1;
-  		else {
-     		// If the element in the middle is greater than the time, look in the left half
-  			return this.FindLastValueChangeIndex(time, start, mid - 1);
-  		}
    	} else {
-  		// If the element in the middle is smaller than the time, look in the right half
-  		return this.FindLastValueChangeIndex(time, mid + 1, end);
   	}
   }
 
