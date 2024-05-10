@@ -106,6 +106,8 @@ class Param {
 		// changes is a sorted array - monotonically increasing in time
 		// first entry is a null entry
 		this.changes = [initChange];
+
+		//if (this.name == "PEAK_PRESSURE") this.debug = true;
 	}
 
 	// some queries
@@ -336,8 +338,6 @@ class Param {
 
 	// returns {min: , max:, avg: }
 	MinMaxAvg(startBnum, endBnum) {
-		//if (this.name == "SYSTEM_TEMPERATURE") this.debug = true;
-
 		let startTime = session.breathTimes[startBnum];
 		let endTime = session.breathTimes[endBnum];
 
@@ -381,7 +381,10 @@ class Param {
   FindLastValueChangeIndex(time, start, end) {
   	if (isUndefined(start)) start = 0;
   	if (isUndefined(end)) end = this.changes.length - 1;
-		//console.log("Find start", start, "end", end);
+
+		if (this.debug) {
+			console.log("Find start", start, "end", end);
+		}
 
   	if (end < start) return null;
   	if (start < 0) return null;
