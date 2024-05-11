@@ -2,19 +2,84 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var statComputer = null;
-
 function checkForUndefined(val) {
   if (val === null) return "--";
   if (isUndefined(val)) return "?";
   return val;
 }
 
+function FindMissinBreathsInRange(minBnum, maxBnum) {
+	let missing = session.missingBreaths;
+  let minDate = session.breathTimes[minBnum];
+  let maxDate = session.breathTimes[maxBnum];
+  let arr = [];
+
+  let prevItem = null;
+  for (let i = 0; i < missing.length; i++) {
+    if (missing[i].time === null) continue;
+    let tDate = new Date(missing[i].time);
+    if (tDate.getTime() > maxDate.getTime()) break;
+
+    if (tDate.getTime() < minDate.getTime()) {
+      prevItem = missing[i];
+      continue;
+    }
+    arr.push(cloneObject(missing[i]));
+  }
+
+  return arr;
+}
+
+function FindUsedCombosInRange(minBnum, maxBnum) {
+  let arr = [];
+	let combos = session.usedParamCombos;
+  let minDate = (session.breathTimes[minBnum]);
+  let maxDate = (session.breathTimes[maxBnum]);
+
+  let prevItem = null;
+  for (let i = 0; i < combos.length; i++) {
+    if (combos[i].time === null) continue;
+    let tDate = new Date(combos[i].time);
+    if (tDate.getTime() > maxDate) {
+      if (arr.length == 0) {
+        if (prevItem) {
+          arr.push(cloneObject(cloneObject(prevItem)));
+          prevItem = null;
+        }
+      }
+      break;
+    }
+    if (tDate.getTime() < minDate.getTime()) {
+      prevItem = combos[i];
+      continue;
+    } else if (tDate.getTime() > minDate.getTime()) {
+      if (arr.length == 0) {
+        if (prevItem) {
+          arr.push(cloneObject(cloneObject(prevItem)));
+          prevItem = null;
+        }
+      }
+    }
+    arr.push(cloneObject(combos[i]));
+  }
+
+  if (arr.length == 0) {
+    if (prevItem) {
+      arr.push(cloneObject(cloneObject(prevItem)));
+      prevItem = null;
+    } else if (combos.length) {
+      arr.push(cloneObject(combos[0]));
+    }
+  }
+  return arr;
+}
+
 function displayUsedCombos() {
   let table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
-  let arr = statComputer.filterTransitions(session.usedParamCombos);
+	let arr = FindUsedCombosInRange(session.reportRange.minBnum, session.reportRange.maxBnum);
+
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
     if (combo.value.numBreaths == 0) continue;
@@ -228,7 +293,7 @@ function displayBreathTypeInfo() {
   el = document.getElementById("numWifiDrops");
   el.innerHTML = replaceDummyValue(nDrops);
 
-  let arr = statComputer.filterChanges(session.missingBreaths);
+	let arr = FindMissinBreathsInRange(minBnum, maxBnum);
   let n = 0;
   for (let i = 0; i < arr.length; i++) {
     obj = arr[i];
@@ -354,7 +419,6 @@ function createAllStats() {
     constructStatMiscTable();
   }
   session.statTablesConstructed = true;
-  statComputer = new StatComputer(session.breathTimes, session.reportRange);
 
   displayMinMaxAvg();
   displayParamUsage();
