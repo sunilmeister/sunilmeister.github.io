@@ -107,7 +107,7 @@ class Param {
 		// first entry is a null entry
 		this.changes = [initChange];
 
-		//if (this.name == "PEAK_PRESSURE") this.debug = true;
+		if (this.name == "PEAK_PRESSURE") this.debug = true;
 	}
 
 	// some queries
@@ -415,10 +415,6 @@ class Param {
 			// look in the left half
   		return this.FindLastValueChangeIndex(time, start, mid - 1);
 		}
-  
-    if (this.changes[mid].time.getTime() > time.getTime()) {
-   	} else {
-  	}
   }
 
 };
