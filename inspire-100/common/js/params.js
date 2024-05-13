@@ -107,7 +107,7 @@ class Param {
 		// first entry is a null entry
 		this.changes = [initChange];
 
-		if (this.name == "PEAK_PRESSURE") this.debug = true;
+		//if (this.name == "PEAK_PRESSURE") this.debug = true;
 	}
 
 	// some queries

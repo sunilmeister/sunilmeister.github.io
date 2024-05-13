@@ -77,6 +77,7 @@ function removeChartEditMenu() {
 
 var chartMenuBlinkColor = false;
 function blinkChartMenu() {
+	if (!session) return;
   if (!session.charts.boxTree) return;
   let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
 	if (!menuDiv) return;

@@ -74,6 +74,7 @@ function removeWaveEditMenu() {
 
 var waveMenuBlinkColor = false;
 function blinkWaveMenu() {
+	if (!session) return;
   if (!session.waves.boxTree) return;
   let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
 	if (!menuDiv) return;
