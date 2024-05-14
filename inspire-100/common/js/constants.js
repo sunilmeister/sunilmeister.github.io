@@ -26,11 +26,17 @@ const uidCookieName = "INSPIRE_UID_COOKIE";
 const tagCookieName = "INSPIRE_TAG_COOKIE";
 const localStorageDbName = "inspire_dbs";
 
+const FLOW_FILTER_WINDOW = 16;
+
 const NO_BREATH = 0;
 const MANDATORY_BREATH = 1;
 const SPONTANEOUS_BREATH = 2;
 const MAINTENANCE_BREATH = 3;
-const FLOW_FILTER_WINDOW = 16;
+
+const VOLUME_CONTROL = 0;
+const PRESSURE_SUPPORT = 1;
+const VOLUME_CONTROL_YVAL = 9;
+const PRESSURE_SUPPORT_YVAL = 10;
 
 const NOTIFICATION_YVAL = 5;
 const WARNING_YVAL = 6;

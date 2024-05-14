@@ -121,7 +121,7 @@ class ChartPane {
 
     let xyPoints = null;
     if (this.paramInfo.graphType == "scatter") {
-      if (!this.paramInfo.selectVal) {
+      if (this.paramInfo.selectVal === null) {
         xyPoints = this.createScatterXYPoints(breathTimes);
       } else {
         xyPoints = this.createSpanXYPoints(breathTimes);

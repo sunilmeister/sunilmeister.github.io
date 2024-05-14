@@ -735,6 +735,7 @@ function processMinuteChirp(curTime, jsonStr) {
 function processBreathChirp(curTime, jsonStr) {
   let obj = parseBreathData(jsonStr);
   if (!obj) return;
+
   if (session.stateData.error) obj.btype = MAINTENANCE_BREATH;
 
   saveOutputChange("peak", curTime, obj);
@@ -746,6 +747,17 @@ function processBreathChirp(curTime, jsonStr) {
   session.breathData.iqdel = obj.iqdel;
   session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
 
+	// infer the breath control
+	let mode = session.params.mode.LastValue();
+	if (obj.btype == SPONTANEOUS_BREATH) {
+		if ((MODE_DECODER[mode] == "SIMV") || (MODE_DECODER[mode] == "PSV")) {
+			session.params.bcontrol.AddTimeValue(curTime, PRESSURE_SUPPORT);
+		} else {
+			session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
+		}
+	} else {
+		session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
+	}
 }
 
 function processComplianceChirp(curTime, jsonStr) {

@@ -10,6 +10,8 @@ function markerFormatter(e) {
   if (e.value == NOTIFICATION_YVAL) return 'N';
   if (e.value == WARNING_YVAL) return 'W';
   if (e.value == ERROR_YVAL) return 'E';
+  if (e.value == VOLUME_CONTROL_YVAL) return 'V';
+  if (e.value == PRESSURE_SUPPORT_YVAL) return 'P';
   return '';
 }
 
@@ -207,6 +209,8 @@ class ChartBox {
     markerAxisNum = this.createMBreathGraph(markerAxisNum);
     markerAxisNum = this.createSBreathGraph(markerAxisNum);
     markerAxisNum = this.createEBreathGraph(markerAxisNum);
+    markerAxisNum = this.createVCBreathGraph(markerAxisNum);
+    markerAxisNum = this.createPSBreathGraph(markerAxisNum);
     markerAxisNum = this.createErrorGraph(markerAxisNum);
     markerAxisNum = this.createWarningGraph(markerAxisNum);
     markerAxisNum = this.createNotificationGraph(markerAxisNum);
@@ -516,7 +520,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 8;
+    yAxisInfo.yMax = 11;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Markers";
@@ -546,7 +550,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 8;
+    yAxisInfo.yMax = 11;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Markers";
@@ -576,7 +580,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "green";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 8;
+    yAxisInfo.yMax = 11;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Markers";
@@ -599,6 +603,66 @@ class ChartBox {
     return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
    }
 
+  createVCBreathGraph(reuseAxisNum) {
+    if (!this.options.VCBreath) return reuseAxisNum;
+
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "green";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 11;
+    yAxisInfo.yInterval = 1;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
+
+    let markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'square';
+    markerInfo.color = 'orange';
+    markerInfo.label = 'V';
+    markerInfo.size = 25;
+
+    let paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Volume Control";
+    paramInfo.color = "orange";
+    paramInfo.paramName = "bcontrol";
+    paramInfo.graphType = "scatter";
+    paramInfo.selectVal = VOLUME_CONTROL;
+    paramInfo.snapYval = VOLUME_CONTROL_YVAL;
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+   }
+
+  createPSBreathGraph(reuseAxisNum) {
+    if (!this.options.PSBreath) return reuseAxisNum;
+
+    let yAxisInfo = cloneObject(yAxisInfoTemplate);
+    yAxisInfo.primary = true;
+    yAxisInfo.color = "green";
+    yAxisInfo.yMin = 0;
+    yAxisInfo.yMax = 11;
+    yAxisInfo.yInterval = 1;
+    yAxisInfo.reuseAxisNum = reuseAxisNum;
+    yAxisInfo.yName = "Markers";
+    yAxisInfo.yFormat = markerFormatter;
+
+    let markerInfo = cloneObject(markerInfoTemplate);
+    markerInfo.type = 'square';
+    markerInfo.color = 'pink';
+    markerInfo.label = 'P';
+    markerInfo.size = 25;
+
+    let paramInfo = cloneObject(paramInfoTemplate);
+    paramInfo.name = "Pressure Support";
+    paramInfo.color = "pink";
+    paramInfo.paramName = "bcontrol";
+    paramInfo.graphType = "scatter";
+    paramInfo.selectVal = PRESSURE_SUPPORT;
+    paramInfo.snapYval = PRESSURE_SUPPORT_YVAL;
+
+    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+   }
+
   createNotificationGraph(reuseAxisNum) {
     if (!this.options.Notifications) return reuseAxisNum;
 
@@ -606,7 +670,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 8;
+    yAxisInfo.yMax = 11;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Markers";
@@ -635,7 +699,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 8;
+    yAxisInfo.yMax = 11;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Markers";
@@ -664,7 +728,7 @@ class ChartBox {
     yAxisInfo.primary = true;
     yAxisInfo.color = "blue";
     yAxisInfo.yMin = 0;
-    yAxisInfo.yMax = 8;
+    yAxisInfo.yMax = 11;
     yAxisInfo.yInterval = 1;
     yAxisInfo.reuseAxisNum = reuseAxisNum;
     yAxisInfo.yName = "Markers";
