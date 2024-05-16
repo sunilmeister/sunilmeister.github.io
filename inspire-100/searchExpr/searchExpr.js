@@ -14,6 +14,8 @@ const PARAM_NODE_ID_PREFIX = "SExprParam_" ;
 const CONST_NODE_ID_PREFIX = "SExprConst_" ;
 const CONST_ENUM_ID_PREFIX = "SExprConstEnum_" ;
 const CONST_NUMBER_ID_PREFIX = "SExprConstNum_" ;
+const SELECT_ENUM_NODE_ID_PREFIX = "SExprEnum_" ;
+const INPUT_NUM_NODE_ID_PREFIX = "SExprNum_" ;
 const OP_NODE_ID_PREFIX = "SExprOp_" ;
 
 // //////////////////////////////////////////////////////////////
@@ -269,15 +271,19 @@ class searchExpr {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, PARAM_NODE_ID_PREFIX);
 	}
 
-	formConstSelectId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_NODE_ID_PREFIX);
+	formConstEnumSelectId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, SELECT_ENUM_NODE_ID_PREFIX);
+	}
+
+	formConstNumSelectId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, INPUT_NUM_NODE_ID_PREFIX);
 	}
 
 	formConstEnumId(exprJson) {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_ENUM_ID_PREFIX);
 	}
 
-	formConstNumberId(exprJson) {
+	formConstNumId(exprJson) {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_NUMBER_ID_PREFIX);
 	}
 
@@ -293,12 +299,12 @@ class searchExpr {
 		str += " class=leafOpSelectCls></select>" ;
 
 		str += "<span id=" + this.formConstEnumId(exprJson.rhs) + " style='display:inline-block'>" ;
-		str += "<select id=" + this.formConstSelectId(exprJson.rhs);
+		str += "<select id=" + this.formConstEnumSelectId(exprJson.rhs);
 		str += " class=constEnumSelectCls></select>" ;
 		str += "</span>" ;
 
-		str += "<span id=" + this.formConstNumberId(exprJson.rhs) + " style='display:none'>" ;
-		str += "<input type=number id=" + this.formConstSelectId(exprJson.rhs);
+		str += "<span id=" + this.formConstNumId(exprJson.rhs) + " style='display:none'>" ;
+		str += "<input type=number id=" + this.formConstNumSelectId(exprJson.rhs);
 		str += " class=constNumberSelectCls></input>" ;
 		str += "</span>" ;
 
@@ -370,23 +376,37 @@ class searchExpr {
 			}
 		}
 
+		// The constant could be select or an input
+		// Selectively display the correct one
+		let sid = this.formConstEnumSelectId(exprJson.rhs);
+		let sdd = document.getElementById(sid);
+		let iid = this.formConstNumSelectId(exprJson.rhs);
+		let idd = document.getElementById(iid);
+
+		let spanSid = this.formConstEnumId(exprJson.rhs);
+		let spanSdd = document.getElementById(spanSid);
+		let spanIid = this.formConstNumId(exprJson.rhs);
+		let spanIdd = document.getElementById(spanIid);
+
 		let paramType = session.params[paramKey].type;
-		let eid = this.formConstSelectId(exprJson.rhs);
-		let edd = document.getElementById(eid);
 		if (paramType.type == "ENUM") {
 			// Dropdown list for enumerators
+			spanSdd.style.display = "inline-block" ;
+			spanIdd.style.display = "none" ;
 			let paramRange = paramType.range;
-			console.log(paramRange);
 			let values = Object.keys(paramRange);
 			for (let i=0; i< values.length; i++) {
 				let value = values[i];
 				let opt = document.createElement("option"); 
 				opt.text = value;
 				opt.value = value;
-				edd.options.add(opt);
+				sdd.options.add(opt);
 			}
-			edd.value = exprJson.rhs.constName;
+			sdd.value = exprJson.rhs.constName;
 		} else {
+			spanSdd.style.display = "none" ;
+			spanIdd.style.display = "inline-block" ;
+			idd.value = exprJson.rhs.constValue;
 		}
 
 		// Dropdown list for operators
