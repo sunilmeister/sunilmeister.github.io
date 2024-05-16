@@ -109,7 +109,7 @@ class searchExpr {
 			let rhs = exprJson.rhs;
 			let lhsVal = this.eval(lhs, bnum);
 			let rhsVal = null;
-			if (!isUndefined(rhs) && (rhs !== null)) {
+			if (this.isBinaryExpr(exprJson)) {
 				rhsVal = this.eval(rhs, bnum);
 			}
 			return this.evalOp(exprJson.op, lhsVal, rhsVal);
@@ -129,7 +129,7 @@ class searchExpr {
 			let rhs = exprJson.rhs;
 			let lhsStr = this.stringify(lhs);
 			let rhsStr = null;
-			if (!isUndefined(rhs) && (rhs !== null)) {
+			if (this.isBinaryExpr(exprJson)) {
 				rhsStr = this.stringify(rhs);
 			}
 			return this.stringifyOp(exprJson.op, lhsStr, rhsStr);
@@ -148,6 +148,19 @@ class searchExpr {
 
 	// HTML unordered list
 	createHTML(exprJson) {
+		if (exprJson.type == "op") {
+			if (this.isLeafExpr(exprJson)) {
+				return this.createLeafHTML(exprJson);
+			} else if (this.isUnaryExpr(exprJson)) {
+				return this.createUnaryExprHTML(exprJson);
+			} else {
+				return this.createBinaryExprHTML(exprJson);
+			}
+		} else return ""; 
+	}
+
+	// Binary logical expression
+	createBinaryExprHTML(exprJson) {
 		let imgClass = "class='iconButton opIconLi'";
 		let iconHTML = "<span class=opIconSpan>" + 
 			"<img " + imgClass + " src=../common/img/pen.png onclick='opEditClick(this)'>" +
@@ -155,27 +168,33 @@ class searchExpr {
 			"<img " + imgClass + " src=../common/img/trash-bin.png onclick='opDeleteClick(this)'>" +
 			"</span>";
 
-		if (exprJson.type == "op") {
-			if (exprJson.lhs.type != "op") { // leaf
-				// This is necessarily of the form "param op constant"
-				return this.createLeafHTML(exprJson);
-			} else {
-				let lhs = exprJson.lhs;
-				let rhs = exprJson.rhs;
-				let lhsStr = this.createHTML(lhs);
-				let rhsStr = null;
-				if (!isUndefined(rhs) && (rhs !== null)) {
-					rhsStr = this.createHTML(rhs);
-				}
-				let str = "<li id=" + exprJson.id + " class=opExprLi>" + iconHTML; 
-				str += "<span class=opExprSpan>" + exprJson.op + "</span></li>";
-				str += "<ul class=opExprUl>" + lhsStr + "</ul>";
-				if (rhsStr) {
-					str += "<ul class=opExprUl>" + rhsStr + "</ul>";
-				}
-				return str;
-			}
-		} else return ""; 
+		let lhs = exprJson.lhs;
+		let lhsStr = this.createHTML(lhs);
+		let rhs = exprJson.rhs;
+		let rhsStr = this.createHTML(rhs);
+		let str = lhsStr;
+		str += "<li id=" + exprJson.id + " class=opExprLi>" + iconHTML; 
+		str += "<span class=opExprSpan>" + exprJson.op + "</span></li>";
+		str +=  rhsStr;
+		return "<ul class=opExprUl>" + str + "</ul>";
+	}
+
+	// Unary logical expression
+	createUnaryExprHTML(exprJson) {
+		let imgClass = "class='iconButton opIconLi'";
+		let iconHTML = "<span class=opIconSpan>" + 
+			"<img " + imgClass + " src=../common/img/pen.png onclick='opEditClick(this)'>" +
+			"<img " + imgClass + " src=../common/img/plus.png onclick='opAddClick(this)'>" +
+			"<img " + imgClass + " src=../common/img/trash-bin.png onclick='opDeleteClick(this)'>" +
+			"</span>";
+
+		let lhs = exprJson.lhs;
+		let lhsStr = this.createHTML(lhs);
+		let str = "<span class=opExprSpan>" + exprJson.op + "</span></li>";
+		str += lhsStr;
+		str += "<li id=" + exprJson.id + " class=opExprLi>" + iconHTML; 
+		str +=  rhsStr;
+		return "<ul class=opExprUl>" + str + "</ul>";
 	}
 
 	createLeafHTML(exprJson) {
@@ -235,6 +254,23 @@ class searchExpr {
 	// //////////////////////////////////////////////////////////////
 	// Private functions below
 	// //////////////////////////////////////////////////////////////
+
+	isLeafExpr(exprJson) {
+		if (this.isUnaryExpr(exprJson)) return false;
+		let lhs = exprJson.lhs;
+		let rhs = exprJson.rhs;
+		if ((lhs.type == "param") && (rhs.type == "const")) return true;
+		else return false;
+	}
+
+	isBinaryExpr(exprJson) {
+		if (!isUndefined(exprJson.rhs) && (exprJson.rhs !== null)) return true;
+		else return false;
+	}
+
+	isUnaryExpr(exprJson) {
+		return !this.isBinaryExpr(exprJson);
+	}
 
 	// Evaluate the value of a sub-expression
 	evalOp(op, lhsVal, rhsVal) {
