@@ -1,0 +1,67 @@
+.opExprLi {
+	margin: 0.2rem;
+	font-size: 1.2rem;
+}
+
+.opExprUl {
+	margin: 0.2rem;
+	padding-left: 1rem;
+	border-left: double;
+}
+
+.opIconLi {
+	width: 1rem;
+	height: 1rem;
+}
+
+.opIconSpan {
+	margin: 0.2rem;
+	border: 0.1rem dotted;
+	padding-bottom:0.3rem;
+}
+
+.opExprSpan {
+	margin: 0.5rem;
+	background-color: var(--rsp_darkblue);
+	color: white;
+}
+
+.opIconLi {
+	width: 1rem;
+	height: 1rem;
+	margin: 0.3rem;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.leafExprLi {
+	font-size: 1.2rem;
+  font-style: italic;
+	margin: 0.2rem;
+}
+
+.leafIconSpan {
+	margin: 0.2rem;
+	border: 0.1rem dotted;
+	padding-bottom:0.3rem;
+}
+
+.leafExprSpan {
+	margin: 0.5rem;
+	background-color: var(--rsp_lightblue);
+	color: var(--rsp_darkblue);
+}
+
+.leafIconLi {
+	width: 1rem;
+	height: 1rem;
+	margin: 0.3rem;
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.searchExprCls ul {
+	list-style-type: none;
+	background-color: var(--rsp_lightblue);
+}
+
