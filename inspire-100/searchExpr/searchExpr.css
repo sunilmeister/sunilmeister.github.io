@@ -8,22 +8,10 @@
 	border-left: double;
 }
 
-.opIconSpan {
-	border: 0.1rem dotted;
-}
-
 .opExprSpan {
 	margin: 0.5rem;
 	font-size: 1.2rem;
 	font-weight: bold;
-}
-
-.opIconLi {
-	width: 0.8rem;
-	height: 0.8rem;
-	margin: 0.3rem;
-	vertical-align: middle;
-	display: inline-block;
 }
 
 .leafExprLi {
@@ -32,42 +20,55 @@
 	margin: 0.2rem;
 }
 
-.leafIconSpan {
-	border: 0.1rem dotted;
-}
-
 .leafExprSpan {
 	margin: 0.5rem;
-}
-
-.leafIconLi {
-	width: 0.8rem;
-	height: 0.8rem;
-	margin: 0.3rem;
-	vertical-align: middle;
-	display: inline-block;
 }
 
 .searchExprCls {
 	max-width: 80rem;
 }
 
+.paramSelectCls {
+	font-size: 1.2rem;
+	appearance: none;
+	width: 12rem;
+	border: none;
+	margin: 0.5rem;
+}
+
+.leafOpSelectCls {
+	font-size: 1.2rem;
+	appearance: none;
+	width: 3rem;
+	border: none;
+	margin: 0.5rem;
+}
+
+.constEnumSelectCls {
+	font-size: 1.2rem;
+	appearance: none;
+	width: 16rem;
+	border: none;
+	margin: 0.5rem;
+}
+
+.constNumberSelectCls {
+	font-size: 1.2rem;
+	width: 10rem;
+	border: none;
+	margin: 0.5rem;
+}
+
+.exprOpSelectCls {
+	font-size: 1.2rem;
+	appearance: none;
+	width: 3rem;
+}
+
 .searchExprCls ul {
 	list-style-type: none;
 	background-color: var(--rsp_lightblue);
 	color: var(--rsp_darkblue);
-}
-
-.paramSelectCls {
-	width: 10rem;
-}
-
-.constSelectCls {
-	width: 10rem;
-}
-
-.opSelectCls {
-	width: 3rem;
 }
 
 .exprStringCls {
@@ -85,3 +86,4 @@
 	background-color: var(--rsp_lightblue);
 	color: var(--rsp_darkblue);
 }
+

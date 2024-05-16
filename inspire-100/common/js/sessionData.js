@@ -179,6 +179,8 @@ var SessionDataTemplate = {
 		o2Purity:	null,
 	},
 
+	allParamsTable: [],
+
   // /////////////////////////////////////////////
   // Combinations of settings
   // /////////////////////////////////////////////
@@ -291,6 +293,7 @@ var SessionDataTemplate = {
 
 var session = null;
 function createNewSession() {
+	console.log("Creating new session");
 	session = cloneObject(SessionDataTemplate);
 	initSessionParams();
 }

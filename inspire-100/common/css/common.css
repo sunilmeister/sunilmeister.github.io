@@ -229,3 +229,17 @@ input(type="range")::-webkit-slider-thumb (
 }
 /* Remove dotted outline from range input element focused in Firefox */
 .audioSlider::-moz-focus-outer { border: 0; }
+
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+

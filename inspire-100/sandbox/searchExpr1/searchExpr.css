@@ -58,18 +58,6 @@
 	color: var(--rsp_darkblue);
 }
 
-.paramSelectCls {
-	width: 10rem;
-}
-
-.constSelectCls {
-	width: 10rem;
-}
-
-.opSelectCls {
-	width: 3rem;
-}
-
 .exprStringCls {
 	font-size: 0.9rem;
 	color: var(--rsp_darkblue);

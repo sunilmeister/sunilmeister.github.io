@@ -5,96 +5,16 @@
 /*
  * Various types of nodes that make up a search expression
  *
-node: {
-	id: "id",
-  type: "op",
-	op: "AND|OR|...",
-	lhs: {node:{}},
-	rhs: {node:{}}
-}
-
-node: {
-	id: "id",
-  type: "param",
-	paramName: "paramName",
-	paramKey: "paramName",
-}
-
-node: {
-	id: "id",
-  type: "const",
-	constName: "",
-	constValue: "value",
-}
-
-// Below json represents the expression
-// (mode==CMV) AND ((peak<=32) OR (vt > 400))
-{
-	id: "id1",
-	type: "op",
-	op: "AND",
-	lhs: {
-		id: "id2",
-		type: "op",
-		op: "==",
-		lhs: {
-			id: "id3",
-			type: "param",
-			paramName: "MODE_SETTING",
-			paramKey: "mode",
-		},
-		rhs: {
-			id: "id4",
-			type: "const",
-			constName: "CMV",
-			constValue: 0,
-		},
-	},
-	rhs: {
-		id: "id4",
-		type: "op",
-		op: "OR"
-		lhs: {
-			id: "id5",
-			type: "op",
-			op: "<=",
-			lhs: {
-				id: "id6",
-				type: "param",
-				paramName: "PEAK_PRESSURE",
-				paramKey: "peak",
-			},
-			rhs: {
-				id: "id7",
-				type: "const",
-				constName: "",
-				constValue: 32,
-			},
-		},
-		rhs: {
-			id: "id7",
-			type: "op",
-			op: ">",
-			lhs: {
-				id: "id7",
-				type: "param",
-				paramName: "TIDAL_VOLUME",
-				paramKey: "vtdel",
-			},
-			rhs: {
-				id: "id8",
-				type: "const",
-				constName: "",
-				constValue: 450,
-			},
-		},
-	},
-}
 
 */
 
 var searchExprNodeNum = 0;
-const SEARCH_EXPR_NODE_ID_PREFIX = "SNode_" ;
+const SEARCH_NODE_ID_PREFIX = "SExprNode_" ;
+const PARAM_NODE_ID_PREFIX = "SExprParam_" ;
+const CONST_NODE_ID_PREFIX = "SExprConst_" ;
+const CONST_ENUM_ID_PREFIX = "SExprConstEnum_" ;
+const CONST_NUMBER_ID_PREFIX = "SExprConstNum_" ;
+const OP_NODE_ID_PREFIX = "SExprOp_" ;
 
 // //////////////////////////////////////////////////////////////
 // No error checking done on the expression JSON
@@ -162,54 +82,31 @@ class searchExpr {
 
 	// Binary logical expression
 	createBinaryExprHTML(exprJson) {
-		let imgClass = "class='iconButton opIconLi'";
-		let iconHTML = "<span class=opIconSpan>" + 
-			"<img " + imgClass + " src=../common/img/pen.png onclick='opEditClick(this)'>" +
-			"<img " + imgClass + " src=../common/img/plus.png onclick='opAddClick(this)'>" +
-			"<img " + imgClass + " src=../common/img/trash-bin.png onclick='opDeleteClick(this)'>" +
-			"</span>";
-		iconHTML = "";
-
 		let lhs = exprJson.lhs;
 		let lhsStr = this.createHTML(lhs);
 		let rhs = exprJson.rhs;
 		let rhsStr = this.createHTML(rhs);
 		let str = lhsStr;
-		str += "<li id=" + exprJson.id + " class=opExprLi>" + iconHTML; 
-		str += "<span class=opExprSpan>" + exprJson.op + "</span></li>";
+		str += "<li id=" + exprJson.id + " class=opExprLi>";
+		str += "<span class=opExprSpan>" + exprJson.op + this.createExprSelectHTML(exprJson); 
+		str += "</span></li>";
 		str +=  rhsStr;
 		return "<ul class=opExprUl>" + str + "</ul>";
 	}
 
 	// Unary logical expression
 	createUnaryExprHTML(exprJson) {
-		let imgClass = "class='iconButton opIconLi'";
-		let iconHTML = "<span class=opIconSpan>" + 
-			"<img " + imgClass + " src=../common/img/pen.png onclick='opEditClick(this)'>" +
-			"<img " + imgClass + " src=../common/img/plus.png onclick='opAddClick(this)'>" +
-			"<img " + imgClass + " src=../common/img/trash-bin.png onclick='opDeleteClick(this)'>" +
-			"</span>";
-		iconHTML = "";
-
 		let rhs = exprJson.rhs;
 		let rhsStr = this.createHTML(rhs);
 		let str = "<ul class=opExprUl>" ;
-		str += "<li id=" + exprJson.id + " class=opExprLi>" + iconHTML; 
-		str += "<span class=opExprSpan>" + exprJson.op + "</span></li>";
+		str += "<li id=" + exprJson.id + " class=opExprLi>";
+		str += "<span class=opExprSpan>" + exprJson.op + this.createExprSelectHTML(exprJson); 
+		str += "</span></li>";
 		str +=   rhsStr + "</ul>";
-		console.log(str);
 		return str;
 	}
 
 	createLeafHTML(exprJson) {
-		let imgClass = "class='iconButton leafIconLi'";
-		let iconHTML = "<span class=leafIconSpan>" + 
-			"<img " + imgClass + " src=../common/img/pen.png onclick='leafEditClick(this)'>" +
-			"<img " + imgClass + " src=../common/img/plus.png onclick='leafAddClick(this)'>" +
-			"<img " + imgClass + " src=../common/img/trash-bin.png onclick='leafDeleteClick(this)'>" +
-			"</span>";
-		iconHTML = "";
-
 		// This is necessarily of the form "param op constant"
 		let lhsStr = exprJson.lhs.paramName;
 		let rhsStr = null;
@@ -218,15 +115,29 @@ class searchExpr {
 		} else {
 			rhsStr = exprJson.rhs.constValue;
 		}
-		let str = "<li id=" + exprJson.id + " class=leafExprLi>" + iconHTML; 
+		let str = "<li id=" + exprJson.id + " class=leafExprLi>";
 		str += "<span class=leafExprSpan>" ; 
 		str += "( " + lhsStr + " " + exprJson.op + " " + rhsStr + " )";
+		str += this.createLeafSelectHTML(exprJson);
 		str += "</span></li>";
 		return str;
 	}
 
+	// HTML unordered list
+	createSelectOptionsHTML(exprJson) {
+		if (exprJson.type == "op") {
+			if (this.isLeafExpr(exprJson)) {
+				return this.createLeafSelectOptionsHTML(exprJson);
+			} else if (this.isUnaryExpr(exprJson)) {
+				return this.createUnaryExprSelectOptionsHTML(exprJson);
+			} else {
+				return this.createBinaryExprSelectOptionsHTML(exprJson);
+			}
+		} else return ""; 
+	}
+
 	createNodeParam(paramName, paramKey) {
-		let nodeId = SEARCH_EXPR_NODE_ID_PREFIX + String(searchExprNodeNum++);
+		let nodeId = SEARCH_NODE_ID_PREFIX + String(searchExprNodeNum++);
 		return {
 			id: nodeId,
   		type: "param",
@@ -236,7 +147,7 @@ class searchExpr {
 	}
 
 	createNodeConst(constName, constValue) {
-		let nodeId = SEARCH_EXPR_NODE_ID_PREFIX + String(searchExprNodeNum++);
+		let nodeId = SEARCH_NODE_ID_PREFIX + String(searchExprNodeNum++);
 		return {
 			id: nodeId,
   		type: "const",
@@ -246,7 +157,7 @@ class searchExpr {
 	}
 
 	createNodeOp(op, lhs, rhs) {
-		let nodeId = SEARCH_EXPR_NODE_ID_PREFIX + String(searchExprNodeNum++);
+		let nodeId = SEARCH_NODE_ID_PREFIX + String(searchExprNodeNum++);
 		return {
 			id: nodeId,
   		type: "op",
@@ -353,4 +264,143 @@ class searchExpr {
 			return "(" + lhsStr + " <= " + rhsStr + ")";
 		}
 	}
+
+	formParamSelectId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, PARAM_NODE_ID_PREFIX);
+	}
+
+	formConstSelectId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_NODE_ID_PREFIX);
+	}
+
+	formConstEnumId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_ENUM_ID_PREFIX);
+	}
+
+	formConstNumberId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_NUMBER_ID_PREFIX);
+	}
+
+	formOpSelectId(exprJson) {
+		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, OP_NODE_ID_PREFIX);
+	}
+
+	createLeafSelectHTML(exprJson) {
+		let str = "<select id=" + this.formParamSelectId(exprJson.lhs);
+		str += " class=paramSelectCls></select>" ;
+
+		str += "<select id=" + this.formOpSelectId(exprJson);
+		str += " class=leafOpSelectCls></select>" ;
+
+		str += "<span id=" + this.formConstEnumId(exprJson.rhs) + " style='display:inline-block'>" ;
+		str += "<select id=" + this.formConstSelectId(exprJson.rhs);
+		str += " class=constEnumSelectCls></select>" ;
+		str += "</span>" ;
+
+		str += "<span id=" + this.formConstNumberId(exprJson.rhs) + " style='display:none'>" ;
+		str += "<input type=number id=" + this.formConstSelectId(exprJson.rhs);
+		str += " class=constNumberSelectCls></input>" ;
+		str += "</span>" ;
+
+		return str;
+	}
+
+	createExprSelectHTML(exprJson) {
+		let str = "<select id=" + this.formOpSelectId(exprJson);
+		str += " class=exprOpSelectCls></select>" ;
+		return str;
+	}
+
+	// This must be done AFTER the HTML is added to the DOM
+	createUnaryExprSelectOptionsHTML(exprJson) {
+		const logicOps = ["NOT", "AND", "OR", "XOR"];
+		let pid = this.formOpSelectId(exprJson);
+		let dropdown = document.getElementById(pid);
+		
+		for (let i=0; i< logicOps.length; i++) {
+			let opt = document.createElement("option"); 
+			opt.text = logicOps[i];
+			opt.value = logicOps[i];
+			dropdown.options.add(opt);
+		}
+		dropdown.value = exprJson.op;
+
+		this.createSelectOptionsHTML(exprJson.rhs);
+	}
+
+	// This must be done AFTER the HTML is added to the DOM
+	createBinaryExprSelectOptionsHTML(exprJson) {
+		const logicOps = ["NOT", "AND", "OR", "XOR"];
+		let pid = this.formOpSelectId(exprJson);
+		let dropdown = document.getElementById(pid);
+		
+		for (let i=0; i< logicOps.length; i++) {
+			let opt = document.createElement("option"); 
+			opt.text = logicOps[i];
+			opt.value = logicOps[i];
+			dropdown.options.add(opt);
+		}
+		dropdown.value = exprJson.op;
+
+		this.createSelectOptionsHTML(exprJson.lhs);
+		this.createSelectOptionsHTML(exprJson.rhs);
+	}
+
+	// This must be done AFTER the HTML is added to the DOM
+	createLeafSelectOptionsHTML(exprJson) {
+		let pid = this.formParamSelectId(exprJson.lhs);
+		let dropdown = document.getElementById(pid);
+		
+		for (let i=0; i< session.allParamsTable.length; i++) {
+			let param = session.allParamsTable[i];
+			let opt = document.createElement("option"); 
+			opt.text = param.name;
+			opt.value = param.name;
+			dropdown.options.add(opt);
+		}
+		dropdown.value = exprJson.lhs.paramName;
+
+		// find the key for the param
+		let paramKey = null;
+		for (let i=0; i< session.allParamsTable.length; i++) {
+			let param = session.allParamsTable[i];
+			if (param.name == exprJson.lhs.paramName) {
+				paramKey = param.key;
+				break;
+			}
+		}
+
+		let paramType = session.params[paramKey].type;
+		let eid = this.formConstSelectId(exprJson.rhs);
+		let edd = document.getElementById(eid);
+		if (paramType.type == "ENUM") {
+			// Dropdown list for enumerators
+			let paramRange = paramType.range;
+			console.log(paramRange);
+			let values = Object.keys(paramRange);
+			for (let i=0; i< values.length; i++) {
+				let value = values[i];
+				let opt = document.createElement("option"); 
+				opt.text = value;
+				opt.value = value;
+				edd.options.add(opt);
+			}
+			edd.value = exprJson.rhs.constName;
+		} else {
+		}
+
+		// Dropdown list for operators
+		let oid = this.formOpSelectId(exprJson);
+		let oo = document.getElementById(oid);
+		let opRange = paramOps[paramType.type];
+		for (let i=0; i< opRange.length; i++) {
+			let op = opRange[i];
+			let opt = document.createElement("option"); 
+			opt.text = op;
+			opt.value = op;
+			oo.options.add(opt);
+		}
+		oo.value = exprJson.op;
+	}
+
 }

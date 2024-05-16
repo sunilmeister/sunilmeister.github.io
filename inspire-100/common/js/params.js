@@ -42,12 +42,51 @@ const paramsType = {
 // ////////////////////////////////////////////////////
 // Allowed ops depending on number type. Result is always a boolean
 // ////////////////////////////////////////////////////
-const paramsOps = {NUMBER:[ "==", "!=", "<", "<=", ">", ">=" ], ENUM:["==", "!="]};
+const paramOps = {NUMBER:[ "==", "!=", "<", "<=", ">", ">=" ], ENUM:["==", "!="]};
 
 // ////////////////////////////////////////////////////
 // Install all params at load time
 // ////////////////////////////////////////////////////
+
+function initAllParamsTable() {
+	session.allParamsTable.push({key:"state", 			name:"STATE"});
+	session.allParamsTable.push({key:"vtdel", 			name:"TIDAL_VOLUME"});
+	session.allParamsTable.push({key:"mvdel", 			name:"MINUTE_VOLUME"});
+	session.allParamsTable.push({key:"mmvdel", 			name:"MANDATORY_MINUTE_VOLUME"});
+	session.allParamsTable.push({key:"smvdel", 			name:"SPONTANEOUS_MINUTE_VOLUME"});
+	session.allParamsTable.push({key:"sbpm", 				name:"SPONTANEOUS_BPM"});
+	session.allParamsTable.push({key:"mbpm", 				name:"MANDATORY_BPM"});
+	session.allParamsTable.push({key:"btype", 			name:"BREATH_TYPE"});
+	session.allParamsTable.push({key:"bcontrol", 		name:"BREATH_CONTROL"});
+	session.allParamsTable.push({key:"scomp", 			name:"STATIC_COMPLIANCE"});
+	session.allParamsTable.push({key:"dcomp", 			name:"DYNAMIC_COMPLIANCE"});
+	session.allParamsTable.push({key:"peak", 				name:"PEAK_PRESSURE"});
+	session.allParamsTable.push({key:"mpeep", 			name:"PEEP_PRESSURE"});
+	session.allParamsTable.push({key:"plat", 				name:"PLATEAU_PRESSURE"});
+	session.allParamsTable.push({key:"tempC", 			name:"SYSTEM_TEMPERATURE"});
+	session.allParamsTable.push({key:"cmvSpont", 		name:"CMV_SPONTANEOUS_BREATHS"});
+	session.allParamsTable.push({key:"o2FlowX10", 	name:"OXYGEN_SOURCE_FLOW"});
+	session.allParamsTable.push({key:"errors", 			name:"ERRORS"});
+	session.allParamsTable.push({key:"warnings", 		name:"WARNINGS"});
+	session.allParamsTable.push({key:"infos", 			name:"NOTIFICATIONS"});
+	session.allParamsTable.push({key:"wifiDrops",		name:"WIFI_DROPS"});
+	session.allParamsTable.push({key:"wifiReconns",	name:"WIFI_RECONNECTS"});
+	session.allParamsTable.push({key:"mode", 				name:"MODE_SETTING"});
+	session.allParamsTable.push({key:"vt", 					name:"VT_SETTING"});
+	session.allParamsTable.push({key:"mv", 					name:"MV_SETTING"});
+	session.allParamsTable.push({key:"rr", 					name:"RR_SETTING"});
+	session.allParamsTable.push({key:"ie", 					name:"IE_SETTING"});
+	session.allParamsTable.push({key:"ipeep", 			name:"PEEP_SETTING"});
+	session.allParamsTable.push({key:"pmax", 				name:"PMAX_SETTING"});
+	session.allParamsTable.push({key:"ps", 					name:"PS_SETTING"});
+	session.allParamsTable.push({key:"tps", 				name:"TPS_SETTING"});
+	session.allParamsTable.push({key:"fiO2", 				name:"FIO2_SETTING"});
+	session.allParamsTable.push({key:"o2Purity", 		name:"OXYGEN_PURITY_SETTING"});
+}
+
 function initSessionParams() {
+	initAllParamsTable();
+
 	let type = paramsType;
 	session.params.state = 			new Param("STATE", type.STATE, "");
 	session.params.vtdel = 			new Param("TIDAL_VOLUME", type.NUMBER, "ml");
