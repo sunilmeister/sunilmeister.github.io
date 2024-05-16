@@ -3,13 +3,15 @@
 }
 
 .opExprUl {
-	margin: 0.2rem;
-	padding-left: 2rem;
+	margin-top: 0.2rem;
+	margin-bottom: 0.2rem;
+	margin-left: 0rem;
+	margin-right: 0.2rem;
+	padding-left: 1.75rem;
 	border-left: double;
 }
 
 .opExprSpan {
-	margin: 0.5rem;
 	font-size: 1.2rem;
 	font-weight: bold;
 }
@@ -21,20 +23,18 @@
 }
 
 .leafExprSpan {
-	margin: 0.5rem;
 }
 
 .searchExprCls {
-	max-width: 80rem;
 }
 
 .paramSelectCls {
 	font-size: 1.2rem;
 	appearance: none;
-	width: 16rem;
+	width: 20rem;
 	border: none;
-	margin: 0.5rem;
   text-align-last:center;
+	margin-left: -1.75rem;
 }
 
 .leafOpSelectCls {
@@ -51,7 +51,6 @@
 	appearance: none;
 	width: 16rem;
 	border: none;
-	margin: 0.5rem;
   text-align-last:center;
 }
 
@@ -59,7 +58,6 @@
 	font-size: 1.2rem;
 	width: 10rem;
 	border: none;
-	margin: 0.5rem;
   text-align-last:center;
 }
 
@@ -68,6 +66,9 @@
 	appearance: none;
 	width: 4rem;
   text-align-last:center;
+	background-color: var(--rsp_mediumblue);
+	color: white;
+	margin-left: -1.75rem;
 }
 
 .searchExprCls ul {
@@ -77,7 +78,7 @@
 }
 
 .exprStringCls {
-	font-size: 0.9rem;
+	font-size: 1rem;
 	color: var(--rsp_darkblue);
 }
 

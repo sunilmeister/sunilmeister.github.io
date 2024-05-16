@@ -90,7 +90,7 @@ class searchExpr {
 		let rhsStr = this.createHTML(rhs);
 		let str = lhsStr;
 		str += "<li id=" + exprJson.id + " class=opExprLi>";
-		str += "<span class=opExprSpan>" + exprJson.op + this.createExprSelectHTML(exprJson); 
+		str += "<span class=opExprSpan>" + this.createExprSelectHTML(exprJson); 
 		str += "</span></li>";
 		str +=  rhsStr;
 		return "<ul class=opExprUl>" + str + "</ul>";
@@ -102,7 +102,7 @@ class searchExpr {
 		let rhsStr = this.createHTML(rhs);
 		let str = "<ul class=opExprUl>" ;
 		str += "<li id=" + exprJson.id + " class=opExprLi>";
-		str += "<span class=opExprSpan>" + exprJson.op + this.createExprSelectHTML(exprJson); 
+		str += "<span class=opExprSpan>" + this.createExprSelectHTML(exprJson); 
 		str += "</span></li>";
 		str +=   rhsStr + "</ul>";
 		return str;
@@ -119,7 +119,6 @@ class searchExpr {
 		}
 		let str = "<li id=" + exprJson.id + " class=leafExprLi>";
 		str += "<span class=leafExprSpan>" ; 
-		str += "( " + lhsStr + " " + exprJson.op + " " + rhsStr + " )";
 		str += this.createLeafSelectHTML(exprJson);
 		str += "</span></li>";
 		return str;
