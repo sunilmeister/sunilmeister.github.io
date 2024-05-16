@@ -105,12 +105,12 @@ class searchExpr {
 	// recursive
 	eval(exprJson, bnum) {
 		if (exprJson.type == "op") {
-			let lhs = exprJson.lhs;
 			let rhs = exprJson.rhs;
-			let lhsVal = this.eval(lhs, bnum);
-			let rhsVal = null;
+			let rhsVal = this.eval(rhs, bnum);
+			let lhs = exprJson.lhs;
+			let lhsVal = null;
 			if (this.isBinaryExpr(exprJson)) {
-				rhsVal = this.eval(rhs, bnum);
+				lhsVal = this.eval(lhs, bnum);
 			}
 			return this.evalOp(exprJson.op, lhsVal, rhsVal);
 
@@ -126,11 +126,11 @@ class searchExpr {
 	stringify(exprJson) {
 		if (exprJson.type == "op") {
 			let lhs = exprJson.lhs;
+			let lhsStr = null;
 			let rhs = exprJson.rhs;
-			let lhsStr = this.stringify(lhs);
-			let rhsStr = null;
+			let rhsStr = this.stringify(rhs);
 			if (this.isBinaryExpr(exprJson)) {
-				rhsStr = this.stringify(rhs);
+				lhsStr = this.stringify(lhs);
 			}
 			return this.stringifyOp(exprJson.op, lhsStr, rhsStr);
 
@@ -144,6 +144,7 @@ class searchExpr {
 				return exprJson.constValue;
 			}
 		}
+		return "";
 	}
 
 	// HTML unordered list
@@ -188,13 +189,14 @@ class searchExpr {
 			"<img " + imgClass + " src=../common/img/trash-bin.png onclick='opDeleteClick(this)'>" +
 			"</span>";
 
-		let lhs = exprJson.lhs;
-		let lhsStr = this.createHTML(lhs);
-		let str = "<span class=opExprSpan>" + exprJson.op + "</span></li>";
-		str += lhsStr;
+		let rhs = exprJson.rhs;
+		let rhsStr = this.createHTML(rhs);
+		let str = "<ul class=opExprUl>" ;
 		str += "<li id=" + exprJson.id + " class=opExprLi>" + iconHTML; 
-		str +=  rhsStr;
-		return "<ul class=opExprUl>" + str + "</ul>";
+		str += "<span class=opExprSpan>" + exprJson.op + "</span></li>";
+		str +=   rhsStr + "</ul>";
+		console.log(str);
+		return str;
 	}
 
 	createLeafHTML(exprJson) {
@@ -256,6 +258,8 @@ class searchExpr {
 	// //////////////////////////////////////////////////////////////
 
 	isLeafExpr(exprJson) {
+		// Leaf exprs have lhs and rhs
+		// Further lhs is param and rhs is const
 		if (this.isUnaryExpr(exprJson)) return false;
 		let lhs = exprJson.lhs;
 		let rhs = exprJson.rhs;
@@ -264,18 +268,23 @@ class searchExpr {
 	}
 
 	isBinaryExpr(exprJson) {
-		if (!isUndefined(exprJson.rhs) && (exprJson.rhs !== null)) return true;
-		else return false;
+		// Binary expressions have lhs and rhs
+		if (!isUndefined(exprJson.lhs) && (exprJson.lhs !== null)) {
+			if (!isUndefined(exprJson.rhs) && (exprJson.rhs !== null)) return true;
+		}
+		return false;
 	}
 
 	isUnaryExpr(exprJson) {
-		return !this.isBinaryExpr(exprJson);
+		// Unary expressions only have rhs
+		if (isUndefined(exprJson.lhs) || (exprJson.lhs === null)) return true;
+		else return false;
 	}
 
 	// Evaluate the value of a sub-expression
 	evalOp(op, lhsVal, rhsVal) {
 		if (op == "NOT") {
-			return !lhsVal;
+			return !rhsVal;
 		}
 		if (op == "AND") {
 			return lhsVal && rhsVal;

@@ -3,20 +3,25 @@ var expr1 = {
 	type: "op",
 	op: "AND",
 	lhs: {
-		id: "id2",
+		id: "idN",
 		type: "op",
-		op: "==",
-		lhs: {
-			id: "id3",
-			type: "param",
-			paramName: "MODE_SETTING",
-			paramKey: "mode",
-		},
+		op: "NOT",
 		rhs: {
-			id: "id4",
-			type: "const",
-			constName: "CMV",
-			constValue: 0,
+			id: "id2",
+			type: "op",
+			op: "==",
+			lhs: {
+				id: "id3",
+				type: "param",
+				paramName: "MODE_SETTING",
+				paramKey: "mode",
+			},
+			rhs: {
+				id: "id4",
+				type: "const",
+				constName: "CMV",
+				constValue: 0,
+			},
 		},
 	},
 	rhs: {
@@ -69,7 +74,7 @@ window.onload = function () {
 	pid.innerHTML = str;
 
 	lid = document.getElementById("exprContainer");
-	lid.innerHTML = "<ul>" + sExpr.createHTML(expr1) + "</ul>";
+	lid.innerHTML = sExpr.createHTML(expr1);
 }
 
 
