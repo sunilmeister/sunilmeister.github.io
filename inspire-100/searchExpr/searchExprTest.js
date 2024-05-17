@@ -9,7 +9,7 @@ var expr1 = {
 		rhs: {
 			id: "SExprNode_2",
 			type: "op",
-			op: "==",
+			op: "EQ",
 			lhs: {
 				id: "SExprNode_3",
 				type: "param",
@@ -31,7 +31,7 @@ var expr1 = {
 		lhs: {
 			id: "SExprNode_5",
 			type: "op",
-			op: "<=",
+			op: "LEQ",
 			lhs: {
 				id: "SExprNode_6",
 				type: "param",
@@ -48,7 +48,7 @@ var expr1 = {
 		rhs: {
 			id: "SExprNode_7",
 			type: "op",
-			op: ">",
+			op: "GT",
 			lhs: {
 				id: "SExprNode_7",
 				type: "param",

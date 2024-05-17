@@ -42,7 +42,7 @@ const paramsType = {
 // ////////////////////////////////////////////////////
 // Allowed ops depending on number type. Result is always a boolean
 // ////////////////////////////////////////////////////
-const paramOps = {NUMBER:[ "==", "!=", "<", "<=", ">", ">=" ], ENUM:["==", "!="]};
+const paramOps = {NUMBER:[ "EQ", "NEQ", "LT", "LEQ", "GT", "GEQ" ], ENUM:["EQ", "NEQ"]};
 
 // ////////////////////////////////////////////////////
 // Install all params at load time

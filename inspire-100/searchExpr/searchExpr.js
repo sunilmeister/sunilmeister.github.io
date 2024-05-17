@@ -211,22 +211,22 @@ class searchExpr {
   		return (lhsVal && !rhsVal) || (!lhsVal && rhsVal);
 		}
 
-		if (op == "==") {
+		if (op == "EQ") {
 			return lhsVal == rhsVal;
 		}
-		if (op == "!=") {
+		if (op == "NEQ") {
 			return lhsVal == rhsVal;
 		}
-		if (op == ">") {
+		if (op == "GT") {
 			return lhsVal > rhsVal;
 		}
-		if (op == ">=") {
+		if (op == "GEQ") {
 			return lhsVal >= rhsVal;
 		}
-		if (op == "<") {
+		if (op == "LT") {
 			return lhsVal < rhsVal;
 		}
-		if (op == "<=") {
+		if (op == "LEQ") {
 			return lhsVal <= rhsVal;
 		}
 	}
@@ -246,22 +246,22 @@ class searchExpr {
 			return "(" + lhsStr + " XOR " + rhsStr + ")";
 		}
 
-		if (op == "==") {
+		if (op == "EQ") {
 			return "(" + lhsStr + " == " + rhsStr + ")";
 		}
-		if (op == "!=") {
+		if (op == "NEQ") {
 			return "(" + lhsStr + " != " + rhsStr + ")";
 		}
-		if (op == ">") {
+		if (op == "GT") {
 			return "(" + lhsStr + " > " + rhsStr + ")";
 		}
-		if (op == ">=") {
+		if (op == "GEQ") {
 			return "(" + lhsStr + " >= " + rhsStr + ")";
 		}
-		if (op == "<") {
+		if (op == "LT") {
 			return "(" + lhsStr + " < " + rhsStr + ")";
 		}
-		if (op == "<=") {
+		if (op == "LEQ") {
 			return "(" + lhsStr + " <= " + rhsStr + ")";
 		}
 	}
