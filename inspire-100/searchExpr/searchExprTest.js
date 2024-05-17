@@ -39,18 +39,18 @@ var exprJson = {
 				paramKey: "peak",
 			},
 			rhs: {
-				id: "SExprNode_7",
+				id: "SExprNode_70",
 				type: "const",
 				constName: "",
 				constValue: 32,
 			},
 		},
 		rhs: {
-			id: "SExprNode_7",
+			id: "SExprNode_77",
 			type: "op",
 			op: "GT",
 			lhs: {
-				id: "SExprNode_7",
+				id: "SExprNode_78",
 				type: "param",
 				paramName: "TIDAL_VOLUME",
 				paramKey: "vtdel",
@@ -67,9 +67,28 @@ var exprJson = {
 
 var searchExpression = null;
 
+function exprConstEnumChangeClick(htmlElem) {
+	searchExpression.changeExprConstEnum(htmlElem);
+}
+
+function exprConstNumChangeClick(htmlElem) {
+	searchExpression.changeExprConstNum(htmlElem);
+}
+
+function exprParamChangeClick(htmlElem) {
+	searchExpression.changeExprParam(htmlElem);
+}
+
+function exprOpChangeClick(htmlElem) {
+	searchExpression.changeExprOp(htmlElem);
+}
+
 window.onload = function () {
-	searchExpression = new searchExpr(exprJson);
-	searchExpression.render("exprContainer");
+	searchExpression = new searchExpr(exprJson, "exprContainer");
+	console.log("isEmpty", searchExpression.isEmpty());
+	console.log("isValid", searchExpression.isValid());
+
+	searchExpression.render();
 
 	let str = searchExpression.stringify();
 	pid = document.getElementById("exprString");

@@ -23,8 +23,11 @@ const OP_NODE_ID_PREFIX = "SExprOp_" ;
 // It must be correct by construction before passing it to this class
 // //////////////////////////////////////////////////////////////
 class searchExpr {
-	constructor(exprJson) {
-		this.exprJson = exprJson;
+	constructor(exprJson, divId) {
+		if (isUndefined(exprJson) || !exprJson) this .exprJson = {};
+		else this.exprJson = exprJson;
+
+		this.containerDiv = document.getElementById(divId);
 	}
 
 	// Evaluate the value of the expression at a particular breath number
@@ -43,9 +46,8 @@ class searchExpr {
 	}
 
 	// render into a div
-	render(divId) {
-		let containerDiv = document.getElementById(divId);
-		containerDiv.innerHTML = this.createHTML();
+	render() {
+		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
 	}
 
@@ -57,6 +59,85 @@ class searchExpr {
 		return this.isEmptyExpr(this.exprJson);
 	}
 	
+	isValid() {
+		return this.isValidRecursive(this.exprJson);
+	}
+
+	changeExprParam(htmlSelectElem) {
+		let nodeId = this.formParamNodeId(htmlSelectElem.id);
+		let node = this.findNode(nodeId);
+		node.paramName = htmlSelectElem.value;
+
+		let paramKey = null;
+		for (let i=0; i< session.allParamsTable.length; i++) {
+			let param = session.allParamsTable[i];
+			if (param.name == node.paramName) {
+				paramKey = param.key;
+				break;
+			}
+		}
+		node.paramKey = paramKey;
+
+		// clear out op and const nodes to make them invalid
+		let parentElem = htmlSelectElem.parentElement;
+		let opElem = findChildNodeByClass(parentElem, "leafOpSelectCls");
+		let opNodeId = this.formOpNodeId(opElem.id);
+		node = this.findNode(opNodeId);
+		node.op = null;
+
+		let constElem = findChildNodeByClass(parentElem, "constEnumSelectCls");
+		let constNodeId = this.formConstEnumNodeId(constElem.id);
+		node = this.findNode(constNodeId);
+		node.constName = null;
+		node.constValue = null;
+
+		constElem = findChildNodeByClass(parentElem, "constNumberSelectCls");
+		constNodeId = this.formConstNumNodeId(constElem.id);
+		node = this.findNode(constNodeId);
+		node.constName = null;
+		node.constValue = null;
+
+		console.log("isValid",this.isValid());
+		this.render();
+	}
+
+	changeExprOp(htmlSelectElem) {
+		let nodeId = this.formOpNodeId(htmlSelectElem.id);
+		let node = this.findNode(nodeId);
+		node.op = htmlSelectElem.value;
+		console.log("isValid",this.isValid());
+		this.render();
+	}
+
+	changeExprConstEnum(htmlSelectElem) {
+		let parentElem = htmlSelectElem.parentElement;
+		let paramElem = findChildNodeByClass(parentElem, "paramSelectCls");
+		let paramNodeId = this.formParamNodeId(paramElem.id);
+		let paramKey = this.findNode(paramNodeId).paramKey;
+		let paramType = session.params[paramKey].type;
+		let paramRange = paramType.range;
+		//console.log("paramNodeId",paramNodeId);
+		//console.log("paramKey",paramKey);
+		//console.log("paramType",paramType);
+		//console.log("paramRange",paramRange);
+
+		let nodeId = this.formConstEnumNodeId(htmlSelectElem.id);
+		let node = this.findNode(nodeId);
+		node.constName = htmlSelectElem.value;
+		node.constValue = paramRange[node.constName];
+		//console.log("constValue",node.constValue);
+		console.log("isValid",this.isValid());
+		this.render();
+	}
+
+	changeExprConstNum(htmlSelectElem) {
+		let nodeId = this.formConstNumNodeId(htmlSelectElem.id);
+		let node = this.findNode(nodeId);
+		node.constName = "";
+		node.constValue = htmlSelectElem.value;
+		console.log("isValid",this.isValid());
+		this.render();
+	}
 
 	// //////////////////////////////////////////////////////////////
 	// Private functions below
@@ -72,17 +153,50 @@ class searchExpr {
 		this.createSelectOptionsHTMLRecursive(this.exprJson);
 	}
 
+	isValidRecursive(json) {
+		if (this.isEmptyExpr(json)) return false;
+
+		if (isUndefined(json.type)) return false;
+		if (!json.type) return false;
+
+		if (isUndefined(json.id)) return false;
+		if (!json.id) return false;
+
+		if (isUndefined(json.op) || !json.op) {
+			if (json.type == "param") {
+				if (isUndefined(json.paramName) || !json.paramName) return false;
+				if (isUndefined(json.paramKey) || !json.paramKey) return false;
+				return true;
+			} else if (json.type == "const") {
+				if (isUndefined(json.constValue) || (json.constValue === null)) return false;
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		let rhs = json.rhs;
+		if (!this.isValidRecursive(rhs)) return false;
+
+		if (this.isBinaryExpr(json)) {
+			let lhs = json.lhs;
+			if (!this.isValidRecursive(lhs)) return false;
+		}
+
+		return true;
+	}
+
 	findNodeRecursive(json, nodeId) {
 		if (this.isEmptyExpr(json)) return null;
 		if (json.id == nodeId) return json;
 
 		let rhs = json.rhs;
-		let node = this.findNodefindNodeRecursive(rhs, nodeId);
+		let node = this.findNodeRecursive(rhs, nodeId);
 		if (node) return node;
 
 		if (this.isBinaryExpr(json)) {
 			let lhs = json.lhs;
-			node = this.findNodefindNodeRecursive(lhs, nodeId);
+			node = this.findNodeRecursive(lhs, nodeId);
 			if (node) return node;
 		}
 		return null;
@@ -374,15 +488,17 @@ class searchExpr {
 
 	createLeafSelectHTML(json) {
 		let str = "<select id=" + this.formParamSelectId(json.lhs);
-		str += " class=paramSelectCls></select>" ;
+		str += " class=paramSelectCls onchange='exprParamChangeClick(this)'></select>" ;
 
 		str += "<select id=" + this.formOpSelectId(json);
-		str += " class=leafOpSelectCls></select>" ;
+		str += " class=leafOpSelectCls onchange='exprOpChangeClick(this)'></select>" ;
 
 		str += "<select id=" + this.formConstEnumSelectId(json.rhs);
+		str += " onchange='exprConstEnumChangeClick(this)' ";
 		str += " class=constEnumSelectCls style='display:inline-block'></select>" ;
 
 		str += "<input type=number id=" + this.formConstNumSelectId(json.rhs);
+		str += " onchange='exprConstNumChangeClick(this)' ";
 		str += " class=constNumberSelectCls style='display:none'></input>" ;
 
 		return str;
@@ -390,7 +506,7 @@ class searchExpr {
 
 	createExprSelectHTML(json) {
 		let str = "<select id=" + this.formOpSelectId(json);
-		str += " class=exprOpSelectCls></select>" ;
+		str += " class=exprOpSelectCls onchange='exprOpChangeClick(this)'></select>" ;
 		return str;
 	}
 
@@ -429,10 +545,8 @@ class searchExpr {
 		this.createSelectOptionsHTMLRecursive(json.rhs);
 	}
 
-	// This must be done AFTER the HTML is added to the DOM
-	createLeafSelectOptionsHTML(json) {
-		let pid = this.formParamSelectId(json.lhs);
-		let dropdown = document.getElementById(pid);
+	createParamDropdown(selectId, value) {
+		let dropdown = document.getElementById(selectId);
 		
 		for (let i=0; i< session.allParamsTable.length; i++) {
 			let param = session.allParamsTable[i];
@@ -441,26 +555,33 @@ class searchExpr {
 			opt.value = param.name;
 			dropdown.options.add(opt);
 		}
-		dropdown.value = json.lhs.paramName;
+		dropdown.value = value;
+	}
 
-		// find the key for the param
-		let paramKey = null;
-		for (let i=0; i< session.allParamsTable.length; i++) {
-			let param = session.allParamsTable[i];
-			if (param.name == json.lhs.paramName) {
-				paramKey = param.key;
-				break;
-			}
+	createOpDropdown(selectId, paramType, value) {
+		let dropdown = document.getElementById(selectId);
+		
+		// Dropdown list for operators
+		let opRange = paramOps[paramType.type];
+		for (let i=0; i< opRange.length; i++) {
+			let op = opRange[i];
+			let opt = document.createElement("option"); 
+			opt.text = op;
+			opt.value = op;
+			dropdown.options.add(opt);
 		}
 
+		dropdown.value = value;
+	}
+
+	createConstDropdown(json, paramType, constName, constValue) {
 		// The constant could be select or an input
 		// Selectively display the correct one
-		let sid = this.formConstEnumSelectId(json.rhs);
+		let sid = this.formConstEnumSelectId(json);
 		let sdd = document.getElementById(sid);
-		let iid = this.formConstNumSelectId(json.rhs);
+		let iid = this.formConstNumSelectId(json);
 		let idd = document.getElementById(iid);
 
-		let paramType = session.params[paramKey].type;
 		if (paramType.type == "ENUM") {
 			// Dropdown list for enumerators
 			sdd.style.display = "inline-block" ;
@@ -474,25 +595,38 @@ class searchExpr {
 				opt.value = value;
 				sdd.options.add(opt);
 			}
-			sdd.value = json.rhs.constName;
+			sdd.value = constName;
 		} else {
 			sdd.style.display = "none" ;
 			idd.style.display = "inline-block" ;
-			idd.value = json.rhs.constValue;
+			idd.value = constValue;
 		}
+	}
+		
+	// This must be done AFTER the HTML is added to the DOM
+	createLeafSelectOptionsHTML(json) {
+		// Create param drop down list
+		let selectId = this.formParamSelectId(json.lhs);
+		this.createParamDropdown(selectId, json.lhs.paramName);
+		
+		// find the key for the param
+		let paramKey = null;
+		for (let i=0; i< session.allParamsTable.length; i++) {
+			let param = session.allParamsTable[i];
+			if (param.name == json.lhs.paramName) {
+				paramKey = param.key;
+				break;
+			}
+		}
+		let paramType = session.params[paramKey].type;
 
-		// Dropdown list for operators
-		let oid = this.formOpSelectId(json);
-		let oo = document.getElementById(oid);
-		let opRange = paramOps[paramType.type];
-		for (let i=0; i< opRange.length; i++) {
-			let op = opRange[i];
-			let opt = document.createElement("option"); 
-			opt.text = op;
-			opt.value = op;
-			oo.options.add(opt);
-		}
-		oo.value = json.op;
+		// Create op drop down list
+		selectId = this.formOpSelectId(json);
+		this.createOpDropdown(selectId, paramType, json.op);
+
+		// Create op drop down list
+		selectId = this.formOpSelectId(json);
+		this.createConstDropdown(json.rhs, paramType, json.rhs.constName, json.rhs.constValue);
 	}
 
 }
