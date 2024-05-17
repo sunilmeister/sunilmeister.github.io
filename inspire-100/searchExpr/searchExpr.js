@@ -278,14 +278,6 @@ class searchExpr {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, INPUT_NUM_NODE_ID_PREFIX);
 	}
 
-	formConstEnumId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_ENUM_ID_PREFIX);
-	}
-
-	formConstNumId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, CONST_NUMBER_ID_PREFIX);
-	}
-
 	formOpSelectId(exprJson) {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, OP_NODE_ID_PREFIX);
 	}
@@ -297,15 +289,11 @@ class searchExpr {
 		str += "<select id=" + this.formOpSelectId(exprJson);
 		str += " class=leafOpSelectCls></select>" ;
 
-		str += "<span id=" + this.formConstEnumId(exprJson.rhs) + " style='display:inline-block'>" ;
 		str += "<select id=" + this.formConstEnumSelectId(exprJson.rhs);
-		str += " class=constEnumSelectCls></select>" ;
-		str += "</span>" ;
+		str += " class=constEnumSelectCls style='display:inline-block'></select>" ;
 
-		str += "<span id=" + this.formConstNumId(exprJson.rhs) + " style='display:none'>" ;
 		str += "<input type=number id=" + this.formConstNumSelectId(exprJson.rhs);
-		str += " class=constNumberSelectCls></input>" ;
-		str += "</span>" ;
+		str += " class=constNumberSelectCls style='display:none'></input>" ;
 
 		return str;
 	}
@@ -382,16 +370,11 @@ class searchExpr {
 		let iid = this.formConstNumSelectId(exprJson.rhs);
 		let idd = document.getElementById(iid);
 
-		let spanSid = this.formConstEnumId(exprJson.rhs);
-		let spanSdd = document.getElementById(spanSid);
-		let spanIid = this.formConstNumId(exprJson.rhs);
-		let spanIdd = document.getElementById(spanIid);
-
 		let paramType = session.params[paramKey].type;
 		if (paramType.type == "ENUM") {
 			// Dropdown list for enumerators
-			spanSdd.style.display = "inline-block" ;
-			spanIdd.style.display = "none" ;
+			sdd.style.display = "inline-block" ;
+			idd.style.display = "none" ;
 			let paramRange = paramType.range;
 			let values = Object.keys(paramRange);
 			for (let i=0; i< values.length; i++) {
@@ -403,8 +386,8 @@ class searchExpr {
 			}
 			sdd.value = exprJson.rhs.constName;
 		} else {
-			spanSdd.style.display = "none" ;
-			spanIdd.style.display = "inline-block" ;
+			sdd.style.display = "none" ;
+			idd.style.display = "inline-block" ;
 			idd.value = exprJson.rhs.constValue;
 		}
 
