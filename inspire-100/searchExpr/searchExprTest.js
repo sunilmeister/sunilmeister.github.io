@@ -3,25 +3,20 @@ var exprJson = {
 	type: "op",
 	op: "AND",
 	lhs: {
-		id: "SExprNode_N",
+		id: "SExprNode_2",
 		type: "op",
-		op: "NOT",
+		op: "EQ",
+		lhs: {
+			id: "SExprNode_3",
+			type: "param",
+			paramName: "MODE_SETTING",
+			paramKey: "mode",
+		},
 		rhs: {
-			id: "SExprNode_2",
-			type: "op",
-			op: "EQ",
-			lhs: {
-				id: "SExprNode_3",
-				type: "param",
-				paramName: "MODE_SETTING",
-				paramKey: "mode",
-			},
-			rhs: {
-				id: "SExprNode_4",
-				type: "const",
-				constName: "CMV",
-				constValue: 0,
-			},
+			id: "SExprNode_4",
+			type: "const",
+			constName: "CMV",
+			constValue: 0,
 		},
 	},
 	rhs: {

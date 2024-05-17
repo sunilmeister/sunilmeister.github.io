@@ -28,6 +28,7 @@ class searchExpr {
 		else this.exprJson = exprJson;
 
 		this.containerDiv = document.getElementById(divId);
+		this.errorHtmlNodes = [];
 	}
 
 	// Evaluate the value of the expression at a particular breath number
@@ -49,6 +50,11 @@ class searchExpr {
 	render() {
 		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
+		this.errorHtmlNodes = this.collectNullValueElements();
+		for (let i=0; i < this.errorHtmlNodes.length; i++) {
+			let elem = this.errorHtmlNodes[i];
+			elem.style.backgroundColor = "orange";
+		}
 	}
 
 	findNode(nodeId) {
@@ -149,6 +155,24 @@ class searchExpr {
 		return false;
 	}
 
+	collectNullValueElements() {
+		let result = [];
+
+		let arr = document.getElementsByTagName("select");
+		for (let i=0; i<arr.length; i++) {
+			let elem = arr[i];
+			if ((elem.value === null) || (elem.value == "")) result.push(elem);
+		}
+
+		arr = document.getElementsByTagName("input");
+		for (let i=0; i<arr.length; i++) {
+			let elem = arr[i];
+			if ((elem.value === null) || (elem.value == "")) result.push(elem);
+		}
+
+		return result;
+	}
+
 	createSelectOptionsHTML() {
 		this.createSelectOptionsHTMLRecursive(this.exprJson);
 	}
@@ -178,10 +202,8 @@ class searchExpr {
 		let rhs = json.rhs;
 		if (!this.isValidRecursive(rhs)) return false;
 
-		if (this.isBinaryExpr(json)) {
-			let lhs = json.lhs;
-			if (!this.isValidRecursive(lhs)) return false;
-		}
+		let lhs = json.lhs;
+		if (!this.isValidRecursive(lhs)) return false;
 
 		return true;
 	}
@@ -194,11 +216,10 @@ class searchExpr {
 		let node = this.findNodeRecursive(rhs, nodeId);
 		if (node) return node;
 
-		if (this.isBinaryExpr(json)) {
-			let lhs = json.lhs;
-			node = this.findNodeRecursive(lhs, nodeId);
-			if (node) return node;
-		}
+		let lhs = json.lhs;
+		node = this.findNodeRecursive(lhs, nodeId);
+		if (node) return node;
+
 		return null;
 	}
 
@@ -209,10 +230,7 @@ class searchExpr {
 			let rhs = json.rhs;
 			let rhsVal = this.evalRecursive(rhs, bnum);
 			let lhs = json.lhs;
-			let lhsVal = null;
-			if (this.isBinaryExpr(json)) {
-				lhsVal = this.evalRecursive(lhs, bnum);
-			}
+			let lhsVal = this.evalRecursive(lhs, bnum);
 			return this.evalOp(json.op, lhsVal, rhsVal);
 
 		} else if (json.type == "param") {
@@ -229,12 +247,9 @@ class searchExpr {
 
 		if (json.type == "op") {
 			let lhs = json.lhs;
-			let lhsStr = null;
+			let lhsStr = this.stringifyRecursive(lhs);
 			let rhs = json.rhs;
 			let rhsStr = this.stringifyRecursive(rhs);
-			if (this.isBinaryExpr(json)) {
-				lhsStr = this.stringifyRecursive(lhs);
-			}
 			return this.stringifyOp(json.op, lhsStr, rhsStr);
 
 		} else if (json.type == "param") {
@@ -257,17 +272,15 @@ class searchExpr {
 		if (json.type == "op") {
 			if (this.isLeafExpr(json)) {
 				return this.createLeafHTML(json);
-			} else if (this.isUnaryExpr(json)) {
-				return this.createUnaryExprHTML(json);
 			} else {
-				return this.createBinaryExprHTML(json);
+				return this.createLogicExprHTML(json);
 			}
 		} 
 		return null; 
 	}
 
-	// Binary logical expression
-	createBinaryExprHTML(json) {
+	// Logic logical expression
+	createLogicExprHTML(json) {
 		let lhs = json.lhs;
 		let lhsStr = this.createHTMLRecursive(lhs);
 		let rhs = json.rhs;
@@ -278,18 +291,6 @@ class searchExpr {
 		str += "</span></li>";
 		str +=  rhsStr;
 		return "<ul class=opExprUl>" + str + "</ul>";
-	}
-
-	// Unary logical expression
-	createUnaryExprHTML(json) {
-		let rhs = json.rhs;
-		let rhsStr = this.createHTMLRecursive(rhs);
-		let str = "<ul class=opExprUl>" ;
-		str += "<li id=" + json.id + " class=opExprLi>";
-		str += "<span class=opExprSpan>" + this.createExprSelectHTML(json); 
-		str += "</span></li>";
-		str +=   rhsStr + "</ul>";
-		return str;
 	}
 
 	createLeafHTML(json) {
@@ -314,10 +315,8 @@ class searchExpr {
 		if (json.type == "op") {
 			if (this.isLeafExpr(json)) {
 				return this.createLeafSelectOptionsHTML(json);
-			} else if (this.isUnaryExpr(json)) {
-				return this.createUnaryExprSelectOptionsHTML(json);
 			} else {
-				return this.createBinaryExprSelectOptionsHTML(json);
+				return this.createLogicExprSelectOptionsHTML(json);
 			}
 		} 
 		return null; 
@@ -359,36 +358,14 @@ class searchExpr {
 
 		// Leaf exprs have lhs and rhs
 		// Further lhs is param and rhs is const
-		if (this.isUnaryExpr(json)) return false;
 		let lhs = json.lhs;
 		let rhs = json.rhs;
 		if ((lhs.type == "param") && (rhs.type == "const")) return true;
 		else return false;
 	}
 
-	isBinaryExpr(json) {
-		if (this.isEmptyExpr(json)) return null;
-
-		// Binary expressions have lhs and rhs
-		if (!isUndefined(json.lhs) && (json.lhs !== null)) {
-			if (!isUndefined(json.rhs) && (json.rhs !== null)) return true;
-		}
-		return false;
-	}
-
-	isUnaryExpr(json) {
-		if (this.isEmptyExpr(json)) return null;
-
-		// Unary expressions only have rhs
-		if (isUndefined(json.lhs) || (json.lhs === null)) return true;
-		else return false;
-	}
-
 	// Evaluate the value of a sub-expression
 	evalOp(op, lhsVal, rhsVal) {
-		if (op == "NOT") {
-			return !rhsVal;
-		}
 		if (op == "AND") {
 			return lhsVal && rhsVal;
 		}
@@ -421,9 +398,6 @@ class searchExpr {
 
 	// Stringify a sub-expression 
 	stringifyOp(op, lhsStr, rhsStr) {
-		if (op == "NOT") {
-			return "NOT(" + rhsStr + ")";
-		}
 		if (op == "AND") {
 			return "(" + lhsStr + " AND " + rhsStr + ")";
 		}
@@ -511,25 +485,8 @@ class searchExpr {
 	}
 
 	// This must be done AFTER the HTML is added to the DOM
-	createUnaryExprSelectOptionsHTML(json) {
-		const logicOps = ["NOT", "AND", "OR", "XOR"];
-		let pid = this.formOpSelectId(json);
-		let dropdown = document.getElementById(pid);
-		
-		for (let i=0; i< logicOps.length; i++) {
-			let opt = document.createElement("option"); 
-			opt.text = logicOps[i];
-			opt.value = logicOps[i];
-			dropdown.options.add(opt);
-		}
-		dropdown.value = json.op;
-
-		this.createSelectOptionsHTMLRecursive(json.rhs);
-	}
-
-	// This must be done AFTER the HTML is added to the DOM
-	createBinaryExprSelectOptionsHTML(json) {
-		const logicOps = ["NOT", "AND", "OR", "XOR"];
+	createLogicExprSelectOptionsHTML(json) {
+		const logicOps = ["AND", "OR", "XOR"];
 		let pid = this.formOpSelectId(json);
 		let dropdown = document.getElementById(pid);
 		
