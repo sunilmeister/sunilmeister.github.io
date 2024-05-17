@@ -17,6 +17,7 @@ const CONST_NUMBER_ID_PREFIX = "SExprConstNum_" ;
 const SELECT_ENUM_NODE_ID_PREFIX = "SExprEnum_" ;
 const INPUT_NUM_NODE_ID_PREFIX = "SExprNum_" ;
 const OP_NODE_ID_PREFIX = "SExprOp_" ;
+const CHECKBOX_NODE_ID_PREFIX = "SCheckbox_" ;
 
 // //////////////////////////////////////////////////////////////
 // No error checking done on the expression JSON
@@ -303,6 +304,8 @@ class searchExpr {
 			rhsStr = json.rhs.constValue;
 		}
 		let str = "<li id=" + json.id + " class=leafExprLi>";
+		str += "<input type='checkbox' id=" + this.formCheckboxSelectId(json);
+		str +=  " class=exprCheckboxCls onclick='exprCheckboxClick(this)'>";
 		str += "<span class=leafExprSpan>" ; 
 		str += this.createLeafSelectHTML(json);
 		str += "</span></li>";
@@ -426,6 +429,14 @@ class searchExpr {
 		if (op == "LEQ") {
 			return "(" + lhsStr + " <= " + rhsStr + ")";
 		}
+	}
+
+	formCheckboxNodeId(htmlId) {
+		return htmlId.replace(CHECKBOX_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
+	}
+
+	formCheckboxSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, CHECKBOX_NODE_ID_PREFIX);
 	}
 
 	formParamNodeId(htmlId) {

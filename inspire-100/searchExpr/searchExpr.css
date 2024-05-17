@@ -34,8 +34,8 @@
 	width: 20rem;
 	border: none;
   text-align-last:center;
-	margin-left: -1.75rem;
 	cursor: pointer;
+	margin-left: 0.5rem;
 }
 
 .leafOpSelectCls {
@@ -97,5 +97,13 @@
 	padding: 0.5rem;
 	background-color: var(--rsp_lightblue);
 	color: var(--rsp_darkblue);
+}
+
+.exprCheckboxCls {
+  content: "";
+  width: 1.2rem;
+  height: 1.2rem;
+	margin-left: -1.5rem;
+	vertical-align: -0.22rem;
 }
 

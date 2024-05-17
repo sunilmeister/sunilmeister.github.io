@@ -62,6 +62,21 @@ var exprJson = {
 
 var searchExpression = null;
 
+function exprCheckboxClick(htmlElem) {
+	let htmlElemId = htmlElem.id;
+	let cboxes = document.getElementsByClassName("exprCheckboxCls");
+	for (let i=0; i<cboxes.length; i++) {
+		let cbox = cboxes[i];
+		cbox.parentElement.style.removeProperty("background-color");
+		if (htmlElemId == cbox.id) continue;
+		cbox.checked = false;
+	}
+
+	if (htmlElem.checked) {
+		htmlElem.parentElement.style.backgroundColor = palette.darkblue;
+	}
+}
+
 function exprConstEnumChangeClick(htmlElem) {
 	searchExpression.changeExprConstEnum(htmlElem);
 }
