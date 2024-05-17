@@ -1,4 +1,4 @@
-var expr1 = {
+var exprJson = {
 	id: "SExprNode_1",
 	type: "op",
 	op: "AND",
@@ -65,11 +65,13 @@ var expr1 = {
 	},
 }
 
-window.onload = function () {
-	sExpr = new searchExpr(expr1);
-	sExpr.render("exprContainer");
+var searchExpression = null;
 
-	let str = sExpr.stringify();
+window.onload = function () {
+	searchExpression = new searchExpr(exprJson);
+	searchExpression.render("exprContainer");
+
+	let str = searchExpression.stringify();
 	pid = document.getElementById("exprString");
 	pid.innerHTML = str;
 }
