@@ -66,16 +66,12 @@ var expr1 = {
 }
 
 window.onload = function () {
-	sExpr = new searchExpr;
-	let str = sExpr.stringify(expr1);
-	console.log(str);
+	sExpr = new searchExpr(expr1);
+	sExpr.render("exprContainer");
 
+	let str = sExpr.stringify();
 	pid = document.getElementById("exprString");
 	pid.innerHTML = str;
-
-	lid = document.getElementById("exprContainer");
-	lid.innerHTML = sExpr.createHTML(expr1);
-	sExpr.createSelectOptionsHTML(expr1);
 }
 
 

@@ -23,118 +23,190 @@ const OP_NODE_ID_PREFIX = "SExprOp_" ;
 // It must be correct by construction before passing it to this class
 // //////////////////////////////////////////////////////////////
 class searchExpr {
+	constructor(exprJson) {
+		this.exprJson = exprJson;
+	}
+
 	// Evaluate the value of the expression at a particular breath number
-	// recursive
-	eval(exprJson, bnum) {
-		if (exprJson.type == "op") {
-			let rhs = exprJson.rhs;
-			let rhsVal = this.eval(rhs, bnum);
-			let lhs = exprJson.lhs;
-			let lhsVal = null;
-			if (this.isBinaryExpr(exprJson)) {
-				lhsVal = this.eval(lhs, bnum);
-			}
-			return this.evalOp(exprJson.op, lhsVal, rhsVal);
-
-		} else if (exprJson.type == "param") {
-			return session.params[exprJson.paramKey].ValueAtBnum(bnum);
-
-		} else if (exprJson.type == "const") {
-			return exprJson.constValue;
-		}
+	evaluate(bnum) {
+		return this.evalRecursive(this.exprJson, bnum);
 	}
 
 	// Normal math expression - not stringified json
-	stringify(exprJson) {
-		if (exprJson.type == "op") {
-			let lhs = exprJson.lhs;
-			let lhsStr = null;
-			let rhs = exprJson.rhs;
-			let rhsStr = this.stringify(rhs);
-			if (this.isBinaryExpr(exprJson)) {
-				lhsStr = this.stringify(lhs);
+	stringify() {
+		return this.stringifyRecursive(this.exprJson);
+	}
+
+	// Convert to HTML for display
+	createHTML() {
+		return this.createHTMLRecursive(this.exprJson);
+	}
+
+	// render into a div
+	render(divId) {
+		let containerDiv = document.getElementById(divId);
+		containerDiv.innerHTML = this.createHTML();
+		this.createSelectOptionsHTML();
+	}
+
+	findNode(nodeId) {
+		return this.findNodeRecursive(this.exprJson, nodeId);
+	}
+
+	isEmpty() {
+		return this.isEmptyExpr(this.exprJson);
+	}
+	
+
+	// //////////////////////////////////////////////////////////////
+	// Private functions below
+	// //////////////////////////////////////////////////////////////
+
+	isEmptyExpr(json) {
+		if (isUndefined(json) || (json === null)) return true;
+		if (Object.keys(json).length === 0) return true;
+		return false;
+	}
+
+	createSelectOptionsHTML() {
+		this.createSelectOptionsHTMLRecursive(this.exprJson);
+	}
+
+	findNodeRecursive(json, nodeId) {
+		if (this.isEmptyExpr(json)) return null;
+		if (json.id == nodeId) return json;
+
+		let rhs = json.rhs;
+		let node = this.findNodefindNodeRecursive(rhs, nodeId);
+		if (node) return node;
+
+		if (this.isBinaryExpr(json)) {
+			let lhs = json.lhs;
+			node = this.findNodefindNodeRecursive(lhs, nodeId);
+			if (node) return node;
+		}
+		return null;
+	}
+
+	evalRecursive(json, bnum) {
+		if (this.isEmptyExpr(json)) return null;
+
+		if (json.type == "op") {
+			let rhs = json.rhs;
+			let rhsVal = this.evalRecursive(rhs, bnum);
+			let lhs = json.lhs;
+			let lhsVal = null;
+			if (this.isBinaryExpr(json)) {
+				lhsVal = this.evalRecursive(lhs, bnum);
 			}
-			return this.stringifyOp(exprJson.op, lhsStr, rhsStr);
+			return this.evalOp(json.op, lhsVal, rhsVal);
 
-		} else if (exprJson.type == "param") {
-			return exprJson.paramName;
+		} else if (json.type == "param") {
+			return session.params[json.paramKey].ValueAtBnum(bnum);
 
-		} else if (exprJson.type == "const") {
-			if (exprJson.constName != "") {
-				return '"' + exprJson.constName + '"';
+		} else if (json.type == "const") {
+			return json.constValue;
+		}
+		return null;
+	}
+
+	stringifyRecursive(json) {
+		if (this.isEmptyExpr(json)) return null;
+
+		if (json.type == "op") {
+			let lhs = json.lhs;
+			let lhsStr = null;
+			let rhs = json.rhs;
+			let rhsStr = this.stringifyRecursive(rhs);
+			if (this.isBinaryExpr(json)) {
+				lhsStr = this.stringifyRecursive(lhs);
+			}
+			return this.stringifyOp(json.op, lhsStr, rhsStr);
+
+		} else if (json.type == "param") {
+			return json.paramName;
+
+		} else if (json.type == "const") {
+			if (json.constName != "") {
+				return '"' + json.constName + '"';
 			} else {
-				return exprJson.constValue;
+				return json.constValue;
 			}
 		}
-		return "";
+		return null;
 	}
 
 	// HTML unordered list
-	createHTML(exprJson) {
-		if (exprJson.type == "op") {
-			if (this.isLeafExpr(exprJson)) {
-				return this.createLeafHTML(exprJson);
-			} else if (this.isUnaryExpr(exprJson)) {
-				return this.createUnaryExprHTML(exprJson);
+	createHTMLRecursive(json) {
+		if (this.isEmptyExpr(json)) return null;
+
+		if (json.type == "op") {
+			if (this.isLeafExpr(json)) {
+				return this.createLeafHTML(json);
+			} else if (this.isUnaryExpr(json)) {
+				return this.createUnaryExprHTML(json);
 			} else {
-				return this.createBinaryExprHTML(exprJson);
+				return this.createBinaryExprHTML(json);
 			}
-		} else return ""; 
+		} 
+		return null; 
 	}
 
 	// Binary logical expression
-	createBinaryExprHTML(exprJson) {
-		let lhs = exprJson.lhs;
-		let lhsStr = this.createHTML(lhs);
-		let rhs = exprJson.rhs;
-		let rhsStr = this.createHTML(rhs);
+	createBinaryExprHTML(json) {
+		let lhs = json.lhs;
+		let lhsStr = this.createHTMLRecursive(lhs);
+		let rhs = json.rhs;
+		let rhsStr = this.createHTMLRecursive(rhs);
 		let str = lhsStr;
-		str += "<li id=" + exprJson.id + " class=opExprLi>";
-		str += "<span class=opExprSpan>" + this.createExprSelectHTML(exprJson); 
+		str += "<li id=" + json.id + " class=opExprLi>";
+		str += "<span class=opExprSpan>" + this.createExprSelectHTML(json); 
 		str += "</span></li>";
 		str +=  rhsStr;
 		return "<ul class=opExprUl>" + str + "</ul>";
 	}
 
 	// Unary logical expression
-	createUnaryExprHTML(exprJson) {
-		let rhs = exprJson.rhs;
-		let rhsStr = this.createHTML(rhs);
+	createUnaryExprHTML(json) {
+		let rhs = json.rhs;
+		let rhsStr = this.createHTMLRecursive(rhs);
 		let str = "<ul class=opExprUl>" ;
-		str += "<li id=" + exprJson.id + " class=opExprLi>";
-		str += "<span class=opExprSpan>" + this.createExprSelectHTML(exprJson); 
+		str += "<li id=" + json.id + " class=opExprLi>";
+		str += "<span class=opExprSpan>" + this.createExprSelectHTML(json); 
 		str += "</span></li>";
 		str +=   rhsStr + "</ul>";
 		return str;
 	}
 
-	createLeafHTML(exprJson) {
+	createLeafHTML(json) {
 		// This is necessarily of the form "param op constant"
-		let lhsStr = exprJson.lhs.paramName;
+		let lhsStr = json.lhs.paramName;
 		let rhsStr = null;
-		if (exprJson.rhs.constName != "") {
-			rhsStr = '"' + exprJson.rhs.constName + '"';
+		if (json.rhs.constName != "") {
+			rhsStr = '"' + json.rhs.constName + '"';
 		} else {
-			rhsStr = exprJson.rhs.constValue;
+			rhsStr = json.rhs.constValue;
 		}
-		let str = "<li id=" + exprJson.id + " class=leafExprLi>";
+		let str = "<li id=" + json.id + " class=leafExprLi>";
 		str += "<span class=leafExprSpan>" ; 
-		str += this.createLeafSelectHTML(exprJson);
+		str += this.createLeafSelectHTML(json);
 		str += "</span></li>";
 		return str;
 	}
 
-	// HTML unordered list
-	createSelectOptionsHTML(exprJson) {
-		if (exprJson.type == "op") {
-			if (this.isLeafExpr(exprJson)) {
-				return this.createLeafSelectOptionsHTML(exprJson);
-			} else if (this.isUnaryExpr(exprJson)) {
-				return this.createUnaryExprSelectOptionsHTML(exprJson);
+	createSelectOptionsHTMLRecursive(json) {
+		if (this.isEmptyExpr(json)) return null;
+
+		if (json.type == "op") {
+			if (this.isLeafExpr(json)) {
+				return this.createLeafSelectOptionsHTML(json);
+			} else if (this.isUnaryExpr(json)) {
+				return this.createUnaryExprSelectOptionsHTML(json);
 			} else {
-				return this.createBinaryExprSelectOptionsHTML(exprJson);
+				return this.createBinaryExprSelectOptionsHTML(json);
 			}
-		} else return ""; 
+		} 
+		return null; 
 	}
 
 	createNodeParam(paramName, paramKey) {
@@ -168,31 +240,33 @@ class searchExpr {
 		};
 	}
 
-	// //////////////////////////////////////////////////////////////
-	// Private functions below
-	// //////////////////////////////////////////////////////////////
+	isLeafExpr(json) {
+		if (this.isEmptyExpr(json)) return null;
 
-	isLeafExpr(exprJson) {
 		// Leaf exprs have lhs and rhs
 		// Further lhs is param and rhs is const
-		if (this.isUnaryExpr(exprJson)) return false;
-		let lhs = exprJson.lhs;
-		let rhs = exprJson.rhs;
+		if (this.isUnaryExpr(json)) return false;
+		let lhs = json.lhs;
+		let rhs = json.rhs;
 		if ((lhs.type == "param") && (rhs.type == "const")) return true;
 		else return false;
 	}
 
-	isBinaryExpr(exprJson) {
+	isBinaryExpr(json) {
+		if (this.isEmptyExpr(json)) return null;
+
 		// Binary expressions have lhs and rhs
-		if (!isUndefined(exprJson.lhs) && (exprJson.lhs !== null)) {
-			if (!isUndefined(exprJson.rhs) && (exprJson.rhs !== null)) return true;
+		if (!isUndefined(json.lhs) && (json.lhs !== null)) {
+			if (!isUndefined(json.rhs) && (json.rhs !== null)) return true;
 		}
 		return false;
 	}
 
-	isUnaryExpr(exprJson) {
+	isUnaryExpr(json) {
+		if (this.isEmptyExpr(json)) return null;
+
 		// Unary expressions only have rhs
-		if (isUndefined(exprJson.lhs) || (exprJson.lhs === null)) return true;
+		if (isUndefined(json.lhs) || (json.lhs === null)) return true;
 		else return false;
 	}
 
@@ -270,60 +344,60 @@ class searchExpr {
 		return htmlId.replace(PARAM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
-	formParamSelectId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, PARAM_NODE_ID_PREFIX);
+	formParamSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, PARAM_NODE_ID_PREFIX);
 	}
 
-	formConstEnumSelectId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, SELECT_ENUM_NODE_ID_PREFIX);
+	formConstEnumSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, SELECT_ENUM_NODE_ID_PREFIX);
 	}
 
 	formConstEnumNodeId(htmlId) {
 		return htmlId.replace(SELECT_ENUM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
-	formConstNumSelectId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, INPUT_NUM_NODE_ID_PREFIX);
+	formConstNumSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, INPUT_NUM_NODE_ID_PREFIX);
 	}
 
 	formConstNumNodeId(htmlId) {
 		return htmlId.replace(INPUT_NUM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
-	formOpSelectId(exprJson) {
-		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, OP_NODE_ID_PREFIX);
+	formOpSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, OP_NODE_ID_PREFIX);
 	}
 
 	formOpNodeId(htmlId) {
 		return htmlId.replace(OP_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
-	createLeafSelectHTML(exprJson) {
-		let str = "<select id=" + this.formParamSelectId(exprJson.lhs);
+	createLeafSelectHTML(json) {
+		let str = "<select id=" + this.formParamSelectId(json.lhs);
 		str += " class=paramSelectCls></select>" ;
 
-		str += "<select id=" + this.formOpSelectId(exprJson);
+		str += "<select id=" + this.formOpSelectId(json);
 		str += " class=leafOpSelectCls></select>" ;
 
-		str += "<select id=" + this.formConstEnumSelectId(exprJson.rhs);
+		str += "<select id=" + this.formConstEnumSelectId(json.rhs);
 		str += " class=constEnumSelectCls style='display:inline-block'></select>" ;
 
-		str += "<input type=number id=" + this.formConstNumSelectId(exprJson.rhs);
+		str += "<input type=number id=" + this.formConstNumSelectId(json.rhs);
 		str += " class=constNumberSelectCls style='display:none'></input>" ;
 
 		return str;
 	}
 
-	createExprSelectHTML(exprJson) {
-		let str = "<select id=" + this.formOpSelectId(exprJson);
+	createExprSelectHTML(json) {
+		let str = "<select id=" + this.formOpSelectId(json);
 		str += " class=exprOpSelectCls></select>" ;
 		return str;
 	}
 
 	// This must be done AFTER the HTML is added to the DOM
-	createUnaryExprSelectOptionsHTML(exprJson) {
+	createUnaryExprSelectOptionsHTML(json) {
 		const logicOps = ["NOT", "AND", "OR", "XOR"];
-		let pid = this.formOpSelectId(exprJson);
+		let pid = this.formOpSelectId(json);
 		let dropdown = document.getElementById(pid);
 		
 		for (let i=0; i< logicOps.length; i++) {
@@ -332,15 +406,15 @@ class searchExpr {
 			opt.value = logicOps[i];
 			dropdown.options.add(opt);
 		}
-		dropdown.value = exprJson.op;
+		dropdown.value = json.op;
 
-		this.createSelectOptionsHTML(exprJson.rhs);
+		this.createSelectOptionsHTMLRecursive(json.rhs);
 	}
 
 	// This must be done AFTER the HTML is added to the DOM
-	createBinaryExprSelectOptionsHTML(exprJson) {
+	createBinaryExprSelectOptionsHTML(json) {
 		const logicOps = ["NOT", "AND", "OR", "XOR"];
-		let pid = this.formOpSelectId(exprJson);
+		let pid = this.formOpSelectId(json);
 		let dropdown = document.getElementById(pid);
 		
 		for (let i=0; i< logicOps.length; i++) {
@@ -349,15 +423,15 @@ class searchExpr {
 			opt.value = logicOps[i];
 			dropdown.options.add(opt);
 		}
-		dropdown.value = exprJson.op;
+		dropdown.value = json.op;
 
-		this.createSelectOptionsHTML(exprJson.lhs);
-		this.createSelectOptionsHTML(exprJson.rhs);
+		this.createSelectOptionsHTMLRecursive(json.lhs);
+		this.createSelectOptionsHTMLRecursive(json.rhs);
 	}
 
 	// This must be done AFTER the HTML is added to the DOM
-	createLeafSelectOptionsHTML(exprJson) {
-		let pid = this.formParamSelectId(exprJson.lhs);
+	createLeafSelectOptionsHTML(json) {
+		let pid = this.formParamSelectId(json.lhs);
 		let dropdown = document.getElementById(pid);
 		
 		for (let i=0; i< session.allParamsTable.length; i++) {
@@ -367,13 +441,13 @@ class searchExpr {
 			opt.value = param.name;
 			dropdown.options.add(opt);
 		}
-		dropdown.value = exprJson.lhs.paramName;
+		dropdown.value = json.lhs.paramName;
 
 		// find the key for the param
 		let paramKey = null;
 		for (let i=0; i< session.allParamsTable.length; i++) {
 			let param = session.allParamsTable[i];
-			if (param.name == exprJson.lhs.paramName) {
+			if (param.name == json.lhs.paramName) {
 				paramKey = param.key;
 				break;
 			}
@@ -381,9 +455,9 @@ class searchExpr {
 
 		// The constant could be select or an input
 		// Selectively display the correct one
-		let sid = this.formConstEnumSelectId(exprJson.rhs);
+		let sid = this.formConstEnumSelectId(json.rhs);
 		let sdd = document.getElementById(sid);
-		let iid = this.formConstNumSelectId(exprJson.rhs);
+		let iid = this.formConstNumSelectId(json.rhs);
 		let idd = document.getElementById(iid);
 
 		let paramType = session.params[paramKey].type;
@@ -400,15 +474,15 @@ class searchExpr {
 				opt.value = value;
 				sdd.options.add(opt);
 			}
-			sdd.value = exprJson.rhs.constName;
+			sdd.value = json.rhs.constName;
 		} else {
 			sdd.style.display = "none" ;
 			idd.style.display = "inline-block" ;
-			idd.value = exprJson.rhs.constValue;
+			idd.value = json.rhs.constValue;
 		}
 
 		// Dropdown list for operators
-		let oid = this.formOpSelectId(exprJson);
+		let oid = this.formOpSelectId(json);
 		let oo = document.getElementById(oid);
 		let opRange = paramOps[paramType.type];
 		for (let i=0; i< opRange.length; i++) {
@@ -418,7 +492,7 @@ class searchExpr {
 			opt.value = op;
 			oo.options.add(opt);
 		}
-		oo.value = exprJson.op;
+		oo.value = json.op;
 	}
 
 }
