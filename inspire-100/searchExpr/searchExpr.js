@@ -266,6 +266,10 @@ class searchExpr {
 		}
 	}
 
+	formParamNodeId(htmlId) {
+		return htmlId.replace(PARAM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
+	}
+
 	formParamSelectId(exprJson) {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, PARAM_NODE_ID_PREFIX);
 	}
@@ -274,12 +278,24 @@ class searchExpr {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, SELECT_ENUM_NODE_ID_PREFIX);
 	}
 
+	formConstEnumNodeId(htmlId) {
+		return htmlId.replace(SELECT_ENUM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
+	}
+
 	formConstNumSelectId(exprJson) {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, INPUT_NUM_NODE_ID_PREFIX);
 	}
 
+	formConstNumNodeId(htmlId) {
+		return htmlId.replace(INPUT_NUM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
+	}
+
 	formOpSelectId(exprJson) {
 		return exprJson.id.replace(SEARCH_NODE_ID_PREFIX, OP_NODE_ID_PREFIX);
+	}
+
+	formOpNodeId(htmlId) {
+		return htmlId.replace(OP_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
 	createLeafSelectHTML(exprJson) {
