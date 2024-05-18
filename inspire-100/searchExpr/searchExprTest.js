@@ -62,34 +62,19 @@ var exprJson = {
 
 var searchExpression = null;
 
-function addBeforeSelectedExpr() {
-	searchExpression.addBeforeSelectedExpr();
+function addBeforeSelectedExpr(btn) {
+	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
+	searchExpression.addBeforeSelectedExpr(leafExprElem);
 }
 
-function addAfterSelectedExpr() {
-	searchExpression.addAfterSelectedExpr();
+function addAfterSelectedExpr(btn) {
+	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
+	searchExpression.addAfterSelectedExpr(leafExprElem);
 }
 
-function deleteSelectedExpr() {
-	searchExpression.deleteSelectedLeafExpr();
-}
-
-function exprCheckboxClick(htmlElem) {
-	let htmlElemId = htmlElem.id;
-	let cboxes = document.getElementsByClassName("exprCheckboxCls");
-	for (let i=0; i<cboxes.length; i++) {
-		let cbox = cboxes[i];
-		cbox.parentElement.style.removeProperty("background-color");
-		if (htmlElemId == cbox.id) continue;
-		cbox.checked = false;
-	}
-
-	if (htmlElem.checked) {
-		searchExpression.selectLeafExpr(htmlElem.parentElement);
-		htmlElem.parentElement.style.backgroundColor = palette.darkblue;
-	} else {
-		searchExpression.unselectLeafExpr();
-	}
+function deleteSelectedExpr(btn) {
+	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
+	searchExpression.deleteSelectedLeafExpr(leafExprElem);
 }
 
 function exprConstEnumChangeClick(htmlElem) {

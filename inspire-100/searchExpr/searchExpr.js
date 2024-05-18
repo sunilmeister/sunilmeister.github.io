@@ -31,8 +31,6 @@ class searchExpr {
 		this.containerDiv = document.getElementById(treeDivId);
 		this.textDiv = document.getElementById(textId);
 		this.errorHTMLNodes = [];
-		this.selectedLeafNode = null;
-		this.selectedLeafHTML = null;
 	}
 
 	updateIds() {
@@ -40,30 +38,21 @@ class searchExpr {
 		this.updateIdRecursive(this.exprJson);
 	}
 
-	selectLeafExpr(htmlElem) {
-		this.selectedLeafNode = this.findNode(htmlElem.id); // shared id with HTML
-		this.selectedLeafHTML = htmlElem;
+	addBeforeSelectedExpr(htmlElem) {
+		this.addWrtSelectedExpr(htmlElem, "before");
 	}
 
-	unselectLeafExpr() {
-		this.selectedLeafNode = null;
-		this.selectedLeafHTML = null;
+	addAfterSelectedExpr(htmlElem) {
+		this.addWrtSelectedExpr(htmlElem, "after");
 	}
 
-	addBeforeSelectedExpr() {
-		this.addWrtSelectedExpr("before");
-	}
-
-	addAfterSelectedExpr() {
-		this.addWrtSelectedExpr("after");
-	}
-
-	deleteSelectedLeafExpr() {
-		if (!this.selectedLeafNode) {
+	deleteSelectedLeafExpr(htmlElem) {
+		let selectedLeafNode = this.findNode(htmlElem.id); // shared id with HTML
+		if (!selectedLeafNode) {
 			alert("Nothing to delete");
 			return;
 		}
-		let parentElem = this.selectedLeafHTML.parentElement;
+		let parentElem = htmlElem.parentElement;
 		let parentNode = this.findNode(parentElem.id); // shared id with HTML
 
 		if (!parentNode) {
@@ -72,10 +61,10 @@ class searchExpr {
 			let lhsId = parentNode.lhs.id;
 			let rhsId = parentNode.rhs.id;
 			let remaining = null;
-			if (lhsId == this.selectedLeafNode.id) {
+			if (lhsId == selectedLeafNode.id) {
 				parentNode.lhs = {};
 				remaining = parentNode.rhs;
-			} else if (rhsId == this.selectedLeafNode.id) {
+			} else if (rhsId == selectedLeafNode.id) {
 				parentNode.rhs = {};
 				remaining = parentNode.lhs;
 			}
@@ -96,7 +85,6 @@ class searchExpr {
 			}
 		}
 
-		this.unselectLeafExpr();
 		this.render();
 	}
 
@@ -389,9 +377,16 @@ class searchExpr {
 			rhsStr = json.rhs.constValue;
 		}
 		let str = "<li id=" + json.id + " class=leafExprLi>";
-		str += "<input type='checkbox' id=" + this.formCheckboxSelectId(json);
-		str +=  " class=exprCheckboxCls onclick='exprCheckboxClick(this)'>";
 		str += "<span class=leafExprSpan>" ; 
+  	str += '<div class=exprMenu>';
+  	str += '<img class=exprMenuImgBtn src=../common/img/pen.png></img>';
+  	str += '<div class=exprMenu-content>';
+  	str += '<p class=exprMenuActionCls onclick="deleteSelectedExpr(this)">DELETE</p>';
+  	str += '<p class=exprMenuActionCls onclick="addBeforeSelectedExpr(this)">INSERT</p>';
+  	str += '<p class=exprMenuActionCls onclick="addAfterSelectedExpr(this)">APPEND</p>';
+  	str += '</div>';
+  	str += '</div>';
+
 		str += this.createLeafSelectHTML(json);
 		str += "</span></li>";
 		return str;
@@ -411,23 +406,24 @@ class searchExpr {
 	}
 
 	// dir can be "after" or "before"
-	addWrtSelectedExpr(dir) {
-		if (!this.selectedLeafNode) {
+	addWrtSelectedExpr(htmlElem, dir) {
+		let selectedLeafNode = this.findNode(htmlElem.id); // shared id with HTML
+		if (!selectedLeafNode) {
 			alert("Nothing selected");
 			return;
 		}
 
-		let parentElem = this.selectedLeafHTML.parentElement;
+		let parentElem = htmlElem.parentElement;
 		let parentNode = this.findNode(parentElem.id); // shared id with HTML
 
 		let newLeaf = this.createLeafExpr();
 		let newOp = this.createNodeOp();
 		if (dir == "after") {
 			newOp.rhs = newLeaf;
-			newOp.lhs = this.selectedLeafNode;
+			newOp.lhs = selectedLeafNode;
 		} else if (dir == "before") {
 			newOp.lhs = newLeaf;
-			newOp.rhs = this.selectedLeafNode;
+			newOp.rhs = selectedLeafNode;
 		}
 
 		if (!parentNode) {
@@ -435,9 +431,9 @@ class searchExpr {
 		} else {
 			let lhsId = parentNode.lhs.id;
 			let rhsId = parentNode.rhs.id;
-			if (lhsId == this.selectedLeafNode.id) {
+			if (lhsId == selectedLeafNode.id) {
 				parentNode.lhs = newOp;
-			} else if (rhsId == this.selectedLeafNode.id) {
+			} else if (rhsId == selectedLeafNode.id) {
 				parentNode.rhs = newOp;
 			}
 		}

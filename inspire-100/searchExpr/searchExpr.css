@@ -31,7 +31,7 @@
 .paramSelectCls {
 	font-size: 1.2rem;
 	appearance: none;
-	width: 15rem;
+	width: 16rem;
 	border: none;
   text-align-last:center;
 	cursor: pointer;
@@ -90,7 +90,7 @@
 
 .exprContainerCls {
 	font-size: 1rem;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .exprBoundingBoxCls {
@@ -100,12 +100,47 @@
 	color: var(--rsp_darkblue);
 }
 
-.exprCheckboxCls {
-  content: "F";
-  width: 1.2rem;
-  height: 1.2rem;
-	margin-left: -1.5rem;
-	vertical-align: -0.22rem;
-	accent-color: var(--rsp_darkblue) !important;
+.exprMenuBtn {
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.exprMenuImgBtn {
+	width: 1.2rem;
+	height: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.exprMenu {
+  position: absolute;
+  display: block;
+}
+
+.exprMenu-content {
+  display: none;
+  position: absolute;
+  background-color: var(--rsp_darkblue);
+	color: white;
+  min-width: 4rem;
+  z-index: 20;
+}
+
+.exprMenu:hover .exprMenu-content {
+  display: block;
+}
+
+.exprMenu:hover .exprMenuImgBtn {
+  background-color: var(--rsp_blue);
+}
+
+.exprMenuActionCls {
+	font-style: normal;
+	padding-left: 0.5rem;
+	padding-right: 0.5rem;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+	cursor: pointer;
 }
 
