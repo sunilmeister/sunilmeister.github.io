@@ -321,6 +321,7 @@ function selectSearch() {
   if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
+  document.getElementById("playbackWindowDiv").style.display = "block";
   document.getElementById("searchExprDiv").style.display = "block";
 	session.searchExpression.render();
 
