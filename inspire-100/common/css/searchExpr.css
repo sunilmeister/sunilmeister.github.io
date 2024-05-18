@@ -73,6 +73,7 @@
 	background-color: var(--rsp_mediumblue);
 	color: white;
 	margin-left: -1.75rem;
+	margin-bottom: 0.5rem;
 	border: none;
 	cursor: pointer;
 }
@@ -84,7 +85,7 @@
 }
 
 .exprStringCls {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 	color: var(--rsp_darkblue);
 }
 

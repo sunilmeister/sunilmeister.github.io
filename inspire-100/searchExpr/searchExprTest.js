@@ -60,42 +60,9 @@ var exprJson = {
 	},
 }
 
-var searchExpression = null;
-
-function addBeforeSelectedExpr(btn) {
-	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
-	searchExpression.addBeforeSelectedExpr(leafExprElem);
-}
-
-function addAfterSelectedExpr(btn) {
-	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
-	searchExpression.addAfterSelectedExpr(leafExprElem);
-}
-
-function deleteSelectedExpr(btn) {
-	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
-	searchExpression.deleteSelectedLeafExpr(leafExprElem);
-}
-
-function exprConstEnumChangeClick(htmlElem) {
-	searchExpression.changeExprConstEnum(htmlElem);
-}
-
-function exprConstNumChangeClick(htmlElem) {
-	searchExpression.changeExprConstNum(htmlElem);
-}
-
-function exprParamChangeClick(htmlElem) {
-	searchExpression.changeExprParam(htmlElem);
-}
-
-function exprOpChangeClick(htmlElem) {
-	searchExpression.changeExprOp(htmlElem);
-}
-
 window.onload = function () {
-	searchExpression = new searchExpr(exprJson, "exprContainer", "exprString");
-	searchExpression.render();
+	session.searchExpression = new searchExpr(exprJson, "exprContainer", "exprString");
+	session.searchExpression.render();
 }
 
 

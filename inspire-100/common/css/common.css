@@ -9,21 +9,6 @@ hr {
 	border-width: 0.1rem;
 }
 
-input[type="select"] {
-	outline:none;
-	border-style: none;
-}
-
-input[type="select"]:focus {
-	outline:none;
-	border-style: none;
-}
-
-input[type="select"]:active {
-	outline:none;
-	border-style: none;
-}
-
 .button {
   align-items: center;
   appearance: none;
@@ -54,20 +39,27 @@ input[type="select"]:active {
   cursor: pointer;
 }
 
-.button:focus {
+.button:focus:not([disabled]) {
   box-shadow: #D6D6E7 0 0 0 0.2rem inset, rgba(45, 35, 66, 0.4) 0 0.2rem 0.2rem, rgba(45, 35, 66, 0.3) 0 0.3rem 0.3rem -0.2rem, #D6D6E7 0 -0.2rem 0 inset;
 }
 
-.button:hover {
+.button:hover:not([disabled]) {
 	font-weight: bold;
   box-shadow: rgba(45, 35, 66, 0.4) 0 0.2rem 0.3rem, rgba(45, 35, 66, 0.3) 0 0.3rem 0.3rem -0.2rem, #D6D6E7 0 -0.2rem 0 inset;
   transform: translateY(-0.2rem);
 }
 
-.button:active {
+.button:active:not([disabled]) {
 	font-weight: bold;
   box-shadow: #D6D6E7 0 0.2rem 0.3rem inset;
   transform: translateY(0.2rem);
+}
+
+.button:disabled,
+.button[disabled]{
+  color: grey;
+  cursor: not-allowed;
+  pointer-events: all !important;
 }
 
 /* A row of equal columns that sits next to each other */
@@ -202,13 +194,6 @@ tr {
   height : 1rem;
 }
 
-input(type="range")::-webkit-slider-thumb (
-    -webkit-appearance: none;
-    appearance: none;
-    height: 0.5rem;
-    width: 0.5rem;
-)
-
 /* --------------------------- webkit browsers */
 .audioSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -231,15 +216,25 @@ input(type="range")::-webkit-slider-thumb (
 .audioSlider::-moz-focus-outer { border: 0; }
 
 
-/* Chrome, Safari, Edge, Opera */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input[type="range"]::-webkit-slider-thumb (
+    -webkit-appearance: none;
+    appearance: none;
+    height: 0.5rem;
+    width: 0.5rem;
+)
+
+input[type="select"] {
+	outline:none;
+	border-style: none;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="select"]:focus {
+	outline:none;
+	border-style: none;
+}
+
+input[type="select"]:active {
+	outline:none;
+	border-style: none;
 }
 

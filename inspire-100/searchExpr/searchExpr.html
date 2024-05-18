@@ -7,11 +7,16 @@
 	<link rel="stylesheet" href="../common/css/iconButton.css"/>
 	<link rel="stylesheet" href="searchExpr.css"/>
 
+	<script type="text/javascript" src="../external/download/download.min.js"></script>
+  <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+
 	<script type="text/javascript" src="../common/js/constants.js"></script>
 	<script type="text/javascript" src="../common/js/common.js"></script>
 	<script type="text/javascript" src="../common/js/sessionData.js"></script>
 	<script type="text/javascript" src="../common/js/params.js"></script>
 	<script type="text/javascript" src="../common/js/palette.js"></script>
+	<script type="text/javascript" src="../common/js/hidePopups.js"></script>
+	<script type="text/javascript" src="../common/js/enterSubmit.js"></script>
 	<script type="text/javascript" src="searchExpr.js"></script>
 	<script type="text/javascript" src="searchExprTest.js"></script>
 
@@ -28,9 +33,9 @@
 				<div id=exprContainer class=exprContainerCls> </div>
 			</div>
 			<hr>
-        <button id=addBeforeExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='addBeforeSelectedExpr()'>ADD BEFORE</button>
-        <button id=addAfterExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='addAfterSelectedExpr()'>ADD AFTER</button>
-        <button id=deleteExprBtn class=button style="background-color:var(--rsp_darkred); padding:0.3rem; width:10rem; height:2rem;" onclick='deleteSelectedExpr()'>DELETE</button>
+        <button id=exportExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='exportSearchExpr()'>EXPORT</button>
+        <button id=importExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='importSearchExpr()'>IMPORT</button>
+        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='matchExpr()'>SEARCH</button>
 
 		</div>
   </body>

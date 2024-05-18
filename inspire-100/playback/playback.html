@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="../common/css/chart.css" />
     <link rel="stylesheet" href="../common/css/wave.css" />
     <link rel="stylesheet" href="../common/css/wavesLegend.css" />
+    <link rel="stylesheet" href="../common/css/searchExpr.css" />
     <link rel="stylesheet" href="css/sidebar.css" />
 
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -72,6 +73,7 @@
     <script src="../common/js/waveBox.js"></script>
     <script src="../common/js/selectTableRow.js"></script>
     <script src="../common/js/enterSubmit.js"></script>
+    <script src="../common/js/searchExpr.js"></script>
     <script src="js/playImportExport.js"></script>
     <script src="js/playCharts.js"></script>
     <script src="js/playWaves.js"></script>
@@ -500,14 +502,11 @@
         </div>
         <br>
       </div>
-      <br>
 
       <center>
         <button id=btnSelect class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem;
           border:none; margin:1rem;" onclick='selectSession()'>Select Recording</button>
       </center>
-      <br>
-      <br>
 
       <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
         <br>
@@ -524,7 +523,12 @@
         <br>
       </div>
 
-    </div>
+      <center>
+        <button id=btnSearch class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem;
+          border:none; margin:1rem;" onclick='selectSearch()'>Database Search</button>
+      </center>
+
+    	</div>
     </div>
 
     <div id=nonMenuArea class=body-pane>
@@ -553,7 +557,7 @@
         </div>
         <br>
         <br>
-        <div class=shadowDiv5 style="height:40.5rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.2rem; ">
+        <div class=shadowDiv5 style="height:41.5rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.2rem; ">
 
           <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.6rem;">
             <button class=iconButton onClick="selectImport(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import"><img src="../common/img/import.png" style="width:2rem; height:2rem;"></button>
@@ -592,6 +596,22 @@
         </div>
       </div>
       </center>
+
+			<div id=searchExprDiv class=searchExprCls style="display:none;">
+				<hr>
+				<center>
+				<p id=exprString class=exprStringCls>EXPRESSION
+				</center>
+				<hr>
+				<div id=exprBoundingBox class=exprBoundingBoxCls>
+					<div id=exprContainer class=exprContainerCls> </div>
+				</div>
+				<hr>
+	        <button id=exportExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='exportSearchExpr()'>EXPORT</button>
+	        <button id=importExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='importSearchExpr()'>IMPORT</button>
+	        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='matchExpr()'>SEARCH</button>
+	
+			</div>
 
       <div id=statsDiv style="display: none; margin-top:-2rem;">
         <div class=row style="width:100%; margin-top:-1rem;">

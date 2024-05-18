@@ -9,6 +9,8 @@ var SessionDataTemplate = {
   // currently open session
   sessionDataValid: true,
   sessionDurationInMs: 0,
+	searchExpression: null,
+
 	rangeSlider:  null,
   startDate: null,
   launchDate: null,

@@ -312,6 +312,18 @@ function selectRawData() {
   displayRawData();
 }
 
+function selectSearch() {
+  if (!checkDbReady()) return;
+  if (!checkValidPlaybackDuration()) return;
+
+  undisplayAllPanes();
+  document.getElementById("searchExprDiv").style.display = "block";
+	session.searchExpression.render();
+
+  if (session.sessionDataValid) enableAllButtons();
+  document.getElementById("btnSearch").disabled = true;
+}
+
 function initSession(dbName) {
   if (!dbName) {
     modalAlert("No Recording selected", "Please Select Recording");
@@ -358,6 +370,7 @@ function enableAllButtons() {
   document.getElementById("btnChart").disabled = false;
   document.getElementById("btnAlert").disabled = false;
   document.getElementById("btnWave").disabled = false;
+  document.getElementById("btnSearch").disabled = false;
 }
 
 function disableAllButtons() {
@@ -368,6 +381,7 @@ function disableAllButtons() {
   document.getElementById("btnChart").disabled = true;
   document.getElementById("btnAlert").disabled = true;
   document.getElementById("btnWave").disabled = true;
+  document.getElementById("btnSearch").disabled = true;
 }
 
 function resizeChartsWaves() {
@@ -408,6 +422,8 @@ function resizeChartsWaves() {
 function initGlobals() {
   // Create new data objects
   createNewSession();
+
+	session.searchExpression = new searchExpr({}, "exprContainer", "exprString");
   session.appId = PLAYBACK_APP_ID;
 }
 
@@ -438,6 +454,7 @@ function undisplayAllPanes() {
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("exportDiv").style.display = "none";
+  document.getElementById("searchExprDiv").style.display = "none";
 }
 
 function checkValidPlaybackDuration() {
