@@ -51,19 +51,11 @@ class searchExpr {
 	}
 
 	addBeforeSelectedExpr() {
-		console.log("Add Before");
-		if (!this.selectedLeafNode) {
-			alert("Nothing selected");
-			return;
-		}
+		this.addWrtSelectedExpr("before");
 	}
 
 	addAfterSelectedExpr() {
-		console.log("Add After");
-		if (!this.selectedLeafNode) {
-			alert("Nothing selected");
-			return;
-		}
+		this.addWrtSelectedExpr("after");
 	}
 
 	deleteSelectedLeafExpr() {
@@ -104,7 +96,6 @@ class searchExpr {
 			}
 		}
 
-
 		this.unselectLeafExpr();
 		this.render();
 	}
@@ -126,7 +117,13 @@ class searchExpr {
 
 	// render into a div
 	render() {
+		// Always have at least one to start with
+		console.log("isValid",this.isValid(), "isEmpty", this.isEmpty());
+		if (this.isEmpty()) {
+			this.exprJson = this.createLeafExpr();
+		}
 		this.updateIds();
+
 		this.textDiv.innerHTML = this.stringify();
 		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
@@ -135,7 +132,6 @@ class searchExpr {
 			let elem = this.errorHTMLNodes[i];
 			elem.style.backgroundColor = "orange";
 		}
-		console.log("isValid",this.isValid(), "isEmpty", this.isEmpty());
 	}
 
 	findNode(nodeId) {
@@ -414,34 +410,78 @@ class searchExpr {
 		return null; 
 	}
 
-	createNodeParam(paramName, paramKey) {
+	// dir can be "after" or "before"
+	addWrtSelectedExpr(dir) {
+		if (!this.selectedLeafNode) {
+			alert("Nothing selected");
+			return;
+		}
+
+		let parentElem = this.selectedLeafHTML.parentElement;
+		let parentNode = this.findNode(parentElem.id); // shared id with HTML
+
+		let newLeaf = this.createLeafExpr();
+		let newOp = this.createNodeOp();
+		if (dir == "after") {
+			newOp.rhs = newLeaf;
+			newOp.lhs = this.selectedLeafNode;
+		} else if (dir == "before") {
+			newOp.lhs = newLeaf;
+			newOp.rhs = this.selectedLeafNode;
+		}
+
+		if (!parentNode) {
+			this.exprJson = newOp;
+		} else {
+			let lhsId = parentNode.lhs.id;
+			let rhsId = parentNode.rhs.id;
+			if (lhsId == this.selectedLeafNode.id) {
+				parentNode.lhs = newOp;
+			} else if (rhsId == this.selectedLeafNode.id) {
+				parentNode.rhs = newOp;
+			}
+		}
+		
+		this.render();
+	}
+
+	createLeafExpr() {
+		let lhs = this.createNodeParam();
+		let rhs = this.createNodeConst();
+		let expr = this.createNodeOp();
+		expr.lhs = lhs;
+		expr.rhs = rhs;
+		return expr;
+	}
+
+	createNodeParam() {
 		let nodeId = SEARCH_NODE_ID_PREFIX + String(searchExprNodeNum++);
 		return {
 			id: nodeId,
   		type: "param",
-			paramName: paramName,
-			paramKey: paramKey,
+			paramName: null,
+			paramKey: null,
 		};
 	}
 
-	createNodeConst(constName, constValue) {
+	createNodeConst() {
 		let nodeId = SEARCH_NODE_ID_PREFIX + String(searchExprNodeNum++);
 		return {
 			id: nodeId,
   		type: "const",
-			constName: constName,
-			constValue: constValue,
+			constName: null,
+			constValue: null,
 		};
 	}
 
-	createNodeOp(op, lhs, rhs) {
+	createNodeOp() {
 		let nodeId = SEARCH_NODE_ID_PREFIX + String(searchExprNodeNum++);
 		return {
 			id: nodeId,
   		type: "op",
-			op: op,
-			lhs: cloneObject(lhs),
-			rhs: cloneObject(rhs),
+			op: null,
+			lhs: null,
+			rhs: null,
 		};
 	}
 
@@ -665,6 +705,7 @@ class searchExpr {
 		// Create param drop down list
 		let selectId = this.formParamSelectId(json.lhs);
 		this.createParamDropdown(selectId, json.lhs.paramName);
+		if (!json.lhs.paramName) return;
 		
 		// find the key for the param
 		let paramKey = null;
@@ -675,7 +716,7 @@ class searchExpr {
 				break;
 			}
 		}
-		let paramType = session.params[paramKey].type;
+		let paramType = session.params[paramKey].Type();
 
 		// Create op drop down list
 		selectId = this.formOpSelectId(json);
