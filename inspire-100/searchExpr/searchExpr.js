@@ -100,7 +100,13 @@ class searchExpr {
 
 	// Convert to HTML for display
 	createHTML() {
-		return this.createHTMLRecursive(this.exprJson);
+		// Always start with <ul>
+		let str = this.createHTMLRecursive(this.exprJson);
+		if (str.indexOf("<ul") != 0) {
+			str = "<ul class=opExprUl>" + str;
+			str += "</ul>";
+		}
+		return str;
 	}
 
 	// render into a div
@@ -118,7 +124,12 @@ class searchExpr {
 		this.errorHTMLNodes = this.collectNullValueElements();
 		for (let i=0; i < this.errorHTMLNodes.length; i++) {
 			let elem = this.errorHTMLNodes[i];
-			elem.style.backgroundColor = "orange";
+			console.log(elem);
+			if (elem.className == "exprOpSelectCls") {
+				elem.style.backgroundColor = palette.orange;
+			} else {
+				elem.style.backgroundColor = palette.modal;
+			}
 		}
 	}
 
