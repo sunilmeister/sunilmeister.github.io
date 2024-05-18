@@ -11,9 +11,6 @@ const paramsType = {
 	STATE : 					{type:"ENUM", 
 											range:{"INITIAL":0, "STANDBY":1, "ACTIVE":2, "ERROR":3}
 										},
-	IE : 							{type:"ENUM", 
-											range:{"1:1":1, "1:2":2, "1:3":3}
-										},
 	BREATH_TYPE : 		{type:"ENUM", 
 											range:{"MANDATORY":1, "SPONTANEOUS":2, "MAINTENANCE":3}
 										},
@@ -22,6 +19,22 @@ const paramsType = {
 										},
 	MODE : 						{type:"ENUM", 
 											range:{"CMV":0, "ACV":1, "SIMV":2, "PSV":3}
+										},
+	VT : 						{type:"ENUM", 
+											range:{
+												"200":200, 
+												"250":250, 
+												"300":300, 
+												"350":350, 
+												"400":400, 
+												"450":450, 
+												"500":500, 
+												"550":550, 
+												"600":600, 
+											}
+										},
+	IE : 							{type:"ENUM", 
+											range:{"1:1":1, "1:2":2, "1:3":3}
 										},
 	TPS : 						{type:"ENUM", 
 											range:{
@@ -52,8 +65,8 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"state", 			name:"STATE"});
 	session.allParamsTable.push({key:"vtdel", 			name:"TIDAL_VOLUME"});
 	session.allParamsTable.push({key:"mvdel", 			name:"MINUTE_VOLUME"});
-	session.allParamsTable.push({key:"mmvdel", 			name:"MANDATORY_MINUTE_VOLUME"});
-	session.allParamsTable.push({key:"smvdel", 			name:"SPONTANEOUS_MINUTE_VOLUME"});
+	session.allParamsTable.push({key:"mmvdel", 			name:"MANDATORY_MV"});
+	session.allParamsTable.push({key:"smvdel", 			name:"SPONTANEOUS_MV"});
 	session.allParamsTable.push({key:"sbpm", 				name:"SPONTANEOUS_BPM"});
 	session.allParamsTable.push({key:"mbpm", 				name:"MANDATORY_BPM"});
 	session.allParamsTable.push({key:"btype", 			name:"BREATH_TYPE"});
@@ -64,8 +77,8 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"mpeep", 			name:"PEEP_PRESSURE"});
 	session.allParamsTable.push({key:"plat", 				name:"PLATEAU_PRESSURE"});
 	session.allParamsTable.push({key:"tempC", 			name:"SYSTEM_TEMPERATURE"});
-	session.allParamsTable.push({key:"cmvSpont", 		name:"CMV_SPONTANEOUS_BREATHS"});
-	session.allParamsTable.push({key:"o2FlowX10", 	name:"OXYGEN_SOURCE_FLOW"});
+	session.allParamsTable.push({key:"cmvSpont", 		name:"CMV_SPONT_BREATHS"});
+	session.allParamsTable.push({key:"o2FlowX10", 	name:"O2_SOURCE_FLOW"});
 	session.allParamsTable.push({key:"errors", 			name:"ERRORS"});
 	session.allParamsTable.push({key:"warnings", 		name:"WARNINGS"});
 	session.allParamsTable.push({key:"infos", 			name:"NOTIFICATIONS"});
@@ -81,7 +94,7 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"ps", 					name:"PS_SETTING"});
 	session.allParamsTable.push({key:"tps", 				name:"TPS_SETTING"});
 	session.allParamsTable.push({key:"fiO2", 				name:"FIO2_SETTING"});
-	session.allParamsTable.push({key:"o2Purity", 		name:"OXYGEN_PURITY_SETTING"});
+	session.allParamsTable.push({key:"o2Purity", 		name:"O2_PURITY_SETTING"});
 }
 
 function initSessionParams() {
@@ -91,8 +104,8 @@ function initSessionParams() {
 	session.params.state = 			new Param("STATE", type.STATE, "");
 	session.params.vtdel = 			new Param("TIDAL_VOLUME", type.NUMBER, "ml");
 	session.params.mvdel = 			new Param("MINUTE_VOLUME", type.NUMBER, "l/min");
-	session.params.mmvdel = 		new Param("MANDATORY_MINUTE_VOLUME", type.NUMBER, "l/min");
-	session.params.smvdel = 		new Param("SPONTANEOUS_MINUTE_VOLUME", type.NUMBER, "l/min");
+	session.params.mmvdel = 		new Param("MANDATORY_MV", type.NUMBER, "l/min");
+	session.params.smvdel = 		new Param("SPONTANEOUS_MV", type.NUMBER, "l/min");
 	session.params.sbpm = 			new Param("SPONTANEOUS_BPM", type.NUMBER, "bpm");
 	session.params.mbpm = 			new Param("MANDATORY_BPM", type.NUMBER, "bpm");
 	session.params.btype = 			new Param("BREATH_TYPE", type.BREATH_TYPE, "");
@@ -103,8 +116,8 @@ function initSessionParams() {
 	session.params.mpeep = 			new Param("PEEP_PRESSURE", type.NUMBER, "cmH2O");
 	session.params.plat = 			new Param("PLATEAU_PRESSURE", type.NUMBER, "cmH2O");
 	session.params.tempC = 			new Param("SYSTEM_TEMPERATURE", type.NUMBER, "degC");
-	session.params.cmvSpont = 	new Param("CMV_SPONTANEOUS_BREATHS", type.NUMBER, "");
-	session.params.o2FlowX10 = 	new Param("OXYGEN_SOURCE_FLOW", type.NUMBER, "l/min");
+	session.params.cmvSpont = 	new Param("CMV_SPONT_BREATHS", type.NUMBER, "");
+	session.params.o2FlowX10 = 	new Param("O2_SOURCE_FLOW", type.NUMBER, "l/min");
 	session.params.errors = 		new Param("ERRORS", type.NUMBER, "");
 	session.params.warnings = 	new Param("WARNINGS", type.NUMBER, "");
 	session.params.infos = 			new Param("NOTIFICATIONS", type.NUMBER, "");
@@ -112,7 +125,7 @@ function initSessionParams() {
 	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
-	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");
+	session.params.vt = 				new Param("VT_SETTING", type.VT, "ml");
 	session.params.mv = 				new Param("MV_SETTING", type.NUMBER, "l/min");
 	session.params.rr = 				new Param("RR_SETTING", type.NUMBER, "bpm");
 	session.params.ie = 				new Param("IE_SETTING", type.IE, "");
@@ -121,7 +134,7 @@ function initSessionParams() {
 	session.params.ps = 				new Param("PS_SETTING", type.NUMBER, "cmH2O");
 	session.params.tps = 				new Param("TPS_SETTING", type.TPS, "");
 	session.params.fiO2 = 			new Param("FIO2_SETTING", type.NUMBER, "%");
-	session.params.o2Purity = 	new Param("OXYGEN_SOURCE_PURITY_SETTING", type.NUMBER, "%");
+	session.params.o2Purity = 	new Param("O2_SOURCE_PURITY_SETTING", type.NUMBER, "%");
 }
 
 var paramChangeTemplate = {

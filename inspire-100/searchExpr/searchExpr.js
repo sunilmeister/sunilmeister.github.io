@@ -35,6 +35,11 @@ class searchExpr {
 		this.selectedLeafHTML = null;
 	}
 
+	updateIds() {
+		searchExprNodeNum = 0;
+		this.updateIdRecursive(this.exprJson);
+	}
+
 	selectLeafExpr(htmlElem) {
 		this.selectedLeafNode = this.findNode(htmlElem.id); // shared id with HTML
 		this.selectedLeafHTML = htmlElem;
@@ -43,6 +48,22 @@ class searchExpr {
 	unselectLeafExpr() {
 		this.selectedLeafNode = null;
 		this.selectedLeafHTML = null;
+	}
+
+	addBeforeSelectedExpr() {
+		console.log("Add Before");
+		if (!this.selectedLeafNode) {
+			alert("Nothing selected");
+			return;
+		}
+	}
+
+	addAfterSelectedExpr() {
+		console.log("Add After");
+		if (!this.selectedLeafNode) {
+			alert("Nothing selected");
+			return;
+		}
 	}
 
 	deleteSelectedLeafExpr() {
@@ -60,11 +81,9 @@ class searchExpr {
 			let rhsId = parentNode.rhs.id;
 			let remaining = null;
 			if (lhsId == this.selectedLeafNode.id) {
-				console.log("parent lhs");
 				parentNode.lhs = {};
 				remaining = parentNode.rhs;
 			} else if (rhsId == this.selectedLeafNode.id) {
-				console.log("parent rhs");
 				parentNode.rhs = {};
 				remaining = parentNode.lhs;
 			}
@@ -78,10 +97,8 @@ class searchExpr {
 				rhsId = grampaNode.rhs.id;
 
 				if (lhsId == parentNode.id) {
-					console.log("grampa lhs");
 					grampaNode.lhs = remaining;
 				} else if (rhsId == parentNode.id) {
-					console.log("grampa rhs");
 					grampaNode.rhs = remaining;
 				}
 			}
@@ -90,7 +107,6 @@ class searchExpr {
 
 		this.unselectLeafExpr();
 		this.render();
-		//console.log("selected node", this.selectedLeafNode);
 	}
 
 	// Evaluate the value of the expression at a particular breath number
@@ -110,6 +126,7 @@ class searchExpr {
 
 	// render into a div
 	render() {
+		this.updateIds();
 		this.textDiv.innerHTML = this.stringify();
 		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
@@ -185,16 +202,11 @@ class searchExpr {
 		let paramKey = this.findNode(paramNodeId).paramKey;
 		let paramType = session.params[paramKey].type;
 		let paramRange = paramType.range;
-		//console.log("paramNodeId",paramNodeId);
-		//console.log("paramKey",paramKey);
-		//console.log("paramType",paramType);
-		//console.log("paramRange",paramRange);
 
 		let nodeId = this.formConstEnumNodeId(htmlSelectElem.id);
 		let node = this.findNode(nodeId);
 		node.constName = htmlSelectElem.value;
 		node.constValue = paramRange[node.constName];
-		//console.log("constValue",node.constValue);
 
 		this.render();
 	}
@@ -216,6 +228,21 @@ class searchExpr {
 		if (isUndefined(json) || (json === null)) return true;
 		if (Object.keys(json).length === 0) return true;
 		return false;
+	}
+
+	updateIdRecursive(json) {
+		if (this.isEmptyExpr(json)) return;
+		json.id = SEARCH_NODE_ID_PREFIX + (searchExprNodeNum++);
+
+		let rhs = json.rhs;
+		if (!isUndefined(rhs) && (rhs !== null)) {
+			this.updateIdRecursive(rhs);
+		}
+
+		let lhs = json.lhs;
+		if (!isUndefined(lhs) && (lhs !== null)) {
+			this.updateIdRecursive(lhs);
+		}
 	}
 
 	collectNullValueElements() {

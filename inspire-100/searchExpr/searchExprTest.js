@@ -62,6 +62,14 @@ var exprJson = {
 
 var searchExpression = null;
 
+function addBeforeSelectedExpr() {
+	searchExpression.addBeforeSelectedExpr();
+}
+
+function addAfterSelectedExpr() {
+	searchExpression.addAfterSelectedExpr();
+}
+
 function deleteSelectedExpr() {
 	searchExpression.deleteSelectedLeafExpr();
 }

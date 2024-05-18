@@ -31,7 +31,7 @@
 .paramSelectCls {
 	font-size: 1.2rem;
 	appearance: none;
-	width: 20rem;
+	width: 15rem;
 	border: none;
   text-align-last:center;
 	cursor: pointer;
@@ -51,7 +51,7 @@
 .constEnumSelectCls {
 	font-size: 1.2rem;
 	appearance: none;
-	width: 16rem;
+	width: 10rem;
 	border: none;
   text-align-last:center;
 	cursor: pointer;
@@ -90,6 +90,7 @@
 
 .exprContainerCls {
 	font-size: 1rem;
+	overflow: scroll;
 }
 
 .exprBoundingBoxCls {
