@@ -24,12 +24,73 @@ const CHECKBOX_NODE_ID_PREFIX = "SCheckbox_" ;
 // It must be correct by construction before passing it to this class
 // //////////////////////////////////////////////////////////////
 class searchExpr {
-	constructor(exprJson, divId) {
+	constructor(exprJson, treeDivId, textId) {
 		if (isUndefined(exprJson) || !exprJson) this .exprJson = {};
 		else this.exprJson = exprJson;
 
-		this.containerDiv = document.getElementById(divId);
-		this.errorHtmlNodes = [];
+		this.containerDiv = document.getElementById(treeDivId);
+		this.textDiv = document.getElementById(textId);
+		this.errorHTMLNodes = [];
+		this.selectedLeafNode = null;
+		this.selectedLeafHTML = null;
+	}
+
+	selectLeafExpr(htmlElem) {
+		this.selectedLeafNode = this.findNode(htmlElem.id); // shared id with HTML
+		this.selectedLeafHTML = htmlElem;
+	}
+
+	unselectLeafExpr() {
+		this.selectedLeafNode = null;
+		this.selectedLeafHTML = null;
+	}
+
+	deleteSelectedLeafExpr() {
+		if (!this.selectedLeafNode) {
+			alert("Nothing to delete");
+			return;
+		}
+		let parentElem = this.selectedLeafHTML.parentElement;
+		let parentNode = this.findNode(parentElem.id); // shared id with HTML
+
+		if (!parentNode) {
+			this.exprJson = {}; // Nothing left
+		} else {
+			let lhsId = parentNode.lhs.id;
+			let rhsId = parentNode.rhs.id;
+			let remaining = null;
+			if (lhsId == this.selectedLeafNode.id) {
+				console.log("parent lhs");
+				parentNode.lhs = {};
+				remaining = parentNode.rhs;
+			} else if (rhsId == this.selectedLeafNode.id) {
+				console.log("parent rhs");
+				parentNode.rhs = {};
+				remaining = parentNode.lhs;
+			}
+
+			let grampaElem = parentElem.parentElement;
+			let grampaNode = this.findNode(grampaElem.id); // shared id with HTML
+			if (!grampaNode) {
+				this.exprJson = remaining; // Top level
+			} else {
+				lhsId = grampaNode.lhs.id;
+				rhsId = grampaNode.rhs.id;
+
+				if (lhsId == parentNode.id) {
+					console.log("grampa lhs");
+					grampaNode.lhs = remaining;
+				} else if (rhsId == parentNode.id) {
+					console.log("grampa rhs");
+					grampaNode.rhs = remaining;
+				}
+			}
+		}
+
+
+		this.unselectLeafExpr();
+		this.render();
+		//console.log("selected node", this.selectedLeafNode);
 	}
 
 	// Evaluate the value of the expression at a particular breath number
@@ -49,13 +110,15 @@ class searchExpr {
 
 	// render into a div
 	render() {
+		this.textDiv.innerHTML = this.stringify();
 		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
-		this.errorHtmlNodes = this.collectNullValueElements();
-		for (let i=0; i < this.errorHtmlNodes.length; i++) {
-			let elem = this.errorHtmlNodes[i];
+		this.errorHTMLNodes = this.collectNullValueElements();
+		for (let i=0; i < this.errorHTMLNodes.length; i++) {
+			let elem = this.errorHTMLNodes[i];
 			elem.style.backgroundColor = "orange";
 		}
+		console.log("isValid",this.isValid(), "isEmpty", this.isEmpty());
 	}
 
 	findNode(nodeId) {
@@ -104,7 +167,6 @@ class searchExpr {
 		node.constName = null;
 		node.constValue = null;
 
-		console.log("isValid",this.isValid());
 		this.render();
 	}
 
@@ -112,7 +174,7 @@ class searchExpr {
 		let nodeId = this.formOpNodeId(htmlSelectElem.id);
 		let node = this.findNode(nodeId);
 		node.op = htmlSelectElem.value;
-		console.log("isValid",this.isValid());
+
 		this.render();
 	}
 
@@ -133,7 +195,7 @@ class searchExpr {
 		node.constName = htmlSelectElem.value;
 		node.constValue = paramRange[node.constName];
 		//console.log("constValue",node.constValue);
-		console.log("isValid",this.isValid());
+
 		this.render();
 	}
 
@@ -142,7 +204,7 @@ class searchExpr {
 		let node = this.findNode(nodeId);
 		node.constName = "";
 		node.constValue = htmlSelectElem.value;
-		console.log("isValid",this.isValid());
+
 		this.render();
 	}
 
@@ -291,7 +353,7 @@ class searchExpr {
 		str += "<span class=opExprSpan>" + this.createExprSelectHTML(json); 
 		str += "</span></li>";
 		str +=  rhsStr;
-		return "<ul class=opExprUl>" + str + "</ul>";
+		return "<ul class=opExprUl id=" + json.id + ">" + str + "</ul>";
 	}
 
 	createLeafHTML(json) {

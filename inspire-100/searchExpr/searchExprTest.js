@@ -62,6 +62,10 @@ var exprJson = {
 
 var searchExpression = null;
 
+function deleteSelectedExpr() {
+	searchExpression.deleteSelectedLeafExpr();
+}
+
 function exprCheckboxClick(htmlElem) {
 	let htmlElemId = htmlElem.id;
 	let cboxes = document.getElementsByClassName("exprCheckboxCls");
@@ -73,7 +77,10 @@ function exprCheckboxClick(htmlElem) {
 	}
 
 	if (htmlElem.checked) {
+		searchExpression.selectLeafExpr(htmlElem.parentElement);
 		htmlElem.parentElement.style.backgroundColor = palette.darkblue;
+	} else {
+		searchExpression.unselectLeafExpr();
 	}
 }
 
@@ -94,15 +101,8 @@ function exprOpChangeClick(htmlElem) {
 }
 
 window.onload = function () {
-	searchExpression = new searchExpr(exprJson, "exprContainer");
-	console.log("isEmpty", searchExpression.isEmpty());
-	console.log("isValid", searchExpression.isValid());
-
+	searchExpression = new searchExpr(exprJson, "exprContainer", "exprString");
 	searchExpression.render();
-
-	let str = searchExpression.stringify();
-	pid = document.getElementById("exprString");
-	pid.innerHTML = str;
 }
 
 
