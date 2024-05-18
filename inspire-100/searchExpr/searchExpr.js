@@ -803,12 +803,12 @@ function importExprFile() {
 }
 
 function exportExprFile() {
-  fileName = document.getElementById("exportExprFileName").value;
+  fileName = document.getElementById("exportFileName").value;
   if (fileName) {
 		if (!session.searchExpression.exportJson(fileName)) {
 			modalAlert("Expression not valid", "Export Cancelled");
 		}
-    document.getElementById("exportExprDiv").style.display = "none";
+    document.getElementById("exportDiv").style.display = "none";
   }
 }
 

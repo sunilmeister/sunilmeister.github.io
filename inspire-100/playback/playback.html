@@ -73,8 +73,9 @@
     <script src="../common/js/waveBox.js"></script>
     <script src="../common/js/selectTableRow.js"></script>
     <script src="../common/js/enterSubmit.js"></script>
-    <script src="../common/js/searchExpr.js"></script>
     <script src="js/playImportExport.js"></script>
+    <script src="../common/js/search.js"></script>
+    <script src="../common/js/searchExpr.js"></script>
     <script src="js/playCharts.js"></script>
     <script src="js/playWaves.js"></script>
     <script src="js/playRawData.js"></script>
@@ -127,6 +128,25 @@
   		</center>
   	</div>
 
+    <div id=importExprDiv class=popupClassCenter style="width:38rem; height:20rem; display: none">
+      <center>
+        <div style="font-size: 2rem;">
+          <br>
+          <label for="fileSelector">Expression File to Import (.xml)</label>
+          <br>
+          <br>
+          <input type="file" id=exprFileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <br>
+          <br>
+          <button id=importExprBtn class=button style="background-color:var(--rsp_darkblue); width:15rem; font-size:2rem;" onclick='importExprFile()'>IMPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:15rem; font-size:2rem;" onclick='cancelExprImport()'>CANCEL</button>
+          <br>
+          <br>
+
+        </div>
+      </center>
+    </div>
+
     <div id=importDiv class=popupClassCenter style="width:38rem; height:28rem; display: none">
       <center>
         <div style="font-size: 2rem;">
@@ -134,7 +154,7 @@
           <label for="fileSelector">Recording File to Import</label>
           <br>
           <br>
-          <input type="file" id=fileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <input type="file" id=dbFileSelector accept=".xml" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
           <br>
           <br>
           <label for="importSessionName">Recording Name to Create</label>
@@ -163,7 +183,7 @@
           <input id=exportFileName style="width: 25rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
           <br>
           <br>
-          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.5rem;" onclick='exportFile()'>EXPORT</button>
+          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.5rem;">EXPORT</button>
           <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelExport()'>CANCEL</button>
           <br>
           <br>
@@ -609,7 +629,7 @@
 				<hr>
 	        <button id=exportExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='exportSearchExpr()'>EXPORT</button>
 	        <button id=importExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='importSearchExpr()'>IMPORT</button>
-	        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='matchExpr()'>SEARCH</button>
+	        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='matchSearchExpr()'>SEARCH</button>
 	
 			</div>
 

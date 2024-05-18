@@ -99,7 +99,7 @@ function cancelImport() {
 }
 
 function importFile() {
-  let elm = document.getElementById("fileSelector");
+  let elm = document.getElementById("dbFileSelector");
   let fileName = elm.value;
   if (!fileName) {
     modalAlert("File not found", "Import Cancelled");
@@ -123,8 +123,10 @@ function importFile() {
   let sec = String(today.getSeconds()).padStart(2, '0');
   let dmy = dd + "-" + mm + "-" + yyyy;
   let nameTagTime = dmy + " " + hrs + ":" + min + ":" + sec;
+
+	let dbName = null;
   do {
-    let dbName = inspireUid + '|' + sessionName + "|" + nameTagTime;
+    dbName = inspireUid + '|' + sessionName + "|" + nameTagTime;
     if (checkDbExists(dbName)) {
       modalAlert("Recording name already exists\n" + sessionName, "Try again");
     } else break;

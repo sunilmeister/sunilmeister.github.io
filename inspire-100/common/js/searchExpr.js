@@ -5,7 +5,67 @@
 /*
  * Various types of nodes that make up a search expression
  *
-
+				{
+				 "id": "SExprNode_0",
+				 "type": "op",
+				 "op": "AND",
+				 "lhs": {
+				  "id": "SExprNode_8",
+				  "type": "op",
+				  "op": "EQ",
+				  "lhs": {
+				   "id": "SExprNode_10",
+				   "type": "param",
+				   "paramName": "MODE_SETTING",
+				   "paramKey": "mode"
+				  },
+				  "rhs": {
+				   "id": "SExprNode_9",
+				   "type": "const",
+				   "constName": "CMV",
+				   "constValue": 0
+				  }
+				 },
+				 "rhs": {
+				  "id": "SExprNode_1",
+				  "type": "op",
+				  "op": "OR",
+				  "lhs": {
+				   "id": "SExprNode_5",
+				   "type": "op",
+				   "op": "LEQ",
+				   "lhs": {
+				    "id": "SExprNode_7",
+				    "type": "param",
+				    "paramName": "PEAK_PRESSURE",
+				    "paramKey": "peak"
+				   },
+				   "rhs": {
+				    "id": "SExprNode_6",
+				    "type": "const",
+				    "constName": "",
+				    "constValue": 32
+				   }
+				  },
+				  "rhs": {
+				   "id": "SExprNode_2",
+				   "type": "op",
+				   "op": "GT",
+				   "lhs": {
+				    "id": "SExprNode_4",
+				    "type": "param",
+				    "paramName": "TIDAL_VOLUME",
+				    "paramKey": "vtdel"
+				   },
+				   "rhs": {
+				    "id": "SExprNode_3",
+				    "type": "const",
+				    "constName": "",
+				    "constValue": 450
+				   }
+				  }
+				 }
+				}
 */
 
 var searchExprNodeNum = 0;
@@ -136,6 +196,8 @@ class searchExpr {
 			this.exprJson = save;
 			return false;
 		} 
+
+		this.render();
 		return true;
 	}
 
@@ -780,7 +842,7 @@ function exprOpChangeClick(htmlElem) {
 }
 
 function importExprFile() {
-  let elm = document.getElementById("fileSelector");
+  let elm = document.getElementById("exprFileSelector");
   let fileName = elm.value;
   if (!fileName) {
     modalAlert("File not found", "Import Cancelled");
@@ -799,16 +861,17 @@ function importExprFile() {
 		if (!session.searchExpression.importJson(exprJson)) {
 			modalAlert("File corrupted", "Import Cancelled");
 		}
+		cancelExprImport();
 	}
 }
 
 function exportExprFile() {
-  fileName = document.getElementById("exportExprFileName").value;
+  fileName = document.getElementById("exportFileName").value;
   if (fileName) {
 		if (!session.searchExpression.exportJson(fileName)) {
 			modalAlert("Expression not valid", "Export Cancelled");
 		}
-    document.getElementById("exportExprDiv").style.display = "none";
+    document.getElementById("exportDiv").style.display = "none";
   }
 }
 

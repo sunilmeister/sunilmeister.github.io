@@ -111,7 +111,10 @@ function selectRowBtn(btn) {
 
 function exportRowBtn(btn) {
   exportRowDiv = btn.parentNode.parentNode;
-  document.getElementById("exportDiv").style.display = "block";
+  let exportBtn = document.getElementById("exportFileBtn");
+	exportBtn.onclick = function() { exportFile() };
+  let exportDiv = document.getElementById("exportDiv");
+	exportDiv.style.display = "block";
   document.getElementById("exportFileName").value =
     exportRowDiv.cells[0].innerHTML + ' ' + exportRowDiv.cells[1].innerHTML;;
 }
@@ -222,8 +225,9 @@ function selectSession() {
 }
 
 function selectImport() {
-  document.getElementById("importDiv").style.display = "block";
   document.getElementById("importSessionName").value = "Imported Recording";
+	let importDiv = document.getElementById("importDiv");
+	importDiv.style.display = "block";
   if (session.sessionDataValid) enableAllButtons();
 }
 
