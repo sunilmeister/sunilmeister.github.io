@@ -20,19 +20,6 @@ const paramsType = {
 	MODE : 						{type:"ENUM", 
 											range:{"CMV":0, "ACV":1, "SIMV":2, "PSV":3}
 										},
-	VT : 						{type:"ENUM", 
-											range:{
-												"200":200, 
-												"250":250, 
-												"300":300, 
-												"350":350, 
-												"400":400, 
-												"450":450, 
-												"500":500, 
-												"550":550, 
-												"600":600, 
-											}
-										},
 	IE : 							{type:"ENUM", 
 											range:{"1:1":1, "1:2":2, "1:3":3}
 										},
@@ -98,8 +85,6 @@ function initAllParamsTable() {
 }
 
 function initSessionParams() {
-	initAllParamsTable();
-
 	let type = paramsType;
 	session.params.state = 			new Param("STATE", type.STATE, "");
 	session.params.vtdel = 			new Param("TIDAL_VOLUME", type.NUMBER, "ml");
@@ -125,7 +110,7 @@ function initSessionParams() {
 	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
-	session.params.vt = 				new Param("VT_SETTING", type.VT, "ml");
+	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");
 	session.params.mv = 				new Param("MV_SETTING", type.NUMBER, "l/min");
 	session.params.rr = 				new Param("RR_SETTING", type.NUMBER, "bpm");
 	session.params.ie = 				new Param("IE_SETTING", type.IE, "");
@@ -135,17 +120,50 @@ function initSessionParams() {
 	session.params.tps = 				new Param("TPS_SETTING", type.TPS, "");
 	session.params.fiO2 = 			new Param("FIO2_SETTING", type.NUMBER, "%");
 	session.params.o2Purity = 	new Param("O2_SOURCE_PURITY_SETTING", type.NUMBER, "%");
+
+	initAllParamsTable();
+	initParamNumberRanges();
 }
 
-var paramChangeTemplate = {
-	time: 	null,
-	value: 	null,
-};
+function initParamNumberRanges() {
+	session.params.vtdel.setNumberRange(0, 800, 1);
+	session.params.mvdel.setNumberRange(0.0, 25.0, 0.1);
+	session.params.mmvdel.setNumberRange(0.0, 25.0, 0.1);
+	session.params.smvdel.setNumberRange(0.0, 25.0, 0.1);
+	session.params.sbpm.setNumberRange(0, 40, 1);
+	session.params.mbpm.setNumberRange(0, 30, 1);
+	session.params.scomp.setNumberRange(0.0, 40.0, 0.1);
+	session.params.dcomp.setNumberRange(0.0, 40.0, 0.1);
+	session.params.peak.setNumberRange(0, 60, 1);
+	session.params.mpeep.setNumberRange(0, 20, 1);
+	session.params.plat.setNumberRange(0, 60, 1);
+	session.params.tempC.setNumberRange(-20, 60, 1);
+	session.params.cmvSpont.setNumberRange(0, 40, 1);
+	session.params.o2FlowX10.setNumberRange(0.0, 20.0, 0.1);
+	session.params.errors.setNumberRange(0, null, 1);
+	session.params.warnings.setNumberRange(0, null, 1);
+	session.params.infos.setNumberRange(0, null, 1);
+	session.params.wifiDrops.setNumberRange(0, null, 1);
+	session.params.wifiReconns.setNumberRange(0, null, 1);
+	session.params.vt.setNumberRange(200, 600, 50);
+	session.params.mv.setNumberRange(2.0, 18.0, 0.1);
+	session.params.rr.setNumberRange(10, 30, 1);
+	session.params.ipeep.setNumberRange(3, 15, 1);
+	session.params.pmax.setNumberRange(10, 60, 1);
+	session.params.ps.setNumberRange(5, 35, 1);
+	session.params.fiO2.setNumberRange(0, 100, 1);
+	session.params.o2Purity.setNumberRange(21, 100, 1);
+}
 
 // ////////////////////////////////////////////////////
 // Class to manage param values at different points in time
 // and to find their values at different times, ranges etc.
 // ////////////////////////////////////////////////////
+var paramChangeTemplate = {
+	time: 	null,
+	value: 	null,
+};
+
 class Param {
 	constructor(name, type, units) {
 		this.debug = false;
@@ -160,6 +178,13 @@ class Param {
 		this.changes = [initChange];
 
 		//if (this.name == "PEAK_PRESSURE") this.debug = true;
+	}
+
+	setNumberRange(min, max, step) {
+		this.type = cloneObject(this.type);
+		this.type.range.min = min;
+		this.type.range.max = max;
+		this.type.range.step = step;
 	}
 
 	// some queries

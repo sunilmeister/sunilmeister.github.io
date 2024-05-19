@@ -774,6 +774,9 @@ class searchExpr {
 			sdd.style.display = "none" ;
 			idd.style.display = "inline-block" ;
 			idd.value = constValue;
+			if (paramType.range.min !== null) idd.min = paramType.range.min;
+			if (paramType.range.max !== null) idd.max = paramType.range.max;
+			if (paramType.range.step !== null) idd.step = paramType.range.step;
 		}
 	}
 		
