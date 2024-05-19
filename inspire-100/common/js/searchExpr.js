@@ -93,6 +93,11 @@ class searchExpr {
 		this.errorHTMLNodes = [];
 	}
 
+	clearExpr() {
+		this.exprJson = {};
+		this.render();
+	}
+
 	updateIds() {
 		searchExprNodeNum = 0;
 		this.updateIdRecursive(this.exprJson);
@@ -886,3 +891,6 @@ function exportExprFile() {
   }
 }
 
+function clearSearchExpr() {
+	session.searchExpression.clearExpr();
+}
