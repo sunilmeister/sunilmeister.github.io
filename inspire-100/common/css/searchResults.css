@@ -1,6 +1,12 @@
 .searchCls {
 }
 
+.searchResultsHdrCls {
+  background-color: var(--rsp_darkblue);
+	color: white;
+	padding: 0.5rem;
+}
+
 .searchResultsTblCls {
 }
 
@@ -11,9 +17,9 @@
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_mediumblue);
 	color: white;
-	font-size: 1rem;
+	font-size: 1.2rem;
 	text-align: center;
 }
 

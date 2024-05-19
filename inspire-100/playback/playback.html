@@ -620,7 +620,7 @@
 					<div style="background-color: var(--rsp_darkblue); color: white;">
 					<center>
 						<br>
-						<h3 style="margin-top:0rem;">MATCH CRITERIA</h3>
+						<h4 style="margin-top:-0.5rem;">MATCH CRITERIA</h4>
 						<p id=exprString class=exprStringCls>EXPRESSION</p>
 						<br>
 					</center>
@@ -641,8 +641,11 @@
 				<div id=searchResults class=searchResultsCls>
 					<center>
 						<br>
-						<h3>SEARCH RESULTS</h3>
-						<p style="margin-top:-1rem; font-size:1.2rem; cursor:pointer;"><U>Set Range Selector to cover Selected Breaths</U></p>
+						<div class=searchResultsHdrCls>
+						<h4 style=margin:0rem;">SEARCH RESULTS</h4>
+						<p style="margin-bottom:0.5rem; font-size:1.2rem; cursor:pointer;"><U>Set Range Selector to cover Selected Breaths</U></p>
+						</div>
+						<br>
 						<table id=searchResultsTbl class=searchResultsTblCls>
 			        <thead>
 			          <tr>
@@ -652,7 +655,7 @@
 			          </tr>
 			          <tr>
 			          <th>Select</th>
-			          <th>Day</th>
+			          <th>Number</th>
 			          <th>Date</th>
 			          <th>Time</th>
 			          <th>Param1</th>
@@ -666,7 +669,7 @@
 								<td><input class=searchRangeBoxCls type="checkbox"></input></td>
 								</tr>
 			          <tr>
-								<td colspan=7 class=searchNoMoreCls>No more matches</td>
+								<td colspan=7 class=searchNoMoreCls>End of Range Selector range</td>
 								</tr>
 			          <tr>
 								<td colspan=7 class=searchMoreCls>Click for more matches</td>
