@@ -84,18 +84,42 @@ const UNITS_NODE_ID_PREFIX = "SExprUnits_" ;
 // It must be correct by construction before passing it to this class
 // //////////////////////////////////////////////////////////////
 class searchExpr {
-	constructor(exprJson, treeDivId, textId) {
+	constructor(exprJson, treeDivId, textId, changeCallbackFn) {
 		if (isUndefined(exprJson) || !exprJson) this .exprJson = {};
 		else this.exprJson = exprJson;
 
 		this.containerDiv = document.getElementById(treeDivId);
 		this.textDiv = document.getElementById(textId);
+		this.changeCallbackFn = changeCallbackFn;
+
+		this.exprChanged();
+	}
+
+	exprChanged() {
 		this.errorHTMLNodes = [];
+		this.paramSet = [];
+		this.paramValues = {bnum: null, values: {}};
+
+		this.render();
+		if (!isUndefined(this.changeCallbackFn) && (this.changeCallbackFn !== null)) {
+			this.changeCallbackFn();
+		}
+	}
+
+	paramSetUsed() {
+		return this.paramSet;
+	}
+
+	paramValues(bnum) {
+		if (this.paramValues.bnum != bnum) {
+			this.updateParamValues(bnum); // evaluate the whole set of params
+		}
+		return this.paramValues;
 	}
 
 	clearExpr() {
 		this.exprJson = {};
-		this.render();
+		this.exprChanged();
 	}
 
 	updateIds() {
@@ -147,11 +171,21 @@ class searchExpr {
 			}
 		}
 
-		this.render();
+		this.exprChanged();
+	}
+
+	updateParamValues(bnum) {
+		for (let i=0; i<this.paramSet.length; i++) {
+			let paramKey = this.paramSet[i];
+			let value = session.params[paramKey].ValueAtBnum(bnum);
+			this.paramValues.value[paramKey] = value;
+		}
+		this.paramValues.bnum = bnum;
 	}
 
 	// Evaluate the value of the expression at a particular breath number
 	evaluate(bnum) {
+		this.updateParamValues(bnum); // evaluate the whole set of params
 		return this.evalRecursive(this.exprJson, bnum);
 	}
 
@@ -194,6 +228,7 @@ class searchExpr {
 				elem.style.color = "white";
 			}
 		}
+		//console.log("paramSet", this.paramSet);
 	}
 
 	importJson(json) {
@@ -204,7 +239,7 @@ class searchExpr {
 			return false;
 		} 
 
-		this.render();
+		this.exprChanged();
 		return true;
 	}
 
@@ -260,7 +295,7 @@ class searchExpr {
 		node.constName = null;
 		node.constValue = null;
 
-		this.render();
+		this.exprChanged();
 	}
 
 	changeExprOp(htmlSelectElem) {
@@ -268,7 +303,7 @@ class searchExpr {
 		let node = this.findNode(nodeId);
 		node.op = htmlSelectElem.value;
 
-		this.render();
+		this.exprChanged();
 	}
 
 	changeExprConstEnum(htmlSelectElem) {
@@ -284,7 +319,7 @@ class searchExpr {
 		node.constName = htmlSelectElem.value;
 		node.constValue = paramRange[node.constName];
 
-		this.render();
+		this.exprChanged();
 	}
 
 	changeExprConstNum(htmlSelectElem) {
@@ -293,7 +328,7 @@ class searchExpr {
 		node.constName = "";
 		node.constValue = htmlSelectElem.value;
 
-		this.render();
+		this.exprChanged();
 	}
 
 	// //////////////////////////////////////////////////////////////
@@ -400,7 +435,11 @@ class searchExpr {
 			return this.evalOp(json.op, lhsVal, rhsVal);
 
 		} else if (json.type == "param") {
-			return session.params[json.paramKey].ValueAtBnum(bnum);
+			if (this.paramValues.bnum == bnum) {
+				return this.paramValues.values[json.paramKey];
+			} else {
+				return session.params[json.paramKey].ValueAtBnum(bnum);
+			}
 
 		} else if (json.type == "const") {
 			return json.constValue;
@@ -460,6 +499,12 @@ class searchExpr {
 	}
 
 	createLeafHTML(json) {
+		// Keep track of all the params involved in the expression
+		let paramKey = json.lhs.paramKey;
+		if (paramKey && (this.paramSet.indexOf(paramKey) == -1)) {
+			this.paramSet.push(paramKey);
+		}
+
 		// This is necessarily of the form "param op constant"
 		let lhsStr = json.lhs.paramName;
 		let rhsStr = null;
@@ -526,7 +571,7 @@ class searchExpr {
 			}
 		}
 		
-		this.render();
+		this.exprChanged();
 	}
 
 	createLeafExpr() {

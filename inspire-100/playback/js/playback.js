@@ -323,7 +323,6 @@ function selectSearch() {
   undisplayAllPanes();
   document.getElementById("playbackWindowDiv").style.display = "block";
   document.getElementById("searchExprDiv").style.display = "block";
-	session.searchExpression.render();
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSearch").disabled = true;
@@ -428,7 +427,7 @@ function initGlobals() {
   // Create new data objects
   createNewSession();
 
-	session.searchExpression = new searchExpr({}, "exprContainer", "exprString");
+	session.searchExpression = new searchExpr({}, "exprContainer", "exprString", null);
   session.appId = PLAYBACK_APP_ID;
 }
 

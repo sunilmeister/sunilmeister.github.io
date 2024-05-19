@@ -296,7 +296,14 @@ var SessionDataTemplate = {
 var session = null;
 function createNewSession() {
 	console.log("Creating new session");
+	let saveRangeSlider = null;
+
+	// There is a problem with nouiRange slider
+	// multiple initializations cause an error
+	if (session) saveRangeSlider = session.rangeSlider;
 	session = cloneObject(SessionDataTemplate);
+	session.rangeSlider = saveRangeSlider;
+
 	initSessionParams();
 }
 
