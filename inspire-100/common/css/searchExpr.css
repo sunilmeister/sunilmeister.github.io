@@ -38,6 +38,14 @@
 	margin-left: 0.5rem;
 }
 
+.unitsSelectCls {
+	font-size: 1rem;
+	appearance: none;
+	margin-left: 1rem;
+	color: var(--rsp_darkblue);
+	display: inline;
+}
+
 .leafOpSelectCls {
 	font-size: 1.2rem;
 	appearance: none;

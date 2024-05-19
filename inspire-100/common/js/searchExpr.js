@@ -77,7 +77,7 @@ const CONST_NUMBER_ID_PREFIX = "SExprConstNum_" ;
 const SELECT_ENUM_NODE_ID_PREFIX = "SExprEnum_" ;
 const INPUT_NUM_NODE_ID_PREFIX = "SExprNum_" ;
 const OP_NODE_ID_PREFIX = "SExprOp_" ;
-const CHECKBOX_NODE_ID_PREFIX = "SCheckbox_" ;
+const UNITS_NODE_ID_PREFIX = "SExprUnits_" ;
 
 // //////////////////////////////////////////////////////////////
 // No error checking done on the expression JSON
@@ -183,8 +183,10 @@ class searchExpr {
 			let elem = this.errorHTMLNodes[i];
 			if (elem.className == "exprOpSelectCls") {
 				elem.style.backgroundColor = palette.orange;
+				elem.style.color = "white";
 			} else {
 				elem.style.backgroundColor = palette.modal;
+				elem.style.color = "white";
 			}
 		}
 	}
@@ -641,8 +643,8 @@ class searchExpr {
 		return htmlId.replace(CHECKBOX_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
-	formCheckboxSelectId(json) {
-		return json.id.replace(SEARCH_NODE_ID_PREFIX, CHECKBOX_NODE_ID_PREFIX);
+	formUnitsSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, UNITS_NODE_ID_PREFIX);
 	}
 
 	formParamNodeId(htmlId) {
@@ -691,6 +693,9 @@ class searchExpr {
 		str += "<input type=number id=" + this.formConstNumSelectId(json.rhs);
 		str += " onchange='exprConstNumChangeClick(this)' ";
 		str += " class=constNumberSelectCls style='display:none'></input>" ;
+
+		str += "<p id=" + this.formUnitsSelectId(json.lhs);
+		str += " class=unitsSelectCls></p>" ;
 
 		return str;
 	}
@@ -797,6 +802,9 @@ class searchExpr {
 			}
 		}
 		let paramType = session.params[paramKey].Type();
+		let units = session.params[paramKey].Units();
+  	let unitsElm = document.getElementById(this.formUnitsSelectId(json.lhs));
+		unitsElm.innerHTML = units;
 
 		// Create op drop down list
 		selectId = this.formOpSelectId(json);
