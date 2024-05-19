@@ -322,7 +322,7 @@ function selectSearch() {
 
   undisplayAllPanes();
   document.getElementById("playbackWindowDiv").style.display = "block";
-  document.getElementById("searchExprDiv").style.display = "block";
+  document.getElementById("searchDiv").style.display = "block";
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSearch").disabled = true;
@@ -458,7 +458,7 @@ function undisplayAllPanes() {
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
   document.getElementById("exportDiv").style.display = "none";
-  document.getElementById("searchExprDiv").style.display = "none";
+  document.getElementById("searchDiv").style.display = "none";
 }
 
 function checkValidPlaybackDuration() {

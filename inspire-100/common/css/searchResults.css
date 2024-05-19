@@ -1,0 +1,54 @@
+.searchCls {
+}
+
+.searchResultsTblCls {
+}
+
+.searchResultsCls {
+}
+
+.searchResultsTblCls th {
+	border: 0.2rem solid white;
+	border-collapse: collapse;
+	padding: 0.3rem;
+  background-color: var(--rsp_darkblue);
+	color: white;
+	font-size: 1rem;
+	text-align: center;
+}
+
+.searchResultsTblCls td {
+	border: 0.2rem solid white;
+	border-collapse: collapse;
+	padding: 0.3rem;
+	font-size: 1rem;
+	text-align: center;
+}
+
+.searchRangeBoxCls {
+	width: 1rem;
+	height: 1rem;
+}
+
+.searchMoreCls {
+  background-color: var(--rsp_mediumblue);
+	color: white;
+	border: 0.2rem solid white;
+	border-collapse: collapse;
+	padding: 0.3rem;
+	font-size: 1rem;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+}
+
+.searchNoMoreCls {
+  background-color: var(--rsp_mediumblue);
+	color: white;
+	border: 0.2rem solid white;
+	border-collapse: collapse;
+	padding: 0.3rem;
+	font-size: 1rem;
+	font-weight: bold;
+	text-align: center;
+}
