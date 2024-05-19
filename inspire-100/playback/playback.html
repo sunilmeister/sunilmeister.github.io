@@ -618,20 +618,22 @@
       </center>
 
 			<div id=searchExprDiv class=searchExprCls style="display:none;">
-				<hr>
+				<div style="background-color: var(--rsp_darkblue); color: white;">
 				<center>
-					<h3>SEARCH CRITERION
-				<p id=exprString class=exprStringCls>EXPRESSION
+					<br>
+					<h3 style="margin-top:0rem;">SEARCH CRITERION</h3>
+					<p id=exprString class=exprStringCls>EXPRESSION</p>
+					<br>
 				</center>
-				<hr>
+				</div>
 				<div id=exprBoundingBox class=exprBoundingBoxCls>
 					<div id=exprContainer class=exprContainerCls> </div>
 				</div>
-				<hr>
+				<center>
 	        <button id=exportExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='exportSearchExpr()'>EXPORT</button>
 	        <button id=importExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='importSearchExpr()'>IMPORT</button>
 	        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='matchSearchExpr()'>SEARCH</button>
-	
+				</center>
 			</div>
 
       <div id=statsDiv style="display: none; margin-top:-2rem;">
