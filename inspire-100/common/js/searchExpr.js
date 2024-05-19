@@ -435,11 +435,10 @@ class searchExpr {
 			return this.evalOp(json.op, lhsVal, rhsVal);
 
 		} else if (json.type == "param") {
-			if (this.paramValues.bnum == bnum) {
-				return this.paramValues.values[json.paramKey];
-			} else {
-				return session.params[json.paramKey].ValueAtBnum(bnum);
+			if (this.paramValues.bnum != bnum) {
+				this.updateParamValues(bnum); // evaluate the whole set of params
 			}
+			return this.paramValues.values[json.paramKey];
 
 		} else if (json.type == "const") {
 			return json.constValue;
