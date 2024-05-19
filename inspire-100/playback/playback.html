@@ -484,9 +484,9 @@
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
-        <div class=shadowDiv5 style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);; font-size:1.1rem; ">
+        <div style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue);; font-size:1.1rem; ">
           <center>
-            <p style="margin-bottom:0;margin-top:0.8rem; padding-bottom:0.3rem;"><b>RECORDED DATA</b></p>
+            <p style="margin-bottom:0;margin-top:0.8rem; padding-bottom:0.3rem;font-size:1.2rem;"><b>RECORDED DATA</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
             margin-top:0.7rem;color:var(--rsp_darkblue);">
               <tr style="height:2rem;">
@@ -504,7 +504,7 @@
             </table>
           </center>
         </div>
-        <div class=shadowDiv5 style="background-color:var(--rsp_green); color:var(--rsp_brightgreen);; font-size:1.1rem; ">
+        <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen);; font-size:1.1rem; ">
           <center>
             <p style="margin-bottom:0;padding-bottom:0.3rem;"><b>PLAYBACK WINDOW</b></p>
             <table style="border-collapse:unset; border:none; font-size:1.1rem; width:100%;
@@ -524,11 +524,11 @@
       </div>
 
       <center>
-        <button id=btnSelect class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem;
+        <button id=btnSelect class='button' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem; box-shadow: none;
           border:none; margin:1rem;" onclick='selectSession()'>Select Recording</button>
       </center>
 
-      <div class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
+      <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.25rem; margin:1rem;">
         <br>
         <button id=btnChart class=sidebarButton onclick='selectCharts()'>View Charts</button>
         <br>
@@ -538,15 +538,12 @@
         <br>
         <button id=btnAlert class=sidebarButton onclick='selectAlerts()'>View Alerts</button>
         <br>
+        <button id=btnSearch class=sidebarButton onclick='selectSearch()'>View Search</button>
+        <br>
         <button id=btnRaw class=sidebarButton onclick='selectRawData()'>View Raw Data</button>
         <br>
         <br>
       </div>
-
-      <center>
-        <button id=btnSearch class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:15rem; font-size:1.5rem;
-          border:none; margin:1rem;" onclick='selectSearch()'>Database Search</button>
-      </center>
 
     	</div>
     </div>

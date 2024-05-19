@@ -23,6 +23,7 @@
   <link href="../common/css/sidebarButton.css" rel="stylesheet" />
   <link href="../common/css/chart.css" rel="stylesheet" />
   <link href="../common/css/wave.css" rel="stylesheet" />
+  <link href="../common/css/wavesLegend.css" rel="stylesheet" />
   <link href="../common/css/searchExpr.css" rel="stylesheet" />
   <link href="css/sidebar.css" rel="stylesheet" />
   <link href="css/dashboard.css" rel="stylesheet" />
@@ -491,10 +492,10 @@
     </div>
 
   <div id=fullDashboard style="width:120rem;min-height:60rem;">
-    <div id=sideMenuBar class='sidebarColumn shadowDiv10'>
+    <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
-        <div id=curBreathDiv class=shadowDiv10 style="margin-top:1.2rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
+        <div id=curBreathDiv style="margin-top:1rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
           <center>
             <p id=breathsHeading style="font-size:1.1rem;font-weight:
               bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
@@ -504,7 +505,7 @@
               color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
           </center>
         </div>
-        <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_green); color:white;">
+        <div id=headerDiv style="background-color:var(--rsp_green); color:white;">
           <center>
             <p style="font-size:1rem;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;color:white; padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
             <table style="border-collapse:unset; border:none; font-size:0.8rem; width:100%">
@@ -528,14 +529,14 @@
           </center>
         </div>
 
-        <div class=shadowDiv10 style="background-color:var(--rsp_green);">
+        <div style="background-color:var(--rsp_green);">
           <center>
             <p style="font-size:1.25rem;padding-top:0.25rem; padding-bottom:0.25rem;background-color:var(--rsp_darkblue); color:white;"> Temperature <sup>o</sup>C
 
             <div id=TempGauge style="background-color:var(--rsp_green); margin-top:-1rem;"></div>
           </center>
         </div>
-        <div class=shadowDiv10 style="background-color:var(--rsp_green);">
+        <div style="background-color:var(--rsp_green);">
           <center>
             <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.25rem;padding-top:0.25rem;padding-bottom:0.25rem;
             background-color:var(--rsp_darkblue);color:white;">
@@ -549,7 +550,7 @@
               <center>
         </div>
 
-        <div class=shadowDiv10 style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
+        <div style="margin-top:1.6rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
           <center>
             <br>
             <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>SELECT VIEW</b></p>
@@ -563,6 +564,7 @@
           <button id=btnStats class=sidebarButton onclick='changeToStatView()'>View Statistics</button>
 
           <button id=btnAlerts class=sidebarButton onclick='changeToAlertView()'>View Alerts</button>
+          <button id=btnSearch class=sidebarButton onclick='changeToSearchView()'>View Search</button>
 
           <button id=btnRecording class=sidebarButton onclick='changeToRecordView()'>View Recording</button>
 
@@ -570,7 +572,7 @@
           <br>
         </div>
 
-        <div class=shadowDiv10 style="background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
+        <div style="background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
           <center>
             <br>
             <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>TURN ON/OFF</b></p>
@@ -579,12 +581,9 @@
           <button id=recordButton class=sidebarButton onclick='changeRecordingStatus()'>Start Recording</button>
           <button id=btnPause class=sidebarButton onclick='togglePause()' style="margin-bottom:1.2rem;">Pause Dashboard</button>
         </div>
+				<br>
 
       </div>
-      <center>
-        <button id=btnSearch class='button shadowDiv5' style="background-color:var(--rsp_darkblue); width:13rem; font-size:1.4rem;
-          border:none; margin:1rem;" onclick='selectSearch()'>Database Search</button>
-      </center>
     </div>
 
     <div id=nonMenuArea class=dashboard-pane>

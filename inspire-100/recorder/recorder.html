@@ -43,6 +43,7 @@
     <script src="../common/js/sessionData.js"></script>
     <script src="../common/js/recording.js"></script>
     <script src="../common/js/enterSubmit.js"></script>
+    <script src="../common/js/params.js"></script>
     <script src="js/recorder.js"></script>
   </head>
 
@@ -86,10 +87,10 @@
     </div>
 
     <div id=fullRecorder style="width:60rem;">
-      <div id=sideMenuBar class='sidebarColumn shadowDiv10'>
+      <div id=sideMenuBar class='sidebarColumn'>
         <div class=sidebar>
 
-          <div id=curBreathDiv class=shadowDiv10 style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
+          <div id=curBreathDiv style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
             <center>
               <p id=breathsHeading style="font-size:1rem;font-weight:
               bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
@@ -99,9 +100,10 @@
               color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
             </center>
           </div>
-          <div id=headerDiv class=shadowDiv10 style="background-color:var(--rsp_green); color:white;">
+					<br>
+          <div id=headerDiv style="background-color:var(--rsp_green); color:white;">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:0.8rem;margin-left:0.6rem;margin-right:0.6rem; padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
               <table style="border-collapse:unset; border:none; font-size:0.8rem; width:100%">
                 <tr>
                   <td align="left">&nbspStart Date</td>
@@ -123,7 +125,8 @@
             </center>
           </div>
 
-          <div class=shadowDiv10 style="margin-top:1rem; margin-bottom:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
+					<br>
+          <div style="margin-top:1rem; margin-bottom:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
             <center>
               <br>
               <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>TURN ON/OFF</b></p>

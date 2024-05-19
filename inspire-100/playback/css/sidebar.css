@@ -5,12 +5,12 @@
 */
 .sidebarColumn {
   width: 17rem;
-  background-color: var(--rsp_blue);
   padding-bottom: 0.5rem;
   padding-top: 1.4rem;
   padding-right: 0.4rem;
-  margin-top: 0rem;
+  margin-top: 2rem;
   margin-bottom: 0rem;
+	border-right: groove 0.5rem var(--rsp_mediumblue);
 }
 
 .sidebar {
