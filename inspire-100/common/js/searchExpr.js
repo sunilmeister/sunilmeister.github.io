@@ -96,7 +96,6 @@ class searchExpr {
 	}
 
 	exprChanged() {
-		this.errorHTMLNodes = [];
 		this.paramSet = [];
 		this.paramValues = {bnum: null, values: {}};
 
@@ -217,19 +216,7 @@ class searchExpr {
 		this.textDiv.innerHTML = this.stringify();
 		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
-		/*
-		this.errorHTMLNodes = this.collectNullValueElements();
-		for (let i=0; i < this.errorHTMLNodes.length; i++) {
-			let elem = this.errorHTMLNodes[i];
-			if (elem.className == "exprOpSelectCls") {
-				elem.style.backgroundColor = palette.orange;
-				elem.style.color = "white";
-			} else {
-				elem.style.backgroundColor = palette.modal;
-				elem.style.color = "white";
-			}
-		}
-		*/
+
 		//console.log("paramSet", this.paramSet);
 	}
 
@@ -356,24 +343,6 @@ class searchExpr {
 		if (!isUndefined(lhs) && (lhs !== null)) {
 			this.updateIdRecursive(lhs);
 		}
-	}
-
-	collectNullValueElements() {
-		let result = [];
-
-		let arr = document.getElementsByTagName("select");
-		for (let i=0; i<arr.length; i++) {
-			let elem = arr[i];
-			if ((elem.value === null) || (elem.value == "")) result.push(elem);
-		}
-
-		arr = document.getElementsByTagName("input");
-		for (let i=0; i<arr.length; i++) {
-			let elem = arr[i];
-			if ((elem.value === null) || (elem.value == "")) result.push(elem);
-		}
-
-		return result;
 	}
 
 	createSelectOptionsHTML() {
