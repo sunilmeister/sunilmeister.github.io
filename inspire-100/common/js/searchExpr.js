@@ -217,6 +217,7 @@ class searchExpr {
 		this.textDiv.innerHTML = this.stringify();
 		this.containerDiv.innerHTML = this.createHTML();
 		this.createSelectOptionsHTML();
+		/*
 		this.errorHTMLNodes = this.collectNullValueElements();
 		for (let i=0; i < this.errorHTMLNodes.length; i++) {
 			let elem = this.errorHTMLNodes[i];
@@ -228,6 +229,7 @@ class searchExpr {
 				elem.style.color = "white";
 			}
 		}
+		*/
 		//console.log("paramSet", this.paramSet);
 	}
 
