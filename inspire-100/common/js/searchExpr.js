@@ -8,11 +8,11 @@
 				{
 				 "id": "SExprNode_0",
 				 "type": "op",
-				 "op": "AND",
+				 "opName": "AND",
 				 "lhs": {
 				  "id": "SExprNode_8",
 				  "type": "op",
-				  "op": "EQ",
+				  "opName": "EQ",
 				  "lhs": {
 				   "id": "SExprNode_10",
 				   "type": "param",
@@ -29,11 +29,11 @@
 				 "rhs": {
 				  "id": "SExprNode_1",
 				  "type": "op",
-				  "op": "OR",
+				  "opName": "OR",
 				  "lhs": {
 				   "id": "SExprNode_5",
 				   "type": "op",
-				   "op": "LEQ",
+				   "opName": "LEQ",
 				   "lhs": {
 				    "id": "SExprNode_7",
 				    "type": "param",
@@ -50,7 +50,7 @@
 				  "rhs": {
 				   "id": "SExprNode_2",
 				   "type": "op",
-				   "op": "GT",
+				   "opName": "GT",
 				   "lhs": {
 				    "id": "SExprNode_4",
 				    "type": "param",
@@ -270,7 +270,7 @@ class searchExpr {
 		let opElem = findChildNodeByClass(parentElem, "leafOpSelectCls");
 		let opNodeId = this.formOpNodeId(opElem.id);
 		node = this.findNode(opNodeId);
-		node.op = null;
+		node.opName = null;
 
 		let constElem = findChildNodeByClass(parentElem, "constEnumSelectCls");
 		let constNodeId = this.formConstEnumNodeId(constElem.id);
@@ -290,7 +290,7 @@ class searchExpr {
 	changeExprOp(htmlSelectElem) {
 		let nodeId = this.formOpNodeId(htmlSelectElem.id);
 		let node = this.findNode(nodeId);
-		node.op = htmlSelectElem.value;
+		node.opName = htmlSelectElem.value;
 
 		this.exprChanged();
 	}
@@ -358,7 +358,7 @@ class searchExpr {
 		if (isUndefined(json.id)) return false;
 		if (!json.id) return false;
 
-		if (isUndefined(json.op) || !json.op) {
+		if (isUndefined(json.opName) || !json.opName) {
 			if (json.type == "param") {
 				if (isUndefined(json.paramName) || !json.paramName) return false;
 				if (isUndefined(json.paramKey) || !json.paramKey) return false;
@@ -403,7 +403,7 @@ class searchExpr {
 			let rhsVal = this.evalRecursive(rhs, bnum);
 			let lhs = json.lhs;
 			let lhsVal = this.evalRecursive(lhs, bnum);
-			return this.evalOp(json.op, lhsVal, rhsVal);
+			return this.evalOp(json.opName, lhsVal, rhsVal);
 
 		} else if (json.type == "param") {
 			if (this.paramValues.bnum != bnum) {
@@ -425,7 +425,7 @@ class searchExpr {
 			let lhsStr = this.stringifyRecursive(lhs);
 			let rhs = json.rhs;
 			let rhsStr = this.stringifyRecursive(rhs);
-			return this.stringifyOp(json.op, lhsStr, rhsStr);
+			return this.stringifyOp(json.opName, lhsStr, rhsStr);
 
 		} else if (json.type == "param") {
 			return json.paramName;
@@ -738,7 +738,7 @@ class searchExpr {
 			opt.value = logicOps[i];
 			dropdown.options.add(opt);
 		}
-		dropdown.value = json.op;
+		dropdown.value = json.opName;
 
 		this.createSelectOptionsHTMLRecursive(json.lhs);
 		this.createSelectOptionsHTMLRecursive(json.rhs);
@@ -828,7 +828,7 @@ class searchExpr {
 
 		// Create op drop down list
 		selectId = this.formOpSelectId(json);
-		this.createOpDropdown(selectId, paramType, json.op);
+		this.createOpDropdown(selectId, paramType, json.opName);
 
 		// Create op drop down list
 		selectId = this.formOpSelectId(json);
