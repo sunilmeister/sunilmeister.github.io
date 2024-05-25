@@ -136,7 +136,7 @@
   position: absolute;
   background-color: var(--rsp_darkblue);
 	color: white;
-  min-width: 4rem;
+  min-width: 7rem;
   z-index: 20;
 }
 

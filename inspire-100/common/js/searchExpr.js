@@ -84,13 +84,13 @@ const UNITS_NODE_ID_PREFIX = "SExprUnits_" ;
 // It must be correct by construction before passing it to this class
 // //////////////////////////////////////////////////////////////
 class searchExpr {
-	constructor(exprJson, treeDivId, textId, changeCallbackFn) {
+	constructor(exprJson, treeDivId, textId, resultsId) {
 		if (isUndefined(exprJson) || !exprJson) this .exprJson = {};
 		else this.exprJson = exprJson;
 
 		this.containerDiv = document.getElementById(treeDivId);
 		this.textDiv = document.getElementById(textId);
-		this.changeCallbackFn = changeCallbackFn;
+		this.resultsDiv = document.getElementById(resultsId);
 
 		this.exprChanged();
 	}
@@ -99,17 +99,18 @@ class searchExpr {
 		this.paramSet = [];
 		this.paramValues = {bnum: null, values: {}};
 
+		session.search.paramSet = [];
+		session.search.results = [];
+
 		this.render();
-		if (!isUndefined(this.changeCallbackFn) && (this.changeCallbackFn !== null)) {
-			this.changeCallbackFn();
-		}
+		this.resultsDiv.style.display = "none";
 	}
 
 	paramSetUsed() {
 		return this.paramSet;
 	}
 
-	paramValues(bnum) {
+	paramValuesAt(bnum) {
 		if (this.paramValues.bnum != bnum) {
 			this.updateParamValues(bnum); // evaluate the whole set of params
 		}
@@ -177,7 +178,7 @@ class searchExpr {
 		for (let i=0; i<this.paramSet.length; i++) {
 			let paramKey = this.paramSet[i];
 			let value = session.params[paramKey].ValueAtBnum(bnum);
-			this.paramValues.value[paramKey] = value;
+			this.paramValues.values[paramKey] = value;
 		}
 		this.paramValues.bnum = bnum;
 	}
@@ -489,8 +490,8 @@ class searchExpr {
   	str += '<img class=exprMenuImgBtn src=../common/img/pen.png></img>';
   	str += '<div class=exprMenu-content>';
   	str += '<p class=exprMenuActionCls onclick="deleteSelectedExpr(this)">DELETE</p>';
-  	str += '<p class=exprMenuActionCls onclick="addBeforeSelectedExpr(this)">INSERT</p>';
-  	str += '<p class=exprMenuActionCls onclick="addAfterSelectedExpr(this)">APPEND</p>';
+  	str += '<p class=exprMenuActionCls onclick="addBeforeSelectedExpr(this)">ADD Before</p>';
+  	str += '<p class=exprMenuActionCls onclick="addAfterSelectedExpr(this)">ADD After</p>';
   	str += '</div>';
   	str += '</div>';
 
@@ -843,33 +844,33 @@ class searchExpr {
 
 function addBeforeSelectedExpr(btn) {
 	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
-	session.searchExpression.addBeforeSelectedExpr(leafExprElem);
+	session.search.criteria.addBeforeSelectedExpr(leafExprElem);
 }
 
 function addAfterSelectedExpr(btn) {
 	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
-	session.searchExpression.addAfterSelectedExpr(leafExprElem);
+	session.search.criteria.addAfterSelectedExpr(leafExprElem);
 }
 
 function deleteSelectedExpr(btn) {
 	let leafExprElem = btn.parentElement.parentElement.parentElement.parentElement;
-	session.searchExpression.deleteSelectedLeafExpr(leafExprElem);
+	session.search.criteria.deleteSelectedLeafExpr(leafExprElem);
 }
 
 function exprConstEnumChangeClick(htmlElem) {
-	session.searchExpression.changeExprConstEnum(htmlElem);
+	session.search.criteria.changeExprConstEnum(htmlElem);
 }
 
 function exprConstNumChangeClick(htmlElem) {
-	session.searchExpression.changeExprConstNum(htmlElem);
+	session.search.criteria.changeExprConstNum(htmlElem);
 }
 
 function exprParamChangeClick(htmlElem) {
-	session.searchExpression.changeExprParam(htmlElem);
+	session.search.criteria.changeExprParam(htmlElem);
 }
 
 function exprOpChangeClick(htmlElem) {
-	session.searchExpression.changeExprOp(htmlElem);
+	session.search.criteria.changeExprOp(htmlElem);
 }
 
 function importExprFile() {
@@ -889,7 +890,7 @@ function importExprFile() {
   reader.readAsText(file, "UTF-8");
   reader.onload = function (evt) {
    	exprJson = parseJSONSafely(evt.target.result);
-		if (!session.searchExpression.importJson(exprJson)) {
+		if (!session.search.criteria.importJson(exprJson)) {
 			modalAlert("File corrupted", "Import Cancelled");
 		}
 		cancelExprImport();
@@ -899,7 +900,7 @@ function importExprFile() {
 function exportExprFile() {
   fileName = document.getElementById("exportFileName").value;
   if (fileName) {
-		if (!session.searchExpression.exportJson(fileName)) {
+		if (!session.search.criteria.exportJson(fileName)) {
 			modalAlert("Expression not valid", "Export Cancelled");
 		}
     document.getElementById("exportDiv").style.display = "none";
@@ -907,7 +908,7 @@ function exportExprFile() {
 }
 
 function clearSearchExpr() {
-	session.searchExpression.clearExpr();
+	session.search.criteria.clearExpr();
 }
 
 // Same DIV is shared for various exports by changing the onclick function

@@ -254,7 +254,7 @@ class Param {
 	ValueAtBnum(bnum) {
 		if (!bnum) return null;
 		// first entry in breathTimes is a null entry
-		return valueAtTime(session.breathTimes[bnum]);
+		return this.ValueAtTime(session.breathTimes[bnum]);
 	}
 
 	// helper function to compute min/max/avg

@@ -9,7 +9,6 @@ var SessionDataTemplate = {
   // currently open session
   sessionDataValid: true,
   sessionDurationInMs: 0,
-	searchExpression: null,
 
 	rangeSlider:  null,
   startDate: null,
@@ -140,7 +139,17 @@ var SessionDataTemplate = {
   warningMsgs :         [],
   errorMsgs:            [],
 
-  // /////////////////////////////////////////////
+	// /////////////////////////////////////////////
+	// For the Search view
+	// /////////////////////////////////////////////
+  search: {
+		criteria: null,
+		range: null,
+		paramSet: [],
+		results: [],
+	},
+
+	// /////////////////////////////////////////////
   // All input and output parameters (settings and measured)
 	// Initialized during createNewSession
   // /////////////////////////////////////////////

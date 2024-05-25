@@ -27,6 +27,7 @@ const tagCookieName = "INSPIRE_TAG_COOKIE";
 const localStorageDbName = "inspire_dbs";
 
 const FLOW_FILTER_WINDOW = 16;
+const SEARCH_ITEMS_AT_A_TIME = 10;
 
 const NO_BREATH = 0;
 const MANDATORY_BREATH = 1;

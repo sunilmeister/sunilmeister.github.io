@@ -19,7 +19,7 @@
 	padding: 0.3rem;
   background-color: var(--rsp_mediumblue);
 	color: white;
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	text-align: center;
 }
 
@@ -27,7 +27,7 @@
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
-	font-size: 1rem;
+	font-size: 1.1rem;
 	text-align: center;
 }
 
@@ -37,24 +37,24 @@
 }
 
 .searchMoreCls {
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_darkblue);
 	color: white;
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
-	font-size: 1rem;
+	font-size: 1.3rem !important;
 	font-weight: bold;
 	text-align: center;
 	cursor: pointer;
 }
 
 .searchNoMoreCls {
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_darkblue);
 	color: white;
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
-	font-size: 1rem;
+	font-size: 1.3rem !important;
 	font-weight: bold;
 	text-align: center;
 }

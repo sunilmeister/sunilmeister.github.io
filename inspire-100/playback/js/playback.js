@@ -321,6 +321,9 @@ function selectSearch() {
   if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
+	if (!session.search.criteria) {
+		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
+	}
   document.getElementById("playbackWindowDiv").style.display = "block";
   document.getElementById("searchDiv").style.display = "block";
 
@@ -427,7 +430,6 @@ function initGlobals() {
   // Create new data objects
   createNewSession();
 
-	session.searchExpression = new searchExpr({}, "exprContainer", "exprString", null);
   session.appId = PLAYBACK_APP_ID;
 }
 
