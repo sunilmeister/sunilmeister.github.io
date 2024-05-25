@@ -176,6 +176,19 @@ function createMatchingTableEntriesHTML() {
 var breathSelectStartCbox = null;
 var breathSelectEndCbox = null;
 
+function padMinBnum(bnum) {
+	if (bnum <= 5) bnum = 1;
+	else bnum = bnum - 5;
+	return bnum;
+}
+
+function padMaxBnum(bnum) {
+	let numBreaths = session.breathTimes.length;
+	if (bnum >= (numBreaths -5)) bnum = numBreaths;
+	else bnum = bnum + 5;
+	return bnum;
+}
+
 function showSelectedMatchingBreathRange() {
 	let tableDiv = document.getElementById('searchResultsTbl');
 	let tbody = tableDiv.tBodies[0];
@@ -187,8 +200,8 @@ function showSelectedMatchingBreathRange() {
 	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
 
 	let str = "Set Range Selector in all other views to [" ;
-	str += session.search.results[start].bnum + ", ";
-	str += session.search.results[end].bnum + "]";
+	str += padMinBnum(session.search.results[start].bnum) + ", ";
+	str += padMaxBnum(session.search.results[end].bnum) + "]";
 	let pDiv = document.getElementById('setMatchingRange');
 	pDiv.innerHTML = "<U>" + str + "</U>";
 
@@ -252,8 +265,8 @@ function setRangeSelectorForSelectedBreaths() {
 	let end = start;
 	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
 
-	let minBnum = session.search.results[start].bnum;
-	let maxBnum = session.search.results[end].bnum;
+	let minBnum = padMinBnum(session.search.results[start].bnum);
+	let maxBnum = padMaxBnum(session.search.results[end].bnum);
 
 	//console.log("Set Range Selector", minBnum, maxBnum);
 	session.reportRange = createReportRange(false, minBnum, maxBnum);
