@@ -4,6 +4,16 @@
 
 function matchSearchExpr() {
 	let div = document.getElementById("searchResults");
+	if (!session.search.criteria.isValid()) {
+		div.style.display = "none";
+		modalAlert("INVALID Search Criteria", "Fill in all the fields");
+		return;
+	}
+	if (session.search.criteria.isEmpty()) {
+		div.style.display = "none";
+		modalAlert("EMPTY Search Criteria", "Specify Search Criteria");
+		return;
+	}
 	div.style.display = "block";
 
 	if (session.search.range === null) {
