@@ -102,7 +102,8 @@ function createMatchingTableEntriesHTML() {
 
 		let bnum = pValues.bnum;
 		str += '<tr>';
-		str += '<td><input class=searchRangeBoxCls type="checkbox"></input></td>';
+		str += '<td><input class=searchRangeBoxCls type=checkbox value=' + i;
+		str += ' onclick="breathSelectCheckbox(this)"></input></td>';
 		str += '<td>' + bnum + '</td>' ;
 		let btime = session.breathTimes[bnum];
 
@@ -139,4 +140,52 @@ function createMatchingTableEntriesHTML() {
 
  	str += '</tbody>';
 	return str;
+}
+
+var breathSelectStartCbox = null;
+var breathSelectEndCbox = null;
+
+function showSelectedMatchingBreathRange() {
+}
+
+function breathSelectCheckbox(cbox) {
+	//console.log("cbox checked=", cbox.checked, "value=", cbox.value);
+	if (!cbox.checked) {
+		// Something has just been unchecked
+		if (breathSelectStartCbox.value == cbox.value) {
+			breathSelectStartCbox = breathSelectEndCbox;
+			breathSelectEndCbox = null;
+		} else {
+			// must be the End cbox
+			breathSelectEndCbox = null;
+		}
+		showSelectedMatchingBreathRange();
+		return;
+	}
+
+	// Something has just been checked
+	if (breathSelectEndCbox !== null) {
+		// both endpoints were previously checked
+		if (cbox.value < breathSelectStartCbox.value) {
+			breathSelectStartCbox.checked = false;
+			breathSelectStartCbox = cbox;
+		} else if (cbox.value > breathSelectEndCbox.value) {
+			breathSelectEndCbox.checked = false;
+			breathSelectEndCbox = cbox;
+		} else {
+			breathSelectStartCbox.checked = false;
+			breathSelectStartCbox = cbox;
+		}
+	} else {
+		// only one or no endpoint was previously checked
+		if (breathSelectStartCbox === null) {
+			breathSelectStartCbox = cbox;
+		} else if (cbox.value > breathSelectStartCbox.value) {
+			breathSelectEndCbox = cbox;
+		} else {
+			breathSelectEndCbox = breathSelectStartCbox;
+			breathSelectStartCbox = cbox;
+		}
+	}
+	showSelectedMatchingBreathRange();
 }
