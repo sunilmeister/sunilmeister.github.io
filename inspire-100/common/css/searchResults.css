@@ -17,7 +17,7 @@
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
-  background-color: var(--rsp_mediumblue);
+  background-color: var(--rsp_darkblue);
 	color: white;
 	font-size: 1.1rem;
 	text-align: center;
@@ -27,6 +27,7 @@
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
+  background-color: var(--rsp_blue);
 	font-size: 1.1rem;
 	text-align: center;
 }
@@ -34,10 +35,11 @@
 .searchRangeBoxCls {
 	width: 1rem;
 	height: 1rem;
+	accent-color: var(--rsp_green);
 }
 
 .searchMoreCls {
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_darkblue) !important;
 	color: white;
 	border: 0.2rem solid white;
 	border-collapse: collapse;
@@ -49,7 +51,7 @@
 }
 
 .searchNoMoreCls {
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_darkblue) !important;
 	color: white;
 	border: 0.2rem solid white;
 	border-collapse: collapse;
