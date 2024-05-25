@@ -581,21 +581,6 @@ function fullInterval() {
   refreshActivePane();
 }
 
-function resetTimeInterval() {
-  session.playback.playbackStartBreath = session.playback.logStartBreath;
-  session.playback.playbackEndBreath = session.playback.logEndBreath;
-  session.playback.playbackStartTime = session.playback.logStartTime;
-  session.playback.playbackEndTime = session.playback.logEndTime;
-  session.rangeSlider.setSlider([session.playback.playbackStartBreath, session.playback.playbackEndBreath]);
-
-  setPlaybackRanges();
-  updateSelectedDuration();
-  //resetPlaybackData();
-  document.getElementById("playbackWindowDiv").style.display = "block";
-
-  refreshActivePane();
-}
-
 function playbackGatherDoneCallback() {
   if (!checkDbReady()) return;
 
