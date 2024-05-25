@@ -511,6 +511,8 @@ function refreshActivePane() {
     createAllAlerts();
   } else if (document.getElementById("wavesDiv").style.display == "block") {
     createAllWaves();
+  } else if (document.getElementById("searchDiv").style.display == "block") {
+    updateSearchResults();
   }
 }
 

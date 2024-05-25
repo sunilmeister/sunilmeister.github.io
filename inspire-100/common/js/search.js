@@ -2,6 +2,26 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function updateSearchResults() {
+	let div = document.getElementById("searchResults");
+	if (!session.search.criteria.isValid()) {
+		div.style.display = "none";
+		return;
+	}
+	if (session.search.criteria.isEmpty()) {
+		div.style.display = "none";
+		return;
+	}
+	div.style.display = "block";
+
+	let tableDiv = document.getElementById('searchResultsTbl');
+	tableDiv.innerHTML = "";
+
+	//session.search.range = cloneObject(session.reportRange);
+	session.search.results = [];
+	matchSearchExpr();
+}
+
 function matchSearchExpr() {
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
@@ -21,8 +41,20 @@ function matchSearchExpr() {
 	}
 	let minBnum = session.search.range.minBnum;
 	let maxBnum = session.search.range.maxBnum;
+	let captionDiv = document.getElementById("searchResultsCaption");
+	captionDiv.innerHTML = "SEARCH RESULTS in Breath number range [" 
+													+ minBnum + ", " + maxBnum + "]";
 
 	let bnum = minBnum;
+	if (session.search.results.length) {
+		// already some search results
+		// start from where we left off at the last bnum in the results
+		let len = session.search.results.length;
+		let pValue = session.search.results[len - 1];
+		if (pValue === null) return;
+		bnum = pValue.bnum + 1;
+	}
+
 	let matchNum = 0;
 
 	// Do search for SEARCH_ITEMS_AT_A_TIME at a time
@@ -43,7 +75,6 @@ function matchSearchExpr() {
 	}
 	
 	session.search.paramSet = cloneObject(session.search.criteria.paramSetUsed());
-	//session.search.results.push(null);
 
 	let tableHTML = createMatchingTableHdrHTML() + createMatchingTableEntriesHTML();
 	let tableDiv = document.getElementById('searchResultsTbl');
@@ -134,7 +165,7 @@ function createMatchingTableEntriesHTML() {
 	if (searchDone) {
 		str += ' class=searchNoMoreCls>' + numResults + ' Matches: End of Search</td>';
 	} else {
-		str += ' class=searchMoreCls>' + numResults + ' Matches: Click for more</td>';
+		str += ' class=searchMoreCls onclick="matchSearchExpr()">' + numResults + ' Matches: Click for more</td>';
 	}
 	str += '</tr>';
 
@@ -146,6 +177,31 @@ var breathSelectStartCbox = null;
 var breathSelectEndCbox = null;
 
 function showSelectedMatchingBreathRange() {
+	let tableDiv = document.getElementById('searchResultsTbl');
+	let tbody = tableDiv.tBodies[0];
+	if (tbody.rows.length <= 1) return;
+
+	let start = -1;
+	if (breathSelectStartCbox) start = breathSelectStartCbox.value;
+	let end = start;
+	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
+
+	let str = "Set Range Selector in all other views to [" ;
+	str += session.search.results[start].bnum + ", ";
+	str += session.search.results[end].bnum + "]";
+	let pDiv = document.getElementById('setMatchingRange');
+	pDiv.innerHTML = "<U>" + str + "</U>";
+
+	for (let i=0; i<tbody.rows.length - 1; i++) {
+		let row = tbody.rows[i];
+		for (let j=0; j<row.cells.length ; j++) {
+			if ((i <= end) && (i >= start)) {
+				row.cells[j].style.backgroundColor = palette.lightgreen;
+			} else {
+				row.cells[j].style.backgroundColor = palette.blue;
+			}
+		}
+	}
 }
 
 function breathSelectCheckbox(cbox) {
@@ -189,3 +245,17 @@ function breathSelectCheckbox(cbox) {
 	}
 	showSelectedMatchingBreathRange();
 }
+
+function setRangeSelectorForSelectedBreaths() {
+	let start = -1;
+	if (breathSelectStartCbox) start = breathSelectStartCbox.value;
+	let end = start;
+	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
+
+	let minBnum = session.search.results[start].bnum;
+	let maxBnum = session.search.results[end].bnum;
+
+	//console.log("Set Range Selector", minBnum, maxBnum);
+	session.reportRange = createReportRange(false, minBnum, maxBnum);
+}
+
