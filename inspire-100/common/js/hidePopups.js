@@ -2,6 +2,25 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function hideAllPopups() {
+  let popupsCenter = document.getElementsByClassName('popupClassCenter');
+  if (popupsCenter) {
+  	for (let i = 0; i < popupsCenter.length; i++) {
+    	let popup = popupsCenter[i];
+     	popup.style.display = "none";
+		}
+  }
+
+  let popupsTopLeft = document.getElementsByClassName('popupClassTopLeft');
+  if (popupsTopLeft) {
+  	for (let i = 0; i < popupsTopLeft.length; i++) {
+    	let popup = popupsTopLeft[i];
+     	popup.style.display = "none";
+		}
+  }
+
+}
+
 function checkIfEventWithinDiv(event, div) {
 	let rect = div.getBoundingClientRect();
 	return checkIfEventWithinBoundingBox(event, rect);

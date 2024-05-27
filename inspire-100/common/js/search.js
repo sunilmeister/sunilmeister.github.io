@@ -198,9 +198,10 @@ function showSelectedMatchingBreathRange() {
 	let end = start;
 	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
 
-	let str = "Set Range Selector in all other views to [" ;
-	str += padMinBnum(session.search.results[start].bnum) + ", ";
-	str += padMaxBnum(session.search.results[end].bnum) + "]";
+	let rangeStr = "[" + padMinBnum(session.search.results[start].bnum) + " - ";
+	rangeStr += padMaxBnum(session.search.results[end].bnum) + "]";
+
+	let str = "Zoom in all other views to Breath range " + rangeStr ;
 	let pDiv = document.getElementById('setMatchingRange');
 	pDiv.innerHTML = "<U>" + str + "</U>";
 
@@ -269,5 +270,9 @@ function setRangeSelectorForSelectedBreaths() {
 
 	//console.log("Set Range Selector", minBnum, maxBnum);
 	session.reportRange = createReportRange(false, minBnum, maxBnum);
+
+	let rangeStr = "[" + minBnum + " - " + maxBnum + "]";
+	let str = "Other views Range Select set to \n" + rangeStr ;
+	modalInfo(str, "Selected Breaths below (GREEN)");
 }
 

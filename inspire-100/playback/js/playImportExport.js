@@ -43,20 +43,19 @@ function exportDbRow(row) {
       return;
     }
   }
-  fileName = document.getElementById("exportFileName").value;
-	fileName += ".session.json";
+  fileName = document.getElementById("exportRecordingFileName").value;
   if (fileName) {
     exportDb(rowDbName(row), fileName);
-    document.getElementById("exportDiv").style.display = "none";
+    document.getElementById("exportRecordingDiv").style.display = "none";
   }
 }
 
-function exportFile() {
+function exportRecordingFile() {
   exportDbRow(exportRowDiv);
 }
 
-function cancelExport() {
-  document.getElementById("exportDiv").style.display = "none";
+function cancelRecordingExport() {
+  document.getElementById("exportRecordingDiv").style.display = "none";
 }
 
 function doImport(file, fileName, dbName) {

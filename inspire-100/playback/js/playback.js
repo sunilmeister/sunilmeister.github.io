@@ -110,12 +110,10 @@ function selectRowBtn(btn) {
 }
 
 function exportRowBtn(btn) {
-  let exportRowDiv = btn.parentNode.parentNode;
-  let exportBtn = document.getElementById("exportFileBtn");
-	exportBtn.onclick = function() { exportFile() };
-  let exportDiv = document.getElementById("exportDiv");
+  exportRowDiv = btn.parentNode.parentNode;
+  let exportDiv = document.getElementById("exportRecordingDiv");
 	exportDiv.style.display = "block";
-  document.getElementById("exportFileName").value =
+  document.getElementById("exportRecordingFileName").value =
     exportRowDiv.cells[0].innerHTML + ' ' + exportRowDiv.cells[1].innerHTML;;
 }
 
@@ -454,6 +452,7 @@ function resetPlaybackData() {
 }
 
 function undisplayAllPanes() {
+	hideAllPopups();
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
@@ -462,7 +461,7 @@ function undisplayAllPanes() {
   document.getElementById("playbackWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
-  document.getElementById("exportDiv").style.display = "none";
+  document.getElementById("exportRecordingDiv").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
 }
 
@@ -526,6 +525,7 @@ function setSliderMinMax() {
 		}
 	}
   session.rangeSlider.setSlider([s, e]);
+  updateSelectedDuration();
 }
 
 function setTimeInterval() {
@@ -633,7 +633,7 @@ window.onload = function () {
   session.reportRange = createReportRange(false, 0, 0);
 
   // All forms
-  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
+  new KeypressEnterSubmit('exportRecordingFileName', 'exportRecordingFileBtn');
   new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');

@@ -874,8 +874,8 @@ function exprOpChangeClick(htmlElem) {
 	session.search.criteria.changeExprOp(htmlElem);
 }
 
-function importExprFile() {
-  let elm = document.getElementById("exprFileSelector");
+function importSearchFile() {
+  let elm = document.getElementById("searchFileSelector");
   let fileName = elm.value;
   if (!fileName) {
     modalAlert("File not found", "Import Cancelled");
@@ -894,17 +894,17 @@ function importExprFile() {
 		if (!session.search.criteria.importJson(exprJson)) {
 			modalAlert("File corrupted", "Import Cancelled");
 		}
-		cancelExprImport();
+		cancelSearchImport();
 	}
 }
 
-function exportExprFile() {
-  fileName = document.getElementById("exportFileName").value;
+function exportSearchFile() {
+  fileName = document.getElementById("exportSearchFileName").value;
   if (fileName) {
 		if (!session.search.criteria.exportJson(fileName)) {
 			modalAlert("Expression not valid", "Export Cancelled");
 		}
-    document.getElementById("exportDiv").style.display = "none";
+    document.getElementById("exportSearchDiv").style.display = "none";
   }
 }
 
@@ -914,19 +914,22 @@ function clearSearchExpr() {
 
 // Same DIV is shared for various exports by changing the onclick function
 function exportSearchExpr() {
-  let exportBtn = document.getElementById("exportFileBtn");
-	exportBtn.onclick = function() { exportExprFile() };
-	let exportDiv = document.getElementById("exportDiv");
+	let exportDiv = document.getElementById("exportSearchDiv");
 	exportDiv.style.display = "block";
 }
 
 function importSearchExpr() {
-	let importDiv = document.getElementById("importExprDiv");
+	let importDiv = document.getElementById("importSearchDiv");
 	importDiv.style.display = "block";
 }
 
-function cancelExprImport() {
-	let importDiv = document.getElementById("importExprDiv");
+function cancelSearchImport() {
+	let importDiv = document.getElementById("importSearchDiv");
 	importDiv.style.display = "none";
+}
+
+function cancelSearchExport() {
+	let exportDiv = document.getElementById("exportSearchDiv");
+	exportDiv.style.display = "none";
 }
 
