@@ -564,19 +564,7 @@ function rewindTimeInterval() {
 }
 
 function fullInterval() {
-  let values = session.rangeSlider.getRange();
-  let s = parseInt(values[0]);
-  if (!session.breathTimes[s]) { // missing breath
-    s = closestNonNullEntryIndex(session.breathTimes, s);
-  }
-  let e = parseInt(values[1]);
-  if (!session.breathTimes[e]) { // missing breath
-    e = closestNonNullEntryIndex(session.breathTimes, e);
-  }
-
-	session.reportRange = createReportRange(false, s, e);
-  session.rangeSlider.setSlider([s, e]);
-
+	fullRange();
   updateSelectedDuration();
   refreshActivePane();
 }

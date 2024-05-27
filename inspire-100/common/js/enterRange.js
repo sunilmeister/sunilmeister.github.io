@@ -85,6 +85,11 @@ function cancelBreathRange () {
 function enterRangeBnum() {
 	let minBnum = session.reportRange.minBnum;
 	let maxBnum = session.reportRange.maxBnum;
+  if (document.getElementById("searchDiv").style.display == "block") {
+		minBnum = session.search.range.minBnum;
+		maxBnum = session.search.range.maxBnum;
+	}
+
 	document.getElementById("rangeFromBnum").value = minBnum;
   document.getElementById("rangeNumBreaths").value = maxBnum - minBnum + 1;
 	document.getElementById('enterRangeBnumDiv').style.display = "block";
@@ -95,8 +100,14 @@ function enterRangeBtime() {
 	let selectName = 'input[name="rangeFromBtime"]';
 	let startDate = session.startDate;
 	if (!startDate) startDate = new Date();
+
 	let minTime = session.reportRange.minTime;
 	let maxTime = session.reportRange.maxTime;
+  if (document.getElementById("searchDiv").style.display == "block") {
+		minTime = session.search.range.minTime;
+		maxTime = session.search.range.maxTime;
+	}
+
 	let ms, msStr;
 	if (minTime) { // for dashboard before any breath logged
 		ms = maxTime.getTime() - minTime.getTime();
@@ -128,6 +139,11 @@ function enterRangeBtime() {
 function showCurrentRangeTimes() {
 	let minBnum = session.reportRange.minBnum;
 	let maxBnum = session.reportRange.maxBnum;
+  if (document.getElementById("searchDiv").style.display == "block") {
+		minBnum = session.search.range.minBnum;
+		maxBnum = session.search.range.maxBnum;
+	}
+
 	if (maxBnum <= minBnum) {
 		document.getElementById('fromRangeDay').innerHTML = "---";
 		document.getElementById('fromRangeDate').innerHTML = "---";
@@ -148,6 +164,10 @@ function showCurrentRangeTimes() {
 
 	let minTime = session.reportRange.minTime;
 	let maxTime = session.reportRange.maxTime;
+  if (document.getElementById("searchDiv").style.display == "block") {
+		minTime = session.search.range.minTime;
+		maxTime = session.search.range.maxTime;
+	}
 
  	let mm = minTime.getMonth();
 	let dd = minTime.getDate();
@@ -191,10 +211,18 @@ function fullRange() {
   let values = session.rangeSlider.getRange();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
-  session.reportRange = createReportRange(false, bmin, bmax);
-  stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
-  stopSliderCallback = false;
+
+  if (document.getElementById("searchDiv").style.display == "block") {
+  	session.search.range = createReportRange(false, bmin, bmax);
+  	console.log(session.search.range);
+  	stopSliderCallback = true;
+  	session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
+  	stopSliderCallback = false;
+	} else {
+  	stopSliderCallback = true;
+  	session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  	stopSliderCallback = false;
+	}
 }
 
 function forwardRange() {
@@ -205,6 +233,10 @@ function forwardRange() {
 
   let bmin = session.reportRange.minBnum;
   let bmax = session.reportRange.maxBnum;
+  if (document.getElementById("searchDiv").style.display == "block") {
+  	bmin = session.search.range.minBnum;
+  	bmax = session.search.range.maxBnum;
+	}
 	let span = bmax - bmin + 1;
 
 	if ((bmax + span) > maxRange) {
@@ -214,10 +246,17 @@ function forwardRange() {
 	}
 	bmin = bmax - span + 1;
 
-  session.reportRange = createReportRange(false, bmin, bmax);
-  stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
-  stopSliderCallback = false;
+  if (document.getElementById("searchDiv").style.display == "block") {
+  	session.search.range = createReportRange(false, bmin, bmax);
+  	stopSliderCallback = true;
+  	session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
+  	stopSliderCallback = false;
+	} else {
+  	session.reportRange = createReportRange(false, bmin, bmax);
+  	stopSliderCallback = true;
+  	session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  	stopSliderCallback = false;
+	}
 }
 
 function rewindRange() {
@@ -228,6 +267,11 @@ function rewindRange() {
 
   let bmin = session.reportRange.minBnum;
   let bmax = session.reportRange.maxBnum;
+  if (document.getElementById("searchDiv").style.display == "block") {
+  	bmin = session.search.range.minBnum;
+  	bmax = session.search.range.maxBnum;
+	}
+
 	let span = bmax - bmin + 1;
 
 	if ((bmin - span) < minRange) {
@@ -237,10 +281,17 @@ function rewindRange() {
 	}
 	bmax = bmin + span - 1;
 
-  session.reportRange = createReportRange(false, bmin, bmax);
-  stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
-  stopSliderCallback = false;
+  if (document.getElementById("searchDiv").style.display == "block") {
+  	session.search.range = createReportRange(false, bmin, bmax);
+  	stopSliderCallback = true;
+  	session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
+  	stopSliderCallback = false;
+	} else {
+  	session.reportRange = createReportRange(false, bmin, bmax);
+  	stopSliderCallback = true;
+  	session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  	stopSliderCallback = false;
+	}
 }
 
 window.addEventListener("load", function() {
