@@ -2,6 +2,9 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var breathSelectStartCbox = null;
+var breathSelectEndCbox = null;
+
 function updateSearchResults() {
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
@@ -22,6 +25,12 @@ function updateSearchResults() {
 }
 
 function matchSearchExpr() {
+	// Clear selection
+	if (breathSelectStartCbox)  breathSelectStartCbox.checked = false;;
+	if (breathSelectEndCbox)  breathSelectEndCbox.checked = false;;
+	breathSelectStartCbox = null;
+	breathSelectEndCbox = null;
+
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
 		div.style.display = "none";
@@ -83,13 +92,11 @@ function matchSearchExpr() {
 function createMatchingTableHdrHTML() {
 	if (!session) return "";
 	if (!session.search.criteria) return "";
-	//console.log("isValid", session.search.criteria.isValid(), "isEmpty", session.search.criteria.isEmpty())
 	if (!session.search.criteria.isValid()) return "";
 	if (session.search.criteria.isEmpty()) return "";
 
 	let paramSet = session.search.paramSet;
 
-	//console.log("Header");
 	let str = "<thead><tr>";
 	str += "<th>Range</th>";
 	str += "<th colspan=3>Matching Breaths</th>";
@@ -172,9 +179,6 @@ function createMatchingTableEntriesHTML() {
 	return str;
 }
 
-var breathSelectStartCbox = null;
-var breathSelectEndCbox = null;
-
 function padMinBnum(bnum) {
 	if (bnum <= 5) bnum = 1;
 	else bnum = bnum - 5;
@@ -218,10 +222,10 @@ function showSelectedMatchingBreathRange() {
 }
 
 function breathSelectCheckbox(cbox) {
-	//console.log("cbox checked=", cbox.checked, "value=", cbox.value);
+	let cboxVal = Number(cbox.value);
 	if (!cbox.checked) {
 		// Something has just been unchecked
-		if (breathSelectStartCbox.value == cbox.value) {
+		if (breathSelectStartCbox.value == cboxVal) {
 			breathSelectStartCbox = breathSelectEndCbox;
 			breathSelectEndCbox = null;
 		} else {
@@ -235,10 +239,10 @@ function breathSelectCheckbox(cbox) {
 	// Something has just been checked
 	if (breathSelectEndCbox !== null) {
 		// both endpoints were previously checked
-		if (cbox.value < breathSelectStartCbox.value) {
+		if (cboxVal < breathSelectStartCbox.value) {
 			breathSelectStartCbox.checked = false;
 			breathSelectStartCbox = cbox;
-		} else if (cbox.value > breathSelectEndCbox.value) {
+		} else if (cboxVal > breathSelectEndCbox.value) {
 			breathSelectEndCbox.checked = false;
 			breathSelectEndCbox = cbox;
 		} else {
@@ -249,7 +253,7 @@ function breathSelectCheckbox(cbox) {
 		// only one or no endpoint was previously checked
 		if (breathSelectStartCbox === null) {
 			breathSelectStartCbox = cbox;
-		} else if (cbox.value > breathSelectStartCbox.value) {
+		} else if (cboxVal > breathSelectStartCbox.value) {
 			breathSelectEndCbox = cbox;
 		} else {
 			breathSelectEndCbox = breathSelectStartCbox;
@@ -268,7 +272,6 @@ function setRangeSelectorForSelectedBreaths() {
 	let minBnum = padMinBnum(session.search.results[start].bnum);
 	let maxBnum = padMaxBnum(session.search.results[end].bnum);
 
-	//console.log("Set Range Selector", minBnum, maxBnum);
 	session.reportRange = createReportRange(false, minBnum, maxBnum);
 
 	let rangeStr = "[" + minBnum + " - " + maxBnum + "]";
