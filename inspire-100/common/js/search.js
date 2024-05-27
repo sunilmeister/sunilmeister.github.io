@@ -2,8 +2,15 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var breathSelectStartCbox = null;
-var breathSelectEndCbox = null;
+var breathSelectRoot = -1;
+var breathSelectMin = -1;
+var breathSelectMax = -1;
+
+function clearBreathSelection() {
+	breathSelectRoot = -1;
+	breathSelectMin = -1;
+	breathSelectMax = -1;
+}
 
 function updateSearchResults() {
 	let div = document.getElementById("searchResults");
@@ -25,11 +32,7 @@ function updateSearchResults() {
 }
 
 function matchSearchExpr() {
-	// Clear selection
-	if (breathSelectStartCbox)  breathSelectStartCbox.checked = false;;
-	if (breathSelectEndCbox)  breathSelectEndCbox.checked = false;;
-	breathSelectStartCbox = null;
-	breathSelectEndCbox = null;
+	clearBreathSelection();
 
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
@@ -140,7 +143,7 @@ function createMatchingTableEntriesHTML() {
 		let bnum = pValues.bnum;
 		str += '<tr>';
 		str += '<td><input class=searchRangeBoxCls type=checkbox value=' + i;
-		str += ' onclick="breathSelectCheckbox(this)"></input></td>';
+		str += ' onclick="breathSelectCheckbox(event, this)"></input></td>';
 		str += '<td>' + bnum + '</td>' ;
 		let btime = session.breathTimes[bnum];
 
@@ -197,13 +200,8 @@ function showSelectedMatchingBreathRange() {
 	let tbody = tableDiv.tBodies[0];
 	if (tbody.rows.length <= 1) return;
 
-	let start = -1;
-	if (breathSelectStartCbox) start = breathSelectStartCbox.value;
-	let end = start;
-	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
-
-	let rangeStr = "[" + padMinBnum(session.search.results[start].bnum) + " - ";
-	rangeStr += padMaxBnum(session.search.results[end].bnum) + "]";
+	let rangeStr = "[" + padMinBnum(session.search.results[breathSelectMin].bnum) + " - ";
+	rangeStr += padMaxBnum(session.search.results[breathSelectMax].bnum) + "]";
 
 	let str = "Zoom in all other views to Breath range " + rangeStr ;
 	let pDiv = document.getElementById('setMatchingRange');
@@ -211,8 +209,17 @@ function showSelectedMatchingBreathRange() {
 
 	for (let i=0; i<tbody.rows.length - 1; i++) {
 		let row = tbody.rows[i];
+
+		// Handle the checkboxes
+		if ((i <= breathSelectMax) && (i >= breathSelectMin)) {
+			row.cells[0].firstChild.checked = true;
+		} else {
+			row.cells[0].firstChild.checked = false;
+		}
+
+		// Handle background color
 		for (let j=0; j<row.cells.length ; j++) {
-			if ((i <= end) && (i >= start)) {
+			if ((i <= breathSelectMax) && (i >= breathSelectMin)) {
 				row.cells[j].style.backgroundColor = palette.lightgreen;
 			} else {
 				row.cells[j].style.backgroundColor = palette.blue;
@@ -221,56 +228,30 @@ function showSelectedMatchingBreathRange() {
 	}
 }
 
-function breathSelectCheckbox(cbox) {
+function breathSelectCheckbox(e, cbox) {
 	let cboxVal = Number(cbox.value);
-	if (!cbox.checked) {
-		// Something has just been unchecked
-		if (breathSelectStartCbox.value == cboxVal) {
-			breathSelectStartCbox = breathSelectEndCbox;
-			breathSelectEndCbox = null;
-		} else {
-			// must be the End cbox
-			breathSelectEndCbox = null;
-		}
-		showSelectedMatchingBreathRange();
-		return;
+
+	if ((breathSelectRoot == -1) || !e.shiftKey) {
+		// Some checkbox clicked 
+		// without SHIFT key - take it as start of selection
+		// Initial Root element can be selected with our without SHIFT
+		breathSelectRoot = cboxVal;
+		breathSelectMin = cboxVal;
+		breathSelectMax = cboxVal;
+	} else if (cboxVal < breathSelectRoot) {
+		breathSelectMin = cboxVal;
+		breathSelectMax = breathSelectRoot;
+	} else {
+		breathSelectMax = cboxVal;
+		breathSelectMin = breathSelectRoot;
 	}
 
-	// Something has just been checked
-	if (breathSelectEndCbox !== null) {
-		// both endpoints were previously checked
-		if (cboxVal < breathSelectStartCbox.value) {
-			breathSelectStartCbox.checked = false;
-			breathSelectStartCbox = cbox;
-		} else if (cboxVal > breathSelectEndCbox.value) {
-			breathSelectEndCbox.checked = false;
-			breathSelectEndCbox = cbox;
-		} else {
-			breathSelectStartCbox.checked = false;
-			breathSelectStartCbox = cbox;
-		}
-	} else {
-		// only one or no endpoint was previously checked
-		if (breathSelectStartCbox === null) {
-			breathSelectStartCbox = cbox;
-		} else if (cboxVal > breathSelectStartCbox.value) {
-			breathSelectEndCbox = cbox;
-		} else {
-			breathSelectEndCbox = breathSelectStartCbox;
-			breathSelectStartCbox = cbox;
-		}
-	}
 	showSelectedMatchingBreathRange();
 }
 
 function setRangeSelectorForSelectedBreaths() {
-	let start = -1;
-	if (breathSelectStartCbox) start = breathSelectStartCbox.value;
-	let end = start;
-	if (breathSelectEndCbox) end = breathSelectEndCbox.value;
-
-	let minBnum = padMinBnum(session.search.results[start].bnum);
-	let maxBnum = padMaxBnum(session.search.results[end].bnum);
+	let minBnum = padMinBnum(session.search.results[breathSelectMin].bnum);
+	let maxBnum = padMaxBnum(session.search.results[breathSelectMax].bnum);
 
 	session.reportRange = createReportRange(false, minBnum, maxBnum);
 
