@@ -235,6 +235,7 @@ class searchExpr {
 
 	exportJson(fileName) {
 		if (!this.isValid()) return false;
+		fileName += ".search.json";
     download(JSON.stringify(this.exprJson, null, 1), fileName, "text/xml");
 		return true;
 	}

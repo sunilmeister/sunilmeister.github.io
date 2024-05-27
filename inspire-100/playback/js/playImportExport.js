@@ -44,6 +44,7 @@ function exportDbRow(row) {
     }
   }
   fileName = document.getElementById("exportFileName").value;
+	fileName += ".session.json";
   if (fileName) {
     exportDb(rowDbName(row), fileName);
     document.getElementById("exportDiv").style.display = "none";

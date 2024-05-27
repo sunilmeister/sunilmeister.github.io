@@ -164,9 +164,9 @@ function doDeleteAllDbs() {
     table.deleteRow(1);
   }
   selectSession();
-  let table = document.getElementById("dbExportTable");
+  table = document.getElementById("dbExportTable");
   if (!table) return;
-  let numRows = table.rows.length;
+  numRows = table.rows.length;
   for (let i = 1; i < numRows; i++) {
     let row = table.rows[1];
     let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;

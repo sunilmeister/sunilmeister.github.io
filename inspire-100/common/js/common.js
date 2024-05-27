@@ -472,6 +472,7 @@ function createOrOpenDb(name, timeStamp) {
 }
 
 function exportDb(dbName, fileName) {
+	fileName += ".session.json" ;
   let getAll = [];
   let req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {

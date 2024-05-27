@@ -98,6 +98,7 @@ function exportFile() {
   }
   //console.log(JSON.stringify(myInspireSystems));
   let fileName = document.getElementById("exportFileName").value;
+	fileName += ".systems.json";
   if (fileName) download(JSON.stringify(myInspireSystems, null, 1),
     fileName, "text/xml");
 }
@@ -133,7 +134,7 @@ function deleteSelectedHistory() {
 
 function exportSystemInfo() {
   document.getElementById("exportDiv").style.display = "block";
-  document.getElementById("exportFileName").value = "Inspire Systems Table";
+  document.getElementById("exportFileName").value = "InspireSystemsTable";
 }
 
 function selectSystemInfo(row) {
