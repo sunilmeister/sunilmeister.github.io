@@ -179,7 +179,7 @@ tr {
 }
 
 .swal2-popup {
-  font-size: var(--swalFontSize) !important;
+  font-size: var(--swalTextFontSize) !important;
   font-family: 'Verdana' !important;
 }
 

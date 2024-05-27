@@ -639,7 +639,7 @@ function o2PurityAtAltitudeMtr(mtr) {
 function modalWarning(title, msg) {
   Swal.fire({
     icon: 'warning',
-    title: title,
+    title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
     html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
     width: modalWidth,
     color: 'white',
@@ -656,7 +656,7 @@ function modalInfo(title, msg) {
 
   Swal.fire({
     icon: 'info',
-    title: title,
+    title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
     html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
     width: modalWidth,
     color: 'white',
@@ -671,7 +671,7 @@ function modalInfo(title, msg) {
 function modalAlert(title, msg) {
   Swal.fire({
     icon: 'error',
-    title: title,
+    title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
     html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
     width: modalWidth,
     color: 'white',
