@@ -1,13 +1,19 @@
 .searchCls {
 }
 
-.searchResultsHdrCls {
+.searchResultsCaptionCls {
   background-color: var(--rsp_darkblue);
 	color: white;
 	padding: 0.5rem;
 }
 
 .searchResultsTblCls {
+}
+
+.searchResultsTblTheadCls {
+}
+
+.searchResultsTblTbodyCls {
 }
 
 .searchResultsCls {

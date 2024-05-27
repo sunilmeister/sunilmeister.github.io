@@ -97,7 +97,7 @@ function createMatchingTableHdrHTML() {
 
 	let paramSet = session.search.paramSet;
 
-	let str = "<thead><tr>";
+	let str = "<thead class=searchResultsTblTheadCls><tr>";
 	str += "<th>Range</th>";
 	str += "<th colspan=3>Matching Breaths</th>";
 	str += "<th colspan=" + paramSet.length + ">Parameter Values</th>";
@@ -132,7 +132,7 @@ function createMatchingTableEntriesHTML() {
 		numResults --;
 	}
 
- 	str += '<tbody>';
+ 	str += '<tbody class=searchResultsTblTbodyCls>';
 	for (let i=0; i<numResults; i++) {
 		let pValues = session.search.results[i];
 		if (pValues === null) continue;
