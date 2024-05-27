@@ -204,7 +204,7 @@ function showSelectedMatchingBreathRange() {
 	let rangeStr = "[" + padMinBnum(session.search.results[breathSelectMin].bnum) + " - ";
 	rangeStr += padMaxBnum(session.search.results[breathSelectMax].bnum) + "]";
 
-	let str = "Zoom in all other views to Breath range " + rangeStr ;
+	let str = "Zoom all other views to Breath range " + rangeStr ;
 	let pDiv = document.getElementById('setMatchingRange');
 	pDiv.innerHTML = "<U>" + str + "</U>";
 
