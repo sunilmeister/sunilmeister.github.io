@@ -143,7 +143,8 @@ function createMatchingTableEntriesHTML() {
 		let bnum = pValues.bnum;
 		str += '<tr>';
 		str += '<td><input class=searchRangeBoxCls type=checkbox value=' + i;
-		str += ' onclick="breathSelectCheckbox(event, this)"></input></td>';
+		str += ' onclick="breathSelectCheckbox(event, this)" ';
+		str += 'onmouseenter="searchCheckboxEnter()" onmouseleave="searchCheckboxLeave()"></input></td>';
 		str += '<td>' + bnum + '</td>' ;
 		let btime = session.breathTimes[bnum];
 
@@ -260,3 +261,10 @@ function setRangeSelectorForSelectedBreaths() {
 	modalInfo(str, "Selected Breaths below (GREEN)");
 }
 
+function searchCheckboxEnter() {
+	document.getElementById("searchCheckboxTooltip").style.display = "block" ;
+}
+
+function searchCheckboxLeave() {
+	document.getElementById("searchCheckboxTooltip").style.display = "none" ;
+}
