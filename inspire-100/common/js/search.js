@@ -17,7 +17,6 @@ function updateSearchResults() {
 	let tableDiv = document.getElementById('searchResultsTbl');
 	tableDiv.innerHTML = "";
 
-	//session.search.range = cloneObject(session.reportRange);
 	session.search.results = [];
 	matchSearchExpr();
 }

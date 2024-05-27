@@ -57,7 +57,7 @@ function selectDbRow(row) {
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
   let sessionInfo = document.getElementById("sliderCaption");
 
@@ -80,13 +80,13 @@ function deleteDbRow(row) {
     }
   }
 
-  dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   if (dbName == session.database.dbName) {
     modalAlert("Cannot Delete", "Recording currently in use\n" + sessionBannerHTML);
     return;
   }
 
-  msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
+  let msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
   modalConfirm("Delete Recording", msg, doDeleteDbRow, null, {
       row: row
     },
@@ -94,10 +94,10 @@ function deleteDbRow(row) {
 }
 
 function doDeleteDbRow(arg) {
-  row = arg.row;
+  let row = arg.row;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   // Delete the actual database
   deleteDb(name);
   // remove from HTML table
@@ -110,7 +110,7 @@ function selectRowBtn(btn) {
 }
 
 function exportRowBtn(btn) {
-  exportRowDiv = btn.parentNode.parentNode;
+  let exportRowDiv = btn.parentNode.parentNode;
   let exportBtn = document.getElementById("exportFileBtn");
 	exportBtn.onclick = function() { exportFile() };
   let exportDiv = document.getElementById("exportDiv");
@@ -156,20 +156,20 @@ function doDeleteAllDbs() {
   //clear any existing table being shown
   let table = document.getElementById("dbTable");
   if (!table) return;
-  numRows = table.rows.length;
-  for (i = 1; i < numRows; i++) {
-    row = table.rows[1];
-    name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let numRows = table.rows.length;
+  for (let i = 1; i < numRows; i++) {
+    let row = table.rows[1];
+    let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
     deleteDb(name);
     table.deleteRow(1);
   }
   selectSession();
-  table = document.getElementById("dbExportTable");
+  let table = document.getElementById("dbExportTable");
   if (!table) return;
-  numRows = table.rows.length;
-  for (i = 1; i < numRows; i++) {
-    row = table.rows[1];
-    name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let numRows = table.rows.length;
+  for (let i = 1; i < numRows; i++) {
+    let row = table.rows[1];
+    let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
     deleteDb(name);
     table.deleteRow(1);
   }
@@ -192,8 +192,8 @@ function checkDbReady() {
     modalAlert('No Recording Selected","Please Select Recording for Playback');
     return false;
   }
-  nameTm = parseDbName(session.database.dbName);
-  sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
+  let nameTm = parseDbName(session.database.dbName);
+  let sessionName = nameTm[1] + ' [ ' + nameTm[2] + ' ]';
   modalAlert('Recording ' + sessionName + '\nNot yet ready","Please try again');
   return false;
 }
@@ -203,12 +203,12 @@ function selectSession() {
   document.getElementById("selectorDiv").style.display = "block";
   enableAllButtons();
 
-  numSessions = listAllDbs();
+  let numSessions = listAllDbs();
   let bnr = document.getElementById("sessionNameSelector");
 
   if (!numSessions) {
     bnr.innerHTML = "No Recordings Found. Use Dashboard to record";
-    bgd = palette.darkred;
+    let bgd = palette.darkred;
     bnr.style.backgroundColor = bgd;
     disableAllButtons();
   } else if (sessionBannerHTML) {
@@ -249,6 +249,7 @@ function selectStats() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
 
+	setSliderMinMax();
   createAllStats();
 }
 
@@ -265,6 +266,7 @@ function selectAlerts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
 
+	setSliderMinMax();
   createAllAlerts();
 }
 
@@ -281,6 +283,7 @@ function selectWaves() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnWave").disabled = true;
 
+	setSliderMinMax();
   createAllWaves();
 }
 
@@ -297,6 +300,7 @@ function selectCharts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
 
+	setSliderMinMax();
   createAllCharts();
 }
 
@@ -326,6 +330,7 @@ function selectSearch() {
 	}
   document.getElementById("playbackWindowDiv").style.display = "block";
   document.getElementById("searchDiv").style.display = "block";
+	setSliderMinMax();
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSearch").disabled = true;
@@ -508,20 +513,37 @@ function refreshActivePane() {
   } else if (document.getElementById("searchDiv").style.display == "block") {
     updateSearchResults();
   }
+	setSliderMinMax();
+}
+
+function setSliderMinMax() {
+	let s = session.reportRange.minBnum;
+	let e = session.reportRange.maxBnum;
+  if (document.getElementById("searchDiv").style.display == "block") {
+		if (session.search.range) {
+			s = session.search.range.minBnum;
+			e = session.search.range.maxBnum;
+		}
+	}
+  session.rangeSlider.setSlider([s, e]);
 }
 
 function setTimeInterval() {
-  values = session.rangeSlider.getSlider();
-  s = parseInt(values[0]);
+  let values = session.rangeSlider.getSlider();
+  let s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
   }
-  e = parseInt(values[1]);
+  let e = parseInt(values[1]);
   if (!session.breathTimes[e]) { // missing breath
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
 
-	session.reportRange = createReportRange(false, s, e);
+  if (document.getElementById("searchDiv").style.display == "block") {
+		session.search.range = createReportRange(false, s, e);
+	} else {
+		session.reportRange = createReportRange(false, s, e);
+	}
   session.rangeSlider.setSlider([s, e]);
 
   updateSelectedDuration();
@@ -542,12 +564,12 @@ function rewindTimeInterval() {
 }
 
 function fullInterval() {
-  values = session.rangeSlider.getRange();
-  s = parseInt(values[0]);
+  let values = session.rangeSlider.getRange();
+  let s = parseInt(values[0]);
   if (!session.breathTimes[s]) { // missing breath
     s = closestNonNullEntryIndex(session.breathTimes, s);
   }
-  e = parseInt(values[1]);
+  let e = parseInt(values[1]);
   if (!session.breathTimes[e]) { // missing breath
     e = closestNonNullEntryIndex(session.breathTimes, e);
   }
@@ -688,7 +710,7 @@ function createPlaybackRangeSlider() {
   session.rangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
   session.rangeSlider.setSlider([session.reportRange.minxBnum, session.reportRange.maxBnum]);
 
-  elm = document.getElementById("playbackWindowDiv");
+  let elm = document.getElementById("playbackWindowDiv");
   elm.style.display = "none";
   elm = document.getElementById("logNumBreaths");
   elm.innerHTML = session.playback.logEndBreath;
