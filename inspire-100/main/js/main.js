@@ -378,6 +378,10 @@ function launchDocs() {
   document.getElementById("passwordDiv").style.display = "block";
 }
 
+function launchVideo() {
+	modalAlert("Video is work-in-progress", "Come back later");
+}
+
 function tilesView() {
   window.open("../tiles/tiles.html");
 }
