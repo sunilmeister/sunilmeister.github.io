@@ -98,7 +98,7 @@ const EDIT_ICON_CLASS = "editIconButton";
 
 const CHART_CONTAINER_ID_PREFIX = "chartContainer";
 const CHART_CONTAINER_TEMPLATE_ID = "chartContainerTemplate";
-const CHART_EDIT_MENU_TEMPLATE_ID = "chartEditMenuTemplate";
+const CHART_MENU_BANNER_ID = "chartMenuBanner";
 const CHART_BODY_CLASS = "chartBody";
 const CHART_BANNER_CLASS = "chartBanner";
 const CHART_BANNER_TEXT_CLASS = "sparseIntervalMsg";
@@ -114,7 +114,7 @@ const ALERT_NUM_ROLLING_BREATHS = 120;
 
 const WAVE_CONTAINER_ID_PREFIX = "waveContainer";
 const WAVE_CONTAINER_TEMPLATE_ID = "waveContainerTemplate";
-const WAVE_EDIT_MENU_TEMPLATE_ID = "waveEditMenuTemplate";
+const WAVE_MENU_BANNER_ID = "waveMenuBanner";
 const WAVE_BODY_CLASS = "waveBody";
 const WAVE_BANNER_CLASS = "waveBanner";
 const WAVE_EDIT_WAVE_MENU_CLASS = "waveEditMenu";

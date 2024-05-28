@@ -80,12 +80,15 @@ function blinkWaveMenu() {
 	if (!menuDiv) return;
  	let containerNodeId = session.waves.boxTree.BoxContainerId();
  	let cdiv = document.getElementById(containerNodeId);
+ 	let mdiv = document.getElementById(WAVE_MENU_BANNER_ID);
  	let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
 	if (waveMenuBlinkColor) {
 		bdiv.style.backgroundColor = palette.darkblue;
+		mdiv.style.backgroundColor = palette.darkblue;
 		waveMenuBlinkColor = false;
 	} else {
-		bdiv.style.backgroundColor = palette.mediumblue;
+		bdiv.style.backgroundColor = palette.orange;
+		mdiv.style.backgroundColor = palette.orange;
 		waveMenuBlinkColor = true;
 	}
 }

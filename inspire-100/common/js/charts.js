@@ -83,12 +83,15 @@ function blinkChartMenu() {
 	if (!menuDiv) return;
  	let containerNodeId = session.charts.boxTree.BoxContainerId();
  	let cdiv = document.getElementById(containerNodeId);
+ 	let mdiv = document.getElementById(CHART_MENU_BANNER_ID);
  	let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
 	if (chartMenuBlinkColor) {
 		bdiv.style.backgroundColor = palette.darkblue;
+		mdiv.style.backgroundColor = palette.darkblue;
 		chartMenuBlinkColor = false;
 	} else {
-		bdiv.style.backgroundColor = palette.mediumblue;
+		bdiv.style.backgroundColor = palette.orange;
+		mdiv.style.backgroundColor = palette.orange;
 		chartMenuBlinkColor = true;
 	}
 }
