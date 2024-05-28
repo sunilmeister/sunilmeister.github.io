@@ -108,6 +108,7 @@ const CHART_CONTAINER_CLASS = "chartContainer";
 const ALL_CHARTS_ID = "chartsDiv";
 const CHART_CBOX_TREE_ROOT_ID = "chartCheckBoxTreeRoot";
 
+const SEARCH_NUM_ROLLING_BREATHS = 120;
 const STAT_NUM_ROLLING_BREATHS = 120;
 const ALERT_NUM_ROLLING_BREATHS = 120;
 

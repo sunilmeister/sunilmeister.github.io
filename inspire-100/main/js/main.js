@@ -379,7 +379,7 @@ function launchDocs() {
 }
 
 function launchVideo() {
-	modalAlert("Video is work-in-progress", "Come back later");
+  window.open("../videoTour/videoTour.html");
 }
 
 function tilesView() {

@@ -150,6 +150,7 @@ function createDashboards() {
 
   if (currentView == "charts") createDashboardCharts();
   if (currentView == "stats") createDashboardStats();
+  if (currentView == "search") createDashboardSearch();
 
   let currNumAlerts = numberOfExistingAlerts();
   if (currentView == "alerts") {
@@ -369,10 +370,12 @@ function changeToSearchView() {
 	rangeWindowDiv.style.display = "block";
 	setSliderMinMax();
 
-  currentView = "search";
 	if (!session.search.criteria) {
 		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
 	}
+
+  currentView = "search";
+  updateSearchRangeOnEntry();
 }
 
 function changeToRecordView() {
@@ -391,6 +394,7 @@ function updateRangeOnNewBreath() {
   if (currentView == "stats") updateStatRange();
   if (currentView == "alerts") updateAlertRange();
   if (currentView == "waves") updateWaveRange();
+  if (currentView == "search") updateSearchRange();
 }
 
 function togglePause() {
@@ -690,6 +694,7 @@ function playPauseTimeInterval() {
   if (currentView == "stats") updateStatRange();
   if (currentView == "alerts") updateAlertRange();
   if (currentView == "waves") updateWaveRange();
+  if (currentView == "search") updateSearchRange();
 
   createDashboards();
 }

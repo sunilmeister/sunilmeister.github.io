@@ -52,6 +52,8 @@ function matchSearchExpr() {
 	}
 	let minBnum = session.search.range.minBnum;
 	let maxBnum = session.search.range.maxBnum;
+	if (minBnum > maxBnum) return;
+
 	let captionDiv = document.getElementById("searchResultsCaption");
 	captionDiv.innerHTML = "SEARCH RESULTS in Breath number range [" 
 													+ minBnum + ", " + maxBnum + "]";
