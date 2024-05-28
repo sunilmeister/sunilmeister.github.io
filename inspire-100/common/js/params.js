@@ -340,10 +340,12 @@ class Param {
 
 	// returns an array of distinct values over the range
 	DistinctValues(startBnum, endBnum) {
+		let values = [];
+		if (startBnum > endBnum) return values;
+
 		let endTime = session.breathTimes[endBnum];
 		let startTime = session.breathTimes[startBnum];
 
-		let values = [];
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
@@ -378,10 +380,12 @@ class Param {
 
 	// returns number of breaths the value was equal to target value
 	CountValueEqual(targetValue, startBnum, endBnum) {
+		let count = 0;
+		if (startBnum > endBnum) return count;
+
 		let endTime = session.breathTimes[endBnum];
 		let startTime = session.breathTimes[startBnum];
 
-		let count = 0;
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
@@ -415,10 +419,12 @@ class Param {
 
 	// returns {min: , max:, avg: }
 	MinMaxAvg(startBnum, endBnum) {
+		let stats = {min: null, max: null, avg:null, sum:0, num:0};
+		if (startBnum > endBnum) return stats;
+
 		let startTime = session.breathTimes[startBnum];
 		let endTime = session.breathTimes[endBnum];
 
-		let stats = {min: null, max: null, avg:null, sum:0, num:0};
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
