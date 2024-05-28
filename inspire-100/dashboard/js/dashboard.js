@@ -261,166 +261,128 @@ function blinkPauseButton() {
   }
 }
 
-function changeToSnapshotView() {
+function setSliderMinMax() {
+	let s = session.reportRange.minBnum;
+	let e = session.reportRange.maxBnum;
+  if (document.getElementById("searchDiv").style.display == "block") {
+		if (session.search.range) {
+			s = session.search.range.minBnum;
+			e = session.search.range.maxBnum;
+		}
+	}
+  stopSliderCallback = true;
+  session.rangeSlider.setSlider([s, e]);
+  stopSliderCallback = false;
+}
+
+function undisplayAllViews() {
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("btnCharts").disabled = false;
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = false;
-  let snapshot = document.getElementById("snapshot-pane");
-  let charts = document.getElementById("chart-pane");
-  let stats = document.getElementById("stat-pane");
-  let alerts = document.getElementById("alert-pane");
-  let records = document.getElementById("record-pane");
-  let waves = document.getElementById("waves-pane");
-  if (updatePaused) togglePause();
-  currentView = "snapshots";
-  snapshot.style.display = "inline-grid";
-  charts.style.display = "none";
-  stats.style.display = "none";
-  alerts.style.display = "none";
-  records.style.display = "none";
-  waves.style.display = "none";
+  document.getElementById("btnSearch").disabled = false;
+
+  document.getElementById("snapshot-pane").style.display = "none";
+  document.getElementById("chart-pane").style.display = "none";
+  document.getElementById("stat-pane").style.display = "none";
+  document.getElementById("alert-pane").style.display = "none";
+  document.getElementById("record-pane").style.display = "none";
+  document.getElementById("waves-pane").style.display = "none";
+  document.getElementById("searchDiv").style.display = "none";
+
+	hideAllPopups();
+}
+
+function changeToSnapshotView() {
+	undisplayAllViews();
+  document.getElementById("btnSnapshots").disabled = true;
+  document.getElementById("snapshot-pane").style.display = "inline-grid";
+
   rangeWindowDiv.style.display = "none";
+  currentView = "snapshots";
+
+  if (updatePaused) togglePause();
 }
 
 function changeToChartView() {
-  document.getElementById("btnSnapshots").disabled = false;
+	undisplayAllViews();
   document.getElementById("btnCharts").disabled = true;
-  document.getElementById("btnStats").disabled = false;
-  document.getElementById("btnAlerts").disabled = false;
-  document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnWaves").disabled = false;
-  let snapshot = document.getElementById("snapshot-pane");
-  let charts = document.getElementById("chart-pane");
-  let stats = document.getElementById("stat-pane");
-  let alerts = document.getElementById("alert-pane");
-  let records = document.getElementById("record-pane");
-  let waves = document.getElementById("waves-pane");
+  document.getElementById("chart-pane").style.display = "block";
+  rangeWindowDiv.style.display = "block";
+	setSliderMinMax();
+
   if (updatePaused) togglePause();
   currentView = "charts";
-  snapshot.style.display = "none";
-  charts.style.display = "block";
-  stats.style.display = "none";
-  alerts.style.display = "none";
-  records.style.display = "none";
-  waves.style.display = "none";
-  document.getElementById('recordNameDiv').style.display = "none";
 
-  rangeWindowDiv.style.display = "block";
   updateChartRangeOnEntry();
   createDashboardCharts();
 }
 
 function changeToWaveView() {
-  document.getElementById("btnSnapshots").disabled = false;
-  document.getElementById("btnCharts").disabled = false;
-  document.getElementById("btnStats").disabled = false;
-  document.getElementById("btnAlerts").disabled = false;
-  document.getElementById("btnRecording").disabled = false;
+	undisplayAllViews();
   document.getElementById("btnWaves").disabled = true;
-  let snapshot = document.getElementById("snapshot-pane");
-  let charts = document.getElementById("chart-pane");
-  let stats = document.getElementById("stat-pane");
-  let alerts = document.getElementById("alert-pane");
-  let records = document.getElementById("record-pane");
-  let waves = document.getElementById("waves-pane");
+  document.getElementById("waves-pane").style.display = "block";
+  rangeWindowDiv.style.display = "block";
+	setSliderMinMax();
+
   if (updatePaused) togglePause();
   currentView = "waves";
-  snapshot.style.display = "none";
-  charts.style.display = "none";
-  stats.style.display = "none";
-  alerts.style.display = "none";
-  records.style.display = "none";
-  waves.style.display = "block";
-  document.getElementById('recordNameDiv').style.display = "none";
 
-  rangeWindowDiv.style.display = "block";
   updateWaveRangeOnEntry();
   createDashboardWaves();
 }
 
 function changeToStatView() {
-  document.getElementById("btnSnapshots").disabled = false;
-  document.getElementById("btnCharts").disabled = false;
+	undisplayAllViews();
   document.getElementById("btnStats").disabled = true;
-  document.getElementById("btnAlerts").disabled = false;
-  document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnWaves").disabled = false;
-  let snapshot = document.getElementById("snapshot-pane");
-  let charts = document.getElementById("chart-pane");
-  let stats = document.getElementById("stat-pane");
-  let alerts = document.getElementById("alert-pane");
-  let records = document.getElementById("record-pane");
-  let waves = document.getElementById("waves-pane");
+  document.getElementById("stat-pane").style.display = "block";
+	rangeWindowDiv.style.display = "block";
+	setSliderMinMax();
+
   if (updatePaused) togglePause();
   currentView = "stats";
-  snapshot.style.display = "none";
-  charts.style.display = "none";
-  stats.style.display = "block";
-  alerts.style.display = "none";
-  records.style.display = "none";
-  waves.style.display = "none";
-  document.getElementById('recordNameDiv').style.display = "none";
 
-	rangeWindowDiv.style.display = "block";
   updateStatRangeOnEntry();
   createDashboardStats();
 }
 
 function changeToAlertView() {
-  document.getElementById("btnSnapshots").disabled = false;
-  document.getElementById("btnCharts").disabled = false;
-  document.getElementById("btnStats").disabled = false;
+	undisplayAllViews();
   document.getElementById("btnAlerts").disabled = true;
-  document.getElementById("btnRecording").disabled = false;
-  document.getElementById("btnWaves").disabled = false;
-  let snapshot = document.getElementById("snapshot-pane");
-  let charts = document.getElementById("chart-pane");
-  let stats = document.getElementById("stat-pane");
-  let alerts = document.getElementById("alert-pane");
-  let records = document.getElementById("record-pane");
-  let waves = document.getElementById("waves-pane");
+  document.getElementById("alert-pane").style.display = "block";
+	rangeWindowDiv.style.display = "block";
+	setSliderMinMax();
+
   if (updatePaused) togglePause();
   currentView = "alerts";
-  snapshot.style.display = "none";
-  charts.style.display = "none";
-  stats.style.display = "none";
-  alerts.style.display = "block";
-  records.style.display = "none";
-  waves.style.display = "none";
-  document.getElementById('recordNameDiv').style.display = "none";
 
-	rangeWindowDiv.style.display = "block";
   updateAlertRangeOnEntry();
   createDashboardAlerts();
 }
 
+function changeToSearchView() {
+	undisplayAllViews();
+  document.getElementById("btnSearch").disabled = true;
+  document.getElementById("searchDiv").style.display = "block";
+	rangeWindowDiv.style.display = "block";
+	setSliderMinMax();
+
+  currentView = "search";
+	if (!session.search.criteria) {
+		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
+	}
+}
+
 function changeToRecordView() {
-  document.getElementById("btnSnapshots").disabled = false;
-  document.getElementById("btnCharts").disabled = false;
-  document.getElementById("btnStats").disabled = false;
-  document.getElementById("btnAlerts").disabled = false;
+	undisplayAllViews();
   document.getElementById("btnRecording").disabled = true;
-  document.getElementById("btnWaves").disabled = false;
-  let snapshot = document.getElementById("snapshot-pane");
-  let charts = document.getElementById("chart-pane");
-  let stats = document.getElementById("stat-pane");
-  let alerts = document.getElementById("alert-pane");
-  let records = document.getElementById("record-pane");
-  let waves = document.getElementById("waves-pane");
+  document.getElementById("record-pane").style.display = "block";
+  rangeWindowDiv.style.display = "none";
+
   if (updatePaused) togglePause();
   currentView = "records";
-  snapshot.style.display = "none";
-  charts.style.display = "none";
-  stats.style.display = "none";
-  alerts.style.display = "none";
-  records.style.display = "block";
-  waves.style.display = "none";
-  document.getElementById('recordNameDiv').style.display = "none";
-
-  rangeWindowDiv.style.display = "none";
 }
 
 function updateRangeOnNewBreath() {
