@@ -3,7 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function entryPortalVideo() {
-	modalAlert("Video under construction", "Come back later!");
+	window.open("https://youtu.be/WMaZHzhMzkQ");
 }
 
 function manageSystemsVideo() {
