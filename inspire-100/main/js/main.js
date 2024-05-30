@@ -375,7 +375,9 @@ function cancelDocPassword() {
 }
 
 function launchDocs() {
-  document.getElementById("passwordDiv").style.display = "block";
+	// Remove docs access code for now
+  //document.getElementById("passwordDiv").style.display = "block";
+  window.open("../docs/docs.html");
 }
 
 function launchVideo() {

@@ -329,16 +329,6 @@
   background-color: white;
 }
 
-.Advice {
-  grid-area: 1 / 20 / 17 / 48;
-  font-family: verdana;
-  font-size: 2rem;
-  color: var(--rsp_darkblue);
-  background-color: var(--rsp_mediumgreen);
-  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
-  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
-}
-
 .ChartWrapper {
   background-color: var(--rsp_lightblue);
   border-color: var(--rsp_mediumblue);

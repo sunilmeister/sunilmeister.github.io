@@ -7,8 +7,10 @@
   width: 17rem;
   padding-bottom: 0.5rem;
   padding-top: 1.4rem;
-  padding-right: 0.4rem;
+  padding-right: 0.8rem;
   margin-top: 2rem;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
   margin-bottom: 0rem;
 	border-right: groove 0.5rem var(--rsp_mediumblue);
 }
@@ -26,6 +28,7 @@
 }
 
 .body-pane {
+  margin-left: 1rem;
   margin-right: 1rem;
   font-size: 1.1rem;
 }
