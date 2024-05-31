@@ -277,7 +277,7 @@ function setSliderMinMax() {
 }
 
 function undisplayAllViews() {
-  document.getElementById("btnSnapshots").disabled = true;
+  document.getElementById("btnSnapshots").disabled = false;
   document.getElementById("btnCharts").disabled = false;
   document.getElementById("btnStats").disabled = false;
   document.getElementById("btnAlerts").disabled = false;
@@ -378,12 +378,12 @@ function changeToSearchView() {
   updateSearchRangeOnEntry();
 }
 
+
 function changeToRecordView() {
 	undisplayAllViews();
   document.getElementById("btnRecording").disabled = true;
   document.getElementById("record-pane").style.display = "block";
   rangeWindowDiv.style.display = "none";
-
   if (updatePaused) togglePause();
   currentView = "records";
 }
