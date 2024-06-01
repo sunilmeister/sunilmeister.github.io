@@ -171,13 +171,17 @@ function enterRangeBtime() {
     timePickerSeconds: true,
 		startDate: minTime,
 		endDate: maxTime,
-		minDate: session.startDate,
+		minDate: startDate,
 		maxDate: addMsToDate(startDate,session.sessionDurationInMs),
     showDropdowns: true,
 		}, function(start, end, label) {
 			pickedDate = new Date(start);
   	});
 
+  //console.log("startDate", minTime);
+  //console.log("endDate", maxTime);
+  //console.log("minDate", session.startDate);
+  //console.log("maxDate", addMsToDate(startDate,session.sessionDurationInMs));
 
 	document.getElementById('enterRangeBnumDiv').style.display = "none";
 	document.getElementById('enterRangeBtimeDiv').style.display = "block";

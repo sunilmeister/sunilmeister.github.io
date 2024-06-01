@@ -106,9 +106,9 @@ function waitForChirps() {
 
 function processDashboardChirp(d) {
   let curDate = new Date(d.created);
-  let sessionDurationInMs = Math.abs(curDate - session.startDate);
+  session.sessionDurationInMs = Math.abs(curDate.getTime() - session.startDate.getTime());
   let elm = document.getElementById("logTimeDuration");
-  elm.innerHTML = msToHHMMSS(sessionDurationInMs);
+  elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 
   if (!updatePaused) {
     elm = document.getElementById("breathNum");

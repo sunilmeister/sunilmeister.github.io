@@ -475,7 +475,7 @@ function checkValidPlaybackDuration() {
 }
 
 function updateLogDuration() {
-  let diff = session.playback.logEndTime - session.playback.logStartTime;
+  let diff = session.playback.logEndTime.getTime() - session.playback.logStartTime.getTime();
 	session.sessionDurationInMs = diff;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {

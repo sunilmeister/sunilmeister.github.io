@@ -101,9 +101,9 @@ function waitForChirps() {
 
 function updateRecorderSummary(d) {
   curDate = new Date(d.created);
-  sessionDurationInMs = curDate - session.startDate;
+  session.sessionDurationInMs = curDate.getTime() - session.startDate.getTime();
   elm = document.getElementById("logTimeDuration");
-  elm.innerHTML = msToHHMMSS(sessionDurationInMs);
+  elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 
   elm = document.getElementById("breathNum");
   animateNumberValueTo(elm, session.dashboardBreathNum);
