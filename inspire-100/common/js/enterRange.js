@@ -98,22 +98,28 @@ function acceptBreathTimeRange() {
 	let duration = document.getElementById("rangeDuration").value;
 
 	let arr = duration.split(':'); // split it at the colons
-	if (arr.length != 2) {
+	//console.log("arr", arr);
+	if (arr.length != 3) {
     modalAlert("Invalid Range Duration", "Try again!");
     return;
   }
 
-	let seconds = (+arr[0]) * 60 * 60 + (+arr[1]) * 60;
+	let seconds = Number(arr[0]) * 60 * 60 + Number(arr[1]) * 60 + Number(arr[2]);
 	if (!seconds) {
     modalAlert("Invalid Range Duration", "Try again!");
     return;
   }
+	console.log("seconds", seconds);
 
 	let toTime = addMsToDate(fromTime, seconds*1000);
-	//console.log(fromTime,duration,toTime);
 	
+	//console.log("fromTime", fromTime);
+	//console.log("toTime", toTime);
 	let fromBreath = lookupBreathNum(fromTime);
 	let toBreath = lookupBreathNum(toTime);
+	//console.log("fromBreath", fromBreath);
+	//console.log("toBreath", toBreath);
+
 	if (!fromBreath || !toBreath) {
     modalAlert("Invalid Breath Range", "Try again!");
     return;
@@ -174,6 +180,9 @@ function enterRangeBtime() {
 		minDate: startDate,
 		maxDate: addMsToDate(startDate,session.sessionDurationInMs),
     showDropdowns: true,
+		locale: {
+			format: 'DD/MMM/YYYY HH:MM:SS'
+        }
 		}, function(start, end, label) {
 			pickedDate = new Date(start);
   	});
