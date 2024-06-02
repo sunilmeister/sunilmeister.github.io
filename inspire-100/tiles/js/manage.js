@@ -80,6 +80,7 @@ function parseAndUpdateUidContents(uid, jsonData) {
 		moveTileToActive(uid);
 	}
 
+	content.emsg = false;
   for (let key in jsonData) {
     if (key == 'content') {
       for (let ckey in jsonData.content) {
@@ -130,6 +131,8 @@ function parseAndUpdateUidContents(uid, jsonData) {
 					content.patientFName = value;
         } else if (ckey == "LNAME") {
 					content.patientLName = value;
+        } else if (ckey == "EMSG") {
+						content.emsg = true;
         } else if (ckey == "ATT") {
       		if (value==1) {
 						content.attention = true;
@@ -159,6 +162,7 @@ function initialTileContent() {
 	content.state = "";
 	content.breaths = 0;
 	content.attention = false;
+	content.emsg = false;
 
 	content.mode = "--";
 	content.vt = "--";

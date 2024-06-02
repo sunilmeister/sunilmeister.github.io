@@ -5,6 +5,7 @@
 var sessionBannerHTML = null;
 var exportRowDiv = null;
 var cumulativeChartBreaths = 0;
+var dbName = null;
 
 if (!window.indexedDB) {
   modalAlert("IndexedDB not available in your browser", "Switch browsers");
@@ -57,7 +58,7 @@ function selectDbRow(row) {
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   session.database.dbName = dbName;
   let sessionInfo = document.getElementById("sliderCaption");
 
@@ -80,7 +81,7 @@ function deleteDbRow(row) {
     }
   }
 
-  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
   if (dbName == session.database.dbName) {
     modalAlert("Cannot Delete", "Recording currently in use\n" + sessionBannerHTML);
     return;
