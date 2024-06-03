@@ -289,9 +289,14 @@ class Param {
 
 	// number of times the param changed
 	NumChanges(startBnum, endBnum) {
+		let count = 0;
+
 		let startTime = session.breathTimes[startBnum];
 		let endTime = session.breathTimes[endBnum];
-		let count = 0;
+		if (isUndefined(startTime) || (startTime === null)) {
+			startTime = new Date(0); // beginning of the universe
+		}
+		if (isUndefined(endTime) || (endTime === null)) return count;
 
 		for (let i=1; i<this.changes.length; i++) {
 			let cTime = this.changes[i].time;
@@ -304,11 +309,16 @@ class Param {
 
 	// return all values logged starting from startBnum till endBnum in intervals of stepBnum
 	Values(startBnum, endBnum, stepBnum) {
+		let values = [];
+
 		let startTime = session.breathTimes[startBnum];
 		let endTime = session.breathTimes[endBnum];
+		if (isUndefined(startTime) || (startTime === null)) {
+			startTime = new Date(0); // beginning of the universe
+		}
+		if (isUndefined(endTime) || (endTime === null)) return values;
 
 		if (isUndefined(stepBnum)) stepBnum = 1;
-		let values = [];
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
@@ -328,6 +338,7 @@ class Param {
 		let nextBnumToStore = startBnum + stepBnum;
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
+			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				if (bnum == nextBnumToStore) {
 					values.push(value); // previously computed value
@@ -357,6 +368,10 @@ class Param {
 
 		let endTime = session.breathTimes[endBnum];
 		let startTime = session.breathTimes[startBnum];
+		if (isUndefined(startTime) || (startTime === null)) {
+			startTime = new Date(0); // beginning of the universe
+		}
+		if (isUndefined(endTime) || (endTime === null)) return values;
 
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
@@ -375,6 +390,7 @@ class Param {
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
+			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				break;
 			}
@@ -397,6 +413,10 @@ class Param {
 
 		let endTime = session.breathTimes[endBnum];
 		let startTime = session.breathTimes[startBnum];
+		if (isUndefined(startTime) || (startTime === null)) {
+			startTime = new Date(0); // beginning of the universe
+		}
+		if (isUndefined(endTime) || (endTime === null)) return count;
 
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
@@ -413,6 +433,7 @@ class Param {
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
+			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				if (value == targetValue) count++;
 				continue;
@@ -436,6 +457,10 @@ class Param {
 
 		let startTime = session.breathTimes[startBnum];
 		let endTime = session.breathTimes[endBnum];
+		if (isUndefined(startTime) || (startTime === null)) {
+			startTime = new Date(0); // beginning of the universe
+		}
+		if (isUndefined(endTime) || (endTime === null)) return count;
 
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
@@ -452,6 +477,7 @@ class Param {
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
 			let btime = session.breathTimes[bnum];
+			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				stats = this.UpdateStats(stats, value);
 				continue;
