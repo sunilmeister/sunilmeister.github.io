@@ -8,6 +8,9 @@
 // ////////////////////////////////////////////////////
 const paramsType = {
 	NUMBER : 					{type:"NUMBER", range:{}},
+	BOOLEAN : 				{type:"ENUM", 
+											range:{"FALSE":0, "TRUE":1}
+										},
 	STATE : 					{type:"ENUM", 
 											range:{"INITIAL":0, "STANDBY":1, "ACTIVE":2, "ERROR":3}
 										},
@@ -66,8 +69,10 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"tempC", 			name:"SYSTEM_TEMPERATURE"});
 	session.allParamsTable.push({key:"cmvSpont", 		name:"CMV_SPONT_BREATHS"});
 	session.allParamsTable.push({key:"o2FlowX10", 	name:"O2_SOURCE_FLOW"});
-	session.allParamsTable.push({key:"errors", 			name:"ERRORS"});
-	session.allParamsTable.push({key:"warnings", 		name:"WARNINGS"});
+	session.allParamsTable.push({key:"errorTag", 		name:"ERROR_BREATH"});
+	session.allParamsTable.push({key:"warningTag",	name:"WARNING_BREATH"});
+	session.allParamsTable.push({key:"errors", 			name:"ERROR_NUMBER"});
+	session.allParamsTable.push({key:"warnings", 		name:"WARNING_NUMBER"});
 	session.allParamsTable.push({key:"infos", 			name:"NOTIFICATIONS"});
 	session.allParamsTable.push({key:"wifiDrops",		name:"WIFI_DROPS"});
 	session.allParamsTable.push({key:"wifiReconns",	name:"WIFI_RECONNECTS"});
@@ -103,8 +108,10 @@ function initSessionParams() {
 	session.params.tempC = 			new Param("SYSTEM_TEMPERATURE", type.NUMBER, "degC");
 	session.params.cmvSpont = 	new Param("CMV_SPONT_BREATHS", type.NUMBER, "");
 	session.params.o2FlowX10 = 	new Param("O2_SOURCE_FLOW", type.NUMBER, "l/min");
-	session.params.errors = 		new Param("ERRORS", type.NUMBER, "");
-	session.params.warnings = 	new Param("WARNINGS", type.NUMBER, "");
+	session.params.errorTag = 	new Param("ERROR_BREATH", type.BOOLEAN, "");
+	session.params.warningTag = new Param("WARNING_BREATH", type.BOOLEAN, "");
+	session.params.errors = 		new Param("ERROR_NUMBER", type.NUMBER, "");
+	session.params.warnings = 	new Param("WARNING_NUMBER", type.NUMBER, "");
 	session.params.infos = 			new Param("NOTIFICATIONS", type.NUMBER, "");
 	session.params.wifiDrops =	new Param("WIFI_DROPS", type.NUMBER, "");
 	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
@@ -198,6 +205,9 @@ class Param {
 	AddTimeValue(time, value) {
 		// All params are a number including enums
 		value = Number(value);
+		if (isUndefined(time) || (time === null)) { // missing breaths
+			return;
+		}
 
 		let len = this.changes.length;
 		if (this.changes[len-1].time.getTime() > time.getTime()) {
@@ -239,6 +249,8 @@ class Param {
 
 	// time is a Date Object
 	ValueAtTime(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
 		// first entry in changes is a null entry
 		if (this.changes.length == 1) return null;
 		let ix = this.FindLastValueChangeIndex(time);
@@ -462,7 +474,8 @@ class Param {
 	// return value of null signifies error
 	// return value of 0 signifies an index before the first data was logged
   FindLastValueChangeIndex(time, start, end) {
-		if (time === null) return null; // missing breath
+		if (isUndefined(time) || (time === null)) return null;
+
   	if (isUndefined(start)) start = 0;
   	if (isUndefined(end)) end = this.changes.length - 1;
 
@@ -472,12 +485,7 @@ class Param {
 
 		// if last transition was before given time
 		let endTime = this.changes[end].time;
-		if (this.debug) {
-			if (endTime === null) {
-				console.log("Find start", start, "end", end);
-				console.log("Null endTime", Name());
-			}
-		}
+		if (isUndefined(endTime) || (endTime === null)) return null;
 		if (endTime.getTime() <= time.getTime()) return end;
 
     // find the middle index
@@ -485,12 +493,14 @@ class Param {
 		if (mid == 0) return 0; // reached the beginning and there is no value logged
 
 		let midTime = this.changes[mid].time;
+		if (isUndefined(midTime) || (midTime === null)) return null;
     if (midTime.getTime() == time.getTime()) return mid;
 		else if (midTime.getTime() < time.getTime()) {
   		// If the element in the middle is smaller than the time
 			// check the next one
 			if (mid < end) {
 				let nextTime = this.changes[mid+1].time;
+				if (isUndefined(nextTime) || (nextTime === null)) return null;
 				if (nextTime.getTime() > time.getTime()) return mid;
 				else if (nextTime.getTime() == time.getTime()) return mid+1;
 			}

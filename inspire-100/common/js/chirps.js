@@ -859,7 +859,7 @@ function processBnumChirp(curTime, value, jsonData) {
     // stuff dummy breaths 1 sec apart because the fastest breath is 2 secs
     lastBreathNum = session.breathTimes.length;
     for (i = 1; i <= breathsMissing; i++) {
-      session.breathTimes.push(null);
+			updateBreathTimes(null);
     }
     // record breaks for graphing
     session.missingBreathWindows.push({
@@ -886,14 +886,56 @@ function processBnumChirp(curTime, value, jsonData) {
     session.infoMsgs.push(msg);
     session.params.infos.AddTimeValue(breathTime, ++session.alerts.infoNum);
   }
-  session.breathTimes.push(breathTime);
+	updateBreathTimes(breathTime);
   session.lastValidBreathTime = breathTime;
+}
+
+function updateBreathTimes(breathTime) {
+  let prevBreathNum = session.breathTimes.length - 1;
+ 	let prevBreathTime = session.breathTimes[prevBreathNum];
+	//console.log("prevBreathNum", prevBreathNum, "prevBreathTime", prevBreathTime);
+
+  session.breathTimes.push(breathTime);
+	if ((breathTime === null) || (prevBreathTime === null)) { // missing breaths
+		return;
+	}
+
+	if (prevBreathNum == 0) { // first breath
+		session.params.errorTag.AddTimeValue(prevBreathTime,false);
+		session.params.warningTag.AddTimeValue(prevBreathTime,false);
+		return;
+	}
+
+	// update error tags
+	let numErrors = session.errorMsgs.length;
+ 	let prevErrBnum = 0;
+	if (numErrors) {
+	 	prevErrBnum = session.errorMsgs[numErrors-1].breathNum;
+	}
+	//console.log("prevErrBnum", prevErrBnum, "prevBreathNum", prevBreathNum);
+	if (prevErrBnum == prevBreathNum) {
+		session.params.errorTag.AddTimeValue(prevBreathTime,true);
+	} else {
+		session.params.errorTag.AddTimeValue(prevBreathTime,false);
+	}
+
+	// update warning tags
+	let numWarnings = session.warningMsgs.length;
+ 	let prevWarnBnum = 0;
+	if (numWarnings) {
+	 	prevWarnBnum = session.warningMsgs[numWarnings-1].breathNum;
+	}
+	if (prevWarnBnum == prevBreathNum) {
+		session.params.warningTag.AddTimeValue(prevBreathTime,true);
+	} else {
+		session.params.warningTag.AddTimeValue(prevBreathTime,false);
+	}
 }
 
 function processAlertChirp(curTime, jsonData) { 
   let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
-    ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum;
+    ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum + 1;
     if (session.alerts.expectWarningMsg) { 
 			// back to back with Previous msg not yet fully received
       let msg = {
@@ -911,7 +953,7 @@ function processAlertChirp(curTime, jsonData) {
      session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
-    ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum;
+    ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum + 1;
    	if (session.alerts.expectErrorMsg) { 
 		 	// back to back with Previous msg not yet fully received
      	let msg = {
