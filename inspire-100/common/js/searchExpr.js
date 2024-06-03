@@ -99,6 +99,7 @@ class searchExpr {
 		this.paramSet = [];
 		this.paramValues = {bnum: null, values: {}};
 
+		clearBreathSelection();
 		session.search.paramSet = [];
 		session.search.results = [];
 
@@ -910,6 +911,7 @@ function exportSearchFile() {
 
 function clearSearchExpr() {
 	session.search.criteria.clearExpr();
+	clearBreathSelection();
 }
 
 // Same DIV is shared for various exports by changing the onclick function

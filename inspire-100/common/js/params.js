@@ -243,7 +243,7 @@ class Param {
 		if (this.changes.length == 1) return null;
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime");
+			console.error("Error during search in Param::ValueAtTime", Name());
 			return null;
 		}
 
@@ -300,7 +300,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::Values");
+			console.error("Error during search in Param::Values", Name());
 			return values;
 		} else if (changeIx == 0) {
 			return values;
@@ -349,7 +349,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::DistinctValues");
+			console.error("Error during search in Param::DistinctValues", Name());
 			return values;
 		} else if (changeIx == 0) {
 			return values;
@@ -389,7 +389,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::CountValueEqual");
+			console.error("Error during search in Param::CountValueEqual", Name());
 			return count;
 		}
 
@@ -428,7 +428,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::MinMaxAvg");
+			console.error("Error during search in Param::MinMaxAvg", Name());
 			return stats;
 		}
 
@@ -462,12 +462,9 @@ class Param {
 	// return value of null signifies error
 	// return value of 0 signifies an index before the first data was logged
   FindLastValueChangeIndex(time, start, end) {
+		if (time === null) return null; // missing breath
   	if (isUndefined(start)) start = 0;
   	if (isUndefined(end)) end = this.changes.length - 1;
-
-		if (this.debug) {
-			console.log("Find start", start, "end", end);
-		}
 
   	if (end < start) return null;
   	if (start < 0) return null;
@@ -475,6 +472,12 @@ class Param {
 
 		// if last transition was before given time
 		let endTime = this.changes[end].time;
+		if (this.debug) {
+			if (endTime === null) {
+				console.log("Find start", start, "end", end);
+				console.log("Null endTime", Name());
+			}
+		}
 		if (endTime.getTime() <= time.getTime()) return end;
 
     // find the middle index

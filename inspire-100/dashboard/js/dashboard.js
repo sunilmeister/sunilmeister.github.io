@@ -91,7 +91,6 @@ function waitForChirps() {
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
-      //console.log("simulatedMillis=" + simulatedMillis);
       session.startDate = new Date(d.created);
       let elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
@@ -142,11 +141,16 @@ function createDashboards() {
   // update Snapshot on every chirp
   updateSnapshot();
 
-  // update rest of the views selectively
-  if (equalObjects(prevUpdateRange,  session.reportRange)) return;
-
   let bothRolling = session.reportRange.moving && prevUpdateRange.moving;
-  prevUpdateRange = cloneObject(session.reportRange);
+
+  // update rest of the views selectively
+  if (currentView == "search") {
+  	if (equalObjects(prevSearchRange,  session.search.range)) return;
+  	prevSearchRange = cloneObject(session.search.range);
+	} else {
+  	if (equalObjects(prevUpdateRange,  session.reportRange)) return;
+  	prevUpdateRange = cloneObject(session.reportRange);
+	}
 
   if (currentView == "charts") createDashboardCharts();
   if (currentView == "stats") createDashboardStats();
@@ -405,6 +409,7 @@ function togglePause() {
     if (currentView == "snapshots") updateSnapshot();
     if (currentView == "charts") createDashboardCharts();
     if (currentView == "stats") createDashboardStats();
+    if (currentView == "search") createDashboardSearch();
     if (currentView == "alerts") createDashboardAlerts();
     if (currentView == "waves") createDashboardWaves();
   } else {
@@ -672,7 +677,11 @@ function setTimeInterval() {
   let values = session.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
-  session.reportRange = createReportRange(false, bmin, bmax);
+  if (currentView == "search") {
+  	session.search.range = createReportRange(false, bmin, bmax);
+	} else {
+  	session.reportRange = createReportRange(false, bmin, bmax);
+	}
 
   createDashboards();
 }
@@ -786,8 +795,6 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
     let d = chirpQ.peek();
     let millis = Number(d.MILLIS);
-		//console.log("millis",millis);
-		//console.log("simulatedMillis",simulatedMillis);
     if (simulatedMillis < millis) break;
 
     d = chirpQ.pop();

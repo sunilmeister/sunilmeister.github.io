@@ -13,6 +13,7 @@ function clearBreathSelection() {
 }
 
 function updateSearchResults() {
+	//console.log("updateSearch");
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
 		div.style.display = "none";
@@ -32,7 +33,7 @@ function updateSearchResults() {
 }
 
 function matchSearchExpr() {
-	clearBreathSelection();
+	//clearBreathSelection();
 
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
@@ -51,7 +52,8 @@ function matchSearchExpr() {
 		session.search.range = cloneObject(session.reportRange);
 	}
 	let minBnum = session.search.range.minBnum;
-	let maxBnum = session.search.range.maxBnum;
+	let maxBnum = session.search.range.maxBnum - 1;
+	//console.log("minBnum", minBnum,"maxBnum",maxBnum);
 	if (minBnum > maxBnum) return;
 
 	let captionDiv = document.getElementById("searchResultsCaption");
@@ -186,15 +188,15 @@ function createMatchingTableEntriesHTML() {
 }
 
 function padMinBnum(bnum) {
-	if (bnum <= 5) bnum = 1;
-	else bnum = bnum - 5;
+	if (bnum <= 3) bnum = 1;
+	else bnum = bnum - 3;
 	return bnum;
 }
 
 function padMaxBnum(bnum) {
 	let numBreaths = session.breathTimes.length;
-	if (bnum >= (numBreaths -5)) bnum = numBreaths;
-	else bnum = bnum + 5;
+	if (bnum >= (numBreaths - 3)) bnum = numBreaths;
+	else bnum = bnum + 3;
 	return bnum;
 }
 
@@ -202,6 +204,8 @@ function showSelectedMatchingBreathRange() {
 	let tableDiv = document.getElementById('searchResultsTbl');
 	let tbody = tableDiv.tBodies[0];
 	if (tbody.rows.length <= 1) return;
+
+	//console.log("breathSelectMin", breathSelectMin, "breathSelectMax", breathSelectMax);
 
 	let rangeStr = "[" + padMinBnum(session.search.results[breathSelectMin].bnum) + " - ";
 	rangeStr += padMaxBnum(session.search.results[breathSelectMax].bnum) + "]";
