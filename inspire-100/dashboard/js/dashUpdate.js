@@ -145,6 +145,10 @@ function displayMessageLines() {
  		displayMessageLine("Mline2", msgL2);
  		displayMessageLine("Mline3", msgL3);
  		displayMessageLine("Mline4", msgL4);
+		displayMessageLine("lcdline1", msgL1);
+ 		displayMessageLine("lcdline2", msgL2);
+ 		displayMessageLine("lcdline3", msgL3);
+ 		displayMessageLine("lcdline4", msgL4);
 		clearAllMessageLines();
 	}
 }
