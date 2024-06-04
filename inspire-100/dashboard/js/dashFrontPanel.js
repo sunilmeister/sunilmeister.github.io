@@ -6,26 +6,26 @@
 // Positions of various fields in pixels for some zoom factor
 // Measured from the actual front panel drawing
 // ////////////////////////////////////////////////////
-const fpPositionRootFontSize = 18;
+const fpRemToPxScale = 16;
 
 const fpPanel = 
 	{name:'frontPanelDiv', X:0, Y:0, W:571.1875, H:787.125};
 
 const fpLeds = [
-	{name:'fpInitialDiv', 	X:94, 	Y:115, W:20, H:20},
-	{name:'fpStandbyDiv', 	X:94, 	Y:192, W:20, H:20},
-	{name:'fpActiveDiv', 		X:94, 	Y:269, W:20, H:20},
-	{name:'fpCmvDiv', 			X:94, 	Y:366, W:20, H:20},
-	{name:'fpAcvDiv', 			X:94, 	Y:417, W:20, H:20},
-	{name:'fpErrorDiv', 		X:463, 	Y:115, W:20, H:20},
-	{name:'fpMbreathDiv', 	X:463, 	Y:192, W:20, H:20},
+	{name:'fpInitialDiv', 	X:92, 	Y:114, W:20, H:20},
+	{name:'fpStandbyDiv', 	X:92, 	Y:191, W:20, H:20},
+	{name:'fpActiveDiv', 		X:92, 	Y:269, W:20, H:20},
+	{name:'fpCmvDiv', 			X:92, 	Y:366, W:20, H:20},
+	{name:'fpAcvDiv', 			X:92, 	Y:418, W:20, H:20},
+	{name:'fpErrorDiv', 		X:463, 	Y:114, W:20, H:20},
+	{name:'fpMbreathDiv', 	X:463, 	Y:191, W:20, H:20},
 	{name:'fpSbreathDiv', 	X:463, 	Y:269, W:20, H:20},
 	{name:'fpSimvDiv', 			X:463, 	Y:366, W:20, H:20},
-	{name:'fpPsvDiv', 			X:463, 	Y:417, W:20, H:20},
+	{name:'fpPsvDiv', 			X:463, 	Y:418, W:20, H:20},
 ];
 
 const fpLcd = 
-	{name:'fpLcdDiv', 			X:194, Y:133, W:187, H:70};
+	{name:'fpLcdDiv', 			X:194, Y:133, W:187, H:72};
 
 const fpNums = [
 	{name:'fpPeakDiv', 			X:161, Y:253, W:68, H:50, D:2},
@@ -34,10 +34,10 @@ const fpNums = [
 	{name:'fpVtDiv', 				X:161, Y:369, W:100, H:50, D:3},
 	{name:'fpEiDiv', 				X:284, Y:369, W:35, H:50, D:1},
 	{name:'fpRrDiv', 				X:341, Y:369, W:68, H:50, D:2},
-	{name:'fpIpeepDiv', 		X:97,  Y:460, W:68, H:50, D:2},
-	{name:'fpPmaxDiv', 			X:199, Y:460, W:68, H:50, D:2},
-	{name:'fpPsDiv', 				X:305, Y:460, W:68, H:50, D:2},
-	{name:'fpTpsDiv', 			X:407, Y:460, W:68, H:50, D:2},
+	{name:'fpIpeepDiv', 		X:97,  Y:461, W:68, H:50, D:2},
+	{name:'fpPmaxDiv', 			X:199, Y:461, W:68, H:50, D:2},
+	{name:'fpPsDiv', 				X:305, Y:461, W:68, H:50, D:2},
+	{name:'fpTpsDiv', 			X:407, Y:461, W:68, H:50, D:2},
 ];
 
 function createFpDivs() {
@@ -51,10 +51,10 @@ function createFpDivs() {
 		let ledClassName = "fpLedCls";
 		let ledImgClassName = "fpLedImgCls";
 
-		let remX = (led.X - fpPositionRootFontSize) / fpPositionRootFontSize;
-		let remY = (led.Y - fpPositionRootFontSize) / fpPositionRootFontSize;
-		let remW = led.W / fpPositionRootFontSize;
-		let remH = led.H / fpPositionRootFontSize;
+		let remX = (led.X - fpRemToPxScale) / fpRemToPxScale;
+		let remY = (led.Y - fpRemToPxScale) / fpRemToPxScale;
+		let remW = led.W / fpRemToPxScale;
+		let remH = led.H / fpRemToPxScale;
 
 		// create a LED div
 		let ledDiv = document.createElement("div");
@@ -84,10 +84,10 @@ function createFpDivs() {
 		let numClassName = "fpNumCls";
 		let pClassName = "fpTextCls";
 
-		let remX = (num.X - fpPositionRootFontSize) / fpPositionRootFontSize;
-		let remY = (num.Y - fpPositionRootFontSize) / fpPositionRootFontSize;
-		let remW = num.W / fpPositionRootFontSize;
-		let remH = num.H / fpPositionRootFontSize;
+		let remX = (num.X - fpRemToPxScale) / fpRemToPxScale;
+		let remY = (num.Y - fpRemToPxScale) / fpRemToPxScale;
+		let remW = num.W / fpRemToPxScale;
+		let remH = num.H / fpRemToPxScale;
 
 		// create a NUM div
 		let numDiv = document.createElement("div");
@@ -119,10 +119,10 @@ function createFpDivs() {
 	let lcdDivId = fpLcd.name;
 	let lcdDiv = document.getElementById(lcdDivId);
 
-	let remX = (fpLcd.X - fpPositionRootFontSize) / fpPositionRootFontSize;
-	let remY = (fpLcd.Y - fpPositionRootFontSize) / fpPositionRootFontSize;
-	let remW = fpLcd.W / fpPositionRootFontSize;
-	let remH = fpLcd.H / fpPositionRootFontSize;
+	let remX = (fpLcd.X - fpRemToPxScale) / fpRemToPxScale;
+	let remY = (fpLcd.Y - fpRemToPxScale) / fpRemToPxScale;
+	let remW = fpLcd.W / fpRemToPxScale;
+	let remH = fpLcd.H / fpRemToPxScale;
 
 	lcdDiv.style.left = String(remX) + "rem";
 	lcdDiv.style.top = String(remY) + "rem";
