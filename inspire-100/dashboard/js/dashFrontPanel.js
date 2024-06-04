@@ -130,21 +130,23 @@ function createFpDivs() {
 	lcdDiv.style.height = String(remH) + "rem";
 }
 
-function blankFrontPanelLeds() {
+function blankFrontPanelStateLeds() {
 	document.getElementById('img_fpInitialDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpStandbyDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpActiveDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
+}
+
+function blankFrontPanelModeLeds() {
 	document.getElementById('img_fpCmvDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpAcvDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpSimvDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpPsvDiv').src = "../common/img/BlankLED.png";
 }
 
-function updateFrontPanelLeds() {
-	blankFrontPanelLeds();
-
+function updateFrontPanelStateLeds() {
 	// update state LEDs
+	blankFrontPanelStateLeds();
   if (session.stateData.state) {
 		if (session.stateData.initial) {
     	document.getElementById('img_fpStandbyDiv').src = "../common/img/WhiteDot.png";
@@ -156,8 +158,11 @@ function updateFrontPanelLeds() {
     	document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
   	}
 	}
+}
 
+function updateFrontPanelModeLeds() {
 	// update mode LEDs
+	blankFrontPanelModeLeds();
 	let mode = MODE_DECODER[session.paramDataInUse.mode];
 	if (mode == "CMV") {
 		document.getElementById('img_fpCmvDiv').src = "../common/img/WhiteDot.png";
@@ -173,13 +178,66 @@ function updateFrontPanelLeds() {
 var fpLEDsBlank = true;
 function blinkFrontPanelLEDs() {
 	if (fpLEDsBlank) {
-		updateFrontPanelLeds();
+		updateFrontPanelStateLeds();
 		fpLEDsBlank = false;
 	} else {
-		blankFrontPanelLeds();
+		blankFrontPanelStateLeds();
 		fpLEDsBlank = true;
 	}
 }
 
+function isValidValue(val) {
+	if (val === null) return false;
+	if (isUndefined(val)) return false;
+	return true;
+}
+
+function updateFrontPanelNumbers() {
+	let val = session.paramDataInUse.ie;
+	if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
+
+	val = session.paramDataInUse.rr;
+	if (isValidValue(val)) document.getElementById('p_fpRrDiv').innerHTML = val;
+
+	val = session.paramDataInUse.vt;
+	if (isValidValue(val)) document.getElementById('p_fpVtDiv').innerHTML = val;
+
+	val = session.paramDataInUse.pmax;
+	if (isValidValue(val)) val = val.toString().padStart(2, 0);
+	if (isValidValue(val)) document.getElementById('p_fpPmaxDiv').innerHTML = val;
+
+	val = session.paramDataInUse.ipeep;
+	if (isValidValue(val)) val = val.toString().padStart(2, 0);
+	if (isValidValue(val)) document.getElementById('p_fpIpeepDiv').innerHTML = val;
+
+	val = session.paramDataInUse.ps;
+	if (isValidValue(val)) val = val.toString().padStart(2, 0);
+	if (isValidValue(val)) document.getElementById('p_fpPsDiv').innerHTML = val;
+
+	val = session.paramDataInUse.tps;
+	if (isValidValue(val)) document.getElementById('p_fpTpsDiv').innerHTML = val;
+
+	val = session.params.peak.LastValue();
+	if (isValidValue(val)) val = val.toString().padStart(2, 0);
+	if (isValidValue(val)) document.getElementById('p_fpPeakDiv').innerHTML = val;
+
+	val = session.params.plat.LastValue();
+	if (isValidValue(val)) val = val.toString().padStart(2, 0);
+	if (isValidValue(val)) document.getElementById('p_fpPlatDiv').innerHTML = val;
+
+	val = session.params.mpeep.LastValue();
+	if (isValidValue(val)) val = val.toString().padStart(2, 0);
+	if (isValidValue(val)) document.getElementById('p_fpMpeepDiv').innerHTML = val;
+
+	// Also do the S/MBreath LEDs
+	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpSbreathDiv').src = "../common/img/BlankLED.png";
+	val = session.params.btype.LastValue();
+	if ((isValidValue(val)) && (val == MANDATORY_BREATH)) {
+		document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
+	} else if (val == SPONTANEOUS_BREATH) {
+		document.getElementById('img_fpMbreathDiv').src = "../common/img/GreenDot.png";
+	}
+}
 
 

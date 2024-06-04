@@ -229,9 +229,6 @@ function updateStateImage() {
     stateDIV.innerHTML = "<b>ERROR</b>";
     imgStateDIV.src = "../common/img/ErrorLED.png";
   }
-
-	// update front panel LEDs
-	updateFrontPanelLeds();
 }
 
 function updateStateDivsFromSessionData() {
@@ -273,33 +270,8 @@ function updateParamDivsFromSessionData() {
 	// ////////////////////////////////////////////////
 	// update front panel
 	// ////////////////////////////////////////////////
-
-	updateFrontPanelLeds();
-
-	// the rest
-	let val = session.paramDataInUse.ie;
-	document.getElementById('p_fpEiDiv').innerHTML = val;
-
-	val = session.paramDataInUse.rr;
-	document.getElementById('p_fpRrDiv').innerHTML = val;
-
-	val = session.paramDataInUse.vt;
-	document.getElementById('p_fpVtDiv').innerHTML = val;
-
-	val = session.paramDataInUse.pmax;
-	val = val.toString().padStart(2, 0);
-	document.getElementById('p_fpPmaxDiv').innerHTML = val;
-
-	val = session.paramDataInUse.ipeep;
-	val = val.toString().padStart(2, 0);
-	document.getElementById('p_fpIpeepDiv').innerHTML = val;
-
-	val = session.paramDataInUse.ps;
-	val = val.toString().padStart(2, 0);
-	document.getElementById('p_fpPsDiv').innerHTML = val;
-
-	val = session.paramDataInUse.tps;
-	document.getElementById('p_fpTpsDiv').innerHTML = val;
+	updateFrontPanelNumbers();
+	updateFrontPanelModeLeds();
 }
 
 function updateFiO2DivsFromSessionData() {
@@ -324,27 +296,7 @@ function updateBreathDivsFromSessionData() {
   platGauge.setValue(session.params.plat.LastValue());
   peepGauge.setValue(session.params.mpeep.LastValue());
 
-	let val = session.params.peak.LastValue();
-	let valStr = val.toString().padStart(2, 0);
-	document.getElementById('p_fpPeakDiv').innerHTML = valStr;
-
-	val = session.params.plat.LastValue();
-	valStr = val.toString().padStart(2, 0);
-	document.getElementById('p_fpPlatDiv').innerHTML = valStr;
-
-	val = session.params.mpeep.LastValue();
-	valStr = val.toString().padStart(2, 0);
-	document.getElementById('p_fpMpeepDiv').innerHTML = valStr;
-
-	// Also do the S/MBreath LEDs
-	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpSbreathDiv').src = "../common/img/BlankLED.png";
-	val = session.params.btype.LastValue();
-	if (val == MANDATORY_BREATH) {
-		document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
-	} else if (val == SPONTANEOUS_BREATH) {
-		document.getElementById('img_fpMbreathDiv').src = "../common/img/GreenDot.png";
-	}
+	updateFrontPanelNumbers();
 }
 
 function updateMinuteDivsFromSessionData() {
