@@ -25,7 +25,7 @@ const fpLeds = [
 ];
 
 const fpLcd = 
-	{name:'fpLcdDiv', 			X:194, Y:133, W:187, H:67};
+	{name:'fpLcdDiv', 			X:194, Y:133, W:187, H:70};
 
 const fpNums = [
 	{name:'fpPeakDiv', 			X:161, Y:253, W:68, H:50, D:2},
@@ -115,22 +115,15 @@ function createFpDivs() {
 		pElem.innerHTML = str;
 	}
 
-	// create LCD element
+	// position LCD element
 	let lcdDivId = fpLcd.name;
-	let lcdClassName = "fpLcdCls";
+	let lcdDiv = document.getElementById(lcdDivId);
 
 	let remX = (fpLcd.X - fpPositionRootFontSize) / fpPositionRootFontSize;
 	let remY = (fpLcd.Y - fpPositionRootFontSize) / fpPositionRootFontSize;
 	let remW = fpLcd.W / fpPositionRootFontSize;
 	let remH = fpLcd.H / fpPositionRootFontSize;
 
-	// create a LCD div
-	let lcdDiv = document.createElement("div");
-	lcdDiv.id = lcdDivId;
-  lcdDiv.classList.add(lcdClassName);
-	panelDiv.appendChild(lcdDiv);
-
-	// position the LCD div
 	lcdDiv.style.left = String(remX) + "rem";
 	lcdDiv.style.top = String(remY) + "rem";
 	lcdDiv.style.width = String(remW) + "rem";
