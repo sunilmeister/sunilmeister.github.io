@@ -535,8 +535,6 @@ window.onload = function () {
   let stats = document.getElementById("stat-pane");
   stats.style.display = "none";
   // Install all gauges
-  //installPurityGauge();
-  //installFiO2Gauge();
   installPeakGauge();
   installPlatGauge();
   installPeepGauge();
@@ -559,6 +557,10 @@ window.onload = function () {
   displayMessageLine("Mline2", banner2);
   displayMessageLine("Mline3", banner3);
   displayMessageLine("Mline4", banner4);
+  displayMessageLine("lcdline1", banner1);
+  displayMessageLine("lcdline2", banner2);
+  displayMessageLine("lcdline3", banner3);
+  displayMessageLine("lcdline4", banner4);
 
   // now wait for chirps and act accordingly
   chirpQ = new Queue();
