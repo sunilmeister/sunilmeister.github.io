@@ -502,6 +502,9 @@ window.onload = function () {
 
 	dashboardLaunchTime = new Date();
 
+	// create all elements for the front panel display
+	createFpDivs();
+
 	disableAllBeeps();  
 	openAudioControl();
 
