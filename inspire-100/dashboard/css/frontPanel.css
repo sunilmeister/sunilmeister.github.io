@@ -23,8 +23,9 @@
 
 .fpNumCls {
 	position: absolute;
+  font-family: Arial;
   color: var(--rsp_brightgreen);
-  background-color: black;
+  background-color: dimgrey;
 	z-index: 2;
 }
 
@@ -32,13 +33,12 @@
 }
 
 .fpTextCls {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-style: oblique;
 	font-weight: bold;
 	margin-top: 0.3rem;
 	margin-bottom: 0.2rem;
   color: var(--rsp_brightgreen);
-  background-color: black;
 	z-index: 2;
 }
 
