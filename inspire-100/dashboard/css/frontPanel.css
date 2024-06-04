@@ -1,0 +1,34 @@
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
+.fpLcdCls {
+	position: absolute;
+  font-family: monospace;
+  font-size: 2rem;
+  color: var(--rsp_brightgreen);
+  background-color: black;
+	z-index: 2;
+	top: 1rem;
+	left: 2rem;
+	width: 4rem;
+	height: 2rem;
+}
+
+.fpLedCls {
+	position: absolute;
+	z-index: 2;
+}
+
+.fpNumCls {
+	position: absolute;
+  font-size: 2rem;
+  color: var(--rsp_brightgreen);
+  background-color: black;
+	z-index: 2;
+}
+
+.fpImgCls {
+	width:30rem;
+	height: auto;
+}

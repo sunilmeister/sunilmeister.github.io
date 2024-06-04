@@ -8,6 +8,10 @@
   font-family: verdana;
 }
 
+.FrontPanel {
+  grid-area: 4 / 20 / 16 / 30;
+}
+
 .Messages {
   grid-area: 1 / 1 / 5 / 8;
   font-family: monospace;

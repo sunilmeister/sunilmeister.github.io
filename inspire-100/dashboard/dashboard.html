@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="../common/css/searchResults.css" />
   <link href="css/sidebar.css" rel="stylesheet" />
   <link href="css/dashboard.css" rel="stylesheet" />
+  <link href="css/frontPanel.css" rel="stylesheet" />
 
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -81,6 +82,7 @@
   <script src="js/dashAlerts.js"></script>
   <script src="js/dashWaves.js"></script>
   <script src="js/dashSearch.js"></script>
+  <script src="js/dashFrontPanel.js"></script>
   <script src="js/dashboard.js"></script>
 </head>
 
@@ -945,6 +947,10 @@
       <div id=snapshot-pane class=Snapshot>
         <div class=Space1></div>
         <div class=Space2></div>
+
+        <div id=FrontPanelDiv class=FrontPanel>
+					<img id=frontPanel class=fpImgCls src="img/FrontPanel.png">
+				</div>
 
         <div id=MessagesDiv class=Messages>
           <p id=Mline1 style="margin-top:2.1rem; margin-bottom:0rem;">
