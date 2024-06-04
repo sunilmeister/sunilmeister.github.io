@@ -150,7 +150,7 @@ function changeErrorVolume() {
   errorBeepVolume = vol.value / 100;
   let elm = document.getElementById("errorBeep");
   elm.volume = errorBeepVolume;
-  if (errorBeepValue && !errorBeepEnabled) {
+  if (errorBeepVolume && !errorBeepEnabled) {
     toggleErrorBeep();
   }
   //console.log("error volume = " + vol.value);
