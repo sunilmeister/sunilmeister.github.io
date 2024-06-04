@@ -130,6 +130,3 @@ function createFpDivs() {
 	lcdDiv.style.height = String(remH) + "rem";
 
 }
-
-function updateFrontPanel() {
-}

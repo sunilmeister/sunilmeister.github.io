@@ -265,6 +265,31 @@ function updateParamDivsFromSessionData() {
   updateDivValue(modeValELM, MODE_DECODER[session.paramDataInUse.mode]);
   updateDivValue(tpsValELM, session.paramDataInUse.tps);
   updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
+
+	// update front panel
+	let val = session.paramDataInUse.ie;
+	document.getElementById('p_fpEiDiv').innerHTML = val;
+
+	val = session.paramDataInUse.rr;
+	document.getElementById('p_fpRrDiv').innerHTML = val;
+
+	val = session.paramDataInUse.vt;
+	document.getElementById('p_fpVtDiv').innerHTML = val;
+
+	val = session.paramDataInUse.pmax;
+	val = val.toString().padStart(2, 0);
+	document.getElementById('p_fpPmaxDiv').innerHTML = val;
+
+	val = session.paramDataInUse.ipeep;
+	val = val.toString().padStart(2, 0);
+	document.getElementById('p_fpIpeepDiv').innerHTML = val;
+
+	val = session.paramDataInUse.ps;
+	val = val.toString().padStart(2, 0);
+	document.getElementById('p_fpPsDiv').innerHTML = val;
+
+	val = session.paramDataInUse.tps;
+	document.getElementById('p_fpTpsDiv').innerHTML = val;
 }
 
 function updateFiO2DivsFromSessionData() {
@@ -288,6 +313,18 @@ function updateBreathDivsFromSessionData() {
   peakGauge.setValue(session.params.peak.LastValue());
   platGauge.setValue(session.params.plat.LastValue());
   peepGauge.setValue(session.params.mpeep.LastValue());
+
+	let val = session.params.peak.LastValue();
+	let valStr = val.toString().padStart(2, 0);
+	document.getElementById('p_fpPeakDiv').innerHTML = valStr;
+
+	val = session.params.plat.LastValue();
+	valStr = val.toString().padStart(2, 0);
+	document.getElementById('p_fpPlatDiv').innerHTML = valStr;
+
+	val = session.params.mpeep.LastValue();
+	valStr = val.toString().padStart(2, 0);
+	document.getElementById('p_fpMpeepDiv').innerHTML = valStr;
 }
 
 function updateMinuteDivsFromSessionData() {
