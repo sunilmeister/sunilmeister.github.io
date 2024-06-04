@@ -175,24 +175,15 @@ function updateFrontPanelModeLeds() {
 	}
 }
 
-var fpLEDsBlank = true;
-function blinkFrontPanelLEDs() {
-	if (fpLEDsBlank) {
-		updateFrontPanelStateLeds();
-		fpLEDsBlank = false;
-	} else {
-		blankFrontPanelStateLeds();
-		fpLEDsBlank = true;
-	}
-}
-
 function isValidValue(val) {
 	if (val === null) return false;
 	if (isUndefined(val)) return false;
 	return true;
 }
 
-function updateFrontPanelNumbers() {
+function updateFrontPanelSettings() {
+	updateFrontPanelModeLeds();
+
 	let val = session.paramDataInUse.ie;
 	if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
 
@@ -216,8 +207,10 @@ function updateFrontPanelNumbers() {
 
 	val = session.paramDataInUse.tps;
 	if (isValidValue(val)) document.getElementById('p_fpTpsDiv').innerHTML = val;
+}
 
-	val = session.params.peak.LastValue();
+function updateFrontPanelNumbers() {
+	let val = session.params.peak.LastValue();
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPeakDiv').innerHTML = val;
 
@@ -240,4 +233,44 @@ function updateFrontPanelNumbers() {
 	}
 }
 
+function blankFrontPanelPendingSettings() {
+  let pend = session.pendingParamsData;
+
+	if (pend.mode) blankFrontPanelModeLeds();
+	if (pend.vt) document.getElementById('p_fpVtDiv').innerHTML = "";
+	if (pend.mv) document.getElementById('p_fpVtDiv').innerHTML = "";
+	if (pend.rr) document.getElementById('p_fpRrDiv').innerHTML = "";
+	if (pend.ie) document.getElementById('p_fpEiDiv').innerHTML = "";
+	if (pend.ipeep) document.getElementById('p_fpIpeepDiv').innerHTML = "";
+	if (pend.pmax) document.getElementById('p_fpPmaxDiv').innerHTML = "";
+	if (pend.ps) document.getElementById('p_fpPsDiv').innerHTML = "";
+	if (pend.tps) document.getElementById('p_fpTpsDiv').innerHTML = "";
+}
+
+var fpLEDsBlank = true;
+function blinkFrontPanelLEDs() {
+	if (fpLEDsBlank) {
+		updateFrontPanelStateLeds();
+		fpLEDsBlank = false;
+	} else {
+		blankFrontPanelStateLeds();
+		fpLEDsBlank = true;
+	}
+}
+
+var fpPendingBlank = true;
+function blinkFrontPanelPendingSettings() {
+	if (fpPendingBlank) {
+		updateFrontPanelSettings();
+		fpPendingBlank = false;
+	} else {
+		blankFrontPanelPendingSettings();
+		fpPendingBlank = true;
+	}
+}
+
+setInterval(function () {
+	if (!session) return;
+	blinkFrontPanelPendingSettings();
+}, FASTEST_BLINK_INTERVAL_IN_MS)
 
