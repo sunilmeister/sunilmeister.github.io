@@ -270,7 +270,7 @@ function updateParamDivsFromSessionData() {
 	// ////////////////////////////////////////////////
 	// update front panel
 	// ////////////////////////////////////////////////
-	updateFrontPanelNumbers();
+	updateFrontPanelOutputs();
 	updateFrontPanelModeLeds();
 }
 
@@ -296,7 +296,7 @@ function updateBreathDivsFromSessionData() {
   platGauge.setValue(session.params.plat.LastValue());
   peepGauge.setValue(session.params.mpeep.LastValue());
 
-	updateFrontPanelNumbers();
+	updateFrontPanelOutputs();
 }
 
 function updateMinuteDivsFromSessionData() {

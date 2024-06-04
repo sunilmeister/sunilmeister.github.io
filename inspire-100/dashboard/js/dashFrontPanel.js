@@ -130,18 +130,17 @@ function createFpDivs() {
 	lcdDiv.style.height = String(remH) + "rem";
 }
 
+function isValidValue(val) {
+	if (val === null) return false;
+	if (isUndefined(val)) return false;
+	return true;
+}
+
 function blankFrontPanelStateLeds() {
 	document.getElementById('img_fpInitialDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpStandbyDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpActiveDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
-}
-
-function blankFrontPanelModeLeds() {
-	document.getElementById('img_fpCmvDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpAcvDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpSimvDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpPsvDiv').src = "../common/img/BlankLED.png";
+	blankFrontPanelErrorLed();
 }
 
 function updateFrontPanelStateLeds() {
@@ -154,10 +153,15 @@ function updateFrontPanelStateLeds() {
     	document.getElementById('img_fpStandbyDiv').src = "../common/img/YellowDot.png";
   	} else if (session.stateData.active) {
     	document.getElementById('img_fpActiveDiv').src = "../common/img/GreenDot.png";
-  	} else {
-    	document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
   	}
 	}
+}
+
+function blankFrontPanelModeLeds() {
+	document.getElementById('img_fpCmvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpAcvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpSimvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpPsvDiv').src = "../common/img/BlankLED.png";
 }
 
 function updateFrontPanelModeLeds() {
@@ -175,10 +179,25 @@ function updateFrontPanelModeLeds() {
 	}
 }
 
-function isValidValue(val) {
-	if (val === null) return false;
-	if (isUndefined(val)) return false;
-	return true;
+function blankFrontPanelErrorLed() {
+	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
+}
+
+function updateFrontPanelErrorLed() {
+  if (session.stateData.error) {
+ 		document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
+	}
+}
+
+function blankFrontPanelSettings() {
+	blankFrontPanelModeLeds();
+	document.getElementById('p_fpEiDiv').innerHTML = "";
+	document.getElementById('p_fpRrDiv').innerHTML = "";
+	document.getElementById('p_fpVtDiv').innerHTML = "";
+	document.getElementById('p_fpPmaxDiv').innerHTML = "";
+	document.getElementById('p_fpIpeepDiv').innerHTML = "";
+	document.getElementById('p_fpPsDiv').innerHTML = "";
+	document.getElementById('p_fpTpsDiv').innerHTML = "";
 }
 
 function updateFrontPanelSettings() {
@@ -209,7 +228,15 @@ function updateFrontPanelSettings() {
 	if (isValidValue(val)) document.getElementById('p_fpTpsDiv').innerHTML = val;
 }
 
-function updateFrontPanelNumbers() {
+function blankFrontPanelOutputs() {
+	document.getElementById('p_fpPeakDiv').innerHTML = "";
+	document.getElementById('p_fpPlatDiv').innerHTML = "";
+	document.getElementById('p_fpMpeepDiv').innerHTML = "";
+	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
+}
+
+function updateFrontPanelOutputs() {
 	let val = session.params.peak.LastValue();
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPeakDiv').innerHTML = val;
@@ -258,19 +285,39 @@ function blinkFrontPanelLEDs() {
 	}
 }
 
-var fpPendingBlank = true;
+var fpFastBlinkBlank = true;
 function blinkFrontPanelPendingSettings() {
-	if (fpPendingBlank) {
+	if (fpFastBlinkBlank) {
 		updateFrontPanelSettings();
-		fpPendingBlank = false;
+		fpFastBlinkBlank = false;
 	} else {
 		blankFrontPanelPendingSettings();
-		fpPendingBlank = true;
+		fpFastBlinkBlank = true;
+	}
+}
+
+function blinkEntireFrontPanel() {
+	if (fpFastBlinkBlank) {
+		updateFrontPanelSettings();
+		updateFrontPanelOutputs();
+		updateFrontPanelModeLeds();
+		updateFrontPanelErrorLed();
+		fpFastBlinkBlank = false;
+	} else {
+		blankFrontPanelSettings();
+		blankFrontPanelOutputs();
+		blankFrontPanelModeLeds();
+		blankFrontPanelStateLeds();
+		fpFastBlinkBlank = true;
 	}
 }
 
 setInterval(function () {
 	if (!session) return;
-	blinkFrontPanelPendingSettings();
+  if (session.stateData.error) {
+		blinkEntireFrontPanel();
+	} else {
+		blinkFrontPanelPendingSettings();
+	}
 }, FASTEST_BLINK_INTERVAL_IN_MS)
 
