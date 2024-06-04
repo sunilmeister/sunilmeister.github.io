@@ -5,10 +5,9 @@
 .fpLcdCls {
 	position: absolute;
   font-family: monospace;
-  font-size: 2rem;
-  font-style: oblique;
+  font-size: 1rem;
   color: var(--rsp_brightgreen);
-  background-color: black;
+  background-color: yellow;
 	z-index: 2;
 }
 
@@ -24,7 +23,17 @@
 
 .fpNumCls {
 	position: absolute;
-  font-size: 2rem;
+  color: var(--rsp_brightgreen);
+  background-color: black;
+	z-index: 2;
+}
+
+.fpTextCls {
+  font-size: 1.6rem;
+  font-style: oblique;
+	font-weight: bold;
+	margin-top: 0.3rem;
+	margin-bottom: 0.2rem;
   color: var(--rsp_brightgreen);
   background-color: black;
 	z-index: 2;

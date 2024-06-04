@@ -25,24 +25,25 @@ const fpLeds = [
 ];
 
 const fpLcd = 
-	{name:'fpLcdDiv', 			X:187, Y:123, W:194, H:67};
+	{name:'fpLcdDiv', 			X:194, Y:133, W:187, H:67};
 
 const fpNums = [
-	{name:'fpPeakDiv', 			X:155, Y:250, W:66, H:50},
-	{name:'fpPlatDiv', 			X:248, Y:250, W:66, H:50},
-	{name:'fpMpeepDiv', 		X:343, Y:250, W:66, H:50},
-	{name:'fpVtDiv', 				X:155, Y:372, W:99, H:50},
-	{name:'fpEiDiv', 				X:283, Y:372, W:33, H:50},
-	{name:'fpRrDiv', 				X:344, Y:372, W:66, H:50},
-	{name:'fpIpeepDiv', 		X:88,  Y:468, W:66, H:50},
-	{name:'fpPmaxDiv', 			X:193, Y:468, W:66, H:50},
-	{name:'fpPsDiv', 				X:305, Y:468, W:66, H:50},
-	{name:'fpTpsDiv', 			X:413, Y:468, W:66, H:50},
+	{name:'fpPeakDiv', 			X:161, Y:253, W:68, H:50, D:2},
+	{name:'fpPlatDiv', 			X:250, Y:253, W:68, H:50, D:2},
+	{name:'fpMpeepDiv', 		X:341, Y:253, W:68, H:50, D:2},
+	{name:'fpVtDiv', 				X:161, Y:369, W:100, H:50, D:3},
+	{name:'fpEiDiv', 				X:284, Y:369, W:35, H:50, D:1},
+	{name:'fpRrDiv', 				X:341, Y:369, W:68, H:50, D:2},
+	{name:'fpIpeepDiv', 		X:97,  Y:460, W:68, H:50, D:2},
+	{name:'fpPmaxDiv', 			X:199, Y:460, W:68, H:50, D:2},
+	{name:'fpPsDiv', 				X:305, Y:460, W:68, H:50, D:2},
+	{name:'fpTpsDiv', 			X:407, Y:460, W:68, H:50, D:2},
 ];
 
 function createFpDivs() {
 	let panelDiv = document.getElementById('frontPanelDiv');
 
+	// create LED elements
 	for (let i=0; i<fpLeds.length; i++) {
 		let led = fpLeds[i];
 		let ledDivId = led.name;
@@ -55,29 +56,86 @@ function createFpDivs() {
 		let remW = led.W / fpPositionRootFontSize;
 		let remH = led.H / fpPositionRootFontSize;
 
-		let str = "<div class=fpLedCls>";
-		str += "</div>"
-
-		// create a div
+		// create a LED div
 		let ledDiv = document.createElement("div");
 		ledDiv.id = ledDivId;
   	ledDiv.classList.add(ledClassName);
 		panelDiv.appendChild(ledDiv);
 
-		// position the div
+		// position the LED div
 		ledDiv.style.left = String(remX) + "rem";
 		ledDiv.style.top = String(remY) + "rem";
 		ledDiv.style.width = String(remW) + "rem";
 		ledDiv.style.height = String(remH) + "rem";
 
-		// create a img
+		// create a LED img
 		let ledImg = document.createElement("img");
 		ledImg.id = ledDivId;
   	ledImg.classList.add(ledImgClassName);
 		ledImg.src = "../common/img/BlankLED.png";
 		ledDiv.appendChild(ledImg);
-
 	}
+
+	// create NUM elements
+	for (let i=0; i<fpNums.length; i++) {
+		let num = fpNums[i];
+		let numDivId = num.name;
+		let pElemId = "p_" + num.name;
+		let numClassName = "fpNumCls";
+		let pClassName = "fpTextCls";
+
+		let remX = (num.X - fpPositionRootFontSize) / fpPositionRootFontSize;
+		let remY = (num.Y - fpPositionRootFontSize) / fpPositionRootFontSize;
+		let remW = num.W / fpPositionRootFontSize;
+		let remH = num.H / fpPositionRootFontSize;
+
+		// create a NUM div
+		let numDiv = document.createElement("div");
+		numDiv.id = numDivId;
+  	numDiv.classList.add(numClassName);
+		panelDiv.appendChild(numDiv);
+
+		// position the NUM div
+		numDiv.style.left = String(remX) + "rem";
+		numDiv.style.top = String(remY) + "rem";
+		numDiv.style.width = String(remW) + "rem";
+		numDiv.style.height = String(remH) + "rem";
+
+		// create a text element
+		let pElem = document.createElement("p");
+		pElem.id = pElemId;
+  	pElem.classList.add(pClassName);
+		numDiv.appendChild(pElem);
+
+		// add dashes
+		let str = "";
+		for (let j=0; j<num.D; j++) {
+			str += "-";
+		}
+		pElem.innerHTML = str;
+	}
+
+	// create LCD element
+	let lcdDivId = fpLcd.name;
+	let lcdClassName = "fpLcdCls";
+
+	let remX = (fpLcd.X - fpPositionRootFontSize) / fpPositionRootFontSize;
+	let remY = (fpLcd.Y - fpPositionRootFontSize) / fpPositionRootFontSize;
+	let remW = fpLcd.W / fpPositionRootFontSize;
+	let remH = fpLcd.H / fpPositionRootFontSize;
+
+	// create a LCD div
+	let lcdDiv = document.createElement("div");
+	lcdDiv.id = lcdDivId;
+  lcdDiv.classList.add(lcdClassName);
+	panelDiv.appendChild(lcdDiv);
+
+	// position the LCD div
+	lcdDiv.style.left = String(remX) + "rem";
+	lcdDiv.style.top = String(remY) + "rem";
+	lcdDiv.style.width = String(remW) + "rem";
+	lcdDiv.style.height = String(remH) + "rem";
+
 }
 
 function updateFrontPanel() {
