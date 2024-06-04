@@ -128,5 +128,58 @@ function createFpDivs() {
 	lcdDiv.style.top = String(remY) + "rem";
 	lcdDiv.style.width = String(remW) + "rem";
 	lcdDiv.style.height = String(remH) + "rem";
-
 }
+
+function blankFrontPanelLeds() {
+	document.getElementById('img_fpInitialDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpStandbyDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpActiveDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpCmvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpAcvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpSimvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpPsvDiv').src = "../common/img/BlankLED.png";
+}
+
+function updateFrontPanelLeds() {
+	blankFrontPanelLeds();
+
+	// update state LEDs
+  if (session.stateData.state) {
+		if (session.stateData.initial) {
+    	document.getElementById('img_fpStandbyDiv').src = "../common/img/WhiteDot.png";
+		} else if (session.stateData.standby) {
+    	document.getElementById('img_fpStandbyDiv').src = "../common/img/YellowDot.png";
+  	} else if (session.stateData.active) {
+    	document.getElementById('img_fpActiveDiv').src = "../common/img/GreenDot.png";
+  	} else {
+    	document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
+  	}
+	}
+
+	// update mode LEDs
+	let mode = MODE_DECODER[session.paramDataInUse.mode];
+	if (mode == "CMV") {
+		document.getElementById('img_fpCmvDiv').src = "../common/img/WhiteDot.png";
+	} else if (mode == "ACV") {
+		document.getElementById('img_fpAcvDiv').src = "../common/img/WhiteDot.png";
+	} else if (mode == "SIMV") {
+		document.getElementById('img_fpSimvDiv').src = "../common/img/WhiteDot.png";
+	} else if (mode == "PSV") {
+		document.getElementById('img_fpPsvDiv').src = "../common/img/WhiteDot.png";
+	}
+}
+
+var fpLEDsBlank = true;
+function blinkFrontPanelLEDs() {
+	if (fpLEDsBlank) {
+		updateFrontPanelLeds();
+		fpLEDsBlank = false;
+	} else {
+		blankFrontPanelLeds();
+		fpLEDsBlank = true;
+	}
+}
+
+
+

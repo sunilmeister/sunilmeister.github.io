@@ -205,6 +205,7 @@ function blinkStateImage() {
 
 setInterval(function () {
 	if (!session) return;
+	blinkFrontPanelLEDs();
 	blinkStateImage();
 	blinkRecordingIndicator();
 	blinkDashboardIndicator();
@@ -230,21 +231,7 @@ function updateStateImage() {
   }
 
 	// update front panel LEDs
-	document.getElementById('img_fpInitialDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpStandbyDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpActiveDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
-  if (session.stateData.state) {
-		if (session.stateData.initial) {
-    	document.getElementById('img_fpStandbyDiv').src = "../common/img/WhiteDot.png";
-		} else if (session.stateData.standby) {
-    	document.getElementById('img_fpStandbyDiv').src = "../common/img/YellowDot.png";
-  	} else if (session.stateData.active) {
-    	document.getElementById('img_fpActiveDiv').src = "../common/img/GreenDot.png";
-  	} else {
-    	document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
-  	}
-	}
+	updateFrontPanelLeds();
 }
 
 function updateStateDivsFromSessionData() {
@@ -287,22 +274,7 @@ function updateParamDivsFromSessionData() {
 	// update front panel
 	// ////////////////////////////////////////////////
 
-	// mode
-	document.getElementById('img_fpCmvDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpAcvDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpSimvDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpPsvDiv').src = "../common/img/BlankLED.png";
-	let mode = MODE_DECODER[session.paramDataInUse.mode];
-	if (mode == "CMV") {
-		document.getElementById('img_fpCmvDiv').src = "../common/img/WhiteDot.png";
-	} else if (mode == "ACV") {
-		document.getElementById('img_fpAcvDiv').src = "../common/img/WhiteDot.png";
-	} else if (mode == "SIMV") {
-		document.getElementById('img_fpSimvDiv').src = "../common/img/WhiteDot.png";
-	} else if (mode == "PSV") {
-		document.getElementById('img_fpPsvDiv').src = "../common/img/WhiteDot.png";
-	}
-
+	updateFrontPanelLeds();
 
 	// the rest
 	let val = session.paramDataInUse.ie;
