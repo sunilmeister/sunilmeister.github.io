@@ -70,7 +70,7 @@ function createFpDivs() {
 
 		// create a LED img
 		let ledImg = document.createElement("img");
-		ledImg.id = ledDivId;
+		ledImg.id = ledImgDivId;
   	ledImg.classList.add(ledImgClassName);
 		ledImg.src = "../common/img/BlankLED.png";
 		ledDiv.appendChild(ledImg);

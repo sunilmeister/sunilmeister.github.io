@@ -228,6 +228,23 @@ function updateStateImage() {
     stateDIV.innerHTML = "<b>ERROR</b>";
     imgStateDIV.src = "../common/img/ErrorLED.png";
   }
+
+	// update front panel LEDs
+	document.getElementById('img_fpInitialDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpStandbyDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpActiveDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
+  if (session.stateData.state) {
+		if (session.stateData.initial) {
+    	document.getElementById('img_fpStandbyDiv').src = "../common/img/WhiteDot.png";
+		} else if (session.stateData.standby) {
+    	document.getElementById('img_fpStandbyDiv').src = "../common/img/YellowDot.png";
+  	} else if (session.stateData.active) {
+    	document.getElementById('img_fpActiveDiv').src = "../common/img/GreenDot.png";
+  	} else {
+    	document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
+  	}
+	}
 }
 
 function updateStateDivsFromSessionData() {
@@ -266,7 +283,28 @@ function updateParamDivsFromSessionData() {
   updateDivValue(tpsValELM, session.paramDataInUse.tps);
   updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
 
+	// ////////////////////////////////////////////////
 	// update front panel
+	// ////////////////////////////////////////////////
+
+	// mode
+	document.getElementById('img_fpCmvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpAcvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpSimvDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpPsvDiv').src = "../common/img/BlankLED.png";
+	let mode = MODE_DECODER[session.paramDataInUse.mode];
+	if (mode == "CMV") {
+		document.getElementById('img_fpCmvDiv').src = "../common/img/WhiteDot.png";
+	} else if (mode == "ACV") {
+		document.getElementById('img_fpAcvDiv').src = "../common/img/WhiteDot.png";
+	} else if (mode == "SIMV") {
+		document.getElementById('img_fpSimvDiv').src = "../common/img/WhiteDot.png";
+	} else if (mode == "PSV") {
+		document.getElementById('img_fpPsvDiv').src = "../common/img/WhiteDot.png";
+	}
+
+
+	// the rest
 	let val = session.paramDataInUse.ie;
 	document.getElementById('p_fpEiDiv').innerHTML = val;
 
@@ -325,6 +363,16 @@ function updateBreathDivsFromSessionData() {
 	val = session.params.mpeep.LastValue();
 	valStr = val.toString().padStart(2, 0);
 	document.getElementById('p_fpMpeepDiv').innerHTML = valStr;
+
+	// Also do the S/MBreath LEDs
+	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpSbreathDiv').src = "../common/img/BlankLED.png";
+	val = session.params.btype.LastValue();
+	if (val == MANDATORY_BREATH) {
+		document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
+	} else if (val == SPONTANEOUS_BREATH) {
+		document.getElementById('img_fpMbreathDiv').src = "../common/img/GreenDot.png";
+	}
 }
 
 function updateMinuteDivsFromSessionData() {
