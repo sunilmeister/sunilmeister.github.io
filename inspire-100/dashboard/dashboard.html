@@ -97,29 +97,28 @@
     <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
   </audio>
 
-  <div id=audioControlDiv class=popupClassCenter style="width:18rem; height:auto; display: none">
+  <div id=audioControlDiv class=popupClassCenter style="width:22rem; height:auto; display: none">
     <center>
       <div>
-        <p style="font-size: 2rem;">Audio Alarms
+        <p style="font-size: 2.5rem;">Audio Alarms
           <br>
-        <p style="font-size: 1.2rem; ">Warning
-          <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.2rem; height:1.2rem;"></button>
+        <p style="font-size: 1.5rem; ">Warning
+          <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
           <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>
           <button class="button" id="warningPlay" onclick='toggleWarningSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
 
-				<div height:2rem> </div>
+					<br>
 
-        <p style="font-size: 1.2rem; ">&nbsp&nbsp&nbsp&nbspError
-          <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.2rem; height:1.2rem;"></button>
+        <p style="font-size: 1.5rem; ">&nbsp&nbsp&nbsp&nbspError
+          <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
           <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeErrorVolume()'>
           <button class="button" id="errorPlay" onclick='toggleErrorSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
 
-					<div height:3rem> </div>
+					<br><br>
 
-          <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.2rem;" onclick='dismissAudioControl()'>DISMISS</button>
+          <button class=button style="background-color:var(--rsp_darkblue); width:14rem; font-size:1.4rem;" onclick='dismissAudioControl()'>DISMISS</button>
 
-					<div height:2rem> </div>
-					<br>
+					<br><br>
       </div>
     </center>
   </div>
@@ -966,11 +965,11 @@
         <div id=MessagesDiv class=Messages>
           <p id=Mline1 style="margin-top:2.1rem; margin-bottom:0rem;">
 					  --
-          <p id=Mline2 style="margin-top:0.6rem; margin-bottom:0rem;">
+          <p id=Mline2 style="margin-top:0.7rem; margin-bottom:0rem;">
             --
-          <p id=Mline3 style="margin-top:0.6rem; margin-bottom:0rem;">
+          <p id=Mline3 style="margin-top:0.7rem; margin-bottom:0rem;">
             --
-          <p id=Mline4 style="margin-top:0.6rem; margin-bottom:1rem;">
+          <p id=Mline4 style="margin-top:0.7rem; margin-bottom:1rem;">
             --
         </div>
 
@@ -986,13 +985,13 @@
           <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem;
             margin-bottom:0rem;background-color:var(--rsp_darkblue); color: white; font-size:1.4rem;"><b>Patient Information</b>
 
-          <p id=Pline1 style="font-size:1.4rem; margin-top:1.5rem; margin-bottom:1.4rem;">
+          <p id=Pline1 style="font-size:1.4rem; padding-top:0.8rem;">
             _____________
 
-          <p id=Pline2 style="font-size:1.2rem; margin-top:1rem; margin-bottom:0rem;">
+          <p id=Pline2 style="font-size:1.2rem; padding-top:1.2rem;">
             _____________
 
-          <p id=Pline3 style="font-size:1.1rem; margin-top:1rem; margin-bottom:0rem;">
+          <p id=Pline3 style="font-size:1.1rem;">
             _____________
 
         </div>
@@ -1105,12 +1104,12 @@
                 <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-0.1rem; padding-bottom:0.5rem;">(litres/min)
               </div>
               <div id=purityDiv style="background-color:var(--rsp_mediumblue); color:white;">
-								<p style="font-size:1.1rem; margin-top:-0.5rem;padding-top:0.5rem;background-color:var(--rsp_darkblue);">O<sub>2</sub> Purity                 
-								<p id=o2PurityValue style="font-size:1.6rem; font-weight:bold; margin-top:-0.2rem; padding-bottom:0.1rem;">__
+								<p style="font-size:1.1rem; margin-top:-0.5rem;background-color:var(--rsp_darkblue);">O<sub>2</sub> Purity                 
+								<p id=o2PurityValue style="font-size:1.6rem; font-weight:bold; ">__
               </div>
-              <div id=fiO2Div style="background-color:var(--rsp_mediumblue); color:white;margin-top:-0.65rem; margin-bottom:-1.6rem;">
-								<p style="font-size:1.1rem; padding-top:0.5rem;background-color:var(--rsp_darkblue); ">Desired FiO<sub>2</sub>
-                <p id=fiO2Value style="font-size:1.6rem; font-weight:bold; padding-bottom:1.2rem; margin-top:-0.1rem">__
+              <div id=fiO2Div style="background-color:var(--rsp_mediumblue); color:white;margin-bottom:-1.6rem;">
+								<p style="font-size:1.1rem; background-color:var(--rsp_darkblue);">Desired FiO<sub>2</sub>
+                <p id=fiO2Value style="font-size:1.6rem; font-weight:bold; padding-bottom:1.5rem;">__
               </div>
             </div>
           </center>
