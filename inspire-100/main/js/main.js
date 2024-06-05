@@ -384,8 +384,8 @@ function launchVideo() {
   window.open("../videoTour/videoTour.html");
 }
 
-function tilesView() {
-  window.open("../tiles/tiles.html");
+function multiSystemView() {
+  window.open("../multiSystem/multiSystem.html");
 }
 
 function launchRecorder() {
