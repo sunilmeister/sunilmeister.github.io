@@ -127,8 +127,10 @@ function processDashboardChirp(d) {
         + session.errorMsgs[prevAlarmErrorNum].L3 + "\n"
         + session.errorMsgs[prevAlarmErrorNum].L4;
     modalAlert(title, msg);
+		session.alerts.newErrorMsg = true;
 		startErrorBeep();
   } else {
+		session.alerts.newErrorMsg = false;
 		stopErrorBeep();
 	}
 

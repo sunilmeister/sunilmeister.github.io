@@ -213,6 +213,7 @@ var SessionDataTemplate = {
   alerts: {
     rangeLimit: ALERT_NUM_ROLLING_BREATHS,
     attention: false,
+		newErrorMsg: false,
     expectWarningMsg: false,
     expectErrorMsg: false,
     L1: "",

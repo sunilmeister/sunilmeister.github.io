@@ -184,7 +184,7 @@ function blankFrontPanelErrorLed() {
 }
 
 function updateFrontPanelErrorLed() {
-  if (session.stateData.error) {
+  if (session.stateData.error || session.alerts.newErrorMsg) {
  		document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
 	}
 }
@@ -285,39 +285,51 @@ function blinkFrontPanelLEDs() {
 	}
 }
 
-var fpFastBlinkBlank = true;
+var fpPendingBlank = true;
 function blinkFrontPanelPendingSettings() {
-	if (fpFastBlinkBlank) {
-		updateFrontPanelSettings();
-		fpFastBlinkBlank = false;
-	} else {
-		blankFrontPanelPendingSettings();
-		fpFastBlinkBlank = true;
+  if (!(session.stateData.error || session.alerts.newErrorMsg)) {
+		if (fpPendingBlank) {
+			updateFrontPanelSettings();
+			fpPendingBlank = false;
+		} else {
+			blankFrontPanelPendingSettings();
+			fpPendingBlank = true;
+		}
 	}
 }
 
+function blankEntireFrontPanel() {
+	blankFrontPanelSettings();
+	blankFrontPanelOutputs();
+	blankFrontPanelModeLeds();
+	blankFrontPanelStateLeds();
+}
+
+function updateEntireFrontPanel() {
+	updateFrontPanelSettings();
+	updateFrontPanelOutputs();
+	updateFrontPanelModeLeds();
+	updateFrontPanelErrorLed();
+}
+
+var fpErrorBlank = true;
 function blinkEntireFrontPanel() {
-	if (fpFastBlinkBlank) {
-		updateFrontPanelSettings();
-		updateFrontPanelOutputs();
-		updateFrontPanelModeLeds();
-		updateFrontPanelErrorLed();
-		fpFastBlinkBlank = false;
+	if (fpErrorBlank) {
+		updateEntireFrontPanel();		
+		fpErrorBlank = false;
 	} else {
-		blankFrontPanelSettings();
-		blankFrontPanelOutputs();
-		blankFrontPanelModeLeds();
-		blankFrontPanelStateLeds();
-		fpFastBlinkBlank = true;
+		blankEntireFrontPanel();		
+		fpErrorBlank = true;
 	}
 }
 
 setInterval(function () {
 	if (!session) return;
-  if (session.stateData.error) {
+  if (session.stateData.error || session.alerts.newErrorMsg) {
 		blinkEntireFrontPanel();
-	} else {
-		blinkFrontPanelPendingSettings();
-	}
+	} else if (fpErrorBlank) {
+		updateEntireFrontPanel();
+	} 
+	blinkFrontPanelPendingSettings();
 }, FASTEST_BLINK_INTERVAL_IN_MS)
 
