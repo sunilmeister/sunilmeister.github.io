@@ -637,7 +637,7 @@ function alignSidebar() {
   let menuBarHeight = menuBar.offsetHeight;
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
-  nonMenuArea.style.marginTop = String(convertPixelsToRem(0 - menuBarHeight)) + "rem";
+  nonMenuArea.style.marginTop = "-" + String(convertPixelsToRem(menuBarHeight)) + "rem";
   nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth + 40)) + "rem";
 }
 

@@ -10,8 +10,8 @@ var appWidth = null;
 var appHeight = null;
 
 // Design Params
-const laptopDevFontSize = 16;
-const mobileDevFontSize = 13;
+const laptopDevFontSize = 18;
+const mobileDevFontSize = 16;
 
 // Ensure that some margin is left on the sides
 const fontScaleFactor = 0.95;
@@ -34,11 +34,12 @@ function setRootFontSize(rootWidthDivId, rootHeightDivId) {
 // Figure out the root font size for proper scaling etc.
 // ///////////////////////////////////////////////////////
 function setRootFontSizeDevice(devFontSize) {
-	const minFontSize = 2;
+	const minFontSize = 5;
 	const maxFontSize = 18;
+	let pxRatio = window.devicePixelRatio; 
 
-	let windowWidth = document.documentElement.clientWidth ;
-	let windowHeight = document.documentElement.clientHeight ;
+	let windowWidth = document.documentElement.clientWidth * pxRatio;
+	let windowHeight = document.documentElement.clientHeight * pxRatio;
 	let wFontSize = (devFontSize * windowWidth) / appWidth;
 	let hFontSize = (devFontSize * windowHeight) / appHeight;
 
@@ -47,6 +48,7 @@ function setRootFontSizeDevice(devFontSize) {
 	if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
 
+	//console.log("pixelRatio", window.devicePixelRatio);
 	//console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
 	//console.log("appWidth", appWidth, "appHeight", appHeight );
 	//console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
