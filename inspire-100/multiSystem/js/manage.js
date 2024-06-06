@@ -159,9 +159,10 @@ function initialTileContent() {
 	content.patientFName = "";
 	content.patientLName = "";
 	content.state = "";
-	content.breaths = 0;
+	content.breaths = null;
 	content.attention = false;
-	content.emsg = false;
+	content.emsg = null;
+	content.firmware = "";
 
 	content.mode = "--";
 	content.vt = "--";

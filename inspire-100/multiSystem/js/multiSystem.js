@@ -24,6 +24,12 @@
 // ////////////////////////////////////////////////////
 var allSystems = {};
 
+function isValidValue(val) {
+	if (val === null) return false;
+	if (isUndefined(val)) return false;
+	return true;
+}
+
 function formTileTitle(uid) {
 	if (isUndefined(allSystems[uid])) return "";
 
@@ -82,7 +88,9 @@ function updateTileState(uid) {
 	}
 
 	elem = findChildNodeByClass(tile,'breathNum');
-	elem.innerHTML = breaths;
+	if (isValidValue(breaths)) elem.innerHTML = breaths;
+	else elem.innerHTML = "--"
+
 	if (allSystems[uid].active) {
 		elem.style.color = getActiveTileColorFG();
 	} else {
@@ -209,7 +217,15 @@ function addTile(uid, sysTag, content) {
 	allSystems[uid].updated = new Date();
 	allSystems[uid].systemTag = sysTag;
 	allSystems[uid].tile = newTile;
-	allSystems[uid].content = cloneObject(content);
+
+	// initialize content
+	allSystems[uid].content = {};
+	allSystems[uid].content.state = "";
+	allSystems[uid].content.patientFName = "";
+	allSystems[uid].content.patientLName = "";
+	allSystems[uid].content.attention = false;
+	allSystems[uid].content.breaths = null;
+	allSystems[uid].content.firmware = "";
 
 	let dummyDormantTile = document.getElementById('dummyDormantTile');
 	dormantTilesDiv.insertBefore(newTile, dummyDormantTile);
@@ -277,6 +293,7 @@ function updateAudioAlerts() {
 	let foundWarning = false;
 
   for (const uid in allSystems) {
+		if (!allSystems[uid].content.breaths) continue;
 		if ((allSystems[uid].content.attention && (allSystems[uid].content.state == "ERROR")) 
 			  || (allSystems[uid].content.emsg == allSystems[uid].content.breaths)) {
 			foundError = true;
