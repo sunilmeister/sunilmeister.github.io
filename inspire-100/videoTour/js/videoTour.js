@@ -7,7 +7,7 @@ function entryPortalVideo() {
 }
 
 function dashboardVideo() {
-	window.open("https://youtu.be/WAI3Xr8Ndvk");
+	window.open("https://youtu.be/5puEH6IuLIc");
 }
 
 function rangeSelectorVideo() {
@@ -19,7 +19,7 @@ function searchEngineVideo() {
 }
 
 function recorderVideo() {
-	window.open("https://youtu.be/t1XLjG66I10");
+	window.open("https://youtu.be/_y1UDCE0SxQ");
 }
 
 function playbackVideo() {
