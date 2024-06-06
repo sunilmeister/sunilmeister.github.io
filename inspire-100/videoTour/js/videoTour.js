@@ -27,7 +27,7 @@ function playbackVideo() {
 }
 
 function multiSystemsVideo() {
-	window.open("https://youtu.be/gFz0IOFsnKs");
+	window.open("https://youtu.be/R8E1OalVq14");
 }
 
 function firmwareVideo() {
