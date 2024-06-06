@@ -278,7 +278,7 @@ function updateAudioAlerts() {
 
   for (const uid in allSystems) {
 		if ((allSystems[uid].content.attention && (allSystems[uid].content.state == "ERROR")) 
-			  || (allSystems[uid].content.emsg == true)) {
+			  || (allSystems[uid].content.emsg == allSystems[uid].content.breaths)) {
 			foundError = true;
 		} else if (allSystems[uid].content.attention) foundWarning = true;
 	}

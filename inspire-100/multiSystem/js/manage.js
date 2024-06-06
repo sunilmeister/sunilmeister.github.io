@@ -80,7 +80,6 @@ function parseAndUpdateUidContents(uid, jsonData) {
 		moveTileToActive(uid);
 	}
 
-	content.emsg = false;
   for (let key in jsonData) {
     if (key == 'content') {
       for (let ckey in jsonData.content) {
@@ -132,7 +131,7 @@ function parseAndUpdateUidContents(uid, jsonData) {
         } else if (ckey == "LNAME") {
 					content.patientLName = value;
         } else if (ckey == "EMSG") {
-						content.emsg = true;
+						content.emsg = value;
         } else if (ckey == "ATT") {
       		if (value==1) {
 						content.attention = true;
