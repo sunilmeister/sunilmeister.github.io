@@ -1,0 +1,90 @@
+{
+ "id": "SExprNode_0",
+ "type": "op",
+ "op": null,
+ "lhs": {
+  "id": "SExprNode_12",
+  "type": "op",
+  "op": null,
+  "lhs": {
+   "id": "SExprNode_14",
+   "type": "param",
+   "paramName": "MODE_SETTING",
+   "paramKey": "mode"
+  },
+  "rhs": {
+   "id": "SExprNode_13",
+   "type": "const",
+   "constName": "SIMV",
+   "constValue": 2
+  },
+  "opName": "EQ"
+ },
+ "rhs": {
+  "id": "SExprNode_1",
+  "type": "op",
+  "op": null,
+  "lhs": {
+   "id": "SExprNode_9",
+   "type": "op",
+   "op": null,
+   "lhs": {
+    "id": "SExprNode_11",
+    "type": "param",
+    "paramName": "BREATH_TYPE",
+    "paramKey": "btype"
+   },
+   "rhs": {
+    "id": "SExprNode_10",
+    "type": "const",
+    "constName": "MANDATORY",
+    "constValue": 1
+   },
+   "opName": "EQ"
+  },
+  "rhs": {
+   "id": "SExprNode_2",
+   "type": "op",
+   "op": null,
+   "lhs": {
+    "id": "SExprNode_6",
+    "type": "op",
+    "op": null,
+    "lhs": {
+     "id": "SExprNode_8",
+     "type": "param",
+     "paramName": "TIDAL_VOLUME",
+     "paramKey": "vtdel"
+    },
+    "rhs": {
+     "id": "SExprNode_7",
+     "type": "const",
+     "constName": "",
+     "constValue": "250"
+    },
+    "opName": "LT"
+   },
+   "rhs": {
+    "id": "SExprNode_3",
+    "type": "op",
+    "op": null,
+    "lhs": {
+     "id": "SExprNode_5",
+     "type": "param",
+     "paramName": "PEAK_PRESSURE",
+     "paramKey": "peak"
+    },
+    "rhs": {
+     "id": "SExprNode_4",
+     "type": "const",
+     "constName": "",
+     "constValue": "30"
+    },
+    "opName": "GT"
+   },
+   "opName": "OR"
+  },
+  "opName": "AND"
+ },
+ "opName": "AND"
+}
