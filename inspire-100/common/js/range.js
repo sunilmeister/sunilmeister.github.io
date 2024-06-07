@@ -35,6 +35,7 @@ function createRange(moving, minBnum, maxBnum) {
   return range;
 }
 
+// Each view's range is independant
 function updateVisibleViewRange(moving, minBnum, maxBnum) {
 	let range = createRange(moving, minBnum, maxBnum);
 	if (session.snapshots.visible) 		session.snapshots.range = cloneObject(range);
@@ -77,6 +78,7 @@ function pauseVisibleRange() {
 	else if (session.record.visible) 	session.record.range.moving = false;
 }
 
+// toggle between play and pause
 function playVisibleRange() {
 	if (session.snapshots.visible) 		session.snapshots.range.moving = true;
 	else if (session.charts.visible) 	session.charts.range.moving = true;
@@ -87,6 +89,7 @@ function playVisibleRange() {
 	else if (session.record.visible) 	session.record.range.moving = true;
 }
 
+// toggle between play and pause
 function visibleViewRange() {
 	if (session.snapshots.visible) 		return session.snapshots.range ;
 	else if (session.charts.visible) 	return session.charts.range ;
@@ -99,6 +102,7 @@ function visibleViewRange() {
 	return null;
 }
 
+// Query - is the visible range in play mode
 function isVisibleRangeMoving() {
 	if (session.snapshots.visible) 		return session.snapshots.range.moving ;
 	else if (session.charts.visible) 	return session.charts.range.moving ;
@@ -159,6 +163,7 @@ function visibleRangeMaxTime() {
 	return null;
 }
 
+// query - has the range changed since the time this view was displayed
 function isVisibleRangeChanged() {
 	if (session.snapshots.visible) 		{ 
 		return !equalObjects(session.snapshots.range, session.snapshots.prevRange) ;
@@ -179,21 +184,22 @@ function isVisibleRangeChanged() {
 	return null;
 }
 
+// update the prevRange to reflect the currently displayed range
 function updateVisiblePrevRange() {
 	if (session.snapshots.visible) 		{ 
-		session.snapshots.prevRange  = session.snapshots.range;
+		session.snapshots.prevRange  = cloneObject(session.snapshots.range);
 	} else if (session.charts.visible) 	{
-		session.charts.prevRange  = session.charts.range;
+		session.charts.prevRange  = cloneObject(session.charts.range);
 	} else if (session.waves.visible) 	{
-		session.waves.prevRange  = session.waves.range;
+		session.waves.prevRange  = cloneObject(session.waves.range);
 	} else if (session.stats.visible) 	{
-		session.stats.prevRange  = session.stats.range;
+		session.stats.prevRange  = cloneObject(session.stats.range);
 	} else if (session.alerts.visible) 	{
-		session.alerts.prevRange  = session.alerts.range;
+		session.alerts.prevRange  = cloneObject(session.alerts.range);
 	} else if (session.search.visible) 	{
-		session.search.prevRange  = session.search.range;
+		session.search.prevRange  = cloneObject(session.search.range);
 	} else if (session.record.visible) 	{
-		session.record.prevRange  = session.record.range;
+		session.record.prevRange  = cloneObject(session.record.range);
 	}
 }
 
