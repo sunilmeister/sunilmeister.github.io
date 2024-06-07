@@ -12,7 +12,7 @@
 				 "lhs": {
 				  "id": "SExprNode_8",
 				  "type": "op",
-				  "opName": "EQ",
+				  "opName": "=",
 				  "lhs": {
 				   "id": "SExprNode_10",
 				   "type": "param",
@@ -33,7 +33,7 @@
 				  "lhs": {
 				   "id": "SExprNode_5",
 				   "type": "op",
-				   "opName": "LEQ",
+				   "opName": "<",
 				   "lhs": {
 				    "id": "SExprNode_7",
 				    "type": "param",
@@ -50,7 +50,7 @@
 				  "rhs": {
 				   "id": "SExprNode_2",
 				   "type": "op",
-				   "opName": "GT",
+				   "opName": ">",
 				   "lhs": {
 				    "id": "SExprNode_4",
 				    "type": "param",
@@ -323,6 +323,15 @@ class searchExpr {
 
 	changeExprConstNum(htmlSelectElem) {
 		let nodeId = this.formConstNumNodeId(htmlSelectElem.id);
+		let node = this.findNode(nodeId);
+		node.constName = "";
+		node.constValue = htmlSelectElem.value;
+
+		this.exprChanged();
+	}
+
+	changeExprConstText(htmlSelectElem) {
+		let nodeId = this.formConstTextNodeId(htmlSelectElem.id);
 		let node = this.findNode(nodeId);
 		node.constName = "";
 		node.constValue = htmlSelectElem.value;
@@ -617,23 +626,39 @@ class searchExpr {
   		return (lhsVal && !rhsVal) || (!lhsVal && rhsVal);
 		}
 
-		if (op == "EQ") {
+		if (op == "=") {
 			return lhsVal == rhsVal;
 		}
-		if (op == "NEQ") {
+		if (op == "!=") {
 			return lhsVal == rhsVal;
 		}
-		if (op == "GT") {
+		if (op == ">") {
 			return lhsVal > rhsVal;
 		}
-		if (op == "GEQ") {
+		if (op == ">=") {
 			return lhsVal >= rhsVal;
 		}
-		if (op == "LT") {
+		if (op == "<") {
 			return lhsVal < rhsVal;
 		}
-		if (op == "LEQ") {
+		if (op == "<=") {
 			return lhsVal <= rhsVal;
+		}
+		if (op == "{}") {
+			// case sensitive
+			return String(lhsVal).includes(String(rhsVal));
+		}
+		if (op == "!{}") {
+			// case sensitive
+			return !String(lhsVal).includes(String(rhsVal));
+		}
+		if (op == "<>") {
+			// case insensitive
+			return String(lhsVal).toLowerCase().includes(String(rhsVal).toLowerCase());
+		}
+		if (op == "!<>") {
+			// case insensitive
+			return !String(lhsVal).toLowerCase().includes(String(rhsVal).toLowerCase());
 		}
 	}
 
@@ -649,23 +674,39 @@ class searchExpr {
 			return "(" + lhsStr + " XOR " + rhsStr + ")";
 		}
 
-		if (op == "EQ") {
+		if (op == "=") {
 			return "(" + lhsStr + " == " + rhsStr + ")";
 		}
-		if (op == "NEQ") {
+		if (op == "!=") {
 			return "(" + lhsStr + " != " + rhsStr + ")";
 		}
-		if (op == "GT") {
+		if (op == ">") {
 			return "(" + lhsStr + " > " + rhsStr + ")";
 		}
-		if (op == "GEQ") {
+		if (op == ">=") {
 			return "(" + lhsStr + " >= " + rhsStr + ")";
 		}
-		if (op == "LT") {
+		if (op == "<") {
 			return "(" + lhsStr + " < " + rhsStr + ")";
 		}
-		if (op == "LEQ") {
+		if (op == "<=") {
 			return "(" + lhsStr + " <= " + rhsStr + ")";
+		}
+		if (op == "{}") {
+			// case sensitive
+			return "(" + lhsStr + " {} '" + rhsStr + "')";
+		}
+		if (op == "!{}") {
+			// case sensitive
+			return "(" + lhsStr + " !{} '" + rhsStr + "')";
+		}
+		if (op == "<>") {
+			// case insensitive
+			return "(" + lhsStr + " <> '" + rhsStr + "')";
+		}
+		if (op == "!<>") {
+			// case insensitive
+			return "(" + lhsStr + " !<> '" + rhsStr + "')";
 		}
 	}
 
@@ -807,7 +848,6 @@ class searchExpr {
 		let tid = this.formConstTextSelectId(json);
 		let tdd = document.getElementById(tid);
 
-		console.log("paramType",paramType);
 		if (paramType.type == "ENUM") {
 			// Dropdown list for enumerators
 			sdd.style.display = "inline-block" ;
@@ -896,6 +936,10 @@ function exprConstEnumChangeClick(htmlElem) {
 
 function exprConstNumChangeClick(htmlElem) {
 	session.search.criteria.changeExprConstNum(htmlElem);
+}
+
+function exprConstTextChangeClick(htmlElem) {
+	session.search.criteria.changeExprConstText(htmlElem);
 }
 
 function exprParamChangeClick(htmlElem) {

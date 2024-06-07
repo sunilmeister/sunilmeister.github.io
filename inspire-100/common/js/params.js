@@ -49,9 +49,9 @@ const paramsType = {
 // Allowed ops depending on number type. Result is always a boolean
 // ////////////////////////////////////////////////////
 const paramOps = {
-	NUMBER:[ "EQ", "NEQ", "LT", "LEQ", "GT", "GEQ" ], 
-	STRING:[ "HAS", "NHAS"],
-	ENUM:["EQ", "NEQ"]
+	NUMBER:	[ "=", "!=", "<", "<=", ">", ">=" ], 
+	STRING:	[ "<>", "!<>", "{}", "!{}"],
+	ENUM:		["=", "!="]
 };
 
 // ////////////////////////////////////////////////////

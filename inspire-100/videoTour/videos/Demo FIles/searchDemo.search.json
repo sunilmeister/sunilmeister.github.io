@@ -18,7 +18,7 @@
    "constName": "SIMV",
    "constValue": 2
   },
-  "opName": "EQ"
+  "opName": "="
  },
  "rhs": {
   "id": "SExprNode_1",
@@ -40,7 +40,7 @@
     "constName": "SPONTANEOUS",
     "constValue": 2
    },
-   "opName": "EQ"
+   "opName": "="
   },
   "rhs": {
    "id": "SExprNode_2",
@@ -62,7 +62,7 @@
      "constName": "",
      "constValue": "300"
     },
-    "opName": "LT"
+    "opName": "<"
    },
    "rhs": {
     "id": "SExprNode_3",
@@ -80,7 +80,7 @@
      "constName": "",
      "constValue": "20"
     },
-    "opName": "LEQ"
+    "opName": "<="
    },
    "opName": "OR"
   },
