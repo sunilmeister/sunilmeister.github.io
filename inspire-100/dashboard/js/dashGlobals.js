@@ -30,11 +30,6 @@ var dormantPopupDisplayed = false;
 var dormantPopupManualCloseTime = null;
 
 var updatePaused = false;
-var prevUpdateRange = {moving:false};
-var prevUpdateNumWaves = -1;
-var prevUpdateNumShapes = -1;
-var prevUpdateNumAlerts = -1;
-
 var wifiDropped = false;
 var wifiDroppedBlink = 0;
 

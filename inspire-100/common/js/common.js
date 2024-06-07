@@ -147,6 +147,9 @@ function cloneObject(obj) {
 }
 
 function equalObjects(object1, object2) {
+	if ((object1 === null) && (object2 !== null)) return false;
+	if ((object1 !== null) && (object2 === null)) return false;
+
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
   if (keys1.length !== keys2.length) {

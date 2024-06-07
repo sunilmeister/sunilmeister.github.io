@@ -4,7 +4,10 @@
 
 function createDashboardCharts() {
 	rangeWindowDiv.style.display = "block";
-  createAllCharts();
+	if (isVisibleRangeChanged()) {
+  	createAllCharts();
+		updateVisiblePrevRange();
+	}
 }
 
 ////////////////////////////////////////////////////////

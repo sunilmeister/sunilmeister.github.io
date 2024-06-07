@@ -143,44 +143,16 @@ function createDashboards() {
   // update Snapshot on every chirp
   updateSnapshot();
 
-  let bothRolling = isVisibleRangeMoving() && prevUpdateRange.moving;
- 	prevUpdateRange = cloneObject(visibleViewRange());
-
   if (session.charts.visible) createDashboardCharts();
   if (session.stats.visible) createDashboardStats();
+  if (session.waves.visible) createDashboardWaves();
+  if (session.alerts.visible) createDashboardAlerts();
   if (session.search.visible) createDashboardSearch();
-
-  let currNumAlerts = numberOfExistingAlerts();
-  if (session.alerts.visible) {
-    if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
-      createDashboardAlerts();
-      prevUpdateNumAlerts = currNumAlerts;
-    }
-  }  
-
-  let currNumWaves = numberOfExistingWaves();
-  if (session.waves.visible) {
-    if (!bothRolling || (prevUpdateNumWaves != currNumWaves)) {
-      createDashboardWaves();
-      prevUpdateNumWaves = currNumWaves;
-    }
-  }
-
   if (session.record.visible) {
     if (!session.database.dbName) {
       blankRecordingBox();
     }
   }
-}
-
-function createDashboardStats() {
-	rangeWindowDiv.style.display = "block";
-  createAllStats();
-}
-
-function createDashboardAlerts() {
-	rangeWindowDiv.style.display = "block";
-  createAllAlerts();
 }
 
 function blinkFlowRate() {

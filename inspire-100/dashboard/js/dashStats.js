@@ -2,6 +2,14 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function createDashboardStats() {
+	rangeWindowDiv.style.display = "block";
+	if (isVisibleRangeChanged()) {
+  	createAllStats();
+		updateVisiblePrevRange();
+	}
+}
+
 function movingStatRange() {
   let minBnum = session.dashboardBreathNum - STAT_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;

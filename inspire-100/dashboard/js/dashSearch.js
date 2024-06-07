@@ -3,7 +3,10 @@
 // ////////////////////////////////////////////////////
 
 function createDashboardSearch() {
-	updateSearchResults();
+	if (isVisibleRangeChanged()) {
+		updateSearchResults();
+		updateVisiblePrevRange();
+	}
 }
 
 function movingSearchRange() {

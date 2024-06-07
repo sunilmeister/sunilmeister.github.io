@@ -159,6 +159,44 @@ function visibleRangeMaxTime() {
 	return null;
 }
 
+function isVisibleRangeChanged() {
+	if (session.snapshots.visible) 		{ 
+		return !equalObjects(session.snapshots.range, session.snapshots.prevRange) ;
+	} else if (session.charts.visible) 	{
+		return !equalObjects(session.charts.range, session.charts.prevRange) ;
+	} else if (session.waves.visible) 	{
+		return !equalObjects(session.waves.range, session.waves.prevRange) ;
+	} else if (session.stats.visible) 	{
+		return !equalObjects(session.stats.range, session.stats.prevRange) ;
+	} else if (session.alerts.visible) 	{
+		return !equalObjects(session.alerts.range, session.alerts.prevRange) ;
+	} else if (session.search.visible) 	{
+		return !equalObjects(session.search.range, session.search.prevRange) ;
+	} else if (session.record.visible) 	{
+		return !equalObjects(session.record.range, session.record.prevRange) ;
+	}
+	console.error("No visible view");
+	return null;
+}
+
+function updateVisiblePrevRange() {
+	if (session.snapshots.visible) 		{ 
+		session.snapshots.prevRange  = session.snapshots.range;
+	} else if (session.charts.visible) 	{
+		session.charts.prevRange  = session.charts.range;
+	} else if (session.waves.visible) 	{
+		session.waves.prevRange  = session.waves.range;
+	} else if (session.stats.visible) 	{
+		session.stats.prevRange  = session.stats.range;
+	} else if (session.alerts.visible) 	{
+		session.alerts.prevRange  = session.alerts.range;
+	} else if (session.search.visible) 	{
+		session.search.prevRange  = session.search.range;
+	} else if (session.record.visible) 	{
+		session.record.prevRange  = session.record.range;
+	}
+}
+
 function updateSelectedSliderMinMax(bmin, bmax) {
 	if (session.snapshots.visible) 		session.snapshots.range = createRange(false, bmin, bmax);
 	else if (session.charts.visible) 	session.charts.range = createRange(false, bmin, bmax);

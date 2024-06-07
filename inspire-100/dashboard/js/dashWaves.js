@@ -4,7 +4,10 @@
 
 function createDashboardWaves() {
 	rangeWindowDiv.style.display = "block";
-  createAllWaves();
+	if (isVisibleRangeChanged()) {
+  	createAllWaves();
+		updateVisiblePrevRange();
+	}
 }
 
 function movingWaveRange() {
