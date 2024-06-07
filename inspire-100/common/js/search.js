@@ -33,7 +33,7 @@ function updateSearchResults() {
 }
 
 function matchSearchExpr() {
-	//clearBreathSelection();
+	if (!session.search.range.moving) clearBreathSelection();
 
 	let div = document.getElementById("searchResults");
 	if (!session.search.criteria.isValid()) {
@@ -49,7 +49,7 @@ function matchSearchExpr() {
 	div.style.display = "block";
 
 	let minBnum = session.search.range.minBnum;
-	let maxBnum = session.search.range.maxBnum - 1;
+	let maxBnum = session.search.range.maxBnum;
 	if (minBnum > maxBnum) return;
 
 	let captionDiv = document.getElementById("searchResultsCaption");
@@ -90,6 +90,8 @@ function matchSearchExpr() {
 	let tableHTML = createMatchingTableHdrHTML() + createMatchingTableEntriesHTML();
 	let tableDiv = document.getElementById('searchResultsTbl');
 	tableDiv.innerHTML = tableHTML;
+
+	showSelectedMatchingBreathRange();
 }
 
 function createMatchingTableHdrHTML() {
@@ -204,6 +206,7 @@ function showSelectedMatchingBreathRange() {
 	if (tbody.rows.length <= 1) return;
 
 	//console.log("breathSelectMin", breathSelectMin, "breathSelectMax", breathSelectMax);
+	if (breathSelectMin == -1) return;
 
 	let rangeStr = "[" + padMinBnum(session.search.results[breathSelectMin].bnum) + " - ";
 	rangeStr += padMaxBnum(session.search.results[breathSelectMax].bnum) + "]";
