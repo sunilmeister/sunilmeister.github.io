@@ -76,6 +76,7 @@ const CONST_ENUM_ID_PREFIX = "SExprConstEnum_" ;
 const CONST_NUMBER_ID_PREFIX = "SExprConstNum_" ;
 const SELECT_ENUM_NODE_ID_PREFIX = "SExprEnum_" ;
 const INPUT_NUM_NODE_ID_PREFIX = "SExprNum_" ;
+const INPUT_TEXT_NODE_ID_PREFIX = "SExprText_" ;
 const OP_NODE_ID_PREFIX = "SExprOp_" ;
 const UNITS_NODE_ID_PREFIX = "SExprUnits_" ;
 
@@ -283,6 +284,12 @@ class searchExpr {
 
 		constElem = findChildNodeByClass(parentElem, "constNumberSelectCls");
 		constNodeId = this.formConstNumNodeId(constElem.id);
+		node = this.findNode(constNodeId);
+		node.constName = null;
+		node.constValue = null;
+
+		constElem = findChildNodeByClass(parentElem, "constTextSelectCls");
+		constNodeId = this.formConstTextNodeId(constElem.id);
 		node = this.findNode(constNodeId);
 		node.constName = null;
 		node.constValue = null;
@@ -694,6 +701,14 @@ class searchExpr {
 		return htmlId.replace(INPUT_NUM_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
 	}
 
+	formConstTextSelectId(json) {
+		return json.id.replace(SEARCH_NODE_ID_PREFIX, INPUT_TEXT_NODE_ID_PREFIX);
+	}
+
+	formConstTextNodeId(htmlId) {
+		return htmlId.replace(INPUT_TEXT_NODE_ID_PREFIX, SEARCH_NODE_ID_PREFIX);
+	}
+
 	formOpSelectId(json) {
 		return json.id.replace(SEARCH_NODE_ID_PREFIX, OP_NODE_ID_PREFIX);
 	}
@@ -716,6 +731,10 @@ class searchExpr {
 		str += "<input type=number id=" + this.formConstNumSelectId(json.rhs);
 		str += " onchange='exprConstNumChangeClick(this)' ";
 		str += " class=constNumberSelectCls style='display:none'></input>" ;
+
+		str += "<input type=text id=" + this.formConstTextSelectId(json.rhs);
+		str += " onchange='exprConstTextChangeClick(this)' ";
+		str += " class=constTextSelectCls style='display:none'></input>" ;
 
 		str += "<p id=" + this.formUnitsSelectId(json.lhs);
 		str += " class=unitsSelectCls></p>" ;
@@ -765,12 +784,14 @@ class searchExpr {
 		
 		// Dropdown list for operators
 		let opRange = paramOps[paramType.type];
-		for (let i=0; i< opRange.length; i++) {
-			let op = opRange[i];
-			let opt = document.createElement("option"); 
-			opt.text = op;
-			opt.value = op;
-			dropdown.options.add(opt);
+		if (opRange !== null) {
+			for (let i=0; i< opRange.length; i++) {
+				let op = opRange[i];
+				let opt = document.createElement("option"); 
+				opt.text = op;
+				opt.value = op;
+				dropdown.options.add(opt);
+			}
 		}
 
 		dropdown.value = value;
@@ -783,11 +804,15 @@ class searchExpr {
 		let sdd = document.getElementById(sid);
 		let iid = this.formConstNumSelectId(json);
 		let idd = document.getElementById(iid);
+		let tid = this.formConstTextSelectId(json);
+		let tdd = document.getElementById(tid);
 
+		console.log("paramType",paramType);
 		if (paramType.type == "ENUM") {
 			// Dropdown list for enumerators
 			sdd.style.display = "inline-block" ;
 			idd.style.display = "none" ;
+			tdd.style.display = "none" ;
 			let paramRange = paramType.range;
 			let values = Object.keys(paramRange);
 			for (let i=0; i< values.length; i++) {
@@ -798,13 +823,19 @@ class searchExpr {
 				sdd.options.add(opt);
 			}
 			sdd.value = constName;
-		} else {
+		} else if (paramType.type == "NUMBER") {
 			sdd.style.display = "none" ;
 			idd.style.display = "inline-block" ;
+			tdd.style.display = "none" ;
 			idd.value = constValue;
 			if (paramType.range.min !== null) idd.min = paramType.range.min;
 			if (paramType.range.max !== null) idd.max = paramType.range.max;
 			if (paramType.range.step !== null) idd.step = paramType.range.step;
+		} else if (paramType.type == "STRING") {
+			sdd.style.display = "none" ;
+			idd.style.display = "none" ;
+			tdd.style.display = "inline-block" ;
+			tdd.value = constValue;
 		}
 	}
 		

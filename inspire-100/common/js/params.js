@@ -5,13 +5,15 @@
 // ////////////////////////////////////////////////////
 // Params are either a number or an enumeration
 // For ENUMS, each enumerator has a number associated as below
-// If the param's type is null, it is not searchable
+// If the param's range is null, it is a string
+// If the param's range is {}, it is a number
 // ////////////////////////////////////////////////////
 const paramsType = {
 	NUMBER : 					{type:"NUMBER", range:{}},
 	BOOLEAN : 				{type:"ENUM", 
 											range:{"FALSE":0, "TRUE":1}
 										},
+	STRING : 					{type:"STRING", range:null},
 	STATE : 					{type:"ENUM", 
 											range:{"INITIAL":0, "STANDBY":1, "ACTIVE":2, "ERROR":3}
 										},
@@ -46,7 +48,11 @@ const paramsType = {
 // ////////////////////////////////////////////////////
 // Allowed ops depending on number type. Result is always a boolean
 // ////////////////////////////////////////////////////
-const paramOps = {NUMBER:[ "EQ", "NEQ", "LT", "LEQ", "GT", "GEQ" ], ENUM:["EQ", "NEQ"]};
+const paramOps = {
+	NUMBER:[ "EQ", "NEQ", "LT", "LEQ", "GT", "GEQ" ], 
+	STRING:[ "HAS", "NHAS"],
+	ENUM:["EQ", "NEQ"]
+};
 
 // ////////////////////////////////////////////////////
 // Install all params at load time
@@ -77,7 +83,10 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"infos", 			name:"NOTIFICATIONS"});
 	session.allParamsTable.push({key:"wifiDrops",		name:"WIFI_DROPS"});
 	session.allParamsTable.push({key:"wifiReconns",	name:"WIFI_RECONNECTS"});
-	session.allParamsTable.push({key:"messages",	name:"LCD_MESSAGES"});
+	session.allParamsTable.push({key:"lcdLine1",		name:"LCD_LINE_1"});
+	session.allParamsTable.push({key:"lcdLine2",		name:"LCD_LINE_2"});
+	session.allParamsTable.push({key:"lcdLine3",		name:"LCD_LINE_3"});
+	session.allParamsTable.push({key:"lcdLine4",		name:"LCD_LINE_4"});
 	session.allParamsTable.push({key:"mode", 				name:"MODE_SETTING"});
 	session.allParamsTable.push({key:"vt", 					name:"VT_SETTING"});
 	session.allParamsTable.push({key:"mv", 					name:"MV_SETTING"});
@@ -117,7 +126,10 @@ function initSessionParams() {
 	session.params.infos = 			new Param("NOTIFICATIONS", type.NUMBER, "");
 	session.params.wifiDrops =	new Param("WIFI_DROPS", type.NUMBER, "");
 	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
-	session.params.messages=		new Param("LCD_MESSAGES", null, "");
+	session.params.lcdLine1=		new Param("LCD_LINE_1", type.STRING, "");
+	session.params.lcdLine2=		new Param("LCD_LINE_2", type.STRING, "");
+	session.params.lcdLine3=		new Param("LCD_LINE_3", type.STRING, "");
+	session.params.lcdLine4=		new Param("LCD_LINE_4", type.STRING, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
 	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");

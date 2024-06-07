@@ -73,6 +73,13 @@
 	cursor: pointer;
 }
 
+.constTextSelectCls {
+	font-size: 1.2rem;
+	width: 10rem;
+	border: none;
+  text-align-last:center;
+}
+
 .exprOpSelectCls {
 	font-size: 1.2rem;
 	appearance: none;
