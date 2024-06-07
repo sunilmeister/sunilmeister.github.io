@@ -78,7 +78,7 @@ function displayUsedCombos() {
   let table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
-	let arr = FindUsedCombosInRange(session.reportRange.minBnum, session.reportRange.maxBnum);
+	let arr = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
 
   for (i = 0; i < arr.length; i++) {
     combo = arr[i];
@@ -113,8 +113,8 @@ function displayUsedCombos() {
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
     let comboBreathsInRange = null;
-    let minBnum = session.reportRange.minBnum;
-    let maxBnum = session.reportRange.maxBnum - 1;
+    let minBnum = session.stats.range.minBnum;
+    let maxBnum = session.stats.range.maxBnum - 1;
     let minComboBnum = combo.value.startingBreath;
     let maxComboBnum = minComboBnum + combo.value.numBreaths - 1;
 
@@ -233,8 +233,8 @@ function replaceDummyValue(value) {
 }
 
 function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, param) {
-	let minBnum = session.reportRange.minBnum;
-	let maxBnum = session.reportRange.maxBnum;
+	let minBnum = session.stats.range.minBnum;
+	let maxBnum = session.stats.range.maxBnum;
 
 	let stats = param.MinMaxAvg(minBnum, maxBnum);
   document.getElementById(minDivId).innerHTML = replaceDummyValue(stats.min);
@@ -247,8 +247,8 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, param) {
 }
 
 function formUsedParamString(paramObj, enums) {
-	let minBnum = session.reportRange.minBnum;
-	let maxBnum = session.reportRange.maxBnum;
+	let minBnum = session.stats.range.minBnum;
+	let maxBnum = session.stats.range.maxBnum;
 
 	let stats = paramObj.DistinctValues(minBnum, maxBnum);
   if (!stats.length) {
@@ -268,8 +268,8 @@ function formUsedParamString(paramObj, enums) {
 }
 
 function displayBreathTypeInfo() {
-	let minBnum = session.reportRange.minBnum;
-	let maxBnum = session.reportRange.maxBnum;
+	let minBnum = session.stats.range.minBnum;
+	let maxBnum = session.stats.range.maxBnum;
 	let paramObj = session.params.btype;
 
 	let ns = paramObj.CountValueEqual(SPONTANEOUS_BREATH, minBnum, maxBnum);
@@ -391,8 +391,8 @@ function displayPatientInfo() {
 }
 
 function displayAlertsInfo() {
-	let minBnum = session.reportRange.minBnum;
-	let maxBnum = session.reportRange.maxBnum;
+	let minBnum = session.stats.range.minBnum;
+	let maxBnum = session.stats.range.maxBnum;
 
   let n = session.params.infos.NumChanges(minBnum, maxBnum);
   el = document.getElementById("numNotifications");

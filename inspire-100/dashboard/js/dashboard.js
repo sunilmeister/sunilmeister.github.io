@@ -143,23 +143,15 @@ function createDashboards() {
   // update Snapshot on every chirp
   updateSnapshot();
 
-  let bothRolling = session.reportRange.moving && prevUpdateRange.moving;
+  let bothRolling = isVisibleRangeMoving() && prevUpdateRange.moving;
+ 	prevUpdateRange = cloneObject(visibleViewRange());
 
-  // update rest of the views selectively
-  if (currentView == "search") {
-  	if (equalObjects(prevSearchRange,  session.search.range)) return;
-  	prevSearchRange = cloneObject(session.search.range);
-	} else {
-  	if (equalObjects(prevUpdateRange,  session.reportRange)) return;
-  	prevUpdateRange = cloneObject(session.reportRange);
-	}
-
-  if (currentView == "charts") createDashboardCharts();
-  if (currentView == "stats") createDashboardStats();
-  if (currentView == "search") createDashboardSearch();
+  if (session.charts.visible) createDashboardCharts();
+  if (session.stats.visible) createDashboardStats();
+  if (session.search.visible) createDashboardSearch();
 
   let currNumAlerts = numberOfExistingAlerts();
-  if (currentView == "alerts") {
+  if (session.alerts.visible) {
     if (!bothRolling || (prevUpdateNumAlerts != currNumAlerts)) {
       createDashboardAlerts();
       prevUpdateNumAlerts = currNumAlerts;
@@ -167,14 +159,14 @@ function createDashboards() {
   }  
 
   let currNumWaves = numberOfExistingWaves();
-  if (currentView == "waves") {
+  if (session.waves.visible) {
     if (!bothRolling || (prevUpdateNumWaves != currNumWaves)) {
       createDashboardWaves();
       prevUpdateNumWaves = currNumWaves;
     }
   }
 
-  if (currentView == "records") {
+  if (session.record.visible) {
     if (!session.database.dbName) {
       blankRecordingBox();
     }
@@ -220,7 +212,7 @@ function toggleAudio() {
 
 function blinkSliderDiv() {
   let div = document.getElementById("rangeWindowDiv");
-	if (!session.reportRange.moving) {
+	if (!isVisibleRangeMoving()) {
     if (sliderDivBackground == "NONE") {
   		document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
     	div.style.backgroundColor = palette.orange;
@@ -269,14 +261,8 @@ function blinkPauseButton() {
 }
 
 function setSliderMinMax() {
-	let s = session.reportRange.minBnum;
-	let e = session.reportRange.maxBnum;
-  if (document.getElementById("searchDiv").style.display == "block") {
-		if (session.search.range) {
-			s = session.search.range.minBnum;
-			e = session.search.range.maxBnum;
-		}
-	}
+	let s = visibleRangeMinBnum();
+	let e = visibleRangeMaxBnum();
   stopSliderCallback = true;
   session.rangeSlider.setSlider([s, e]);
   stopSliderCallback = false;
@@ -299,29 +285,37 @@ function undisplayAllViews() {
   document.getElementById("waves-pane").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
 
+	session.snapshots.visible = false;
+	session.charts.visible = false;
+	session.stats.visible = false;
+	session.alerts.visible = false;
+	session.record.visible = false;
+	session.waves.visible = false;
+	session.search.visible = false;
+
 	hideAllPopups();
 }
 
 function changeToSnapshotView() {
 	undisplayAllViews();
+  if (updatePaused) togglePause();
+	session.snapshots.visible = true;
+
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("snapshot-pane").style.display = "inline-grid";
 
   rangeWindowDiv.style.display = "none";
-  currentView = "snapshots";
-
-  if (updatePaused) togglePause();
 }
 
 function changeToChartView() {
 	undisplayAllViews();
+  if (updatePaused) togglePause();
+	session.charts.visible = true;
+
   document.getElementById("btnCharts").disabled = true;
   document.getElementById("chart-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
 	setSliderMinMax();
-
-  if (updatePaused) togglePause();
-  currentView = "charts";
 
   updateChartRangeOnEntry();
   createDashboardCharts();
@@ -329,13 +323,13 @@ function changeToChartView() {
 
 function changeToWaveView() {
 	undisplayAllViews();
+  if (updatePaused) togglePause();
+	session.waves.visible = true;
+
   document.getElementById("btnWaves").disabled = true;
   document.getElementById("waves-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
 	setSliderMinMax();
-
-  if (updatePaused) togglePause();
-  currentView = "waves";
 
   updateWaveRangeOnEntry();
   createDashboardWaves();
@@ -343,13 +337,13 @@ function changeToWaveView() {
 
 function changeToStatView() {
 	undisplayAllViews();
+  if (updatePaused) togglePause();
+	session.stats.visible = true;
+
   document.getElementById("btnStats").disabled = true;
   document.getElementById("stat-pane").style.display = "block";
 	rangeWindowDiv.style.display = "block";
 	setSliderMinMax();
-
-  if (updatePaused) togglePause();
-  currentView = "stats";
 
   updateStatRangeOnEntry();
   createDashboardStats();
@@ -357,13 +351,13 @@ function changeToStatView() {
 
 function changeToAlertView() {
 	undisplayAllViews();
+  if (updatePaused) togglePause();
+	session.alerts.visible = true;
+
   document.getElementById("btnAlerts").disabled = true;
   document.getElementById("alert-pane").style.display = "block";
 	rangeWindowDiv.style.display = "block";
 	setSliderMinMax();
-
-  if (updatePaused) togglePause();
-  currentView = "alerts";
 
   updateAlertRangeOnEntry();
   createDashboardAlerts();
@@ -371,6 +365,8 @@ function changeToAlertView() {
 
 function changeToSearchView() {
 	undisplayAllViews();
+	session.search.visible = true;
+
   document.getElementById("btnSearch").disabled = true;
   document.getElementById("searchDiv").style.display = "block";
 	rangeWindowDiv.style.display = "block";
@@ -380,27 +376,27 @@ function changeToSearchView() {
 		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
 	}
 
-  currentView = "search";
   updateSearchRangeOnEntry();
 }
 
 
 function changeToRecordView() {
 	undisplayAllViews();
+	session.record.visible = true;
+
   document.getElementById("btnRecording").disabled = true;
   document.getElementById("record-pane").style.display = "block";
   rangeWindowDiv.style.display = "none";
   if (updatePaused) togglePause();
-  currentView = "records";
 }
 
 function updateRangeOnNewBreath() {
   session.charts.rangeLimit++;
-  if (currentView == "charts") updateChartRange();
-  if (currentView == "stats") updateStatRange();
-  if (currentView == "alerts") updateAlertRange();
-  if (currentView == "waves") updateWaveRange();
-  if (currentView == "search") updateSearchRange();
+  if (session.charts.visible) updateChartRange();
+  if (session.stats.visible) updateStatRange();
+  if (session.alerts.visible) updateAlertRange();
+  if (session.waves.visible) updateWaveRange();
+  if (session.search.visible) updateSearchRange();
 }
 
 function togglePause() {
@@ -408,12 +404,12 @@ function togglePause() {
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
-    if (currentView == "snapshots") updateSnapshot();
-    if (currentView == "charts") createDashboardCharts();
-    if (currentView == "stats") createDashboardStats();
-    if (currentView == "search") createDashboardSearch();
-    if (currentView == "alerts") createDashboardAlerts();
-    if (currentView == "waves") createDashboardWaves();
+    if (session.snapshots.visible) updateSnapshot();
+    if (session.charts.visible) createDashboardCharts();
+    if (session.stats.visible) createDashboardStats();
+    if (session.search.visible) createDashboardSearch();
+    if (session.alerts.visible) createDashboardAlerts();
+    if (session.waves.visible) createDashboardWaves();
   } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
@@ -483,7 +479,7 @@ function installTempGauge() {
 }
 
 function receivedNewWave() {
-  if (currentView == "waves") return;
+  if (session.charts.visible) return;
   if ((session.waves.sendPeriod) && !session.waves.onDemand) return;
 
   console.log("On demand snapshot received pwBreathNum=" + session.waves.pwBreathNum);
@@ -532,6 +528,8 @@ window.onload = function () {
   initAlerts();
   let snapshot = document.getElementById("snapshot-pane");
   snapshot.style.display = "inline-grid";
+	session.snapshots.visible = true;
+
   let charts = document.getElementById("chart-pane");
   charts.style.display = "none";
   let stats = document.getElementById("stat-pane");
@@ -608,9 +606,9 @@ function resizeChartsWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineThickness'));
 
 	resizeAllCharts();
-  if (currentView == "charts") renderAllCharts();
+  if (session.charts.visible) renderAllCharts();
 	resizeAllWaves();
-  if (currentView == "waves") renderAllWaves();
+  if (session.waves.visible) renderAllWaves();
 }
 
 function appResize() {
@@ -684,33 +682,31 @@ function setTimeInterval() {
   let values = session.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
-  if (currentView == "search") {
-  	session.search.range = createReportRange(false, bmin, bmax);
-	} else {
-  	session.reportRange = createReportRange(false, bmin, bmax);
-	}
+ 	updateVisibleViewRange(false, bmin, bmax);
 
   createDashboards();
 }
 
 function playPauseTimeInterval() {
-	if (session.reportRange.moving) {
-		session.reportRange.moving = false;
+	if (isVisibleRangeMoving()) {
+		pauseVisibleRange();
   	document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
 		return;
 	}
 
   document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
-  session.reportRange = createReportRange(true, 1, session.dashboardBreathNum);
+  updateVisibleViewRange(true, 1, session.dashboardBreathNum);
+
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMaxBnum()]);
   stopSliderCallback = false;
 
-  if (currentView == "charts") updateChartRange();
-  if (currentView == "stats") updateStatRange();
-  if (currentView == "alerts") updateAlertRange();
-  if (currentView == "waves") updateWaveRange();
-  if (currentView == "search") updateSearchRange();
+  if (session.snapshots.visible) updateSnapshot();
+  if (session.charts.visible) updateChartRange();
+  if (session.stats.visible) updateStatRange();
+  if (session.alerts.visible) updateAlertRange();
+  if (session.waves.visible) updateWaveRange();
+  if (session.search.visible) updateSearchRange();
 
   createDashboards();
 }

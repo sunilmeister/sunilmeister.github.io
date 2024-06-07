@@ -172,7 +172,7 @@ function createAllCharts() {
 
 function renderAllCharts() {
 	// check for too many datapoints to render
-  let numDataPoints = session.reportRange.maxBnum - session.reportRange.minBnum + 1;
+  let numDataPoints = session.charts.range.maxBnum - session.charts.range.minBnum + 1;
 	let sparseInterval = 1;
   if (numDataPoints > CHART_ALERT_THRESHOLD) {
 		sparseInterval = Math.ceil(numDataPoints / CHART_ALERT_THRESHOLD);

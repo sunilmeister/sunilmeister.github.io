@@ -12,7 +12,7 @@ function createDashboardCharts() {
 function movingChartRange() {
   let minBnum = session.dashboardBreathNum - CHART_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
-  session.reportRange = createReportRange(true, minBnum, session.dashboardBreathNum);
+  updateVisibleViewRange(true, minBnum, session.dashboardBreathNum);
 }
 
 function updateChartRange() {
@@ -20,18 +20,19 @@ function updateChartRange() {
   session.rangeSlider.setRange([1, session.charts.rangeLimit]);
 
   // if range is not "full"
-  if (!session.reportRange.moving) return;
-  if (session.reportRange.moving) movingChartRange();
+  if (!session.charts.range.moving) return;
+  if (session.charts.range.moving) movingChartRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
   stopSliderCallback = false;
 }
 
 function updateChartRangeOnEntry() {
-  if (!session.reportRange.moving) return;
+  if (!session.charts.range.moving) return;
   movingChartRange();
+
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.reportRange.minBnum, session.reportRange.maxBnum]);
+  session.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
   stopSliderCallback = false;
 }

@@ -48,12 +48,8 @@ function matchSearchExpr() {
 	}
 	div.style.display = "block";
 
-	if (session.search.range === null) {
-		session.search.range = cloneObject(session.reportRange);
-	}
 	let minBnum = session.search.range.minBnum;
 	let maxBnum = session.search.range.maxBnum - 1;
-	//console.log("minBnum", minBnum,"maxBnum",maxBnum);
 	if (minBnum > maxBnum) return;
 
 	let captionDiv = document.getElementById("searchResultsCaption");
@@ -260,7 +256,7 @@ function setRangeSelectorForSelectedBreaths() {
 	let minBnum = padMinBnum(session.search.results[breathSelectMin].bnum);
 	let maxBnum = padMaxBnum(session.search.results[breathSelectMax].bnum);
 
-	session.reportRange = createReportRange(false, minBnum, maxBnum);
+	updateAllRangesExceptSearch(false, minBnum, maxBnum);
 
 	let rangeStr = "[" + minBnum + " - " + maxBnum + "]";
 	let str = "Other views Range Select set to \n" + rangeStr ;

@@ -82,6 +82,8 @@ const ERROR_STATE = 3;
 // For calculating flow from deltaP Q
 const Q_SCALE_FACTOR = 8;
 
+const SNAPSHOT_NUM_ROLLING_BREATHS = 1;
+
 const WAVE_NUM_ROLLING_BREATHS = 12;
 const WAVE_ALERT_THRESHOLD = 40;
 const WAVE_MAX_SAMPLES_PER_BREATH = 32

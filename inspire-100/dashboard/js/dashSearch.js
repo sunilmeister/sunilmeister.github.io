@@ -9,7 +9,7 @@ function createDashboardSearch() {
 function movingSearchRange() {
   let minBnum = session.dashboardBreathNum - SEARCH_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
-  session.search.range = createReportRange(true, minBnum, session.dashboardBreathNum);
+  updateVisibleViewRange(true, minBnum, session.dashboardBreathNum);
 }
 
 function updateSearchRange() {
@@ -17,8 +17,8 @@ function updateSearchRange() {
   session.rangeSlider.setRange([1, session.charts.rangeLimit]);
 
   // if range is not "full"
-  if (!session.reportRange.moving) return;
-  if (session.reportRange.moving) movingSearchRange();
+  if (!session.search.range.moving) return;
+  if (session.search.range.moving) movingSearchRange();
 
   stopSliderCallback = true;
   session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
@@ -26,7 +26,7 @@ function updateSearchRange() {
 }
 
 function updateSearchRangeOnEntry() {
-  if (!session.reportRange.moving) return;
+  if (!session.search.range.moving) return;
   movingSearchRange();
   stopSliderCallback = true;
   session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);

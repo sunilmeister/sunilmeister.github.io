@@ -123,8 +123,8 @@ class WavePane {
   }
 
   numWavesInRange() {
-    let minBnum = session.reportRange.minBnum;
-    let maxBnum = session.reportRange.maxBnum;
+    let minBnum = session.waves.range.minBnum;
+    let maxBnum = session.waves.range.maxBnum;
     let n = 0;
     for (let i = 0; i < this.data.length; i++) {
       let breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
@@ -136,8 +136,8 @@ class WavePane {
   }
 
   numSelectedWavesInRange() {
-    let minBnum = session.reportRange.minBnum;
-    let maxBnum = session.reportRange.maxBnum;
+    let minBnum = session.waves.range.minBnum;
+    let maxBnum = session.waves.range.maxBnum;
     let n = 0;
     for (let i = 0; i < this.data.length; i++) {
       let breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;

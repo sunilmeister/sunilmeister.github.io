@@ -34,10 +34,6 @@ class ChartBox {
   //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
-    if (!session.reportRange) {
-      this.rangeX = null;
-      return; 
-    }
 
  		let container = findAncestorNodeByClassName(this.containerBodyDiv, CHART_CONTAINER_CLASS);
  		let txt = findChildNodeByClass(container, CHART_BANNER_TEXT_CLASS);
@@ -47,7 +43,7 @@ class ChartBox {
 			txt.innerHTML = "";
 		}
 
-    this.rangeX = session.reportRange;
+    this.rangeX = session.charts.range;
     this.createChart();
     if (this.chart) this.chart.render(this.containerBodyDiv);
   }

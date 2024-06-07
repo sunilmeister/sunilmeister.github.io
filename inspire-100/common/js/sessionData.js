@@ -41,18 +41,6 @@ var SessionDataTemplate = {
     allDbKeys:  {},
   },
   
-  reportRange: {
-    moving: true,
-    initBnum: null,
-    minBnum: null,
-    maxBnum: null,
-    missingBnum: [],
-    initTime: null,
-    minTime: null,
-    maxTime: null,
-    missingTime: []
-  },
-
   // ////////////////////////////////////////////////////
   // data collected from chirps
   // ////////////////////////////////////////////////////
@@ -140,16 +128,6 @@ var SessionDataTemplate = {
   errorMsgs:            [],
 
 	// /////////////////////////////////////////////
-	// For the Search view
-	// /////////////////////////////////////////////
-  search: {
-		criteria: null,
-		range: null,
-		paramSet: [],
-		results: [],
-	},
-
-	// /////////////////////////////////////////////
   // All input and output parameters (settings and measured)
 	// Initialized during createNewSession
   // /////////////////////////////////////////////
@@ -209,8 +187,19 @@ var SessionDataTemplate = {
   // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
 
+  // Below is stuff for snapshots
+  snapshots: {
+		visible: false,
+		range: null,
+		prevRange: null,
+    rangeLimit: SNAPSHOT_NUM_ROLLING_BREATHS,
+  },
+
   // error and warning messages
   alerts: {
+		visible: false,
+		range: null,
+		prevRange: null,
     rangeLimit: ALERT_NUM_ROLLING_BREATHS,
     attention: false,
 		newErrorMsg: false,
@@ -229,6 +218,9 @@ var SessionDataTemplate = {
 
   // chart transitions etc.
   charts : {
+		visible: false,
+		range: null,
+		prevRange: null,
     rangeLimit: CHART_NUM_ROLLING_BREATHS,
     allChartsContainerInfo: {},
     boxTree: null,
@@ -242,11 +234,17 @@ var SessionDataTemplate = {
 
   // Below is stuff for stats
   stats: {
+		visible: false,
+		range: null,
+		prevRange: null,
     rangeLimit: STAT_NUM_ROLLING_BREATHS,
   },
 
   // Below is stuff for detailed breath waveforms
   waves: {
+		visible: false,
+		range: null,
+		prevRange: null,
     rangeLimit: WAVE_NUM_ROLLING_BREATHS,
     sparseInterval: 1,
     pwData: [],
@@ -267,6 +265,27 @@ var SessionDataTemplate = {
     titleFontSize: 30,
     stripLineFontSize: 20,
   },
+
+	// /////////////////////////////////////////////
+	// For the recording view
+	// /////////////////////////////////////////////
+  record: {
+		visible: false,
+		range: null,
+		prevRange: null,
+	},
+
+	// /////////////////////////////////////////////
+	// For the Search view
+	// /////////////////////////////////////////////
+  search: {
+		visible: false,
+		criteria: null,
+		range: null,
+		prevRange: null,
+		paramSet: [],
+		results: [],
+	},
 
   // /////////////////////////////////////////////
   // Below is used by Playback
@@ -300,6 +319,19 @@ var SessionDataTemplate = {
 };
 
 var session = null;
+
+var rangeTemplate = {
+  moving: true,
+  initBnum: null,
+  minBnum: null,
+  maxBnum: null,
+  missingBnum: [],
+  initTime: null,
+  minTime: null,
+  maxTime: null,
+  missingTime: []
+};
+
 function createNewSession() {
 	console.log("Creating new session");
 	let saveRangeSlider = null;
@@ -310,6 +342,15 @@ function createNewSession() {
 	session = cloneObject(SessionDataTemplate);
 	session.rangeSlider = saveRangeSlider;
 
+	// initialize ranges
+	session.snapshots.range = cloneObject(rangeTemplate);
+	session.charts.range = cloneObject(rangeTemplate);
+	session.waves.range = cloneObject(rangeTemplate);
+	session.stats.range = cloneObject(rangeTemplate);
+	session.alerts.range = cloneObject(rangeTemplate);
+	session.search.range = cloneObject(rangeTemplate);
+	session.record.range = cloneObject(rangeTemplate);
+
 	initSessionParams();
 }
 
@@ -317,36 +358,6 @@ window.addEventListener("load", function() {
   if (session) delete session;
 	createNewSession();
 })
-
-function createReportRange(moving, minBnum, maxBnum) {
-  let range = cloneObject(session.reportRange);
-  range.moving = moving;
-  range.initBnum = 1;
-  range.minBnum = minBnum;
-  range.maxBnum = maxBnum;
-  if (!session.breathTimes[minBnum]) { // missing breath
-    minBnum = closestNonNullEntryIndex(session.breathTimes, minBnum);
-  }
-  if (!session.breathTimes[maxBnum]) { // missing breath
-    maxBnum = closestNonNullEntryIndex(session.breathTimes, maxBnum);
-  }
-
-  range.initTime = session.startDate;
-  if (minBnum < 1) {
-    range.minTime = session.startDate;
-  } else {
-    range.minTime = session.breathTimes[minBnum];
-  }
-  if (maxBnum < 1) {
-    range.maxTime = session.startDate;
-  } else {
-    range.maxTime = session.breathTimes[maxBnum];
-  }
-
-  range.missingBnum = cloneObject(session.missingBreathWindows);
-  range.missingTime = cloneObject(session.missingTimeWindows);
-  return range;
-}
 
 /////////////////////////////////////////////////////
 // Periodically check the internet online status
