@@ -313,6 +313,14 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
           processBnumChirp(curTime, value, jsonData);
+        } else if (ckey == "L1") {
+					session.params.lcdLine1.AddTimeValue(curTime, value);
+        } else if (ckey == "L2") {
+					session.params.lcdLine2.AddTimeValue(curTime, value);
+        } else if (ckey == "L3") {
+					session.params.lcdLine3.AddTimeValue(curTime, value);
+        } else if (ckey == "L4") {
+					session.params.lcdLine4.AddTimeValue(curTime, value);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
           processSwChirp(curTime, value);

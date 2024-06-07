@@ -194,13 +194,7 @@ function processRecordChirp(d) {
     if (!isUndefined(d.content['L3'])) session.recorder.l3Valid = true;
     if (!isUndefined(d.content['L4'])) session.recorder.l4Valid = true;
   }
-  if (!session.recorder.expectWarningMsg && !session.recorder.expectErrorMsg && !skipRecording) {
-    // Get rid of messages except in INITIAL state or when the attention is ON
-    delete d.content['L1'];
-    delete d.content['L2'];
-    delete d.content['L3'];
-    delete d.content['L4'];
-  }
+
   // prune the content if same as previous
   for (let key in d.content) {
     // get key value pairs

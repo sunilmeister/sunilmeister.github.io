@@ -218,8 +218,11 @@ class Param {
 	// each call must be monotonically increasing in time values
 	// time is a Date object
 	AddTimeValue(time, value) {
-		// All params are a number including enums
-		value = Number(value);
+		if (this.type.type == "STRING") {
+			value = String(value);
+		} else {
+			value = Number(value);
+		}
 		if (isUndefined(time) || (time === null)) { // missing breaths
 			return;
 		}
