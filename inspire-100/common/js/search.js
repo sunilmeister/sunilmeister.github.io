@@ -71,7 +71,7 @@ function matchSearchExpr() {
 	// Do search for SEARCH_ITEMS_AT_A_TIME at a time
 	while (1) {
 		if (bnum > maxBnum) break;
-		if (matchNum >= SEARCH_ITEMS_AT_A_TIME) break;
+		if (!session.search.range.moving && (matchNum >= SEARCH_ITEMS_AT_A_TIME)) break;
 		let v = session.search.criteria.evaluate(bnum);
 		if (v === true) {
 			matchNum++;
@@ -172,7 +172,9 @@ function createMatchingTableEntriesHTML() {
 	
 	// closing row
 	str += '<tr><td colspan=' + (paramSet.length + 4);
-	if (searchDone) {
+	if (session.search.range.moving) {
+		str += ' class=searchNoMoreCls>' + numResults + ' Matches: Search continuing in PLAY mode</td>';
+	} else if (searchDone) {
 		str += ' class=searchNoMoreCls>' + numResults + ' Matches: End of Search</td>';
 	} else {
 		str += ' class=searchMoreCls onclick="matchSearchExpr()">' + numResults + ' Matches: Click for more</td>';
