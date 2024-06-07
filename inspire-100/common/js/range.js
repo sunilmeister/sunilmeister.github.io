@@ -45,6 +45,8 @@ function updateVisibleViewRange(moving, minBnum, maxBnum) {
 	else if (session.alerts.visible) 	session.alerts.range = cloneObject(range);
 	else if (session.search.visible) 	session.search.range = cloneObject(range);
 	else if (session.record.visible) 	session.record.range = cloneObject(range);
+	else if (session.rawData.visible) session.rawData.range = cloneObject(range);
+	else if (session.select.visible) 	session.select.range = cloneObject(range);
 }
 
 function updateAllRanges(moving, minBnum, maxBnum) {
@@ -56,6 +58,8 @@ function updateAllRanges(moving, minBnum, maxBnum) {
 	session.alerts.range = cloneObject(range);
 	session.search.range = cloneObject(range);
 	session.record.range = cloneObject(range);
+	session.rawData.range = cloneObject(range);
+	session.select.range = cloneObject(range);
 }
 
 function updateAllRangesExceptSearch(moving, minBnum, maxBnum) {
@@ -66,6 +70,8 @@ function updateAllRangesExceptSearch(moving, minBnum, maxBnum) {
 	session.stats.range = cloneObject(range);
 	session.alerts.range = cloneObject(range);
 	session.record.range = cloneObject(range);
+	session.rawData.range = cloneObject(range);
+	session.select.range = cloneObject(range);
 }
 
 function pauseVisibleRange() {
@@ -76,6 +82,8 @@ function pauseVisibleRange() {
 	else if (session.alerts.visible) 	session.alerts.range.moving = false;
 	else if (session.search.visible) 	session.search.range.moving = false;
 	else if (session.record.visible) 	session.record.range.moving = false;
+	else if (session.rawData.visible)	session.rawData.range.moving = false;
+	else if (session.select.visible) 	session.select.range.moving = false;
 }
 
 // toggle between play and pause
@@ -87,6 +95,8 @@ function playVisibleRange() {
 	else if (session.alerts.visible) 	session.alerts.range.moving = true;
 	else if (session.search.visible) 	session.search.range.moving = true;
 	else if (session.record.visible) 	session.record.range.moving = true;
+	else if (session.rawData.visible) session.record.rawData.moving = true;
+	else if (session.select.visible) 	session.select.range.moving = true;
 }
 
 // toggle between play and pause
@@ -98,6 +108,8 @@ function visibleViewRange() {
 	else if (session.alerts.visible) 	return session.alerts.range ;
 	else if (session.search.visible) 	return session.search.range ;
 	else if (session.record.visible) 	return session.record.range ;
+	else if (session.rawData.visible) return session.rawData.range ;
+	else if (session.select.visible) 	return session.select.range ;
 	console.error("No visible view");
 	return null;
 }
@@ -111,6 +123,8 @@ function isVisibleRangeMoving() {
 	else if (session.alerts.visible) 	return session.alerts.range.moving ;
 	else if (session.search.visible) 	return session.search.range.moving ;
 	else if (session.record.visible) 	return session.record.range.moving ;
+	else if (session.rawData.visible)	return session.rawData.range.moving ;
+	else if (session.select.visible) 	return session.select.range.moving ;
 	console.error("No visible view");
 	return false;
 }
@@ -123,6 +137,8 @@ function visibleRangeMinBnum() {
 	else if (session.alerts.visible) 	return session.alerts.range.minBnum ;
 	else if (session.search.visible) 	return session.search.range.minBnum ;
 	else if (session.record.visible) 	return session.record.range.minBnum ;
+	else if (session.rawData.visible)	return session.rawData.range.minBnum ;
+	else if (session.select.visible) 	return session.select.range.minBnum ;
 	console.error("No visible view");
 	return null;
 }
@@ -135,6 +151,8 @@ function visibleRangeMaxBnum() {
 	else if (session.alerts.visible) 	return session.alerts.range.maxBnum ;
 	else if (session.search.visible) 	return session.search.range.maxBnum ;
 	else if (session.record.visible) 	return session.record.range.maxBnum ;
+	else if (session.rawData.visible)	return session.rawData.range.maxBnum ;
+	else if (session.select.visible) 	return session.select.range.maxBnum ;
 	console.error("No visible view");
 	return null;
 }
@@ -147,6 +165,8 @@ function visibleRangeMinTime() {
 	else if (session.alerts.visible) 	return session.alerts.range.minTime ;
 	else if (session.search.visible) 	return session.search.range.minTime ;
 	else if (session.record.visible) 	return session.record.range.minTime ;
+	else if (session.rawData.visible) return session.rawData.range.minTime ;
+	else if (session.select.visible) 	return session.select.range.minTime ;
 	console.error("No visible view");
 	return null;
 }
@@ -159,8 +179,18 @@ function visibleRangeMaxTime() {
 	else if (session.alerts.visible) 	return session.alerts.range.maxTime ;
 	else if (session.search.visible) 	return session.search.range.maxTime ;
 	else if (session.record.visible) 	return session.record.range.maxTime ;
+	else if (session.rawData.visible) return session.rawData.range.maxTime ;
+	else if (session.select.visible) 	return session.select.range.maxTime ;
 	console.error("No visible view");
 	return null;
+}
+
+function visibleRangeTimeDuration() {
+	let s = visibleRangeMinTime();
+	let e = visibleRangeMaxTime();
+	if ((s===null) || (e===null)) return 0;
+
+	return e.getTime() - s.getTime();
 }
 
 // query - has the range changed since the time this view was displayed
@@ -179,6 +209,10 @@ function isVisibleRangeChanged() {
 		return !equalObjects(session.search.range, session.search.prevRange) ;
 	} else if (session.record.visible) 	{
 		return !equalObjects(session.record.range, session.record.prevRange) ;
+	} else if (session.rawData.visible) 	{
+		return !equalObjects(session.rawData.range, session.rawData.prevRange) ;
+	} else if (session.select.visible) 	{
+		return !equalObjects(session.select.range, session.select.prevRange) ;
 	}
 	console.error("No visible view");
 	return null;
@@ -200,6 +234,10 @@ function updateVisiblePrevRange() {
 		session.search.prevRange  = cloneObject(session.search.range);
 	} else if (session.record.visible) 	{
 		session.record.prevRange  = cloneObject(session.record.range);
+	} else if (session.rawData.visible) 	{
+		session.rawData.prevRange  = cloneObject(session.rawData.range);
+	} else if (session.select.visible) 	{
+		session.select.prevRange  = cloneObject(session.select.range);
 	}
 }
 
@@ -211,6 +249,8 @@ function updateSelectedSliderMinMax(bmin, bmax) {
 	else if (session.alerts.visible) 	session.alerts.range = createRange(false, bmin, bmax);
 	else if (session.search.visible) 	session.search.range = createRange(false, bmin, bmax);
 	else if (session.record.visible) 	session.record.range = createRange(false, bmin, bmax);
+	else if (session.rawData.visible) session.rawData.range = createRange(false, bmin, bmax);
+	else if (session.select.visible) 	session.select.range = createRange(false, bmin, bmax);
 
  	stopSliderCallback = true;
  	session.rangeSlider.setSlider([bmin, bmax]);;

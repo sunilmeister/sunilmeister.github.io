@@ -5,6 +5,7 @@
 // ////////////////////////////////////////////////////
 // Params are either a number or an enumeration
 // For ENUMS, each enumerator has a number associated as below
+// If the param's type is null, it is not searchable
 // ////////////////////////////////////////////////////
 const paramsType = {
 	NUMBER : 					{type:"NUMBER", range:{}},
@@ -76,6 +77,7 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"infos", 			name:"NOTIFICATIONS"});
 	session.allParamsTable.push({key:"wifiDrops",		name:"WIFI_DROPS"});
 	session.allParamsTable.push({key:"wifiReconns",	name:"WIFI_RECONNECTS"});
+	session.allParamsTable.push({key:"messages",	name:"LCD_MESSAGES"});
 	session.allParamsTable.push({key:"mode", 				name:"MODE_SETTING"});
 	session.allParamsTable.push({key:"vt", 					name:"VT_SETTING"});
 	session.allParamsTable.push({key:"mv", 					name:"MV_SETTING"});
@@ -115,6 +117,7 @@ function initSessionParams() {
 	session.params.infos = 			new Param("NOTIFICATIONS", type.NUMBER, "");
 	session.params.wifiDrops =	new Param("WIFI_DROPS", type.NUMBER, "");
 	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
+	session.params.messages=		new Param("LCD_MESSAGES", null, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
 	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");

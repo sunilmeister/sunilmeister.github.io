@@ -276,6 +276,24 @@ var SessionDataTemplate = {
 	},
 
 	// /////////////////////////////////////////////
+	// For the raw data view
+	// /////////////////////////////////////////////
+  rawData: {
+		visible: false,
+		range: null,
+		prevRange: null,
+	},
+
+	// /////////////////////////////////////////////
+	// For the select session
+	// /////////////////////////////////////////////
+  select: {
+		visible: false,
+		range: null,
+		prevRange: null,
+	},
+
+	// /////////////////////////////////////////////
 	// For the Search view
 	// /////////////////////////////////////////////
   search: {
@@ -350,6 +368,8 @@ function createNewSession() {
 	session.alerts.range = cloneObject(rangeTemplate);
 	session.search.range = cloneObject(rangeTemplate);
 	session.record.range = cloneObject(rangeTemplate);
+	session.rawData.range = cloneObject(rangeTemplate);
+	session.select.range = cloneObject(rangeTemplate);
 
 	initSessionParams();
 }
