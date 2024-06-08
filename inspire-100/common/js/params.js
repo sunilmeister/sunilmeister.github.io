@@ -87,6 +87,7 @@ function initAllParamsTable() {
 	session.allParamsTable.push({key:"lcdLine2",		name:"LCD_LINE_2"});
 	session.allParamsTable.push({key:"lcdLine3",		name:"LCD_LINE_3"});
 	session.allParamsTable.push({key:"lcdLine4",		name:"LCD_LINE_4"});
+	session.allParamsTable.push({key:"breathNum",		name:"BREATH_NUMBER"});
 	session.allParamsTable.push({key:"mode", 				name:"MODE_SETTING"});
 	session.allParamsTable.push({key:"vt", 					name:"VT_SETTING"});
 	session.allParamsTable.push({key:"mv", 					name:"MV_SETTING"});
@@ -130,6 +131,7 @@ function initSessionParams() {
 	session.params.lcdLine2=		new Param("LCD_LINE_2", type.STRING, "");
 	session.params.lcdLine3=		new Param("LCD_LINE_3", type.STRING, "");
 	session.params.lcdLine4=		new Param("LCD_LINE_4", type.STRING, "");
+	session.params.breathNum=		new Param("BREATH_NUMBER", type.NUMBER, "");
 
 	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
 	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");
@@ -148,6 +150,7 @@ function initSessionParams() {
 }
 
 function initParamNumberRanges() {
+	session.params.breathNum.setNumberRange(1, null, 1);
 	session.params.vtdel.setNumberRange(0, 800, 1);
 	session.params.mvdel.setNumberRange(0.0, 25.0, 0.1);
 	session.params.mmvdel.setNumberRange(0.0, 25.0, 0.1);
@@ -271,6 +274,14 @@ class Param {
 
 		// first entry in changes is a null entry
 		if (this.changes.length == 1) return null;
+
+		// most of the time it is the last value
+		// shortcut to do that
+		if (time.getTime() >= this.changes[this.changes.length-1].time.getTime()) {
+			return this.LastValue();
+		}
+
+		// else do a binary search
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
 			console.error("Error during search in Param::ValueAtTime", Name());

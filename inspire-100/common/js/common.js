@@ -277,20 +277,6 @@ function strToDate(dateStr, timeStr) {
   return date;
 }
 
-function closestNonNullEntryIndex(arr, index) {
-  if (arr[index]) return index;
-  // search up
-  for (i = index; i < arr.length; i++) {
-    if (arr[i]) return i;
-  }
-  // search down
-  for (i = index; i >= 0; i--) {
-    if (arr[i]) return i;
-  }
-
-  return null;
-}
-
 // /////////////////////////////////////////////
 // Valid Parameter Check functions
 // /////////////////////////////////////////////
@@ -550,15 +536,7 @@ function lookupBreathTime(bnum) {
 }
 
 function lookupBreathNum(time) {
-	let t = time.getTime();
-	let n = session.breathTimes.length;
-	if (n <= 1) return 0;
-	for (let i=1; i<n; i++) {
-		bt = session.breathTimes[i].getTime();
-		//console.log(t,bt);
-		if (bt > t) return i;
-	}
-	return n-1;
+	return params.breathNum.ValueAtTime(time);
 }
 
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {

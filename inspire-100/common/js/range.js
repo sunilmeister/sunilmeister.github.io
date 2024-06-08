@@ -19,12 +19,6 @@ function createRange(moving, minBnum, maxBnum) {
   range.moving = moving;
   range.minBnum = minBnum;
   range.maxBnum = maxBnum;
-  if (!session.breathTimes[minBnum]) { // missing breath
-    minBnum = closestNonNullEntryIndex(session.breathTimes, minBnum);
-  }
-  if (!session.breathTimes[maxBnum]) { // missing breath
-    maxBnum = closestNonNullEntryIndex(session.breathTimes, maxBnum);
-  }
 
   if (minBnum < 1) {
     range.minTime = session.startDate;
