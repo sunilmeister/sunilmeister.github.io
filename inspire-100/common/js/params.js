@@ -50,7 +50,7 @@ const paramsType = {
 // ////////////////////////////////////////////////////
 const paramOps = {
 	NUMBER:	[ "=", "!=", "<", "<=", ">", ">=" ], 
-	STRING:	[ "<>", "!<>", "{}", "!{}"],
+	STRING:	[ "&#x220B", "!&#x220B"],
 	ENUM:		["=", "!="]
 };
 
@@ -294,8 +294,8 @@ class Param {
 	// bnum must have been logged
 	ValueAtBnum(bnum) {
 		if (!bnum) return null;
-		// first entry in breathTimes is a null entry
-		return this.ValueAtTime(session.breathTimes[bnum]);
+		// first entry in loggedBreaths is a null entry
+		return this.ValueAtTime(session.loggedBreaths[bnum].time);
 	}
 
 	// helper function to compute min/max/avg
@@ -320,8 +320,8 @@ class Param {
 	NumChanges(startBnum, endBnum) {
 		let count = 0;
 
-		let startTime = session.breathTimes[startBnum];
-		let endTime = session.breathTimes[endBnum];
+		let startTime = session.loggedBreaths[startBnum].time;
+		let endTime = session.loggedBreaths[endBnum].time;
 		if (isUndefined(startTime) || (startTime === null)) {
 			startTime = new Date(0); // beginning of the universe
 		}
@@ -340,8 +340,8 @@ class Param {
 	Values(startBnum, endBnum, stepBnum) {
 		let values = [];
 
-		let startTime = session.breathTimes[startBnum];
-		let endTime = session.breathTimes[endBnum];
+		let startTime = session.loggedBreaths[startBnum].time;
+		let endTime = session.loggedBreaths[endBnum].time;
 		if (isUndefined(startTime) || (startTime === null)) {
 			startTime = new Date(0); // beginning of the universe
 		}
@@ -366,7 +366,7 @@ class Param {
 
 		let nextBnumToStore = startBnum + stepBnum;
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
-			let btime = session.breathTimes[bnum];
+			let btime = session.loggedBreaths[bnum].time;
 			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				if (bnum == nextBnumToStore) {
@@ -395,8 +395,8 @@ class Param {
 		let values = [];
 		if (startBnum > endBnum) return values;
 
-		let endTime = session.breathTimes[endBnum];
-		let startTime = session.breathTimes[startBnum];
+		let endTime = session.loggedBreaths[endBnum].time;
+		let startTime = session.loggedBreaths[startBnum].time;
 		if (isUndefined(startTime) || (startTime === null)) {
 			startTime = new Date(0); // beginning of the universe
 		}
@@ -418,7 +418,7 @@ class Param {
 		}
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
-			let btime = session.breathTimes[bnum];
+			let btime = session.loggedBreaths[bnum].time;
 			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				break;
@@ -440,8 +440,8 @@ class Param {
 		let count = 0;
 		if (startBnum > endBnum) return count;
 
-		let endTime = session.breathTimes[endBnum];
-		let startTime = session.breathTimes[startBnum];
+		let endTime = session.loggedBreaths[endBnum].time;
+		let startTime = session.loggedBreaths[startBnum].time;
 		if (isUndefined(startTime) || (startTime === null)) {
 			startTime = new Date(0); // beginning of the universe
 		}
@@ -461,7 +461,7 @@ class Param {
 		}
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
-			let btime = session.breathTimes[bnum];
+			let btime = session.loggedBreaths[bnum].time;
 			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				if (value == targetValue) count++;
@@ -484,8 +484,8 @@ class Param {
 		let stats = {min: null, max: null, avg:null, sum:0, num:0};
 		if (startBnum > endBnum) return stats;
 
-		let startTime = session.breathTimes[startBnum];
-		let endTime = session.breathTimes[endBnum];
+		let startTime = session.loggedBreaths[startBnum].time;
+		let endTime = session.loggedBreaths[endBnum].time;
 		if (isUndefined(startTime) || (startTime === null)) {
 			startTime = new Date(0); // beginning of the universe
 		}
@@ -505,7 +505,7 @@ class Param {
 		}
 
 		for (let bnum=startBnum+1; bnum <= endBnum; bnum++) {
-			let btime = session.breathTimes[bnum];
+			let btime = session.loggedBreaths[bnum].time;
 			if (isUndefined(btime) || (btime === null)) continue;
 			if ((changeIx >= endChangeIndex) || (btime.getTime() >= endTime.getTime())) {
 				stats = this.UpdateStats(stats, value);

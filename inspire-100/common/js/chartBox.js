@@ -242,7 +242,7 @@ class ChartBox {
     paramInfo.paramName = "peak";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createPlatGraph(reuseAxisNum) {
@@ -264,7 +264,7 @@ class ChartBox {
     paramInfo.paramName = "plat";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createPeepGraph(reuseAxisNum) {
@@ -286,7 +286,7 @@ class ChartBox {
     paramInfo.paramName = "mpeep";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createVtdelGraph(reuseAxisNum) {
@@ -308,7 +308,7 @@ class ChartBox {
     paramInfo.paramName = "vtdel";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createMvdelGraph(reuseAxisNum) {
@@ -330,7 +330,7 @@ class ChartBox {
     paramInfo.paramName = "mvdel";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createMMvdelGraph(reuseAxisNum) {
@@ -352,7 +352,7 @@ class ChartBox {
     paramInfo.paramName = "mmvdel";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createSMvdelGraph(reuseAxisNum) {
@@ -374,7 +374,7 @@ class ChartBox {
     paramInfo.paramName = "smvdel";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createO2FlowGraph(reuseAxisNum) {
@@ -396,7 +396,7 @@ class ChartBox {
     paramInfo.paramName = "o2FlowX10";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createSbpmGraph(reuseAxisNum) {
@@ -418,7 +418,7 @@ class ChartBox {
     paramInfo.paramName = "sbpm";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createMbpmGraph(reuseAxisNum) {
@@ -440,7 +440,7 @@ class ChartBox {
     paramInfo.paramName = "mbpm";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createScompGraph(reuseAxisNum) {
@@ -462,7 +462,7 @@ class ChartBox {
     paramInfo.paramName = "scomp";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createDcompGraph(reuseAxisNum) {
@@ -484,7 +484,7 @@ class ChartBox {
     paramInfo.paramName = "dcomp";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createTempGraph(reuseAxisNum) {
@@ -506,7 +506,7 @@ class ChartBox {
     paramInfo.paramName = "tempC";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createMBreathGraph(reuseAxisNum) {
@@ -536,7 +536,7 @@ class ChartBox {
     paramInfo.selectVal = MANDATORY_BREATH;
     paramInfo.snapYval = MANDATORY_BREATH;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
    }
 
   createSBreathGraph(reuseAxisNum) {
@@ -566,7 +566,7 @@ class ChartBox {
     paramInfo.selectVal = SPONTANEOUS_BREATH;
     paramInfo.snapYval = SPONTANEOUS_BREATH;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
    }
 
   createEBreathGraph(reuseAxisNum) {
@@ -596,7 +596,7 @@ class ChartBox {
     paramInfo.selectVal = MAINTENANCE_BREATH;
     paramInfo.snapYval = MAINTENANCE_BREATH;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
    }
 
   createVCBreathGraph(reuseAxisNum) {
@@ -626,7 +626,7 @@ class ChartBox {
     paramInfo.selectVal = VOLUME_CONTROL;
     paramInfo.snapYval = VOLUME_CONTROL_YVAL;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
    }
 
   createPSBreathGraph(reuseAxisNum) {
@@ -656,7 +656,7 @@ class ChartBox {
     paramInfo.selectVal = PRESSURE_SUPPORT;
     paramInfo.snapYval = PRESSURE_SUPPORT_YVAL;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
    }
 
   createNotificationGraph(reuseAxisNum) {
@@ -685,7 +685,7 @@ class ChartBox {
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = NOTIFICATION_YVAL;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createWarningGraph(reuseAxisNum) {
@@ -714,7 +714,7 @@ class ChartBox {
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = WARNING_YVAL;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createErrorGraph(reuseAxisNum) {
@@ -743,7 +743,7 @@ class ChartBox {
     paramInfo.graphType = "scatter";
     paramInfo.snapYval = ERROR_YVAL;
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createFiO2Graph(reuseAxisNum) {
@@ -765,7 +765,7 @@ class ChartBox {
     paramInfo.paramName = "fiO2";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
   createPurityGraph(reuseAxisNum) {
@@ -786,7 +786,7 @@ class ChartBox {
     paramInfo.paramName = "o2Purity";
     paramInfo.graphType = "stepLine";
 
-    return this.chart.addGraph(session.breathTimes, yAxisInfo, paramInfo, markerInfo);
+    return this.chart.addGraph(session.loggedBreaths, yAxisInfo, paramInfo, markerInfo);
   }
 
 }

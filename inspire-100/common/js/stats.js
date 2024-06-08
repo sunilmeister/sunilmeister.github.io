@@ -10,8 +10,8 @@ function checkForUndefined(val) {
 
 function FindMissinBreathsInRange(minBnum, maxBnum) {
 	let missing = session.missingBreaths;
-  let minDate = session.breathTimes[minBnum];
-  let maxDate = session.breathTimes[maxBnum];
+  let minDate = session.loggedBreaths[minBnum].time;
+  let maxDate = session.loggedBreaths[maxBnum].time;
   let arr = [];
 
   let prevItem = null;
@@ -33,8 +33,8 @@ function FindMissinBreathsInRange(minBnum, maxBnum) {
 function FindUsedCombosInRange(minBnum, maxBnum) {
   let arr = [];
 	let combos = session.usedParamCombos;
-  let minDate = (session.breathTimes[minBnum]);
-  let maxDate = (session.breathTimes[maxBnum]);
+  let minDate = session.loggedBreaths[minBnum].time;
+  let maxDate = session.loggedBreaths[maxBnum].time;
 
   let prevItem = null;
   for (let i = 0; i < combos.length; i++) {

@@ -813,7 +813,7 @@ function processBnumChirp(curTime, value, jsonData) {
   let obj = parseBnumData(value);
   if (!obj) return;
 
-  // BNUM time is more accurate - use that for breathTimes
+  // BNUM time is more accurate - use that for breath times
   if (!session.lastValidBreathTime) session.lastValidBreathTime = session.startDate;
   if (!session.firstBreathChirpTime) session.firstBreathChirpTime = curTime;
   if (!session.firstBreathBnumTime) session.firstBreathBnumTime = obj.btime;
@@ -832,7 +832,7 @@ function processBnumChirp(curTime, value, jsonData) {
     session.prevParamCombo = cloneObject(session.currParamCombo);
     session.currParamCombo.time = jsonData.created;
     session.currParamCombo.value.numBreaths = 1;
-    session.currParamCombo.value.startingBreath = session.breathTimes.length - 1;
+    session.currParamCombo.value.startingBreath = session.loggedBreaths.length - 1;
     session.usedParamCombos.push(cloneObject(session.currParamCombo));
   } else {
     // update number of breaths for the last combo
@@ -856,12 +856,12 @@ function processBnumChirp(curTime, value, jsonData) {
     console.log("null startSystemBreathNum=" + session.startSystemBreathNum);
   }
 
-  updateRangeOnNewBreath();
   session.prevSystemBreathNum = value;
   if (breathsMissing) {
 		fillMissingBreathsDummyInfo(session.lastValidBreathTime, breathTime, breathsMissing);
   }
-	updateBreathTimes(breathTime);
+	updateLoggedBreaths(breathTime, false);
+  updateRangeOnNewBreath();
   session.lastValidBreathTime = breathTime;
 }
 
@@ -872,7 +872,7 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
   });
 
   // stuff dummy breaths equally spaced in the missing time interval
-  let lastBreathNum = session.breathTimes.length;
+  let lastBreathNum = session.loggedBreaths.length;
 	let numIntervals = numMissing + 1;
 	let missingTimeInterval = newBreathTime.getTime() - prevBreathTime.getTime();
 	let msPerMissingBreath = missingTimeInterval / numIntervals;
@@ -880,7 +880,7 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 
   for (let i = 0; i < numMissing; i++) {
 		missingBreathTime = addMsToDate(missingBreathTime, msPerMissingBreath);
-		updateBreathTimes(missingBreathTime);
+		updateLoggedBreaths(missingBreathTime, true);
   }
 
   // record breaks for graphing
@@ -910,32 +910,29 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 	console.log(info1 + info2);
 
   let msg = {
-    'created': breathTime,
-    'breathNum': session.breathTimes.length,
+    'created': newBreathTime,
+    'breathNum': lastBreathNum + numMissing + 1,
     'L1': info1,
     'L2': info2,
     'L3': "Due to Internet",
     'L4': "Packet loss"
   };
   session.infoMsgs.push(msg);
-  session.params.infos.AddTimeValue(breathTime, ++session.alerts.infoNum);
+  session.params.infos.AddTimeValue(newBreathTime, ++session.alerts.infoNum);
 }
 
-function updateBreathTimes(breathTime) {
-	let len = session.breathTimes.length;
-	if (breathTime.getTime() < session.breathTimes[len-1].getTime()) {
+function updateLoggedBreaths(breathTime, dummy) {
+	let len = session.loggedBreaths.length;
+	if (breathTime.getTime() < session.loggedBreaths[len-1].time.getTime()) {
 		console.error("Breath time less than prev for Breath#",len+1);
 		return;
 	}
 
   let prevBreathNum = len - 1;
- 	let prevBreathTime = session.breathTimes[prevBreathNum];
+ 	let prevBreathTime = session.loggedBreaths[prevBreathNum].time;
 	//console.log("prevBreathNum", prevBreathNum, "prevBreathTime", prevBreathTime);
 
-  session.breathTimes.push(breathTime);
-	if ((breathTime === null) || (prevBreathTime === null)) { // missing breaths
-		return;
-	}
+  session.loggedBreaths.push({time:breathTime, missed:dummy});
 	session.params.breathNum.AddTimeValue(breathTime, len + 1);
 
 	if (prevBreathNum == 0) { // first breath

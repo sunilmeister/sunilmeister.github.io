@@ -10,6 +10,7 @@ function createDashboardSnapshots() {
 
 function movingSnapshotRange() {
   let minBnum = 1;
+	if (session.maxBreathNum < 1) minBnum = 0;
   updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 

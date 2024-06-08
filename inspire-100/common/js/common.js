@@ -529,10 +529,10 @@ const O2FLOW_SAFETY_BOOST_PERCENT = 107;
 
 // return Date object or null
 function lookupBreathTime(bnum) {
-	let btimes = session.breathTimes;
+	let btimes = session.loggedBreaths;
 	if (!btimes) return null;
 	if (bnum >= btimes.length) return null;
-	return new Date(btimes[bnum].breathTime);
+	return new Date(btimes[bnum].time);
 }
 
 function lookupBreathNum(time) {

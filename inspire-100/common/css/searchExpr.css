@@ -33,7 +33,7 @@
 	appearance: none;
 	width: 16rem;
 	border: none;
-  text-align-last:center;
+  text-align:center;
 	cursor: pointer;
 	margin-left: 0.5rem;
 }
@@ -52,7 +52,7 @@
 	width: 3rem;
 	border: none;
 	margin: 0.5rem;
-  text-align-last:center;
+	text-align: center;
 	cursor: pointer;
 }
 
@@ -61,7 +61,7 @@
 	appearance: none;
 	width: 10rem;
 	border: none;
-  text-align-last:center;
+  text-align:center;
 	cursor: pointer;
 }
 
@@ -69,7 +69,7 @@
 	font-size: 1.2rem;
 	width: 10rem;
 	border: none;
-  text-align-last:center;
+  text-align:center;
 	cursor: pointer;
 }
 
@@ -77,14 +77,14 @@
 	font-size: 1.2rem;
 	width: 10rem;
 	border: none;
-  text-align-last:center;
+  text-align:center;
 }
 
 .exprOpSelectCls {
 	font-size: 1.2rem;
 	appearance: none;
 	width: 4rem;
-  text-align-last:center;
+  text-align:center;
 	background-color: var(--rsp_mediumblue);
 	color: white;
 	margin-left: -1.75rem;

@@ -584,7 +584,7 @@ function playbackGatherDoneCallback() {
   session.database.dbReady = true;
 
   session.playback.logStartBreath = 1;
-  session.playback.logEndBreath = session.breathTimes.length - 1;
+  session.playback.logEndBreath = session.loggedBreaths.length - 1;
 	session.maxBreathNum =  session.playback.logEndBreath;
 
   let n = session.playback.logEndBreath - session.playback.logStartBreath;

@@ -23,12 +23,12 @@ function createRange(moving, minBnum, maxBnum) {
   if (minBnum < 1) {
     range.minTime = session.startDate;
   } else {
-    range.minTime = session.breathTimes[minBnum];
+    range.minTime = session.loggedBreaths[minBnum].time;
   }
   if (maxBnum < 1) {
     range.maxTime = session.startDate;
   } else {
-    range.maxTime = session.breathTimes[maxBnum];
+    range.maxTime = session.loggedBreaths[maxBnum].time;
   }
 
   range.missingBnum = cloneObject(session.missingBreathWindows);
@@ -298,7 +298,7 @@ function acceptBreathNumRange() {
 		else fromBreath = 0;
 	} else {
 		toBreath = fromBreath + numBreaths - 1;
-		let maxBnum = session.breathTimes.length - 1;
+		let maxBnum = session.loggedBreaths.length - 1;
 		if (toBreath > maxBnum) toBreath = maxBnum;
 
   	if ((fromBreath <= 0) || (toBreath <= 0)) {

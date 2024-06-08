@@ -644,19 +644,11 @@ class searchExpr {
 		if (op == "<=") {
 			return lhsVal <= rhsVal;
 		}
-		if (op == "{}") {
-			// case sensitive
-			return String(lhsVal).includes(String(rhsVal));
-		}
-		if (op == "!{}") {
-			// case sensitive
-			return !String(lhsVal).includes(String(rhsVal));
-		}
-		if (op == "<>") {
+		if (op == "&#x220B") {
 			// case insensitive
 			return String(lhsVal).toLowerCase().includes(String(rhsVal).toLowerCase());
 		}
-		if (op == "!<>") {
+		if (op == "!&#x220B") {
 			// case insensitive
 			return !String(lhsVal).toLowerCase().includes(String(rhsVal).toLowerCase());
 		}
@@ -692,21 +684,13 @@ class searchExpr {
 		if (op == "<=") {
 			return "(" + lhsStr + " <= " + rhsStr + ")";
 		}
-		if (op == "{}") {
-			// case sensitive
-			return "(" + lhsStr + " {} '" + rhsStr + "')";
-		}
-		if (op == "!{}") {
-			// case sensitive
-			return "(" + lhsStr + " !{} '" + rhsStr + "')";
-		}
-		if (op == "<>") {
+		if (op == "&#x220B") {
 			// case insensitive
-			return "(" + lhsStr + " <> '" + rhsStr + "')";
+			return "(" + lhsStr + " &#x220B '" + rhsStr + "')";
 		}
-		if (op == "!<>") {
+		if (op == "!&#x220B") {
 			// case insensitive
-			return "(" + lhsStr + " !<> '" + rhsStr + "')";
+			return "(" + lhsStr + " !&#x220B '" + rhsStr + "')";
 		}
 	}
 
@@ -829,7 +813,7 @@ class searchExpr {
 			for (let i=0; i< opRange.length; i++) {
 				let op = opRange[i];
 				let opt = document.createElement("option"); 
-				opt.text = op;
+				opt.innerHTML = op;
 				opt.value = op;
 				dropdown.options.add(opt);
 			}

@@ -148,7 +148,7 @@ function createMatchingTableEntriesHTML() {
 		str += ' onclick="breathSelectCheckbox(event, this)" ';
 		str += 'onmouseenter="searchCheckboxEnter()" onmouseleave="searchCheckboxLeave()"></input></td>';
 		str += '<td>' + bnum + '</td>' ;
-		let btime = session.breathTimes[bnum];
+		let btime = session.loggedBreaths[bnum].time;
 
 		str += '<td>' + dateToDateStr(btime) + '</td>' ;
 		str += '<td>' + dateToTimeStr(btime) + '</td>' ;
@@ -194,7 +194,7 @@ function padMinBnum(bnum) {
 }
 
 function padMaxBnum(bnum) {
-	let numBreaths = session.breathTimes.length;
+	let numBreaths = session.loggedBreaths.length;
 	if (bnum >= (numBreaths - 3)) bnum = numBreaths;
 	else bnum = bnum + 3;
 	return bnum;
