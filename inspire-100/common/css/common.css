@@ -36,7 +36,6 @@ hr {
   white-space: nowrap;
   will-change: box-shadow,transform;
   font-size: 1.2rem;
-  cursor: pointer;
 }
 
 .button:focus:not([disabled]) {

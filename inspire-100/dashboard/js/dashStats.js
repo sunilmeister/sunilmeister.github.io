@@ -11,14 +11,13 @@ function createDashboardStats() {
 }
 
 function movingStatRange() {
-  let minBnum = session.dashboardBreathNum - STAT_NUM_ROLLING_BREATHS + 1;
+  let minBnum = session.maxBreathNum - STAT_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
-  updateVisibleViewRange(true, minBnum, session.dashboardBreathNum);
+  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 
 function updateStatRange() {
-  session.stats.rangeLimit = session.dashboardBreathNum;
-  session.rangeSlider.setRange([1, session.stats.rangeLimit]);
+	updateVisibleRangeLimits();
 
   // if range is not "full"
   if (!session.stats.range.moving) return;

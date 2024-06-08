@@ -4,9 +4,6 @@
 // ////////////////////////////////////////////////////
 */
 .playbackWindowCls {
-	border-style:solid;
-	border-color:var(--rsp_darkblue);
-	border-width:0.2rem;
  	margin-top:0;
  	margin-bottom:0.7rem;
  	font-size:1.5rem ;

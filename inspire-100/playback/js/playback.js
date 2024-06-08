@@ -543,12 +543,6 @@ function refreshActivePane() {
 function setSliderMinMax() {
 	let s = visibleRangeMinBnum();
 	let e = visibleRangeMaxBnum();
-  if (document.getElementById("searchDiv").style.display == "block") {
-		if (session.search.range) {
-			s = session.search.range.minBnum;
-			e = session.search.range.maxBnum;
-		}
-	}
   session.rangeSlider.setSlider([s, e]);
   updateSelectedDuration();
 }
@@ -598,6 +592,7 @@ function playbackGatherDoneCallback() {
 
   session.playback.logStartBreath = 1;
   session.playback.logEndBreath = session.breathTimes.length - 1;
+	session.maxBreathNum =  session.playback.logEndBreath;
 
   let n = session.playback.logEndBreath - session.playback.logStartBreath;
   if (n < 20) {

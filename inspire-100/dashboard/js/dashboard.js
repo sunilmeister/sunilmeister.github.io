@@ -111,7 +111,7 @@ function processDashboardChirp(d) {
 
   if (!updatePaused) {
     elm = document.getElementById("breathNum");
-    animateNumberValueTo(elm, session.dashboardBreathNum);
+    animateNumberValueTo(elm, session.maxBreathNum);
   }
 
 	latestChirp = cloneObject(d);
@@ -121,7 +121,7 @@ function processDashboardChirp(d) {
 
   if (prevAlarmErrorNum != (session.errorMsgs.length - 1)) {
     prevAlarmErrorNum = session.errorMsgs.length - 1;
-    let title = "Error encountered Breath# " + session.dashboardBreathNum;
+    let title = "Error encountered Breath# " + session.maxBreathNum;
     let msg = session.errorMsgs[prevAlarmErrorNum].L1 + "\n"
         + session.errorMsgs[prevAlarmErrorNum].L2 + "\n"
         + session.errorMsgs[prevAlarmErrorNum].L3 + "\n"
@@ -140,9 +140,7 @@ function processDashboardChirp(d) {
 function createDashboards() {
   if (updatePaused) return;
 
-  // update Snapshot on every chirp
-  updateSnapshot();
-
+  if (session.snapshots.visible) createDashboardSnapshots();
   if (session.charts.visible) createDashboardCharts();
   if (session.stats.visible) createDashboardStats();
   if (session.waves.visible) createDashboardWaves();
@@ -184,6 +182,8 @@ function toggleAudio() {
 
 function blinkSliderDiv() {
   let div = document.getElementById("rangeWindowDiv");
+	if (!isSomeViewVisible()) return;
+
 	if (!isVisibleRangeMoving()) {
     if (sliderDivBackground == "NONE") {
   		document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
@@ -219,7 +219,7 @@ function blinkPauseButton() {
       bnum.style.backgroundColor = palette.mediumgreen;
       bdiv.style.backgroundColor = palette.mediumgreen;
       ttl.innerHTML = "LOGGED BREATHS"
-      bnum.innerHTML = session.dashboardBreathNum;
+      bnum.innerHTML = session.maxBreathNum;
       pauseButtonForeground = "WHITE";
     }
   } else {
@@ -227,7 +227,7 @@ function blinkPauseButton() {
     bnum.style.backgroundColor = palette.mediumgreen;
     bdiv.style.backgroundColor = palette.mediumgreen;
     ttl.innerHTML = "LOGGED BREATHS"
-    bnum.innerHTML = session.dashboardBreathNum;
+    bnum.innerHTML = session.maxBreathNum;
     pauseButtonForeground = "WHITE";
   }
 }
@@ -256,6 +256,7 @@ function undisplayAllViews() {
   document.getElementById("record-pane").style.display = "none";
   document.getElementById("waves-pane").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
+	rangeWindowDiv.style.display = "none";
 
 	session.snapshots.visible = false;
 	session.charts.visible = false;
@@ -275,8 +276,11 @@ function changeToSnapshotView() {
 
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("snapshot-pane").style.display = "inline-grid";
+  rangeWindowDiv.style.display = "block";
+	setSliderMinMax();
 
-  rangeWindowDiv.style.display = "none";
+  updateSnapshotRangeOnEntry();
+  createDashboardSnapshots();
 }
 
 function changeToChartView() {
@@ -363,7 +367,7 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath() {
-  session.charts.rangeLimit++;
+  if (session.snapshots.visible) updateSnapshotRange();
   if (session.charts.visible) updateChartRange();
   if (session.stats.visible) updateStatRange();
   if (session.alerts.visible) updateAlertRange();
@@ -376,7 +380,7 @@ function togglePause() {
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
-    if (session.snapshots.visible) updateSnapshot();
+    if (session.snapshots.visible) createDashboardSnapshots();
     if (session.charts.visible) createDashboardCharts();
     if (session.stats.visible) createDashboardStats();
     if (session.search.visible) createDashboardSearch();
@@ -385,7 +389,7 @@ function togglePause() {
   } else {
     elm.textContent = "Resume Dashboard";
     updatePaused = true;
-    breathPausedAt = session.dashboardBreathNum;
+    breathPausedAt = session.maxBreathNum;
   }
   updateDashboardAndRecordingStatus();
 }
@@ -473,16 +477,19 @@ window.onload = function () {
 	dashboardLaunchTime = new Date();
 
 	// create all elements for the front panel display
+  initDivElements();
 	createFpDivs();
 
 	disableAllBeeps();  
 	openAudioControl();
 
-  initDivElements();
-
   createNewSession();
   session.appId = DASHBOARD_APP_ID;
   session.launchDate = new Date();
+
+  // Create range slider
+  sliderDiv = document.getElementById("rangeSliderDiv");
+  createRangeSlider(sliderDiv);
 
   session.waves.newPwDataCallback = receivedNewWave;
 	resizeChartsWaves();
@@ -496,16 +503,10 @@ window.onload = function () {
   }
   updateDocumentTitle();  
 
+	changeToSnapshotView();
   initStats();
   initAlerts();
-  let snapshot = document.getElementById("snapshot-pane");
-  snapshot.style.display = "inline-grid";
-	session.snapshots.visible = true;
 
-  let charts = document.getElementById("chart-pane");
-  charts.style.display = "none";
-  let stats = document.getElementById("stat-pane");
-  stats.style.display = "none";
   // Install all gauges
   installPeakGauge();
   installPlatGauge();
@@ -515,12 +516,7 @@ window.onload = function () {
 	alignSidebar();
 
 	// After all the gauges are installed and sidebar aligned
-	setRootFontSize("fullDashboard", "sideMenuBar");
-
-  // Create range slider
-  rangeWindowDiv = document.getElementById("rangeWindowDiv");
-  sliderDiv = document.getElementById("rangeSliderDiv");
-  createRangeSlider(sliderDiv);
+	setRootFontSize("fullDashboard", "fullDashboard");
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
@@ -595,7 +591,7 @@ function appResize() {
 window.onbeforeunload = function (e) {
   if (db) db.close();
   let msg = 'Charts waveform history will be lost';
-  if (session.dashboardBreathNum != 0) {
+  if (session.maxBreathNum != 0) {
     if (!session.recorder.off) {
       msg = msg + '\nAlso recording will stop';
     }
@@ -608,7 +604,7 @@ function createRangeSlider(div) {
   session.rangeSlider = new IntRangeSlider(
     div,
     0,
-    CHART_NUM_ROLLING_BREATHS,
+    1,
     0,
     0,
     1
@@ -618,13 +614,19 @@ function createRangeSlider(div) {
 
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
-  let values = chartRangeSlider.getSlider();
+  let values = session.rangeSlider.getSlider();
+
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
+	if (session.snapshots.visible) {
+		if (session.maxBreathNum > 0) bmin = 1;
+		else bmin = 0;
+	}
 
   stopSliderCallback = true;
   session.rangeSlider.setSlider([bmin, bmax]);
   stopSliderCallback = false;
+	setTimeInterval();
 }
 
 function outIconButton(btn) {
@@ -667,13 +669,13 @@ function playPauseTimeInterval() {
 	}
 
   document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
-  updateVisibleViewRange(true, 1, session.dashboardBreathNum);
+  updateVisibleViewRange(true, 1, session.maxBreathNum);
 
   stopSliderCallback = true;
   session.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMaxBnum()]);
   stopSliderCallback = false;
 
-  if (session.snapshots.visible) updateSnapshot();
+  if (session.snapshots.visible) updateSnapshotRange();
   if (session.charts.visible) updateChartRange();
   if (session.stats.visible) updateStatRange();
   if (session.alerts.visible) updateAlertRange();
@@ -702,14 +704,6 @@ function fullInterval() {
 
 	fullRange();
   createDashboards();
-}
-
-function rangeSliderCallback() {
-  if (stopSliderCallback) return;
-  let values = session.rangeSlider.getSlider();
-  let bmin = parseInt(values[0]);
-  let bmax = parseInt(values[1]);
-  setTimeInterval();
 }
 
 function HandlePeriodicTasks() {
@@ -784,7 +778,7 @@ function FetchAndExecuteFromQueue() {
         let elm = document.getElementById("priorBreathNum");
         elm.innerHTML = String(session.systemBreathNum - 1);
       }
-      session.dashboardBreathNum = 
+      session.maxBreathNum = 
         session.systemBreathNum - session.startSystemBreathNum + 1;
     }
     let dCopy; // a copy of the chirp

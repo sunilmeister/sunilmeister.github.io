@@ -106,7 +106,7 @@ function updateRecorderSummary(d) {
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 
   elm = document.getElementById("breathNum");
-  animateNumberValueTo(elm, session.dashboardBreathNum);
+  animateNumberValueTo(elm, session.maxBreathNum);
 
   return d;
 }
@@ -158,7 +158,7 @@ function appResize() {
 window.onbeforeunload = function (e) {
   if (db) db.close();
   let msg = 'Charts waveform history will be lost';
-  if (session.dashboardBreathNum != 0) {
+  if (session.maxBreathNum != 0) {
     if (!session.recorder.off) {
       msg = msg + '\nAlso recording will stop';
     }
@@ -199,7 +199,7 @@ function FetchAndExecuteFromQueue() {
         let elm = document.getElementById("priorBreathNum");
         elm.innerHTML = String(session.systemBreathNum - 1);
       }
-      session.dashboardBreathNum = 
+      session.maxBreathNum = 
         session.systemBreathNum - session.startSystemBreathNum + 1;
     }
     updateRecorderSummary(d);

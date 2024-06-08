@@ -41,8 +41,8 @@ var yAxisInfoTemplate = {
 // Height in pixels
 // Whether time based or breathnumber based
 // rangeX = {moving:, 
-//           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
-//           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
+//           minBnum:Number, maxBnum:Number, missingBnum[]:,
+//           minTime:Date, maxTime:Date, missingTime[]:}
 // //////////////////////////////////////////////////////
 class ChartPane {
 
@@ -196,10 +196,8 @@ class ChartPane {
   }
 
   calculateXaxisInterval() {
-    let initBnum = this.rangeX.initBnum;
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
-    let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
     let numPoints = 0;
@@ -214,16 +212,14 @@ class ChartPane {
 
 
   calculateXaxisMinimum() {
-    let initBnum = this.rangeX.initBnum;
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
-    let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
     if (this.timeUnits) {
-      return Math.floor(minTime - initTime) / 1000;
+      return Math.floor(minTime.getTime() - session.startDate.getTime()) / 1000;
     } else {
-      return minBnum - initBnum + 1;
+      return minBnum;
     }
   }
 
@@ -248,10 +244,8 @@ class ChartPane {
   }
 
   createContinuousXYPoints(breathTimes) {
-    let initBnum = this.rangeX.initBnum;
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
-    let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
     let numPoints = maxBnum - minBnum + 1;
@@ -271,7 +265,7 @@ class ChartPane {
 			yval = yvals[i];
 			let bnum = minBnum + (i * sparseInterval);
       if (this.timeUnits) {
-        let ms = new Date(breathTimes[bnum]).getTime() - initTime.getTime();
+        let ms = new Date(breathTimes[bnum]).getTime() - session.startDate.getTime();
         xval = (ms / 1000);
       } else {
         xval = bnum;
@@ -299,10 +293,8 @@ class ChartPane {
   }
 
   createScatterXYPoints(breathTimes) {
-    let initBnum = this.rangeX.initBnum;
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
-    let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
 		let sparseInterval = session.charts.sparseInterval;
@@ -325,7 +317,7 @@ class ChartPane {
         if (breathTimes[b].getTime() == cTime.getTime()) {
           yval = transitions[t].value;
           if (this.timeUnits) {
-            let ms = new Date(breathTimes[b]).getTime() - initTime.getTime();
+            let ms = new Date(breathTimes[b]).getTime() - session.startDate.getTime();
             xval = (ms / 1000);
           } else {
             xval = b;
@@ -359,10 +351,8 @@ class ChartPane {
   }
 
  createSpanXYPoints(breathTimes) {
-    let initBnum = this.rangeX.initBnum;
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
-    let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
     let selectVal = this.paramInfo.selectVal;
@@ -404,7 +394,7 @@ class ChartPane {
       for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
         if ((breathTimes[bnum].getTime() >= startTime.getTime()) && (breathTimes[bnum].getTime() < endTime.getTime())) {
           if (this.timeUnits) {
-            let ms = new Date(breathTimes[bnum]).getTime() - initTime.getTime();
+            let ms = new Date(breathTimes[bnum]).getTime() - session.startDate.getTime();
             xval = (ms / 1000);
           } else {
             xval = bnum;

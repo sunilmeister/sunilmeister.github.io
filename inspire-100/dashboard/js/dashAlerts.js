@@ -11,14 +11,13 @@ function createDashboardAlerts() {
 }
 
 function movingAlertRange() {
-  let minBnum = session.dashboardBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
+  let minBnum = session.maxBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
-  updateVisibleViewRange(true, minBnum, session.dashboardBreathNum);
+  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 
 function updateAlertRange() {
-  session.alerts.rangeLimit = session.dashboardBreathNum;
-  session.rangeSlider.setRange([1, session.alerts.rangeLimit]);
+	updateVisibleRangeLimits();
 
   // if range is not "full"
   if (!session.alerts.range.moving) return;

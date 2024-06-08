@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function createDashboardSearch() {
+	rangeWindowDiv.style.display = "block";
 	if (isVisibleRangeChanged()) {
 		updateSearchResults();
 		updateVisiblePrevRange();
@@ -10,14 +11,13 @@ function createDashboardSearch() {
 }
 
 function movingSearchRange() {
-  let minBnum = session.dashboardBreathNum - SEARCH_NUM_ROLLING_BREATHS + 1;
+  let minBnum = session.maxBreathNum - SEARCH_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
-  updateVisibleViewRange(true, minBnum, session.dashboardBreathNum);
+  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 
 function updateSearchRange() {
-  session.charts.rangeLimit = session.dashboardBreathNum;
-  session.rangeSlider.setRange([1, session.charts.rangeLimit]);
+	updateVisibleRangeLimits();
 
   // if range is not "full"
   if (!session.search.range.moving) return;

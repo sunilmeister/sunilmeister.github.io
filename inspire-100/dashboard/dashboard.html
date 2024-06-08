@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="../common/css/searchResults.css" />
   <link href="css/sidebar.css" rel="stylesheet" />
   <link href="css/dashboard.css" rel="stylesheet" />
+  <link href="css/snapshot.css" rel="stylesheet" />
   <link href="css/frontPanel.css" rel="stylesheet" />
 
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -78,6 +79,7 @@
   <script src="js/dashGlobals.js"></script>
   <script src="js/dashRecord.js"></script>
   <script src="js/dashUpdate.js"></script>
+  <script src="js/dashSnaps.js"></script>
   <script src="js/dashCharts.js"></script>
   <script src="js/dashStats.js"></script>
   <script src="js/dashAlerts.js"></script>
@@ -703,7 +705,7 @@
         <center>
           <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-1.2rem;">
             No Active Recording
-          <div class=shadowDiv5 style="height:56rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
+          <div class=shadowDiv5 style="height:61rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
             <p id=recordBox style="font-size:1.1rem; text-align: left">
           </div>
         </center>
@@ -944,6 +946,7 @@
         </div>
       </div>
 
+			<br><br>
       <div id=snapshot-pane class=Snapshot>
         <div class=Space1></div>
         <div class=Space2></div>
@@ -1079,7 +1082,7 @@
             (bpm)
         </div>
 
-        <div class=Environment>
+        <div class=FiO2Settings>
           <p style="font-size:1rem;margin-top:0.125rem; margin-bottom:0rem;">Miscellaneous
         </div>
 				<div id=externalFiO2 class=FiO2 style="display:none; background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); ">

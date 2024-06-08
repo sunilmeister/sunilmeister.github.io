@@ -7,8 +7,16 @@ var pickedDate = null;
 // returns a range object
 function createRange(moving, minBnum, maxBnum) {
   let range = cloneObject(rangeTemplate);
+	if (session.maxBreathNum > 0) {
+		if (minBnum == 0) {
+			minBnum = 1;
+		}
+		if (maxBnum == 0) {
+			maxBnum = 1;
+		}
+	}
+
   range.moving = moving;
-  range.initBnum = 1;
   range.minBnum = minBnum;
   range.maxBnum = maxBnum;
   if (!session.breathTimes[minBnum]) { // missing breath
@@ -18,7 +26,6 @@ function createRange(moving, minBnum, maxBnum) {
     maxBnum = closestNonNullEntryIndex(session.breathTimes, maxBnum);
   }
 
-  range.initTime = session.startDate;
   if (minBnum < 1) {
     range.minTime = session.startDate;
   } else {
@@ -32,6 +39,7 @@ function createRange(moving, minBnum, maxBnum) {
 
   range.missingBnum = cloneObject(session.missingBreathWindows);
   range.missingTime = cloneObject(session.missingTimeWindows);
+	//console.error(range);
   return range;
 }
 
@@ -112,6 +120,19 @@ function visibleViewRange() {
 	else if (session.select.visible) 	return session.select.range ;
 	console.error("No visible view");
 	return null;
+}
+
+function isSomeViewVisible() {
+	if (session.snapshots.visible) 		return true;
+	else if (session.charts.visible) 	return true;
+	else if (session.waves.visible) 	return true;
+	else if (session.stats.visible) 	return true;
+	else if (session.alerts.visible) 	return true;
+	else if (session.search.visible) 	return true;
+	else if (session.record.visible) 	return true;
+	else if (session.rawData.visible)	return true;
+	else if (session.select.visible) 	return true;
+	return false;
 }
 
 // Query - is the visible range in play mode
@@ -257,6 +278,12 @@ function updateSelectedSliderMinMax(bmin, bmax) {
  	stopSliderCallback = false;
 }
 
+function updateVisibleRangeLimits() {
+  let rangeMax = session.maxBreathNum;
+	if (rangeMax == 0) rangeMax = 1;
+  session.rangeSlider.setRange([1, rangeMax]);
+}
+
 function enterBreathInterval () {
   document.getElementById("enterRangeDiv").style.display = "block";
   if (document.getElementById("enterRangeBnum").checked) {
@@ -269,15 +296,22 @@ function enterBreathInterval () {
 function acceptBreathNumRange() {
 	let fromBreath = Number(document.getElementById("rangeFromBnum").value);
   let numBreaths = Number(document.getElementById("rangeNumBreaths").value);
+	let toBreath = null;
 
-	let toBreath = fromBreath + numBreaths - 1;
-	let maxBnum = session.breathTimes.length - 1;
-	if (toBreath > maxBnum) toBreath = maxBnum;
+	if (session.snapshots.visible) {
+		toBreath = fromBreath;
+		if (session.maxBreathNum > 0) fromBreath = 1;
+		else fromBreath = 0;
+	} else {
+		toBreath = fromBreath + numBreaths - 1;
+		let maxBnum = session.breathTimes.length - 1;
+		if (toBreath > maxBnum) toBreath = maxBnum;
 
-  if ((fromBreath <= 0) || (toBreath <= 0)) {
-    modalAlert("Invalid Breath Range", "Try again!");
-    return;
-  }
+  	if ((fromBreath <= 0) || (toBreath <= 0)) {
+    	modalAlert("Invalid Breath Range", "Try again!");
+    	return;
+  	}
+	}
 
   stopSliderCallback = true;
   session.rangeSlider.setSlider([fromBreath, toBreath]);
@@ -294,27 +328,38 @@ function acceptBreathTimeRange() {
 	pickedDate = null;
 
 	let duration = document.getElementById("rangeDuration").value;
+	let seconds = 0;
 
-	let arr = duration.split(':'); // split it at the colons
-	//console.log("arr", arr);
-	if (arr.length != 3) {
-    modalAlert("Invalid Range Duration", "Try again!");
-    return;
-  }
+	// duration is irreleveant for snapshots view
+	if (!session.snapshots.visible) {
+		let arr = duration.split(':'); // split it at the colons
+		//console.log("arr", arr);
+		if (arr.length != 3) {
+    	modalAlert("Invalid Range Duration", "Try again!");
+    	return;
+  	}
 
-	let seconds = Number(arr[0]) * 60 * 60 + Number(arr[1]) * 60 + Number(arr[2]);
-	if (!seconds) {
-    modalAlert("Invalid Range Duration", "Try again!");
-    return;
-  }
-	console.log("seconds", seconds);
+		seconds = Number(arr[0]) * 60 * 60 + Number(arr[1]) * 60 + Number(arr[2]);
+		if (!seconds) {
+    	modalAlert("Invalid Range Duration", "Try again!");
+    	return;
+  	}
+	}
 
 	let toTime = addMsToDate(fromTime, seconds*1000);
 	
 	//console.log("fromTime", fromTime);
 	//console.log("toTime", toTime);
-	let fromBreath = lookupBreathNum(fromTime);
-	let toBreath = lookupBreathNum(toTime);
+	let fromBreath = null;
+	let toBreath = null;
+	if (session.snapshots.visible) {
+		if (session.maxBreathNum > 0) fromBreath = 1;
+		else fromBreath = 0;
+		toBreath = lookupBreathNum(fromTime);
+	} else {
+		fromBreath = lookupBreathNum(fromTime);
+		toBreath = lookupBreathNum(toTime);
+	}
 	//console.log("fromBreath", fromBreath);
 	//console.log("toBreath", toBreath);
 
@@ -346,7 +391,15 @@ function enterRangeBnum() {
 	let maxBnum = visibleRangeMaxBnum();
 
 	document.getElementById("rangeFromBnum").value = minBnum;
-  document.getElementById("rangeNumBreaths").value = maxBnum - minBnum + 1;
+	if (session.snapshots.visible) {
+  	document.getElementById("rangeNumBreaths").value = "--";
+		document.getElementById("rangeNumBreaths").disabled = true;
+		document.getElementById("rangeNumBreaths").style.cursor = "not-allowed";
+	} else {
+  	document.getElementById("rangeNumBreaths").value = maxBnum - minBnum + 1;
+		document.getElementById("rangeNumBreaths").disabled = false;
+		document.getElementById("rangeNumBreaths").style.cursor = "default";
+	}
 	document.getElementById('enterRangeBnumDiv').style.display = "block";
 	document.getElementById('enterRangeBtimeDiv').style.display = "none";
 }
@@ -390,15 +443,26 @@ function enterRangeBtime() {
   //console.log("minDate", session.startDate);
   //console.log("maxDate", addMsToDate(startDate,session.sessionDurationInMs));
 
+	if (session.snapshots.visible) {
+  	document.getElementById("rangeDuration").value = "--";
+		document.getElementById("rangeDuration").disabled = true;
+		document.getElementById("rangeDuration").style.cursor = "not-allowed";
+	} else {
+		document.getElementById("rangeDuration").disabled = false;
+		document.getElementById("rangeDuration").style.cursor = "default";
+	}
+
 	document.getElementById('enterRangeBnumDiv').style.display = "none";
 	document.getElementById('enterRangeBtimeDiv').style.display = "block";
 }
 
 function showCurrentRangeTimes() {
+	if (!isSomeViewVisible()) return;
+
 	let minBnum = visibleRangeMinBnum();
 	let maxBnum = visibleRangeMaxBnum();
 
-	if (maxBnum <= minBnum) {
+	if (maxBnum < minBnum) {
 		document.getElementById('fromRangeDay').innerHTML = "---";
 		document.getElementById('fromRangeDate').innerHTML = "---";
 		document.getElementById('fromRangeTime').innerHTML = "---";
@@ -419,40 +483,50 @@ function showCurrentRangeTimes() {
 	let minTime = visibleRangeMinTime();
 	let maxTime = visibleRangeMaxTime();
 
- 	let mm = minTime.getMonth();
-	let dd = minTime.getDate();
-	let yyyy = minTime.getFullYear();
-	let ddStr = String(dd).padStart(2, "0");
-	let dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
-  let hour = minTime.getHours();
-  let minute = minTime.getMinutes();
-  let second = minTime.getSeconds();
-  let hourStr = hour.toString().padStart(2, "0");
-  let minuteStr = minute.toString().padStart(2, "0");
-  let secondStr = second.toString().padStart(2, "0");
-  let timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
-	document.getElementById('fromRangeDay').innerHTML = weekDays[minTime.getDay()];
-	document.getElementById('fromRangeDate').innerHTML = dateStr;
-	document.getElementById('fromRangeTime').innerHTML = timeStr;
-
- 	mm = maxTime.getMonth();
-	dd = maxTime.getDate();
-	yyyy = maxTime.getFullYear();
-	ddStr = String(dd).padStart(2, "0");
-	dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
-  hour = maxTime.getHours();
-  minute = maxTime.getMinutes();
-  second = maxTime.getSeconds();
-  hourStr = hour.toString().padStart(2, "0");
-  minuteStr = minute.toString().padStart(2, "0");
-  secondStr = second.toString().padStart(2, "0");
-  timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
-	document.getElementById('toRangeDay').innerHTML = weekDays[maxTime.getDay()];
-	document.getElementById('toRangeDate').innerHTML = dateStr;
-	document.getElementById('toRangeTime').innerHTML = timeStr;
-
-	let tspan = maxTime.getTime() - minTime.getTime();
-	document.getElementById('spanRangeBtime').innerHTML = msToHHMMSS(tspan);
+	if ((minTime === null) || (maxTime === null)) {
+		document.getElementById('fromRangeDay').innerHTML = "--";
+		document.getElementById('fromRangeDate').innerHTML = "--";
+		document.getElementById('fromRangeTime').innerHTML = "--";
+		document.getElementById('toRangeDay').innerHTML = "--";
+		document.getElementById('toRangeDate').innerHTML = "--";
+		document.getElementById('toRangeTime').innerHTML = "--";
+		document.getElementById('spanRangeBtime').innerHTML = "--";
+	} else {
+	 	let mm = minTime.getMonth();
+		let dd = minTime.getDate();
+		let yyyy = minTime.getFullYear();
+		let ddStr = String(dd).padStart(2, "0");
+		let dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
+	  let hour = minTime.getHours();
+	  let minute = minTime.getMinutes();
+	  let second = minTime.getSeconds();
+	  let hourStr = hour.toString().padStart(2, "0");
+	  let minuteStr = minute.toString().padStart(2, "0");
+	  let secondStr = second.toString().padStart(2, "0");
+	  let timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
+		document.getElementById('fromRangeDay').innerHTML = weekDays[minTime.getDay()];
+		document.getElementById('fromRangeDate').innerHTML = dateStr;
+		document.getElementById('fromRangeTime').innerHTML = timeStr;
+	
+	 	mm = maxTime.getMonth();
+		dd = maxTime.getDate();
+		yyyy = maxTime.getFullYear();
+		ddStr = String(dd).padStart(2, "0");
+		dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
+	  hour = maxTime.getHours();
+	  minute = maxTime.getMinutes();
+	  second = maxTime.getSeconds();
+	  hourStr = hour.toString().padStart(2, "0");
+	  minuteStr = minute.toString().padStart(2, "0");
+	  secondStr = second.toString().padStart(2, "0");
+	  timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
+		document.getElementById('toRangeDay').innerHTML = weekDays[maxTime.getDay()];
+		document.getElementById('toRangeDate').innerHTML = dateStr;
+		document.getElementById('toRangeTime').innerHTML = timeStr;
+	
+		let tspan = maxTime.getTime() - minTime.getTime();
+		document.getElementById('spanRangeBtime').innerHTML = msToHHMMSS(tspan);
+	}
 
 	document.getElementById('breathRangePopup').style.display = "block";
 }
@@ -475,13 +549,22 @@ function forwardRange() {
 	let bmax = visibleRangeMaxBnum();
 	let span = bmax - bmin + 1;
 
-	if ((bmax + span) > maxRange) {
+	if (session.snapshots.visible) {
+		bmax++;
+		if (bmax > session.maxBreathNum) bmax = session.maxBreathNum;
+	} else if ((bmax + span) > maxRange) {
 		bmax = maxRange;
 	} else {
 		bmax += span;
 	}
-	bmin = bmax - span + 1;
 
+	if (session.snapshots.visible) {
+		if (session.maxBreathNum > 0) bmin = 1;
+		else bmin = 0;
+		bmin = 1;
+	} else {
+		bmin = bmax - span + 1;
+	}
 	updateSelectedSliderMinMax(bmin, bmax);
 }
 
@@ -495,12 +578,21 @@ function rewindRange() {
 	let bmax = visibleRangeMaxBnum();
 	let span = bmax - bmin + 1;
 
-	if ((bmin - span) < minRange) {
+	if (session.snapshots.visible) {
+		if (session.maxBreathNum > 0) bmin = 1;
+		else bmin = 0;
+	} else if ((bmin - span) < minRange) {
 		bmin = minRange;
 	} else {
 		bmin -= span;
 	}
-	bmax = bmin + span - 1;
+
+	if (session.snapshots.visible) {
+		bmax--;
+		if (bmax < 1) bmax = 1;
+	} else {
+		bmax = bmin + span - 1;
+	}
 
 	updateSelectedSliderMinMax(bmin, bmax);
 }

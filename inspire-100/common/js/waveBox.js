@@ -18,8 +18,8 @@ class WaveBox {
 
 	//
   // rangeX = {moving:, 
-  //           initBnum:Number, minBnum:Number, maxBnum:Number, missingBnum[]:,
-  //           initTime:Date, minTime:Date, maxTime:Date, missingTime[]:}
+  //           minBnum:Number, maxBnum:Number, missingBnum[]:,
+  //           minTime:Date, maxTime:Date, missingTime[]:}
   render() {
     this.cleanupCharts();
     this.rangeX = session.waves.range;

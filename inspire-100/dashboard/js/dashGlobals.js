@@ -124,6 +124,7 @@ var vtMvTitleELM = null;
 var vtMvUnitsELM = null;
 
 function initDivElements() {
+  rangeWindowDiv = document.getElementById("rangeWindowDiv");
   stateDIV = document.getElementById("StateDiv");
   pline1DIV = document.getElementById("Pline1");
   pline2DIV = document.getElementById("Pline2");

@@ -12,8 +12,8 @@
 // Title of chart
 // Height in pixels
 // rangeX = {moving:, 
-//           initBnum:Number, minBnum:Number, maxBnum:Number, 
-//           initTime:Date, minTime:Date, maxTime:Date, 
+//           minBnum:Number, maxBnum:Number, 
+//           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 function breathWaveXaxisFormatter(e) {
   iPart = Math.floor(e.value);
@@ -298,7 +298,6 @@ class WavePane {
   }
 
   createXYPoints() {
-    let initBnum = this.rangeX.initBnum;
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
 
@@ -329,7 +328,7 @@ class WavePane {
       if (!session.breathTimes[breathNum]) {
         continue;
       }
-      let xval = session.breathTimes[breathNum].getTime() - this.rangeX.initTime.getTime();
+      let xval = session.breathTimes[breathNum].getTime() - session.startDate.getTime();
       let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,
@@ -450,9 +449,8 @@ class WavePane {
 
 
   calculateXaxisMinimum() {
-    let initTime = this.rangeX.initTime;
     let minTime = this.rangeX.minTime;
-    return (minTime - initTime) / 1000;
+    return (minTime.getTime() - session.startDate.getTime()) / 1000;
   }
 
 };

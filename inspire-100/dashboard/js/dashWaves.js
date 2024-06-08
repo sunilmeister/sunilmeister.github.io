@@ -19,18 +19,18 @@ function movingWaveRange() {
   } else {
     minBnum = 0;
   }
-  updateVisibleViewRange(true, minBnum, session.dashboardBreathNum);
+  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 
 function updateWaveRange() {
-  session.rangeSlider.setRange([1, session.dashboardBreathNum]);
+	updateVisibleRangeLimits();
 
   if (!session.waves.range.moving) return;
   if (session.waves.range.moving) {
     if (session.waves.range.moving && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
       movingWaveRange();
     } else {
-      updateVisibleViewRange(true, 1, session.dashboardBreathNum);
+      updateVisibleViewRange(true, 1, session.maxBreathNum);
     }
 
     stopSliderCallback = true;

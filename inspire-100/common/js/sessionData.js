@@ -13,7 +13,7 @@ var SessionDataTemplate = {
 	rangeSlider:  null,
   startDate: null,
   launchDate: null,
-  dashboardBreathNum: 0,
+  maxBreathNum: 0,
   systemBreathNum: null,
   prevSystemBreathNum: null,
   startSystemBreathNum: null,
@@ -192,7 +192,6 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    rangeLimit: SNAPSHOT_NUM_ROLLING_BREATHS,
   },
 
   // error and warning messages
@@ -200,7 +199,6 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    rangeLimit: ALERT_NUM_ROLLING_BREATHS,
     attention: false,
 		newErrorMsg: false,
     expectWarningMsg: false,
@@ -221,7 +219,6 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    rangeLimit: CHART_NUM_ROLLING_BREATHS,
     allChartsContainerInfo: {},
     boxTree: null,
     numChartDatapoints: 0,
@@ -237,7 +234,6 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    rangeLimit: STAT_NUM_ROLLING_BREATHS,
   },
 
   // Below is stuff for detailed breath waveforms
@@ -245,7 +241,6 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    rangeLimit: WAVE_NUM_ROLLING_BREATHS,
     sparseInterval: 1,
     pwData: [],
     flowData: [],
@@ -340,11 +335,9 @@ var session = null;
 
 var rangeTemplate = {
   moving: true,
-  initBnum: null,
   minBnum: null,
   maxBnum: null,
   missingBnum: [],
-  initTime: null,
   minTime: null,
   maxTime: null,
   missingTime: []
