@@ -237,6 +237,26 @@ function selectExport() {
   if (session.sessionDataValid) enableAllButtons();
 }
 
+function selectSnapshots() {
+  if (!checkDbReady()) return;
+  if (!checkValidPlaybackDuration()) return;
+
+  undisplayAllPanes();
+	resumeSnapshotsTimer();
+	session.snapshot.visible = true;
+	
+  document.getElementById("snapshotsDiv").style.display = "inline-grid";
+  document.getElementById("playbackWindowDiv").style.display = "block";
+  let sessionInfo = document.getElementById("sliderCaption");
+  sessionInfo.innerHTML = sessionBannerHTML;
+
+  if (session.sessionDataValid) enableAllButtons();
+  document.getElementById("btnSnap").disabled = true;
+
+	setSliderMinMax();
+  createSnapshots();
+}
+
 function selectStats() {
   if (!checkDbReady()) return;
   if (!checkValidPlaybackDuration()) return;
@@ -388,6 +408,7 @@ function initSession(dbName) {
 
 function enableAllButtons() {
   document.getElementById("btnSelect").disabled = false;
+  document.getElementById("btnSnap").disabled = false;
   document.getElementById("btnRaw").disabled = false;
   document.getElementById("btnStat").disabled = false;
   document.getElementById("btnChart").disabled = false;
@@ -398,7 +419,7 @@ function enableAllButtons() {
 
 function disableAllButtons() {
   // Never disable the select session
-  //document.getElementById("btnSelect").disabled = true;
+  document.getElementById("btnSnap").disabled = true;
   document.getElementById("btnRaw").disabled = true;
   document.getElementById("btnStat").disabled = true;
   document.getElementById("btnChart").disabled = true;
@@ -433,11 +454,11 @@ function resizeChartsWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineThickness'));
 
 	resizeAllCharts();
-  if (document.getElementById("chartsDiv").style.display == "block") {
+  if (session.charts.visible) {
   	renderAllCharts();
 	}
 	resizeAllWaves();
-  if (document.getElementById("wavesDiv").style.display == "block") {
+  if (session.waves.visible) {
   	renderAllWaves();
 	}
 }
@@ -458,16 +479,17 @@ function resetPlaybackData() {
   initImportExport();
   initGlobals();
   initDbNames();
-  if ((document.getElementById("statsDiv").style.display == "block") ||
-    (document.getElementById("chartsDiv").style.display == "block") ||
-    (document.getElementById("wavesDiv").style.display == "block") ||
-    (document.getElementById("alertsDiv").style.display == "block")) {
+  if (session.snapshot.visible || session.charts.visible || session.waves.visible ||
+  		session.stats.visible || session.alerts.visible) { 
     document.getElementById("playbackWindowDiv").style.display = "block";
   }
 }
 
 function undisplayAllPanes() {
+	pauseSnapshotsTimer();
 	hideAllPopups();
+
+  document.getElementById("snapshotsDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
   document.getElementById("chartsDiv").style.display = "none";
   document.getElementById("rawDataDiv").style.display = "none";
@@ -526,15 +548,17 @@ function updateSelectedDuration() {
 }
 
 function refreshActivePane() {
-  if (document.getElementById("statsDiv").style.display == "block") {
+  if (session.snapshot.visible) {
+		createSnapshots();
+	} else if (session.stats.visible) {
     createAllStats();
-  } else if (document.getElementById("chartsDiv").style.display == "block") {
+	} else if (session.charts.visible) {
     createAllCharts();
-  } else if (document.getElementById("alertsDiv").style.display == "block") {
+	} else if (session.alerts.visible) {
     createAllAlerts();
-  } else if (document.getElementById("wavesDiv").style.display == "block") {
+	} else if (session.waves.visible) {
     createAllWaves();
-  } else if (document.getElementById("searchDiv").style.display == "block") {
+	} else if (session.search.visible) {
     updateSearchResults();
   }
 	setSliderMinMax();
@@ -606,6 +630,8 @@ function playbackGatherDoneCallback() {
 }
 
 window.onload = function () {
+	initCommonDivElements();
+	
 	alignSidebar();
 	setRootFontSize("fullPlayback", "sideMenuBar");
 	resizeChartsWaves();

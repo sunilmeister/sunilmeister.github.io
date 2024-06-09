@@ -374,9 +374,9 @@ function refreshMessageLines() {
 // ////////////////////////////////////////////////////////////////
 function refreshPatientInfo() {
 	let snap = session.snapshot.content;
-  updateDivValue(pline1DIV, snap.patientName);
-  updateDivValue(pline2DIV, snap.patientAge);
-  updateDivValue(pline2DIV, snap.patientStats);
+  updateDivText(pline1DIV, snap.patientName);
+  updateDivText(pline2DIV, snap.patientAge);
+  updateDivText(pline3DIV, snap.patientStats);
 }
 
 // ////////////////////////////////////////////////////////////////
@@ -465,13 +465,51 @@ function refreshMeasuredParameters() {
   updateDivValue(mvdelValELM, snap.mvdel);
   updateDivValue(mmvdelValELM, snap.mmvdel);
   updateDivValue(smvdelValELM, snap.smvdel);
+  updateDivValue(scompValELM, snap.scomp);
+  updateDivValue(dcompValELM, snap.dcomp);
 }
 
 // ////////////////////////////////////////////////////////////////
 // Blinking timers
 // ////////////////////////////////////////////////////////////////
-setInterval(function () {
+var snapshotsTimerPaused = false;
+var snapshotsTimer = setInterval(function () {
+	executeSnapshotsTimer();
+}, FASTEST_BLINK_INTERVAL_IN_MS)
+
+function pauseSnapshotsTimer() {
+	if (snapshotsTimerPaused) return;
+	clearInterval(snapshotsTimer);
+	snapshotsTimerPaused = true;
+}
+
+function resumeSnapshotsTimer() {
+	if (!snapshotsTimerPaused) return;
+
+	snapshotsTimer = setInterval(function () {
+		executeSnapshotsTimer();
+	}, FASTEST_BLINK_INTERVAL_IN_MS)
+
+	snapshotsTimerPaused = false;
+}
+
+function executeSnapshotsTimer() {
+	let snap = session.snapshot.content;
 	if (!session) return;
+
 	blinkStateImage();
-}, FAST_BLINK_INTERVAL_IN_MS)
+  if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
+		blinkEntireFrontPanel();
+	} else if (fpErrorBlank) {
+		updateEntireFrontPanel();
+	}
+
+	if (snap.somePending) {
+		blinkFrontPanelPendingSettings();
+	} else if (!((snap.state == ERROR_STATE) || (snap.errorTag == true))) {
+		updateEntireFrontPanel();
+		blinkFrontPanelLEDs();
+	}
+}
+
 

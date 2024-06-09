@@ -219,13 +219,16 @@ function undisplayAllViews() {
 	session.waves.visible = false;
 	session.search.visible = false;
 
+	pauseSnapshotsTimer();
 	hideAllPopups();
 }
 
 function changeToSnapshotView() {
 	undisplayAllViews();
   if (updatePaused) togglePause();
+
 	session.snapshot.visible = true;
+	resumeSnapshotsTimer();
 
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("snapshot-pane").style.display = "inline-grid";

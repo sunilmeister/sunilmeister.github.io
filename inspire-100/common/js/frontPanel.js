@@ -269,7 +269,7 @@ function updateFrontPanelOutputs() {
 	if ((isValidValue(val)) && (val == MANDATORY_BREATH)) {
 		document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
 	} else if (val == SPONTANEOUS_BREATH) {
-		document.getElementById('img_fpMbreathDiv').src = "../common/img/GreenDot.png";
+		document.getElementById('img_fpSbreathDiv').src = "../common/img/GreenDot.png";
 	}
 }
 
@@ -287,7 +287,7 @@ function blankFrontPanelPendingSettings() {
 	if (snap.pendingTps) document.getElementById('p_fpTpsDiv').innerHTML = "";
 }
 
-var fpLEDsBlank = true;
+var fpLEDsBlank = false;
 function blinkFrontPanelLEDs() {
 	if (fpLEDsBlank) {
 		updateFrontPanelStateLeds();
@@ -325,7 +325,7 @@ function updateEntireFrontPanel() {
 	updateFrontPanelStateLeds();
 }
 
-var fpErrorBlank = true;
+var fpErrorBlank = false;
 function blinkEntireFrontPanel() {
 	if (fpErrorBlank) {
 		updateEntireFrontPanel();		
@@ -336,22 +336,4 @@ function blinkEntireFrontPanel() {
 	}
 }
 
-setInterval(function () {
-	let snap = session.snapshot.content;
-	if (!session) return;
-  if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
-		blinkEntireFrontPanel();
-	} else if (fpErrorBlank) {
-		updateEntireFrontPanel();
-	} else {
-		blinkFrontPanelLEDs();
-	}
-
-	if (snap.somePending) {
-		blinkFrontPanelPendingSettings();
-	} else if (!((snap.state == ERROR_STATE) || (snap.errorTag == true))) {
-		updateFrontPanelSettings();
-	}
-
-}, FASTEST_BLINK_INTERVAL_IN_MS)
 

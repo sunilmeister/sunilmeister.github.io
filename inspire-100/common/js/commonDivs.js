@@ -7,6 +7,10 @@ var peakGauge = null;
 var platGauge = null;
 var peepGauge = null;
 
+// For various divs
+var messagesBackground = "BRIGHTGREEN";
+var flowDivBackground = "DARKBLUE";
+
 // Various HTML divs for updating
 var stateDIV = null;
 var pline1DIV = null;

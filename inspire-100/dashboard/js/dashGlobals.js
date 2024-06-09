@@ -49,9 +49,7 @@ var lastChirpTick = 0;
 var chirpIntervalCounter = 0;
 var finishedLoading = false;
 
-var messagesBackground = "BRIGHTGREEN";
 var sliderDivBackground = "NONE";
-var flowDivBackground = "DARKBLUE";
 var pauseButtonForeground = "MEDIUMBLUE";
 var recordButtonForeground = "MEDIUMBLUE";
 var recorderBackground = "MEDIUMBLUE";
