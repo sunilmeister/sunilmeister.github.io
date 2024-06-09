@@ -644,7 +644,7 @@ window.onload = function () {
   let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 
-	setRootFontSize("fullPlayback", "fullPlayback", 35);
+	setRootFontSize("fullPlayback", "fullPlayback", 36);
 	resizeChartsWaves();
 
   disableAllButtons();
