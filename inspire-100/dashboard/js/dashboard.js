@@ -491,9 +491,7 @@ function resizeChartsWaves() {
 
 function appResize() {
 	resizeChartsWaves();
-	installPeakGauge();
-	installPlatGauge();
-	installPeepGauge();
+	resizeSnapshots();
 	installTempGauge();
 	alignSidebar();
 }

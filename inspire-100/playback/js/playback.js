@@ -238,9 +238,6 @@ function selectExport() {
 }
 
 function selectSnapshots() {
-  if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
-
   undisplayAllPanes();
 	resumeSnapshotsTimer();
 	session.snapshot.visible = true;
@@ -632,9 +629,8 @@ function playbackGatherDoneCallback() {
 window.onload = function () {
 	initCommonDivElements();
 	
-	alignSidebar();
-	setRootFontSize("fullPlayback", "sideMenuBar");
 	resizeChartsWaves();
+	alignSidebar();
 
   initGlobals();
   initDbNames();
@@ -648,7 +644,9 @@ window.onload = function () {
   let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 
-  undisplayAllPanes();
+	setRootFontSize("fullPlayback", "fullPlayback", 35);
+	resizeChartsWaves();
+
   disableAllButtons();
 	appResize();
 	appResizeFunction = appResize;
@@ -676,6 +674,7 @@ function alignSidebar() {
 function appResize() {
 	alignSidebar();
 	resizeChartsWaves();
+	resizeSnapshots();
 }
 
 function selectExit() {

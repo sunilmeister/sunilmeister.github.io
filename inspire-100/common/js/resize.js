@@ -10,24 +10,36 @@ var appWidth = null;
 var appHeight = null;
 
 // Design Params
-const laptopDevFontSize = 18;
+const laptopDevFontSize = 16;
 const mobileDevFontSize = 16;
 
 // Ensure that some margin is left on the sides
 const fontScaleFactor = 0.95;
 
-function setRootFontSize(rootWidthDivId, rootHeightDivId) {
+function setRootFontSize(rootWidthDivId, rootHeightDivId, extraWidthRem, extraHeightRem) {
 	//console.log("ROOT DIVs (W,H)", rootWidthDivId, rootHeightDivId);
+	let devFontSize = 0;
+	if (isMobileBrowser()) {
+		devFontSize = mobileDevFontSize;
+	} else {
+		devFontSize = laptopDevFontSize;
+	}
+
+	let extraWidthPx = 0;
+	let extraHeightPx = 0;
+	if (!isUndefined(extraWidthRem)) {
+		extraWidthPx = extraWidthRem * devFontSize;
+	}
+	if (!isUndefined(extraHeightRem)) {
+		extraHeightPx = extraHeightRem * devFontSize;
+	}
+
 	rootWidthDiv = document.getElementById(rootWidthDivId);
 	rootHeightDiv = document.getElementById(rootHeightDivId);
-	appWidth = rootWidthDiv.offsetWidth;
-	appHeight = rootHeightDiv.offsetHeight;
+	appWidth = rootWidthDiv.offsetWidth + extraWidthPx;
+	appHeight = rootHeightDiv.offsetHeight + extraHeightPx;
 
-	if (isMobileBrowser()) {
-		setRootFontSizeDevice(mobileDevFontSize);
-	} else {
-		setRootFontSizeDevice(laptopDevFontSize);
-	}
+	setRootFontSizeDevice(devFontSize);
 }
 
 // ///////////////////////////////////////////////////////
