@@ -627,9 +627,6 @@ function HandlePeriodicTasks() {
   }
   if (awaitingFirstChirp) {
     let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
-    if (timeAwaitingFirstChirp > MAX_AWAIT_FIRST_CHIRP_IN_MS) {
-      displayWifiDropped();
-    }
     if (dormantPopupManualCloseTime) {
       if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) {
@@ -641,14 +638,11 @@ function HandlePeriodicTasks() {
     }
   } else if ((chirpQ.size() == 0) &&
     ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
-    displayWifiDropped();
     if (dormantPopupManualCloseTime) {
       if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) showDormantPopup();
       }
     } else if (!dormantPopupDisplayed) showDormantPopup();
-  } else {
-    displayNormalMessages();
   }
 }
 
