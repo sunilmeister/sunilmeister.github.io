@@ -3,204 +3,23 @@
 // ////////////////////////////////////////////////////
 
 // ////////////////////////////////////////////////////
-// Params are either a number or an enumeration
-// For ENUMS, each enumerator has a number associated as below
-// If the param's range is null, it is a string
-// If the param's range is {}, it is a number
+// Class to manage all parameters
+// to find their values at different times, ranges etc.
+// to find when they change etc.
 // ////////////////////////////////////////////////////
-const paramsType = {
-	NUMBER : 					{type:"NUMBER", range:{}},
-	BOOLEAN : 				{type:"ENUM", 
-											range:{"FALSE":0, "TRUE":1}
-										},
-	STRING : 					{type:"STRING", range:null},
-	STATE : 					{type:"ENUM", 
-											range:{"INITIAL":0, "STANDBY":1, "ACTIVE":2, "ERROR":3}
-										},
-	BREATH_TYPE : 		{type:"ENUM", 
-											range:{"MANDATORY":1, "SPONTANEOUS":2, "MAINTENANCE":3}
-										},
-	BREATH_CONTROL : 	{type:"ENUM", 
-											range:{"VOLUME":0, "PRESSURE":1}
-										},
-	MODE : 						{type:"ENUM", 
-											range:{"CMV":0, "ACV":1, "SIMV":2, "PSV":3}
-										},
-	IE : 							{type:"ENUM", 
-											range:{"1:1":1, "1:2":2, "1:3":3}
-										},
-	TPS : 						{type:"ENUM", 
-											range:{
-											 "10% of Peak Flow":0,
-											 "20% of Peak Flow":1,
-											 "30% of Peak Flow":2,
-											 "40% of Peak Flow":3,
-											 "50% of Peak Flow":4,
-											 "60% of Peak Flow":5,
-											 "1.0 secs":6,
-											 "1.5 secs":7,
-											 "2.0 secs":8,
-											 "2.5 secs":9,
-											}
-										},
-};
-
-// ////////////////////////////////////////////////////
-// Allowed ops depending on number type. Result is always a boolean
-// ////////////////////////////////////////////////////
-const paramOps = {
-	NUMBER:	[ "=", "!=", "<", "<=", ">", ">=" ], 
-	STRING:	[ "&#x220B", "!&#x220B"],
-	ENUM:		["=", "!="]
-};
-
-// ////////////////////////////////////////////////////
-// Install all params at load time
-// ////////////////////////////////////////////////////
-
-function initAllParamsTable() {
-	session.allParamsTable.push({key:"state", 			name:"STATE"});
-	session.allParamsTable.push({key:"vtdel", 			name:"TIDAL_VOLUME"});
-	session.allParamsTable.push({key:"mvdel", 			name:"MINUTE_VOLUME"});
-	session.allParamsTable.push({key:"mmvdel", 			name:"MANDATORY_MV"});
-	session.allParamsTable.push({key:"smvdel", 			name:"SPONTANEOUS_MV"});
-	session.allParamsTable.push({key:"sbpm", 				name:"SPONTANEOUS_BPM"});
-	session.allParamsTable.push({key:"mbpm", 				name:"MANDATORY_BPM"});
-	session.allParamsTable.push({key:"btype", 			name:"BREATH_TYPE"});
-	session.allParamsTable.push({key:"bcontrol", 		name:"BREATH_CONTROL"});
-	session.allParamsTable.push({key:"scomp", 			name:"STATIC_COMPLIANCE"});
-	session.allParamsTable.push({key:"dcomp", 			name:"DYNAMIC_COMPLIANCE"});
-	session.allParamsTable.push({key:"peak", 				name:"PEAK_PRESSURE"});
-	session.allParamsTable.push({key:"mpeep", 			name:"PEEP_PRESSURE"});
-	session.allParamsTable.push({key:"plat", 				name:"PLATEAU_PRESSURE"});
-	session.allParamsTable.push({key:"tempC", 			name:"SYSTEM_TEMPERATURE"});
-	session.allParamsTable.push({key:"cmvSpont", 		name:"CMV_SPONT_BREATHS"});
-	session.allParamsTable.push({key:"o2FlowX10", 	name:"O2_SOURCE_FLOW"});
-	session.allParamsTable.push({key:"errorTag", 		name:"ERROR_BREATH"});
-	session.allParamsTable.push({key:"warningTag",	name:"WARNING_BREATH"});
-	session.allParamsTable.push({key:"errors", 			name:"ERROR_NUMBER"});
-	session.allParamsTable.push({key:"warnings", 		name:"WARNING_NUMBER"});
-	session.allParamsTable.push({key:"infos", 			name:"NOTIFICATIONS"});
-	session.allParamsTable.push({key:"wifiDrops",		name:"WIFI_DROPS"});
-	session.allParamsTable.push({key:"wifiReconns",	name:"WIFI_RECONNECTS"});
-	session.allParamsTable.push({key:"lcdLine1",		name:"LCD_LINE_1"});
-	session.allParamsTable.push({key:"lcdLine2",		name:"LCD_LINE_2"});
-	session.allParamsTable.push({key:"lcdLine3",		name:"LCD_LINE_3"});
-	session.allParamsTable.push({key:"lcdLine4",		name:"LCD_LINE_4"});
-	session.allParamsTable.push({key:"breathNum",		name:"BREATH_NUMBER"});
-	session.allParamsTable.push({key:"mode", 				name:"MODE_SETTING"});
-	session.allParamsTable.push({key:"vt", 					name:"VT_SETTING"});
-	session.allParamsTable.push({key:"mv", 					name:"MV_SETTING"});
-	session.allParamsTable.push({key:"rr", 					name:"RR_SETTING"});
-	session.allParamsTable.push({key:"ie", 					name:"IE_SETTING"});
-	session.allParamsTable.push({key:"ipeep", 			name:"PEEP_SETTING"});
-	session.allParamsTable.push({key:"pmax", 				name:"PMAX_SETTING"});
-	session.allParamsTable.push({key:"ps", 					name:"PS_SETTING"});
-	session.allParamsTable.push({key:"tps", 				name:"TPS_SETTING"});
-	session.allParamsTable.push({key:"fiO2", 				name:"FIO2_SETTING"});
-	session.allParamsTable.push({key:"o2Purity", 		name:"O2_PURITY_SETTING"});
-}
-
-function initSessionParams() {
-	let type = paramsType;
-	session.params.state = 			new Param("STATE", type.STATE, "");
-	session.params.vtdel = 			new Param("TIDAL_VOLUME", type.NUMBER, "ml");
-	session.params.mvdel = 			new Param("MINUTE_VOLUME", type.NUMBER, "l/min");
-	session.params.mmvdel = 		new Param("MANDATORY_MV", type.NUMBER, "l/min");
-	session.params.smvdel = 		new Param("SPONTANEOUS_MV", type.NUMBER, "l/min");
-	session.params.sbpm = 			new Param("SPONTANEOUS_BPM", type.NUMBER, "bpm");
-	session.params.mbpm = 			new Param("MANDATORY_BPM", type.NUMBER, "bpm");
-	session.params.btype = 			new Param("BREATH_TYPE", type.BREATH_TYPE, "");
-	session.params.bcontrol = 	new Param("BREATH_CONTROL", type.BREATH_CONTROL, "");
-	session.params.scomp = 			new Param("STATIC_COMPLIANCE", type.NUMBER, "ml/cmH2O");
-	session.params.dcomp = 			new Param("DYNAMIC_COMPLIANCE", type.NUMBER, "ml/cmH2O");
-	session.params.peak = 			new Param("PEAK_PRESSURE", type.NUMBER, "cmH2O");
-	session.params.mpeep = 			new Param("PEEP_PRESSURE", type.NUMBER, "cmH2O");
-	session.params.plat = 			new Param("PLATEAU_PRESSURE", type.NUMBER, "cmH2O");
-	session.params.tempC = 			new Param("SYSTEM_TEMPERATURE", type.NUMBER, "degC");
-	session.params.cmvSpont = 	new Param("CMV_SPONT_BREATHS", type.NUMBER, "");
-	session.params.o2FlowX10 = 	new Param("O2_SOURCE_FLOW", type.NUMBER, "l/min");
-	session.params.errorTag = 	new Param("ERROR_BREATH", type.BOOLEAN, "");
-	session.params.warningTag = new Param("WARNING_BREATH", type.BOOLEAN, "");
-	session.params.errors = 		new Param("ERROR_NUMBER", type.NUMBER, "");
-	session.params.warnings = 	new Param("WARNING_NUMBER", type.NUMBER, "");
-	session.params.infos = 			new Param("NOTIFICATIONS", type.NUMBER, "");
-	session.params.wifiDrops =	new Param("WIFI_DROPS", type.NUMBER, "");
-	session.params.wifiReconns=	new Param("WIFI_RECONNECTS", type.NUMBER, "");
-	session.params.lcdLine1=		new Param("LCD_LINE_1", type.STRING, "");
-	session.params.lcdLine2=		new Param("LCD_LINE_2", type.STRING, "");
-	session.params.lcdLine3=		new Param("LCD_LINE_3", type.STRING, "");
-	session.params.lcdLine4=		new Param("LCD_LINE_4", type.STRING, "");
-	session.params.breathNum=		new Param("BREATH_NUMBER", type.NUMBER, "");
-
-	session.params.mode = 			new Param("MODE_SETTING", type.MODE, "");
-	session.params.vt = 				new Param("VT_SETTING", type.NUMBER, "ml");
-	session.params.mv = 				new Param("MV_SETTING", type.NUMBER, "l/min");
-	session.params.rr = 				new Param("RR_SETTING", type.NUMBER, "bpm");
-	session.params.ie = 				new Param("IE_SETTING", type.IE, "");
-	session.params.ipeep = 			new Param("PEEP_SETTING", type.NUMBER, "cmH2O");
-	session.params.pmax = 			new Param("PMAX_SETTING", type.NUMBER, "cmH2O");
-	session.params.ps = 				new Param("PS_SETTING", type.NUMBER, "cmH2O");
-	session.params.tps = 				new Param("TPS_SETTING", type.TPS, "");
-	session.params.fiO2 = 			new Param("FIO2_SETTING", type.NUMBER, "%");
-	session.params.o2Purity = 	new Param("O2_SOURCE_PURITY_SETTING", type.NUMBER, "%");
-
-	initAllParamsTable();
-	initParamNumberRanges();
-}
-
-function initParamNumberRanges() {
-	session.params.breathNum.setNumberRange(1, null, 1);
-	session.params.vtdel.setNumberRange(0, 800, 1);
-	session.params.mvdel.setNumberRange(0.0, 25.0, 0.1);
-	session.params.mmvdel.setNumberRange(0.0, 25.0, 0.1);
-	session.params.smvdel.setNumberRange(0.0, 25.0, 0.1);
-	session.params.sbpm.setNumberRange(0, 40, 1);
-	session.params.mbpm.setNumberRange(0, 30, 1);
-	session.params.scomp.setNumberRange(0.0, 40.0, 0.1);
-	session.params.dcomp.setNumberRange(0.0, 40.0, 0.1);
-	session.params.peak.setNumberRange(0, 60, 1);
-	session.params.mpeep.setNumberRange(0, 20, 1);
-	session.params.plat.setNumberRange(0, 60, 1);
-	session.params.tempC.setNumberRange(-20, 60, 1);
-	session.params.cmvSpont.setNumberRange(0, 40, 1);
-	session.params.o2FlowX10.setNumberRange(0.0, 20.0, 0.1);
-	session.params.errors.setNumberRange(0, null, 1);
-	session.params.warnings.setNumberRange(0, null, 1);
-	session.params.infos.setNumberRange(0, null, 1);
-	session.params.wifiDrops.setNumberRange(0, null, 1);
-	session.params.wifiReconns.setNumberRange(0, null, 1);
-	session.params.vt.setNumberRange(200, 600, 50);
-	session.params.mv.setNumberRange(2.0, 18.0, 0.1);
-	session.params.rr.setNumberRange(10, 30, 1);
-	session.params.ipeep.setNumberRange(3, 15, 1);
-	session.params.pmax.setNumberRange(10, 60, 1);
-	session.params.ps.setNumberRange(5, 35, 1);
-	session.params.fiO2.setNumberRange(0, 100, 1);
-	session.params.o2Purity.setNumberRange(21, 100, 1);
-}
-
-// ////////////////////////////////////////////////////
-// Class to manage param values at different points in time
-// and to find their values at different times, ranges etc.
-// ////////////////////////////////////////////////////
-var paramChangeTemplate = {
-	time: 	null,
-	value: 	null,
-};
-
 class Param {
 	constructor(name, type, units) {
 		this.debug = false;
 		this.name = name;
 		this.type = type;
 		this.units = units;
-		let initChange = cloneObject(paramChangeTemplate);
-		initChange.time = new Date(0);
-		initChange.value = null;
+
 		// changes is a sorted array - monotonically increasing in time
 		// first entry is a null entry
-		this.changes = [initChange];
+		let initChange = {};
+		initChange.time = new Date(0);
+		initChange.value = null;
+		this.changes = [cloneObject(initChange)];
 
 		//if (this.name == "PEAK_PRESSURE") this.debug = true;
 	}
@@ -241,10 +60,10 @@ class Param {
 
 		let v = this.LastValue();
 		if (v == value) return; // record only changes
-		let change = cloneObject(paramChangeTemplate);
+		let change = {};
 		change.time = time;
 		change.value = value;
-		this.changes.push(change);
+		this.changes.push(cloneObject(change));
 	}
 
 	FirstValue() {
@@ -569,4 +388,130 @@ class Param {
   }
 
 };
+
+// ////////////////////////////////////////////////////
+// Params are either a number or an enumeration
+// For ENUMS, each enumerator has a number associated as below
+// If the param's range is null, it is a string
+// If the param's range is {}, it is a number
+// ////////////////////////////////////////////////////
+const paramsType = {
+	NUMBER : 					{type:"NUMBER", range:{}},
+	BOOLEAN : 				{type:"ENUM", 
+											range:{"FALSE":0, "TRUE":1}
+										},
+	STRING : 					{type:"STRING", range:null},
+	STATE : 					{type:"ENUM", 
+											range:{"INITIAL":0, "STANDBY":1, "ACTIVE":2, "ERROR":3}
+										},
+	BTYPE : 					{type:"ENUM", 
+											range:{"MANDATORY":1, "SPONTANEOUS":2, "MAINTENANCE":3}
+										},
+	BCONTROL : 				{type:"ENUM", 
+											range:{"VOLUME":0, "PRESSURE":1}
+										},
+	MODE : 						{type:"ENUM", 
+											range:{"CMV":0, "ACV":1, "SIMV":2, "PSV":3}
+										},
+	IE : 							{type:"ENUM", 
+											range:{"1:1":1, "1:2":2, "1:3":3}
+										},
+	TPS : 						{type:"ENUM", 
+											range:{
+											 "10% of Peak Flow":0,
+											 "20% of Peak Flow":1,
+											 "30% of Peak Flow":2,
+											 "40% of Peak Flow":3,
+											 "50% of Peak Flow":4,
+											 "60% of Peak Flow":5,
+											 "1.0 secs":6,
+											 "1.5 secs":7,
+											 "2.0 secs":8,
+											 "2.5 secs":9,
+											}
+										},
+};
+
+// ////////////////////////////////////////////////////
+// Allowed ops depending on number type. Result is always a boolean
+// ////////////////////////////////////////////////////
+const paramOps = {
+	NUMBER:	[ "=", "!=", "<", "<=", ">", ">=" ], 
+	STRING:	[ "&#x220B", "!&#x220B"],
+	ENUM:		["=", "!="]
+};
+
+// ////////////////////////////////////////////////////
+// Install all params at load time
+// ////////////////////////////////////////////////////
+// range is [min,max,step]
+function addParam(key, name, type, units, range) {
+	session.params[key] = new Param(name, paramsType[type], units);
+	session.allParamsTable.push({"key":key, "name":name});
+	if (!isUndefined(range)) {
+		session.params[key].setNumberRange(range[0], range[1], range[2]);
+	}
+}
+
+function createAllParams() {
+	// key, name, type, units, numberRange
+	// D_ prefix for detected or measured by the system
+	// I_ prefix for input setting for the system
+	addParam("breathNum",		"D_BREATH_NUMBER", 	"NUMBER", 	"",					[1, null, 1]);
+	addParam("btype", 			"D_BREATH_TYPE", 		"BTYPE", 		"");
+	addParam("bcontrol", 		"D_BREATH_CONTROL", "BCONTROL",	"");
+	addParam("state", 			"D_STATE", 					"STATE", 		"");
+	addParam("vtdel", 			"D_VT", 						"NUMBER", 	"ml",				[0, 800, 1]);
+	addParam("mvdel", 			"D_MV", 						"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
+	addParam("mmvdel", 			"D_MV_MANDATORY", 	"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
+	addParam("smvdel", 			"D_MV_SPONTANEOUS", "NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
+	addParam("sbpm", 				"D_BPM_SPONTANEOUS","NUMBER", 	"bpm",			[0, 40, 1]);
+	addParam("mbpm", 				"D_BPM_MANDATORY", 	"NUMBER", 	"bpm",			[0, 30, 1]);
+	addParam("scomp", 			"D_COMP_STATIC", 		"NUMBER", 	"ml/cmH2O");
+	addParam("dcomp", 			"D_COMP_DYNAMIC", 	"NUMBER", 	"ml/cmH2O");
+	addParam("peak", 				"D_PEAK", 					"NUMBER", 	"cmH2O",		[0, 60, 1]);
+	addParam("mpeep", 			"D_PEEP", 					"NUMBER", 	"cmH2O",		[0, 60, 1]);
+	addParam("plat", 				"D_PLAT", 					"NUMBER", 	"cmH2O",		[0, 60, 1]);
+	addParam("tempC", 			"D_TEMP_C", 				"NUMBER", 	"degC",			[-20, 60, 1]);
+	addParam("cmvSpont", 		"D_CMV_SPONTANEOUS","NUMBER", 	"",					[0, null, 1]);
+
+	addParam("attention",		"D_ATTENTION", 			"BOOLEAN",	"");
+	addParam("errorTag", 		"D_ERROR_BREATH", 	"BOOLEAN",	"");
+	addParam("warningTag", 	"D_WARNING_BREATH", "BOOLEAN",	"");
+	addParam("errors", 			"D_ERROR_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
+	addParam("warnings", 		"D_WARNING_NUMBER", "NUMBER", 	"",					[0, null, 1]);
+	addParam("infos", 			"D_NOTIF_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
+	addParam("wifiDrops",		"D_WIFI_DROPS", 		"NUMBER", 	"",					[0, null, 1]);
+	addParam("wifiReconns",	"D_WIFI_CONNECTS", 	"NUMBER", 	"",					[0, null, 1]);
+
+	addParam("lcdLine1",		"LCD_LINE_1", 			"STRING", 	"");
+	addParam("lcdLine2",		"LCD_LINE_2", 			"STRING", 	"");
+	addParam("lcdLine3",		"LCD_LINE_3", 			"STRING", 	"");
+	addParam("lcdLine4",		"LCD_LINE_4", 			"STRING", 	"");
+
+	addParam("somePending",	"D_CHANGE", 				"BOOLEAN",	"");
+	addParam("pendingMode",	"D_CHANGE_MODE", 		"BOOLEAN",	"");
+	addParam("pendingVt",		"D_CHANGE_VT", 			"BOOLEAN",	"");
+	addParam("pendingMv",		"D_CHANGE_MV", 			"BOOLEAN",	"");
+	addParam("pendingEi",		"D_CHANGE_EI", 			"BOOLEAN",	"");
+	addParam("pendingRr",		"D_CHANGE_RR", 			"BOOLEAN",	"");
+	addParam("pendingIpeep","D_CHANGE_PEEP", 		"BOOLEAN",	"");
+	addParam("pendingPmax",	"D_CHANGE_PMAX", 		"BOOLEAN",	"");
+	addParam("pendingPs",		"D_CHANGE_PS", 			"BOOLEAN",	"");
+	addParam("pendingTps",	"D_CHANGE_TPS", 		"BOOLEAN",	"");
+
+	addParam("mode", 				"I_MODE", 					"MODE", 		"");
+	addParam("vt", 					"I_VT", 						"NUMBER", 	"ml",				[200, 600, 50]);
+	addParam("mv", 					"I_MV", 						"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
+	addParam("rr", 					"I_RR", 						"NUMBER", 	"bpm",			[10, 30, 1]);
+	addParam("ie", 					"I_IE", 						"IE", 			"");
+	addParam("ipeep", 			"I_PEEP", 					"NUMBER", 	"cmH2O",		[3, 15, 1]);
+	addParam("pmax", 				"I_PMAX", 					"NUMBER", 	"cmH2O",		[10, 60, 1]);
+	addParam("ps", 					"I_PS", 						"NUMBER", 	"cmH2O",		[5, 40, 1]);
+	addParam("tps", 				"I_TPS", 						"TPS", 			"");
+	addParam("fiO2", 				"I_FIO2", 					"NUMBER", 	"%",				[0, 100, 1]);
+	addParam("o2Purity", 		"I_O2_PURITY",		 	"NUMBER", 	"%",				[21, 100, 1]);
+
+	addParam("o2FlowX10", 	"O_SOURCE_FLOW",	 "NUMBER", 		"l/min",		[0.0, 20.0, 0.1]);
+}
 

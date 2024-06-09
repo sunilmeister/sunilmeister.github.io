@@ -102,6 +102,12 @@ function validFloatNumber(num) {
   return false;
 }
 
+function isValidValue(val) {
+	if (val === null) return false;
+	if (isUndefined(val)) return false;
+	if (isNaN(val)) return false;
+	return true;
+}
 
 function isUndefined(v) {
   if (typeof v == 'undefined') return true;

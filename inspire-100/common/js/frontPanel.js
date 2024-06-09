@@ -130,30 +130,47 @@ function createFpDivs() {
 	lcdDiv.style.height = String(remH) + "rem";
 }
 
-function isValidValue(val) {
-	if (val === null) return false;
-	if (isUndefined(val)) return false;
-	return true;
+function fpDisplayMessageLine(lineTag, value) {
+  let elm;
+  elm = document.getElementById(lineTag);
+  elm.style.color = palette.darkblue;
+  let mvalue = formMessageLine(value);
+  elm.innerHTML = mvalue;
+}
+
+function fpRefresh() {
+	fpRefreshMessageLines();
+}
+
+function fpRefreshMessageLines() {
+	let snap = session.snapshot.content;
+	fpDisplayMessageLine("lcdline1", snap.lcdLine1);
+	fpDisplayMessageLine("lcdline2", snap.lcdLine2);
+	fpDisplayMessageLine("lcdline3", snap.lcdLine3);
+	fpDisplayMessageLine("lcdline4", snap.lcdLine4);
 }
 
 function blankFrontPanelStateLeds() {
+	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpInitialDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpStandbyDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpActiveDiv').src = "../common/img/BlankLED.png";
-	blankFrontPanelErrorLed();
 }
 
 function updateFrontPanelStateLeds() {
+	let snap = session.snapshot.content;
 	// update state LEDs
 	blankFrontPanelStateLeds();
-  if (session.stateData.state) {
-		if (session.stateData.initial) {
-    	document.getElementById('img_fpStandbyDiv').src = "../common/img/WhiteDot.png";
-		} else if (session.stateData.standby) {
+  if (snap.state !== null) {
+  	if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
+			document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
+		} else if (snap.state == INITIAL_STATE) {
+    	document.getElementById('img_fpInitialDiv').src = "../common/img/WhiteDot.png";
+		} else if (snap.state == STANDBY_STATE) {
     	document.getElementById('img_fpStandbyDiv').src = "../common/img/YellowDot.png";
-  	} else if (session.stateData.active) {
+  	} else if (snap.state == ACTIVE_STATE) {
     	document.getElementById('img_fpActiveDiv').src = "../common/img/GreenDot.png";
-  	}
+		}
 	}
 }
 
@@ -165,9 +182,11 @@ function blankFrontPanelModeLeds() {
 }
 
 function updateFrontPanelModeLeds() {
+	let snap = session.snapshot.content;
+
 	// update mode LEDs
 	blankFrontPanelModeLeds();
-	let mode = MODE_DECODER[session.paramDataInUse.mode];
+	let mode = MODE_DECODER[snap.mode];
 	if (mode == "CMV") {
 		document.getElementById('img_fpCmvDiv').src = "../common/img/WhiteDot.png";
 	} else if (mode == "ACV") {
@@ -176,16 +195,6 @@ function updateFrontPanelModeLeds() {
 		document.getElementById('img_fpSimvDiv').src = "../common/img/WhiteDot.png";
 	} else if (mode == "PSV") {
 		document.getElementById('img_fpPsvDiv').src = "../common/img/WhiteDot.png";
-	}
-}
-
-function blankFrontPanelErrorLed() {
-	document.getElementById('img_fpErrorDiv').src = "../common/img/BlankLED.png";
-}
-
-function updateFrontPanelErrorLed() {
-  if (session.stateData.error || session.alerts.newErrorMsg) {
- 		document.getElementById('img_fpErrorDiv').src = "../common/img/RedDot.png";
 	}
 }
 
@@ -201,30 +210,31 @@ function blankFrontPanelSettings() {
 }
 
 function updateFrontPanelSettings() {
+	let snap = session.snapshot.content;
 	updateFrontPanelModeLeds();
 
-	let val = session.paramDataInUse.ie;
+	let val = snap.ie;
 	if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
 
-	val = session.paramDataInUse.rr;
+	val = snap.rr;
 	if (isValidValue(val)) document.getElementById('p_fpRrDiv').innerHTML = val;
 
-	val = session.paramDataInUse.vt;
+	val = snap.vt;
 	if (isValidValue(val)) document.getElementById('p_fpVtDiv').innerHTML = val;
 
-	val = session.paramDataInUse.pmax;
+	val = snap.pmax;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPmaxDiv').innerHTML = val;
 
-	val = session.paramDataInUse.ipeep;
+	val = snap.ipeep;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpIpeepDiv').innerHTML = val;
 
-	val = session.paramDataInUse.ps;
+	val = snap.ps;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPsDiv').innerHTML = val;
 
-	val = session.paramDataInUse.tps;
+	val = snap.tps;
 	if (isValidValue(val)) document.getElementById('p_fpTpsDiv').innerHTML = val;
 }
 
@@ -237,22 +247,25 @@ function blankFrontPanelOutputs() {
 }
 
 function updateFrontPanelOutputs() {
-	let val = session.params.peak.LastValue();
+	let snap = session.snapshot.content;
+
+	let val = snap.peak;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPeakDiv').innerHTML = val;
 
-	val = session.params.plat.LastValue();
+	val = snap.plat;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPlatDiv').innerHTML = val;
 
-	val = session.params.mpeep.LastValue();
+	val = snap.mpeep;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpMpeepDiv').innerHTML = val;
 
 	// Also do the S/MBreath LEDs
 	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
 	document.getElementById('img_fpSbreathDiv').src = "../common/img/BlankLED.png";
-	val = session.params.btype.LastValue();
+
+	val = snap.btype;
 	if ((isValidValue(val)) && (val == MANDATORY_BREATH)) {
 		document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
 	} else if (val == SPONTANEOUS_BREATH) {
@@ -261,17 +274,17 @@ function updateFrontPanelOutputs() {
 }
 
 function blankFrontPanelPendingSettings() {
-  let pend = session.pendingParamsData;
+	let snap = session.snapshot.content;
 
-	if (pend.mode) blankFrontPanelModeLeds();
-	if (pend.vt) document.getElementById('p_fpVtDiv').innerHTML = "";
-	if (pend.mv) document.getElementById('p_fpVtDiv').innerHTML = "";
-	if (pend.rr) document.getElementById('p_fpRrDiv').innerHTML = "";
-	if (pend.ie) document.getElementById('p_fpEiDiv').innerHTML = "";
-	if (pend.ipeep) document.getElementById('p_fpIpeepDiv').innerHTML = "";
-	if (pend.pmax) document.getElementById('p_fpPmaxDiv').innerHTML = "";
-	if (pend.ps) document.getElementById('p_fpPsDiv').innerHTML = "";
-	if (pend.tps) document.getElementById('p_fpTpsDiv').innerHTML = "";
+	if (snap.pendingMode) blankFrontPanelModeLeds();
+	if (snap.pendingVt) document.getElementById('p_fpVtDiv').innerHTML = "";
+	if (snap.pendingMv) document.getElementById('p_fpVtDiv').innerHTML = "";
+	if (snap.pendingRr) document.getElementById('p_fpRrDiv').innerHTML = "";
+	if (snap.pendingEi) document.getElementById('p_fpEiDiv').innerHTML = "";
+	if (snap.pendingIpeep) document.getElementById('p_fpIpeepDiv').innerHTML = "";
+	if (snap.pendingPmax) document.getElementById('p_fpPmaxDiv').innerHTML = "";
+	if (snap.pendingPs) document.getElementById('p_fpPsDiv').innerHTML = "";
+	if (snap.pendingTps) document.getElementById('p_fpTpsDiv').innerHTML = "";
 }
 
 var fpLEDsBlank = true;
@@ -309,7 +322,7 @@ function updateEntireFrontPanel() {
 	updateFrontPanelSettings();
 	updateFrontPanelOutputs();
 	updateFrontPanelModeLeds();
-	updateFrontPanelErrorLed();
+	updateFrontPanelStateLeds();
 }
 
 var fpErrorBlank = true;
@@ -324,12 +337,21 @@ function blinkEntireFrontPanel() {
 }
 
 setInterval(function () {
+	let snap = session.snapshot.content;
 	if (!session) return;
-  if (session.stateData.error || session.alerts.newErrorMsg) {
+  if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
 		blinkEntireFrontPanel();
 	} else if (fpErrorBlank) {
 		updateEntireFrontPanel();
-	} 
-	blinkFrontPanelPendingSettings();
+	} else {
+		blinkFrontPanelLEDs();
+	}
+
+	if (snap.somePending) {
+		blinkFrontPanelPendingSettings();
+	} else if (!((snap.state == ERROR_STATE) || (snap.errorTag == true))) {
+		updateFrontPanelSettings();
+	}
+
 }, FASTEST_BLINK_INTERVAL_IN_MS)
 

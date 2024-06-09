@@ -4,7 +4,8 @@
 
 function createDashboardSnapshots() {
 	rangeWindowDiv.style.display = "block";
- 	updateSnapshot();
+	refreshSnapshot();
+ 	updateSidebar();
 	updateVisiblePrevRange();
 }
 
@@ -18,18 +19,18 @@ function updateSnapshotRange() {
 	updateVisibleRangeLimits();
 
   // if range is not "full"
-  if (!session.snapshots.range.moving) return;
-  if (session.snapshots.range.moving) movingSnapshotRange();
+  if (!session.snapshot.range.moving) return;
+  if (session.snapshot.range.moving) movingSnapshotRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.snapshots.range.minBnum, session.snapshots.range.maxBnum]);
+  session.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
   stopSliderCallback = false;
 }
 
 function updateSnapshotRangeOnEntry() {
-  if (!session.snapshots.range.moving) return;
+  if (!session.snapshot.range.moving) return;
   movingSnapshotRange();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.snapshots.range.minBnum, session.snapshots.range.maxBnum]);
+  session.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
   stopSliderCallback = false;
 }

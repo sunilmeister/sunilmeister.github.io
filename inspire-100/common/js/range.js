@@ -40,7 +40,7 @@ function createRange(moving, minBnum, maxBnum) {
 // Each view's range is independant
 function updateVisibleViewRange(moving, minBnum, maxBnum) {
 	let range = createRange(moving, minBnum, maxBnum);
-	if (session.snapshots.visible) 		session.snapshots.range = cloneObject(range);
+	if (session.snapshot.visible) 		session.snapshot.range = cloneObject(range);
 	else if (session.charts.visible) 	session.charts.range = cloneObject(range);
 	else if (session.waves.visible) 	session.waves.range = cloneObject(range);
 	else if (session.stats.visible) 	session.stats.range = cloneObject(range);
@@ -53,7 +53,7 @@ function updateVisibleViewRange(moving, minBnum, maxBnum) {
 
 function updateAllRanges(moving, minBnum, maxBnum) {
 	let range = createRange(moving, minBnum, maxBnum);
-	session.snapshots.range = cloneObject(range);
+	session.snapshot.range = cloneObject(range);
 	session.charts.range = cloneObject(range);
 	session.waves.range = cloneObject(range);
 	session.stats.range = cloneObject(range);
@@ -66,7 +66,7 @@ function updateAllRanges(moving, minBnum, maxBnum) {
 
 function updateAllRangesExceptSearch(moving, minBnum, maxBnum) {
 	let range = createRange(moving, minBnum, maxBnum);
-	session.snapshots.range = cloneObject(range);
+	session.snapshot.range = cloneObject(range);
 	session.charts.range = cloneObject(range);
 	session.waves.range = cloneObject(range);
 	session.stats.range = cloneObject(range);
@@ -77,7 +77,7 @@ function updateAllRangesExceptSearch(moving, minBnum, maxBnum) {
 }
 
 function pauseVisibleRange() {
-	if (session.snapshots.visible) 		session.snapshots.range.moving = false;
+	if (session.snapshot.visible) 		session.snapshot.range.moving = false;
 	else if (session.charts.visible) 	session.charts.range.moving = false;
 	else if (session.waves.visible) 	session.waves.range.moving = false;
 	else if (session.stats.visible) 	session.stats.range.moving = false;
@@ -90,7 +90,7 @@ function pauseVisibleRange() {
 
 // toggle between play and pause
 function playVisibleRange() {
-	if (session.snapshots.visible) 		session.snapshots.range.moving = true;
+	if (session.snapshot.visible) 		session.snapshot.range.moving = true;
 	else if (session.charts.visible) 	session.charts.range.moving = true;
 	else if (session.waves.visible) 	session.waves.range.moving = true;
 	else if (session.stats.visible) 	session.stats.range.moving = true;
@@ -103,7 +103,7 @@ function playVisibleRange() {
 
 // toggle between play and pause
 function visibleViewRange() {
-	if (session.snapshots.visible) 		return session.snapshots.range ;
+	if (session.snapshot.visible) 		return session.snapshot.range ;
 	else if (session.charts.visible) 	return session.charts.range ;
 	else if (session.waves.visible) 	return session.waves.range ;
 	else if (session.stats.visible) 	return session.stats.range ;
@@ -117,7 +117,7 @@ function visibleViewRange() {
 }
 
 function isSomeViewVisible() {
-	if (session.snapshots.visible) 		return true;
+	if (session.snapshot.visible) 		return true;
 	else if (session.charts.visible) 	return true;
 	else if (session.waves.visible) 	return true;
 	else if (session.stats.visible) 	return true;
@@ -131,7 +131,7 @@ function isSomeViewVisible() {
 
 // Query - is the visible range in play mode
 function isVisibleRangeMoving() {
-	if (session.snapshots.visible) 		return session.snapshots.range.moving ;
+	if (session.snapshot.visible) 		return session.snapshot.range.moving ;
 	else if (session.charts.visible) 	return session.charts.range.moving ;
 	else if (session.waves.visible) 	return session.waves.range.moving ;
 	else if (session.stats.visible) 	return session.stats.range.moving ;
@@ -145,7 +145,7 @@ function isVisibleRangeMoving() {
 }
 
 function visibleRangeMinBnum() {
-	if (session.snapshots.visible) 		return session.snapshots.range.minBnum ;
+	if (session.snapshot.visible) 		return session.snapshot.range.minBnum ;
 	else if (session.charts.visible) 	return session.charts.range.minBnum ;
 	else if (session.waves.visible) 	return session.waves.range.minBnum ;
 	else if (session.stats.visible) 	return session.stats.range.minBnum ;
@@ -159,7 +159,7 @@ function visibleRangeMinBnum() {
 }
 
 function visibleRangeMaxBnum() {
-	if (session.snapshots.visible) 		return session.snapshots.range.maxBnum ;
+	if (session.snapshot.visible) 		return session.snapshot.range.maxBnum ;
 	else if (session.charts.visible) 	return session.charts.range.maxBnum ;
 	else if (session.waves.visible) 	return session.waves.range.maxBnum ;
 	else if (session.stats.visible) 	return session.stats.range.maxBnum ;
@@ -173,7 +173,7 @@ function visibleRangeMaxBnum() {
 }
 
 function visibleRangeMinTime() {
-	if (session.snapshots.visible) 		return session.snapshots.range.minTime ;
+	if (session.snapshot.visible) 		return session.snapshot.range.minTime ;
 	else if (session.charts.visible) 	return session.charts.range.minTime ;
 	else if (session.waves.visible) 	return session.waves.range.minTime ;
 	else if (session.stats.visible) 	return session.stats.range.minTime ;
@@ -187,7 +187,7 @@ function visibleRangeMinTime() {
 }
 
 function visibleRangeMaxTime() {
-	if (session.snapshots.visible) 		return session.snapshots.range.maxTime ;
+	if (session.snapshot.visible) 		return session.snapshot.range.maxTime ;
 	else if (session.charts.visible) 	return session.charts.range.maxTime ;
 	else if (session.waves.visible) 	return session.waves.range.maxTime ;
 	else if (session.stats.visible) 	return session.stats.range.maxTime ;
@@ -210,8 +210,8 @@ function visibleRangeTimeDuration() {
 
 // query - has the range changed since the time this view was displayed
 function isVisibleRangeChanged() {
-	if (session.snapshots.visible) 		{ 
-		return !equalObjects(session.snapshots.range, session.snapshots.prevRange) ;
+	if (session.snapshot.visible) 		{ 
+		return !equalObjects(session.snapshot.range, session.snapshot.prevRange) ;
 	} else if (session.charts.visible) 	{
 		return !equalObjects(session.charts.range, session.charts.prevRange) ;
 	} else if (session.waves.visible) 	{
@@ -235,8 +235,8 @@ function isVisibleRangeChanged() {
 
 // update the prevRange to reflect the currently displayed range
 function updateVisiblePrevRange() {
-	if (session.snapshots.visible) 		{ 
-		session.snapshots.prevRange  = cloneObject(session.snapshots.range);
+	if (session.snapshot.visible) 		{ 
+		session.snapshot.prevRange  = cloneObject(session.snapshot.range);
 	} else if (session.charts.visible) 	{
 		session.charts.prevRange  = cloneObject(session.charts.range);
 	} else if (session.waves.visible) 	{
@@ -257,7 +257,7 @@ function updateVisiblePrevRange() {
 }
 
 function updateSelectedSliderMinMax(bmin, bmax) {
-	if (session.snapshots.visible) 		session.snapshots.range = createRange(false, bmin, bmax);
+	if (session.snapshot.visible) 		session.snapshot.range = createRange(false, bmin, bmax);
 	else if (session.charts.visible) 	session.charts.range = createRange(false, bmin, bmax);
 	else if (session.waves.visible) 	session.waves.range = createRange(false, bmin, bmax);
 	else if (session.stats.visible) 	session.stats.range = createRange(false, bmin, bmax);
@@ -292,7 +292,7 @@ function acceptBreathNumRange() {
   let numBreaths = Number(document.getElementById("rangeNumBreaths").value);
 	let toBreath = null;
 
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		toBreath = fromBreath;
 		if (session.maxBreathNum > 0) fromBreath = 1;
 		else fromBreath = 0;
@@ -324,8 +324,8 @@ function acceptBreathTimeRange() {
 	let duration = document.getElementById("rangeDuration").value;
 	let seconds = 0;
 
-	// duration is irreleveant for snapshots view
-	if (!session.snapshots.visible) {
+	// duration is irreleveant for snapshot view
+	if (!session.snapshot.visible) {
 		let arr = duration.split(':'); // split it at the colons
 		//console.log("arr", arr);
 		if (arr.length != 3) {
@@ -346,7 +346,7 @@ function acceptBreathTimeRange() {
 	//console.log("toTime", toTime);
 	let fromBreath = null;
 	let toBreath = null;
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		if (session.maxBreathNum > 0) fromBreath = 1;
 		else fromBreath = 0;
 		toBreath = lookupBreathNum(fromTime);
@@ -385,7 +385,7 @@ function enterRangeBnum() {
 	let maxBnum = visibleRangeMaxBnum();
 
 	document.getElementById("rangeFromBnum").value = minBnum;
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
   	document.getElementById("rangeNumBreaths").value = "--";
 		document.getElementById("rangeNumBreaths").disabled = true;
 		document.getElementById("rangeNumBreaths").style.cursor = "not-allowed";
@@ -437,7 +437,7 @@ function enterRangeBtime() {
   //console.log("minDate", session.startDate);
   //console.log("maxDate", addMsToDate(startDate,session.sessionDurationInMs));
 
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
   	document.getElementById("rangeDuration").value = "--";
 		document.getElementById("rangeDuration").disabled = true;
 		document.getElementById("rangeDuration").style.cursor = "not-allowed";
@@ -543,7 +543,7 @@ function forwardRange() {
 	let bmax = visibleRangeMaxBnum();
 	let span = bmax - bmin + 1;
 
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		bmax++;
 		if (bmax > session.maxBreathNum) bmax = session.maxBreathNum;
 	} else if ((bmax + span) > maxRange) {
@@ -552,7 +552,7 @@ function forwardRange() {
 		bmax += span;
 	}
 
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		if (session.maxBreathNum > 0) bmin = 1;
 		else bmin = 0;
 		bmin = 1;
@@ -572,7 +572,7 @@ function rewindRange() {
 	let bmax = visibleRangeMaxBnum();
 	let span = bmax - bmin + 1;
 
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		if (session.maxBreathNum > 0) bmin = 1;
 		else bmin = 0;
 	} else if ((bmin - span) < minRange) {
@@ -581,7 +581,7 @@ function rewindRange() {
 		bmin -= span;
 	}
 
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		bmax--;
 		if (bmax < 1) bmax = 1;
 	} else {

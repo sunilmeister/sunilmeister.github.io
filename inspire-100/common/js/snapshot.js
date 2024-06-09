@@ -1,70 +1,206 @@
-// ////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////
 // Author: Sunil Nanda
-// ////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////
 
-function formMessageLine(str) {
-	const spanBegin = "<span class=UniMono>";
-	const spanEnd = "</span>";
+function gatherSnapshotData() {
+	session.snapshot.content = {};
+	let snap = session.snapshot.content;
+	let params = session.params;
 
-	let mstr = "";
-	for (let i = 0; i < str.length; i++) {
-		let code = str.charCodeAt(i);
-		let isASCII = (code >= 0) && (code <= 127);
-		let cstr = String.fromCodePoint(code);
-		if (isASCII) {
-	  	if (cstr == ' ') cstr = '&nbsp';
-	  	mstr += cstr;
-		} else {
-			mstr += spanBegin + cstr + spanEnd;
-		}
+	// keep track of the snapshot time
+	if (session.maxBreathNum < 1) return;
+	snap.time = session.snapshot.range.maxTime;
+	if (snap.time === null) return;
+
+	// Patient info
+	snap.patientName = "--" ;
+	if (session.patientData.fname) snap.patientName = session.patientData.fname;
+	if (session.patientData.lname) snap.patientName += " " + session.patientData.lname;
+	snap.patientAge = "";
+	if (session.patientData.gender) {
+	  snap.patientAge = "Gender: " + session.patientData.gender;
+	} else {
+	  snap.patientAge = "Gender: ?";
 	}
-	if (mstr == "") mstr = "&nbsp" ;
-	return mstr;
+	if (session.patientData.age) {
+	  snap.patientAge += "&nbsp&nbspAge: " + session.patientData.age + "yr";
+	} else {
+	  snap.patientAge += "&nbsp&nbspAge: ?";
+	}
+	snap.patientStats = "";
+	if (session.patientData.weight) {
+	  snap.patientStats = "Weight: " + session.patientData.weight + "kg";
+	} else {
+	  snap.patientStats = "Weight: ?";
+	}
+	if (session.patientData.height) {
+	  snap.patientStats += "&nbsp&nbspHeight: " + session.patientData.height + "cm";
+	} else {
+	  snap.patientStats += "&nbsp&nbspHeight: ?";
+	}
+
+	// Message lines
+	snap.lcdLine1 = params.lcdLine1.ValueAtTime(snap.time);
+	snap.lcdLine2 = params.lcdLine2.ValueAtTime(snap.time);
+	snap.lcdLine3 = params.lcdLine3.ValueAtTime(snap.time);
+	snap.lcdLine4 = params.lcdLine4.ValueAtTime(snap.time);
+
+	// state
+	snap.state = params.state.ValueAtTime(snap.time);
+	snap.breathNum = params.breathNum.ValueAtTime(snap.time);
+
+	// input settings
+	snap.mode 		= params.mode.ValueAtTime(snap.time);
+	snap.vt 			= params.vt.ValueAtTime(snap.time);
+	snap.mv 			= params.mv.ValueAtTime(snap.time);
+	snap.rr 			= params.rr.ValueAtTime(snap.time);
+	snap.ie 			= params.ie.ValueAtTime(snap.time);
+	snap.ipeep 		= params.ipeep.ValueAtTime(snap.time);
+	snap.pmax 		= params.pmax.ValueAtTime(snap.time);
+	snap.ps 			= params.ps.ValueAtTime(snap.time);
+	snap.tps 			= params.tps.ValueAtTime(snap.time);
+	snap.fiO2 		= params.fiO2.ValueAtTime(snap.time);
+	snap.o2Purity = params.o2Purity.ValueAtTime(snap.time);
+	snap.tps 			= params.tps.ValueAtTime(snap.time);
+
+	// pending input settings
+	snap.pendingMode 		= params.pendingMode.ValueAtTime(snap.time);
+	snap.pendingVt 			= params.pendingVt.ValueAtTime(snap.time);
+	snap.pendingMv 			= params.pendingMv.ValueAtTime(snap.time);
+	snap.pendingRr 			= params.pendingRr.ValueAtTime(snap.time);
+	snap.pendingEi 			= params.pendingEi.ValueAtTime(snap.time);
+	snap.pendingIpeep 	= params.pendingIpeep.ValueAtTime(snap.time);
+	snap.pendingPmax 		= params.pendingPmax.ValueAtTime(snap.time);
+	snap.pendingPs 			= params.pendingPs.ValueAtTime(snap.time);
+	snap.pendingTps 		= params.pendingTps.ValueAtTime(snap.time);
+
+	// measured parameters
+	snap.vtdel 			= params.vtdel.ValueAtTime(snap.time);
+	snap.mvdel 			= params.mvdel.ValueAtTime(snap.time);
+	snap.mmvdel			= params.mmvdel.ValueAtTime(snap.time);
+	snap.smvdel			= params.smvdel.ValueAtTime(snap.time);
+	snap.sbpm 			= params.sbpm.ValueAtTime(snap.time);
+	snap.mbpm 			= params.mbpm.ValueAtTime(snap.time);
+	snap.btype 			= params.btype.ValueAtTime(snap.time);
+	snap.bcontrol		= params.bcontrol.ValueAtTime(snap.time);
+	snap.scomp 			= params.scomp.ValueAtTime(snap.time);
+	snap.dcomp 			= params.dcomp.ValueAtTime(snap.time);
+	snap.peak 			= params.peak.ValueAtTime(snap.time);
+	snap.plat 			= params.plat.ValueAtTime(snap.time);
+	snap.mpeep 			= params.mpeep.ValueAtTime(snap.time);
+	snap.cmvSpont		= params.cmvSpont.ValueAtTime(snap.time);
+	snap.o2FlowX10	= params.o2FlowX10.ValueAtTime(snap.time);
+
+	// errors and warnings
+	snap.errorTag 	= params.errorTag.ValueAtTime(snap.time);
+	snap.warningTag	= params.warningTag.ValueAtTime(snap.time);
+	snap.attention	= params.attention.ValueAtTime(snap.time);
+	snap.somePending= params.somePending.ValueAtTime(snap.time);
 }
 
-function blinkSettingValue(pending, containerDiv, valueDiv) {
-	if (!session) return;
-  let elm = document.getElementById(containerDiv);
-  if (pending) {
-    updatePending(false);
-    elm.style.backgroundColor = palette.orange;
-  } else {
-    elm.style.backgroundColor = palette.mediumblue;
+function refreshSnapshot() {
+	// collect all data at the time specified by the range
+	gatherSnapshotData();
+
+	// now refresh the display
+	refreshMessageLines();
+	refreshStateImage();
+	refreshAlertImage();
+	refreshPatientInfo();
+	refreshInputSettings();
+	refreshMeasuredParameters();
+
+	// now refresh the front panel
+	fpRefresh();
+}
+
+// ////////////////////////////////////////////////////////////////
+// Utility functions
+// ////////////////////////////////////////////////////////////////
+function animateDivValue(div, value) {
+  if (div.innerText === null) {
+    div.innerHTML = "--";
+    return;
   }
+	if (!isValidValue(value)) {
+    div.innerHTML = "--";
+    return;
+	}
+  if (Number(div.innerText) == value) return;
+  animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
 }
 
-function updatePendingIndividualSetting(blink, div, pendingSetting) {
+function animateDivToValue(div, value) {
+  if (div.innerText === null) {
+    div.innerHTML = "--";
+    return;
+  }
+	if (!isValidValue(value)) {
+    div.innerHTML = "--";
+    return;
+	}
+  if (Number(div.innerText) == value) return;
+  animateNumberValueTo(div, value);
+}
+
+function updateDivText(div, value) {
+	let txt = value;
+  if (isUndefined(value)) txt = "--";
+  if (value === null) txt = "--";
+  div.innerHTML = txt;
+}
+
+function updateDivValue(div, value) {
+  let txt;
+  if (!isValidValue(value)) txt = "--";
+  else txt = value;
+  div.innerHTML = txt;
+}
+
+// ////////////////////////////////////////////////////////////////
+// Pending change warning
+// ////////////////////////////////////////////////////////////////
+var pendingOrange = false;
+function updatePendingIndividualSetting(blink, div, pendingParam) {
+	let snap = session.snapshot.content;
+	let pendParam = pendingParam.ValueAtTime(snap.time);
+
   let elm = document.getElementById(div);
-  if (session.paramDataOnDisplay.pending) {
-    if (pendingSetting && blink) {
-      if (pendingBackground != "ORANGE") {
+  if (snap.somePending) {
+    if (pendParam && blink) {
+      if (!pendingOrange) {
         elm.style.backgroundColor = palette.orange;
+				pendingOrange = true;
       } else {
         elm.style.backgroundColor = palette.mediumblue;
+				pendingOrange = false;
       }
     }
-  } else if (pendingBackground != "MEDIUMBLUE") {
+  } else {
     elm.style.backgroundColor = palette.mediumblue;
+		pendingOrange = false;
   }
 }
 
 function updatePendingSettings(blink) {
-  let pend = session.pendingParamsData;
-  updatePendingIndividualSetting(blink, "MODEDiv", pend.mode);
-  updatePendingIndividualSetting(blink, "VTDiv", pend.vt);
-  updatePendingIndividualSetting(blink, "VTDiv", pend.mv);
-  updatePendingIndividualSetting(blink, "RRDiv", pend.rr);
-  updatePendingIndividualSetting(blink, "IEDiv", pend.ie);
-  updatePendingIndividualSetting(blink, "IPEEPDiv", pend.ipeep);
-  updatePendingIndividualSetting(blink, "PMAXDiv", pend.pmax);
-  updatePendingIndividualSetting(blink, "PSDiv", pend.ps);
-  updatePendingIndividualSetting(blink, "TPSDiv", pend.tps);
+  let params = session.params;
+  updatePendingIndividualSetting(blink, "MODEDiv", 	params.pendingMode);
+  updatePendingIndividualSetting(blink, "VTDiv", 		params.pendingVt);
+  updatePendingIndividualSetting(blink, "VTDiv", 		params.pendingMv);
+  updatePendingIndividualSetting(blink, "RRDiv", 		params.pendingRr);
+  updatePendingIndividualSetting(blink, "IEDiv", 		params.pendingEi);
+  updatePendingIndividualSetting(blink, "IPEEPDiv", params.pendingIpeep);
+  updatePendingIndividualSetting(blink, "PMAXDiv", 	params.pendingPmax);
+  updatePendingIndividualSetting(blink, "PSDiv", 		params.pendingPs);
+  updatePendingIndividualSetting(blink, "TPSDiv", 	params.pendingTps);
 }
 
 function updatePending(blink) {
+	let snap = session.snapshot.content;
   let elm;
+
   updatePendingSettings(blink);
-  if (session.paramDataOnDisplay.pending) {
+  if (snap.somePending) {
     elm = document.getElementById("Pending");
     elm.innerHTML = "Pending Changes";
     if (pendingBackground != "ORANGE") {
@@ -85,9 +221,24 @@ function updatePending(blink) {
   }
 }
 
+// ////////////////////////////////////////////////////////////////
+// Alerts
+// ////////////////////////////////////////////////////////////////
+function refreshAlertImage() {
+	let snap = session.snapshot.content;
+	updateAlert(snap.attention);
+}
+
+var alertImage = "OK";
+var alertBackground = "GREEN";
 function updateAlert(blink) {
+	let params = session.params;
+	let snap = session.snapshot.content;
+	let state = snap.state
+	let attention = snap.attention;
+
   let elm = document.getElementById("AlertDiv");
-  if (session.stateData.error) {
+  if (state == ERROR_STATE) {
     startErrorBeep();
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = palette.darkred;
@@ -100,7 +251,7 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "../common/img/Error.png";
       alertImage = "ERROR";
     }
-  } else if (session.alerts.attention || wifiDropped) {
+  } else if (attention) {
     startWarningBeep();
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = palette.orange;
@@ -126,31 +277,74 @@ function updateAlert(blink) {
   }
 }
 
+// ////////////////////////////////////////////////////////////////
+// System State
+// ////////////////////////////////////////////////////////////////
+var blankStateImg = true;
+function blinkStateImage() {
+	if (!session) return;
+	if (blankStateImg) {
+		refreshStateImage();
+		blankStateImg = false;
+	} else {
+    imgStateDIV.src = "../common/img/BlankLED.png";
+		blankStateImg = true;
+	}
+}
+
+function refreshStateImage() {
+	if (!session) return;
+
+	let snap = session.snapshot.content;
+	let state = snap.state;
+
+	if (state == INITIAL_STATE) {
+    stateDIV.innerHTML = "<b>INITIALIZE</b>";
+    imgStateDIV.src = "../common/img/InitialLED.png";
+  } else if (state == STANDBY_STATE) {
+    stateDIV.innerHTML = "<b>STANDBY</b>";
+    imgStateDIV.src = "../common/img/StandbyLED.png";
+  } else if (state == ACTIVE_STATE) {
+    stateDIV.innerHTML = "<b>ACTIVE</b>";
+    imgStateDIV.src = "../common/img/ActiveLED.png";
+  } else if (state == ERROR_STATE) {
+    stateDIV.innerHTML = "<b>ERROR</b>";
+    imgStateDIV.src = "../common/img/ErrorLED.png";
+  } else {
+    imgStateDIV.src = "../common/img/BlankLED.png";
+    stateDIV.innerHTML = "<b>UNKNOWN</b>";
+  }
+}
+
+// ////////////////////////////////////////////////////////////////
+// LCD Messages
+// ////////////////////////////////////////////////////////////////
+function formMessageLine(str) {
+	if (str === null) return "";
+	if (isUndefined(str)) return "";
+
+	const spanBegin = "<span class=UniMono>";
+	const spanEnd = "</span>";
+
+	let mstr = "";
+	for (let i = 0; i < str.length; i++) {
+		let code = str.charCodeAt(i);
+		let isASCII = (code >= 0) && (code <= 127);
+		let cstr = String.fromCodePoint(code);
+		if (isASCII) {
+	  	if (cstr == ' ') cstr = '&nbsp';
+	  	mstr += cstr;
+		} else {
+			mstr += spanBegin + cstr + spanEnd;
+		}
+	}
+	if (mstr == "") mstr = "&nbsp" ;
+	return mstr;
+}
+
 function updateMessageLine(value) {
 	if (!value) value = "&nbsp";
 	return value;
-}
-
-function clearAllMessageLines() {
-	msgL1 = null;
-	msgL2 = null;
-	msgL3 = null;
-	msgL4 = null;
-}
-
-function displayMessageLines() {
-	// Wait for all 4 lines
-	if (msgL1 && msgL2 && msgL3 && msgL4) { 
-		displayMessageLine("Mline1", msgL1);
- 		displayMessageLine("Mline2", msgL2);
- 		displayMessageLine("Mline3", msgL3);
- 		displayMessageLine("Mline4", msgL4);
-		displayMessageLine("lcdline1", msgL1);
- 		displayMessageLine("lcdline2", msgL2);
- 		displayMessageLine("lcdline3", msgL3);
- 		displayMessageLine("lcdline4", msgL4);
-		clearAllMessageLines();
-	}
 }
 
 function displayMessageLine(lineTag, value) {
@@ -162,364 +356,122 @@ function displayMessageLine(lineTag, value) {
     messagesBackground = "MEDIUMGREEN";
   }
   elm = document.getElementById(lineTag);
+  elm.style.color = palette.darkblue;
   let mvalue = formMessageLine(value);
   elm.innerHTML = mvalue;
 }
 
-function animateDivValue(div, value) {
-  if (div.innerText === null) {
-    div.innerHTML = "--";
-    return;
-  }
-  if (Number(div.innerText) == value) return;
-  animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
+function refreshMessageLines() {
+	let snap = session.snapshot.content;
+	displayMessageLine("Mline1", updateMessageLine(snap.lcdLine1));
+	displayMessageLine("Mline2", updateMessageLine(snap.lcdLine2));
+	displayMessageLine("Mline3", updateMessageLine(snap.lcdLine3));
+	displayMessageLine("Mline4", updateMessageLine(snap.lcdLine4));
 }
 
-function animateDivToValue(div, value) {
-  if (div.innerText === null) {
-    div.innerHTML = "--";
-    return;
-  }
-  if (Number(div.innerText) == value) return;
-  animateNumberValueTo(div, value);
+// ////////////////////////////////////////////////////////////////
+// Patient info
+// ////////////////////////////////////////////////////////////////
+function refreshPatientInfo() {
+	let snap = session.snapshot.content;
+  updateDivValue(pline1DIV, snap.patientName);
+  updateDivValue(pline2DIV, snap.patientAge);
+  updateDivValue(pline2DIV, snap.patientStats);
 }
 
-function updateDivValue(div, value) {
-  let txt;
-  if (value === null) txt = "--";
-  else txt = value;
-  div.innerHTML = txt;
-}
+// ////////////////////////////////////////////////////////////////
+// Input Settings
+// ////////////////////////////////////////////////////////////////
+function refreshInputSettings() {
+	let snap = session.snapshot.content;
 
-var blankStateImg = true;
-function blinkStateImage() {
-	if (!session) return;
-	if (blankStateImg) {
-		updateStateImage();
-		blankStateImg = false;
-	} else {
-    imgStateDIV.src = "../common/img/BlankLED.png";
-		blankStateImg = true;
-	}
-}
-
-setInterval(function () {
-	if (!session) return;
-	blinkFrontPanelLEDs();
-	blinkStateImage();
-	blinkRecordingIndicator();
-	blinkDashboardIndicator();
-}, FAST_BLINK_INTERVAL_IN_MS)
-
-function updateStateImage() {
-	if (!session) return;
-  if (!session.stateData.state) {
-    imgStateDIV.src = "../common/img/BlankLED.png";
-    stateDIV.innerHTML = "<b>UNKNOWN</b>";
-	} else if (session.stateData.initial) {
-    stateDIV.innerHTML = "<b>INITIALIZE</b>";
-    imgStateDIV.src = "../common/img/InitialLED.png";
-  } else if (session.stateData.standby) {
-    stateDIV.innerHTML = "<b>STANDBY</b>";
-    imgStateDIV.src = "../common/img/StandbyLED.png";
-  } else if (session.stateData.active) {
-    stateDIV.innerHTML = "<b>ACTIVE</b>";
-    imgStateDIV.src = "../common/img/ActiveLED.png";
-  } else {
-    stateDIV.innerHTML = "<b>ERROR</b>";
-    imgStateDIV.src = "../common/img/ErrorLED.png";
-  }
-}
-
-function updateStateDivsFromSessionData() {
-  // Change of state
-  if (session.stateData.state !== session.stateData.prevState) {
-    session.alerts.attention = false; // entering initial state
-    updateAlert(false);
-    session.stateData.prevState = session.stateData.state;
-  }
-  updateStateImage();
-}
-
-function updateParamDivsFromSessionData() {
   // Switch between PSV and other modes
-  if (MODE_DECODER[session.paramDataInUse.mode] == "PSV") {
+  if (MODE_DECODER[snap.mode] == "PSV") {
     vtMvTitleELM.innerHTML = "Minute Volume";
     vtMvUnitsELM.innerHTML = "(litres/min)";
     updateDivValue(ieValELM, null);
     updateDivValue(rrValELM, null);
-		if (session.paramDataInUse.mv) {
-    	updateDivValue(vtValELM, session.paramDataInUse.mv);
+		if (snap.mv) {
+    	updateDivValue(vtValELM, snap.mv);
 		} else {
     	updateDivValue(vtValELM, null);
 		}
   } else {
     vtMvTitleELM.innerHTML = "Tidal Volume";
     vtMvUnitsELM.innerHTML = "(ml)";
-    updateDivValue(ieValELM, EI_DECODER[session.paramDataInUse.ie]);
-    animateDivValue(rrValELM, session.paramDataInUse.rr);
-    animateDivValue(vtValELM, session.paramDataInUse.vt);
+    updateDivText(ieValELM, EI_DECODER[snap.ie]);
+    animateDivValue(rrValELM, snap.rr);
+    animateDivValue(vtValELM, snap.vt);
   }
-  animateDivValue(pmaxValELM, session.paramDataInUse.pmax);
-  animateDivValue(ipeepValELM, session.paramDataInUse.ipeep);
-  animateDivValue(psValELM, session.paramDataInUse.ps);
-  updateDivValue(modeValELM, MODE_DECODER[session.paramDataInUse.mode]);
-  updateDivValue(tpsValELM, session.paramDataInUse.tps);
-  updateDivValue(tpsUnitsValELM, session.paramDataInUse.tpsUnits);
+  animateDivValue(pmaxValELM, snap.pmax);
+  animateDivValue(ipeepValELM, snap.ipeep);
+  animateDivValue(psValELM, snap.ps);
+  updateDivText(modeValELM, MODE_DECODER[snap.mode]);
+  updateDivValue(tpsValELM, snap.tps);
+  updateDivValue(tpsUnitsValELM, snap.tpsUnits);
 
-	// ////////////////////////////////////////////////
-	// update front panel
-	// ////////////////////////////////////////////////
-	updateFrontPanelOutputs();
-	updateFrontPanelModeLeds();
+	refreshFiO2Settings();
 }
 
-function updateFiO2DivsFromSessionData() {
+function refreshFiO2Settings() {
+	let snap = session.snapshot.content;
+
 	if (session.fiO2Data.externalMixer) {
 		document.getElementById("reservoirFiO2").style.display = "none";
 		document.getElementById("externalFiO2").style.display = "block";
 	} else {
 		document.getElementById("reservoirFiO2").style.display = "block";
 		document.getElementById("externalFiO2").style.display = "none";
-  	updateFiO2Display(
-    	session.params.fiO2.LastValue(),
-    	session.params.o2Purity.LastValue(),
-    	session.params.o2FlowX10.LastValue()
-  	);
+  	updateFiO2Display(snap.fiO2, snap.o2Purity, snap.o2FlowX10);
 	}
 }
 
-function updateBreathDivsFromSessionData() {
-  animateDivToValue(vtdelValELM, session.params.vtdel.LastValue());
-
-  peakGauge.setValue(session.params.peak.LastValue());
-  platGauge.setValue(session.params.plat.LastValue());
-  peepGauge.setValue(session.params.mpeep.LastValue());
-
-	updateFrontPanelOutputs();
-}
-
-function updateMinuteDivsFromSessionData() {
-  updateDivValue(sbpmValELM, session.params.sbpm.LastValue());
-  updateDivValue(mbpmValELM, session.params.mbpm.LastValue());
-  updateDivValue(mvdelValELM, session.params.mvdel.LastValue());
-  updateDivValue(mmvdelValELM, session.params.mmvdel.LastValue());
-  updateDivValue(smvdelValELM, session.params.smvdel.LastValue());
-}
-
-function updateCompDivsFromSessionData() {
-  animateDivToValue(scompValELM, session.params.scomp.LastValue());
-  animateDivToValue(dcompValELM, session.params.dcomp.LastValue());
-}
-
-function updateMiscDivsFromSessionData() {
-  updateDivValue(locationDIV, session.miscData.locationName);
-  let altF = "<small><small>ft</small></small>";
-  let atmP = "<small><small>cmH2O</small></small>";
-	atmP = " (" + session.miscData.atmInCmH20 + atmP + ")";
-  updateDivValue(altDIV, session.miscData.altInFt + altF + atmP);
-	let atm = "AtmOxygen " + session.miscData.atmO2Pct + "%";
-  updateDivValue(atmDIV, atm);
-
-  tempGauge.setValue(session.params.tempC.LastValue());
-}
-
-function debugMessageLines(value) {
-	console.log("Value", value);
-	console.log("msgL1", msgL1);
-	console.log("msgL2", msgL2);
-	console.log("msgL3", msgL3);
-	console.log("msgL4", msgL4);
-}
-
-var snapshotTime = null;
-function createSnapshot() {
-	if (session.maxBreathNum < 1) return;
-	snapshotTime = session.snapshots.range.maxTime;
-	if (snapshotTime === null) return;
-
-  // Message lines
-	let lcdLine1 = session.params.lcdLine1.ValueAtTime();
-	let lcdLine2 = session.params.lcdLine2.ValueAtTime();
-	let lcdLine3 = session.params.lcdLine3.ValueAtTime();
-	let lcdLine4 = session.params.lcdLine4.ValueAtTime();
-
-	// Patient info
-  let patientName = "--" ;
-  if (session.patientData.fname) patientName = session.patientData.fname;
-  if (session.patientData.lname) patientName += " " + session.patientData.lname;
-  let patientAge = "";
-  if (session.patientData.gender) {
-    patientAge = "Gender: " + session.patientData.gender;
-  } else {
-    patientAge = "Gender: ?";
-  }
-  if (session.patientData.age) {
-    patientAge += "&nbsp&nbspAge: " + session.patientData.age + "yr";
-  } else {
-    patientAge += "&nbsp&nbspAge: ?";
-  }
-  let patientStats = "";
-  if (session.patientData.weight) {
-    patientStats = "Weight: " + session.patientData.weight + "kg";
-  } else {
-    patientStats = "Weight: ?";
-  }
-  if (session.patientData.height) {
-    patientStats += "&nbsp&nbspHeight: " + session.patientData.height + "cm";
-  } else {
-    patientStats += "&nbsp&nbspHeight: ?";
-  }
-
-	// state
-	let state = session.params.state.ValueAtTime(snapshotTime);
-
-  for (let key in chirp.content) {
-    // get key value pairs
-    let value = chirp.content[key];
-    if (key == 'ATT') {
-      if (value==1) {
-        updateAlert(true);
-        session.alerts.attention = true;
-      } else {
-        updateAlert(false);
-        session.alerts.attention = false;
-      }
-    }
-
-    // Patient info
-    else if ((key == 'FNAME') || (key == 'LNAME')) {
-      updateDivValue(pline1DIV, pname);
-      updateDocumentTitle();
-    } else if (key == 'PSTATS') {
-      updateDivValue(pline2DIV, pline2);
-
-      updateDivValue(pline3DIV, pline3);
-    }
-
-    // state
-    else if (key == 'STATE') {
-      updateStateDivsFromSessionData();
-    }
-
-    // Input settings params
-    else if (key == 'PARAM') {
-      updateParamDivsFromSessionData();
-      updatePending(session.paramDataOnDisplay.pending);
-    }
-
-    // fio2
-    else if (key == 'FIO2') {
-      updateFiO2DivsFromSessionData();
-    }
-
-    // breath
-    else if (key == 'BREATH') {
-      updateBreathDivsFromSessionData();
-    }
-
-    // minute data
-    else if (key == 'MINUTE') {
-      updateMinuteDivsFromSessionData();
-    }
-
-    // compliance data
-    else if (key == 'COMP') {
-      updateCompDivsFromSessionData();
-    }
-
-    // misc data
-    else if (key == 'MISC') {
-      updateMiscDivsFromSessionData();
-    }
-  }
-}
-
-function updateDashboardIndicator() {
-  if (awaitingFirstChirp) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/BlankLED.png";
-  } else if (updatePaused) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
-  } else if (wifiDropped) {
-    document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
-  } else {
-    document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
-  }
-}
-
-var blankDashImg = false;
-function blinkDashboardIndicator() {
-	if (!session) return;
-	if (blankDashImg) {
-		blankDashImg = false;
-  	if (awaitingFirstChirp) {
-    	document.getElementById("DashboardActiveImg").src = "../common/img/BlankLED.png";
-  	} else if (updatePaused) {
-    	document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
-  	} else if (wifiDropped) {
-    	document.getElementById("DashboardActiveImg").src = "../common/img/YellowDot.png";
-  	} else {
-    	document.getElementById("DashboardActiveImg").src = "../common/img/GreenDot.png";
-  	}
+function updateFiO2Display(fiO2, o2Purity, o2Flow) {
+  let elm = document.getElementById("fiO2Value");
+	if ((fiO2 === null) || isUndefined(fiO2)) {
+  	elm.innerHTML = "--";
 	} else {
-		blankDashImg = true;
-   	document.getElementById("DashboardActiveImg").src = "../common/img/BlankLED.png";
+  	elm.innerHTML = String(fiO2) + '%';
+	}
+
+  elm = document.getElementById("o2PurityValue");
+	if ((o2Purity === null) || isUndefined(o2Purity)) {
+  	elm.innerHTML = "--";
+	} else {
+  	elm.innerHTML = String(o2Purity) + '%';
+	}
+
+  elm = document.getElementById("o2FlowRate");
+	if ((o2Flow === null) || isUndefined(o2Flow)) {
+  	elm.innerHTML = "--";
+	} else {
+  	elm.innerHTML = parseFloat(o2Flow / 10).toFixed(1);
 	}
 }
 
-function updateDashboardAndRecordingStatus() {
-  updateDashboardIndicator();
-  updateRecordingIndicator();
+// ////////////////////////////////////////////////////////////////
+// Measured Parameters
+// ////////////////////////////////////////////////////////////////
+function refreshMeasuredParameters() {
+	let snap = session.snapshot.content;
+
+  animateDivToValue(vtdelValELM, snap.vtdel);
+  peakGauge.setValue(snap.peak);
+  platGauge.setValue(snap.plat);
+  peepGauge.setValue(snap.mpeep);
+
+  updateDivValue(sbpmValELM, snap.sbpm);
+  updateDivValue(mbpmValELM, snap.mbpm);
+  updateDivValue(mvdelValELM, snap.mvdel);
+  updateDivValue(mmvdelValELM, snap.mmvdel);
+  updateDivValue(smvdelValELM, snap.smvdel);
 }
 
-function displayNormalMessages() {
-  wifiDropped = false;
-  if (messagesBackground == "MEDIUMGREEN") return;
-  let elm = document.getElementById("MessagesDiv");
-  elm.style.backgroundColor = palette.mediumgreen;
-  elm.style.color = palette.darkblue;
-  messagesBackground = "MEDIUMGREEN";
-  updateDashboardAndRecordingStatus();
-}
-
-function displayWifiDropped() {
-  //if (app.initialState) return;
-  wifiDropped = true;
-  wifiDroppedBlink++;
-  if (wifiDroppedBlink != 3) return;
-  wifiDroppedBlink = 0;
-  let elm;
-  if (messagesBackground == "ORANGE") {
-    elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = palette.mediumgreen;
-    elm.style.color = palette.darkblue;
-    messagesBackground = "MEDIUMGREEN";
-    elm = document.getElementById("Mline1");
-    elm.innerHTML = savedL1;
-    elm = document.getElementById("Mline2");
-    elm.innerHTML = savedL2;
-    elm = document.getElementById("Mline3");
-    elm.innerHTML = savedL3;
-    elm = document.getElementById("Mline4");
-    elm.innerHTML = savedL4;
-  } else {
-    elm = document.getElementById("MessagesDiv");
-    elm.style.backgroundColor = palette.orange;
-    elm.style.color = "white";
-    messagesBackground = "ORANGE";
-    updateDashboardAndRecordingStatus();
-    elm = document.getElementById("Mline1");
-    savedL1 = elm.innerHTML;
-    elm.innerHTML = "No Message from";
-    elm = document.getElementById("Mline2");
-    savedL2 = elm.innerHTML;
-    elm.innerHTML = "Inspire-100 UID";
-    elm = document.getElementById("Mline3");
-    savedL3 = elm.innerHTML;
-    elm.innerHTML = inspireUid;
-    elm = document.getElementById("Mline4");
-    savedL4 = elm.innerHTML;
-    elm.innerHTML = "for " + dormantTimeInSec + " secs";
-  }
-}
+// ////////////////////////////////////////////////////////////////
+// Blinking timers
+// ////////////////////////////////////////////////////////////////
+setInterval(function () {
+	if (!session) return;
+	blinkStateImage();
+}, FAST_BLINK_INTERVAL_IN_MS)
 

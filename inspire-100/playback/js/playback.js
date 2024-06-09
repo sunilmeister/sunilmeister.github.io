@@ -479,7 +479,7 @@ function undisplayAllPanes() {
   document.getElementById("exportRecordingDiv").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
 
-	session.snapshots.visible = false;
+	session.snapshot.visible = false;
 	session.charts.visible = false;
 	session.stats.visible = false;
 	session.alerts.visible = false;

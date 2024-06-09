@@ -24,12 +24,6 @@
 // ////////////////////////////////////////////////////
 var allSystems = {};
 
-function isValidValue(val) {
-	if (val === null) return false;
-	if (isUndefined(val)) return false;
-	return true;
-}
-
 function formTileTitle(uid) {
 	if (isUndefined(allSystems[uid])) return "";
 

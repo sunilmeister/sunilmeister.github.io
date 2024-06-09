@@ -313,6 +313,8 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
           processBnumChirp(curTime, value, jsonData);
+        } else if (ckey == "ATT") {
+					session.params.attention.AddTimeValue(curTime, value);
         } else if (ckey == "L1") {
 					session.params.lcdLine1.AddTimeValue(curTime, value);
         } else if (ckey == "L2") {
@@ -632,37 +634,37 @@ function processStateChirp(curTime, jsonStr) {
   session.params.state.AddTimeValue(curTime, obj.state);
 }
 
-function updatePendingParamState() {
-  let p1 = session.paramDataOnDisplay;
-  let p2 = session.paramDataInUse;
-  let p = session.pendingParamsData;
+function updatePendingParamState(curTime, onDisplay, settingsInUse) {
+	let params = session.params;
+  let p1 = onDisplay;
+  let p2 = settingsInUse;
 
-  if (p1.vt == p2.vt) p.vt = false;
-  else p.vt = true;
+  if (p1.vt == p2.vt) params.pendingVt.AddTimeValue(curTime, false);
+  else params.pendingVt.AddTimeValue(curTime, true);
 
-  if (p1.mv == p2.mv) p.mv = false;
-  else p.mv = true;
+  if (p1.mv == p2.mv) params.pendingMv.AddTimeValue(curTime, false);
+  else params.pendingMv.AddTimeValue(curTime, true);
 
-  if (p1.pmax == p2.pmax) p.pmax = false;
-  else p.pmax = true;
+  if (p1.pmax == p2.pmax) params.pendingPmax.AddTimeValue(curTime, false);
+  else params.pendingPmax.AddTimeValue(curTime, true);
 
-  if (p1.ipeep == p2.ipeep) p.ipeep = false;
-  else p.ipeep = true;
+  if (p1.ipeep == p2.ipeep) params.pendingIpeep.AddTimeValue(curTime, false);
+  else params.pendingIPeep.AddTimeValue(curTime, true);
 
-  if (p1.ps == p2.ps) p.ps = false;
-  else p.ps = true;
+  if (p1.ps == p2.ps) params.pendingPs.AddTimeValue(curTime, false);
+  else params.pendingPs.AddTimeValue(curTime, true);
 
-  if (p1.mode == p2.mode) p.mode = false;
-  else p.mode = true;
+  if (p1.mode == p2.mode) params.pendingMode.AddTimeValue(curTime, false);
+  else params.pendingMode.AddTimeValue(curTime, true);
 
-  if (p1.tps == p2.tps) p.tps = false;
-  else p.tps = true;
+  if (p1.tps == p2.tps) params.pendingTps.AddTimeValue(curTime, false);
+  else params.pendingTps.AddTimeValue(curTime, true);
 
-  if (p1.ie == p2.ie) p.ie = false;
-  else p.ie = true;
+  if (p1.ie == p2.ie) params.pendingEi.AddTimeValue(curTime, false);
+  else params.pendingEi.AddTimeValue(curTime, true);
 
-  if (p1.rr == p2.rr) p.rr = false;
-  else p.rr = true;
+  if (p1.rr == p2.rr) params.pendingRr.AddTimeValue(curTime, false);
+  else params.pendingRr.AddTimeValue(curTime, true);
 }
 
 function processSwChirp(curTime, jsonStr) {
@@ -694,13 +696,12 @@ function processParamChirp(curTime, jsonStr) {
   let obj = parseParamData(jsonStr);
   if (!obj) return;
 
-  session.paramDataOnDisplay = cloneObject(obj);
+  let onDisplay = cloneObject(obj);
   if (!obj.pending) {
-    session.paramDataInUse = cloneObject(obj);
+    session.settingsInUse = cloneObject(obj);
   }
-  updatePendingParamState();
-  //console.log("pre OnDisplay"); console.log(session.paramDataOnDisplay);
-  //console.log("pre InUse"); console.log(session.paramDataInUse);
+  updatePendingParamState(curTime, onDisplay, session.settingsInUse);
+	session.params.somePending.AddTimeValue(curTime, obj.pending);
 
   saveInputChangeAndCombo("vt", curTime, obj);
   saveInputChangeAndCombo("mv", curTime, obj);
@@ -904,10 +905,10 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 	if (numMissing == 1) {
 		info1 += "Missed Breath #" + String(lastBreathNum+1);
 	} else {
-		info1 += "Missed " + numMissing + "Breaths";
+		info1 += "Missed " + numMissing + " Breaths";
 		info2 += "# [" + String(lastBreathNum+1) + " to " + String(lastBreathNum+numMissing) + "]";
 	}
-	console.log(info1 + info2);
+	console.log(info1, info2);
 
   let msg = {
     'created': newBreathTime,

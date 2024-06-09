@@ -54,34 +54,7 @@ var SessionDataTemplate = {
     error : null,
   },
 
-  pendingParamsData: {
-    vt : null,
-    mv : null,
-    pmax : null,
-    ipeep : null,
-    ps : null,
-    mode : null,
-    tps : null,
-    tpsUnits: null,
-    ei : null,
-    rr : null,
-  },
-
-  paramDataOnDisplay: {
-    pending : null,
-    vt : null,
-    mv : null,
-    pmax : null,
-    ipeep : null,
-    ps : null,
-    mode : null,
-    tps : null,
-    tpsUnits: null,
-    ie : null,
-    rr : null,
-  },
-
-  paramDataInUse: {
+  settingsInUse: {
     pending : null,
     vt : null,
     mv : null,
@@ -187,8 +160,8 @@ var SessionDataTemplate = {
   // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
 
-  // Below is stuff for snapshots
-  snapshots: {
+  // Below is stuff for snapshot
+  snapshot: {
 		visible: false,
 		range: null,
 		prevRange: null,
@@ -354,7 +327,7 @@ function createNewSession() {
 	session.rangeSlider = saveRangeSlider;
 
 	// initialize ranges
-	session.snapshots.range = cloneObject(rangeTemplate);
+	session.snapshot.range = cloneObject(rangeTemplate);
 	session.charts.range = cloneObject(rangeTemplate);
 	session.waves.range = cloneObject(rangeTemplate);
 	session.stats.range = cloneObject(rangeTemplate);
@@ -364,7 +337,7 @@ function createNewSession() {
 	session.rawData.range = cloneObject(rangeTemplate);
 	session.select.range = cloneObject(rangeTemplate);
 
-	initSessionParams();
+	createAllParams();
 }
 
 window.addEventListener("load", function() {

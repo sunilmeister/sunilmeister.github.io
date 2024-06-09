@@ -2,51 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function updateFiO2Display(fiO2, o2Purity, o2Flow) {
-  //fiO2Gauge.setValue(fiO2);
-  //purityGauge.setValue(o2Purity);
-  let elm = document.getElementById("fiO2Value");
-  elm.innerHTML = String(fiO2) + '%';
-  elm = document.getElementById("o2PurityValue");
-  elm.innerHTML = String(o2Purity) + '%';
-  elm = document.getElementById("o2FlowRate");
-  elm.innerHTML = parseFloat(o2Flow / 10).toFixed(1);
-}
-
-function checkFiO2Calculation(d) {
-  let newFiO2 = desiredFiO2;
-  let newPurity = o2Purity;
-  let newO2Flow = reqO2Flow;
-  let change = false;
-  let value = d.content["FIO2"];
-  if (!isUndefined(value)) {
-    if (validDecimalInteger(value) && (value <= 100)) {
-      newFiO2 = value;
-      change = true;
-    }
-  }
-  value = d.content["O2PURITY"];
-  if (!isUndefined(value)) {
-    if (validDecimalInteger(value) && (value <= 100)) {
-      newPurity = value;
-      change = true;
-    }
-  }
-  value = d.content["O2FLOWX10"];
-  if (!isUndefined(value)) {
-    if (validDecimalInteger(value)) {
-      newO2Flow = value;
-      change = true;
-    }
-  }
-  if (change) {
-    desiredFiO2 = newFiO2;
-    o2Purity = newPurity;
-    reqO2Flow = newO2Flow;
-    updateFiO2Display(newFiO2, newPurity, newO2Flow);
-  }
-}
-
 function disassembleAndQueueChirp(d) {
   let fragmentIndex = 0;
   while (1) {
@@ -114,8 +69,6 @@ function processDashboardChirp(d) {
     animateNumberValueTo(elm, session.maxBreathNum);
   }
 
-	latestChirp = cloneObject(d);
-  checkFiO2Calculation(d);
   processJsonRecord(d);
   createDashboards();
 
@@ -140,7 +93,7 @@ function processDashboardChirp(d) {
 function createDashboards() {
   if (updatePaused) return;
 
-  if (session.snapshots.visible) createDashboardSnapshots();
+  if (session.snapshot.visible) createDashboardSnapshots();
   if (session.charts.visible) createDashboardCharts();
   if (session.stats.visible) createDashboardStats();
   if (session.waves.visible) createDashboardWaves();
@@ -258,7 +211,7 @@ function undisplayAllViews() {
   document.getElementById("searchDiv").style.display = "none";
 	rangeWindowDiv.style.display = "none";
 
-	session.snapshots.visible = false;
+	session.snapshot.visible = false;
 	session.charts.visible = false;
 	session.stats.visible = false;
 	session.alerts.visible = false;
@@ -272,7 +225,7 @@ function undisplayAllViews() {
 function changeToSnapshotView() {
 	undisplayAllViews();
   if (updatePaused) togglePause();
-	session.snapshots.visible = true;
+	session.snapshot.visible = true;
 
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("snapshot-pane").style.display = "inline-grid";
@@ -367,7 +320,7 @@ function changeToRecordView() {
 }
 
 function updateRangeOnNewBreath() {
-  if (session.snapshots.visible) updateSnapshotRange();
+  if (session.snapshot.visible) updateSnapshotRange();
   if (session.charts.visible) updateChartRange();
   if (session.stats.visible) updateStatRange();
   if (session.alerts.visible) updateAlertRange();
@@ -380,7 +333,7 @@ function togglePause() {
   if (updatePaused) {
     elm.textContent = "Pause Dashboard";
     updatePaused = false;
-    if (session.snapshots.visible) createDashboardSnapshots();
+    if (session.snapshot.visible) createDashboardSnapshots();
     if (session.charts.visible) createDashboardCharts();
     if (session.stats.visible) createDashboardStats();
     if (session.search.visible) createDashboardSearch();
@@ -395,63 +348,7 @@ function togglePause() {
 }
 
 function selectExit() {
-  //window.location.assign("../index.html");
   window.open('', '_self').close();
-}
-
-function installFiO2Gauge() {
-  let bgColor = palette.darkblue;
-  let fgColor = palette.brightgreen;
-  let containerDiv = document.getElementById('fiO2Div');
-	containerDiv.innerHTML = "";
-  fiO2Gauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, 21, 100);
-  fiO2Gauge.setProperty('readonly', true);
-}
-
-function installPurityGauge() {
-  let bgColor = palette.darkblue;
-  let fgColor = palette.brightgreen;
-  let containerDiv = document.getElementById('purityDiv');
-	containerDiv.innerHTML = "";
-  purityGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, 21, 100);
-  purityGauge.setProperty('readonly', true);
-
-}
-
-function installPeakGauge() {
-  let bgColor = palette.darkblue;
-  let fgColor = palette.brightgreen;
-  let containerDiv = document.getElementById('PeakGauge');
-	containerDiv.innerHTML = "";
-  peakGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
-  peakGauge.setProperty('readonly', true);
-}
-
-function installPlatGauge() {
-  let bgColor = palette.darkblue;
-  let fgColor = palette.brightgreen;
-  let containerDiv = document.getElementById('PlatGauge');
-	containerDiv.innerHTML = "";
-  platGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
-  platGauge.setProperty('readonly', true);
-}
-
-function installPeepGauge() {
-  let bgColor = palette.darkblue;
-  let fgColor = palette.brightgreen;
-  let containerDiv = document.getElementById('PeepGauge');
-	containerDiv.innerHTML = "";
-  peepGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
-  peepGauge.setProperty('readonly', true);
-}
-
-function installTempGauge() {
-  let bgColor = palette.darkblue;
-  let fgColor = palette.brightgreen;
-  let containerDiv = document.getElementById('TempGauge');
-	containerDiv.innerHTML = "";
-  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(5.6), fgColor, bgColor, -20, 70);
-  tempGauge.setProperty('readonly', true);
 }
 
 function receivedNewWave() {
@@ -471,14 +368,24 @@ function receivedNewWave() {
   })
 }
 
+function installTempGauge() {
+  let bgColor = palette.darkblue;
+  let fgColor = palette.brightgreen;
+  let containerDiv = document.getElementById('TempGauge');
+	containerDiv.innerHTML = "";
+  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(5.6), fgColor, bgColor, -20, 70);
+  tempGauge.setProperty('readonly', true);
+}
+
 window.onload = function () {
   finishedLoading = false;
 
 	dashboardLaunchTime = new Date();
 
-	// create all elements for the front panel display
-  initDivElements();
-	createFpDivs();
+	// find and store often used div elements
+  rangeWindowDiv = document.getElementById("rangeWindowDiv");
+	installTempGauge();
+	initCommonDivElements();
 
 	disableAllBeeps();  
 	openAudioControl();
@@ -618,7 +525,7 @@ function rangeSliderCallback() {
 
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
-	if (session.snapshots.visible) {
+	if (session.snapshot.visible) {
 		if (session.maxBreathNum > 0) bmin = 1;
 		else bmin = 0;
 	}
@@ -675,7 +582,7 @@ function playPauseTimeInterval() {
   session.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMaxBnum()]);
   stopSliderCallback = false;
 
-  if (session.snapshots.visible) updateSnapshotRange();
+  if (session.snapshot.visible) updateSnapshotRange();
   if (session.charts.visible) updateChartRange();
   if (session.stats.visible) updateStatRange();
   if (session.alerts.visible) updateAlertRange();
