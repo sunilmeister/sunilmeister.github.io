@@ -16,11 +16,7 @@ var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
 var simulatedMillis = 0;
-var lastChirpInMs = 0;
-var lastChirpInMs = 0;
-var latestChirp = null;
 var startSystemDate = new Date();
-var prevAlarmErrorNum = -1;
 var tempGauge = null;
 
 var dormantTimeInSec = 0;
@@ -46,7 +42,9 @@ var awaitingFirstChirp = true;
 var chirpQ = null;
 var periodicTickCount = 0;
 var lastChirpTick = 0;
+var lastChirpInMs = 0;
 var chirpIntervalCounter = 0;
+
 var finishedLoading = false;
 
 var sliderDivBackground = "NONE";

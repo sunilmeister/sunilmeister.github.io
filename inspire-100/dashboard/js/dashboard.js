@@ -58,6 +58,36 @@ function waitForChirps() {
   })
 }
 
+function createAudioAlarms() {
+	let errorTag =  session.params.errorTag.LastValue();
+	if (errorTag) { // must report the error
+		let msgNum = session.errorMsgs.length - 1;
+    let title = "Error encountered Breath# " + session.maxBreathNum;
+    let msg = session.errorMsgs[msgNum].L1 + "\n"
+        + session.errorMsgs[msgNum].L2 + "\n"
+        + session.errorMsgs[msgNum].L3 + "\n"
+        + session.errorMsgs[msgNum].L4;
+    modalAlert(title, msg);
+		startErrorBeep();
+  } else {
+		stopErrorBeep();
+	}
+
+	let warningTag =  session.params.warningTag.LastValue();
+	if (warningTag) { // must report the warning
+		let msgNum = session.warningMsgs.length - 1;
+    let title = "Warning encountered Breath# " + session.maxBreathNum;
+    let msg = session.warningMsgs[msgNum].L1 + "\n"
+        + session.warningMsgs[msgNum].L2 + "\n"
+        + session.warningMsgs[msgNum].L3 + "\n"
+        + session.warningMsgs[msgNum].L4;
+    modalWarning(title, msg);
+		startWarningBeep();
+  } else {
+		stopWarningBeep();
+	}
+}
+
 function processDashboardChirp(d) {
   let curDate = new Date(d.created);
   session.sessionDurationInMs = Math.abs(curDate.getTime() - session.startDate.getTime());
@@ -71,21 +101,7 @@ function processDashboardChirp(d) {
 
   processJsonRecord(d);
   createDashboards();
-
-  if (prevAlarmErrorNum != (session.errorMsgs.length - 1)) {
-    prevAlarmErrorNum = session.errorMsgs.length - 1;
-    let title = "Error encountered Breath# " + session.maxBreathNum;
-    let msg = session.errorMsgs[prevAlarmErrorNum].L1 + "\n"
-        + session.errorMsgs[prevAlarmErrorNum].L2 + "\n"
-        + session.errorMsgs[prevAlarmErrorNum].L3 + "\n"
-        + session.errorMsgs[prevAlarmErrorNum].L4;
-    modalAlert(title, msg);
-		session.alerts.newErrorMsg = true;
-		startErrorBeep();
-  } else {
-		session.alerts.newErrorMsg = false;
-		stopErrorBeep();
-	}
+	createAudioAlarms();
 
   return d;
 }

@@ -21,7 +21,7 @@ class Param {
 		initChange.value = null;
 		this.changes = [cloneObject(initChange)];
 
-		//if (this.name == "PEAK_PRESSURE") this.debug = true;
+		//if (this.name == "D_ERROR_BREATH") this.debug = true;
 	}
 
 	setNumberRange(min, max, step) {
@@ -40,6 +40,7 @@ class Param {
 	// each call must be monotonically increasing in time values
 	// time is a Date object
 	AddTimeValue(time, value) {
+		if (this.debug) console.error("AddTimeValue", value, time);
 		if (this.type.type == "STRING") {
 			value = String(value);
 		} else {

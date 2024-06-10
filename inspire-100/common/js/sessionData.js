@@ -172,8 +172,6 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    attention: false,
-		newErrorMsg: false,
     expectWarningMsg: false,
     expectErrorMsg: false,
     L1: "",

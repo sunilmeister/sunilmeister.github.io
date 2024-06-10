@@ -300,7 +300,7 @@ function blinkFrontPanelLEDs() {
 
 var fpPendingBlank = true;
 function blinkFrontPanelPendingSettings() {
-  if (!(session.stateData.error || session.alerts.newErrorMsg)) {
+ 	if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
 		if (fpPendingBlank) {
 			updateFrontPanelSettings();
 			fpPendingBlank = false;
