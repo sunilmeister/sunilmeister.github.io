@@ -588,17 +588,16 @@ function rewindRange() {
 function rangeTimeBased() {
 	document.getElementById("btnNumBased").style.backgroundColor = "white";
 	document.getElementById("btnTimeBased").style.backgroundColor = palette.brightgreen;
-	session.rangeSelector.rangeSlider.timeBased = true;
+	session.rangeSelector.timeBased = true;
 }
 
 function rangeNumBased() {
 	document.getElementById("btnNumBased").style.backgroundColor = palette.brightgreen;
 	document.getElementById("btnTimeBased").style.backgroundColor = "white";
-	session.rangeSelector.rangeSlider.timeBased = false;
+	session.rangeSelector.timeBased = false;
 }
 
 window.addEventListener("load", function() {
-	rangeNumBased();
   new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');

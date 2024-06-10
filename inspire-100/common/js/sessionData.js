@@ -340,6 +340,7 @@ function createNewSession() {
 	session.select.range = cloneObject(rangeTemplate);
 
 	createAllParams();
+	rangeNumBased();
 }
 
 window.addEventListener("load", function() {
