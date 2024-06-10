@@ -12,32 +12,32 @@ const fpPanel =
 	{name:'frontPanelDiv', X:0, Y:0, W:571.1875, H:787.125};
 
 const fpLeds = [
-	{name:'fpInitialDiv', 	X:92, 	Y:114, W:20, H:20},
-	{name:'fpStandbyDiv', 	X:92, 	Y:191, W:20, H:20},
-	{name:'fpActiveDiv', 		X:92, 	Y:269, W:20, H:20},
-	{name:'fpCmvDiv', 			X:92, 	Y:366, W:20, H:20},
-	{name:'fpAcvDiv', 			X:92, 	Y:418, W:20, H:20},
-	{name:'fpErrorDiv', 		X:463, 	Y:114, W:20, H:20},
-	{name:'fpMbreathDiv', 	X:463, 	Y:191, W:20, H:20},
-	{name:'fpSbreathDiv', 	X:463, 	Y:269, W:20, H:20},
-	{name:'fpSimvDiv', 			X:463, 	Y:366, W:20, H:20},
-	{name:'fpPsvDiv', 			X:463, 	Y:418, W:20, H:20},
+	{name:'fpInitialDiv', 	X:109, 	Y:130, W:20, H:20},
+	{name:'fpStandbyDiv', 	X:109, 	Y:210, W:20, H:20},
+	{name:'fpActiveDiv', 		X:109, 	Y:288, W:20, H:20},
+	{name:'fpCmvDiv', 			X:109, 	Y:386, W:20, H:20},
+	{name:'fpAcvDiv', 			X:109, 	Y:440, W:20, H:20},
+	{name:'fpErrorDiv', 		X:485, 	Y:130, W:20, H:20},
+	{name:'fpMbreathDiv', 	X:485, 	Y:210, W:20, H:20},
+	{name:'fpSbreathDiv', 	X:485, 	Y:288, W:20, H:20},
+	{name:'fpSimvDiv', 			X:485, 	Y:386, W:20, H:20},
+	{name:'fpPsvDiv', 			X:485, 	Y:440, W:20, H:20},
 ];
 
 const fpLcd = 
-	{name:'fpLcdDiv', 			X:194, Y:133, W:187, H:72};
+	{name:'fpLcdDiv', 			X:210, Y:150, W:195, H:72};
 
 const fpNums = [
-	{name:'fpPeakDiv', 			X:161, Y:253, W:68, H:50, D:2},
-	{name:'fpPlatDiv', 			X:250, Y:253, W:68, H:50, D:2},
-	{name:'fpMpeepDiv', 		X:341, Y:253, W:68, H:50, D:2},
-	{name:'fpVtDiv', 				X:161, Y:369, W:100, H:50, D:3},
-	{name:'fpEiDiv', 				X:284, Y:369, W:35, H:50, D:1},
-	{name:'fpRrDiv', 				X:341, Y:369, W:68, H:50, D:2},
-	{name:'fpIpeepDiv', 		X:97,  Y:461, W:68, H:50, D:2},
-	{name:'fpPmaxDiv', 			X:199, Y:461, W:68, H:50, D:2},
-	{name:'fpPsDiv', 				X:305, Y:461, W:68, H:50, D:2},
-	{name:'fpTpsDiv', 			X:407, Y:461, W:68, H:50, D:2},
+	{name:'fpPeakDiv', 			X:180, Y:273, W:68, H:50, D:2},
+	{name:'fpPlatDiv', 			X:270, Y:273, W:68, H:50, D:2},
+	{name:'fpMpeepDiv', 		X:362, Y:273, W:68, H:50, D:2},
+	{name:'fpVtDiv', 				X:180, Y:391, W:100, H:50, D:3},
+	{name:'fpEiDiv', 				X:304, Y:391, W:35, H:50, D:1},
+	{name:'fpRrDiv', 				X:364, Y:391, W:68, H:50, D:2},
+	{name:'fpIpeepDiv', 		X:115, Y:484, W:68, H:50, D:2},
+	{name:'fpPmaxDiv', 			X:220, Y:484, W:68, H:50, D:2},
+	{name:'fpPsDiv', 				X:325, Y:484, W:68, H:50, D:2},
+	{name:'fpTpsDiv', 			X:430, Y:484, W:68, H:50, D:2},
 ];
 
 function createFpDivs() {
@@ -131,8 +131,8 @@ function createFpDivs() {
 }
 
 function fpFormMessageLine(str) {
-	if (str === null) return "";
-	if (isUndefined(str)) return "";
+	if (str === null) return "&nbsp";
+	if (isUndefined(str)) return "&nbsp";
 
 	const spanBegin = "<span class=fpUniMono>";
 	const spanEnd = "</span>";
