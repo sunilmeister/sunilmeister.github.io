@@ -42,9 +42,9 @@ class Param {
 	AddTimeValue(time, value) {
 		if (this.debug) console.error("AddTimeValue", value, time);
 		if (this.type.type == "STRING") {
-			value = String(value);
+			if (value !== null) value = String(value);
 		} else {
-			value = Number(value);
+			if (value !== null) value = Number(value);
 		}
 		if (isUndefined(time) || (time === null)) { // missing breaths
 			return;
@@ -60,7 +60,8 @@ class Param {
 		}
 
 		let v = this.LastValue();
-		if (v == value) return; // record only changes
+		if (v === value) return; // record only changes
+
 		let change = {};
 		change.time = time;
 		change.value = value;
@@ -490,16 +491,16 @@ function createAllParams() {
 	addParam("lcdLine3",		"LCD_LINE_3", 			"STRING", 	"");
 	addParam("lcdLine4",		"LCD_LINE_4", 			"STRING", 	"");
 
-	addParam("somePending",	"D_CHANGE", 				"BOOLEAN",	"");
-	addParam("pendingMode",	"D_CHANGE_MODE", 		"BOOLEAN",	"");
-	addParam("pendingVt",		"D_CHANGE_VT", 			"BOOLEAN",	"");
-	addParam("pendingMv",		"D_CHANGE_MV", 			"BOOLEAN",	"");
-	addParam("pendingEi",		"D_CHANGE_EI", 			"BOOLEAN",	"");
-	addParam("pendingRr",		"D_CHANGE_RR", 			"BOOLEAN",	"");
-	addParam("pendingIpeep","D_CHANGE_PEEP", 		"BOOLEAN",	"");
-	addParam("pendingPmax",	"D_CHANGE_PMAX", 		"BOOLEAN",	"");
-	addParam("pendingPs",		"D_CHANGE_PS", 			"BOOLEAN",	"");
-	addParam("pendingTps",	"D_CHANGE_TPS", 		"BOOLEAN",	"");
+	addParam("somePending",		"PENDING_CHANGE",	"BOOLEAN",	"");
+	addParam("pendingMode",		"PENDING_MODE",		"MODE", 		"");
+	addParam("pendingVt", 		"PENDING_VT", 		"NUMBER", 	"ml",				[200, 600, 50]);
+	addParam("pendingMv", 		"PENDING_MV", 		"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
+	addParam("pendingRr", 		"PENDING_RR", 		"NUMBER", 	"bpm",			[10, 30, 1]);
+	addParam("pendingIe", 		"PENDING_IE", 		"IE", 			"");
+	addParam("pendingIpeep",	"PENDING_PEEP",		"NUMBER", 	"cmH2O",		[3, 15, 1]);
+	addParam("pendingPmax",		"PENDING_PMAX",		"NUMBER", 	"cmH2O",		[10, 60, 1]);
+	addParam("pendingPs", 		"PENDING_PS",			"NUMBER", 	"cmH2O",		[5, 40, 1]);
+	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
 
 	addParam("mode", 				"I_MODE", 					"MODE", 		"");
 	addParam("vt", 					"I_VT", 						"NUMBER", 	"ml",				[200, 600, 50]);

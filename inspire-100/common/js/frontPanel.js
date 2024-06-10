@@ -213,29 +213,55 @@ function updateFrontPanelSettings() {
 	let snap = session.snapshot.content;
 	updateFrontPanelModeLeds();
 
+	let pval = snap.pendingIe;
 	let val = snap.ie;
-	if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
+	if (isValidValue(pval)) document.getElementById('p_fpEiDiv').innerHTML = pval;
+	else if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
 
+	pval = snap.pendingRr;
 	val = snap.rr;
-	if (isValidValue(val)) document.getElementById('p_fpRrDiv').innerHTML = val;
+	if (isValidValue(pval)) document.getElementById('p_fpRrDiv').innerHTML = pval;
+	else if (isValidValue(val)) document.getElementById('p_fpRrDiv').innerHTML = val;
 
+	pval = snap.pendingVt;
 	val = snap.vt;
-	if (isValidValue(val)) document.getElementById('p_fpVtDiv').innerHTML = val;
+	if (isValidValue(pval)) document.getElementById('p_fpVtDiv').innerHTML = pval;
+	else if (isValidValue(val)) document.getElementById('p_fpVtDiv').innerHTML = val;
 
+	pval = snap.pendingPmax;
 	val = snap.pmax;
-	if (isValidValue(val)) val = val.toString().padStart(2, 0);
-	if (isValidValue(val)) document.getElementById('p_fpPmaxDiv').innerHTML = val;
+	if (isValidValue(pval)) {
+		pval = pval.toString().padStart(2, 0);
+		document.getElementById('p_fpPmaxDiv').innerHTML = pval;
+	} else if (isValidValue(val)) {
+		val = val.toString().padStart(2, 0);
+		document.getElementById('p_fpPmaxDiv').innerHTML = val;
+	}
 
+	pval = snap.pendingIpeep;
 	val = snap.ipeep;
-	if (isValidValue(val)) val = val.toString().padStart(2, 0);
-	if (isValidValue(val)) document.getElementById('p_fpIpeepDiv').innerHTML = val;
+	if (isValidValue(pval)) {
+		pval = pval.toString().padStart(2, 0);
+		document.getElementById('p_fpIpeepDiv').innerHTML = pval;
+	} else if (isValidValue(val)) {
+		val = val.toString().padStart(2, 0);
+		document.getElementById('p_fpIpeepDiv').innerHTML = val;
+	}
 
+	pval = snap.pendingPs;
 	val = snap.ps;
-	if (isValidValue(val)) val = val.toString().padStart(2, 0);
-	if (isValidValue(val)) document.getElementById('p_fpPsDiv').innerHTML = val;
+	if (isValidValue(pval)) {
+		pval = pval.toString().padStart(2, 0);
+		document.getElementById('p_fpPsDiv').innerHTML = pval;
+	} else if (isValidValue(val)) {
+		val = val.toString().padStart(2, 0);
+		document.getElementById('p_fpPsDiv').innerHTML = val;
+	}
 
+	pval = snap.pendingTps;
 	val = snap.tps;
-	if (isValidValue(val)) document.getElementById('p_fpTpsDiv').innerHTML = val;
+	if (isValidValue(pval)) document.getElementById('p_fpTpsDiv').innerHTML = pval;
+	else if (isValidValue(val)) document.getElementById('p_fpTpsDiv').innerHTML = val;
 }
 
 function blankFrontPanelOutputs() {
@@ -280,7 +306,7 @@ function blankFrontPanelPendingSettings() {
 	if (snap.pendingVt) document.getElementById('p_fpVtDiv').innerHTML = "";
 	if (snap.pendingMv) document.getElementById('p_fpVtDiv').innerHTML = "";
 	if (snap.pendingRr) document.getElementById('p_fpRrDiv').innerHTML = "";
-	if (snap.pendingEi) document.getElementById('p_fpEiDiv').innerHTML = "";
+	if (snap.pendingIe) document.getElementById('p_fpEiDiv').innerHTML = "";
 	if (snap.pendingIpeep) document.getElementById('p_fpIpeepDiv').innerHTML = "";
 	if (snap.pendingPmax) document.getElementById('p_fpPmaxDiv').innerHTML = "";
 	if (snap.pendingPs) document.getElementById('p_fpPsDiv').innerHTML = "";
@@ -300,7 +326,9 @@ function blinkFrontPanelLEDs() {
 
 var fpPendingBlank = true;
 function blinkFrontPanelPendingSettings() {
- 	if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
+	let snap = session.snapshot.content;
+
+ 	if ((snap.state != ERROR_STATE) || (snap.errorTag != true)) {
 		if (fpPendingBlank) {
 			updateFrontPanelSettings();
 			fpPendingBlank = false;

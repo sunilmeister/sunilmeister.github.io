@@ -639,32 +639,32 @@ function updatePendingParamState(curTime, onDisplay, settingsInUse) {
   let p1 = onDisplay;
   let p2 = settingsInUse;
 
-  if (p1.vt == p2.vt) params.pendingVt.AddTimeValue(curTime, false);
-  else params.pendingVt.AddTimeValue(curTime, true);
+  if (p1.vt == p2.vt) params.pendingVt.AddTimeValue(curTime, null);
+  else params.pendingVt.AddTimeValue(curTime, p1.vt);
 
-  if (p1.mv == p2.mv) params.pendingMv.AddTimeValue(curTime, false);
-  else params.pendingMv.AddTimeValue(curTime, true);
+  if (p1.mv == p2.mv) params.pendingMv.AddTimeValue(curTime, null);
+  else params.pendingMv.AddTimeValue(curTime, p1.mv);
 
-  if (p1.pmax == p2.pmax) params.pendingPmax.AddTimeValue(curTime, false);
-  else params.pendingPmax.AddTimeValue(curTime, true);
+  if (p1.pmax == p2.pmax) params.pendingPmax.AddTimeValue(curTime, null);
+  else params.pendingPmax.AddTimeValue(curTime, p1.pmax);
 
-  if (p1.ipeep == p2.ipeep) params.pendingIpeep.AddTimeValue(curTime, false);
-  else params.pendingIPeep.AddTimeValue(curTime, true);
+  if (p1.ipeep == p2.ipeep) params.pendingIpeep.AddTimeValue(curTime, null);
+  else params.pendingIPeep.AddTimeValue(curTime, p1.ipeep);
 
-  if (p1.ps == p2.ps) params.pendingPs.AddTimeValue(curTime, false);
-  else params.pendingPs.AddTimeValue(curTime, true);
+  if (p1.ps == p2.ps) params.pendingPs.AddTimeValue(curTime, null);
+  else params.pendingPs.AddTimeValue(curTime, p1.ps);
 
-  if (p1.mode == p2.mode) params.pendingMode.AddTimeValue(curTime, false);
-  else params.pendingMode.AddTimeValue(curTime, true);
+  if (p1.mode == p2.mode) params.pendingMode.AddTimeValue(curTime, null);
+  else params.pendingMode.AddTimeValue(curTime, p1.mode);
 
-  if (p1.tps == p2.tps) params.pendingTps.AddTimeValue(curTime, false);
-  else params.pendingTps.AddTimeValue(curTime, true);
+  if (p1.tps == p2.tps) params.pendingTps.AddTimeValue(curTime, null);
+  else params.pendingTps.AddTimeValue(curTime, p1.tps);
 
-  if (p1.ie == p2.ie) params.pendingEi.AddTimeValue(curTime, false);
-  else params.pendingEi.AddTimeValue(curTime, true);
+  if (p1.ie == p2.ie) params.pendingIe.AddTimeValue(curTime, null);
+  else params.pendingIe.AddTimeValue(curTime, p1.ie);
 
-  if (p1.rr == p2.rr) params.pendingRr.AddTimeValue(curTime, false);
-  else params.pendingRr.AddTimeValue(curTime, true);
+  if (p1.rr == p2.rr) params.pendingRr.AddTimeValue(curTime, null);
+  else params.pendingRr.AddTimeValue(curTime, p1.rr);
 }
 
 function processSwChirp(curTime, jsonStr) {
@@ -703,15 +703,17 @@ function processParamChirp(curTime, jsonStr) {
   updatePendingParamState(curTime, onDisplay, session.settingsInUse);
 	session.params.somePending.AddTimeValue(curTime, obj.pending);
 
-  saveInputChangeAndCombo("vt", curTime, obj);
-  saveInputChangeAndCombo("mv", curTime, obj);
-  saveInputChangeAndCombo("pmax", curTime, obj);
-  saveInputChangeAndCombo("ipeep", curTime, obj);
-  saveInputChangeAndCombo("ps", curTime, obj);
-  saveInputChangeAndCombo("mode", curTime, obj);
-  saveInputChangeAndCombo("tps", curTime, obj);
-  saveInputChangeAndCombo("ie", curTime, obj);
-  saveInputChangeAndCombo("rr", curTime, obj);
+	if (!obj.pending) {
+  	saveInputChangeAndCombo("vt", curTime, obj);
+  	saveInputChangeAndCombo("mv", curTime, obj);
+  	saveInputChangeAndCombo("pmax", curTime, obj);
+  	saveInputChangeAndCombo("ipeep", curTime, obj);
+  	saveInputChangeAndCombo("ps", curTime, obj);
+  	saveInputChangeAndCombo("mode", curTime, obj);
+  	saveInputChangeAndCombo("tps", curTime, obj);
+  	saveInputChangeAndCombo("ie", curTime, obj);
+  	saveInputChangeAndCombo("rr", curTime, obj);
+	}
 }
 
 function processFiO2Chirp(curTime, jsonStr) {

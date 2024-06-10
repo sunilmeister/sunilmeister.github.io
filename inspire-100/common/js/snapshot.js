@@ -68,7 +68,7 @@ function gatherSnapshotData() {
 	snap.pendingVt 			= params.pendingVt.ValueAtTime(snap.time);
 	snap.pendingMv 			= params.pendingMv.ValueAtTime(snap.time);
 	snap.pendingRr 			= params.pendingRr.ValueAtTime(snap.time);
-	snap.pendingEi 			= params.pendingEi.ValueAtTime(snap.time);
+	snap.pendingIe 			= params.pendingIe.ValueAtTime(snap.time);
 	snap.pendingIpeep 	= params.pendingIpeep.ValueAtTime(snap.time);
 	snap.pendingPmax 		= params.pendingPmax.ValueAtTime(snap.time);
 	snap.pendingPs 			= params.pendingPs.ValueAtTime(snap.time);
@@ -194,7 +194,7 @@ function updatePendingSettings(blink) {
   updatePendingIndividualSetting(blink, "VTDiv", 		params.pendingVt);
   updatePendingIndividualSetting(blink, "VTDiv", 		params.pendingMv);
   updatePendingIndividualSetting(blink, "RRDiv", 		params.pendingRr);
-  updatePendingIndividualSetting(blink, "IEDiv", 		params.pendingEi);
+  updatePendingIndividualSetting(blink, "IEDiv", 		params.pendingIe);
   updatePendingIndividualSetting(blink, "IPEEPDiv", params.pendingIpeep);
   updatePendingIndividualSetting(blink, "PMAXDiv", 	params.pendingPmax);
   updatePendingIndividualSetting(blink, "PSDiv", 		params.pendingPs);
@@ -512,5 +512,4 @@ function executeSnapshotsTimer() {
 		blinkFrontPanelLEDs();
 	}
 }
-
 
