@@ -649,7 +649,7 @@ function updatePendingParamState(curTime, onDisplay, settingsInUse) {
   else params.pendingPmax.AddTimeValue(curTime, p1.pmax);
 
   if (p1.ipeep == p2.ipeep) params.pendingIpeep.AddTimeValue(curTime, null);
-  else params.pendingIPeep.AddTimeValue(curTime, p1.ipeep);
+  else params.pendingIpeep.AddTimeValue(curTime, p1.ipeep);
 
   if (p1.ps == p2.ps) params.pendingPs.AddTimeValue(curTime, null);
   else params.pendingPs.AddTimeValue(curTime, p1.ps);
