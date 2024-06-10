@@ -159,10 +159,22 @@ var SessionDataTemplate = {
   // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
 
-  rangeSelector: {
+	rangeSelector: {
 		timeBased: false,
 		rangeSlider:  null,
 	},
+
+	allSessionViews: [
+		"snapshot",
+		"charts",
+		"stats",
+		"waves",
+		"alerts",
+		"search",
+		"record",
+		"rawData",
+		"select",
+	],
 
   // Below is stuff for snapshot
   snapshot: {
