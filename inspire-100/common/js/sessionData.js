@@ -37,7 +37,6 @@ var SessionDataTemplate = {
     dbName:  "",
     dbNamePrefix:  "",
     dbReady:  false,
-    dbPrimaryKey:  'created',
     dbObjStoreName:  "",
     allDbKeys:  {},
   },

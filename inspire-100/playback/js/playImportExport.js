@@ -71,9 +71,9 @@ function doImport(file, fileName, dbName) {
       let db = event.target.result;
       let dbObjStore;
       if (!db.objectStoreNames.contains(session.database.dbObjStoreName)) {
-        dbObjStore = db.createObjectStore(session.database.dbObjStoreName, {
-          keyPath: session.database.dbPrimaryKey
-        });
+        dbObjStore = db.createObjectStore(session.database.dbObjStoreName, 
+					{ autoIncrement: true }
+        );
       } else {
         dbObjStore = dbReq.transaction.objectStore(session.database.dbObjStoreName);
       }

@@ -437,9 +437,9 @@ function createOrOpenDb(name, timeStamp) {
     // Object stores in databases are where data are stored.
     let dbObjStore;
     if (!session.database.db.objectStoreNames.contains(session.database.dbObjStoreName)) {
-      dbObjStore = session.database.db.createObjectStore(session.database.dbObjStoreName, {
-        keyPath: session.database.dbPrimaryKey
-      });
+      dbObjStore = session.database.db.createObjectStore(session.database.dbObjStoreName, 
+				{ autoIncrement: true }
+			);
     } else {
       dbObjStore = dbReq.transaction.objectStore(session.database.dbObjStoreName);
     }
