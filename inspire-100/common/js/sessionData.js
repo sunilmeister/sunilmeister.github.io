@@ -13,6 +13,7 @@ var SessionDataTemplate = {
 	rangeSlider:  null,
   startDate: null,
   launchDate: null,
+	lastChirpDate: null,
   maxBreathNum: 0,
   systemBreathNum: null,
   prevSystemBreathNum: null,

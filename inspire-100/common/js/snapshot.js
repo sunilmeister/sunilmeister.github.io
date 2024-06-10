@@ -8,8 +8,11 @@ function gatherSnapshotData() {
 	let params = session.params;
 
 	// keep track of the snapshot time
-	if (session.maxBreathNum < 1) return;
-	snap.time = session.snapshot.range.maxTime;
+	if (session.snapshot.range.moving) {
+		snap.time = session.lastChirpDate;
+	} else {
+		snap.time = session.snapshot.range.maxTime;
+	}
 	if (snap.time === null) return;
 
 	// Patient info

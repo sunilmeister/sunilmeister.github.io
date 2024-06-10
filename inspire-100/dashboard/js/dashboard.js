@@ -34,6 +34,7 @@ function waitForChirps() {
     autoCloseDormantPopup();
 		// ignore old chirps
 		if (d.created < dashboardLaunchTime) return;
+		session.lastChirpDate = new Date(d.created);
 
     if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
