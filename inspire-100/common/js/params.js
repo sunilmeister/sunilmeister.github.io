@@ -21,7 +21,7 @@ class Param {
 		initChange.value = null;
 		this.changes = [cloneObject(initChange)];
 
-		//if (this.name == "D_ERROR_BREATH") this.debug = true;
+		//if (this.name == "ERROR_BREATH") this.debug = true;
 	}
 
 	setNumberRange(min, max, step) {
@@ -457,39 +457,38 @@ function addParam(key, name, type, units, range) {
 
 function createAllParams() {
 	// key, name, type, units, numberRange
-	// D_ prefix for detected or measured by the system
-	// I_ prefix for input setting for the system
-	addParam("breathNum",		"D_BREATH_NUMBER", 	"NUMBER", 	"",					[1, null, 1]);
-	addParam("btype", 			"D_BREATH_TYPE", 		"BTYPE", 		"");
-	addParam("bcontrol", 		"D_BREATH_CONTROL", "BCONTROL",	"");
-	addParam("state", 			"D_STATE", 					"STATE", 		"");
-	addParam("vtdel", 			"D_VT", 						"NUMBER", 	"ml",				[0, 800, 1]);
-	addParam("mvdel", 			"D_MV", 						"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
-	addParam("mmvdel", 			"D_MV_MANDATORY", 	"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
-	addParam("smvdel", 			"D_MV_SPONTANEOUS", "NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
-	addParam("sbpm", 				"D_BPM_SPONTANEOUS","NUMBER", 	"bpm",			[0, 40, 1]);
-	addParam("mbpm", 				"D_BPM_MANDATORY", 	"NUMBER", 	"bpm",			[0, 30, 1]);
-	addParam("scomp", 			"D_COMP_STATIC", 		"NUMBER", 	"ml/cmH2O");
-	addParam("dcomp", 			"D_COMP_DYNAMIC", 	"NUMBER", 	"ml/cmH2O");
-	addParam("peak", 				"D_PEAK", 					"NUMBER", 	"cmH2O",		[0, 60, 1]);
-	addParam("mpeep", 			"D_PEEP", 					"NUMBER", 	"cmH2O",		[0, 60, 1]);
-	addParam("plat", 				"D_PLAT", 					"NUMBER", 	"cmH2O",		[0, 60, 1]);
-	addParam("tempC", 			"D_TEMP_C", 				"NUMBER", 	"degC",			[-20, 60, 1]);
-	addParam("cmvSpont", 		"D_CMV_SPONTANEOUS","NUMBER", 	"",					[0, null, 1]);
+	addParam("breathNum",		"BREATH_NUMBER", 			"NUMBER", 	"",					[1, null, 1]);
+	addParam("btype", 			"BREATH_TYPE", 				"BTYPE", 		"");
+	addParam("bcontrol", 		"BREATH_CONTROL", 		"BCONTROL",	"");
+	addParam("state", 			"STATE", 							"STATE", 		"");
+	addParam("vtdel", 			"VT", 								"NUMBER", 	"ml",				[0, 800, 1]);
+	addParam("mvdel", 			"MV", 								"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
+	addParam("mmvdel", 			"MV_MANDATORY", 			"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
+	addParam("smvdel", 			"MV_SPONTANEOUS", 		"NUMBER", 	"l/min",		[0.0 ,25.0 ,0.1]);
+	addParam("sbpm", 				"BPM_SPONTANEOUS",		"NUMBER", 	"bpm",			[0, 40, 1]);
+	addParam("mbpm", 				"BPM_MANDATORY", 			"NUMBER", 	"bpm",			[0, 30, 1]);
+	addParam("scomp", 			"COMPLIANCE_STATIC",	"NUMBER", 	"ml/cmH2O");
+	addParam("dcomp", 			"COMPLIANCE_DYNAMIC",	"NUMBER", 	"ml/cmH2O");
+	addParam("peak", 				"PEAK", 							"NUMBER", 	"cmH2O",		[0, 60, 1]);
+	addParam("mpeep", 			"PEEP", 							"NUMBER", 	"cmH2O",		[0, 60, 1]);
+	addParam("plat", 				"PLAT", 							"NUMBER", 	"cmH2O",		[0, 60, 1]);
+	addParam("tempC", 			"TEMP_C", 						"NUMBER", 	"degC",			[-20, 60, 1]);
+	addParam("cmvSpont", 		"CMV_SPONTANEOUS",		"NUMBER", 	"",					[0, null, 1]);
+	addParam("o2FlowX10", 	"O2_SOURCE_FLOW",	 		"NUMBER", 		"l/min",	[0.0, 20.0, 0.1]);
 
-	addParam("attention",		"D_ATTENTION", 			"BOOLEAN",	"");
-	addParam("errorTag", 		"D_ERROR_BREATH", 	"BOOLEAN",	"");
-	addParam("warningTag", 	"D_WARNING_BREATH", "BOOLEAN",	"");
-	addParam("errors", 			"D_ERROR_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
-	addParam("warnings", 		"D_WARNING_NUMBER", "NUMBER", 	"",					[0, null, 1]);
-	addParam("infos", 			"D_NOTIF_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
-	addParam("wifiDrops",		"D_WIFI_DROPS", 		"NUMBER", 	"",					[0, null, 1]);
-	addParam("wifiReconns",	"D_WIFI_CONNECTS", 	"NUMBER", 	"",					[0, null, 1]);
+	addParam("attention",		"ATTENTION", 			"BOOLEAN",	"");
+	addParam("errorTag", 		"ERROR_BREATH", 	"BOOLEAN",	"");
+	addParam("warningTag", 	"WARNING_BREATH", "BOOLEAN",	"");
+	addParam("errors", 			"ERROR_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
+	addParam("warnings", 		"WARNING_NUMBER", "NUMBER", 	"",					[0, null, 1]);
+	addParam("infos", 			"NOTIF_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
+	addParam("wifiDrops",		"WIFI_DROPS", 		"NUMBER", 	"",					[0, null, 1]);
+	addParam("wifiReconns",	"WIFI_CONNECTS", 	"NUMBER", 	"",					[0, null, 1]);
 
-	addParam("lcdLine1",		"LCD_LINE_1", 			"STRING", 	"");
-	addParam("lcdLine2",		"LCD_LINE_2", 			"STRING", 	"");
-	addParam("lcdLine3",		"LCD_LINE_3", 			"STRING", 	"");
-	addParam("lcdLine4",		"LCD_LINE_4", 			"STRING", 	"");
+	addParam("lcdLine1",		"LCLINE_1", 			"STRING", 	"");
+	addParam("lcdLine2",		"LCLINE_2", 			"STRING", 	"");
+	addParam("lcdLine3",		"LCLINE_3", 			"STRING", 	"");
+	addParam("lcdLine4",		"LCLINE_4", 			"STRING", 	"");
 
 	addParam("somePending",		"PENDING_CHANGE",	"BOOLEAN",	"");
 	addParam("pendingMode",		"PENDING_MODE",		"MODE", 		"");
@@ -502,18 +501,16 @@ function createAllParams() {
 	addParam("pendingPs", 		"PENDING_PS",			"NUMBER", 	"cmH2O",		[5, 40, 1]);
 	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
 
-	addParam("mode", 				"I_MODE", 					"MODE", 		"");
-	addParam("vt", 					"I_VT", 						"NUMBER", 	"ml",				[200, 600, 50]);
-	addParam("mv", 					"I_MV", 						"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
-	addParam("rr", 					"I_RR", 						"NUMBER", 	"bpm",			[10, 30, 1]);
-	addParam("ie", 					"I_IE", 						"IE", 			"");
-	addParam("ipeep", 			"I_PEEP", 					"NUMBER", 	"cmH2O",		[3, 15, 1]);
-	addParam("pmax", 				"I_PMAX", 					"NUMBER", 	"cmH2O",		[10, 60, 1]);
-	addParam("ps", 					"I_PS", 						"NUMBER", 	"cmH2O",		[5, 40, 1]);
-	addParam("tps", 				"I_TPS", 						"TPS", 			"");
-	addParam("fiO2", 				"I_FIO2", 					"NUMBER", 	"%",				[0, 100, 1]);
-	addParam("o2Purity", 		"I_O2_PURITY",		 	"NUMBER", 	"%",				[21, 100, 1]);
-
-	addParam("o2FlowX10", 	"O_SOURCE_FLOW",	 "NUMBER", 		"l/min",		[0.0, 20.0, 0.1]);
+	addParam("mode", 				"INPUT_MODE", 			"MODE", 		"");
+	addParam("vt", 					"INPUT_VT", 				"NUMBER", 	"ml",				[200, 600, 50]);
+	addParam("mv", 					"INPUT_MV", 				"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
+	addParam("rr", 					"INPUT_RR", 				"NUMBER", 	"bpm",			[10, 30, 1]);
+	addParam("ie", 					"INPUT_IE", 				"IE", 			"");
+	addParam("ipeep", 			"INPUT_PEEP", 			"NUMBER", 	"cmH2O",		[3, 15, 1]);
+	addParam("pmax", 				"INPUT_PMAX", 			"NUMBER", 	"cmH2O",		[10, 60, 1]);
+	addParam("ps", 					"INPUT_PS", 				"NUMBER", 	"cmH2O",		[5, 40, 1]);
+	addParam("tps", 				"INPUT_TPS", 				"TPS", 			"");
+	addParam("fiO2", 				"INPUT_FIO2", 			"NUMBER", 	"%",				[0, 100, 1]);
+	addParam("o2Purity", 		"INPUT_O2_PURITY",	"NUMBER", 	"%",				[21, 100, 1]);
 }
 
