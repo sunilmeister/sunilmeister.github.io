@@ -240,11 +240,9 @@ var alertBackground = "GREEN";
 function updateAlert(blink) {
 	let params = session.params;
 	let snap = session.snapshot.content;
-	let state = snap.state
-	let attention = snap.attention;
 
   let elm = document.getElementById("AlertDiv");
-  if (state == ERROR_STATE) {
+  if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
     if (alertBackground != "DARKRED") {
       elm.style.backgroundColor = palette.darkred;
       alertBackground = "DARKRED";
@@ -256,7 +254,7 @@ function updateAlert(blink) {
       document.getElementById("AlertImg").src = "../common/img/Error.png";
       alertImage = "ERROR";
     }
-  } else if (attention) {
+  } else if (snap.attention) {
     if (alertBackground != "ORANGE") {
       elm.style.backgroundColor = palette.orange;
       alertBackground = "ORANGE";
