@@ -24,7 +24,7 @@ function updateAlertRange() {
   if (session.alerts.range.moving) movingAlertRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.alerts.range.minBnum, session.alerts.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.alerts.range.minBnum, session.alerts.range.maxBnum]);
   stopSliderCallback = false;
 }
 
@@ -32,6 +32,6 @@ function updateAlertRangeOnEntry() {
   if (!session.alerts.range.moving) return;
   movingAlertRange();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.alerts.range.minBnum, session.alerts.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.alerts.range.minBnum, session.alerts.range.maxBnum]);
   stopSliderCallback = false;
 }

@@ -24,7 +24,7 @@ function updateSearchRange() {
   if (session.search.range.moving) movingSearchRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
   stopSliderCallback = false;
 }
 
@@ -32,6 +32,6 @@ function updateSearchRangeOnEntry() {
   if (!session.search.range.moving) return;
   movingSearchRange();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
   stopSliderCallback = false;
 }

@@ -265,14 +265,14 @@ function updateSelectedSliderMinMax(bmin, bmax) {
 	else if (session.select.visible) 	session.select.range = createRange(false, bmin, bmax);
 
  	stopSliderCallback = true;
- 	session.rangeSlider.setSlider([bmin, bmax]);;
+ 	session.rangeSelector.rangeSlider.setSlider([bmin, bmax]);;
  	stopSliderCallback = false;
 }
 
 function updateVisibleRangeLimits() {
   let rangeMax = session.maxBreathNum;
 	if (rangeMax == 0) rangeMax = 1;
-  session.rangeSlider.setRange([0, rangeMax]);
+  session.rangeSelector.rangeSlider.setRange([0, rangeMax]);
 }
 
 function enterBreathInterval () {
@@ -305,7 +305,7 @@ function acceptBreathNumRange() {
 	}
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([fromBreath, toBreath]);
+  session.rangeSelector.rangeSlider.setSlider([fromBreath, toBreath]);
   stopSliderCallback = false;
 
   setTimeInterval();
@@ -360,7 +360,7 @@ function acceptBreathTimeRange() {
 	}
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([fromBreath, toBreath]);
+  session.rangeSelector.rangeSlider.setSlider([fromBreath, toBreath]);
   stopSliderCallback = false;
 
   setTimeInterval();
@@ -523,7 +523,7 @@ function showCurrentRangeTimes() {
 }
 
 function fullRange() {
-  let values = session.rangeSlider.getRange();
+  let values = session.rangeSelector.rangeSlider.getRange();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
 
@@ -531,7 +531,7 @@ function fullRange() {
 }
 
 function forwardRange() {
-  let values = session.rangeSlider.getRange();
+  let values = session.rangeSelector.rangeSlider.getRange();
   let minRange = parseInt(values[0]);
   let maxRange = parseInt(values[1]);
 	if (maxRange <= 1) return;
@@ -558,7 +558,7 @@ function forwardRange() {
 }
 
 function rewindRange() {
-  let values = session.rangeSlider.getRange();
+  let values = session.rangeSelector.rangeSlider.getRange();
   let minRange = parseInt(values[0]);
   let maxRange = parseInt(values[1]);
 	if (maxRange <= 1) return;
@@ -585,7 +585,20 @@ function rewindRange() {
 	updateSelectedSliderMinMax(bmin, bmax);
 }
 
+function rangeTimeBased() {
+	document.getElementById("btnNumBased").style.backgroundColor = "white";
+	document.getElementById("btnTimeBased").style.backgroundColor = palette.brightgreen;
+	session.rangeSelector.rangeSlider.timeBased = true;
+}
+
+function rangeNumBased() {
+	document.getElementById("btnNumBased").style.backgroundColor = palette.brightgreen;
+	document.getElementById("btnTimeBased").style.backgroundColor = "white";
+	session.rangeSelector.rangeSlider.timeBased = false;
+}
+
 window.addEventListener("load", function() {
+	rangeNumBased();
   new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');

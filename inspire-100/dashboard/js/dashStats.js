@@ -24,7 +24,7 @@ function updateStatRange() {
   if (session.stats.range.moving) movingStatRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.stats.range.minBnum, session.stats.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.stats.range.minBnum, session.stats.range.maxBnum]);
   stopSliderCallback = false;
 }
 
@@ -32,6 +32,6 @@ function updateStatRangeOnEntry() {
   if (!session.stats.range.moving) return;
   movingStatRange();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.stats.range.minBnum, session.stats.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.stats.range.minBnum, session.stats.range.maxBnum]);
   stopSliderCallback = false;
 }

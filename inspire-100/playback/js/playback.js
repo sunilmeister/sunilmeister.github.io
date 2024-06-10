@@ -564,16 +564,16 @@ function refreshActivePane() {
 function setSliderMinMax() {
 	let s = visibleRangeMinBnum();
 	let e = visibleRangeMaxBnum();
-  session.rangeSlider.setSlider([s, e]);
+  session.rangeSelector.rangeSlider.setSlider([s, e]);
   updateSelectedDuration();
 }
 
 function setTimeInterval() {
-  let values = session.rangeSlider.getSlider();
+  let values = session.rangeSelector.rangeSlider.getSlider();
   let s = parseInt(values[0]);
 
 	updateVisibleViewRange(false, s, e);
-  session.rangeSlider.setSlider([s, e]);
+  session.rangeSelector.rangeSlider.setSlider([s, e]);
 
   updateSelectedDuration();
   //resetPlaybackData();
@@ -713,9 +713,9 @@ function updateRangeOnNewBreath(num) {
 
 function createPlaybackRangeSlider() {
   // Create playback range slider
-  if (!session.rangeSlider) {
+  if (!session.rangeSelector.rangeSlider) {
     playbackRangeSliderDiv = document.getElementById('playbackRangeSliderDiv');
-    session.rangeSlider = new IntRangeSlider(
+    session.rangeSelector.rangeSlider = new IntRangeSlider(
       playbackRangeSliderDiv,
       session.playback.logStartBreath,
       session.playback.logEndBreath,
@@ -723,11 +723,11 @@ function createPlaybackRangeSlider() {
       session.playback.logEndBreath,
       1
     );
-    session.rangeSlider.setChangeCallback(playbackRangeSliderCallback);
+    session.rangeSelector.rangeSlider.setChangeCallback(playbackRangeSliderCallback);
   }
 
-  session.rangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
-  session.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMinBnum()]);
+  session.rangeSelector.rangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
+  session.rangeSelector.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMinBnum()]);
 
   let elm = document.getElementById("playbackWindowDiv");
   elm.style.display = "none";

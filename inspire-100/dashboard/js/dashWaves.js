@@ -34,7 +34,7 @@ function updateWaveRange() {
     }
 
     stopSliderCallback = true;
-    session.rangeSlider.setSlider([session.waves.range.minBnum, session.waves.range.maxBnum]);
+    session.rangeSelector.rangeSlider.setSlider([session.waves.range.minBnum, session.waves.range.maxBnum]);
     stopSliderCallback = false;
   }
 }
@@ -44,6 +44,6 @@ function updateWaveRangeOnEntry() {
 
   movingWaveRange();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.waves.range.minBnum, session.waves.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.waves.range.minBnum, session.waves.range.maxBnum]);
   stopSliderCallback = false;
 }

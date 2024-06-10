@@ -22,7 +22,7 @@ function updateSnapshotRange() {
   if (session.snapshot.range.moving) movingSnapshotRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
   stopSliderCallback = false;
 }
 
@@ -30,6 +30,6 @@ function updateSnapshotRangeOnEntry() {
   if (!session.snapshot.range.moving) return;
   movingSnapshotRange();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
   stopSliderCallback = false;
 }

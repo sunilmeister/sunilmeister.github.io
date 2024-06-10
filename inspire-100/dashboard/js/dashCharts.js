@@ -26,7 +26,7 @@ function updateChartRange() {
   if (session.charts.range.moving) movingChartRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
   stopSliderCallback = false;
 }
 
@@ -35,6 +35,6 @@ function updateChartRangeOnEntry() {
   movingChartRange();
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
+  session.rangeSelector.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
   stopSliderCallback = false;
 }

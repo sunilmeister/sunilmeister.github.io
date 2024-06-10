@@ -206,7 +206,7 @@ function setSliderMinMax() {
 	let s = visibleRangeMinBnum();
 	let e = visibleRangeMaxBnum();
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([s, e]);
+  session.rangeSelector.rangeSlider.setSlider([s, e]);
   stopSliderCallback = false;
 }
 
@@ -525,8 +525,8 @@ window.onbeforeunload = function (e) {
 }
 
 function createRangeSlider(div) {
-  if (session.rangeSlider) return;
-  session.rangeSlider = new IntRangeSlider(
+  if (session.rangeSelector.rangeSlider) return;
+  session.rangeSelector.rangeSlider = new IntRangeSlider(
     div,
     0,
     1,
@@ -534,12 +534,12 @@ function createRangeSlider(div) {
     0,
     1
   );
-  session.rangeSlider.setChangeCallback(rangeSliderCallback);
+  session.rangeSelector.rangeSlider.setChangeCallback(rangeSliderCallback);
 }
 
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
-  let values = session.rangeSlider.getSlider();
+  let values = session.rangeSelector.rangeSlider.getSlider();
 
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
@@ -548,7 +548,7 @@ function rangeSliderCallback() {
 	}
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([bmin, bmax]);
+  session.rangeSelector.rangeSlider.setSlider([bmin, bmax]);
   stopSliderCallback = false;
 	setTimeInterval();
 }
@@ -577,7 +577,7 @@ function setBackGroundBreathWindowButton(id, bgd) {
 }
 
 function setTimeInterval() {
-  let values = session.rangeSlider.getSlider();
+  let values = session.rangeSelector.rangeSlider.getSlider();
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
  	updateVisibleViewRange(false, bmin, bmax);
@@ -596,7 +596,7 @@ function playPauseTimeInterval() {
   updateVisibleViewRange(true, 1, session.maxBreathNum);
 
   stopSliderCallback = true;
-  session.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMaxBnum()]);
+  session.rangeSelector.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMaxBnum()]);
   stopSliderCallback = false;
 
   if (session.snapshot.visible) updateSnapshotRange();

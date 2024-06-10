@@ -10,7 +10,6 @@ var SessionDataTemplate = {
   sessionDataValid: true,
   sessionDurationInMs: 0,
 
-	rangeSlider:  null,
   startDate: null,
   launchDate: null,
 	lastChirpDate: null,
@@ -159,6 +158,11 @@ var SessionDataTemplate = {
   // /////////////////////////////////////////////
   // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
+
+  rangeSelector: {
+		timeBased: false,
+		rangeSlider:  null,
+	},
 
   // Below is stuff for snapshot
   snapshot: {
@@ -320,9 +324,9 @@ function createNewSession() {
 
 	// There is a problem with nouiRange slider
 	// multiple initializations cause an error
-	if (session) saveRangeSlider = session.rangeSlider;
+	if (session) saveRangeSlider = session.rangeSelector.rangeSlider;
 	session = cloneObject(SessionDataTemplate);
-	session.rangeSlider = saveRangeSlider;
+	session.rangeSelector.rangeSlider = saveRangeSlider;
 
 	// initialize ranges
 	session.snapshot.range = cloneObject(rangeTemplate);
