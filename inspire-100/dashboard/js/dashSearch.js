@@ -12,7 +12,7 @@ function createDashboardSearch() {
 
 function movingSearchRange() {
   let minBnum = session.maxBreathNum - SEARCH_NUM_ROLLING_BREATHS + 1;
-  if (minBnum <= 0) minBnum = 1;
+  if (minBnum <= 0) minBnum = 0;
   updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 

@@ -544,8 +544,7 @@ function rangeSliderCallback() {
   let bmin = parseInt(values[0]);
   let bmax = parseInt(values[1]);
 	if (session.snapshot.visible) {
-		if (session.maxBreathNum > 0) bmin = 1;
-		else bmin = 0;
+		bmin = 0;
 	}
 
   stopSliderCallback = true;

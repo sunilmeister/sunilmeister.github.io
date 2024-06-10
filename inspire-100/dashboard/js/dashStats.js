@@ -12,7 +12,7 @@ function createDashboardStats() {
 
 function movingStatRange() {
   let minBnum = session.maxBreathNum - STAT_NUM_ROLLING_BREATHS + 1;
-  if (minBnum <= 0) minBnum = 1;
+  if (minBnum <= 0) minBnum = 0;
   updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 

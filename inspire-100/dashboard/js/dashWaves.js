@@ -30,7 +30,7 @@ function updateWaveRange() {
     if (session.waves.range.moving && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
       movingWaveRange();
     } else {
-      updateVisibleViewRange(true, 1, session.maxBreathNum);
+      updateVisibleViewRange(true, 0, session.maxBreathNum);
     }
 
     stopSliderCallback = true;

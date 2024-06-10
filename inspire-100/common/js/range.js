@@ -8,9 +8,6 @@ var pickedDate = null;
 function createRange(moving, minBnum, maxBnum) {
   let range = cloneObject(rangeTemplate);
 	if (session.maxBreathNum > 0) {
-		if (minBnum == 0) {
-			minBnum = 1;
-		}
 		if (maxBnum == 0) {
 			maxBnum = 1;
 		}
@@ -275,7 +272,7 @@ function updateSelectedSliderMinMax(bmin, bmax) {
 function updateVisibleRangeLimits() {
   let rangeMax = session.maxBreathNum;
 	if (rangeMax == 0) rangeMax = 1;
-  session.rangeSlider.setRange([1, rangeMax]);
+  session.rangeSlider.setRange([0, rangeMax]);
 }
 
 function enterBreathInterval () {
@@ -553,9 +550,7 @@ function forwardRange() {
 	}
 
 	if (session.snapshot.visible) {
-		if (session.maxBreathNum > 0) bmin = 1;
-		else bmin = 0;
-		bmin = 1;
+		bmin = 0;
 	} else {
 		bmin = bmax - span + 1;
 	}
@@ -573,8 +568,7 @@ function rewindRange() {
 	let span = bmax - bmin + 1;
 
 	if (session.snapshot.visible) {
-		if (session.maxBreathNum > 0) bmin = 1;
-		else bmin = 0;
+		bmin = 0;
 	} else if ((bmin - span) < minRange) {
 		bmin = minRange;
 	} else {

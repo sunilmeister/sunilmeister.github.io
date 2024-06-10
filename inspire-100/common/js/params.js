@@ -174,8 +174,6 @@ class Param {
 		if (changeIx === null) {
 			console.error("Error during search in Param::Values", Name());
 			return values;
-		} else if (changeIx == 0) {
-			return values;
 		}
 
 	  let value = this.changes[changeIx].value;

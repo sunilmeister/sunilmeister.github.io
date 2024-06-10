@@ -12,7 +12,7 @@ function createDashboardAlerts() {
 
 function movingAlertRange() {
   let minBnum = session.maxBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
-  if (minBnum <= 0) minBnum = 1;
+  if (minBnum <= 0) minBnum = 0;
   updateVisibleViewRange(true, minBnum, session.maxBreathNum);
 }
 
