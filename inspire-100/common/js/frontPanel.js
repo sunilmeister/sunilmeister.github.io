@@ -268,8 +268,12 @@ function blankFrontPanelOutputs() {
 	document.getElementById('p_fpPeakDiv').innerHTML = "";
 	document.getElementById('p_fpPlatDiv').innerHTML = "";
 	document.getElementById('p_fpMpeepDiv').innerHTML = "";
+	blankBreathTypeLEDs();
+}
+
+function blankBreathTypeLEDs() {
 	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
+	document.getElementById('img_fpSbreathDiv').src = "../common/img/BlankLED.png";
 }
 
 function updateFrontPanelOutputs() {
@@ -288,15 +292,14 @@ function updateFrontPanelOutputs() {
 	if (isValidValue(val)) document.getElementById('p_fpMpeepDiv').innerHTML = val;
 
 	// Also do the S/MBreath LEDs
-	document.getElementById('img_fpMbreathDiv').src = "../common/img/BlankLED.png";
-	document.getElementById('img_fpSbreathDiv').src = "../common/img/BlankLED.png";
-
 	val = snap.btype;
+	blankBreathTypeLEDs();
 	if ((isValidValue(val)) && (val == MANDATORY_BREATH)) {
 		document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
 	} else if (val == SPONTANEOUS_BREATH) {
 		document.getElementById('img_fpSbreathDiv').src = "../common/img/GreenDot.png";
 	}
+	setTimeout(blankBreathTypeLEDs, 1000)
 }
 
 function blankFrontPanelPendingSettings() {
