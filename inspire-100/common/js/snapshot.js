@@ -64,7 +64,6 @@ function gatherSnapshotData() {
 	snap.tps 			= params.tps.ValueAtTime(snap.time);
 	snap.fiO2 		= params.fiO2.ValueAtTime(snap.time);
 	snap.o2Purity = params.o2Purity.ValueAtTime(snap.time);
-	snap.tps 			= params.tps.ValueAtTime(snap.time);
 
 	// pending input settings
 	snap.pendingMode 		= params.pendingMode.ValueAtTime(snap.time);
@@ -410,9 +409,13 @@ function refreshInputSettings() {
   animateDivValue(pmaxValELM, snap.pmax);
   animateDivValue(ipeepValELM, snap.ipeep);
   animateDivValue(psValELM, snap.ps);
-  updateDivText(modeValELM, MODE_DECODER[snap.mode]);
-  updateDivValue(tpsValELM, snap.tps);
-  updateDivValue(tpsUnitsValELM, snap.tpsUnits);
+	if (isValidValue(snap.mode)) {
+  	updateDivText(modeValELM, MODE_DECODER[snap.mode]);
+	}
+	if (isValidValue(snap.tps)) {
+  	updateDivText(tpsValELM, TPS_DECODER[snap.tps].text);
+  	updateDivText(tpsUnitsValELM, TPS_DECODER[snap.tps].units);
+	}
 
 	refreshFiO2Settings();
 }

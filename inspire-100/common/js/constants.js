@@ -75,6 +75,19 @@ const TPS_DECODER = [
   { text: "1.5", units: "(secs)" },
   { text: "2.0", units: "(secs)" },
   { text: "2.5", units: "(secs)" }
+]; 
+
+const FP_TPS_DECODER = [
+  "10",
+  "20",
+  "30",
+  "40",
+  "50",
+  "60",
+  "1.0",
+  "1.5",
+  "2.0",
+  "2.5"
 ] 
 
 const INITIAL_STATE = 0;
