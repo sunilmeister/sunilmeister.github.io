@@ -50,3 +50,12 @@
   box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem var(--rsp_darkblue);
 
 }
+
+.fpUniMono {
+  font-size: 0.55rem;
+	font-weight: bold;
+	vertical-align: middle;
+	color: black;
+}
+
+

@@ -56,7 +56,6 @@ function updateAllRanges(moving, minBnum, maxBnum) {
 
 function updateAllRangesExceptSearch(moving, minBnum, maxBnum) {
 	let range = createRange(moving, minBnum, maxBnum);
-	let range = createRange(moving, minBnum, maxBnum);
 	for (let i=0; i<session.allSessionViews.length; i++) {
 		let view = session.allSessionViews[i];
 		if (view == "search") continue;

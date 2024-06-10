@@ -130,11 +130,34 @@ function createFpDivs() {
 	lcdDiv.style.height = String(remH) + "rem";
 }
 
+function fpFormMessageLine(str) {
+	if (str === null) return "";
+	if (isUndefined(str)) return "";
+
+	const spanBegin = "<span class=fpUniMono>";
+	const spanEnd = "</span>";
+
+	let mstr = "";
+	for (let i = 0; i < str.length; i++) {
+		let code = str.charCodeAt(i);
+		let isASCII = (code >= 0) && (code <= 127);
+		let cstr = String.fromCodePoint(code);
+		if (isASCII) {
+	  	if (cstr == ' ') cstr = '&nbsp';
+	  	mstr += cstr;
+		} else {
+			mstr += spanBegin + cstr + spanEnd;
+		}
+	}
+	if (mstr == "") mstr = "&nbsp" ;
+	return mstr;
+}
+
 function fpDisplayMessageLine(lineTag, value) {
   let elm;
   elm = document.getElementById(lineTag);
   elm.style.color = palette.darkblue;
-  let mvalue = formMessageLine(value);
+  let mvalue = fpFormMessageLine(value);
   elm.innerHTML = mvalue;
 }
 
