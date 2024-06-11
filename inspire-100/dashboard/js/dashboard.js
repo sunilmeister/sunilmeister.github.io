@@ -400,7 +400,6 @@ window.onload = function () {
 	initCommonDivElements();
 
 	disableAllBeeps();  
-	openAudioControl();
 
   createNewSession();
   session.appId = DASHBOARD_APP_ID;
@@ -431,6 +430,8 @@ window.onload = function () {
   installPlatGauge();
   installPeepGauge();
   installTempGauge();
+
+	openAudioControl();
 
 	alignSidebar();
 
