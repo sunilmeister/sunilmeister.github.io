@@ -25,7 +25,7 @@
 	padding: 0.3rem;
   background-color: var(--rsp_mediumblue);
 	color: white;
-	font-size: 1.1rem;
+	font-size: 1.4rem;
 	text-align: center;
 }
 
@@ -34,13 +34,13 @@
 	border-collapse: collapse;
 	padding: 0.3rem;
   background-color: var(--rsp_blue);
-	font-size: 1.1rem;
+	font-size: 1.3rem;
 	text-align: center;
 }
 
 .searchRangeBoxCls {
-	width: 1rem;
-	height: 1rem;
+	width: 1.2rem;
+	height: 1.2rem;
 	accent-color: var(--rsp_green);
 }
 
@@ -50,7 +50,7 @@
 	border: 0.2rem solid white;
 	border-collapse: collapse;
 	padding: 0.3rem;
-	font-size: 1.3rem !important;
+	font-size: 1.6rem !important;
 	font-weight: bold;
 	text-align: center;
 	cursor: pointer;

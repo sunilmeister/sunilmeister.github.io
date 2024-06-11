@@ -294,15 +294,15 @@
       </center>
     </div>
 
-  <div id=chartDropDownMenu class=popupClassCenter style="height:auto; width:40rem; background-color: var(--rsp_lightblue);">
+  <div id=chartDropDownMenu class=popupClassCenter style="height:auto; width:46rem; background-color: var(--rsp_lightblue);">
     <div id=chartMenuBanner class=chartEditMenuBanner>
-      <img src="../common/img/close.png" class=iconButton title='Cancel' onClick='chartMenuCancel(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
+      <img src="../common/img/close.png" class=iconButton title='Cancel' onClick='chartMenuCancel(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:2rem; height:2rem;">
       <br>
     </div>
 
     <div id=chartTitleDiv style="background-color: var(--rsp_mediumblue); padding-bottom:0.5rem;">
       <center>
-        <p style="font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white; margin-top:1rem; margin-bottom:0rem;;">Title</p>
+        <p style="font-size:1.8rem; background-color: var(--rsp_mediumblue); color: white; margin-top:1rem; margin-bottom:0rem;;">Title</p>
         <div style="font-size:1.4rem; background-color: var(--rsp_mediumblue); ">
           <input id=ChartTitleId class=chartEditMenuTitle type="text" name="title" style="width:20rem; font-size:1.5rem;">
         </div>
@@ -310,12 +310,12 @@
     </div>
     <br>
 
-    <div id=chartCheckBoxTreeRoot style="height:auto; font-size:1rem; padding-bottom:0.6rem; width:40rem;color: var(--rsp_darkblue); ">
+    <div id=chartCheckBoxTreeRoot style="height:auto; font-size:1.2rem; padding-bottom:0.6rem; width:46rem;color: var(--rsp_darkblue); ">
       <center>
-        <p style="margin-top:-2rem; font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white;">Y-axis Parameters</p>
+        <p style="margin-top:-2rem; font-size:1.8rem; background-color: var(--rsp_mediumblue); color: white;">Y-axis Parameters</p>
       </center>
       <div>
-        <div style="float:left; width:18rem; margin-left:0.5rem;">
+        <div style="float:left; width:22rem; margin-left:0.5rem;">
           <div>
             <input type="checkbox" id=Presssures class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=Presssures>Pressures</label>
@@ -380,7 +380,7 @@
             </div>
           </div>
         </div>
-        <div style="float:right; width:18rem; margin-right:0.5rem;">
+        <div style="float:right; width:22rem; margin-right:0.5rem;">
           <div>
             <input type="checkbox" id=BTYPE class=menuCheckBox onclick='chartTreeCheckboxClicked(this)'>
             <label for=BTYPE>Breath Type</label>
@@ -452,9 +452,9 @@
       </div>
       <div style="clear:both;">
       </div>
-      <div id=XAxisUnits style="clear:both; padding-top:0.1rem; width:40rem; margin-bottom:-1.8rem;">
+      <div id=XAxisUnits style="clear:both; padding-top:0.1rem; width:46rem; margin-bottom:-1.8rem; font-size:1.4rem;">
         <center>
-          <p style="font-size:1.5rem; background-color: var(--rsp_mediumblue); color: white; margin-bottom:0;">X-axis Units</p>
+          <p style="font-size:1.8rem; background-color: var(--rsp_mediumblue); color: white; margin-bottom:0;">X-axis Units</p>
         </center>
         <div>
           <form name="XunitsForm" style="padding-top:0.8rem;">
@@ -474,7 +474,7 @@
 	</div>
 
 
-    <div id=waveDropDownMenu class=popupClassCenter style="width:20rem; height:auto; background-color: var(--rsp_lightblue);">
+    <div id=waveDropDownMenu class=popupClassCenter style="width:30rem; height:auto; background-color: var(--rsp_lightblue);">
       <div id=waveMenuBanner class=waveEditMenuBanner>
         <button class=iconButton onClick="waveMenuCancel(this)" onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title="Cancel"><img src="../common/img/close.png" style="width:1rem; height:1rem;"></button>
         <br>
@@ -482,17 +482,17 @@
 
       <div id=waveTitleDiv style="background-color: var(--rsp_lightblue)">
         <center>
-          <p style="font-size:1.4rem; background-color: var(--rsp_mediumblue); color: white; margin-top:1rem;">Title</p>
+          <p style="font-size:2rem; background-color: var(--rsp_mediumblue); color: white; margin-top:1rem;">Title</p>
           <div style="background-color: var(--rsp_lightblue); margin-top:-1.3rem">
-            <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title" style="font-size:1.3rem; width:15rem; margin-bottom:1.4rem;">
+            <input id=WaveTitleId class=waveEditMenuTitle type="text" name="title" style="font-size:1.5rem; width:15rem; margin-bottom:1.4rem;">
           </div>
         </center>
       </div>
-      <div id=waveCheckBoxTreeRoot style="font-size:1rem; margin-top:-1.3rem; padding-bottom:0.7rem; color:var(--rsp_darkblue)">
+      <div id=waveCheckBoxTreeRoot style="font-size:1.4rem; margin-top:-1.3rem; padding-bottom:0.7rem; color:var(--rsp_darkblue)">
         <center>
-          <p style="font-size:1.4rem; background-color: var(--rsp_mediumblue); color: white;">Breath Types</p>
+          <p style="font-size:2rem; background-color: var(--rsp_mediumblue); color: white;">Breath Types</p>
         </center>
-        <div style="background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
+        <div style="font-size:1.6rem; background-color: var(--rsp_lightblue); margin-top:-0.7rem; ">
           <input type="checkbox" id=All class=menuCheckBox onclick='waveTreeCheckboxClicked(this)'>
           <label for=All>All</label>
           <div class=waveIndentDiv>
@@ -537,7 +537,7 @@
       </div>
     </div>
 
-  <div id=fullDashboard style="width:150rem;min-height:60rem;">
+  <div id=fullDashboard style="width:146rem;min-height:60rem;">
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
@@ -577,16 +577,14 @@
 
         <div style="background-color:var(--rsp_green);">
           <center>
-            <p style="font-size:1.4rem;padding-top:0.25rem; padding-bottom:0.25rem;background-color:var(--rsp_darkblue); color:white;"> Temperature <sup>o</sup>C
+            <p style="font-size:1.5rem;padding-top:0.25rem; padding-bottom:0.25rem;background-color:var(--rsp_darkblue); color:white;"> Temperature <sup>o</sup>C
 
             <div id=TempGauge style="background-color:var(--rsp_green); margin-top:-1rem;"></div>
           </center>
         </div>
         <div style="background-color:var(--rsp_green);">
           <center>
-            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.5rem;padding-top:0.25rem;padding-bottom:0.25rem;
-            background-color:var(--rsp_darkblue);color:white;">
-              Location  
+            <p style="margin-top:0rem; margin-bottom:0rem; font-size:1.5rem;padding-top:0.25rem;padding-bottom:0.25rem; background-color:var(--rsp_darkblue);color:white;"> Location  
 
             <p id=locationDiv style="margin-top:0.4rem; font-size:1.5rem; color:white;"> __
             <p id=altDiv style="margin-top:-1rem; padding-bottom:1rem; font-size:1.3rem;
@@ -670,7 +668,7 @@
 					<div style="background-color: var(--rsp_darkblue); color: white;">
 					<center>
 						<br>
-						<h4 style="margin-top:-0.5rem;">MATCH CRITERIA</h4>
+						<h4 style="margin-top:-0.5rem;font-size:1.8rem;">MATCH CRITERIA</h4>
 						<p id=exprString class=exprStringCls>EXPRESSION</p>
 						<br>
 					</center>
@@ -680,10 +678,10 @@
 					</div>
 					<hr>
 					<center>
-		        <button id=clearExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='clearSearchExpr()'>CLEAR</button>
-		        <button id=exportExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='exportSearchExpr()'>EXPORT</button>
-		        <button id=importSearchBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='importSearchExpr()'>IMPORT</button>
-		        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='matchSearchExpr()'>SEARCH</button>
+		        <button id=clearExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:16rem; height:3rem; font-size:1.8rem;" onclick='clearSearchExpr()'>CLEAR</button>
+		        <button id=exportExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:16rem; height:3rem; font-size:1.8rem;" onclick='exportSearchExpr()'>EXPORT</button>
+		        <button id=importSearchBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:16rem; height:3rem; font-size:1.8rem;" onclick='importSearchExpr()'>IMPORT</button>
+		        <button id=searchExprBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:16rem; height:3rem; font-size:1.8rem;" onclick='matchSearchExpr()'>SEARCH</button>
 					</center>
 				</div>
 
@@ -692,8 +690,8 @@
 					<center>
 						<br>
 						<div class=searchResultsCaptionCls>
-						<h4 id=searchResultsCaption style=margin:0rem;">SEARCH RESULTS</h4>
-						<p id=setMatchingRange onclick='setRangeSelectorForSelectedBreaths()' style="margin-bottom:0.5rem; font-size:1.2rem; cursor:pointer;">
+						<h4 id=searchResultsCaption style="margin:0rem; font-size:1.8rem;">SEARCH RESULTS</h4>
+						<p id=setMatchingRange onclick='setRangeSelectorForSelectedBreaths()' style="margin-bottom:0.5rem; font-size:1.5rem; cursor:pointer;">
 						</div>
 						<br>
 						<table id=searchResultsTbl class=searchResultsTblCls>
@@ -722,7 +720,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_darkblue); color:white;font-size:2rem;">
                 Session Errors</h2>
             </center>
-            <div class=shadowDiv5 id=errorDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=errorDiv style="height:56rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollErrorDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -732,7 +730,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Session Warnings</h2>
             </center>
-            <div class=shadowDiv5 id=warningDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=warningDiv style="height:56rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollWarningDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -742,7 +740,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_blue); color:var(--rsp_darkblue);font-size:2rem;">
                 Session Notifications</h2>
             </center>
-            <div class=shadowDiv5 id=infoDiv style="height:48rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_blue); color:var(--rsp_darkblue); border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
+            <div class=shadowDiv5 id=infoDiv style="height:56rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; padding:0.3rem; background-color:var(--rsp_blue); color:var(--rsp_darkblue); border:0.6rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=scrollInfoDiv style="font-size:1rem; text-align: left">
             </div>
           </div>
@@ -759,7 +757,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Parameters Measured</h2>
             </center>
-            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.3rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray;">
                   Parameter</th>
@@ -775,7 +773,7 @@
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Miscellaneous Information</h2>
             </center>
-            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.3rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray;">
                   Information</th>
@@ -785,12 +783,12 @@
             </table>
           </div>
 
-          <div id=stats-pane class=column style="font-size: 1.25rem">
+          <div id=stats-pane class=column style="font-size: 1.3rem">
             <center>
               <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                 Static Information</h2>
             </center>
-            <div style="font-size:1.2rem;">
+            <div style="font-size:1.3rem;">
               <p id=pName style="margin-bottom: -1.2rem;"></p>
               <p id=pInfo1 style="margin-bottom: -1.2rem;"></p>
               <p id=pInfo2></p>
@@ -801,14 +799,14 @@
 
             </div>
             <center>
-              <div id=staticStats style="font-size: 1rem">
+              <div id=staticStats style="font-size: 1.4rem">
                 <center>
                   <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;">
                     Parameter Settings Used</h2>
                 </center>
 
                 <center>
-                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.25rem; width:100%">
+                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.3rem; width:100%">
                     <tr>
                       <th align="left" style="background-color:lightgray;">
                         Parameter</th>
@@ -1250,9 +1248,9 @@
   <template id=chartContainerTemplate>
     <div class=chartContainer>
       <div class=chartBanner>
-				<img src="../common/img/plus.png" class=iconButton title='Add Box' onClick='chartAppend(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.2rem; height:1.2rem;">
-				<img src="../common/img/trash-bin.png" class=iconButton title='Delete' onClick='chartDelete(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
-				<img src="../common/img/pen.png" class='iconButton editIconButton' title='Edit' onClick='chartEdit(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
+				<img src="../common/img/plus.png" class=iconButton title='Add Box' onClick='chartAppend(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
+				<img src="../common/img/trash-bin.png" class=iconButton title='Delete' onClick='chartDelete(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
+				<img src="../common/img/pen.png" class='iconButton editIconButton' title='Edit' onClick='chartEdit(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
  				<center>
 					<p class=sparseIntervalMsg style="color:white; font-size:1.2rem; padding-top:0.2rem;">
 				</center>
@@ -1265,9 +1263,9 @@
   <template id=waveContainerTemplate>
     <div class=waveContainer>
       <div class=waveBanner>
-				<img src="../common/img/plus.png" class=iconButton title='Add Box' onClick='waveAppend(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.2rem; height:1.2rem;">
-				<img src="../common/img/trash-bin.png" class=iconButton title='Delete' onClick='waveDelete(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
-				<img src="../common/img/pen.png" class='iconButton editIconButton' title='Edit' onClick='waveEdit(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.2rem; height:1.2rem;">
+				<img src="../common/img/plus.png" class=iconButton title='Add Box' onClick='waveAppend(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:left; width:1.8rem; height:1.8rem;">
+				<img src="../common/img/trash-bin.png" class=iconButton title='Delete' onClick='waveDelete(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
+				<img src="../common/img/pen.png" class='iconButton editIconButton' title='Edit' onClick='waveEdit(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="float:right; width:1.8rem; height:1.8rem;">
         <br>
       </div>
       <div class=waveBody>

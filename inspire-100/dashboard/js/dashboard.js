@@ -435,7 +435,7 @@ window.onload = function () {
 	alignSidebar();
 
 	// After all the gauges are installed and sidebar aligned
-	setRootFontSize("fullDashboard", "sideMenuBar");
+	setRootFontSize("fullDashboard", "fullDashboard");
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');

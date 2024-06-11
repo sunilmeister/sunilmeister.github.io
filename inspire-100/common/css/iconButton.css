@@ -6,7 +6,6 @@
 
 .iconButton {
   background-color: white;
-  border-style: outset;
 	border-width: 0.2rem;
 	vertical-align: middle;
   color: var(--rsp_darkblue);

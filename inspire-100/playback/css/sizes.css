@@ -7,7 +7,7 @@
   --chartMenuIconSize: 1.2rem;
 
 	/* ALL below in REM */
-  --chartLabelFontSize: 0.8;
+  --chartLabelFontSize: 1;
   --chartLegendFontSize: 1;
   --chartTitleFontSize: 1.6;
   --chartStripLineFontSize: 1.8;
@@ -23,7 +23,7 @@
   --waveMenuIconSize: 1.2rem;
 
 	/* ALL below in REM */
-  --waveLabelFontSize: 0.8;
+  --waveLabelFontSize: 1;
   --waveLegendFontSize: 1;
   --waveTitleFontSize: 1.6;
   --waveStripLineFontSize: 1.8;
