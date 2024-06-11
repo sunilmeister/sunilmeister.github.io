@@ -1,6 +1,6 @@
 .Snapshot {
   display: inline-grid;
-  grid-template-columns: 1.3fr 1.7fr 1.7fr 1.7fr 1.7fr 1.7fr 1.7fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 36rem;
+  grid-template-columns: 1.3fr 1.7fr 1.7fr 1.7fr 1.7fr 1.7fr 1.7fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 42rem;
   grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1rem 1rem;
   place-content: center center;
@@ -10,7 +10,7 @@
 
 .FrontPanel {
 	position: relative;
-  grid-area: 2 / 20 / 16 / 21;
+  grid-area: 1 / 20 / 16 / 21;
 }
 
 .Messages {

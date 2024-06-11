@@ -5,8 +5,7 @@
 .fpLcdCls {
 	position: absolute;
   font-family: monospace;
-  font-size: 0.9rem;
-	font-weight: bold;
+  font-size: 1.1rem;
   color: var(--rsp_darkgreen);
   background-color: yellow;
 	z-index: 2;
@@ -18,8 +17,8 @@
 }
 
 .fpLedImgCls {
-	width:1.2rem;
-	height: 1.2rem;
+	width:1.4rem;
+	height: 1.4rem;
 }
 
 .fpNumCls {
@@ -34,17 +33,17 @@
 }
 
 .fpTextCls {
-  font-size: 2.5rem;
+  font-size: 2.7rem;
   font-style: oblique;
 	font-weight: bold;
-	margin-top: 0.2rem;
+	margin-top: 0.3rem;
 	margin-bottom: 0.2rem;
   color: var(--rsp_brightgreen);
 	z-index: 2;
 }
 
 .fpImgCls {
-	width:36.5rem;
+	width:42rem;
 	height: auto;
   -webkit-box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem var(--rsp_darkblue);
   box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem var(--rsp_darkblue);
