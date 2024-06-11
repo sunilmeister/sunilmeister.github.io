@@ -509,7 +509,7 @@
       </div>
     </div>
 
-		<div id=fullPlayback style="width:80rem;">
+		<div id=fullPlayback style="width:90rem;">
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
@@ -584,14 +584,16 @@
       <div id=playbackWindowDiv class=playbackWindowCls>
         <div id=playbackRangeSliderDiv style="margin-top:1.5rem; padding-left:1.3rem; padding-right:1.3rem;font-size:1.25rem; height:1.4rem;">
         </div>
-        <div style="background-color:var(--rsp_green); color:white; margin-top: 0.7rem; ">
+        <div style="background-color:var(--rsp_darkblue); color:white; margin-top: 0.7rem; padding-left:0.2rem; padding-right:0.2rem;">
 					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Manual Edit' style="float:right; width:1.8rem; height:1.8rem;">
 					<img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:1.8rem; height:1.8rem;">
 					<img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:1.8rem; height:1.8rem;">
 					<img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:1.8rem; height:1.8rem;">
 					<img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:1.8rem; height:1.8rem;">
           <center>
-            <p id=sliderCaption style="padding:0.2rem; margin-top: 0.7rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
+						<img src="../common/img/123.png" id=btnNumBased class=iconButton onClick='rangeNumBased(this)' title='Breath Numbers' style="background-color:var(--rsp_blue); width:1.8rem; height:1.8rem; display:inline-block;">
+						<p id=sliderCaption style="margin-top: 0rem; margin-bottom:-0.8rem; font-size:1.8rem; display:inline-block;">Breath Range Selector</p>
+						<img src="../common/img/clock.png" id=btnTimeBased class=iconButton onClick='rangeTimeBased(this)' title='Wall Time' style="width:1.8rem; height:1.8rem; display:inline-block;">
           </center>
         </div>
       </div>
