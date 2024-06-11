@@ -542,7 +542,10 @@ function lookupBreathTime(bnum) {
 }
 
 function lookupBreathNum(time) {
-	return params.breathNum.ValueAtTime(time);
+	let bnum = session.params.breathNum.ValueAtTime(time);
+	if (isUndefined(bnum)) return 0;
+	if (bnum === null) return 0;
+	return bnum;
 }
 
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {

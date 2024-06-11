@@ -5,7 +5,7 @@
 var pickedDate = null;
 
 // returns a range object
-function createRange(moving, minBnum, maxBnum) {
+function createRangeBnum(moving, minBnum, maxBnum) {
   let range = cloneObject(rangeTemplate);
 	if (session.maxBreathNum > 0) {
 		if (maxBnum == 0) {
@@ -30,8 +30,49 @@ function createRange(moving, minBnum, maxBnum) {
 
   range.missingBnum = cloneObject(session.missingBreathWindows);
   range.missingTime = cloneObject(session.missingTimeWindows);
-	//console.error(range);
   return range;
+}
+
+function createRangeTime(moving, minTime, maxTime) {
+  let range = cloneObject(rangeTemplate);
+
+  range.moving = moving;
+  range.minTime = minTime;
+  range.maxTime = maxTime;
+
+	let minBnum = lookupBreathNum(minTime);
+	let maxBnum = lookupBreathNum(maxTime);
+  range.minBnum = minBnum;
+  range.maxBnum = maxBnum;
+
+  range.missingBnum = cloneObject(session.missingBreathWindows);
+  range.missingTime = cloneObject(session.missingTimeWindows);
+  return range;
+}
+
+function updateSliderEndpoints(start, end) {
+ 	stopSliderCallback = true;
+ 	session.rangeSelector.rangeSlider.setSlider([start, end]);;
+ 	stopSliderCallback = false;
+
+	// call the main app to respond to the slider change
+	setTimeInterval();
+}
+
+function showRangeOnSlider(range) {
+	if (session.rangeSelector.timeBased) {
+		updateSliderEndpoints(range.minTime, range.maxTime);
+	} else {
+		updateSliderEndpoints(range.minBnum, range.maxBnum);
+	}
+}
+
+function findVisibleView() {
+	for (let i=0; i<session.allSessionViews.length; i++) {
+		let view = session.allSessionViews[i];
+		if (session[view].visible) return view;
+	}
+	console.error("No visible view");
 }
 
 // Each view's range is independant
