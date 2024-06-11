@@ -2,6 +2,27 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function formatRangeDateTooltip(num) {
+	if (session.rangeSelector.timeBased) {
+		let d = new Date(num);
+		let mm = d.getMonth();
+		let dd = d.getDate();
+		let yyyy = d.getFullYear();
+		let ddStr = String(dd).padStart(2, "0");
+		let dateStr = ddStr+'-'+months[mm]+'-'+yyyy;
+		let hour = d.getHours();
+		let minute = d.getMinutes();
+		let second = d.getSeconds();
+		let hourStr = hour.toString().padStart(2, "0");
+		let minuteStr = minute.toString().padStart(2, "0");
+		let secondStr = second.toString().padStart(2, "0");
+		let timeStr = `${hourStr}:${minuteStr}:${secondStr}`;
+		return dateStr + "\n" + timeStr;
+	} else {
+    return String(parseInt(num));
+	}
+}
+
 class IntRangeSlider {
   constructor(containerDiv, rangeMin, rangeMax, sliderMin, sliderMax, sliderStep) {
     if (rangeMin == rangeMax) rangeMax++;
@@ -26,7 +47,7 @@ class IntRangeSlider {
 			// handle labels
       tooltips: [{
           to: function (n) {
-            return String(parseInt(n));
+            return formatRangeDateTooltip(parseInt(n));
           },
           from: function (str) {
             return Number(str);
@@ -34,7 +55,7 @@ class IntRangeSlider {
         },
         {
           to: function (n) {
-            return String(parseInt(n));
+            return formatRangeDateTooltip(parseInt(n));
           },
           from: function (str) {
             return Number(str);

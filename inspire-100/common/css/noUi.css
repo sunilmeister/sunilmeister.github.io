@@ -21,10 +21,15 @@
   display: block;
   font-size: var(--noUiTooltipSize);
   background-color: var(--rsp_brightgreen);
+	display: none;
 }
 
 .noUi-active .noUi-tooltip {
   display: block;
+}
+
+.noUi-handle:hover .noUi-tooltip {
+    display: block;
 }
 
 .noUi-handle {
