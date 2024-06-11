@@ -604,6 +604,7 @@ function playbackGatherDoneCallback() {
 	session.playback.logEndDate = session.loggedBreaths[session.maxBreathNum].time;
 	session.startDate = session.loggedBreaths[1].time;
 	session.lastChirpDate = session.loggedBreaths[session.maxBreathNum].time;
+	updateLogDuration();
 
   let n = session.playback.logEndBreath - session.playback.logStartBreath;
   if (n < 20) {
