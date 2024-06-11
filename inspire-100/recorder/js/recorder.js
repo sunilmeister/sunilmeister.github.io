@@ -12,8 +12,6 @@ var awaitingFirstChirp = true;
 var chirpQ = null;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
-const FAST_BLINK_INTERVAL_IN_MS = 1000;
-
 
 var blankIndicator = false;
 function blinkRecordingIndicator() {
