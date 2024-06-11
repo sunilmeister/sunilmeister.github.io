@@ -524,16 +524,22 @@ function rewindRange() {
 	updateSelectedSliderMinMax(bmin, bmax);
 }
 
-function updateViewRangeBase(view) {
+function updateRangeSliderWindow(range) {
+	if (isUndefined(range)) return;
+	if (range === null) return;
+
 	stopSliderCallback = true;
 	if (session.rangeSelector.timeBased) {
-		let minDate = session[view].range.minTime;
-		let maxDate = session[view].range.maxTime;
- 		session.rangeSelector.rangeSlider.setSlider([minDate, maxDate]);;
-		session.rangeSelector.rangeSlider.setRange([session.startDate, session.lastChirpDate]);;
+		let min = range.minTime.getTime();
+		let max = range.maxTime.getTime();
+		let start = session.startDate.getTime();
+		let end = session.lastChirpDate.getTime();
+		if (end === null) end = start;
+		session.rangeSelector.rangeSlider.setRange([start, end]);;
+ 		session.rangeSelector.rangeSlider.setSlider([min, max]);;
 	} else {
-		let minBnum = session[view].range.minBnum;
-		let maxBnum = session[view].range.maxBnum;
+		let minBnum = range.minBnum;
+		let maxBnum = range.maxBnum;
  		session.rangeSelector.rangeSlider.setSlider([minBnum, maxBnum]);;
 		session.rangeSelector.rangeSlider.setRange([0, session.maxBreathNum]);;
 	}
@@ -542,14 +548,16 @@ function updateViewRangeBase(view) {
 
 function rangeTimeBased() {
 	document.getElementById("btnNumBased").style.backgroundColor = "white";
-	document.getElementById("btnTimeBased").style.backgroundColor = palette.brightgreen;
+	document.getElementById("btnTimeBased").style.backgroundColor = palette.blue;
 	session.rangeSelector.timeBased = true;
+	updateRangeSliderWindow(visibleViewRange());
 }
 
 function rangeNumBased() {
-	document.getElementById("btnNumBased").style.backgroundColor = palette.brightgreen;
+	document.getElementById("btnNumBased").style.backgroundColor = palette.blue;
 	document.getElementById("btnTimeBased").style.backgroundColor = "white";
 	session.rangeSelector.timeBased = false;
+	updateRangeSliderWindow(visibleViewRange());
 }
 
 window.addEventListener("load", function() {

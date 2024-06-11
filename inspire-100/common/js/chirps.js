@@ -249,14 +249,14 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
 function gatherSessionData(lastRecordCallback) {
   session.playback.sessionDataValid = false;
   session.playback.recVersion= null;
-  if (allDbKeys.length == 0) {
+  if (session.playback.allDbKeys.length == 0) {
     modalAlert("Selected Session has no data", "");
     return;
   }
   let lastRecord = false;
-  for (i = 0; i < allDbKeys.length; i++) {
-    let key = allDbKeys[i];
-    if (i == (allDbKeys.length - 1)) {
+  for (i = 0; i < session.playback.allDbKeys.length; i++) {
+    let key = session.playback.allDbKeys[i];
+    if (i == (session.playback.allDbKeys.length - 1)) {
       lastRecord = true;
     }
     processAllJsonRecords(key, lastRecord, lastRecordCallback);

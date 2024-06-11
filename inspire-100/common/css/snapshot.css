@@ -1,6 +1,6 @@
 .Snapshot {
   display: inline-grid;
-  grid-template-columns: 1fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 36rem;
+  grid-template-columns: 1.3fr 1.7fr 1.7fr 1.7fr 1.7fr 1.7fr 1.7fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 1.3fr 36rem;
   grid-template-rows: 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 1rem 1rem;
   place-content: center center;
@@ -16,7 +16,7 @@
 .Messages {
   grid-area: 1 / 1 / 5 / 8;
   font-family: monospace;
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: var(--rsp_darkblue);
   background-color: var(--rsp_mediumgreen);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);

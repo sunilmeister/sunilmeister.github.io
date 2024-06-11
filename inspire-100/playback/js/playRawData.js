@@ -39,12 +39,12 @@ function displayRawData() {
     return;
   }
   if (dataDisplayed) return;
-  if (allDbKeys.length == 0) {
+  if (session.playback.allDbKeys.length == 0) {
     modalAlert("Selected Recording has no data", "");
     return;
   }
-  for (i = 0; i < allDbKeys.length; i++) {
-    key = allDbKeys[i];
+  for (i = 0; i < session.playback.allDbKeys.length; i++) {
+    key = session.playback.allDbKeys[i];
     displayJsonRecord(key);
   }
   dataDisplayed = true;

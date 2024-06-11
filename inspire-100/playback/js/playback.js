@@ -62,8 +62,7 @@ function selectDbRow(row) {
   session.database.dbName = dbName;
   let sessionInfo = document.getElementById("sliderCaption");
 
-  sessionInfo.style.backgroundColor = palette.green;
-  sessionInfo.style.color = palette.brightgreen;
+  sessionInfo.style.backgroundColor = palette.darkblue;
   sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
   sessionBannerHTML = sessionInfo.innerHTML;
   initSession(dbName);
@@ -383,19 +382,11 @@ function initSession(dbName) {
     let keyReq = store.getAllKeys();
     keyReq.onsuccess = function (event) {
       let keys = event.target.result;
-      allDbKeys = keys;
+      session.playback.allDbKeys = keys;
       if (keys.length == 0) {
         modalAlert("Selected Recording has no data", "");
         return;
       }
-      session.playback.logStartTime = new Date(keys[0]);
-      session.playback.logStartTime.setMilliseconds(0);
-      session.playback.logEndTime = new Date(keys[keys.length - 1]);
-      session.playback.logEndTime.setMilliseconds(0);
-      session.startDate = session.playback.logStartTime;
-
-      updateSelectedDuration();
-      updateLogDuration();
       disableAllButtons();
       gatherSessionData(playbackGatherDoneCallback);
       updateDocumentTitle();
@@ -519,7 +510,7 @@ function checkValidPlaybackDuration() {
 }
 
 function updateLogDuration() {
-  let diff = session.playback.logEndTime.getTime() - session.playback.logStartTime.getTime();
+  let diff = session.playback.logEndDate.getTime() - session.playback.logStartDate.getTime();
 	session.sessionDurationInMs = diff;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
@@ -571,6 +562,7 @@ function setSliderMinMax() {
 function setTimeInterval() {
   let values = session.rangeSelector.rangeSlider.getSlider();
   let s = parseInt(values[0]);
+  let e = parseInt(values[1]);
 
 	updateVisibleViewRange(false, s, e);
   session.rangeSelector.rangeSlider.setSlider([s, e]);
@@ -607,6 +599,11 @@ function playbackGatherDoneCallback() {
   session.playback.logStartBreath = 1;
   session.playback.logEndBreath = session.loggedBreaths.length - 1;
 	session.maxBreathNum =  session.playback.logEndBreath;
+
+	session.playback.logStartDate = session.loggedBreaths[1].time;
+	session.playback.logEndDate = session.loggedBreaths[session.maxBreathNum].time;
+	session.startDate = session.loggedBreaths[1].time;
+	session.lastChirpDate = session.loggedBreaths[session.maxBreathNum].time;
 
   let n = session.playback.logEndBreath - session.playback.logStartBreath;
   if (n < 20) {

@@ -37,7 +37,7 @@ var SessionDataTemplate = {
     dbNamePrefix:  "",
     dbReady:  false,
     dbObjStoreName:  "",
-    allDbKeys:  {},
+    allDbKeys:  [],
   },
   
   // ////////////////////////////////////////////////////
@@ -292,8 +292,8 @@ var SessionDataTemplate = {
   // /////////////////////////////////////////////
   playback: {
     recVersion:             null,
-    logStartTime:           null,
-    logEndTime:             null,
+    logStartDate:           null,
+    logEndDate:             null,
     logStartBreath:         0,
     logEndBreath:           0,
   },
@@ -352,7 +352,6 @@ function createNewSession() {
 	session.select.range = cloneObject(rangeTemplate);
 
 	createAllParams();
-	rangeNumBased();
 }
 
 window.addEventListener("load", function() {
