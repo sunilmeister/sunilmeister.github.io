@@ -180,6 +180,7 @@ function enterBreathInterval () {
 
 function updateViewRange(view, moving, sliderMin, sliderMax) {
 	let range = null;
+	if (view == "snapshot") sliderMin = 0; // only the max counts because it is a point in time
 	if (session.rangeSelector.timeBased) {
 		range = createRangeTime(moving, new Date(sliderMin), new Date(sliderMax));
 	} else {
