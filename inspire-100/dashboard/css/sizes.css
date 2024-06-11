@@ -27,17 +27,17 @@
   --waveStripLineFontSize: 1.2;
   --waveStripLineThickness: 0.1;
 
-  --noUiTooltipSize: 0.6rem;
+  --noUiTooltipSize: 1rem;
 
   --colorLegendSize: 1rem;
-  --colorLegendFontSize: 0.9rem;
+  --colorLegendFontSize: 1rem;
 
   --columnPadding: 1rem;
-  --sidebarBtnHeight: 1.6rem;
-  --sidebarBtnWidth: 12rem;
-  --sidebarBtnFontSize: 1.2rem;
+  --sidebarBtnHeight: 2rem;
+  --sidebarBtnWidth: 14rem;
+  --sidebarBtnFontSize: 1.6rem;
   --sidebarBtnPadding: 0.35rem 0.35rem;
-  --sidebarBtnMargin: 0.15rem 0.15rem 0rem 0.6rem;
+  --sidebarBtnMargin: 0.3rem 0.3rem 0rem 1rem;
 
   --swalTextFontSize: 1.4rem;
   --swalTitleFontSize: 1.6rem;

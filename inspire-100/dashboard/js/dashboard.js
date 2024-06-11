@@ -385,7 +385,7 @@ function installTempGauge() {
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('TempGauge');
 	containerDiv.innerHTML = "";
-  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(5.6), fgColor, bgColor, -20, 70);
+  tempGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
 
@@ -435,7 +435,7 @@ window.onload = function () {
 	alignSidebar();
 
 	// After all the gauges are installed and sidebar aligned
-	setRootFontSize("fullDashboard", "fullDashboard");
+	setRootFontSize("fullDashboard", "sideMenuBar", 10);
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
@@ -464,7 +464,7 @@ function alignSidebar() {
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = "-" + String(convertPixelsToRem(menuBarHeight - 10)) + "rem";
-  nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth + 30)) + "rem";
+  nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth + 20)) + "rem";
 }
 
 function resizeChartsWaves() {

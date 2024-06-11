@@ -4,15 +4,15 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 15rem;
+  width: 20rem;
 	border-right: groove 0.5rem var(--rsp_mediumblue);
   padding-right: 1rem;
-  padding-top: 4rem;
+  padding-top: 1rem;
 }
 
 .sidebar {
-  width: 13rem;
-  font-size: 1.5rem;
+  width: 18rem;
+  font-size: 1.6rem;
   font-family: verdana;
   margin-left: 1rem;
   padding-top: 0.4rem;
