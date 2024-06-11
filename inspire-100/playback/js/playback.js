@@ -240,6 +240,7 @@ function selectSnapshots() {
   undisplayAllPanes();
 	resumeSnapshotsTimer();
 	session.snapshot.visible = true;
+	showRangeOnSlider(session.snapshot.range);
 	
   document.getElementById("snapshotsDiv").style.display = "inline-grid";
   document.getElementById("playbackWindowDiv").style.display = "block";
@@ -249,7 +250,6 @@ function selectSnapshots() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSnap").disabled = true;
 
-	setSliderMinMax();
   createSnapshots();
 }
 
@@ -259,6 +259,7 @@ function selectStats() {
 
   undisplayAllPanes();
 	session.stats.visible = true;
+	showRangeOnSlider(session.stats.range);
 	
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
@@ -268,7 +269,6 @@ function selectStats() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
 
-	setSliderMinMax();
   createAllStats();
 }
 
@@ -278,6 +278,7 @@ function selectAlerts() {
 
   undisplayAllPanes();
 	session.alerts.visible = true;
+	showRangeOnSlider(session.alerts.range);
 	
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
@@ -287,7 +288,6 @@ function selectAlerts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
 
-	setSliderMinMax();
   createAllAlerts();
 }
 
@@ -297,6 +297,7 @@ function selectWaves() {
 
   undisplayAllPanes();
 	session.waves.visible = true;
+	showRangeOnSlider(session.waves.range);
 	
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
@@ -306,7 +307,6 @@ function selectWaves() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnWave").disabled = true;
 
-	setSliderMinMax();
   createAllWaves();
 }
 
@@ -316,6 +316,7 @@ function selectCharts() {
 
   undisplayAllPanes();
 	session.charts.visible = true;
+	showRangeOnSlider(session.charts.range);
 	
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
@@ -325,7 +326,6 @@ function selectCharts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
 
-	setSliderMinMax();
   createAllCharts();
 }
 
@@ -353,13 +353,13 @@ function selectSearch() {
 
   undisplayAllPanes();
 	session.select.visible = true;
+	showRangeOnSlider(session.search.range);
 	
 	if (!session.search.criteria) {
 		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
 	}
   document.getElementById("playbackWindowDiv").style.display = "block";
   document.getElementById("searchDiv").style.display = "block";
-	setSliderMinMax();
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSearch").disabled = true;
@@ -502,7 +502,7 @@ function undisplayAllPanes() {
 
 function checkValidPlaybackDuration() {
   //return true;
-  let diff = visibleRangeTimeDuration();
+  let diff = findVisibleRangeTimeDuration();
   if (diff <= 0) {
     modalAlert("Playback EndTime must be greater than StartTime", "");
     return false;
@@ -522,7 +522,7 @@ function updateLogDuration() {
 
 function updateSelectedDuration() {
   let elm = document.getElementById("selectedTimeDuration");
-  let diff = visibleRangeTimeDuration();
+  let diff = findVisibleRangeTimeDuration();
   if (diff >= 0) {
     elm.innerHTML = msToHHMMSS(diff);
   } else {
@@ -530,7 +530,7 @@ function updateSelectedDuration() {
   }
 
   elm = document.getElementById("selectedBreathRange");
-  elm.innerHTML = String(visibleRangeMinBnum()) + '-' + visibleRangeMaxBnum();
+  elm.innerHTML = String(findVisibleRangeMinBnum()) + '-' + findVisibleRangeMaxBnum();
   elm = document.getElementById("priorNumBreaths");
   elm.innerHTML = String(session.startSystemBreathNum - 1);
 }
@@ -549,45 +549,37 @@ function refreshActivePane() {
 	} else if (session.search.visible) {
     updateSearchResults();
   }
-	setSliderMinMax();
 }
 
-function setSliderMinMax() {
-	let s = visibleRangeMinBnum();
-	let e = visibleRangeMaxBnum();
-  session.rangeSelector.rangeSlider.setSlider([s, e]);
+function autoRangeSliderChange() {
   updateSelectedDuration();
+  refreshActivePane();
 }
 
-function setTimeInterval() {
+function playbackRangeSliderCallback() {
   let values = session.rangeSelector.rangeSlider.getSlider();
   let s = parseInt(values[0]);
   let e = parseInt(values[1]);
 
-	updateVisibleViewRange(false, s, e);
-  session.rangeSelector.rangeSlider.setSlider([s, e]);
+  if (session.snapshot.visible) {
+		s = 0;
+	}
 
+	updateVisibleViewRange(false, s, e);
   updateSelectedDuration();
-  //resetPlaybackData();
   refreshActivePane();
 }
 
 function forwardTimeInterval() {
 	forwardRange();
-  updateSelectedDuration();
-  refreshActivePane();
 }
 
 function rewindTimeInterval() {
 	rewindRange();
-  updateSelectedDuration();
-  refreshActivePane();
 }
 
 function fullInterval() {
 	fullRange();
-  updateSelectedDuration();
-  refreshActivePane();
 }
 
 function playbackGatherDoneCallback() {
@@ -598,7 +590,7 @@ function playbackGatherDoneCallback() {
 
   session.playback.logStartBreath = 1;
   session.playback.logEndBreath = session.loggedBreaths.length - 1;
-	session.maxBreathNum =  session.playback.logEndBreath;
+	session.maxBreathNum = session.playback.logEndBreath;
 
 	session.playback.logStartDate = session.loggedBreaths[1].time;
 	session.playback.logEndDate = session.loggedBreaths[session.maxBreathNum].time;
@@ -608,9 +600,9 @@ function playbackGatherDoneCallback() {
 
   let n = session.playback.logEndBreath - session.playback.logStartBreath;
   if (n < 20) {
-		updateAllRanges(false, session.playback.logStartBreath, session.playback.logEndBreath);
+		updateAllRanges(false, 0, session.playback.logEndBreath);
   } else {
-		updateAllRanges(false, session.playback.logStartBreath, session.playback.logStartBreath + 19);
+		updateAllRanges(false, 0, session.playback.logStartBreath + 19);
   }
 
   if (session.playback.logEndBreath == 0) {
@@ -725,7 +717,7 @@ function createPlaybackRangeSlider() {
   }
 
   session.rangeSelector.rangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
-  session.rangeSelector.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMinBnum()]);
+  session.rangeSelector.rangeSlider.setSlider([findVisibleRangeMinBnum(), findVisibleRangeMinBnum()]);
 
   let elm = document.getElementById("playbackWindowDiv");
   elm.style.display = "none";
@@ -737,9 +729,5 @@ function createPlaybackRangeSlider() {
   if (session.playback.logEndBreath == 0) {
     modalAlert("No recorded breath for this session", "");
   }
-}
-
-function playbackRangeSliderCallback() {
-  setTimeInterval();
 }
 

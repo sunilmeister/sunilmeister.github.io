@@ -11,27 +11,19 @@ function createDashboardSearch() {
 }
 
 function movingSearchRange() {
-  let minBnum = session.maxBreathNum - SEARCH_NUM_ROLLING_BREATHS + 1;
+	let numBreaths = session.loggedBreaths.length - 1;
+  let minBnum = numBreaths - SEARCH_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 0;
-  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
+	let range = createRangeBnum(true, minBnum, numBreaths);
+	updateVisibleViewRangeObject(range);
+	showRangeOnSlider(range);
 }
 
 function updateSearchRange() {
-	updateVisibleRangeLimits();
-
-  // if range is not "full"
-  if (!session.search.range.moving) return;
+	updateRangeSliderWindow(session.search.range);
   if (session.search.range.moving) movingSearchRange();
-
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
-  stopSliderCallback = false;
 }
 
 function updateSearchRangeOnEntry() {
-  if (!session.search.range.moving) return;
-  movingSearchRange();
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.search.range.minBnum, session.search.range.maxBnum]);
-  stopSliderCallback = false;
+  if (session.search.range.moving) movingSearchRange();
 }

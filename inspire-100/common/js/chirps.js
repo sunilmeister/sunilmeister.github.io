@@ -935,7 +935,7 @@ function updateLoggedBreaths(breathTime, dummy) {
 	//console.log("prevBreathNum", prevBreathNum, "prevBreathTime", prevBreathTime);
 
   session.loggedBreaths.push({time:breathTime, missed:dummy});
-	session.params.breathNum.AddTimeValue(breathTime, len + 1);
+	session.params.breathNum.AddTimeValue(breathTime, len);
 
 	if (prevBreathNum == 0) { // first breath
 		session.params.errorTag.AddTimeValue(prevBreathTime,false);

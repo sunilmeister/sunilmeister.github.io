@@ -19,31 +19,16 @@ function movingWaveRange() {
   } else {
     minBnum = 0;
   }
-  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
+	let range = createRangeBnum(true, minBnum, session.maxBreathNum);
+	updateVisibleViewRangeObject(range);
+	showRangeOnSlider(range);
 }
 
 function updateWaveRange() {
-	updateVisibleRangeLimits();
-
-  if (!session.waves.range.moving) return;
-  if (session.waves.range.moving) {
-    if (session.waves.range.moving && session.waves.pwData.length > WAVE_NUM_ROLLING_BREATHS) {
-      movingWaveRange();
-    } else {
-      updateVisibleViewRange(true, 0, session.maxBreathNum);
-    }
-
-    stopSliderCallback = true;
-    session.rangeSelector.rangeSlider.setSlider([session.waves.range.minBnum, session.waves.range.maxBnum]);
-    stopSliderCallback = false;
-  }
+	updateRangeSliderWindow(session.waves.range);
+  if (session.waves.range.moving) movingWaveRange();
 }
 
 function updateWaveRangeOnEntry() {
-  if (!session.waves.range.moving) return;
-
-  movingWaveRange();
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.waves.range.minBnum, session.waves.range.maxBnum]);
-  stopSliderCallback = false;
+  if (session.waves.range.moving) movingWaveRange();
 }

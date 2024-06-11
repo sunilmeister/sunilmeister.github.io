@@ -11,27 +11,19 @@ function createDashboardAlerts() {
 }
 
 function movingAlertRange() {
-  let minBnum = session.maxBreathNum - ALERT_NUM_ROLLING_BREATHS + 1;
+	let numBreaths = session.loggedBreaths.length - 1;
+  let minBnum = numBreaths - ALERT_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 0;
-  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
+	let range = createRangeBnum(true, minBnum, numBreaths);
+	updateVisibleViewRangeObject(range);
+	showRangeOnSlider(range);
 }
 
 function updateAlertRange() {
-	updateVisibleRangeLimits();
-
-  // if range is not "full"
-  if (!session.alerts.range.moving) return;
+	updateRangeSliderWindow(session.alerts.range);
   if (session.alerts.range.moving) movingAlertRange();
-
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.alerts.range.minBnum, session.alerts.range.maxBnum]);
-  stopSliderCallback = false;
 }
 
 function updateAlertRangeOnEntry() {
-  if (!session.alerts.range.moving) return;
-  movingAlertRange();
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.alerts.range.minBnum, session.alerts.range.maxBnum]);
-  stopSliderCallback = false;
+  if (session.alerts.range.moving) movingAlertRange();
 }

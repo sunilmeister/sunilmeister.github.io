@@ -202,14 +202,6 @@ function blinkPauseButton() {
   }
 }
 
-function setSliderMinMax() {
-	let s = visibleRangeMinBnum();
-	let e = visibleRangeMaxBnum();
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([s, e]);
-  stopSliderCallback = false;
-}
-
 function undisplayAllViews() {
   document.getElementById("btnSnapshots").disabled = false;
   document.getElementById("btnCharts").disabled = false;
@@ -245,12 +237,12 @@ function changeToSnapshotView() {
   if (updatePaused) togglePause();
 
 	session.snapshot.visible = true;
+	showRangeOnSlider(session.snapshot.range);
 	resumeSnapshotsTimer();
 
   document.getElementById("btnSnapshots").disabled = true;
   document.getElementById("snapshot-pane").style.display = "inline-grid";
   rangeWindowDiv.style.display = "block";
-	setSliderMinMax();
 
   updateSnapshotRangeOnEntry();
   createDashboardSnapshots();
@@ -260,11 +252,11 @@ function changeToChartView() {
 	undisplayAllViews();
   if (updatePaused) togglePause();
 	session.charts.visible = true;
+	showRangeOnSlider(session.charts.range);
 
   document.getElementById("btnCharts").disabled = true;
   document.getElementById("chart-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
-	setSliderMinMax();
 
   updateChartRangeOnEntry();
   createDashboardCharts();
@@ -274,11 +266,11 @@ function changeToWaveView() {
 	undisplayAllViews();
   if (updatePaused) togglePause();
 	session.waves.visible = true;
+	showRangeOnSlider(session.waves.range);
 
   document.getElementById("btnWaves").disabled = true;
   document.getElementById("waves-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
-	setSliderMinMax();
 
   updateWaveRangeOnEntry();
   createDashboardWaves();
@@ -288,11 +280,11 @@ function changeToStatView() {
 	undisplayAllViews();
   if (updatePaused) togglePause();
 	session.stats.visible = true;
+	showRangeOnSlider(session.stats.range);
 
   document.getElementById("btnStats").disabled = true;
   document.getElementById("stat-pane").style.display = "block";
 	rangeWindowDiv.style.display = "block";
-	setSliderMinMax();
 
   updateStatRangeOnEntry();
   createDashboardStats();
@@ -302,11 +294,11 @@ function changeToAlertView() {
 	undisplayAllViews();
   if (updatePaused) togglePause();
 	session.alerts.visible = true;
+	showRangeOnSlider(session.alerts.range);
 
   document.getElementById("btnAlerts").disabled = true;
   document.getElementById("alert-pane").style.display = "block";
 	rangeWindowDiv.style.display = "block";
-	setSliderMinMax();
 
   updateAlertRangeOnEntry();
   createDashboardAlerts();
@@ -315,11 +307,11 @@ function changeToAlertView() {
 function changeToSearchView() {
 	undisplayAllViews();
 	session.search.visible = true;
+	showRangeOnSlider(session.search.range);
 
   document.getElementById("btnSearch").disabled = true;
   document.getElementById("searchDiv").style.display = "block";
 	rangeWindowDiv.style.display = "block";
-	setSliderMinMax();
 
 	if (!session.search.criteria) {
 		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
@@ -541,16 +533,14 @@ function rangeSliderCallback() {
   if (stopSliderCallback) return;
   let values = session.rangeSelector.rangeSlider.getSlider();
 
-  let bmin = parseInt(values[0]);
-  let bmax = parseInt(values[1]);
+  let min = parseInt(values[0]);
+  let max = parseInt(values[1]);
 	if (session.snapshot.visible) {
-		bmin = 0;
+		min = 0;
 	}
 
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([bmin, bmax]);
-  stopSliderCallback = false;
-	setTimeInterval();
+ 	updateVisibleViewRange(false, min, max);
+  createDashboards();
 }
 
 function outIconButton(btn) {
@@ -576,12 +566,9 @@ function setBackGroundBreathWindowButton(id, bgd) {
   el.style.opacity = 1;
 }
 
-function setTimeInterval() {
-  let values = session.rangeSelector.rangeSlider.getSlider();
-  let bmin = parseInt(values[0]);
-  let bmax = parseInt(values[1]);
- 	updateVisibleViewRange(false, bmin, bmax);
-
+function autoRangeSliderChange() {
+	// range object already updated
+	// slider endpoints already updated
   createDashboards();
 }
 
@@ -596,7 +583,7 @@ function playPauseTimeInterval() {
   updateVisibleViewRange(true, 1, session.maxBreathNum);
 
   stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([visibleRangeMinBnum(), visibleRangeMaxBnum()]);
+  session.rangeSelector.rangeSlider.setSlider([findVisibleRangeMinBnum(), findVisibleRangeMaxBnum()]);
   stopSliderCallback = false;
 
   if (session.snapshot.visible) updateSnapshotRange();

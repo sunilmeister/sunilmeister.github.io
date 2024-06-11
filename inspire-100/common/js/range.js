@@ -4,7 +4,11 @@
 
 var pickedDate = null;
 
-// returns a range object
+// ////////////////////////////////////////////////////////////
+// Below are many utility functions that manipulate ranges
+// ////////////////////////////////////////////////////////////
+
+// minBnum and maxBnum are breath numbers
 function createRangeBnum(moving, minBnum, maxBnum) {
   let range = cloneObject(rangeTemplate);
 	if (session.maxBreathNum > 0) {
@@ -30,9 +34,11 @@ function createRangeBnum(moving, minBnum, maxBnum) {
 
   range.missingBnum = cloneObject(session.missingBreathWindows);
   range.missingTime = cloneObject(session.missingTimeWindows);
+	//console.error("createRangeBnum",range);
   return range;
 }
 
+// minTime and maxTime are Date objects
 function createRangeTime(moving, minTime, maxTime) {
   let range = cloneObject(rangeTemplate);
 
@@ -42,11 +48,13 @@ function createRangeTime(moving, minTime, maxTime) {
 
 	let minBnum = lookupBreathNum(minTime);
 	let maxBnum = lookupBreathNum(maxTime);
+
   range.minBnum = minBnum;
   range.maxBnum = maxBnum;
 
   range.missingBnum = cloneObject(session.missingBreathWindows);
   range.missingTime = cloneObject(session.missingTimeWindows);
+	//console.error("createRangeTime",range);
   return range;
 }
 
@@ -54,9 +62,6 @@ function updateSliderEndpoints(start, end) {
  	stopSliderCallback = true;
  	session.rangeSelector.rangeSlider.setSlider([start, end]);;
  	stopSliderCallback = false;
-
-	// call the main app to respond to the slider change
-	setTimeInterval();
 }
 
 function showRangeOnSlider(range) {
@@ -73,68 +78,40 @@ function findVisibleView() {
 		if (session[view].visible) return view;
 	}
 	console.error("No visible view");
+	return null;
 }
 
 // Each view's range is independant
-function updateVisibleViewRange(moving, minBnum, maxBnum) {
-	let range = createRange(moving, minBnum, maxBnum);
+function updateAllRanges(moving, sliderMin, sliderMax) {
 	for (let i=0; i<session.allSessionViews.length; i++) {
 		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			session[view].range = cloneObject(range);
-			break;
-		}
+		updateViewRange(view, moving, sliderMin, sliderMax);
 	}
 }
 
-function updateAllRanges(moving, minBnum, maxBnum) {
-	let range = createRange(moving, minBnum, maxBnum);
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		session[view].range = cloneObject(range);
-	}
-}
-
-function updateAllRangesExceptSearch(moving, minBnum, maxBnum) {
-	let range = createRange(moving, minBnum, maxBnum);
+function updateAllRangesExceptSearch(moving, sliderMin, sliderMax) {
 	for (let i=0; i<session.allSessionViews.length; i++) {
 		let view = session.allSessionViews[i];
 		if (view == "search") continue;
-		session[view].range = cloneObject(range);
+		updateViewRange(view, moving, sliderMin, sliderMax);
 	}
 }
 
+// toggle between play and pause
 function pauseVisibleRange() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			session[view].range.moving = false;
-			break;
-		}
-	}
+	let view = findVisibleView();
+	session[view].range.moving = false;
 }
 
 // toggle between play and pause
 function playVisibleRange() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			session[view].range.moving = true;
-			break;
-		}
-	}
+	let view = findVisibleView();
+	session[view].range.moving = true;
 }
 
-// toggle between play and pause
-function visibleViewRange() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return session[view].range;
-		}
-	}
-	console.error("No visible view");
-	return null;
+function findVisibleViewRange() {
+	let view = findVisibleView();
+	return session[view].range;
 }
 
 function isSomeViewVisible() {
@@ -147,65 +124,34 @@ function isSomeViewVisible() {
 	return false;
 }
 
-// Query - is the visible range in play mode
 function isVisibleRangeMoving() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return session[view].range.moving;
-		}
-	}
-	console.error("No visible view");
-	return false;
+	let view = findVisibleView();
+	return session[view].range.moving;
 }
 
-function visibleRangeMinBnum() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return session[view].range.minBnum;
-		}
-	}
-	console.error("No visible view");
-	return null;
+function findVisibleRangeMinBnum() {
+	let view = findVisibleView();
+	return session[view].range.minBnum;
 }
 
-function visibleRangeMaxBnum() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return session[view].range.maxBnum;
-		}
-	}
-	console.error("No visible view");
-	return null;
+function findVisibleRangeMaxBnum() {
+	let view = findVisibleView();
+	return session[view].range.maxBnum;
 }
 
-function visibleRangeMinTime() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return session[view].range.minTime;
-		}
-	}
-	console.error("No visible view");
-	return null;
+function findVisibleRangeMinTime() {
+	let view = findVisibleView();
+	return session[view].range.minTime;
 }
 
-function visibleRangeMaxTime() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return session[view].range.maxTime;
-		}
-	}
-	console.error("No visible view");
-	return null;
+function findVisibleRangeMaxTime() {
+	let view = findVisibleView();
+	return session[view].range.maxTime;
 }
 
-function visibleRangeTimeDuration() {
-	let s = visibleRangeMinTime();
-	let e = visibleRangeMaxTime();
+function findVisibleRangeTimeDuration() {
+	let s = findVisibleRangeMinTime();
+	let e = findVisibleRangeMaxTime();
 	if ((s===null) || (e===null)) return 0;
 
 	return e.getTime() - s.getTime();
@@ -213,46 +159,14 @@ function visibleRangeTimeDuration() {
 
 // query - has the range changed since the time this view was displayed
 function isVisibleRangeChanged() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			return !equalObjects(session[view].range, session[view].prevRange);
-		}
-	}
-	console.error("No visible view");
-	return null;
+	let view = findVisibleView();
+	return !equalObjects(session[view].range, session[view].prevRange);
 }
 
 // update the prevRange to reflect the currently displayed range
 function updateVisiblePrevRange() {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			session[view].prevRange = cloneObject(session[view].range);
-			return;
-		}
-	}
-	console.error("No visible view");
-}
-
-function updateSelectedSliderMinMax(bmin, bmax) {
-	for (let i=0; i<session.allSessionViews.length; i++) {
-		let view = session.allSessionViews[i];
-		if (session[view].visible) {
-			session[view].range = createRange(bmin, bmax);
-			break;
-		}
-	}
-
- 	stopSliderCallback = true;
- 	session.rangeSelector.rangeSlider.setSlider([bmin, bmax]);;
- 	stopSliderCallback = false;
-}
-
-function updateVisibleRangeLimits() {
-  let rangeMax = session.maxBreathNum;
-	if (rangeMax == 0) rangeMax = 1;
-  session.rangeSelector.rangeSlider.setRange([0, rangeMax]);
+	let view = findVisibleView();
+	session[view].prevRange = cloneObject(session[view].range);
 }
 
 function enterBreathInterval () {
@@ -264,6 +178,32 @@ function enterBreathInterval () {
 	}
 }
 
+function updateViewRange(view, moving, sliderMin, sliderMax) {
+	let range = null;
+	if (session.rangeSelector.timeBased) {
+		range = createRangeTime(moving, new Date(sliderMin), new Date(sliderMax));
+	} else {
+		range = createRangeBnum(moving, sliderMin, sliderMax);
+	}
+
+	session[view].range = cloneObject(range);
+}
+
+function updateVisibleViewRange(moving, sliderMin, sliderMax) {
+	let view = findVisibleView();
+	updateViewRange(view, moving, sliderMin, sliderMax);
+	showRangeOnSlider(session[view].range);
+}
+
+function updateVisibleViewRangeObject(range) {
+	let view = findVisibleView();
+	session[view].range = cloneObject(range);
+	showRangeOnSlider(session[view].range);
+}
+
+// ////////////////////////////////////////////////////////////
+// Below are responses to buttons on the range selector
+// ////////////////////////////////////////////////////////////
 function acceptBreathNumRange() {
 	let fromBreath = Number(document.getElementById("rangeFromBnum").value);
   let numBreaths = Number(document.getElementById("rangeNumBreaths").value);
@@ -284,11 +224,9 @@ function acceptBreathNumRange() {
   	}
 	}
 
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([fromBreath, toBreath]);
-  stopSliderCallback = false;
-
-  setTimeInterval();
+	let view = findVisibleView();
+	session[view].range = createRangeBnum(false, fromBreath, toBreath);
+	showRangeOnSlider(session[view].range);
 
   document.getElementById("enterRangeDiv").style.display = "none";
 }
@@ -304,7 +242,6 @@ function acceptBreathTimeRange() {
 	// duration is irreleveant for snapshot view
 	if (!session.snapshot.visible) {
 		let arr = duration.split(':'); // split it at the colons
-		//console.log("arr", arr);
 		if (arr.length != 3) {
     	modalAlert("Invalid Range Duration", "Try again!");
     	return;
@@ -318,34 +255,17 @@ function acceptBreathTimeRange() {
 	}
 
 	let toTime = addMsToDate(fromTime, seconds*1000);
-	
-	//console.log("fromTime", fromTime);
-	//console.log("toTime", toTime);
-	let fromBreath = null;
-	let toBreath = null;
+	let range = null;
 	if (session.snapshot.visible) {
-		if (session.maxBreathNum > 0) fromBreath = 1;
-		else fromBreath = 0;
-		toBreath = lookupBreathNum(fromTime);
+		range = createRangeTime(false, session.startDate, fromTime);
 	} else {
-		fromBreath = lookupBreathNum(fromTime);
-		toBreath = lookupBreathNum(toTime);
+		range = createRangeTime(false, fromTime, toTime);
 	}
-	//console.log("fromBreath", fromBreath);
-	//console.log("toBreath", toBreath);
-
-	if (!fromBreath || !toBreath) {
-    modalAlert("Invalid Breath Range", "Try again!");
-    return;
-	}
-
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([fromBreath, toBreath]);
-  stopSliderCallback = false;
-
-  setTimeInterval();
-
- document.getElementById("enterRangeDiv").style.display = "none";
+	
+	let view = findVisibleView();
+	session[view].range = cloneObject(range);
+	showRangeOnSlider(session[view].range);
+ 	document.getElementById("enterRangeDiv").style.display = "none";
 }
 
 function acceptBreathRange () {
@@ -358,8 +278,8 @@ function cancelBreathRange () {
 }
 
 function enterRangeBnum() {
-	let minBnum = visibleRangeMinBnum();
-	let maxBnum = visibleRangeMaxBnum();
+	let minBnum = findVisibleRangeMinBnum();
+	let maxBnum = findVisibleRangeMaxBnum();
 
 	document.getElementById("rangeFromBnum").value = minBnum;
 	if (session.snapshot.visible) {
@@ -380,8 +300,8 @@ function enterRangeBtime() {
 	let startDate = session.startDate;
 	if (!startDate) startDate = new Date();
 
-	let minTime = visibleRangeMinTime();
-	let maxTime = visibleRangeMaxTime();
+	let minTime = findVisibleRangeMinTime();
+	let maxTime = findVisibleRangeMaxTime();
 
 	let ms, msStr;
 	if (minTime) { // for dashboard before any breath logged
@@ -430,8 +350,8 @@ function enterRangeBtime() {
 function showCurrentRangeTimes() {
 	if (!isSomeViewVisible()) return;
 
-	let minBnum = visibleRangeMinBnum();
-	let maxBnum = visibleRangeMaxBnum();
+	let minBnum = findVisibleRangeMinBnum();
+	let maxBnum = findVisibleRangeMaxBnum();
 
 	if (maxBnum < minBnum) {
 		document.getElementById('fromRangeDay').innerHTML = "---";
@@ -451,8 +371,8 @@ function showCurrentRangeTimes() {
 	document.getElementById('toRangeBnum').innerHTML = maxBnum;
 	document.getElementById('spanRangeBnum').innerHTML = maxBnum - minBnum + 1;
 
-	let minTime = visibleRangeMinTime();
-	let maxTime = visibleRangeMaxTime();
+	let minTime = findVisibleRangeMinTime();
+	let maxTime = findVisibleRangeMaxTime();
 
 	if ((minTime === null) || (maxTime === null)) {
 		document.getElementById('fromRangeDay').innerHTML = "--";
@@ -504,65 +424,122 @@ function showCurrentRangeTimes() {
 
 function fullRange() {
   let values = session.rangeSelector.rangeSlider.getRange();
-  let bmin = parseInt(values[0]);
-  let bmax = parseInt(values[1]);
+  let min = parseInt(values[0]);
+  let max = parseInt(values[1]);
 
-	updateSelectedSliderMinMax(bmin, bmax);
+	updateVisibleViewRange(false, min, max);
+	autoRangeSliderChange();
 }
 
 function forwardRange() {
   let values = session.rangeSelector.rangeSlider.getRange();
-  let minRange = parseInt(values[0]);
-  let maxRange = parseInt(values[1]);
-	if (maxRange <= 1) return;
+  let sliderMinRange = parseInt(values[0]); // could be time-based or breath numbers
+  let sliderMaxRange = parseInt(values[1]); // could be time-based or breath numbers
+	if (sliderMaxRange <= 1) return;
 
-	let bmin = visibleRangeMinBnum();
-	let bmax = visibleRangeMaxBnum();
-	let span = bmax - bmin + 1;
+  values = session.rangeSelector.rangeSlider.getSlider();
+  let sliderMin = parseInt(values[0]); // could be time-based or breath numbers
+  let sliderMax = parseInt(values[1]); // could be time-based or breath numbers
+	let sliderSpan = sliderMax - sliderMin + 1;
+	//console.log("forward sliderMin",sliderMin,"sliderMax",sliderMax,"sliderSpan",sliderSpan);
 
-	if (session.snapshot.visible) {
-		bmax++;
-		if (bmax > session.maxBreathNum) bmax = session.maxBreathNum;
-	} else if ((bmax + span) > maxRange) {
-		bmax = maxRange;
+	if (session.rangeSelector.timeBased) {
+		// All slider values are time-based
+		// calculate sliderMax
+		if (session.snapshot.visible) {
+			sliderMax += (SNAPSHOT_FORWARD_SPAN_IN_SECS * 1000);
+			if (sliderMax > sliderMaxRange) sliderMax = sliderMaxRange;
+		} else if ((sliderMax + sliderSpan) > sliderMaxRange) {
+			sliderMax = sliderMaxRange;
+		} else {
+			sliderMax += sliderSpan;
+		}
+
+		// calculate sliderMin
+		if (session.snapshot.visible) {
+			sliderMin = 0;
+		} else {
+			sliderMin = sliderMax - sliderSpan + 1;
+		}
 	} else {
-		bmax += span;
+
+		// All slider values are breath numbers
+		// calculate sliderMax
+		if (session.snapshot.visible) {
+			sliderMax++;
+			if (sliderMax > session.sliderMaxBreathNum) {
+				sliderMax = session.sliderMaxBreathNum;
+			}
+		} else if ((sliderMax + sliderSpan) > sliderMaxRange) {
+			sliderMax = sliderMaxRange;
+		} else {
+			sliderMax += sliderSpan;
+		}
+
+		// calculate sliderMin
+		if (session.snapshot.visible) {
+			sliderMin = 0;
+		} else {
+			sliderMin = sliderMax - sliderSpan + 1;
+		}
 	}
 
-	if (session.snapshot.visible) {
-		bmin = 0;
-	} else {
-		bmin = bmax - span + 1;
-	}
-	updateSelectedSliderMinMax(bmin, bmax);
+	updateVisibleViewRange(false, sliderMin, sliderMax);
+	autoRangeSliderChange();
 }
 
 function rewindRange() {
   let values = session.rangeSelector.rangeSlider.getRange();
-  let minRange = parseInt(values[0]);
-  let maxRange = parseInt(values[1]);
-	if (maxRange <= 1) return;
+  let sliderMinRange = parseInt(values[0]); // could be time-based or breath numbers
+  let sliderMaxRange = parseInt(values[1]); // could be time-based or breath numbers
+	if (sliderMaxRange <= 1) return;
 
-	let bmin = visibleRangeMinBnum();
-	let bmax = visibleRangeMaxBnum();
-	let span = bmax - bmin + 1;
+  values = session.rangeSelector.rangeSlider.getSlider();
+  let sliderMin = parseInt(values[0]); // could be time-based or breath numbers
+  let sliderMax = parseInt(values[1]); // could be time-based or breath numbers
+	let sliderSpan = sliderMax - sliderMin + 1;
+	//console.log("rewind sliderMin",sliderMin,"sliderMax",sliderMax,"sliderSpan",sliderSpan);
 
-	if (session.snapshot.visible) {
-		bmin = 0;
-	} else if ((bmin - span) < minRange) {
-		bmin = minRange;
+	if (session.rangeSelector.timeBased) {
+		// All slider values are time-based
+		// calculate sliderMin
+		if (session.snapshot.visible) {
+			sliderMin -= (SNAPSHOT_REWIND_SPAN_IN_SECS * 1000);
+			if (sliderMin < sliderMinRange) sliderMin = sliderMinRange;
+		} else if ((sliderMin - sliderSpan) < sliderMinRange) {
+			sliderMin = sliderMinRange;
+		} else {
+			sliderMin -= sliderSpan;
+		}
+
+		// calculate sliderMax
+		if (session.snapshot.visible) {
+			sliderMax -= (SNAPSHOT_REWIND_SPAN_IN_SECS * 1000);
+			if (sliderMax<sliderMinRange) {
+				sliderMax = sliderMinRange + SNAPSHOT_REWIND_SPAN_IN_SECS;
+			}
+		} else {
+			sliderMax = sliderMin + sliderSpan - 1;
+		}
 	} else {
-		bmin -= span;
+		if (session.snapshot.visible) {
+			sliderMin = 0;
+		} else if ((sliderMin - sliderSpan) < sliderMinRange) {
+			sliderMin = sliderMinRange;
+		} else {
+			sliderMin -= sliderSpan;
+		}
+
+		if (session.snapshot.visible) {
+			sliderMax--;
+			if (sliderMax < 1) sliderMax = 1;
+		} else {
+			sliderMax = sliderMin + sliderSpan - 1;
+		}
 	}
 
-	if (session.snapshot.visible) {
-		bmax--;
-		if (bmax < 1) bmax = 1;
-	} else {
-		bmax = bmin + span - 1;
-	}
-
-	updateSelectedSliderMinMax(bmin, bmax);
+	updateVisibleViewRange(false, sliderMin, sliderMax);
+	autoRangeSliderChange();
 }
 
 function updateRangeSliderWindow(range) {
@@ -591,14 +568,14 @@ function rangeTimeBased() {
 	document.getElementById("btnNumBased").style.backgroundColor = "white";
 	document.getElementById("btnTimeBased").style.backgroundColor = palette.blue;
 	session.rangeSelector.timeBased = true;
-	updateRangeSliderWindow(visibleViewRange());
+	updateRangeSliderWindow(findVisibleViewRange());
 }
 
 function rangeNumBased() {
 	document.getElementById("btnNumBased").style.backgroundColor = palette.blue;
 	document.getElementById("btnTimeBased").style.backgroundColor = "white";
 	session.rangeSelector.timeBased = false;
-	updateRangeSliderWindow(visibleViewRange());
+	updateRangeSliderWindow(findVisibleViewRange());
 }
 
 window.addEventListener("load", function() {

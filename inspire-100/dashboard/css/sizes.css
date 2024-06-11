@@ -2,7 +2,7 @@
   --chartContainerPadding: 25rem;
   --chartBodyHeight: 22rem;
   --chartMenuIndent: 1rem;
-  --chartMenuFontSize: 1rem;
+  --chartMenuFontSize: 1.3rem;
   --chartMenuBannerHeight: 2rem;
   --chartMenuIconSize: 1rem;
 
@@ -16,7 +16,7 @@
   --waveContainerPadding: 25rem;
   --waveBodyHeight: 22rem;
   --waveMenuIndent: 1rem;
-  --waveMenuFontSize: 1rem;
+  --waveMenuFontSize: 1.3rem;
   --waveMenuBannerHeight: 2rem;
   --waveMenuIconSize: 1.5rem;
 

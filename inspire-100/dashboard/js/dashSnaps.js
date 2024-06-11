@@ -10,26 +10,15 @@ function createDashboardSnapshots() {
 }
 
 function movingSnapshotRange() {
-  let minBnum = 0;
-  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
+	let range = createRangeBnum(true, 0, session.maxBreathNum);
+	updateVisibleViewRangeObject(range);
 }
 
 function updateSnapshotRange() {
-	updateVisibleRangeLimits();
-
-  // if range is not "full"
-  if (!session.snapshot.range.moving) return;
+	updateRangeSliderWindow(session.snapshot.range);
   if (session.snapshot.range.moving) movingSnapshotRange();
-
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
-  stopSliderCallback = false;
 }
 
 function updateSnapshotRangeOnEntry() {
-  if (!session.snapshot.range.moving) return;
-  movingSnapshotRange();
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.snapshot.range.minBnum, session.snapshot.range.maxBnum]);
-  stopSliderCallback = false;
+  if (session.snapshot.range.moving) movingSnapshotRange();
 }

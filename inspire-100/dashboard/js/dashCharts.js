@@ -13,28 +13,19 @@ function createDashboardCharts() {
 ////////////////////////////////////////////////////////
 
 function movingChartRange() {
-  let minBnum = session.maxBreathNum - CHART_NUM_ROLLING_BREATHS + 1;
+	let numBreaths = session.loggedBreaths.length - 1;
+  let minBnum = numBreaths - CHART_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 0;
-  updateVisibleViewRange(true, minBnum, session.maxBreathNum);
+	let range = createRangeBnum(true, minBnum, numBreaths);
+	updateVisibleViewRangeObject(range);
+	showRangeOnSlider(range);
 }
 
 function updateChartRange() {
-	updateVisibleRangeLimits();
-
-  // if range is not "full"
-  if (!session.charts.range.moving) return;
+	updateRangeSliderWindow(session.charts.range);
   if (session.charts.range.moving) movingChartRange();
-
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
-  stopSliderCallback = false;
 }
 
 function updateChartRangeOnEntry() {
-  if (!session.charts.range.moving) return;
-  movingChartRange();
-
-  stopSliderCallback = true;
-  session.rangeSelector.rangeSlider.setSlider([session.charts.range.minBnum, session.charts.range.maxBnum]);
-  stopSliderCallback = false;
+  if (session.charts.range.moving) movingChartRange();
 }
