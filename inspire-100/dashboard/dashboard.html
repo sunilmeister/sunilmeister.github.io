@@ -537,7 +537,7 @@
       </div>
     </div>
 
-  <div id=fullDashboard style="width:120rem;min-height:60rem;">
+  <div id=fullDashboard style="width:130rem;min-height:60rem;">
     <div id=sideMenuBar class=sidebarColumn>
       <div class=sidebar>
 
@@ -637,17 +637,19 @@
       <div id=rangeWindowDiv class=rangeWindowCls>
         <div id=rangeSliderDiv style="padding-left:0.3rem; padding-right:0.3rem;font-size:0.6rem; height:1.3rem;">
         </div>
-        <div style="background-color:var(--rsp_green); color:var(--rsp_brightgreen); margin-top: 0.6rem; padding-bottom:1.2rem;">
+        <div style="background-color:var(--rsp_darkblue); color:white; margin-top: 1.2rem; padding-bottom:0.9rem; padding-top:0.4rem; padding-left:0.4rem; padding-right:0.4rem;">
 
 
-					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Manual Edit' style="float:right; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/pause.png" id=btnPlayInterval class=iconButton onClick='playPauseTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Play/Pause' style="float:left; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:1.8rem; height:1.8rem;">
-					<img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:1.8rem; height:1.8rem;">
+					<img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Manual Edit' style="float:right; width:2rem; height:2rem;">
+					<img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:2rem; height:2rem;">
+					<img src="../common/img/pause.png" id=btnPlayInterval class=iconButton onClick='playPauseTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Play/Pause' style="float:left; width:2rem; height:2rem;">
+					<img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:2rem; height:2rem;">
+					<img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:2rem; height:2rem;">
+					<img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:2rem; height:2rem;">
           <center>
-            <p id=sliderCaption style="margin-top: 0.7rem; margin-bottom:-0.8rem; font-size:1.8rem; "> Breath Range Selector
+						<img src="../common/img/123.png" id=btnNumBased class=iconButton onClick='rangeNumBased(this)' title='Breath Numbers' style="background-color:var(--rsp_blue); margin-top:-1.6rem; margin-bottom:-1rem; width:2rem; height:2rem; display:inline-block;">
+						<p id=sliderCaption style="margin-top: 0rem; margin-bottom:-1.6rem; font-size:2rem; display:inline-block;">Breath Range Selector</p>
+						<img src="../common/img/clock.png" id=btnTimeBased class=iconButton onClick='rangeTimeBased(this)' title='Wall Time' style="margin-top:-1.6rem; margin-bottom:-1rem; width:2rem; height:2rem; display:inline-block;">
           </center>
 
         </div>
@@ -691,7 +693,7 @@
 						<br>
 						<div class=searchResultsCaptionCls>
 						<h4 id=searchResultsCaption style=margin:0rem;">SEARCH RESULTS</h4>
-						<p id=setMatchingRange onclick='setRangeSelectorForSelectedBreaths()' style="margin-bottom:0.5rem; font-size:1.2rem; cursor:pointer;"></p>
+						<p id=setMatchingRange onclick='setRangeSelectorForSelectedBreaths()' style="margin-bottom:0.5rem; font-size:1.2rem; cursor:pointer;">
 						</div>
 						<br>
 						<table id=searchResultsTbl class=searchResultsTblCls>
