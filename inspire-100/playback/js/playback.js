@@ -33,11 +33,11 @@ function listDbTableRow(item, index) {
   cell.innerHTML = nameTm[2];
 
   cell = row.insertCell();
-  cell.innerHTML = selectButtonHTML("selectRowBtn", 1.5, "Select");
+  cell.innerHTML = selectButtonHTML("selectRowBtn", 2, "Select");
   cell = row.insertCell();
-  cell.innerHTML = exportButtonHTML("exportRowBtn", 1.5, "Export");
+  cell.innerHTML = exportButtonHTML("exportRowBtn", 2, "Export");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("deleteRowBtn", 1.5, "Delete");
+  cell.innerHTML = trashButtonHTML("deleteRowBtn", 2, "Delete");
 
   // Highlight selected database
   banner = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';

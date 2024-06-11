@@ -34,10 +34,10 @@ function plusButtonHTML(onClickFunction, size, title) {
 
 function iconButtonHTML(pngFileName, size, onClickFunction, title) {
   let className = "iconButton";
-  let htmlStr = '<button class="' + className + '" title="' + title + '"' +
+  let htmlStr = '<img  src="../common/img/' + pngFileName + '.png"' +
+		' class="' + className + '" title="' + title + '"' +
     ' onClick="' + onClickFunction + '(this)"' +
-    ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)">' +
-    ' <img  src="../common/img/' + pngFileName + '.png"' +
+    ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)"' +
     ' style="width:' + size + 'rem; height:' + size + 'rem;"></button>'
   return htmlStr;
 }

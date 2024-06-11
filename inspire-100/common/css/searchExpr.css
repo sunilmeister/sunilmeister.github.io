@@ -12,7 +12,7 @@
 }
 
 .opExprSpan {
-	font-size: 1.2rem;
+	font-size: 1.6rem;
 	font-weight: bold;
 }
 
@@ -29,9 +29,9 @@
 }
 
 .paramSelectCls {
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	appearance: none;
-	width: 16rem;
+	width: 22;
 	border: none;
   text-align:center;
 	cursor: pointer;
@@ -39,7 +39,7 @@
 }
 
 .unitsSelectCls {
-	font-size: 1rem;
+	font-size: 1.4rem;
 	appearance: none;
 	margin-left: 1rem;
 	color: var(--rsp_darkblue);
@@ -47,9 +47,9 @@
 }
 
 .leafOpSelectCls {
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	appearance: none;
-	width: 3rem;
+	width: 4rem;
 	border: none;
 	margin: 0.5rem;
 	text-align: center;
@@ -57,33 +57,33 @@
 }
 
 .constEnumSelectCls {
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	appearance: none;
-	width: 10rem;
+	width: 16rem;
 	border: none;
   text-align:center;
 	cursor: pointer;
 }
 
 .constNumberSelectCls {
-	font-size: 1.2rem;
-	width: 10rem;
+	font-size: 1.8rem;
+	width: 16rem;
 	border: none;
   text-align:center;
 	cursor: pointer;
 }
 
 .constTextSelectCls {
-	font-size: 1.2rem;
-	width: 10rem;
+	font-size: 1.8rem;
+	width: 16rem;
 	border: none;
   text-align:center;
 }
 
 .exprOpSelectCls {
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	appearance: none;
-	width: 4rem;
+	width: 5rem;
   text-align:center;
 	background-color: var(--rsp_mediumblue);
 	color: white;
@@ -97,13 +97,14 @@
 	list-style-type: none;
 	background-color: var(--rsp_lightblue);
 	color: var(--rsp_darkblue);
+	font-size:1.6rem;
 }
 
 .exprStringCls {
-	font-size: 1rem;
+	font-size: 1.8rem;
 	font-style: normal;
 	font-weight: normal;
-	margin-top:-0.5rem;
+	margin-top:-1.5rem;
 	margin-bottom:-0.5rem;
 	color: white;
 }
@@ -121,14 +122,14 @@
 }
 
 .exprMenuBtn {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   border: none;
   cursor: pointer;
 }
 
 .exprMenuImgBtn {
-	width: 1.2rem;
-	height: 1.2rem;
+	width: 1.6rem;
+	height: 1.6rem;
   border: none;
   cursor: pointer;
 }

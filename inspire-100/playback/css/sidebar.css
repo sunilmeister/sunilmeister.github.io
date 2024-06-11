@@ -4,7 +4,7 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 17rem;
+  width: 19rem;
   padding-bottom: 0.5rem;
   padding-top: 1.4rem;
   padding-right: 0.8rem;
@@ -16,20 +16,19 @@
 }
 
 .sidebar {
-  width: 15rem;
+  width: 17rem;
   font-size: 1.1rem;
   margin-left: 1rem;
 }
 
 .sidebar div {
   padding: 1rem;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   display: block;
 }
 
 .body-pane {
   margin-left: 1rem;
   margin-right: 1rem;
-  font-size: 1.1rem;
 }
 

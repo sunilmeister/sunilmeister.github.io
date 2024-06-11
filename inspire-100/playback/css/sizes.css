@@ -1,31 +1,31 @@
 :root {
   --chartContainerPadding: 25rem;
-  --chartBodyHeight: 22rem;
-  --chartMenuIndent: 1rem;
-  --chartMenuFontSize: 1.2rem;
+  --chartBodyHeight: 24rem;
+  --chartMenuIndent: 1.2rem;
+  --chartMenuFontSize: 1.4rem;
   --chartMenuBannerHeight: 2.5rem;
-  --chartMenuIconSize: 1rem;
+  --chartMenuIconSize: 1.2rem;
 
 	/* ALL below in REM */
   --chartLabelFontSize: 0.8;
-  --chartLegendFontSize: 0.8;
-  --chartTitleFontSize: 1.8;
+  --chartLegendFontSize: 1;
+  --chartTitleFontSize: 1.6;
   --chartStripLineFontSize: 1.8;
   --chartStripLineThickness: 0.1;
 
-  --noUiTooltipSize: 0.7rem;
+  --noUiTooltipSize: 1rem;
 
   --waveContainerPadding: 25rem;
-  --waveBodyHeight: 22rem;
-  --waveMenuIndent: 1rem;
-  --waveMenuFontSize: 1.2rem;
+  --waveBodyHeight: 24rem;
+  --waveMenuIndent: 1.2rem;
+  --waveMenuFontSize: 1.4rem;
   --waveMenuBannerHeight: 2.5rem;
-  --waveMenuIconSize: 1rem;
+  --waveMenuIconSize: 1.2rem;
 
 	/* ALL below in REM */
   --waveLabelFontSize: 0.8;
-  --waveLegendFontSize: 0.8;
-  --waveTitleFontSize: 1.8;
+  --waveLegendFontSize: 1;
+  --waveTitleFontSize: 1.6;
   --waveStripLineFontSize: 1.8;
   --waveStripLineThickness: 0.1;
 
@@ -33,9 +33,9 @@
   --colorLegendFontSize: 1.2rem;
 
   --columnPadding: 1rem;
-  --sidebarBtnHeight: 3rem;
-  --sidebarBtnWidth: 12rem;
-  --sidebarBtnFontSize: 1.4rem;
+  --sidebarBtnHeight: 4rem;
+  --sidebarBtnWidth: 16rem;
+  --sidebarBtnFontSize: 1.8rem;
   --sidebarBtnPadding: 0.35rem 0.35rem;
   --sidebarBtnMargin: 0.15rem 0.15rem 0rem 0.6rem;
 
