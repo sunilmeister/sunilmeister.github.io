@@ -11,7 +11,7 @@ var appHeight = null;
 
 // Design Params
 const laptopDevFontSize = 16;
-const mobileDevFontSize = 16;
+const mobileDevFontSize = 14;
 
 // Ensure that some margin is left on the sides
 const fontScaleFactor = 0.95;
@@ -50,8 +50,8 @@ function setRootFontSizeDevice(devFontSize) {
 	const maxFontSize = 18;
 	let pxRatio = window.devicePixelRatio; 
 
-	let windowWidth = document.documentElement.clientWidth / pxRatio;
-	let windowHeight = document.documentElement.clientHeight / pxRatio;
+	let windowWidth = document.documentElement.clientWidth * pxRatio;
+	let windowHeight = document.documentElement.clientHeight * pxRatio;
 	let wFontSize = (devFontSize * windowWidth) / appWidth;
 	let hFontSize = (devFontSize * windowHeight) / appHeight;
 
@@ -60,6 +60,7 @@ function setRootFontSizeDevice(devFontSize) {
 	if (fontSize > maxFontSize) fontSize = maxFontSize;
 	if (fontSize < minFontSize) fontSize = minFontSize;
 
+	/*
 	console.log("pixelRatio", window.devicePixelRatio);
 	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
 	console.log("appWidth", appWidth, "appHeight", appHeight );
@@ -73,6 +74,7 @@ function setRootFontSizeDevice(devFontSize) {
 	} else {
 		alert("NON Mobile");
 	}
+	*/
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";
