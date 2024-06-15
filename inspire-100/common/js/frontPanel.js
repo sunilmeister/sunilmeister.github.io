@@ -211,13 +211,13 @@ function updateFrontPanelModeLeds() {
 	blankFrontPanelModeLeds();
 	let mode = MODE_DECODER[snap.mode];
 	if (mode == "CMV") {
-		document.getElementById('img_fpCmvDiv').src = "../common/img/WhiteDot.png";
+		document.getElementById('img_fpCmvDiv').src = "../common/img/BlueDot.png";
 	} else if (mode == "ACV") {
-		document.getElementById('img_fpAcvDiv').src = "../common/img/WhiteDot.png";
+		document.getElementById('img_fpAcvDiv').src = "../common/img/BlueDot.png";
 	} else if (mode == "SIMV") {
-		document.getElementById('img_fpSimvDiv').src = "../common/img/WhiteDot.png";
+		document.getElementById('img_fpSimvDiv').src = "../common/img/BlueDot.png";
 	} else if (mode == "PSV") {
-		document.getElementById('img_fpPsvDiv').src = "../common/img/WhiteDot.png";
+		document.getElementById('img_fpPsvDiv').src = "../common/img/BlueDot.png";
 	}
 }
 
