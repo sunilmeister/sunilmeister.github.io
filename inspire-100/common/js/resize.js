@@ -11,7 +11,7 @@ var appHeight = null;
 
 // Design Params
 const laptopDevFontSize = 16;
-const mobileDevFontSize = 12;
+const mobileDevFontSize = 16;
 
 // Ensure that some margin is left on the sides
 const fontScaleFactor = 0.95;
@@ -48,7 +48,7 @@ function setRootFontSize(rootWidthDivId, rootHeightDivId, extraWidthRem, extraHe
 function setRootFontSizeDevice(devFontSize) {
 	const minFontSize = 5;
 	const maxFontSize = 18;
-	let pxRatio = window.devicePixelRatio; 
+	let pxRatio = 1; // window.devicePixelRatio; 
 
 	let windowWidth = document.documentElement.clientWidth * pxRatio;
 	let windowHeight = document.documentElement.clientHeight * pxRatio;
