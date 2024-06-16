@@ -12,16 +12,16 @@ const fpPanel =
 	{name:'frontPanelDiv', X:0, Y:0, W:571.1875, H:787.125};
 
 const fpLeds = [
-	{name:'fpInitialDiv', 	X:124, 	Y:148, W:20, H:20},
-	{name:'fpStandbyDiv', 	X:124, 	Y:239, W:20, H:20},
-	{name:'fpActiveDiv', 		X:124, 	Y:330, W:20, H:20},
-	{name:'fpCmvDiv', 			X:124, 	Y:443, W:20, H:20},
-	{name:'fpAcvDiv', 			X:124, 	Y:504, W:20, H:20},
-	{name:'fpErrorDiv', 		X:557, 	Y:148, W:20, H:20},
-	{name:'fpMbreathDiv', 	X:557, 	Y:239, W:20, H:20},
-	{name:'fpSbreathDiv', 	X:557, 	Y:330, W:20, H:20},
-	{name:'fpSimvDiv', 			X:557, 	Y:443, W:20, H:20},
-	{name:'fpPsvDiv', 			X:557, 	Y:504, W:20, H:20},
+	{name:'fpInitialDiv', 	X:124, 	Y:147, W:20, H:20},
+	{name:'fpStandbyDiv', 	X:124, 	Y:238, W:20, H:20},
+	{name:'fpActiveDiv', 		X:124, 	Y:329, W:20, H:20},
+	{name:'fpCmvDiv', 			X:124, 	Y:442, W:20, H:20},
+	{name:'fpAcvDiv', 			X:124, 	Y:503, W:20, H:20},
+	{name:'fpErrorDiv', 		X:557, 	Y:147, W:20, H:20},
+	{name:'fpMbreathDiv', 	X:557, 	Y:238, W:20, H:20},
+	{name:'fpSbreathDiv', 	X:557, 	Y:329, W:20, H:20},
+	{name:'fpSimvDiv', 			X:557, 	Y:442, W:20, H:20},
+	{name:'fpPsvDiv', 			X:557, 	Y:503, W:20, H:20},
 ];
 
 const fpLcd = 
