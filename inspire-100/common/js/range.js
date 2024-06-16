@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var pickedDate = null;
+var datePickerPickedDate = null;
 
 // ////////////////////////////////////////////////////////////
 // Below are many utility functions that manipulate ranges
@@ -233,9 +233,9 @@ function acceptBreathNumRange() {
 }
 
 function acceptBreathTimeRange() {
-	if (!pickedDate) pickedDate = session.startDate;
-	let fromTime = new Date(pickedDate);
-	pickedDate = null;
+	if (!datePickerPickedDate) datePickerPickedDate = session.startDate;
+	let fromTime = new Date(datePickerPickedDate);
+	datePickerPickedDate = null;
 
 	let duration = document.getElementById("rangeDuration").value;
 	let seconds = 0;
@@ -324,7 +324,7 @@ function enterRangeBtime() {
 		maxDate: addMsToDate(startDate,session.sessionDurationInMs),
     showDropdowns: true,
 		locale: {
-			format: 'DD/MMM/YYYY HH:MM:SS'
+			format: 'DD-MMM-YYYY HH:MM:SS'
         }
 		}, function(start, end, label) {
 			pickedDate = new Date(start);

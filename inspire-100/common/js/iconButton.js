@@ -47,8 +47,8 @@ var saveBackgroundColor = null;
 function outIconBtn(btn) {
   btn.style.backgroundColor = "white";
   btn.style.borderColor = "white";
-  btn.firstElementChild.style.backgroundColor = "white";
-  btn.firstElementChild.style.borderColor = "white";
+  btn.style.backgroundColor = "white";
+  btn.style.borderColor = "white";
 
   if (btn.parentNode.parentNode.tagName == "TR") {
     btn.parentNode.parentNode.style.backgroundColor = saveBackgroundColor;
@@ -59,8 +59,8 @@ function overIconBtn(btn) {
   let bgd = palette.brightgreen;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
-  btn.firstElementChild.style.backgroundColor = bgd;
-  btn.firstElementChild.style.borderColor = bgd;
+  btn.style.backgroundColor = bgd;
+  btn.style.borderColor = bgd;
 
   if (btn.parentNode.parentNode.tagName == "TR") {
     saveBackgroundColor = btn.parentNode.parentNode.style.backgroundColor;
