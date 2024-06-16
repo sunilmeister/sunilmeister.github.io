@@ -229,22 +229,15 @@ function convertMStoHHMMSS(milliseconds) {
 function dateToStr(d) {
   if (!d) return null;
   date = new Date(d);
-  let dd = String(date.getDate()).padStart(2, '0');
-  let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-  let yyyy = date.getFullYear();
-  let hrs = String(date.getHours()).padStart(2, '0');
-  let min = String(date.getMinutes()).padStart(2, '0');
-  let sec = String(date.getSeconds()).padStart(2, '0');
-  dmy = dd + "-" + mm + "-" + yyyy;
-  dtStr = '[' + dmy + ']' + hrs + ":" + min + ":" + sec;
-  return dtStr;
+  let str = '[' + dateToDateStr(date) + ']' + dateToTimeStr(date);
+  return str;
 }
 
 function dateToDateStr(d) {
   if (!d) return null;
   date = new Date(d);
   let dd = String(date.getDate()).padStart(2, '0');
-  let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let mm = months[date.getMonth()];
   let yyyy = date.getFullYear();
   dtStr = dd + "-" + mm + "-" + yyyy;
   return dtStr;
