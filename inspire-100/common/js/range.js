@@ -171,6 +171,17 @@ function updateVisiblePrevRange() {
 
 function enterBreathInterval () {
   document.getElementById("enterRangeDiv").style.display = "block";
+	if (findVisibleView() == "snapshot") {
+  	document.getElementById("pointBreathNum").style.display = "block";
+  	document.getElementById("spanBreathRange").style.display = "none";
+  	document.getElementById("pointBreathTime").style.display = "block";
+  	document.getElementById("spanBreathTimeRange").style.display = "none";
+	} else {
+  	document.getElementById("pointBreathNum").style.display = "none";
+  	document.getElementById("spanBreathRange").style.display = "block";
+  	document.getElementById("pointBreathTime").style.display = "none";
+  	document.getElementById("spanBreathTimeRange").style.display = "block";
+	}
   if (document.getElementById("enterRangeBnum").checked) {
 		enterRangeBnum();
 	} else {
@@ -206,15 +217,16 @@ function updateVisibleViewRangeObject(range) {
 // Below are responses to buttons on the range selector
 // ////////////////////////////////////////////////////////////
 function acceptBreathNumRange() {
-	let fromBreath = Number(document.getElementById("rangeFromBnum").value);
-  let numBreaths = Number(document.getElementById("rangeNumBreaths").value);
+	let fromBreath = null;
+  let numBreaths = null;
 	let toBreath = null;
 
 	if (session.snapshot.visible) {
-		toBreath = fromBreath;
-		if (session.maxBreathNum > 0) fromBreath = 1;
-		else fromBreath = 0;
+		fromBreath = 0;
+		toBreath = Number(document.getElementById("singleBreathNum").value);
 	} else {
+		fromBreath = Number(document.getElementById("rangeFromBnum").value);
+  	numBreaths = Number(document.getElementById("rangeNumBreaths").value);
 		toBreath = fromBreath + numBreaths - 1;
 		let maxBnum = session.loggedBreaths.length - 1;
 		if (toBreath > maxBnum) toBreath = maxBnum;
@@ -233,35 +245,39 @@ function acceptBreathNumRange() {
 }
 
 function acceptBreathTimeRange() {
+	let fromTime = null;
+	let toTime = null;
+
+	console.log("datePickerPickedDate",datePickerPickedDate);
 	if (!datePickerPickedDate) datePickerPickedDate = session.startDate;
-	let fromTime = new Date(datePickerPickedDate);
-	datePickerPickedDate = null;
 
-	let duration = document.getElementById("rangeDuration").value;
-	let seconds = 0;
+	if (session.snapshot.visible) {
+		fromTime = session.startDate;
+		toTime = new Date(datePickerPickedDate);
+	} else {
+		fromTime = new Date(datePickerPickedDate);
+		datePickerPickedDate = null;
+		let duration = document.getElementById("rangeDuration").value;
 
-	// duration is irreleveant for snapshot view
-	if (!session.snapshot.visible) {
+		// duration is irreleveant for snapshot view
 		let arr = duration.split(':'); // split it at the colons
 		if (arr.length != 3) {
     	modalAlert("Invalid Range Duration", "Try again!");
+			datePickerPickedDate = null;
     	return;
   	}
 
-		seconds = Number(arr[0]) * 60 * 60 + Number(arr[1]) * 60 + Number(arr[2]);
+		let seconds = Number(arr[0]) * 60 * 60 + Number(arr[1]) * 60 + Number(arr[2]);
 		if (!seconds) {
     	modalAlert("Invalid Range Duration", "Try again!");
+			datePickerPickedDate = null;
     	return;
   	}
+		toTime = addMsToDate(fromTime, seconds*1000);
 	}
 
-	let toTime = addMsToDate(fromTime, seconds*1000);
 	let range = null;
-	if (session.snapshot.visible) {
-		range = createRangeTime(false, session.startDate, fromTime);
-	} else {
-		range = createRangeTime(false, fromTime, toTime);
-	}
+	range = createRangeTime(false, fromTime, toTime);
 	
 	let view = findVisibleView();
 	session[view].range = cloneObject(range);
@@ -327,7 +343,7 @@ function enterRangeBtime() {
 			format: 'DD-MMM-YYYY HH:MM:SS'
         }
 		}, function(start, end, label) {
-			pickedDate = new Date(start);
+			datePickerPickedDate = new Date(start);
   	});
 
   //console.log("startDate", minTime);
@@ -580,6 +596,8 @@ function rangeNumBased() {
 }
 
 window.addEventListener("load", function() {
+  new KeypressEnterSubmit('singleBreathNum', 'acceptRangeBtn');
+  new KeypressEnterSubmit('singleBtime', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');

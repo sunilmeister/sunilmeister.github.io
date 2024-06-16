@@ -46,10 +46,11 @@ function checkIfEventWithinBoundingBox(event, boundingBox) {
 // Remove Chart & Wave edit menus if clicked outside
 // Also hide any divs of popupClass
 document.addEventListener('click', function (event) {
-	// calendar picking
+
+	// calendar picking - do not hide popups
 	let calendars = document.getElementsByClassName("daterangepicker");
-	if (calendars && calendars.length) {
-		let calendar = calendars[0];
+	for (let i=0; i< calendars.length; i++) {
+		let calendar = calendars[i];
 		if (calendar.style.display == "block") {
 			if (checkIfEventWithinDiv(event, calendar)) {
 				return;
