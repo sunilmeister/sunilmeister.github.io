@@ -66,15 +66,15 @@ function setRootFontSizeDevice(devFontSize) {
 	console.log("appWidth", appWidth, "appHeight", appHeight );
 	console.log("wFontSize", wFontSize, "hFontSize", hFontSize);
 	console.log("newFontSize", fontSize);
+	*/
 	if (isMobileBrowser()) {
 		alert("windowWidth=" + windowWidth + "  windowHeight=" + windowHeight);
 		alert("appWidth=" + appWidth + "  appHeight=" + appHeight );
 		alert("wFontSize=" + wFontSize + "  hFontSize=" + hFontSize);
 		alert("newfontSize=" + fontSize);
-	} else {
-		alert("NON Mobile");
+	//} else {
+		//alert("NON Mobile");
 	}
-	*/
 
 	let root = document.documentElement;
  	root.style.fontSize = String(fontSize) + "px";
