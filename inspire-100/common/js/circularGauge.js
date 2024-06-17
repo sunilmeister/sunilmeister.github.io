@@ -16,7 +16,7 @@ class CircularGauge {
     this.gauge.setProperty('trackWidth', 0.4);
     this.gauge.setProperty('valMin', rangeMin);
     this.gauge.setProperty('valMax', rangeMax);
-    this.gauge.setProperty('textScale', 1.0);
+    this.gauge.setProperty('textScale', 1.5);
     this.gauge.setValue();
 
     // append node to DOM

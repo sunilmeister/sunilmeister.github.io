@@ -356,14 +356,14 @@
 .paramValueCls {
   margin-top:0rem; 
   margin-bottom:0.315rem; 
-  font-size:1.9rem; 
+  font-size:2rem; 
   font-weight:bold;
 }
 
 .paramUnitsCls {
   margin-top:0rem; 
   margin-bottom:0rem; 
-  font-size:0.8rem;
+  font-size:1rem;
 }
 
 .measuredHeadingCls {
@@ -378,13 +378,13 @@
 .measuredValueCls {
   margin-top:1rem; 
   margin-bottom:0.625rem; 
-  font-size:1.9rem; 
+  font-size:2rem; 
   font-weight:bold;
 }
 
 .measuredUnitsCls {
   margin-top:0rem; 
   margin-bottom:0rem; 
-  font-size:0.8rem;
+  font-size:1rem;
 }
 
