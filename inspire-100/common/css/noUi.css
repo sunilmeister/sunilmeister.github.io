@@ -7,14 +7,11 @@
 .noUi-connect {
     background-color: var(--rsp_brightgreen);
     cursor: grab;
-    border-style: outset;
 }
 
-/*
 .noUi-base{
     background-color: var(--rsp_lightblue);
 }
-*/
 
 .noUi-tooltip {
   display: block;
@@ -32,13 +29,20 @@
 }
 
 .noUi-handle {
-    background-color: var(--rsp_green);
-    border-style: outset;
-    border-width: 0.1rem;
-    cursor: grab;
+  background-color: var(--rsp_darkgreen);
+	box-shadow: none;
+	width: 2.4rem !important;
+	height: 2.4rem !important;
+	right: -1.2rem !important;
+	top: -0.6rem !important;
+  cursor: grab;
 }
 
 .noUi-handle:hover {
-	  font-weight: bold;
-    background-color: var(--rsp_brightgreen);
+  font-weight: bold;
+   background-color: var(--rsp_brightgreen);
+}
+
+.noUi-handle:before, .noUi-handle:after {
+	display: none;
 }
