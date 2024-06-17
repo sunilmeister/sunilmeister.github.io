@@ -510,7 +510,7 @@ function checkValidPlaybackDuration() {
 }
 
 function updateLogDuration() {
-  let diff = session.playback.logEndDate.getTime() - session.playback.logStartDate.getTime();
+  let diff = session.lastChirpDate.getTime() - session.firstChirpDate.getTime();
 	session.sessionDurationInMs = diff;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
@@ -518,6 +518,11 @@ function updateLogDuration() {
   } else {
     elm.innerHTML = "NaN";
   }
+
+  elm = document.getElementById("logStartDate");
+	elm.innerHTML = dateToDateStr(session.firstChirpDate);
+  elm = document.getElementById("logStartTime");
+	elm.innerHTML = dateToTimeStr(session.firstChirpDate);
 }
 
 function updateSelectedDuration() {
@@ -588,26 +593,18 @@ function playbackGatherDoneCallback() {
   session.sessionDataValid = true;
   session.database.dbReady = true;
 
-  session.playback.logStartBreath = 1;
-  session.playback.logEndBreath = session.loggedBreaths.length - 1;
-	session.maxBreathNum = session.playback.logEndBreath;
-
-	session.playback.logStartDate = session.loggedBreaths[1].time;
-	session.playback.logEndDate = session.loggedBreaths[session.maxBreathNum].time;
-	session.startDate = session.loggedBreaths[1].time;
-	session.lastChirpDate = session.loggedBreaths[session.maxBreathNum].time;
-	updateLogDuration();
-
-  let n = session.playback.logEndBreath - session.playback.logStartBreath;
-  if (n < 20) {
-		updateAllRanges(false, 0, session.playback.logEndBreath);
-  } else {
-		updateAllRanges(false, 0, session.playback.logStartBreath + 19);
-  }
-
-  if (session.playback.logEndBreath == 0) {
+	session.maxBreathNum = session.loggedBreaths.length - 1;
+  if (session.maxBreathNum == 0) {
     modalAlert("No recorded breath for this session", "Select another session");
     return;
+  }
+
+	updateLogDuration();
+
+  if (session.maxBreathNum < 20) {
+		updateAllRanges(false, 0, session.maxBreathNum);
+  } else {
+		updateAllRanges(false, 0, 20);
   }
 
   enableAllButtons();
@@ -658,7 +655,7 @@ function alignSidebar() {
   let menuBarWidth = menuBar.offsetWidth;
   let nonMenuArea = document.getElementById("nonMenuArea");
   nonMenuArea.style.marginTop = "-" + String(convertPixelsToRem(menuBarHeight)) + "rem";
-  nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth + 40)) + "rem";
+  nonMenuArea.style.marginLeft = String(convertPixelsToRem(menuBarWidth + 24)) + "rem";
 }
 
 function appResize() {
@@ -702,32 +699,31 @@ function updateRangeOnNewBreath(num) {
 }
 
 function createPlaybackRangeSlider() {
+  if (session.maxBreathNum == 0) {
+    modalAlert("No recorded breath for this session", "");
+  }
+
   // Create playback range slider
   if (!session.rangeSelector.rangeSlider) {
     playbackRangeSliderDiv = document.getElementById('playbackRangeSliderDiv');
     session.rangeSelector.rangeSlider = new IntRangeSlider(
       playbackRangeSliderDiv,
-      session.playback.logStartBreath,
-      session.playback.logEndBreath,
-      session.playback.logStartBreath,
-      session.playback.logEndBreath,
+      0, session.maxBreathNum,
+      0, session.maxBreathNum,
       1
     );
     session.rangeSelector.rangeSlider.setChangeCallback(playbackRangeSliderCallback);
   }
 
-  session.rangeSelector.rangeSlider.setRange([session.playback.logStartBreath, session.playback.logEndBreath]);
+  session.rangeSelector.rangeSlider.setRange([0, session.maxBreathNum]);
   session.rangeSelector.rangeSlider.setSlider([findVisibleRangeMinBnum(), findVisibleRangeMinBnum()]);
 
   let elm = document.getElementById("playbackWindowDiv");
   elm.style.display = "none";
   elm = document.getElementById("logNumBreaths");
-  elm.innerHTML = session.playback.logEndBreath;
+  elm.innerHTML = session.maxBreathNum;
 
   updateSelectedDuration();
 
-  if (session.playback.logEndBreath == 0) {
-    modalAlert("No recorded breath for this session", "");
-  }
 }
 

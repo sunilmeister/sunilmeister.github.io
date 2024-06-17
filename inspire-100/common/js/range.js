@@ -22,12 +22,12 @@ function createRangeBnum(moving, minBnum, maxBnum) {
   range.maxBnum = maxBnum;
 
   if (minBnum < 1) {
-    range.minTime = session.startDate;
+    range.minTime = session.firstChirpDate;
   } else {
     range.minTime = session.loggedBreaths[minBnum].time;
   }
   if (maxBnum < 1) {
-    range.maxTime = session.startDate;
+    range.maxTime = session.firstChirpDate;
   } else {
     range.maxTime = session.loggedBreaths[maxBnum].time;
   }
@@ -249,10 +249,10 @@ function acceptBreathTimeRange() {
 	let toTime = null;
 
 	console.log("datePickerPickedDate",datePickerPickedDate);
-	if (!datePickerPickedDate) datePickerPickedDate = session.startDate;
+	if (!datePickerPickedDate) datePickerPickedDate = session.firstChirpDate;
 
 	if (session.snapshot.visible) {
-		fromTime = session.startDate;
+		fromTime = session.firstChirpDate;
 		toTime = new Date(datePickerPickedDate);
 	} else {
 		fromTime = new Date(datePickerPickedDate);
@@ -314,7 +314,7 @@ function enterRangeBnum() {
 
 function enterRangeBtime() {
 	let selectName = 'input[name="rangeFromBtime"]';
-	let startDate = session.startDate;
+	let startDate = session.firstChirpDate;
 	if (!startDate) startDate = new Date();
 
 	let minTime = findVisibleRangeMinTime();
@@ -348,7 +348,7 @@ function enterRangeBtime() {
 
   //console.log("startDate", minTime);
   //console.log("endDate", maxTime);
-  //console.log("minDate", session.startDate);
+  //console.log("minDate", session.firstChirpDate);
   //console.log("maxDate", addMsToDate(startDate,session.sessionDurationInMs));
 
 	if (session.snapshot.visible) {
@@ -567,7 +567,7 @@ function updateRangeSliderWindow(range) {
 	if (session.rangeSelector.timeBased) {
 		let min = range.minTime.getTime();
 		let max = range.maxTime.getTime();
-		let start = session.startDate.getTime();
+		let start = session.firstChirpDate.getTime();
 		let end = session.lastChirpDate.getTime();
 		if (end === null) end = start;
 		session.rangeSelector.rangeSlider.setRange([start, end]);;

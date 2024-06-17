@@ -10,8 +10,8 @@ var SessionDataTemplate = {
   sessionDataValid: true,
   sessionDurationInMs: 0,
 
-  startDate: null,
   launchDate: null,
+	firstChirpDate: null,
 	lastChirpDate: null,
   maxBreathNum: 0,
   systemBreathNum: null,
@@ -292,10 +292,6 @@ var SessionDataTemplate = {
   // /////////////////////////////////////////////
   playback: {
     recVersion:             null,
-    logStartDate:           null,
-    logEndDate:             null,
-    logStartBreath:         0,
-    logEndBreath:           0,
   },
 
   // /////////////////////////////////////////////

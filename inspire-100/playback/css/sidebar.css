@@ -4,19 +4,16 @@
 // ////////////////////////////////////////////////////
 */
 .sidebarColumn {
-  width: 18rem;
+  width: 21rem;
   padding-bottom: 0.5rem;
   padding-top: 1.4rem;
   padding-right: 0.8rem;
-  margin-top: 2rem;
-  margin-left: 0.8rem;
-  margin-right: 0.8rem;
-  margin-bottom: 0rem;
+  margin-top: 2.5rem;
 	border-right: groove 0.5rem var(--rsp_mediumblue);
 }
 
 .sidebar {
-  width: 16rem;
+  width: 19rem;
   margin-left: 1rem;
 }
 

@@ -328,7 +328,7 @@ class WavePane {
       if (session.loggedBreaths[breathNum].missing) {
         continue;
       }
-      let xval = session.loggedBreaths[breathNum].time.getTime() - session.startDate.getTime();
+      let xval = session.loggedBreaths[breathNum].time.getTime() - session.firstChirpDate.getTime();
       let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,
@@ -450,7 +450,7 @@ class WavePane {
 
   calculateXaxisMinimum() {
     let minTime = this.rangeX.minTime;
-    return (minTime.getTime() - session.startDate.getTime()) / 1000;
+    return (minTime.getTime() - session.firstChirpDate.getTime()) / 1000;
   }
 
 };

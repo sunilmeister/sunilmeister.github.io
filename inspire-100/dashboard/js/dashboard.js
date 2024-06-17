@@ -16,7 +16,7 @@ function disassembleAndQueueChirp(d) {
 
     if (!startMillis) startMillis = Number(millis);
     fragment.MILLIS = Number(millis);
-    fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));
+    fragment.created = new Date(addMsToDate(session.firstChirpDate, (fragment.MILLIS - startMillis)));
     chirpQ.push(cloneObject(fragment));
   }
 }
@@ -34,7 +34,6 @@ function waitForChirps() {
     autoCloseDormantPopup();
 		// ignore old chirps
 		if (d.created < dashboardLaunchTime) return;
-		session.lastChirpDate = new Date(d.created);
 
     if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
@@ -47,7 +46,6 @@ function waitForChirps() {
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
-      session.startDate = new Date(d.created);
       let elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
@@ -91,7 +89,7 @@ function createAudioAlarms() {
 
 function processDashboardChirp(d) {
   let curDate = new Date(d.created);
-  session.sessionDurationInMs = Math.abs(curDate.getTime() - session.startDate.getTime());
+  session.sessionDurationInMs = Math.abs(curDate.getTime() - session.firstChirpDate.getTime());
   let elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 

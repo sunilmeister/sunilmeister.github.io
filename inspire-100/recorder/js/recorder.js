@@ -61,7 +61,7 @@ function disassembleAndQueueChirp(d) {
       // fragment = cloneObject(clearAllChirp);
     }
     fragment.MILLIS = Number(millis);
-    fragment.created = new Date(addMsToDate(session.startDate, (fragment.MILLIS - startMillis)));
+    fragment.created = new Date(addMsToDate(session.firstChirpDate, (fragment.MILLIS - startMillis)));
     chirpQ.push(cloneObject(fragment));
   }
 }
@@ -85,7 +85,6 @@ function waitForChirps() {
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
-      session.startDate = new Date(d.created);
       elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
@@ -99,7 +98,7 @@ function waitForChirps() {
 
 function updateRecorderSummary(d) {
   curDate = new Date(d.created);
-  session.sessionDurationInMs = curDate.getTime() - session.startDate.getTime();
+  session.sessionDurationInMs = curDate.getTime() - session.firstChirpDate.getTime();
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 

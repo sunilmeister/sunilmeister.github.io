@@ -536,15 +536,23 @@
             <table style="border-collapse:unset; border:none; font-size:1.2rem; width:100%;
             margin-top:0.7rem;color:var(--rsp_darkblue);">
               <tr style="height:2rem;">
-                <td align="left">&nbspBreaths</td>
-                <td id=logNumBreaths align="center">--</td>
+                <td align="left">Start Date</td>
+                <td id=logStartDate align="center">--</td>
               </tr>
               <tr style="height:2rem;">
-                <td align="left">&nbspDuration</td>
+                <td align="left">Start Time</td>
+                <td id=logStartTime align="center">--</td>
+              </tr>
+              <tr style="height:2rem;">
+                <td align="left">Duration</td>
                 <td id=logTimeDuration align="center">--:--:--</td>
               </tr>
               <tr style="height:2rem;">
-                <td align="left">&nbspPriorBreaths</td>
+                <td align="left">Breaths</td>
+                <td id=logNumBreaths align="center">--</td>
+              </tr>
+              <tr style="height:2rem;">
+                <td align="left">PriorBreaths</td>
                 <td id=priorNumBreaths align="center">--</td>
               </tr>
             </table>
@@ -556,11 +564,11 @@
             <table style="border-collapse:unset; border:none; font-size:1.2rem; width:100%;
             margin-top:0.7rem;color:var(--rsp_brightgreen);">
               <tr style="height:2rem;">
-                <td align="left">&nbspBreathRange</td>
+                <td align="left">BreathRange</td>
                 <td id=selectedBreathRange align="center">--</td>
               </tr>
               <tr style="height:2rem;">
-                <td align="left">&nbspDuration</td>
+                <td align="left">Duration</td>
                 <td id=selectedTimeDuration align="center">--:--:--</td>
               </tr>
             </table>
@@ -570,11 +578,11 @@
       </div>
 
       <center>
-        <button id=btnSelect class='button' style="background-color:var(--rsp_darkblue); width:16rem; height:3rem; font-size:1.7rem; box-shadow: none;
+        <button id=btnSelect class='button' style="background-color:var(--rsp_darkblue); width:19rem; height:3rem; font-size:1.7rem; box-shadow: none;
           border:none; margin:1rem;" onclick='selectSession()'>Select Recording</button>
       </center>
 
-      <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin:1rem;">
+      <div style="background-color:var(--rsp_darkblue); color:white; font-size:1.4rem; margin:1rem; padding-left:2rem;">
         <br>
         <button id=btnSnap class=sidebarButton onclick='selectSnapshots()'>View Snapshots</button>
         <br>

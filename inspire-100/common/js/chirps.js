@@ -266,6 +266,10 @@ function gatherSessionData(lastRecordCallback) {
 
 function processJsonRecord(jsonData) {
 
+	// Keep track of the time duration
+	if (session.firstChirpDate === null) session.firstChirpDate = new Date(jsonData.created);
+	session.lastChirpDate = new Date(jsonData.created);
+
   // Snap message time to breath times instead of chirp times
   if (session.lastValidBreathTime) {
     jsonData.created = new Date(session.lastValidBreathTime);
@@ -816,7 +820,7 @@ function processBnumChirp(curTime, value, jsonData) {
   if (!obj) return;
 
   // BNUM time is more accurate - use that for breath times
-  if (!session.lastValidBreathTime) session.lastValidBreathTime = session.startDate;
+  if (!session.lastValidBreathTime) session.lastValidBreathTime = session.firstChirpDate;
   if (!session.firstBreathChirpTime) session.firstBreathChirpTime = curTime;
   if (!session.firstBreathBnumTime) session.firstBreathBnumTime = obj.btime;
   let breathTime = addMsToDate(session.firstBreathChirpTime, obj.btime - session.firstBreathBnumTime);
@@ -894,8 +898,8 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
   });
 
   session.missingTimeWindows.push({
-    "startValue": ((new Date(session.lastValidBreathTime) - session.startDate) / 1000) + 0.5,
-    "endValue": ((new Date(newBreathTime) - session.startDate) / 1000) - 0.5,
+    "startValue": ((new Date(session.lastValidBreathTime) - session.firstChirpDate) / 1000) + 0.5,
+    "endValue": ((new Date(newBreathTime) - session.firstChirpDate) / 1000) - 0.5,
 		"lineThickness": session.waves.stripLineThickness,
     "autoCalculate": true
   });
