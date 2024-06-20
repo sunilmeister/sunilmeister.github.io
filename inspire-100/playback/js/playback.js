@@ -614,6 +614,9 @@ function playbackGatherDoneCallback() {
 }
 
 window.onload = function () {
+  session.appId = PLAYBACK_APP_ID;
+  session.launchDate = new Date();
+
 	initCommonDivElements();
 	
 	resizeChartsWaves();

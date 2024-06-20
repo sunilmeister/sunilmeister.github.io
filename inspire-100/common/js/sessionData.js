@@ -329,11 +329,16 @@ var rangeTemplate = {
 function createNewSession() {
 	console.log("Creating new session");
 	let saveRangeSlider = null;
+	let saveLaunchDate = null;
 
 	// There is a problem with nouiRange slider
 	// multiple initializations cause an error
-	if (session) saveRangeSlider = session.rangeSelector.rangeSlider;
+	if (session) {
+		saveRangeSlider = session.rangeSelector.rangeSlider;
+		saveLaunchDate = session.launchDate;
+	}
 	session = cloneObject(SessionDataTemplate);
+	session.launchDate = saveLaunchDate;
 	session.rangeSelector.rangeSlider = saveRangeSlider;
 
 	// initialize ranges
