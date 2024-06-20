@@ -126,6 +126,7 @@ function resizeSnapshots() {
 // Utility functions
 // ////////////////////////////////////////////////////////////////
 function animateDivValue(div, value) {
+	/* Sexy but is slowing things down
   if (div.innerText === null) {
     div.innerHTML = "--";
     return;
@@ -136,9 +137,13 @@ function animateDivValue(div, value) {
 	}
   if (Number(div.innerText) == value) return;
   animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
+	*/
+
+  div.innerText = value;
 }
 
 function animateDivToValue(div, value) {
+	/* Sexy but is slowing things down
   if (div.innerText === null) {
     div.innerHTML = "--";
     return;
@@ -149,6 +154,9 @@ function animateDivToValue(div, value) {
 	}
   if (Number(div.innerText) == value) return;
   animateNumberValueTo(div, value);
+	*/
+
+  div.innerText = value;
 }
 
 function updateDivText(div, value) {

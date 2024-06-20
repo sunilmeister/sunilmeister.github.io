@@ -761,6 +761,7 @@ function toggleDataSeries(e) {
 }
 
 function animateNumberValue(obj, start, end, duration) {
+	/* Sexy but slowing things down
   start = Number(start);
   end = Number(end);
   if (isNaN(start) || isNaN(end)) {
@@ -779,11 +780,18 @@ function animateNumberValue(obj, start, end, duration) {
           clearInterval(timer);
       }
   }, stepTime);
+	*/
+
+	obj.innerText = end;
 }
 
 function animateNumberValueTo(obj, end) {
+	/* Sexy but slowing things down
   start = Number(obj.innerText);
   animateNumberValue(obj, start, end, ANIMATE_NUMBER_DURATION);
+	*/
+
+	obj.innerText = end;
 }
 
 function updateDocumentTitle() {
