@@ -501,8 +501,8 @@ function resumeSnapshotsTimer() {
 }
 
 function executeSnapshotsTimer() {
-	let snap = session.snapshot.content;
 	if (!session) return;
+	let snap = session.snapshot.content;
 
 	blinkStateImage();
   if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
