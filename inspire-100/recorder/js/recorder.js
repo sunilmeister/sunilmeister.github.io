@@ -61,7 +61,9 @@ function disassembleAndQueueChirp(d) {
       // fragment = cloneObject(clearAllChirp);
     }
     fragment.MILLIS = Number(millis);
-    fragment.created = new Date(addMsToDate(session.firstChirpDate, (fragment.MILLIS - startMillis)));
+		let date = session.firstChirpDate;
+		if (date === null) date = new Date(d.created);
+    fragment.created = new Date(addMsToDate(date, (fragment.MILLIS - startMillis)));
     chirpQ.push(cloneObject(fragment));
   }
 }
@@ -98,7 +100,9 @@ function waitForChirps() {
 
 function updateRecorderSummary(d) {
   curDate = new Date(d.created);
-  session.sessionDurationInMs = curDate.getTime() - session.firstChirpDate.getTime();
+	let date = session.firstChirpDate;
+	if (date === null) date = new Date(d.created);
+  session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 
@@ -196,8 +200,7 @@ function FetchAndExecuteFromQueue() {
         let elm = document.getElementById("priorBreathNum");
         elm.innerHTML = String(session.systemBreathNum - 1);
       }
-      session.maxBreathNum = 
-        session.systemBreathNum - session.startSystemBreathNum + 1;
+      session.maxBreathNum = session.systemBreathNum - session.startSystemBreathNum;
     }
     updateRecorderSummary(d);
     let dCopy = cloneObject(d);
