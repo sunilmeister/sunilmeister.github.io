@@ -16,7 +16,9 @@ function disassembleAndQueueChirp(d) {
 
     if (!startMillis) startMillis = Number(millis);
     fragment.MILLIS = Number(millis);
-    fragment.created = new Date(addMsToDate(session.firstChirpDate, (fragment.MILLIS - startMillis)));
+		let date = session.firstChirpDate;
+		if (date === null) date = new Date(d.created);
+    fragment.created = new Date(addMsToDate(date, (fragment.MILLIS - startMillis)));
     chirpQ.push(cloneObject(fragment));
   }
 }
@@ -89,7 +91,9 @@ function createAudioAlarms() {
 
 function processDashboardChirp(d) {
   let curDate = new Date(d.created);
-  session.sessionDurationInMs = Math.abs(curDate.getTime() - session.firstChirpDate.getTime());
+	let date = session.firstChirpDate;
+	if (date === null) date = new Date(d.created);
+  session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
   let elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
 
