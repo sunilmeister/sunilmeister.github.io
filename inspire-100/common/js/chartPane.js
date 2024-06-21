@@ -265,7 +265,9 @@ class ChartPane {
 			yval = yvals[i];
 			let bnum = minBnum + (i * sparseInterval);
       if (this.timeUnits) {
-        let ms = new Date(loggedBreaths[bnum]).time.getTime() - session.firstChirpDate.getTime();
+				let dt = session.loggedBreaths[bnum].time;
+				if (dt === null) dt = session.firstChirpDate;
+        let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
         xval = (ms / 1000);
       } else {
         xval = bnum;
@@ -317,7 +319,9 @@ class ChartPane {
         if (loggedBreaths[b].time.getTime() == cTime.getTime()) {
           yval = transitions[t].value;
           if (this.timeUnits) {
-            let ms = new Date(loggedBreaths[b]).time.getTime() - session.firstChirpDate.getTime();
+						let dt = session.loggedBreaths[bnum].time;
+						if (dt === null) dt = session.firstChirpDate;
+        		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
             xval = (ms / 1000);
           } else {
             xval = b;
@@ -394,7 +398,9 @@ class ChartPane {
       for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
         if ((loggedBreaths[bnum].time.getTime() >= startTime.getTime()) && (loggedBreaths[bnum].time.getTime() < endTime.getTime())) {
           if (this.timeUnits) {
-            let ms = new Date(loggedBreaths[bnum]).time.getTime() - session.firstChirpDate.getTime();
+						let dt = session.loggedBreaths[bnum].time;
+						if (dt === null) dt = session.firstChirpDate;
+        		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
             xval = (ms / 1000);
           } else {
             xval = bnum;

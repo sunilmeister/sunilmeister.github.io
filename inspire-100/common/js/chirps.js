@@ -317,7 +317,7 @@ function processJsonRecord(jsonData) {
           //console.log("Found BNUM " + value);
           processBnumChirp(curTime, value, jsonData);
         } else if (ckey == "RST") {
-					session.params.resetStatus.AddTimeValue(curTime, value);
+          processResetChirp(curTime, value);
         } else if (ckey == "ATT") {
 					session.params.attention.AddTimeValue(curTime, value);
         } else if (ckey == "L1") {
@@ -627,6 +627,42 @@ function processWifiChirp(curTime, jsonStr) {
   };
   session.infoMsgs.push(msg);
   session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
+}
+
+function processResetChirp(curTime, jsonStr) {
+	let resetStatus = Number(jsonstr);
+	session.params.resetStatus.AddTimeValue(curTime, resetStatus);
+
+	let info1 = "";
+	let info2 = "";
+	let info3 = "";
+	let info4 = "";
+
+	if (resetStatus == RESET_NONE) {
+		return;
+	} else if (resetStatus == RESET_PENDING) {
+		info1 = "RESET requested";
+		info2 = "Waiting for Confirmation";
+	} else if (resetStatus == RESET_TIMEOUT) {
+		info1 = "RESET Confirmation Timed out";
+		info2 = "RESET Request Cancelled";
+	} else if (resetStatus == RESET_DECLINED) {
+		info1 = "RESET Confirmation Declined";
+		info2 = "RESET Request Cancelled";
+	} else if (resetStatus == RESET_CONFIRMED) {
+		info1 = "RESET Request Confirmed";
+		info2 = "System Reset";
+	}
+
+  let msg = {
+    'created': curTime,
+    'breathNum': session.maxBreathNum,
+    'L1': info1,
+    'L2': info2,
+    'L3': info3,
+    'L4': info4
+  };
+  session.warningMsgs.push(msg);
 }
 
 function processStateChirp(curTime, jsonStr) {

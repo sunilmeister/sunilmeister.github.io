@@ -59,7 +59,33 @@ function waitForChirps() {
   })
 }
 
-function createAudioAlarms() {
+function createAlarms() {
+	// Prioritized
+	let resetStatus =  session.params.resetStatus.LastValue();
+	if ((resetStatus !== null) && (resetStatus == RESET_PENDING)) {
+		let msgNum = session.warningMsgs.length - 1;
+  	let title = "RESET Button change Breath# " + session.maxBreathNum;
+    let msg = session.warningMsgs[msgNum].L1 + "\n"
+        + session.warningMsgs[msgNum].L2 + "\n"
+        + session.warningMsgs[msgNum].L3 + "\n"
+        + session.warningMsgs[msgNum].L4;
+		if (resetStatus == RESET_PENDING) {
+	    modalWarning(title, msg);
+			startErrorBeep();
+			return;
+		} else if (resetStatus == RESET_TIMEOUT) {
+	    modalInfo(title, msg);
+			stopErrorBeep();
+		} else if (resetStatus == RESET_CONFIRMED) {
+	    modalWarning(title, msg);
+			startErrorBeep();
+			return;
+		} else if (resetStatus == RESET_DECLINED) {
+	    modalInfo(title, msg);
+			stopErrorBeep();
+		}
+	}
+
 	let errorTag =  session.params.errorTag.LastValue();
 	if (errorTag) { // must report the error
 		let msgNum = session.errorMsgs.length - 1;
@@ -70,6 +96,7 @@ function createAudioAlarms() {
         + session.errorMsgs[msgNum].L4;
     modalAlert(title, msg);
 		startErrorBeep();
+		return;
   } else {
 		stopErrorBeep();
 	}
@@ -84,6 +111,7 @@ function createAudioAlarms() {
         + session.warningMsgs[msgNum].L4;
     modalWarning(title, msg);
 		startWarningBeep();
+		return;
   } else {
 		stopWarningBeep();
 	}
@@ -104,7 +132,7 @@ function processDashboardChirp(d) {
 
   processJsonRecord(d);
   createDashboards();
-	createAudioAlarms();
+	createAlarms();
 
   return d;
 }
