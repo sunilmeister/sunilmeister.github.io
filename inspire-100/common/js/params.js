@@ -430,7 +430,7 @@ const paramsType = {
 											 "2.5 secs":9,
 											}
 										},
-	RESET_STATUS :		{type:"ENUM", 
+	RESET:					{type:"ENUM", 
 											range:{
 												"NONE":0, 
 												"PENDING":1, 
@@ -507,7 +507,7 @@ function createAllParams() {
 	addParam("pendingPmax",		"PENDING_PMAX",		"NUMBER", 	"cmH2O",		[10, 60, 1]);
 	addParam("pendingPs", 		"PENDING_PS",			"NUMBER", 	"cmH2O",		[5, 40, 1]);
 	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
-	addParam("resetStatus",	 	"RESET",		"RESET_STATUS", 	"");
+	addParam("resetStatus",	 	"RESET_STATUS",		"RESET", 		"");
 
 	addParam("mode", 				"INPUT_MODE", 			"MODE", 		"");
 	addParam("vt", 					"INPUT_VT", 				"NUMBER", 	"ml",				[200, 600, 50]);
