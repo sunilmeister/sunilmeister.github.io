@@ -250,7 +250,7 @@ function selectSnapshots() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSnap").disabled = true;
 
-  createSnapshots();
+  refreshActivePane();
 }
 
 function selectStats() {
@@ -269,7 +269,7 @@ function selectStats() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
 
-  createAllStats();
+  refreshActivePane();
 }
 
 function selectAlerts() {
@@ -288,7 +288,7 @@ function selectAlerts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
 
-  createAllAlerts();
+  refreshActivePane();
 }
 
 function selectWaves() {
@@ -307,7 +307,7 @@ function selectWaves() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnWave").disabled = true;
 
-  createAllWaves();
+  refreshActivePane();
 }
 
 function selectCharts() {
@@ -326,7 +326,7 @@ function selectCharts() {
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
 
-  createAllCharts();
+  refreshActivePane();
 }
 
 function selectRawData() {
@@ -543,16 +543,22 @@ function updateSelectedDuration() {
 function refreshActivePane() {
   if (session.snapshot.visible) {
 		createSnapshots();
+		updateVisiblePrevRange();
 	} else if (session.stats.visible) {
     createAllStats();
+		updateVisiblePrevRange();
 	} else if (session.charts.visible) {
     createAllCharts();
+		updateVisiblePrevRange();
 	} else if (session.alerts.visible) {
     createAllAlerts();
+		updateVisiblePrevRange();
 	} else if (session.waves.visible) {
     createAllWaves();
+		updateVisiblePrevRange();
 	} else if (session.search.visible) {
     updateSearchResults();
+		updateVisiblePrevRange();
   }
 }
 
@@ -565,10 +571,7 @@ function playbackRangeSliderCallback() {
   let values = session.rangeSelector.rangeSlider.getSlider();
   let s = parseInt(values[0]);
   let e = parseInt(values[1]);
-
-  if (session.snapshot.visible) {
-		s = 0;
-	}
+	if (session.snapshot.visible) s = 0;
 
 	updateVisibleViewRange(false, s, e);
   updateSelectedDuration();
