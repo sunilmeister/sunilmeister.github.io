@@ -316,6 +316,8 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM " + value);
           processBnumChirp(curTime, value, jsonData);
+        } else if (ckey == "RST") {
+					session.params.resetStatus.AddTimeValue(curTime, value);
         } else if (ckey == "ATT") {
 					session.params.attention.AddTimeValue(curTime, value);
         } else if (ckey == "L1") {

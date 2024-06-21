@@ -131,14 +131,14 @@ function animateDivValue(div, value) {
     div.innerHTML = "--";
     return;
   }
-	if (!isValidValue(value)) {
-    div.innerHTML = "--";
-    return;
-	}
   if (Number(div.innerText) == value) return;
   animateNumberValue(div, 0, value, ANIMATE_NUMBER_DURATION);
 	*/
 
+	if (!isValidValue(value)) {
+    div.innerHTML = "--";
+    return;
+	}
   div.innerText = value;
 }
 
@@ -148,14 +148,14 @@ function animateDivToValue(div, value) {
     div.innerHTML = "--";
     return;
   }
-	if (!isValidValue(value)) {
-    div.innerHTML = "--";
-    return;
-	}
   if (Number(div.innerText) == value) return;
   animateNumberValueTo(div, value);
 	*/
 
+	if (!isValidValue(value)) {
+    div.innerHTML = "--";
+    return;
+	}
   div.innerText = value;
 }
 
