@@ -21,7 +21,7 @@ class Param {
 		initChange.value = null;
 		this.changes = [cloneObject(initChange)];
 
-		//if (this.name == "ERROR_BREATH") this.debug = true;
+		//if (this.name == "SETTINGS_CHANGE") this.debug = true;
 	}
 
 	setNumberRange(min, max, step) {
@@ -232,8 +232,6 @@ class Param {
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
 			console.error("Error during search in Param::DistinctValues", Name());
-			return values;
-		} else if (changeIx == 0) {
 			return values;
 		}
 
