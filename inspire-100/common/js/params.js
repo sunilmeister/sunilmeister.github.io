@@ -460,10 +460,16 @@ const paramOps = {
 // ////////////////////////////////////////////////////
 // Install all params at load time
 // ////////////////////////////////////////////////////
+var currParamsGroupIndex = 0;
+function createParamsGroup(name) {
+	session.allParamsTable.push({name:name, params:[]});
+	currParamsGroupIndex = session.allParamsTable.length - 1;
+}
+
 // range is [min,max,step]
 function addParam(key, name, type, units, range) {
 	session.params[key] = new Param(name, paramsType[type], units);
-	session.allParamsTable.push({"key":key, "name":name});
+	session.allParamsTable[currParamsGroupIndex].params.push({"key":key, "name":name});
 	if (!isUndefined(range)) {
 		session.params[key].setNumberRange(range[0], range[1], range[2]);
 	}
@@ -471,6 +477,8 @@ function addParam(key, name, type, units, range) {
 
 function createAllParams() {
 	// key, name, type, units, numberRange
+	
+	createParamsGroup("Measured Parameters");
 	addParam("breathNum",		"BREATH_NUMBER", 			"NUMBER", 	"",					[1, null, 1]);
 	addParam("btype", 			"BREATH_TYPE", 				"BTYPE", 		"");
 	addParam("bcontrol", 		"BREATH_CONTROL", 		"BCONTROL",	"");
@@ -490,6 +498,7 @@ function createAllParams() {
 	addParam("cmvSpont", 		"CMV_SPONTANEOUS",		"NUMBER", 	"",					[0, null, 1]);
 	addParam("o2FlowX10", 	"O2_SOURCE_FLOW",	 		"NUMBER", 		"l/min",	[0.0, 20.0, 0.1]);
 
+	createParamsGroup("Alerts");
 	addParam("attention",		"ATTENTION", 			"BOOLEAN",	"");
 	addParam("errorTag", 		"ERROR_BREATH", 	"BOOLEAN",	"");
 	addParam("warningTag", 	"WARNING_BREATH", "BOOLEAN",	"");
@@ -499,11 +508,13 @@ function createAllParams() {
 	addParam("wifiDrops",		"WIFI_DROPS", 		"NUMBER", 	"",					[0, null, 1]);
 	addParam("wifiReconns",	"WIFI_CONNECTS", 	"NUMBER", 	"",					[0, null, 1]);
 
+	createParamsGroup("Messages");
 	addParam("lcdLine1",		"LCLINE_1", 			"STRING", 	"");
 	addParam("lcdLine2",		"LCLINE_2", 			"STRING", 	"");
 	addParam("lcdLine3",		"LCLINE_3", 			"STRING", 	"");
 	addParam("lcdLine4",		"LCLINE_4", 			"STRING", 	"");
 
+	createParamsGroup("Pending Changes");
 	addParam("somePending",		"PENDING_CHANGE",	"BOOLEAN",	"");
 	addParam("pendingMode",		"PENDING_MODE",		"MODE", 		"");
 	addParam("pendingVt", 		"PENDING_VT", 		"NUMBER", 	"ml",				[200, 600, 50]);
@@ -516,6 +527,7 @@ function createAllParams() {
 	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
 	addParam("resetStatus",	 	"RESET_STATUS",		"RESET", 		"");
 
+	createParamsGroup("Input Settings");
 	addParam("mode", 				"INPUT_MODE", 			"MODE", 		"");
 	addParam("vt", 					"INPUT_VT", 				"NUMBER", 	"ml",				[200, 600, 50]);
 	addParam("mv", 					"INPUT_MV", 				"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);

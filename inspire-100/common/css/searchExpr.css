@@ -28,6 +28,17 @@
 .searchExprCls {
 }
 
+.paramGroupCls {
+	font-size: 2.3rem;
+	appearance: none;
+	width: 22;
+	border: none;
+  text-align:center;
+	margin-left: 0.5rem;
+	background-color: var(--rsp_mediumblue);
+	color: white;
+}
+
 .paramSelectCls {
 	font-size: 1.8rem;
 	appearance: none;
@@ -36,6 +47,8 @@
   text-align:center;
 	cursor: pointer;
 	margin-left: 0.5rem;
+	background-color: white;
+	color: var(--rsp_darkblue);
 }
 
 .unitsSelectCls {

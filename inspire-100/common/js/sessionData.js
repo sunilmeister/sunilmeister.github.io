@@ -103,43 +103,7 @@ var SessionDataTemplate = {
   // All input and output parameters (settings and measured)
 	// Initialized during createNewSession
   // /////////////////////////////////////////////
-	params : {
-		state:	null,
-		vtdel:	null,
-		mvdel:	null,
-		mmvdel:	null,
-		smvdel:	null,
-		sbpm:	null,
-		mbpm:	null,
-		btype:	null,
-		bcontrol:	null,
-		scomp:	null,
-		dcomp:	null,
-		peak:	null,
-		mpeep:	null,
-		plat:	null,
-		tempC:	null,
-		cmvSpont:	null,
-		o2FlowX10:	null,
-		errors:	null,
-		warnings:	null,
-		infos:	null,
-		wifiDrops:	null,
-		wifiReconns:	null,
-
-		mode:	null,
-		vt:	null,
-		mv:	null,
-		rr:	null,
-		ie:	null,
-		ipeep:	null,
-		pmax:	null,
-		ps:	null,
-		tps:	null,
-		fiO2:	null,
-		o2Purity:	null,
-	},
-
+	params : {},
 	allParamsTable: [],
 
   // /////////////////////////////////////////////

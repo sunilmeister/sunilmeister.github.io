@@ -254,19 +254,24 @@ class searchExpr {
 		return this.isValidRecursive(this.exprJson);
 	}
 
+	FindParamKey(paramName) {
+		for (let i=0; i< session.allParamsTable.length; i++) {
+			let groupParams = session.allParamsTable[i].params;
+
+			for (let p=0; p<groupParams.length; p++) {
+				let param = groupParams[p];
+				if (param.name == paramName) return param.key;
+			}
+		}
+		return null;
+	}
+
 	changeExprParam(htmlSelectElem) {
 		let nodeId = this.formParamNodeId(htmlSelectElem.id);
 		let node = this.findNode(nodeId);
 		node.paramName = htmlSelectElem.value;
 
-		let paramKey = null;
-		for (let i=0; i< session.allParamsTable.length; i++) {
-			let param = session.allParamsTable[i];
-			if (param.name == node.paramName) {
-				paramKey = param.key;
-				break;
-			}
-		}
+		let paramKey = this.FindParamKey(node.paramName);;
 		node.paramKey = paramKey;
 
 		// clear out op and const nodes to make them invalid
@@ -795,11 +800,22 @@ class searchExpr {
 		let dropdown = document.getElementById(selectId);
 		
 		for (let i=0; i< session.allParamsTable.length; i++) {
-			let param = session.allParamsTable[i];
-			let opt = document.createElement("option"); 
-			opt.text = param.name;
-			opt.value = param.name;
-			dropdown.options.add(opt);
+			let optGroup = session.allParamsTable[i];
+			let groupParams = session.allParamsTable[i].params;
+			let groupNode = document.createElement("OPTGROUP");
+			groupNode.label = optGroup.name;
+			groupNode.classList.add("paramGroupCls");
+			
+			dropdown.options.add(groupNode);
+
+			for (let p=0; p<groupParams.length; p++) {
+				let param = groupParams[p];
+				let opt = document.createElement("option"); 
+				opt.text = param.name;
+				opt.value = param.name;
+				opt.classList.add("paramSelectCls");
+				groupNode.appendChild(opt);
+			}
 		}
 		dropdown.value = value;
 	}
@@ -871,14 +887,7 @@ class searchExpr {
 		if (!json.lhs.paramName) return;
 		
 		// find the key for the param
-		let paramKey = null;
-		for (let i=0; i< session.allParamsTable.length; i++) {
-			let param = session.allParamsTable[i];
-			if (param.name == json.lhs.paramName) {
-				paramKey = param.key;
-				break;
-			}
-		}
+		let paramKey = this.FindParamKey(json.lhs.paramName);;
 		let paramType = session.params[paramKey].Type();
 		let units = session.params[paramKey].Units();
   	let unitsElm = document.getElementById(this.formUnitsSelectId(json.lhs));
