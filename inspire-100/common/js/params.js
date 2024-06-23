@@ -514,20 +514,7 @@ function createAllParams() {
 	addParam("lcdLine3",		"LCLINE_3", 			"STRING", 	"");
 	addParam("lcdLine4",		"LCLINE_4", 			"STRING", 	"");
 
-	createParamsGroup("Pending Changes");
-	addParam("somePending",		"PENDING_CHANGE",	"BOOLEAN",	"");
-	addParam("pendingMode",		"PENDING_MODE",		"MODE", 		"");
-	addParam("pendingVt", 		"PENDING_VT", 		"NUMBER", 	"ml",				[200, 600, 50]);
-	addParam("pendingMv", 		"PENDING_MV", 		"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
-	addParam("pendingRr", 		"PENDING_RR", 		"NUMBER", 	"bpm",			[10, 30, 1]);
-	addParam("pendingIe", 		"PENDING_IE", 		"IE", 			"");
-	addParam("pendingIpeep",	"PENDING_PEEP",		"NUMBER", 	"cmH2O",		[3, 15, 1]);
-	addParam("pendingPmax",		"PENDING_PMAX",		"NUMBER", 	"cmH2O",		[10, 60, 1]);
-	addParam("pendingPs", 		"PENDING_PS",			"NUMBER", 	"cmH2O",		[5, 40, 1]);
-	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
-	addParam("resetStatus",	 	"RESET_STATUS",		"RESET", 		"");
-
-	createParamsGroup("Input Settings");
+	createParamsGroup("System Settings");
 	addParam("mode", 				"INPUT_MODE", 			"MODE", 		"");
 	addParam("vt", 					"INPUT_VT", 				"NUMBER", 	"ml",				[200, 600, 50]);
 	addParam("mv", 					"INPUT_MV", 				"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
@@ -539,5 +526,19 @@ function createAllParams() {
 	addParam("tps", 				"INPUT_TPS", 				"TPS", 			"");
 	addParam("fiO2", 				"INPUT_FIO2", 			"NUMBER", 	"%",				[0, 100, 1]);
 	addParam("o2Purity", 		"INPUT_O2_PURITY",	"NUMBER", 	"%",				[21, 100, 1]);
+
+	createParamsGroup("Setting Changes");
+	addParam("comboChanged",	"SETTINGS_CHANGE","BOOLEAN",	"");
+	addParam("somePending",		"PENDING_CHANGE",	"BOOLEAN",	"");
+	addParam("pendingMode",		"PENDING_MODE",		"MODE", 		"");
+	addParam("pendingVt", 		"PENDING_VT", 		"NUMBER", 	"ml",				[200, 600, 50]);
+	addParam("pendingMv", 		"PENDING_MV", 		"NUMBER", 	"l/min",		[2.0, 18.0, 0.1]);
+	addParam("pendingRr", 		"PENDING_RR", 		"NUMBER", 	"bpm",			[10, 30, 1]);
+	addParam("pendingIe", 		"PENDING_IE", 		"IE", 			"");
+	addParam("pendingIpeep",	"PENDING_PEEP",		"NUMBER", 	"cmH2O",		[3, 15, 1]);
+	addParam("pendingPmax",		"PENDING_PMAX",		"NUMBER", 	"cmH2O",		[10, 60, 1]);
+	addParam("pendingPs", 		"PENDING_PS",			"NUMBER", 	"cmH2O",		[5, 40, 1]);
+	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
+	addParam("resetStatus",	 	"RESET_STATUS",		"RESET", 		"");
 }
 

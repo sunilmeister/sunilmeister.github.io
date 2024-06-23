@@ -105,6 +105,19 @@ function parseBnumData(jsonStr) {
   return val;
 }
 
+var settingsInUse = {
+  pending : null,
+  vt : null,
+  mv : null,
+  pmax : null,
+  ipeep : null,
+  ps : null,
+  mode : null,
+  tps : null,
+  ei : null,
+  rr : null,
+};
+
 function parseParamData(jsonStr) {
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 10)) {
@@ -712,15 +725,22 @@ function saveMiscValue(paramName, parsedObj) {
 	session.miscData[paramName] = parsedObj[paramName];
 }
 
+var prevParamChangeBreathNum = null;
 function processParamChirp(curTime, jsonStr) {
   let obj = parseParamData(jsonStr);
   if (!obj) return;
 
   let onDisplay = cloneObject(obj);
   if (!obj.pending) {
-    session.settingsInUse = cloneObject(obj);
+		if (!equalObjects(settingsInUse, onDisplay)) {
+			session.params.comboChanged.AddTimeValue(curTime, true);
+			prevParamChangeBreathNum = session.loggedBreaths.length - 1;
+		} else {
+			session.params.comboChanged.AddTimeValue(curTime, false);
+		}
+    settingsInUse = cloneObject(obj);
   }
-  updatePendingParamState(curTime, onDisplay, session.settingsInUse);
+  updatePendingParamState(curTime, onDisplay, settingsInUse);
 	session.params.somePending.AddTimeValue(curTime, obj.pending);
 
 	if (!obj.pending) {
@@ -849,6 +869,17 @@ function processBnumChirp(curTime, value, jsonData) {
   }
   value = Number(bnumValue);
 
+
+	// keep track of whether the params are not changing
+	let numLoggedBreaths = session.loggedBreaths.length - 1;
+	//console.log("prevParamChangeBreathNum",prevParamChangeBreathNum);
+	//console.log("numLoggedBreaths",numLoggedBreaths);
+	if (prevParamChangeBreathNum !== null) {
+		if (prevParamChangeBreathNum == numLoggedBreaths - 1) {
+			session.params.comboChanged.AddTimeValue(curTime, false);
+		}
+	}
+
   if ((session.usedParamCombos.length == 0) ||
     !equalParamCombos(session.currParamCombo, session.prevParamCombo)) {
     // first breath in current combo
@@ -876,7 +907,7 @@ function processBnumChirp(curTime, value, jsonData) {
   session.numMissingBreaths += breathsMissing;
   if (session.startSystemBreathNum == null) {
     session.startSystemBreathNum = value - session.numMissingBreaths;
-    console.log("null startSystemBreathNum=" + session.startSystemBreathNum);
+    console.log("startSystemBreathNum", session.startSystemBreathNum);
   }
 
   session.prevSystemBreathNum = value;
@@ -903,6 +934,9 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 
   for (let i = 0; i < numMissing; i++) {
 		missingBreathTime = addMsToDate(missingBreathTime, msPerMissingBreath);
+		session.params.comboChanged.AddTimeValue(missingBreathTime, false);
+		session.params.errorTag.AddTimeValue(missingBreathTime,false);
+		session.params.warningTag.AddTimeValue(missingBreathTime,false);
 		updateLoggedBreaths(missingBreathTime, true);
   }
 

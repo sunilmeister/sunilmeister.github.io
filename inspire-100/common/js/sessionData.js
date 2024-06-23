@@ -53,19 +53,6 @@ var SessionDataTemplate = {
     error : null,
   },
 
-  settingsInUse: {
-    pending : null,
-    vt : null,
-    mv : null,
-    pmax : null,
-    ipeep : null,
-    ps : null,
-    mode : null,
-    tps : null,
-    ei : null,
-    rr : null,
-  },
-
   fiO2Data: {
 		externalMixer: false,
   },
