@@ -631,8 +631,16 @@ function processWifiChirp(curTime, jsonStr) {
 
 var prevChirpResetStatus = RESET_NONE;
 function processResetChirp(curTime, jsonStr) {
-	//console.log("RST", jsonStr);
 	let resetStatus = Number(jsonStr);
+	//console.log("prevChirpResetStatus",prevChirpResetStatus,"resetStatus",resetStatus);
+	if (resetStatus == prevChirpResetStatus) {
+		// System will keep sending Timout/Decline messages till reset is pressed again
+		if ((resetStatus == RESET_TIMEOUT) || (resetStatus == RESET_DECLINED)) {
+			resetStatus = RESET_NONE;
+		}
+	} else {
+		prevChirpResetStatus = resetStatus;
+	}
 	session.params.resetStatus.AddTimeValue(curTime, resetStatus);
 }
 
