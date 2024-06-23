@@ -629,40 +629,11 @@ function processWifiChirp(curTime, jsonStr) {
   session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
 }
 
+var prevChirpResetStatus = RESET_NONE;
 function processResetChirp(curTime, jsonStr) {
-	let resetStatus = Number(jsonstr);
+	//console.log("RST", jsonStr);
+	let resetStatus = Number(jsonStr);
 	session.params.resetStatus.AddTimeValue(curTime, resetStatus);
-
-	let info1 = "";
-	let info2 = "";
-	let info3 = "";
-	let info4 = "";
-
-	if (resetStatus == RESET_NONE) {
-		return;
-	} else if (resetStatus == RESET_PENDING) {
-		info1 = "RESET requested";
-		info2 = "Waiting for Confirmation";
-	} else if (resetStatus == RESET_TIMEOUT) {
-		info1 = "RESET Confirmation Timed out";
-		info2 = "RESET Request Cancelled";
-	} else if (resetStatus == RESET_DECLINED) {
-		info1 = "RESET Confirmation Declined";
-		info2 = "RESET Request Cancelled";
-	} else if (resetStatus == RESET_CONFIRMED) {
-		info1 = "RESET Request Confirmed";
-		info2 = "System Reset";
-	}
-
-  let msg = {
-    'created': curTime,
-    'breathNum': session.maxBreathNum,
-    'L1': info1,
-    'L2': info2,
-    'L3': info3,
-    'L4': info4
-  };
-  session.warningMsgs.push(msg);
 }
 
 function processStateChirp(curTime, jsonStr) {
@@ -800,7 +771,7 @@ function processBreathChirp(curTime, jsonStr) {
   session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
 
 	// infer the breath control
-	let mode = session.params.mode.LastValue();
+	let mode = session.params.mode.LastChangeValue();
 	if (obj.btype == SPONTANEOUS_BREATH) {
 		if ((MODE_DECODER[mode] == "SIMV") || (MODE_DECODER[mode] == "PSV")) {
 			session.params.bcontrol.AddTimeValue(curTime, PRESSURE_SUPPORT);

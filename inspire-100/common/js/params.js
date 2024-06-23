@@ -59,7 +59,7 @@ class Param {
 			return;
 		}
 
-		let v = this.LastValue();
+		let v = this.LastChangeValue();
 		if (v === value) return; // record only changes
 
 		let change = {};
@@ -68,25 +68,32 @@ class Param {
 		this.changes.push(cloneObject(change));
 	}
 
-	FirstValue() {
+	FirstChangeValue() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
 		// first entry is a null entry
 		return this.changes[1].value;
 	}
 
-	FirstValueTime() {
+	LastChangeValue() {
+		let len = this.changes.length;
+		if (len <= 1) return null;
+		// first entry is a null entry
+		return this.changes[len-1].value;
+	}
+
+	FirstChangeTime() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
 		// first entry is a null entry
 		return this.changes[1].time;
 	}
 
-	LastValue() {
+	LastChangeTime() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
 		// first entry is a null entry
-		return this.changes[len-1].value;
+		return this.changes[len-1].time;
 	}
 
 	// time is a Date Object
@@ -99,7 +106,7 @@ class Param {
 		// most of the time it is the last value
 		// shortcut to do that
 		if (time.getTime() >= this.changes[this.changes.length-1].time.getTime()) {
-			return this.LastValue();
+			return this.LastChangeValue();
 		}
 
 		// else do a binary search

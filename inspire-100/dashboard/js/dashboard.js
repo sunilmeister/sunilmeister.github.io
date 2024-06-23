@@ -59,34 +59,85 @@ function waitForChirps() {
   })
 }
 
-function createAlarms() {
+var prevResetStatus = RESET_NONE;
+var resetRequestTime = null;
+
+function deduceSystemReset() {
+	if (prevResetStatus != RESET_PENDING) return;
+	if (resetRequestTime === null) return;
+
+	let now = new Date();
+ 	let title = "RESET Button change Breath# " + session.maxBreathNum;
+
+	// If it has not been declined or timed-out for a while after request
+	// assume system has been reset
+	let pendingTime = now.getTime() - resetRequestTime.getTime();
+	//console.log("pendingTime",pendingTime,"prevResetStatus",prevResetStatus);
+	if (pendingTime > RESET_CONFIRMATION_TIMEOUT_IN_MS) {
+		let info1 = "RESET Request Confirmed";
+		let info2 = "SYSTEM RESET";
+		msg = info1 + "\n" + info2;
+   	modalAlert(title, msg);
+		startErrorBeep();
+		resetRequestTime = null;
+	}
+}
+
+setInterval(() => {
+  deduceSystemReset();
+}, 1000)
+
+function createAlarms(chirp) {
 	// Prioritized
-	let resetStatus =  session.params.resetStatus.LastValue();
-	if ((resetStatus !== null) && (resetStatus == RESET_PENDING)) {
-		let msgNum = session.warningMsgs.length - 1;
-  	let title = "RESET Button change Breath# " + session.maxBreathNum;
-    let msg = session.warningMsgs[msgNum].L1 + "\n"
-        + session.warningMsgs[msgNum].L2 + "\n"
-        + session.warningMsgs[msgNum].L3 + "\n"
-        + session.warningMsgs[msgNum].L4;
+	let resetStatus =  session.params.resetStatus.LastChangeValue();
+	let resetChangeTime = session.params.resetStatus.LastChangeTime();
+	let resetStatusChange = true;
+	if (resetStatus !== null) {
+		resetStatusChange = (prevResetStatus != resetStatus);
+	}
+	prevResetStatus = resetStatus;
+
+ 	let title = "RESET Button change Breath# " + session.maxBreathNum;
+	let resetInfo1 = "";
+	let resetInfo2 = "";
+	if (resetStatusChange) {
 		if (resetStatus == RESET_PENDING) {
-	    modalWarning(title, msg);
-			startErrorBeep();
-			return;
+			resetInfo1 = "RESET requested";
+			resetInfo2 = "Waiting for Confirmation";
+			resetRequestTime = chirp.created;
 		} else if (resetStatus == RESET_TIMEOUT) {
-	    modalInfo(title, msg);
-			stopErrorBeep();
-		} else if (resetStatus == RESET_CONFIRMED) {
-	    modalWarning(title, msg);
-			startErrorBeep();
-			return;
+			resetInfo1 = "RESET Confirmation Timed out";
+			resetInfo2 = "RESET Request Cancelled";
+			resetRequestTime = null;
 		} else if (resetStatus == RESET_DECLINED) {
-	    modalInfo(title, msg);
-			stopErrorBeep();
+			resetInfo1 = "RESET Confirmation Declined";
+			resetInfo2 = "RESET Request Cancelled";
+			resetRequestTime = null;
+		} else if (resetStatus == RESET_CONFIRMED) {
+			resetInfo1 = "RESET Request Confirmed";
+			resetInfo2 = "System Reset";
+			resetRequestTime = null;
 		}
 	}
 
-	let errorTag =  session.params.errorTag.LastValue();
+	if (resetInfo1 != "") {
+		let msg = resetInfo1 + "\n" + resetInfo2;
+		if ((resetStatus !== null) && (resetStatus != RESET_NONE)) {
+			if (resetStatus == RESET_PENDING) {
+    		modalWarning(title, msg);
+				startErrorBeep();
+				return;
+			} else if (resetStatus == RESET_TIMEOUT) {
+	    	modalInfo(title, msg);
+				stopErrorBeep();
+			} else if (resetStatus == RESET_DECLINED) {
+	    	modalInfo(title, msg);
+				stopErrorBeep();
+			}
+		}
+	}
+
+	let errorTag =  session.params.errorTag.LastChangeValue();
 	if (errorTag) { // must report the error
 		let msgNum = session.errorMsgs.length - 1;
     let title = "Error encountered Breath# " + session.maxBreathNum;
@@ -101,7 +152,7 @@ function createAlarms() {
 		stopErrorBeep();
 	}
 
-	let warningTag =  session.params.warningTag.LastValue();
+	let warningTag =  session.params.warningTag.LastChangeValue();
 	if (warningTag) { // must report the warning
 		let msgNum = session.warningMsgs.length - 1;
     let title = "Warning encountered Breath# " + session.maxBreathNum;
@@ -131,8 +182,8 @@ function processDashboardChirp(d) {
   }
 
   processJsonRecord(d);
-  createDashboards();
-	createAlarms();
+  createDashboards(d);
+	createAlarms(d);
 
   return d;
 }

@@ -9,7 +9,7 @@ setInterval(function () {
 }, FAST_BLINK_INTERVAL_IN_MS)
 
 function updateSidebar() {
-  let tempC = session.params.tempC.LastValue();
+  let tempC = session.params.tempC.LastChangeValue();
 	if (isValidValue(tempC)) {
   	tempGauge.setValue(tempC);
 	}
