@@ -209,22 +209,6 @@ function parseMiscData(jsonStr) {
   return val;
 }
 
-function equalParamCombos(curr, prev) {
-  if (
-    (curr.value.mode == prev.value.mode) &&
-    (curr.value.vt == prev.value.vt) &&
-    (curr.value.rr == prev.value.rr) &&
-    (curr.value.ie == prev.value.ie) &&
-    (curr.value.ipeep == prev.value.ipeep) &&
-    (curr.value.pmax == prev.value.pmax) &&
-    (curr.value.ps == prev.value.ps) &&
-    (curr.value.fiO2 == prev.value.fiO2) &&
-    (curr.value.tps == prev.value.tps)
-  ) {
-    return true;
-  } else return false;
-}
-
 function readSessionVersion(jsonData) {
   if (session.playback.recVersion) return;
   for (let key in jsonData) {
@@ -277,6 +261,13 @@ function gatherSessionData(lastRecordCallback) {
 }
 
 
+function resetSignalTags(curTime, jsonData) {
+	session.params.attention.AddTimeValueIfAbsent(curTime, false);
+	session.params.errorTag.AddTimeValueIfAbsent(curTime, false);
+	session.params.warningTag.AddTimeValueIfAbsent(curTime, false);
+	session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
+}
+
 function processJsonRecord(jsonData) {
 
 	// Keep track of the time duration
@@ -289,6 +280,7 @@ function processJsonRecord(jsonData) {
   }
 
   let curTime = new Date(jsonData.created);
+	resetSignalTags(curTime, jsonData);
   processAlertChirp(curTime, jsonData);
   for (let key in jsonData) {
     if (key == 'content') {
@@ -712,8 +704,7 @@ function processSwChirp(curTime, jsonStr) {
   }
 }
 
-function saveInputChangeAndCombo(paramName, time, parsedObj) {
-  session.currParamCombo.value[paramName] = parsedObj[paramName];
+function saveInputChange(paramName, time, parsedObj) {
 	session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
 }
 
@@ -735,24 +726,25 @@ function processParamChirp(curTime, jsonStr) {
 		if (!equalObjects(settingsInUse, onDisplay)) {
 			session.params.comboChanged.AddTimeValue(curTime, true);
 			prevParamChangeBreathNum = session.loggedBreaths.length - 1;
-		} else {
-			session.params.comboChanged.AddTimeValue(curTime, false);
 		}
     settingsInUse = cloneObject(obj);
-  }
+		settingsInUse.pending = false;
+  } else {
+			session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
+	}
   updatePendingParamState(curTime, onDisplay, settingsInUse);
 	session.params.somePending.AddTimeValue(curTime, obj.pending);
 
 	if (!obj.pending) {
-  	saveInputChangeAndCombo("vt", curTime, obj);
-  	saveInputChangeAndCombo("mv", curTime, obj);
-  	saveInputChangeAndCombo("pmax", curTime, obj);
-  	saveInputChangeAndCombo("ipeep", curTime, obj);
-  	saveInputChangeAndCombo("ps", curTime, obj);
-  	saveInputChangeAndCombo("mode", curTime, obj);
-  	saveInputChangeAndCombo("tps", curTime, obj);
-  	saveInputChangeAndCombo("ie", curTime, obj);
-  	saveInputChangeAndCombo("rr", curTime, obj);
+  	saveInputChange("vt", curTime, obj);
+  	saveInputChange("mv", curTime, obj);
+  	saveInputChange("pmax", curTime, obj);
+  	saveInputChange("ipeep", curTime, obj);
+  	saveInputChange("ps", curTime, obj);
+  	saveInputChange("mode", curTime, obj);
+  	saveInputChange("tps", curTime, obj);
+  	saveInputChange("ie", curTime, obj);
+  	saveInputChange("rr", curTime, obj);
 	}
 }
 
@@ -761,9 +753,9 @@ function processFiO2Chirp(curTime, jsonStr) {
   if (!obj) return;
 
   session.fiO2Data.externalMixer =  obj.extMixer;
-  saveInputChangeAndCombo("fiO2", curTime, obj);
-  saveInputChangeAndCombo("o2Purity", curTime, obj);
-  saveInputChangeAndCombo("o2FlowX10", curTime, obj);
+  saveInputChange("fiO2", curTime, obj);
+  saveInputChange("o2Purity", curTime, obj);
+  saveInputChange("o2FlowX10", curTime, obj);
 }
 
 function processMinuteChirp(curTime, jsonStr) {
@@ -869,30 +861,6 @@ function processBnumChirp(curTime, value, jsonData) {
   }
   value = Number(bnumValue);
 
-
-	// keep track of whether the params are not changing
-	let numLoggedBreaths = session.loggedBreaths.length - 1;
-	//console.log("prevParamChangeBreathNum",prevParamChangeBreathNum);
-	//console.log("numLoggedBreaths",numLoggedBreaths);
-	if (prevParamChangeBreathNum !== null) {
-		if (prevParamChangeBreathNum == numLoggedBreaths - 1) {
-			session.params.comboChanged.AddTimeValue(curTime, false);
-		}
-	}
-
-  if ((session.usedParamCombos.length == 0) ||
-    !equalParamCombos(session.currParamCombo, session.prevParamCombo)) {
-    // first breath in current combo
-    session.prevParamCombo = cloneObject(session.currParamCombo);
-    session.currParamCombo.time = jsonData.created;
-    session.currParamCombo.value.numBreaths = 1;
-    session.currParamCombo.value.startingBreath = session.loggedBreaths.length - 1;
-    session.usedParamCombos.push(cloneObject(session.currParamCombo));
-  } else {
-    // update number of breaths for the last combo
-    session.usedParamCombos[session.usedParamCombos.length - 1].value.numBreaths++;
-  }
-
   if (session.prevSystemBreathNum == null) { // initialize
     session.prevSystemBreathNum = value - 1;
   }
@@ -991,76 +959,23 @@ function updateLoggedBreaths(breathTime, dummy) {
 
   session.loggedBreaths.push({time:breathTime, missed:dummy});
 	session.params.breathNum.AddTimeValue(breathTime, len);
-
-	if (prevBreathNum == 0) { // first breath
-		session.params.errorTag.AddTimeValue(prevBreathTime,false);
-		session.params.warningTag.AddTimeValue(prevBreathTime,false);
-		return;
-	}
-
-	// update error tags
-	let numErrors = session.errorMsgs.length;
- 	let prevErrBnum = 0;
-	if (numErrors) {
-	 	prevErrBnum = session.errorMsgs[numErrors-1].breathNum;
-	}
-	//console.log("prevErrBnum", prevErrBnum, "prevBreathNum", prevBreathNum);
-	if (prevErrBnum == prevBreathNum) {
-		session.params.errorTag.AddTimeValue(prevBreathTime,true);
-	} else {
-		session.params.errorTag.AddTimeValue(prevBreathTime,false);
-	}
-
-	// update warning tags
-	let numWarnings = session.warningMsgs.length;
- 	let prevWarnBnum = 0;
-	if (numWarnings) {
-	 	prevWarnBnum = session.warningMsgs[numWarnings-1].breathNum;
-	}
-	if (prevWarnBnum == prevBreathNum) {
-		session.params.warningTag.AddTimeValue(prevBreathTime,true);
-	} else {
-		session.params.warningTag.AddTimeValue(prevBreathTime,false);
-	}
 }
 
 function processAlertChirp(curTime, jsonData) { 
   let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
     ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum + 1;
-    if (session.alerts.expectWarningMsg) { 
-			// back to back with Previous msg not yet fully received
-      let msg = {
-        'created': session.alerts.lastWarningTime,
-        'breathNum': ewBreathNum,
-        'L1': session.alerts.L1,
-        'L2': session.alerts.L2,
-        'L3': session.alerts.L3,
-        'L4': session.alerts.L4
-      };
-      session.warningMsgs.push(msg);
-     }
-     session.alerts.lastWarningTime = curTime;
-     session.alerts.expectWarningMsg = true;
-     session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
+    session.alerts.lastWarningTime = curTime;
+    session.alerts.expectWarningMsg = true;
+    session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
+		session.params.warningTag.AddTimeValue(curTime,true);
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
     ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum + 1;
-   	if (session.alerts.expectErrorMsg) { 
-		 	// back to back with Previous msg not yet fully received
-     	let msg = {
-       'created': session.alerts.lastErrorTime,
-       'breathNum': ewBreathNum,
-       'L1': session.alerts.L1,
-       'L2': session.alerts.L2,
-       'L3': session.alerts.L3,
-       'L4': session.alerts.L4
-     	};
-     	session.errorMsgs.push(msg);
-   	}
    	session.alerts.lastErrorTime = curTime;
    	session.alerts.expectErrorMsg = true;
    	session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
+		session.params.errorTag.AddTimeValue(curTime,true);
   }
 
 	// Message lines

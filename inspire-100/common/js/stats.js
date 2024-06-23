@@ -30,59 +30,58 @@ function FindMissinBreathsInRange(minBnum, maxBnum) {
   return arr;
 }
 
+function GatherAllSettings(date) {
+	let settings = {};
+	settings.mode = session.params.mode.ValueAtTime(date);
+	settings.vt = session.params.vt.ValueAtTime(date);
+	settings.rr = session.params.rr.ValueAtTime(date);
+	settings.ie = session.params.ie.ValueAtTime(date);
+	settings.ipeep = session.params.ipeep.ValueAtTime(date);
+	settings.pmax = session.params.pmax.ValueAtTime(date);
+	settings.ps = session.params.ps.ValueAtTime(date);
+	settings.tps = session.params.tps.ValueAtTime(date);
+	settings.fiO2 = session.params.fiO2.ValueAtTime(date);
+	return cloneObject(settings);
+}
+
 function FindUsedCombosInRange(minBnum, maxBnum) {
-  let arr = [];
-	let combos = session.usedParamCombos;
-  let minDate = session.loggedBreaths[minBnum].time;
-  let maxDate = session.loggedBreaths[maxBnum].time;
+	let combos = [];
+	if (minBnum == 0) minBnum = 1;
+	if (maxBnum < minBnum) return combos;
 
-  let prevItem = null;
-  for (let i = 0; i < combos.length; i++) {
-    if (combos[i].time === null) continue;
-    let tDate = new Date(combos[i].time);
-    if (tDate.getTime() > maxDate) {
-      if (arr.length == 0) {
-        if (prevItem) {
-          arr.push(cloneObject(cloneObject(prevItem)));
-          prevItem = null;
-        }
-      }
-      break;
-    }
-    if (tDate.getTime() < minDate.getTime()) {
-      prevItem = combos[i];
-      continue;
-    } else if (tDate.getTime() > minDate.getTime()) {
-      if (arr.length == 0) {
-        if (prevItem) {
-          arr.push(cloneObject(cloneObject(prevItem)));
-          prevItem = null;
-        }
-      }
-    }
-    arr.push(cloneObject(combos[i]));
-  }
+	let minDate = session.loggedBreaths[minBnum].time;
+	let maxDate = session.loggedBreaths[maxBnum].time;
 
-  if (arr.length == 0) {
-    if (prevItem) {
-      arr.push(cloneObject(cloneObject(prevItem)));
-      prevItem = null;
-    } else if (combos.length) {
-      arr.push(cloneObject(combos[0]));
-    }
+	let prevCombo = GatherAllSettings(minDate);
+	combos.push({time:new Date(minDate), value:cloneObject(prevCombo)});
+
+	let comboChanges = session.params.comboChanged.Changes();
+  for (let i = 0; i < comboChanges.length; i++) {
+		// no change
+		let change = comboChanges[i].value;
+    if (comboChanges[i].value == false) continue;
+
+    let tDate = new Date(comboChanges[i].time);
+		if (tDate === null) continue;
+		if (tDate.getTime() <= minDate.getTime()) continue;
+		if (tDate.getTime() > maxDate.getTime()) break;
+
+		// yes change
+		let combo = cloneObject(GatherAllSettings(tDate));
+		//console.log("change#",i,"combo", combo);
+		combos.push({time:new Date(tDate), value:cloneObject(combo)});
   }
-  return arr;
+  return cloneObject(combos);
 }
 
 function displayUsedCombos() {
   let table = document.getElementById("statsComboTable");
   table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
 
-	let arr = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
+	let combos = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
 
-  for (i = 0; i < arr.length; i++) {
-    combo = arr[i];
-    if (combo.value.numBreaths == 0) continue;
+  for (i = 0; i < combos.length; i++) {
+    let combo = combos[i];
     let row = table.insertRow();
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(MODE_DECODER[(combo.value.mode)]);
@@ -112,36 +111,13 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
-    let comboBreathsInRange = null;
-    let minBnum = session.stats.range.minBnum;
-    let maxBnum = session.stats.range.maxBnum - 1;
-    let minComboBnum = combo.value.startingBreath;
-    let maxComboBnum = minComboBnum + combo.value.numBreaths - 1;
-
-    //console.log("minBnum=" + minBnum);
-    //console.log("maxBnum=" + maxBnum);
-    //console.log("minComboBnum=" + minComboBnum);
-    //console.log("maxComboBnum=" + maxComboBnum);
-
-    let minB, maxB;
-    if (minBnum < minComboBnum) minB = minComboBnum;
-    else minB = minBnum;
-    if (maxBnum > maxComboBnum) maxB = maxComboBnum;
-    else maxB = maxBnum;
-
-    if ((minBnum > maxComboBnum) || (maxBnum < minComboBnum)) {
-      // No intersection
-      comboBreathsInRange = 0;
-    } else {
-      comboBreathsInRange = maxB - minB + 1;
-    }
-
-    //console.log("comboBreathsInRange=" + comboBreathsInRange);
-
+		// bnum, date, time
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(comboBreathsInRange);
+    cell.innerHTML = lookupBreathNum(combo.time);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(minComboBnum);
+    cell.innerHTML = dateToDateStr(combo.time);
+    cell = row.insertCell();
+    cell.innerHTML = dateToTimeStr(combo.time);
   }
 }
 /////////////////////////////////////////////////////////////////
@@ -258,10 +234,17 @@ function formUsedParamString(paramObj, enums) {
   let str = "";
   for (i = 0; i < stats.length; i++) {
     let p = stats[i];
+		if (!isValidValue(p)) {
+		 	if (i==(stats.length-1)) {
+    		if (i == 0) str = "?";
+    		else str = str + "," + "?";
+			}
+			continue;
+		}
 		if (!isUndefined(enums)) {
 			p = enums[p];
 		}
-    if (i == 0) str = p;
+    if (str == "") str = p;
     else str = str + "," + p;
   }
   return str;

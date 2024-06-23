@@ -94,19 +94,6 @@ var SessionDataTemplate = {
 	allParamsTable: [],
 
   // /////////////////////////////////////////////
-  // Combinations of settings
-  // /////////////////////////////////////////////
-  prevParamCombo: {
-    "time": 0,
-    "value": {}
-  },
-  currParamCombo: {
-    "time": 0,
-    "value": {}
-  },
-  usedParamCombos: [],
-
-  // /////////////////////////////////////////////
   // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
 

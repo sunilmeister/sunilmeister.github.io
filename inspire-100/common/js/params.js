@@ -68,6 +68,34 @@ class Param {
 		this.changes.push(cloneObject(change));
 	}
 
+	AddTimeValueIfAbsent(time, value) {
+		if (this.debug) console.error("AddTimeValueIfAbsent", value, time);
+		if (this.type.type == "STRING") {
+			if (value !== null) value = String(value);
+		} else {
+			if (value !== null) value = Number(value);
+		}
+		if (isUndefined(time) || (time === null)) { // missing breaths
+			return;
+		}
+
+		let len = this.changes.length;
+		if (this.changes[len-1].time.getTime() > time.getTime()) {
+			console.error("Bad addValueChange for " + this.name);
+			return;
+		} else if (this.changes[len-1].time.getTime() == time.getTime()) {
+			return; // ignore
+		}
+
+		let v = this.LastChangeValue();
+		if (v === value) return; // record only changes
+
+		let change = {};
+		change.time = time;
+		change.value = value;
+		this.changes.push(cloneObject(change));
+	}
+
 	FirstChangeValue() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
