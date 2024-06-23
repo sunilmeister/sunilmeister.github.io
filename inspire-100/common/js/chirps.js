@@ -262,7 +262,6 @@ function gatherSessionData(lastRecordCallback) {
 
 
 function resetSignalTags(curTime, jsonData) {
-	session.params.attention.AddTimeValueIfAbsent(curTime, false);
 	session.params.errorTag.AddTimeValueIfAbsent(curTime, false);
 	session.params.warningTag.AddTimeValueIfAbsent(curTime, false);
 	session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
