@@ -83,8 +83,6 @@ var SessionDataTemplate = {
   missingBreathWindows: [],
   missingTimeWindows:   [],
   infoMsgs:             [],
-  warningMsgs :         [],
-  errorMsgs:            [],
 
 	// /////////////////////////////////////////////
   // All input and output parameters (settings and measured)
@@ -126,17 +124,9 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
-    expectWarningMsg: false,
-    expectErrorMsg: false,
-    L1: "",
-    L2: "",
-    L3: "",
-    L4: "",
     errorNum: 0,
     warningNum: 0,
     infoNum: 0,
-    lastWarningTime: null,
-    lastErrorTime: null,
   },
 
   // chart transitions etc.

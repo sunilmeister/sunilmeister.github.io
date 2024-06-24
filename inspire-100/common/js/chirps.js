@@ -961,70 +961,13 @@ function updateLoggedBreaths(breathTime, dummy) {
 }
 
 function processAlertChirp(curTime, jsonData) { 
-  let ewBreathNum = 0;
   if (!isUndefined(jsonData.content["WMSG"])) {
-    ewBreathNum = jsonData.content.WMSG - session.startSystemBreathNum + 1;
-    session.alerts.lastWarningTime = curTime;
-    session.alerts.expectWarningMsg = true;
     session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
 		session.params.warningTag.AddTimeValue(curTime,true);
   }
   if (!isUndefined(jsonData.content["EMSG"])) {
-    ewBreathNum = jsonData.content.EMSG - session.startSystemBreathNum + 1;
-   	session.alerts.lastErrorTime = curTime;
-   	session.alerts.expectErrorMsg = true;
    	session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
 		session.params.errorTag.AddTimeValue(curTime,true);
   }
-
-	// Message lines
-  if (session.alerts.expectWarningMsg || session.alerts.expectErrorMsg) {
-  	if (!isUndefined(jsonData.content.L1)) {
-  		session.alerts.L1 = jsonData.content.L1;
-  		session.alerts.L2 = null; 
-  		session.alerts.L3 = null; 
-  		session.alerts.L4 = null;
-  	}
-  	if (!isUndefined(jsonData.content.L2)) {
-  		session.alerts.L2 = jsonData.content.L2;
-  		session.alerts.L3 = null; 
-  		session.alerts.L4 = null;
-  	}
-  	if (!isUndefined(jsonData.content.L3)) {
-  		session.alerts.L3 = jsonData.content.L3;
-  		session.alerts.L4 = null;
-  	}
-  	if (!isUndefined(jsonData.content.L4)) {
-  		session.alerts.L4 = jsonData.content.L4;
-  	}
-
-  	if (session.alerts.L1 && session.alerts.L2 && session.alerts.L3 && session.alerts.L4) {
-      let msgTime;
-      if (session.alerts.expectWarningMsg) {
-        msgTime = session.alerts.lastWarningTime;
-      } else {
-        msgTime = session.alerts.lastErrorTime;
-      }
-      let msg = {
-        'created': msgTime,
-        'breathNum': ewBreathNum,
-        'L1': session.alerts.L1,
-        'L2': session.alerts.L2,
-        'L3': session.alerts.L3,
-        'L4': session.alerts.L4
-      };
-      if (session.alerts.expectWarningMsg) {
-        session.warningMsgs.push(msg);
-      } else {
-        session.errorMsgs.push(msg);
-      }
-      session.alerts.expectWarningMsg = false;
-      session.alerts.expectErrorMsg = false;
-  		session.alerts.L1 = null; 
-  		session.alerts.L2 = null; 
-  		session.alerts.L3 = null; 
-  		session.alerts.L4 = null;
-    }
-	}
 }
 
