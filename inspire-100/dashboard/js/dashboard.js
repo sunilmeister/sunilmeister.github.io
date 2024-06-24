@@ -97,7 +97,7 @@ function createAlarms(chirp) {
 	}
 	prevResetStatus = resetStatus;
 
- 	let title = "RESET Button change Breath# " + session.maxBreathNum;
+ 	let title = "RESET Activity Breath# " + session.maxBreathNum;
 	let resetInfo1 = "";
 	let resetInfo2 = "";
 	if (resetStatusChange) {
