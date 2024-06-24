@@ -101,7 +101,7 @@ function createAllAlerts() {
     if (session.infoMsgs[i].breathNum < session.alerts.range.minBnum) continue;
 
     let prefix = "INFO#" + (i + 1) + " ";
-    displayJsonAlerts(prefix, scrollbox, msg, session.infoMsgs[i].created);
+    displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i], session.infoMsgs[i].created);
   }
 
 }
