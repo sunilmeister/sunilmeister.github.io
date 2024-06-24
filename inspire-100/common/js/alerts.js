@@ -28,7 +28,7 @@ function displayJsonAlerts(prefix, scrollbox, jsonData, time) {
 
   let newElement = document.createElement('p');
   newElement.innerHTML = prefix + "Breath#" + breathNum +
-    " " + dateToStr(time);
+    " " + dateToDateStr(time) + " " + dateToTimeStr(time);
   newElement.style.backgroundColor = bgd;
   newElement.style.color = "white";
   scrollbox.appendChild(newElement);
@@ -79,7 +79,7 @@ function createAllAlerts() {
     if (errorChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (errorChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupAlertMessage(errorChanges[i].time);
-    let prefix = "ERROR #" + (i + 1) + " ";
+    let prefix = "ERROR#" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, msg, errorChanges[i].time);
   }
 
@@ -90,7 +90,7 @@ function createAllAlerts() {
     if (warningChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (warningChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupAlertMessage(warningChanges[i].time);
-    let prefix = "WARNING #" + (i + 1) + " ";
+    let prefix = "WARNING#" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, msg, warningChanges[i].time);
   }
 
@@ -100,7 +100,7 @@ function createAllAlerts() {
     if (session.infoMsgs[i].breathNum > session.alerts.range.maxBnum) continue;
     if (session.infoMsgs[i].breathNum < session.alerts.range.minBnum) continue;
 
-    let prefix = "INFO #" + (i + 1) + " ";
+    let prefix = "INFO#" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, msg, session.infoMsgs[i].created);
   }
 
