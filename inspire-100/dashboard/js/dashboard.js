@@ -139,12 +139,10 @@ function createAlarms(chirp) {
 
 	let errorTag =  session.params.errorTag.LastChangeValue();
 	if (errorTag) { // must report the error
-		let msgNum = session.errorMsgs.length - 1;
-    let title = "Error encountered Breath# " + session.maxBreathNum;
-    let msg = session.errorMsgs[msgNum].L1 + "\n"
-        + session.errorMsgs[msgNum].L2 + "\n"
-        + session.errorMsgs[msgNum].L3 + "\n"
-        + session.errorMsgs[msgNum].L4;
+		let errorTime =  session.params.errorTag.LastChangeTime();
+		let msgJson = lookupAlertMessage(errorTime);
+		let msg = formAlertMessageStr(msgJson);
+    let title = "Error Breath# " + session.maxBreathNum;
     modalAlert(title, msg);
 		startErrorBeep();
 		return;
@@ -154,12 +152,10 @@ function createAlarms(chirp) {
 
 	let warningTag =  session.params.warningTag.LastChangeValue();
 	if (warningTag) { // must report the warning
-		let msgNum = session.warningMsgs.length - 1;
-    let title = "Warning encountered Breath# " + session.maxBreathNum;
-    let msg = session.warningMsgs[msgNum].L1 + "\n"
-        + session.warningMsgs[msgNum].L2 + "\n"
-        + session.warningMsgs[msgNum].L3 + "\n"
-        + session.warningMsgs[msgNum].L4;
+		let warningTime =  session.params.warningTag.LastChangeTime();
+		let msgJson = lookupAlertMessage(warningTime);
+		let msg = formAlertMessageStr(msgJson);
+    let title = "Warning Breath# " + session.maxBreathNum;
     modalWarning(title, msg);
 		startWarningBeep();
 		return;

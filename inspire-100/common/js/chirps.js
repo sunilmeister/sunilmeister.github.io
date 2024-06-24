@@ -325,13 +325,13 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "ATT") {
 					session.params.attention.AddTimeValue(curTime, value);
         } else if (ckey == "L1") {
-					session.params.lcdLine1.AddTimeValue(curTime, value);
+					session.params.lcdLine1.AddTimeValueIfAbsent(curTime, value);
         } else if (ckey == "L2") {
-					session.params.lcdLine2.AddTimeValue(curTime, value);
+					session.params.lcdLine2.AddTimeValueIfAbsent(curTime, value);
         } else if (ckey == "L3") {
-					session.params.lcdLine3.AddTimeValue(curTime, value);
+					session.params.lcdLine3.AddTimeValueIfAbsent(curTime, value);
         } else if (ckey == "L4") {
-					session.params.lcdLine4.AddTimeValue(curTime, value);
+					session.params.lcdLine4.AddTimeValueIfAbsent(curTime, value);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
           processSwChirp(curTime, value);

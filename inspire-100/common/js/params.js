@@ -21,7 +21,7 @@ class Param {
 		initChange.value = null;
 		this.changes = [cloneObject(initChange)];
 
-		//if (this.name == "SETTINGS_CHANGE") this.debug = true;
+		//if (this.name == "LCD_LINE_1") this.debug = true;
 	}
 
 	setNumberRange(min, max, step) {
@@ -96,20 +96,6 @@ class Param {
 		this.changes.push(cloneObject(change));
 	}
 
-	FirstChangeValue() {
-		let len = this.changes.length;
-		if (len <= 1) return null;
-		// first entry is a null entry
-		return this.changes[1].value;
-	}
-
-	LastChangeValue() {
-		let len = this.changes.length;
-		if (len <= 1) return null;
-		// first entry is a null entry
-		return this.changes[len-1].value;
-	}
-
 	FirstChangeTime() {
 		let len = this.changes.length;
 		if (len <= 1) return null;
@@ -124,7 +110,107 @@ class Param {
 		return this.changes[len-1].time;
 	}
 
-	// time is a Date Object
+	ChangeTimeGEQ(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
+		// first entry in changes is a null entry
+		if (this.changes.length == 1) return null;
+
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime", Name());
+			return null;
+		}
+
+		if (this.changes[ix].time.getTime() == time.getTime()) {
+			return this.changes[ix].time;
+		}
+
+		if (ix == this.changes.length-1) {
+			// No more changes
+			return null;
+		}
+
+		return this.changes[ix+1].time;
+	}
+
+	ChangeTimeLT(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
+		// first entry in changes is a null entry
+		if (this.changes.length == 1) return null;
+
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime", Name());
+			return null;
+		}
+		if (ix < 1) {
+			// No more changes
+			return null;
+		}
+
+		return this.changes[ix-1].time;
+	}
+
+	FirstChangeValue() {
+		let len = this.changes.length;
+		if (len <= 1) return null;
+		// first entry is a null entry
+		return this.changes[1].value;
+	}
+
+	LastChangeValue() {
+		let len = this.changes.length;
+		if (len <= 1) return null;
+		// first entry is a null entry
+		return this.changes[len-1].value;
+	}
+
+	// value at the given time or the immediate next
+	ChangeValueGEQ(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
+		// first entry in changes is a null entry
+		if (this.changes.length == 1) return null;
+
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime", Name());
+			return null;
+		}
+		if (this.changes[ix].time.getTime() == time.getTime()) {
+			return this.changes[ix].value;
+		}
+
+		if (ix == this.changes.length-1) {
+			// No more changes
+			return null;
+		}
+
+		return this.changes[ix+1].value;
+	}
+
+	// value at the immediate prev time
+	ChangeValueLT(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
+		// first entry in changes is a null entry
+		if (this.changes.length == 1) return null;
+
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime", Name());
+			return null;
+		}
+		if (ix < 1) {
+			// No more changes
+			return null;
+		}
+
+		return this.changes[ix-1].value;
+	}
+
 	ValueAtTime(time) {
 		if (isUndefined(time) || (time === null)) return null;
 
@@ -535,10 +621,10 @@ function createAllParams() {
 	addParam("wifiReconns",	"WIFI_CONNECTS", 	"NUMBER", 	"",					[0, null, 1]);
 
 	createParamsGroup("Messages");
-	addParam("lcdLine1",		"LCLINE_1", 			"STRING", 	"");
-	addParam("lcdLine2",		"LCLINE_2", 			"STRING", 	"");
-	addParam("lcdLine3",		"LCLINE_3", 			"STRING", 	"");
-	addParam("lcdLine4",		"LCLINE_4", 			"STRING", 	"");
+	addParam("lcdLine1",		"LCD_LINE_1", 			"STRING", 	"");
+	addParam("lcdLine2",		"LCD_LINE_2", 			"STRING", 	"");
+	addParam("lcdLine3",		"LCD_LINE_3", 			"STRING", 	"");
+	addParam("lcdLine4",		"LCD_LINE_4", 			"STRING", 	"");
 
 	createParamsGroup("System Settings");
 	addParam("mode", 				"INPUT_MODE", 			"MODE", 		"");

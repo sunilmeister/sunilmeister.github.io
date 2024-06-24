@@ -1,6 +1,27 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
+
+// returns an object {L1: , L2:, L3:, L4}
+// four lines that make up the alert message
+function lookupAlertMessage(alertTime) {
+	let l1 = session.params.lcdLine1.ChangeValueGEQ(alertTime);
+	let l2 = session.params.lcdLine2.ChangeValueGEQ(alertTime);
+	let l3 = session.params.lcdLine3.ChangeValueGEQ(alertTime);
+	let l4 = session.params.lcdLine4.ChangeValueGEQ(alertTime);
+
+	return {L1:l1, L2:l2, L3:l3, L4:l4};
+}
+
+function formAlertMessageStr(json) {
+	let str = "";
+	if (!isUndefined(json.L1) && (json.L1 !== null)) str += json.L1;
+	if (!isUndefined(json.L2) && (json.L2 !== null)) str += "\n" + json.L2;
+	if (!isUndefined(json.L3) && (json.L3 !== null)) str += "\n" + json.L3;
+	if (!isUndefined(json.L4) && (json.L4 !== null)) str += "\n" + json.L4;
+	return str;
+}
+
 function displayJsonAlerts(prefix, scrollbox, jsonData) {
   bgd = palette.darkblue;
   let newElement = document.createElement('p');
