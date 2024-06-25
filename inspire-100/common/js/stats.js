@@ -53,7 +53,8 @@ function FindUsedCombosInRange(minBnum, maxBnum) {
 	let maxDate = session.loggedBreaths[maxBnum].time;
 
 	let prevCombo = GatherAllSettings(minDate);
-	combos.push({time:new Date(minDate), value:cloneObject(prevCombo)});
+	let comboChanged = session.params.comboChanged.ChangeTimeLEQ(minDate);
+	combos.push({time:new Date(comboChanged), value:cloneObject(prevCombo)});
 
 	let comboChanges = session.params.comboChanged.Changes();
   for (let i = 0; i < comboChanges.length; i++) {

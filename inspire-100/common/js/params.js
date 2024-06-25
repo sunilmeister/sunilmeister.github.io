@@ -134,6 +134,49 @@ class Param {
 		return this.changes[ix+1].time;
 	}
 
+	ChangeTimeGT(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
+		// first entry in changes is a null entry
+		if (this.changes.length == 1) return null;
+
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime", Name());
+			return null;
+		}
+		if (ix == this.changes.length-1) {
+			// No more changes
+			return null;
+		}
+
+		return this.changes[ix+1].time;
+	}
+
+	ChangeTimeLEQ(time) {
+		if (isUndefined(time) || (time === null)) return null;
+
+		// first entry in changes is a null entry
+		if (this.changes.length == 1) return null;
+
+		let ix = this.FindLastValueChangeIndex(time);
+		if (ix === null) {
+			console.error("Error during search in Param::ValueAtTime", Name());
+			return null;
+		}
+
+		if (this.changes[ix].time.getTime() == time.getTime()) {
+			return this.changes[ix].time;
+		}
+
+		if (ix < 1) {
+			// No more changes
+			return null;
+		}
+
+		return this.changes[ix-1].time;
+	}
+
 	ChangeTimeLT(time) {
 		if (isUndefined(time) || (time === null)) return null;
 
