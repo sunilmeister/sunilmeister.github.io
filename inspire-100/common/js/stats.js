@@ -68,8 +68,9 @@ function FindUsedCombosInRange(minBnum, maxBnum) {
 
 		// yes change
 		let combo = cloneObject(GatherAllSettings(tDate));
+		let changeTime = comboChanges.ChangeValueLEQ(tDate);
 		//console.log("change#",i,"combo", combo);
-		combos.push({time:new Date(tDate), value:cloneObject(combo)});
+		combos.push({time:new Date(changeTime), value:cloneObject(combo)});
   }
   return cloneObject(combos);
 }
