@@ -409,6 +409,10 @@ function launchPlayback() {
   window.open("../playback/playback.html");
 }
 
+function findElevation() {
+  window.open("https://www.freemaptools.com/elevation-finder.htm");
+}
+
 function launchFiO2() {
   window.open("../fio2Calc/fio2Calc.html");
 }
