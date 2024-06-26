@@ -86,6 +86,7 @@ function FindUsedCombosInRange(minBnum, maxBnum) {
 }
 
 function displayUsedCombos() {
+	statsComboTable.innerHTML = statsComboTableHTML;
   let table = statsComboTable;
 	let combos = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
 
