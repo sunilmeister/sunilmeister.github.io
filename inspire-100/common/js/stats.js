@@ -2,6 +2,15 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var statsComboTable = null;
+var statsComboTableHTML = null;
+var statsMinMaxTable = null;
+var statsMinMaxTableHTML = null;
+var statsParamTable = null;
+var statsParamTableHTML = null;
+var statsMiscTable = null;
+var statsMiscTableHTML = null;
+
 function checkForUndefined(val) {
   if (val === null) return "--";
   if (isUndefined(val)) return "?";
@@ -77,9 +86,7 @@ function FindUsedCombosInRange(minBnum, maxBnum) {
 }
 
 function displayUsedCombos() {
-  let table = document.getElementById("statsComboTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-
+  let table = statsComboTable;
 	let combos = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
 
   for (i = 0; i < combos.length; i++) {
@@ -130,7 +137,7 @@ function miscTableRow(table, field, value) {
   cell = row.insertCell();
   cell.innerHTML = field;
   cell = row.insertCell();
-  cell.innerHTML = '<div style="text-align:right;" id=' + value + '>----</div>';
+  cell.innerHTML = '<div style="text-align:left;" id=' + value + '>----</div>';
 }
 
 function paramTableRow(table, field, units, value) {
@@ -160,7 +167,7 @@ function minMaxTableRow(table, field, units, minDiv, maxDiv, avgDiv) {
 }
 
 function constructStatMinMaxTable() {
-  let table = document.getElementById("statsMinMaxTable");
+  let table = statsMinMaxTable;
   minMaxTableRow(table, "Peak Pressure", "cmH20", "peakMin", "peakMax", "peakAvg");
   minMaxTableRow(table, "Plateau Pressure", "cmH20", "platMin", "platMax", "platAvg");
   minMaxTableRow(table, "PEEP Pressure", "cmH20", "mpeepMin", "mpeepMax", "mpeepAvg");
@@ -177,7 +184,7 @@ function constructStatMinMaxTable() {
 }
 
 function constructStatParamTable() {
-  let table = document.getElementById("statsParamTable");
+  let table = statsParamTable;
   paramTableRow(table, "Ventilation Mode", "mode", "mode");
   paramTableRow(table, "Tidal Volume", "ml", "vt");
   paramTableRow(table, "Minute Volume", "l/min", "mv");
@@ -191,7 +198,7 @@ function constructStatParamTable() {
 }
 
 function constructStatMiscTable() {
-  let table = document.getElementById("statsMiscTable");
+  let table = statsMiscTable;
   miscTableRow(table, "Number of Breaths", "numBreaths");
   miscTableRow(table, "Number of Mandatory Breaths", "numMandatory");
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
@@ -437,12 +444,23 @@ function createAllStats() {
 
 function initStats() {
   session.statTablesConstructed = false;
-  table = document.getElementById("statsComboTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-  table = document.getElementById("statsMinMaxTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-  table = document.getElementById("statsParamTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
-  table = document.getElementById("statsMiscTable");
-  table.getElementsByTagName("tbody")[0].innerHTML = table.rows[0].innerHTML;
+
+	statsComboTable.innerHTML = statsComboTableHTML;
+	statsMinMaxTable.innerHTML = statsMinMaxTableHTML;
+	statsParamTable.innerHTML = statsParamTableHTML;
+	statsMiscTable.innerHTML = statsMiscTableHTML;
 }
+
+window.addEventListener("load", function() {
+	statsComboTable = document.getElementById("statsComboTable");
+	statsComboTableHTML = statsComboTable.innerHTML;
+
+  statsMinMaxTable = document.getElementById("statsMinMaxTable");
+	statsMinMaxTableHTML = statsMinMaxTable.innerHTML;
+
+  statsParamTable = document.getElementById("statsParamTable");
+	statsParamTableHTML = statsParamTable.innerHTML;
+
+  statsMiscTable = document.getElementById("statsMiscTable");
+	statsMiscTableHTML = statsMiscTable.innerHTML;
+})

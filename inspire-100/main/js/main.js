@@ -424,6 +424,7 @@ function launchPsv() {
 var portalStartDate = null;
 window.onload = function () {
   portalStartDate = new Date();
+	console.log("Testing github update 26-06-2024 11:20");
 
 	setRootFontSize("wrapper", "wrapper");
 
