@@ -468,6 +468,7 @@ function installTempGauge() {
 
 window.onload = function () {
   finishedLoading = false;
+	console.log("Testing github update 26-06-2024 7:48AM");
 
 	dashboardLaunchTime = new Date();
 
