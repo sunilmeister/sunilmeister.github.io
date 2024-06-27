@@ -273,11 +273,6 @@ function processJsonRecord(jsonData) {
 	if (session.firstChirpDate === null) session.firstChirpDate = new Date(jsonData.created);
 	session.lastChirpDate = new Date(jsonData.created);
 
-  // Snap message time to breath times instead of chirp times
-  if (session.lastValidBreathTime) {
-    jsonData.created = new Date(session.lastValidBreathTime);
-  }
-
   let curTime = new Date(jsonData.created);
 	resetSignalTags(curTime, jsonData);
   processAlertChirp(curTime, jsonData);

@@ -67,7 +67,7 @@ function deduceSystemReset() {
 	if (resetRequestTime === null) return;
 
 	let now = new Date();
- 	let title = "RESET Button change Breath# " + session.maxBreathNum;
+ 	let title = "RESET Activity Breath# " + session.maxBreathNum;
 
 	// If it has not been declined or timed-out for a while after request
 	// assume system has been reset
