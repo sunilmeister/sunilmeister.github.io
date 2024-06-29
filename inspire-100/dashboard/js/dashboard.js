@@ -150,6 +150,7 @@ function createAlarms(chirp) {
 		stopErrorBeep();
 	}
 
+	/*
 	let warningTag =  session.params.warningTag.LastChangeValue();
 	if (warningTag) { // must report the warning
 		let warningTime =  session.params.warningTag.LastChangeTime();
@@ -162,6 +163,7 @@ function createAlarms(chirp) {
   } else {
 		stopWarningBeep();
 	}
+	*/
 }
 
 function processDashboardChirp(d) {
