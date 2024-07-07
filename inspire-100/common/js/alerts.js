@@ -75,35 +75,32 @@ function createAllAlerts() {
   let scrollbox = document.getElementById('errorDiv');
   scrollbox.innerHTML = "";
 	let errorChanges = session.params.errors.Changes();
-	let errorNum = 0;
   for (let i = 0; i < errorChanges.length; i++) {
     if (errorChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (errorChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupAlertMessage(errorChanges[i].time);
-    let prefix = "ERROR#" + (++errorNum) + " ";
+    let prefix = "ERROR#" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, msg, errorChanges[i].time);
   }
 
   scrollbox = document.getElementById('warningDiv');
   scrollbox.innerHTML = "";
 	let warningChanges = session.params.warnings.Changes();
-	let warningNum = 0;
   for (let i = 0; i < warningChanges.length; i++) {
     if (warningChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (warningChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupAlertMessage(warningChanges[i].time);
-    let prefix = "WARNING#" + (++warningNum) + " ";
+    let prefix = "WARNING#" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, msg, warningChanges[i].time);
   }
 
   scrollbox = document.getElementById('infoDiv');
   scrollbox.innerHTML = "";
-	let infoNum = 0;
   for (let i = 0; i < session.infoMsgs.length; i++) {
     if (session.infoMsgs[i].breathNum > session.alerts.range.maxBnum) continue;
     if (session.infoMsgs[i].breathNum < session.alerts.range.minBnum) continue;
 
-    let prefix = "INFO#" + (++infoNum) + " ";
+    let prefix = "INFO#" + (i + 1) + " ";
     displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i], session.infoMsgs[i].created);
   }
 
