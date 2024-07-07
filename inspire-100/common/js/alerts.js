@@ -79,7 +79,7 @@ function createAllAlerts() {
     if (errorChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (errorChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupAlertMessage(errorChanges[i].time);
-    let prefix = "ERROR#" + (i + 1) + " ";
+    let prefix = "ERROR#" + i + " ";
     displayJsonAlerts(prefix, scrollbox, msg, errorChanges[i].time);
   }
 
@@ -90,7 +90,7 @@ function createAllAlerts() {
     if (warningChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (warningChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupAlertMessage(warningChanges[i].time);
-    let prefix = "WARNING#" + (i + 1) + " ";
+    let prefix = "WARNING#" + i + " ";
     displayJsonAlerts(prefix, scrollbox, msg, warningChanges[i].time);
   }
 
