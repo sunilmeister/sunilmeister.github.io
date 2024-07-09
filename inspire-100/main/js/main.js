@@ -352,7 +352,8 @@ function rememberNewSystem() {
 }
 
 function installFirmwareApp() {
-	downloadAppZipFile();
+	//downloadAppZipFile();
+  modalAlert("Firmware App under construction", "Come back again soon!");
 }
 
 function checkDocPassword(pwd) {
@@ -424,7 +425,6 @@ function launchPsv() {
 var portalStartDate = null;
 window.onload = function () {
   portalStartDate = new Date();
-	console.log("Testing github update 26-06-2024 11:20");
 
 	setRootFontSize("wrapper", "wrapper");
 
