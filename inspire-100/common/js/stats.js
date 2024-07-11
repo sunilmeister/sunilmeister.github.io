@@ -117,7 +117,7 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.ps);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(combo.value.tps);
+    cell.innerHTML = checkForUndefined(TPS_DECODER_SIMPLE[combo.value.tps]);
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
@@ -330,7 +330,7 @@ function displayParamUsage() {
   el = document.getElementById("ps");
   el.innerHTML = formUsedParamString(session.params.ps);
   el = document.getElementById("tps");
-  el.innerHTML = formUsedParamString(session.params.tps);
+  el.innerHTML = formUsedParamString(session.params.tps, TPS_DECODER_SIMPLE);
   el = document.getElementById("fiO2");
   el.innerHTML = formUsedParamString(session.params.fiO2);
 }

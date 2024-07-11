@@ -74,6 +74,19 @@ const EI_DECODER = [
   "1:3",
 ];
 
+const TPS_DECODER_SIMPLE = [
+  "10%",
+  "20%",
+  "30%",
+  "40%",
+  "50%",
+  "60%",
+  "1.0",
+  "1.5",
+  "2.0",
+  "2.5",
+]; 
+
 const TPS_DECODER = [
   { text: "10%", units: "(% Peak Flow)" },
   { text: "20%", units: "(% Peak Flow)" },
