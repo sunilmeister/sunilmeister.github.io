@@ -31,6 +31,8 @@ function getCurrentSimulatedMillis() {
 
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
+		//console.log("dashboardLaunchTime",dashboardLaunchTime);
+		//console.log("chirpTime",d.created);
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
