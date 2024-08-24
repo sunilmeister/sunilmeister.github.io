@@ -29,6 +29,7 @@ function getCurrentSimulatedMillis() {
   return startSimulatedMillis + deltaTimeInMs;
 }
 
+var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
 		//console.log("dashboardLaunchTime",dashboardLaunchTime);
@@ -36,8 +37,10 @@ function waitForChirps() {
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
+
 		// ignore old chirps
-		if (d.created < dashboardLaunchTime) return;
+		dashboardChirpCount++;
+		if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
 
     if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
@@ -471,9 +474,8 @@ function installTempGauge() {
 }
 
 window.onload = function () {
-  finishedLoading = false;
-
 	dashboardLaunchTime = new Date();
+  finishedLoading = false;
 
 	// find and store often used div elements
   rangeWindowDiv = document.getElementById("rangeWindowDiv");

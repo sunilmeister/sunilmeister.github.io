@@ -74,8 +74,14 @@ function getCurrentSimulatedMillis() {
   return startSimulatedMillis + deltaTimeInMs;
 }
 
+var recorderLaunchTime = null;
+var recorderChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
+		// ignore old chirps
+		recorderChirpCount++;
+		if ((recorderChirpCount == 1) && (d.created < recorderLaunchTime)) return;
+
     if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
@@ -113,6 +119,7 @@ function updateRecorderSummary(d) {
 }
 
 window.onload = function () {
+	recorderLaunchTime = new Date();
   finishedLoading = false;
 
   createNewSession();

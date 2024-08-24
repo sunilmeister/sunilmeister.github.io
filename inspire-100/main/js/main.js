@@ -423,6 +423,7 @@ function launchPsv() {
 }
 
 var portalStartDate = null;
+var portalChirpCount = 0;
 window.onload = function () {
   portalStartDate = new Date();
 
@@ -465,13 +466,14 @@ window.onload = function () {
     let time = new Date(d.created);
 
 		// Discard old messages
-	  if (time.getTime() > portalStartDate.getTime()) {
+		portalChirpCount++;
+	  if ((portalChirpCount > 1) || (time.getTime() > portalStartDate.getTime())) {
       detectedInspireSystemLogin(time, newUid, loginOtp);
 		}
     //console.log(d);
   })
   
-};
+}
 
 function detectedInspireSystemLogin(time, newUid, otp) {
   //console.log("**** " + newUid + " online" + " at " + time);
