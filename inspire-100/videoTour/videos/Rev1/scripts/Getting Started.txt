@@ -1,0 +1,85 @@
+Inspire 100 is an emergency ventilator system. The system is shown on the left of your screen. 
+
+The front panel of the system is used to control the system operation. The front panel also displays the values of key parameters. 
+
+In addition to the front panel, the system provides a suite of web applications for remote monitoring. These web applications provide much more detailed information than the physical front panel of the system.  
+
+The system must be logged into the local Wi-Fi at the place of deployment to enable remote monitoring. All communication between the physical system and the web applications is through the Internet. The system sends messages via the Internet to the web applications.
+
+All this internet communication uses HTTPS protocol. So, all internet messages are encrypted. No malicious actor can intercept the messages. 
+
+All the web applications run in your favorite browser. You can use any browser on any device, be it a desktop, a laptop, or any of the touch devices like a tablet or a smartphone. All popular devices are supported and there are no apps to download. 
+
+To start with, let's understand the concept of a unique system ID or UID.  
+
+Each physical system comes with a unique system ID that is hard wired into it. The UID is a 20 letter string. A sample is shown on your screen. There are two fields that make up the UID, the prefix followed by 16 unique letters.
+
+Without further ado, let's fire up our favorite browser and navigate to the URL shown on your screen.    
+
+This is the main entry portal for the entire set of web applications for Inspire 100.  
+
+All web apps can be zoomed in or out using your keyboard. Use the mouse wheel while pressing the Control key. You can also use Control Plus or Control Minus. On touch screens, the usual two finger pinch and expand action works.  Zoom the app so that it fits well in your screen.
+
+The first two menu action items, Manage Systems and Add System, allow you to
+populate the systems table. The systems table holds the credentials of all
+the systems that you wish to monitor.   
+
+Let's start with Manage Systems.  You can see that this browser already has three systems in its systems table. 
+
+To add to the systems table, you must know the UID of the system you wish to. This UID is displayed on the front panel when the system logs into a Wi-Fi network. 
+
+The process to add a system is straightforward. Click on the Add System button and it brings up a simple form that needs to be filled in. Fill in the UID of the system, then give the system a name tag so that it is easy to remember. Click on Add system and you are done.   
+
+In order to export the systems table to a file, use the export button. Fill in the name of the export file. The file extension will be dot JSON and it does not need to be typed in. The resulting file is a text file as shown on your screen. 
+
+This file can later be imported into another browser if required.    
+
+To empty the systems table, use the delete button shown on your screen. All system information will be deleted.      
+
+To import a previously exported systems file, click on the import button as shown on your screen. 
+
+Browse for the file you want to import in the form that pops up, double click it and then click the import button on the form. The systems table will be populated using the data in the imported file.
+
+To delete a particular system, click the delete button in the row that the system is displayed in.  
+
+Use the drop down menu to select that you wish to monitor. Clicking the check button against the system in the systems table will also do the same.   
+
+There is one more way to add a system to the systems table. This method uses a one time password or OTP. 
+
+Let's temporarily delete the Bangalore system from the Systems table to demo OTP usage. 
+
+Now, when the Inspire 100 system in Bangalore logs in to a Wi-Fi network with
+the broadcast option, a popup message will ask for an OTP. 
+
+You can now enter the Bangalore system in the Systems table by using the OTP that is displayed on the front panel of the Bangalore system. This avoids having to jot down the UID on a piece of paper.     
+
+Finally, use the back button to get back to the main entry portal menu. 
+
+The add system button is a quick way to add 1 system without having to navigate to the Manage System screen. It works exactly the same way as explained before.   
+
+Before you can launch some of the apps, you must first select the target system. To select a target system, there is a drop down menu right here.    
+
+Now that we have selected a target system, we can launch the dashboard, the recorder or the playback apps. There are dedicated videos covering all these three.
+
+Multi system display is useful for something like a nurses station. It shows the state of all the systems in the systems table. Again there is a dedicated video later that covers this app.   
+
+Instruction videos like this one that you are watching are accessed via this menu button. It is recommended that you watch them in their listed order. Each one builds on the previous one.   
+
+Next, all the documentation is online. Each one of this brings up a PDF Viewer. It is recommended that you install a PDF viewer in your browser to avoid downloading.  
+
+Next menu item is to enable field upgrade of the system firmware. Again, it is covered in detail in a subsequent video.
+
+The Inspire 100 system operation requires the altitude or elevation of the deployment site. You can search for this information via this link.  
+
+Finally, because the browser stores all kinds of information about prior sessions, you can choose to delete the history. 
+
+You can select what you want deleted. For now, let me just delete all the cookies.      
+
+This concludes our video on getting started.
+
+
+
+
+
+
+
