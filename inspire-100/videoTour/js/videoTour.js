@@ -3,7 +3,8 @@
 // ////////////////////////////////////////////////////
 
 function entryPortalVideo() {
-	window.open("https://youtu.be/WEYzZwlYQDE");
+	//window.open("https://youtu.be/WEYzZwlYQDE");
+	window.open("https://youtu.be/KFTRnrRU_8A");
 }
 
 function dashboardVideo() {
