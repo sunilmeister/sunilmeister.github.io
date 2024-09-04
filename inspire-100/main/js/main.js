@@ -480,7 +480,7 @@ function detectedInspireSystemLogin(time, newUid, otp) {
   let obj = findSystemUidObj(newUid);
   let msg = "";
   if (obj) {
-    msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
+    msg += obj.uid + "\n TAG: " + obj.tag ;
     modalInfo("Login detected\n" + msg, "");
   } else {
 		if (otp != 999) {
