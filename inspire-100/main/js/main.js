@@ -481,11 +481,11 @@ function detectedInspireSystemLogin(time, newUid, otp) {
   let msg = "";
   if (obj) {
     msg += "UID: " + obj.uid + "\n TAG: " + obj.tag ;
-    modalInfo("Login detected from a RECOGNIZED System", msg);
+    modalInfo("Login detected\n" + msg, "");
   } else {
 		if (otp != 999) {
     	checkAndAddSystemInfo(newUid, otp) ;
-    	modalInfo("Login detected from an UNRECOGNIZED System", msg);
+    	modalInfo("Login detected\nUNRECOGNIZED System", msg);
 		}
   }
 }
