@@ -476,7 +476,7 @@ window.onload = function () {
 }
 
 function detectedInspireSystemLogin(time, newUid, otp) {
-  //console.log("**** " + newUid + " online" + " at " + time);
+  console.log("**** " + newUid + " online" + " at " + time);
   let obj = findSystemUidObj(newUid);
   let msg = "";
   if (obj) {
