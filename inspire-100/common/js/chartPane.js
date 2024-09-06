@@ -36,6 +36,13 @@ var yAxisInfoTemplate = {
 // 2. add Graph(s)
 // 3. Render ChartPane object
 // 
+// IMPORTANT!!!!
+// Note that BNUM time is the breath starting time
+// At that time, the results of the breath are not known
+// The results such as Peak, VT etc. are known just before the next breath starts
+// Accordingly, the results are shifted left by 1 breath just for charts
+// so that the results of a breath show against the breath number
+//
 // The constructor inputs are
 // Title of chart
 // Height in pixels
@@ -270,7 +277,7 @@ class ChartPane {
         let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
         xval = (ms / 1000);
       } else {
-        xval = bnum;
+        xval = bnum - 1;
       }
 
       if (this.paramInfo.snapYval) {
@@ -324,7 +331,7 @@ class ChartPane {
         		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
             xval = (ms / 1000);
           } else {
-            xval = b;
+            xval = b - 1;
           }
           if (this.paramInfo.snapYval) {
             xyPoints.push({
@@ -403,7 +410,7 @@ class ChartPane {
         		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
             xval = (ms / 1000);
           } else {
-            xval = bnum;
+            xval = bnum - 1;
           }
           if (this.paramInfo.snapYval) {
             xyPoints.push({

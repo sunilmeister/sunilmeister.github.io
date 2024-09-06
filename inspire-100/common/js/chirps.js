@@ -313,7 +313,7 @@ function processJsonRecord(jsonData) {
 
         // process each keyword
         if (ckey == "BNUM") {
-          //console.log("Found BNUM " + value);
+          //console.log("Found BNUM ",value);
           processBnumChirp(curTime, value, jsonData);
         } else if (ckey == "RST") {
           processResetChirp(curTime, value);
@@ -339,6 +339,7 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "MINUTE") {
           processMinuteChirp(curTime, value);
         } else if (ckey == "BREATH") {
+          //console.log("Found BREATH ",value);
           processBreathChirp(curTime, value);
         } else if (ckey == "CMV_SPONT") {
           processCmvSpontChirp(curTime, value);
@@ -772,6 +773,13 @@ function processMinuteChirp(curTime, jsonStr) {
 function processBreathChirp(curTime, jsonStr) {
   let obj = parseBreathData(jsonStr);
   if (!obj) return;
+
+	// Ignore any breath data received before BNUM received
+	// except PEEP
+	if (!session.firstBreathBnumTime) {
+  	saveOutputChange("mpeep", curTime, obj);
+		return;
+	}
 
   if (session.stateData.error) obj.btype = MAINTENANCE_BREATH;
 
