@@ -209,9 +209,8 @@ function parseBreathInfo(num) {
   return obj;
 }
 
-function convertMStoHHMMSS(milliseconds) {
+function convertSECtoHHMMSS(seconds) {
   let days, hours, minutes, seconds;
-  seconds = Math.floor(milliseconds / 1000);
   minutes = Math.floor(seconds / 60);
   seconds = seconds % 60;
   hours = Math.floor(minutes / 60);
@@ -224,6 +223,11 @@ function convertMStoHHMMSS(milliseconds) {
     minutes: minutes,
     seconds: seconds
   };
+}
+
+function convertMStoHHMMSS(milliseconds) {
+  seconds = Math.floor(milliseconds / 1000);
+	return convertSECtoHHMMSS(seconds);
 }
 
 function dateToStr(d) {
