@@ -15,12 +15,6 @@
 //           minBnum:Number, maxBnum:Number, 
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
-function breathWaveXaxisFormatter(e) {
-  iPart = Math.floor(e.value);
-  if (Number(iPart) != Number(e.value)) return ""
-  else return iPart;
-}
-
 class WavePane {
 
   constructor(title, height, rangeX, menu) {
@@ -225,13 +219,13 @@ class WavePane {
   // X axis is the same for all charts in our application
   addXaxis() {
     let Xaxis = {};
-    Xaxis.title = "Elapsed Time (secs)";
+    Xaxis.title = "Elapsed Time (H:MM:SS)";
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
 		Xaxis.labelFontSize = session.waves.labelFontSize;
     Xaxis.gridColor = "grey";
     Xaxis.gridThickness = 1;
-    Xaxis.labelFormatter = breathWaveXaxisFormatter;
+    Xaxis.labelFormatter = breathTimeXaxisFormatter;
     this.chartJson.axisX = Xaxis;
   }
 

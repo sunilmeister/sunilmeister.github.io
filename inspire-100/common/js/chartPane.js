@@ -185,7 +185,8 @@ class ChartPane {
     let Xaxis = {};
     let missingWindows = [];
     if (this.timeUnits) {
-      Xaxis.title = "Elapsed Time (secs)";
+      Xaxis.title = "Elapsed Time (H:MM:SS)";
+    	Xaxis.labelFormatter = breathTimeXaxisFormatter;
       missingWindows = this.rangeX.missingTime;
     } else {
       Xaxis.title = "Breath Number";

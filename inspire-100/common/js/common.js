@@ -209,6 +209,12 @@ function parseBreathInfo(num) {
   return obj;
 }
 
+function breathTimeXaxisFormatter(e) {
+  iPart = Math.floor(e.value);
+  if (Number(iPart) != Number(e.value)) return ""
+  return convertSECtoHHMMSS(iPart);
+}
+
 function convertSECtoHHMMSS(seconds) {
   let days, hours, minutes;
   minutes = Math.floor(seconds / 60);
@@ -217,12 +223,12 @@ function convertSECtoHHMMSS(seconds) {
   minutes = minutes % 60;
   days = Math.floor(hours / 24);
   hours = hours % 24;
-  return {
-    days: days,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds
-  };
+	
+  let hrs = String(days*24 + hours);
+  let min = String(minutes).padStart(2, '0');
+  let sec = String(seconds).padStart(2, '0');
+  tmStr = hrs + ":" + min + ":" + sec;
+  return tmStr;
 }
 
 function convertMStoHHMMSS(milliseconds) {
