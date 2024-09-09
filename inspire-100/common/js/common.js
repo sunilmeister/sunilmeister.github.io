@@ -210,7 +210,7 @@ function parseBreathInfo(num) {
 }
 
 function convertSECtoHHMMSS(seconds) {
-  let days, hours, minutes, seconds;
+  let days, hours, minutes;
   minutes = Math.floor(seconds / 60);
   seconds = seconds % 60;
   hours = Math.floor(minutes / 60);
@@ -226,7 +226,7 @@ function convertSECtoHHMMSS(seconds) {
 }
 
 function convertMStoHHMMSS(milliseconds) {
-  seconds = Math.floor(milliseconds / 1000);
+  let seconds = Math.floor(milliseconds / 1000);
 	return convertSECtoHHMMSS(seconds);
 }
 
