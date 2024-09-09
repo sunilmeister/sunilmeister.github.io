@@ -853,8 +853,8 @@ function processBnumChirp(curTime, value, jsonData) {
   // BNUM time is more accurate - use that for breath times
   if (!session.lastValidBreathTime) session.lastValidBreathTime = session.firstChirpDate;
   if (!session.firstBreathChirpTime) session.firstBreathChirpTime = curTime;
-  if (!session.firstBreathBnumTime) session.firstBreathBnumTime = obj.btime;
-  let breathTime = addMsToDate(session.firstBreathChirpTime, obj.btime - session.firstBreathBnumTime);
+  if (!session.firstBreathBnumTime) session.firstBreathBnumTime = curTime;
+  let breathTime = addMsToDate(session.firstBreathChirpTime, curTime - session.firstBreathBnumTime);
 
   let bnumValue = obj.bnum;
   if (bnumValue == null) {
