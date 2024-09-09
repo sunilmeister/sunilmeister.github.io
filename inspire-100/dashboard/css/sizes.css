@@ -1,6 +1,6 @@
 :root {
   --chartContainerPadding: 25rem;
-  --chartBodyHeight: 25rem;
+  --chartBodyHeight: 27rem;
   --chartMenuIndent: 1.1rem;
   --chartMenuFontSize: 1.6rem;
   --chartMenuBannerHeight: 2.5rem;
@@ -14,7 +14,7 @@
   --chartStripLineThickness: 0.1;
 
   --waveContainerPadding: 25rem;
-  --waveBodyHeight: 24rem;
+  --waveBodyHeight: 27rem;
   --waveMenuIndent: 1rem;
   --waveMenuFontSize: 1.6rem;
   --waveMenuBannerHeight: 2.5rem;

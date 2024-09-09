@@ -325,9 +325,6 @@ class WavePane {
       if (breathNum > maxBnum) break;
       if (!this.breathSelectedInMenu(breathInfo)) continue;
 
-      if (session.loggedBreaths[breathNum].missing) {
-        continue;
-      }
       let xval = session.loggedBreaths[breathNum].time.getTime() - session.firstChirpDate.getTime();
       let initXval = xval;
       xyPoints.push({

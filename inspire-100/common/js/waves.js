@@ -176,6 +176,10 @@ function createAllWaves() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
+	if (session.systemBreathNum === null) {
+		modalInfo("No Breaths logged", "Please wait and try again");
+		return;
+	}
 
   if (numberOfExistingWaveBoxes() == 0) {
     waveInsertInitial(); // always have wave box for user to start with

@@ -162,6 +162,12 @@ function createAllCharts() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
+	if (session.systemBreathNum === null) {
+		modalInfo("No Breaths logged", "Please wait and try again");
+		return;
+	}
+
+
 
   if (numberOfExistingCharts() == 0) {
     chartInsertInitial(); // always have chart box for user to start with
