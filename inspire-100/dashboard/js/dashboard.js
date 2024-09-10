@@ -61,6 +61,7 @@ function waitForChirps() {
     awaitingFirstChirp = false;
     lastChirpInMs = simulatedMillis;
     disassembleAndQueueChirp(d);
+		displaySelectiveButtons();
   })
 }
 
@@ -286,7 +287,44 @@ function blinkPauseButton() {
   }
 }
 
-function undisplayAllViews() {
+function displaySelectiveButtons() {
+	displayAllButtons();
+
+	// Now turn OFF selectively
+	if (!session.firstChirpDate) {
+  	document.getElementById("btnStats").disabled = true;
+  	document.getElementById("btnAlerts").disabled = true;
+  	document.getElementById("btnRecording").disabled = true;
+	}
+	if (!session.maxBreathNum) {
+  	document.getElementById("btnCharts").disabled = true;
+  	document.getElementById("btnWaves").disabled = true;
+  	document.getElementById("btnSearch").disabled = true;
+	}
+	if (session.snapshot.visible) {
+  	document.getElementById("btnSnapshots").disabled = true;
+	}
+	if (session.charts.visible) {
+  	document.getElementById("btnCharts").disabled = true;
+	}
+	if (session.waves.visible) {
+  	document.getElementById("btnWaves").disabled = true;
+	}
+	if (session.search.visible) {
+  	document.getElementById("btnSearch").disabled = true;
+	}
+	if (session.stats.visible) {
+  	document.getElementById("btnStats").disabled = true;
+	}
+	if (session.alerts.visible) {
+  	document.getElementById("btnAlerts").disabled = true;
+	}
+	if (session.record.visible) {
+  	document.getElementById("btnRecording").disabled = true;
+	}
+}
+
+function displayAllButtons() {
   document.getElementById("btnSnapshots").disabled = false;
   document.getElementById("btnCharts").disabled = false;
   document.getElementById("btnStats").disabled = false;
@@ -294,6 +332,20 @@ function undisplayAllViews() {
   document.getElementById("btnRecording").disabled = false;
   document.getElementById("btnWaves").disabled = false;
   document.getElementById("btnSearch").disabled = false;
+}
+
+function undisplayAllButtons() {
+  document.getElementById("btnSnapshots").disabled = true;
+  document.getElementById("btnCharts").disabled = true;
+  document.getElementById("btnStats").disabled = true;
+  document.getElementById("btnAlerts").disabled = true;
+  document.getElementById("btnRecording").disabled = true;
+  document.getElementById("btnWaves").disabled = true;
+  document.getElementById("btnSearch").disabled = true;
+}
+
+function undisplayAllViews() {
+	undisplayAllButtons();
 
   document.getElementById("snapshot-pane").style.display = "none";
   document.getElementById("chart-pane").style.display = "none";
@@ -324,7 +376,7 @@ function changeToSnapshotView() {
 	showRangeOnSlider(session.snapshot.range);
 	resumeSnapshotsTimer();
 
-  document.getElementById("btnSnapshots").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("snapshot-pane").style.display = "inline-grid";
   rangeWindowDiv.style.display = "block";
 
@@ -338,7 +390,7 @@ function changeToChartView() {
 	session.charts.visible = true;
 	showRangeOnSlider(session.charts.range);
 
-  document.getElementById("btnCharts").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("chart-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
 
@@ -352,7 +404,7 @@ function changeToWaveView() {
 	session.waves.visible = true;
 	showRangeOnSlider(session.waves.range);
 
-  document.getElementById("btnWaves").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("waves-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
 
@@ -366,7 +418,7 @@ function changeToStatView() {
 	session.stats.visible = true;
 	showRangeOnSlider(session.stats.range);
 
-  document.getElementById("btnStats").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("stat-pane").style.display = "block";
 	rangeWindowDiv.style.display = "block";
 
@@ -380,7 +432,7 @@ function changeToAlertView() {
 	session.alerts.visible = true;
 	showRangeOnSlider(session.alerts.range);
 
-  document.getElementById("btnAlerts").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("alert-pane").style.display = "block";
 	rangeWindowDiv.style.display = "block";
 
@@ -393,7 +445,7 @@ function changeToSearchView() {
 	session.search.visible = true;
 	showRangeOnSlider(session.search.range);
 
-  document.getElementById("btnSearch").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("searchDiv").style.display = "block";
 	rangeWindowDiv.style.display = "block";
 
@@ -409,7 +461,7 @@ function changeToRecordView() {
 	undisplayAllViews();
 	session.record.visible = true;
 
-  document.getElementById("btnRecording").disabled = true;
+	displaySelectiveButtons();
   document.getElementById("record-pane").style.display = "block";
   rangeWindowDiv.style.display = "none";
   if (updatePaused) togglePause();
@@ -505,6 +557,7 @@ window.onload = function () {
   updateDocumentTitle();  
 
 	changeToSnapshotView();
+	undisplayAllButtons();
   initStats();
   initAlerts();
 
