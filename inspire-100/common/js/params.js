@@ -20,8 +20,6 @@ class Param {
 		initChange.time = new Date(0);
 		initChange.value = null;
 		this.changes = [cloneObject(initChange)];
-
-		//if (this.name == "LCD_LINE_1") this.debug = true;
 	}
 
 	setNumberRange(min, max, step) {
@@ -710,6 +708,14 @@ function createAllParams() {
 	addParam("lcdLine2",		"LCD_LINE_2", 			"STRING", 	"");
 	addParam("lcdLine3",		"LCD_LINE_3", 			"STRING", 	"");
 	addParam("lcdLine4",		"LCD_LINE_4", 			"STRING", 	"");
+	addParam("lcdWLine1",		"LCD_WARNING_1", 		"STRING", 	"");
+	addParam("lcdWLine2",		"LCD_WARNING_2", 		"STRING", 	"");
+	addParam("lcdWLine3",		"LCD_WARNING_3", 		"STRING", 	"");
+	addParam("lcdWLine4",		"LCD_WARNING_4", 		"STRING", 	"");
+	addParam("lcdELine1",		"LCD_ERROR_1", 			"STRING", 	"");
+	addParam("lcdELine2",		"LCD_ERROR_2", 			"STRING", 	"");
+	addParam("lcdELine3",		"LCD_ERROR_3", 			"STRING", 	"");
+	addParam("lcdELine4",		"LCD_ERROR_4", 			"STRING", 	"");
 
 	createParamsGroup("System Settings");
 	addParam("mode", 				"INPUT_MODE", 			"MODE", 		"");

@@ -146,7 +146,7 @@ function createAlarms(chirp) {
 	let errorTag =  session.params.errorTag.LastChangeValue();
 	if (errorTag) { // must report the error
 		let errorTime =  session.params.errorTag.LastChangeTime();
-		let msgJson = lookupAlertMessage(errorTime);
+		let msgJson = lookupErrorMessage(errorTime);
 		let msg = formAlertMessageStr(msgJson);
     let title = "Error Breath# " + session.maxBreathNum;
     modalAlert(title, msg);
@@ -156,11 +156,10 @@ function createAlarms(chirp) {
 		stopErrorBeep();
 	}
 
-	/*
 	let warningTag =  session.params.warningTag.LastChangeValue();
 	if (warningTag) { // must report the warning
 		let warningTime =  session.params.warningTag.LastChangeTime();
-		let msgJson = lookupAlertMessage(warningTime);
+		let msgJson = lookupWarningMessage(warningTime);
 		let msg = formAlertMessageStr(msgJson);
     let title = "Warning Breath# " + session.maxBreathNum;
     modalWarning(title, msg);
@@ -169,7 +168,6 @@ function createAlarms(chirp) {
   } else {
 		stopWarningBeep();
 	}
-	*/
 }
 
 function processDashboardChirp(d) {

@@ -161,40 +161,6 @@ function processRecordChirp(d) {
   let skipRecording = false;
   if (session.stateData.initial) skipRecording = true;
 
-  if (!isUndefined(d.content['WMSG'])) {
-    session.recorder.expectWarningMsg = true;
-    session.recorder.accumulatedState['L1'] = "";
-    session.recorder.accumulatedState['L2'] = "";
-    session.recorder.accumulatedState['L3'] = "";
-    session.recorder.accumulatedState['L4'] = "";
-    session.recorder.l1Valid = session.recorder.l2Valid = 
-             session.recorder.l3Valid = session.recorder.l4Valid = false;
-  }
-  if (!isUndefined(d.content['EMSG'])) {
-    session.recorder.expectErrorMsg = true;
-    session.recorder.accumulatedState['L1'] = "";
-    session.recorder.accumulatedState['L2'] = "";
-    session.recorder.accumulatedState['L3'] = "";
-    session.recorder.accumulatedState['L4'] = "";
-    session.recorder.l1Valid = session.recorder.l2Valid = 
-             session.recorder.l3Valid = session.recorder.l4Valid = false;
-  }
-  if (session.recorder.expectWarningMsg || session.recorder.expectErrorMsg) {
-    if (session.recorder.l1Valid && session.recorder.l2Valid && 
-               session.recorder.l3Valid && session.recorder.l4Valid) {
-      session.recorder.expectWarningMsg = false;
-      session.recorder.expectErrorMsg = false;
-      session.recorder.l1Valid = session.recorder.l2Valid = 
-               session.recorder.l3Valid = session.recorder.l4Valid = false;
-    }
-  }
-  if (session.recorder.expectWarningMsg || session.recorder.expectErrorMsg) {
-    if (!isUndefined(d.content['L1'])) session.recorder.l1Valid = true;
-    if (!isUndefined(d.content['L2'])) session.recorder.l2Valid = true;
-    if (!isUndefined(d.content['L3'])) session.recorder.l3Valid = true;
-    if (!isUndefined(d.content['L4'])) session.recorder.l4Valid = true;
-  }
-
   // prune the content if same as previous
   for (let key in d.content) {
     // get key value pairs

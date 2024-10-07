@@ -327,6 +327,30 @@ function processJsonRecord(jsonData) {
 					session.params.lcdLine3.AddTimeValueIfAbsent(curTime, value);
         } else if (ckey == "L4") {
 					session.params.lcdLine4.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "WL1") {
+					session.params.lcdLine1.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdWLine1.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "WL2") {
+					session.params.lcdLine2.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdWLine2.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "WL3") {
+					session.params.lcdLine3.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdWLine3.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "WL4") {
+					session.params.lcdLine4.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdWLine4.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "EL1") {
+					session.params.lcdLine1.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdELine1.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "EL2") {
+					session.params.lcdLine2.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdELine2.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "EL3") {
+					session.params.lcdLine3.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdELine3.AddTimeValueIfAbsent(curTime, value);
+        } else if (ckey == "EL4") {
+					session.params.lcdLine4.AddTimeValueIfAbsent(curTime, value);
+					session.params.lcdELine4.AddTimeValueIfAbsent(curTime, value);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
           processSwChirp(curTime, value);
@@ -964,11 +988,17 @@ function updateLoggedBreaths(breathTime, dummy) {
 }
 
 function processAlertChirp(curTime, jsonData) { 
-  if (!isUndefined(jsonData.content["WMSG"])) {
+  if (!isUndefined(jsonData.content["WL1"]) ||
+  		!isUndefined(jsonData.content["WL2"]) ||
+  		!isUndefined(jsonData.content["WL3"]) ||
+  		!isUndefined(jsonData.content["WL4"])) {
     session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
 		session.params.warningTag.AddTimeValue(curTime,true);
   }
-  if (!isUndefined(jsonData.content["EMSG"])) {
+  if (!isUndefined(jsonData.content["EL1"]) ||
+  		!isUndefined(jsonData.content["EL2"]) ||
+  		!isUndefined(jsonData.content["EL3"]) ||
+  		!isUndefined(jsonData.content["EL4"])) {
    	session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
 		session.params.errorTag.AddTimeValue(curTime,true);
   }

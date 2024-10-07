@@ -4,11 +4,20 @@
 
 // returns an object {L1: , L2:, L3:, L4}
 // four lines that make up the alert message
-function lookupAlertMessage(alertTime) {
-	let l1 = session.params.lcdLine1.ChangeValueGEQ(alertTime);
-	let l2 = session.params.lcdLine2.ChangeValueGEQ(alertTime);
-	let l3 = session.params.lcdLine3.ChangeValueGEQ(alertTime);
-	let l4 = session.params.lcdLine4.ChangeValueGEQ(alertTime);
+function lookupWarningMessage(alertTime) {
+	let l1 = session.params.lcdWLine1.ValueAtTime(alertTime);
+	let l2 = session.params.lcdWLine2.ValueAtTime(alertTime);
+	let l3 = session.params.lcdWLine3.ValueAtTime(alertTime);
+	let l4 = session.params.lcdWLine4.ValueAtTime(alertTime);
+
+	return {L1:l1, L2:l2, L3:l3, L4:l4};
+}
+
+function lookupErrorMessage(alertTime) {
+	let l1 = session.params.lcdELine1.ValueAtTime(alertTime);
+	let l2 = session.params.lcdELine2.ValueAtTime(alertTime);
+	let l3 = session.params.lcdELine3.ValueAtTime(alertTime);
+	let l4 = session.params.lcdELine4.ValueAtTime(alertTime);
 
 	return {L1:l1, L2:l2, L3:l3, L4:l4};
 }
@@ -78,7 +87,7 @@ function createAllAlerts() {
   for (let i = 0; i < errorChanges.length; i++) {
     if (errorChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (errorChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
-		let msg = lookupAlertMessage(errorChanges[i].time);
+		let msg = lookupErrorMessage(errorChanges[i].time);
     let prefix = "ERROR#" + i + " ";
     displayJsonAlerts(prefix, scrollbox, msg, errorChanges[i].time);
   }
@@ -89,7 +98,7 @@ function createAllAlerts() {
   for (let i = 0; i < warningChanges.length; i++) {
     if (warningChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (warningChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
-		let msg = lookupAlertMessage(warningChanges[i].time);
+		let msg = lookupWarningMessage(warningChanges[i].time);
     let prefix = "WARNING#" + i + " ";
     displayJsonAlerts(prefix, scrollbox, msg, warningChanges[i].time);
   }
