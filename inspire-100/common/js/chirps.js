@@ -987,18 +987,44 @@ function updateLoggedBreaths(breathTime, dummy) {
 	session.params.breathNum.AddTimeValue(breathTime, len);
 }
 
+function validErrorLine(jsonData) {
+  if (!isUndefined(jsonData.content["EL1"]) && (jsonData.content["EL1"] != "")) {
+		return true;
+	}
+  if (!isUndefined(jsonData.content["EL2"]) && (jsonData.content["EL2"] != "")) {
+		return true;
+	}
+  if (!isUndefined(jsonData.content["EL3"]) && (jsonData.content["EL3"] != "")) {
+		return true;
+	}
+  if (!isUndefined(jsonData.content["EL4"]) && (jsonData.content["EL4"] != "")) {
+		return true;
+	}
+	return false;
+}
+
+function validWarningLine(jsonData) {
+  if (!isUndefined(jsonData.content["WL1"]) && (jsonData.content["WL1"] != "")) {
+		return true;
+	}
+  if (!isUndefined(jsonData.content["WL2"]) && (jsonData.content["WL2"] != "")) {
+		return true;
+	}
+  if (!isUndefined(jsonData.content["WL3"]) && (jsonData.content["WL3"] != "")) {
+		return true;
+	}
+  if (!isUndefined(jsonData.content["WL4"]) && (jsonData.content["WL4"] != "")) {
+		return true;
+	}
+	return false;
+}
+
 function processAlertChirp(curTime, jsonData) { 
-  if (!isUndefined(jsonData.content["WL1"]) ||
-  		!isUndefined(jsonData.content["WL2"]) ||
-  		!isUndefined(jsonData.content["WL3"]) ||
-  		!isUndefined(jsonData.content["WL4"])) {
+  if (validWarningLine(jsonData)) {
     session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
 		session.params.warningTag.AddTimeValue(curTime,true);
   }
-  if (!isUndefined(jsonData.content["EL1"]) ||
-  		!isUndefined(jsonData.content["EL2"]) ||
-  		!isUndefined(jsonData.content["EL3"]) ||
-  		!isUndefined(jsonData.content["EL4"])) {
+  if (validErrorLine(jsonData)) {
    	session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
 		session.params.errorTag.AddTimeValue(curTime,true);
   }
