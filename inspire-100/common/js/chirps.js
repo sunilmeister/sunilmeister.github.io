@@ -23,7 +23,7 @@ function parsePstats(jsonStr) {
   }
 
   val = {
-    gender: (arr[0] = 'M') ? "Male" : "Female",
+    gender: (arr[0] == 'M') ? "Male" : "Female",
     age: arr[1] ? arr[1] : null,
     weight: arr[2] ? arr[2] : null,
     height: arr[3] ? arr[3] : null,
