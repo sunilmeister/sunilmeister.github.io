@@ -28,11 +28,29 @@
     <script src="../common/js/palette.js"></script>
     <script src="../common/js/common.js"></script>
     <script src="../common/js/resize.js"></script>
+    <script src="../common/js/enterSubmit.js"></script>
     <script src="js/docs.js"></script>
 
   </head>
 
   <body style="font-family: verdana; overflow:auto;">
+    <div id=passwordDiv class=popupClassCenter style="width:25rem; height:20rem; display: block">
+      <center>
+        <div style="font-size: 1.8rem;">
+          <br>
+          <label for="password">Access Key</label>
+          <br>
+          <br>
+          <input id=password style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
+					<div id=pwdError style="display:none">
+						<p style="color:var(--rsp_darkred); font-size:1.6rem;">Incorrect Access Key
+					</div>
+          <br>
+          <button id=passwordBtn class=button style="background-color:var(--rsp_darkblue); width:12rem;" onclick=submitDocPassword()>SUBMIT</button>
+        </div>
+      </center>
+    </div>
+
     <div id=wrapper class=wrapper>
 
       <center>

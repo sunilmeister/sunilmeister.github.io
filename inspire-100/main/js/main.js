@@ -356,28 +356,7 @@ function installFirmwareApp() {
   modalAlert("Firmware App under construction", "Come back again soon!");
 }
 
-function checkDocPassword(pwd) {
-  const ACCESS_KEY = "Docs@Inspire-100";
-  return (pwd == ACCESS_KEY);
-}
-
-function submitDocPassword() {
-  document.getElementById("passwordDiv").style.display = "none";
-  let pwd = document.getElementById("password").value;
-  if (!checkDocPassword(pwd)) {
-    modalAlert("Invalid Access Key", "Please contact Technical Support");
-    return;
-  }
-  window.open("../docs/docs.html");
-}
-
-function cancelDocPassword() {
-  document.getElementById("passwordDiv").style.display = "none";
-}
-
 function launchDocs() {
-	// Remove docs access code for now
-  //document.getElementById("passwordDiv").style.display = "block";
   window.open("../docs/docs.html");
 }
 
@@ -457,7 +436,6 @@ window.onload = function () {
   new KeypressEnterSubmit('newSysUID', 'addSystemBtn');
   new KeypressEnterSubmit('newSysTAG', 'addSystemBtn');
   new KeypressEnterSubmit('detectedSysOTP', 'addDetectedSystemBtn');
-  new KeypressEnterSubmit('password', 'passwordBtn');
 
   //console.log("Checking " + BROADCAST_UID);
   waitForHwPosts(BROADCAST_UID, function (d) {
