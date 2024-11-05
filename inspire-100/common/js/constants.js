@@ -118,9 +118,6 @@ const STANDBY_STATE = 1;
 const ACTIVE_STATE = 2;
 const ERROR_STATE = 3;
 
-// For calculating flow from deltaP Q
-const Q_SCALE_FACTOR = 8;
-
 const SNAPSHOT_NUM_ROLLING_BREATHS = 1;
 
 const WAVE_NUM_ROLLING_BREATHS = 12;

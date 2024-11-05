@@ -507,7 +507,7 @@ function processPwendChirp(str) {
       if (expectingDPWEND) {
         if ((Q !== null) && (session.breathData.qmult>10)) {
           // Convert Q pressure to flow value
-          Q = Math.round(Q * session.breathData.qmult / Q_SCALE_FACTOR);
+          Q = Math.round(Q * session.breathData.qmult);
         } else {
           Q = null;
         }
@@ -814,7 +814,7 @@ function processBreathChirp(curTime, jsonStr) {
   saveOutputChange("btype", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
-  session.breathData.qmult = (obj.vtdel / (obj.iqdel*2)) * Q_SCALE_FACTOR * 1000;
+  session.breathData.qmult = (obj.vtdel / (obj.iqdel * 4) * 1000;
 
 	// infer the breath control
 	let mode = session.params.mode.LastChangeValue();
