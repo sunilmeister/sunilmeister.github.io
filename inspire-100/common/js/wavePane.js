@@ -411,8 +411,8 @@ class WavePane {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    if (minY != null) Yaxis.minimum = minY;
-    if (maxY != null) Yaxis.maximum = maxY;
+    //if (minY != null) Yaxis.minimum = minY;
+    //if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
     return cloneObject(Yaxis);
   }
