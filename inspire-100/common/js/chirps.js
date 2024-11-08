@@ -503,13 +503,11 @@ function processPwendChirp(str) {
   for (i = 0; i < waveSlices.length; i++) {
     slice = waveSlices[i];
     for (j = 0; j < slice.sliceData.length; j++) {
-      Q = slice.sliceData[j];
+      let Q = slice.sliceData[j];
       if (expectingDPWEND) {
-        if ((Q !== null) && (session.breathData.qmult>10)) {
+        if (Q !== null) {
           // Convert Q pressure to flow value
           Q = Math.round(Q * session.breathData.qmult);
-        } else {
-          Q = null;
         }
       }
       samples.push(Q);
@@ -591,7 +589,6 @@ function processPwsliceChirp(receivedSliceNum, str) {
     sliceNum = dpwShapeSliceNum;
     prevSliceNum = dpwPrevShapeSliceNum;
   }
-  //console.log("sliceNum=" + sliceNum + " prevSliceNum=" + prevSliceNum);
 
   if ((sliceNum != prevSliceNum + 1) || (sliceNum != receivedSliceNum)) {
     // stuff empty slices
