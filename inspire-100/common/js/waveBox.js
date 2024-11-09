@@ -106,7 +106,7 @@ class WaveBox {
       this.flowChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Flow (ml/sec)",
+			"Flow (ltr/sec)",
 			"#ECF0F1",
 			session.waves.flowData,
 			true // is a flow graph
