@@ -289,11 +289,19 @@ class WavePane {
       let samples = this.data[i].samples;
       partial = this.data[i].partial;
 
+      if (breathNum < 0) continue;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       if (!this.breathSelectedInMenu(breathInfo)) continue;
 
-      let xval = session.loggedBreaths[breathNum].time.getTime() - session.firstChirpDate.getTime();
+			let breath = session.loggedBreaths[breathNum];
+			if (isUndefined(breath)) {
+				console.error("sysBreathNum",sysBreathNum);
+				console.error("session.startSystemBreathNum",session.startSystemBreathNum);
+				console.error("breathNum",breathNum);
+				console.error("loggedBreaths",session.loggedBreaths);
+			}
+      let xval = breath.time.getTime() - session.firstChirpDate.getTime();
       let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,
