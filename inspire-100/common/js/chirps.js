@@ -419,6 +419,16 @@ function waveCollectedSamples(slices) {
   return num;
 }
 
+function checkIfLoggedValidBreath(sysBnum) {
+	if (session.startSystemBreathNum === null) return false;
+	let n = session.loggedBreaths.length;
+	if (n==1) return false;
+
+	let bnum = sysBnum - session.startSystemBreathNum + 1;
+	//console.log("n",n,"sysBnum",sysBnum,"startSystemBreathNum", session.startSystemBreathNum,"bnum",bnum);
+	return !session.loggedBreaths[bnum].missed;
+}
+
 function processPwstartChirp(str) {
   if (!waveBreathClosed) {
     processPwendChirp("");
@@ -549,19 +559,25 @@ function processPwendChirp(str) {
     session.waves.flowRecordedBreaths.push(session.waves.breathNum);
   }
 
-  // store it for later use
-  holdingArray.push({
-    "partial": waveBreathPartial,
-    "systemBreathNum": session.waves.breathNum,
-    "breathInfo": session.waves.breathInfo,
-    "onDemand": session.waves.onDemand,
-    "sampleInterval": waveSampleInterval,
-    "samples": cloneObject(samples),
-  });
+	if (checkIfLoggedValidBreath(session.waves.breathNum)) {
+  	// store it for later use
+  	holdingArray.push({
+    	"partial": waveBreathPartial,
+    	"systemBreathNum": session.waves.breathNum,
+    	"breathInfo": session.waves.breathInfo,
+    	"onDemand": session.waves.onDemand,
+    	"sampleInterval": waveSampleInterval,
+    	"samples": cloneObject(samples),
+  	});
+  	if (session.waves.newShapeCallback) {
+			session.waves.newShapeCallback(session.waves.breathNum);
+		}
+	} else {
+		console.log("Wave Data discarded for breath#", session.waves.breathNum);
+	}
 
   waveBreathPartial = false;
   waveBreathClosed = true;
-  if (session.waves.newShapeCallback) session.waves.newShapeCallback(session.waves.breathNum);
 }
 
 function processPwsliceChirp(receivedSliceNum, str) {
@@ -869,6 +885,7 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
 }
 
 function processBnumChirp(curTime, value, jsonData) {
+	//console.log("BNUM",value,"startSystemBreathNum", session.startSystemBreathNum);
   let obj = parseBnumData(value);
   if (!obj) return;
 
@@ -970,7 +987,7 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
   session.params.infos.AddTimeValue(newBreathTime, ++session.alerts.infoNum);
 }
 
-function updateLoggedBreaths(breathTime, dummy) {
+function updateLoggedBreaths(breathTime, missing) {
 	let len = session.loggedBreaths.length;
 	if (breathTime.getTime() < session.loggedBreaths[len-1].time.getTime()) {
 		console.error("Breath time less than prev for Breath#",len+1);
@@ -981,7 +998,7 @@ function updateLoggedBreaths(breathTime, dummy) {
  	let prevBreathTime = session.loggedBreaths[prevBreathNum].time;
 	//console.log("prevBreathNum", prevBreathNum, "prevBreathTime", prevBreathTime);
 
-  session.loggedBreaths.push({time:breathTime, missed:dummy});
+  session.loggedBreaths.push({time:breathTime, missed:missing});
 	session.params.breathNum.AddTimeValue(breathTime, len);
 }
 
