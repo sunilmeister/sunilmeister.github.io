@@ -47,7 +47,6 @@
 
 .waveBody {
   background-color: var(--rsp_lightblue);
-  height: var(--waveBodyHeight);
   margin-right:1rem;
   width:100%;
   position:absolute;

@@ -13,8 +13,8 @@
   --chartStripLineFontSize: 1.2;
   --chartStripLineThickness: 0.1;
 
-  --waveContainerPadding: 25rem;
-  --waveBodyHeight: 27rem;
+  --waveContainerPadding: 52rem;
+  --waveBodyHeight: 25rem;
   --waveMenuIndent: 1rem;
   --waveMenuFontSize: 1.6rem;
   --waveMenuBannerHeight: 2.5rem;
@@ -25,7 +25,7 @@
   --waveLegendFontSize: 1;
   --waveTitleFontSize: 1.8;
   --waveStripLineFontSize: 1.2;
-  --waveStripLineThickness: 0.1;
+  --waveStripLineThickness: 0.05;
 
   --noUiTooltipSize: 0.85rem;
 

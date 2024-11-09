@@ -6,14 +6,18 @@ class WaveBox {
   // containerBodyDiv is an HTML object
   constructor(containerBodyDiv) {
     this.containerBodyDiv = containerBodyDiv;
+		this.pressureChartDiv = findChildNodeByClass(containerBodyDiv, PRESSURE_WAVE_BODY_CLASS);
+		this.flowChartDiv = findChildNodeByClass(containerBodyDiv, FLOW_WAVE_BODY_CLASS);
     this.options = {};
-    this.chart = null;
+    this.pChart = null;
+    this.fChart = null;
     this.rangeX = null;
   }
 
 	// Resize according to latest sessionData
 	resizeFonts() {
-		if (this.chart) this.chart.resizeFonts();
+		if (this.pChart) this.pChart.resizeFonts();
+		if (this.fChart) this.fChart.resizeFonts();
 	}
 
 	//
@@ -23,8 +27,9 @@ class WaveBox {
   render() {
     this.cleanupCharts();
     this.rangeX = session.waves.range;
-    this.createChart();
-    if (this.chart) this.chart.render(this.containerBodyDiv);
+    this.createCharts();
+    if (this.pChart) this.pChart.render(this.pressureChartDiv);
+    if (this.fChart) this.fChart.render(this.flowChartDiv);
   }
 
   clearMenu(menuId) {
@@ -69,21 +74,44 @@ class WaveBox {
   // Below are all private methods
   ////////////////////////////////////////////////////////
   cleanupCharts() {
-    if (this.chart) {
-      this.chart.destroy();
-      delete this.chart;
-      this.chart = null;
+    if (this.pChart) {
+      this.pChart.destroy();
+      delete this.pChart;
+      this.pChart = null;
+    }
+    if (this.fChart) {
+      this.fChart.destroy();
+      delete this.fChart;
+      this.fChart = null;
     }
   }
 
-  createChart() {
-    this.chart = new WavePane(
+  createCharts() {
+		// Pressure Chart
+    this.pChart = new WavePane(
       this.options.title,
-      this.containerBodyDiv.offsetHeight,
+      this.pressureChartDiv.offsetHeight,
       this.rangeX,
-      this.options
+      this.options,
+			"Pressure (mmH2O)",
+			"#AED6F1",
+			session.waves.pwData,
+			false // not a flow graph
     );
-    this.chart.addGraph();
+    this.pChart.addGraph();
+
+		// Flow Chart
+    this.fChart = new WavePane(
+      this.options.title,
+      this.flowChartDiv.offsetHeight,
+      this.rangeX,
+      this.options,
+			"Flow (ml/sec)",
+			"#ECF0F1",
+			session.waves.flowData,
+			true // is a flow graph
+    );
+    this.fChart.addGraph();
   }
 
 }

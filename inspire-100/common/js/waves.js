@@ -36,6 +36,7 @@ function waveAppend(bnode) {
 }
 
 function waveEdit(bnode) {
+	//console.log("bnode", bnode);
   document.getElementById(WAVE_EDIT_WAVE_MENU_ID).style.display = "block";
   let containerNode = findAncestorWaveContainerNode(bnode);
   session.waves.boxTree = new CheckboxTree(WAVE_CBOX_TREE_ROOT_ID, containerNode.id);

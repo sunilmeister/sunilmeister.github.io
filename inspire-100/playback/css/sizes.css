@@ -15,8 +15,8 @@
 
   --noUiTooltipSize: 0.85rem;
 
-  --waveContainerPadding: 25rem;
-  --waveBodyHeight: 27rem;
+  --waveContainerPadding: 52rem;
+  --waveBodyHeight: 25rem;
   --waveMenuIndent: 1.2rem;
   --waveMenuFontSize: 1.4rem;
   --waveMenuBannerHeight: 2.5rem;
@@ -27,7 +27,7 @@
   --waveLegendFontSize: 1;
   --waveTitleFontSize: 1.6;
   --waveStripLineFontSize: 1.8;
-  --waveStripLineThickness: 0.1;
+  --waveStripLineThickness: 0.05;
 
   --colorLegendSize: 1.5rem;
   --colorLegendFontSize: 1.2rem;

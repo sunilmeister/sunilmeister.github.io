@@ -16,18 +16,13 @@
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 class WavePane {
-
-  constructor(title, height, rangeX, menu) {
+  constructor(title, height, rangeX, menu, paramName, paramColor, data, isFlowGraph) {
+    this.title = title;
     this.graphType = "splineArea";
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
       zoomType: "x",
-      title: {
-        text: title,
-        padding: 10,
-        fontSize: session.waves.titleFontSize
-      },
       axisY: [],
       toolTip: {
         shared: true
@@ -44,17 +39,16 @@ class WavePane {
     this.chart = null;
     this.menu = menu;
     this.numSelectedWaves = 0;
-    this.data = session.waves.pwData;
-    this.isFlowGraph = false;
+    this.paramName = paramName;
+    this.paramColor = paramColor;
+    this.data = data;
+    this.isFlowGraph = isFlowGraph;
 
     this.addXaxis();
   }
 
   // resize according to latest sessionData
  	resizeFonts() {
-		// do for only one graph
-    if (this.isFlowGraph) return;
-
 		this.chartJson.legend.fontSize = session.waves.legendFontSize;
 		this.chartJson.title.fontSize = session.waves.titleFontSize;
 		let axisX = this.chartJson.axisX;
@@ -81,10 +75,6 @@ class WavePane {
 		let axisY = this.chartJson.axisY;
 		if (axisY) {
     	axisY.labelFontSize = session.charts.labelFontSize;
-		}
-		let axisY2 = this.chartJson.axisY2;
-		if (axisY2) {
-    	axisY2.labelFontSize = session.charts.labelFontSize;
 		}
 	}
 
@@ -146,14 +136,7 @@ class WavePane {
 
 
   addGraph() {
-    this.addPressureGraph();
-    this.addFlowGraph();
-  }
-
-  addPressureGraph() {
     this.numSelectedWaves = this.numSelectedWavesInRange();
-    this.data = session.waves.pwData;
-    this.isFlowGraph = false;
     if (this.numSelectedWaves <= WAVE_ALERT_THRESHOLD) {
       this.addGraphNoConfirm();
     } else {
@@ -163,33 +146,15 @@ class WavePane {
     }
   }
 
-  addFlowGraph() {
-    this.numSelectedWaves = this.numSelectedWavesInRange();
-    this.data = session.waves.flowData;
-    this.isFlowGraph = true;
-    if (this.numSelectedWaves <= WAVE_ALERT_THRESHOLD) {
-      this.addGraphNoConfirm();
-    }
-  }
-
   addGraphNoConfirm() {
-    let paramName = "Pressure (mm H2O)"
-    let paramColor = "blue";
+    let paramName = this.paramName;
+    let paramColor = this.paramColor;
     let axisColor = "black";
     let lineColor = "black";
     let xyPoints = this.createXYPoints();
     if (!xyPoints) return null;
     if (!xyPoints.dataPoints || (xyPoints.dataPoints.length == 0)) return null;
 
-    if (this.isFlowGraph) {
-      paramName = "Flow (ml/sec)"
-      axisColor = "black";
-      paramColor = "#ECF0F1";
-    } else {
-      paramName = "Pressure (mmH2O)"
-      axisColor = "black";
-      paramColor = "#AED6F1";
-    }
     let yAxis = this.createYaxis(paramName, axisColor, 0, null);
     return this.addXYPoints(yAxis, paramName, paramColor, xyPoints);
   }
@@ -199,8 +164,17 @@ class WavePane {
       this.chart.destroy();
       this.chart = null;
     }
-	this.chartJson.animationEnabled = true;
-	this.chartJson.animationDuration = 250;
+    if (!this.isFlowGraph) {
+      this.chartJson.title = {
+        text: this.title,
+        padding: 10,
+        fontSize: session.waves.titleFontSize
+      };
+		} else {
+      this.chartJson.title= null;
+		}
+		this.chartJson.animationEnabled = true;
+		this.chartJson.animationDuration = 250;
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
     this.chart.render();
   }
@@ -219,7 +193,9 @@ class WavePane {
   // X axis is the same for all charts in our application
   addXaxis() {
     let Xaxis = {};
-    Xaxis.title = "Elapsed Time (H:MM:SS)";
+    if (this.isFlowGraph) {
+    	Xaxis.title = "Elapsed Time (H:MM:SS)";
+		}
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
 		Xaxis.labelFontSize = session.waves.labelFontSize;
@@ -297,11 +273,9 @@ class WavePane {
 
     // init Breaks in the graph
     let Xaxis = this.chartJson.axisX;
-    if (!this.isFlowGraph) {
-      Xaxis.scaleBreaks = {type: "straight", color:"orange"};
-      Xaxis.scaleBreaks.customBreaks = [];
-      this.chartJson.axisX.stripLines = [];
-    }
+    Xaxis.scaleBreaks = {type: "straight", color:"orange"};
+    Xaxis.scaleBreaks.customBreaks = [];
+    this.chartJson.axisX.stripLines = [];
 
     let xyPoints = [];
     let prevXval = 0;
@@ -327,10 +301,8 @@ class WavePane {
       });
 
       let stripLine = {};
-      if (!this.isFlowGraph) {
-        stripLine.color = this.getStripColor(breathInfo);
-        stripLine.startValue = (xval - 200) / 1000;
-      }
+      stripLine.color = this.getStripColor(breathInfo);
+      stripLine.startValue = (xval - 200) / 1000;
 
       let lastY = null;
       let lastX = null;
@@ -353,12 +325,14 @@ class WavePane {
         }
         xval += sampleInterval;
       }
+			/*
       if (this.isFlowGraph) {
         xyPoints.push({
           "x": (lastX + sampleInterval) / 1000,
           "y": 0
         });
       }
+			*/
 
       let labelFontColor = "darkgreen";
       let labelText = "#" + breathNum;
@@ -369,35 +343,34 @@ class WavePane {
         //labelText = "XXXX #" + breathNum;
         labelAlign = "far";
       }
-      if (!this.isFlowGraph) {
-        // Do strip lines
-        stripLine.endValue = (xval) / 1000;
-        stripLine.label = labelText;
-        stripLine.labelPlacement = "inside";
-        stripLine.labelAlign = labelAlign;
-        stripLine.labelWrap = true;
-        stripLine.labelMaxWidth = 80;
-        stripLine.labelFontColor = labelFontColor;
-        stripLine.labelBackgroundColor = "none";
-        stripLine.labelFontSize = session.waves.stripLineFontSize;
-        Xaxis.stripLines.push(cloneObject(stripLine));
 
-        // Do custom scaleBreaks
-        // Make sure that the graphs do not connect end-to-end
-        Xaxis.scaleBreaks.customBreaks.push({
-          startValue: prevXval,
-          endValue: stripLine.startValue - 0.1,
+      // Do strip lines
+      stripLine.endValue = (xval) / 1000;
+      stripLine.label = labelText;
+      stripLine.labelPlacement = "inside";
+      stripLine.labelAlign = labelAlign;
+      stripLine.labelWrap = true;
+      stripLine.labelMaxWidth = 80;
+      stripLine.labelFontColor = labelFontColor;
+      stripLine.labelBackgroundColor = "none";
+      stripLine.labelFontSize = session.waves.stripLineFontSize;
+      Xaxis.stripLines.push(cloneObject(stripLine));
+
+      // Do custom scaleBreaks
+      // Make sure that the graphs do not connect end-to-end
+      Xaxis.scaleBreaks.customBreaks.push({
+        startValue: prevXval,
+        endValue: stripLine.startValue - 0.1,
 					lineThickness: session.waves.stripLineThickness,
-        });
-        prevXval = stripLine.endValue + 0.1;
-      }
+      });
+      prevXval = stripLine.endValue + 0.1;
     }
 
     let chartData = {};
     chartData.type = this.graphType;
+    chartData.showInLegend = false;
     chartData.lineColor = "black";
     chartData.markerSize = 0;
-    chartData.showInLegend = true;
     chartData.dataPoints = cloneObject(xyPoints);
     return chartData;
   }
@@ -420,18 +393,11 @@ class WavePane {
   addXYPoints(Yaxis, name, color, xyPoints) {
     xyPoints.name = name;
     xyPoints.color = color;
-    if (this.isFlowGraph) {
-      this.chartJson.axisY2 = cloneObject(Yaxis);
-      xyPoints.axisYType = "secondary";
-      this.chartJson.data.push(cloneObject(xyPoints));
-      return 0;
-    } else {
-      let axisNum = this.chartJson.axisY.length;
-      this.chartJson.axisY.push(cloneObject(Yaxis));
-      xyPoints.axisYIndex = axisNum;
-      this.chartJson.data.push(cloneObject(xyPoints));
-      return axisNum;
-    }
+    let axisNum = this.chartJson.axisY.length;
+    this.chartJson.axisY.push(cloneObject(Yaxis));
+    xyPoints.axisYIndex = axisNum;
+    this.chartJson.data.push(cloneObject(xyPoints));
+    return axisNum;
   }
 
   calculateXaxisInterval() {
