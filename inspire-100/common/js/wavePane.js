@@ -346,12 +346,11 @@ class WavePane {
 
       let labelFontColor = "darkgreen";
       let labelText = "#" + breathNum;
-      let labelAlign = "near";
+      let labelAlign = "far";
       if (this.tooFewDatapoints(sysBreathNum)) {
         //console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
         //labelText = "XXXX #" + breathNum;
-        labelAlign = "far";
       }
 
       // Do strip lines
