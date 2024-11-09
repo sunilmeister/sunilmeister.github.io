@@ -50,7 +50,9 @@ class WavePane {
   // resize according to latest sessionData
  	resizeFonts() {
 		this.chartJson.legend.fontSize = session.waves.legendFontSize;
-		this.chartJson.title.fontSize = session.waves.titleFontSize;
+		if (this.chartJson.title) {
+			this.chartJson.title.fontSize = session.waves.titleFontSize;
+		}
 		let axisX = this.chartJson.axisX;
 		if (axisX) {
     	axisX.labelFontSize = session.waves.labelFontSize;
