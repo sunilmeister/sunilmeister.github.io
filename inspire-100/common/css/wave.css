@@ -52,3 +52,10 @@
   position:absolute;
 }
 
+.pWaveBody {
+	height:var(--waveBodyHeight);
+}
+
+.fWaveBody {
+	height:var(--waveBodyHeight);
+}
