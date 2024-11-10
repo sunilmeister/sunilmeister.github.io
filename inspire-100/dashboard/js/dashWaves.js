@@ -6,7 +6,8 @@ var prevWaveIndex = 0;
 function createDashboardWaves() {
 	rangeWindowDiv.style.display = "block";
 	let lastWaveIndex = session.waves.pwData.length;
-	if (isVisibleRangeChanged() || (lastWaveIndex != prevWaveIndex)) {
+	if (isVisibleRangeChanged() || 
+		 (session.waves.range.moving && (lastWaveIndex != prevWaveIndex))) {
   	createAllWaves();
 		updateVisiblePrevRange();
 	}

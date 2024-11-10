@@ -415,8 +415,11 @@ class WavePane {
 
 
   calculateXaxisMinimum() {
+		/*
     let minTime = this.rangeX.minTime;
     return (minTime.getTime() - session.firstChirpDate.getTime()) / 1000;
+		*/
+		return null; // auto mode
   }
 
 };
