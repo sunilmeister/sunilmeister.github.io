@@ -10,6 +10,7 @@ function createDashboardWaves() {
   	createAllWaves();
 		updateVisiblePrevRange();
 	}
+	prevWaveIndex = lastWaveIndex;
 }
 
 function movingWaveRange() {
