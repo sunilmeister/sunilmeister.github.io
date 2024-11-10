@@ -80,6 +80,36 @@ class WavePane {
 		}
 	}
 
+	getCustomBreaks() {
+		let axisX = this.chartJson.axisX;
+		if (axisX && axisX.scaleBreaks) {
+			return axisX.scaleBreaks.customBreaks;
+		}
+		return null;
+	}
+
+	setCustomBreaks(customBreaks) {
+		let axisX = this.chartJson.axisX;
+		if (axisX && axisX.scaleBreaks) {
+			axisX.scaleBreaks.customBreaks = customBreaks;
+		}
+	}
+
+	getStripLines() {
+		let axisX = this.chartJson.axisX;
+		if (axisX && axisX.stripLines) {
+			return axisX.stripLines;
+		}
+		return null;
+	}
+
+	setStripLines(stripLines) {
+		let axisX = this.chartJson.axisX;
+		if (axisX && axisX.stripLines) {
+			axisX.stripLines = stripLines;
+		}
+	}
+
 	breathSelectedInMenu(breathInfo) {
     let bInfo = parseBreathInfo(breathInfo);
     // Order below is important
@@ -347,11 +377,13 @@ class WavePane {
       let labelFontColor = "darkgreen";
       let labelText = "#" + breathNum;
       let labelAlign = "far";
+			/*
       if (this.tooFewDatapoints(sysBreathNum)) {
         //console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
         //labelText = "XXXX #" + breathNum;
       }
+			*/
 
       // Do strip lines
       stripLine.endValue = (xval) / 1000;

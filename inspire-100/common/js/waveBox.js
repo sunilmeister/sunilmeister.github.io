@@ -112,6 +112,10 @@ class WaveBox {
 			true // is a flow graph
     );
     this.fChart.addGraph();
+
+		// Make sure both charts have the same breaks and strip lines
+    this.fChart.setCustomBreaks(this.pChart.getCustomBreaks());
+    this.fChart.setStripLines(this.pChart.getStripLines());
   }
 
 }
