@@ -206,7 +206,7 @@ class WavePane {
       this.chartJson.title= null;
 		}
 		this.chartJson.animationEnabled = true;
-		this.chartJson.animationDuration = 250;
+		this.chartJson.animationDuration = 150;
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
     this.chart.render();
   }
