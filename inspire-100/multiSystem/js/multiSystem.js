@@ -213,13 +213,7 @@ function addTile(uid, sysTag, content) {
 	allSystems[uid].tile = newTile;
 
 	// initialize content
-	allSystems[uid].content = {};
-	allSystems[uid].content.state = "";
-	allSystems[uid].content.patientFName = "";
-	allSystems[uid].content.patientLName = "";
-	allSystems[uid].content.attention = false;
-	allSystems[uid].content.breaths = null;
-	allSystems[uid].content.firmware = "";
+	allSystems[uid].content = cloneObject(initialTileContent());
 
 	let dummyDormantTile = document.getElementById('dummyDormantTile');
 	dormantTilesDiv.insertBefore(newTile, dummyDormantTile);
