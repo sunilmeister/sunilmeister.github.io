@@ -319,6 +319,7 @@ class Param {
 	// bnum must have been logged
 	ValueAtBnum(bnum) {
 		if (!bnum) return null;
+		if (isUndefined(session.loggedBreaths[bnum])) return null;
 		// first entry in loggedBreaths is a null entry
 		return this.ValueAtTime(session.loggedBreaths[bnum].time);
 	}

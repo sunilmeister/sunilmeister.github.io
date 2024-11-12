@@ -272,6 +272,7 @@ class ChartPane {
 		for (let i=0; i<yvals.length; i++) {
 			yval = yvals[i];
 			let bnum = minBnum + (i * sparseInterval);
+			if (isUndefined(session.loggedBreaths[bnum])) continue;
       if (this.timeUnits) {
 				let dt = session.loggedBreaths[bnum].time;
 				if (dt === null) dt = session.firstChirpDate;
@@ -324,6 +325,7 @@ class ChartPane {
     for (let t = 1; t < transitions.length; t++) {
       let cTime = transitions[t].time;
       for (b = minBnum; b <= maxBnum; b+=sparseInterval) {
+				if (isUndefined(session.loggedBreaths[b])) continue;
         if (loggedBreaths[b].time.getTime() == cTime.getTime()) {
           yval = transitions[t].value;
           if (this.timeUnits) {
@@ -404,6 +406,7 @@ class ChartPane {
       startTime = timeSpans[i].startTime;
       endTime = timeSpans[i].endTime;
       for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
+				if (isUndefined(session.loggedBreaths[bnum])) continue;
         if ((loggedBreaths[bnum].time.getTime() >= startTime.getTime()) && (loggedBreaths[bnum].time.getTime() < endTime.getTime())) {
           if (this.timeUnits) {
 						let dt = session.loggedBreaths[bnum].time;
