@@ -425,7 +425,7 @@ function checkIfLoggedValidBreath(sysBnum) {
 	if (n==1) return false;
 
 	let bnum = sysBnum - session.startSystemBreathNum + 1;
-	//console.log("n",n,"sysBnum",sysBnum,"startSystemBreathNum", session.startSystemBreathNum,"bnum",bnum);
+	if (isUndefined(session.loggedBreaths[bnum])) return false;
 	return !session.loggedBreaths[bnum].missed;
 }
 
