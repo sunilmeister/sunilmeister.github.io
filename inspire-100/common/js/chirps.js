@@ -990,7 +990,7 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 function updateLoggedBreaths(breathTime, missing) {
 	let len = session.loggedBreaths.length;
 	if (breathTime.getTime() < session.loggedBreaths[len-1].time.getTime()) {
-		console.error("Breath time less than prev for Breath#",len+1);
+		console.log("Breath time less than prev for Breath#",len+1);
 		return;
 	}
 

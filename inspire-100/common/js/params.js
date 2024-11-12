@@ -50,7 +50,7 @@ class Param {
 
 		let len = this.changes.length;
 		if (this.changes[len-1].time.getTime() > time.getTime()) {
-			console.error("Bad addValueChange for " + this.name);
+			console.log("Bad addValueChange for " + this.name);
 			return;
 		} else if (this.changes[len-1].time.getTime() == time.getTime()) {
 			this.changes[len-1].value = value; // override
@@ -79,7 +79,7 @@ class Param {
 
 		let len = this.changes.length;
 		if (this.changes[len-1].time.getTime() > time.getTime()) {
-			console.error("Bad addValueChange for " + this.name);
+			console.log("Bad addValueChange for " + this.name);
 			return;
 		} else if (this.changes[len-1].time.getTime() == time.getTime()) {
 			return; // ignore

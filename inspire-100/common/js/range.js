@@ -29,6 +29,10 @@ function createRangeBnum(moving, minBnum, maxBnum) {
   if (maxBnum < 1) {
     range.maxTime = session.firstChirpDate;
   } else {
+		while (isUndefined(session.loggedBreaths[maxBnum])) {
+			if (maxBnum > 1) maxBnum--;
+		}
+  	if (maxBnum < 1) maxBnum = 1;
     range.maxTime = session.loggedBreaths[maxBnum].time;
   }
 

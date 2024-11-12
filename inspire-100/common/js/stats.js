@@ -147,7 +147,7 @@ function paramTableRow(table, field, units, value) {
   cell.innerHTML = field;
   cell = row.insertCell();
   cell.innerHTML = units;
-  cell.innerHTML = '<div style="font-size:0.8em;">' + units + '</div>';
+  cell.innerHTML = '<div style="font-size:0.8rem;">' + units + '</div>';
   cell = row.insertCell();
   cell.innerHTML = '<div id=' + value + '>----</div>';
 }
@@ -158,7 +158,7 @@ function minMaxTableRow(table, field, units, minDiv, maxDiv, avgDiv) {
   cell.innerHTML = field;
   cell = row.insertCell();
   cell.innerHTML = units;
-  cell.innerHTML = '<div style="font-size:0.8em;">' + units + '</div>';
+  cell.innerHTML = '<div style="font-size:0.8rem;">' + units + '</div>';
   cell = row.insertCell();
   cell.innerHTML = '<div style="text-align:right;" id=' + minDiv + '>----</div>';
   cell = row.insertCell();
