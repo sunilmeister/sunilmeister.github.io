@@ -234,6 +234,7 @@ function toggleActiveView() {
 			} else {
 				paramDivNonPSV.style.display = "block";
 			}
+			updateTileParams(uid);
 		} else {
 			activeViewIsState = true;
 			stateDiv.style.display = "block";
@@ -256,7 +257,6 @@ function tileClick(tile) {
 	let uidDiv = findChildNodeByClass(tile,'tileUid');
 	let uid = uidDiv.innerText;
 	let tag = findSystemTag(uid);
-	//console.log(uid, tag);
 
 	/*
 	// first check if system is active and transmitting

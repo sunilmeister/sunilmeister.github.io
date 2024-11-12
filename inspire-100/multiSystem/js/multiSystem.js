@@ -42,7 +42,7 @@ function formTileTitle(uid) {
 }
 
 function updateTileContents(uid) {
-	updateTileParams(uid);
+	//updateTileParams(uid); Do it only when the tile view changes
 	updateTileState(uid);
 	updateTileImages(uid);
 	updateAudioAlerts();
