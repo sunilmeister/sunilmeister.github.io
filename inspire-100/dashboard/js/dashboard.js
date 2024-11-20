@@ -812,14 +812,16 @@ function FetchAndExecuteFromQueue() {
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseJSONSafely(bnumContent);
-      session.systemBreathNum = bnumObj[0];
-      if (session.startSystemBreathNum == null) {
-        session.startSystemBreathNum = session.systemBreathNum;
-        let elm = document.getElementById("priorBreathNum");
-        elm.innerHTML = String(session.systemBreathNum - 1);
-      }
-      session.maxBreathNum = 
-        session.systemBreathNum - session.startSystemBreathNum + 1;
+			if (bnumObj) {
+      	session.systemBreathNum = bnumObj[0];
+      	if (session.startSystemBreathNum == null) {
+        	session.startSystemBreathNum = session.systemBreathNum;
+        	let elm = document.getElementById("priorBreathNum");
+        	elm.innerHTML = String(session.systemBreathNum - 1);
+      	}
+      	session.maxBreathNum = 
+        	session.systemBreathNum - session.startSystemBreathNum + 1;
+			}
     }
     let dCopy; // a copy of the chirp
     dCopy = cloneObject(d);
