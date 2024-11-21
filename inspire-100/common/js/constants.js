@@ -181,6 +181,6 @@ const RECORDING_STOP_MSG = "<span style='font-size:var(--swalTextFontSize);'><pr
   + "If STOPPED, a new recording can be started\n"
   + "with a new name during this session\n"
   + "\n"
-  + "If PAUSED, the same recording can be resumed\n"
+  + "If PAUSED, the recording can be resumed\n"
   + "at a later time during this session\n"
   + "</pre></span>"
