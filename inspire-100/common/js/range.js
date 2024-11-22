@@ -17,13 +17,12 @@ function createRangeBnum(moving, minBnum, maxBnum) {
 		}
 	}
 
-  range.moving = moving;
-  range.minBnum = minBnum;
-  range.maxBnum = maxBnum;
-
   if (minBnum < 1) {
     range.minTime = session.firstChirpDate;
   } else {
+		while (isUndefined(session.loggedBreaths[minBnum])) {
+			if (minBnum > 1) minBnum--;
+		}
     range.minTime = session.loggedBreaths[minBnum].time;
   }
   if (maxBnum < 1) {
@@ -35,6 +34,10 @@ function createRangeBnum(moving, minBnum, maxBnum) {
   	if (maxBnum < 1) maxBnum = 1;
     range.maxTime = session.loggedBreaths[maxBnum].time;
   }
+
+  range.moving = moving;
+  range.minBnum = minBnum;
+  range.maxBnum = maxBnum;
 
   range.missingBnum = cloneObject(session.missingBreathWindows);
   range.missingTime = cloneObject(session.missingTimeWindows);
