@@ -204,7 +204,7 @@
   grid-area: 6 / 9 / 12 / 12;
   color: var(--rsp_paleblue);
   font-size: 1.5rem;
-  background-color: var(rsp_mediumblue);
+  background-color: var(--rsp_mediumblue);
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
@@ -387,4 +387,15 @@
   margin-bottom:0rem; 
   font-size:1rem;
 }
+
+.elapsedTimeCls {
+  grid-area: 15 / 20 / 17 / 21;
+	
+  background-color: var(--rsp_green);
+  color: var(--rsp_brightgreen);
+
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+}
+
 

@@ -42,6 +42,9 @@ function gatherSnapshotData() {
 	  snap.patientStats += "&nbsp&nbspHeight: ?";
 	}
 
+	// UP time
+	snap.uptimeMins = params.upTimeMins.ValueAtTime(snap.time);
+
 	// Message lines
 	snap.lcdLine1 = params.lcdLine1.ValueAtTime(snap.time);
 	snap.lcdLine2 = params.lcdLine2.ValueAtTime(snap.time);
@@ -103,6 +106,9 @@ function gatherSnapshotData() {
 function refreshSnapshot() {
 	// collect all data at the time specified by the range
 	gatherSnapshotData();
+
+	// now refresh the up time
+	refreshUptime();
 
 	// now refresh the display
 	refreshMessageLines();
@@ -235,6 +241,30 @@ function updatePending(blink) {
     elm.innerHTML = "No Pending Changes";
     pendingBackground = "DARKBLUE";
   }
+}
+
+// ////////////////////////////////////////////////////////////////
+// UP time
+// ////////////////////////////////////////////////////////////////
+function refreshUptime() {
+	let snap = session.snapshot.content;
+	updateUptime(snap.uptimeMins);
+}
+
+function updateUptime(mins) {
+  let elm = document.getElementById("upTime");
+	if (!elm || isUndefined(elm)) return;
+
+	if ((mins === null) || isUndefined(mins)) {
+		elm.innerHTML = "__:__";
+		return;
+	}
+	let hh = Math.floor(mins / 60);
+	mm = mins % 60;
+	let hhStr = hh.toString().padStart(2, 0);
+	let mmStr = mm.toString().padStart(2, 0);
+	let str = hhStr + ":" + mmStr;
+	elm.innerHTML = str;
 }
 
 // ////////////////////////////////////////////////////////////////

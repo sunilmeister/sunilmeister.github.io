@@ -45,9 +45,6 @@
 .fpImgCls {
 	width:42rem;
 	height: auto;
-  -webkit-box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem var(--rsp_darkblue);
-  box-shadow: 0.5rem 0.5rem 0.5rem 0.5rem var(--rsp_darkblue);
-
 }
 
 .fpUniMono {

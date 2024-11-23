@@ -325,6 +325,7 @@ function processJsonRecord(jsonData) {
 					session.params.lcdLine2.AddTimeValue(curTime, value);
         } else if (ckey == "L3") {
 					session.params.lcdLine3.AddTimeValue(curTime, value);
+					processUptimeChirp(curTime, value);
         } else if (ckey == "L4") {
 					session.params.lcdLine4.AddTimeValue(curTime, value);
         } else if (ckey == "WL1") {
@@ -1045,3 +1046,16 @@ function processAlertChirp(curTime, jsonData) {
   }
 }
 
+function processUptimeChirp(curTime, jsonData) {
+	let pos = jsonData.search("(H:M:S)");
+	if (pos >= 0) {
+		let arr = jsonData.split(' ');
+		let tstr = arr[4];
+		if (tstr.length < 5) return;
+		if (!tstr) return;
+		arr = tstr.split(':');
+		let mins = Number(arr[0])*60 + Number(arr[1]);
+		session.params.upTimeMins.AddTimeValue(curTime,mins);
+		//console.log("UpTime", mins);
+	}
+}
