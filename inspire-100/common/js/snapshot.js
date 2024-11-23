@@ -45,6 +45,13 @@ function gatherSnapshotData() {
 	// UP time
 	snap.uptimeMins = params.upTimeMins.ValueAtTime(snap.time);
 
+	// Total System Breaths
+	snap.totalBreaths = session.startSystemBreathNum;
+	if (snap.totalBreaths !== null) {
+		let bnum = params.breathNum.ValueAtTime(snap.time);
+		snap.totalBreaths = session.startSystemBreathNum + bnum - 1;
+	}
+
 	// Message lines
 	snap.lcdLine1 = params.lcdLine1.ValueAtTime(snap.time);
 	snap.lcdLine2 = params.lcdLine2.ValueAtTime(snap.time);
@@ -107,8 +114,10 @@ function refreshSnapshot() {
 	// collect all data at the time specified by the range
 	gatherSnapshotData();
 
-	// now refresh the up time
-	refreshUptime();
+	if (session.appId == DASHBOARD_APP_ID) {
+		refreshUptime();
+		refreshTotalBreaths();
+	}
 
 	// now refresh the display
 	refreshMessageLines();
@@ -252,19 +261,43 @@ function refreshUptime() {
 }
 
 function updateUptime(mins) {
+  let tDiv = document.getElementById("elapsedTimeId");
+  let bDiv = document.getElementById("elapsedBreathsId");
   let elm = document.getElementById("upTime");
-	if (!elm || isUndefined(elm)) return;
 
 	if ((mins === null) || isUndefined(mins)) {
-		elm.innerHTML = "__:__";
+		tDiv.style.display = "none";
+		bDiv.style.display = "none";
 		return;
 	}
+
+	tDiv.style.display = "inline-grid";
+	bDiv.style.display = "inline-grid";
 	let hh = Math.floor(mins / 60);
 	mm = mins % 60;
 	let hhStr = hh.toString().padStart(2, 0);
 	let mmStr = mm.toString().padStart(2, 0);
 	let str = hhStr + ":" + mmStr;
 	elm.innerHTML = str;
+}
+
+// ////////////////////////////////////////////////////////////////
+// UP time
+// ////////////////////////////////////////////////////////////////
+function refreshTotalBreaths() {
+	let snap = session.snapshot.content;
+	updateTotalBreaths(snap.totalBreaths);
+}
+
+function updateTotalBreaths(totalBreaths) {
+  let elm = document.getElementById("elapsedBreaths");
+	if (!elm || isUndefined(elm)) return;
+
+	if ((totalBreaths === null) || isUndefined(totalBreaths)) {
+		elm.innerHTML = "__";
+		return;
+	}
+	elm.innerHTML = totalBreaths;
 }
 
 // ////////////////////////////////////////////////////////////////

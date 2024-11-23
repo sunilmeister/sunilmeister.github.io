@@ -1047,11 +1047,16 @@ function processAlertChirp(curTime, jsonData) {
 }
 
 function processUptimeChirp(curTime, jsonData) {
-	let pos = jsonData.search("(H:M:S)");
+	let matchStr = "(H:M:S)";
+	let pos = jsonData.search(matchStr);
 	if (pos >= 0) {
 		let arr = jsonData.split(' ');
-		let tstr = arr[4];
-		if (tstr.length < 5) return;
+		let tstr = "";
+		for (let i=0; i<arr.length; i++) {
+			tstr = arr[i];
+			if ((tstr != matchStr) && (tstr != "")) break;
+		}
+
 		if (!tstr) return;
 		arr = tstr.split(':');
 		let mins = Number(arr[0])*60 + Number(arr[1]);
