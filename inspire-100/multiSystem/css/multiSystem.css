@@ -46,11 +46,13 @@ body {
 }
 
 .breathCaption {
+	font-weight: normal;
 	background-color: darkgray;
 	color: white;
 }
 
 .durationCaption {
+	font-weight: normal;
 	background-color: darkgray;
 	color: white;
 }
@@ -65,7 +67,7 @@ body {
 	color: white;
 	font-weight: bold;
 	font-size: 1.8rem;
-	margin-top:-1rem;
+	margin-top:-0.5rem;
 	margin-bottom:-1rem;
 }
 
@@ -73,14 +75,20 @@ body {
 	color: white;
 	font-weight: bold;
 	font-size: 1.8rem;
-	margin-top:-1rem;
+	margin-top:-0.5rem;
 	margin-bottom:-1rem;
 }
 
 .active {
-	color: red;
 	font-weight: bold;
 	font-size: 1rem;
+	display: none;
+}
+
+.inactive {
+	font-weight: bold;
+	font-size: 2rem;
+	display: block;
 }
 
 .Alert {

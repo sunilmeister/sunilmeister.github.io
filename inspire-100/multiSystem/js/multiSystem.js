@@ -103,13 +103,17 @@ function updateTileState(uid) {
 		elem.style.color = getInactiveTileColorFG();
 	}
 
-	elem = findChildNodeByClass(tile,'active');
 	if (allSystems[uid].active) {
-		elem.innerHTML = "ACTIVE";
-		elem.style.color = getActiveTileColorFG();
+		elem = findChildNodeByClass(tile,'active');
+		elem.style.display = "block";
+		elem = findChildNodeByClass(tile,'inactive');
+		elem.style.display = "none";
 	} else {
-		elem.innerHTML = "INACTIVE";
+		elem = findChildNodeByClass(tile,'active');
+		elem.style.display = "none";
+		elem = findChildNodeByClass(tile,'inactive');
 		elem.style.color = getInactiveTileColorFG();
+		elem.style.display = "block";
 	}
 
 	elem = findChildNodeByClass(tile,'tileUid');
