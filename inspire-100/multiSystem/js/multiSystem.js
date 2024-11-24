@@ -16,6 +16,7 @@
 //  			patientLName: ,
 //  			attention: ,
 //  			breaths: ,
+//  			duration: ,
 //  			firmware: ,
 //  		}
 //  	}
@@ -71,6 +72,7 @@ function updateTileState(uid) {
 
 	let title = formTileTitle(uid);
 	let breaths = content.breaths;
+	let duration = content.duration;
 
 	let elem = null;
 	elem = findChildNodeByClass(tile,'tileName');
@@ -84,6 +86,16 @@ function updateTileState(uid) {
 	elem = findChildNodeByClass(tile,'breathNum');
 	if (isValidValue(breaths)) elem.innerHTML = breaths;
 	else elem.innerHTML = "--"
+
+	elem = findChildNodeByClass(tile,'duration');
+	if (isValidValue(duration)) {
+		let hh = Math.floor(duration / 60);
+		let mm = duration % 60;
+		let hhStr = hh.toString().padStart(2, 0);
+		let mmStr = mm.toString().padStart(2, 0);
+		let str = hhStr + ":" + mmStr;
+		elem.innerHTML = str;
+	} else elem.innerHTML = "--"
 
 	if (allSystems[uid].active) {
 		elem.style.color = getActiveTileColorFG();
@@ -113,6 +125,15 @@ function updateTileState(uid) {
 	}
 
 	elem = findChildNodeByClass(tile,'breathCaption');
+	if (allSystems[uid].active) {
+		elem.style.backgroundColor = getActiveCaptionColorBG();
+		elem.style.color = getActiveTileColorFG();
+	} else {
+		elem.style.backgroundColor = getInactiveCaptionColorBG();
+		elem.style.color = getInactiveTileColorFG();
+	}
+
+	elem = findChildNodeByClass(tile,'durationCaption');
 	if (allSystems[uid].active) {
 		elem.style.backgroundColor = getActiveCaptionColorBG();
 		elem.style.color = getActiveTileColorFG();

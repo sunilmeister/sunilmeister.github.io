@@ -70,6 +70,24 @@ function disassembleAndProcessChirp(uid, d) {
   }
 }
 
+function parseUptimeChirp(content, jsonData) {
+	let matchStr = "(H:M:S)";
+	let pos = jsonData.search(matchStr);
+	if (pos >= 0) {
+		let arr = jsonData.split(' ');
+		let tstr = "";
+		for (let i=0; i<arr.length; i++) {
+			tstr = arr[i];
+			if ((tstr != matchStr) && (tstr != "")) break;
+		}
+
+		if (!tstr) return;
+		arr = tstr.split(':');
+		let mins = Number(arr[0])*60 + Number(arr[1]);
+		content.duration = mins;
+	}
+}
+
 function parseAndUpdateUidContents(uid, jsonData) {
   let curTime = new Date(jsonData.created);
 	let content = allSystems[uid].content;
@@ -91,6 +109,8 @@ function parseAndUpdateUidContents(uid, jsonData) {
   				}
         } else if (ckey == "FWVER") {
 					content.firmware = value;
+        } else if (ckey == "L3") {
+					parseUptimeChirp(content, value);
         } else if (ckey == "PARAM") {
         	let obj = parseParamData(value);
 					if (!obj) continue;
@@ -160,6 +180,7 @@ function initialTileContent() {
 	content.patientLName = "";
 	content.state = "";
 	content.breaths = null;
+	content.duration = null;
 	content.attention = false;
 	content.emsg = null;
 	content.firmware = "";
