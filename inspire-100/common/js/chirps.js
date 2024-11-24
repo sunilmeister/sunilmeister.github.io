@@ -574,7 +574,7 @@ function processPwendChirp(str) {
 			session.waves.newShapeCallback(session.waves.breathNum);
 		}
 	} else {
-		console.log("Wave Data discarded for breath#", session.waves.breathNum);
+		//console.log("Wave Data discarded for breath#", session.waves.breathNum);
 	}
 
   waveBreathPartial = false;
