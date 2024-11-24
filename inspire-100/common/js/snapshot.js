@@ -114,10 +114,8 @@ function refreshSnapshot() {
 	// collect all data at the time specified by the range
 	gatherSnapshotData();
 
-	if (session.appId == DASHBOARD_APP_ID) {
-		refreshUptime();
-		refreshTotalBreaths();
-	}
+	refreshUptime();
+	refreshTotalBreaths();
 
 	// now refresh the display
 	refreshMessageLines();
