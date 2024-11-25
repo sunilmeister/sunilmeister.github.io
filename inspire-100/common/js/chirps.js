@@ -992,6 +992,8 @@ function updateLoggedBreaths(breathTime, missing) {
 	let len = session.loggedBreaths.length;
 	if (breathTime.getTime() < session.loggedBreaths[len-1].time.getTime()) {
 		console.log("Breath time less than prev for Breath#",len+1);
+		console.log("breathTime", breathTime);
+		console.log("loggedBreaths", session.loggedBreaths);
 		return;
 	}
 
