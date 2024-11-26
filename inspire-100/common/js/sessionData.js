@@ -19,7 +19,6 @@ var SessionDataTemplate = {
   startSystemBreathNum: null,
   numMissingBreaths: 0,
   lastValidBreathTime: null,
-  firstBreathChirpTime: null,
   firstBreathBnumTime: null,
   statTablesConstructed: false,
   cmvSpontDetections: 0,

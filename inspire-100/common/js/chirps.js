@@ -891,10 +891,16 @@ function processBnumChirp(curTime, value, jsonData) {
   if (!obj) return;
 
   // BNUM time is more accurate - use that for breath times
-  if (!session.lastValidBreathTime) session.lastValidBreathTime = session.firstChirpDate;
-  if (!session.firstBreathChirpTime) session.firstBreathChirpTime = curTime;
-  if (!session.firstBreathBnumTime) session.firstBreathBnumTime = curTime;
-  let breathTime = addMsToDate(session.firstBreathChirpTime, curTime - session.firstBreathBnumTime);
+  if (!session.lastValidBreathTime) session.lastValidBreathTime = new Date(session.firstChirpDate);
+  if (!session.firstBreathBnumTime) session.firstBreathBnumTime = new Date(curTime);
+
+  let breathTime = new Date(curTime);
+	if (breathTime.getTime() < session.lastValidBreathTime.getTime()) {
+		console.error("--- BAD BREATH TIME");
+		console.log("curTime", curTime, 
+			"breathTime", breathTime, "lastValidBreathTime", session.lastValidBreathTime);
+		return; // skip the bad data
+	}
 
   let bnumValue = obj.bnum;
   if (bnumValue == null) {
@@ -993,7 +999,7 @@ function updateLoggedBreaths(breathTime, missing) {
 	if (breathTime.getTime() < session.loggedBreaths[len-1].time.getTime()) {
 		console.log("Breath time less than prev for Breath#",len+1);
 		console.log("breathTime", breathTime);
-		console.log("loggedBreaths", session.loggedBreaths);
+		console.log("Prev loggedBreath", session.loggedBreaths[len-1].time);
 		return;
 	}
 
