@@ -58,17 +58,10 @@ async function executeInspireListenFor(uidString, callbackFn) {
 		let currTMS = timestamp.getTime();
 		if (prevTMS == currTMS) {
     	// This is a repeat - do not call the callbackFn
-			/*
-			if (!apiRepeatTime || (apiRepeatTime.getTime() != timestamp.getTime())) {
-				console.log("API getone repeat updatedAt=", timestamp);
-				apiRepeatTime = new Date(timestamp);
-			}
-			*/
     	return;
-  	}
-		if (prevTMS > currTMS) {
+  	} else if (prevTMS > currTMS) {
     	// ERROR
-			console.error("API getone updatedAt=", timestamp, " Prev=", prevResponseTimestamp); 
+			console.error("API getone New=", timestamp, "  < Prev=", prevResponseTimestamp); 
     	return;
 		}
   }
@@ -85,7 +78,7 @@ async function executeInspireListenFor(uidString, callbackFn) {
 function inspireListenFor(uidString, callbackFn) {
   executeInspireListenFor(uidString, callbackFn);
 
-  // After that call the real work function every LISTEN_INTERVAL_IN_MS
+  // call the real work function every MESSAGE_LISTEN_INTERVAL_IN_MS
   inspireListenIntervalId = setInterval(
         () => executeInspireListenFor(uidString, callbackFn),
         MESSAGE_LISTEN_INTERVAL_IN_MS);
