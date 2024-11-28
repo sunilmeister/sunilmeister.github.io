@@ -17,7 +17,6 @@ var SessionDataTemplate = {
   systemBreathNum: null,
   prevSystemBreathNum: null,
   startSystemBreathNum: null,
-  numMissingBreaths: 0,
   lastValidBreathTime: null,
   firstBreathBnumTime: null,
   statTablesConstructed: false,
@@ -78,9 +77,6 @@ var SessionDataTemplate = {
   },
 
 	loggedBreaths:        [{time:new Date(0),missed:true}],
-  missingBreaths:       [],
-  missingBreathWindows: [],
-  missingTimeWindows:   [],
   infoMsgs:             [],
 
 	// /////////////////////////////////////////////
@@ -247,10 +243,8 @@ var rangeTemplate = {
   moving: true,
   minBnum: null,
   maxBnum: null,
-  missingBnum: [],
   minTime: null,
   maxTime: null,
-  missingTime: []
 };
 
 function createNewSession() {

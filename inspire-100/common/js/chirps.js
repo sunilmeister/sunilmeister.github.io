@@ -885,62 +885,57 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
   session[parentName][paramName] = value;
 }
 
+var firstBnumChirp = true;
 function processBnumChirp(curTime, value, jsonData) {
-	//console.log("BNUM",value,"startSystemBreathNum", session.startSystemBreathNum);
+	// Parse for breath info
   let obj = parseBnumData(value);
   if (!obj) return;
-
-  // BNUM time is more accurate - use that for breath times
-  if (!session.lastValidBreathTime) session.lastValidBreathTime = new Date(session.firstChirpDate);
-  if (!session.firstBreathBnumTime) session.firstBreathBnumTime = new Date(curTime);
-
-  let breathTime = new Date(curTime);
-	if (breathTime.getTime() < session.lastValidBreathTime.getTime()) {
-		console.error("--- BAD BREATH TIME");
-		console.log("curTime", curTime, 
-			"breathTime", breathTime, "lastValidBreathTime", session.lastValidBreathTime);
-		return; // skip the bad data
-	}
-
   let bnumValue = obj.bnum;
   if (bnumValue == null) {
-    console.warn("Bad BNUM value = " + value + " sys = " + session.systemBreathNum);
+    console.error("Bad BNUM value = ", value, " systemBreathNum = ", session.systemBreathNum);
     return; // will count as missing
   }
-  value = Number(bnumValue);
+  bnumValue = Number(bnumValue);
+  let breathTime = new Date(curTime);
 
-  if (session.prevSystemBreathNum == null) { // initialize
-    session.prevSystemBreathNum = value - 1;
-  }
-  session.systemBreathNum = value;
-  if (session.systemBreathNum == null) { // first BNUM
-    // Take care of breaths missing right at the start
-    breathsMissing = value - 1;
-  } else {
-    breathsMissing = session.systemBreathNum - session.prevSystemBreathNum - 1;
-    if (breathsMissing < 0) breathsMissing = 0;
-  }
-  session.numMissingBreaths += breathsMissing;
-  if (session.startSystemBreathNum == null) {
-    session.startSystemBreathNum = value - session.numMissingBreaths;
+	// Housekeeping tasks
+	let breathsMissing = 0;
+	let outOfOrder = false;
+  if (firstBnumChirp) {
+		firstBnumChirp = false;
+    breathsMissing = 0;
+		outOfOrder = false;
+    session.startSystemBreathNum = bnumValue;
     console.log("startSystemBreathNum", session.startSystemBreathNum);
+  } else {
+    breathsMissing = bnumValue - session.prevSystemBreathNum - 1;
+    if (breathsMissing < 0) { // out of order breath number
+			breathsMissing = 0;
+			outOfOrder = true;
+		} else {
+			outOfOrder = false;
+		}
   }
+  session.systemBreathNum = bnumValue;
+  if (!session.lastValidBreathTime) {
+		session.lastValidBreathTime = new Date(session.firstChirpDate);
+	}
+  if (!session.firstBreathBnumTime) {
+		session.firstBreathBnumTime = new Date(breathTime);
+	}
 
-  session.prevSystemBreathNum = value;
   if (breathsMissing) {
 		fillMissingBreathsDummyInfo(session.lastValidBreathTime, breathTime, breathsMissing);
   }
-	updateLoggedBreaths(breathTime, false);
-  updateRangeOnNewBreath();
+	updateLoggedBreaths(bnumValue, breathTime, false);
+  if (!outOfOrder) updateRangeOnNewBreath();
+
+	// Get ready for next BNUM
   session.lastValidBreathTime = breathTime;
+  session.prevSystemBreathNum = bnumValue;
 }
 
 function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) {
-  session.missingBreaths.push({
-    "time": newBreathTime,
-    "value": numMissing
-  });
-
   // stuff dummy breaths equally spaced in the missing time interval
   let lastBreathNum = session.loggedBreaths.length;
 	let numIntervals = numMissing + 1;
@@ -953,24 +948,12 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 		session.params.comboChanged.AddTimeValue(missingBreathTime, false);
 		session.params.errorTag.AddTimeValue(missingBreathTime,false);
 		session.params.warningTag.AddTimeValue(missingBreathTime,false);
-		updateLoggedBreaths(missingBreathTime, true);
+		console.log("Missed breath#", session.loggedBreaths.length);
+  	session.loggedBreaths.push({time:missingBreathTime, missed:true});
   }
 
-  // record breaks for graphing
-  session.missingBreathWindows.push({
-    "startValue": lastBreathNum + 0.5,
-    "endValue": lastBreathNum + numMissing + 0.5,
-		"lineThickness": session.waves.stripLineThickness,
-    "autoCalculate": true
-  });
-
-  session.missingTimeWindows.push({
-    "startValue": ((new Date(session.lastValidBreathTime) - session.firstChirpDate) / 1000) + 0.5,
-    "endValue": ((new Date(newBreathTime) - session.firstChirpDate) / 1000) - 0.5,
-		"lineThickness": session.waves.stripLineThickness,
-    "autoCalculate": true
-  });
-
+	/* No need to let the users know - it will just be confusing
+	 * Also because breath numbers may be received out of order
 	let info1 = "";
 	let info2 = "";
 
@@ -992,23 +975,44 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
   };
   session.infoMsgs.push(msg);
   session.params.infos.AddTimeValue(newBreathTime, ++session.alerts.infoNum);
+	*/
 }
 
-function updateLoggedBreaths(breathTime, missing) {
+function updateLoggedBreaths(bnumValue, breathTime) {
 	let len = session.loggedBreaths.length;
-	if (breathTime.getTime() < session.loggedBreaths[len-1].time.getTime()) {
-		console.log("Breath time less than prev for Breath#",len+1);
-		console.log("breathTime", breathTime);
-		console.log("Prev loggedBreath", session.loggedBreaths[len-1].time);
-		return;
-	}
-
   let prevBreathNum = len - 1;
  	let prevBreathTime = session.loggedBreaths[prevBreathNum].time;
-	//console.log("prevBreathNum", prevBreathNum, "prevBreathTime", prevBreathTime);
 
-  session.loggedBreaths.push({time:breathTime, missed:missing});
-	session.params.breathNum.AddTimeValue(breathTime, len);
+	// Error Checking
+	let outOfOrder = false;
+	if (bnumValue < len) {
+		outOfOrder = true;
+		if (breathTime.getTime() > prevBreathTime.getTime()) {
+			console.error("--- BREATH Number", bnumValue, "out of order but breathTime wrong");
+			console.log("breathTime", breathTime, "lastValidBreathTime", session.lastValidBreathTime,
+								"prevBreathTime", prevBreathTime);
+			return; // will count as missing
+		}
+	} else if ((breathTime.getTime() < session.lastValidBreathTime.getTime()) 
+						|| (breathTime.getTime() < prevBreathTime.getTime())) {
+		console.error("--- BREATH Number", bnumValue, "in order but breathTime wrong");
+		console.log("breathTime", breathTime, "lastValidBreathTime", session.lastValidBreathTime,
+								"prevBreathTime", prevBreathTime);
+		return; // will count as missing
+	}
+
+	if (!outOfOrder) {
+  	session.loggedBreaths.push({time:breathTime, missed:false});
+	} else {
+  	if (!session.loggedBreaths[bnumValue].missed) {
+			console.log("Duplicate BREATH Number", bnumValue, "received out of order");
+		} else {
+			console.log("Previously missed BREATH Number", bnumValue, "received out of order");
+		}
+  	session.loggedBreaths[bnumValue].time = breathTime;
+  	session.loggedBreaths[bnumValue].missed = false;
+	}
+	session.params.breathNum.AddTimeValue(breathTime, bnumValue);
 }
 
 function validErrorLine(jsonData) {

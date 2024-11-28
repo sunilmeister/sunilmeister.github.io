@@ -308,14 +308,17 @@ function updateFrontPanelOutputs() {
 	let val = snap.peak;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPeakDiv').innerHTML = val;
+	else document.getElementById('p_fpPeakDiv').innerHTML = "--";
 
 	val = snap.plat;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpPlatDiv').innerHTML = val;
+	else document.getElementById('p_fpPlatDiv').innerHTML = "--";
 
 	val = snap.mpeep;
 	if (isValidValue(val)) val = val.toString().padStart(2, 0);
 	if (isValidValue(val)) document.getElementById('p_fpMpeepDiv').innerHTML = val;
+	else document.getElementById('p_fpMpeepDiv').innerHTML = "--";
 
 	// Also do the S/MBreath LEDs
 	val = snap.btype;

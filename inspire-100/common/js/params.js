@@ -35,39 +35,16 @@ class Param {
 	Units() { return this.units; }
 	Changes() { return this.changes; }
 
-	// each call must be monotonically increasing in time values
 	// time is a Date object
 	AddTimeValue(time, value) {
-		if (this.debug) console.error("AddTimeValue", value, time);
-		if (this.type.type == "STRING") {
-			if (value !== null) value = String(value);
-		} else {
-			if (value !== null) value = Number(value);
-		}
-		if (isUndefined(time) || (time === null)) { // missing breaths
-			return;
-		}
-
-		let len = this.changes.length;
-		if (this.changes[len-1].time.getTime() > time.getTime()) {
-			console.log("Bad addValueChange for " + this.name);
-			return;
-		} else if (this.changes[len-1].time.getTime() == time.getTime()) {
-			this.changes[len-1].value = value; // override
-			return;
-		}
-
-		let v = this.LastChangeValue();
-		if (v === value) return; // record only changes
-
-		let change = {};
-		change.time = time;
-		change.value = value;
-		this.changes.push(cloneObject(change));
+		this.UpdateChanges(time, value, false);
 	}
 
 	AddTimeValueIfAbsent(time, value) {
-		if (this.debug) console.error("AddTimeValueIfAbsent", value, time);
+		this.UpdateChanges(time, value, true);
+	}
+
+	UpdateChanges(time, value, override) {
 		if (this.type.type == "STRING") {
 			if (value !== null) value = String(value);
 		} else {
@@ -78,20 +55,42 @@ class Param {
 		}
 
 		let len = this.changes.length;
-		if (this.changes[len-1].time.getTime() > time.getTime()) {
-			console.log("Bad addValueChange for " + this.name);
-			return;
-		} else if (this.changes[len-1].time.getTime() == time.getTime()) {
-			return; // ignore
+		let temp = [];
+		// split the existing array at "time"
+		for (let i=len-1; i>=0; i--) {
+			if (this.changes[i].time.getTime() > time.getTime()) {
+				// move this element to temp and pop the changes array
+				// note that temp will be in reverse order
+				console.log("UpdateChange out of order", this.name);
+				temp.push(cloneObject(this.changes.pop()));
+			} else if (this.changes[i].time.getTime() == time.getTime()) {
+				if (override) this.changes[i].value = value; // override
+				return;
+			} else {
+				break;
+			}
 		}
 
+		// Now add the required time,value pair
 		let v = this.LastChangeValue();
-		if (v === value) return; // record only changes
+		if (v !== value) { // record only changes
+			let change = {};
+			change.time = time;
+			change.value = value;
+			this.changes.push(cloneObject(change));
+		}
 
-		let change = {};
-		change.time = time;
-		change.value = value;
-		this.changes.push(cloneObject(change));
+		// Now push the temp elements back in
+		// note that temp will be in reverse order
+		for (let i=temp.length-1; i>=0; i--) {
+			let v = this.LastChangeValue();
+			if (v !== value) { // record only changes
+				let change = {};
+				change.time = temp[i].time;
+				change.value = temp[i].value;
+				this.changes.push(cloneObject(change));
+			}
+		}
 	}
 
 	FirstChangeTime() {

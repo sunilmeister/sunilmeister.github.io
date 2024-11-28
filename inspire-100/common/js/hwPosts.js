@@ -43,6 +43,7 @@ async function inspireGetone(uidString) {
 }
 
 async function executeInspireListenFor(uidString, callbackFn) {
+	//console.log("Calling getone");
 	let getoneContent = await inspireGetone(uidString);
 	if (getoneContent.status != 'ok') return;
 
@@ -52,12 +53,14 @@ async function executeInspireListenFor(uidString, callbackFn) {
   if (payload === null) return;
   if (typeof payload !== 'object') return;
   if (Object.keys(payload).length == 0) return;
+	//console.log("getone return payload", payload);
 
 	if (prevResponseTimestamp) {
 		let prevTMS = prevResponseTimestamp.getTime();
 		let currTMS = timestamp.getTime();
 		if (prevTMS == currTMS) {
     	// This is a repeat - do not call the callbackFn
+			//console.log("Repeat prevTMS", prevTMS, "currTMS", currTMS);
     	return;
   	} else if (prevTMS > currTMS) {
     	// ERROR
@@ -66,6 +69,7 @@ async function executeInspireListenFor(uidString, callbackFn) {
 		}
   }
   prevResponseTimestamp = new Date(timestamp);
+	//console.log("timestamp", prevResponseTimestamp);
 
   // change the response to be in chirp format
   // so that the rest of the code does not have to change

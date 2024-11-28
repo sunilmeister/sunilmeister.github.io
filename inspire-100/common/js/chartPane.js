@@ -47,9 +47,9 @@ var yAxisInfoTemplate = {
 // Title of chart
 // Height in pixels
 // Whether time based or breathnumber based
-// rangeX = {moving:, 
-//           minBnum:Number, maxBnum:Number, missingBnum[]:,
-//           minTime:Date, maxTime:Date, missingTime[]:}
+// rangeX = {moving:boolean, 
+//           minBnum:Number, maxBnum:Number, 
+//           minTime:Date, maxTime:Date, }
 // //////////////////////////////////////////////////////
 class ChartPane {
 
@@ -183,27 +183,55 @@ class ChartPane {
   // X axis is the same for all charts in our application
   addXaxis() {
     let Xaxis = {};
-    let missingWindows = [];
     if (this.timeUnits) {
       Xaxis.title = "Elapsed Time (H:MM:SS)";
     	Xaxis.labelFormatter = breathTimeXaxisFormatter;
-      missingWindows = this.rangeX.missingTime;
     } else {
       Xaxis.title = "Breath Number";
-      missingWindows = this.rangeX.missingBnum;
     }
     Xaxis.interlacedColor = CHART_INTERLACED_COLOR;
     Xaxis.fontSize =  session.charts.labelFontSize
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
-    if (missingWindows && missingWindows.length) {
-      Xaxis.scaleBreaks = {type: "straight", color:"orange"};
-      Xaxis.scaleBreaks.customBreaks = cloneObject(missingWindows);
-    }
+		this.calculateXaxisCustomBreaks(Xaxis);
     this.chartJson.axisX = Xaxis;
   }
 
-  calculateXaxisInterval() {
+  calculateXaxisCustomBreaks(Xaxis) {
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+    let minTime = this.rangeX.minTime;
+    let maxTime = this.rangeX.maxTime;
+  	Xaxis.scaleBreaks = {type: "straight", color:"orange"};
+		for (let i=minBnum+1; i<=maxBnum; i++) {
+			let breath = session.loggedBreaths[i];
+			if (isUndefined(breath) || breath.missed) {
+				if (this.timeUnits) {
+					let prevBreathTime = session.loggedBreaths[i-1].time;
+					let newBreathTime = session.loggedBreaths[i].time;
+					let startTime = prevBreathTime - session.firstChirpDate;
+					let endTime = newBreathTime - session.firstChirpDate;
+					let cBreak = {
+    				"startValue": (startTime/1000) + 0.5,
+    				"endValue": (endTime/1000) - 0.5,
+						"lineThickness": session.waves.stripLineThickness,
+    				"autoCalculate": true
+					}
+      		Xaxis.scaleBreaks.customBreaks.push(cloneObject(cBreak));
+				} else {
+					let cBreak =    {
+						"startValue": i + 0.5,
+    				"endValue": i + 1.5,
+						"lineThickness": session.waves.stripLineThickness,
+    				"autoCalculate": true
+					}
+      		Xaxis.scaleBreaks.customBreaks.push(cloneObject(cBreak));
+				}
+			}
+		}
+	}
+
+	calculateXaxisInterval() {
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
     let minTime = this.rangeX.minTime;

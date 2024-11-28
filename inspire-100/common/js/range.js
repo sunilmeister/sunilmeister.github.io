@@ -39,9 +39,6 @@ function createRangeBnum(moving, minBnum, maxBnum) {
   range.minBnum = minBnum;
   range.maxBnum = maxBnum;
 
-  range.missingBnum = cloneObject(session.missingBreathWindows);
-  range.missingTime = cloneObject(session.missingTimeWindows);
-	//console.error("createRangeBnum",range);
   return range;
 }
 
@@ -59,9 +56,6 @@ function createRangeTime(moving, minTime, maxTime) {
   range.minBnum = minBnum;
   range.maxBnum = maxBnum;
 
-  range.missingBnum = cloneObject(session.missingBreathWindows);
-  range.missingTime = cloneObject(session.missingTimeWindows);
-	//console.error("createRangeTime",range);
   return range;
 }
 

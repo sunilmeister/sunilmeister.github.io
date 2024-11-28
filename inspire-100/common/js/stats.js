@@ -18,24 +18,14 @@ function checkForUndefined(val) {
 }
 
 function FindMissinBreathsInRange(minBnum, maxBnum) {
-	let missing = session.missingBreaths;
-  let minDate = session.loggedBreaths[minBnum].time;
-  let maxDate = session.loggedBreaths[maxBnum].time;
   let arr = [];
-
-  let prevItem = null;
-  for (let i = 0; i < missing.length; i++) {
-    if (missing[i].time === null) continue;
-    let tDate = new Date(missing[i].time);
-    if (tDate.getTime() > maxDate.getTime()) break;
-
-    if (tDate.getTime() < minDate.getTime()) {
-      prevItem = missing[i];
-      continue;
-    }
-    arr.push(cloneObject(missing[i]));
-  }
-
+	if (minBnum==0) minBnum = 1;
+	if (maxBnum==0) maxBnum = 1;
+  for (let i = minBnum; i <= maxBnum; i++) {
+  	if (session.loggedBreaths[i].missed) {
+			arr.push(cloneObject(session.loggedBreaths[i]));
+		}
+	}
   return arr;
 }
 
@@ -287,13 +277,8 @@ function displayBreathTypeInfo() {
   el.innerHTML = replaceDummyValue(nDrops);
 
 	let arr = FindMissinBreathsInRange(minBnum, maxBnum);
-  let n = 0;
-  for (let i = 0; i < arr.length; i++) {
-    obj = arr[i];
-    n += obj.value;
-  }
   el = document.getElementById("numMissingBreaths");
-  el.innerHTML = replaceDummyValue(n);
+  el.innerHTML = replaceDummyValue(arr.length);
 }
 
 function displayMinMaxAvg() {

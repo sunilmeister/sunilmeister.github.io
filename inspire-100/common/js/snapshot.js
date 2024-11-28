@@ -42,14 +42,16 @@ function gatherSnapshotData() {
 	  snap.patientStats += "&nbsp&nbspHeight: ?";
 	}
 
+	// Breath number closest to the time
+	snap.breathNum = lookupBreathNum(snap.time);
+
 	// UP time
 	snap.uptimeMins = params.upTimeMins.ValueAtTime(snap.time);
 
 	// Total System Breaths
 	snap.totalBreaths = session.startSystemBreathNum;
 	if (snap.totalBreaths !== null) {
-		let bnum = params.breathNum.ValueAtTime(snap.time);
-		snap.totalBreaths = session.startSystemBreathNum + bnum - 1;
+		snap.totalBreaths = session.startSystemBreathNum + snap.breathNum - 1;
 	}
 
 	// Message lines
@@ -60,7 +62,6 @@ function gatherSnapshotData() {
 
 	// state
 	snap.state = params.state.ValueAtTime(snap.time);
-	snap.breathNum = params.breathNum.ValueAtTime(snap.time);
 
 	// input settings
 	snap.mode 		= params.mode.ValueAtTime(snap.time);
@@ -280,7 +281,7 @@ function updateUptime(mins) {
 }
 
 // ////////////////////////////////////////////////////////////////
-// UP time
+// Total Breaths
 // ////////////////////////////////////////////////////////////////
 function refreshTotalBreaths() {
 	let snap = session.snapshot.content;

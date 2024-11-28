@@ -548,6 +548,10 @@ function lookupBreathNum(time) {
 	let bnum = session.params.breathNum.ValueAtTime(time);
 	if (isUndefined(bnum)) return 0;
 	if (bnum === null) return 0;
+	// Now the problem is that there may be missing breaths
+	// that are not in the params datastructure
+	// We could investigate loggedBreaths starting from this bnum
+	// to see if there is a better match for the given time
 	return bnum;
 }
 
