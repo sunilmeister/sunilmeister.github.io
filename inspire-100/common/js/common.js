@@ -550,8 +550,12 @@ function lookupBreathNum(time) {
 	if (bnum === null) return 0;
 	// Now the problem is that there may be missing breaths
 	// that are not in the params datastructure
-	// We could investigate loggedBreaths starting from this bnum
+	// Investigate loggedBreaths starting from this bnum
 	// to see if there is a better match for the given time
+	for (; bnum < session.loggedBreaths.length-2;) {
+		if (!session.loggedBreaths[bnum+1].missed) break;
+		if (session.loggedBreaths[bnum+1].time < time) bnum++;
+	}
 	return bnum;
 }
 
