@@ -2,7 +2,10 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var lastMILLIS = null;
+var lastChirpQueued = null;
 function disassembleAndQueueChirp(d) {
+	let saveChirp = cloneObject(d);
   let fragmentIndex = 0;
   while (1) {
     let key = String(fragmentIndex);
@@ -12,15 +15,31 @@ function disassembleAndQueueChirp(d) {
     fragment = d.content[key];
     let millisStr = fragment.MILLIS;
     let millis = parseChecksumString(millisStr);
-    if (millis == null) continue // ignore this malformed chirp
 
+		// ERROR detection
+    if (millis == null) {
+			console.error("*** MILLIS checksum error");
+			continue // ignore this malformed chirp
+		} else if (lastMILLIS && (millis < lastMILLIS)) {
+			// MILLIS should be monotonically increasing
+			// unless the chirps arrive out of order because of network buffering and latency
+			console.log("*** Chirp out of order: Last MILLIS",lastMILLIS, " > New MILLIS",millis);
+			//console.log("Last CHIRP",lastChirpQueued);
+			//console.log("New CHIRP",d);
+		}
+
+		// Reach here if all is good - no ERRORs
     if (!startMillis) startMillis = Number(millis);
     fragment.MILLIS = Number(millis);
 		let date = session.firstChirpDate;
 		if (date === null) date = new Date(d.created);
     fragment.created = new Date(addMsToDate(date, (fragment.MILLIS - startMillis)));
     chirpQ.push(cloneObject(fragment));
+
+		// For error checking the next round
+		lastMILLIS = fragment.MILLIS;
   }
+	lastChirpQueued = saveChirp;
 }
 
 function getCurrentSimulatedMillis() {
