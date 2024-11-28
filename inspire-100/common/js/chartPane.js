@@ -203,6 +203,8 @@ class ChartPane {
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
   	Xaxis.scaleBreaks = {type: "straight", color:"orange"};
+  	Xaxis.scaleBreaks.customBreaks = [];
+
 		for (let i=minBnum+1; i<=maxBnum; i++) {
 			let breath = session.loggedBreaths[i];
 			if (isUndefined(breath) || breath.missed) {
