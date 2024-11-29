@@ -897,6 +897,9 @@ function processBnumChirp(curTime, value, jsonData) {
   }
   bnumValue = Number(bnumValue);
   let breathTime = new Date(curTime);
+	let len = session.loggedBreaths.length;
+  let prevBreathNum = len - 1;
+ 	let prevBreathTime = session.loggedBreaths[prevBreathNum].time;
 
 	// Housekeeping tasks
 	let breathsMissing = 0;
@@ -908,7 +911,7 @@ function processBnumChirp(curTime, value, jsonData) {
     session.startSystemBreathNum = bnumValue;
     console.log("startSystemBreathNum", session.startSystemBreathNum);
   } else {
-    breathsMissing = bnumValue - session.prevSystemBreathNum - 1;
+    breathsMissing = bnumValue - prevBreathNum - 1;
     if (breathsMissing < 0) { // out of order breath number
 			breathsMissing = 0;
 			outOfOrder = true;
@@ -917,22 +920,15 @@ function processBnumChirp(curTime, value, jsonData) {
 		}
   }
   session.systemBreathNum = bnumValue;
-  if (!session.lastValidBreathTime) {
-		session.lastValidBreathTime = new Date(session.firstChirpDate);
-	}
   if (!session.firstBreathBnumTime) {
 		session.firstBreathBnumTime = new Date(breathTime);
 	}
 
   if (breathsMissing) {
-		fillMissingBreathsDummyInfo(session.lastValidBreathTime, breathTime, breathsMissing);
+		fillMissingBreathsDummyInfo(prevBreathTime, breathTime, breathsMissing);
   }
 	updateLoggedBreaths(bnumValue, breathTime, false);
   if (!outOfOrder) updateRangeOnNewBreath();
-
-	// Get ready for next BNUM
-  session.lastValidBreathTime = breathTime;
-  session.prevSystemBreathNum = bnumValue;
 }
 
 function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) {
@@ -989,15 +985,12 @@ function updateLoggedBreaths(bnumValue, breathTime) {
 		outOfOrder = true;
 		if (breathTime.getTime() > prevBreathTime.getTime()) {
 			console.error("--- BREATH Number", bnumValue, "out of order but breathTime wrong");
-			console.log("breathTime", breathTime, "lastValidBreathTime", session.lastValidBreathTime,
-								"prevBreathTime", prevBreathTime);
+			console.log("breathTime", breathTime, "prevBreathTime", prevBreathTime);
 			return; // will count as missing
 		}
-	} else if ((breathTime.getTime() < session.lastValidBreathTime.getTime()) 
-						|| (breathTime.getTime() < prevBreathTime.getTime())) {
+	} else if (breathTime.getTime() < prevBreathTime.getTime()) {
 		console.error("--- BREATH Number", bnumValue, "in order but breathTime wrong");
-		console.log("breathTime", breathTime, "lastValidBreathTime", session.lastValidBreathTime,
-								"prevBreathTime", prevBreathTime);
+		console.log("breathTime", breathTime, "prevBreathTime", prevBreathTime);
 		return; // will count as missing
 	}
 

@@ -61,7 +61,7 @@ class Param {
 			if (this.changes[i].time.getTime() > time.getTime()) {
 				// move this element to temp and pop the changes array
 				// note that temp will be in reverse order
-				console.log("UpdateChange out of order", this.name);
+				// console.log("UpdateChange out of order", this.name);
 				temp.push(cloneObject(this.changes.pop()));
 			} else if (this.changes[i].time.getTime() == time.getTime()) {
 				if (override) this.changes[i].value = value; // override
