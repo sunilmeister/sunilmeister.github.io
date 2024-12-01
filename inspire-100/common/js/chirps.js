@@ -928,7 +928,7 @@ function processBnumChirp(curTime, value, jsonData) {
 		fillMissingBreathsDummyInfo(prevBreathTime, breathTime, breathsMissing);
   }
 	updateLoggedBreaths(bnumValue, breathTime, false);
-  if (!outOfOrder) updateRangeOnNewBreath();
+  updateRangeOnNewBreath();
 }
 
 function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) {

@@ -2,10 +2,10 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var lastMILLIS = null;
-var lastChirpQueued = null;
+var maxMILLIS = null;
+//var lastChirpQueued = null;
 function disassembleAndQueueChirp(d) {
-	let saveChirp = cloneObject(d);
+	//let saveChirp = cloneObject(d);
   let fragmentIndex = 0;
   while (1) {
     let key = String(fragmentIndex);
@@ -20,10 +20,10 @@ function disassembleAndQueueChirp(d) {
     if (millis == null) {
 			console.error("*** MILLIS checksum error");
 			continue // ignore this malformed chirp
-		} else if (lastMILLIS && (millis < lastMILLIS)) {
+		} else if (maxMILLIS && (millis < maxMILLIS)) {
 			// MILLIS should be monotonically increasing
 			// unless the chirps arrive out of order because of network buffering and latency
-			console.log("*** Chirp out of order: Last MILLIS",lastMILLIS, " > New MILLIS",millis);
+			console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
 			//console.log("Last CHIRP",lastChirpQueued);
 			//console.log("New CHIRP",d);
 		}
@@ -37,9 +37,9 @@ function disassembleAndQueueChirp(d) {
     chirpQ.push(cloneObject(fragment));
 
 		// For error checking the next round
-		lastMILLIS = fragment.MILLIS;
+		if (!maxMILLIS || (maxMILLIS < fragment.MILLIS)) maxMILLIS = fragment.MILLIS;
   }
-	lastChirpQueued = saveChirp;
+	//lastChirpQueued = saveChirp;
 }
 
 function getCurrentSimulatedMillis() {
