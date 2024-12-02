@@ -1065,6 +1065,7 @@ function processUptimeChirp(curTime, jsonData) {
 		if (!tstr) return;
 		arr = tstr.split(':');
 		let mins = Number(arr[0])*60 + Number(arr[1]);
+		if (Number(arr[2] >= 30)) mins++;
 		session.params.upTimeMins.AddTimeValue(curTime,mins);
 		//console.log("UpTime", mins);
 	}
