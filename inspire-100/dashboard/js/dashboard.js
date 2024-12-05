@@ -516,23 +516,6 @@ function selectExit() {
   window.open('', '_self').close();
 }
 
-function receivedNewWave() {
-  if (session.charts.visible) return;
-  if ((session.waves.sendPeriod) && !session.waves.onDemand) return;
-
-  console.log("On demand snapshot received pwBreathNum=" + session.waves.pwBreathNum);
-  Swal.fire({
-    icon: 'info',
-    title: ON_DEMAND_TITLE_STR,
-    text: ON_DEMAND_MESSAGE_STR,
-    width: 800,
-    showConfirmButton: false,
-    color: 'white',
-    background: '#2C94BC',
-    timer: 4000
-  })
-}
-
 function installTempGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
@@ -561,7 +544,6 @@ window.onload = function () {
   sliderDiv = document.getElementById("rangeSliderDiv");
   createRangeSlider(sliderDiv);
 
-  session.waves.newPwDataCallback = receivedNewWave;
 	resizeChartsWaves();
 
   initDbNames();

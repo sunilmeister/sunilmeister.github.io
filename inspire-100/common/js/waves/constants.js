@@ -21,9 +21,3 @@ const WAVE_CONTAINER_CLASS = "waveContainer";
 const ALL_WAVES_ID = "wavesDiv";
 const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
 
-const ON_DEMAND_TITLE_STR = "On-Demand Breath Waveform";
-const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Press 'View Waveforms' to view" +
-  "</pre></span>";
-
-

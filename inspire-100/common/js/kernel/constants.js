@@ -112,24 +112,3 @@ const STANDBY_STATE = 1;
 const ACTIVE_STATE = 2;
 const ERROR_STATE = 3;
 
-const SNAPSHOT_NUM_ROLLING_BREATHS = 1;
-
-const SEARCH_NUM_ROLLING_BREATHS = 120;
-const STAT_NUM_ROLLING_BREATHS = 120;
-const ALERT_NUM_ROLLING_BREATHS = 120;
-
-const EDIT_ICON_TITLE_STR = "SELECT CHART ITEMS";
-const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Press EDIT (PEN icon) on the banner" +
-  "\n" +
-  "to select Chart items to display" +
-  "</pre></span>";
-
-const RECORDING_STOP_TITLE = "Stop Recording";
-const RECORDING_STOP_MSG = "<span style='font-size:var(--swalTextFontSize);'><pre>"
-  + "If STOPPED, a new recording can be started\n"
-  + "with a new name during this session\n"
-  + "\n"
-  + "If PAUSED, the recording can be resumed\n"
-  + "at a later time during this session\n"
-  + "</pre></span>"
