@@ -898,8 +898,8 @@ function processBnumChirp(curTime, value, jsonData) {
   bnumValue = Number(bnumValue);
   let breathTime = new Date(curTime);
 	let len = session.loggedBreaths.length;
-  let prevBreathNum = len - 1;
- 	let prevBreathTime = session.loggedBreaths[prevBreathNum].time;
+  let numLoggedBreaths = len - 1;
+ 	let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
 
 	// Housekeeping tasks
 	let breathsMissing = 0;
@@ -911,7 +911,8 @@ function processBnumChirp(curTime, value, jsonData) {
     session.startSystemBreathNum = bnumValue;
     console.log("startSystemBreathNum", session.startSystemBreathNum);
   } else {
-    breathsMissing = bnumValue - prevBreathNum - 1;
+    breathsMissing = bnumValue - numLoggedBreaths - session.startSystemBreathNum;
+		//console.log("breathsMissing",breathsMissing);
     if (breathsMissing < 0) { // out of order breath number
 			breathsMissing = 0;
 			outOfOrder = true;
@@ -976,8 +977,8 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 
 function updateLoggedBreaths(bnumValue, breathTime) {
 	let len = session.loggedBreaths.length;
-  let prevBreathNum = len - 1;
- 	let prevBreathTime = session.loggedBreaths[prevBreathNum].time;
+  let numLoggedBreaths = len - 1;
+ 	let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
 
 	// Error Checking
 	let outOfOrder = false;
