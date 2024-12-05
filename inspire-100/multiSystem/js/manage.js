@@ -4,56 +4,30 @@
 
 async function updateUidContent(uid) {
 	let jsonContent = {};
-  if (USE_DWEET_FOR_MESSAGES) {
-		dweetio.get_latest_dweet_for(uid, function(err, dweet){
-			if (!dweet) return;
-			let jsonContent = dweet[0];
-			if (!jsonContent) return;
-  		let timestamp = new Date(jsonContent.created);
-			let prevTMS = allSystems[uid].updated.getTime();
-			let currTMS = timestamp.getTime();
-			if (prevTMS < currTMS) {
-				disassembleAndProcessChirp(uid, jsonContent);
-  		} else {
-				// Check for dormancy
-				let now = new Date();
-				if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
-					if (allSystems[uid].active) {
-						moveTileToDormant(uid);
-					}
-					updateTileContents(uid);
-				}
-			}
-		});
-		
-	} else {
-		let jsonContent = await inspireGetone(uid);
-		if (jsonContent.status != 'ok') return;
-  	let payload = jsonContent.response.content;
-  	if (payload === null) return;
-  	if (typeof payload !== 'object') return;
-  	if (Object.keys(payload).length == 0) return;
+	let jsonContent = await inspireGetone(uid);
+	if (jsonContent.status != 'ok') return;
+	let payload = jsonContent.response.content;
+	if (payload === null) return;
+	if (typeof payload !== 'object') return;
+	if (Object.keys(payload).length == 0) return;
 
-  	let timestamp = new Date(jsonContent.response.updatedAt);
-		let prevTMS = allSystems[uid].updated.getTime();
-		let currTMS = timestamp.getTime();
-		if (prevTMS < currTMS) {
-  		// change the response to be in chirp format
-  		// so that the rest of the code does not have to change
-  		// when switching from dweet to inspireListenFor
-  		let chirpObj = chirpFormat(uid, timestamp, jsonContent.response.content);
-			disassembleAndProcessChirp(uid, chirpObj);
+	let timestamp = new Date(jsonContent.response.updatedAt);
+	let prevTMS = allSystems[uid].updated.getTime();
+	let currTMS = timestamp.getTime();
+	if (prevTMS < currTMS) {
+  	// change the response to be in chirp format
+  	let chirpObj = chirpFormat(uid, timestamp, jsonContent.response.content);
+		disassembleAndProcessChirp(uid, chirpObj);
  		} else {
-			// Check for dormancy
-			let now = new Date();
-			if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
-				if (allSystems[uid].active) {
-					moveTileToDormant(uid);
-				}
-				updateTileContents(uid);
+		// Check for dormancy
+		let now = new Date();
+		if ((now.getTime() - prevTMS) > MAX_DORMANT_TIME_IN_MS) {
+			if (allSystems[uid].active) {
+				moveTileToDormant(uid);
 			}
-  	}
-	}
+			updateTileContents(uid);
+		}
+ 	}
 }
 
 function disassembleAndProcessChirp(uid, d) {

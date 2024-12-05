@@ -11,7 +11,7 @@ var startSystemDate = new Date();
 var awaitingFirstChirp = true;
 var chirpQ = null;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
-const MAX_DIFF_DWEET_SIMULAION_TIMES = 10000;
+const MAX_DIFF_CHIRP_SIMULAION_TIMES = 10000;
 
 var blankIndicator = false;
 function blinkRecordingIndicator() {
@@ -214,7 +214,7 @@ function FetchAndExecuteFromQueue() {
     processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_DWEET_SIMULAION_TIMES) {
+  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULAION_TIMES) {
     modalAlert("Recorder out of Sync", "Something went wrong\nPlease relaunch the Recorder");
     console.error("Chirps way ahead of simulated time " + millis +
       " v/s " + simulatedMillis);

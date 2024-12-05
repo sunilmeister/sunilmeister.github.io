@@ -5,11 +5,6 @@ const CURRENT_RECORDING_VERSION = "1.0";
 const weekDays = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-////////////////////////////////////////////////////////////////////////////////
-// Switch between using dweetio.listen_for and inspireListenFor
-// by changing the constant USE_DWEET_FOR_MESSAGES
-////////////////////////////////////////////////////////////////////////////////
-const USE_DWEET_FOR_MESSAGES = false;
 const MESSAGE_LISTEN_INTERVAL_IN_MS = 350;
 const MAX_DASHBOARD_PING_DELAY_IN_MS = 2000;
 
@@ -27,7 +22,6 @@ const tagCookieName = "INSPIRE_TAG_COOKIE";
 const localStorageDbName = "inspire_dbs";
 
 const FLOW_FILTER_WINDOW = 16;
-const SEARCH_ITEMS_AT_A_TIME = 10;
 
 const NO_BREATH = 0;
 const MANDATORY_BREATH = 1;
@@ -120,54 +114,9 @@ const ERROR_STATE = 3;
 
 const SNAPSHOT_NUM_ROLLING_BREATHS = 1;
 
-const WAVE_NUM_ROLLING_BREATHS = 12;
-const WAVE_ALERT_THRESHOLD = 40;
-const WAVE_MAX_SAMPLES_PER_BREATH = 32
-const WAVE_MAX_SAMPLES_PER_SLICE = 8;
-const WAVE_MAX_SLICES = 8;
-const FLOW_IGNORE_THRESHOLD = 0.12;
-
-const CHART_NUM_ROLLING_BREATHS = 60;
-const CHART_ALERT_THRESHOLD = 400;
-const CHART_XAXIS_MAX_TICK_MARKS = 25;
-const CHART_INTERLACED_COLOR = 'white';
-const CHART_HORIZONTAL_GRID_COLOR = '#8F99FB';
-
-const EDIT_ICON_CLASS = "editIconButton";
-
-const CHART_CONTAINER_ID_PREFIX = "chartContainer";
-const CHART_CONTAINER_TEMPLATE_ID = "chartContainerTemplate";
-const CHART_MENU_BANNER_ID = "chartMenuBanner";
-const CHART_BODY_CLASS = "chartBody";
-const CHART_BANNER_CLASS = "chartBanner";
-const CHART_BANNER_TEXT_CLASS = "sparseIntervalMsg";
-const CHART_EDIT_CHART_MENU_CLASS = "chartEditMenu";
-const CHART_EDIT_CHART_MENU_ID = "chartDropDownMenu";
-const CHART_CONTAINER_CLASS = "chartContainer";
-const ALL_CHARTS_ID = "chartsDiv";
-const CHART_CBOX_TREE_ROOT_ID = "chartCheckBoxTreeRoot";
-
 const SEARCH_NUM_ROLLING_BREATHS = 120;
 const STAT_NUM_ROLLING_BREATHS = 120;
 const ALERT_NUM_ROLLING_BREATHS = 120;
-
-const WAVE_CONTAINER_ID_PREFIX = "waveContainer";
-const WAVE_CONTAINER_TEMPLATE_ID = "waveContainerTemplate";
-const WAVE_MENU_BANNER_ID = "waveMenuBanner";
-const WAVE_BODY_CLASS = "waveBody";
-const PRESSURE_WAVE_BODY_CLASS = "pWaveBody";
-const FLOW_WAVE_BODY_CLASS = "fWaveBody";
-const WAVE_BANNER_CLASS = "waveBanner";
-const WAVE_EDIT_WAVE_MENU_CLASS = "waveEditMenu";
-const WAVE_EDIT_WAVE_MENU_ID = "waveDropDownMenu";
-const WAVE_CONTAINER_CLASS = "waveContainer";
-const ALL_WAVES_ID = "wavesDiv";
-const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
-
-const ON_DEMAND_TITLE_STR = "On-Demand Breath Waveform";
-const ON_DEMAND_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
-  "Press 'View Waveforms' to view" +
-  "</pre></span>";
 
 const EDIT_ICON_TITLE_STR = "SELECT CHART ITEMS";
 const EDIT_ICON_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'><pre>" +
