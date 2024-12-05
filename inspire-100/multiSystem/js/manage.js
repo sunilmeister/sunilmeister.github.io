@@ -4,7 +4,7 @@
 
 async function updateUidContent(uid) {
 	let jsonContent = {};
-	let jsonContent = await inspireGetone(uid);
+	jsonContent = await inspireGetone(uid);
 	if (jsonContent.status != 'ok') return;
 	let payload = jsonContent.response.content;
 	if (payload === null) return;
