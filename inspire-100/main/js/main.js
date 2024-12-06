@@ -405,6 +405,7 @@ var portalStartDate = null;
 var portalChirpCount = 0;
 window.onload = function () {
   portalStartDate = new Date();
+	console.log("Welcome to the INSPIRE-100 world!", portalStartDate);
 
 	setRootFontSize("wrapper", "wrapper");
 
