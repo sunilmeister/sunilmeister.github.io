@@ -87,15 +87,18 @@ document.addEventListener('click', function (event) {
   // Let the span listener take care of stuff
   if (spanClicked) return;
 
-  let cMenu = document.getElementById(CHART_EDIT_CHART_MENU_ID);
-  let sMenu = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
-
-  if (cMenu && !cMenu.contains(event.target)) {
-    removeChartEditMenu();
-  }
-  if (sMenu && !sMenu.contains(event.target)) {
-    removeWaveEditMenu();
-  }
+	if (session.charts.boxTree) {
+  	let cMenu = document.getElementById(CHART_EDIT_CHART_MENU_ID);
+  	if (cMenu && !cMenu.contains(event.target)) {
+    	removeChartEditMenu();
+  	}
+	}
+	if (session.waves.boxTree) {
+  	let sMenu = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
+  	if (sMenu && !sMenu.contains(event.target)) {
+    	removeWaveEditMenu();
+  	}
+	}
 
   let popupsCenter = document.getElementsByClassName('popupClassCenter');
   if (popupsCenter) {

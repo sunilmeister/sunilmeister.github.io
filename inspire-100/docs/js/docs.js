@@ -18,6 +18,6 @@ window.onload = function () {
 	setRootFontSize("wrapper", "wrapper");
   new KeypressEnterSubmit('password', 'passwordBtn');
 
- 	document.getElementById("passwordDiv").style.display = "block";
+ 	//document.getElementById("passwordDiv").style.display = "block";
 }
 
