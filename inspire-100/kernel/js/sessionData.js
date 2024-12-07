@@ -17,8 +17,6 @@ var SessionDataTemplate = {
   systemBreathNum: null,
   startSystemBreathNum: null,
   firstBreathBnumTime: null,
-  statTablesConstructed: false,
-  cmvSpontDetections: 0,
 
   firmwareVersion: {
     major: null,
@@ -219,12 +217,6 @@ var SessionDataTemplate = {
   // Below is used by Recorder
   // /////////////////////////////////////////////
   recorder: {
-    expectErrorMsg:     false,
-    expectWarningMsg:   false,
-    l1Valid:            false,
-    l2Valid:            false,
-    l3Valid:            false,
-    l4Valid:            false,
     off:                true,
     paused:             false,
     creationTimeStamp:  null,
