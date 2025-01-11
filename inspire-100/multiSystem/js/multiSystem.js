@@ -301,16 +301,11 @@ function changeParamValue(tile, className, value) {
 
 function updateAudioAlerts() {
 	if (!errorBeepEnabled && !warningBeepEnabled) return;
-	let foundError = false;
-	let foundWarning = false;
 
-  for (const uid in allSystems) {
-		if (!allSystems[uid].content.breaths) continue;
-		if ((allSystems[uid].content.attention && (allSystems[uid].content.state == "ERROR")) 
-			  || (allSystems[uid].content.emsg == allSystems[uid].content.breaths)) {
-			foundError = true;
-		} else if (allSystems[uid].content.attention) foundWarning = true;
-	}
+	let alerts = checkAllSystemsForAlerts();
+
+	let foundError = (alerts == "ERROR");
+	let foundWarning = (alerts == "WARNING");
 
 	if (foundError) {
 		startErrorBeep();

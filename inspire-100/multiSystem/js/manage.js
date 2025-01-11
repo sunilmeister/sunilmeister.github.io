@@ -74,6 +74,14 @@ function parseAndUpdateUidContents(uid, jsonData) {
 
   for (let key in jsonData) {
     if (key == 'content') {
+			if (!isUndefined(jsonData.content["EL1"]) || !isUndefined(jsonData.content["EL2"])
+				|| !isUndefined(jsonData.content["EL3"]) || !isUndefined(jsonData.content["EL4"]) ) {
+					content.emsg = true;
+			} else if (!isUndefined(jsonData.content["L1"]) || !isUndefined(jsonData.content["L2"])
+				|| !isUndefined(jsonData.content["L3"]) || !isUndefined(jsonData.content["L4"]) ) {
+					content.emsg = false;
+			}
+
       for (let ckey in jsonData.content) {
         let value = jsonData.content[ckey];
         if (ckey == "BNUM") {
@@ -124,8 +132,6 @@ function parseAndUpdateUidContents(uid, jsonData) {
 					content.patientFName = value;
         } else if (ckey == "LNAME") {
 					content.patientLName = value;
-        } else if (ckey == "EMSG") {
-						content.emsg = value;
         } else if (ckey == "ATT") {
       		if (value==1) {
 						content.attention = true;
@@ -156,7 +162,7 @@ function initialTileContent() {
 	content.breaths = null;
 	content.duration = null;
 	content.attention = false;
-	content.emsg = null;
+	content.emsg = false;
 	content.firmware = "";
 
 	content.mode = "--";
@@ -268,5 +274,16 @@ function tileClick(tile) {
   	sessionStorage.setItem("inspireTag", tag);
   	window.open("../dashboard/dashboard.html");
 	}
+}
+
+function checkAllSystemsForAlerts() {
+  for (const uid in allSystems) {
+		let tile = allSystems[uid].tile;
+		let content = allSystems[uid].content;
+		if (content.state == "ERROR") return "ERROR";
+		if (content.emsg) return "ERROR";
+		if (content.attention) return "WARNING";
+	}
+	return "NONE";
 }
 
