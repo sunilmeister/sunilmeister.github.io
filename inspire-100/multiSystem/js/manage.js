@@ -222,7 +222,6 @@ function toggleActiveView() {
 		}
 
 		if (activeViewIsState) {
-			activeViewIsState = false;
 			stateDiv.style.display = "none";
 			if (content.mode == "PSV") {
 				paramDivPSV.style.display = "block";
@@ -231,12 +230,12 @@ function toggleActiveView() {
 			}
 			updateTileParams(uid);
 		} else {
-			activeViewIsState = true;
 			stateDiv.style.display = "block";
 			paramDivPSV.style.display = "none";
 			paramDivNonPSV.style.display = "none";
 		}
 	}
+	activeViewIsState = !activeViewIsState;
 }
 
 setInterval(() => {
