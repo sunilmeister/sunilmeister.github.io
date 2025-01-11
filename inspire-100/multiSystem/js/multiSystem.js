@@ -55,13 +55,13 @@ function updateTileParams(uid) {
 	let tile = allSystems[uid].tile;
 	let content = allSystems[uid].content;
 
-	changeParamValue("MODEvalue",content.mode);
-	changeParamValue("VTvalue",content.vt);
-	changeParamValue("RRvalue",content.rr);
-	changeParamValue("IEvalue",content.ie);
-	changeParamValue("FiO2value",content.fiO2);
-	changeParamValue("PSvalue",content.ps);
-	changeParamValue("MVvalue",content.mv);
+	changeParamValue(tile, "MODEvalue",content.mode);
+	changeParamValue(tile, "VTvalue",content.vt);
+	changeParamValue(tile, "RRvalue",content.rr);
+	changeParamValue(tile, "IEvalue",content.ie);
+	changeParamValue(tile, "FiO2value",content.fiO2);
+	changeParamValue(tile, "PSvalue",content.ps);
+	changeParamValue(tile, "MVvalue",content.mv);
 }
 
 function updateTileState(uid) {
@@ -294,12 +294,9 @@ setInterval(() => {
 	blinkTiles();
 }, 1000)
 
-function changeParamValue(className, value) {
-	let elems = document.getElementsByClassName(className);
-	for (let i=0; i<elems.length; i++) {
-  	let elem = elems[i];
-		elem.innerHTML = value;
-	}
+function changeParamValue(tile, className, value) {
+	let elem = findChildNodeByClass(tile,className);
+	elem.innerHTML = value;
 }
 
 function updateAudioAlerts() {

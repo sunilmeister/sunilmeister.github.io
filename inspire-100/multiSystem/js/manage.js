@@ -257,14 +257,6 @@ function tileClick(tile) {
 	let uid = uidDiv.innerText;
 	let tag = findSystemTag(uid);
 
-	/*
-	// first check if system is active and transmitting
-	if (!allSystems[uid].active) {
-    modalAlert("System either inactive or not transmitting", uid + '[' + tag + ']');
-		return;
-	}
-	*/
-
 	// now check if system dashboard is already open in the browser
 	if (isDashboardActive(uid)) {
     modalAlert("System Dashboard already open", uid + '[' + tag + ']');
