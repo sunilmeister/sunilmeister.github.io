@@ -209,6 +209,9 @@ function toggleActiveView() {
   for (const uid in allSystems) {
 		let tile = allSystems[uid].tile;
 		let content = allSystems[uid].content;
+		let tag = findSystemTag(uid);
+		let uidElem = findChildNodeByClass(tile,'tileUid');
+	
 
 		let stateDiv = findChildNodeByClass(tile,'StateContent');
 		let paramDivNonPSV = findChildNodeByClass(tile,'ParamContentNonPSV');
@@ -229,10 +232,12 @@ function toggleActiveView() {
 				paramDivNonPSV.style.display = "block";
 			}
 			updateTileParams(uid);
+			uidElem.innerHTML = uid;
 		} else {
 			stateDiv.style.display = "block";
 			paramDivPSV.style.display = "none";
 			paramDivNonPSV.style.display = "none";
+			uidElem.innerHTML = tag;
 		}
 	}
 	activeViewIsState = !activeViewIsState;

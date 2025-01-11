@@ -117,7 +117,9 @@ function updateTileState(uid) {
 	}
 
 	elem = findChildNodeByClass(tile,'tileUid');
-	elem.innerHTML = uid;
+	if (!elem.innerHTML) {
+		elem.innerHTML = uid;
+	}
 
 	elem = findChildNodeByClass(tile,'statusCaption');
 	if (allSystems[uid].active) {
