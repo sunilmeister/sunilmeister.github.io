@@ -190,6 +190,7 @@ function AddRemoveTiles() {
 		if (isUndefined(allSystems[uid])) {
 			addTile(uid, tag, initialTileContent());
 			updateTileContents(uid);
+			soundBell();
 		}
 	}
 
@@ -206,6 +207,7 @@ function AddRemoveTiles() {
 
 		if (!found) {
 			deleteTile(uid);
+			soundBell();
 		}
 	}
 }

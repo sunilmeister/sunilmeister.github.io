@@ -18,6 +18,11 @@ function toggleWarningSample() {
   }
 }
 
+function soundBell() { 
+  let bellSound = document.getElementById("bellSound"); 
+  bellSound.play();
+}
+
 function startWarningBeep() { 
   let warningBeep = document.getElementById("warningBeep"); 
   if (document.getElementById("audioControlDiv").style.display == "block") {
@@ -66,6 +71,7 @@ function toggleWarningBeep() {
     if (imgStatus) imgStatus.src = "../common/img/audioOn.png";
     enableWarningBeep();
   }
+	soundBell();
 }
 
 function changeWarningVolume() {
@@ -76,6 +82,7 @@ function changeWarningVolume() {
   if (warningBeepVolume && !warningBeepEnabled) {
     toggleWarningBeep();
   }
+	soundBell();
   //console.log("warning volume = " + vol.value);
 }
 
@@ -122,6 +129,7 @@ function enableErrorBeep() {
   let vol = document.getElementById("errorVolume");
   if (errorBeepVolume == 0) errorBeepVolume = 0.5;
   vol.value = errorBeepVolume * 100;
+	soundBell();
 }
 
 function disableErrorBeep() { 
@@ -129,6 +137,7 @@ function disableErrorBeep() {
   let vol = document.getElementById("errorVolume");
   vol.value = 0;
   errorBeepSample = false;
+	soundBell();
 }
 
 function toggleErrorBeep() { 
@@ -153,6 +162,7 @@ function changeErrorVolume() {
   if (errorBeepVolume && !errorBeepEnabled) {
     toggleErrorBeep();
   }
+	soundBell();
   //console.log("error volume = " + vol.value);
 }
 
@@ -200,4 +210,5 @@ function dismissAudioControl() {
   warningBeepSample = false;
   errorBeepSample = false;
   document.getElementById("audioControlDiv").style.display = "none"; 
+	soundBell();
 }
