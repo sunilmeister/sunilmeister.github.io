@@ -260,7 +260,8 @@ setInterval(() => {
 	toggleActiveView();
 }, 6000)
 
-function tileClick(tile) {
+function tileDashboardClick(btn) {
+	let tile = btn.parentNode.parentNode.parentNode.parentNode;
 	let uidDiv = findChildNodeByClass(tile,'tileUid');
 	let uid = uidDiv.innerText;
 	let tag = findSystemTag(uid);
@@ -270,13 +271,19 @@ function tileClick(tile) {
     modalAlert("System Dashboard already open", uid + '[' + tag + ']');
 		return;
 	} else {
-  	//setCookie(uidCookieName, uid);
-  	//setCookie(tagCookieName, tag);
-  	//sessionStorage.setItem("inspireUid", uid);
-  	//sessionStorage.setItem("inspireTag", tag);
 		let args = "?" + "uid=\"" + uid + "\"&tag=\"" + tag + "\"";
   	window.open("../dashboard/dashboard.html" + args);
 	}
+}
+
+function tileRecordClick(btn) {
+	let tile = btn.parentNode.parentNode.parentNode.parentNode;
+	let uidDiv = findChildNodeByClass(tile,'tileUid');
+	let uid = uidDiv.innerText;
+	let tag = findSystemTag(uid);
+
+	let args = "?" + "uid=\"" + uid + "\"&tag=\"" + tag + "\"";
+ 	window.open("../recorder/recorder.html" + args);
 }
 
 function checkAllSystemsForAlerts() {

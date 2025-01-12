@@ -23,11 +23,11 @@ body {
   position: relative;
   width: 16rem;
   margin: 0.3rem;
-	cursor: pointer;
 }
 
 .tileContent {
   margin: 0.5rem;
+	margin-top:-1rem;
 	height:16.5rem;
 }
 
@@ -163,3 +163,18 @@ body {
   background-color: antiquewhite;
 }
 
+/* The container <div> - needed to position the tileMenu content */
+.tileMenu {
+}
+
+/* TileMenu Content (Hidden by Default) */
+.tileMenu-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 4px 4px 4px 4px var(--rsp_darkblue);
+  z-index: 10;
+}
+
+/* Show the tileMenu menu on hover */
+.tile:hover .tileMenu-content {display: block;}
