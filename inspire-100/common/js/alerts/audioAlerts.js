@@ -3,6 +3,62 @@
 // ////////////////////////////////////////////////////
 
 //////////////////////////////////////////////
+// Info Beeps
+//////////////////////////////////////////////
+var infoBeepEnabled = true;
+var infoBeepVolume = 0.5;
+
+function playInfoSample() { 
+	console.log("BELL");
+  let infoBeep = document.getElementById("infoBeep"); 
+  infoBeep.play();
+}
+
+function soundInfoBeep() { 
+  let infoBeep = document.getElementById("infoBeep"); 
+  if (infoBeepEnabled) {
+    infoBeep.play();
+  }
+} 
+
+function enableInfoBeep() { 
+  infoBeepEnabled = true;
+  let vol = document.getElementById("infoVolume");
+  if (infoBeepVolume == 0) infoBeepVolume = 0.5;
+  vol.value = infoBeepVolume * 100;
+}
+
+function disableInfoBeep() { 
+  infoBeepEnabled = false;
+  let vol = document.getElementById("infoVolume");
+  vol.value = 0;
+}
+
+function toggleInfoBeep() { 
+  let imgMenu = document.getElementById("btnInfoImg"); 
+  let imgStatus = document.getElementById("InfoActiveImg"); 
+  if (infoBeepEnabled) {
+    imgMenu.src = "../common/img/audioOff.png";
+    if (imgStatus) imgStatus.src = "../common/img/audioOff.png";
+    disableInfoBeep();
+  } else {
+    imgMenu.src = "../common/img/audioOn.png";
+    if (imgStatus) imgStatus.src = "../common/img/audioOn.png";
+    enableInfoBeep();
+  }
+}
+
+function changeInfoVolume() {
+  let vol = document.getElementById("infoVolume");
+  infoBeepVolume = vol.value / 100;
+  let elm = document.getElementById("infoBeep");
+  elm.volume = infoBeepVolume;
+  if (infoBeepVolume && !infoBeepEnabled) {
+    toggleInfoBeep();
+  }
+}
+
+//////////////////////////////////////////////
 // Warning Beeps
 //////////////////////////////////////////////
 var warningBeepEnabled = true;
@@ -16,11 +72,6 @@ function toggleWarningSample() {
     errorBeepSample = false;
     startWarningBeep();
   }
-}
-
-function soundBell() { 
-  let bellSound = document.getElementById("bellSound"); 
-  bellSound.play();
 }
 
 function startWarningBeep() { 
@@ -71,7 +122,6 @@ function toggleWarningBeep() {
     if (imgStatus) imgStatus.src = "../common/img/audioOn.png";
     enableWarningBeep();
   }
-	soundBell();
 }
 
 function changeWarningVolume() {
@@ -82,7 +132,6 @@ function changeWarningVolume() {
   if (warningBeepVolume && !warningBeepEnabled) {
     toggleWarningBeep();
   }
-	soundBell();
   //console.log("warning volume = " + vol.value);
 }
 
@@ -97,7 +146,7 @@ var errorBeepSample = false;
 function toggleErrorSample() { 
   errorBeepSample = !errorBeepSample;
   if (errorBeepSample) {
-    warningBeepSample = false;
+    errorBeepSample = false;
     startErrorBeep();
   }
 }
@@ -129,7 +178,6 @@ function enableErrorBeep() {
   let vol = document.getElementById("errorVolume");
   if (errorBeepVolume == 0) errorBeepVolume = 0.5;
   vol.value = errorBeepVolume * 100;
-	soundBell();
 }
 
 function disableErrorBeep() { 
@@ -137,7 +185,6 @@ function disableErrorBeep() {
   let vol = document.getElementById("errorVolume");
   vol.value = 0;
   errorBeepSample = false;
-	soundBell();
 }
 
 function toggleErrorBeep() { 
@@ -162,7 +209,6 @@ function changeErrorVolume() {
   if (errorBeepVolume && !errorBeepEnabled) {
     toggleErrorBeep();
   }
-	soundBell();
   //console.log("error volume = " + vol.value);
 }
 
@@ -175,11 +221,13 @@ function stopAllBeeps() {
 } 
 
 function enableAllBeeps() { 
+  enableInfoBeep();
   enableWarningBeep();
   enableErrorBeep();
 }
 
 function disableAllBeeps() { 
+  disableInfoBeep();
   disableWarningBeep();
   disableErrorBeep();
 }
@@ -188,8 +236,8 @@ function openAudioControl() {
   warningBeepSample = false;
   errorBeepSample = false;
 
-  let imgMenu = document.getElementById("btnErrorImg"); 
-  if (errorBeepEnabled) {
+  let imgMenu = document.getElementById("btnInfoImg"); 
+  if (infoBeepEnabled) {
     imgMenu.src = "../common/img/audioOn.png";
 	} else {
     imgMenu.src = "../common/img/audioOff.png";
@@ -197,6 +245,13 @@ function openAudioControl() {
 
   imgMenu = document.getElementById("btnWarningImg"); 
   if (warningBeepEnabled) {
+    imgMenu.src = "../common/img/audioOn.png";
+	} else {
+    imgMenu.src = "../common/img/audioOff.png";
+	}
+
+  imgMenu = document.getElementById("btnErrorImg"); 
+  if (errorBeepEnabled) {
     imgMenu.src = "../common/img/audioOn.png";
 	} else {
     imgMenu.src = "../common/img/audioOff.png";
@@ -210,5 +265,4 @@ function dismissAudioControl() {
   warningBeepSample = false;
   errorBeepSample = false;
   document.getElementById("audioControlDiv").style.display = "none"; 
-	soundBell();
 }

@@ -128,6 +128,13 @@ window.onload = function () {
   updateDocumentTitle();
 
   initDbNames();
+  let heading = document.getElementById("SysUid");
+  if (inspireTag) {
+    heading.innerHTML = inspireUid + "<br>(" + inspireTag + ")";
+  } else {
+    heading.innerHTML = "NOT SPECIFIED"
+  }
+
   if (inspireTag) {
     document.title = inspireTag + " (RECORDER)"
   } else {

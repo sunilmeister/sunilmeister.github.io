@@ -107,8 +107,8 @@
 
 <body style="font-family:verdana; overflow:auto;" ;>
 
-  <audio id="bellSound">
-    <source src="../common/mp3/bell.mp3" type="audio/mp3">
+  <audio id="infoBeep">
+    <source src="../common/mp3/infoBeep.mp3" type="audio/mp3">
   </audio>
 
   <audio id="warningBeep">
@@ -124,6 +124,13 @@
       <div>
         <p style="font-size: 2.5rem;">Audio Alarms
           <br>
+          <p style="font-size: 1.2rem; ">Info
+            <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;"></button>
+            <input type="range" id="infoVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeInfoVolume()'>
+            <button class="button" id="infoPlay" onclick='playInfoSample()' style="background-color:var(--rsp_darkgreen);"> Play/Pause Sample </button>
+  
+  				<div height:2rem> </div>
+  
           <p style="font-size: 1.5rem; ">Warning
             <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
             <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>

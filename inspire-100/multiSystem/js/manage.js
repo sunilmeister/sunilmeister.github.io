@@ -190,7 +190,7 @@ function AddRemoveTiles() {
 		if (isUndefined(allSystems[uid])) {
 			addTile(uid, tag, initialTileContent());
 			updateTileContents(uid);
-			soundBell();
+			soundInfoBeep();
 		}
 	}
 
@@ -207,7 +207,7 @@ function AddRemoveTiles() {
 
 		if (!found) {
 			deleteTile(uid);
-			soundBell();
+			soundInfoBeep();
 		}
 	}
 }
@@ -270,11 +270,12 @@ function tileClick(tile) {
     modalAlert("System Dashboard already open", uid + '[' + tag + ']');
 		return;
 	} else {
-  	setCookie(uidCookieName, uid);
-  	setCookie(tagCookieName, tag);
-  	sessionStorage.setItem("inspireUid", uid);
-  	sessionStorage.setItem("inspireTag", tag);
-  	window.open("../dashboard/dashboard.html");
+  	//setCookie(uidCookieName, uid);
+  	//setCookie(tagCookieName, tag);
+  	//sessionStorage.setItem("inspireUid", uid);
+  	//sessionStorage.setItem("inspireTag", tag);
+		let args = "?" + "uid=\"" + uid + "\"&tag=\"" + tag + "\"";
+  	window.open("../dashboard/dashboard.html" + args);
 	}
 }
 

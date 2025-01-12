@@ -27,13 +27,41 @@ var modalWidth = "35rem"; // default modal width
 ///////////////////////////////////////////////////////
 // must be done before accessing any indexedDb database
 ///////////////////////////////////////////////////////
+function getUidTagParams() {
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+
+	inspireUid =	urlParams.get('uid');
+	if (inspireUid) {
+		inspireUid =	inspireUid.replace(/"/g, '');
+	}
+	console.log('param uid', inspireUid);
+
+	inspireTag =	urlParams.get('tag');
+	if (inspireTag) {
+		inspireTag =	inspireTag.replace(/"/g, '');
+	}
+	console.log('param tag', inspireTag);
+
+	if (!inspireUid || !inspireTag) {
+  	inspireUid = getCookie(uidCookieName);
+  	inspireTag = getCookie(tagCookieName);
+		if (!inspireUid || !inspireTag) {
+    	inspireUid = sessionStorage.getItem("inspireUid");
+    	inspireTag = sessionStorage.getItem("inspireTag");
+  	}
+	}
+
+	if (!inspireUid) {
+		console.error("Cannot find System UID");
+	}
+	if (!inspireTag) {
+		console.error("Cannot find System TAG");
+	}
+}
+
 function initDbNames() {
-  inspireUid = getCookie(uidCookieName);
-  inspireTag = getCookie(tagCookieName);
-  if (!inspireUid) {
-    inspireUid = sessionStorage.getItem("inspireUid");
-    inspireTag = sessionStorage.getItem("inspireTag");
-  }
+	getUidTagParams();
   session.database.dbNamePrefix = inspireUid;
   session.database.dbObjStoreName = inspireUid;
 }
