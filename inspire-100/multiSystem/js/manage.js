@@ -261,7 +261,7 @@ setInterval(() => {
 }, 6000)
 
 function tileDashboardClick(btn) {
-	let tile = btn.parentNode.parentNode.parentNode.parentNode;
+	let tile = btn.parentNode.parentNode.parentNode;
 	let uidDiv = findChildNodeByClass(tile,'tileUid');
 	let uid = uidDiv.innerText;
 	let tag = findSystemTag(uid);
@@ -277,7 +277,7 @@ function tileDashboardClick(btn) {
 }
 
 function tileRecordClick(btn) {
-	let tile = btn.parentNode.parentNode.parentNode.parentNode;
+	let tile = btn.parentNode.parentNode.parentNode;
 	let uidDiv = findChildNodeByClass(tile,'tileUid');
 	let uid = uidDiv.innerText;
 	let tag = findSystemTag(uid);
