@@ -6,10 +6,9 @@
 // Info Beeps
 //////////////////////////////////////////////
 var infoBeepEnabled = true;
-var infoBeepVolume = 0.4;
+var infoBeepVolume = 0.3;
 
 function playInfoSample() { 
-	console.log("BELL");
   let infoBeep = document.getElementById("infoBeep"); 
   infoBeep.play();
 }
@@ -24,7 +23,7 @@ function soundInfoBeep() {
 function enableInfoBeep() { 
   infoBeepEnabled = true;
   let vol = document.getElementById("infoVolume");
-  if (infoBeepVolume == 0) infoBeepVolume = 0.4;
+  if (infoBeepVolume == 0) infoBeepVolume = 0.3;
   vol.value = infoBeepVolume * 100;
 }
 
@@ -64,26 +63,14 @@ function changeInfoVolume() {
 var warningBeepEnabled = true;
 var warningBeepVolume = 0.5;
 var warningBeepTimeout = null;
-var warningBeepSample = false;
 
-function toggleWarningSample() { 
-  warningBeepSample = !warningBeepSample;
-  if (warningBeepSample) {
-    errorBeepSample = false;
-    startWarningBeep();
-  }
+function playWarningSample() { 
+  let warningBeep = document.getElementById("warningBeep"); 
+  warningBeep.play();
 }
 
 function startWarningBeep() { 
   let warningBeep = document.getElementById("warningBeep"); 
-  if (document.getElementById("audioControlDiv").style.display == "block") {
-    if (warningBeepSample) {
-      stopAllBeeps();
-      warningBeep.play();
-      setTimeout(function () {startWarningBeep();}, 2000);
-    } else return;
-  }
-
   if (warningBeepEnabled) {
     stopAllBeeps();
     warningBeep.play();
@@ -107,7 +94,6 @@ function disableWarningBeep() {
   warningBeepEnabled = false;
   let vol = document.getElementById("warningVolume");
   vol.value = 0;
-  warningBeepSample = false;
 }
 
 function toggleWarningBeep() { 
@@ -141,26 +127,14 @@ function changeWarningVolume() {
 var errorBeepEnabled = true;
 var errorBeepVolume = 0.5;
 var errorBeepTimeout = null;
-var errorBeepSample = false;
 
-function toggleErrorSample() { 
-  errorBeepSample = !errorBeepSample;
-  if (errorBeepSample) {
-    errorBeepSample = false;
-    startErrorBeep();
-  }
+function playErrorSample() { 
+  let errorBeep = document.getElementById("errorBeep"); 
+  errorBeep.play();
 }
 
 function startErrorBeep() { 
   let errorBeep = document.getElementById("errorBeep"); 
-  if (document.getElementById("audioControlDiv").style.display == "block") {
-    if (errorBeepSample) {
-      stopAllBeeps();
-      errorBeep.play();
-      setTimeout(function () {startErrorBeep();}, 2000);
-    } else return;
-  }
-
   if (errorBeepEnabled) {
     stopAllBeeps();
     errorBeep.play();
@@ -184,7 +158,6 @@ function disableErrorBeep() {
   errorBeepEnabled = false;
   let vol = document.getElementById("errorVolume");
   vol.value = 0;
-  errorBeepSample = false;
 }
 
 function toggleErrorBeep() { 
@@ -233,9 +206,6 @@ function disableAllBeeps() {
 }
 
 function openAudioControl() {
-  warningBeepSample = false;
-  errorBeepSample = false;
-
   let imgMenu = document.getElementById("btnInfoImg"); 
   if (infoBeepEnabled) {
     imgMenu.src = "../common/img/audioOn.png";
@@ -262,7 +232,5 @@ function openAudioControl() {
 }
 
 function dismissAudioControl() {
-  warningBeepSample = false;
-  errorBeepSample = false;
   document.getElementById("audioControlDiv").style.display = "none"; 
 }
