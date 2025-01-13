@@ -6,7 +6,7 @@
 // Info Beeps
 //////////////////////////////////////////////
 var infoBeepEnabled = true;
-var infoBeepVolume = 0.5;
+var infoBeepVolume = 0.4;
 
 function playInfoSample() { 
 	console.log("BELL");
@@ -24,7 +24,7 @@ function soundInfoBeep() {
 function enableInfoBeep() { 
   infoBeepEnabled = true;
   let vol = document.getElementById("infoVolume");
-  if (infoBeepVolume == 0) infoBeepVolume = 0.5;
+  if (infoBeepVolume == 0) infoBeepVolume = 0.4;
   vol.value = infoBeepVolume * 100;
 }
 
