@@ -35,13 +35,13 @@ function getUidTagParams() {
 	if (inspireUid) {
 		inspireUid =	inspireUid.replace(/"/g, '');
 	}
-	console.log('param uid', inspireUid);
+	//console.log('param uid', inspireUid);
 
 	inspireTag =	urlParams.get('tag');
 	if (inspireTag) {
 		inspireTag =	inspireTag.replace(/"/g, '');
 	}
-	console.log('param tag', inspireTag);
+	//console.log('param tag', inspireTag);
 
 	if (!inspireUid || !inspireTag) {
   	inspireUid = getCookie(uidCookieName);
