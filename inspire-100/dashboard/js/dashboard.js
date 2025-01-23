@@ -274,6 +274,8 @@ function blinkSliderDiv() {
 }
 
 function blinkPauseButton() {
+	if (dashboardSessionClosed) return;
+
   let btn = document.getElementById("btnPause");
   let ttl = document.getElementById("breathsHeading");
   let bnum = document.getElementById("breathNum");
@@ -786,6 +788,26 @@ function HandlePeriodicTasks() {
   }
 }
 
+var dashboardSessionClosed = false;
+function closeCurrentSession() {
+	// allow navigation and manipulation of current session views
+	dashboardSessionClosed = true;
+
+	// change sidebar to SESSION CLOSED
+	let elm = document.getElementById("dashboardSessionHeader");
+	elm.innerHTML = "<b>**SESSION CLOSED**</b>";
+	elm = document.getElementById("headerDiv");
+	elm.style.backgroundColor = palette.orange;
+
+	// close any recording in progress
+	closeRecording();
+
+	// display and sound a warning
+	modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
+	enableWarningBeep();
+	startWarningBeep();
+}
+
 setTimeout(function periodicCheck() {
   if (!awaitingFirstChirp) {
     simulatedMillis = getCurrentSimulatedMillis();
@@ -808,7 +830,21 @@ function FetchAndExecuteFromQueue() {
     if (simulatedMillis < millis) break;
 
     d = chirpQ.pop();
-		if (isUndefined(d["content"])) break;
+		if (dashboardSessionClosed) {
+			return; // do not process any more chirps
+		}
+
+		if (isUndefined(d["content"])) break; // empty chirp
+
+		// check if a new session has started without current one being closed
+    if (!isUndefined(d.content["HWORLD"])) {
+			if (session.firstChirpDate) {
+				// A session was in progress but a new session started
+				// must close current session and inform user
+				closeCurrentSession();
+				return;
+			}
+		}
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
@@ -846,6 +882,8 @@ function autoCloseDormantPopup() {
 }
 
 function showDormantPopup() {
+	if (dashboardSessionClosed) return;
+
   // do not do anything if some other modal is displayed
   // if ($(".sweet-alert.visible").length > 0) return;
 

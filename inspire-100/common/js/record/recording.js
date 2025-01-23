@@ -47,6 +47,7 @@ function resumeRecording() {
 }
 
 function closeRecording() {
+	if (!session.database.db) return;
   session.database.db.close();
   session.database.db = null;
   session.database.dbName = null;

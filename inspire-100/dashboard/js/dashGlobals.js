@@ -64,10 +64,15 @@ const DORMANT_TITLE_STR = "DASHBOARD is idle";
 const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
 "No communication from Inspire-100 System for <b></b> (hh:mm:ss)<br>" +
 "<br>Alert will close automatically when communication is established" +
-"<br>Or you can close it manually"
+"<br>Or you can close it manually</span>"
 
 var banner1 = "<small><small>&nbsp";
 var banner2 = "<big><b>INSPIRE-100</b>";
 var banner3 = "TekMedika Pvt. Ltd." ;
 var banner4 = "&nbsp";
+
+const SESSION_CLOSED_MSG = "<span style='font-size:var(--swalTextFontSize);'>" +
+"A new session started on this system<br>" +
+"<br>Current session closed" +
+"<br>Re-launch Dashboard for new session</span>"
 

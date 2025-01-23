@@ -56,10 +56,7 @@ function disassembleAndQueueChirp(d) {
     if (millis == null) continue // ignore this malformed chirp
 
     if (!startMillis) startMillis = Number(millis);
-    if (!isUndefined(fragment.content['CLEAR_ALL'])) {
-      // replace CLEAR_ALL with a preconstructed chirp
-      // fragment = cloneObject(clearAllChirp);
-    }
+
     fragment.MILLIS = Number(millis);
 		let date = session.firstChirpDate;
 		if (date === null) date = new Date(d.created);
