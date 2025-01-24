@@ -105,7 +105,7 @@ function waitForChirps() {
 }
 
 window.onload = function () {
-	//disableAllBeeps();  
+	disableAllBeeps();  
 
   createNewSession();
   session.appId = MINI_DASHBOARD_APP_ID;
@@ -123,7 +123,7 @@ window.onload = function () {
 	createFpDivs();
 	changeToFrontPanelView();
 
-	//openAudioControl();
+	openAudioControl();
 
 	setRootFontSize("minDashboard", "minDashboard", 0, 5);
 	appResize();

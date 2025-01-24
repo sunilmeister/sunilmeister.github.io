@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="UTF-8">
     <title>Inspire-100 MiniDashboard</title>
@@ -10,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
 
+    <link href="../common/css/common.css" rel="stylesheet" />
     <link href="../common/css/colors.css" rel="stylesheet" />
     <link href="../common/css/wave.css" rel="stylesheet" />
 
@@ -26,6 +28,10 @@
     <script src="../kernel/js/params.js"></script>
     <script src="../kernel/js/chirps.js"></script>
     <script src="../kernel/js/range.js"></script>
+
+    <script src="../common/js/alerts/constants.js"></script>
+    <script src="../common/js/alerts/alerts.js"></script>
+    <script src="../common/js/alerts/audioAlerts.js"></script>
 
     <script src="../common/js/misc/palette.js"></script>
     <script src="../common/js/misc/uid.js"></script>
@@ -56,15 +62,50 @@
       <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
     </audio>
 
-		<div id=minDashboard> 
+    <div id=audioControlDiv class=popupClassCenter style="width:22rem; height:auto; display: none">
+      <center>
+        <div>
+          <p style="font-size: 2.5rem;">Audio Alarms
+            <br>
+            <p style="font-size: 1.8rem; ">Info
+              <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;"></button>
+              <input type="range" id="infoVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeInfoVolume()'>
+              <button class="button" id="infoPlay" onclick='playInfoSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
 
-					<center>
-				<div id=minBanner class=minBannerCls>
+              <div height:2rem> </div>
+
+              <p style="font-size: 1.8rem; ">Warning
+                <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
+                <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>
+                <button class="button" id="warningPlay" onclick='playWarningSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
+
+                <br>
+
+                <p style="font-size: 1.8rem; ">&nbsp&nbsp&nbsp&nbspError
+                  <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
+                  <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeErrorVolume()'>
+                  <button class="button" id="errorPlay" onclick='playErrorSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
+
+                  <br>
+                  <br>
+
+                  <button class=button style="background-color:var(--rsp_darkblue); width:14rem; font-size:1.8rem;" onclick='dismissAudioControl()'>DISMISS</button>
+
+                  <br>
+                  <br>
+        </div>
+      </center>
+    </div>
+
+    <div id=minDashboard>
+
+      <center>
+        <div id=minBanner class=minBannerCls>
           <img src="../common/img/fpIcon.png" id=btnFrontPanel class=iconButton onClick='switchToFrontPanel(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Front Panel' style="float:left; width:2.5rem; height:2.5rem;">
           <img src="../common/img/wave.png" id=btnFrontPanel class=iconButton onClick='switchToWaves(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Waveforms' style="float:right; width:2.5rem; height:2.5rem;">
-					<p id=sysUidTitle>----
-				</div>
-					</center>
+          <p id=sysUidTitle>----
+        </div>
+      </center>
 
       <div id=waves-pane style="display:none">
         <div class=waveContainer>
@@ -75,33 +116,35 @@
         </div>
       </div>
 
-			<center>
-      <div id=frontPanelDiv class=FrontPanel style="width:42rem;">
-        <img id=frontPanel class=fpImgCls src="../common/img/FrontPanelKnob.png">
+      <center>
+        <div id=frontPanelDiv class=FrontPanel style="width:42rem;">
+          <img id=frontPanel class=fpImgCls src="../common/img/FrontPanelKnob.png">
 
-        <div id=fpLcdDiv class=fpLcdCls>
-          <p id=lcdline1 class=fpLineCls style="margin-top:0.2rem; margin-bottom:0rem;"> --
-          <p id=lcdline2 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;"> --
-          <p id=lcdline3 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;"> --
-          <p id=lcdline4 class=fpLineCls style="margin-top:-0.1rem;"> --
-        </div>
+          <div id=fpLcdDiv class=fpLcdCls>
+            <p id=lcdline1 class=fpLineCls style="margin-top:0.2rem; margin-bottom:0rem;"> --
+              <p id=lcdline2 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;"> --
+                <p id=lcdline3 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;"> --
+                  <p id=lcdline4 class=fpLineCls style="margin-top:-0.1rem;"> --
+          </div>
 
-				<div>
-        	<div id=elapsedTimeId class=elapsedTimeCls>
-            	<p style="font-size:1.2rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL DURATION (Hrs:Mins)
-            	<p id=upTime style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
-        	</div>
+          <div>
+            <div id=elapsedTimeId class=elapsedTimeCls>
+              <p style="font-size:1.2rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL DURATION (Hrs:Mins)
+                <p id=upTime style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
+            </div>
 
-        	<div id=elapsedBreathsId class=elapsedBreathCls>
-            	<p style="font-size:1.2rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL BREATHS
-            	<p id=elapsedBreaths style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__
-        	</div>
-				</div>
-       	</center>
+            <div id=elapsedBreathsId class=elapsedBreathCls>
+              <p style="font-size:1.2rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL BREATHS
+                <p id=elapsedBreaths style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__
+            </div>
+          </div>
+      </center>
 
       </div>
-			</center>
+      </center>
 
     </div>
   </body>
+
 </html>
+
