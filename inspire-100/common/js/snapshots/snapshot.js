@@ -115,9 +115,6 @@ function refreshSnapshot() {
 	// collect all data at the time specified by the range
 	gatherSnapshotData();
 
-	refreshUptime();
-	refreshTotalBreaths();
-
 	// now refresh the display
 	refreshMessageLines();
 	refreshStateImage();
@@ -249,54 +246,6 @@ function updatePending(blink) {
     elm.innerHTML = "No Pending Changes";
     pendingBackground = "DARKBLUE";
   }
-}
-
-// ////////////////////////////////////////////////////////////////
-// UP time
-// ////////////////////////////////////////////////////////////////
-function refreshUptime() {
-	let snap = session.snapshot.content;
-	updateUptime(snap.uptimeMins);
-}
-
-function updateUptime(mins) {
-  let tDiv = document.getElementById("elapsedTimeId");
-  let bDiv = document.getElementById("elapsedBreathsId");
-  let elm = document.getElementById("upTime");
-
-	if ((mins === null) || isUndefined(mins)) {
-		tDiv.style.display = "none";
-		bDiv.style.display = "none";
-		return;
-	}
-
-	tDiv.style.display = "inline-grid";
-	bDiv.style.display = "inline-grid";
-	let hh = Math.floor(mins / 60);
-	mm = mins % 60;
-	let hhStr = hh.toString().padStart(2, 0);
-	let mmStr = mm.toString().padStart(2, 0);
-	let str = hhStr + ":" + mmStr;
-	elm.innerHTML = str;
-}
-
-// ////////////////////////////////////////////////////////////////
-// Total Breaths
-// ////////////////////////////////////////////////////////////////
-function refreshTotalBreaths() {
-	let snap = session.snapshot.content;
-	updateTotalBreaths(snap.totalBreaths);
-}
-
-function updateTotalBreaths(totalBreaths) {
-  let elm = document.getElementById("elapsedBreaths");
-	if (!elm || isUndefined(elm)) return;
-
-	if ((totalBreaths === null) || isUndefined(totalBreaths)) {
-		elm.innerHTML = "__";
-		return;
-	}
-	elm.innerHTML = totalBreaths;
 }
 
 // ////////////////////////////////////////////////////////////////

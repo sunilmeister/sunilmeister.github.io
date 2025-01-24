@@ -163,6 +163,52 @@ function fpDisplayMessageLine(lineTag, value) {
 
 function fpRefresh() {
 	fpRefreshMessageLines();
+	fpRefreshUptime();
+	fpRefreshTotalBreaths();
+}
+
+// ////////////////////////////////////////////////////////////////
+// UP time
+// ////////////////////////////////////////////////////////////////
+function fpRefreshUptime() {
+	let snap = session.snapshot.content;
+	updateUptime(snap.uptimeMins);
+}
+
+function updateUptime(mins) {
+  let tDiv = document.getElementById("elapsedTimeId");
+  let bDiv = document.getElementById("elapsedBreathsId");
+  let elm = document.getElementById("upTime");
+
+	if ((mins === null) || isUndefined(mins)) {
+		return;
+	}
+
+	let hh = Math.floor(mins / 60);
+	mm = mins % 60;
+	let hhStr = hh.toString().padStart(2, 0);
+	let mmStr = mm.toString().padStart(2, 0);
+	let str = hhStr + ":" + mmStr;
+	elm.innerHTML = str;
+}
+
+// ////////////////////////////////////////////////////////////////
+// Total Breaths
+// ////////////////////////////////////////////////////////////////
+function fpRefreshTotalBreaths() {
+	let snap = session.snapshot.content;
+	updateTotalBreaths(snap.totalBreaths);
+}
+
+function updateTotalBreaths(totalBreaths) {
+  let elm = document.getElementById("elapsedBreaths");
+	if (!elm || isUndefined(elm)) return;
+
+	if ((totalBreaths === null) || isUndefined(totalBreaths)) {
+		elm.innerHTML = "__";
+		return;
+	}
+	elm.innerHTML = totalBreaths;
 }
 
 function fpRefreshMessageLines() {
