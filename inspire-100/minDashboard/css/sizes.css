@@ -1,0 +1,45 @@
+:root {
+  --chartContainerPadding: 27rem;
+  --chartBodyHeight: 27rem;
+  --chartMenuIndent: 1.1rem;
+  --chartMenuFontSize: 1.6rem;
+  --chartMenuBannerHeight: 2.5rem;
+  --chartMenuIconSize: 2rem;
+
+	/* ALL below in REM */
+  --chartLabelFontSize: 1;
+  --chartLegendFontSize: 1.1;
+  --chartTitleFontSize: 1.8;
+  --chartStripLineFontSize: 1.2;
+  --chartStripLineThickness: 0.1;
+
+  --waveContainerPadding: 52rem;
+  --waveBodyHeight: 25rem;
+  --waveMenuIndent: 1rem;
+  --waveMenuFontSize: 1.6rem;
+  --waveMenuBannerHeight: 2.5rem;
+  --waveMenuIconSize: 2rem;
+
+	/* ALL below in REM */
+  --waveLabelFontSize: 0.8;
+  --waveLegendFontSize: 1;
+  --waveTitleFontSize: 1.8;
+  --waveStripLineFontSize: 1.2;
+  --waveStripLineThickness: 0.05;
+
+  --noUiTooltipSize: 0.85rem;
+
+  --colorLegendSize: 1rem;
+  --colorLegendFontSize: 1rem;
+
+  --columnPadding: 1rem;
+  --sidebarBtnHeight: 1.8rem;
+  --sidebarBtnWidth: 14rem;
+  --sidebarBtnFontSize: 1.4rem;
+  --sidebarBtnPadding: 0.35rem 0.35rem;
+  --sidebarBtnMargin: 0.3rem 0.3rem 0rem 1rem;
+
+  --swalTextFontSize: 1.4rem;
+  --swalTitleFontSize: 1.6rem;
+}
+

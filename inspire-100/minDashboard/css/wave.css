@@ -1,0 +1,61 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+.waveIndentDiv {
+  margin-left: var(--waveMenuIndent);
+}
+
+.waveContainer {
+  margin-top: 1.4rem;
+  font-family: verdana;
+  margin-right:1rem;
+  width:100%;
+  position: relative;
+  padding-bottom: var(--waveContainerPadding);
+}
+
+.waveBanner {
+  background-color: var(--rsp_darkblue);
+  height:var(--waveMenuBannerHeight);
+	margin-bottom:0.3rem;
+}
+
+.waveEditMenuTitle {
+  font-size:var(--waveMenuFontSize);
+}
+
+.waveEditMenu {
+  display: inline-block; 
+  position: relative;
+  float: right;
+  border-style: solid;
+  border-color:var(--rsp_blue);
+  opacity:1;
+  z-index: 20;
+  font-size:var(--waveMenuFontSize);
+}
+
+.waveEditMenuBanner {
+  background-color: var(--rsp_darkblue);
+  display: flex; 
+  justify-content:flex-end;
+  height:var(--waveMenuBannerHeight);
+}
+
+.waveBody {
+  background-color: var(--rsp_lightblue);
+  margin-right:1rem;
+  width:100%;
+  position:absolute;
+}
+
+.pWaveBody {
+	height:var(--waveBodyHeight);
+}
+
+.fWaveBody {
+	height:var(--waveBodyHeight);
+}

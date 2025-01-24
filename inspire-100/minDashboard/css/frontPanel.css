@@ -1,0 +1,81 @@
+/* ******************************************************
+// Author: Sunil Nanda
+********************************************************* */
+
+.FrontPanel {
+	position: relative;
+	margin-top:-1.5rem;
+}
+
+.fpLcdCls {
+	position: absolute;
+  font-family: monospace;
+  font-size: 1.1rem;
+  color: var(--rsp_darkgreen);
+  background-color: yellow;
+	z-index: 2;
+}
+
+.fpLedCls {
+	position: absolute;
+	z-index: 2;
+}
+
+.fpLedImgCls {
+	width:1.7rem;
+	height: 1.7rem;
+}
+
+.fpNumCls {
+	position: absolute;
+  font-family: Arial;
+  color: var(--rsp_brightgreen);
+  background-color: dimgrey;
+	z-index: 2;
+}
+
+.fpLineCls {
+}
+
+.fpTextCls {
+  font-size: 2.7rem;
+  font-style: oblique;
+	font-weight: bold;
+	margin-top: 0.3rem;
+	margin-bottom: 0.2rem;
+  color: var(--rsp_brightgreen);
+	z-index: 2;
+}
+
+.fpImgCls {
+	width:42rem;
+	height: auto;
+}
+
+.fpUniMono {
+  font-size: 0.55rem;
+	font-weight: bold;
+	vertical-align: middle;
+	color: black;
+}
+
+.elapsedTimeCls {
+  margin-left:0.5rem; 
+	float:left;
+	width:48%;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+}
+
+.elapsedBreathCls {
+  margin-right:0.5rem; 
+	float:right;
+	width:48%;
+  background-color: var(--rsp_darkblue);
+  color: white;
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+}
+

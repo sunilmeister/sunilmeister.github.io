@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Inspire-100 MiniDashboard</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" type="image/png" href="../common/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
+
+    <link href="css/colors.css" rel="stylesheet" />
+    <link href="css/wave.css" rel="stylesheet" />
+    <link href="css/sizes.css" rel="stylesheet" />
+    <link href="css/minDashboard.css" rel="stylesheet" />
+    <link href="css/frontPanel.css" rel="stylesheet" />
+
+    <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../external/canvasjs/canvasjs.min.js"></script>
+
+    <script src="../kernel/js/hwPosts.js"></script>
+    <script src="../kernel/js/constants.js"></script>
+    <script src="../kernel/js/sessionData.js"></script>
+    <script src="../kernel/js/params.js"></script>
+    <script src="../kernel/js/chirps.js"></script>
+    <script src="../kernel/js/range.js"></script>
+
+    <script src="../common/js/misc/palette.js"></script>
+    <script src="../common/js/misc/uid.js"></script>
+    <script src="../common/js/misc/common.js"></script>
+    <script src="../common/js/misc/enterSubmit.js"></script>
+    <script src="../common/js/misc/iconButton.js"></script>
+    <script src="../common/js/misc/modalPopup.js"></script>
+    <script src="../common/js/misc/hidePopups.js"></script>
+    <script src="../common/js/misc/queue.js"></script>
+    <script src="../common/js/misc/resize.js"></script>
+    <script src="../common/js/waves/constants.js"></script>
+    <script src="../common/js/waves/waveBox.js"></script>
+    <script src="../common/js/waves/wavePane.js"></script>
+    <script src="../common/js/waves/waves.js"></script>
+
+    <script src="js/minDashboard.js"></script>
+    <script src="js/frontPanel.js"></script>
+  </head>
+
+  <body style="font-family:verdana; overflow:auto;" ;>
+    <audio id="infoBeep">
+      <source src="../common/mp3/infoBeep.mp3" type="audio/mp3">
+    </audio>
+    <audio id="warningBeep">
+      <source src="../common/mp3/warningBeep.mp3" type="audio/mp3">
+    </audio>
+    <audio id="errorBeep">
+      <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
+    </audio>
+
+		<div id=minDashboard> 
+
+					<center>
+				<div id=minBanner class=minBannerCls>
+          <img src="../common/img/fpIcon.png" id=btnFrontPanel class=iconButton onClick='switchToFrontPanel(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Front Panel' style="float:left; width:2.5rem; height:2.5rem;">
+          <img src="../common/img/wave.png" id=btnFrontPanel class=iconButton onClick='switchToWaves(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Waveforms' style="float:right; width:2.5rem; height:2.5rem;">
+					<p id=sysUidTitle>----
+				</div>
+					</center>
+
+      <div id=waves-pane style="display:none">
+        <div class=waveContainer>
+          <div class=waveBody>
+            <div class=pWaveBody></div>
+            <div class=fWaveBody></div>
+          </div>
+        </div>
+      </div>
+
+			<center>
+      <div id=frontPanelDiv class=FrontPanel style="width:42rem;">
+        <img id=frontPanel class=fpImgCls src="../common/img/FrontPanelKnob.png">
+
+        <div id=fpLcdDiv class=fpLcdCls>
+          <p id=lcdline1 class=fpLineCls style="margin-top:0.2rem; margin-bottom:0rem;"> --
+          <p id=lcdline2 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;"> --
+          <p id=lcdline3 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;"> --
+          <p id=lcdline4 class=fpLineCls style="margin-top:-0.1rem;"> --
+        </div>
+
+				<div>
+        	<div id=elapsedTimeId class=elapsedTimeCls>
+            	<p style="font-size:1.2rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL DURATION (Hrs:Mins)
+            	<p id=upTime style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
+        	</div>
+
+        	<div id=elapsedBreathsId class=elapsedBreathCls>
+            	<p style="font-size:1.2rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL BREATHS
+            	<p id=elapsedBreaths style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__
+        	</div>
+				</div>
+       	</center>
+
+      </div>
+			</center>
+
+    </div>
+  </body>
+</html>

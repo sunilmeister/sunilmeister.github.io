@@ -8,7 +8,9 @@ class KeypressEnterSubmit {
     this.inputElemId = inputElemId;
     this.submitButtonId = submitButtonId;
     this.inputElem = document.getElementById(inputElemId);
+		if (!this.inputElem) return;
     this.submitButton = document.getElementById(submitButtonId);
+		if (!this.submitButton) return;
     this.inputElem.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
