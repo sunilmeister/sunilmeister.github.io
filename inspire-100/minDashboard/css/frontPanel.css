@@ -2,11 +2,6 @@
 // Author: Sunil Nanda
 ********************************************************* */
 
-.FrontPanel {
-	position: relative;
-	margin-top:-1.5rem;
-}
-
 .fpLcdCls {
 	position: absolute;
   font-family: monospace;
