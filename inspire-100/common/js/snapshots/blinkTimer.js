@@ -8,7 +8,7 @@
 var snapshotsTimerPaused = false;
 var snapshotsTimer = setInterval(function () {
 	executeSnapshotsTimer();
-}, FASTEST_BLINK_INTERVAL_IN_MS)
+}, FAST_BLINK_INTERVAL_IN_MS)
 
 function pauseSnapshotsTimer() {
 	if (snapshotsTimerPaused) return;
@@ -21,7 +21,7 @@ function resumeSnapshotsTimer() {
 
 	snapshotsTimer = setInterval(function () {
 		executeSnapshotsTimer();
-	}, FASTEST_BLINK_INTERVAL_IN_MS)
+	}, FAST_BLINK_INTERVAL_IN_MS)
 
 	snapshotsTimerPaused = false;
 }
