@@ -13,12 +13,19 @@ function switchToFrontPanel() {
 
 	session.snapshot.visible = true;
   document.getElementById("frontPanelDiv").style.display = "block";
+  document.getElementById("waves-pane").style.display = "none";
 
   updateFrontPanelRangeOnEntry();
   fpRefresh();
 }
 
 function switchToWaves() {
+	if (session.waves.visible) return;
+	undisplayAllViews();
+
+	session.waves.visible = true;
+  document.getElementById("frontPanelDiv").style.display = "none";
+  document.getElementById("waves-pane").style.display = "block";
 }
 
 function appResize() {
