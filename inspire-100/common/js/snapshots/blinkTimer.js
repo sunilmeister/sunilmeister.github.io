@@ -30,7 +30,6 @@ function executeSnapshotsTimer() {
 	if (!session) return;
 	let snap = session.snapshot.content;
 
-	console.log("imgStateDIV",imgStateDIV);
 	if (imgStateDIV) blinkStateImage();
   if ((snap.state == ERROR_STATE) || (snap.errorTag == true)) {
 		blinkEntireFrontPanel();
