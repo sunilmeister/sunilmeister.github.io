@@ -35,6 +35,8 @@
     <script src="../common/js/alerts/alerts.js"></script>
     <script src="../common/js/alerts/audioAlerts.js"></script>
 
+  	<script src="../common/js/firmware/fwReleases.js"></script>
+
     <script src="../common/js/misc/palette.js"></script>
     <script src="../common/js/misc/uid.js"></script>
     <script src="../common/js/misc/common.js"></script>
@@ -44,14 +46,20 @@
     <script src="../common/js/misc/hidePopups.js"></script>
     <script src="../common/js/misc/queue.js"></script>
     <script src="../common/js/misc/resize.js"></script>
+    <script src="../common/js/misc/commonDivs.js"></script>
     <script src="../common/js/waves/constants.js"></script>
     <script src="../common/js/waves/waveBox.js"></script>
     <script src="../common/js/waves/wavePane.js"></script>
     <script src="../common/js/waves/waves.js"></script>
+
+    <script src="../common/js/snapshots/constants.js"></script>
     <script src="../common/js/snapshots/frontPanel.js"></script>
+    <script src="../common/js/snapshots/gather.js"></script>
+    <script src="../common/js/snapshots/blinkTimer.js"></script>
+    <script src="../common/js/snapshots/snapshot.js"></script>
 
     <script src="js/miniDashboard.js"></script>
-    <script src="js/minDormant.js"></script>
+    <script src="js/miniDormant.js"></script>
   </head>
 
   <body style="font-family:verdana; overflow:auto;" ;>
@@ -78,14 +86,14 @@
               <div height:2rem> </div>
 
               <p style="font-size: 1.8rem; ">Warning
-                <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
+                <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.5rem; height:1.5rem;"></button>
                 <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>
                 <button class="button" id="warningPlay" onclick='playWarningSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
 
                 <br>
 
                 <p style="font-size: 1.8rem; ">&nbsp&nbsp&nbsp&nbspError
-                  <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' style="width:1.5rem; height:1.5rem;"></button>
+                  <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.5rem; height:1.5rem;"></button>
                   <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeErrorVolume()'>
                   <button class="button" id="errorPlay" onclick='playErrorSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
 

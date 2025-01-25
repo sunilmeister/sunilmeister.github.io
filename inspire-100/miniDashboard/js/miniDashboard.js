@@ -2,9 +2,19 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-function updateFrontPanelRangeOnEntry() {
+function updateFrontPanelRange() {
 	let range = createRangeBnum(true, 0, session.maxBreathNum);
 	session.snapshot.range = cloneObject(range);
+}
+
+function updateWavePanelRange() {
+	let range = createRangeBnum(true, 0, session.maxBreathNum);
+	session.waves.range = cloneObject(range);
+}
+
+function updateRangeOnNewBreath() {
+  if (session.snapshot.visible) updateFrontPanelRange();
+  if (session.waves.visible) updateWavePanelRange();
 }
 
 function switchToFrontPanel() {
@@ -12,10 +22,13 @@ function switchToFrontPanel() {
 	undisplayAllViews();
 
 	session.snapshot.visible = true;
+	resumeSnapshotsTimer();
   document.getElementById("frontPanelDiv").style.display = "block";
   document.getElementById("waves-pane").style.display = "none";
 
-  updateFrontPanelRangeOnEntry();
+  updateFrontPanelRange();
+	gatherSnapshotData();
+	updateEntireFrontPanel();
   fpRefresh();
 }
 
@@ -105,9 +118,6 @@ function waitForChirps() {
 		dashboardChirpCount++;
 		if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
 
-    if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
-      initRecordingPrevContent();
-    }
     if (awaitingFirstChirp) {
       let millisStr = d.content["0"].MILLIS
       let millis = parseChecksumString(millisStr);
@@ -116,16 +126,131 @@ function waitForChirps() {
       simulatedMillis = Number(millis);
       startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
-      let elm = document.getElementById("logStartDate");
-      elm.innerHTML = dateToDateStr(d.created);
-      elm = document.getElementById("logStartTime");
-      elm.innerHTML = dateToTimeStr(d.created);
     }
     awaitingFirstChirp = false;
     lastChirpInMs = simulatedMillis;
     disassembleAndQueueChirp(d);
-		displaySelectiveButtons();
   })
+}
+
+function HandlePeriodicTasks() {
+  let invokeTimeInMs = (new Date()).getTime();
+  if (awaitingFirstChirp) {
+    let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
+    if (dormantPopupManualCloseTime) {
+      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+        if (!dormantPopupDisplayed) {
+          showDormantPopup();
+        }
+      }
+    } else if ((new Date() - session.launchDate) >= MAX_CHIRP_INTERVAL_IN_MS) {
+      if (!dormantPopupDisplayed) showDormantPopup();
+    }
+  } else if ((chirpQ.size() == 0) &&
+    ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
+    if (dormantPopupManualCloseTime) {
+      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+        if (!dormantPopupDisplayed) showDormantPopup();
+      }
+    } else if (!dormantPopupDisplayed) showDormantPopup();
+  }
+}
+
+var dashboardSessionClosed = false;
+function closeCurrentSession() {
+	// allow navigation and manipulation of current session views
+	dashboardSessionClosed = true;
+
+	// display and sound a warning
+	modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
+	enableWarningBeep();
+	startWarningBeep();
+}
+
+setTimeout(function periodicCheck() {
+  if (!awaitingFirstChirp) {
+    simulatedMillis = getCurrentSimulatedMillis();
+  }
+  HandlePeriodicTasks();
+  // Main update loop executed every PERIODIC_INTERVAL_IN_MS
+  if (chirpQ && chirpQ.size()) {
+    FetchAndExecuteFromQueue();
+  }
+  setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
+}, TIMEOUT_INTERVAL_IN_MS)
+
+function FetchAndExecuteFromQueue() {
+  let millis;
+  while (1) {
+    if (chirpQ.size() == 0) break;
+    let d = chirpQ.peek();
+    let millis = Number(d.MILLIS);
+    if (simulatedMillis < millis) break;
+
+    d = chirpQ.pop();
+		if (dashboardSessionClosed) {
+			return; // do not process any more chirps
+		}
+
+		if (isUndefined(d["content"])) break; // empty chirp
+
+		// check if a new session has started without current one being closed
+    if (!isUndefined(d.content["HWORLD"])) {
+			if (session.firstChirpDate) {
+				// A session was in progress but a new session started
+				// must close current session and inform user
+				closeCurrentSession();
+				return;
+			}
+		}
+
+    if (!isUndefined(d.content["BNUM"])) {
+      let bnumContent = d.content["BNUM"];
+      let bnumObj = parseJSONSafely(bnumContent);
+			if (bnumObj) {
+      	session.systemBreathNum = bnumObj[0];
+      	if (session.startSystemBreathNum == null) {
+        	session.startSystemBreathNum = session.systemBreathNum;
+      	}
+      	session.maxBreathNum = 
+        	session.systemBreathNum - session.startSystemBreathNum + 1;
+			}
+    }
+    let dCopy; // a copy of the chirp
+    dCopy = cloneObject(d);
+    processDashboardChirp(d);
+  }
+
+  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULATION_TIMES) {
+    modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
+    console.error("Chirps way ahead of simulated time " + millis +
+      " v/s " + simulatedMillis);
+  }
+  return;
+}
+
+function processDashboardChirp(d) {
+  let curDate = new Date(d.created);
+	let date = session.firstChirpDate;
+	if (date === null) date = new Date(d.created);
+  session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
+
+  processJsonRecord(d);
+  createDashboards(d);
+
+  return d;
+}
+
+function createDashboards() {
+  if (session.snapshot.visible) {
+		gatherSnapshotData();
+		updateEntireFrontPanel();
+  	fpRefresh();
+	}
+  if (session.waves.visible) wavesRefresh();
+}
+
+function wavesRefresh() {
 }
 
 function undisplayAllViews() {
@@ -135,6 +260,7 @@ function undisplayAllViews() {
 	session.snapshot.visible = false;
 	session.waves.visible = false;
 
+	pauseSnapshotsTimer();
 	hideAllPopups();
 }
 
