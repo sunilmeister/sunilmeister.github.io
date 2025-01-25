@@ -16,7 +16,7 @@
     <link href="../common/css/wave.css" rel="stylesheet" />
 
     <link href="css/sizes.css" rel="stylesheet" />
-    <link href="css/minDashboard.css" rel="stylesheet" />
+    <link href="css/miniDashboard.css" rel="stylesheet" />
     <link href="css/frontPanel.css" rel="stylesheet" />
 
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
@@ -28,6 +28,8 @@
     <script src="../kernel/js/params.js"></script>
     <script src="../kernel/js/chirps.js"></script>
     <script src="../kernel/js/range.js"></script>
+
+    <script src="../dashboard/js/dashGlobals.js"></script>
 
     <script src="../common/js/alerts/constants.js"></script>
     <script src="../common/js/alerts/alerts.js"></script>
@@ -48,7 +50,8 @@
     <script src="../common/js/waves/waves.js"></script>
     <script src="../common/js/snapshots/frontPanel.js"></script>
 
-    <script src="js/minDashboard.js"></script>
+    <script src="js/miniDashboard.js"></script>
+    <script src="js/minDormant.js"></script>
   </head>
 
   <body style="font-family:verdana; overflow:auto;" ;>
@@ -97,12 +100,12 @@
       </center>
     </div>
 
-    <div id=minDashboard>
+    <div id=miniDashboard>
 
       <center>
         <div id=minBanner class=minBannerCls>
-          <img src="../common/img/fpIcon.png" id=btnFrontPanel class=iconButton onClick='switchToFrontPanel(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Front Panel' style="float:left; width:2.5rem; height:2.5rem;">
-          <img src="../common/img/wave.png" id=btnFrontPanel class=iconButton onClick='switchToWaves(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Waveforms' style="float:right; width:2.5rem; height:2.5rem;">
+          <img src="../common/img/fpIcon.png" id=btnFrontPanel class=iconButton onClick='switchToFrontPanel(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Front Panel' style="float:left; width:3.5rem; height:3.5rem;">
+          <img src="../common/img/wave.png" id=btnFrontPanel class=iconButton onClick='switchToWaves(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' title='Waveforms' style="float:right; width:3.5rem; height:3.5rem;">
           <p id=sysUidTitle>----
         </div>
       </center>

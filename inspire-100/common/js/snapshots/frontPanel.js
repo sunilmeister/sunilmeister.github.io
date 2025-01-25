@@ -172,6 +172,7 @@ function fpRefresh() {
 // ////////////////////////////////////////////////////////////////
 function fpRefreshUptime() {
 	let snap = session.snapshot.content;
+	if (isUndefined(snap)) return;
 	updateUptime(snap.uptimeMins);
 }
 
@@ -197,6 +198,7 @@ function updateUptime(mins) {
 // ////////////////////////////////////////////////////////////////
 function fpRefreshTotalBreaths() {
 	let snap = session.snapshot.content;
+	if (isUndefined(snap)) return;
 	updateTotalBreaths(snap.totalBreaths);
 }
 
@@ -213,10 +215,11 @@ function updateTotalBreaths(totalBreaths) {
 
 function fpRefreshMessageLines() {
 	let snap = session.snapshot.content;
-	fpDisplayMessageLine("lcdline1", snap.lcdLine1);
-	fpDisplayMessageLine("lcdline2", snap.lcdLine2);
-	fpDisplayMessageLine("lcdline3", snap.lcdLine3);
-	fpDisplayMessageLine("lcdline4", snap.lcdLine4);
+	if (isUndefined(snap)) return;
+	if (!isUndefined(snap.lcdLine1)) fpDisplayMessageLine("lcdline1", snap.lcdLine1);
+	if (!isUndefined(snap.lcdLine2)) fpDisplayMessageLine("lcdline2", snap.lcdLine2);
+	if (!isUndefined(snap.lcdLine3)) fpDisplayMessageLine("lcdline3", snap.lcdLine3);
+	if (!isUndefined(snap.lcdLine4)) fpDisplayMessageLine("lcdline4", snap.lcdLine4);
 }
 
 function blankFrontPanelStateLeds() {

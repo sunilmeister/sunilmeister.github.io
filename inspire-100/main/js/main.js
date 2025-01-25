@@ -375,7 +375,14 @@ function launchRecorder() {
   window.open("../recorder/recorder.html");
 }
 
-function launchDashboard() {
+function launchMiniDashboard() {
+  if (!setSelectedInspireTagFromDD()) {
+    return;
+  }
+  window.open("../miniDashboard/miniDashboard.html");
+}
+
+function launchFullDashboard() {
   if (!setSelectedInspireTagFromDD()) {
     return;
   }

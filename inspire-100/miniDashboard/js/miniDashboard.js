@@ -1,7 +1,24 @@
-function changeToFrontPanelView() {
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+
+function updateFrontPanelRangeOnEntry() {
+	let range = createRangeBnum(true, 0, session.maxBreathNum);
+	session.snapshot.range = cloneObject(range);
 }
 
-function changeToFrontWaveView() {
+function switchToFrontPanel() {
+	if (session.snapshot.visible) return;
+	undisplayAllViews();
+
+	session.snapshot.visible = true;
+  document.getElementById("frontPanelDiv").style.display = "block";
+
+  updateFrontPanelRangeOnEntry();
+  fpRefresh();
+}
+
+function switchToWaves() {
 }
 
 function appResize() {
@@ -104,6 +121,16 @@ function waitForChirps() {
   })
 }
 
+function undisplayAllViews() {
+  document.getElementById("frontPanelDiv").style.display = "none";
+  document.getElementById("waves-pane").style.display = "none";
+
+	session.snapshot.visible = false;
+	session.waves.visible = false;
+
+	hideAllPopups();
+}
+
 window.onload = function () {
 	disableAllBeeps();  
 
@@ -121,11 +148,11 @@ window.onload = function () {
   updateDocumentTitle();  
 
 	createFpDivs();
-	changeToFrontPanelView();
+	switchToFrontPanel();
 
 	openAudioControl();
 
-	setRootFontSize("minDashboard", "minDashboard", 0, 5);
+	setRootFontSize("miniDashboard", "miniDashboard", 0, 5);
 	appResize();
 	appResizeFunction = appResize;
 
@@ -133,5 +160,12 @@ window.onload = function () {
   chirpQ = new Queue();
   waitForChirps();
 
+}
+
+function autoCloseDormantPopup() {
+  if (dormantPopupDisplayed) {
+    Swal.close();
+    dormantPopupManualCloseTime = null;
+  }
 }
 
