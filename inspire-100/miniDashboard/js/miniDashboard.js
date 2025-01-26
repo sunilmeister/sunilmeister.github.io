@@ -109,8 +109,6 @@ function getCurrentSimulatedMillis() {
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
-		//console.log("dashboardLaunchTime",dashboardLaunchTime);
-		//console.log("chirpTime",d.created);
     dormantTimeInSec = 0;
     autoCloseDormantPopup();
 
@@ -179,6 +177,7 @@ setTimeout(function periodicCheck() {
   setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
 }, TIMEOUT_INTERVAL_IN_MS)
 
+var queuePrevBreathNum = null;
 function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
@@ -206,6 +205,7 @@ function FetchAndExecuteFromQueue() {
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
+			//console.log("FetchAndExecute BNUM",bnumContent);
       let bnumObj = parseJSONSafely(bnumContent);
 			if (bnumObj) {
       	session.systemBreathNum = bnumObj[0];
@@ -214,11 +214,15 @@ function FetchAndExecuteFromQueue() {
       	}
       	session.maxBreathNum = 
         	session.systemBreathNum - session.startSystemBreathNum + 1;
+				if (queuePrevBreathNum && (session.systemBreathNum != (queuePrevBreathNum + 1))) {
+					console.error("queuePrevBreathNum",queuePrevBreathNum,"New BNUM",session.systemBreathNum);
+				}
+				queuePrevBreathNum = 	session.systemBreathNum;
+			} else {
+				console.error("BAD BNUM Parsing",bnumContent);
 			}
     }
-    let dCopy; // a copy of the chirp
-    dCopy = cloneObject(d);
-    processDashboardChirp(d);
+    processDashboardChirp(cloneObject(d));
   }
 
   if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULATION_TIMES) {
@@ -229,19 +233,25 @@ function FetchAndExecuteFromQueue() {
   return;
 }
 
-function processDashboardChirp(d) {
-  let curDate = new Date(d.created);
+function processDashboardChirp(chirp) {
+  let curDate = new Date(chirp.created);
 	let date = session.firstChirpDate;
-	if (date === null) date = new Date(d.created);
+	if (date === null) date = new Date(chirp.created);
   session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
 
-  processJsonRecord(d);
-  createDashboards(d);
+	/*
+    if (!isUndefined(chirp.content["BNUM"])) {
+      let bnumContent = chirp.content["BNUM"];
+			console.log("--processJsonRecord BNUM",bnumContent);
+		}
+	*/
+  processJsonRecord(chirp);
+  createDashboards(chirp);
 
-  return d;
+  return chirp;
 }
 
-function createDashboards() {
+function createDashboards(chirp) {
   if (session.snapshot.visible) {
 		gatherSnapshotData();
 		updateEntireFrontPanel();
@@ -265,6 +275,8 @@ function undisplayAllViews() {
 }
 
 window.onload = function () {
+	dashboardLaunchTime = new Date();
+	
 	disableAllBeeps();  
 
   createNewSession();

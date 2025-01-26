@@ -912,7 +912,7 @@ function processBnumChirp(curTime, value, jsonData) {
     console.log("startSystemBreathNum", session.startSystemBreathNum);
   } else {
     breathsMissing = bnumValue - numLoggedBreaths - session.startSystemBreathNum;
-		//console.log("breathsMissing",breathsMissing);
+		//console.log("breathsMissing",breathsMissing,"bnumValue",bnumValue,"numLoggedBreaths",numLoggedBreaths);
     if (breathsMissing < 0) { // out of order breath number
 			breathsMissing = 0;
 			outOfOrder = true;

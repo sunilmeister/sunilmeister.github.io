@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-const TIMEOUT_INTERVAL_IN_MS = 200;
+const TIMEOUT_INTERVAL_IN_MS = 400;
 const MAX_CHIRP_INTERVAL_IN_MS = 30000;
 const MAX_DORMANT_CLOSE_DURATION_IN_MS = 60000;
 const MAX_AWAIT_FIRST_CHIRP_IN_MS = 60000;
