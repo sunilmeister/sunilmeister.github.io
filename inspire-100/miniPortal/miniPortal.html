@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../common/css/common.css" />
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
     <link rel="stylesheet" href="css/sizes.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/miniPortal.css" />
 
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/download/download.min.js"></script>
@@ -50,7 +50,7 @@
     <script src="../common/js/firmware/fwReleases.js"></script>
     <script src="../common/js/firmware/firmware.js"></script>
 
-    <script src="js/main.js"></script>
+    <script src="js/miniPortal.js"></script>
   </head>
 
   <body style="font-family: verdana; overflow:auto;">
@@ -147,13 +147,10 @@
       <div id=mainDiv style="display:block;">
         <div style="background-color:var(--rsp_mediumblue);">
           <center>
-            <img src="../common/img/Logo-horizontal.png" alt="Title"  style="margin-top: 0.2rem; margin-right:-0.4rem; margin-left:-0.4rem; width:20rem; height:6rem;" />
+            <img src="../common/img/Logo-horizontal.png" alt="Title"  style="margin-top: 0.2rem; margin-right:-0.4rem; margin-left:-0.4rem; width:18rem; height:6rem;" />
           </center>
         </div>
         <center>
-          <div style="background-color:var(--rsp_mediumblue); color:white; font-size:1.8rem;">
-            <p style="margin-top:0;margin-bottom:0.4rem;">&nbsp&nbsp<b>INSPIRE-100</b> <i>Web Applications</i>&nbsp&nbsp
-          </div>
           <div class=content style="font-size: 1.5rem;">
             <button class=lineButton onclick="mySystemInfo()">Manage Systems</button>
             <br>
@@ -161,40 +158,12 @@
 						<hr>
             <label style="margin-bottom:0; font-size:1.5rem;">Select System</label>
             <br>
-            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 0.2rem; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" />
+            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 0.2rem; width: 20rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" />
             </select>
             <br>
-            <button class=lineButton onclick="launchFullDashboard()">Launch Dashboard</button>
-            <br>
-            <button class=lineButton onclick="launchRecorder()">Launch Recorder</button>
-            <br>
-            <button class=lineButton onclick="launchPlayback()">Launch Playback</button>
-            <br>
-            <hr>
-            <button class=lineButton onclick="multiSystemView()">Multi-system Display</button>
-						<hr>
-            <button class=lineButton onclick="launchVideo()">View Instruction Videos</button>
-						<br>
-            <button class=lineButton onclick="launchDocs()">View PDF Documents</button>
-            <hr>
-            <button class=lineButton onclick="installFirmwareApp()">Install Firmware App</button>
-            <hr>
-            <button class=lineButton onclick="findElevation()">Deployment Site Elevation</button>
-<!-- 
-          <hr>
-            <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
--->
-            <hr>
+            <button class=lineButton onclick="launchMiniDashboard()">Launch Mini Dashboard</button>
           </div>
         </center>
-        <div style="margin-bottom:-1rem;">
-          <center>
-            <button class=lineButton onclick="deleteSelectedHistory()" style="font-size:1.3rem; height:1rem;
-            margin-top:0.625rem;">Delete History</button>
-          </center>
-          <br>
-        </div>
-
       </div>
 
       <div id=mySystems style="display:none; min-height:45rem;">
