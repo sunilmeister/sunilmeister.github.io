@@ -2,10 +2,12 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 const WAVE_NUM_ROLLING_BREATHS = 12;
+const MINI_WAVE_NUM_ROLLING_BREATHS = 8;
 const WAVE_ALERT_THRESHOLD = 40;
 const WAVE_MAX_SAMPLES_PER_BREATH = 32
 const WAVE_MAX_SAMPLES_PER_SLICE = 8;
 const WAVE_MAX_SLICES = 8;
+const WAVE_HORIZONTAL_GRID_COLOR = '#8F99FB';
 const FLOW_IGNORE_THRESHOLD = 0.12;
 
 const WAVE_CONTAINER_ID_PREFIX = "waveContainer";

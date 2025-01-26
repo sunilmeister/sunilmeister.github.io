@@ -8,8 +8,16 @@ function updateFrontPanelRange() {
 }
 
 function updateWavePanelRange() {
-	let range = createRangeBnum(true, 0, session.maxBreathNum);
-	session.waves.range = cloneObject(range);
+  let minBnum = 0;
+  let startWave = session.waves.pwData.length - MINI_WAVE_NUM_ROLLING_BREATHS;
+  if (startWave < 0) startWave = 0;
+  if (session.waves.pwData.length) {
+    minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
+  } else {
+    minBnum = 0;
+  }
+	let range = createRangeBnum(true, minBnum, session.maxBreathNum);
+	session.waves.range = range;
 }
 
 function updateRangeOnNewBreath() {
@@ -260,7 +268,17 @@ function createDashboards(chirp) {
   if (session.waves.visible) wavesRefresh();
 }
 
+function createMiniWaves() {
+	let containerId = "miniWaves";
+  let container = document.getElementById(containerId);
+  let body = findChildNodeByClass(container, WAVE_BODY_CLASS);
+  let box = new WaveBox(body);
+	box.setMiniOptions();
+  session.waves.allWavesContainerInfo[containerId] = box;
+}
+
 function wavesRefresh() {
+	createAllWaves();
 }
 
 function undisplayAllViews() {
@@ -292,6 +310,7 @@ window.onload = function () {
   }
   updateDocumentTitle();  
 
+	createMiniWaves();
 	createFpDivs();
 	switchToFrontPanel();
 

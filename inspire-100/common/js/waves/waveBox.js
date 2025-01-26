@@ -57,6 +57,17 @@ class WaveBox {
     document.getElementById("WaveTitleId").value = this.options.title;
   }
 
+  // Options for mini dashboard waves
+  setMiniOptions() {
+    this.options.MandatoryVC = true;
+    this.options.SpontaneousVC = true;
+    this.options.SpontaneousPS = true;
+    this.options.MaintenanceB = true;
+    this.options.ErrorB = true;
+    this.options.AbnormalB = true;
+    this.options.title = false;
+  }
+
   // Update stored options from the HTML dropdown menu
   updateOptions(menuId) {
     if (!document.getElementById(menuId)) return;
