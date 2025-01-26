@@ -189,7 +189,7 @@ setTimeout(function periodicCheck() {
   setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
 }, TIMEOUT_INTERVAL_IN_MS)
 
-var queuePrevBreathNum = null;
+//var queuePrevBreathNum = null;
 function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
@@ -226,10 +226,12 @@ function FetchAndExecuteFromQueue() {
       	}
       	session.maxBreathNum = 
         	session.systemBreathNum - session.startSystemBreathNum + 1;
+				/*
 				if (queuePrevBreathNum && (session.systemBreathNum != (queuePrevBreathNum + 1))) {
 					console.error("queuePrevBreathNum",queuePrevBreathNum,"New BNUM",session.systemBreathNum);
 				}
 				queuePrevBreathNum = 	session.systemBreathNum;
+				*/
 			} else {
 				console.error("BAD BNUM Parsing",bnumContent);
 			}
