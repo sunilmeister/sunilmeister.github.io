@@ -42,6 +42,10 @@ function switchToFrontPanel() {
 
 function switchToWaves() {
 	if (session.waves.visible) return;
+	if (session.systemBreathNum === null) {
+		modalInfo("No Breaths logged", "Please wait and try again");
+		return;
+	}
 	undisplayAllViews();
 
 	session.waves.visible = true;
