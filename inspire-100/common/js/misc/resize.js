@@ -90,6 +90,14 @@ function isMobileBrowser() {
 	}
 }
 
+function isMobileLandscape() {
+	if (!isMobileBrowser()) return false;
+	let windowWidth = document.documentElement.clientWidth;
+	let windowHeight = document.documentElement.clientHeight;
+	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
+	return (windowWidth > windowHeight);
+}
+
 // Check whether true resize or simply zoom
 var pxRatio = window.devicePixelRatio; 
 function isZooming(){

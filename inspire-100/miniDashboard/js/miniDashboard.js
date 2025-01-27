@@ -43,7 +43,7 @@ function switchToFrontPanel() {
 function switchToWaves() {
 	if (session.waves.visible) return;
 	if (session.systemBreathNum === null) {
-		modalInfo("No Breaths logged", "Please wait and try again");
+		modalInfo("No Breath Waveforms logged", "Please wait and try again");
 		return;
 	}
 	undisplayAllViews();
@@ -55,6 +55,8 @@ function switchToWaves() {
 
 function appResize() {
 	resizeWaves();
+	if (isMobileLandscape()) switchToWaves();
+	else switchToFrontPanel();
 }
 
 function resizeWaves() {
