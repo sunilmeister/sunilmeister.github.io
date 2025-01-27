@@ -153,6 +153,7 @@ function selectSystemInfo(row) {
   let elm = document.getElementById("mySystems");
   elm.style.display = "none";
   elm = document.getElementById("mainDiv");
+	setRootFontSize("mainDiv", "mainDiv");
   elm.style.display = "block";
 
   document.getElementById("exportDiv").style.display = "none";
@@ -226,6 +227,7 @@ function exitSystemInfo() {
   elm.style.display = "none";
   elm = document.getElementById("mainDiv");
   elm.style.display = "block";
+	setRootFontSize("mainDiv", "mainDiv");
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 }
@@ -304,6 +306,7 @@ function mySystemInfo() {
   elm.style.display = "none";
   elm = document.getElementById("mySystems");
   elm.style.display = "block";
+	setRootFontSize("mySystems", "mySystems");
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 
@@ -351,13 +354,17 @@ function rememberNewSystem() {
   checkAndAddNewSystemInfo(newSysUid, newSysTag);
 }
 
+function appResize() {
+}
+
 var portalStartDate = null;
 var portalChirpCount = 0;
 window.onload = function () {
   portalStartDate = new Date();
 	console.log("Welcome to the INSPIRE-100 world!", portalStartDate);
 
-	setRootFontSize("wrapper", "wrapper");
+	appResizeFunction = appResize;
+	setRootFontSize("mainDiv", "mainDiv");
 
   let elm = document.getElementById("mainDiv");
   elm.style.display = "block";
