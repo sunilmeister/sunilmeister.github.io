@@ -153,7 +153,7 @@ function selectSystemInfo(row) {
   let elm = document.getElementById("mySystems");
   elm.style.display = "none";
   elm = document.getElementById("mainDiv");
-	setRootFontSize("mainDiv", "mainDiv");
+	setRootFontSize("mainDiv", "mainDiv", 5, 5);
   elm.style.display = "block";
 
   document.getElementById("exportDiv").style.display = "none";
@@ -227,7 +227,7 @@ function exitSystemInfo() {
   elm.style.display = "none";
   elm = document.getElementById("mainDiv");
   elm.style.display = "block";
-	setRootFontSize("mainDiv", "mainDiv");
+	setRootFontSize("mainDiv", "mainDiv", 5, 5);
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 }
@@ -364,7 +364,7 @@ window.onload = function () {
 	console.log("Welcome to the INSPIRE-100 world!", portalStartDate);
 
 	appResizeFunction = appResize;
-	setRootFontSize("mainDiv", "mainDiv");
+	setRootFontSize("mainDiv", "mainDiv", 5, 5);
 
   let elm = document.getElementById("mainDiv");
   elm.style.display = "block";
