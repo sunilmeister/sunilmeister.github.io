@@ -200,3 +200,33 @@ function waveTitleKeypressListener(event) {
     waveMenuSubmit(titleNode);
   }
 }
+
+function breathSelectedInMenu(breathInfo, menu) {
+    let bInfo = parseBreathInfo(breathInfo);
+    // Order below is important
+    if (menu.ErrorB) {
+      if (bInfo.isError) return true;
+    }
+    if (menu.AbnormalB) {
+      if (bInfo.Abnormal) return true;
+    }
+    if (menu.MaintenanceB) {
+      if (bInfo.isMaintenance) return true;
+    }
+
+    // Exceptional Breaths taken care of above
+    let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
+
+    if (menu.MandatoryVC) {
+      if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
+    }
+    if (menu.SpontaneousVC) {
+      if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
+    }
+    if (menu.SpontaneousPS) {
+      if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
+    }
+    return false;
+  }
+
+

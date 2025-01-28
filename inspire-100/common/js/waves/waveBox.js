@@ -14,35 +14,6 @@ class WaveBox {
     this.rangeX = null;
   }
 
-	breathSelectedInMenu(breathInfo) {
-    let bInfo = parseBreathInfo(breathInfo);
-    // Order below is important
-    if (this.options.ErrorB) {
-      if (bInfo.isError) return true;
-    }
-    if (this.options.AbnormalB) {
-      if (bInfo.Abnormal) return true;
-    }
-    if (this.options.MaintenanceB) {
-      if (bInfo.isMaintenance) return true;
-    }
-
-    // Exceptional Breaths taken care of above
-    let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
-
-    if (this.options.MandatoryVC) {
-      if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
-    }
-    if (this.options.SpontaneousVC) {
-      if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
-    }
-    if (this.options.SpontaneousPS) {
-      if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
-    }
-    return false;
-  }
-
-
 	// Resize according to latest sessionData
 	resizeFonts() {
 		if (this.pChart) this.pChart.resizeFonts();
@@ -61,7 +32,7 @@ class WaveBox {
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       let breathInfo = session.waves.pwData[i].breathInfo;
-      if (!this.breathSelectedInMenu(breathInfo)) continue;
+      if (!breathSelectedInMenu(breathInfo, this.options)) continue;
       n++;
     }
     return n;

@@ -110,34 +110,6 @@ class WavePane {
 		}
 	}
 
-	breathSelectedInMenu(breathInfo) {
-    let bInfo = parseBreathInfo(breathInfo);
-    // Order below is important
-    if (this.menu.ErrorB) {
-      if (bInfo.isError) return true;
-    }
-    if (this.menu.AbnormalB) {
-      if (bInfo.Abnormal) return true;
-    }
-    if (this.menu.MaintenanceB) {
-      if (bInfo.isMaintenance) return true;
-    }
-
-    // Exceptional Breaths taken care of above
-    let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
-
-    if (this.menu.MandatoryVC) {
-      if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
-    }
-    if (this.menu.SpontaneousVC) {
-      if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
-    }
-    if (this.menu.SpontaneousPS) {
-      if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
-    }
-    return false;
-  }
-
   numWavesInRange() {
     let minBnum = session.waves.range.minBnum;
     let maxBnum = session.waves.range.maxBnum;
@@ -160,7 +132,7 @@ class WavePane {
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       let breathInfo = this.data[i].breathInfo;
-      if (!this.breathSelectedInMenu(breathInfo)) continue;
+      if (!breathSelectedInMenu(breathInfo, this.menu)) continue;
       n++;
     }
     return n;
@@ -318,7 +290,7 @@ class WavePane {
       if (breathNum < 0) continue;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
-      if (!this.breathSelectedInMenu(breathInfo)) continue;
+      if (!breathSelectedInMenu(breathInfo, this.menu)) continue;
 
 			let breath = session.loggedBreaths[breathNum];
 			if (isUndefined(breath)) {
