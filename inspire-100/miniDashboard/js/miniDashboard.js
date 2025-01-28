@@ -299,7 +299,6 @@ function undisplayAllViews() {
 window.onload = function () {
 	dashboardLaunchTime = new Date();
 	appResizeFunction = appResize;
-	setRootFontSize("miniDashboard", "miniDashboard", 6, 6);
 	
 	disableAllBeeps();  
 
@@ -319,6 +318,7 @@ window.onload = function () {
 	createMiniWaves();
 	createFpDivs();
 	switchToFrontPanel();
+	setRootFontSize("miniDashboard", "miniDashboard", 6, 6);
 
 	openAudioControl();
 
