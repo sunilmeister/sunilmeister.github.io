@@ -45,7 +45,7 @@ function switchToWaves() {
 	if (session.waves.visible) return;
 	if (session.systemBreathNum === null) {
 		modalInfo("No Breath Waveforms logged", "Please wait and try again");
-		return;
+		//return;
 	}
 	undisplayAllViews();
 
@@ -318,7 +318,7 @@ window.onload = function () {
 	createMiniWaves();
 	createFpDivs();
 	switchToFrontPanel();
-	setRootFontSize("miniDashboard", "miniDashboard", 6, 4);
+	setRootFontSize("miniDashboard", "miniDashboard", 10, 5);
 
 	openAudioControl();
 

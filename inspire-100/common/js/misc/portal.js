@@ -306,7 +306,7 @@ function mySystemInfo() {
   elm.style.display = "none";
   elm = document.getElementById("mySystems");
   elm.style.display = "block";
-	setRootFontSize("mySystems", "mySystems");
+	setRootFontSize("mySystems", "mySystems", 10, 5);
   document.getElementById("exportDiv").style.display = "none";
   document.getElementById("importDiv").style.display = "none";
 
