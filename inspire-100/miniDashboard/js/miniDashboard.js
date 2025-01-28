@@ -29,11 +29,11 @@ function switchToFrontPanel() {
 	if (session.snapshot.visible) return;
 	undisplayAllViews();
 
-	session.snapshot.visible = true;
-	resumeSnapshotsTimer();
   document.getElementById("frontPanelDiv").style.display = "block";
   document.getElementById("waves-pane").style.display = "none";
 
+	session.snapshot.visible = true;
+	resumeSnapshotsTimer();
   updateFrontPanelRange();
 	gatherSnapshotData();
 	updateEntireFrontPanel();
@@ -48,15 +48,17 @@ function switchToWaves() {
 	}
 	undisplayAllViews();
 
-	session.waves.visible = true;
   document.getElementById("frontPanelDiv").style.display = "none";
   document.getElementById("waves-pane").style.display = "block";
+
+	session.waves.visible = true;
+	wavesRefresh();
 }
 
 function appResize() {
 	resizeWaves();
 	if (isMobileLandscape()) switchToWaves();
-	else switchToFrontPanel();
+	else if (isMobileBrowser()) switchToFrontPanel();
 }
 
 function resizeWaves() {
@@ -324,7 +326,7 @@ window.onload = function () {
 
 	openAudioControl();
 
-	setRootFontSize("miniDashboard", "miniDashboard", 6, 0);
+	setRootFontSize("miniDashboard", "miniDashboard", 6, 6);
 	appResize();
 	appResizeFunction = appResize;
 
