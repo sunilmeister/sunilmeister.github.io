@@ -55,10 +55,19 @@ function switchToWaves() {
 	wavesRefresh();
 }
 
+var appResizing = false;
 function appResize() {
-	resizeWaves();
+	if (appResizing) return; // stop infinite recursion
+	appResizing = true;
 	if (isMobileLandscape()) switchToWaves();
 	else if (isMobileBrowser()) switchToFrontPanel();
+	if (session.snapshot.visible) {return;
+		setRootFontSize("frontPanelDiv", "frontPanelDiv", 2, 2);
+	} else {
+		setRootFontSize("waves-pane", "waves-pane", 2, 2);
+	}
+	resizeWaves();
+	appResizing = false;
 }
 
 function resizeWaves() {
@@ -326,7 +335,7 @@ window.onload = function () {
 
 	openAudioControl();
 
-	setRootFontSize("miniDashboard", "miniDashboard", 6, 6);
+	setRootFontSize("frontPanelDiv", "frontPanelDiv", 2, 2);
 	appResize();
 	appResizeFunction = appResize;
 
