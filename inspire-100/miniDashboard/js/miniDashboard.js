@@ -318,7 +318,7 @@ window.onload = function () {
 	createMiniWaves();
 	createFpDivs();
 	switchToFrontPanel();
-	setRootFontSize("miniDashboard", "miniDashboard", 6, 6);
+	setRootFontSize("miniDashboard", "miniDashboard", 6, 4);
 
 	openAudioControl();
 

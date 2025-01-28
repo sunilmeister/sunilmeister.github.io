@@ -5,7 +5,7 @@
   font-family: Arial;
   background-color: var(--rsp_darkblue);
   color: white;
-  padding: 0.5rem;
+  padding: 1rem;
   -webkit-box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.4);
   -ms-text-size-adjust: 100%;
