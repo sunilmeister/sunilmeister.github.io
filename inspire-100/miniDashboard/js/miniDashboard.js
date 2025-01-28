@@ -33,8 +33,6 @@ function switchToFrontPanel() {
   document.getElementById("waves-pane").style.display = "none";
 
 	session.snapshot.visible = true;
-	console.log("setRoot frontPanel");
-	setRootFontSize("frontPanelDiv", "frontPanelDiv", 6, 10);
 
 	resumeSnapshotsTimer();
   updateFrontPanelRange();
@@ -55,8 +53,6 @@ function switchToWaves() {
   document.getElementById("waves-pane").style.display = "block";
 
 	session.waves.visible = true;
-	console.log("setRoot waves");
-	setRootFontSize("waves-pane", "waves-pane", 2, 2);
 
 	wavesRefresh();
 }
@@ -205,7 +201,6 @@ setTimeout(function periodicCheck() {
   setTimeout(periodicCheck, TIMEOUT_INTERVAL_IN_MS);
 }, TIMEOUT_INTERVAL_IN_MS)
 
-//var queuePrevBreathNum = null;
 function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
@@ -233,7 +228,6 @@ function FetchAndExecuteFromQueue() {
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
-			//console.log("FetchAndExecute BNUM",bnumContent);
       let bnumObj = parseJSONSafely(bnumContent);
 			if (bnumObj) {
       	session.systemBreathNum = bnumObj[0];
@@ -242,12 +236,6 @@ function FetchAndExecuteFromQueue() {
       	}
       	session.maxBreathNum = 
         	session.systemBreathNum - session.startSystemBreathNum + 1;
-				/*
-				if (queuePrevBreathNum && (session.systemBreathNum != (queuePrevBreathNum + 1))) {
-					console.error("queuePrevBreathNum",queuePrevBreathNum,"New BNUM",session.systemBreathNum);
-				}
-				queuePrevBreathNum = 	session.systemBreathNum;
-				*/
 			} else {
 				console.error("BAD BNUM Parsing",bnumContent);
 			}
@@ -269,12 +257,6 @@ function processDashboardChirp(chirp) {
 	if (date === null) date = new Date(chirp.created);
   session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
 
-	/*
-    if (!isUndefined(chirp.content["BNUM"])) {
-      let bnumContent = chirp.content["BNUM"];
-			console.log("--processJsonRecord BNUM",bnumContent);
-		}
-	*/
   processJsonRecord(chirp);
   createDashboards(chirp);
 
@@ -316,6 +298,8 @@ function undisplayAllViews() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
+	appResizeFunction = appResize;
+	setRootFontSize("miniDashboard", "miniDashboard", 6, 6);
 	
 	disableAllBeeps();  
 
@@ -338,10 +322,6 @@ window.onload = function () {
 
 	openAudioControl();
 
-	//console.log("setRoot frontPanel");
-	//setRootFontSize("frontPanelDiv", "frontPanelDiv", 6, 6);
-	//appResize();
-	appResizeFunction = appResize;
 
   // now wait for chirps and act accordingly
   chirpQ = new Queue();
