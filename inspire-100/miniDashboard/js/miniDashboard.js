@@ -43,10 +43,6 @@ function switchToFrontPanel() {
 
 function switchToWaves() {
 	if (session.waves.visible) return;
-	if (session.systemBreathNum === null) {
-		modalInfo("No Breath Waveforms logged", "Please wait and try again");
-		//return;
-	}
 	undisplayAllViews();
 
   document.getElementById("frontPanelDiv").style.display = "none";
@@ -57,16 +53,10 @@ function switchToWaves() {
 	wavesRefresh();
 }
 
-var appResizing = false;
 function appResize() {
-	if (appResizing) return; // stop infinite recursion
-	appResizing = true;
-
 	resizeWaves();
 	if (isMobileLandscape()) switchToWaves();
 	else if (isMobileBrowser()) switchToFrontPanel();
-
-	appResizing = false;
 }
 
 function resizeWaves() {
