@@ -33,7 +33,8 @@ function switchToFrontPanel() {
   document.getElementById("waves-pane").style.display = "none";
 
 	session.snapshot.visible = true;
-	setRootFontSize("frontPanelDiv", "frontPanelDiv", 2, 2);
+	console.log("setRoot frontPanel");
+	setRootFontSize("frontPanelDiv", "frontPanelDiv", 6, 10);
 
 	resumeSnapshotsTimer();
   updateFrontPanelRange();
@@ -54,6 +55,7 @@ function switchToWaves() {
   document.getElementById("waves-pane").style.display = "block";
 
 	session.waves.visible = true;
+	console.log("setRoot waves");
 	setRootFontSize("waves-pane", "waves-pane", 2, 2);
 
 	wavesRefresh();
@@ -63,10 +65,11 @@ var appResizing = false;
 function appResize() {
 	if (appResizing) return; // stop infinite recursion
 	appResizing = true;
+
+	resizeWaves();
 	if (isMobileLandscape()) switchToWaves();
 	else if (isMobileBrowser()) switchToFrontPanel();
 
-	resizeWaves();
 	appResizing = false;
 }
 
@@ -335,8 +338,9 @@ window.onload = function () {
 
 	openAudioControl();
 
-	setRootFontSize("frontPanelDiv", "frontPanelDiv", 2, 2);
-	appResize();
+	//console.log("setRoot frontPanel");
+	//setRootFontSize("frontPanelDiv", "frontPanelDiv", 6, 6);
+	//appResize();
 	appResizeFunction = appResize;
 
   // now wait for chirps and act accordingly
