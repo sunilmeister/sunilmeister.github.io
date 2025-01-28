@@ -33,6 +33,8 @@ function switchToFrontPanel() {
   document.getElementById("waves-pane").style.display = "none";
 
 	session.snapshot.visible = true;
+	setRootFontSize("frontPanelDiv", "frontPanelDiv", 2, 2);
+
 	resumeSnapshotsTimer();
   updateFrontPanelRange();
 	gatherSnapshotData();
@@ -52,6 +54,8 @@ function switchToWaves() {
   document.getElementById("waves-pane").style.display = "block";
 
 	session.waves.visible = true;
+	setRootFontSize("waves-pane", "waves-pane", 2, 2);
+
 	wavesRefresh();
 }
 
@@ -61,11 +65,7 @@ function appResize() {
 	appResizing = true;
 	if (isMobileLandscape()) switchToWaves();
 	else if (isMobileBrowser()) switchToFrontPanel();
-	if (session.snapshot.visible) {return;
-		setRootFontSize("frontPanelDiv", "frontPanelDiv", 2, 2);
-	} else {
-		setRootFontSize("waves-pane", "waves-pane", 2, 2);
-	}
+
 	resizeWaves();
 	appResizing = false;
 }
