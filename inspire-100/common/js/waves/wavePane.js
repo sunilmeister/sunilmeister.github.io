@@ -169,13 +169,7 @@ class WavePane {
 
   addGraph() {
     this.numSelectedWaves = this.numSelectedWavesInRange();
-    if (this.numSelectedWaves <= WAVE_ALERT_THRESHOLD) {
-      this.addGraphNoConfirm();
-    } else {
-       modalAlert("Too many Breath Waveforms (" + this.numSelectedWaves +")", 
-        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
-        + "\nto waveforms to display");
-    }
+    this.addGraphNoConfirm();
   }
 
   addGraphNoConfirm() {

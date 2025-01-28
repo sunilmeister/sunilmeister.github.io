@@ -168,7 +168,15 @@ function resizeAllWaves() {
 
 function renderAllWaves() {
   for (let id in session.waves.allWavesContainerInfo) {
-    session.waves.allWavesContainerInfo[id].render();
+    let box = session.waves.allWavesContainerInfo[id];
+		let numWaves = box.NumWavesInRange();
+		if (numWaves > WAVE_ALERT_THRESHOLD) {
+       modalAlert("Too many Breath Waveforms (" + numWaves +")", 
+        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
+        + "\nto waveforms to display");
+		} else {
+    	box.render();
+		}
   }
 }
 
@@ -177,10 +185,6 @@ function createAllWaves() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-	if (session.systemBreathNum === null) {
-		modalInfo("No Breaths logged", "Please wait and try again");
-		return;
-	}
 
   if (numberOfExistingWaveBoxes() == 0) {
     waveInsertInitial(); // always have wave box for user to start with
