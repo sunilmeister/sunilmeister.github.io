@@ -324,7 +324,7 @@ window.onload = function () {
 
 	openAudioControl();
 
-	setRootFontSize("miniDashboard", "miniDashboard", 0, 6);
+	setRootFontSize("miniDashboard", "miniDashboard", 6, 0);
 	appResize();
 	appResizeFunction = appResize;
 
