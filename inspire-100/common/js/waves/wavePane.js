@@ -110,37 +110,8 @@ class WavePane {
 		}
 	}
 
-  numWavesInRange() {
-    let minBnum = session.waves.range.minBnum;
-    let maxBnum = session.waves.range.maxBnum;
-    let n = 0;
-    for (let i = 0; i < this.data.length; i++) {
-      let breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
-      if (breathNum < minBnum) continue;
-      if (breathNum > maxBnum) break;
-      n++;
-    }
-    return n;
-  }
-
-  numSelectedWavesInRange() {
-    let minBnum = session.waves.range.minBnum;
-    let maxBnum = session.waves.range.maxBnum;
-    let n = 0;
-    for (let i = 0; i < this.data.length; i++) {
-      let breathNum = this.data[i].systemBreathNum - session.startSystemBreathNum + 1;
-      if (breathNum < minBnum) continue;
-      if (breathNum > maxBnum) break;
-      let breathInfo = this.data[i].breathInfo;
-      if (!breathSelectedInMenu(breathInfo, this.menu)) continue;
-      n++;
-    }
-    return n;
-  }
-
-
   addGraph() {
-    this.numSelectedWaves = this.numSelectedWavesInRange();
+    this.numSelectedWaves = numSelectedWavesInRange(this.menu);
     this.addGraphNoConfirm();
   }
 

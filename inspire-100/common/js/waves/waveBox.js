@@ -20,22 +20,9 @@ class WaveBox {
 		if (this.fChart) this.fChart.resizeFonts();
 	}
 
-	//
-  // Depends on what breaths have been chosen for display in this box
-	//
-	NumWavesInRange() {
-    let minBnum = session.waves.range.minBnum;
-    let maxBnum = session.waves.range.maxBnum;
-    let n = 0;
-    for (let i = 0; i < session.waves.pwData.length; i++) {
-      let breathNum = session.waves.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
-      if (breathNum < minBnum) continue;
-      if (breathNum > maxBnum) break;
-      let breathInfo = session.waves.pwData[i].breathInfo;
-      if (!breathSelectedInMenu(breathInfo, this.options)) continue;
-      n++;
-    }
-    return n;
+	tooManyWaves() {
+		let numWaves = numSelectedWavesInRange(this.options);
+		return (numWaves > WAVE_ALERT_THRESHOLD);
 	}
 
 	//

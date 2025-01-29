@@ -169,8 +169,7 @@ function resizeAllWaves() {
 function renderAllWaves() {
   for (let id in session.waves.allWavesContainerInfo) {
     let box = session.waves.allWavesContainerInfo[id];
-		let numWaves = box.NumWavesInRange();
-		if (numWaves > WAVE_ALERT_THRESHOLD) {
+		if (box.tooManyWaves()) {
        modalAlert("Too many Breath Waveforms (" + numWaves +")", 
         "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
         + "\nto waveforms to display");
@@ -201,32 +200,60 @@ function waveTitleKeypressListener(event) {
   }
 }
 
-function breathSelectedInMenu(breathInfo, menu) {
+function breathSelectedInMenu(breathInfo, selectOptions) {
     let bInfo = parseBreathInfo(breathInfo);
     // Order below is important
-    if (menu.ErrorB) {
+    if (selectOptions.ErrorB) {
       if (bInfo.isError) return true;
     }
-    if (menu.AbnormalB) {
+    if (selectOptions.AbnormalB) {
       if (bInfo.Abnormal) return true;
     }
-    if (menu.MaintenanceB) {
+    if (selectOptions.MaintenanceB) {
       if (bInfo.isMaintenance) return true;
     }
 
     // Exceptional Breaths taken care of above
     let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
 
-    if (menu.MandatoryVC) {
+    if (selectOptions.MandatoryVC) {
       if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
     }
-    if (menu.SpontaneousVC) {
+    if (selectOptions.SpontaneousVC) {
       if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
     }
-    if (menu.SpontaneousPS) {
+    if (selectOptions.SpontaneousPS) {
       if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
     }
     return false;
+  }
+
+function numWavesInRange() {
+    let minBnum = session.waves.range.minBnum;
+    let maxBnum = session.waves.range.maxBnum;
+    let n = 0;
+    for (let i = 0; i < session.waves.pwData.length; i++) {
+      let breathNum = session.waves.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
+      if (breathNum < minBnum) continue;
+      if (breathNum > maxBnum) break;
+      n++;
+    }
+    return n;
+  }
+
+function  numSelectedWavesInRange(selectOptions) {
+    let minBnum = session.waves.range.minBnum;
+    let maxBnum = session.waves.range.maxBnum;
+    let n = 0;
+    for (let i = 0; i < session.waves.pwData.length; i++) {
+      let breathNum = session.waves.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
+      if (breathNum < minBnum) continue;
+      if (breathNum > maxBnum) break;
+      let breathInfo = session.waves.pwData[i].breathInfo;
+      if (!breathSelectedInMenu(breathInfo, selectOptions)) continue;
+      n++;
+    }
+    return n;
   }
 
 
