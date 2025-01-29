@@ -249,6 +249,7 @@ function processDashboardChirp(chirp) {
 
   processJsonRecord(chirp);
   createDashboards(chirp);
+	createAlarmModals();
 
   return chirp;
 }
