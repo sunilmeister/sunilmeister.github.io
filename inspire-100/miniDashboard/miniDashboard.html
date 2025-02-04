@@ -21,7 +21,7 @@
 
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/canvasjs/canvasjs.min.js"></script>
-  	<script src="../external/hacktimer/HackTimer.min.js"></script>
+    <script src="../external/hacktimer/HackTimer.min.js"></script>
 
     <script src="../kernel/js/hwPosts.js"></script>
     <script src="../kernel/js/constants.js"></script>
@@ -36,7 +36,7 @@
     <script src="../common/js/alerts/alerts.js"></script>
     <script src="../common/js/alerts/audioAlerts.js"></script>
 
-  	<script src="../common/js/firmware/fwReleases.js"></script>
+    <script src="../common/js/firmware/fwReleases.js"></script>
 
     <script src="../common/js/misc/palette.js"></script>
     <script src="../common/js/misc/uid.js"></script>
@@ -63,7 +63,7 @@
     <script src="js/miniDormant.js"></script>
   </head>
 
-  <body style="font-family:verdana; overflow:auto;" ;>
+  <body style="font-family:verdana; overflow:auto;">
     <audio id="infoBeep">
       <source src="../common/mp3/infoBeep.mp3" type="audio/mp3">
     </audio>
@@ -80,21 +80,21 @@
           <p style="font-size: 2.5rem;">Audio Alarms
             <br>
             <p style="font-size: 1.8rem; ">Info
-              <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;"></button>
+              <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
               <input type="range" id="infoVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeInfoVolume()'>
               <button class="button" id="infoPlay" onclick='playInfoSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
 
-              <div height:2rem> </div>
+              <div style="height:2rem"> </div>
 
               <p style="font-size: 1.8rem; ">Warning
-                <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.5rem; height:1.5rem;"></button>
+                <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.5rem; height:1.5rem;">
                 <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>
                 <button class="button" id="warningPlay" onclick='playWarningSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
 
                 <br>
 
-                <p style="font-size: 1.8rem; ">&nbsp&nbsp&nbsp&nbspError
-                  <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.5rem; height:1.5rem;"></button>
+                <p style="font-size: 1.8rem; ">Error
+                  <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.5rem; height:1.5rem;">
                   <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeErrorVolume()'>
                   <button class="button" id="errorPlay" onclick='playErrorSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
 
@@ -120,14 +120,14 @@
       </center>
 
       <div id=waves-pane style="display:none;">
-    		<div id=miniWaves class=waveContainer>
-      		<div class=waveBody>
-						<div class=pWaveBody>
-						</div>
-						<div class=fWaveBody>
-						</div>
-      		</div>
-				</div>
+        <div id=miniWaves class=waveContainer>
+          <div class=waveBody>
+            <div class=pWaveBody>
+            </div>
+            <div class=fWaveBody>
+            </div>
+          </div>
+        </div>
       </div>
 
       <center>
@@ -152,13 +152,10 @@
                 <p id=elapsedBreaths style="font-weight:bold; font-size:1.5rem; margin-top:0.3rem; margin-bottom:0.3rem;">__
             </div>
           </div>
-      </center>
-
-      </div>
+        </div>
       </center>
 
     </div>
   </body>
 
 </html>
-
