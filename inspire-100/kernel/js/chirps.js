@@ -989,6 +989,7 @@ function updateLoggedBreaths(bnumValue, breathTime) {
 			console.log("breathTime", breathTime, "prevBreathTime", prevBreathTime);
 			return; // will count as missing
 		}
+		console.log("--- BREATH number", bnumValue, "received out of order");
 	} else if (breathTime.getTime() < prevBreathTime.getTime()) {
 		console.error("--- BREATH Number", bnumValue, "in order but breathTime wrong");
 		console.log("breathTime", breathTime, "prevBreathTime", prevBreathTime);
