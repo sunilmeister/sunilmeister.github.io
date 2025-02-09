@@ -535,7 +535,7 @@ function findQmults(samples, changes) {
 	return {"inspQmult": inspQmult, "expQmult": expQmult};
 }
 
-function convertQtoFlow(waveSlices) {
+function convertQtoFlowLPM(waveSlices) {
 	let samples = [];
   for (let i = 0; i < waveSlices.length; i++) {
     slice = waveSlices[i];
@@ -559,7 +559,7 @@ function convertQtoFlow(waveSlices) {
       Q = (Q * qmults.inspQmult);
 		  if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
 		}
-    flowSamples.push(Q);
+    flowSamples.push(Q*60);
 	}
 
 	return flowSamples;
@@ -606,7 +606,7 @@ function processPwendChirp(str) {
   // consolidate all samples
   let samples = [];
 	if (expectingDPWEND) {
-		samples = convertQtoFlow(waveSlices);
+		samples = convertQtoFlowLPM(waveSlices);
 	} else {
     for (let i = 0; i < waveSlices.length; i++) {
       slice = waveSlices[i];
