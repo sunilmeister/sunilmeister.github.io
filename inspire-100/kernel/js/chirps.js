@@ -475,22 +475,64 @@ function processPwstartChirp(str) {
 function movingAverageFilter(samples) {
 	const order = 3;
 	let filteredSamples = [];
-  let window = order;
+  let win = order;
 
   for (let i = 0; i < samples.length; i++) {
     if ((i+1) < order) {
-        window = i+1;
+        win = i+1;
     } else {
-        window = order;
+        win = order;
     }
     let sum = 0;
-    for (let j = 0; j < window; j++) {
+    for (let j = 0; j < win; j++) {
         sum += samples[i-j];
     }
-    filteredSamples.push(sum / window);
+    filteredSamples.push(sum / win);
   }
 
   return filteredSamples;
+}
+
+function findFlowChangePoints(samples) {
+	//console.log("samples",samples);
+	let inspStart, expStart, expEnd;
+	let ix = 0;
+
+	// find start of +ve flow
+  for (; ix < samples.length; ix++) {
+		let sample = samples[ix];
+		if (sample <= SAMPLE_FLOWQ_THRESHOLD) continue;
+		inspStart = ix;
+		break;
+	}
+
+	// find end of +ve flow
+  for (; ix < samples.length; ix++) {
+		let sample = samples[ix];
+		if (sample > SAMPLE_FLOWQ_THRESHOLD) continue;
+		expStart = ix;
+		break;
+	}
+
+	// Go backwards - find end of -ve flow
+	for (let i=samples.length-1; i>ix; i--) {
+		let sample = samples[i];
+		if (sample > -SAMPLE_FLOWQ_THRESHOLD) continue;
+		expEnd = i;
+		break;
+	}
+
+	return {"inspStart":inspStart, "expStart": expStart, "expEnd":expEnd};
+}
+
+function findQmults(samples, changes) {
+	let inspTime = (changes.expStart - changes.inspStart + 1) * waveSampleInterval;
+	let expTime = (changes.expEnd - changes.expStart + 1) * waveSampleInterval;
+
+	let inspQmult = session.breathData.qmult * 1000 / inspTime;
+	let expQmult = session.breathData.qmult * 1000 / expTime;
+
+	return {"inspQmult": inspQmult, "expQmult": expQmult};
 }
 
 function convertQtoFlow(waveSlices) {
@@ -504,12 +546,17 @@ function convertQtoFlow(waveSlices) {
   }
 
 	let filteredSamples = movingAverageFilter(samples);
-	let flowSamples = [];
 
+	let changes = findFlowChangePoints(filteredSamples);
+	//console.log("changes", changes);
+	let qmults = findQmults(filteredSamples, changes);
+	//console.log("qmults", qmults);
+
+	let flowSamples = [];
   for (let i = 0; i < filteredSamples.length; i++) {
     let Q = filteredSamples[i];
 		if (Q !== null) {
-      Q = (Q * session.breathData.qmult);
+      Q = (Q * qmults.inspQmult);
 		  if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
 		}
     flowSamples.push(Q);
