@@ -51,7 +51,7 @@ function gatherSnapshotData() {
 	// Total System Breaths
 	snap.totalBreaths = session.startSystemBreathNum;
 	if (snap.totalBreaths !== null) {
-		snap.totalBreaths = session.startSystemBreathNum + snap.breathNum - 1;
+		snap.totalBreaths = session.startSystemBreathNum + session.maxBreathNum - 1;
 	}
 
 	// Message lines
