@@ -251,7 +251,7 @@ function gatherSessionData(lastRecordCallback) {
     return;
   }
   let lastRecord = false;
-  for (i = 0; i < session.playback.allDbKeys.length; i++) {
+  for (let i = 0; i < session.playback.allDbKeys.length; i++) {
     let key = session.playback.allDbKeys[i];
     if (i == (session.playback.allDbKeys.length - 1)) {
       lastRecord = true;
@@ -414,7 +414,7 @@ function processJsonRecord(jsonData) {
 // ////////////////////////////////////////////////
 function waveCollectedSamples(slices) {
   num = 0;
-  for (i = 0; i < slices.length; i++) {
+  for (let i = 0; i < slices.length; i++) {
     num += slices[i].sliceData.length;
   }
   return num;
@@ -451,13 +451,13 @@ function processPwstartChirp(str) {
 
   arr = parseJSONSafely(str);
   if (!arr || (arr.length != 5)) {
-    //console.log("Bad PWSTART=" + str);
+    console.log("Bad PWSTART=" + str);
     session.waves.breathNum = null;
     waveSampleInterval = null;
     return;;
   }
   // PWSTART key has the following value format
-  // arr = [breathNum, breathInfo, expectedSamples, sampleInterval]
+  // arr = [breathNum, breathInfo, expectedSamples, sampleInterval, inspTime]
   session.waves.breathNum = arr[0];
   session.waves.breathInfo = arr[1];
   waveExpectedSamplesPerSlice = arr[2];
@@ -472,9 +472,56 @@ function processPwstartChirp(str) {
   waveSlices = [];
 }
 
+function movingAverageFilter(samples) {
+	const order = 3;
+	let filteredSamples = [];
+  let window = order;
+
+  for (let i = 0; i < samples.length; i++) {
+    if ((i+1) < order) {
+        window = i+1;
+    } else {
+        window = order;
+    }
+    let sum = 0;
+    for (let j = 0; j < window; j++) {
+        sum += samples[i-j];
+    }
+    filteredSamples.push(sum / window);
+  }
+
+  return filteredSamples;
+}
+
+function convertQtoFlow(waveSlices) {
+	let samples = [];
+  for (let i = 0; i < waveSlices.length; i++) {
+    slice = waveSlices[i];
+    for (let j = 0; j < slice.sliceData.length; j++) {
+      let Q = slice.sliceData[j];
+      samples.push(Q);
+    }
+  }
+
+	let filteredSamples = movingAverageFilter(samples);
+	let flowSamples = [];
+
+  for (let i = 0; i < filteredSamples.length; i++) {
+    let Q = filteredSamples[i];
+		if (Q !== null) {
+      Q = (Q * session.breathData.qmult);
+		  if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
+		}
+    flowSamples.push(Q);
+	}
+
+	return flowSamples;
+}
+
+
 function processPwendChirp(str) {
   // PWEND key has the following value format
-  // arr = [breathNum, breathInfo, actualSamples, sampleInterval]
+  // arr = [breathNum, breathInfo, actualSamples, sampleInterval, inspTime]
   if (str != "") {
     arr = parseJSONSafely(str);
     if (arr && (arr.length == 5)) {
@@ -487,7 +534,7 @@ function processPwendChirp(str) {
         session.waves.onDemand = arr[4] ? false : true;
       }
     } else {
-      //console.log("Bad PWEND=" + str);
+      console.log("Bad PWEND=" + str);
     }
   } else {
     if (waveExpectedSamplesPerSlice) {
@@ -511,19 +558,16 @@ function processPwendChirp(str) {
 
   // consolidate all samples
   let samples = [];
-  for (i = 0; i < waveSlices.length; i++) {
-    slice = waveSlices[i];
-    for (j = 0; j < slice.sliceData.length; j++) {
-      let Q = slice.sliceData[j];
-      if (expectingDPWEND) {
-        if (Q !== null) {
-          // Convert Q pressure to flow value
-          Q = (Q * session.breathData.qmult);
-					if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
-        }
+	if (expectingDPWEND) {
+		samples = convertQtoFlow(waveSlices);
+	} else {
+    for (let i = 0; i < waveSlices.length; i++) {
+      slice = waveSlices[i];
+      for (let j = 0; j < slice.sliceData.length; j++) {
+        let Q = slice.sliceData[j];
+        samples.push(Q);
       }
-      samples.push(Q);
-    }
+		}
   }
   waveSlices = [];
   if (waveActualSamples != samples.length) {
@@ -532,14 +576,14 @@ function processPwendChirp(str) {
   }
 
   // Make it consistently WAVE_MAX_SAMPLES_PER_BREATH
-  for (j = 0; j < WAVE_MAX_SAMPLES_PER_BREATH - samples.length; j++) {
+  for (let j = 0; j < WAVE_MAX_SAMPLES_PER_BREATH - samples.length; j++) {
     samples.push(null);
   }
 
   // check how many null samples we have in the first 60% where the details are
   let checkLimit = Math.floor(WAVE_MAX_SAMPLES_PER_BREATH * 6 / 10);
   let nullCount = 0;
-  for (j = 0; j < checkLimit; j++) {
+  for (let j = 0; j < checkLimit; j++) {
     if (samples[j] === null) nullCount++;
   }
   if (nullCount > (checkLimit/2)) {
@@ -611,10 +655,10 @@ function processPwsliceChirp(receivedSliceNum, str) {
   if ((sliceNum != prevSliceNum + 1) || (sliceNum != receivedSliceNum)) {
     // stuff empty slices
     waveBreathPartial = true;
-    for (i = prevSliceNum + 1; i < sliceNum; i++) {
+    for (let i = prevSliceNum + 1; i < sliceNum; i++) {
       samples = [];
       if (!session.waves.expectedSamplesPerSlice) session.waves.expectedSamplesPerSlice = WAVE_MAX_SAMPLES_PER_SLICE;
-      for (j = 0; j < session.waves.expectedSamplesPerSlice; j++) {
+      for (let j = 0; j < session.waves.expectedSamplesPerSlice; j++) {
         samples.push(null);
       }
       waveSlices.push({
