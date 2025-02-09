@@ -53,9 +53,9 @@
 }
 
 .pWaveBody {
-	height:var(--waveBodyHeight);
+	height:var(--pWaveBodyHeight);
 }
 
 .fWaveBody {
-	height:var(--waveBodyHeight);
+	height:var(--fWaveBodyHeight);
 }

@@ -16,7 +16,8 @@
   --noUiTooltipSize: 0.85rem;
 
   --waveContainerPadding: 46rem;
-  --waveBodyHeight: 22rem;
+  --pWaveBodyHeight: 22rem;
+  --fWaveBodyHeight: 23rem;
   --waveMenuIndent: 1.2rem;
   --waveMenuFontSize: 1.4rem;
   --waveMenuBannerHeight: 2.5rem;

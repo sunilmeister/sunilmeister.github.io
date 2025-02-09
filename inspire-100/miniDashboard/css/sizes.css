@@ -13,8 +13,9 @@
   --chartStripLineFontSize: 1.2;
   --chartStripLineThickness: 0.1;
 
-  --waveContainerPadding: 52rem;
-  --waveBodyHeight: 25rem;
+  --waveContainerPadding: 53rem;
+  --pWaveBodyHeight: 25rem;
+  --fWaveBodyHeight: 26rem;
   --waveMenuIndent: 1rem;
   --waveMenuFontSize: 1.6rem;
   --waveMenuBannerHeight: 2.5rem;
