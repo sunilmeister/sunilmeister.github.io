@@ -69,6 +69,7 @@ var SessionDataTemplate = {
 
 	breathData: {
     iqdel : null,
+    vtdel : null,
     qmult : null,
   },
 

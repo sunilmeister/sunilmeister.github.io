@@ -495,7 +495,9 @@ function movingAverageFilter(samples) {
 
 function findFlowChangePoints(samples) {
 	//console.log("samples",samples);
-	let inspStart, expStart, expEnd;
+	let inspStart, inspEnd, expStart, expEnd;
+	let inspIQ = 0;
+	let expIQ = 0;
 	let ix = 0;
 
 	// find start of +ve flow
@@ -509,10 +511,24 @@ function findFlowChangePoints(samples) {
 	// find end of +ve flow
   for (; ix < samples.length; ix++) {
 		let sample = samples[ix];
-		if (sample > SAMPLE_FLOWQ_THRESHOLD) continue;
+		if (sample > SAMPLE_FLOWQ_THRESHOLD) {
+			inspIQ += (samples[ix] + samples[ix-1])/2;
+			continue;
+		}
+		inspEnd = ix;
+		break;
+	}
+
+	// find start of -ve flow
+	/*
+  for (; ix < samples.length; ix++) {
+		let sample = samples[ix];
+		if (sample > 0) continue;
 		expStart = ix;
 		break;
 	}
+	*/
+	expStart = inspEnd;
 
 	// Go backwards - find end of -ve flow
 	for (let i=samples.length-1; i>ix; i--) {
@@ -522,15 +538,20 @@ function findFlowChangePoints(samples) {
 		break;
 	}
 
-	return {"inspStart":inspStart, "expStart": expStart, "expEnd":expEnd};
+	for (let i=expStart; i<=expEnd; i++) {
+		expIQ += (Math.abs(samples[i]) + Math.abs(samples[i-1]))/2;
+	}
+
+	return {"inspStart":inspStart, "inspEnd":inspEnd, "expStart": expStart, "expEnd":expEnd,
+					"inspIQ":inspIQ, "expIQ":expIQ};
 }
 
 function findQmults(samples, changes) {
-	let inspTime = (changes.expStart - changes.inspStart + 1) * waveSampleInterval;
+	let inspTime = (changes.inspEnd - changes.inspStart + 1) * waveSampleInterval;
 	let expTime = (changes.expEnd - changes.expStart + 1) * waveSampleInterval;
 
 	let inspQmult = session.breathData.qmult * 1000 / inspTime;
-	let expQmult = session.breathData.qmult * 1000 / expTime;
+	let expQmult = session.breathData.qmult * 1000 / expTime * (changes.inspIQ / changes.expIQ);
 
 	return {"inspQmult": inspQmult, "expQmult": expQmult};
 }
@@ -556,9 +577,17 @@ function convertQtoFlowLPM(waveSlices) {
   for (let i = 0; i < filteredSamples.length; i++) {
     let Q = filteredSamples[i];
 		if (Q !== null) {
-      Q = (Q * qmults.inspQmult);
-		  if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
+			if (i<changes.inspStart) {
+				Q = 0;
+			} else if (i<changes.expStart) {
+      	Q = (Q * qmults.inspQmult);
+			} else if (i <= changes.expEnd) {
+      	Q = (Q * qmults.expQmult);
+			} else {
+				Q = 0;
+			}
 		}
+  	if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
     flowSamples.push(Q*60);
 	}
 
@@ -920,6 +949,7 @@ function processBreathChirp(curTime, jsonStr) {
   saveOutputChange("btype", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
+  session.breathData.vtdel = obj.vtdel;
   session.breathData.qmult = (obj.vtdel / obj.iqdel);
 
 	// infer the breath control
