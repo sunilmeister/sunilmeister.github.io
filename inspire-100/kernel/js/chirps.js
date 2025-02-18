@@ -520,15 +520,7 @@ function findFlowChangePoints(samples) {
 	}
 
 	// find start of -ve flow
-	/*
-  for (; ix < samples.length; ix++) {
-		let sample = samples[ix];
-		if (sample > 0) continue;
-		expStart = ix;
-		break;
-	}
-	*/
-	expStart = inspEnd;
+	expStart = inspEnd+1;
 
 	// Go backwards - find end of -ve flow
 	for (let i=samples.length-1; i>ix; i--) {
@@ -539,7 +531,7 @@ function findFlowChangePoints(samples) {
 	}
 
 	for (let i=expStart; i<=expEnd; i++) {
-		expIQ += (Math.abs(samples[i]) + Math.abs(samples[i-1]))/2;
+		expIQ += (Math.abs(samples[i]) + Math.abs(samples[i+1]))/2;
 	}
 
 	return {"inspStart":inspStart, "inspEnd":inspEnd, "expStart": expStart, "expEnd":expEnd,
@@ -579,15 +571,18 @@ function convertQtoFlowLPM(waveSlices) {
 		if (Q !== null) {
 			if (i<changes.inspStart) {
 				Q = 0;
-			} else if (i<changes.expStart) {
-      	Q = (Q * qmults.inspQmult);
+			} else if (i<=changes.inspEnd) {
+      	if (Q > 0) Q = (Q * qmults.inspQmult);
+				else Q = 0;
+			} else if (i <= changes.expStart) {
+				Q = 0;
 			} else if (i <= changes.expEnd) {
-      	Q = (Q * qmults.expQmult);
+      	if (Q < 0) Q = (Q * qmults.expQmult);
+				else Q = 0;
 			} else {
 				Q = 0;
 			}
 		}
-  	if (Math.abs(Q) < FLOW_IGNORE_THRESHOLD) Q = 0;
     flowSamples.push(Q*60);
 	}
 
