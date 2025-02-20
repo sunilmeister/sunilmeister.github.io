@@ -70,8 +70,6 @@ function resizeWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
   session.waves.stripLineFontSize = 
 		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
-  session.waves.stripLineThickness = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineThickness'));
 
 	resizeAllWaves();
   if (session.waves.visible) renderAllWaves();

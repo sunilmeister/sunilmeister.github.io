@@ -62,16 +62,6 @@ class WavePane {
       		stripLine.labelFontSize = session.waves.stripLineFontSize;
 				}
 			}
-
-			if (axisX.scaleBreaks) {
-				let customBreaks = axisX.scaleBreaks.customBreaks;
-				if (!isUndefined(customBreaks) && customBreaks) {
-					for (let i=0; i<customBreaks.length; i++) {
-						let cb = customBreaks[i];
-						cb.lineThickness = session.waves.stripLineThickness;
-					}
-				}
-			}
 		}
 
 		let axisY = this.chartJson.axisY;
@@ -279,7 +269,7 @@ class WavePane {
 
       let stripLine = {};
       stripLine.color = this.getStripColor(breathInfo);
-      stripLine.startValue = (xval - 200) / 1000;
+      stripLine.startValue = (xval) / 1000;
 
       let lastY = null;
       let lastX = null;
@@ -339,7 +329,6 @@ class WavePane {
       Xaxis.scaleBreaks.customBreaks.push({
         startValue: prevXval,
         endValue: stripLine.startValue - 0.1,
-					lineThickness: session.waves.stripLineThickness,
       });
       prevXval = stripLine.endValue + 0.1;
     }

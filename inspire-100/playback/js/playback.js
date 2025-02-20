@@ -427,8 +427,6 @@ function resizeChartsWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
   session.waves.stripLineFontSize = 
 		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
-  session.waves.stripLineThickness = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineThickness'));
 
   session.charts.labelFontSize = 
 		convertRemToPixelsInt(style.getPropertyValue('--chartLabelFontSize'));
@@ -438,8 +436,6 @@ function resizeChartsWaves() {
 		convertRemToPixelsInt(style.getPropertyValue('--chartTitleFontSize'));
   session.charts.stripLineFontSize = 
 		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineFontSize'));
-  session.charts.stripLineThickness = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineThickness'));
 
 	resizeAllCharts();
   if (session.charts.visible) {

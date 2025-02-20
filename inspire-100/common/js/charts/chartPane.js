@@ -97,15 +97,6 @@ class ChartPane {
       		stripLine.labelFontSize = session.charts.stripLineFontSize;
 				}
 			}
-			if (axisX.scaleBreaks) {
-				let customBreaks = axisX.scaleBreaks.customBreaks;
-				if (!isUndefined(customBreaks) && customBreaks) {
-					for (let i=0; i<customBreaks.length; i++) {
-						let cb = customBreaks[i];
-						cb.lineThickness = session.waves.stripLineThickness;
-					}
-				}
-			}
 		}
 
 		let axisY = this.chartJson.axisY;
@@ -216,7 +207,6 @@ class ChartPane {
 					let cBreak = {
     				"startValue": (startTime/1000) + 0.5,
     				"endValue": (endTime/1000) - 0.5,
-						"lineThickness": session.waves.stripLineThickness,
     				"autoCalculate": true
 					}
       		Xaxis.scaleBreaks.customBreaks.push(cloneObject(cBreak));
@@ -224,7 +214,6 @@ class ChartPane {
 					let cBreak =    {
 						"startValue": i + 0.5,
     				"endValue": i + 1.5,
-						"lineThickness": session.waves.stripLineThickness,
     				"autoCalculate": true
 					}
       		Xaxis.scaleBreaks.customBreaks.push(cloneObject(cBreak));
