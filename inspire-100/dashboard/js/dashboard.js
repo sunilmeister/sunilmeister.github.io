@@ -106,6 +106,7 @@ function processDashboardChirp(d) {
 
 function createDashboards() {
   if (updatePaused) return;
+ 	updateSidebar();
 
   if (session.snapshot.visible) createDashboardSnapshots();
   if (session.charts.visible) createDashboardCharts();

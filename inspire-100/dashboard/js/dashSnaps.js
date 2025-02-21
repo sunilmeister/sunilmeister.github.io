@@ -5,7 +5,6 @@
 function createDashboardSnapshots() {
 	rangeWindowDiv.style.display = "block";
 	refreshSnapshot();
- 	updateSidebar();
 	updateVisiblePrevRange();
 }
 
