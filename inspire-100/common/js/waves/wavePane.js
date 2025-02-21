@@ -211,21 +211,6 @@ class WavePane {
       session.waves.flowRecordedBreaths.includes(sysBreathNum));
   }
 
-  createYaxis(title, color, minY, maxY) {
-    let Yaxis = {};
-    Yaxis.title = title;
-    Yaxis.lineColor = color;
-    Yaxis.tickColor = color;
-   	Yaxis.labelFontSize = session.charts.labelFontSize;
-    Yaxis.labelFontColor = color;
-    Yaxis.titleFontColor = color;
-    Yaxis.gridColor = CHART_HORIZONTAL_GRID_COLOR;
-    if (minY != null) Yaxis.minimum = minY;
-    if (maxY != null) Yaxis.maximum = maxY;
-    Yaxis.suffix = "";
-    return cloneObject(Yaxis);
-  }
-
   createXYPoints() {
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
@@ -354,6 +339,11 @@ class WavePane {
     //if (minY != null) Yaxis.minimum = minY;
     //if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
+		if (this.isFlowGraph) {
+    	Yaxis.interval = 20;
+		} else {
+    	Yaxis.interval = 25;
+		}
     return cloneObject(Yaxis);
   }
 

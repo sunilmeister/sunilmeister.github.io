@@ -639,6 +639,10 @@ function processPwendChirp(str) {
         samples.push(Q);
       }
 		}
+		let lastSample = samples[samples.length-1];
+		let filteredSamples = movingAverageFilter(samples);
+		samples = filteredSamples;
+		samples[samples.length-1] = lastSample; // show spontaneous trigger if any
   }
   waveSlices = [];
   if (waveActualSamples != samples.length) {
