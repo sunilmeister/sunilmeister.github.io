@@ -158,7 +158,6 @@ var SessionDataTemplate = {
     breathInfo: null,
     newWaveCallback: null,
     sendPeriod: null,
-    onDemand: false,
     expectedSamplesPerSlice: null,
     allWavesContainerInfo: {},
     boxTree: null,

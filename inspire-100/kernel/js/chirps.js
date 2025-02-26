@@ -450,7 +450,7 @@ function processPwstartChirp(str) {
   }
 
   arr = parseJSONSafely(str);
-  if (!arr || (arr.length != 5)) {
+  if (!arr || (arr.length != 4)) {
     console.log("Bad PWSTART=" + str);
     session.waves.breathNum = null;
     waveSampleInterval = null;
@@ -462,7 +462,6 @@ function processPwstartChirp(str) {
   session.waves.breathInfo = arr[1];
   waveExpectedSamplesPerSlice = arr[2];
   waveSampleInterval = arr[3];
-  session.waves.onDemand = arr[4] ? false : true;
   waveBreathClosed = false;
   waveBreathPartial = false;
   pwPrevShapeSliceNum = -1;
@@ -595,14 +594,13 @@ function processPwendChirp(str) {
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval, inspTime]
   if (str != "") {
     arr = parseJSONSafely(str);
-    if (arr && (arr.length == 5)) {
+    if (arr && (arr.length == 4)) {
       waveActualSamples = arr[2];
       if (!session.waves.breathNum) {
         //console.log("Recovering from missing PWSTART using PWEND");
         session.waves.breathNum = arr[0];
         session.waves.breathInfo = arr[1];
         waveSampleInterval = arr[3];
-        session.waves.onDemand = arr[4] ? false : true;
       }
     } else {
       console.log("Bad PWEND=" + str);
@@ -685,7 +683,6 @@ function processPwendChirp(str) {
     	"partial": waveBreathPartial,
     	"systemBreathNum": session.waves.breathNum,
     	"breathInfo": session.waves.breathInfo,
-    	"onDemand": session.waves.onDemand,
     	"sampleInterval": waveSampleInterval,
     	"samples": cloneObject(samples),
   	});
