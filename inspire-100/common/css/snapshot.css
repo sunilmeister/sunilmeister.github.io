@@ -360,6 +360,20 @@
   font-weight:bold;
 }
 
+.modeValueCls {
+  margin-top:1.5rem; 
+  margin-bottom:0.315rem; 
+  font-size:2rem; 
+  font-weight:bold;
+}
+
+.psvModeValueCls {
+  margin-top:1rem; 
+  margin-bottom:0.3rem; 
+  font-size:1.5rem; 
+  font-weight:bold;
+}
+
 .paramUnitsCls {
   margin-top:0rem; 
   margin-bottom:0rem; 
