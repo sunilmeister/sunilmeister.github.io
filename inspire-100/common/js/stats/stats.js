@@ -19,6 +19,8 @@ function checkForUndefined(val) {
 
 function FindMissinBreathsInRange(minBnum, maxBnum) {
   let arr = [];
+ 	if (session.loggedBreaths.length == 1) return arr;
+
 	if (minBnum==0) minBnum = 1;
 	if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
