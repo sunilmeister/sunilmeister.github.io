@@ -55,11 +55,20 @@ function updateTileParams(uid) {
 	let tile = allSystems[uid].tile;
 	let content = allSystems[uid].content;
 
+	let modeText = "--";
 	if (content.mode != "--") {
-		changeParamValue(tile, "MODEvalue",MODE_DECODER[content.mode]);
-	} else {
-		changeParamValue(tile, "MODEvalue",content.mode);
+		modeText = MODE_DECODER[content.mode];
+		let elem = findChildNodeByClass(tile,"MODEvalue");
+		elem.classList.remove("ParamValue");	
+		elem.classList.remove("PsvModeValue");	
+		if (content.mode == 3) { // PSV
+			elem.classList.add("PsvModeValue");	
+			modeText = modeText + " (BiPAP)";
+		} else {
+			elem.classList.add("ParamValue");	
+		}
 	}
+	changeParamValue(tile, "MODEvalue", modeText);
 	changeParamValue(tile, "VTvalue",content.vt);
 	changeParamValue(tile, "RRvalue",content.rr);
 	changeParamValue(tile, "IEvalue",content.ie);

@@ -144,6 +144,14 @@ body {
 	font-size:1rem;
 }
 
+.PsvModeValue {
+	margin-top:-0.7rem;
+	margin-bottom:0.5rem;
+	font-weight: bold;
+	color: white;
+	font-size:1rem;
+}
+
 .AudioControl {
 	height: 2.5rem;
 	width: 32rem;
