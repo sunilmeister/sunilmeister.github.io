@@ -55,7 +55,11 @@ function updateTileParams(uid) {
 	let tile = allSystems[uid].tile;
 	let content = allSystems[uid].content;
 
-	changeParamValue(tile, "MODEvalue",content.mode);
+	if (content.mode != "--") {
+		changeParamValue(tile, "MODEvalue",MODE_DECODER[content.mode]);
+	} else {
+		changeParamValue(tile, "MODEvalue",content.mode);
+	}
 	changeParamValue(tile, "VTvalue",content.vt);
 	changeParamValue(tile, "RRvalue",content.rr);
 	changeParamValue(tile, "IEvalue",content.ie);
