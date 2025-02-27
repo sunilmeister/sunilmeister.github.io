@@ -12,32 +12,32 @@ const fpPanel =
 	{name:'frontPanelDiv', X:0, Y:0, W:571.1875, H:787.125};
 
 const fpLeds = [
-	{name:'fpInitialDiv', 	X:122, 	Y:145, W:20, H:20},
-	{name:'fpStandbyDiv', 	X:122, 	Y:236, W:20, H:20},
-	{name:'fpActiveDiv', 		X:122, 	Y:327, W:20, H:20},
-	{name:'fpCmvDiv', 			X:122, 	Y:442, W:20, H:20},
-	{name:'fpAcvDiv', 			X:122, 	Y:501, W:20, H:20},
-	{name:'fpErrorDiv', 		X:555, 	Y:145, W:20, H:20},
-	{name:'fpMbreathDiv', 	X:555, 	Y:236, W:20, H:20},
-	{name:'fpSbreathDiv', 	X:555, 	Y:327, W:20, H:20},
-	{name:'fpSimvDiv', 			X:555, 	Y:442, W:20, H:20},
-	{name:'fpPsvDiv', 			X:555, 	Y:501, W:20, H:20},
+	{name:'fpInitialDiv', 	X:121, 	Y:145, W:20, H:20},
+	{name:'fpStandbyDiv', 	X:121, 	Y:236, W:20, H:20},
+	{name:'fpActiveDiv', 		X:121, 	Y:327, W:20, H:20},
+	{name:'fpCmvDiv', 			X:121, 	Y:442, W:20, H:20},
+	{name:'fpAcvDiv', 			X:121, 	Y:502, W:20, H:20},
+	{name:'fpErrorDiv', 		X:557, 	Y:145, W:20, H:20},
+	{name:'fpMbreathDiv', 	X:557, 	Y:236, W:20, H:20},
+	{name:'fpSbreathDiv', 	X:557, 	Y:327, W:20, H:20},
+	{name:'fpSimvDiv', 			X:557, 	Y:442, W:20, H:20},
+	{name:'fpPsvDiv', 			X:557, 	Y:502, W:20, H:20},
 ];
 
 const fpLcd = 
 	{name:'fpLcdDiv', 			X:241, Y:170, W:224, H:87};
 
 const fpNums = [
-	{name:'fpPeakDiv', 			X:204, Y:311, W:78,  H:58, D:2},
-	{name:'fpPlatDiv', 			X:309, Y:311, W:78,  H:58, D:2},
-	{name:'fpMpeepDiv', 		X:415, Y:311, W:78,  H:58, D:2},
-	{name:'fpVtDiv', 				X:204, Y:447, W:115, H:58, D:3},
-	{name:'fpEiDiv', 				X:348, Y:447, W:40,  H:58, D:1},
-	{name:'fpRrDiv', 				X:416, Y:447, W:78,  H:58, D:2},
-	{name:'fpIpeepDiv', 		X:129, Y:554, W:78,  H:58, D:2},
-	{name:'fpPmaxDiv', 			X:250, Y:554, W:78,  H:58, D:2},
-	{name:'fpPsDiv', 				X:373, Y:554, W:78,  H:58, D:2},
-	{name:'fpTpsDiv', 			X:493, Y:554, W:78,  H:58, D:2},
+	{name:'fpPeakDiv', 			X:203, Y:313, W:79,  H:58, D:2},
+	{name:'fpPlatDiv', 			X:310, Y:313, W:79,  H:58, D:2},
+	{name:'fpMpeepDiv', 		X:417, Y:313, W:79,  H:58, D:2},
+	{name:'fpVtDiv', 				X:203, Y:449, W:116, H:58, D:3},
+	{name:'fpEiDiv', 				X:348, Y:449, W:41,  H:58, D:1},
+	{name:'fpRrDiv', 				X:418, Y:449, W:80,  H:58, D:2},
+	{name:'fpIpeepDiv', 		X:126, Y:557, W:80,  H:58, D:2},
+	{name:'fpPmaxDiv', 			X:249, Y:557, W:80,  H:58, D:2},
+	{name:'fpPsDiv', 				X:374, Y:557, W:80,  H:58, D:2},
+	{name:'fpTpsDiv', 			X:496, Y:557, W:80,  H:58, D:2},
 ];
 
 function createFpDivs() {
