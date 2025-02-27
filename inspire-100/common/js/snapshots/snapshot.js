@@ -320,7 +320,14 @@ function refreshInputSettings() {
   animateDivValue(ipeepValELM, snap.ipeep);
   animateDivValue(psValELM, snap.ps);
 	if (isValidValue(snap.mode)) {
-  	updateDivText(modeValELM, MODE_DECODER[snap.mode]);
+		let modeText =  MODE_DECODER[snap.mode];
+		if (snap.mode == 3) { // PSV
+			modeValELM.className = "psvModeValueCls";
+			modeText = modeText + " (BiPAP)";
+		} else {
+			modeValELM.className = "modeValueCls";
+		}
+ 		updateDivText(modeValELM, modeText);
 	}
 	if (isValidValue(snap.tps)) {
   	updateDivText(tpsValELM, TPS_DECODER[snap.tps].text);
