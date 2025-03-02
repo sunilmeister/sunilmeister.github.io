@@ -1,7 +1,7 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const WAVE_NUM_ROLLING_BREATHS = 12;
+const WAVE_NUM_ROLLING_BREATHS = 8;
 const MINI_WAVE_NUM_ROLLING_BREATHS = 8;
 const WAVE_ALERT_THRESHOLD = 40;
 const WAVE_MAX_SAMPLES_PER_BREATH = 48
