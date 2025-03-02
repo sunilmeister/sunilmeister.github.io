@@ -70,7 +70,7 @@ class WaveBox {
     this.options.MaintenanceB = true;
     this.options.ErrorB = true;
     this.options.AbnormalB = true;
-    this.options.title = false;
+    this.options.title = "";
   }
 
   // Update stored options from the HTML dropdown menu

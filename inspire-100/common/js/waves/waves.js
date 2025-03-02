@@ -118,6 +118,7 @@ function createNewWaveContainer() {
   node.id = WAVE_CONTAINER_ID_PREFIX + (currentWaveContainerNum++);
   let body = findChildNodeByClass(node, WAVE_BODY_CLASS);
   let box = new WaveBox(body);
+  box.setMiniOptions();
   storeWaveContainerId(node.id, box);
   return node;
 }
