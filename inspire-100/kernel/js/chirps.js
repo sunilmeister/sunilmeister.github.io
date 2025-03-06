@@ -80,7 +80,7 @@ function parseStateData(jsonStr) {
   return val;
 }
 
-function parseSwData(jsonStr) {
+function parseFwVersion(jsonStr) {
   arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 3)) {
     return null;
@@ -354,7 +354,7 @@ function processJsonRecord(jsonData) {
 					session.params.lcdELine4.AddTimeValue(curTime, value);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
-          processSwChirp(curTime, value);
+          processFwChirp(curTime, value);
         } else if (ckey == "STATE") {
           processStateChirp(curTime, value);
         } else if (ckey == "PARAM") {
@@ -842,15 +842,15 @@ function updatePendingParamState(curTime, onDisplay, settingsInUse) {
   else params.pendingRr.AddTimeValue(curTime, p1.rr);
 }
 
-function processSwChirp(curTime, jsonStr) {
-  let obj = parseSwData(jsonStr);
+function processFwChirp(curTime, jsonStr) {
+  let obj = parseFwVersion(jsonStr);
   if (!obj) return;
 
   if (session.firmwareVersion.major === null) {
     session.firmwareVersion.major = obj.major;
     session.firmwareVersion.minor = obj.minor;
     session.firmwareVersion.board = obj.board;
-    appendSwVersionToUid();
+    appendFwVersionToUid();
   }
 }
 

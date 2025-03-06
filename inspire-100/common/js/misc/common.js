@@ -22,7 +22,7 @@ function convertRemToPixelsInt(rem) {
 ///////////////////////////////////////////////////////
 // For modal warnings errors, confirmations etc.
 ///////////////////////////////////////////////////////
-var modalWidth = "35rem"; // default modal width
+var modalWidth = "45rem"; // default modal width
 
 ///////////////////////////////////////////////////////
 // must be done before accessing any indexedDb database
@@ -658,6 +658,11 @@ function parseChecksumString(tstr) {
     return null;
   }
   return num;
+}
+
+function parseFwVersionStr(str) {
+  // return [major,minor,board]
+  return str.split('.');
 }
 
 function parseAltitude(str) {

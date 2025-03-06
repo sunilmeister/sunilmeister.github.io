@@ -94,7 +94,7 @@ function recordedDataCompatible(fromVersion, toVersion) {
   return false;
 }
 
-function appendSwVersionToUid() {
+function appendFwVersionToUid() {
   if (isUndefined(session)) return;
   if (myInspireSystems.length == 0) {
     initKnownInspireSystems();
@@ -109,8 +109,9 @@ function appendSwVersionToUid() {
 
   if (obj.fw && fwReleases) { // already has a firmware version
     // check if the new one is the latest
-    let lvStr = fwReleases[0].release;
-    let vStr = convertSwVersionToStr(fw);
+    let mostRecentRel = findMostRecentBoardFwRelease(session.firmwareVersion.board);
+    let lvStr = mostRecentRel.release;
+    let vStr = convertFwVersionToStr(fw);
     if (lvStr != vStr) {
       modalWarning("Inspire System Firmware not the latest",
         "Latest Released Firmware Version is " + lvStr
@@ -140,7 +141,7 @@ function removeSystemUidTagInfo(uid, tag) {
   return "";
 }
 
-function convertSwVersionToStr(fw) {
+function convertFwVersionToStr(fw) {
   if ((fw===null) || isUndefined(fw)) return "????";
   return String(fw[0]) + "." + fw[1] + "." +fw[2];
 }
@@ -153,7 +154,7 @@ function appendSystemUidTagHtmlRow(table, uid, tag, fw) {
   cell = row.insertCell();
   cell.innerHTML = uid;
   cell = row.insertCell();
-  cell.innerHTML = "<center>" + convertSwVersionToStr(fw) + "</center>";
+  cell.innerHTML = "<center>" + convertFwVersionToStr(fw) + "</center>";
   cell = row.insertCell();
   cell.innerHTML = selectButtonHTML("selectUidRow", 1.5, "Select");
   cell = row.insertCell();
