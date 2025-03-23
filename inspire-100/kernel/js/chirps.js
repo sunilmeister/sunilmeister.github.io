@@ -17,12 +17,12 @@ var expectingDPWEND = false;
 function parsePstats(jsonStr) {
   jsonStr = jsonStr.replace(/\'/g, '"');
   //console.log("PStats = " + jsonStr);
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
 
-  val = {
+  let val = {
     gender: (arr[0] == 'M') ? "Male" : "Female",
     age: arr[1] ? arr[1] : null,
     weight: arr[2] ? arr[2] : null,
@@ -34,11 +34,11 @@ function parsePstats(jsonStr) {
 
 function parseWifiData(jsonStr) {
   //console.log("Wifi " + jsonStr);
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
   }
-  val = {
+  let val = {
     dropAt : arr[0] - session.startSystemBreathNum + 1,
     reconnectAt : arr[1] - session.startSystemBreathNum + 1,
   }
@@ -47,7 +47,7 @@ function parseWifiData(jsonStr) {
 }
 
 function parseStateData(jsonStr) {
-  val = {
+  let val = {
     prevState : null,
     state : null,
     initial : false,
@@ -81,11 +81,11 @@ function parseStateData(jsonStr) {
 }
 
 function parseFwVersion(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 3)) {
     return null;
   }
-  val = {
+  let val = {
     major : arr[0],
     minor : arr[1],
     board : arr[2],
@@ -93,14 +93,31 @@ function parseFwVersion(jsonStr) {
   return val;
 }
 
+// from a pattern like "[number,0xHEX_NUMBER]"
+// returns null if badly formed
 function parseBnumData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 2)) {
-    return null;
-  }
-  val = {
-    bnum : arr[0],
-    btime : arr[1],
+  let str = String(jsonStr);
+	let numStr = "";
+
+	if (str[0] != '[') return null;
+	let i = 1;
+	for (; i<str.length; i++) {
+		if (str[i] == ',') break;
+		numStr += str[i];
+	}
+  let bnum = Number(numStr);
+	//console.log("numStr", numStr, "num", num);
+
+	let tsStr = "";
+	for (i++; i<str.length; i++) {
+		if (str[i] == ']') break;
+		tsStr += str[i];
+	}
+  let btime = Number(tsStr);
+
+  let val = {
+    "bnum" : bnum,
+    "btime" : btime
   }
   return val;
 }
@@ -119,11 +136,11 @@ var settingsInUse = {
 };
 
 function parseParamData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 10)) {
     return null;
   }
-  val = {
+  let val = {
     pending :   arr[0] ? true : false,
     vt :        (arr[1] == -1) ? null : arr[1],
     pmax :      (arr[2] == -1) ? null : arr[2],
@@ -139,11 +156,11 @@ function parseParamData(jsonStr) {
 }
 
 function parseFiO2Data(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
-  val = {
+  let val = {
     extMixer :   arr[0] ? true : false,
     fiO2 :      (arr[1] == -1) ? null : arr[1],
     o2Purity :  (arr[2] == -1) ? null : arr[2],
@@ -153,11 +170,11 @@ function parseFiO2Data(jsonStr) {
 }
 
 function parseMinuteData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
-  val = {
+  let val = {
     mbpm :  (arr[0] == -1) ? null : arr[0],
     sbpm :  (arr[1] == -1) ? null : arr[1],
     mmvdel : (arr[2] == -1) ? null : arr[2],
@@ -168,11 +185,11 @@ function parseMinuteData(jsonStr) {
 }
 
 function parseBreathData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 6)) {
     return null;
   }
-  val = {
+  let val = {
     peak :  (arr[0] == -1) ? null : arr[0],
     plat :  (arr[1] == -1) ? null : arr[1],
     mpeep : (arr[2] == -1) ? null : arr[2],
@@ -184,11 +201,11 @@ function parseBreathData(jsonStr) {
 }
 
 function parseComplianceData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
   }
-  val = {
+  let val = {
     scomp :   (arr[0] == -1) ? null : arr[0],
     dcomp :  (arr[1] == -1) ? null : arr[1],
   }
@@ -196,11 +213,11 @@ function parseComplianceData(jsonStr) {
 }
 
 function parseMiscData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
-  val = {
+  let val = {
     tempC : arr[0],
     altInFt : arr[1],
     atmInCmH20 : arr[2],
@@ -449,7 +466,7 @@ function processPwstartChirp(str) {
     return;
   }
 
-  arr = parseJSONSafely(str);
+  let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 4)) {
     console.log("Bad PWSTART=" + str);
     session.waves.breathNum = null;
@@ -593,7 +610,7 @@ function processPwendChirp(str) {
   // PWEND key has the following value format
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval, inspTime]
   if (str != "") {
-    arr = parseJSONSafely(str);
+    let arr = parseJSONSafely(str);
     if (arr && (arr.length == 4)) {
       waveActualSamples = arr[2];
       if (!session.waves.breathNum) {
@@ -700,7 +717,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
     return;
   }
 
-  arr = parseJSONSafely(str);
+  let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 2)) {
     return;
   }

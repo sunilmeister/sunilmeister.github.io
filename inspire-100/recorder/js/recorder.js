@@ -204,8 +204,8 @@ function FetchAndExecuteFromQueue() {
     d = chirpQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
-      let bnumObj = parseJSONSafely(bnumContent);
-      session.systemBreathNum = bnumObj[0];
+      let bnumObj = parseBnumData(bnumContent);
+     	session.systemBreathNum = bnumObj.bnum;
       if (session.startSystemBreathNum == null) {
         session.startSystemBreathNum = session.systemBreathNum;
         let elm = document.getElementById("priorBreathNum");

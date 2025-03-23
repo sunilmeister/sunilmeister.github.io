@@ -85,9 +85,9 @@ function parseAndUpdateUidContents(uid, jsonData) {
       for (let ckey in jsonData.content) {
         let value = jsonData.content[ckey];
         if (ckey == "BNUM") {
-  				let arr = parseJSONSafely(value);
-  				if (arr && (arr.length == 2)) {
-						content.breaths = arr[0];
+  				let obj = parseBnumData(value);
+  				if (obj) {
+						content.breaths = obj.bnum;
   				}
         } else if (ckey == "FWVER") {
 					content.firmware = value;

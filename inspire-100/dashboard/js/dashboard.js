@@ -740,9 +740,9 @@ function FetchAndExecuteFromQueue() {
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
-      let bnumObj = parseJSONSafely(bnumContent);
+      let bnumObj = parseBnumData(bnumContent);
 			if (bnumObj) {
-      	session.systemBreathNum = bnumObj[0];
+      	session.systemBreathNum = bnumObj.bnum;
       	if (session.startSystemBreathNum == null) {
         	session.startSystemBreathNum = session.systemBreathNum;
         	let elm = document.getElementById("priorBreathNum");

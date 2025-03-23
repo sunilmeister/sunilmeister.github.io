@@ -590,7 +590,7 @@ function lookupBreathNum(time) {
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
   if (fiO2 == atmPurity) return 0;
   if (fiO2 < atmPurity) fiO2 = atmPurity;
-  mv = vt * rr;
+  let mv = vt * rr;
   if (fiO2 > purity) fiO2 = purity;
   f = (mv * (fiO2 - atmPurity)) / (purity - atmPurity);
   return (f * O2FLOW_SAFETY_BOOST_PERCENT) / 100;
@@ -619,21 +619,21 @@ function movingAvgFilter(samples, windowSize) {
 // calculate checksum of a 32-bit number
 // returns a byte checksum
 function checksum(num) {
-  sum = 0;
+  let sum = 0;
   for (i = 0; i < 4; i++) {
-    b = num >> (i * 8);
+    let b = num >> (i * 8);
     b = b & 0xFF;
     sum += b;
     sum = sum & 0xFF;
   }
-  cs = ~sum + 1;
+  let cs = ~sum + 1;
   return cs & 0xFF;
 }
 // returns num after checking checksum
 // from a pattern like "[0xHEX_NUMBER,checksum]"
 // returns null if badly formed
 function parseChecksumString(tstr) {
-  str = String(tstr);
+  let str = String(tstr);
 	let numStr = "";
 
 	if (str[0] != '[') return null;
@@ -651,7 +651,7 @@ function parseChecksumString(tstr) {
 		csStr += str[i];
 	}
   let cs = Number(csStr);
-  ccs = checksum(num);
+  let ccs = checksum(num);
   if (cs != ccs) {
     console.error("Bad ChecksumString =" + num + " checksum=" + cs +
       "\nComputed checksum=" + ccs);
