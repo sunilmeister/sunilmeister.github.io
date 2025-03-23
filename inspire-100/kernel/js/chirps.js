@@ -17,7 +17,7 @@ var expectingDPWEND = false;
 function parsePstats(jsonStr) {
   jsonStr = jsonStr.replace(/\'/g, '"');
   //console.log("PStats = " + jsonStr);
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
@@ -34,7 +34,7 @@ function parsePstats(jsonStr) {
 
 function parseWifiData(jsonStr) {
   //console.log("Wifi " + jsonStr);
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
   }
@@ -81,7 +81,7 @@ function parseStateData(jsonStr) {
 }
 
 function parseFwVersion(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 3)) {
     return null;
   }
@@ -136,7 +136,7 @@ var settingsInUse = {
 };
 
 function parseParamData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 10)) {
     return null;
   }
@@ -156,7 +156,7 @@ function parseParamData(jsonStr) {
 }
 
 function parseFiO2Data(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
@@ -170,7 +170,7 @@ function parseFiO2Data(jsonStr) {
 }
 
 function parseMinuteData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
@@ -185,7 +185,7 @@ function parseMinuteData(jsonStr) {
 }
 
 function parseBreathData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 6)) {
     return null;
   }
@@ -201,7 +201,7 @@ function parseBreathData(jsonStr) {
 }
 
 function parseComplianceData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 2)) {
     return null;
   }
@@ -213,7 +213,7 @@ function parseComplianceData(jsonStr) {
 }
 
 function parseMiscData(jsonStr) {
-  arr = parseJSONSafely(jsonStr);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return null;
   }
@@ -466,7 +466,7 @@ function processPwstartChirp(str) {
     return;
   }
 
-  arr = parseJSONSafely(str);
+  let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 4)) {
     console.log("Bad PWSTART=" + str);
     session.waves.breathNum = null;
@@ -610,7 +610,7 @@ function processPwendChirp(str) {
   // PWEND key has the following value format
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval, inspTime]
   if (str != "") {
-    arr = parseJSONSafely(str);
+    let arr = parseJSONSafely(str);
     if (arr && (arr.length == 4)) {
       waveActualSamples = arr[2];
       if (!session.waves.breathNum) {
@@ -718,7 +718,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
     return;
   }
 
-  arr = parseJSONSafely(str);
+  let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 2)) {
     return;
   }
