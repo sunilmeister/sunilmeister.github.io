@@ -694,14 +694,15 @@ function processPwendChirp(str) {
     session.waves.flowRecordedBreaths.push(session.waves.breathNum);
   }
 
-  // Store the wave data always because the breathnum may be received out of order
-	holdingArray.push({
-  	"partial": waveBreathPartial,
-  	"systemBreathNum": session.waves.breathNum,
-  	"breathInfo": session.waves.breathInfo,
-  	"sampleInterval": waveSampleInterval,
-  	"samples": cloneObject(samples),
-  });
+	if (checkIfLoggedValidBreath(session.waves.breathNum)) {
+	  holdingArray.push({
+  	  "partial": waveBreathPartial,
+  	  "systemBreathNum": session.waves.breathNum,
+  	  "breathInfo": session.waves.breathInfo,
+  	  "sampleInterval": waveSampleInterval,
+  	  "samples": cloneObject(samples),
+    });
+  }
 
   waveBreathPartial = false;
   waveBreathClosed = true;
