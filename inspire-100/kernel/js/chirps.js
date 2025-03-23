@@ -96,6 +96,7 @@ function parseFwVersion(jsonStr) {
 // from a pattern like "[number,0xHEX_NUMBER]"
 // returns null if badly formed
 function parseBnumData(jsonStr) {
+  //console.log("BNUM", jsonStr);
   let str = String(jsonStr);
 	let numStr = "";
 
