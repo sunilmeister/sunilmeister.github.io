@@ -677,21 +677,14 @@ function processPwendChirp(str) {
     session.waves.flowRecordedBreaths.push(session.waves.breathNum);
   }
 
-	if (checkIfLoggedValidBreath(session.waves.breathNum)) {
-  	// store it for later use
-  	holdingArray.push({
-    	"partial": waveBreathPartial,
-    	"systemBreathNum": session.waves.breathNum,
-    	"breathInfo": session.waves.breathInfo,
-    	"sampleInterval": waveSampleInterval,
-    	"samples": cloneObject(samples),
-  	});
-  	if (session.waves.newShapeCallback) {
-			session.waves.newShapeCallback(session.waves.breathNum);
-		}
-	} else {
-		//console.log("Wave Data discarded for breath#", session.waves.breathNum);
-	}
+  // Store the wave data always because the breathnum may be received out of order
+	holdingArray.push({
+  	"partial": waveBreathPartial,
+  	"systemBreathNum": session.waves.breathNum,
+  	"breathInfo": session.waves.breathInfo,
+  	"sampleInterval": waveSampleInterval,
+  	"samples": cloneObject(samples),
+  });
 
   waveBreathPartial = false;
   waveBreathClosed = true;
@@ -1062,34 +1055,9 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 		session.params.comboChanged.AddTimeValue(missingBreathTime, false);
 		session.params.errorTag.AddTimeValue(missingBreathTime,false);
 		session.params.warningTag.AddTimeValue(missingBreathTime,false);
-		console.log("Missed breath#", session.loggedBreaths.length);
+		console.log("Missed BNUM ", session.loggedBreaths.length);
   	session.loggedBreaths.push({time:missingBreathTime, missed:true});
   }
-
-	/* No need to let the users know - it will just be confusing
-	 * Also because breath numbers may be received out of order
-	let info1 = "";
-	let info2 = "";
-
-	if (numMissing == 1) {
-		info1 += "Missed Breath #" + String(lastBreathNum+1);
-	} else {
-		info1 += "Missed " + numMissing + " Breaths";
-		info2 += "# [" + String(lastBreathNum+1) + " to " + String(lastBreathNum+numMissing) + "]";
-	}
-	console.log(info1, info2);
-
-  let msg = {
-    'created': newBreathTime,
-    'breathNum': lastBreathNum + numMissing + 1,
-    'L1': info1,
-    'L2': info2,
-    'L3': "Due to Internet",
-    'L4': "Packet loss"
-  };
-  session.infoMsgs.push(msg);
-  session.params.infos.AddTimeValue(newBreathTime, ++session.alerts.infoNum);
-	*/
 }
 
 function updateLoggedBreaths(bnumValue, breathTime) {
