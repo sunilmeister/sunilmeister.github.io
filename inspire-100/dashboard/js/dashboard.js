@@ -742,14 +742,16 @@ function FetchAndExecuteFromQueue() {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
 			if (bnumObj) {
-      	session.systemBreathNum = bnumObj.bnum;
       	if (session.startSystemBreathNum == null) {
-        	session.startSystemBreathNum = session.systemBreathNum;
+        	session.startSystemBreathNum = bnumObj.bnum;
         	let elm = document.getElementById("priorBreathNum");
-        	elm.innerHTML = String(session.systemBreathNum - 1);
+        	elm.innerHTML = String(bnumObj.bnum - 1);
       	}
-      	session.maxBreathNum = 
-        	session.systemBreathNum - session.startSystemBreathNum + 1;
+        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+        if (chirpBnum >	session.maxBreathNum) {
+      	  session.systemBreathNum = bnumObj.bnum;
+         	session.maxBreathNum = chirpBnum;
+        }
 			}
     }
     let dCopy; // a copy of the chirp

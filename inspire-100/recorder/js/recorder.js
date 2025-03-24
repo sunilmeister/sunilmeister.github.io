@@ -205,13 +205,16 @@ function FetchAndExecuteFromQueue() {
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
-     	session.systemBreathNum = bnumObj.bnum;
       if (session.startSystemBreathNum == null) {
-        session.startSystemBreathNum = session.systemBreathNum;
+        session.startSystemBreathNum = bnumObj.bnum;
         let elm = document.getElementById("priorBreathNum");
-        elm.innerHTML = String(session.systemBreathNum - 1);
+        elm.innerHTML = String(bnumObj.bnum - 1);
       }
-      session.maxBreathNum = session.systemBreathNum - session.startSystemBreathNum;
+      let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+      if (chirpBnum >	session.maxBreathNum) {
+    	  session.systemBreathNum = bnumObj.bnum;
+       	session.maxBreathNum = chirpBnum;
+      }
     }
     updateRecorderSummary(d);
     let dCopy = cloneObject(d);

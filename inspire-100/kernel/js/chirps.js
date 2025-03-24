@@ -1019,12 +1019,13 @@ function processBnumChirp(curTime, value, jsonData) {
   let obj = parseBnumData(value);
   if (!obj) return;
   let bnumValue = obj.bnum;
+  let bnumMs = obj.btime;
   if (bnumValue == null) {
     console.error("Bad BNUM value = ", value, " systemBreathNum = ", session.systemBreathNum);
     return; // will count as missing
   }
   bnumValue = Number(bnumValue);
-  let breathTime = new Date(curTime);
+  let chirpTime = new Date(curTime);
 	let len = session.loggedBreaths.length;
   let numLoggedBreaths = len - 1;
  	let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
@@ -1050,9 +1051,13 @@ function processBnumChirp(curTime, value, jsonData) {
   }
   session.systemBreathNum = bnumValue;
   if (!session.firstBreathBnumTime) {
-		session.firstBreathBnumTime = new Date(breathTime);
+		session.firstBreathBnumTime = new Date(chirpTime);
+		session.firstBreathBnumMs = bnumMs;
 	}
 
+  let breathTime = addMsToDate(session.firstBreathBnumTime, bnumMs - session.firstBreathBnumMs);
+  //console.log("chirpTime",chirpTime);
+  //console.log("breathTime",breathTime);
   if (breathsMissing) {
 		fillMissingBreathsDummyInfo(prevBreathTime, breathTime, breathsMissing);
   }
@@ -1080,35 +1085,28 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
 
 function updateLoggedBreaths(bnumValue, breathTime) {
 	let len = session.loggedBreaths.length;
+  let bnumIx = bnumValue - session.startSystemBreathNum + 1;
+  //console.log("***********", bnumIx, len);
+
+	let outOfOrder = false;
+	if (bnumIx < len) {
+    outOfOrder = true;
+ 	  if (!session.loggedBreaths[bnumIx].missed) {
+      return; // duplicate
+    }
+  }
+
   let numLoggedBreaths = len - 1;
  	let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
-
-	// Error Checking
-	let outOfOrder = false;
-	if (bnumValue < len) {
-		outOfOrder = true;
-		if (breathTime.getTime() > prevBreathTime.getTime()) {
-			console.error("--- BREATH Number", bnumValue, "out of order but breathTime wrong");
-			console.log("breathTime", breathTime, "prevBreathTime", prevBreathTime);
-			return; // will count as missing
-		}
-		console.log("--- BREATH number", bnumValue, "received out of order");
-	} else if (breathTime.getTime() < prevBreathTime.getTime()) {
-		console.error("--- BREATH Number", bnumValue, "in order but breathTime wrong");
-		console.log("breathTime", breathTime, "prevBreathTime", prevBreathTime);
-		return; // will count as missing
-	}
 
 	if (!outOfOrder) {
   	session.loggedBreaths.push({time:breathTime, missed:false});
 	} else {
-  	if (!session.loggedBreaths[bnumValue].missed) {
-			console.log("Duplicate BREATH Number", bnumValue, "received out of order");
-		} else {
+  	if (session.loggedBreaths[bnumIx].missed) {
 			console.log("Previously missed BREATH Number", bnumValue, "received out of order");
 		}
-  	session.loggedBreaths[bnumValue].time = breathTime;
-  	session.loggedBreaths[bnumValue].missed = false;
+  	session.loggedBreaths[bnumIx].time = breathTime;
+  	session.loggedBreaths[bnumIx].missed = false;
 	}
 	session.params.breathNum.AddTimeValue(breathTime, bnumValue);
 }
