@@ -227,6 +227,8 @@ class WavePane {
     let partial  = false;
     for (let i = 0; i < this.data.length; i++) {
       let sysBreathNum = this.data[i].systemBreathNum;
+    	if (!checkIfLoggedValidBreath(sysBreathNum)) continue;
+      
       let breathNum = sysBreathNum - session.startSystemBreathNum + 1;
       let sampleInterval = this.data[i].sampleInterval;
       let breathInfo = this.data[i].breathInfo;
