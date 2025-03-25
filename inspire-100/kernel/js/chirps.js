@@ -458,6 +458,7 @@ function processPwstartChirp(str) {
     // Wait for PWEND to provide them
     waveBreathClosed = false;
     waveBreathPartial = false;
+    session.waves.breathNum = null;
     pwPrevShapeSliceNum = -1;
     pwShapeSliceNum = -1;
     dpwPrevShapeSliceNum = -1;
@@ -639,6 +640,7 @@ function processPwendChirp(str) {
     waveSlices = [];
     waveBreathPartial = false;
     waveBreathClosed = true;
+    session.waves.breathNum = null;
     return;
   }
 
@@ -706,6 +708,7 @@ function processPwendChirp(str) {
 
   waveBreathPartial = false;
   waveBreathClosed = true;
+  session.waves.breathNum = null;
 }
 
 function processPwsliceChirp(receivedSliceNum, str) {
