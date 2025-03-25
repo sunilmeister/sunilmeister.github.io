@@ -451,6 +451,7 @@ function processPwstartChirp(str) {
   if (!waveBreathClosed) {
     processPwendChirp("");
     waveBreathClosed = true;
+    session.waves.breathNum = null;
   }
 
   if (str=="") {
@@ -686,6 +687,10 @@ function processPwendChirp(str) {
     }
   }
 
+  if (session.waves.breathNum === null) {
+    console.error("NULL breathnum when pushing wave data");
+  }
+
   let holdingArray = null;
   if (expectingPWEND) {
     holdingArray = session.waves.pwData;
@@ -714,12 +719,6 @@ function processPwendChirp(str) {
 function processPwsliceChirp(receivedSliceNum, str) {
   //console.log("expectingPWEND=" + expectingPWEND);
   //console.log("session.waves.breathNum=" + session.waves.breathNum + " waveBreathClosed=" + waveBreathClosed);
-
-  if (!session.waves.breathNum || waveBreathClosed) {
-    waveBreathPartial = false;
-    waveBreathClosed = true;
-    return;
-  }
 
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 2)) {
