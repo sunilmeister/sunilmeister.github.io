@@ -694,11 +694,9 @@ function processPwendChirp(str) {
   let holdingArray = null;
   if (expectingPWEND) {
     holdingArray = session.waves.pwData;
-    session.waves.pwRecordedBreaths.push(session.waves.breathNum);
   } else {
-    holdingArray = session.waves.flowData;
+    holdingArray = session.waves.fwData;
 		//samples = movingAvgFilter(samples, FLOW_FILTER_WINDOW);
-    session.waves.flowRecordedBreaths.push(session.waves.breathNum);
   }
 
 	if (checkIfLoggedValidBreath(session.waves.breathNum)) {
@@ -762,6 +760,36 @@ function processPwsliceChirp(receivedSliceNum, str) {
     pwPrevShapeSliceNum = sliceNum;
   } else {
     dpwPrevShapeSliceNum = sliceNum;
+  }
+}
+
+function recordMissingWaves() {
+  let pwLen = session.waves.pwData.length;
+  let pwNum = null;
+  if (pwLen) {
+    pwNum = session.waves.pwData[pwLen-1].systemBreathNum;
+  }
+
+  let fwLen = session.waves.fwData.length;
+  let fwNum = null;
+  if (fwLen) {
+    fwNum = session.waves.fwData[fwLen-1].systemBreathNum;
+  }
+
+  if (!fwNum && !pwNum) return; 
+
+  if (fwNum) {
+    if (!pwNum || (pwNum < fwNum)) {
+      session.waves.pwMissing.push(fwNum);
+      console.log("Missing Pressure Waveform for Breath# ",fwNum);
+    } 
+  }
+
+  if (pwNum) {
+    if (!fwNum || (fwNum < pwNum)) {
+      session.waves.fwMissing.push(pwNum);
+      console.log("Missing Flow Waveform for Breath# ",pwNum);
+    }
   }
 }
 
@@ -1017,6 +1045,9 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
 
 var firstBnumChirp = true;
 function processBnumChirp(curTime, value, jsonData) {
+  // Check for possibly missing previous waveform
+  recordMissingWaves();
+
 	// Parse for breath info
   let obj = parseBnumData(value);
   if (!obj) return;

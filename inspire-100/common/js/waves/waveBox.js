@@ -124,7 +124,7 @@ class WaveBox {
       this.options,
 			"Flow (ltr/min)",
 			"#ECF0F1",
-			session.waves.flowData,
+			session.waves.fwData,
 			true // is a flow graph
     );
     this.fChart.addGraph();

@@ -206,9 +206,11 @@ class WavePane {
     if (session.waves.tooFewDatapoints.includes(sysBreathNum)) {
       return true;
     }
-    return !(
-      session.waves.pwRecordedBreaths.includes(sysBreathNum) && 
-      session.waves.flowRecordedBreaths.includes(sysBreathNum));
+    if (this.isFlowGraph) {
+      return session.waves.fwMissing.includes(sysBreathNum);
+    } else {
+      return session.waves.pwMissing.includes(sysBreathNum);
+    }
   }
 
   createXYPoints() {
