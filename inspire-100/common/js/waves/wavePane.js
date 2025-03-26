@@ -213,6 +213,46 @@ class WavePane {
     }
   }
 
+  // Recursive Binary search for where to start searching
+  // for waveforms to display given the starting breath number
+  findSearchStartIndex(data, bnum, startIx, endIx) {
+		if (isUndefined(bnum) || (bnum === null)) return null;
+
+  	if (isUndefined(startIx)) startIx = 0;
+  	if (isUndefined(endIx)) endIx = data.length - 1;
+    //console.log("bnum", bnum, "startIx", startIx, "endIx", endIx);
+
+  	if (endIx < startIx) return null;
+  	if (startIx < 0) return null;
+  	if (endIx >= data.length) return null;
+
+  	if (endIx == startIx) return startIx;
+
+		let endBnum = data[endIx].systemBreathNum;
+		if (isUndefined(endBnum) || (endBnum === null)) return null;
+		if (endBnum <= bnum) return endIx;
+
+		let startBnum = data[startIx].systemBreathNum;
+		if (isUndefined(startBnum) || (startBnum === null)) return null;
+		if (startBnum == bnum) return startIx;
+
+    // find the middle index
+    let midIx = Math.floor((startIx + endIx) / 2);
+    if (midIx == 0) return midIx;
+
+		let midBnum = data[midIx].systemBreathNum;
+		if (isUndefined(midBnum) || (midBnum === null)) return null;
+
+    if (midBnum == bnum) return midIx;
+		else if (midBnum < bnum) {
+			// look in the right half
+  		return this.findSearchStartIndex(data, bnum, midIx, endIx);
+		} else {
+			// look in the left half
+  		return this.findSearchStartIndex(data, bnum, startIx, midIx);
+		}
+  }
+
   createXYPoints() {
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
@@ -226,8 +266,23 @@ class WavePane {
     let xyPoints = [];
     let prevXval = 0;
 
+    let startIx = this.findSearchStartIndex(this.data, 
+                        session.startSystemBreathNum + minBnum - 1);
+    /*
+    if (this.isFlowGraph) {
+      console.log("FLOW Wave startIx", startIx, " for minBnum", minBnum);
+    } else {
+      console.log("PRESSURE Wave startIx", startIx, " for minBnum", minBnum);
+    }
+    */
+
+    // fail safe
+    if (startIx === null) {
+      startIx = 0;
+    }
+
     let partial  = false;
-    for (let i = 0; i < this.data.length; i++) {
+    for (let i = startIx; i < this.data.length; i++) {
       let sysBreathNum = this.data[i].systemBreathNum;
     	if (!checkIfLoggedValidBreath(sysBreathNum)) continue;
       
@@ -296,7 +351,7 @@ class WavePane {
       if (this.tooFewDatapoints(sysBreathNum)) {
         //console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
-        //labelText = "XXXX #" + breathNum;
+        labelText = "XXXX #" + breathNum;
       }
 
       // Do strip lines

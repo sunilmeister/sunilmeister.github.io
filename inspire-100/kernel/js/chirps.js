@@ -780,15 +780,19 @@ function recordMissingWaves() {
 
   if (fwNum) {
     if (!pwNum || (pwNum < fwNum)) {
-      session.waves.pwMissing.push(fwNum);
-      console.log("Missing Pressure Waveform for Breath# ",fwNum);
+      if (!session.waves.pwMissing.includes(fwNum)) {
+        session.waves.pwMissing.push(fwNum);
+        console.log("Missing Pressure Waveform for Breath# ",fwNum);
+      }
     } 
   }
 
   if (pwNum) {
     if (!fwNum || (fwNum < pwNum)) {
-      session.waves.fwMissing.push(pwNum);
-      console.log("Missing Flow Waveform for Breath# ",pwNum);
+      if (!session.waves.fwMissing.includes(pwNum)) {
+        session.waves.fwMissing.push(pwNum);
+        console.log("Missing Flow Waveform for Breath# ",pwNum);
+      }
     }
   }
 }
