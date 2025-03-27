@@ -226,22 +226,19 @@ class WavePane {
   	if (startIx < 0) return null;
   	if (endIx >= data.length) return null;
 
-  	if (endIx == startIx) return startIx;
+  	if ((endIx-startIx) < 2) return startIx;
 
 		let endBnum = data[endIx].systemBreathNum;
-		if (isUndefined(endBnum) || (endBnum === null)) return null;
-		if (endBnum <= bnum) return endIx;
+		if (endBnum <= bnum) return null;
 
 		let startBnum = data[startIx].systemBreathNum;
-		if (isUndefined(startBnum) || (startBnum === null)) return null;
 		if (startBnum == bnum) return startIx;
+		if (startBnum > bnum) null;
 
     // find the middle index
     let midIx = Math.floor((startIx + endIx) / 2);
-    if (midIx == 0) return midIx;
 
 		let midBnum = data[midIx].systemBreathNum;
-		if (isUndefined(midBnum) || (midBnum === null)) return null;
 
     if (midBnum == bnum) return midIx;
 		else if (midBnum < bnum) {

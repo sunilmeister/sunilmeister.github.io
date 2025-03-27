@@ -1140,7 +1140,7 @@ function updateLoggedBreaths(bnumValue, breathTime) {
   	session.loggedBreaths.push({time:breathTime, missed:false});
 	} else {
   	if (session.loggedBreaths[bnumIx].missed) {
-			console.log("Previously missed BREATH Number", bnumValue, "received out of order");
+			console.log("Previously missed System BREATH Number", bnumValue, "received out of order");
 		}
   	session.loggedBreaths[bnumIx].time = breathTime;
   	session.loggedBreaths[bnumIx].missed = false;
