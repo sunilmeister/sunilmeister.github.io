@@ -713,6 +713,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
     return;
   }
 
+  let sliceData = arr[1];
   let sliceNum = null;
   let prevSliceNum = null;
   if (expectingPWEND) {
@@ -732,7 +733,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
       samples = [];
       if (!session.waves.expectedSamplesPerSlice) session.waves.expectedSamplesPerSlice = WAVE_MAX_SAMPLES_PER_SLICE;
       for (let j = 0; j < session.waves.expectedSamplesPerSlice; j++) {
-        samples.push(null);
+        samples.push(sliceData[0]);
       }
       waveSlices.push({
         "sliceNum": i,
@@ -743,7 +744,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
 
   waveSlices.push({
     "sliceNum": sliceNum,
-    sliceData: cloneObject(arr[1])
+    sliceData: cloneObject(sliceData)
   });
 
   if (expectingPWEND) {
