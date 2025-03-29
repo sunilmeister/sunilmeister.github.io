@@ -171,10 +171,9 @@ class WaveBox {
         // use pData
         let labelFontColor = "darkgreen";
         let labelText = "#" + pBnum;
-        if (session.waves.tooFewDatapoints.includes(pStrips[pIx].sysBreathNum) 
-          || session.waves.tooFewDatapoints.includes(fStrips[fIx].sysBreathNum)) {
+        if (session.waves.pwPartial.includes(pStrips[pIx].sysBreathNum) 
+          || session.waves.fwPartial.includes(fStrips[fIx].sysBreathNum)) {
           labelFontColor = "red";
-          labelText = "X " + labelText;
         }
         let elem = cloneObject(pStrips[pIx]);
         elem.label = labelText;
@@ -186,7 +185,6 @@ class WaveBox {
       } else if (fBnum) {
         // use fData
         let labelFontColor = "red";
-        let labelText = "X #" + pBnum;
         let elem = cloneObject(fStrips[fIx]);
         elem.label = labelText;
         elem.labelFontColor = labelFontColor;
@@ -196,7 +194,6 @@ class WaveBox {
       } else {
         // use pData
         let labelFontColor = "red";
-        let labelText = "X #" + pBnum;
         let elem = cloneObject(pStrips[pIx]);
         elem.label = labelText;
         elem.labelFontColor = labelFontColor;

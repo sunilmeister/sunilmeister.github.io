@@ -199,13 +199,6 @@ class WavePane {
     return palette.yellow;
   }
 
-  tooFewDatapoints(sysBreathNum) {
-    if (session.waves.tooFewDatapoints.includes(sysBreathNum)) {
-      return true;
-    }
-    return this.missing.includes(sysBreathNum);
-  }
-
   // Recursive Binary search for where to start searching
   // for waveforms to display given the starting breath number
   findSearchStartIndex(data, bnum, startIx, endIx) {
@@ -307,12 +300,14 @@ class WavePane {
             xyPoints.push({
               "x": lastX / 1000,
               "y": lastY,
+              "lineColor": "red",
               "lineDashType": "longDashDotDot"
             });
           } else {
             xyPoints.push({
               "x": lastX / 1000,
-              "y": lastY
+              "y": lastY,
+              "lineColor": "black",
             });
           }
         }

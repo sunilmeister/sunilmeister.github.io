@@ -673,33 +673,23 @@ function processPwendChirp(str) {
     samples.push(null);
   }
 
-  // check how many null samples we have in the first 60% where the details are
-  let checkLimit = Math.floor(WAVE_MAX_SAMPLES_PER_BREATH * 6 / 10);
-  let nullCount = 0;
-  for (let j = 0; j < checkLimit; j++) {
-    if (samples[j] === null) nullCount++;
-  }
-  if (nullCount > (checkLimit/4)) {
-    //console.log("Too few datapoints for waveform=" + 
-      //(nullCount/checkLimit) + "for breath " + session.waves.breathNum);
-    if (!session.waves.tooFewDatapoints.includes(session.waves.breathNum)) {
-      session.waves.tooFewDatapoints.push(session.waves.breathNum);
-    }
-  }
-
   if (session.waves.breathNum === null) {
     console.error("NULL breathnum when pushing wave data");
   }
 
+  // Pointers to flow or pressure data holding arrays
   let holdingArray = null;
+  let partialArray = null;
   if (expectingPWEND) {
     holdingArray = session.waves.pwData;
+    partialArray = session.waves.pwPartial;
   } else {
     holdingArray = session.waves.fwData;
-		//samples = movingAvgFilter(samples, FLOW_FILTER_WINDOW);
+    partialArray = session.waves.fwPartial;
   }
 
 	if (checkIfLoggedValidBreath(session.waves.breathNum)) {
+    if (waveBreathPartial) partialArray.push(session.waves.breathNum);
 	  holdingArray.push({
   	  "partial": waveBreathPartial,
   	  "systemBreathNum": session.waves.breathNum,
