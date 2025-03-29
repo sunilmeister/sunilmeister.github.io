@@ -97,22 +97,22 @@ function parseFwVersion(jsonStr) {
 // returns null if badly formed
 function parseBnumData(jsonStr) {
   let str = String(jsonStr);
-	let numStr = "";
+  let numStr = "";
 
-	if (str[0] != '[') return null;
-	let i = 1;
-	for (; i<str.length; i++) {
-		if (str[i] == ',') break;
-		numStr += str[i];
-	}
+  if (str[0] != '[') return null;
+  let i = 1;
+  for (; i<str.length; i++) {
+    if (str[i] == ',') break;
+    numStr += str[i];
+  }
   let bnum = Number(numStr);
-	//console.log("numStr", numStr, "num", num);
+  //console.log("numStr", numStr, "num", num);
 
-	let tsStr = "";
-	for (i++; i<str.length; i++) {
-		if (str[i] == ']') break;
-		tsStr += str[i];
-	}
+  let tsStr = "";
+  for (i++; i<str.length; i++) {
+    if (str[i] == ']') break;
+    tsStr += str[i];
+  }
   let btime = Number(tsStr);
 
   let val = {
@@ -279,19 +279,19 @@ function gatherSessionData(lastRecordCallback) {
 
 
 function resetSignalTags(curTime, jsonData) {
-	session.params.errorTag.AddTimeValueIfAbsent(curTime, false);
-	session.params.warningTag.AddTimeValueIfAbsent(curTime, false);
-	session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
+  session.params.errorTag.AddTimeValueIfAbsent(curTime, false);
+  session.params.warningTag.AddTimeValueIfAbsent(curTime, false);
+  session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
 }
 
 function processJsonRecord(jsonData) {
 
-	// Keep track of the time duration
-	if (session.firstChirpDate === null) session.firstChirpDate = new Date(jsonData.created);
-	session.lastChirpDate = new Date(jsonData.created);
+  // Keep track of the time duration
+  if (session.firstChirpDate === null) session.firstChirpDate = new Date(jsonData.created);
+  session.lastChirpDate = new Date(jsonData.created);
 
   let curTime = new Date(jsonData.created);
-	resetSignalTags(curTime, jsonData);
+  resetSignalTags(curTime, jsonData);
   processAlertChirp(curTime, jsonData);
   for (let key in jsonData) {
     if (key == 'content') {
@@ -335,40 +335,40 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "RST") {
           processResetChirp(curTime, value);
         } else if (ckey == "ATT") {
-					session.params.attention.AddTimeValue(curTime, value);
+          session.params.attention.AddTimeValue(curTime, value);
         } else if (ckey == "L1") {
-					session.params.lcdLine1.AddTimeValue(curTime, value);
+          session.params.lcdLine1.AddTimeValue(curTime, value);
         } else if (ckey == "L2") {
-					session.params.lcdLine2.AddTimeValue(curTime, value);
+          session.params.lcdLine2.AddTimeValue(curTime, value);
         } else if (ckey == "L3") {
-					session.params.lcdLine3.AddTimeValue(curTime, value);
-					processUptimeChirp(curTime, value);
+          session.params.lcdLine3.AddTimeValue(curTime, value);
+          processUptimeChirp(curTime, value);
         } else if (ckey == "L4") {
-					session.params.lcdLine4.AddTimeValue(curTime, value);
+          session.params.lcdLine4.AddTimeValue(curTime, value);
         } else if (ckey == "WL1") {
-					session.params.lcdLine1.AddTimeValue(curTime, value);
-					session.params.lcdWLine1.AddTimeValue(curTime, value);
+          session.params.lcdLine1.AddTimeValue(curTime, value);
+          session.params.lcdWLine1.AddTimeValue(curTime, value);
         } else if (ckey == "WL2") {
-					session.params.lcdLine2.AddTimeValue(curTime, value);
-					session.params.lcdWLine2.AddTimeValue(curTime, value);
+          session.params.lcdLine2.AddTimeValue(curTime, value);
+          session.params.lcdWLine2.AddTimeValue(curTime, value);
         } else if (ckey == "WL3") {
-					session.params.lcdLine3.AddTimeValue(curTime, value);
-					session.params.lcdWLine3.AddTimeValue(curTime, value);
+          session.params.lcdLine3.AddTimeValue(curTime, value);
+          session.params.lcdWLine3.AddTimeValue(curTime, value);
         } else if (ckey == "WL4") {
-					session.params.lcdLine4.AddTimeValue(curTime, value);
-					session.params.lcdWLine4.AddTimeValue(curTime, value);
+          session.params.lcdLine4.AddTimeValue(curTime, value);
+          session.params.lcdWLine4.AddTimeValue(curTime, value);
         } else if (ckey == "EL1") {
-					session.params.lcdLine1.AddTimeValue(curTime, value);
-					session.params.lcdELine1.AddTimeValue(curTime, value);
+          session.params.lcdLine1.AddTimeValue(curTime, value);
+          session.params.lcdELine1.AddTimeValue(curTime, value);
         } else if (ckey == "EL2") {
-					session.params.lcdLine2.AddTimeValue(curTime, value);
-					session.params.lcdELine2.AddTimeValue(curTime, value);
+          session.params.lcdLine2.AddTimeValue(curTime, value);
+          session.params.lcdELine2.AddTimeValue(curTime, value);
         } else if (ckey == "EL3") {
-					session.params.lcdLine3.AddTimeValue(curTime, value);
-					session.params.lcdELine3.AddTimeValue(curTime, value);
+          session.params.lcdLine3.AddTimeValue(curTime, value);
+          session.params.lcdELine3.AddTimeValue(curTime, value);
         } else if (ckey == "EL4") {
-					session.params.lcdLine4.AddTimeValue(curTime, value);
-					session.params.lcdELine4.AddTimeValue(curTime, value);
+          session.params.lcdLine4.AddTimeValue(curTime, value);
+          session.params.lcdELine4.AddTimeValue(curTime, value);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
           processFwChirp(curTime, value);
@@ -438,13 +438,13 @@ function waveCollectedSamples(slices) {
 }
 
 function checkIfLoggedValidBreath(sysBnum) {
-	if (session.startSystemBreathNum === null) return false;
-	let n = session.loggedBreaths.length;
-	if (n==1) return false;
+  if (session.startSystemBreathNum === null) return false;
+  let n = session.loggedBreaths.length;
+  if (n==1) return false;
 
-	let bnum = sysBnum - session.startSystemBreathNum + 1;
-	if (isUndefined(session.loggedBreaths[bnum])) return false;
-	return !session.loggedBreaths[bnum].missed;
+  let bnum = sysBnum - session.startSystemBreathNum + 1;
+  if (isUndefined(session.loggedBreaths[bnum])) return false;
+  return !session.loggedBreaths[bnum].missed;
 }
 
 function processPwstartChirp(str) {
@@ -491,8 +491,8 @@ function processPwstartChirp(str) {
 }
 
 function movingAverageFilter(samples) {
-	const order = 3;
-	let filteredSamples = [];
+  const order = 3;
+  let filteredSamples = [];
   let win = order;
 
   for (let i = 0; i < samples.length; i++) {
@@ -512,62 +512,62 @@ function movingAverageFilter(samples) {
 }
 
 function findFlowChangePoints(samples) {
-	//console.log("samples",samples);
-	let inspStart, inspEnd, expStart, expEnd;
-	let inspIQ = 0;
-	let expIQ = 0;
-	let ix = 0;
+  //console.log("samples",samples);
+  let inspStart, inspEnd, expStart, expEnd;
+  let inspIQ = 0;
+  let expIQ = 0;
+  let ix = 0;
 
-	// find start of +ve flow
+  // find start of +ve flow
   for (; ix < samples.length; ix++) {
-		let sample = samples[ix];
-		if (sample <= SAMPLE_FLOWQ_THRESHOLD) continue;
-		inspStart = ix;
-		break;
-	}
+    let sample = samples[ix];
+    if (sample <= SAMPLE_FLOWQ_THRESHOLD) continue;
+    inspStart = ix;
+    break;
+  }
 
-	// find end of +ve flow
+  // find end of +ve flow
   for (; ix < samples.length; ix++) {
-		let sample = samples[ix];
-		if (sample > SAMPLE_FLOWQ_THRESHOLD) {
-			inspIQ += (samples[ix] + samples[ix-1])/2;
-			continue;
-		}
-		inspEnd = ix;
-		break;
-	}
+    let sample = samples[ix];
+    if (sample > SAMPLE_FLOWQ_THRESHOLD) {
+      inspIQ += (samples[ix] + samples[ix-1])/2;
+      continue;
+    }
+    inspEnd = ix;
+    break;
+  }
 
-	// find start of -ve flow
-	expStart = inspEnd+1;
+  // find start of -ve flow
+  expStart = inspEnd+1;
 
-	// Go backwards - find end of -ve flow
-	for (let i=samples.length-1; i>ix; i--) {
-		let sample = samples[i];
-		if (sample > -SAMPLE_FLOWQ_THRESHOLD) continue;
-		expEnd = i;
-		break;
-	}
+  // Go backwards - find end of -ve flow
+  for (let i=samples.length-1; i>ix; i--) {
+    let sample = samples[i];
+    if (sample > -SAMPLE_FLOWQ_THRESHOLD) continue;
+    expEnd = i;
+    break;
+  }
 
-	for (let i=expStart; i<=expEnd; i++) {
-		expIQ += (Math.abs(samples[i]) + Math.abs(samples[i+1]))/2;
-	}
+  for (let i=expStart; i<=expEnd; i++) {
+    expIQ += (Math.abs(samples[i]) + Math.abs(samples[i+1]))/2;
+  }
 
-	return {"inspStart":inspStart, "inspEnd":inspEnd, "expStart": expStart, "expEnd":expEnd,
-					"inspIQ":inspIQ, "expIQ":expIQ};
+  return {"inspStart":inspStart, "inspEnd":inspEnd, "expStart": expStart, "expEnd":expEnd,
+          "inspIQ":inspIQ, "expIQ":expIQ};
 }
 
 function findQmults(samples, changes) {
-	let inspTime = (changes.inspEnd - changes.inspStart + 1) * waveSampleInterval;
-	let expTime = (changes.expEnd - changes.expStart + 1) * waveSampleInterval;
+  let inspTime = (changes.inspEnd - changes.inspStart + 1) * waveSampleInterval;
+  let expTime = (changes.expEnd - changes.expStart + 1) * waveSampleInterval;
 
-	let inspQmult = session.breathData.qmult * 1000 / inspTime;
-	let expQmult = session.breathData.qmult * 1000 / expTime * (changes.inspIQ / changes.expIQ);
+  let inspQmult = session.breathData.qmult * 1000 / inspTime;
+  let expQmult = session.breathData.qmult * 1000 / expTime * (changes.inspIQ / changes.expIQ);
 
-	return {"inspQmult": inspQmult, "expQmult": expQmult};
+  return {"inspQmult": inspQmult, "expQmult": expQmult};
 }
 
 function convertQtoFlowLPM(waveSlices) {
-	let samples = [];
+  let samples = [];
   for (let i = 0; i < waveSlices.length; i++) {
     slice = waveSlices[i];
     for (let j = 0; j < slice.sliceData.length; j++) {
@@ -576,35 +576,35 @@ function convertQtoFlowLPM(waveSlices) {
     }
   }
 
-	let filteredSamples = movingAverageFilter(samples);
+  let filteredSamples = movingAverageFilter(samples);
 
-	let changes = findFlowChangePoints(filteredSamples);
-	//console.log("changes", changes);
-	let qmults = findQmults(filteredSamples, changes);
-	//console.log("qmults", qmults);
+  let changes = findFlowChangePoints(filteredSamples);
+  //console.log("changes", changes);
+  let qmults = findQmults(filteredSamples, changes);
+  //console.log("qmults", qmults);
 
-	let flowSamples = [];
+  let flowSamples = [];
   for (let i = 0; i < filteredSamples.length; i++) {
     let Q = filteredSamples[i];
-		if (Q !== null) {
-			if (i<changes.inspStart) {
-				Q = 0;
-			} else if (i<=changes.inspEnd) {
-      	if (Q > 0) Q = (Q * qmults.inspQmult);
-				else Q = 0;
-			} else if (i <= changes.expStart) {
-				Q = 0;
-			} else if (i <= changes.expEnd) {
-      	if (Q < 0) Q = (Q * qmults.expQmult);
-				else Q = 0;
-			} else {
-				Q = 0;
-			}
-		}
+    if (Q !== null) {
+      if (i<changes.inspStart) {
+        Q = 0;
+      } else if (i<=changes.inspEnd) {
+        if (Q > 0) Q = (Q * qmults.inspQmult);
+        else Q = 0;
+      } else if (i <= changes.expStart) {
+        Q = 0;
+      } else if (i <= changes.expEnd) {
+        if (Q < 0) Q = (Q * qmults.expQmult);
+        else Q = 0;
+      } else {
+        Q = 0;
+      }
+    }
     flowSamples.push(Q*60);
-	}
+  }
 
-	return flowSamples;
+  return flowSamples;
 }
 
 
@@ -647,20 +647,20 @@ function processPwendChirp(str) {
 
   // consolidate all samples
   let samples = [];
-	if (expectingDPWEND) {
-		samples = convertQtoFlowLPM(waveSlices);
-	} else {
+  if (expectingDPWEND) {
+    samples = convertQtoFlowLPM(waveSlices);
+  } else {
     for (let i = 0; i < waveSlices.length; i++) {
       slice = waveSlices[i];
       for (let j = 0; j < slice.sliceData.length; j++) {
         let Q = slice.sliceData[j];
         samples.push(Q);
       }
-		}
-		let lastSample = samples[samples.length-1];
-		let filteredSamples = movingAverageFilter(samples);
-		samples = filteredSamples;
-		samples[samples.length-1] = lastSample; // show spontaneous trigger if any
+    }
+    let lastSample = samples[samples.length-1];
+    let filteredSamples = movingAverageFilter(samples);
+    samples = filteredSamples;
+    samples[samples.length-1] = lastSample; // show spontaneous trigger if any
   }
   waveSlices = [];
   if (waveActualSamples != samples.length) {
@@ -688,14 +688,18 @@ function processPwendChirp(str) {
     partialArray = session.waves.fwPartial;
   }
 
-	if (checkIfLoggedValidBreath(session.waves.breathNum)) {
-    if (waveBreathPartial) partialArray.push(session.waves.breathNum);
-	  holdingArray.push({
-  	  "partial": waveBreathPartial,
-  	  "systemBreathNum": session.waves.breathNum,
-  	  "breathInfo": session.waves.breathInfo,
-  	  "sampleInterval": waveSampleInterval,
-  	  "samples": cloneObject(samples),
+  if (checkIfLoggedValidBreath(session.waves.breathNum)) {
+    if (waveBreathPartial) {
+      if (!partialArray.includes(session.waves.breathNum)) {
+        partialArray.push(session.waves.breathNum);
+      }
+    }
+    holdingArray.push({
+      "partial": waveBreathPartial,
+      "systemBreathNum": session.waves.breathNum,
+      "breathInfo": session.waves.breathInfo,
+      "sampleInterval": waveSampleInterval,
+      "samples": cloneObject(samples),
     });
   }
 
@@ -805,8 +809,8 @@ function processWifiChirp(curTime, jsonStr) {
   let obj = parseWifiData(jsonStr);
   if (!obj) return;
 
-	session.params.wifiDrops.AddTimeValue(curTime, obj.dropAt);
-	session.params.wifiReconns.AddTimeValue(curTime, obj.reconnectAt);
+  session.params.wifiDrops.AddTimeValue(curTime, obj.dropAt);
+  session.params.wifiReconns.AddTimeValue(curTime, obj.reconnectAt);
 
   let msg = {
     'created': curTime,
@@ -822,17 +826,17 @@ function processWifiChirp(curTime, jsonStr) {
 
 var prevChirpResetStatus = RESET_NONE;
 function processResetChirp(curTime, jsonStr) {
-	let resetStatus = Number(jsonStr);
-	//console.log("prevChirpResetStatus",prevChirpResetStatus,"resetStatus",resetStatus);
-	if (resetStatus == prevChirpResetStatus) {
-		// System will keep sending Timout/Decline messages till reset is pressed again
-		if ((resetStatus == RESET_TIMEOUT) || (resetStatus == RESET_DECLINED)) {
-			resetStatus = RESET_NONE;
-		}
-	} else {
-		prevChirpResetStatus = resetStatus;
-	}
-	session.params.resetStatus.AddTimeValue(curTime, resetStatus);
+  let resetStatus = Number(jsonStr);
+  //console.log("prevChirpResetStatus",prevChirpResetStatus,"resetStatus",resetStatus);
+  if (resetStatus == prevChirpResetStatus) {
+    // System will keep sending Timout/Decline messages till reset is pressed again
+    if ((resetStatus == RESET_TIMEOUT) || (resetStatus == RESET_DECLINED)) {
+      resetStatus = RESET_NONE;
+    }
+  } else {
+    prevChirpResetStatus = resetStatus;
+  }
+  session.params.resetStatus.AddTimeValue(curTime, resetStatus);
 }
 
 function processStateChirp(curTime, jsonStr) {
@@ -846,7 +850,7 @@ function processStateChirp(curTime, jsonStr) {
 }
 
 function updatePendingParamState(curTime, onDisplay, settingsInUse) {
-	let params = session.params;
+  let params = session.params;
   let p1 = onDisplay;
   let p2 = settingsInUse;
 
@@ -891,15 +895,15 @@ function processFwChirp(curTime, jsonStr) {
 }
 
 function saveInputChange(paramName, time, parsedObj) {
-	session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
+  session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
 }
 
 function saveOutputChange(paramName, time, parsedObj) {
-	session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
+  session.params[paramName].AddTimeValue(time, parsedObj[paramName]);
 }
 
 function saveMiscValue(paramName, parsedObj) {
-	session.miscData[paramName] = parsedObj[paramName];
+  session.miscData[paramName] = parsedObj[paramName];
 }
 
 var prevParamChangeBreathNum = null;
@@ -909,29 +913,29 @@ function processParamChirp(curTime, jsonStr) {
 
   let onDisplay = cloneObject(obj);
   if (!obj.pending) {
-		if (!equalObjects(settingsInUse, onDisplay)) {
-			session.params.comboChanged.AddTimeValue(curTime, true);
-			prevParamChangeBreathNum = session.loggedBreaths.length - 1;
-		}
+    if (!equalObjects(settingsInUse, onDisplay)) {
+      session.params.comboChanged.AddTimeValue(curTime, true);
+      prevParamChangeBreathNum = session.loggedBreaths.length - 1;
+    }
     settingsInUse = cloneObject(obj);
-		settingsInUse.pending = false;
+    settingsInUse.pending = false;
   } else {
-			session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
-	}
+      session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
+  }
   updatePendingParamState(curTime, onDisplay, settingsInUse);
-	session.params.somePending.AddTimeValue(curTime, obj.pending);
+  session.params.somePending.AddTimeValue(curTime, obj.pending);
 
-	if (!obj.pending) {
-  	saveInputChange("vt", curTime, obj);
-  	saveInputChange("mv", curTime, obj);
-  	saveInputChange("pmax", curTime, obj);
-  	saveInputChange("ipeep", curTime, obj);
-  	saveInputChange("ps", curTime, obj);
-  	saveInputChange("mode", curTime, obj);
-  	saveInputChange("tps", curTime, obj);
-  	saveInputChange("ie", curTime, obj);
-  	saveInputChange("rr", curTime, obj);
-	}
+  if (!obj.pending) {
+    saveInputChange("vt", curTime, obj);
+    saveInputChange("mv", curTime, obj);
+    saveInputChange("pmax", curTime, obj);
+    saveInputChange("ipeep", curTime, obj);
+    saveInputChange("ps", curTime, obj);
+    saveInputChange("mode", curTime, obj);
+    saveInputChange("tps", curTime, obj);
+    saveInputChange("ie", curTime, obj);
+    saveInputChange("rr", curTime, obj);
+  }
 }
 
 function processFiO2Chirp(curTime, jsonStr) {
@@ -965,12 +969,12 @@ function processBreathChirp(curTime, jsonStr) {
   let obj = parseBreathData(jsonStr);
   if (!obj) return;
 
-	// Ignore any breath data received before BNUM received
-	// except PEEP
-	if (!session.firstBreathBnumTime) {
-  	saveOutputChange("mpeep", curTime, obj);
-		return;
-	}
+  // Ignore any breath data received before BNUM received
+  // except PEEP
+  if (!session.firstBreathBnumTime) {
+    saveOutputChange("mpeep", curTime, obj);
+    return;
+  }
 
   if (session.stateData.error) obj.btype = MAINTENANCE_BREATH;
 
@@ -984,17 +988,17 @@ function processBreathChirp(curTime, jsonStr) {
   session.breathData.vtdel = obj.vtdel;
   session.breathData.qmult = (obj.vtdel / obj.iqdel);
 
-	// infer the breath control
-	let mode = session.params.mode.LastChangeValue();
-	if (obj.btype == SPONTANEOUS_BREATH) {
-		if ((MODE_DECODER[mode] == "SIMV") || (MODE_DECODER[mode] == "PSV")) {
-			session.params.bcontrol.AddTimeValue(curTime, PRESSURE_SUPPORT);
-		} else {
-			session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
-		}
-	} else {
-		session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
-	}
+  // infer the breath control
+  let mode = session.params.mode.LastChangeValue();
+  if (obj.btype == SPONTANEOUS_BREATH) {
+    if ((MODE_DECODER[mode] == "SIMV") || (MODE_DECODER[mode] == "PSV")) {
+      session.params.bcontrol.AddTimeValue(curTime, PRESSURE_SUPPORT);
+    } else {
+      session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
+    }
+  } else {
+    session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
+  }
 }
 
 function processComplianceChirp(curTime, jsonStr) {
@@ -1043,7 +1047,7 @@ function processBnumChirp(curTime, value, jsonData) {
   // Check for possibly missing previous waveform
   recordMissingWaves();
 
-	// Parse for breath info
+  // Parse for breath info
   let obj = parseBnumData(value);
   if (!obj) return;
   let bnumValue = obj.bnum;
@@ -1054,150 +1058,150 @@ function processBnumChirp(curTime, value, jsonData) {
   }
   bnumValue = Number(bnumValue);
   let chirpTime = new Date(curTime);
-	let len = session.loggedBreaths.length;
+  let len = session.loggedBreaths.length;
   let numLoggedBreaths = len - 1;
- 	let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
+  let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
 
-	// Housekeeping tasks
-	let breathsMissing = 0;
-	let outOfOrder = false;
+  // Housekeeping tasks
+  let breathsMissing = 0;
+  let outOfOrder = false;
   if (firstBnumChirp) {
-		firstBnumChirp = false;
+    firstBnumChirp = false;
     breathsMissing = 0;
-		outOfOrder = false;
+    outOfOrder = false;
     session.startSystemBreathNum = bnumValue;
     console.log("startSystemBreathNum", session.startSystemBreathNum);
   } else {
     breathsMissing = bnumValue - numLoggedBreaths - session.startSystemBreathNum;
-		//console.log("breathsMissing",breathsMissing,"bnumValue",bnumValue,"numLoggedBreaths",numLoggedBreaths);
+    //console.log("breathsMissing",breathsMissing,"bnumValue",bnumValue,"numLoggedBreaths",numLoggedBreaths);
     if (breathsMissing < 0) { // out of order breath number
-			breathsMissing = 0;
-			outOfOrder = true;
-		} else {
-			outOfOrder = false;
-		}
+      breathsMissing = 0;
+      outOfOrder = true;
+    } else {
+      outOfOrder = false;
+    }
   }
   session.systemBreathNum = bnumValue;
   if (!session.firstBreathBnumTime) {
-		session.firstBreathBnumTime = new Date(chirpTime);
-		session.firstBreathBnumMs = bnumMs;
-	}
+    session.firstBreathBnumTime = new Date(chirpTime);
+    session.firstBreathBnumMs = bnumMs;
+  }
 
   let breathTime = addMsToDate(session.firstBreathBnumTime, bnumMs - session.firstBreathBnumMs);
   //console.log("chirpTime",chirpTime);
   //console.log("breathTime",breathTime);
   if (breathsMissing) {
-		fillMissingBreathsDummyInfo(prevBreathTime, breathTime, breathsMissing);
+    fillMissingBreathsDummyInfo(prevBreathTime, breathTime, breathsMissing);
   }
-	updateLoggedBreaths(bnumValue, breathTime, false);
+  updateLoggedBreaths(bnumValue, breathTime, false);
   updateRangeOnNewBreath();
 }
 
 function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) {
   // stuff dummy breaths equally spaced in the missing time interval
   let lastBreathNum = session.loggedBreaths.length;
-	let numIntervals = numMissing + 1;
-	let missingTimeInterval = newBreathTime.getTime() - prevBreathTime.getTime();
-	let msPerMissingBreath = missingTimeInterval / numIntervals;
-	let missingBreathTime = prevBreathTime;
+  let numIntervals = numMissing + 1;
+  let missingTimeInterval = newBreathTime.getTime() - prevBreathTime.getTime();
+  let msPerMissingBreath = missingTimeInterval / numIntervals;
+  let missingBreathTime = prevBreathTime;
 
   for (let i = 0; i < numMissing; i++) {
-		missingBreathTime = addMsToDate(missingBreathTime, msPerMissingBreath);
-		session.params.comboChanged.AddTimeValue(missingBreathTime, false);
-		session.params.errorTag.AddTimeValue(missingBreathTime,false);
-		session.params.warningTag.AddTimeValue(missingBreathTime,false);
-		console.log("Missed BNUM ", session.loggedBreaths.length);
-  	session.loggedBreaths.push({time:missingBreathTime, missed:true});
+    missingBreathTime = addMsToDate(missingBreathTime, msPerMissingBreath);
+    session.params.comboChanged.AddTimeValue(missingBreathTime, false);
+    session.params.errorTag.AddTimeValue(missingBreathTime,false);
+    session.params.warningTag.AddTimeValue(missingBreathTime,false);
+    console.log("Missed BNUM ", session.loggedBreaths.length);
+    session.loggedBreaths.push({time:missingBreathTime, missed:true});
   }
 }
 
 function updateLoggedBreaths(bnumValue, breathTime) {
-	let len = session.loggedBreaths.length;
+  let len = session.loggedBreaths.length;
   let bnumIx = bnumValue - session.startSystemBreathNum + 1;
   //console.log("***********", bnumIx, len);
 
-	let outOfOrder = false;
-	if (bnumIx < len) {
+  let outOfOrder = false;
+  if (bnumIx < len) {
     outOfOrder = true;
- 	  if (!session.loggedBreaths[bnumIx].missed) {
+    if (!session.loggedBreaths[bnumIx].missed) {
       return; // duplicate
     }
   }
 
   let numLoggedBreaths = len - 1;
- 	let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
+  let prevBreathTime = session.loggedBreaths[numLoggedBreaths].time;
 
-	if (!outOfOrder) {
-  	session.loggedBreaths.push({time:breathTime, missed:false});
-	} else {
-  	if (session.loggedBreaths[bnumIx].missed) {
-			console.log("Previously missed System BREATH Number", bnumValue, "received out of order");
-		}
-  	session.loggedBreaths[bnumIx].time = breathTime;
-  	session.loggedBreaths[bnumIx].missed = false;
-	}
-	session.params.breathNum.AddTimeValue(breathTime, bnumValue);
+  if (!outOfOrder) {
+    session.loggedBreaths.push({time:breathTime, missed:false});
+  } else {
+    if (session.loggedBreaths[bnumIx].missed) {
+      console.log("Previously missed System BREATH Number", bnumValue, "received out of order");
+    }
+    session.loggedBreaths[bnumIx].time = breathTime;
+    session.loggedBreaths[bnumIx].missed = false;
+  }
+  session.params.breathNum.AddTimeValue(breathTime, bnumValue);
 }
 
 function validErrorLine(jsonData) {
   if (!isUndefined(jsonData.content["EL1"]) && (jsonData.content["EL1"] != "")) {
-		return true;
-	}
+    return true;
+  }
   if (!isUndefined(jsonData.content["EL2"]) && (jsonData.content["EL2"] != "")) {
-		return true;
-	}
+    return true;
+  }
   if (!isUndefined(jsonData.content["EL3"]) && (jsonData.content["EL3"] != "")) {
-		return true;
-	}
+    return true;
+  }
   if (!isUndefined(jsonData.content["EL4"]) && (jsonData.content["EL4"] != "")) {
-		return true;
-	}
-	return false;
+    return true;
+  }
+  return false;
 }
 
 function validWarningLine(jsonData) {
   if (!isUndefined(jsonData.content["WL1"]) && (jsonData.content["WL1"] != "")) {
-		return true;
-	}
+    return true;
+  }
   if (!isUndefined(jsonData.content["WL2"]) && (jsonData.content["WL2"] != "")) {
-		return true;
-	}
+    return true;
+  }
   if (!isUndefined(jsonData.content["WL3"]) && (jsonData.content["WL3"] != "")) {
-		return true;
-	}
+    return true;
+  }
   if (!isUndefined(jsonData.content["WL4"]) && (jsonData.content["WL4"] != "")) {
-		return true;
-	}
-	return false;
+    return true;
+  }
+  return false;
 }
 
 function processAlertChirp(curTime, jsonData) { 
   if (validWarningLine(jsonData)) {
     session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
-		session.params.warningTag.AddTimeValue(curTime,true);
+    session.params.warningTag.AddTimeValue(curTime,true);
   }
   if (validErrorLine(jsonData)) {
-   	session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
-		session.params.errorTag.AddTimeValue(curTime,true);
+    session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
+    session.params.errorTag.AddTimeValue(curTime,true);
   }
 }
 
 function processUptimeChirp(curTime, jsonData) {
-	let matchStr = "(H:M:S)";
-	let pos = jsonData.search(matchStr);
-	if (pos >= 0) {
-		let arr = jsonData.split(' ');
-		let tstr = "";
-		for (let i=0; i<arr.length; i++) {
-			tstr = arr[i];
-			if ((tstr != matchStr) && (tstr != "")) break;
-		}
+  let matchStr = "(H:M:S)";
+  let pos = jsonData.search(matchStr);
+  if (pos >= 0) {
+    let arr = jsonData.split(' ');
+    let tstr = "";
+    for (let i=0; i<arr.length; i++) {
+      tstr = arr[i];
+      if ((tstr != matchStr) && (tstr != "")) break;
+    }
 
-		if (!tstr) return;
-		arr = tstr.split(':');
-		let mins = Number(arr[0])*60 + Number(arr[1]);
-		if (Number(arr[2] >= 30)) mins++;
-		session.params.upTimeMins.AddTimeValue(curTime,mins);
-		//console.log("UpTime", mins);
-	}
+    if (!tstr) return;
+    arr = tstr.split(':');
+    let mins = Number(arr[0])*60 + Number(arr[1]);
+    if (Number(arr[2] >= 30)) mins++;
+    session.params.upTimeMins.AddTimeValue(curTime,mins);
+    //console.log("UpTime", mins);
+  }
 }
