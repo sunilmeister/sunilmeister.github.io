@@ -103,11 +103,110 @@ class WaveBox {
   }
 
   mergeCustomBreaks(pBreaks, fBreaks) {
-    return pBreaks;
+    let cBreaks = [];
+
+    let pLen = pBreaks.length;
+    if (!pLen) return fBreaks;
+
+    let fLen = fBreaks.length;
+    if (!fLen) return pBreaks;
+    
+    let pIx = 0;
+    let fIx = 0;
+    while (1) {
+      let pBnum = null;
+      let fBnum = null;
+      if (pIx < pLen) pBnum = pBreaks[pIx].breathNum;
+      if (fIx < fLen) fBnum = fBreaks[fIx].breathNum;
+      if (fBnum < pBnum) pBnum = null;
+      if (pBnum < fBnum) fBnum = null;
+      if ((fBnum === null) && (pBnum === null)) break;
+
+      if (fBnum == pBnum) {
+        // use pData
+        let elem = cloneObject(pBreaks[pIx]);
+        cBreaks.push(elem);
+
+        pIx++;
+        fIx++;
+      } else if (fBnum) {
+        // use fData
+        let elem = cloneObject(fBreaks[fIx]);
+        cBreaks.push(elem);
+
+        fIx++;
+      } else {
+        // use pData
+        let elem = cloneObject(pBreaks[pIx]);
+        cBreaks.push(elem);
+
+        pIx++;
+      }
+    }
+
+    return cBreaks;
   }
 
   mergeStripLines(pStrips, fStrips) {
-    return pStrips;
+    let cStrips = [];
+
+    let pLen = pStrips.length;
+    if (!pLen) return fStrips;
+
+    let fLen = fStrips.length;
+    if (!fLen) return pStrips;
+    
+    let pIx = 0;
+    let fIx = 0;
+    while (1) {
+      let pBnum = null;
+      let fBnum = null;
+      if (pIx < pLen) pBnum = pStrips[pIx].breathNum;
+      if (fIx < fLen) fBnum = fStrips[fIx].breathNum;
+      if (fBnum < pBnum) pBnum = null;
+      if (pBnum < fBnum) fBnum = null;
+      if ((fBnum === null) && (pBnum === null)) break;
+
+      if (fBnum == pBnum) {
+        // use pData
+        let labelFontColor = "darkgreen";
+        let labelText = "#" + pBnum;
+        if (session.waves.tooFewDatapoints.includes(pStrips[pIx].sysBreathNum) 
+          || session.waves.tooFewDatapoints.includes(fStrips[fIx].sysBreathNum)) {
+          labelFontColor = "red";
+          labelText = "X " + labelText;
+        }
+        let elem = cloneObject(pStrips[pIx]);
+        elem.label = labelText;
+        elem.labelFontColor = labelFontColor;
+        cStrips.push(elem);
+
+        pIx++;
+        fIx++;
+      } else if (fBnum) {
+        // use fData
+        let labelFontColor = "red";
+        let labelText = "X #" + pBnum;
+        let elem = cloneObject(fStrips[fIx]);
+        elem.label = labelText;
+        elem.labelFontColor = labelFontColor;
+        cStrips.push(elem);
+
+        fIx++;
+      } else {
+        // use pData
+        let labelFontColor = "red";
+        let labelText = "X #" + pBnum;
+        let elem = cloneObject(pStrips[pIx]);
+        elem.label = labelText;
+        elem.labelFontColor = labelFontColor;
+        cStrips.push(elem);
+
+        pIx++;
+      }
+    }
+
+    return cStrips;
   }
 
   createCharts() {

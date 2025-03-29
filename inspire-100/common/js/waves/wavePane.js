@@ -319,25 +319,14 @@ class WavePane {
         xval += sampleInterval;
       }
 
-      let labelFontColor = "darkgreen";
-      let labelText = "#" + breathNum;
-      let labelAlign = "far";
-      if (this.tooFewDatapoints(sysBreathNum)) {
-        //console.log("Too few datapoints #" + sysBreathNum);
-        labelFontColor = "red";
-        labelText = "X " + labelText;
-      }
-
       // Do strip lines
       stripLine.breathNum = breathNum;
       stripLine.sysBreathNum = sysBreathNum;
       stripLine.endValue = (xval) / 1000;
-      stripLine.label = labelText;
       stripLine.labelPlacement = "inside";
-      stripLine.labelAlign = labelAlign;
+      stripLine.labelAlign = "far";
       stripLine.labelWrap = true;
       stripLine.labelMaxWidth = 80;
-      stripLine.labelFontColor = labelFontColor;
       stripLine.labelBackgroundColor = "none";
       stripLine.labelFontSize = session.waves.stripLineFontSize;
       this.stripLines.push(cloneObject(stripLine));
