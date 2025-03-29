@@ -46,6 +46,8 @@ class WavePane {
     this.paramColor = paramColor;
     this.data = data;
     this.missing = missing;
+    this.customBreaks = [];
+    this.stripLines = [];
 
     this.addXaxis();
   }
@@ -74,14 +76,11 @@ class WavePane {
 	}
 
 	getCustomBreaks() {
-		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.scaleBreaks) {
-			return axisX.scaleBreaks.customBreaks;
-		}
-		return null;
+    return this.customBreaks;
 	}
 
 	setCustomBreaks(customBreaks) {
+    //console.log("breaks", customBreaks);
 		let axisX = this.chartJson.axisX;
 		if (axisX && axisX.scaleBreaks) {
 			axisX.scaleBreaks.customBreaks = customBreaks;
@@ -89,16 +88,13 @@ class WavePane {
 	}
 
 	getStripLines() {
-		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.stripLines) {
-			return axisX.stripLines;
-		}
-		return null;
+    return this.stripLines;
 	}
 
 	setStripLines(stripLines) {
+    //console.log("strips", stripLines);
 		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.stripLines) {
+		if (axisX) {
 			axisX.stripLines = stripLines;
 		}
 	}
@@ -253,9 +249,9 @@ class WavePane {
 
     // init Breaks in the graph
     let Xaxis = this.chartJson.axisX;
-    Xaxis.scaleBreaks = {type: "straight", color:"orange"};
-    Xaxis.scaleBreaks.customBreaks = [];
-    this.chartJson.axisX.stripLines = [];
+    //Xaxis.scaleBreaks = {type: "straight", color:"orange"};
+    Xaxis.customBreaks = [];
+    this.stripLines = [];
 
     let xyPoints = [];
     let prevXval = 0;
@@ -329,10 +325,12 @@ class WavePane {
       if (this.tooFewDatapoints(sysBreathNum)) {
         //console.log("Too few datapoints #" + sysBreathNum);
         labelFontColor = "red";
-        labelText = "XXXX #" + breathNum;
+        labelText = "X " + labelText;
       }
 
       // Do strip lines
+      stripLine.breathNum = breathNum;
+      stripLine.sysBreathNum = sysBreathNum;
       stripLine.endValue = (xval) / 1000;
       stripLine.label = labelText;
       stripLine.labelPlacement = "inside";
@@ -342,11 +340,13 @@ class WavePane {
       stripLine.labelFontColor = labelFontColor;
       stripLine.labelBackgroundColor = "none";
       stripLine.labelFontSize = session.waves.stripLineFontSize;
-      Xaxis.stripLines.push(cloneObject(stripLine));
+      this.stripLines.push(cloneObject(stripLine));
 
       // Do custom scaleBreaks
       // Make sure that the graphs do not connect end-to-end
-      Xaxis.scaleBreaks.customBreaks.push({
+      this.customBreaks.push({
+        breathNum:  breathNum,
+        sysBreathNum: sysBreathNum,
         startValue: prevXval,
         endValue: stripLine.startValue - 0.1,
       });
