@@ -16,9 +16,12 @@
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 class WavePane {
-  constructor(title, height, rangeX, menu, paramName, paramColor, data, isFlowGraph) {
-    this.title = title;
+  constructor(chartTitle, xTitle, yInterval, height, rangeX, menu, paramName, paramColor, 
+              data, missing,) {
     this.graphType = "splineArea";
+    this.chartTitle = chartTitle;
+    this.xTitle = xTitle;
+    this.yInterval = yInterval;
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
@@ -42,7 +45,7 @@ class WavePane {
     this.paramName = paramName;
     this.paramColor = paramColor;
     this.data = data;
-    this.isFlowGraph = isFlowGraph;
+    this.missing = missing;
 
     this.addXaxis();
   }
@@ -123,9 +126,9 @@ class WavePane {
       this.chart.destroy();
       this.chart = null;
     }
-    if (!this.isFlowGraph) {
+    if (this.chartTitle) {
       this.chartJson.title = {
-        text: this.title,
+        text: this.chartTitle,
         padding: 10,
         fontSize: session.waves.titleFontSize
       };
@@ -152,9 +155,7 @@ class WavePane {
   // X axis is the same for all charts in our application
   addXaxis() {
     let Xaxis = {};
-    if (this.isFlowGraph) {
-    	Xaxis.title = "Elapsed Time (H:MM:SS)";
-		}
+   	Xaxis.title = this.xTitle;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
 		Xaxis.labelFontSize = session.waves.labelFontSize;
@@ -206,11 +207,7 @@ class WavePane {
     if (session.waves.tooFewDatapoints.includes(sysBreathNum)) {
       return true;
     }
-    if (this.isFlowGraph) {
-      return session.waves.fwMissing.includes(sysBreathNum);
-    } else {
-      return session.waves.pwMissing.includes(sysBreathNum);
-    }
+    return this.missing.includes(sysBreathNum);
   }
 
   // Recursive Binary search for where to start searching
@@ -265,14 +262,6 @@ class WavePane {
 
     let startIx = this.findSearchStartIndex(this.data, 
                         session.startSystemBreathNum + minBnum - 1);
-    /*
-    if (this.isFlowGraph) {
-      console.log("FLOW Wave startIx", startIx, " for minBnum", minBnum);
-    } else {
-      console.log("PRESSURE Wave startIx", startIx, " for minBnum", minBnum);
-    }
-    */
-
     // fail safe
     if (startIx === null) {
       startIx = 0;
@@ -333,14 +322,6 @@ class WavePane {
         }
         xval += sampleInterval;
       }
-			/*
-      if (this.isFlowGraph) {
-        xyPoints.push({
-          "x": (lastX + sampleInterval) / 1000,
-          "y": 0
-        });
-      }
-			*/
 
       let labelFontColor = "darkgreen";
       let labelText = "#" + breathNum;
@@ -390,14 +371,8 @@ class WavePane {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;
-    //if (minY != null) Yaxis.minimum = minY;
-    //if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
-		if (this.isFlowGraph) {
-    	Yaxis.interval = 20;
-		} else {
-    	Yaxis.interval = 25;
-		}
+    Yaxis.interval = this.yInterval;
     return cloneObject(Yaxis);
   }
 

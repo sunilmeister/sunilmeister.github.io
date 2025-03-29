@@ -106,26 +106,30 @@ class WaveBox {
 		// Pressure Chart
     this.pChart = new WavePane(
       this.options.title,
+      null,
+      25,
       this.pressureChartDiv.offsetHeight,
       this.rangeX,
       this.options,
 			"Pressure (mmH2O)",
 			"#AED6F1",
 			session.waves.pwData,
-			false // not a flow graph
+			session.waves.pwMissing
     );
     this.pChart.addGraph();
 
 		// Flow Chart
     this.fChart = new WavePane(
-      this.options.title,
+      null,
+      "Elapsed Time (H:MM:SS)",
+      20,
       this.flowChartDiv.offsetHeight,
       this.rangeX,
       this.options,
 			"Flow (ltr/min)",
 			"#ECF0F1",
 			session.waves.fwData,
-			true // is a flow graph
+			session.waves.fwMissing
     );
     this.fChart.addGraph();
 
