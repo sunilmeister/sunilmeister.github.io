@@ -185,6 +185,7 @@ class WaveBox {
       } else if (fBnum) {
         // use fData
         let labelFontColor = "red";
+        let labelText = "#" + fBnum;
         let elem = cloneObject(fStrips[fIx]);
         elem.label = labelText;
         elem.labelFontColor = labelFontColor;
@@ -194,6 +195,7 @@ class WaveBox {
       } else {
         // use pData
         let labelFontColor = "red";
+        let labelText = "#" + pBnum;
         let elem = cloneObject(pStrips[pIx]);
         elem.label = labelText;
         elem.labelFontColor = labelFontColor;
