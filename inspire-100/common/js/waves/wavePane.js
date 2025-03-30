@@ -82,7 +82,8 @@ class WavePane {
 	setCustomBreaks(customBreaks) {
     //console.log("breaks", customBreaks);
 		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.scaleBreaks) {
+		if (axisX) {
+      axisX.scaleBreaks = {type: "straight"}
 			axisX.scaleBreaks.customBreaks = customBreaks;
 		}
 	}
@@ -242,8 +243,6 @@ class WavePane {
 
     // init Breaks in the graph
     let Xaxis = this.chartJson.axisX;
-    //Xaxis.scaleBreaks = {type: "straight", color:"orange"};
-    Xaxis.customBreaks = [];
     this.stripLines = [];
 
     let xyPoints = [];
@@ -332,9 +331,9 @@ class WavePane {
         breathNum:  breathNum,
         sysBreathNum: sysBreathNum,
         startValue: prevXval,
-        endValue: stripLine.startValue - 0.1,
+        endValue: stripLine.startValue - 0.01,
       });
-      prevXval = stripLine.endValue + 0.1;
+      prevXval = stripLine.endValue;
     }
 
     let chartData = {};

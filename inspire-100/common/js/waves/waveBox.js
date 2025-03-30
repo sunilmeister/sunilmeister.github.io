@@ -144,6 +144,15 @@ class WaveBox {
       }
     }
 
+    /*
+    console.log("__________");
+    console.log("pBreaks");
+    for (let i=0; i<pBreaks.length; i++) console.log(i,pBreaks[i]);
+    console.log("fBreaks");
+    for (let i=0; i<fBreaks.length; i++) console.log(i,fBreaks[i]);
+    console.log("cBreaks");
+    for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
+    */
     return cBreaks;
   }
 
@@ -205,6 +214,14 @@ class WaveBox {
       }
     }
 
+    /*
+    console.log("pStrips");
+    for (let i=0; i<pStrips.length; i++) console.log(i,pStrips[i]);
+    console.log("fStrips");
+    for (let i=0; i<fStrips.length; i++) console.log(i,fStrips[i]);
+    console.log("cStrips");
+    for (let i=0; i<cStrips.length; i++) console.log(i,cStrips[i]);
+    */
     return cStrips;
   }
 
