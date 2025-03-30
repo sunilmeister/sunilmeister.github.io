@@ -622,7 +622,6 @@ window.onload = function () {
 
 	initCommonDivElements();
 	
-	resizeChartsWaves();
 	alignSidebar();
 
   initGlobals();
@@ -638,7 +637,6 @@ window.onload = function () {
   sessionInfo.innerHTML = 'No Selected Recording';
 
 	setRootFontSize("fullPlayback", "fullPlayback");
-	resizeChartsWaves();
 
   disableAllButtons();
 	appResize();

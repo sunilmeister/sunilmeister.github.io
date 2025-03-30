@@ -442,8 +442,6 @@ window.onload = function () {
   sliderDiv = document.getElementById("rangeSliderDiv");
   createRangeSlider(sliderDiv);
 
-	resizeChartsWaves();
-
   initDbNames();
   let heading = document.getElementById("SysUid");
   if (inspireTag) {
