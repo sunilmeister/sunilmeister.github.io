@@ -640,10 +640,15 @@ function forwardTimeInterval() {
   createDashboards();
 }
 
-function fullInterval() {
+function fullTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
 	fullRange();
+  createDashboards();
+}
+
+function editTimeInterval() {
+  document.getElementById("btnPlayInterval").src = "../common/img/play.png";
   createDashboards();
 }
 

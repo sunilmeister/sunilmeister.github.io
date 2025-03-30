@@ -582,8 +582,12 @@ function rewindTimeInterval() {
 	rewindRange();
 }
 
-function fullInterval() {
+function fullTimeInterval() {
 	fullRange();
+}
+
+function editTimeInterval() {
+  refreshActivePane();
 }
 
 function playbackGatherDoneCallback() {

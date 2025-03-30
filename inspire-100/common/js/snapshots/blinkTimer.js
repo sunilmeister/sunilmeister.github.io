@@ -28,6 +28,8 @@ function resumeSnapshotsTimer() {
 
 function executeSnapshotsTimer() {
 	if (!session) return;
+  if (!session.snapshot.visible) return;
+
 	let snap = session.snapshot.content;
 
 	if (imgStateDIV) blinkStateImage();
