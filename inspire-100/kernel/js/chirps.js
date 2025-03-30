@@ -7,12 +7,12 @@ var waveSampleInterval = null;
 var waveActualSamples = null;
 var waveBreathClosed = true;
 var waveSlices = [];
-var pwShapeSliceNum = -1;
-var pwPrevShapeSliceNum = -1;
-var dpwShapeSliceNum = -1;
-var dpwPrevShapeSliceNum = -1;
+var pwWaveSliceNum = -1;
+var pwPrevWaveSliceNum = -1;
+var fwWaveSliceNum = -1;
+var fwPrevWaveSliceNum = -1;
 var expectingPWEND = false;
-var expectingDPWEND = false;
+var expectingFWEND = false;
 
 function parsePstats(jsonStr) {
   jsonStr = jsonStr.replace(/\'/g, '"');
@@ -313,8 +313,8 @@ function processJsonRecord(jsonData) {
           }
         }
 
-        // close off DPW samples if missing a closing chirp
-        if (expectingDPWEND) {
+        // close off FW samples if missing a closing chirp
+        if (expectingFWEND) {
           // if anything else, close of with DPWEND
           if (ckey != "DPWEND") {
             partsArray = ckey.split('_');
@@ -323,7 +323,7 @@ function processJsonRecord(jsonData) {
               //console.log("Graphing anyway with DPWEND()");
               processPwendChirp("");
               waveBreathClosed = true;
-              expectingDPWEND = false;
+              expectingFWEND = false;
             }
           }
         }
@@ -410,10 +410,10 @@ function processJsonRecord(jsonData) {
           expectingPWEND = false;
         } else if (ckey == "DPWSTART") {
           processPwstartChirp(value);
-          expectingDPWEND = true;
+          expectingFWEND = true;
         } else if (ckey == "DPWEND") {
           processPwendChirp(value);
-          expectingDPWEND = false;
+          expectingFWEND = false;
         } else {
           partsArray = ckey.split('_');
           if (partsArray.length == 0) continue;
@@ -460,10 +460,10 @@ function processPwstartChirp(str) {
     waveBreathClosed = false;
     waveBreathPartial = false;
     session.waves.breathNum = null;
-    pwPrevShapeSliceNum = -1;
-    pwShapeSliceNum = -1;
-    dpwPrevShapeSliceNum = -1;
-    dpwShapeSliceNum = -1;
+    pwPrevWaveSliceNum = -1;
+    pwWaveSliceNum = -1;
+    fwPrevWaveSliceNum = -1;
+    fwWaveSliceNum = -1;
     waveSlices = [];
     return;
   }
@@ -483,10 +483,10 @@ function processPwstartChirp(str) {
   waveSampleInterval = arr[3];
   waveBreathClosed = false;
   waveBreathPartial = false;
-  pwPrevShapeSliceNum = -1;
-  pwShapeSliceNum = -1;
-  dpwPrevShapeSliceNum = -1;
-  dpwShapeSliceNum = -1;
+  pwPrevWaveSliceNum = -1;
+  pwWaveSliceNum = -1;
+  fwPrevWaveSliceNum = -1;
+  fwWaveSliceNum = -1;
   waveSlices = [];
 }
 
@@ -636,10 +636,10 @@ function processPwendChirp(str) {
 
   if (!session.waves.breathNum || waveBreathClosed) {
     //console.log("Missing PWSTART args for PWEND=" + str);
-    pwPrevShapeSliceNum = -1;
-    pwShapeSliceNum = -1;
-    dpwPrevShapeSliceNum = -1;
-    dpwShapeSliceNum = -1;
+    pwPrevWaveSliceNum = -1;
+    pwWaveSliceNum = -1;
+    fwPrevWaveSliceNum = -1;
+    fwWaveSliceNum = -1;
     waveSlices = [];
     waveBreathPartial = false;
     waveBreathClosed = true;
@@ -649,7 +649,7 @@ function processPwendChirp(str) {
 
   // consolidate all samples
   let samples = [];
-  if (expectingDPWEND) {
+  if (expectingFWEND) {
     samples = convertQtoFlowLPM(waveSlices, waveBreathPartial);
   } else {
     for (let i = 0; i < waveSlices.length; i++) {
@@ -724,13 +724,13 @@ function processPwsliceChirp(receivedSliceNum, str) {
   let sliceNum = null;
   let prevSliceNum = null;
   if (expectingPWEND) {
-    pwShapeSliceNum = Number(arr[1]);
-    sliceNum = pwShapeSliceNum;
-    prevSliceNum = pwPrevShapeSliceNum;
+    pwWaveSliceNum = Number(arr[1]);
+    sliceNum = pwWaveSliceNum;
+    prevSliceNum = pwPrevWaveSliceNum;
   } else {
-    dpwShapeSliceNum = Number(arr[1]);
-    sliceNum = dpwShapeSliceNum;
-    prevSliceNum = dpwPrevShapeSliceNum;
+    fwWaveSliceNum = Number(arr[1]);
+    sliceNum = fwWaveSliceNum;
+    prevSliceNum = fwPrevWaveSliceNum;
   }
 
   if ((sliceNum != prevSliceNum + 1) || (sliceNum != receivedSliceNum)) {
@@ -756,9 +756,9 @@ function processPwsliceChirp(receivedSliceNum, str) {
   });
 
   if (expectingPWEND) {
-    pwPrevShapeSliceNum = sliceNum;
+    pwPrevWaveSliceNum = sliceNum;
   } else {
-    dpwPrevShapeSliceNum = sliceNum;
+    fwPrevWaveSliceNum = sliceNum;
   }
 }
 
