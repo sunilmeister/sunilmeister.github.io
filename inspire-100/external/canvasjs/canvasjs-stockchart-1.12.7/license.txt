@@ -1,9 +1,9 @@
  
- CanvasJS Chart - v3.12.7 GA - https://canvasjs.com/ 
+ CanvasJS StockChart - v1.12.7 GA - https://canvasjs.com/ 
  Copyright 2025 fenopix
 
  --------------------- License Information --------------------
- CanvasJS Chart is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
+ CanvasJS StockChart is a commercial product which requires purchase of license. Without a commercial license you can use it for evaluation purposes for upto 30 days. Please refer to the following link for further details.
  https://canvasjs.com/license/
 
 
