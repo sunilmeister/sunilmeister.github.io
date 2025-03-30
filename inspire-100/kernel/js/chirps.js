@@ -2,17 +2,22 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var waveBreathPartial = false;
-var waveSampleInterval = null;
-var waveActualSamples = null;
-var waveBreathClosed = true;
-var waveSlices = [];
-var pwWaveSliceNum = -1;
-var pwPrevWaveSliceNum = -1;
-var fwWaveSliceNum = -1;
-var fwPrevWaveSliceNum = -1;
-var expectingPWEND = false;
-var expectingFWEND = false;
+var wavesInfo = {
+  breathClosed: true,
+  breathPartial: false,
+  sampleInterval: null,
+  expectedSamplesPerSlice: null,
+  actualSamples: null,
+  slices: [],
+  pwSliceNum: -1,
+  pwPrevSliceNum: -1,
+  fwSliceNum: -1,
+  fwPrevSliceNum: -1,
+  pwInProgress: false,
+  fwInProgress: false,
+  systemBreathNum: null,
+  breathInfo: null,
+}
 
 function parsePstats(jsonStr) {
   jsonStr = jsonStr.replace(/\'/g, '"');
@@ -299,7 +304,7 @@ function processJsonRecord(jsonData) {
         let value = jsonData.content[ckey];
 
         // close off PW samples if missing a closing chirp
-        if (expectingPWEND) {
+        if (wavesInfo.pwInProgress) {
           // if anything else, close of with PWEND
           if (ckey != "PWEND") {
             partsArray = ckey.split('_');
@@ -307,14 +312,14 @@ function processJsonRecord(jsonData) {
               //console.log("Expecting PWEND or PW slice but found=" + ckey);
               //console.log("Graphing anyway with PWEND()");
               processPwendChirp("");
-              waveBreathClosed = true;
-              expectingPWEND = false;
+              wavesInfo.breathClosed = true;
+              wavesInfo.pwInProgress = false;
             }
           }
         }
 
         // close off FW samples if missing a closing chirp
-        if (expectingFWEND) {
+        if (wavesInfo.fwInProgress) {
           // if anything else, close of with DPWEND
           if (ckey != "DPWEND") {
             partsArray = ckey.split('_');
@@ -322,8 +327,8 @@ function processJsonRecord(jsonData) {
               //console.log("Expecting DPWEND or DPW slice but found=" + ckey);
               //console.log("Graphing anyway with DPWEND()");
               processPwendChirp("");
-              waveBreathClosed = true;
-              expectingFWEND = false;
+              wavesInfo.breathClosed = true;
+              wavesInfo.fwInProgress = false;
             }
           }
         }
@@ -404,16 +409,16 @@ function processJsonRecord(jsonData) {
           session.waves.sendPeriod = value;
         } else if (ckey == "PWSTART") {
           processPwstartChirp(value);
-          expectingPWEND = true;
+          wavesInfo.pwInProgress = true;
         } else if (ckey == "PWEND") {
           processPwendChirp(value);
-          expectingPWEND = false;
+          wavesInfo.pwInProgress = false;
         } else if (ckey == "DPWSTART") {
           processPwstartChirp(value);
-          expectingFWEND = true;
+          wavesInfo.fwInProgress = true;
         } else if (ckey == "DPWEND") {
           processPwendChirp(value);
-          expectingFWEND = false;
+          wavesInfo.fwInProgress = false;
         } else {
           partsArray = ckey.split('_');
           if (partsArray.length == 0) continue;
@@ -448,46 +453,46 @@ function checkIfLoggedValidBreath(sysBnum) {
 }
 
 function processPwstartChirp(str) {
-  if (!waveBreathClosed) {
+  if (!wavesInfo.breathClosed) {
     processPwendChirp("");
-    waveBreathClosed = true;
-    session.waves.breathNum = null;
+    wavesInfo.breathClosed = true;
+    wavesInfo.systemBreathNum = null;
   }
 
   if (str=="") {
     // No PWSTART arguments
     // Wait for PWEND to provide them
-    waveBreathClosed = false;
-    waveBreathPartial = false;
-    session.waves.breathNum = null;
-    pwPrevWaveSliceNum = -1;
-    pwWaveSliceNum = -1;
-    fwPrevWaveSliceNum = -1;
-    fwWaveSliceNum = -1;
-    waveSlices = [];
+    wavesInfo.breathClosed = false;
+    wavesInfo.breathPartial = false;
+    wavesInfo.systemBreathNum = null;
+    wavesInfo.pwPrevSliceNum = -1;
+    wavesInfo.pwSliceNum = -1;
+    wavesInfo.fwPrevSliceNum = -1;
+    wavesInfo.fwSliceNum = -1;
+    wavesInfo.slices = [];
     return;
   }
 
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 4)) {
     console.log("Bad PWSTART=" + str);
-    session.waves.breathNum = null;
-    waveSampleInterval = null;
+    wavesInfo.systemBreathNum = null;
+    wavesInfo.sampleInterval = null;
     return;;
   }
   // PWSTART key has the following value format
   // arr = [breathNum, breathInfo, expectedSamples, sampleInterval, inspTime]
-  session.waves.breathNum = arr[0];
-  session.waves.breathInfo = arr[1];
-  waveExpectedSamplesPerSlice = arr[2];
-  waveSampleInterval = arr[3];
-  waveBreathClosed = false;
-  waveBreathPartial = false;
-  pwPrevWaveSliceNum = -1;
-  pwWaveSliceNum = -1;
-  fwPrevWaveSliceNum = -1;
-  fwWaveSliceNum = -1;
-  waveSlices = [];
+  wavesInfo.systemBreathNum = arr[0];
+  wavesInfo.breathInfo = arr[1];
+  wavesInfo.expectedSamplesPerSlice = arr[2];
+  wavesInfo.sampleInterval = arr[3];
+  wavesInfo.breathClosed = false;
+  wavesInfo.breathPartial = false;
+  wavesInfo.pwPrevSliceNum = -1;
+  wavesInfo.pwSliceNum = -1;
+  wavesInfo.fwPrevSliceNum = -1;
+  wavesInfo.fwSliceNum = -1;
+  wavesInfo.slices = [];
 }
 
 function movingAverageFilter(samples) {
@@ -557,8 +562,8 @@ function findFlowChangePoints(samples) {
 }
 
 function findQmults(samples, changes) {
-  let inspTime = (changes.inspEnd - changes.inspStart + 1) * waveSampleInterval;
-  let expTime = (changes.expEnd - changes.expStart + 1) * waveSampleInterval;
+  let inspTime = (changes.inspEnd - changes.inspStart + 1) * wavesInfo.sampleInterval;
+  let expTime = (changes.expEnd - changes.expStart + 1) * wavesInfo.sampleInterval;
 
   let inspQmult = session.breathData.qmult * 1000 / inspTime;
   let expQmult = session.breathData.qmult * 1000 / expTime * (changes.inspIQ / changes.expIQ);
@@ -616,44 +621,44 @@ function processPwendChirp(str) {
   if (str != "") {
     let arr = parseJSONSafely(str);
     if (arr && (arr.length == 4)) {
-      waveActualSamples = arr[2];
-      if (!session.waves.breathNum) {
+      wavesInfo.actualSamples = arr[2];
+      if (!wavesInfo.systemBreathNum) {
         //console.log("Recovering from missing PWSTART using PWEND");
-        session.waves.breathNum = arr[0];
-        session.waves.breathInfo = arr[1];
-        waveSampleInterval = arr[3];
+        wavesInfo.systemBreathNum = arr[0];
+        wavesInfo.breathInfo = arr[1];
+        wavesInfo.sampleInterval = arr[3];
       }
     } else {
       console.log("Bad PWEND=" + str);
     }
   } else {
-    if (waveExpectedSamplesPerSlice) {
-      waveActualSamples = waveExpectedSamplesPerSlice * WAVE_MAX_SLICES;
+    if (wavesInfo.expectedSamplesPerSlice) {
+      wavesInfo.actualSamples = wavesInfo.expectedSamplesPerSlice * WAVE_MAX_SLICES;
     } else {
-      waveActualSamples = WAVE_MAX_SAMPLES_PER_BREATH;
+      wavesInfo.actualSamples = WAVE_MAX_SAMPLES_PER_BREATH;
     }
   }
 
-  if (!session.waves.breathNum || waveBreathClosed) {
+  if (!wavesInfo.systemBreathNum || wavesInfo.breathClosed) {
     //console.log("Missing PWSTART args for PWEND=" + str);
-    pwPrevWaveSliceNum = -1;
-    pwWaveSliceNum = -1;
-    fwPrevWaveSliceNum = -1;
-    fwWaveSliceNum = -1;
-    waveSlices = [];
-    waveBreathPartial = false;
-    waveBreathClosed = true;
-    session.waves.breathNum = null;
+    wavesInfo.pwPrevSliceNum = -1;
+    wavesInfo.pwSliceNum = -1;
+    wavesInfo.fwPrevSliceNum = -1;
+    wavesInfo.fwSliceNum = -1;
+    wavesInfo.slices = [];
+    wavesInfo.breathPartial = false;
+    wavesInfo.breathClosed = true;
+    wavesInfo.systemBreathNum = null;
     return;
   }
 
   // consolidate all samples
   let samples = [];
-  if (expectingFWEND) {
-    samples = convertQtoFlowLPM(waveSlices, waveBreathPartial);
+  if (wavesInfo.fwInProgress) {
+    samples = convertQtoFlowLPM(wavesInfo.slices, wavesInfo.breathPartial);
   } else {
-    for (let i = 0; i < waveSlices.length; i++) {
-      slice = waveSlices[i];
+    for (let i = 0; i < wavesInfo.slices.length; i++) {
+      slice = wavesInfo.slices[i];
       for (let j = 0; j < slice.sliceData.length; j++) {
         let Q = slice.sliceData[j];
         samples.push(Q);
@@ -664,10 +669,10 @@ function processPwendChirp(str) {
     samples = filteredSamples;
     samples[samples.length-1] = lastSample; // show spontaneous trigger if any
   }
-  waveSlices = [];
-  if (waveActualSamples != samples.length) {
-    waveBreathPartial = true;
-    //console.log("Missing Samples at PWEND=" + (waveActualSamples-samples.length));
+  wavesInfo.slices = [];
+  if (wavesInfo.actualSamples != samples.length) {
+    wavesInfo.breathPartial = true;
+    //console.log("Missing Samples at PWEND=" + (wavesInfo.actualSamples-samples.length));
   }
 
   // Make it consistently WAVE_MAX_SAMPLES_PER_BREATH
@@ -675,14 +680,14 @@ function processPwendChirp(str) {
     samples.push(null);
   }
 
-  if (session.waves.breathNum === null) {
+  if (wavesInfo.systemBreathNum === null) {
     console.error("NULL breathnum when pushing wave data");
   }
 
   // Pointers to flow or pressure data holding arrays
   let holdingArray = null;
   let partialArray = null;
-  if (expectingPWEND) {
+  if (wavesInfo.pwInProgress) {
     holdingArray = session.waves.pwData;
     partialArray = session.waves.pwPartial;
   } else {
@@ -690,29 +695,29 @@ function processPwendChirp(str) {
     partialArray = session.waves.fwPartial;
   }
 
-  if (checkIfLoggedValidBreath(session.waves.breathNum)) {
-    if (waveBreathPartial) {
-      if (!partialArray.includes(session.waves.breathNum)) {
-        partialArray.push(session.waves.breathNum);
+  if (checkIfLoggedValidBreath(wavesInfo.systemBreathNum)) {
+    if (wavesInfo.breathPartial) {
+      if (!partialArray.includes(wavesInfo.systemBreathNum)) {
+        partialArray.push(wavesInfo.systemBreathNum);
       }
     }
     holdingArray.push({
-      "partial": waveBreathPartial,
-      "systemBreathNum": session.waves.breathNum,
-      "breathInfo": session.waves.breathInfo,
-      "sampleInterval": waveSampleInterval,
+      "partial": wavesInfo.breathPartial,
+      "systemBreathNum": wavesInfo.systemBreathNum,
+      "breathInfo": wavesInfo.breathInfo,
+      "sampleInterval": wavesInfo.sampleInterval,
       "samples": cloneObject(samples),
     });
   }
 
-  waveBreathPartial = false;
-  waveBreathClosed = true;
-  session.waves.breathNum = null;
+  wavesInfo.breathPartial = false;
+  wavesInfo.breathClosed = true;
+  wavesInfo.systemBreathNum = null;
 }
 
 function processPwsliceChirp(receivedSliceNum, str) {
-  //console.log("expectingPWEND=" + expectingPWEND);
-  //console.log("session.waves.breathNum=" + session.waves.breathNum + " waveBreathClosed=" + waveBreathClosed);
+  //console.log("wavesInfo.pwInProgress=" + wavesInfo.pwInProgress);
+  //console.log("wavesInfo.systemBreathNum=" + wavesInfo.systemBreathNum + " wavesInfo.breathClosed=" + wavesInfo.breathClosed);
 
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 3)) {
@@ -723,42 +728,42 @@ function processPwsliceChirp(receivedSliceNum, str) {
   let sliceData = arr[2];
   let sliceNum = null;
   let prevSliceNum = null;
-  if (expectingPWEND) {
-    pwWaveSliceNum = Number(arr[1]);
-    sliceNum = pwWaveSliceNum;
-    prevSliceNum = pwPrevWaveSliceNum;
+  if (wavesInfo.pwInProgress) {
+    wavesInfo.pwSliceNum = Number(arr[1]);
+    sliceNum = wavesInfo.pwSliceNum;
+    prevSliceNum = wavesInfo.pwPrevSliceNum;
   } else {
-    fwWaveSliceNum = Number(arr[1]);
-    sliceNum = fwWaveSliceNum;
-    prevSliceNum = fwPrevWaveSliceNum;
+    wavesInfo.fwSliceNum = Number(arr[1]);
+    sliceNum = wavesInfo.fwSliceNum;
+    prevSliceNum = wavesInfo.fwPrevSliceNum;
   }
 
   if ((sliceNum != prevSliceNum + 1) || (sliceNum != receivedSliceNum)) {
     // stuff empty slices
-    waveBreathPartial = true;
+    wavesInfo.breathPartial = true;
     for (let i = prevSliceNum + 1; i < sliceNum; i++) {
       samples = [];
       if (!session.waves.expectedSamplesPerSlice) session.waves.expectedSamplesPerSlice = WAVE_MAX_SAMPLES_PER_SLICE;
       for (let j = 0; j < session.waves.expectedSamplesPerSlice; j++) {
         samples.push(sliceData[0]);
       }
-      //console.log("Missing slice#",i,"for breath#",session.waves.breathNum);
-      waveSlices.push({
+      //console.log("Missing slice#",i,"for breath#",wavesInfo.systemBreathNum);
+      wavesInfo.slices.push({
         "sliceNum": i,
         sliceData: cloneObject(samples)
       });
     }
   }
 
-  waveSlices.push({
+  wavesInfo.slices.push({
     "sliceNum": sliceNum,
     sliceData: cloneObject(sliceData)
   });
 
-  if (expectingPWEND) {
-    pwPrevWaveSliceNum = sliceNum;
+  if (wavesInfo.pwInProgress) {
+    wavesInfo.pwPrevSliceNum = sliceNum;
   } else {
-    fwPrevWaveSliceNum = sliceNum;
+    wavesInfo.fwPrevSliceNum = sliceNum;
   }
 }
 
@@ -1209,3 +1214,4 @@ function processUptimeChirp(curTime, jsonData) {
     //console.log("UpTime", mins);
   }
 }
+

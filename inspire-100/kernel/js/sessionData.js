@@ -156,8 +156,6 @@ var SessionDataTemplate = {
     fwMissing: [],
     pwPartial: [],
     fwPartial: [],
-    breathNum: null,
-    breathInfo: null,
     sendPeriod: null,
     expectedSamplesPerSlice: null,
     allWavesContainerInfo: {},
