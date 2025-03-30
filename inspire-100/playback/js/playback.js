@@ -450,6 +450,7 @@ function resizeChartsWaves() {
 function initGlobals() {
   // Create new data objects
   createNewSession();
+  appResize();
 
   session.appId = PLAYBACK_APP_ID;
 }
