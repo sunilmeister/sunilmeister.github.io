@@ -715,19 +715,20 @@ function processPwsliceChirp(receivedSliceNum, str) {
   //console.log("session.waves.breathNum=" + session.waves.breathNum + " waveBreathClosed=" + waveBreathClosed);
 
   let arr = parseJSONSafely(str);
-  if (!arr || (arr.length != 2)) {
+  if (!arr || (arr.length != 3)) {
     return;
   }
 
-  let sliceData = arr[1];
+  let sliceBnum = arr[0];
+  let sliceData = arr[2];
   let sliceNum = null;
   let prevSliceNum = null;
   if (expectingPWEND) {
-    pwShapeSliceNum = Number(arr[0]);
+    pwShapeSliceNum = Number(arr[1]);
     sliceNum = pwShapeSliceNum;
     prevSliceNum = pwPrevShapeSliceNum;
   } else {
-    dpwShapeSliceNum = Number(arr[0]);
+    dpwShapeSliceNum = Number(arr[1]);
     sliceNum = dpwShapeSliceNum;
     prevSliceNum = dpwPrevShapeSliceNum;
   }
