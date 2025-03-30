@@ -46,7 +46,6 @@ class WavePane {
     this.paramColor = paramColor;
     this.data = data;
     this.missing = missing;
-    this.customBreaks = [];
     this.stripLines = [];
 
     this.addXaxis();
@@ -73,10 +72,6 @@ class WavePane {
 		if (axisY) {
     	axisY.labelFontSize = session.charts.labelFontSize;
 		}
-	}
-
-	getCustomBreaks() {
-    return this.customBreaks;
 	}
 
 	setCustomBreaks(customBreaks) {
@@ -246,7 +241,6 @@ class WavePane {
     this.stripLines = [];
 
     let xyPoints = [];
-    let prevXval = 0;
 
     let startIx = this.findSearchStartIndex(this.data, 
                         session.startSystemBreathNum + minBnum - 1);
@@ -279,7 +273,6 @@ class WavePane {
 				console.error("loggedBreaths",session.loggedBreaths);
 			}
       let xval = breath.time.getTime() - session.firstChirpDate.getTime();
-      let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,
         "y": null
@@ -324,16 +317,6 @@ class WavePane {
       stripLine.labelBackgroundColor = "none";
       stripLine.labelFontSize = session.waves.stripLineFontSize;
       this.stripLines.push(cloneObject(stripLine));
-
-      // Do custom scaleBreaks
-      // Make sure that the graphs do not connect end-to-end
-      this.customBreaks.push({
-        breathNum:  breathNum,
-        sysBreathNum: sysBreathNum,
-        startValue: prevXval,
-        endValue: stripLine.startValue - 0.01,
-      });
-      prevXval = stripLine.endValue;
     }
 
     let chartData = {};
