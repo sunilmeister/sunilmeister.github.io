@@ -266,7 +266,7 @@ class WavePane {
       let samples = this.data[i].samples;
       partial = this.data[i].partial;
 
-      if (breathNum < 0) continue;
+      if (breathNum <= 0) continue;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       if (!breathSelectedInMenu(breathInfo, this.menu)) continue;

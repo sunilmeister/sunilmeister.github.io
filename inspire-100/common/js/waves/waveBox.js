@@ -225,6 +225,21 @@ class WaveBox {
     return cStrips;
   }
 
+  createCustomBreaks(strips) {
+    let len = strips.length;
+    if (!len) return null;
+
+    let breaks = [];
+    let startVal = 0;
+    for (let i=0; i<len; i++) {
+      let strip = strips[i];
+      //console.log("strip", strip);
+      breaks.push({startValue:startVal, endValue:(strip.startValue)});
+      startVal = strip.endValue;
+    }
+    return breaks;
+  }
+
   createCharts() {
 		// Pressure Chart
     this.pChart = new WavePane(
@@ -257,17 +272,20 @@ class WaveBox {
     this.fChart.addGraph();
 
 		// Make sure both charts have the same breaks and strip lines
-    let pBreaks = this.pChart.getCustomBreaks();
-    let fBreaks = this.fChart.getCustomBreaks();
-    let cBreaks = this.mergeCustomBreaks(pBreaks, fBreaks);
-    this.pChart.setCustomBreaks(cBreaks);
-    this.fChart.setCustomBreaks(cBreaks);
-
     let pStrips = this.pChart.getStripLines();
     let fStrips = this.fChart.getStripLines();
     let cStrips = this.mergeStripLines(pStrips, fStrips);
     this.pChart.setStripLines(cStrips);
     this.fChart.setStripLines(cStrips);
+    /*
+    let pBreaks = this.pChart.getCustomBreaks();
+    let fBreaks = this.fChart.getCustomBreaks();
+    let cBreaks = this.mergeCustomBreaks(pBreaks, fBreaks);
+    */
+    let cBreaks = this.createCustomBreaks(cStrips);
+    //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
+    this.pChart.setCustomBreaks(cBreaks);
+    this.fChart.setCustomBreaks(cBreaks);
   }
 
 }
