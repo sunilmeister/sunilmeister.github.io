@@ -566,7 +566,7 @@ function findQmults(samples, changes) {
   return {"inspQmult": inspQmult, "expQmult": expQmult};
 }
 
-function convertQtoFlowLPM(waveSlices) {
+function convertQtoFlowLPM(waveSlices, partial) {
   let samples = [];
   for (let i = 0; i < waveSlices.length; i++) {
     slice = waveSlices[i];
@@ -601,7 +601,9 @@ function convertQtoFlowLPM(waveSlices) {
         Q = 0;
       }
     }
-    flowSamples.push(Q*60);
+    Q = Q*60;
+    if (partial && (Q<-100)) Q = -100; // missing data points can cause strange Qs
+    flowSamples.push(Q);
   }
 
   return flowSamples;
@@ -648,7 +650,7 @@ function processPwendChirp(str) {
   // consolidate all samples
   let samples = [];
   if (expectingDPWEND) {
-    samples = convertQtoFlowLPM(waveSlices);
+    samples = convertQtoFlowLPM(waveSlices, waveBreathPartial);
   } else {
     for (let i = 0; i < waveSlices.length; i++) {
       slice = waveSlices[i];
@@ -739,6 +741,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
       for (let j = 0; j < session.waves.expectedSamplesPerSlice; j++) {
         samples.push(sliceData[0]);
       }
+      //console.log("Missing slice#",i,"for breath#",session.waves.breathNum);
       waveSlices.push({
         "sliceNum": i,
         sliceData: cloneObject(samples)
