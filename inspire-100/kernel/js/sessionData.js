@@ -157,7 +157,6 @@ var SessionDataTemplate = {
     pwPartial: [],
     fwPartial: [],
     sendPeriod: null,
-    expectedSamplesPerSlice: null,
     allWavesContainerInfo: {},
     boxTree: null,
     labelFontSize: 10,

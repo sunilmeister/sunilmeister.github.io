@@ -743,8 +743,8 @@ function processPwsliceChirp(receivedSliceNum, str) {
     wavesInfo.breathPartial = true;
     for (let i = prevSliceNum + 1; i < sliceNum; i++) {
       samples = [];
-      if (!session.waves.expectedSamplesPerSlice) session.waves.expectedSamplesPerSlice = WAVE_MAX_SAMPLES_PER_SLICE;
-      for (let j = 0; j < session.waves.expectedSamplesPerSlice; j++) {
+      if (!wavesInfo.expectedSamplesPerSlice) wavesInfo.expectedSamplesPerSlice = WAVE_MAX_SAMPLES_PER_SLICE;
+      for (let j = 0; j < wavesInfo.expectedSamplesPerSlice; j++) {
         samples.push(sliceData[0]);
       }
       //console.log("Missing slice#",i,"for breath#",wavesInfo.systemBreathNum);
