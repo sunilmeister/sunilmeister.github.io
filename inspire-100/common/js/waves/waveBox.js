@@ -102,60 +102,6 @@ class WaveBox {
     }
   }
 
-  mergeCustomBreaks(pBreaks, fBreaks) {
-    let cBreaks = [];
-
-    let pLen = pBreaks.length;
-    if (!pLen) return fBreaks;
-
-    let fLen = fBreaks.length;
-    if (!fLen) return pBreaks;
-    
-    let pIx = 0;
-    let fIx = 0;
-    while (1) {
-      let pBnum = null;
-      let fBnum = null;
-      if (pIx < pLen) pBnum = pBreaks[pIx].breathNum;
-      if (fIx < fLen) fBnum = fBreaks[fIx].breathNum;
-      if (fBnum < pBnum) pBnum = null;
-      if (pBnum < fBnum) fBnum = null;
-      if ((fBnum === null) && (pBnum === null)) break;
-
-      if (fBnum == pBnum) {
-        // use pData
-        let elem = cloneObject(pBreaks[pIx]);
-        cBreaks.push(elem);
-
-        pIx++;
-        fIx++;
-      } else if (fBnum) {
-        // use fData
-        let elem = cloneObject(fBreaks[fIx]);
-        cBreaks.push(elem);
-
-        fIx++;
-      } else {
-        // use pData
-        let elem = cloneObject(pBreaks[pIx]);
-        cBreaks.push(elem);
-
-        pIx++;
-      }
-    }
-
-    /*
-    console.log("__________");
-    console.log("pBreaks");
-    for (let i=0; i<pBreaks.length; i++) console.log(i,pBreaks[i]);
-    console.log("fBreaks");
-    for (let i=0; i<fBreaks.length; i++) console.log(i,fBreaks[i]);
-    console.log("cBreaks");
-    for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
-    */
-    return cBreaks;
-  }
-
   mergeStripLines(pStrips, fStrips) {
     let cStrips = [];
 
@@ -277,11 +223,7 @@ class WaveBox {
     let cStrips = this.mergeStripLines(pStrips, fStrips);
     this.pChart.setStripLines(cStrips);
     this.fChart.setStripLines(cStrips);
-    /*
-    let pBreaks = this.pChart.getCustomBreaks();
-    let fBreaks = this.fChart.getCustomBreaks();
-    let cBreaks = this.mergeCustomBreaks(pBreaks, fBreaks);
-    */
+
     let cBreaks = this.createCustomBreaks(cStrips);
     //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
     this.pChart.setCustomBreaks(cBreaks);
