@@ -16,6 +16,7 @@ var wavesInfo = {
   pwInProgress: false,
   fwInProgress: false,
   systemBreathNum: null,
+  nextSystemBreathNum: null,
   breathInfo: null,
 }
 
@@ -459,20 +460,6 @@ function processPwstartChirp(str) {
     wavesInfo.systemBreathNum = null;
   }
 
-  if (str=="") {
-    // No PWSTART arguments
-    // Wait for PWEND to provide them
-    wavesInfo.breathClosed = false;
-    wavesInfo.breathPartial = false;
-    wavesInfo.systemBreathNum = null;
-    wavesInfo.pwPrevSliceNum = -1;
-    wavesInfo.pwSliceNum = -1;
-    wavesInfo.fwPrevSliceNum = -1;
-    wavesInfo.fwSliceNum = -1;
-    wavesInfo.slices = [];
-    return;
-  }
-
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 4)) {
     console.log("Bad PWSTART=" + str);
@@ -712,9 +699,6 @@ function processPwendChirp(str) {
 }
 
 function processPwsliceChirp(receivedSliceNum, str) {
-  //console.log("wavesInfo.pwInProgress=" + wavesInfo.pwInProgress);
-  //console.log("wavesInfo.systemBreathNum=" + wavesInfo.systemBreathNum + " wavesInfo.breathClosed=" + wavesInfo.breathClosed);
-
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 3)) {
     return;
