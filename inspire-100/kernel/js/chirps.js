@@ -6,7 +6,7 @@ var wavesInfo = {
   breathClosed: true,
   breathPartial: false,
   sampleInterval: null,
-  expectedSamplesPerSlice: null,
+  expectedSamples: null,
   actualSamples: null,
   slices: [],
   pwSliceNum: -1,
@@ -484,7 +484,7 @@ function processPwstartChirp(str) {
   // arr = [breathNum, breathInfo, expectedSamples, sampleInterval, inspTime]
   wavesInfo.systemBreathNum = arr[0];
   wavesInfo.breathInfo = arr[1];
-  wavesInfo.expectedSamplesPerSlice = arr[2];
+  wavesInfo.expectedSamples = arr[2];
   wavesInfo.sampleInterval = arr[3];
   wavesInfo.breathClosed = false;
   wavesInfo.breathPartial = false;
@@ -632,11 +632,7 @@ function processPwendChirp(str) {
       console.log("Bad PWEND=" + str);
     }
   } else {
-    if (wavesInfo.expectedSamplesPerSlice) {
-      wavesInfo.actualSamples = wavesInfo.expectedSamplesPerSlice * WAVE_MAX_SLICES;
-    } else {
-      wavesInfo.actualSamples = WAVE_MAX_SAMPLES_PER_BREATH;
-    }
+    wavesInfo.actualSamples = WAVE_MAX_SAMPLES_PER_BREATH;
   }
 
   if (!wavesInfo.systemBreathNum || wavesInfo.breathClosed) {
@@ -743,8 +739,7 @@ function processPwsliceChirp(receivedSliceNum, str) {
     wavesInfo.breathPartial = true;
     for (let i = prevSliceNum + 1; i < sliceNum; i++) {
       samples = [];
-      if (!wavesInfo.expectedSamplesPerSlice) wavesInfo.expectedSamplesPerSlice = WAVE_MAX_SAMPLES_PER_SLICE;
-      for (let j = 0; j < wavesInfo.expectedSamplesPerSlice; j++) {
+      for (let j = 0; j < WAVE_MAX_SAMPLES_PER_SLICE; j++) {
         samples.push(sliceData[0]);
       }
       //console.log("Missing slice#",i,"for breath#",wavesInfo.systemBreathNum);

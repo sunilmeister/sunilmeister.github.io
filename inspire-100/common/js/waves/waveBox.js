@@ -102,6 +102,18 @@ class WaveBox {
     }
   }
 
+  markPartialStripLines(strips, partial) {
+    for (let i=0; i<strips.length; i++) {
+      let strip = strips[i];
+      let sysBreathNum = strip.sysBreathNum;
+      if (partial.includes(sysBreathNum)) {
+        strip.labelFontColor = "red";
+      } else {
+        strip.labelFontColor = "darkgreen";
+      }
+    }
+  }
+
   mergeStripLines(pStrips, fStrips) {
     let cStrips = [];
 
@@ -116,6 +128,7 @@ class WaveBox {
     while (1) {
       let pBnum = null;
       let fBnum = null;
+      let labelFontColor = "darkgreen";
       if (pIx < pLen) pBnum = pStrips[pIx].breathNum;
       if (fIx < fLen) fBnum = fStrips[fIx].breathNum;
       if (fBnum < pBnum) pBnum = null;
@@ -124,12 +137,7 @@ class WaveBox {
 
       if (fBnum == pBnum) {
         // use pData
-        let labelFontColor = "darkgreen";
         let labelText = "#" + pBnum;
-        if (session.waves.pwPartial.includes(pStrips[pIx].sysBreathNum) 
-          || session.waves.fwPartial.includes(fStrips[fIx].sysBreathNum)) {
-          labelFontColor = "red";
-        }
         let elem = cloneObject(pStrips[pIx]);
         elem.label = labelText;
         elem.labelFontColor = labelFontColor;
@@ -139,7 +147,6 @@ class WaveBox {
         fIx++;
       } else if (fBnum) {
         // use fData
-        let labelFontColor = "red";
         let labelText = "#" + fBnum;
         let elem = cloneObject(fStrips[fIx]);
         elem.label = labelText;
@@ -149,7 +156,6 @@ class WaveBox {
         fIx++;
       } else {
         // use pData
-        let labelFontColor = "red";
         let labelText = "#" + pBnum;
         let elem = cloneObject(pStrips[pIx]);
         elem.label = labelText;
@@ -221,8 +227,10 @@ class WaveBox {
     let pStrips = this.pChart.getStripLines();
     let fStrips = this.fChart.getStripLines();
     let cStrips = this.mergeStripLines(pStrips, fStrips);
-    this.pChart.setStripLines(cStrips);
-    this.fChart.setStripLines(cStrips);
+    this.markPartialStripLines(cStrips, session.waves.pwPartial);
+    this.pChart.setStripLines(cloneObject(cStrips));
+    this.markPartialStripLines(cStrips, session.waves.fwPartial);
+    this.fChart.setStripLines(cloneObject(cStrips));
 
     let cBreaks = this.createCustomBreaks(cStrips);
     //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
