@@ -16,7 +16,6 @@ var wavesInfo = {
   pwInProgress: false,
   fwInProgress: false,
   systemBreathNum: null,
-  nextSystemBreathNum: null,
   breathInfo: null,
 }
 
@@ -304,36 +303,6 @@ function processJsonRecord(jsonData) {
       for (let ckey in jsonData.content) {
         let value = jsonData.content[ckey];
 
-        // close off PW samples if missing a closing chirp
-        if (wavesInfo.pwInProgress) {
-          // if anything else, close of with PWEND
-          if (ckey != "PWEND") {
-            partsArray = ckey.split('_');
-            if ((partsArray.length == 0) || (partsArray[0] != "PW")) {
-              //console.log("Expecting PWEND or PW slice but found=" + ckey);
-              //console.log("Graphing anyway with PWEND()");
-              processPwendChirp("");
-              wavesInfo.breathClosed = true;
-              wavesInfo.pwInProgress = false;
-            }
-          }
-        }
-
-        // close off FW samples if missing a closing chirp
-        if (wavesInfo.fwInProgress) {
-          // if anything else, close of with DPWEND
-          if (ckey != "DPWEND") {
-            partsArray = ckey.split('_');
-            if ((partsArray.length == 0) || (partsArray[0] != "DPW")) {
-              //console.log("Expecting DPWEND or DPW slice but found=" + ckey);
-              //console.log("Graphing anyway with DPWEND()");
-              processPwendChirp("");
-              wavesInfo.breathClosed = true;
-              wavesInfo.fwInProgress = false;
-            }
-          }
-        }
-
         // process each keyword
         if (ckey == "BNUM") {
           //console.log("Found BNUM ",value);
@@ -409,23 +378,25 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "PWPERIOD") {
           session.waves.sendPeriod = value;
         } else if (ckey == "PWSTART") {
-          processPwstartChirp(value);
+          //console.log(ckey, value);
+          processPwstartChirp(ckey, value);
           wavesInfo.pwInProgress = true;
         } else if (ckey == "PWEND") {
-          processPwendChirp(value);
+          processPwendChirp(ckey, value);
           wavesInfo.pwInProgress = false;
         } else if (ckey == "DPWSTART") {
-          processPwstartChirp(value);
+          //console.log(ckey, value);
+          processPwstartChirp(ckey, value);
           wavesInfo.fwInProgress = true;
         } else if (ckey == "DPWEND") {
-          processPwendChirp(value);
+          processPwendChirp(ckey, value);
           wavesInfo.fwInProgress = false;
         } else {
           partsArray = ckey.split('_');
           if (partsArray.length == 0) continue;
           if ((partsArray[0] != "PW") && (partsArray[0] != "DPW")) continue;
           sNum = partsArray[1];
-          processPwsliceChirp(sNum, value);
+          processPwsliceChirp(partsArray[0], sNum, value);
         }
       }
     }
@@ -453,12 +424,30 @@ function checkIfLoggedValidBreath(sysBnum) {
   return !session.loggedBreaths[bnum].missed;
 }
 
-function processPwstartChirp(str) {
+function processPwstartChirp(key, str) {
   if (!wavesInfo.breathClosed) {
-    processPwendChirp("");
+    let pkey =  "PWEND";
+    if (wavesInfo.fwInProgress) pkey = "DPWEND";
+    processPwendChirp(pkey, "");
+    wavesInfo.fwInProgress = false;
+    wavesInfo.pwInProgress = false;
     wavesInfo.breathClosed = true;
     wavesInfo.systemBreathNum = null;
   }
+
+  if (str=="") {
+    // No PWSTART arguments
+    // Wait for PWEND to provide them
+    wavesInfo.breathClosed = false;
+    wavesInfo.breathPartial = false;
+    wavesInfo.systemBreathNum = null;
+    wavesInfo.pwPrevSliceNum = -1;
+    wavesInfo.pwSliceNum = -1;
+    wavesInfo.fwPrevSliceNum = -1;
+    wavesInfo.fwSliceNum = -1;
+    wavesInfo.slices = [];
+    return;
+  } 
 
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 4)) {
@@ -602,7 +591,7 @@ function convertQtoFlowLPM(waveSlices, partial) {
 }
 
 
-function processPwendChirp(str) {
+function processPwendChirp(key, str) {
   // PWEND key has the following value format
   // arr = [breathNum, breathInfo, actualSamples, sampleInterval, inspTime]
   if (str != "") {
@@ -698,7 +687,7 @@ function processPwendChirp(str) {
   wavesInfo.systemBreathNum = null;
 }
 
-function processPwsliceChirp(receivedSliceNum, str) {
+function processPwsliceChirp(key, receivedSliceNum, str) {
   let arr = parseJSONSafely(str);
   if (!arr || (arr.length != 3)) {
     return;
