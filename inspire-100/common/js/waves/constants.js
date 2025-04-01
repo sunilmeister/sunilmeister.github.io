@@ -15,6 +15,7 @@ const WAVE_CONTAINER_TEMPLATE_ID = "waveContainerTemplate";
 const WAVE_MENU_BANNER_ID = "waveMenuBanner";
 const WAVE_BODY_CLASS = "waveBody";
 const PRESSURE_WAVE_BODY_CLASS = "pWaveBody";
+const VOLUME_WAVE_BODY_CLASS = "vWaveBody";
 const FLOW_WAVE_BODY_CLASS = "fWaveBody";
 const WAVE_BANNER_CLASS = "waveBanner";
 const WAVE_EDIT_WAVE_MENU_CLASS = "waveEditMenu";

@@ -197,7 +197,7 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
   miscTableRow(table, "Number of CMV Spontaneous Breaths", "numCmvSpont");
-  miscTableRow(table, "Number of Missing Intervals (Packet loss)", "numMissingBreaths");
+  miscTableRow(table, "Number of Missing BreathTimes (Packet loss)", "numMissingBreaths");
   miscTableRow(table, "Number of WiFi Disconnects", "numWifiDrops");
   miscTableRow(table, "Number of Notifications", "numNotifications");
   miscTableRow(table, "Number of Warnings", "numWarnings");

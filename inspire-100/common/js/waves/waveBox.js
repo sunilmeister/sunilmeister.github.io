@@ -8,9 +8,11 @@ class WaveBox {
     this.containerBodyDiv = containerBodyDiv;
 		this.pressureChartDiv = findChildNodeByClass(containerBodyDiv, PRESSURE_WAVE_BODY_CLASS);
 		this.flowChartDiv = findChildNodeByClass(containerBodyDiv, FLOW_WAVE_BODY_CLASS);
+		this.volumeChartDiv = findChildNodeByClass(containerBodyDiv, VOLUME_WAVE_BODY_CLASS);
     this.options = {};
     this.pChart = null;
     this.fChart = null;
+    this.vChart = null;
     this.rangeX = null;
   }
 
@@ -18,6 +20,7 @@ class WaveBox {
 	resizeFonts() {
 		if (this.pChart) this.pChart.resizeFonts();
 		if (this.fChart) this.fChart.resizeFonts();
+		if (this.vChart) this.vChart.resizeFonts();
 	}
 
 	tooManyWaves() {
@@ -35,6 +38,7 @@ class WaveBox {
     this.createCharts();
     if (this.pChart) this.pChart.render(this.pressureChartDiv);
     if (this.fChart) this.fChart.render(this.flowChartDiv);
+    if (this.vChart) this.vChart.render(this.volumeChartDiv);
   }
 
   clearMenu(menuId) {
@@ -99,6 +103,11 @@ class WaveBox {
       this.fChart.destroy();
       delete this.fChart;
       this.fChart = null;
+    }
+    if (this.vChart) {
+      this.vChart.destroy();
+      delete this.vChart;
+      this.vChart = null;
     }
   }
 
@@ -210,16 +219,30 @@ class WaveBox {
 		// Flow Chart
     this.fChart = new WavePane(
       null,
-      "Elapsed Time (H:MM:SS)",
+      null,
       20,
       this.flowChartDiv.offsetHeight,
       this.rangeX,
       this.options,
 			"Flow (ltr/min)",
-			"#ECF0F1",
+			"#FFD0D0",
 			session.waves.fwData
     );
     this.fChart.addGraph();
+
+		// Volume Chart
+    this.vChart = new WavePane(
+      null,
+      "Elapsed Time (H:MM:SS)",
+      50,
+      this.volumeChartDiv.offsetHeight,
+      this.rangeX,
+      this.options,
+			"Volume (ml)",
+			"#C1CFA1",
+			session.waves.vwData
+    );
+    this.vChart.addGraph();
 
 		// Make sure both charts have the same breaks and strip lines
     let pStrips = this.pChart.getStripLines();
@@ -229,11 +252,13 @@ class WaveBox {
     this.pChart.setStripLines(cloneObject(cStrips));
     this.markPartialStripLines(cStrips, session.waves.fwPartial);
     this.fChart.setStripLines(cloneObject(cStrips));
+    this.vChart.setStripLines(cloneObject(cStrips));
 
     let cBreaks = this.createCustomBreaks(cStrips);
     //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
     this.pChart.setCustomBreaks(cBreaks);
     this.fChart.setCustomBreaks(cBreaks);
+    this.vChart.setCustomBreaks(cBreaks);
   }
 
 }

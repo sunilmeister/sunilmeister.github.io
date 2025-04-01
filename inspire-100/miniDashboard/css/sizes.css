@@ -12,9 +12,10 @@
   --chartTitleFontSize: 1.8;
   --chartStripLineFontSize: 1.2;
 
-  --waveContainerPadding: 53rem;
-  --pWaveBodyHeight: 25rem;
-  --fWaveBodyHeight: 26rem;
+  --waveContainerPadding: 56rem;
+  --pWaveBodyHeight: 18rem;
+  --fWaveBodyHeight: 18rem;
+  --vWaveBodyHeight: 19rem;
   --waveMenuIndent: 1rem;
   --waveMenuFontSize: 1.6rem;
   --waveMenuBannerHeight: 2.5rem;
