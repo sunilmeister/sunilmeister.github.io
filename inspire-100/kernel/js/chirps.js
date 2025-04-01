@@ -483,6 +483,18 @@ function findQmults(samples, changes, sampleInterval) {
   return {"inspQmult": inspQmult, "expQmult": expQmult};
 }
 
+function computeIntegral(samples, sampleInterval, fromIx, toIx) {
+  let prevSample = 0;
+  let integral = 0;
+  for (let i=fromIx; i<=toIx; i++) {
+    let sample = samples[i];
+    let area = (sample + prevSample) * sampleInterval / 2;
+    integral += area;
+    prevSample = sample;
+  }
+  return integral;
+}
+
 function convertQtoFlowLPM(samples, partial, sampleInterval) {
   //console.log("samples", samples);
   let filteredSamples = movingAverageFilter(samples);
@@ -514,6 +526,21 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
     Q = Q*60;
     //if (partial && (Q<-100)) Q = -100; // missing data points can cause strange Qs
     flowSamples.push(Q);
+  }
+
+  let inspArea = computeIntegral(flowSamples, sampleInterval, 
+    changes.inspStart, changes.inspEnd);
+  let expArea = computeIntegral(flowSamples, sampleInterval, 
+    changes.expStart, changes.expEnd);
+  let areaRatio = Math.abs(inspArea/expArea);
+
+  //console.log("inspArea",inspArea,"expArea",expArea,"areaRatio",areaRatio);
+
+  // Final adjustment to expiration flow samples
+  if (expArea != 0) {
+    for (let i = changes.expStart; i <= changes.expEnd; i++) {
+      flowSamples[i] *= areaRatio;
+    }
   }
 
   return flowSamples;

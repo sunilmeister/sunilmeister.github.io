@@ -210,7 +210,7 @@ class WaveBox {
       this.pressureChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Pressure (mmH2O)",
+			"Measured Pressure (mmH2O)",
 			"#AED6F1",
 			session.waves.pwData
     );
@@ -224,7 +224,7 @@ class WaveBox {
       this.flowChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Flow (ltr/min)",
+			"Estimated Flow (ltr/min)",
 			"#FFD0D0",
 			session.waves.fwData
     );
@@ -238,7 +238,7 @@ class WaveBox {
       this.volumeChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Volume (ml)",
+			"Estimated Volume (ml)",
 			"#C1CFA1",
 			session.waves.vwData
     );
