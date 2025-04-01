@@ -234,7 +234,7 @@ var rangeTemplate = {
 };
 
 function createNewSession() {
-	console.log("Creating new session");
+	//console.log("Creating new session");
 	let saveRangeSlider = null;
 	let saveLaunchDate = null;
 
