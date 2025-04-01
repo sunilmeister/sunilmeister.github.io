@@ -16,8 +16,8 @@
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 class WavePane {
-  constructor(chartTitle, xTitle, yInterval, height, rangeX, menu, paramName, paramColor, 
-              data, missing,) {
+  constructor(chartTitle, xTitle, yInterval, height, rangeX, menu, 
+              paramName, paramColor, data) {
     this.graphType = "splineArea";
     this.chartTitle = chartTitle;
     this.xTitle = xTitle;
@@ -45,7 +45,6 @@ class WavePane {
     this.paramName = paramName;
     this.paramColor = paramColor;
     this.data = data;
-    this.missing = missing;
     this.stripLines = [];
 
     this.addXaxis();

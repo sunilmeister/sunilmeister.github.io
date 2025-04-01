@@ -152,8 +152,6 @@ var SessionDataTemplate = {
     sparseInterval: 1,
     pwData: [],
     fwData: [],
-    pwMissing: [],
-    fwMissing: [],
     pwPartial: [],
     fwPartial: [],
     sendPeriod: null,

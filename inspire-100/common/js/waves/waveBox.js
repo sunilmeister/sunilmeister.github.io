@@ -203,8 +203,7 @@ class WaveBox {
       this.options,
 			"Pressure (mmH2O)",
 			"#AED6F1",
-			session.waves.pwData,
-			session.waves.pwMissing
+			session.waves.pwData
     );
     this.pChart.addGraph();
 
@@ -218,8 +217,7 @@ class WaveBox {
       this.options,
 			"Flow (ltr/min)",
 			"#ECF0F1",
-			session.waves.fwData,
-			session.waves.fwMissing
+			session.waves.fwData
     );
     this.fChart.addGraph();
 
