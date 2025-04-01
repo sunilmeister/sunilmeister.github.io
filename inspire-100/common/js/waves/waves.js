@@ -247,6 +247,7 @@ function  numSelectedWavesInRange(selectOptions) {
     let maxBnum = session.waves.range.maxBnum;
     let n = 0;
     for (let i = 0; i < session.waves.pwData.length; i++) {
+      if (session.waves.pwData[i] === null) continue;
       let breathNum = session.waves.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;

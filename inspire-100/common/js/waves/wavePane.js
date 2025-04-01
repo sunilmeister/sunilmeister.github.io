@@ -241,15 +241,13 @@ class WavePane {
 
     let xyPoints = [];
 
-    let startIx = this.findSearchStartIndex(this.data, 
-                        session.startSystemBreathNum + minBnum - 1);
-    // fail safe
-    if (startIx === null) {
-      startIx = 0;
-    }
+    let startIx = minBnum;
 
     let partial  = false;
     for (let i = startIx; i < this.data.length; i++) {
+      if (this.data[i] === null) continue;
+      if (isUndefined(this.data[i])) continue;
+
       let sysBreathNum = this.data[i].systemBreathNum;
     	if (!checkIfLoggedValidBreath(sysBreathNum)) continue;
       

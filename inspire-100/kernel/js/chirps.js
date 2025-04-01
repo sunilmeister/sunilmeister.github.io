@@ -544,19 +544,28 @@ function processFwaveChirp(curTime, jsonStr) {
 
 function processWaveChirp(sysBreathNum, partial, breathInfo, samplingIntervalMs, waveData, 
                           partialArray, dataArray) {
+  if (sysBreathNum < session.startSystemBreathNum) return;
+
   if (checkIfLoggedValidBreath(sysBreathNum)) {
     if (partial) {
       if (!partialArray.includes(sysBreathNum)) {
         partialArray.push(sysBreathNum);
       }
     }
-    dataArray.push({
+    let dashBnum = sysBreathNum - session.startSystemBreathNum + 1;
+    for (let i=dataArray.length-1; i<dashBnum; i++) {
+      // create a new entry in data array
+      dataArray.push(null);
+    }
+
+    // Note that this will also take care of waveforms received out of order
+    dataArray[dashBnum] = {
       "partial": partial,
       "systemBreathNum": sysBreathNum,
       "breathInfo": breathInfo,
       "sampleInterval": samplingIntervalMs,
       "samples": cloneObject(waveData),
-    });
+    };
   }
 }
 

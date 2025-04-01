@@ -12,7 +12,8 @@ function updateWavePanelRange() {
   let startWave = session.waves.pwData.length - MINI_WAVE_NUM_ROLLING_BREATHS;
   if (startWave < 0) startWave = 0;
   if (session.waves.pwData.length) {
-    minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
+    if (session.waves.pwData[startWave] === null) minBnum = 0;
+    else minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
   } else {
     minBnum = 0;
   }
