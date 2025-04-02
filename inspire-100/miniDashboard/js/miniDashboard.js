@@ -194,10 +194,8 @@ function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
     if (chirpQ.size() == 0) break;
-    let d = chirpQ.peek();
-    let millis = Number(d.MILLIS);
 
-    d = chirpQ.pop();
+    let d = chirpQ.pop();
 		if (dashboardSessionClosed) {
 			return; // do not process any more chirps
 		}

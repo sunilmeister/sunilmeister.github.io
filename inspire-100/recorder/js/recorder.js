@@ -197,10 +197,8 @@ function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
     if (chirpQ.size() == 0) break;
-    let d = chirpQ.peek();
-    millis = Number(d.MILLIS);
 
-    d = chirpQ.pop();
+    let d = chirpQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
