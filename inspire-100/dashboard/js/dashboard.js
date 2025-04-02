@@ -3,9 +3,7 @@
 // ////////////////////////////////////////////////////
 
 var maxMILLIS = null;
-//var lastChirpQueued = null;
 function disassembleAndQueueChirp(d) {
-	//let saveChirp = cloneObject(d);
   let fragmentIndex = 0;
   while (1) {
     let key = String(fragmentIndex);
@@ -24,8 +22,6 @@ function disassembleAndQueueChirp(d) {
 			// MILLIS should be monotonically increasing
 			// unless the chirps arrive out of order because of network buffering and latency
 			console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
-			//console.log("Last CHIRP",lastChirpQueued);
-			//console.log("New CHIRP",d);
 		}
 
 		// Reach here if all is good - no ERRORs
@@ -39,7 +35,6 @@ function disassembleAndQueueChirp(d) {
 		// For error checking the next round
 		if (!maxMILLIS || (maxMILLIS < fragment.MILLIS)) maxMILLIS = fragment.MILLIS;
   }
-	//lastChirpQueued = saveChirp;
 }
 
 function getCurrentSimulatedMillis() {
@@ -51,8 +46,6 @@ function getCurrentSimulatedMillis() {
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
-		//console.log("dashboardLaunchTime",dashboardLaunchTime);
-		//console.log("chirpTime",d.created);
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
@@ -61,7 +54,9 @@ function waitForChirps() {
 		dashboardChirpCount++;
 		if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
 
-    if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    let now = new Date();
+    let nowMs = now.getTime();
+    if (nowMs - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
     if (awaitingFirstChirp) {
@@ -78,7 +73,7 @@ function waitForChirps() {
       elm.innerHTML = dateToTimeStr(d.created);
     }
     awaitingFirstChirp = false;
-    lastChirpInMs = simulatedMillis;
+    lastChirpInMs = nowMs;
     disassembleAndQueueChirp(d);
 		displaySelectiveButtons();
   })
@@ -662,24 +657,32 @@ function HandlePeriodicTasks() {
 		blinkSliderDiv();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
+  let now = new Date();
+  let nowMs = now.getTime();
   if (awaitingFirstChirp) {
-    let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
+    let timeAwaitingChirp = nowMs - dashboardLaunchTime.getTime() ;
     if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+      let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+      if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) {
           showDormantPopup();
         }
       }
-    } else if ((new Date() - session.launchDate) >= MAX_CHIRP_INTERVAL_IN_MS) {
+    } else if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
       if (!dormantPopupDisplayed) showDormantPopup();
     }
-  } else if ((chirpQ.size() == 0) &&
-    ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
-    if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
-        if (!dormantPopupDisplayed) showDormantPopup();
+  } else {
+    let timeAwaitingChirp = nowMs - lastChirpInMs ;
+    if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
+      if (dormantPopupManualCloseTime) {
+        let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+        if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+          if (!dormantPopupDisplayed) showDormantPopup();
+        }
+      } else if (!dormantPopupDisplayed) {
+        showDormantPopup();
       }
-    } else if (!dormantPopupDisplayed) showDormantPopup();
+    }
   }
 }
 

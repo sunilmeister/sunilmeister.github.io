@@ -96,8 +96,6 @@ function disassembleAndQueueChirp(d) {
 			// MILLIS should be monotonically increasing
 			// unless the chirps arrive out of order because of network buffering and latency
 			console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
-			//console.log("Last CHIRP",lastChirpQueued);
-			//console.log("New CHIRP",d);
 		}
 
 		// Reach here if all is good - no ERRORs
@@ -139,31 +137,51 @@ function waitForChirps() {
       startSystemDate = new Date();
     }
     awaitingFirstChirp = false;
-    lastChirpInMs = simulatedMillis;
+    let now = new Date();
+    let nowMs = now.getTime();
+    lastChirpInMs = nowMs;
     disassembleAndQueueChirp(d);
   })
 }
 
 function HandlePeriodicTasks() {
+  if (!finishedLoading) return;
+  updateAlert(true);
+  updatePending(true);
   let invokeTimeInMs = (new Date()).getTime();
+  let blinkInterval = invokeTimeInMs - prevBlinkTimeInMs;
+  if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
+    blinkPauseButton();
+    blinkFlowRate();
+		blinkSliderDiv();
+    prevBlinkTimeInMs = invokeTimeInMs;
+  }
+  let now = new Date();
+  let nowMs = now.getTime();
   if (awaitingFirstChirp) {
-    let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
+    let timeAwaitingChirp = nowMs - dashboardLaunchTime.getTime() ;
     if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+      let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+      if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) {
           showDormantPopup();
         }
       }
-    } else if ((new Date() - session.launchDate) >= MAX_CHIRP_INTERVAL_IN_MS) {
+    } else if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
       if (!dormantPopupDisplayed) showDormantPopup();
     }
-  } else if ((chirpQ.size() == 0) &&
-    ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
-    if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
-        if (!dormantPopupDisplayed) showDormantPopup();
+  } else {
+    let timeAwaitingChirp = nowMs - lastChirpInMs ;
+    if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
+      if (dormantPopupManualCloseTime) {
+        let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+        if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+          if (!dormantPopupDisplayed) showDormantPopup();
+        }
+      } else if (!dormantPopupDisplayed) {
+        showDormantPopup();
       }
-    } else if (!dormantPopupDisplayed) showDormantPopup();
+    }
   }
 }
 
