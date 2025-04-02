@@ -37,9 +37,9 @@ function CountMissingWavesInRange(minBnum, maxBnum) {
 	if (minBnum==0) minBnum = 1;
 	if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
-  	if (session.waves.pwData[i] !== null) count++;
-  	if (session.waves.fwData[i] !== null) count++;
-  	if (session.waves.vwData[i] !== null) count++;
+  	if (session.waves.pwData[i] === null) count++;
+  	if (session.waves.fwData[i] === null) count++;
+  	if (session.waves.vwData[i] === null) count++;
 	}
   return count;
 }
