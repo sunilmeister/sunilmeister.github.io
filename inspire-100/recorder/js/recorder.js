@@ -199,7 +199,6 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
     let d = chirpQ.peek();
     millis = Number(d.MILLIS);
-    if (simulatedMillis < millis) break;
 
     d = chirpQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
@@ -221,11 +220,6 @@ function FetchAndExecuteFromQueue() {
     processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULAION_TIMES) {
-    modalAlert("Recorder out of Sync", "Something went wrong\nPlease relaunch the Recorder");
-    console.error("Chirps way ahead of simulated time " + millis +
-      " v/s " + simulatedMillis);
-  }
   return;
 }
 

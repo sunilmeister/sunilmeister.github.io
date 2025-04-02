@@ -722,7 +722,6 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
     let d = chirpQ.peek();
     let millis = Number(d.MILLIS);
-    if (simulatedMillis < millis) break;
 
     d = chirpQ.pop();
 		if (dashboardSessionClosed) {
@@ -763,11 +762,6 @@ function FetchAndExecuteFromQueue() {
     processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULATION_TIMES) {
-    modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
-    console.error("Chirps way ahead of simulated time " + millis +
-      " v/s " + simulatedMillis);
-  }
   return;
 }
 
