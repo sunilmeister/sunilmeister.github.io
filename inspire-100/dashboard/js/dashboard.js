@@ -660,8 +660,10 @@ function HandlePeriodicTasks() {
           showDormantPopup();
         }
       }
-    } else if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
-      if (!dormantPopupDisplayed) showDormantPopup();
+    } else if (timeAwaitingChirp >= MAX_AWAIT_FIRST_CHIRP_IN_MS) {
+      if (!dormantPopupDisplayed) {
+        showDormantPopup();
+      }
     }
   } else {
     let timeAwaitingChirp = nowMs - lastChirpInMs ;

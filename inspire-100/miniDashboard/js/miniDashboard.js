@@ -144,29 +144,21 @@ function waitForChirps() {
 
 function HandlePeriodicTasks() {
   if (!finishedLoading) return;
-  updateAlert(true);
-  updatePending(true);
-  let invokeTimeInMs = (new Date()).getTime();
-  let blinkInterval = invokeTimeInMs - prevBlinkTimeInMs;
-  if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
-    blinkPauseButton();
-    blinkFlowRate();
-		blinkSliderDiv();
-    prevBlinkTimeInMs = invokeTimeInMs;
-  }
   let now = new Date();
   let nowMs = now.getTime();
   if (awaitingFirstChirp) {
     let timeAwaitingChirp = nowMs - dashboardLaunchTime.getTime() ;
     if (dormantPopupManualCloseTime) {
-      let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
-      if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+      let timeAwaitingChirp = nowMs - dormantPopupManualCloseTime.getTime();
+      if (timeAwaitingChirp >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) {
           showDormantPopup();
         }
       }
-    } else if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
-      if (!dormantPopupDisplayed) showDormantPopup();
+    } else if (timeAwaitingChirp >= MAX_AWAIT_FIRST_CHIRP_IN_MS) {
+      if (!dormantPopupDisplayed) {
+        showDormantPopup();
+      }
     }
   } else {
     let timeAwaitingChirp = nowMs - lastChirpInMs ;
@@ -293,6 +285,7 @@ function undisplayAllViews() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
+  finishedLoading = false;
 	appResizeFunction = appResize;
 	
 	disableAllBeeps();  
@@ -322,6 +315,7 @@ window.onload = function () {
   chirpQ = new Queue();
   waitForChirps();
 
+  finishedLoading = true;
 }
 
 function autoCloseDormantPopup() {

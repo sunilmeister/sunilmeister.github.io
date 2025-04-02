@@ -40,7 +40,6 @@ var breathPausedAt = 0;
 var awaitingFirstChirp = true;
 var chirpQ = null;
 var periodicTickCount = 0;
-var lastChirpTick = 0;
 var lastChirpInMs = 0;
 var chirpIntervalCounter = 0;
 
