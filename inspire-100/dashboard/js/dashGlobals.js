@@ -15,7 +15,6 @@ var dashboardLaunchTime = new Date();
 var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
-var simulatedMillis = 0;
 var startSystemDate = new Date();
 var tempGauge = null;
 

@@ -37,12 +37,6 @@ function disassembleAndQueueChirp(d) {
   }
 }
 
-function getCurrentSimulatedMillis() {
-  let curDate = new Date();
-  let deltaTimeInMs = curDate - startSystemDate;
-  return startSimulatedMillis + deltaTimeInMs;
-}
-
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
@@ -64,8 +58,6 @@ function waitForChirps() {
       let millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      simulatedMillis = Number(millis);
-      startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
       let elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
@@ -707,9 +699,6 @@ function closeCurrentSession() {
 }
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstChirp) {
-    simulatedMillis = getCurrentSimulatedMillis();
-  }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (chirpQ && chirpQ.size()) {

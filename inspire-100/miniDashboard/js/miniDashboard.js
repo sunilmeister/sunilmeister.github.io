@@ -132,8 +132,6 @@ function waitForChirps() {
       let millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      simulatedMillis = Number(millis);
-      startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
     }
     awaitingFirstChirp = false;
@@ -197,9 +195,6 @@ function closeCurrentSession() {
 }
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstChirp) {
-    simulatedMillis = getCurrentSimulatedMillis();
-  }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (chirpQ && chirpQ.size()) {
