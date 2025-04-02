@@ -206,7 +206,7 @@ class WaveBox {
     this.pChart = new WavePane(
       this.options.title,
       null,
-      25,
+      50,
       this.pressureChartDiv.offsetHeight,
       this.rangeX,
       this.options,
