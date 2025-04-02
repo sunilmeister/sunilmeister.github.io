@@ -171,8 +171,8 @@ function renderAllWaves() {
   for (let id in session.waves.allWavesContainerInfo) {
     let box = session.waves.allWavesContainerInfo[id];
 		if (box.tooManyWaves()) {
-       modalAlert("Too many Breath Waveforms (" + numWaves +")", 
-        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
+       modalAlert("Too many Breath Waveforms" +
+        "\nUse Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
         + "\nto waveforms to display");
 		} else {
     	box.render();
