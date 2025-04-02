@@ -234,7 +234,7 @@ class WaveBox {
     this.vChart = new WavePane(
       null,
       "Elapsed Time (H:MM:SS)",
-      50,
+      100,
       this.volumeChartDiv.offsetHeight,
       this.rangeX,
       this.options,
