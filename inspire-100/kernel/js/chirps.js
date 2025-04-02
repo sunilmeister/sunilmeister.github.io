@@ -528,20 +528,31 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
     flowSamples.push(Q);
   }
 
+  // Final adjustment to inspiration flow samples
   let inspArea = computeIntegral(flowSamples, sampleInterval, 
+    changes.inspStart, changes.inspEnd);
+  let inspVol = (inspArea * 1000) / (60 * 1000);
+  let inspRatio = session.breathData.vtdel/inspVol;
+  if (inspArea != 0) {
+    for (let i = changes.inspStart; i <= changes.inspEnd; i++) {
+      flowSamples[i] *= inspRatio;
+    }
+  }
+
+  // Final adjustment to expiration flow samples
+  inspArea = computeIntegral(flowSamples, sampleInterval, 
     changes.inspStart, changes.inspEnd);
   let expArea = computeIntegral(flowSamples, sampleInterval, 
     changes.expStart, changes.expEnd);
-  let areaRatio = Math.abs(inspArea/expArea);
-
-  //console.log("inspArea",inspArea,"expArea",expArea,"areaRatio",areaRatio);
-
-  // Final adjustment to expiration flow samples
+  let expRatio = Math.abs(inspArea/expArea);
   if (expArea != 0) {
     for (let i = changes.expStart; i <= changes.expEnd; i++) {
-      flowSamples[i] *= areaRatio;
+      flowSamples[i] *= expRatio;
     }
   }
+
+  //console.log("inspArea",inspArea,"expArea",expArea,"vtdel",session.breathData.vtdel);
+  //console.log("inspArea",inspArea,"inspVol",inspVol,"vtdel",session.breathData.vtdel);
 
   return flowSamples;
 }
