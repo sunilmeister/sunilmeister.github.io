@@ -284,21 +284,33 @@ function blankFrontPanelSettings() {
 function updateFrontPanelSettings() {
 	let snap = session.snapshot.content;
 	updateFrontPanelModeLeds();
+	let mode = MODE_DECODER[snap.mode];
 
-	let pval = snap.pendingIe;
-	let val = snap.ie;
-	if (isValidValue(pval)) document.getElementById('p_fpEiDiv').innerHTML = pval;
-	else if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
+	if (mode == "PSV") {
+	  let val = snap.mv;
+    if (val) {
+      document.getElementById('p_fpVtDiv').innerHTML = val;
+    } else {
+      document.getElementById('p_fpVtDiv').innerHTML = "--";
+    }
+    document.getElementById('p_fpEiDiv').innerHTML = "--";
+    document.getElementById('p_fpRrDiv').innerHTML = "--";
+  } else {
+	  let pval = snap.pendingIe;
+	  let val = snap.ie;
+	  if (isValidValue(pval)) document.getElementById('p_fpEiDiv').innerHTML = pval;
+	  else if (isValidValue(val)) document.getElementById('p_fpEiDiv').innerHTML = val;
 
-	pval = snap.pendingRr;
-	val = snap.rr;
-	if (isValidValue(pval)) document.getElementById('p_fpRrDiv').innerHTML = pval;
-	else if (isValidValue(val)) document.getElementById('p_fpRrDiv').innerHTML = val;
+	  pval = snap.pendingRr;
+	  val = snap.rr;
+	  if (isValidValue(pval)) document.getElementById('p_fpRrDiv').innerHTML = pval;
+	  else if (isValidValue(val)) document.getElementById('p_fpRrDiv').innerHTML = val;
 
-	pval = snap.pendingVt;
-	val = snap.vt;
-	if (isValidValue(pval)) document.getElementById('p_fpVtDiv').innerHTML = pval;
-	else if (isValidValue(val)) document.getElementById('p_fpVtDiv').innerHTML = val;
+	  pval = snap.pendingVt;
+	  val = snap.vt;
+	  if (isValidValue(pval)) document.getElementById('p_fpVtDiv').innerHTML = pval;
+	  else if (isValidValue(val)) document.getElementById('p_fpVtDiv').innerHTML = val;
+  }
 
 	pval = snap.pendingPmax;
 	val = snap.pmax;
