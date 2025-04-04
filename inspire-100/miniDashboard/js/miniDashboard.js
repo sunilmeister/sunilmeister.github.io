@@ -93,9 +93,13 @@ function disassembleAndQueueChirp(d) {
 			console.error("*** MILLIS checksum error");
 			continue // ignore this malformed chirp
 		} else if (maxMILLIS && (millis < maxMILLIS)) {
+      let diff = maxMILLIS - millis;
 			// MILLIS should be monotonically increasing
 			// unless the chirps arrive out of order because of network buffering and latency
-			console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
+      if (diff > 100) {
+        // Up to 100ms can be caused by Arduino and NodeMcu crystal frequency drift
+			  console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
+      }
 		}
 
 		// Reach here if all is good - no ERRORs

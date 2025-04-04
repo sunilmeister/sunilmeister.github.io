@@ -14,15 +14,20 @@ function createDashboardWaves() {
 }
 
 function movingWaveRange() {
-  let minBnum = 0;
-  let startWave = session.waves.pwData.length - WAVE_NUM_ROLLING_BREATHS;
-  if (startWave < 0) startWave = 0;
-  if (session.waves.pwData.length) {
-    if (session.waves.pwData[startWave] === null) minBnum = 0;
-    else minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
-  } else {
-    minBnum = 0;
+  let minBnum = null;
+
+  // find starting wave number searching backwards
+  // remember there may be missing waves
+  let numWaves = 0;
+  for (let i=session.maxBreathNum-1; i>0; i--) {
+    if (session.waves.pwData[i]) numWaves++;
+    if (numWaves == WAVE_NUM_ROLLING_BREATHS) {
+      minBnum = i;
+      break;
+    }
   }
+  if (minBnum === null) minBnum = 1;
+
 	let range = createRangeBnum(true, minBnum, session.maxBreathNum);
 	updateVisibleViewRangeObject(range);
 	showRangeOnSlider(range);

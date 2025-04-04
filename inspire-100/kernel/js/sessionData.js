@@ -5,6 +5,11 @@
 var SessionDataTemplate = {
   internetOnline: true,
   appId: null,
+
+  // App to install these if it needs to be identified
+  // of keypress idle time
+  keypressIdleAction: null,
+  keypressTimeoutDelaySeconds: null,
   
   // currently open session
   sessionDataValid: true,
