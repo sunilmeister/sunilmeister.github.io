@@ -615,6 +615,11 @@ function processWaveChirp(sysBreathNum, partial, breathInfo, samplingIntervalMs,
       dataArray.push(null);
     }
 
+    if (dataArray.length > dashBnum+1) {
+      console.log("#### Out-of-order Waveform SysBreathNum",sysBreathNum,
+                  "DashBreathNum",dashBnum);
+    }
+
     // Note that this will also take care of waveforms received out of order
     dataArray[dashBnum] = {
       "partial": partial,
@@ -623,6 +628,7 @@ function processWaveChirp(sysBreathNum, partial, breathInfo, samplingIntervalMs,
       "sampleInterval": samplingIntervalMs,
       "samples": cloneObject(waveData),
     };
+
   }
 }
 
