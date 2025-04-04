@@ -9,7 +9,6 @@ function updateFrontPanelRange() {
 
 function updateWavePanelRange() {
   let minBnum = 0;
-  console.log("session.maxBreathNum",session.maxBreathNum);
   // find starting wave number searching backwards
   // remember there may be missing waves
   let numWaves = 0;
