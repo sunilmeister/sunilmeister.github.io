@@ -17,7 +17,7 @@ function checkForUndefined(val) {
   return val;
 }
 
-function FindMissinBreathsInRange(minBnum, maxBnum) {
+function FindMissingBreathsInRange(minBnum, maxBnum) {
   let arr = [];
  	if (session.loggedBreaths.length == 1) return arr;
 
@@ -29,6 +29,19 @@ function FindMissinBreathsInRange(minBnum, maxBnum) {
 		}
 	}
   return arr;
+}
+
+function CountMissingWavesInRange(minBnum, maxBnum) {
+  let count = 0;
+
+	if (minBnum==0) minBnum = 1;
+	if (maxBnum==0) maxBnum = 1;
+  for (let i = minBnum; i <= maxBnum; i++) {
+  	if (session.waves.pwData[i] === null) count++;
+  	if (session.waves.fwData[i] === null) count++;
+  	if (session.waves.vwData[i] === null) count++;
+	}
+  return count;
 }
 
 function GatherAllSettings(date) {
@@ -197,7 +210,8 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
   miscTableRow(table, "Number of CMV Spontaneous Breaths", "numCmvSpont");
-  miscTableRow(table, "Number of Missing Intervals (Packet loss)", "numMissingBreaths");
+  miscTableRow(table, "Number of Missing Breath Times (Packet loss)", "numMissingBreaths");
+  miscTableRow(table, "Number of Missing Breath Waveforms (Packet loss)", "numMissingWaves");
   miscTableRow(table, "Number of WiFi Disconnects", "numWifiDrops");
   miscTableRow(table, "Number of Notifications", "numNotifications");
   miscTableRow(table, "Number of Warnings", "numWarnings");
@@ -278,9 +292,13 @@ function displayBreathTypeInfo() {
   el = document.getElementById("numWifiDrops");
   el.innerHTML = replaceDummyValue(nDrops);
 
-	let arr = FindMissinBreathsInRange(minBnum, maxBnum);
+	let arr = FindMissingBreathsInRange(minBnum, maxBnum);
   el = document.getElementById("numMissingBreaths");
   el.innerHTML = replaceDummyValue(arr.length);
+
+	let nWaves = CountMissingWavesInRange(minBnum, maxBnum);
+  el = document.getElementById("numMissingWaves");
+  el.innerHTML = replaceDummyValue(nWaves);
 }
 
 function displayMinMaxAvg() {

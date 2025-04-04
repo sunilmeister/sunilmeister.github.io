@@ -12,7 +12,8 @@ function updateWavePanelRange() {
   let startWave = session.waves.pwData.length - MINI_WAVE_NUM_ROLLING_BREATHS;
   if (startWave < 0) startWave = 0;
   if (session.waves.pwData.length) {
-    minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
+    if (session.waves.pwData[startWave] === null) minBnum = 0;
+    else minBnum = session.waves.pwData[startWave].systemBreathNum - session.startSystemBreathNum + 1
   } else {
     minBnum = 0;
   }
@@ -92,11 +93,13 @@ function disassembleAndQueueChirp(d) {
 			console.error("*** MILLIS checksum error");
 			continue // ignore this malformed chirp
 		} else if (maxMILLIS && (millis < maxMILLIS)) {
+      let diff = maxMILLIS - millis;
 			// MILLIS should be monotonically increasing
 			// unless the chirps arrive out of order because of network buffering and latency
-			console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
-			//console.log("Last CHIRP",lastChirpQueued);
-			//console.log("New CHIRP",d);
+      if (diff > 100) {
+        // Up to 100ms can be caused by Arduino and NodeMcu crystal frequency drift
+			  console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
+      }
 		}
 
 		// Reach here if all is good - no ERRORs
@@ -133,36 +136,46 @@ function waitForChirps() {
       let millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      simulatedMillis = Number(millis);
-      startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
     }
     awaitingFirstChirp = false;
-    lastChirpInMs = simulatedMillis;
+    let now = new Date();
+    let nowMs = now.getTime();
+    lastChirpInMs = nowMs;
     disassembleAndQueueChirp(d);
   })
 }
 
 function HandlePeriodicTasks() {
-  let invokeTimeInMs = (new Date()).getTime();
+  if (!finishedLoading) return;
+  let now = new Date();
+  let nowMs = now.getTime();
   if (awaitingFirstChirp) {
-    let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
+    let timeAwaitingChirp = nowMs - dashboardLaunchTime.getTime() ;
     if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+      let timeAwaitingChirp = nowMs - dormantPopupManualCloseTime.getTime();
+      if (timeAwaitingChirp >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) {
           showDormantPopup();
         }
       }
-    } else if ((new Date() - session.launchDate) >= MAX_CHIRP_INTERVAL_IN_MS) {
-      if (!dormantPopupDisplayed) showDormantPopup();
-    }
-  } else if ((chirpQ.size() == 0) &&
-    ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
-    if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
-        if (!dormantPopupDisplayed) showDormantPopup();
+    } else if (timeAwaitingChirp >= MAX_AWAIT_FIRST_CHIRP_IN_MS) {
+      if (!dormantPopupDisplayed) {
+        showDormantPopup();
       }
-    } else if (!dormantPopupDisplayed) showDormantPopup();
+    }
+  } else {
+    let timeAwaitingChirp = nowMs - lastChirpInMs ;
+    if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
+      if (dormantPopupManualCloseTime) {
+        let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+        if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+          if (!dormantPopupDisplayed) showDormantPopup();
+        }
+      } else if (!dormantPopupDisplayed) {
+        showDormantPopup();
+      }
+    }
   }
 }
 
@@ -178,9 +191,6 @@ function closeCurrentSession() {
 }
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstChirp) {
-    simulatedMillis = getCurrentSimulatedMillis();
-  }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (chirpQ && chirpQ.size()) {
@@ -193,11 +203,8 @@ function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
     if (chirpQ.size() == 0) break;
-    let d = chirpQ.peek();
-    let millis = Number(d.MILLIS);
-    if (simulatedMillis < millis) break;
 
-    d = chirpQ.pop();
+    let d = chirpQ.pop();
 		if (dashboardSessionClosed) {
 			return; // do not process any more chirps
 		}
@@ -216,9 +223,9 @@ function FetchAndExecuteFromQueue() {
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
-      let bnumObj = parseJSONSafely(bnumContent);
+      let bnumObj = parseBnumData(bnumContent);
 			if (bnumObj) {
-      	session.systemBreathNum = bnumObj[0];
+      	session.systemBreathNum = bnumObj.bnum;
       	if (session.startSystemBreathNum == null) {
         	session.startSystemBreathNum = session.systemBreathNum;
       	}
@@ -231,11 +238,6 @@ function FetchAndExecuteFromQueue() {
     processDashboardChirp(cloneObject(d));
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULATION_TIMES) {
-    modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
-    console.error("Chirps way ahead of simulated time " + millis +
-      " v/s " + simulatedMillis);
-  }
   return;
 }
 
@@ -287,6 +289,7 @@ function undisplayAllViews() {
 
 window.onload = function () {
 	dashboardLaunchTime = new Date();
+  finishedLoading = false;
 	appResizeFunction = appResize;
 	
 	disableAllBeeps();  
@@ -316,6 +319,7 @@ window.onload = function () {
   chirpQ = new Queue();
   waitForChirps();
 
+  finishedLoading = true;
 }
 
 function autoCloseDormantPopup() {

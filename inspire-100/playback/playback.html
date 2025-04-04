@@ -633,7 +633,7 @@
         <img src="../common/img/pen.png" id=btnEnterInterval class=iconButton onClick='enterBreathInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Manual Edit' style="float:right; width:1.8rem; height:1.8rem;">
         <img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:1.8rem; height:1.8rem;">
         <img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:1.8rem; height:1.8rem;">
-        <img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:1.8rem; height:1.8rem;">
+        <img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:1.8rem; height:1.8rem;">
         <img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:1.8rem; height:1.8rem;">
         <center>
           <img src="../common/img/123.png" id=btnNumBased class=iconButton onClick='rangeNumBased(this)' title='Breath Numbers' style="background-color:var(--rsp_blue); width:1.8rem; height:1.8rem; display:inline-block;">
@@ -949,7 +949,7 @@
 
       <div id=elapsedTimeId class=elapsedTimeCls>
         	<center>
-						<p style="font-size:1.4rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL DURATION
+						<p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL DURATION
 						<p id=upTime style="font-weight:bold; font-size:2rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
 						<p style="font-size:1rem; margin-top:0.3rem; margin-bottom:0.6rem;">(Hrs:Mins)
         	</center>
@@ -958,7 +958,7 @@
 
       <div id=elapsedBreathsId class=elapsedBreathCls>
         	<center>
-						<p style="font-size:1.4rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL BREATHS
+						<p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL BREATHS
 						<p id=elapsedBreaths style="font-weight:bold; font-size:2.2rem; margin-top:0.6rem; margin-bottom:0.3rem;">__
         	</center>
       </div>
@@ -1200,7 +1200,7 @@
         </div>
 
         <div style="clear:both">
-          <p style="color:black;">Broken lines indicate some missing datapoints
+          <p style="color:red;">Broken lines indicate some missing datapoints due to internet packet loss
         </div>
       </div>
     </div>
@@ -1289,6 +1289,8 @@
 				<div class=pWaveBody>
 				</div>
 				<div class=fWaveBody>
+				</div>
+				<div class=vWaveBody>
 				</div>
       </div>
     </div>

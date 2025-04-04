@@ -5,7 +5,6 @@
 var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
-var simulatedMillis = 0;
 var lastChirpInMs = 0;
 var startSystemDate = new Date();
 var awaitingFirstChirp = true;
@@ -56,7 +55,6 @@ function disassembleAndQueueChirp(d) {
     if (millis == null) continue // ignore this malformed chirp
 
     if (!startMillis) startMillis = Number(millis);
-
     fragment.MILLIS = Number(millis);
 		let date = session.firstChirpDate;
 		if (date === null) date = new Date(d.created);
@@ -79,7 +77,9 @@ function waitForChirps() {
 		recorderChirpCount++;
 		if ((recorderChirpCount == 1) && (d.created < recorderLaunchTime)) return;
 
-    if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    let now = new Date();
+    let nowMs = now.getTime();
+    if (nowMs - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
     if (awaitingFirstChirp) {
@@ -87,8 +87,6 @@ function waitForChirps() {
       millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      simulatedMillis = Number(millis);
-      startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
       elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
@@ -96,7 +94,7 @@ function waitForChirps() {
       elm.innerHTML = dateToTimeStr(d.created);
     }
     awaitingFirstChirp = false;
-    lastChirpInMs = simulatedMillis;
+    lastChirpInMs = nowMs;
     disassembleAndQueueChirp(d);
   })
 }
@@ -182,9 +180,6 @@ window.onbeforeunload = function (e) {
 const TIMEOUT_INTERVAL_IN_MS = 200;
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstChirp) {
-    simulatedMillis = getCurrentSimulatedMillis();
-  }
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (chirpQ && chirpQ.size()) {
     FetchAndExecuteFromQueue();
@@ -197,32 +192,27 @@ function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
     if (chirpQ.size() == 0) break;
-    let d = chirpQ.peek();
-    millis = Number(d.MILLIS);
-    if (simulatedMillis < millis) break;
 
-    d = chirpQ.pop();
+    let d = chirpQ.pop();
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
-      let bnumObj = parseJSONSafely(bnumContent);
-      session.systemBreathNum = bnumObj[0];
+      let bnumObj = parseBnumData(bnumContent);
       if (session.startSystemBreathNum == null) {
-        session.startSystemBreathNum = session.systemBreathNum;
+        session.startSystemBreathNum = bnumObj.bnum;
         let elm = document.getElementById("priorBreathNum");
-        elm.innerHTML = String(session.systemBreathNum - 1);
+        elm.innerHTML = String(bnumObj.bnum - 1);
       }
-      session.maxBreathNum = session.systemBreathNum - session.startSystemBreathNum;
+      let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+      if (chirpBnum >	session.maxBreathNum) {
+    	  session.systemBreathNum = bnumObj.bnum;
+       	session.maxBreathNum = chirpBnum;
+      }
     }
     updateRecorderSummary(d);
     let dCopy = cloneObject(d);
     processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULAION_TIMES) {
-    modalAlert("Recorder out of Sync", "Something went wrong\nPlease relaunch the Recorder");
-    console.error("Chirps way ahead of simulated time " + millis +
-      " v/s " + simulatedMillis);
-  }
   return;
 }
 

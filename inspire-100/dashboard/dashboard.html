@@ -49,6 +49,7 @@
   <script src="../kernel/js/params.js"></script>
   <script src="../kernel/js/chirps.js"></script>
   <script src="../kernel/js/range.js"></script>
+  <script src="../kernel/js/keypressIdle.js"></script>
 
   <script src="../common/js/misc/palette.js"></script>
   <script src="../common/js/misc/uid.js"></script>
@@ -104,6 +105,7 @@
   <script src="js/dashAlerts.js"></script>
   <script src="js/dashWaves.js"></script>
   <script src="js/dashSearch.js"></script>
+  <script src="js/dashIdle.js"></script>
   <script src="js/dashboard.js"></script>
 </head>
 
@@ -686,7 +688,7 @@
           <img src="../common/img/table.png" id=btnShowInterval class=iconButton onClick='showCurrentRangeTimes(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Range Table' style="float:right; width:2rem; height:2rem;">
           <img src="../common/img/pause.png" id=btnPlayInterval class=iconButton onClick='playPauseTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Play/Pause' style="float:left; width:2rem; height:2rem;">
           <img src="../common/img/rewind.png" id=btnRewindInterval class=iconButton onClick='rewindTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Rewind SPAN' style="float:left; width:2rem; height:2rem;">
-          <img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:2rem; height:2rem;">
+          <img src="../common/img/expand.png" id=btnFullInterval class=iconButton onClick='fullTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Maximize' style="float:left; width:2rem; height:2rem;">
           <img src="../common/img/forward.png" id=btnForwardInterval class=iconButton onClick='forwardTimeInterval(this)' onmouseover='overIconButton(this)' onmouseout='outIconButton(this)' title='Forward SPAN' style="float:left; width:2rem; height:2rem;">
           <center>
             <img src="../common/img/123.png" id=btnNumBased class=iconButton onClick='rangeNumBased(this)' title='Breath Numbers' style="background-color:var(--rsp_blue); margin-top:-1.6rem; margin-bottom:-1rem; width:2rem; height:2rem; display:inline-block;">
@@ -990,7 +992,7 @@
               </div>
             </div>
             <div style="clear:both">
-              <p style="color:black;">Broken lines indicate few missing datapoints
+              <p style="color:red;">Broken lines indicate few missing datapoints due to internet packet loss
             </div>
           </div>
         </div>
@@ -1287,7 +1289,7 @@
 
         <div id=elapsedTimeId class=elapsedTimeCls>
           	<center>
-							<p style="font-size:1.4rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL DURATION
+							<p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL DURATION
 							<p id=upTime style="font-weight:bold; font-size:2rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
 							<p style="font-size:1rem; margin-top:0.3rem; margin-bottom:0.6rem;">(Hrs:Mins)
           	</center>
@@ -1296,7 +1298,7 @@
 
         <div id=elapsedBreathsId class=elapsedBreathCls>
           	<center>
-							<p style="font-size:1.4rem; margin-top:0.7rem; margin-bottom:0.3rem;">TOTAL BREATHS
+							<p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL BREATHS
 							<p id=elapsedBreaths style="font-weight:bold; font-size:2.2rem; margin-top:0.6rem; margin-bottom:0.3rem;">__
           	</center>
         </div>
@@ -1337,6 +1339,8 @@
 				<div class=pWaveBody>
 				</div>
 				<div class=fWaveBody>
+				</div>
+				<div class=vWaveBody>
 				</div>
       </div>
   </template>

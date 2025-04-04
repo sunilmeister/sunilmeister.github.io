@@ -8,9 +8,11 @@ class WaveBox {
     this.containerBodyDiv = containerBodyDiv;
 		this.pressureChartDiv = findChildNodeByClass(containerBodyDiv, PRESSURE_WAVE_BODY_CLASS);
 		this.flowChartDiv = findChildNodeByClass(containerBodyDiv, FLOW_WAVE_BODY_CLASS);
+		this.volumeChartDiv = findChildNodeByClass(containerBodyDiv, VOLUME_WAVE_BODY_CLASS);
     this.options = {};
     this.pChart = null;
     this.fChart = null;
+    this.vChart = null;
     this.rangeX = null;
   }
 
@@ -18,6 +20,7 @@ class WaveBox {
 	resizeFonts() {
 		if (this.pChart) this.pChart.resizeFonts();
 		if (this.fChart) this.fChart.resizeFonts();
+		if (this.vChart) this.vChart.resizeFonts();
 	}
 
 	tooManyWaves() {
@@ -35,6 +38,7 @@ class WaveBox {
     this.createCharts();
     if (this.pChart) this.pChart.render(this.pressureChartDiv);
     if (this.fChart) this.fChart.render(this.flowChartDiv);
+    if (this.vChart) this.vChart.render(this.volumeChartDiv);
   }
 
   clearMenu(menuId) {
@@ -100,38 +104,161 @@ class WaveBox {
       delete this.fChart;
       this.fChart = null;
     }
+    if (this.vChart) {
+      this.vChart.destroy();
+      delete this.vChart;
+      this.vChart = null;
+    }
+  }
+
+  markPartialStripLines(strips, partial) {
+    for (let i=0; i<strips.length; i++) {
+      let strip = strips[i];
+      let sysBreathNum = strip.sysBreathNum;
+      if (partial.includes(sysBreathNum)) {
+        strip.labelFontColor = "red";
+      } else {
+        strip.labelFontColor = "darkgreen";
+      }
+    }
+  }
+
+  mergeStripLines(pStrips, fStrips) {
+    let cStrips = [];
+
+    let pLen = pStrips.length;
+    if (!pLen) return fStrips;
+
+    let fLen = fStrips.length;
+    if (!fLen) return pStrips;
+    
+    let pIx = 0;
+    let fIx = 0;
+    while (1) {
+      let pBnum = null;
+      let fBnum = null;
+      let labelFontColor = "darkgreen";
+      if (pIx < pLen) pBnum = pStrips[pIx].breathNum;
+      if (fIx < fLen) fBnum = fStrips[fIx].breathNum;
+      if (fBnum < pBnum) pBnum = null;
+      if (pBnum < fBnum) fBnum = null;
+      if ((fBnum === null) && (pBnum === null)) break;
+
+      if (fBnum == pBnum) {
+        // use pData
+        let labelText = "#" + pBnum;
+        let elem = cloneObject(pStrips[pIx]);
+        elem.label = labelText;
+        elem.labelFontColor = labelFontColor;
+        cStrips.push(elem);
+
+        pIx++;
+        fIx++;
+      } else if (fBnum) {
+        // use fData
+        let labelText = "#" + fBnum;
+        let elem = cloneObject(fStrips[fIx]);
+        elem.label = labelText;
+        elem.labelFontColor = labelFontColor;
+        cStrips.push(elem);
+
+        fIx++;
+      } else {
+        // use pData
+        let labelText = "#" + pBnum;
+        let elem = cloneObject(pStrips[pIx]);
+        elem.label = labelText;
+        elem.labelFontColor = labelFontColor;
+        cStrips.push(elem);
+
+        pIx++;
+      }
+    }
+
+    /*
+    console.log("pStrips");
+    for (let i=0; i<pStrips.length; i++) console.log(i,pStrips[i]);
+    console.log("fStrips");
+    for (let i=0; i<fStrips.length; i++) console.log(i,fStrips[i]);
+    console.log("cStrips");
+    for (let i=0; i<cStrips.length; i++) console.log(i,cStrips[i]);
+    */
+    return cStrips;
+  }
+
+  createCustomBreaks(strips) {
+    let len = strips.length;
+    if (!len) return null;
+
+    let breaks = [];
+    let startVal = 0;
+    for (let i=0; i<len; i++) {
+      let strip = strips[i];
+      //console.log("strip", strip);
+      breaks.push({startValue:startVal, endValue:(strip.startValue)});
+      startVal = strip.endValue;
+    }
+    return breaks;
   }
 
   createCharts() {
 		// Pressure Chart
     this.pChart = new WavePane(
       this.options.title,
+      null,
+      50,
       this.pressureChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Pressure (mmH2O)",
+			"Measured Pressure (mmH2O)",
 			"#AED6F1",
-			session.waves.pwData,
-			false // not a flow graph
+			session.waves.pwData
     );
     this.pChart.addGraph();
 
 		// Flow Chart
     this.fChart = new WavePane(
-      this.options.title,
+      null,
+      null,
+      20,
       this.flowChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Flow (ltr/min)",
-			"#ECF0F1",
-			session.waves.flowData,
-			true // is a flow graph
+			"Estimated Flow (ltr/min)",
+			"#FFD0D0",
+			session.waves.fwData
     );
     this.fChart.addGraph();
 
+		// Volume Chart
+    this.vChart = new WavePane(
+      null,
+      "Elapsed Time (H:MM:SS)",
+      100,
+      this.volumeChartDiv.offsetHeight,
+      this.rangeX,
+      this.options,
+			"Estimated Volume (ml)",
+			"#C1CFA1",
+			session.waves.vwData
+    );
+    this.vChart.addGraph();
+
 		// Make sure both charts have the same breaks and strip lines
-    this.fChart.setCustomBreaks(this.pChart.getCustomBreaks());
-    this.fChart.setStripLines(this.pChart.getStripLines());
+    let pStrips = this.pChart.getStripLines();
+    let fStrips = this.fChart.getStripLines();
+    let cStrips = this.mergeStripLines(pStrips, fStrips);
+    this.markPartialStripLines(cStrips, session.waves.pwPartial);
+    this.pChart.setStripLines(cloneObject(cStrips));
+    this.markPartialStripLines(cStrips, session.waves.fwPartial);
+    this.fChart.setStripLines(cloneObject(cStrips));
+    this.vChart.setStripLines(cloneObject(cStrips));
+
+    let cBreaks = this.createCustomBreaks(cStrips);
+    //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
+    this.pChart.setCustomBreaks(cBreaks);
+    this.fChart.setCustomBreaks(cBreaks);
+    this.vChart.setCustomBreaks(cBreaks);
   }
 
 }

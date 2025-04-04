@@ -15,7 +15,6 @@ var dashboardLaunchTime = new Date();
 var simulatedTimeInMs = 0;
 var startimulatedTimeInMs = 0;
 var startMillis = 0;
-var simulatedMillis = 0;
 var startSystemDate = new Date();
 var tempGauge = null;
 
@@ -41,7 +40,6 @@ var breathPausedAt = 0;
 var awaitingFirstChirp = true;
 var chirpQ = null;
 var periodicTickCount = 0;
-var lastChirpTick = 0;
 var lastChirpInMs = 0;
 var chirpIntervalCounter = 0;
 

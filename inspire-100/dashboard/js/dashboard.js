@@ -3,9 +3,7 @@
 // ////////////////////////////////////////////////////
 
 var maxMILLIS = null;
-//var lastChirpQueued = null;
 function disassembleAndQueueChirp(d) {
-	//let saveChirp = cloneObject(d);
   let fragmentIndex = 0;
   while (1) {
     let key = String(fragmentIndex);
@@ -21,11 +19,13 @@ function disassembleAndQueueChirp(d) {
 			console.error("*** MILLIS checksum error");
 			continue // ignore this malformed chirp
 		} else if (maxMILLIS && (millis < maxMILLIS)) {
+      let diff = maxMILLIS - millis;
 			// MILLIS should be monotonically increasing
 			// unless the chirps arrive out of order because of network buffering and latency
-			console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
-			//console.log("Last CHIRP",lastChirpQueued);
-			//console.log("New CHIRP",d);
+      if (diff > 100) {
+        // Up to 100ms can be caused by Arduino and NodeMcu crystal frequency drift
+			  console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
+      }
 		}
 
 		// Reach here if all is good - no ERRORs
@@ -39,20 +39,11 @@ function disassembleAndQueueChirp(d) {
 		// For error checking the next round
 		if (!maxMILLIS || (maxMILLIS < fragment.MILLIS)) maxMILLIS = fragment.MILLIS;
   }
-	//lastChirpQueued = saveChirp;
-}
-
-function getCurrentSimulatedMillis() {
-  let curDate = new Date();
-  let deltaTimeInMs = curDate - startSystemDate;
-  return startSimulatedMillis + deltaTimeInMs;
 }
 
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
-		//console.log("dashboardLaunchTime",dashboardLaunchTime);
-		//console.log("chirpTime",d.created);
     dormantTimeInSec = 0;
     wifiDropped = false;
     autoCloseDormantPopup();
@@ -61,7 +52,9 @@ function waitForChirps() {
 		dashboardChirpCount++;
 		if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
 
-    if (simulatedMillis - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
+    let now = new Date();
+    let nowMs = now.getTime();
+    if (nowMs - lastChirpInMs > INIT_RECORDING_INTERVAL_IN_MS) {
       initRecordingPrevContent();
     }
     if (awaitingFirstChirp) {
@@ -69,8 +62,6 @@ function waitForChirps() {
       let millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      simulatedMillis = Number(millis);
-      startSimulatedMillis = simulatedMillis;
       startSystemDate = new Date();
       let elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
@@ -78,7 +69,7 @@ function waitForChirps() {
       elm.innerHTML = dateToTimeStr(d.created);
     }
     awaitingFirstChirp = false;
-    lastChirpInMs = simulatedMillis;
+    lastChirpInMs = nowMs;
     disassembleAndQueueChirp(d);
 		displaySelectiveButtons();
   })
@@ -438,11 +429,12 @@ window.onload = function () {
   session.appId = DASHBOARD_APP_ID;
   session.launchDate = new Date();
 
+  // start keypress idle detector
+  startKeypressTimeout();
+
   // Create range slider
   sliderDiv = document.getElementById("rangeSliderDiv");
   createRangeSlider(sliderDiv);
-
-	resizeChartsWaves();
 
   initDbNames();
   let heading = document.getElementById("SysUid");
@@ -640,10 +632,15 @@ function forwardTimeInterval() {
   createDashboards();
 }
 
-function fullInterval() {
+function fullTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
 	fullRange();
+  createDashboards();
+}
+
+function editTimeInterval() {
+  document.getElementById("btnPlayInterval").src = "../common/img/play.png";
   createDashboards();
 }
 
@@ -659,24 +656,34 @@ function HandlePeriodicTasks() {
 		blinkSliderDiv();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
+  let now = new Date();
+  let nowMs = now.getTime();
   if (awaitingFirstChirp) {
-    let timeAwaitingFirstChirp = new Date() - dashboardLaunchTime ;
+    let timeAwaitingChirp = nowMs - dashboardLaunchTime.getTime() ;
     if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+      let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+      if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
         if (!dormantPopupDisplayed) {
           showDormantPopup();
         }
       }
-    } else if ((new Date() - session.launchDate) >= MAX_CHIRP_INTERVAL_IN_MS) {
-      if (!dormantPopupDisplayed) showDormantPopup();
-    }
-  } else if ((chirpQ.size() == 0) &&
-    ((simulatedMillis - lastChirpInMs) >= MAX_CHIRP_INTERVAL_IN_MS)) {
-    if (dormantPopupManualCloseTime) {
-      if ((new Date() - dormantPopupManualCloseTime) >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
-        if (!dormantPopupDisplayed) showDormantPopup();
+    } else if (timeAwaitingChirp >= MAX_AWAIT_FIRST_CHIRP_IN_MS) {
+      if (!dormantPopupDisplayed) {
+        showDormantPopup();
       }
-    } else if (!dormantPopupDisplayed) showDormantPopup();
+    }
+  } else {
+    let timeAwaitingChirp = nowMs - lastChirpInMs ;
+    if (timeAwaitingChirp >= MAX_CHIRP_INTERVAL_IN_MS) {
+      if (dormantPopupManualCloseTime) {
+        let elapsedTime = nowMs - dormantPopupManualCloseTime.getTime();
+        if (elapsedTime >= MAX_DORMANT_CLOSE_DURATION_IN_MS) {
+          if (!dormantPopupDisplayed) showDormantPopup();
+        }
+      } else if (!dormantPopupDisplayed) {
+        showDormantPopup();
+      }
+    }
   }
 }
 
@@ -701,9 +708,6 @@ function closeCurrentSession() {
 }
 
 setTimeout(function periodicCheck() {
-  if (!awaitingFirstChirp) {
-    simulatedMillis = getCurrentSimulatedMillis();
-  }
   HandlePeriodicTasks();
   // Main update loop executed every PERIODIC_INTERVAL_IN_MS
   if (chirpQ && chirpQ.size()) {
@@ -717,11 +721,8 @@ function FetchAndExecuteFromQueue() {
   let millis;
   while (1) {
     if (chirpQ.size() == 0) break;
-    let d = chirpQ.peek();
-    let millis = Number(d.MILLIS);
-    if (simulatedMillis < millis) break;
 
-    d = chirpQ.pop();
+    let d = chirpQ.pop();
 		if (dashboardSessionClosed) {
 			return; // do not process any more chirps
 		}
@@ -740,16 +741,18 @@ function FetchAndExecuteFromQueue() {
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
-      let bnumObj = parseJSONSafely(bnumContent);
+      let bnumObj = parseBnumData(bnumContent);
 			if (bnumObj) {
-      	session.systemBreathNum = bnumObj[0];
       	if (session.startSystemBreathNum == null) {
-        	session.startSystemBreathNum = session.systemBreathNum;
+        	session.startSystemBreathNum = bnumObj.bnum;
         	let elm = document.getElementById("priorBreathNum");
-        	elm.innerHTML = String(session.systemBreathNum - 1);
+        	elm.innerHTML = String(bnumObj.bnum - 1);
       	}
-      	session.maxBreathNum = 
-        	session.systemBreathNum - session.startSystemBreathNum + 1;
+        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+        if (chirpBnum >	session.maxBreathNum) {
+      	  session.systemBreathNum = bnumObj.bnum;
+         	session.maxBreathNum = chirpBnum;
+        }
 			}
     }
     let dCopy; // a copy of the chirp
@@ -758,11 +761,6 @@ function FetchAndExecuteFromQueue() {
     processRecordChirp(dCopy);
   }
 
-  if (millis - simulatedMillis > MAX_DIFF_CHIRP_SIMULATION_TIMES) {
-    modalAlert("Dashboard out of Sync", "Something went wrong\nPlease relaunch the Dashboard");
-    console.error("Chirps way ahead of simulated time " + millis +
-      " v/s " + simulatedMillis);
-  }
   return;
 }
 

@@ -243,6 +243,7 @@ function acceptBreathNumRange() {
 	showRangeOnSlider(session[view].range);
 
   document.getElementById("enterRangeDiv").style.display = "none";
+  editTimeInterval();
 }
 
 function acceptBreathTimeRange() {
@@ -284,6 +285,7 @@ function acceptBreathTimeRange() {
 	session[view].range = cloneObject(range);
 	showRangeOnSlider(session[view].range);
  	document.getElementById("enterRangeDiv").style.display = "none";
+  editTimeInterval();
 }
 
 function acceptBreathRange () {

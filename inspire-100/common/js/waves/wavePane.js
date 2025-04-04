@@ -16,9 +16,12 @@
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 class WavePane {
-  constructor(title, height, rangeX, menu, paramName, paramColor, data, isFlowGraph) {
-    this.title = title;
+  constructor(chartTitle, xTitle, yInterval, height, rangeX, menu, 
+              paramName, paramColor, data) {
     this.graphType = "splineArea";
+    this.chartTitle = chartTitle;
+    this.xTitle = xTitle;
+    this.yInterval = yInterval;
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
@@ -42,7 +45,7 @@ class WavePane {
     this.paramName = paramName;
     this.paramColor = paramColor;
     this.data = data;
-    this.isFlowGraph = isFlowGraph;
+    this.stripLines = [];
 
     this.addXaxis();
   }
@@ -70,32 +73,23 @@ class WavePane {
 		}
 	}
 
-	getCustomBreaks() {
-		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.scaleBreaks) {
-			return axisX.scaleBreaks.customBreaks;
-		}
-		return null;
-	}
-
 	setCustomBreaks(customBreaks) {
+    //console.log("breaks", customBreaks);
 		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.scaleBreaks) {
+		if (axisX) {
+      axisX.scaleBreaks = {type: "straight"}
 			axisX.scaleBreaks.customBreaks = customBreaks;
 		}
 	}
 
 	getStripLines() {
-		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.stripLines) {
-			return axisX.stripLines;
-		}
-		return null;
+    return this.stripLines;
 	}
 
 	setStripLines(stripLines) {
+    //console.log("strips", stripLines);
 		let axisX = this.chartJson.axisX;
-		if (axisX && axisX.stripLines) {
+		if (axisX) {
 			axisX.stripLines = stripLines;
 		}
 	}
@@ -123,9 +117,9 @@ class WavePane {
       this.chart.destroy();
       this.chart = null;
     }
-    if (!this.isFlowGraph) {
+    if (this.chartTitle) {
       this.chartJson.title = {
-        text: this.title,
+        text: this.chartTitle,
         padding: 10,
         fontSize: session.waves.titleFontSize
       };
@@ -152,9 +146,7 @@ class WavePane {
   // X axis is the same for all charts in our application
   addXaxis() {
     let Xaxis = {};
-    if (this.isFlowGraph) {
-    	Xaxis.title = "Elapsed Time (H:MM:SS)";
-		}
+   	Xaxis.title = this.xTitle;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
 		Xaxis.labelFontSize = session.waves.labelFontSize;
@@ -202,13 +194,41 @@ class WavePane {
     return palette.yellow;
   }
 
-  tooFewDatapoints(sysBreathNum) {
-    if (session.waves.tooFewDatapoints.includes(sysBreathNum)) {
-      return true;
-    }
-    return !(
-      session.waves.pwRecordedBreaths.includes(sysBreathNum) && 
-      session.waves.flowRecordedBreaths.includes(sysBreathNum));
+  // Recursive Binary search for where to start searching
+  // for waveforms to display given the starting breath number
+  findSearchStartIndex(data, bnum, startIx, endIx) {
+		if (isUndefined(bnum) || (bnum === null)) return null;
+
+  	if (isUndefined(startIx)) startIx = 0;
+  	if (isUndefined(endIx)) endIx = data.length - 1;
+    //console.log("bnum", bnum, "startIx", startIx, "endIx", endIx);
+
+  	if (endIx < startIx) return null;
+  	if (startIx < 0) return null;
+  	if (endIx >= data.length) return null;
+
+  	if ((endIx-startIx) < 2) return startIx;
+
+		let endBnum = data[endIx].systemBreathNum;
+		if (endBnum <= bnum) return null;
+
+		let startBnum = data[startIx].systemBreathNum;
+		if (startBnum == bnum) return startIx;
+		if (startBnum > bnum) null;
+
+    // find the middle index
+    let midIx = Math.floor((startIx + endIx) / 2);
+
+		let midBnum = data[midIx].systemBreathNum;
+
+    if (midBnum == bnum) return midIx;
+		else if (midBnum < bnum) {
+			// look in the right half
+  		return this.findSearchStartIndex(data, bnum, midIx, endIx);
+		} else {
+			// look in the left half
+  		return this.findSearchStartIndex(data, bnum, startIx, midIx);
+		}
   }
 
   createXYPoints() {
@@ -217,23 +237,27 @@ class WavePane {
 
     // init Breaks in the graph
     let Xaxis = this.chartJson.axisX;
-    Xaxis.scaleBreaks = {type: "straight", color:"orange"};
-    Xaxis.scaleBreaks.customBreaks = [];
-    this.chartJson.axisX.stripLines = [];
+    this.stripLines = [];
 
     let xyPoints = [];
-    let prevXval = 0;
+
+    let startIx = minBnum;
 
     let partial  = false;
-    for (let i = 0; i < this.data.length; i++) {
+    for (let i = startIx; i < this.data.length; i++) {
+      if (this.data[i] === null) continue;
+      if (isUndefined(this.data[i])) continue;
+
       let sysBreathNum = this.data[i].systemBreathNum;
+    	if (!checkIfLoggedValidBreath(sysBreathNum)) continue;
+      
       let breathNum = sysBreathNum - session.startSystemBreathNum + 1;
       let sampleInterval = this.data[i].sampleInterval;
       let breathInfo = this.data[i].breathInfo;
       let samples = this.data[i].samples;
       partial = this.data[i].partial;
 
-      if (breathNum < 0) continue;
+      if (breathNum <= 0) continue;
       if (breathNum < minBnum) continue;
       if (breathNum > maxBnum) break;
       if (!breathSelectedInMenu(breathInfo, this.menu)) continue;
@@ -246,7 +270,6 @@ class WavePane {
 				console.error("loggedBreaths",session.loggedBreaths);
 			}
       let xval = breath.time.getTime() - session.firstChirpDate.getTime();
-      let initXval = xval;
       xyPoints.push({
         "x": (xval - 200) / 1000,
         "y": null
@@ -266,56 +289,31 @@ class WavePane {
             xyPoints.push({
               "x": lastX / 1000,
               "y": lastY,
+              "lineColor": "red",
               "lineDashType": "longDashDotDot"
             });
           } else {
             xyPoints.push({
               "x": lastX / 1000,
-              "y": lastY
+              "y": lastY,
+              "lineColor": "black",
             });
           }
         }
         xval += sampleInterval;
       }
-			/*
-      if (this.isFlowGraph) {
-        xyPoints.push({
-          "x": (lastX + sampleInterval) / 1000,
-          "y": 0
-        });
-      }
-			*/
-
-      let labelFontColor = "darkgreen";
-      let labelText = "#" + breathNum;
-      let labelAlign = "far";
-			/*
-      if (this.tooFewDatapoints(sysBreathNum)) {
-        //console.log("Too few datapoints #" + sysBreathNum);
-        labelFontColor = "red";
-        //labelText = "XXXX #" + breathNum;
-      }
-			*/
 
       // Do strip lines
+      stripLine.breathNum = breathNum;
+      stripLine.sysBreathNum = sysBreathNum;
       stripLine.endValue = (xval) / 1000;
-      stripLine.label = labelText;
       stripLine.labelPlacement = "inside";
-      stripLine.labelAlign = labelAlign;
+      stripLine.labelAlign = "far";
       stripLine.labelWrap = true;
       stripLine.labelMaxWidth = 80;
-      stripLine.labelFontColor = labelFontColor;
       stripLine.labelBackgroundColor = "none";
       stripLine.labelFontSize = session.waves.stripLineFontSize;
-      Xaxis.stripLines.push(cloneObject(stripLine));
-
-      // Do custom scaleBreaks
-      // Make sure that the graphs do not connect end-to-end
-      Xaxis.scaleBreaks.customBreaks.push({
-        startValue: prevXval,
-        endValue: stripLine.startValue - 0.1,
-      });
-      prevXval = stripLine.endValue + 0.1;
+      this.stripLines.push(cloneObject(stripLine));
     }
 
     let chartData = {};
@@ -336,14 +334,8 @@ class WavePane {
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;
-    //if (minY != null) Yaxis.minimum = minY;
-    //if (maxY != null) Yaxis.maximum = maxY;
     Yaxis.suffix = "";
-		if (this.isFlowGraph) {
-    	Yaxis.interval = 20;
-		} else {
-    	Yaxis.interval = 25;
-		}
+    Yaxis.interval = this.yInterval;
     return cloneObject(Yaxis);
   }
 

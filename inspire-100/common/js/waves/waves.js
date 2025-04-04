@@ -12,7 +12,7 @@ function waveInsertInitial() {
   let allWaves = document.getElementById(ALL_WAVES_ID);
   let newContainer = createNewWaveContainer();
   allWaves.insertBefore(newContainer, null);
- 	// Open edit menu for the new wave box
+  // Open edit menu for the new wave box
   let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
 }
@@ -21,7 +21,7 @@ function waveInsert(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
   let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
- 	// Open edit menu for the new wave box
+  // Open edit menu for the new wave box
   let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
 }
@@ -30,13 +30,13 @@ function waveAppend(bnode) {
   let containerNode = findAncestorWaveContainerNode(bnode);
   let newContainer = createNewWaveContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
- 	// Open edit menu for the new wave box
+  // Open edit menu for the new wave box
   let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   waveEdit(enode);
 }
 
 function waveEdit(bnode) {
-	//console.log("bnode", bnode);
+  //console.log("bnode", bnode);
   document.getElementById(WAVE_EDIT_WAVE_MENU_ID).style.display = "block";
   let containerNode = findAncestorWaveContainerNode(bnode);
   session.waves.boxTree = new CheckboxTree(WAVE_CBOX_TREE_ROOT_ID, containerNode.id);
@@ -63,39 +63,39 @@ function removeWaveEditMenu() {
   let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
   if (!menuDiv) return;
   if (session.waves.boxTree) {
-  	let containerNodeId = session.waves.boxTree.BoxContainerId();
-  	let cdiv = document.getElementById(containerNodeId);
-  	let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
-		bdiv.style.backgroundColor = palette.darkblue;
-  	let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
-		menuDiv.style.display = "none";
-		session.waves.boxTree = null;
-	}
+    let containerNodeId = session.waves.boxTree.BoxContainerId();
+    let cdiv = document.getElementById(containerNodeId);
+    let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
+    bdiv.style.backgroundColor = palette.darkblue;
+    let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
+    menuDiv.style.display = "none";
+    session.waves.boxTree = null;
+  }
 }
 
 var waveMenuBlinkColor = false;
 function blinkWaveMenu() {
-	if (!session) return;
+  if (!session) return;
   if (!session.waves.boxTree) return;
   let menuDiv = document.getElementById(WAVE_EDIT_WAVE_MENU_ID);
-	if (!menuDiv) return;
- 	let containerNodeId = session.waves.boxTree.BoxContainerId();
- 	let cdiv = document.getElementById(containerNodeId);
- 	let mdiv = document.getElementById(WAVE_MENU_BANNER_ID);
- 	let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
-	if (waveMenuBlinkColor) {
-		bdiv.style.backgroundColor = palette.darkblue;
-		mdiv.style.backgroundColor = palette.darkblue;
-		waveMenuBlinkColor = false;
-	} else {
-		bdiv.style.backgroundColor = palette.orange;
-		mdiv.style.backgroundColor = palette.orange;
-		waveMenuBlinkColor = true;
-	}
+  if (!menuDiv) return;
+  let containerNodeId = session.waves.boxTree.BoxContainerId();
+  let cdiv = document.getElementById(containerNodeId);
+  let mdiv = document.getElementById(WAVE_MENU_BANNER_ID);
+  let bdiv = findChildNodeByClass(cdiv, WAVE_BANNER_CLASS);
+  if (waveMenuBlinkColor) {
+    bdiv.style.backgroundColor = palette.darkblue;
+    mdiv.style.backgroundColor = palette.darkblue;
+    waveMenuBlinkColor = false;
+  } else {
+    bdiv.style.backgroundColor = palette.orange;
+    mdiv.style.backgroundColor = palette.orange;
+    waveMenuBlinkColor = true;
+  }
 }
 
 setInterval(() => {
-	blinkWaveMenu();
+  blinkWaveMenu();
 }, 1000)
 
 function waveMenuCancel(bnode) {
@@ -161,22 +161,30 @@ function findAncestorWaveBodyNode(node) {
 function resizeAllWaves() {
   for (let id in session.waves.allWavesContainerInfo) {
     let box = session.waves.allWavesContainerInfo[id];
-		box.resizeFonts();
-  }
-
-	//renderAllWaves();
+    box.resizeFonts();
 }
 
+  //renderAllWaves();
+}
+
+var tooManyWavesWarningIssued = false;
 function renderAllWaves() {
   for (let id in session.waves.allWavesContainerInfo) {
     let box = session.waves.allWavesContainerInfo[id];
-		if (box.tooManyWaves()) {
-       modalAlert("Too many Breath Waveforms (" + numWaves +")", 
-        "Use Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
-        + "\nto waveforms to display");
-		} else {
-    	box.render();
-		}
+    if (box.tooManyWaves()) {
+      if (!tooManyWavesWarningIssued) {
+        modalAlert("Too many Breath Waveforms",
+          "\nUse Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
+          + "\nto waveforms to display");
+        tooManyWavesWarningIssued = true;
+      }
+      // Adjust range
+      movingWaveRange();
+      box.render();
+    } else {
+      tooManyWavesWarningIssued = false;
+      box.render();
+    }
   }
 }
 
@@ -190,7 +198,7 @@ function createAllWaves() {
     waveInsertInitial(); // always have wave box for user to start with
   }
 
-	renderAllWaves();
+  renderAllWaves();
 }
 
 function waveTitleKeypressListener(event) {
@@ -202,59 +210,62 @@ function waveTitleKeypressListener(event) {
 }
 
 function breathSelectedInMenu(breathInfo, selectOptions) {
-    let bInfo = parseBreathInfo(breathInfo);
-    // Order below is important
-    if (selectOptions.ErrorB) {
-      if (bInfo.isError) return true;
-    }
-    if (selectOptions.AbnormalB) {
-      if (bInfo.Abnormal) return true;
-    }
-    if (selectOptions.MaintenanceB) {
-      if (bInfo.isMaintenance) return true;
-    }
-
-    // Exceptional Breaths taken care of above
-    let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
-
-    if (selectOptions.MandatoryVC) {
-      if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
-    }
-    if (selectOptions.SpontaneousVC) {
-      if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
-    }
-    if (selectOptions.SpontaneousPS) {
-      if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
-    }
-    return false;
+  let bInfo = parseBreathInfo(breathInfo);
+  // Order below is important
+  if (selectOptions.ErrorB) {
+    if (bInfo.isError) return true;
   }
+  if (selectOptions.AbnormalB) {
+    if (bInfo.Abnormal) return true;
+  }
+  if (selectOptions.MaintenanceB) {
+    if (bInfo.isMaintenance) return true;
+  }
+
+  // Exceptional Breaths taken care of above
+  let isExceptional = bInfo.isError || bInfo.Abnormal || bInfo.isMaintenance;
+
+  if (selectOptions.MandatoryVC) {
+    if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
+  }
+  if (selectOptions.SpontaneousVC) {
+    if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
+  }
+  if (selectOptions.SpontaneousPS) {
+    if (!bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
+  }
+  return false;
+}
 
 function numWavesInRange() {
-    let minBnum = session.waves.range.minBnum;
-    let maxBnum = session.waves.range.maxBnum;
-    let n = 0;
-    for (let i = 0; i < session.waves.pwData.length; i++) {
-      let breathNum = session.waves.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
-      if (breathNum < minBnum) continue;
-      if (breathNum > maxBnum) break;
-      n++;
-    }
-    return n;
+  let minBnum = session.waves.range.minBnum;
+  if (!minBnum) minBnum = 1;
+  let maxBnum = session.waves.range.maxBnum;
+  if (!maxBnum) maxBnum = 1;
+  let n = 0;
+  for (let i = minBnum; i <= maxBnum; i++) {
+    if (session.waves.pwData[i] === null) continue;
+    if (isUndefined(session.waves.pwData[i])) continue;
+    n++;
   }
+  return n;
+}
 
 function  numSelectedWavesInRange(selectOptions) {
-    let minBnum = session.waves.range.minBnum;
-    let maxBnum = session.waves.range.maxBnum;
-    let n = 0;
-    for (let i = 0; i < session.waves.pwData.length; i++) {
-      let breathNum = session.waves.pwData[i].systemBreathNum - session.startSystemBreathNum + 1;
-      if (breathNum < minBnum) continue;
-      if (breathNum > maxBnum) break;
-      let breathInfo = session.waves.pwData[i].breathInfo;
-      if (!breathSelectedInMenu(breathInfo, selectOptions)) continue;
-      n++;
-    }
-    return n;
+  let minBnum = session.waves.range.minBnum;
+  if (!minBnum) minBnum = 1;
+  let maxBnum = session.waves.range.maxBnum;
+  if (!maxBnum) maxBnum = 1;
+
+  let n = 0;
+  for (let i = minBnum; i <= maxBnum; i++) {
+    if (session.waves.pwData[i] === null) continue;
+    if (isUndefined(session.waves.pwData[i])) continue;
+    let breathInfo = session.waves.pwData[i].breathInfo;
+    if (!breathSelectedInMenu(breathInfo, selectOptions)) continue;
+    n++;
   }
+  return n;
+}
 
 

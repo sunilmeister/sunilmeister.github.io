@@ -450,6 +450,7 @@ function resizeChartsWaves() {
 function initGlobals() {
   // Create new data objects
   createNewSession();
+  appResize();
 
   session.appId = PLAYBACK_APP_ID;
 }
@@ -582,8 +583,12 @@ function rewindTimeInterval() {
 	rewindRange();
 }
 
-function fullInterval() {
+function fullTimeInterval() {
 	fullRange();
+}
+
+function editTimeInterval() {
+  refreshActivePane();
 }
 
 function playbackGatherDoneCallback() {
@@ -618,7 +623,6 @@ window.onload = function () {
 
 	initCommonDivElements();
 	
-	resizeChartsWaves();
 	alignSidebar();
 
   initGlobals();
@@ -634,7 +638,6 @@ window.onload = function () {
   sessionInfo.innerHTML = 'No Selected Recording';
 
 	setRootFontSize("fullPlayback", "fullPlayback");
-	resizeChartsWaves();
 
   disableAllButtons();
 	appResize();

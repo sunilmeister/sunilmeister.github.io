@@ -5,6 +5,11 @@
 var SessionDataTemplate = {
   internetOnline: true,
   appId: null,
+
+  // App to install these if it needs to be identified
+  // of keypress idle time
+  keypressIdleAction: null,
+  keypressTimeoutDelaySeconds: null,
   
   // currently open session
   sessionDataValid: true,
@@ -17,6 +22,7 @@ var SessionDataTemplate = {
   systemBreathNum: null,
   startSystemBreathNum: null,
   firstBreathBnumTime: null,
+  firstBreathBnumMs: null,
 
   firmwareVersion: {
     major: null,
@@ -150,15 +156,12 @@ var SessionDataTemplate = {
 		prevRange: null,
     sparseInterval: 1,
     pwData: [],
-    flowData: [],
-    pwRecordedBreaths: [],
-    flowRecordedBreaths: [],
-    tooFewDatapoints: [],
-    breathNum: null,
-    breathInfo: null,
-    newWaveCallback: null,
+    fwData: [],
+    vwData: [],
+    pwPartial: [],
+    fwPartial: [],
+    vwPartial: [],
     sendPeriod: null,
-    expectedSamplesPerSlice: null,
     allWavesContainerInfo: {},
     boxTree: null,
     labelFontSize: 10,
@@ -238,7 +241,7 @@ var rangeTemplate = {
 };
 
 function createNewSession() {
-	console.log("Creating new session");
+	//console.log("Creating new session");
 	let saveRangeSlider = null;
 	let saveLaunchDate = null;
 
