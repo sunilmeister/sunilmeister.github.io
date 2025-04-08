@@ -43,6 +43,27 @@ function CountMissingWavesInRange(minBnum, maxBnum) {
   return count;
 }
 
+function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
+  let modeObj = session.params["mode"];
+  let modeEnum = modeObj.Type().range;
+  let btypeObj = session.params["btype"];
+  let btypeEnum = btypeObj.Type().range;
+
+  let n = 0;
+
+	if (minBnum==0) minBnum = 1;
+	if (maxBnum==0) maxBnum = 1;
+  for (let i = minBnum; i <= maxBnum; i++) {
+    if (session.loggedBreaths[i].missed) continue;
+    let mode = modeObj.ValueAtBnum(i);
+    if (mode != modeEnum["PSV"]) continue;
+    let btype = btypeObj.ValueAtBnum(i);
+    if (btype != btypeEnum["MANDATORY"]) continue;
+    n++;
+  }
+  return n;
+}
+
 function GatherAllSettings(date) {
 	let settings = {};
 	settings.mode = session.params.mode.ValueAtTime(date);
@@ -209,6 +230,7 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
   miscTableRow(table, "Number of CMV Spontaneous Breaths", "numCmvSpont");
+  miscTableRow(table, "Number of PSV Mandatory Breaths", "numPsvMand");
   miscTableRow(table, "Number of Missing Breath Times (Packet loss)", "numMissingBreaths");
   miscTableRow(table, "Number of Missing Breath Waveforms (Packet loss)", "numMissingWaves");
   miscTableRow(table, "Number of WiFi Disconnects", "numWifiDrops");
@@ -298,6 +320,10 @@ function displayBreathTypeInfo() {
 	let nWaves = CountMissingWavesInRange(minBnum, maxBnum);
   el = document.getElementById("numMissingWaves");
   el.innerHTML = replaceDummyValue(nWaves);
+
+	let nPsvMand = CountPsvMandatoryBreathsInRange(minBnum, maxBnum);
+  el = document.getElementById("numPsvMand");
+  el.innerHTML = replaceDummyValue(nPsvMand);
 }
 
 function displayMinMaxAvg() {
