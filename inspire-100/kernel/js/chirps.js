@@ -355,8 +355,6 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "BREATH") {
           //console.log("Found BREATH ",value);
           processBreathChirp(curTime, value);
-        } else if (ckey == "CMV_SPONT") {
-          processCmvSpontChirp(curTime, value);
         } else if (ckey == "COMP") {
           processComplianceChirp(curTime, value);
         } else if (ckey == "MISC") {
@@ -859,10 +857,6 @@ function processMiscChirp(curTime, jsonStr) {
   saveMiscValue("altInFt", obj);
   saveMiscValue("atmInCmH20", obj);
   saveMiscValue("atmO2Pct", obj);
-}
-
-function processCmvSpontChirp(curTime, value) {
-  saveOutputChange("cmvSpont", curTime, value);
 }
 
 function processComplianceChirp(curTime, jsonStr) {

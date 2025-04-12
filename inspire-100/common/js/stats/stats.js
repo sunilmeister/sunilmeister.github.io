@@ -64,6 +64,27 @@ function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
   return n;
 }
 
+function CountCmvSpontaneousBreathsInRange(minBnum, maxBnum) {
+  let modeObj = session.params["mode"];
+  let modeEnum = modeObj.Type().range;
+  let btypeObj = session.params["btype"];
+  let btypeEnum = btypeObj.Type().range;
+
+  let n = 0;
+
+	if (minBnum==0) minBnum = 1;
+	if (maxBnum==0) maxBnum = 1;
+  for (let i = minBnum; i <= maxBnum; i++) {
+    if (session.loggedBreaths[i].missed) continue;
+    let mode = modeObj.ValueAtBnum(i);
+    if (mode != modeEnum["CMV"]) continue;
+    let btype = btypeObj.ValueAtBnum(i);
+    if (btype != btypeEnum["SPONTANEOUS"]) continue;
+    n++;
+  }
+  return n;
+}
+
 function GatherAllSettings(date) {
 	let settings = {};
 	settings.mode = session.params.mode.ValueAtTime(date);
@@ -305,10 +326,6 @@ function displayBreathTypeInfo() {
   el = document.getElementById("numMaintenance");
   el.innerHTML = replaceDummyValue(ne);
 
-	let nSpont = session.params.cmvSpont.NumChanges(minBnum, maxBnum);
-  el = document.getElementById("numCmvSpont");
-  el.innerHTML = replaceDummyValue(nSpont);
-
 	let nDrops = session.params.wifiDrops.NumChanges(minBnum, maxBnum);
   el = document.getElementById("numWifiDrops");
   el.innerHTML = replaceDummyValue(nDrops);
@@ -320,6 +337,10 @@ function displayBreathTypeInfo() {
 	let nWaves = CountMissingWavesInRange(minBnum, maxBnum);
   el = document.getElementById("numMissingWaves");
   el.innerHTML = replaceDummyValue(nWaves);
+
+	let nSpont = CountCmvSpontaneousBreathsInRange(minBnum, maxBnum);
+  el = document.getElementById("numCmvSpont");
+  el.innerHTML = replaceDummyValue(nSpont);
 
 	let nPsvMand = CountPsvMandatoryBreathsInRange(minBnum, maxBnum);
   el = document.getElementById("numPsvMand");
