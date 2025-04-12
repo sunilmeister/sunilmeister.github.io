@@ -2,15 +2,16 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+var prevPwLen = 0;
 function createDashboardWaves() {
 	rangeWindowDiv.style.display = "block";
-	if (isVisibleRangeChanged()) {
-    //console.log("----- range", session.waves.range);
-    //console.log("isVisibleRangeChanged()",isVisibleRangeChanged());
-    //console.log("lastWaveIndex",lastWaveIndex,"prevWaveIndex",prevWaveIndex);
+  let pwLen = session.waves.pwData.length;
+  let forceDisplay = session.waves.range.moving && (prevPwLen != pwLen);
+	if (isVisibleRangeChanged() || forceDisplay) {
   	createAllWaves();
 		updateVisiblePrevRange();
 	}
+  prevPwLen = pwLen;
 }
 
 function movingWaveRange() {
