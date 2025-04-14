@@ -277,7 +277,7 @@ class WavePane {
 
       let stripLine = {};
       stripLine.color = this.getStripColor(breathInfo);
-      stripLine.startValue = (xval - 200) / 1000;
+      stripLine.startValue = (xval - 100) / 1000;
 
       let lastY = null;
       let lastX = null;
@@ -306,7 +306,7 @@ class WavePane {
       // Do strip lines
       stripLine.breathNum = breathNum;
       stripLine.sysBreathNum = sysBreathNum;
-      stripLine.endValue = (xval) / 1000;
+      stripLine.endValue = (xval - 100) / 1000;
       stripLine.labelPlacement = "inside";
       stripLine.labelAlign = "far";
       stripLine.labelWrap = true;
