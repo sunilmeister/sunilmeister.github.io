@@ -101,7 +101,6 @@ function gatherSnapshotData() {
 	snap.peak 			= params.peak.ValueAtTime(snap.time);
 	snap.plat 			= params.plat.ValueAtTime(snap.time);
 	snap.mpeep 			= params.mpeep.ValueAtTime(snap.time);
-	snap.cmvSpont		= params.cmvSpont.ValueAtTime(snap.time);
 	snap.o2FlowX10	= params.o2FlowX10.ValueAtTime(snap.time);
 
 	// errors and warnings

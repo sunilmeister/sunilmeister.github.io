@@ -298,7 +298,7 @@ class ChartPane {
         let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
         xval = (ms / 1000);
       } else {
-        xval = bnum - 1;
+        xval = bnum;
       }
 
       if (this.paramInfo.snapYval) {
@@ -353,7 +353,7 @@ class ChartPane {
         		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
             xval = (ms / 1000);
           } else {
-            xval = b - 1;
+            xval = b;
           }
           if (this.paramInfo.snapYval) {
             xyPoints.push({
@@ -433,7 +433,7 @@ class ChartPane {
         		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
             xval = (ms / 1000);
           } else {
-            xval = bnum - 1;
+            xval = bnum;
           }
           if (this.paramInfo.snapYval) {
             xyPoints.push({

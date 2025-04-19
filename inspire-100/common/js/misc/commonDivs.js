@@ -29,7 +29,6 @@ var altDIV = null;
 var atmDIV = null;
 var breathTypeDIV = null;
 var tpsDIV = null;
-var tpsUnitsDIV = null;
 var imgStateDIV = null;
 var imgBreathDIV = null;
 
@@ -109,7 +108,6 @@ function initCommonDivElements() {
   atmDIV = document.getElementById("atmDiv");
   breathTypeDIV = document.getElementById("BreathType");
   tpsDIV = document.getElementById("TPS");
-  tpsUnitsDIV = document.getElementById("TPS_UNITS");
   imgStateDIV = document.getElementById("StateImg")
   imgBreathDIV = document.getElementById("ImgBreath");
 
@@ -132,7 +130,6 @@ function initCommonDivElements() {
   dcompValELM = document.getElementById("DCOMP");
   breathTypeValELM = document.getElementById("BreathType");
   tpsValELM = document.getElementById("TPS");
-  tpsUnitsValELM = document.getElementById("TPS_UNITS");
   vtValELM = document.getElementById("VT");
   pmaxValELM = document.getElementById("PMAX");
   ipeepValELM = document.getElementById("IPEEP");

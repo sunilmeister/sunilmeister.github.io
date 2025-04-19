@@ -37,11 +37,52 @@ function CountMissingWavesInRange(minBnum, maxBnum) {
 	if (minBnum==0) minBnum = 1;
 	if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
-  	if (session.waves.pwData[i] === null) count++;
-  	if (session.waves.fwData[i] === null) count++;
-  	if (session.waves.vwData[i] === null) count++;
+  	if ((session.waves.pwData[i] === null) ||
+  	    (session.waves.fwData[i] === null)) count++;
 	}
   return count;
+}
+
+function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
+  let modeObj = session.params["mode"];
+  let modeEnum = modeObj.Type().range;
+  let btypeObj = session.params["btype"];
+  let btypeEnum = btypeObj.Type().range;
+
+  let n = 0;
+
+	if (minBnum==0) minBnum = 1;
+	if (maxBnum==0) maxBnum = 1;
+  for (let i = minBnum; i <= maxBnum; i++) {
+    if (session.loggedBreaths[i].missed) continue;
+    let mode = modeObj.ValueAtBnum(i);
+    if (mode != modeEnum["PSV"]) continue;
+    let btype = btypeObj.ValueAtBnum(i);
+    if (btype != btypeEnum["MANDATORY"]) continue;
+    n++;
+  }
+  return n;
+}
+
+function CountCmvSpontaneousBreathsInRange(minBnum, maxBnum) {
+  let modeObj = session.params["mode"];
+  let modeEnum = modeObj.Type().range;
+  let btypeObj = session.params["btype"];
+  let btypeEnum = btypeObj.Type().range;
+
+  let n = 0;
+
+	if (minBnum==0) minBnum = 1;
+	if (maxBnum==0) maxBnum = 1;
+  for (let i = minBnum; i <= maxBnum; i++) {
+    if (session.loggedBreaths[i].missed) continue;
+    let mode = modeObj.ValueAtBnum(i);
+    if (mode != modeEnum["CMV"]) continue;
+    let btype = btypeObj.ValueAtBnum(i);
+    if (btype != btypeEnum["SPONTANEOUS"]) continue;
+    n++;
+  }
+  return n;
 }
 
 function GatherAllSettings(date) {
@@ -122,7 +163,7 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.ps);
     cell = row.insertCell();
-    cell.innerHTML = checkForUndefined(TPS_DECODER_SIMPLE[combo.value.tps]);
+    cell.innerHTML = checkForUndefined(TPS_DECODER[combo.value.tps]);
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
@@ -210,6 +251,7 @@ function constructStatMiscTable() {
   miscTableRow(table, "Number of Spontaneous Breaths", "numSpontaneous");
   miscTableRow(table, "Number of Maintenance Breaths", "numMaintenance");
   miscTableRow(table, "Number of CMV Spontaneous Breaths", "numCmvSpont");
+  miscTableRow(table, "Number of PSV Mandatory Breaths", "numPsvMand");
   miscTableRow(table, "Number of Missing Breath Times (Packet loss)", "numMissingBreaths");
   miscTableRow(table, "Number of Missing Breath Waveforms (Packet loss)", "numMissingWaves");
   miscTableRow(table, "Number of WiFi Disconnects", "numWifiDrops");
@@ -284,10 +326,6 @@ function displayBreathTypeInfo() {
   el = document.getElementById("numMaintenance");
   el.innerHTML = replaceDummyValue(ne);
 
-	let nSpont = session.params.cmvSpont.NumChanges(minBnum, maxBnum);
-  el = document.getElementById("numCmvSpont");
-  el.innerHTML = replaceDummyValue(nSpont);
-
 	let nDrops = session.params.wifiDrops.NumChanges(minBnum, maxBnum);
   el = document.getElementById("numWifiDrops");
   el.innerHTML = replaceDummyValue(nDrops);
@@ -299,6 +337,14 @@ function displayBreathTypeInfo() {
 	let nWaves = CountMissingWavesInRange(minBnum, maxBnum);
   el = document.getElementById("numMissingWaves");
   el.innerHTML = replaceDummyValue(nWaves);
+
+	let nSpont = CountCmvSpontaneousBreathsInRange(minBnum, maxBnum);
+  el = document.getElementById("numCmvSpont");
+  el.innerHTML = replaceDummyValue(nSpont);
+
+	let nPsvMand = CountPsvMandatoryBreathsInRange(minBnum, maxBnum);
+  el = document.getElementById("numPsvMand");
+  el.innerHTML = replaceDummyValue(nPsvMand);
 }
 
 function displayMinMaxAvg() {
@@ -335,7 +381,7 @@ function displayParamUsage() {
   el = document.getElementById("ps");
   el.innerHTML = formUsedParamString(session.params.ps);
   el = document.getElementById("tps");
-  el.innerHTML = formUsedParamString(session.params.tps, TPS_DECODER_SIMPLE);
+  el.innerHTML = formUsedParamString(session.params.tps, TPS_DECODER);
   el = document.getElementById("fiO2");
   el.innerHTML = formUsedParamString(session.params.fiO2);
 }

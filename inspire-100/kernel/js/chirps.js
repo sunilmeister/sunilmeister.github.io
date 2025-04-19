@@ -355,8 +355,6 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "BREATH") {
           //console.log("Found BREATH ",value);
           processBreathChirp(curTime, value);
-        } else if (ckey == "CMV_SPONT") {
-          processCmvSpontChirp(curTime, value);
         } else if (ckey == "COMP") {
           processComplianceChirp(curTime, value);
         } else if (ckey == "MISC") {
@@ -615,6 +613,11 @@ function processWaveChirp(sysBreathNum, partial, breathInfo, samplingIntervalMs,
       dataArray.push(null);
     }
 
+    if (dataArray.length > dashBnum+1) {
+      console.log("#### Out-of-order Waveform SysBreathNum",sysBreathNum,
+                  "DashBreathNum",dashBnum);
+    }
+
     // Note that this will also take care of waveforms received out of order
     dataArray[dashBnum] = {
       "partial": partial,
@@ -623,6 +626,7 @@ function processWaveChirp(sysBreathNum, partial, breathInfo, samplingIntervalMs,
       "sampleInterval": samplingIntervalMs,
       "samples": cloneObject(waveData),
     };
+
   }
 }
 
@@ -853,10 +857,6 @@ function processMiscChirp(curTime, jsonStr) {
   saveMiscValue("altInFt", obj);
   saveMiscValue("atmInCmH20", obj);
   saveMiscValue("atmO2Pct", obj);
-}
-
-function processCmvSpontChirp(curTime, value) {
-  saveOutputChange("cmvSpont", curTime, value);
 }
 
 function processComplianceChirp(curTime, jsonStr) {

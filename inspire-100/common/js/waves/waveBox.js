@@ -35,6 +35,13 @@ class WaveBox {
   render() {
     this.cleanupCharts();
     this.rangeX = session.waves.range;
+    if (this.tooManyWaves()) {
+      modalAlert("Too many Breath Waveforms",
+        "\nUse Range Selector to select " + WAVE_ALERT_THRESHOLD + " or less"
+        + "\nto waveforms to display");
+      return;
+    }
+
     this.createCharts();
     if (this.pChart) this.pChart.render(this.pressureChartDiv);
     if (this.fChart) this.fChart.render(this.flowChartDiv);

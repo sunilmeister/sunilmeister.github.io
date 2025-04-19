@@ -690,7 +690,6 @@ function createAllParams() {
 	addParam("mpeep", 			"PEEP", 							"NUMBER", 	"cmH2O",		[0, 60, 1]);
 	addParam("plat", 				"PLAT", 							"NUMBER", 	"cmH2O",		[0, 60, 1]);
 	addParam("tempC", 			"TEMP_C", 						"NUMBER", 	"degC",			[-20, 60, 1]);
-	addParam("cmvSpont", 		"CMV_SPONTANEOUS",		"NUMBER", 	"",					[0, null, 1]);
 	addParam("o2FlowX10", 	"O2_SOURCE_FLOW",	 		"NUMBER", 	"l/min",		[0.0, 20.0, 0.1]);
 	addParam("upTimeMins",	"UP_TIME_MINS", 			"NUMBER", 	"mins",			[0, null, 1]);
 
