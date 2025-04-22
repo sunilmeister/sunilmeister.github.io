@@ -576,9 +576,9 @@ function processPwaveChirp(curTime, jsonStr) {
   let obj = parseWaveData(jsonStr);
 
   let lastSample = obj.waveData[obj.waveData.length-1];
-  let filteredSamples = movingAverageFilter(obj.waveData);
-  obj.waveData = filteredSamples;
-  obj.waveData[obj.waveData.length-1] = lastSample; // show spontaneous trigger if any
+  //let filteredSamples = movingAverageFilter(obj.waveData);
+  //obj.waveData = filteredSamples;
+  //obj.waveData[obj.waveData.length-1] = lastSample; // show spontaneous trigger if any
 
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
     obj.waveData, session.waves.pwPartial, session.waves.pwData);
