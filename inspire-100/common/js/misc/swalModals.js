@@ -2,20 +2,41 @@
                    Author : Sunil Nanda
    ******************************************************** */
 
-// ///////////////////////////////////////////////
-// modals for warnings, errors etc.
-// ///////////////////////////////////////////////
-function dontShowButton(id) {
-  console.log("dontShowButton", id);
+///////////////////////////////////////////////////////
+// For modal warnings errors, confirmations etc.
+///////////////////////////////////////////////////////
+var modalWidth = "45rem"; // default modal width
+var modalId = null;
+
+const dontShowButtonHTML = 
+"<button class=dontShowButton onclick='dontShowButton(modalId)'>Dont show again</button>" ;
+
+function dontShowButton(modalId) {
+  session.dontShowModals.push(modalId);
+  console.log("dontShowButton", modalId);
 }
 
-var foo = "foo";
+function extractModalId(msg) {
+  const index = msg.indexOf("\n");
+  return index === -1 ? msg : msg.substring(0, index);
+}
+
 function modalWarning(title, msg) {
+  modalId = extractModalId(msg);
+  if (session.dontShowModals.includes(modalId)) {
+    return;
+  }
+
+  let modalHtml = 
+    "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";
+  if (modalId) {
+    modalHtml += dontShowButtonHTML;
+  }
+
   Swal.fire({
     icon: 'warning',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
-    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>" +
-    "<button onclick='dontShowButton(foo)'>Dont show again</button>",
+    html: modalHtml,
     width: modalWidth,
     color: 'white',
     background: '#4D5656',
@@ -28,11 +49,18 @@ function modalWarning(title, msg) {
 
 function modalInfo(title, msg) {
   let modalColor = palette.modal;
+  modalId = extractModalId(msg);
+
+  let modalHtml = 
+    "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";
+  if (modalId) {
+    modalHtml += dontShowButtonHTML;
+  }
 
   Swal.fire({
     icon: 'info',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
-    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
+    html: modalHtml,
     width: modalWidth,
     color: 'white',
     background: modalColor,

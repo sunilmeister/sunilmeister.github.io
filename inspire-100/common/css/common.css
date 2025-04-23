@@ -61,6 +61,49 @@ hr {
   pointer-events: all !important;
 }
 
+.dontShowButton {
+  appearance: none;
+  text-decoration: underline;
+  background-color: transparent;
+  color: white;
+  border-width: 0;
+  cursor: pointer;
+  display: inline-flex;
+  height: var(--dontShowBtnHeight);
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding: var(--dontShowBtnPadding);
+  margin: var(--dontShowBtnMargin);
+  font-size: var(--dontShowBtnFontSize);
+  width: var(--dontShowBtnWidth);
+  position: relative;
+  cursor: pointer;
+}
+
+.dontShowButton:focus:not([disabled]) {
+}
+
+.dontShowButton:hover:not([disabled]) {
+  transform: translateY(-0.2rem);
+  color: var(--rsp_blue);
+	font-weight: bold;
+}
+
+.dontShowButton:active:not([disabled]) {
+  box-shadow: #D6D6E7 0 2rem 0.4rem outset;
+  transform: translateY(0.2rem);
+  color: var(--rsp_mediumblue);
+	font-weight: bold;
+}
+
+.dontShowButton:disabled,
+.dontShowButton[disabled]{
+  color: grey;
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
 /* A row of equal columns that sits next to each other */
 .row {
   display: flex;

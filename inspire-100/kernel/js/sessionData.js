@@ -11,6 +11,9 @@ var SessionDataTemplate = {
   keypressIdleAction: null,
   keypressTimeoutDelaySeconds: null,
   
+  // Dont Show modals
+  dontShowModals: [],
+
   // currently open session
   sessionDataValid: true,
   sessionDurationInMs: 0,
