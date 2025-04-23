@@ -69,14 +69,7 @@ hr {
   border-width: 0;
   cursor: pointer;
   display: inline-flex;
-  height: var(--dontShowBtnHeight);
   line-height: 1;
-  list-style: none;
-  overflow: hidden;
-  padding: var(--dontShowBtnPadding);
-  margin: var(--dontShowBtnMargin);
-  font-size: var(--dontShowBtnFontSize);
-  width: var(--dontShowBtnWidth);
   position: relative;
   cursor: pointer;
 }
