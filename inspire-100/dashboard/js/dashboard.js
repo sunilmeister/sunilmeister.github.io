@@ -773,6 +773,9 @@ function autoCloseDormantPopup() {
 
 function showDormantPopup() {
 	if (dashboardSessionClosed) return;
+  if (session.dontShowModals.includes(modalId)) {
+    return;
+  }
 
   // do not do anything if some other modal is displayed
   // if ($(".sweet-alert.visible").length > 0) return;
