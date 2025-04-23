@@ -12,7 +12,7 @@ const dontShowButtonHTML =
 "<button class=dontShowButton onclick='dontShowButton(modalId)'>Dont show again</button>" ;
 
 function dontShowButton(modalId) {
-  session.dontShowModals.push(modalId);
+  if (modalId) session.dontShowModals.push(modalId);
   console.log("dontShowButton", modalId);
 }
 

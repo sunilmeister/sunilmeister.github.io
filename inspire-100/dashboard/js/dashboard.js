@@ -780,12 +780,13 @@ function showDormantPopup() {
   dormantPopupDisplayed = true;
   dormantPopupManualCloseTime = null;
   let modalColor = palette.modal;
+  modalId = DORMANT_TITLE_STR;
   
   let dormantTimerInterval;
   Swal.fire({
     icon: 'info',
     title: DORMANT_TITLE_STR,
-    html: DORMANT_MESSAGE_STR,
+    html: DORMANT_MESSAGE_STR + "<br>" + dontShowButtonHTML,
     color: 'white',
     background: modalColor,
     showConfirmButton: true,
