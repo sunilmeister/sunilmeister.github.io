@@ -61,7 +61,7 @@ var rangeWindowDiv = null;
 const DORMANT_TITLE_STR = "DASHBOARD is idle";
 const DORMANT_MESSAGE_STR = "<span style='font-size:var(--swalTextFontSize);'>" +
 "No communication from Inspire-100 System for <b></b> (hh:mm:ss)<br>" +
-"<br>Alert will close automatically when communication is established" +
+"<br>Alert will close when communication is re-established" +
 "<br>Or you can close it manually</span>"
 
 var banner1 = "<small><small>&nbsp";
