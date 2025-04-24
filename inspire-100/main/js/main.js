@@ -11,7 +11,7 @@ function installFirmwareApp() {
     modalAlert("Firmware Installer ERROR", "Must use a WINDOWS Platform");
     return;
   } else if (os.version < 10) {
-    modalAlert("Firmware Installer ERROR", "WINDOWS Version must be greater than 10");
+    modalAlert("Firmware Installer ERROR", "WINDOWS Version must be 10 or higher");
     return;
   }
 
@@ -81,6 +81,8 @@ function getOS() {
 
   if (userAgent.indexOf("Windows") !== -1) {
     os = "Windows";
+
+    // Note Windows-11 useragent string is frozen at Windows NT 10.0
     if (userAgent.indexOf("Windows NT 10.0") !== -1) version = 10;
   }
 
