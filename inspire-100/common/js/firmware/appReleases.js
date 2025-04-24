@@ -27,7 +27,7 @@ function findMostRecentFwAppRelease() {
 }
 
 window.addEventListener("load", function() {
-	fetch("../firmware/fwAppReleases/appReleases.json")
+	fetch("../firmware/appReleases/appReleases.json")
     .then((response) => response.json())
     .then((json) => setFwAppReleases(json))
   	.catch(error => setFwAppReleases(null));
