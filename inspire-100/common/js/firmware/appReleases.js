@@ -5,6 +5,7 @@
 // The list is populated from ../firmware/appReleases/appReleases.json
 // ////////////////////////////////////////////////////
 
+const APP_FOLDER_NAME = "../firmware/appReleases/";
 var fwAppReleases = null;
 
 function setFwAppReleases(json) {
@@ -27,7 +28,7 @@ function findMostRecentFwAppRelease() {
 }
 
 window.addEventListener("load", function() {
-	fetch("../firmware/appReleases/appReleases.json")
+	fetch(APP_FOLDER_NAME + "appReleases.json")
     .then((response) => response.json())
     .then((json) => setFwAppReleases(json))
   	.catch(error => setFwAppReleases(null));

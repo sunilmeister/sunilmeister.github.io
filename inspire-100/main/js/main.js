@@ -3,11 +3,18 @@
 // Must include inspire.uid.js prior to this file
 // ////////////////////////////////////////////////////
 
+function downloadAppExecutable(os, release) {
+  let folderName = APP_FOLDER_NAME + "/appReleases/" + release + "/" + os + "/Executable/" ;
+  let fileName = "firmwareInstaller.exe" ;
+	downloadFileFromURL(fileName, folderName + fileName);
+	modalInfo(fileName + " Downloaded", "Double-click on file to execute");
+}
+
 function installFirmwareApp() {
 	//downloadAppZipFile();
   let os = getOS();
   console.log("Operating System", os);
-  if (os.os != "Windows") {
+  if (os.os != "WINDOWS") {
     modalAlert("Firmware Installer ERROR", "Must use a WINDOWS Platform");
     return;
   } else if (os.version < 10) {
@@ -17,6 +24,7 @@ function installFirmwareApp() {
 
   let appVersion = findMostRecentFwAppRelease();
   console.log("App Version", appVersion);
+  downloadAppExecutable(os, appVersion.release);
   modalAlert("Firmware App under construction", "Come back again soon!");
 }
 
@@ -80,7 +88,7 @@ function getOS() {
   //console.log("OS", userAgent);
 
   if (userAgent.indexOf("Windows") !== -1) {
-    os = "Windows";
+    os = "WINDOWS";
 
     // Note Windows-11 useragent string is frozen at Windows NT 10.0
     if (userAgent.indexOf("Windows NT 10.0") !== -1) version = 10;
