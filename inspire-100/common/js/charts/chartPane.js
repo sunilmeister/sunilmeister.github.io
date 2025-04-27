@@ -231,7 +231,7 @@ class ChartPane {
     if (this.timeUnits) {
       numPoints = (maxTime - minTime) / 1000;
     } else {
-      numPoints = maxBnum - minBnum + 1;
+      numPoints = maxBnum - minBnum;
     }
     let interval = Math.ceil(numPoints / CHART_XAXIS_MAX_TICK_MARKS);
     return interval;
@@ -288,8 +288,8 @@ class ChartPane {
 		let xval = null;
 		let yval = null;
     let xyPoints = [];
-		for (let i=0; i<yvals.length; i++) {
-			yval = yvals[i];
+		for (let i=0; i<yvals.length - 1; i++) {
+			yval = yvals[i + 1];
 			let bnum = minBnum + (i * sparseInterval);
 			if (isUndefined(session.loggedBreaths[bnum])) continue;
       if (this.timeUnits) {
@@ -299,6 +299,7 @@ class ChartPane {
         xval = (ms / 1000);
       } else {
         xval = bnum;
+        if (xval == maxBnum) break;
       }
 
       if (this.paramInfo.snapYval) {
@@ -383,73 +384,51 @@ class ChartPane {
     return chartData;
   }
 
- createSpanXYPoints(loggedBreaths) {
+  createSpanXYPoints(loggedBreaths) {
     let minBnum = this.rangeX.minBnum;
     let maxBnum = this.rangeX.maxBnum;
     let minTime = this.rangeX.minTime;
     let maxTime = this.rangeX.maxTime;
-    let selectVal = this.paramInfo.selectVal;
-    let timeSpans = [];
+		let sparseInterval = session.charts.sparseInterval;
 
 		let paramObj = session.params[this.paramInfo.paramName];
-    let transitions = paramObj.Changes();
-
-    if (transitions.length == 0) {
-      console.log("No transitions for ", this.paramInfo.paramName);
+		let yvals = paramObj.Values(minBnum, maxBnum, sparseInterval);
+    if (yvals.length == 0) {
+      console.log("No values for ", this.paramInfo.paramName);
       return null;
     }
 
+		let xval = null;
+		let yval = null;
     let xyPoints = [];
-    let xval, yval;
-    let prevXval = -1;
-    let startTime = null;
-    let endTime = null;
-
-    for (let t = 1; t < transitions.length; t++) {
-      yval = transitions[t].value;
-      if (yval == selectVal) {
-        if (!startTime) startTime = transitions[t].time;
-        if (t==transitions.length-1) endTime = loggedBreaths[loggedBreaths.length-1].time;
-      } else if (startTime) {
-        endTime = transitions[t].time;
+		for (let i=0; i<yvals.length - 1; i++) {
+			yval = yvals[i + 1];
+      if (yval != this.paramInfo.selectVal) continue;
+			let bnum = minBnum + (i * sparseInterval);
+			if (isUndefined(session.loggedBreaths[bnum])) continue;
+      if (this.timeUnits) {
+				let dt = session.loggedBreaths[bnum].time;
+				if (dt === null) dt = session.firstChirpDate;
+        let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
+        xval = (ms / 1000);
+      } else {
+        xval = bnum;
+        if (bnum == maxBnum) break;
       }
-      if (!(startTime && endTime)) continue;
-      timeSpans.push({startTime:startTime, endTime:endTime});
-      startTime = endTime = null;
-    }
 
-    // now we have an array of startTime and endTime for selectVal breaths
-    let bnum = minBnum;
-    yval = selectVal;
-    for (let i = 0; i < timeSpans.length; i++) {
-      startTime = timeSpans[i].startTime;
-      endTime = timeSpans[i].endTime;
-      for (bnum = minBnum; bnum < maxBnum; bnum+=session.charts.sparseInterval) {
-				if (isUndefined(session.loggedBreaths[bnum])) continue;
-        if ((loggedBreaths[bnum].time.getTime() >= startTime.getTime()) && (loggedBreaths[bnum].time.getTime() < endTime.getTime())) {
-          if (this.timeUnits) {
-						let dt = session.loggedBreaths[bnum].time;
-						if (dt === null) dt = session.firstChirpDate;
-        		let ms = new Date(dt.getTime()) - session.firstChirpDate.getTime();
-            xval = (ms / 1000);
-          } else {
-            xval = bnum;
-          }
-          if (this.paramInfo.snapYval) {
-            xyPoints.push({
-              "x": xval,
-              "y": this.paramInfo.snapYval,
-              "toolTipContent": this.paramInfo.name,
-            });
-          } else {
-            xyPoints.push({
-              "x": xval,
-              "y": yval,
-            });
-          }
-        }
+      if (this.paramInfo.snapYval) {
+        xyPoints.push({
+          "x": xval,
+          "y": this.paramInfo.snapYval,
+          "toolTipContent": this.paramInfo.name
+        });
+      } else {
+        xyPoints.push({
+          "x": xval,
+          "y": yval,
+        });
       }
-    }
+		}
 
     let chartData = {};
     chartData.type = this.paramInfo.graphType;
