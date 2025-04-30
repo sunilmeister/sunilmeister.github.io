@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firmware Installation API</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        color: #333;
+        text-align: center;
+      }
+      header {
+        background-color: #4caf50;
+        color: white;
+        padding: 20px 0;
+      }
+      h1 {
+        margin: 0;
+      }
+      p {
+        margin: 10px 0;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin: 5px 0;
+      }
+      .container {
+        padding: 20px;
+      }
+      .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+      .button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to the Firmware Installation API</h1>
+    </header>
+    <div class="container">
+      <p>Use the following endpoints:</p>
+      <ul>
+        <li><strong>POST</strong> /api/firmware-installation</li>
+        <li><strong>GET</strong> /api/firmware-installation/:system_uid</li>
+      </ul>
+      <a href="/view-installations" class="button">View Installations</a>
+    </div>
+  </body>
+</html>

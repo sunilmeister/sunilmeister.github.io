@@ -5,9 +5,8 @@
 
 function downloadAppExecutable(os, release) {
   let folderName = APP_FOLDER_NAME + "/appReleases/" + release + "/" + os + "/Executable/" ;
-  let fileName = "firmwareInstaller.exe" ;
+  let fileName = "Inspire-100_Firmware_Utility_Setup.exe" ;
 	downloadFileFromURL(fileName, folderName + fileName);
-	modalInfo(fileName + " Downloaded", "Double-click on file to execute");
 }
 
 function installFirmwareApp() {
@@ -25,7 +24,7 @@ function installFirmwareApp() {
   let appVersion = findMostRecentFwAppRelease();
   console.log("App Version", appVersion);
   downloadAppExecutable(os, appVersion.release);
-  modalAlert("Firmware App under construction", "Come back again soon!");
+	modalInfo(fileName + " Downloaded", "Double-click on file to execute");
 }
 
 function launchDocs() {
