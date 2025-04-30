@@ -6,7 +6,7 @@
 const FIRMWARE_INSTALLER_EXECUTABLE = "Inspire-100_Firmware_Utility_Setup.exe" ;
 
 function downloadAppExecutable(os, release) {
-  let folderName = APP_FOLDER_NAME + "/appReleases/" + release + "/" + os + "/Executable/" ;
+  let folderName = APP_FOLDER_NAME + release + "/" + os + "/Executable/" ;
 	downloadFileFromURL(FIRMWARE_INSTALLER_EXECUTABLE, folderName + FIRMWARE_INSTALLER_EXECUTABLE);
 }
 
@@ -24,7 +24,7 @@ function installFirmwareApp() {
 
   let appVersion = findMostRecentFwAppRelease();
   console.log("App Version", appVersion);
-  downloadAppExecutable(os, appVersion.release);
+  downloadAppExecutable(os.os, appVersion.release);
 	modalInfo(FIRMWARE_INSTALLER_EXECUTABLE + " Downloaded", "Double-click on file to execute");
 }
 
