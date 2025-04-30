@@ -799,6 +799,7 @@ function readJsonFile(fileName, callbackFn) {
 }
 
 function downloadFileFromURL(dstFileName, srcURL) {
+  console.log("Download", srcURL, "to", dstFileName);
 	// CREATE A LINK ELEMENT IN DOM
 	let elm = document.createElement('a');  
   elm.href = srcURL;  
