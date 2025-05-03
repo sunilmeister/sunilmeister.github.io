@@ -447,9 +447,10 @@ function findFlowChangePoints(samples) {
     if (sample > SAMPLE_FLOWQ_THRESHOLD) {
       inspIQ += (samples[ix] + samples[ix-1])/2;
       continue;
+    } else if (sample <= -SAMPLE_FLOWQ_THRESHOLD) {
+      inspEnd = ix;
+      break;
     }
-    inspEnd = ix;
-    break;
   }
 
   // find start of -ve flow
