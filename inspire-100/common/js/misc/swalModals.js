@@ -13,6 +13,7 @@ const dontShowButtonHTML =
 
 function dontShowButton(modalId) {
   if (modalId) session.dontShowModals.push(modalId);
+  Swal.close();
   console.log("dontShowButton", modalId);
 }
 
