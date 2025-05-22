@@ -69,20 +69,6 @@ const EI_DECODER = [
   "1:3",
 ];
 
-const TPS_DECODER = [
-  "20%",
-  "30%",
-  "40%",
-  "50%",
-]; 
-
-const FP_TPS_DECODER = [
-  "20",
-  "30",
-  "40",
-  "50",
-] 
-
 const INITIAL_STATE = 0;
 const STANDBY_STATE = 1;
 const ACTIVE_STATE = 2;

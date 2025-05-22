@@ -345,9 +345,9 @@ function updateFrontPanelSettings() {
 	pval = snap.pendingTps;
 	val = snap.tps;
 	if (isValidValue(pval)) {
-		document.getElementById('p_fpTpsDiv').innerHTML = FP_TPS_DECODER[pval];
+		document.getElementById('p_fpTpsDiv').innerHTML = pval;
 	} else if (isValidValue(val)) { 
-		document.getElementById('p_fpTpsDiv').innerHTML = FP_TPS_DECODER[val];
+		document.getElementById('p_fpTpsDiv').innerHTML = val;
 	}
 }
 

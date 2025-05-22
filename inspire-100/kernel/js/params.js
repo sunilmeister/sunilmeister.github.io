@@ -618,21 +618,8 @@ const paramsType = {
 	IE : 							{type:"ENUM", 
 											range:{"1:1":1, "1:2":2, "1:3":3}
 										},
-	TPS : 						{type:"ENUM", 
-											range:{
-											 "10% of Peak Flow":0,
-											 "20% of Peak Flow":1,
-											 "30% of Peak Flow":2,
-											 "40% of Peak Flow":3,
-											 "50% of Peak Flow":4,
-											 "60% of Peak Flow":5,
-											 "1.0 secs":6,
-											 "1.5 secs":7,
-											 "2.0 secs":8,
-											 "2.5 secs":9,
-											}
-										},
-	RESET:					{type:"ENUM", 
+	TPS : 						{type:"NUMBER", range:{}},
+	RESET:					  {type:"ENUM", 
 											range:{
 												"NONE":0, 
 												"PENDING":1, 
@@ -726,7 +713,7 @@ function createAllParams() {
 	addParam("ipeep", 			"INPUT_PEEP", 			"NUMBER", 	"cmH2O",		[3, 15, 1]);
 	addParam("pmax", 				"INPUT_PMAX", 			"NUMBER", 	"cmH2O",		[10, 60, 1]);
 	addParam("ps", 					"INPUT_PS", 				"NUMBER", 	"cmH2O",		[5, 40, 1]);
-	addParam("tps", 				"INPUT_TPS", 				"TPS", 			"");
+	addParam("tps", 				"INPUT_TPS", 				"TPS", 			"%"         [20, 50, 10]);
 	addParam("fiO2", 				"INPUT_FIO2", 			"NUMBER", 	"%",				[0, 100, 1]);
 	addParam("o2Purity", 		"INPUT_O2_PURITY",	"NUMBER", 	"%",				[21, 100, 1]);
 
@@ -741,7 +728,7 @@ function createAllParams() {
 	addParam("pendingIpeep",	"PENDING_PEEP",		"NUMBER", 	"cmH2O",		[3, 15, 1]);
 	addParam("pendingPmax",		"PENDING_PMAX",		"NUMBER", 	"cmH2O",		[10, 60, 1]);
 	addParam("pendingPs", 		"PENDING_PS",			"NUMBER", 	"cmH2O",		[5, 40, 1]);
-	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"");
+	addParam("pendingTps",	 	"PENDING_TPS",		"TPS", 			"%",        [20, 50, 10]);
 	addParam("resetStatus",	 	"RESET_STATUS",		"RESET", 		"");
 }
 

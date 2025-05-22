@@ -330,7 +330,7 @@ function refreshInputSettings() {
  		updateDivText(modeValELM, modeText);
 	}
 	if (isValidValue(snap.tps)) {
-  	updateDivText(tpsValELM, TPS_DECODER[snap.tps]);
+  	updateDivText(tpsValELM, snap.tps);
 	}
 
 	refreshFiO2Settings();
