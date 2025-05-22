@@ -773,6 +773,7 @@ function autoCloseDormantPopup() {
 
 function showDormantPopup() {
 	if (dashboardSessionClosed) return;
+  modalId = DORMANT_TITLE_STR;
   if (session.dontShowModals.includes(modalId)) {
     return;
   }
@@ -783,7 +784,6 @@ function showDormantPopup() {
   dormantPopupDisplayed = true;
   dormantPopupManualCloseTime = null;
   let modalColor = palette.modal;
-  modalId = DORMANT_TITLE_STR;
   
   let dormantTimerInterval;
   Swal.fire({

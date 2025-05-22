@@ -12,6 +12,11 @@ function autoCloseDormantPopup() {
 function showDormantPopup() {
 	if (dashboardSessionClosed) return;
 
+  modalId = DORMANT_TITLE_STR;
+  if (session.dontShowModals.includes(modalId)) {
+    return;
+  }
+
   dormantPopupDisplayed = true;
   dormantPopupManualCloseTime = null;
   let modalColor = palette.modal;
@@ -20,7 +25,7 @@ function showDormantPopup() {
   Swal.fire({
     icon: 'info',
     title: DORMANT_TITLE_STR,
-    html: DORMANT_MESSAGE_STR,
+    html: DORMANT_MESSAGE_STR + "<br>" + dontShowButtonHTML,
     color: 'white',
     background: modalColor,
     showConfirmButton: true,
