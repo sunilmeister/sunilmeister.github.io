@@ -10,18 +10,20 @@
 // 
 // The constructor inputs are
 // Title of chart
-// Height in pixels
+// yMinMaxInterval  = {min: , max:, interval: }
 // rangeX = {moving:, 
 //           minBnum:Number, maxBnum:Number, 
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 class WavePane {
-  constructor(chartTitle, xTitle, yInterval, height, rangeX, menu, 
+  constructor(chartTitle, xTitle, yMinMaxInterval, height, rangeX, menu, 
               paramName, paramColor, data) {
     this.graphType = "splineArea";
     this.chartTitle = chartTitle;
     this.xTitle = xTitle;
-    this.yInterval = yInterval;
+    this.yInterval = yMinMaxInterval.interval;
+    this.yMin = yMinMaxInterval.min;
+    this.yMax = yMinMaxInterval.max;
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
@@ -336,6 +338,10 @@ class WavePane {
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;
     Yaxis.suffix = "";
     Yaxis.interval = this.yInterval;
+    Yaxis.minimum = this.yMin;
+    Yaxis.maximum = this.yMax;
+    Yaxis.min = this.yMin;
+    Yaxis.max = this.yMax;
     return cloneObject(Yaxis);
   }
 
