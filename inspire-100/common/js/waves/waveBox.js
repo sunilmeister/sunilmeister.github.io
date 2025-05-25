@@ -210,7 +210,7 @@ class WaveBox {
 
   createCharts() {
 		// Pressure Chart
-    let pressureYaxisTicks  = {min:null, max:null, interval: 50};
+    let pressureYaxisTicks  = {min:0, max:null, interval: 50};
     this.pChart = new WavePane(
       this.options.title,
       null,
@@ -240,7 +240,7 @@ class WaveBox {
     this.fChart.addGraph();
 
 		// Volume Chart
-    let volumeYaxisTicks  = {min:-750, max:750, interval: 150};
+    let volumeYaxisTicks  = {min:0, max:800, interval: 100};
     this.vChart = new WavePane(
       null,
       "Elapsed Time (H:MM:SS)",

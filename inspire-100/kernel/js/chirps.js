@@ -405,27 +405,6 @@ function checkIfLoggedValidBreath(sysBnum) {
   return !session.loggedBreaths[bnum].missed;
 }
 
-function movingAverageFilter(samples) {
-  const order = 3;
-  let filteredSamples = [];
-  let win = order;
-
-  for (let i = 0; i < samples.length; i++) {
-    if ((i+1) < order) {
-        win = i+1;
-    } else {
-        win = order;
-    }
-    let sum = 0;
-    for (let j = 0; j < win; j++) {
-        sum += samples[i-j];
-    }
-    filteredSamples.push(sum / win);
-  }
-
-  return filteredSamples;
-}
-
 function findFlowChangePoints(samples) {
   //console.log("samples",samples);
   let inspStart, inspEnd, expStart, expEnd;
@@ -496,7 +475,7 @@ function computeIntegral(samples, sampleInterval, fromIx, toIx) {
 
 function convertQtoFlowLPM(samples, partial, sampleInterval) {
   //console.log("samples", samples);
-  let filteredSamples = movingAverageFilter(samples);
+  let filteredSamples = movingAverageFilter(samples, 5);
   //console.log("filteredSamples", filteredSamples);
 
   let changes = findFlowChangePoints(filteredSamples);
