@@ -24,6 +24,7 @@ function medianFilter1D(data, windowSize = 3) {
   return result;
 }
 
+/*
 function movingAverageFilter(data, windowSize = 3) {
   if (data.length < windowSize) return [];
   let result = [];
@@ -40,4 +41,24 @@ function movingAverageFilter(data, windowSize = 3) {
   }
   return result;
 }
+*/
 
+function movingAverageFilter(samples, order = 3) {
+  let filteredSamples = [];
+  let win = order;
+
+  for (let i = 0; i < samples.length; i++) {
+    if ((i+1) < order) {
+        win = i+1;
+    } else {
+        win = order;
+    }
+    let sum = 0;
+    for (let j = 0; j < win; j++) {
+        sum += samples[i-j];
+    }
+    filteredSamples.push(sum / win);
+  }
+
+  return filteredSamples;
+}
