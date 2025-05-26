@@ -225,7 +225,7 @@ class WaveBox {
     this.pChart.addGraph();
 
 		// Flow Chart
-    let flowYaxisTicks  = {min:-80, max:80, interval: 20};
+    let flowYaxisTicks  = {min:-100, max:100, interval: 25};
     this.fChart = new WavePane(
       null,
       null,
