@@ -279,7 +279,7 @@ class WavePane {
 
       let stripLine = {};
       stripLine.color = this.getStripColor(breathInfo);
-      stripLine.startValue = (xval - 100) / 1000;
+      stripLine.startValue = (xval) / 1000;
 
       let lastY = null;
       let lastX = null;
