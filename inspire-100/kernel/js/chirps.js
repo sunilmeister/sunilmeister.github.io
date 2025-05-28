@@ -476,8 +476,7 @@ function computeIntegral(samples, sampleInterval, fromIx, toIx) {
 
 function convertQtoFlowLPM(samples, partial, sampleInterval) {
   //console.log("samples", samples);
-  let avgSamples = movingAverageFilter(samples, 8);
-  let filteredSamples = medianFilter1D(avgSamples, 5);
+  let filteredSamples = movingAverageFilter(samples, 8);
   //console.log("filteredSamples", filteredSamples);
 
   let changes = findFlowChangePoints(filteredSamples);
