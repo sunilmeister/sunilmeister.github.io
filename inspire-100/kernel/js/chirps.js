@@ -476,7 +476,7 @@ function computeIntegral(samples, sampleInterval, fromIx, toIx) {
 
 function convertQtoFlowLPM(samples, partial, sampleInterval) {
   //console.log("samples", samples);
-  let filteredSamples = movingAverageFilter(samples, 8);
+  let filteredSamples = movingAverageFilter(samples, WAVE_FILTER_WINDOW);
   //console.log("filteredSamples", filteredSamples);
 
   let changes = findFlowChangePoints(filteredSamples);
@@ -557,9 +557,9 @@ function processPwaveChirp(curTime, jsonStr) {
   let obj = parseWaveData(jsonStr);
 
   let lastSample = obj.waveData[obj.waveData.length-1];
-  //let filteredSamples = movingAverageFilter(obj.waveData);
-  //obj.waveData = filteredSamples;
-  //obj.waveData[obj.waveData.length-1] = lastSample; // show spontaneous trigger if any
+  let filteredSamples = movingAverageFilter(obj.waveData, WAVE_FILTER_WINDOW);
+  obj.waveData = filteredSamples;
+  obj.waveData[obj.waveData.length-1] = lastSample; // show spontaneous trigger if any
 
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
     obj.waveData, session.waves.pwPartial, session.waves.pwData);
