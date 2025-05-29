@@ -456,6 +456,7 @@ function initGlobals() {
 }
 
 function resetPlaybackData() {
+  createNewSession();
   initStats();
   initCharts();
   initWaves();

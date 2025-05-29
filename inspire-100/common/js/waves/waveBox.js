@@ -208,7 +208,25 @@ class WaveBox {
     return breaks;
   }
 
+  deleteUnmatchedWaveformData() {
+    let minBnum = this.rangeX.minBnum;
+    let maxBnum = this.rangeX.maxBnum;
+
+    for (let i=minBnum; i<= maxBnum; i++) {
+      if (!isUndefined(session.waves.pwData[i]) && (session.waves.pwData[i] !== null)) {
+        if (!isUndefined(session.waves.fwData[i]) && (session.waves.fwData[i] !== null)) {
+          continue;
+        }
+      }
+      session.waves.pwData[i] = null;
+      session.waves.fwData[i] = null;
+      session.waves.vwData[i] = null;
+    }
+  }
+
   createCharts() {
+    this.deleteUnmatchedWaveformData();
+
 		// Pressure Chart
     let pressureYaxisTicks  = {min:0, max:null, interval: 50};
     this.pChart = new WavePane(
