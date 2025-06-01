@@ -255,10 +255,10 @@ function selectSnapshots() {
 
 function selectStats() {
   if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
 	session.stats.visible = true;
+  if (!checkValidPlaybackDuration()) return;
 	showRangeOnSlider(session.stats.range);
 	
   document.getElementById("statsDiv").style.display = "block";
@@ -274,10 +274,10 @@ function selectStats() {
 
 function selectAlerts() {
   if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
 	session.alerts.visible = true;
+  if (!checkValidPlaybackDuration()) return;
 	showRangeOnSlider(session.alerts.range);
 	
   document.getElementById("alertsDiv").style.display = "block";
@@ -293,10 +293,10 @@ function selectAlerts() {
 
 function selectWaves() {
   if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
 	session.waves.visible = true;
+  if (!checkValidPlaybackDuration()) return;
 	showRangeOnSlider(session.waves.range);
 	
   document.getElementById("wavesDiv").style.display = "block";
@@ -312,10 +312,10 @@ function selectWaves() {
 
 function selectCharts() {
   if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
 	session.charts.visible = true;
+  if (!checkValidPlaybackDuration()) return;
 	showRangeOnSlider(session.charts.range);
 	
   document.getElementById("chartsDiv").style.display = "block";
@@ -331,10 +331,10 @@ function selectCharts() {
 
 function selectRawData() {
   if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
 	session.rawData.visible = true;
+  if (!checkValidPlaybackDuration()) return;
 	
   document.getElementById("rawDataDiv").style.display = "block";
   let sessionInfo = document.getElementById("sessionNameData");
@@ -349,10 +349,10 @@ function selectRawData() {
 
 function selectSearch() {
   if (!checkDbReady()) return;
-  if (!checkValidPlaybackDuration()) return;
 
   undisplayAllPanes();
-	session.select.visible = true;
+	session.search.visible = true;
+  if (!checkValidPlaybackDuration()) return;
 	showRangeOnSlider(session.search.range);
 	
 	if (!session.search.criteria) {
@@ -466,7 +466,7 @@ function resetPlaybackData() {
   initGlobals();
   initDbNames();
   if (session.snapshot.visible || session.charts.visible || session.waves.visible ||
-  		session.stats.visible || session.alerts.visible) { 
+  		session.stats.visible || session.alerts.visible || session.search.visible) { 
     document.getElementById("playbackWindowDiv").style.display = "block";
   }
 }

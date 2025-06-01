@@ -26,6 +26,7 @@ var SessionDataTemplate = {
   startSystemBreathNum: null,
   firstBreathBnumTime: null,
   firstBreathBnumMs: null,
+  firstBnumChirp: true,
 
   firmwareVersion: {
     major: null,

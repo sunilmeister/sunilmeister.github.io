@@ -859,7 +859,6 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
   session[parentName][paramName] = value;
 }
 
-var firstBnumChirp = true;
 function processBnumChirp(curTime, value, jsonData) {
   // Parse for breath info
   let obj = parseBnumData(value);
@@ -879,8 +878,8 @@ function processBnumChirp(curTime, value, jsonData) {
   // Housekeeping tasks
   let breathsMissing = 0;
   let outOfOrder = false;
-  if (firstBnumChirp) {
-    firstBnumChirp = false;
+  if (session.firstBnumChirp) {
+    session.firstBnumChirp = false;
     breathsMissing = 0;
     outOfOrder = false;
     session.startSystemBreathNum = bnumValue;
