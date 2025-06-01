@@ -124,19 +124,6 @@ function parseBnumData(jsonStr) {
   return val;
 }
 
-var settingsInUse = {
-  pending : null,
-  vt : null,
-  mv : null,
-  pmax : null,
-  ipeep : null,
-  ps : null,
-  mode : null,
-  tps : null,
-  ei : null,
-  rr : null,
-};
-
 function parseParamData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 10)) {
@@ -645,17 +632,16 @@ function processWifiChirp(curTime, jsonStr) {
   session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
 }
 
-var prevChirpResetStatus = RESET_NONE;
 function processResetChirp(curTime, jsonStr) {
   let resetStatus = Number(jsonStr);
-  //console.log("prevChirpResetStatus",prevChirpResetStatus,"resetStatus",resetStatus);
-  if (resetStatus == prevChirpResetStatus) {
+  //console.log("prevChirpResetStatus",session.prevChirpResetStatus,"resetStatus",resetStatus);
+  if (resetStatus == session.prevChirpResetStatus) {
     // System will keep sending Timout/Decline messages till reset is pressed again
     if ((resetStatus == RESET_TIMEOUT) || (resetStatus == RESET_DECLINED)) {
       resetStatus = RESET_NONE;
     }
   } else {
-    prevChirpResetStatus = resetStatus;
+    session.prevChirpResetStatus = resetStatus;
   }
   session.params.resetStatus.AddTimeValue(curTime, resetStatus);
 }
@@ -727,23 +713,21 @@ function saveMiscValue(paramName, parsedObj) {
   session.miscData[paramName] = parsedObj[paramName];
 }
 
-var prevParamChangeBreathNum = null;
 function processParamChirp(curTime, jsonStr) {
   let obj = parseParamData(jsonStr);
   if (!obj) return;
 
   let onDisplay = cloneObject(obj);
   if (!obj.pending) {
-    if (!equalObjects(settingsInUse, onDisplay)) {
+    if (!equalObjects(session.settingsInUse, onDisplay)) {
       session.params.comboChanged.AddTimeValue(curTime, true);
-      prevParamChangeBreathNum = session.loggedBreaths.length - 1;
     }
-    settingsInUse = cloneObject(obj);
-    settingsInUse.pending = false;
+    session.settingsInUse = cloneObject(obj);
+    session.settingsInUse.pending = false;
   } else {
       session.params.comboChanged.AddTimeValueIfAbsent(curTime, false);
   }
-  updatePendingParamState(curTime, onDisplay, settingsInUse);
+  updatePendingParamState(curTime, onDisplay, session.settingsInUse);
   session.params.somePending.AddTimeValue(curTime, obj.pending);
 
   if (!obj.pending) {

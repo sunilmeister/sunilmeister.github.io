@@ -27,6 +27,7 @@ var SessionDataTemplate = {
   firstBreathBnumTime: null,
   firstBreathBnumMs: null,
   firstBnumChirp: true,
+  prevChirpResetStatus: RESET_NONE,
 
   firmwareVersion: {
     major: null,
@@ -44,6 +45,19 @@ var SessionDataTemplate = {
     allDbKeys:  [],
   },
   
+  settingsInUse: {
+    pending : null,
+    vt : null,
+    mv : null,
+    pmax : null,
+    ipeep : null,
+    ps : null,
+    mode : null,
+    tps : null,
+    ei : null,
+    rr : null,
+  },
+
   // ////////////////////////////////////////////////////
   // data collected from chirps
   // ////////////////////////////////////////////////////
