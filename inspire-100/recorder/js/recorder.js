@@ -2,13 +2,8 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var simulatedTimeInMs = 0;
-var startimulatedTimeInMs = 0;
-var startMillis = 0;
 var lastChirpInMs = 0;
-var startSystemDate = new Date();
 var awaitingFirstChirp = true;
-var chirpQ = null;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_CHIRP_SIMULAION_TIMES = 10000;
 
@@ -42,33 +37,6 @@ setInterval(function () {
 	blinkRecordingIndicator();
 }, FAST_BLINK_INTERVAL_IN_MS)
 
-function disassembleAndQueueChirp(d) {
-  fragmentIndex = 0;
-  while (1) {
-    key = String(fragmentIndex);
-    fragmentIndex++;
-
-    if (isUndefined(d.content[key])) break;
-    fragment = d.content[key];
-    millisStr = fragment.MILLIS;
-    millis = parseChecksumString(millisStr);
-    if (millis == null) continue // ignore this malformed chirp
-
-    if (!startMillis) startMillis = Number(millis);
-    fragment.MILLIS = Number(millis);
-		let date = session.firstChirpDate;
-		if (date === null) date = new Date(d.created);
-    fragment.created = new Date(addMsToDate(date, (fragment.MILLIS - startMillis)));
-    chirpQ.push(cloneObject(fragment));
-  }
-}
-
-function getCurrentSimulatedMillis() {
-  curDate = new Date();
-  deltaTimeInMs = curDate - startSystemDate;
-  return startSimulatedMillis + deltaTimeInMs;
-}
-
 var recorderLaunchTime = null;
 var recorderChirpCount = 0;
 function waitForChirps() {
@@ -87,7 +55,6 @@ function waitForChirps() {
       millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      startSystemDate = new Date();
       elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
@@ -141,7 +108,7 @@ window.onload = function () {
   new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
 
   // now wait for chirps and act accordingly
-  chirpQ = new Queue();
+  initChirpQ();
   waitForChirps();
 
 	sidebarAlign();
@@ -194,26 +161,55 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
 
     let d = chirpQ.pop();
+		if (recorderSessionClosed) {
+			return; // do not process any more chirps
+		}
+
+		if (isUndefined(d["content"])) break; // empty chirp
+
+		// check if a new session has started without current one being closed
+    if (!isUndefined(d.content["HWORLD"])) {
+			if (session.firstChirpDate) {
+				// A session was in progress but a new session started
+				// must close current session and inform user
+				closeCurrentSession();
+				return;
+			}
+		}
+
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
-      if (session.startSystemBreathNum == null) {
-        session.startSystemBreathNum = bnumObj.bnum;
-        let elm = document.getElementById("priorBreathNum");
-        elm.innerHTML = String(bnumObj.bnum - 1);
-      }
-      let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
-      if (chirpBnum >	session.maxBreathNum) {
-    	  session.systemBreathNum = bnumObj.bnum;
-       	session.maxBreathNum = chirpBnum;
-      }
+			if (bnumObj) {
+      	if (session.startSystemBreathNum == null) {
+        	session.startSystemBreathNum = bnumObj.bnum;
+        	let elm = document.getElementById("priorBreathNum");
+        	elm.innerHTML = String(bnumObj.bnum - 1);
+      	}
+        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+        if (chirpBnum >	session.maxBreathNum) {
+      	  session.systemBreathNum = bnumObj.bnum;
+         	session.maxBreathNum = chirpBnum;
+        }
+			}
     }
-    updateRecorderSummary(d);
     let dCopy = cloneObject(d);
     processRecordChirp(dCopy);
   }
+}
 
-  return;
+var recorderSessionClosed = false;
+function closeCurrentSession() {
+	// allow navigation and manipulation of current session views
+	recorderSessionClosed = true;
+
+	// close any recording in progress
+	closeRecording();
+
+	// display and sound a warning
+	modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
+	enableWarningBeep();
+	startWarningBeep();
 }
 
 function exportRecording() {

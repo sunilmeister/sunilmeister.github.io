@@ -2,45 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var maxMILLIS = null;
-function disassembleAndQueueChirp(d) {
-  let fragmentIndex = 0;
-  while (1) {
-    let key = String(fragmentIndex);
-    fragmentIndex++;
-
-    if (isUndefined(d.content[key])) break;
-    fragment = d.content[key];
-    let millisStr = fragment.MILLIS;
-    let millis = parseChecksumString(millisStr);
-
-		// ERROR detection
-    if (millis == null) {
-			console.error("*** MILLIS checksum error");
-			continue // ignore this malformed chirp
-		} else if (maxMILLIS && (millis < maxMILLIS)) {
-      let diff = maxMILLIS - millis;
-			// MILLIS should be monotonically increasing
-			// unless the chirps arrive out of order because of network buffering and latency
-      if (diff > 100) {
-        // Up to 100ms can be caused by Arduino and NodeMcu crystal frequency drift
-			  console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
-      }
-		}
-
-		// Reach here if all is good - no ERRORs
-    if (!startMillis) startMillis = Number(millis);
-    fragment.MILLIS = Number(millis);
-		let date = session.firstChirpDate;
-		if (date === null) date = new Date(d.created);
-    fragment.created = new Date(addMsToDate(date, (fragment.MILLIS - startMillis)));
-    chirpQ.push(cloneObject(fragment));
-
-		// For error checking the next round
-		if (!maxMILLIS || (maxMILLIS < fragment.MILLIS)) maxMILLIS = fragment.MILLIS;
-  }
-}
-
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
@@ -62,7 +23,6 @@ function waitForChirps() {
       let millis = parseChecksumString(millisStr);
       if (millis == null) return; // ignore this malformed chirp
 
-      startSystemDate = new Date();
       let elm = document.getElementById("logStartDate");
       elm.innerHTML = dateToDateStr(d.created);
       elm = document.getElementById("logStartTime");
@@ -476,7 +436,7 @@ window.onload = function () {
   displayMessageLine("lcdline4", banner4);
 
   // now wait for chirps and act accordingly
-  chirpQ = new Queue();
+  initChirpQ();
   waitForChirps();
 
 	appResize();
@@ -760,8 +720,6 @@ function FetchAndExecuteFromQueue() {
     processDashboardChirp(d);
     processRecordChirp(dCopy);
   }
-
-  return;
 }
 
 function autoCloseDormantPopup() {

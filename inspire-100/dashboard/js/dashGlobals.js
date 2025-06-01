@@ -12,10 +12,6 @@ const PING_INTERVAL_IN_MS = 1000;
 
 var datasource_name = "INSPIRE-100";
 var dashboardLaunchTime = new Date();
-var simulatedTimeInMs = 0;
-var startimulatedTimeInMs = 0;
-var startMillis = 0;
-var startSystemDate = new Date();
 var tempGauge = null;
 
 var dormantTimeInSec = 0;
@@ -38,7 +34,6 @@ var savedL4 = "";
 var breathPausedAt = 0;
 
 var awaitingFirstChirp = true;
-var chirpQ = null;
 var periodicTickCount = 0;
 var lastChirpInMs = 0;
 var chirpIntervalCounter = 0;
@@ -68,9 +63,4 @@ var banner1 = "<small><small>&nbsp";
 var banner2 = "<big><b>INSPIRE-100</b>";
 var banner3 = "TekMedika Pvt. Ltd." ;
 var banner4 = "&nbsp";
-
-const SESSION_CLOSED_MSG = "<span style='font-size:var(--swalTextFontSize);'>" +
-"A new session started on this system<br>" +
-"<br>Current session closed" +
-"<br>Re-launch Dashboard for new session</span>"
 

@@ -254,6 +254,9 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
     keyReq.onsuccess = function (event) {
       let jsonData = keyReq.result;
       readSessionVersion(jsonData);
+      if (!session.firstChirpDate) {
+        session.firstChirpDate = new Date(jsonData.created);
+      }
       processJsonRecord(jsonData);
       if (lastRecord) {
         if (!isUndefined(lastRecordCallback)) lastRecordCallback();
@@ -289,7 +292,6 @@ function resetSignalTags(curTime, jsonData) {
 function processJsonRecord(jsonData) {
 
   // Keep track of the time duration
-  if (session.firstChirpDate === null) session.firstChirpDate = new Date(jsonData.created);
   session.lastChirpDate = new Date(jsonData.created);
 
   let curTime = new Date(jsonData.created);

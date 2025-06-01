@@ -74,3 +74,8 @@ const STANDBY_STATE = 1;
 const ACTIVE_STATE = 2;
 const ERROR_STATE = 3;
 
+const SESSION_CLOSED_MSG = "<span style='font-size:var(--swalTextFontSize);'>" +
+"A new session started on this system<br>" +
+"<br>Current session closed" +
+"<br>Re-launch for new session</span>"
+
