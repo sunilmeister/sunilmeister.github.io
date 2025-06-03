@@ -39,9 +39,9 @@ function showDbTableRow(dbName, index) {
     cell.innerHTML = selectButtonHTML("selectRowBtn", 2, "Select");
   }
   cell = row.insertCell();
-  cell.innerHTML = exportButtonHTML("exportRowBtn", 3, "Export");
+  cell.innerHTML = exportButtonHTML("exportRowBtn", 2, "Export");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("deleteRowBtn", 3, "Delete");
+  cell.innerHTML = trashButtonHTML("deleteRowBtn", 2, "Delete");
 
   return true;
 }
