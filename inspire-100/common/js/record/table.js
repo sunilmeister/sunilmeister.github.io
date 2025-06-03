@@ -2,7 +2,6 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var exportRowDiv = null;
 var sessionBannerHTML = null;
 
 if (!window.indexedDB) {

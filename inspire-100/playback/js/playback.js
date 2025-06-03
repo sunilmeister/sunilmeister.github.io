@@ -78,8 +78,8 @@ function selectSession() {
 
 function selectImport() {
   document.getElementById("importSessionName").value = "Imported Recording";
-	let importDiv = document.getElementById("importDiv");
-	importDiv.style.display = "block";
+	let importRecordingDiv = document.getElementById("importRecordingDiv");
+	importRecordingDiv.style.display = "block";
   if (session.sessionDataValid) enableAllButtons();
 }
 
@@ -336,7 +336,7 @@ function undisplayAllPanes() {
   document.getElementById("wavesDiv").style.display = "none";
   document.getElementById("playbackWindowDiv").style.display = "none";
   document.getElementById("selectorDiv").style.display = "none";
-  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("importRecordingDiv").style.display = "none";
   document.getElementById("exportRecordingDiv").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
 

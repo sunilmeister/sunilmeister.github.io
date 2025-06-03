@@ -2,6 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 var importJsonArray = [];
+var exportRowDiv = null;
 
 function initImportExport() {
   importJsonArray = [];
@@ -81,7 +82,7 @@ function cancelImport() {
   selectSession();
 }
 
-function importFile() {
+function importRecording() {
   let elm = document.getElementById("dbFileSelector");
   let fileName = elm.value;
   if (!fileName) {
@@ -115,5 +116,5 @@ function importFile() {
     } else break;
   } while (true);
   doImport(file, fileName, dbName);
-  document.getElementById("importDiv").style.display = "none";
+  document.getElementById("importRecordingDiv").style.display = "none";
 }

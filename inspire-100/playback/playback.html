@@ -95,6 +95,7 @@
   <script src="../common/js/record/constants.js"></script>
   <script src="../common/js/record/recording.js"></script>
   <script src="../common/js/record/table.js"></script>
+  <script src="../common/js/record/importExport.js"></script>
 
   <script src="../common/js/search/constants.js"></script>
   <script src="../common/js/search/search.js"></script>
@@ -106,7 +107,6 @@
   <script src="../common/js/snapshots/frontPanel.js"></script>
   <script src="../common/js/snapshots/blinkTimer.js"></script>
 
-  <script src="js/playImportExport.js"></script>
   <script src="js/playSnaps.js"></script>
   <script src="js/playCharts.js"></script>
   <script src="js/playWaves.js"></script>
@@ -199,7 +199,7 @@
     </center>
   </div>
 
-  <div id=importDiv class=popupClassCenter style="width:38rem; height:28rem; display: none">
+  <div id=importRecordingDiv class=popupClassCenter style="width:38rem; height:28rem; display: none">
     <center>
       <div style="font-size: 2rem;">
         <br>
@@ -216,11 +216,10 @@
         <br>
         <br>
         <br>
-        <button id=importFileBtn class=button style="background-color:var(--rsp_darkblue); width:15rem; font-size:2rem;" onclick='importFile()'>IMPORT</button>
+        <button id=importRecordingBtn class=button style="background-color:var(--rsp_darkblue); width:15rem; font-size:2rem;" onclick='importRecording()'>IMPORT</button>
         <button class=button style="background-color:var(--rsp_darkred); width:15rem; font-size:2rem;" onclick='cancelImport()'>CANCEL</button>
         <br>
         <br>
-
       </div>
     </center>
   </div>
@@ -239,7 +238,6 @@
         <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelRecordingExport()'>CANCEL</button>
         <br>
         <br>
-
       </div>
     </center>
   </div>
