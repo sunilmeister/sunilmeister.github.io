@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html style="font-size:20;">
-
   <head>
     <meta charset="UTF-8">
     <title>Inspire-100</title>
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <link href="css/sizes.css" rel="stylesheet" />
     <link href="../common/css/colors.css" rel="stylesheet" />
@@ -24,38 +22,37 @@
     <script src="../external/hacktimer/HackTimer.min.js"></script>
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/download/download.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="../kernel/js/hwPosts.js"></script>
+    <script src="../kernel/js/constants.js"></script>
+    <script src="../kernel/js/sessionData.js"></script>
+    <script src="../kernel/js/params.js"></script>
+    <script src="../kernel/js/chirps.js"></script>
+    <script src="../kernel/js/chirpQ.js"></script>
+    <script src="../kernel/js/filters.js"></script>
 
-  	<script src="../kernel/js/hwPosts.js"></script>
-  	<script src="../kernel/js/constants.js"></script>
-  	<script src="../kernel/js/sessionData.js"></script>
-  	<script src="../kernel/js/params.js"></script>
-  	<script src="../kernel/js/chirps.js"></script>
-  	<script src="../kernel/js/chirpQ.js"></script>
-  	<script src="../kernel/js/filters.js"></script>
+    <script src="../common/js/misc/palette.js"></script>
+    <script src="../common/js/misc/uid.js"></script>
+    <script src="../common/js/misc/common.js"></script>
+    <script src="../common/js/misc/swalModals.js"></script>
+    <script src="../common/js/misc/commonDivs.js"></script>
+    <script src="../common/js/misc/resize.js"></script>
+    <script src="../common/js/misc/modalPopup.js"></script>
+    <script src="../common/js/misc/hidePopups.js"></script>
+    <script src="../common/js/misc/checkboxTree.js"></script>
+    <script src="../common/js/misc/queue.js"></script>
+    <script src="../common/js/misc/circularGauge.js"></script>
+    <script src="../common/js/misc/enterSubmit.js"></script>
+    <script src="../common/js/misc/selectTableRow.js"></script>
+    <script src="../common/js/misc/iconButton.js"></script>
 
-  	<script src="../common/js/misc/palette.js"></script>
-  	<script src="../common/js/misc/uid.js"></script>
-  	<script src="../common/js/misc/common.js"></script>
-  	<script src="../common/js/misc/swalModals.js"></script>
-  	<script src="../common/js/misc/commonDivs.js"></script>
-  	<script src="../common/js/misc/resize.js"></script>
-  	<script src="../common/js/misc/modalPopup.js"></script>
-  	<script src="../common/js/misc/hidePopups.js"></script>
-  	<script src="../common/js/misc/checkboxTree.js"></script>
-  	<script src="../common/js/misc/queue.js"></script>
-  	<script src="../common/js/misc/circularGauge.js"></script>
-  	<script src="../common/js/misc/enterSubmit.js"></script>
-  	<script src="../common/js/misc/selectTableRow.js"></script>
-  	<script src="../common/js/misc/iconButton.js"></script>
-
-  	<script src="../common/js/record/constants.js"></script>
-  	<script src="../common/js/record/recording.js"></script>
-
+    <script src="../common/js/record/constants.js"></script>
+    <script src="../common/js/record/recording.js"></script>
+    <script src="../common/js/record/table.js"></script>
+    <script src="../common/js/record/importExport.js"></script>
     <script src="js/recorder.js"></script>
   </head>
-
   <body style="font-family:verdana;  overflow:auto;">
     <div id=recordNameDiv class=popupClassCenter style="width:30rem; height:17rem; display: none">
       <center>
@@ -71,12 +68,51 @@
           <button class=button style="background-color:var(--rsp_darkred); padding:0.3rem; width:10rem; height:2rem;" onclick='cancelRecordingName()'>CANCEL</button>
           <br>
           <br>
-
         </div>
       </center>
     </div>
-
-    <div id=exportDiv class=popupClassCenter style="width:30rem; height:22rem; display: none">
+    <div id=importRecordingDiv class=popupClassCenter style="width:38rem; height:28rem; display: none">
+      <center>
+        <div style="font-size: 2rem;">
+          <br>
+          <label for="fileSelector">Session Recording File to Import</label>
+          <br>
+          <br>
+          <input type="file" id=dbFileSelector accept=".json" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <br>
+          <br>
+          <label for="importSessionName">Recording Name to Create</label>
+          <br>
+          <br>
+          <input id=importSessionName style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <br>
+          <br>
+          <br>
+          <button id=importRecordingBtn class=button style="background-color:var(--rsp_darkblue); width:15rem; font-size:2rem;" onclick='importRecording()'>IMPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:15rem; font-size:2rem;" onclick='cancelImport()'>CANCEL</button>
+          <br>
+          <br>
+        </div>
+      </center>
+    </div>
+    <div id=exportRecordingDiv class=popupClassCenter style="width:30rem; height:18rem; display: none">
+      <center>
+        <div style="font-size: 2rem; ">
+          <br>
+          <label for="exportRecordingFileName">Session Export File Name (.json)</label>
+          <br>
+          <br>
+          <input id=exportRecordingFileName style="width: 25rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
+          <br>
+          <br>
+          <button id=exportRecordingFileBtn class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.5rem;" onclick='exportRecordingFile()'>EXPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelRecordingExport()'>CANCEL</button>
+          <br>
+          <br>
+        </div>
+      </center>
+    </div>
+    <div id=exportCurrentRecordingDiv class=popupClassCenter style="width:30rem; height:22rem; display: none">
       <center>
         <div style="font-size: 2rem; ">
           <br>
@@ -86,19 +122,16 @@
           <input id=exportFileName style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
           <br>
           <br>
-          <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.5rem;" onclick='exportFile()'>EXPORT</button>
-          <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelExport()'>CANCEL</button>
+          <button id=exportCurrentBtn class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.5rem;" onclick='doExportCurrentRecording()'>EXPORT</button>
+          <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='doCancelCurrentExport()'>CANCEL</button>
           <br>
           <br>
-
         </div>
       </center>
     </div>
-
-    <div id=fullRecorder style="width:60rem;">
+    <div id=fullRecorder style="width:65rem;">
       <div id=sideMenuBar class='sidebarColumn'>
         <div class=sidebar>
-
           <div id=curBreathDiv style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
             <center>
               <p id=breathsHeading style="font-size:1rem;font-weight:
@@ -109,10 +142,12 @@
               color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
             </center>
           </div>
-					<br>
+          <br>
           <div id=headerDiv style="background-color:var(--rsp_green); color:white;">
             <center>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:0.8rem;margin-left:0.6rem;margin-right:0.6rem; padding-bottom:0.3rem;"><b>CURRENT SESSION</b></p>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:0.8rem;margin-left:0.6rem;margin-right:0.6rem; padding-bottom:0.3rem;">
+                <b>CURRENT SESSION</b>
+              </p>
               <table style="border-collapse:unset; border:none; font-size:0.8rem; width:100%">
                 <tr>
                   <td align="left">&nbspStart Date</td>
@@ -133,56 +168,76 @@
               </table>
             </center>
           </div>
-
-					<br>
+          <br>
           <div style="margin-top:1rem; margin-bottom:1rem; background-color:var(--rsp_darkblue); color:white; font-size:1rem;">
             <center>
               <br>
-              <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;"><b>TURN ON/OFF</b></p>
+              <p style="font-size:1rem;margin-bottom:0;margin-top:-0.3rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumblue);padding-bottom:0.3rem;">
+                <b>TURN ON/OFF</b>
+              </p>
             </center>
-
             <button id=recordButton class=sidebarButton onclick='changeRecordingStatus()' style="margin-bottom:1rem;">Start Recording</button>
-
           </div>
-
         </div>
       </div>
-
       <div id=nonMenuArea class=recorder-pane>
-
-        <div id=record-pane style="width:40rem; font-size:1.2rem;">
-          <img src="../common/img/export.png" class=iconButton title=Export style="float:right; width:1.5rem; height:1.5rem;" onClick="exportRecording()" >
+        <div id=record-pane style="font-size:1.2rem;">
+          <img src="../common/img/export.png" class=iconButton title=Export style="float:right; width:1.5rem; height:1.5rem;" onClick="exportCurrentRecording()">
           <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left; width:2rem; height:2rem;">
-
           <center>
             <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred);
-            color:white;font-size:1.7rem; margin-top:-1.2rem; padding:0.2rem;">
-              No Active Recording
-              <div class=shadowDiv5 style="width:39.4rem; height:45rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
-                <p id=recordBox style="font-size:1.1rem; text-align: left">
+            color:white;font-size:1.7rem; margin-top:-1.2rem; padding:0.2rem;"> No Active Recording
+            <div class=shadowDiv5 style="height:15rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
+              <p id=recordBox style="font-size:1.1rem; text-align: left">
+            </div>
+            <br>
+            <div id=selectorDiv>
+              <div class=shadowDiv5 style="height:30rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.4rem; ">
+                <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.6rem;">
+                  <button class=iconButton onClick="selectImportRecording(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import">
+                    <img src="../common/img/import.png" style="width:2rem; height:2rem;">
+                  </button>
+                  <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL">
+                    <img src="../common/img/trash-bin.png" style="width:2rem; height:2rem;">
+                  </button>
+                  <br>
+                  <center>INSPIRE-100 Recordings</center>
+                  <table id='dbTable' className="dbTableStyle" style="font-size:1.2rem; width:100%">
+                    <thead>
+                      <tr>
+                        <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="1"></th>
+                        <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1rem; min-width:20rem;
+                          background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid
+                          var(--rsp_darkblue);">Recording Name</th>
+                        <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1rem; min-width:10rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                        <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody style="overflow: auto;">
+                    </tbody>
+                  </table>
+                </div>
               </div>
+            </div>
           </center>
-
-      		<div style="margin-top:-2.3rem;">
-        		<br>
-        		<br>
-        		<div id=SYSDiv style="height:100%; width:39%; float:left; background-color:var(--rsp_darkblue); color:white;font-size:1.1rem; margin-right:0.5rem;">
-          		<center>
-            		<p style="font-size:1rem; "><b>SYSTEM UID</b>
-              		<p id='SysUid' style="font-size:0.9rem; ">??
-          		</center>
-        		</div>
-        		<div id=logosDiv style="height:100%; margin-left:41%; background-color:var(--rsp_mediumblue);">
-          		<center>
-            		<img src="img/recorder-title-logos.png" alt="Title" style="margin-top: 0.5rem; margin-left:0; width:23rem; height:5.43rem;">
-          		</center>
-        		</div>
-      		</div>
-
+          <div style="margin-top:-2.3rem;">
+            <br>
+            <br>
+            <div id=SYSDiv style="height:100%; width:39%; float:left; background-color:var(--rsp_darkblue); color:white;font-size:1.1rem; margin-right:0.5rem;">
+              <center>
+                <p style="font-size:1rem; ">
+                  <b>SYSTEM UID</b>
+                <p id='SysUid' style="font-size:0.9rem; ">??
+              </center>
+            </div>
+            <div id=logosDiv style="height:100%; margin-left:41%; background-color:var(--rsp_mediumblue);">
+              <center>
+                <img src="img/recorder-title-logos.png" alt="Title" style="margin-top: 0.5rem; margin-left:0; width:23rem; height:5.43rem;">
+              </center>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
   </body>
-
 </html>

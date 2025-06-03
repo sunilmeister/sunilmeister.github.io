@@ -77,9 +77,7 @@ function selectSession() {
 }
 
 function selectImport() {
-  document.getElementById("importSessionName").value = "Imported Recording";
-	let importRecordingDiv = document.getElementById("importRecordingDiv");
-	importRecordingDiv.style.display = "block";
+  selectImportRecording();  
   if (session.sessionDataValid) enableAllButtons();
 }
 

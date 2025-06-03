@@ -102,6 +102,7 @@ window.onload = function () {
   } else {
     document.title = "NOT SPECIFIED"
   }
+  showAllDbs();
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
@@ -212,24 +213,26 @@ function closeCurrentSession() {
 	startWarningBeep();
 }
 
-function exportRecording() {
+function exportCurrentRecording() {
   if (session.recorder.off) {
     modalAlert("EXPORT Failed", "No Active Recording");
     return;
   }
-  document.getElementById("exportDiv").style.display = "block";
-  document.getElementById("exportFileName").value = "Exported Recording";
+  document.getElementById("exportCurrentRecordingDiv").style.display = "block";
+  document.getElementById("exportCurrentRecordingFileName").value = "Exported Recording";
 }
 
-function exportFile() {
-  let fileName = document.getElementById("exportFileName").value;
+function doExportCurrentRecording() {
+  let fileName = document.getElementById("exportRecordingFileName").value;
   if (fileName) {
     exportDb(session.database.dbName, fileName);
-    document.getElementById("exportDiv").style.display = "none";
+    document.getElementById("exportCurrentRecordingDiv").style.display = "none";
   }
 }
 
-function cancelExport() {
-  document.getElementById("exportDiv").style.display = "none";
+function doCancelCurrentExport() {
+  document.getElementById("exportCurrentRecordingDiv").style.display = "none";
 }
+
+
 

@@ -27,11 +27,17 @@ function exportDbRow(row) {
       return;
     }
   }
-  fileName = document.getElementById("exportRecordingFileName").value;
+  let fileName = document.getElementById("exportRecordingFileName").value;
   if (fileName) {
     exportDb(selectedRowDbName(row), fileName);
     document.getElementById("exportRecordingDiv").style.display = "none";
   }
+}
+
+function selectImportRecording() {
+  document.getElementById("importSessionName").value = "Imported Recording";
+	let importRecordingDiv = document.getElementById("importRecordingDiv");
+	importRecordingDiv.style.display = "block";
 }
 
 function exportRecordingFile() {
@@ -73,7 +79,7 @@ function doImport(file, fileName, dbName) {
       // free up memory ASAP
       importJsonArray = [];
       registerDbName(dbName);
-      selectSession();
+      showAllDbs();
     }
   }
 }

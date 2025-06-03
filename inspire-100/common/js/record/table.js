@@ -124,7 +124,7 @@ function doDeleteDbRow(arg) {
   deleteDb(name);
   // remove from HTML table
   row.parentNode.removeChild(row);
-  selectSession();
+  showAllDbs();
 }
 
 function exportRowBtn(btn) {
