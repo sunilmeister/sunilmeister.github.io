@@ -182,27 +182,3 @@ function closeCurrentSession() {
 	enableWarningBeep();
 	startWarningBeep();
 }
-
-function exportCurrentRecording() {
-  if (session.recorder.off) {
-    modalAlert("EXPORT Failed", "No Active Recording");
-    return;
-  }
-  document.getElementById("exportCurrentRecordingDiv").style.display = "block";
-  document.getElementById("exportCurrentRecordingFileName").value = "Exported Recording";
-}
-
-function doExportCurrentRecording() {
-  let fileName = document.getElementById("exportRecordingFileName").value;
-  if (fileName) {
-    exportDb(session.database.dbName, fileName);
-    document.getElementById("exportCurrentRecordingDiv").style.display = "none";
-  }
-}
-
-function doCancelCurrentExport() {
-  document.getElementById("exportCurrentRecordingDiv").style.display = "none";
-}
-
-
-
