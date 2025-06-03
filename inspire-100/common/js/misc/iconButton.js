@@ -32,13 +32,28 @@ function plusButtonHTML(onClickFunction, size, title) {
   return iconButtonHTML(pngFileName, size, onClickFunction, title);
 }
 
+function activeButtonHTML(onClickFunction, size, title) {
+  let pngFileName = "BlankDot";
+  return iconButtonHTML(pngFileName, size, onClickFunction, title);
+}
+
 function iconButtonHTML(pngFileName, size, onClickFunction, title) {
   let className = "iconButton";
+  let clickFn = "";
+  if (onClickFunction) {
+    clickFn = ' onClick="' + onClickFunction + '(this)"' +
+      ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)"';
+  }
   let htmlStr = '<img  src="../common/img/' + pngFileName + '.png"' +
-		' class="' + className + '" title="' + title + '"' +
-    ' onClick="' + onClickFunction + '(this)"' +
-    ' onmouseover="overIconBtn(this)" onmouseout="outIconBtn(this)"' +
+		' class="' + className + '" title="' + title + '"' + clickFn +
     ' style="width:' + size + 'rem; height:' + size + 'rem;"></button>'
+  return htmlStr;
+}
+
+function iconImageHTML(pngFileName, size, title) {
+  let htmlStr = '<img  src="../common/img/' + pngFileName + '.png"' +
+		'" title="' + title + '"' +
+    ' style="width:' + size + 'rem; height:' + size + 'rem;">'
   return htmlStr;
 }
 

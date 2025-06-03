@@ -7,21 +7,7 @@ function initImportExport() {
   importJsonArray = [];
 }
 
-function listDbExportTableRow(item, index) {
-  nameTm = parseDbName(item);
-  // only list databases for the currently selected system
-  if (nameTm[0] != inspireUid) return;
-  let table = document.getElementById("dbExportTable");
-  let row = table.insertRow();
-  let cell;
-  cell = row.insertCell();
-  cell.style.paddingRight = "1.5rem";
-  cell.innerHTML = nameTm[1];
-  cell = row.insertCell();
-  cell.innerHTML = nameTm[2];
-}
-
-function rowDbName(row) {
+function selectedRowDbName(row) {
   if (isUndefined(row)) {
     row = getSelectedTableRow();
     if (!row) {
@@ -29,10 +15,7 @@ function rowDbName(row) {
       return;
     }
   }
-  // reconstruct the dbName
-  // grab the tag field from the first cell in the same row
-  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
-  return dbName;
+  return formRowDbName(row);
 }
 
 function exportDbRow(row) {
@@ -45,7 +28,7 @@ function exportDbRow(row) {
   }
   fileName = document.getElementById("exportRecordingFileName").value;
   if (fileName) {
-    exportDb(rowDbName(row), fileName);
+    exportDb(selectedRowDbName(row), fileName);
     document.getElementById("exportRecordingDiv").style.display = "none";
   }
 }

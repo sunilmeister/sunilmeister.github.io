@@ -195,6 +195,7 @@ var SessionDataTemplate = {
 		visible: false,
 		range: null,
 		prevRange: null,
+    allowSelection: false,
 	},
 
 	// /////////////////////////////////////////////

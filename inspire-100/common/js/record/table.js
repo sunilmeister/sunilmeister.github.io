@@ -3,6 +3,7 @@
 // ////////////////////////////////////////////////////
 
 var exportRowDiv = null;
+var sessionBannerHTML = null;
 
 if (!window.indexedDB) {
   modalAlert("IndexedDB not available in your browser", "Switch browsers");
@@ -11,14 +12,18 @@ if (!window.indexedDB) {
 // ///////////////////////////////////////////////////////
 // Database Functions 
 // ///////////////////////////////////////////////////////
-function listDbTableRow(item, index, allowSelection) {
-  let nameTm = parseDbName(item);
+function showDbTableRow(dbName, index) {
   // only list databases for the currently selected system
+  let nameTm = parseDbName(dbName);
   if (nameTm[0] != inspireUid) return false;
+
   let table = document.getElementById("dbTable");
   let row = table.insertRow();
-  row.style.cursor = "pointer";
   let cell;
+
+  cell = row.insertCell();
+  cell.innerHTML = iconImageHTML("BlankDot", 2, "Active");
+
   cell = row.insertCell();
   cell.style.paddingRight = "1.5rem";
   cell.style.paddingTop = "0.5rem";
@@ -30,21 +35,41 @@ function listDbTableRow(item, index, allowSelection) {
   cell.style.textAlign = "center";
   cell.innerHTML = nameTm[2];
 
-  if (allowSelection) {
+  if (session.record.allowSelection) {
     cell = row.insertCell();
     cell.innerHTML = selectButtonHTML("selectRowBtn", 2, "Select");
-    // Highlight selected database
-    banner = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
-    if (sessionBannerHTML == banner) {
-      row.style.backgroundColor = palette.blue;
-    }
   }
   cell = row.insertCell();
-  cell.innerHTML = exportButtonHTML("exportRowBtn", 2, "Export");
+  cell.innerHTML = exportButtonHTML("exportRowBtn", 3, "Export");
   cell = row.insertCell();
-  cell.innerHTML = trashButtonHTML("deleteRowBtn", 2, "Delete");
+  cell.innerHTML = trashButtonHTML("deleteRowBtn", 3, "Delete");
 
   return true;
+}
+
+function formRowDbName(row) {
+  // reconstruct the dbName
+  // grab the tag field from the first cell in the same row
+  let dbName = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+  return dbName;
+}
+
+function highlightDbRow(dbName) {
+  let table = document.getElementById("dbTable");
+  if (!table) return;
+  let rowCount = table.rows.length;
+  
+  for (let i = 1; i < rowCount; i++) {
+    let row = table.rows[i];
+    let rowDbName = formRowDbName(row);
+    if (dbName == rowDbName) {
+      row.style.backgroundColor = palette.blue;
+      row.cells[0].firstChild.src = "../common/img/GreenDot.png";
+    } else {
+      row.style.backgroundColor = "transparent";
+      row.cells[0].firstChild.src = "../common/img/BlankDot.png";
+    }
+  }
 }
 
 function selectDbRow(row) {
@@ -57,12 +82,13 @@ function selectDbRow(row) {
   }
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let dbName = formRowDbName(row);
   session.database.dbName = dbName;
+  highlightDbRow(dbName);
   let sessionInfo = document.getElementById("sliderCaption");
 
   sessionInfo.style.backgroundColor = palette.darkblue;
-  sessionInfo.innerHTML = row.cells[0].innerHTML + ' [' + row.cells[1].innerHTML + ']';
+  sessionInfo.innerHTML = row.cells[1].innerHTML + ' [' + row.cells[2].innerHTML + ']';
   sessionBannerHTML = sessionInfo.innerHTML;
 
   return dbName;
@@ -77,13 +103,13 @@ function deleteDbRow(row) {
     }
   }
 
-  let dbName = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let dbName = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
   if (dbName == session.database.dbName) {
     modalAlert("Cannot Delete", "Recording currently in use\n" + sessionBannerHTML);
     return;
   }
 
-  let msg = row.cells[0].innerHTML + " " + row.cells[1].innerHTML;
+  let msg = row.cells[1].innerHTML + " " + row.cells[2].innerHTML;
   modalConfirm("Delete Recording", msg, doDeleteDbRow, null, {
       row: row
     },
@@ -94,7 +120,7 @@ function doDeleteDbRow(arg) {
   let row = arg.row;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+  let name = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
   // Delete the actual database
   deleteDb(name);
   // remove from HTML table
@@ -102,24 +128,19 @@ function doDeleteDbRow(arg) {
   selectSession();
 }
 
-function selectRowBtn(btn) {
-  selectDbRow(btn.parentNode.parentNode);
-}
-
 function exportRowBtn(btn) {
   exportRowDiv = btn.parentNode.parentNode;
   let exportDiv = document.getElementById("exportRecordingDiv");
 	exportDiv.style.display = "block";
   document.getElementById("exportRecordingFileName").value =
-    exportRowDiv.cells[0].innerHTML + ' ' + exportRowDiv.cells[1].innerHTML;;
+    exportRowDiv.cells[1].innerHTML + ' ' + exportRowDiv.cells[2].innerHTML;;
 }
 
 function deleteRowBtn(btn) {
   deleteDbRow(btn.parentNode.parentNode);
 }
 
-function showAllDbs(allowSelection) {
-  initSelectRowTable("dbTable", selectDbRow);
+function showAllDbs() {
   //clear any existing table being shown
   let table = document.getElementById("dbTable");
   let rowCount = table.rows.length;
@@ -130,13 +151,13 @@ function showAllDbs(allowSelection) {
   if (!retrieved_dbs) return 0;
   let count = 0;
   for (let i = retrieved_dbs.length - 1; i >= 0; i--) {
-    if (listDbTableRow(retrieved_dbs[i], i, allowSelection)) count++;
+    if (showDbTableRow(retrieved_dbs[i], i)) count++;
   }
   return count;
 }
 
-function deleteAllDbs(allowSelection) {
-  if (allowSelection && sessionBannerHTML) {
+function deleteAllDbs() {
+  if (session.record.allowSelection && sessionBannerHTML) {
     modalAlert("Cannot Delete ALL", "Recording currently in use\n" + sessionBannerHTML);
     return;
   }
@@ -151,18 +172,20 @@ function doDeleteAllDbs() {
   let numRows = table.rows.length;
   for (let i = 1; i < numRows; i++) {
     let row = table.rows[1];
-    let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
+    let name = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
     deleteDb(name);
     table.deleteRow(1);
   }
   table = document.getElementById("dbExportTable");
-  if (!table) return;
-  numRows = table.rows.length;
-  for (let i = 1; i < numRows; i++) {
-    let row = table.rows[1];
-    let name = inspireUid + '|' + row.cells[0].innerHTML + '|' + row.cells[1].innerHTML;
-    deleteDb(name);
-    table.deleteRow(1);
+  if (table) {
+    numRows = table.rows.length;
+    for (let i = 1; i < numRows; i++) {
+      let row = table.rows[1];
+      let name = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+      deleteDb(name);
+      table.deleteRow(1);
+    }
   }
+  showAllDbs();
 }
 
