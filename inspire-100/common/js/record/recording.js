@@ -48,6 +48,9 @@ function resumeRecording() {
 
 function closeRecording() {
 	if (!session.database.db) return;
+  showAllDbs();
+  highlightDbRow(null);
+
   session.database.db.close();
   session.database.db = null;
   session.database.dbName = null;
@@ -63,6 +66,8 @@ function closeRecording() {
 }
 
 function pauseRecording() {
+  showAllDbs();
+  highlightDbRow(session.database.dbName);
   // Initialize all recorder variables
   let versionRecorded = session.recorder.versionRecord;
   let creationTimeStamp = session.recorder.creationTimeStamp;
@@ -172,8 +177,6 @@ function processRecordChirp(d) {
       let prevValue = session.recorder.accumulatedState[key];
       if (prevValue != value) {
         session.recorder.accumulatedState[key] = value;
-      } else {
-        if (!waveWaveformKey(key)) delete d.content[key];
       }
     }
   }
@@ -202,12 +205,34 @@ function processRecordChirp(d) {
   }
 }
 
-function waveWaveformKey(key) {
-  let prefix = String(key).substr(0,2);
-  if (prefix == "PW") return true;
-  prefix = String(key).substr(0,3);
-  if (prefix == "DPW") return true;
-  return false;
+var blankRecordingIndicator = false;
+function blinkRecordingIndicator() {
+  if (session.recorder.off) return;
+	if (blankRecordingIndicator) {
+  	if (session.recorder.paused) {
+    	document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
+		} else {
+    	document.getElementById("RecordIndicator").src = "../common/img/GreenDot.png";
+		}
+		blankRecordingIndicator = false;
+	} else {
+    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
+		blankRecordingIndicator = true;
+	}
 }
+
+function updateRecordingIndicator() {
+  if (session.recorder.off) {
+    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
+  } else if (session.recorder.paused) {
+    document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
+  } else {
+    document.getElementById("RecordIndicator").src = "../common/img/GreenDot.png";
+  }
+}
+
+setInterval(function () {
+	blinkRecordingIndicator();
+}, FAST_BLINK_INTERVAL_IN_MS)
 
 

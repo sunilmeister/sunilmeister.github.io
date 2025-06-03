@@ -7,36 +7,6 @@ var awaitingFirstChirp = true;
 const INIT_RECORDING_INTERVAL_IN_MS = 5000;
 const MAX_DIFF_CHIRP_SIMULAION_TIMES = 10000;
 
-var blankIndicator = false;
-function blinkRecordingIndicator() {
-  if (session.recorder.off) return;
-	if (blankIndicator) {
-  	if (session.recorder.paused) {
-    	document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
-		} else {
-    	document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
-		}
-		blankIndicator = false;
-	} else {
-    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
-		blankIndicator = true;
-	}
-}
-
-function updateRecordingIndicator() {
-  if (session.recorder.off) {
-    document.getElementById("RecordIndicator").src = "../common/img/BlankLED.png";
-  } else if (session.recorder.paused) {
-    document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
-  } else {
-    document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
-  }
-}
-
-setInterval(function () {
-	blinkRecordingIndicator();
-}, FAST_BLINK_INTERVAL_IN_MS)
-
 var recorderLaunchTime = null;
 var recorderChirpCount = 0;
 function waitForChirps() {
