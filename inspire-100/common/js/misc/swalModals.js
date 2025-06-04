@@ -23,17 +23,8 @@ function extractModalId(msg) {
 }
 
 function modalWarning(title, msg) {
-  modalId = extractModalId(msg);
-  if (session.dontShowModals.includes(modalId)) {
-    return;
-  }
-
   let modalHtml = 
     "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";
-  if (modalId) {
-    modalHtml += dontShowButtonHTML;
-  }
-
   Swal.fire({
     icon: 'warning',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
@@ -73,10 +64,12 @@ function modalInfo(title, msg) {
 }
 
 function modalAlert(title, msg) {
+  let modalHtml = 
+    "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";
   Swal.fire({
     icon: 'error',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
-    html: "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>",
+    html: modalHtml,
     width: modalWidth,
     color: 'white',
     background: '#D35400',
