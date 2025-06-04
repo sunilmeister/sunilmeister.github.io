@@ -525,17 +525,6 @@ function selectExit() {
   window.open('', '_self').close();
 }
 
-function outIconButton(btn) {
-  btn.style.backgroundColor = "white";
-  btn.style.borderColor = "white";
-}
-
-function overIconButton(btn) {
-  bgd = palette.brightgreen;
-  btn.style.backgroundColor = bgd;
-  btn.style.borderColor = bgd;
-}
-
 function changeIconButtonColor(btn, bgd) {
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;

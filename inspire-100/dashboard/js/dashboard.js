@@ -530,17 +530,6 @@ function rangeSliderCallback() {
   createDashboards();
 }
 
-function outIconButton(btn) {
-  btn.style.backgroundColor = "white";
-  btn.style.borderColor = "white";
-}
-
-function overIconButton(btn) {
-  let bgd = palette.brightgreen;
-  btn.style.backgroundColor = bgd;
-  btn.style.borderColor = bgd;
-}
-
 function setBackGroundBreathWindowButton(id, bgd) {
   let el = document.getElementById(id);
   el.style.backgroundColor = bgd;
