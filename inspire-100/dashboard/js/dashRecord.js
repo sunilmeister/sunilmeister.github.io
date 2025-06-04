@@ -23,8 +23,8 @@ function blinkRecordingIndicator() {
     	document.getElementById("RecordingActiveImg").src = "../common/img/YellowDot.png";
     	document.getElementById("RecordIndicator").src = "../common/img/YellowDot.png";
 		} else {
-    	document.getElementById("RecordingActiveImg").src = "../common/img/RedDot.png";
-    	document.getElementById("RecordIndicator").src = "../common/img/RedDot.png";
+    	document.getElementById("RecordingActiveImg").src = "../common/img/GreenDot.png";
+    	document.getElementById("RecordIndicator").src = "../common/img/GreenDot.png";
 		}
 		blankRecordingImg = false;
 	} else {

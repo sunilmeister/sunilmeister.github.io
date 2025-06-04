@@ -331,6 +331,8 @@ function changeToRecordView() {
   document.getElementById("record-pane").style.display = "block";
   rangeWindowDiv.style.display = "none";
   if (updatePaused) togglePause();
+  showAllDbs();
+  highlightDbRow(session.database.dbName);
 }
 
 function updateRangeOnNewBreath() {

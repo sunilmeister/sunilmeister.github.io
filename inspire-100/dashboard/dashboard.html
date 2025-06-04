@@ -66,6 +66,7 @@
   <script src="../common/js/misc/circularGauge.js"></script>
   <script src="../common/js/misc/enterSubmit.js"></script>
   <script src="../common/js/misc/rangeSlider.js"></script>
+  <script src="../common/js/misc/iconButton.js"></script>
 
   <script src="../common/js/firmware/fwReleases.js"></script>
 
@@ -88,6 +89,8 @@
 
   <script src="../common/js/record/constants.js"></script>
   <script src="../common/js/record/recording.js"></script>
+  <script src="../common/js/record/table.js"></script>
+  <script src="../common/js/record/importExport.js"></script>
 
   <script src="../common/js/search/constants.js"></script>
   <script src="../common/js/search/search.js"></script>
@@ -749,16 +752,43 @@
         </div>
       </div>
 
-      <div id=record-pane style="width:50rem; font-size:1.2rem; display:none">
-        <button class=iconButton onClick="exportRecording()" style="float:right" title=Export><img src="../common/img/export.png" style="width:1.2rem; height:1.2rem;"></button>
-        <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left; width:2.5rem; height:2.5rem;">
-
+      <div id=record-pane style="font-size:1.4rem; width:70rem">
+        <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left; width:2rem; height:2rem;">
         <center>
-          <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred); color:white;font-size:2rem; margin-top:-1.2rem;">
-            No Active Recording
-            <div class=shadowDiv5 style="height:61rem; line-height:2.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_mediumblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
-              <p id=recordBox style="font-size:1.1rem; text-align: left">
+          <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred);
+          color:white;font-size:2rem; margin-top:-1.2rem; padding:0.2rem;"> No Active Recording
+          <div class=shadowDiv5 style="height:20rem; line-height:1.6rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
+            <p id=recordBox style="font-size:1.4rem; text-align: left">
+          </div>
+          <br>
+          <div id=selectorDiv>
+            <div class=shadowDiv5 style="height:40rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.8rem; ">
+              <div style="background-color:var(--rsp_darkblue); color: white; font-size:2rem;">
+                <button class=iconButton onClick="selectImportRecording(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import">
+                  <img src="../common/img/import.png" style="width:2rem; height:2rem;">
+                </button>
+                <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL">
+                  <img src="../common/img/trash-bin.png" style="width:2rem; height:2rem;">
+                </button>
+                <br>
+                <center>INSPIRE-100 Recordings</center>
+                <table id='dbTable' className="dbTableStyle" style="font-size:1.8rem; width:100%">
+                  <thead>
+                    <tr>
+                      <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.8rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="1"></th>
+                      <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.8rem; min-width:20rem;
+                        background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid
+                        var(--rsp_darkblue);">Recording Name</th>
+                      <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.8rem; min-width:10rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);">Created</th>
+                      <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.8rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="3">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody style="overflow: auto;">
+                  </tbody>
+                </table>
+              </div>
             </div>
+          </div>
         </center>
       </div>
 

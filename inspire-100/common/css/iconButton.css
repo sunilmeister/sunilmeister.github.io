@@ -5,7 +5,7 @@
 */
 
 .iconButton {
-  background-color: white;
+  background-color: transparent;
 	border-width: 0.2rem;
 	vertical-align: middle;
   color: var(--rsp_darkblue);
