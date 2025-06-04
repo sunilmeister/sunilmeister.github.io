@@ -425,6 +425,9 @@ window.onload = function () {
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
+  new KeypressEnterSubmit('exportRecordingFileName', 'exportRecordingFileBtn');
+  new KeypressEnterSubmit('importSessionName', 'importRecordingBtn');
+
 
   displayMessageLine("Mline1", banner1);
   displayMessageLine("Mline2", banner2);

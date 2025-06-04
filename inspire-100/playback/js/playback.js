@@ -495,6 +495,7 @@ window.onload = function () {
 
   // All forms
   new KeypressEnterSubmit('exportRecordingFileName', 'exportRecordingFileBtn');
+  new KeypressEnterSubmit('importSessionName', 'importRecordingBtn');
   new KeypressEnterSubmit('rangeFromBnum', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeNumBreaths', 'acceptRangeBtn');
   new KeypressEnterSubmit('rangeFromBtime', 'acceptRangeBtn');

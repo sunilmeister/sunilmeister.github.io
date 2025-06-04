@@ -76,7 +76,8 @@ window.onload = function () {
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
-  new KeypressEnterSubmit('exportFileName', 'exportFileBtn');
+  new KeypressEnterSubmit('exportRecordingFileName', 'exportRecordingFileBtn');
+  new KeypressEnterSubmit('importSessionName', 'importRecordingBtn');
 
   // now wait for chirps and act accordingly
   initChirpQ();
