@@ -60,8 +60,8 @@ function selectSession() {
     let bgd = palette.darkred;
     bnr.style.backgroundColor = bgd;
     disableAllButtons();
-  } else if (sessionBannerHTML) {
-    bnr.innerHTML = sessionBannerHTML;
+  } else if (recordingBannerHTML) {
+    bnr.innerHTML = recordingBannerHTML;
     bnr.style.backgroundColor = palette.green;
     bnr.style.color = palette.brightgreen;
     enableAllButtons();
@@ -92,7 +92,7 @@ function selectSnapshots() {
   document.getElementById("snapshotsDiv").style.display = "inline-grid";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = recordingBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnSnap").disabled = true;
@@ -111,7 +111,7 @@ function selectStats() {
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = recordingBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnStat").disabled = true;
@@ -130,7 +130,7 @@ function selectAlerts() {
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = recordingBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnAlert").disabled = true;
@@ -149,7 +149,7 @@ function selectWaves() {
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = recordingBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnWave").disabled = true;
@@ -168,7 +168,7 @@ function selectCharts() {
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = recordingBannerHTML;
 
   if (session.sessionDataValid) enableAllButtons();
   document.getElementById("btnChart").disabled = true;
@@ -185,7 +185,7 @@ function selectRawData() {
 	
   document.getElementById("rawDataDiv").style.display = "block";
   let sessionInfo = document.getElementById("sessionNameData");
-  sessionInfo.innerHTML = sessionBannerHTML;
+  sessionInfo.innerHTML = recordingBannerHTML;
   sessionInfo.style.color = palette.brightgreen;
 
   if (session.sessionDataValid) enableAllButtons();

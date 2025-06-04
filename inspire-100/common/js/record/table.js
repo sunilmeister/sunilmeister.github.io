@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-var sessionBannerHTML = null;
+var recordingBannerHTML = null;
 
 if (!window.indexedDB) {
   modalAlert("IndexedDB not available in your browser", "Switch browsers");
@@ -88,7 +88,7 @@ function selectDbRow(row) {
 
   sessionInfo.style.backgroundColor = palette.darkblue;
   sessionInfo.innerHTML = row.cells[1].innerHTML + ' [' + row.cells[2].innerHTML + ']';
-  sessionBannerHTML = sessionInfo.innerHTML;
+  recordingBannerHTML = sessionInfo.innerHTML;
 
   return dbName;
 }
@@ -102,9 +102,9 @@ function deleteDbRow(row) {
     }
   }
 
-  let dbName = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+  let dbName = formRowDbName(row);
   if (dbName == session.database.dbName) {
-    modalAlert("Cannot Delete", "Recording currently in use\n" + sessionBannerHTML);
+    modalAlert("Cannot Delete", "Recording currently in use\n" + recordingBannerHTML);
     return;
   }
 
@@ -119,7 +119,7 @@ function doDeleteDbRow(arg) {
   let row = arg.row;
   // reconstruct the dbName
   // grab the tag field from the first cell in the same row
-  let name = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+  let name = formRowDbName(row);
   // Delete the actual database
   deleteDb(name);
   // remove from HTML table
@@ -156,8 +156,8 @@ function showAllDbs() {
 }
 
 function deleteAllDbs() {
-  if (session.record.allowSelection && sessionBannerHTML) {
-    modalAlert("Cannot Delete ALL", "Recording currently in use\n" + sessionBannerHTML);
+  if (session.record.allowSelection && recordingBannerHTML) {
+    modalAlert("Cannot Delete ALL", "Recording currently in use\n" + recordingBannerHTML);
     return;
   }
   modalConfirm("Delete All Saved Recordings", "", doDeleteAllDbs, null, null,
@@ -171,7 +171,7 @@ function doDeleteAllDbs() {
   let numRows = table.rows.length;
   for (let i = 1; i < numRows; i++) {
     let row = table.rows[1];
-    let name = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+    let name = formRowDbName(row);
     deleteDb(name);
     table.deleteRow(1);
   }
@@ -180,7 +180,7 @@ function doDeleteAllDbs() {
     numRows = table.rows.length;
     for (let i = 1; i < numRows; i++) {
       let row = table.rows[1];
-      let name = inspireUid + '|' + row.cells[1].innerHTML + '|' + row.cells[2].innerHTML;
+      let name = formRowDbName(row);
       deleteDb(name);
       table.deleteRow(1);
     }
