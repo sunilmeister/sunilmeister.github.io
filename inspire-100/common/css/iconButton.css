@@ -22,12 +22,6 @@
   opacity:1; 
 }
 
-.iconButton:not(:hover){
-  background-color: transparent;
-  border-color: transparent;
-  opacity:1; 
-}
-
 .iconButton:active{
   background-color: var(--rsp_mediumgreen);
   border-color: var(--rsp_mediumgreen);
@@ -35,6 +29,5 @@
 }
 
 .editIconButton {
-  background-color: transparent;
 }
 
