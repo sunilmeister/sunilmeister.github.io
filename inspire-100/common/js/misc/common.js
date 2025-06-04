@@ -457,7 +457,7 @@ function isValidDatabaseName(dname) {
   }
 }
 
-function createOrOpenDb(name, timeStamp) {
+function createOrOpenDb(name, timeStamp, successCallback) {
   session.database.dbName = name;
   let dbReq = indexedDB.open(name, session.database.dbVersion);
   // Fires when the version of the database goes up, or the database is created
@@ -481,6 +481,7 @@ function createOrOpenDb(name, timeStamp) {
     session.database.db = event.target.result;
     session.database.dbReady = true;
     registerDbName(session.database.dbName);
+    if (!isUndefined(successCallback)) successCallback();
   }
   // Fires when we can't open the database
   dbReq.onerror = function (event) {

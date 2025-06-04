@@ -4,7 +4,6 @@
 
 var exportRowDiv = null;
 var cumulativeChartBreaths = 0;
-var dbName = null;
 
 if (!window.indexedDB) {
   modalAlert("IndexedDB not available in your browser", "Switch browsers");
@@ -12,10 +11,8 @@ if (!window.indexedDB) {
 
 function selectRowBtn(btn) {
   let row = btn.parentNode.parentNode;
-  dbName = selectDbRow(row);
-  highlightDbRow(dbName);
+  let dbName = selectDbRow(row);
   initSession(dbName);
-  selectSession();
 }
 
 function deleteRowBtn(btn) {
@@ -55,7 +52,7 @@ function selectSession() {
   enableAllButtons();
 
   let numSessions = showAllDbs();
-  highlightDbRow(dbName);
+  highlightDbRow(session.database.dbName);
   let bnr = document.getElementById("sessionNameSelector");
 
   if (!numSessions) {
@@ -240,6 +237,7 @@ function initSession(dbName) {
       disableAllButtons();
       gatherSessionData(playbackGatherDoneCallback);
       updateDocumentTitle();
+      selectSession();
     }
   }
 }

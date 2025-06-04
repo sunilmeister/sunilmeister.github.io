@@ -9,7 +9,7 @@ function acceptRecordingName() {
   let suffix = document.getElementById('recordName').value;
   session.database.dbName = getNewDbName(suffix);
   if (!session.database.dbName) return;
-  createOrOpenDb(session.database.dbName, session.recorder.creationTimeStamp);
+  createOrOpenDb(session.database.dbName, session.recorder.creationTimeStamp, showNewRecording);
   let elm = document.getElementById('recordSessionName');
   elm.style.backgroundColor = palette.green;
   elm.style.color = palette.brightgreen;
@@ -25,6 +25,11 @@ function acceptRecordingName() {
   btn = document.getElementById("recordButton");
   btn.innerHTML = "Stop Recording";
   updateRecordingIndicator();
+}
+
+function showNewRecording() {
+  showAllDbs();
+  highlightDbRow(session.database.dbName);
 }
 
 function startNewRecording() {

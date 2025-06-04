@@ -80,6 +80,7 @@ function doImport(file, fileName, dbName) {
       importJsonArray = [];
       registerDbName(dbName);
       showAllDbs();
+      highlightDbRow(session.database.dbName);
     }
   }
 }
