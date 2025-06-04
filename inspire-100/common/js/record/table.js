@@ -36,7 +36,7 @@ function showDbTableRow(dbName, index) {
 
   if (session.record.allowSelection) {
     cell = row.insertCell();
-    cell.innerHTML = selectButtonHTML("selectRowBtn", 2, "Select");
+    cell.innerHTML = openButtonHTML("selectRowBtn", 2, "Open");
   }
   cell = row.insertCell();
   cell.innerHTML = exportButtonHTML("exportRowBtn", 2, "Export");

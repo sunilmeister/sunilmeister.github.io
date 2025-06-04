@@ -2,6 +2,11 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function openButtonHTML(onClickFunction, size, title) {
+  let pngFileName = "open";
+  return iconButtonHTML(pngFileName, size, onClickFunction, title);
+}
+
 function selectButtonHTML(onClickFunction, size, title) {
   let pngFileName = "check";
   return iconButtonHTML(pngFileName, size, onClickFunction, title);
@@ -60,10 +65,8 @@ function iconImageHTML(pngFileName, size, title) {
 var saveBackgroundColor = null;
 
 function outIconBtn(btn) {
-  btn.style.backgroundColor = "white";
-  btn.style.borderColor = "white";
-  btn.style.backgroundColor = "white";
-  btn.style.borderColor = "white";
+  btn.style.backgroundColor = "transparent";
+  btn.style.borderColor = "transparent";
 
   if (btn.parentNode.parentNode.tagName == "TR") {
     btn.parentNode.parentNode.style.backgroundColor = saveBackgroundColor;
@@ -72,8 +75,6 @@ function outIconBtn(btn) {
 
 function overIconBtn(btn) {
   let bgd = palette.brightgreen;
-  btn.style.backgroundColor = bgd;
-  btn.style.borderColor = bgd;
   btn.style.backgroundColor = bgd;
   btn.style.borderColor = bgd;
 
