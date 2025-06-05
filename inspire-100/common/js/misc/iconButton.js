@@ -12,6 +12,11 @@ function selectButtonHTML(onClickFunction, size, title) {
   return iconButtonHTML(pngFileName, size, onClickFunction, title);
 }
 
+function connectButtonHTML(onClickFunction, size, title) {
+  let pngFileName = "connect";
+  return iconButtonHTML(pngFileName, size, onClickFunction, title);
+}
+
 function submitButtonHTML(onClickFunction, size, title) {
   let pngFileName = "submit";
   return iconButtonHTML(pngFileName, size, onClickFunction, title);
