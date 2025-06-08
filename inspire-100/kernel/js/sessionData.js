@@ -94,7 +94,7 @@ var SessionDataTemplate = {
 	breathData: {
     iqdel : null,
     vtdel : null,
-    qmult : null,
+    vtIqRatio : null,
   },
 
 	loggedBreaths:        [{time:new Date(0),missed:true}],

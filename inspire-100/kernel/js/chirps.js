@@ -4,15 +4,17 @@
 
 function parseWaveData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 5)) {
+  if (!arr || (arr.length != 7)) {
     return;
   }
   let obj = {};
   obj.sysBreathNum = arr[0];
-  obj.breathInfo = arr[1];
-  obj.samplingIntervalMs = arr[2];
-  obj.partial = arr[3];
-  obj.waveData = arr[4];
+  obj.vtdel = arr[1];
+  obj.iqdel = arr[2];
+  obj.breathInfo = arr[3];
+  obj.samplingIntervalMs = arr[4];
+  obj.partial = arr[5];
+  obj.waveData = arr[6];
   return obj;
 }
 
@@ -441,14 +443,14 @@ function findFlowChangePoints(samples) {
           "inspIQ":inspIQ, "expIQ":expIQ};
 }
 
-function findQmults(samples, changes, sampleInterval) {
+function findVtIqRatios(samples, changes, sampleInterval) {
   let inspTime = (changes.inspEnd - changes.inspStart + 1) * sampleInterval;
   let expTime = (changes.expEnd - changes.expStart + 1) * sampleInterval;
 
-  let inspQmult = session.breathData.qmult * 1000 / inspTime;
-  let expQmult = session.breathData.qmult * 1000 / expTime * (changes.inspIQ / changes.expIQ);
+  let inspVtIqRatio = session.breathData.vtIqRatio * 1000 / inspTime;
+  let expVtIqRatio = session.breathData.vtIqRatio * 1000 / expTime * (changes.inspIQ / changes.expIQ);
 
-  return {"inspQmult": inspQmult, "expQmult": expQmult};
+  return {"inspVtIqRatio": inspVtIqRatio, "expVtIqRatio": expVtIqRatio};
 }
 
 function computeIntegral(samples, sampleInterval, fromIx, toIx) {
@@ -470,8 +472,8 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
 
   let changes = findFlowChangePoints(filteredSamples);
   //console.log("changes", changes);
-  let qmults = findQmults(filteredSamples, changes, sampleInterval);
-  //console.log("qmults", qmults);
+  let vtIqRatios = findVtIqRatios(filteredSamples, changes, sampleInterval);
+  //console.log("vtIqRatios", vtIqRatios);
 
   let flowSamples = [];
   for (let i = 0; i < filteredSamples.length; i++) {
@@ -480,12 +482,12 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
       if (i<changes.inspStart) {
         Q = 0;
       } else if (i<=changes.inspEnd) {
-        if (Q > 0) Q = (Q * qmults.inspQmult);
+        if (Q > 0) Q = (Q * vtIqRatios.inspVtIqRatio);
         else Q = 0;
       } else if (i <= changes.expStart) {
         Q = 0;
       } else if (i <= changes.expEnd) {
-        if (Q < 0) Q = (Q * qmults.expQmult);
+        if (Q < 0) Q = (Q * vtIqRatios.expVtIqRatio);
         else Q = 0;
       } else {
         Q = 0;
@@ -544,6 +546,10 @@ function createVolumeWaveData(flowData, samplingIntervalMs) {
 function processPwaveChirp(curTime, jsonStr) {
   //console.log("PWAVE", jsonStr);
   let obj = parseWaveData(jsonStr);
+  session.breathData.iqdel = obj.iqdel;
+  session.breathData.vtdel = obj.vtdel;
+  session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
+  saveOutputChange("vtdel", curTime, obj);
 
   let lastSample = obj.waveData[obj.waveData.length-1];
   let filteredSamples = movingAverageFilter(obj.waveData, WAVE_PRESSURE_FILTER_WINDOW);
@@ -557,6 +563,10 @@ function processPwaveChirp(curTime, jsonStr) {
 function processFwaveChirp(curTime, jsonStr) {
   //console.log("FWAVE", jsonStr);
   let obj = parseWaveData(jsonStr);
+  session.breathData.iqdel = obj.iqdel;
+  session.breathData.vtdel = obj.vtdel;
+  session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
+  saveOutputChange("vtdel", curTime, obj);
 
   let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs);
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
@@ -791,7 +801,7 @@ function processBreathChirp(curTime, jsonStr) {
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
-  session.breathData.qmult = (obj.vtdel / obj.iqdel);
+  session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
 
   // infer the breath control
   let mode = session.params.mode.LastChangeValue();
