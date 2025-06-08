@@ -115,7 +115,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 
@@ -139,7 +139,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 		if (ix == this.changes.length-1) {
@@ -158,7 +158,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 
@@ -182,7 +182,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 		if (ix < 1) {
@@ -216,7 +216,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 		if (this.changes[ix].time.getTime() == time.getTime()) {
@@ -239,7 +239,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 		if (ix == this.changes.length-1) {
@@ -258,7 +258,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 		if (this.changes[ix].time.getTime() == time.getTime()) {
@@ -282,7 +282,7 @@ class Param {
 
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 		if (ix < 1) {
@@ -308,7 +308,7 @@ class Param {
 		// else do a binary search
 		let ix = this.FindLastValueChangeIndex(time);
 		if (ix === null) {
-			console.error("Error during search in Param::ValueAtTime", Name());
+			console.error("Error during search in Param::ValueAtTime", this.Name());
 			return null;
 		}
 
@@ -376,7 +376,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::Values", Name());
+			console.error("Error during search in Param::Values", this.Name());
 			return values;
 		}
 
@@ -428,7 +428,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::DistinctValues", Name());
+			console.error("Error during search in Param::DistinctValues", this.Name());
 			return values;
 		}
 
@@ -471,7 +471,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::CountValueEqual", Name());
+			console.error("Error during search in Param::CountValueEqual", this.Name());
 			return count;
 		}
 
@@ -515,7 +515,7 @@ class Param {
 		let endChangeIndex = this.changes.length - 1;
 		let changeIx = this.FindLastValueChangeIndex(startTime);
 		if (changeIx === null) {
-			console.error("Error during search in Param::MinMaxAvg", Name());
+			console.error("Error during search in Param::MinMaxAvg", this.Name());
 			return stats;
 		}
 
@@ -545,50 +545,32 @@ class Param {
 		return rval;
 	}
 
-  // Recursive Binary search for a value change at or immediately before given time
-	// start and end are indices into the changes array
+  // Binary search for a value change at or immediately before given time
 	// return value of null signifies error
 	// return value of 0 signifies an index before the first data was logged
-  FindLastValueChangeIndex(time, start, end) {
+  FindLastValueChangeIndex(time) {
+		if (this.changes.length <= 1) return 0;
 		if (isUndefined(time) || (time === null)) return null;
-
-  	if (isUndefined(start)) start = 0;
-  	if (isUndefined(end)) end = this.changes.length - 1;
-
-  	if (end < start) return null;
-  	if (start < 0) return null;
-  	if (end >= this.changes.length) return null;
-
-		// if last transition was before given time
-		let endTime = this.changes[end].time;
-		if (isUndefined(endTime) || (endTime === null)) return null;
-		if (endTime.getTime() <= time.getTime()) return end;
-
-    // find the middle index
-    let mid = Math.floor((start + end) / 2);
-		if (mid == 0) return 0; // reached the beginning and there is no value logged
-
-		let midTime = this.changes[mid].time;
-		if (isUndefined(midTime) || (midTime === null)) return null;
-    if (midTime.getTime() == time.getTime()) return mid;
-		else if (midTime.getTime() < time.getTime()) {
-  		// If the element in the middle is smaller than the time
-			// check the next one
-			if (mid < end) {
-				let nextTime = this.changes[mid+1].time;
-				if (isUndefined(nextTime) || (nextTime === null)) return null;
-				if (nextTime.getTime() > time.getTime()) return mid;
-				else if (nextTime.getTime() == time.getTime()) return mid+1;
-			}
-			// look in the right half
-  		return this.FindLastValueChangeIndex(time, mid, end);
-		} else {
-     	// If the element in the middle is greater than the time 
-			// look in the left half
-  		return this.FindLastValueChangeIndex(time, start, mid - 1);
-		}
+    let left = 0, right = this.changes.length - 1;
+    let result = null; // Will hold the index of the floor, or null if none found
+  
+    while (left <= right) {
+      let mid = Math.floor((left + right) / 2);
+  
+      if (this.changes[mid].time.getTime() === time.getTime()) {
+        // Exact match is the floor
+        return mid;
+      } else if (this.changes[mid].time.getTime() < time.getTime()) {
+        // this.changes[mid] is a candidate for floor
+        result = mid;
+        left = mid + 1; // Search right half for a possibly larger candidate
+      } else {
+        right = mid - 1; // Search left half
+      }
+    }
+    return result; // Index of floor, or -1 if all elements are greater than time
   }
-
+  
 };
 
 // ////////////////////////////////////////////////////
