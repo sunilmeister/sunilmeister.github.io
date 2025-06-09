@@ -19,7 +19,7 @@ function checkForUndefined(val) {
 
 function FindMissingBreathsInRange(minBnum, maxBnum) {
   let arr = [];
- 	if (session.loggedBreaths.length == 1) return arr;
+ 	if (session.loggedBreaths.length <= 1) return arr;
 
 	if (minBnum==0) minBnum = 1;
 	if (maxBnum==0) maxBnum = 1;
@@ -32,6 +32,7 @@ function FindMissingBreathsInRange(minBnum, maxBnum) {
 }
 
 function CountMissingWavesInRange(minBnum, maxBnum) {
+  if (session.loggedBreaths.length <= 1) return 0;
   let count = 0;
 
 	if (minBnum==0) minBnum = 1;
@@ -44,6 +45,7 @@ function CountMissingWavesInRange(minBnum, maxBnum) {
 }
 
 function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
+  if (session.loggedBreaths.length <= 1) return 0;
   let modeObj = session.params["mode"];
   let modeEnum = modeObj.Type().range;
   let btypeObj = session.params["btype"];
@@ -65,6 +67,7 @@ function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
 }
 
 function CountCmvSpontaneousBreathsInRange(minBnum, maxBnum) {
+  if (session.loggedBreaths.length <= 1) return 0;
   let modeObj = session.params["mode"];
   let modeEnum = modeObj.Type().range;
   let btypeObj = session.params["btype"];

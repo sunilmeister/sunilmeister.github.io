@@ -11,7 +11,7 @@ function displayJsonRawData(jsonData) {
 }
 
 function displayJsonRecord(key) {
-  let req = indexedDB.open(dbName, session.database.dbVersion);
+  let req = indexedDB.open(session.database.dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
     // Set the db variable to our database so we can use it!  
     let db = event.target.result;
