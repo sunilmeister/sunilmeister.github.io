@@ -74,11 +74,9 @@ function parseAndUpdateUidContents(uid, jsonData) {
 
   for (let key in jsonData) {
     if (key == 'content') {
-			if (!isUndefined(jsonData.content["EL1"]) || !isUndefined(jsonData.content["EL2"])
-				|| !isUndefined(jsonData.content["EL3"]) || !isUndefined(jsonData.content["EL4"]) ) {
+			if (!isUndefined(jsonData.content["EMSG"])) {
 					content.emsg = true;
-			} else if (!isUndefined(jsonData.content["L1"]) || !isUndefined(jsonData.content["L2"])
-				|| !isUndefined(jsonData.content["L3"]) || !isUndefined(jsonData.content["L4"]) ) {
+			} else if (!isUndefined(jsonData.content["IMSG"])) {
 					content.emsg = false;
 			}
 
