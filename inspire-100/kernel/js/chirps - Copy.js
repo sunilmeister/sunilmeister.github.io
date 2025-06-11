@@ -3,9 +3,7 @@
 // ////////////////////////////////////////////////////
 
 function parseMsgLines(jsonStr) {
-  let msg = jsonStr.replaceAll("'", '"');
-  //console.log(msg);
-  let arr = parseJSONSafely(msg);
+  let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 4)) {
     return;
   }
@@ -300,6 +298,7 @@ function processJsonRecord(jsonData) {
 
   let curTime = new Date(jsonData.created);
   resetSignalTags(curTime, jsonData);
+  processAlertChirp(curTime, jsonData);
   for (let key in jsonData) {
     if (key == 'content') {
       for (let ckey in jsonData.content) {
@@ -313,12 +312,39 @@ function processJsonRecord(jsonData) {
           processResetChirp(curTime, value);
         } else if (ckey == "ATT") {
           session.params.attention.AddTimeValue(curTime, value);
-        } else if (ckey == "IMSG") {
-          processMsgInfo(curTime, value);
-        } else if (ckey == "WMSG") {
-          processMsgWarning(curTime, value);
-        } else if (ckey == "EMSG") {
-          processMsgError(curTime, value);
+        } else if (ckey == "L1") {
+          session.params.lcdLine1.AddTimeValue(curTime, value);
+        } else if (ckey == "L2") {
+          session.params.lcdLine2.AddTimeValue(curTime, value);
+        } else if (ckey == "L3") {
+          session.params.lcdLine3.AddTimeValue(curTime, value);
+          processUptimeChirp(curTime, value);
+        } else if (ckey == "L4") {
+          session.params.lcdLine4.AddTimeValue(curTime, value);
+        } else if (ckey == "WL1") {
+          session.params.lcdLine1.AddTimeValue(curTime, value);
+          session.params.lcdWLine1.AddTimeValue(curTime, value);
+        } else if (ckey == "WL2") {
+          session.params.lcdLine2.AddTimeValue(curTime, value);
+          session.params.lcdWLine2.AddTimeValue(curTime, value);
+        } else if (ckey == "WL3") {
+          session.params.lcdLine3.AddTimeValue(curTime, value);
+          session.params.lcdWLine3.AddTimeValue(curTime, value);
+        } else if (ckey == "WL4") {
+          session.params.lcdLine4.AddTimeValue(curTime, value);
+          session.params.lcdWLine4.AddTimeValue(curTime, value);
+        } else if (ckey == "EL1") {
+          session.params.lcdLine1.AddTimeValue(curTime, value);
+          session.params.lcdELine1.AddTimeValue(curTime, value);
+        } else if (ckey == "EL2") {
+          session.params.lcdLine2.AddTimeValue(curTime, value);
+          session.params.lcdELine2.AddTimeValue(curTime, value);
+        } else if (ckey == "EL3") {
+          session.params.lcdLine3.AddTimeValue(curTime, value);
+          session.params.lcdELine3.AddTimeValue(curTime, value);
+        } else if (ckey == "EL4") {
+          session.params.lcdLine4.AddTimeValue(curTime, value);
+          session.params.lcdELine4.AddTimeValue(curTime, value);
         } else if (ckey == "FWVER") {
           //console.log("Found FWVER " + value);
           processFwChirp(curTime, value);
@@ -937,6 +963,49 @@ function updateLoggedBreaths(bnumValue, breathTime) {
   session.params.breathNum.AddTimeValue(breathTime, bnumValue);
 }
 
+function validErrorLine(jsonData) {
+  if (!isUndefined(jsonData.content["EL1"]) && (jsonData.content["EL1"] != "")) {
+    return true;
+  }
+  if (!isUndefined(jsonData.content["EL2"]) && (jsonData.content["EL2"] != "")) {
+    return true;
+  }
+  if (!isUndefined(jsonData.content["EL3"]) && (jsonData.content["EL3"] != "")) {
+    return true;
+  }
+  if (!isUndefined(jsonData.content["EL4"]) && (jsonData.content["EL4"] != "")) {
+    return true;
+  }
+  return false;
+}
+
+function validWarningLine(jsonData) {
+  if (!isUndefined(jsonData.content["WL1"]) && (jsonData.content["WL1"] != "")) {
+    return true;
+  }
+  if (!isUndefined(jsonData.content["WL2"]) && (jsonData.content["WL2"] != "")) {
+    return true;
+  }
+  if (!isUndefined(jsonData.content["WL3"]) && (jsonData.content["WL3"] != "")) {
+    return true;
+  }
+  if (!isUndefined(jsonData.content["WL4"]) && (jsonData.content["WL4"] != "")) {
+    return true;
+  }
+  return false;
+}
+
+function processAlertChirp(curTime, jsonData) { 
+  if (validWarningLine(jsonData)) {
+    session.params.warnings.AddTimeValue(curTime, ++session.alerts.warningNum);
+    session.params.warningTag.AddTimeValue(curTime,true);
+  }
+  if (validErrorLine(jsonData)) {
+    session.params.errors.AddTimeValue( curTime, ++session.alerts.errorNum);
+    session.params.errorTag.AddTimeValue(curTime,true);
+  }
+}
+
 function processUptimeChirp(curTime, jsonData) {
   let matchStr = "(H:M:S)";
   let pos = jsonData.search(matchStr);
@@ -964,7 +1033,6 @@ function processMsgInfo(curTime, jsonData) {
   session.params.lcdLine2.AddTimeValue(curTime, obj.line2);
   session.params.lcdLine3.AddTimeValue(curTime, obj.line3);
   session.params.lcdLine4.AddTimeValue(curTime, obj.line4);
-  processUptimeChirp(curTime, obj.line3);
 }
 
 function processMsgWarning(curTime, jsonData) {
