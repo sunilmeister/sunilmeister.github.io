@@ -14,6 +14,7 @@ function parseMsgLines(jsonStr) {
   obj.line2 = arr[1];
   obj.line3 = arr[2];
   obj.line4 = arr[3];
+  obj.empty = (arr[0]=="") && (arr[1]=="") && (arr[2]=="") && (arr[3]=="");
   return obj;
 }
 
@@ -959,7 +960,7 @@ function processUptimeChirp(curTime, jsonData) {
 
 function processMsgInfo(curTime, jsonData) {
   let obj = parseMsgLines(jsonData);
-  if (!obj) return;
+  if (!obj || obj.empty) return;
   session.params.lcdLine1.AddTimeValue(curTime, obj.line1);
   session.params.lcdLine2.AddTimeValue(curTime, obj.line2);
   session.params.lcdLine3.AddTimeValue(curTime, obj.line3);
@@ -969,7 +970,7 @@ function processMsgInfo(curTime, jsonData) {
 
 function processMsgWarning(curTime, jsonData) {
   let obj = parseMsgLines(jsonData);
-  if (!obj) return;
+  if (!obj || obj.empty) return;
   session.params.lcdLine1.AddTimeValue(curTime, obj.line1);
   session.params.lcdLine2.AddTimeValue(curTime, obj.line2);
   session.params.lcdLine3.AddTimeValue(curTime, obj.line3);
@@ -986,7 +987,7 @@ function processMsgWarning(curTime, jsonData) {
 
 function processMsgError(curTime, jsonData) {
   let obj = parseMsgLines(jsonData);
-  if (!obj) return;
+  if (!obj || obj.empty) return;
   session.params.lcdLine1.AddTimeValue(curTime, obj.line1);
   session.params.lcdLine2.AddTimeValue(curTime, obj.line2);
   session.params.lcdLine3.AddTimeValue(curTime, obj.line3);
