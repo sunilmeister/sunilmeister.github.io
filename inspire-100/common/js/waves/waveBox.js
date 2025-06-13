@@ -284,9 +284,9 @@ class WaveBox {
 
     let cBreaks = this.createCustomBreaks(cStrips);
     //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
-    this.pChart.setCustomBreaks(cBreaks);
-    this.fChart.setCustomBreaks(cBreaks);
-    this.vChart.setCustomBreaks(cBreaks);
+    this.pChart.setCustomBreaks(cloneObject(cBreaks));
+    this.fChart.setCustomBreaks(cloneObject(cBreaks));
+    this.vChart.setCustomBreaks(cloneObject(cBreaks));
   }
 
 }
