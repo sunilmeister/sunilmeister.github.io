@@ -124,10 +124,6 @@ class WaveBox {
       let sysBreathNum = strip.sysBreathNum;
       if (partial.includes(sysBreathNum)) {
         strip.labelFontColor = "red";
-      } else {
-        if (strip.labelFontColor != "red") {
-          strip.labelFontColor = "darkgreen";
-        }
       }
     }
   }
