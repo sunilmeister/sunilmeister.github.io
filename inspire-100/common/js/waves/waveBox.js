@@ -125,7 +125,9 @@ class WaveBox {
       if (partial.includes(sysBreathNum)) {
         strip.labelFontColor = "red";
       } else {
-        strip.labelFontColor = "darkgreen";
+        if (strip.labelFontColor != "red") {
+          strip.labelFontColor = "darkgreen";
+        }
       }
     }
   }
@@ -148,8 +150,10 @@ class WaveBox {
       if (pIx < pLen) pBnum = pStrips[pIx].breathNum;
       if (fIx < fLen) fBnum = fStrips[fIx].breathNum;
       if (fBnum < pBnum) {
+        labelFontColor = "red";
         pBnum = null;
       } else if (pBnum < fBnum) {
+        labelFontColor = "red";
         fBnum = null;
       }
       if ((fBnum === null) && (pBnum === null)) break;
