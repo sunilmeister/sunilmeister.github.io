@@ -147,8 +147,11 @@ class WaveBox {
       let labelFontColor = "darkgreen";
       if (pIx < pLen) pBnum = pStrips[pIx].breathNum;
       if (fIx < fLen) fBnum = fStrips[fIx].breathNum;
-      if (fBnum < pBnum) pBnum = null;
-      if (pBnum < fBnum) fBnum = null;
+      if (fBnum < pBnum) {
+        pBnum = null;
+      } else if (pBnum < fBnum) {
+        fBnum = null;
+      }
       if ((fBnum === null) && (pBnum === null)) break;
 
       if (fBnum == pBnum) {
