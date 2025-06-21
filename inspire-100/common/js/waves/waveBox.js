@@ -246,7 +246,7 @@ class WaveBox {
     this.pChart.addGraph();
 
 		// Flow Chart
-    let flowYaxisTicks  = {min:-80, max:80, interval: 20};
+    let flowYaxisTicks  = {min:null, max:null, interval: 20};
     this.fChart = new WavePane(
       null,
       null,
@@ -261,7 +261,7 @@ class WaveBox {
     this.fChart.addGraph();
 
 		// Volume Chart
-    let volumeYaxisTicks  = {min:0, max:800, interval: 100};
+    let volumeYaxisTicks  = {min:0, max:null, interval: 100};
     this.vChart = new WavePane(
       null,
       "Elapsed Time (H:MM:SS)",
