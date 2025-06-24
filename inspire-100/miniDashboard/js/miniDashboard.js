@@ -92,7 +92,9 @@ function waitForChirps() {
 
     if (awaitingFirstChirp) {
       let millisStr = d.content["0"].MILLIS
-      let millis = parseChecksumString(millisStr);
+      let obj = parseMillis(millisStr);
+      if (obj == null) return; // ignore this malformed chirp
+      let millis = Number(obj.millis);
       if (millis == null) return; // ignore this malformed chirp
     }
     awaitingFirstChirp = false;

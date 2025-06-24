@@ -15,7 +15,9 @@ function disassembleAndQueueChirp(d) {
     if (isUndefined(d.content[key])) break;
     let fragment = d.content[key];
     let millisStr = String(fragment.MILLIS);
-    let millis = Number(parseChecksumString(millisStr));
+    //console.log("millisStr",millisStr);
+    let obj = parseMillis(millisStr);
+    let millis = Number(obj.millis);
 
 		// ERROR detection
     if (millis == null) {

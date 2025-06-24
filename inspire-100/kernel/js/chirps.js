@@ -2,12 +2,22 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
+function parseMillis(jsonStr) {
+  let arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 2)) {
+    return null;
+  }
+  let obj = {};
+  obj.millis = (Number(arr[0]) << 32) | Number(arr[1]);
+  return obj;
+}
+
 function parseMsgLines(jsonStr) {
   let msg = jsonStr.replaceAll("'", '"');
   //console.log(msg);
   let arr = parseJSONSafely(msg);
   if (!arr || (arr.length != 4)) {
-    return;
+    return null;
   }
   let obj = {};
   obj.line1 = arr[0];
@@ -21,7 +31,7 @@ function parseMsgLines(jsonStr) {
 function parseWaveData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 7)) {
-    return;
+    return null;
   }
   let obj = {};
   obj.sysBreathNum = arr[0];
@@ -116,27 +126,21 @@ function parseFwVersion(jsonStr) {
 // from a pattern like "[number,0xHEX_NUMBER]"
 // returns null if badly formed
 function parseBnumData(jsonStr) {
-  let str = String(jsonStr);
-  let numStr = "";
-
-  if (str[0] != '[') return null;
-  let i = 1;
-  for (; i<str.length; i++) {
-    if (str[i] == ',') break;
-    numStr += str[i];
+  // console.log("BNUM",jsonStr);
+  let arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 2)) {
+    return null;
   }
-  let bnum = Number(numStr);
-  //console.log("numStr", numStr, "num", num);
-
-  let tsStr = "";
-  for (i++; i<str.length; i++) {
-    if (str[i] == ']') break;
-    tsStr += str[i];
+  let hiLo = arr[1];
+  if (!hiLo || (hiLo.length != 2)) {
+    return null;
   }
-  let btime = Number(tsStr);
+
+  let btime = (Number(hiLo[0]) << 32) | Number(hiLo[1]);
+  // console.log("BTIME",hiLo);
 
   let val = {
-    "bnum" : bnum,
+    "bnum" : arr[0],
     "btime" : btime
   }
   return val;

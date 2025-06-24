@@ -629,36 +629,6 @@ function checksum(num) {
   let cs = ~sum + 1;
   return cs & 0xFF;
 }
-// returns num after checking checksum
-// from a pattern like "[0xHEX_NUMBER,checksum]"
-// returns null if badly formed
-function parseChecksumString(tstr) {
-  let str = String(tstr);
-	let numStr = "";
-
-	if (str[0] != '[') return null;
-	let i = 1;
-	for (; i<str.length; i++) {
-		if (str[i] == ',') break;
-		numStr += str[i];
-	}
-  let num = Number(numStr);
-	//console.log("numStr", numStr, "num", num);
-
-	let csStr = "";
-	for (i++; i<str.length; i++) {
-		if (str[i] == ']') break;
-		csStr += str[i];
-	}
-  let cs = Number(csStr);
-  let ccs = checksum(num);
-  if (cs != ccs) {
-    console.error("Bad ChecksumString =" + num + " checksum=" + cs +
-      "\nComputed checksum=" + ccs);
-    return null;
-  }
-  return num;
-}
 
 function parseFwVersionStr(str) {
   // return [major,minor,board]
