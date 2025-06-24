@@ -904,12 +904,14 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
   let msPerMissingBreath = missingTimeInterval / numIntervals;
   let missingBreathTime = prevBreathTime;
 
+  if (numMissing) {
+    console.log("Missed", numMissing, "breaths starting BNUM", session.loggedBreaths.length);
+  }
   for (let i = 0; i < numMissing; i++) {
     missingBreathTime = addMsToDate(missingBreathTime, msPerMissingBreath);
     session.params.comboChanged.AddTimeValue(missingBreathTime, false);
     session.params.errorTag.AddTimeValue(missingBreathTime,false);
     session.params.warningTag.AddTimeValue(missingBreathTime,false);
-    console.log("Missed BNUM ", session.loggedBreaths.length);
     session.loggedBreaths.push({time:missingBreathTime, missed:true});
   }
 }
