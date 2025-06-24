@@ -905,7 +905,7 @@ function fillMissingBreathsDummyInfo(prevBreathTime, newBreathTime, numMissing) 
   let missingBreathTime = prevBreathTime;
 
   if (numMissing) {
-    console.log("Missed", numMissing, "breaths starting BNUM", session.loggedBreaths.length);
+    console.log("Missed", numMissing, "breath(s) starting BNUM", session.loggedBreaths.length);
   }
   for (let i = 0; i < numMissing; i++) {
     missingBreathTime = addMsToDate(missingBreathTime, msPerMissingBreath);
