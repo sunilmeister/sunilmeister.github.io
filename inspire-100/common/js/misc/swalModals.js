@@ -25,6 +25,7 @@ function extractModalId(msg) {
 function modalWarning(title, msg) {
   let modalHtml = 
     "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";
+  Swal.close();
   Swal.fire({
     icon: 'warning',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
@@ -49,6 +50,7 @@ function modalInfo(title, msg) {
     modalHtml += dontShowButtonHTML;
   }
 
+  Swal.close();
   Swal.fire({
     icon: 'info',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
@@ -66,6 +68,7 @@ function modalInfo(title, msg) {
 function modalAlert(title, msg) {
   let modalHtml = 
     "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";
+  Swal.close();
   Swal.fire({
     icon: 'error',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
@@ -90,6 +93,7 @@ function modalConfirm(title, msg, confirmFn, cancelFn, callbackArgs, confirmText
 
   let modalColor = palette.modal;
   
+  Swal.close();
   Swal.fire({
     icon: 'question',
     title: title,
