@@ -307,6 +307,17 @@ function processJsonRecord(jsonData) {
   resetSignalTags(curTime, jsonData);
   for (let key in jsonData) {
     if (key == 'content') {
+      // Install the system's firmware version right up front
+      // so the rest of the system can adjust if required
+      if (session.firmwareVersion.major === null) {
+        if (!isUndefined(jsonData.content["FWVER"])) {
+          let value = jsonData.content["FWVER"];
+          console.log("Found System Firmware Version",value);
+          processFwChirp(curTime, value);
+        }
+      }
+
+      // Now go through the rest of the chirps one by one
       for (let ckey in jsonData.content) {
         let value = jsonData.content[ckey];
 
@@ -324,9 +335,6 @@ function processJsonRecord(jsonData) {
           processMsgWarning(curTime, value);
         } else if (ckey == "EMSG") {
           processMsgError(curTime, value);
-        } else if (ckey == "FWVER") {
-          //console.log("Found FWVER " + value);
-          processFwChirp(curTime, value);
         } else if (ckey == "STATE") {
           processStateChirp(curTime, value);
         } else if (ckey == "PARAM") {
