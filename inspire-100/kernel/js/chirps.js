@@ -436,8 +436,8 @@ function findFlowChangePoints(samples) {
     break;
   }
 
-  for (let i=expStart; i<expEnd; i++) {
-    expIQ += (Math.abs(samples[i]) + Math.abs(samples[i+1]))/2;
+  for (let i=expStart; i<=expEnd; i++) {
+    expIQ += (Math.abs(samples[i]) + Math.abs(samples[i-1]))/2;
   }
 
   return {"inspStart":inspStart, "inspEnd":inspEnd, "expStart": expStart, "expEnd":expEnd,
