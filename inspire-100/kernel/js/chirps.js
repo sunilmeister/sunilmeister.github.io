@@ -29,6 +29,7 @@ function parseMsgLines(jsonStr) {
 }
 
 function parseWaveData(jsonStr) {
+  //console.log("parseWaveData", jsonStr);
   let arr = parseJSONSafely(jsonStr);
   if (!arr || (arr.length != 7)) {
     return null;
@@ -435,7 +436,7 @@ function findFlowChangePoints(samples) {
     break;
   }
 
-  for (let i=expStart; i<=expEnd; i++) {
+  for (let i=expStart; i<expEnd; i++) {
     expIQ += (Math.abs(samples[i]) + Math.abs(samples[i+1]))/2;
   }
 
@@ -446,6 +447,9 @@ function findFlowChangePoints(samples) {
 function findVtIqRatios(samples, changes, sampleInterval) {
   let inspTime = (changes.inspEnd - changes.inspStart + 1) * sampleInterval;
   let expTime = (changes.expEnd - changes.expStart + 1) * sampleInterval;
+  //console.log("changes", changes);
+  //console.log("sampleInterval",sampleInterval);
+  //console.log("inspTime",inspTime);
 
   let inspVtIqRatio = session.breathData.vtIqRatio * 1000 / inspTime;
   let expVtIqRatio = session.breathData.vtIqRatio * 1000 / expTime * (changes.inspIQ / changes.expIQ);
@@ -471,7 +475,7 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
   //console.log("filteredSamples", filteredSamples);
 
   let changes = findFlowChangePoints(filteredSamples);
-  //console.log("changes", changes);
+  // console.log("changes", changes);
   let vtIqRatios = findVtIqRatios(filteredSamples, changes, sampleInterval);
   //console.log("vtIqRatios", vtIqRatios);
 
@@ -566,8 +570,11 @@ function processFwaveChirp(curTime, jsonStr) {
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
   session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
+  //console.log("obj.iqdel",obj.iqdel,"obj.vtdel",obj.vtdel);
   saveOutputChange("vtdel", curTime, obj);
 
+  console.log("obj.waveData",obj.waveData);
+  console.log("obj.samplingIntervalMs",obj.samplingIntervalMs);
   let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs);
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
     fwData, session.waves.fwPartial, session.waves.fwData);
