@@ -491,7 +491,7 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
       } else if (i <= changes.expStart) {
         Q = 0;
       } else if (i <= changes.expEnd) {
-        if (Q < 0) Q = (Q * vtIqRatios.expVtIqRatio);
+        if (Q < (-SAMPLE_FLOWQ_THRESHOLD)) Q = (Q * vtIqRatios.expVtIqRatio);
         else Q = 0;
       } else {
         Q = 0;
@@ -550,6 +550,8 @@ function createVolumeWaveData(flowData, samplingIntervalMs) {
 function processPwaveChirp(curTime, jsonStr) {
   //console.log("PWAVE", jsonStr);
   let obj = parseWaveData(jsonStr);
+  if (!obj) return;
+
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
   session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
@@ -567,14 +569,16 @@ function processPwaveChirp(curTime, jsonStr) {
 function processFwaveChirp(curTime, jsonStr) {
   //console.log("FWAVE", jsonStr);
   let obj = parseWaveData(jsonStr);
+  if (!obj) return;
+
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
   session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
   //console.log("obj.iqdel",obj.iqdel,"obj.vtdel",obj.vtdel);
   saveOutputChange("vtdel", curTime, obj);
 
-  console.log("obj.waveData",obj.waveData);
-  console.log("obj.samplingIntervalMs",obj.samplingIntervalMs);
+  //console.log("obj.waveData",obj.waveData);
+  //console.log("obj.samplingIntervalMs",obj.samplingIntervalMs);
   let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs);
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
     fwData, session.waves.fwPartial, session.waves.fwData);
