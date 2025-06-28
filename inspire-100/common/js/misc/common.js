@@ -17,9 +17,9 @@ function convertRemToPixels(rem) {
 }
 
 function convertRemToPixelsInt(rem) {    
-	let val = convertRemToPixels(rem);
-	val = Math.floor(val);
-	if (val <=0) val = 1;
+  let val = convertRemToPixels(rem);
+  val = Math.floor(val);
+  if (val <=0) val = 1;
   return val;
 }
 
@@ -27,40 +27,40 @@ function convertRemToPixelsInt(rem) {
 // must be done before accessing any indexedDb database
 ///////////////////////////////////////////////////////
 function getUidTagParams() {
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
 
-	inspireUid =	urlParams.get('uid');
-	if (inspireUid) {
-		inspireUid =	inspireUid.replace(/"/g, '');
-	}
-	//console.log('param uid', inspireUid);
+  inspireUid =  urlParams.get('uid');
+  if (inspireUid) {
+    inspireUid =  inspireUid.replace(/"/g, '');
+  }
+  //console.log('param uid', inspireUid);
 
-	inspireTag =	urlParams.get('tag');
-	if (inspireTag) {
-		inspireTag =	inspireTag.replace(/"/g, '');
-	}
-	//console.log('param tag', inspireTag);
+  inspireTag =  urlParams.get('tag');
+  if (inspireTag) {
+    inspireTag =  inspireTag.replace(/"/g, '');
+  }
+  //console.log('param tag', inspireTag);
 
-	if (!inspireUid || !inspireTag) {
-  	inspireUid = getCookie(uidCookieName);
-  	inspireTag = getCookie(tagCookieName);
-		if (!inspireUid || !inspireTag) {
-    	inspireUid = sessionStorage.getItem("inspireUid");
-    	inspireTag = sessionStorage.getItem("inspireTag");
-  	}
-	}
+  if (!inspireUid || !inspireTag) {
+    inspireUid = getCookie(uidCookieName);
+    inspireTag = getCookie(tagCookieName);
+    if (!inspireUid || !inspireTag) {
+      inspireUid = sessionStorage.getItem("inspireUid");
+      inspireTag = sessionStorage.getItem("inspireTag");
+    }
+  }
 
-	if (!inspireUid) {
-		console.error("Cannot find System UID");
-	}
-	if (!inspireTag) {
-		console.error("Cannot find System TAG");
-	}
+  if (!inspireUid) {
+    console.error("Cannot find System UID");
+  }
+  if (!inspireTag) {
+    console.error("Cannot find System TAG");
+  }
 }
 
 function initDbNames() {
-	getUidTagParams();
+  getUidTagParams();
   session.database.dbNamePrefix = inspireUid;
   session.database.dbObjStoreName = inspireUid;
 }
@@ -83,18 +83,18 @@ function msToDateStr(ms) {
 }
 
 function msToHHMMSS(ms) {
-	let secs = ms/1000;
+  let secs = ms/1000;
   let hh = Math.floor(secs/3600);
-	secs = secs % 3600;
+  secs = secs % 3600;
   let mm = Math.floor(secs/60);
-	let ss = Math.floor(secs % 60);
+  let ss = Math.floor(secs % 60);
 
-	let hhStr = hh.toString().padStart(2, 0);
-	let mmStr = mm.toString().padStart(2, 0);
-	let ssStr = ss.toString().padStart(2, 0);
+  let hhStr = hh.toString().padStart(2, 0);
+  let mmStr = mm.toString().padStart(2, 0);
+  let ssStr = ss.toString().padStart(2, 0);
 
   let timeStr = `${hhStr}:${mmStr}:${ssStr}`;
-	return timeStr;
+  return timeStr;
 
 }
 
@@ -130,10 +130,10 @@ function validFloatNumber(num) {
 }
 
 function isValidValue(val) {
-	if (val === null) return false;
-	if (isUndefined(val)) return false;
-	if (isNaN(val)) return false;
-	return true;
+  if (val === null) return false;
+  if (isUndefined(val)) return false;
+  if (isNaN(val)) return false;
+  return true;
 }
 
 function isUndefined(v) {
@@ -180,8 +180,8 @@ function cloneObject(obj) {
 }
 
 function equalObjects(object1, object2) {
-	if ((object1 === null) && (object2 !== null)) return false;
-	if ((object1 !== null) && (object2 === null)) return false;
+  if ((object1 === null) && (object2 !== null)) return false;
+  if ((object1 !== null) && (object2 === null)) return false;
 
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
@@ -250,7 +250,7 @@ function convertSECtoHHMMSS(seconds) {
   minutes = minutes % 60;
   days = Math.floor(hours / 24);
   hours = hours % 24;
-	
+  
   let hrs = String(days*24 + hours);
   let min = String(minutes).padStart(2, '0');
   let sec = String(seconds).padStart(2, '0');
@@ -260,7 +260,7 @@ function convertSECtoHHMMSS(seconds) {
 
 function convertMStoHHMMSS(milliseconds) {
   let seconds = Math.floor(milliseconds / 1000);
-	return convertSECtoHHMMSS(seconds);
+  return convertSECtoHHMMSS(seconds);
 }
 
 function dateToStr(d) {
@@ -468,8 +468,8 @@ function createOrOpenDb(name, timeStamp, successCallback) {
     let dbObjStore;
     if (!session.database.db.objectStoreNames.contains(session.database.dbObjStoreName)) {
       dbObjStore = session.database.db.createObjectStore(session.database.dbObjStoreName, 
-				{ autoIncrement: true }
-			);
+        { autoIncrement: true }
+      );
     } else {
       dbObjStore = dbReq.transaction.objectStore(session.database.dbObjStoreName);
     }
@@ -498,7 +498,7 @@ function createOrOpenDb(name, timeStamp, successCallback) {
 }
 
 function exportDb(dbName, fileName) {
-	fileName += ".session.json" ;
+  fileName += ".session.json" ;
   let getAll = [];
   let req = indexedDB.open(dbName, session.database.dbVersion);
   req.onsuccess = function (event) {
@@ -524,7 +524,7 @@ function registerDashboardPing(uid) {
   if (retrieved) {
     obj = JSON.parse(retrieved);
   }
-	obj[uid] = new Date();
+  obj[uid] = new Date();
   localStorage.setItem(inspireDashboardsLocalStorage, JSON.stringify(obj));
 }
 
@@ -534,13 +534,13 @@ function isDashboardActive(uid) {
   if (!retrieved) return false;
 
   obj = JSON.parse(retrieved);
-	if (isUndefined(obj[uid])) return false;
+  if (isUndefined(obj[uid])) return false;
 
-	let lastPing = new Date(obj[uid]);
-	let now = new Date();
-	let ms = now.getTime() - lastPing.getTime();
-	if (ms > MAX_DASHBOARD_PING_DELAY_IN_MS) return false;
-	return true;
+  let lastPing = new Date(obj[uid]);
+  let now = new Date();
+  let ms = now.getTime() - lastPing.getTime();
+  if (ms > MAX_DASHBOARD_PING_DELAY_IN_MS) return false;
+  return true;
 }
 
 function registerDbName(dbName) {
@@ -566,25 +566,26 @@ const O2FLOW_SAFETY_BOOST_PERCENT = 107;
 
 // return Date object or null
 function lookupBreathTime(bnum) {
-	let btimes = session.loggedBreaths;
-	if (!btimes) return null;
-	if (bnum >= btimes.length) return null;
-	return new Date(btimes[bnum].time);
+  let btimes = session.loggedBreaths;
+  if (!btimes) return null;
+  if (bnum >= btimes.length) return null;
+  return new Date(btimes[bnum].time);
 }
 
 function lookupBreathNum(time) {
-	let bnum = session.params.breathNum.ValueAtTime(time);
-	if (isUndefined(bnum)) return 0;
-	if (bnum === null) return 0;
-	// Now the problem is that there may be missing breaths
-	// that are not in the params datastructure
-	// Investigate loggedBreaths starting from this bnum
-	// to see if there is a better match for the given time
-	for (; bnum < session.loggedBreaths.length-2;) {
-		if (!session.loggedBreaths[bnum+1].missed) break;
-		if (session.loggedBreaths[bnum+1].time < time) bnum++;
-	}
-	return bnum;
+  let bnum = session.params.breathNum.ValueAtTime(time);
+  if (isUndefined(bnum)) return 0;
+  if (bnum === null) return 0;
+  // Now the problem is that there may be missing breaths
+  // that are not in the params datastructure
+  // Investigate loggedBreaths starting from this bnum
+  // to see if there is a better match for the given time
+  for (; bnum < session.loggedBreaths.length-2;) {
+    if (!session.loggedBreaths[bnum+1].missed) break;
+    if (session.loggedBreaths[bnum+1].time < time) bnum++;
+    else break;
+  }
+  return bnum;
 }
 
 function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
@@ -597,7 +598,7 @@ function lookupO2FlowRate(vt, rr, fiO2, purity, atmPurity) {
 }
 
 function movingAvgFilter(samples, windowSize) {
-	let arr = [];
+  let arr = [];
   let ws = windowSize;
 
   for (let i = 0; i < samples.length; i++) {
@@ -613,7 +614,7 @@ function movingAvgFilter(samples, windowSize) {
     arr.push(sum / ws);
   }
 
-	return cloneObject(arr);
+  return cloneObject(arr);
 }
 
 // calculate checksum of a 32-bit number
@@ -703,7 +704,7 @@ function toggleDataSeries(e) {
 }
 
 function animateNumberValue(obj, start, end, duration) {
-	/* Sexy but slowing things down
+  /* Sexy but slowing things down
   start = Number(start);
   end = Number(end);
   if (isNaN(start) || isNaN(end)) {
@@ -722,18 +723,18 @@ function animateNumberValue(obj, start, end, duration) {
           clearInterval(timer);
       }
   }, stepTime);
-	*/
+  */
 
-	obj.innerText = end;
+  obj.innerText = end;
 }
 
 function animateNumberValueTo(obj, end) {
-	/* Sexy but slowing things down
+  /* Sexy but slowing things down
   start = Number(obj.innerText);
   animateNumberValue(obj, start, end, ANIMATE_NUMBER_DURATION);
-	*/
+  */
 
-	obj.innerText = end;
+  obj.innerText = end;
 }
 
 function updateDocumentTitle() {
@@ -754,29 +755,29 @@ function updateDocumentTitle() {
 }
 
 function detectOS() {
-	let os = "UNKNOWN"; 
-	if (navigator.appVersion.indexOf("Win") != -1) os =  "Windows"; 
-	else if (navigator.appVersion.indexOf("Mac") != -1) os =  "MacOS"; 
-	else if (navigator.appVersion.indexOf("X11") != -1) os =  "Unix"; 
-	else if (navigator.appVersion.indexOf("Linux") != -1) os =  "Linux"; 
-	return os;
+  let os = "UNKNOWN"; 
+  if (navigator.appVersion.indexOf("Win") != -1) os =  "Windows"; 
+  else if (navigator.appVersion.indexOf("Mac") != -1) os =  "MacOS"; 
+  else if (navigator.appVersion.indexOf("X11") != -1) os =  "Unix"; 
+  else if (navigator.appVersion.indexOf("Linux") != -1) os =  "Linux"; 
+  return os;
 }
 
 function readJsonFile(fileName, callbackFn) {
-	fetch(fileName)
+  fetch(fileName)
     .then((response) => response.json())
     .then((json) => callbackFn(json))
-  	.catch(error => console.error(fileName, 'Error reading JSON:', error));
+    .catch(error => console.error(fileName, 'Error reading JSON:', error));
 }
 
 function downloadFileFromURL(dstFileName, srcURL) {
   console.log("Download", srcURL, "to", dstFileName);
-	// CREATE A LINK ELEMENT IN DOM
-	let elm = document.createElement('a');  
+  // CREATE A LINK ELEMENT IN DOM
+  let elm = document.createElement('a');  
   elm.href = srcURL;  
-	// SET ELEMENT CREATED 'ATTRIBUTE' TO DOWNLOAD, FILENAME PARAM AUTOMATICALLY
+  // SET ELEMENT CREATED 'ATTRIBUTE' TO DOWNLOAD, FILENAME PARAM AUTOMATICALLY
   elm.setAttribute('download', dstFileName); 
   document.body.appendChild(elm);
-	elm.click();
- 	document.body.removeChild(elm);
+  elm.click();
+  document.body.removeChild(elm);
 }
