@@ -21,7 +21,11 @@ function showDbTableRow(dbName, index) {
   let cell;
 
   cell = row.insertCell();
-  cell.innerHTML = iconImageHTML("BlankDot", 2, "Active");
+  if (session.record.allowSelection) {
+    cell.innerHTML = activeButtonHTML("selectRowBtn", 2, "Open");
+  } else {
+    cell.innerHTML = iconImageHTML("BlankDot", 2, "Active");
+  }
 
   cell = row.insertCell();
   cell.style.paddingRight = "1.5rem";
