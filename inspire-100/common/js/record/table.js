@@ -38,10 +38,6 @@ function showDbTableRow(dbName, index) {
   cell.style.textAlign = "center";
   cell.innerHTML = nameTm[2];
 
-  if (session.record.allowSelection) {
-    cell = row.insertCell();
-    cell.innerHTML = openButtonHTML("selectRowBtn", 2, "Open");
-  }
   cell = row.insertCell();
   cell.innerHTML = exportButtonHTML("exportRowBtn", 2, "Export");
   cell = row.insertCell();
