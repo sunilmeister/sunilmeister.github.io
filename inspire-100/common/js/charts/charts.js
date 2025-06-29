@@ -14,7 +14,7 @@ function chartInsertInitial() {
   let allCharts = document.getElementById(ALL_CHARTS_ID);
   let newContainer = createNewChartContainer();
   allCharts.insertBefore(newContainer, null);
-	// Open edit menu for the new wave box
+  // Open edit menu for the new wave box
   let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 
@@ -24,7 +24,7 @@ function chartInsert(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);
   let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode);
-	// Open edit menu for the new wave box
+  // Open edit menu for the new wave box
   let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
@@ -33,7 +33,7 @@ function chartAppend(bnode) {
   let containerNode = findAncestorChartContainerNode(bnode);
   let newContainer = createNewChartContainer();
   containerNode.parentNode.insertBefore(newContainer, containerNode.nextSibling);
-	// Open edit menu for the new wave box
+  // Open edit menu for the new wave box
   let enode = findChildNodeByClass(newContainer, EDIT_ICON_CLASS);
   chartEdit(enode);
 }
@@ -65,39 +65,39 @@ function removeChartEditMenu() {
   let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
   if (!menuDiv) return;
   if (session.charts.boxTree) {
-  	let containerNodeId = session.charts.boxTree.BoxContainerId();
-  	let cdiv = document.getElementById(containerNodeId);
-  	let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
-		bdiv.style.backgroundColor = palette.darkblue;
-  	let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
-		menuDiv.style.display = "none";
-		session.charts.boxTree = null;
-	}
+    let containerNodeId = session.charts.boxTree.BoxContainerId();
+    let cdiv = document.getElementById(containerNodeId);
+    let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
+    bdiv.style.backgroundColor = palette.darkblue;
+    let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
+    menuDiv.style.display = "none";
+    session.charts.boxTree = null;
+  }
 }
 
 var chartMenuBlinkColor = false;
 function blinkChartMenu() {
-	if (!session) return;
+  if (!session) return;
   if (!session.charts.boxTree) return;
   let menuDiv = document.getElementById(CHART_EDIT_CHART_MENU_ID);
-	if (!menuDiv) return;
- 	let containerNodeId = session.charts.boxTree.BoxContainerId();
- 	let cdiv = document.getElementById(containerNodeId);
- 	let mdiv = document.getElementById(CHART_MENU_BANNER_ID);
- 	let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
-	if (chartMenuBlinkColor) {
-		bdiv.style.backgroundColor = palette.darkblue;
-		mdiv.style.backgroundColor = palette.darkblue;
-		chartMenuBlinkColor = false;
-	} else {
-		bdiv.style.backgroundColor = palette.orange;
-		mdiv.style.backgroundColor = palette.orange;
-		chartMenuBlinkColor = true;
-	}
+  if (!menuDiv) return;
+  let containerNodeId = session.charts.boxTree.BoxContainerId();
+  let cdiv = document.getElementById(containerNodeId);
+  let mdiv = document.getElementById(CHART_MENU_BANNER_ID);
+  let bdiv = findChildNodeByClass(cdiv, CHART_BANNER_CLASS);
+  if (chartMenuBlinkColor) {
+    bdiv.style.backgroundColor = palette.darkblue;
+    mdiv.style.backgroundColor = palette.darkblue;
+    chartMenuBlinkColor = false;
+  } else {
+    bdiv.style.backgroundColor = palette.orange;
+    mdiv.style.backgroundColor = palette.orange;
+    chartMenuBlinkColor = true;
+  }
 }
 
 setInterval(() => {
-	blinkChartMenu();
+  blinkChartMenu();
 }, 1000)
 
 function chartMenuCancel(bnode) {
@@ -113,13 +113,11 @@ function chartMenuSubmit(bnode) {
   box.render();
 }
 
-var currentChartContainerNum = 0;
-
 function createNewChartContainer() {
   let temp = document.getElementById(CHART_CONTAINER_TEMPLATE_ID);
   let template = findChildNodeByClass(temp.content, CHART_CONTAINER_CLASS);
   let node = template.cloneNode(true);
-  node.id = CHART_CONTAINER_ID_PREFIX + (currentChartContainerNum++);
+  node.id = CHART_CONTAINER_ID_PREFIX + (session.charts.currentChartContainerNum++);
   let body = findChildNodeByClass(node, CHART_BODY_CLASS);
   let box = new ChartBox(body);
   storeChartContainerId(node.id, box);
@@ -162,10 +160,10 @@ function createAllCharts() {
     modalAlert("Data Gathering in process", "Give us a second and try again");
     return;
   }
-	if (session.systemBreathNum === null) {
-		modalInfo("No Breaths logged", "Please wait and try again");
-		return;
-	}
+  if (session.systemBreathNum === null) {
+    modalInfo("No Breaths logged", "Please wait and try again");
+    return;
+  }
 
 
 
@@ -177,16 +175,16 @@ function createAllCharts() {
 }
 
 function renderAllCharts() {
-	// check for too many datapoints to render
+  // check for too many datapoints to render
   let numDataPoints = session.charts.range.maxBnum - session.charts.range.minBnum + 1;
-	let sparseInterval = 1;
+  let sparseInterval = 1;
   if (numDataPoints > CHART_ALERT_THRESHOLD) {
-		sparseInterval = Math.ceil(numDataPoints / CHART_ALERT_THRESHOLD);
+    sparseInterval = Math.ceil(numDataPoints / CHART_ALERT_THRESHOLD);
     modalWarning("Breath Range SPAN (" + numDataPoints +") too big!", 
         "Using interval of " + sparseInterval + " breaths");
-	}
-	session.charts.numChartDatapoints = numDataPoints / sparseInterval;
-	session.charts.sparseInterval = sparseInterval;
+  }
+  session.charts.numChartDatapoints = numDataPoints / sparseInterval;
+  session.charts.sparseInterval = sparseInterval;
 
   for (let id in session.charts.allChartsContainerInfo) {
     session.charts.allChartsContainerInfo[id].render();
@@ -196,10 +194,10 @@ function renderAllCharts() {
 function resizeAllCharts() {
   for (let id in session.charts.allChartsContainerInfo) {
     let box = session.charts.allChartsContainerInfo[id];
-		box.resizeFonts();
-	}
+    box.resizeFonts();
+  }
 
-	// renderAllCharts();
+  // renderAllCharts();
 }
 
 function submitChartXaxis(bnode) {

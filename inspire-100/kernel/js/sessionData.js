@@ -19,8 +19,8 @@ var SessionDataTemplate = {
   sessionDurationInMs: 0,
 
   launchDate: null,
-	firstChirpDate: null,
-	lastChirpDate: null,
+  firstChirpDate: null,
+  lastChirpDate: null,
   maxBreathNum: 0,
   systemBreathNum: null,
   startSystemBreathNum: null,
@@ -72,7 +72,7 @@ var SessionDataTemplate = {
   },
 
   fiO2Data: {
-		externalMixer: false,
+    externalMixer: false,
   },
 
   miscData: {
@@ -91,55 +91,55 @@ var SessionDataTemplate = {
     height : null,
   },
 
-	breathData: {
+  breathData: {
     iqdel : null,
     vtdel : null,
     vtIqRatio : null,
   },
 
-	loggedBreaths:        [{time:new Date(0),missed:true}],
+  loggedBreaths:        [{time:new Date(0),missed:true}],
   infoMsgs:             [],
 
-	// /////////////////////////////////////////////
-  // All input and output parameters (settings and measured)
-	// Initialized during createNewSession
   // /////////////////////////////////////////////
-	params : {},
-	allParamsTable: [],
+  // All input and output parameters (settings and measured)
+  // Initialized during createNewSession
+  // /////////////////////////////////////////////
+  params : {},
+  allParamsTable: [],
 
   // /////////////////////////////////////////////
   // Below are used both by Playback and Dashboard
   // /////////////////////////////////////////////
 
-	rangeSelector: {
-		timeBased: false,
-		rangeSlider:  null,
-	},
+  rangeSelector: {
+    timeBased: false,
+    rangeSlider:  null,
+  },
 
-	allSessionViews: [
-		"snapshot",
-		"charts",
-		"stats",
-		"waves",
-		"alerts",
-		"search",
-		"record",
-		"rawData",
-		"select",
-	],
+  allSessionViews: [
+    "snapshot",
+    "charts",
+    "stats",
+    "waves",
+    "alerts",
+    "search",
+    "record",
+    "rawData",
+    "select",
+  ],
 
   // Below is stuff for snapshot
   snapshot: {
-		visible: false,
-		range: null,
-		prevRange: null,
+    visible: false,
+    range: null,
+    prevRange: null,
   },
 
   // error and warning messages
   alerts: {
-		visible: false,
-		range: null,
-		prevRange: null,
+    visible: false,
+    range: null,
+    prevRange: null,
     errorNum: 0,
     warningNum: 0,
     infoNum: 0,
@@ -147,9 +147,10 @@ var SessionDataTemplate = {
 
   // chart transitions etc.
   charts : {
-		visible: false,
-		range: null,
-		prevRange: null,
+    visible: false,
+    currentChartContainerNum: 0,
+    range: null,
+    prevRange: null,
     allChartsContainerInfo: {},
     boxTree: null,
     numChartDatapoints: 0,
@@ -162,16 +163,17 @@ var SessionDataTemplate = {
 
   // Below is stuff for stats
   stats: {
-		visible: false,
-		range: null,
-		prevRange: null,
+    visible: false,
+    range: null,
+    prevRange: null,
   },
 
   // Below is stuff for detailed breath waveforms
   waves: {
-		visible: false,
-		range: null,
-		prevRange: null,
+    visible: false,
+    currentWaveContainerNum: 0,
+    range: null,
+    prevRange: null,
     sparseInterval: 1,
     pwData: [],
     fwData: [],
@@ -188,45 +190,45 @@ var SessionDataTemplate = {
     stripLineFontSize: 20,
   },
 
-	// /////////////////////////////////////////////
-	// For the recording view
-	// /////////////////////////////////////////////
+  // /////////////////////////////////////////////
+  // For the recording view
+  // /////////////////////////////////////////////
   record: {
-		visible: false,
-		range: null,
-		prevRange: null,
+    visible: false,
+    range: null,
+    prevRange: null,
     allowSelection: false,
-	},
+  },
 
-	// /////////////////////////////////////////////
-	// For the raw data view
-	// /////////////////////////////////////////////
+  // /////////////////////////////////////////////
+  // For the raw data view
+  // /////////////////////////////////////////////
   rawData: {
-		visible: false,
-		range: null,
-		prevRange: null,
-	},
+    visible: false,
+    range: null,
+    prevRange: null,
+  },
 
-	// /////////////////////////////////////////////
-	// For the select session
-	// /////////////////////////////////////////////
+  // /////////////////////////////////////////////
+  // For the select session
+  // /////////////////////////////////////////////
   select: {
-		visible: false,
-		range: null,
-		prevRange: null,
-	},
+    visible: false,
+    range: null,
+    prevRange: null,
+  },
 
-	// /////////////////////////////////////////////
-	// For the Search view
-	// /////////////////////////////////////////////
+  // /////////////////////////////////////////////
+  // For the Search view
+  // /////////////////////////////////////////////
   search: {
-		visible: false,
-		criteria: null,
-		range: null,
-		prevRange: null,
-		paramSet: [],
-		results: [],
-	},
+    visible: false,
+    criteria: null,
+    range: null,
+    prevRange: null,
+    paramSet: [],
+    results: [],
+  },
 
   // /////////////////////////////////////////////
   // Below is used by Playback
@@ -260,37 +262,37 @@ var rangeTemplate = {
 };
 
 function createNewSession() {
-	//console.log("Creating new session");
-	let saveRangeSlider = null;
-	let saveLaunchDate = null;
+  //console.log("Creating new session");
+  let saveRangeSlider = null;
+  let saveLaunchDate = null;
 
-	// There is a problem with nouiRange slider
-	// multiple initializations cause an error
-	if (session) {
-		saveRangeSlider = session.rangeSelector.rangeSlider;
-		saveLaunchDate = session.launchDate;
-	}
-	session = cloneObject(SessionDataTemplate);
-	session.launchDate = saveLaunchDate;
-	session.rangeSelector.rangeSlider = saveRangeSlider;
+  // There is a problem with nouiRange slider
+  // multiple initializations cause an error
+  if (session) {
+    saveRangeSlider = session.rangeSelector.rangeSlider;
+    saveLaunchDate = session.launchDate;
+  }
+  session = cloneObject(SessionDataTemplate);
+  session.launchDate = saveLaunchDate;
+  session.rangeSelector.rangeSlider = saveRangeSlider;
 
-	// initialize ranges
-	session.snapshot.range = cloneObject(rangeTemplate);
-	session.charts.range = cloneObject(rangeTemplate);
-	session.waves.range = cloneObject(rangeTemplate);
-	session.stats.range = cloneObject(rangeTemplate);
-	session.alerts.range = cloneObject(rangeTemplate);
-	session.search.range = cloneObject(rangeTemplate);
-	session.record.range = cloneObject(rangeTemplate);
-	session.rawData.range = cloneObject(rangeTemplate);
-	session.select.range = cloneObject(rangeTemplate);
+  // initialize ranges
+  session.snapshot.range = cloneObject(rangeTemplate);
+  session.charts.range = cloneObject(rangeTemplate);
+  session.waves.range = cloneObject(rangeTemplate);
+  session.stats.range = cloneObject(rangeTemplate);
+  session.alerts.range = cloneObject(rangeTemplate);
+  session.search.range = cloneObject(rangeTemplate);
+  session.record.range = cloneObject(rangeTemplate);
+  session.rawData.range = cloneObject(rangeTemplate);
+  session.select.range = cloneObject(rangeTemplate);
 
-	createAllParams();
+  createAllParams();
 }
 
 window.addEventListener("load", function() {
   if (session) delete session;
-	createNewSession();
+  createNewSession();
 })
 
 /////////////////////////////////////////////////////

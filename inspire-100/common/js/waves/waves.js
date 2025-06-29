@@ -6,8 +6,6 @@
 // Below are all waveform user-interface utilities
 /////////////////////////////////////////////////////////////////
 
-var currentWaveContainerNum = 0;
-
 function waveInsertInitial() {
   let allWaves = document.getElementById(ALL_WAVES_ID);
   let newContainer = createNewWaveContainer();
@@ -115,7 +113,7 @@ function createNewWaveContainer() {
   let temp = document.getElementById(WAVE_CONTAINER_TEMPLATE_ID);
   let template = findChildNodeByClass(temp.content, WAVE_CONTAINER_CLASS);
   let node = template.cloneNode(true);
-  node.id = WAVE_CONTAINER_ID_PREFIX + (currentWaveContainerNum++);
+  node.id = WAVE_CONTAINER_ID_PREFIX + (session.waves.currentWaveContainerNum++);
   let body = findChildNodeByClass(node, WAVE_BODY_CLASS);
   let box = new WaveBox(body);
   box.setMiniOptions();
