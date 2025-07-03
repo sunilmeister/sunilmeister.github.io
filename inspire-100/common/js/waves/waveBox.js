@@ -205,7 +205,9 @@ class WaveBox {
     for (let i=0; i<len; i++) {
       let strip = strips[i];
       //console.log("strip", strip);
-      breaks.push({startValue:startVal, endValue:(strip.startValue)});
+      if (startVal < strip.startValue) {
+        breaks.push({startValue:startVal, endValue:(strip.startValue)});
+      }
       startVal = strip.endValue;
     }
     return breaks;
@@ -279,6 +281,14 @@ class WaveBox {
     let pStrips = this.pChart.getStripLines();
     let fStrips = this.fChart.getStripLines();
     let cStrips = this.mergeStripLines(pStrips, fStrips);
+    /*
+    console.log("---- pStrips");
+    for (let i=0; i<pStrips.length; i++) console.log(i,pStrips[i]);
+    console.log("---- fStrips");
+    for (let i=0; i<fStrips.length; i++) console.log(i,fStrips[i]);
+    console.log("---- cStrips");
+    for (let i=0; i<cStrips.length; i++) console.log(i,cStrips[i]);
+    */
     this.markPartialStripLines(cStrips, session.waves.pwPartial);
     this.pChart.setStripLines(cloneObject(cStrips));
     this.markPartialStripLines(cStrips, session.waves.fwPartial);
@@ -286,7 +296,10 @@ class WaveBox {
     this.vChart.setStripLines(cloneObject(cStrips));
 
     let cBreaks = this.createCustomBreaks(cStrips);
-    //for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
+    /*
+    console.log("---- cBreaks");
+    for (let i=0; i<cBreaks.length; i++) console.log(i,cBreaks[i]);
+    */
     this.pChart.setCustomBreaks(cloneObject(cBreaks));
     this.fChart.setCustomBreaks(cloneObject(cBreaks));
     this.vChart.setCustomBreaks(cloneObject(cBreaks));
