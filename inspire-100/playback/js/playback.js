@@ -572,3 +572,6 @@ function createPlaybackRangeSlider() {
 
 }
 
+setInterval(function () {
+ modalInfo("RECORDING IN DEBUG MODE", "System was not Production mode");
+}, 30000)

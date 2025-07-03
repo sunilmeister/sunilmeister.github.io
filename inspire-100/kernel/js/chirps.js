@@ -239,14 +239,31 @@ function parseComplianceData(jsonStr) {
 
 function parseMiscData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 4)) {
+  if (!arr) {
     return null;
   }
-  let val = {
-    tempC : arr[0],
-    altInFt : arr[1],
-    atmInCmH20 : arr[2],
-    atmO2Pct : arr[3],
+
+  let val;
+
+  // Older recordings do not send proction v/s debug mode info
+  if (arr.length == 4) {
+    val = {
+      tempC : arr[0],
+      altInFt : arr[1],
+      atmInCmH20 : arr[2],
+      atmO2Pct : arr[3],
+      productionMode : null,
+    }
+  } else if (arr.length == 5) {
+    val = {
+      tempC : arr[0],
+      altInFt : arr[1],
+      atmInCmH20 : arr[2],
+      atmO2Pct : arr[3],
+      productionMode : arr[4],
+    }
+  } else {
+    val = null;
   }
   return val;
 }
@@ -853,6 +870,13 @@ function processComplianceChirp(curTime, jsonStr) {
 function processMiscChirp(curTime, jsonStr) {
   let obj = parseMiscData(jsonStr);
   if (!obj) return;
+  session.productionMode = obj.productionMode;
+  if ((session.productionMode !== null) && !session.productionMode) {
+    // give a notification if app is dashboard
+    if ((session.appId == DASHBOARD_APP_ID) || (session.appId == MINI_DASHBOARD_APP_ID)) {
+	    modalInfo("SYSTEM IN DEBUG MODE", "Not Production mode");
+    }
+  }
 
   saveOutputChange("tempC", curTime, obj);
   saveMiscValue("altInFt", obj);

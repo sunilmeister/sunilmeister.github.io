@@ -43,6 +43,9 @@ function modalWarning(title, msg) {
 function modalInfo(title, msg) {
   let modalColor = palette.modal;
   modalId = extractModalId(msg);
+  if (session.dontShowModals.includes(modalId)) {
+    return;
+  }
 
   let modalHtml = 
     "<span style='font-size:var(--swalTextFontSize);'><pre>" + msg + "</pre></span>";

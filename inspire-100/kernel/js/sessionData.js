@@ -29,6 +29,7 @@ var SessionDataTemplate = {
   firstBnumChirp: true,
   prevChirpResetStatus: RESET_NONE,
 
+  productionMode: null,
   firmwareVersion: {
     major: null,
     minor: null,
