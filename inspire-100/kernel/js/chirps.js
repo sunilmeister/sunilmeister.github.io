@@ -31,7 +31,7 @@ function parseMsgLines(jsonStr) {
 function parseWaveData(jsonStr) {
   //console.log("parseWaveData", jsonStr);
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 7)) {
+  if (!arr || (arr.length != 8)) {
     return null;
   }
   let obj = {};
@@ -40,8 +40,21 @@ function parseWaveData(jsonStr) {
   obj.iqdel = arr[2];
   obj.breathInfo = arr[3];
   obj.samplingIntervalMs = arr[4];
-  obj.partial = arr[5];
-  obj.waveData = arr[6];
+  obj.numSamples = arr[5];
+  obj.partial = arr[6];
+  obj.waveData = arr[7];
+
+  if (obj.waveData.length < obj.numSamples) {
+    obj.partial = 1;
+    let len = obj.waveData.length;
+    let lastSample = obj.waveData[len-1];
+    for (let i=len; i<obj.numSamples; i++) {
+      obj.waveData.push(lastSample);
+    }
+  } else if (obj.waveData.length > obj.numSamples) {
+    return {}; // something very wrong
+  }
+
   return obj;
 }
 
