@@ -9,9 +9,9 @@ function waitForChirps() {
     wifiDropped = false;
     autoCloseDormantPopup();
 
-		// ignore old chirps
-		dashboardChirpCount++;
-		if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
+    // ignore old chirps
+    dashboardChirpCount++;
+    if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
 
     let now = new Date();
     let nowMs = now.getTime();
@@ -34,14 +34,14 @@ function waitForChirps() {
     awaitingFirstChirp = false;
     lastChirpInMs = nowMs;
     disassembleAndQueueChirp(d);
-		displaySelectiveButtons();
+    displaySelectiveButtons();
   })
 }
 
 function processDashboardChirp(d) {
   let curDate = new Date(d.created);
-	let date = session.firstChirpDate;
-	if (date === null) date = new Date(d.created);
+  let date = session.firstChirpDate;
+  if (date === null) date = new Date(d.created);
   session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
   let elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
@@ -53,14 +53,14 @@ function processDashboardChirp(d) {
 
   processJsonRecord(d);
   createDashboards(d);
-	createAlarmModals(d);
+  createAlarmModals(d);
 
   return d;
 }
 
 function createDashboards() {
   if (updatePaused) return;
- 	updateSidebar();
+  updateSidebar();
 
   if (session.snapshot.visible) createDashboardSnapshots();
   if (session.charts.visible) createDashboardCharts();
@@ -104,27 +104,27 @@ function toggleAudio() {
 
 function blinkSliderDiv() {
   let div = document.getElementById("rangeWindowDiv");
-	if (!isSomeViewVisible()) return;
+  if (!isSomeViewVisible()) return;
 
-	if (!isVisibleRangeMoving()) {
+  if (!isVisibleRangeMoving()) {
     if (sliderDivBackground == "NONE") {
-  		document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
-    	div.style.backgroundColor = palette.orange;
-			sliderDivBackground = "ORANGE";
-		} else {
-  		//document.getElementById("btnPlayInterval").src = "../common/img/play.png";
-			div.style. removeProperty("background-color")
-			sliderDivBackground = "NONE";
-		}
-	} else {
- 		document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
-		div.style. removeProperty("background-color")
-		sliderDivBackground = "NONE";
-	}
+      document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
+      div.style.backgroundColor = palette.orange;
+      sliderDivBackground = "ORANGE";
+    } else {
+      //document.getElementById("btnPlayInterval").src = "../common/img/play.png";
+      div.style. removeProperty("background-color")
+      sliderDivBackground = "NONE";
+    }
+  } else {
+    document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
+    div.style. removeProperty("background-color")
+    sliderDivBackground = "NONE";
+  }
 }
 
 function blinkPauseButton() {
-	if (dashboardSessionClosed) return;
+  if (dashboardSessionClosed) return;
 
   let btn = document.getElementById("btnPause");
   let ttl = document.getElementById("breathsHeading");
@@ -157,40 +157,40 @@ function blinkPauseButton() {
 }
 
 function displaySelectiveButtons() {
-	displayAllButtons();
+  displayAllButtons();
 
-	// Now turn OFF selectively
-	if (!session.firstChirpDate) {
-  	document.getElementById("btnStats").disabled = true;
-  	document.getElementById("btnAlerts").disabled = true;
-  	document.getElementById("btnRecording").disabled = true;
-	}
-	if (!session.maxBreathNum) {
-  	document.getElementById("btnCharts").disabled = true;
-  	document.getElementById("btnWaves").disabled = true;
-  	document.getElementById("btnSearch").disabled = true;
-	}
-	if (session.snapshot.visible) {
-  	document.getElementById("btnSnapshots").disabled = true;
-	}
-	if (session.charts.visible) {
-  	document.getElementById("btnCharts").disabled = true;
-	}
-	if (session.waves.visible) {
-  	document.getElementById("btnWaves").disabled = true;
-	}
-	if (session.search.visible) {
-  	document.getElementById("btnSearch").disabled = true;
-	}
-	if (session.stats.visible) {
-  	document.getElementById("btnStats").disabled = true;
-	}
-	if (session.alerts.visible) {
-  	document.getElementById("btnAlerts").disabled = true;
-	}
-	if (session.record.visible) {
-  	document.getElementById("btnRecording").disabled = true;
-	}
+  // Now turn OFF selectively
+  if (!session.firstChirpDate) {
+    document.getElementById("btnStats").disabled = true;
+    document.getElementById("btnAlerts").disabled = true;
+    document.getElementById("btnRecording").disabled = true;
+  }
+  if (!session.maxBreathNum) {
+    document.getElementById("btnCharts").disabled = true;
+    document.getElementById("btnWaves").disabled = true;
+    document.getElementById("btnSearch").disabled = true;
+  }
+  if (session.snapshot.visible) {
+    document.getElementById("btnSnapshots").disabled = true;
+  }
+  if (session.charts.visible) {
+    document.getElementById("btnCharts").disabled = true;
+  }
+  if (session.waves.visible) {
+    document.getElementById("btnWaves").disabled = true;
+  }
+  if (session.search.visible) {
+    document.getElementById("btnSearch").disabled = true;
+  }
+  if (session.stats.visible) {
+    document.getElementById("btnStats").disabled = true;
+  }
+  if (session.alerts.visible) {
+    document.getElementById("btnAlerts").disabled = true;
+  }
+  if (session.record.visible) {
+    document.getElementById("btnRecording").disabled = true;
+  }
 }
 
 function displayAllButtons() {
@@ -214,7 +214,7 @@ function undisplayAllButtons() {
 }
 
 function undisplayAllViews() {
-	undisplayAllButtons();
+  undisplayAllButtons();
 
   document.getElementById("snapshot-pane").style.display = "none";
   document.getElementById("chart-pane").style.display = "none";
@@ -223,29 +223,29 @@ function undisplayAllViews() {
   document.getElementById("record-pane").style.display = "none";
   document.getElementById("waves-pane").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
-	rangeWindowDiv.style.display = "none";
+  rangeWindowDiv.style.display = "none";
 
-	session.snapshot.visible = false;
-	session.charts.visible = false;
-	session.stats.visible = false;
-	session.alerts.visible = false;
-	session.record.visible = false;
-	session.waves.visible = false;
-	session.search.visible = false;
+  session.snapshot.visible = false;
+  session.charts.visible = false;
+  session.stats.visible = false;
+  session.alerts.visible = false;
+  session.record.visible = false;
+  session.waves.visible = false;
+  session.search.visible = false;
 
-	pauseSnapshotsTimer();
-	hideAllPopups();
+  pauseSnapshotsTimer();
+  hideAllPopups();
 }
 
 function changeToSnapshotView() {
-	undisplayAllViews();
+  undisplayAllViews();
   if (updatePaused) togglePause();
 
-	session.snapshot.visible = true;
-	showRangeOnSlider(session.snapshot.range);
-	resumeSnapshotsTimer();
+  session.snapshot.visible = true;
+  showRangeOnSlider(session.snapshot.range);
+  resumeSnapshotsTimer();
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("snapshot-pane").style.display = "inline-grid";
   rangeWindowDiv.style.display = "block";
 
@@ -254,12 +254,12 @@ function changeToSnapshotView() {
 }
 
 function changeToChartView() {
-	undisplayAllViews();
+  undisplayAllViews();
   if (updatePaused) togglePause();
-	session.charts.visible = true;
-	showRangeOnSlider(session.charts.range);
+  session.charts.visible = true;
+  showRangeOnSlider(session.charts.range);
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("chart-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
 
@@ -268,12 +268,12 @@ function changeToChartView() {
 }
 
 function changeToWaveView() {
-	undisplayAllViews();
+  undisplayAllViews();
   if (updatePaused) togglePause();
-	session.waves.visible = true;
-	showRangeOnSlider(session.waves.range);
+  session.waves.visible = true;
+  showRangeOnSlider(session.waves.range);
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("waves-pane").style.display = "block";
   rangeWindowDiv.style.display = "block";
 
@@ -282,55 +282,55 @@ function changeToWaveView() {
 }
 
 function changeToStatView() {
-	undisplayAllViews();
+  undisplayAllViews();
   if (updatePaused) togglePause();
-	session.stats.visible = true;
-	showRangeOnSlider(session.stats.range);
+  session.stats.visible = true;
+  showRangeOnSlider(session.stats.range);
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("stat-pane").style.display = "block";
-	rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
 
   updateStatRangeOnEntry();
   createDashboardStats();
 }
 
 function changeToAlertView() {
-	undisplayAllViews();
+  undisplayAllViews();
   if (updatePaused) togglePause();
-	session.alerts.visible = true;
-	showRangeOnSlider(session.alerts.range);
+  session.alerts.visible = true;
+  showRangeOnSlider(session.alerts.range);
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("alert-pane").style.display = "block";
-	rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
 
   updateAlertRangeOnEntry();
   createDashboardAlerts();
 }
 
 function changeToSearchView() {
-	undisplayAllViews();
-	session.search.visible = true;
-	showRangeOnSlider(session.search.range);
+  undisplayAllViews();
+  session.search.visible = true;
+  showRangeOnSlider(session.search.range);
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("searchDiv").style.display = "block";
-	rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
 
-	if (!session.search.criteria) {
-		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
-	}
+  if (!session.search.criteria) {
+    session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
+  }
 
   updateSearchRangeOnEntry();
 }
 
 
 function changeToRecordView() {
-	undisplayAllViews();
-	session.record.visible = true;
+  undisplayAllViews();
+  session.record.visible = true;
 
-	displaySelectiveButtons();
+  displaySelectiveButtons();
   document.getElementById("record-pane").style.display = "block";
   rangeWindowDiv.style.display = "none";
   if (updatePaused) togglePause();
@@ -374,21 +374,21 @@ function installTempGauge() {
   let bgColor = palette.darkblue;
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('TempGauge');
-	containerDiv.innerHTML = "";
+  containerDiv.innerHTML = "";
   tempGauge = new CircularGauge(containerDiv, convertRemToPixels(6), fgColor, bgColor, -20, 70);
   tempGauge.setProperty('readonly', true);
 }
 
 window.onload = function () {
-	dashboardLaunchTime = new Date();
+  dashboardLaunchTime = new Date();
   finishedLoading = false;
 
-	// find and store often used div elements
+  // find and store often used div elements
   rangeWindowDiv = document.getElementById("rangeWindowDiv");
-	installTempGauge();
-	initCommonDivElements();
+  installTempGauge();
+  initCommonDivElements();
 
-	disableAllBeeps();  
+  disableAllBeeps();  
 
   createNewSession();
   session.appId = DASHBOARD_APP_ID;
@@ -410,8 +410,8 @@ window.onload = function () {
   }
   updateDocumentTitle();  
 
-	changeToSnapshotView();
-	undisplayAllButtons();
+  changeToSnapshotView();
+  undisplayAllButtons();
   initStats();
   initAlerts();
 
@@ -421,12 +421,12 @@ window.onload = function () {
   installPeepGauge();
   installTempGauge();
 
-	openAudioControl();
+  openAudioControl();
 
-	alignSidebar();
+  alignSidebar();
 
-	// After all the gauges are installed and sidebar aligned
-	setRootFontSize("fullDashboard", "fullDashboard");
+  // After all the gauges are installed and sidebar aligned
+  setRootFontSize("fullDashboard", "fullDashboard");
 
   // Treat <ENTER> as accept button
   new KeypressEnterSubmit('recordName', 'acceptRecordNameBtn');
@@ -447,8 +447,8 @@ window.onload = function () {
   initChirpQ();
   waitForChirps();
 
-	appResize();
-	appResizeFunction = appResize;
+  appResize();
+  appResizeFunction = appResize;
   finishedLoading = true;
 }
 
@@ -463,36 +463,36 @@ function alignSidebar() {
 
 function resizeChartsWaves() {
   let style = getComputedStyle(document.body);
-	
+  
   session.waves.labelFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
   session.waves.legendFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
   session.waves.titleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
   session.waves.stripLineFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
 
   session.charts.labelFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartLabelFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartLabelFontSize'));
   session.charts.legendFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartLegendFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartLegendFontSize'));
   session.charts.titleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartTitleFontSize'));
   session.charts.stripLineFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartStripLineFontSize'));
 
-	resizeAllCharts();
+  resizeAllCharts();
   if (session.charts.visible) renderAllCharts();
-	resizeAllWaves();
+  resizeAllWaves();
   if (session.waves.visible) renderAllWaves();
 }
 
 function appResize() {
-	resizeChartsWaves();
-	resizeSnapshots();
-	installTempGauge();
-	alignSidebar();
+  resizeChartsWaves();
+  resizeSnapshots();
+  installTempGauge();
+  alignSidebar();
 }
 
 window.onbeforeunload = function (e) {
@@ -525,11 +525,11 @@ function rangeSliderCallback() {
 
   let min = parseInt(values[0]);
   let max = parseInt(values[1]);
-	if (session.snapshot.visible) {
-		min = 0;
-	}
+  if (session.snapshot.visible) {
+    min = 0;
+  }
 
- 	updateVisibleViewRange(false, min, max);
+  updateVisibleViewRange(false, min, max);
   createDashboards();
 }
 
@@ -546,17 +546,17 @@ function setBackGroundBreathWindowButton(id, bgd) {
 }
 
 function autoRangeSliderChange() {
-	// range object already updated
-	// slider endpoints already updated
+  // range object already updated
+  // slider endpoints already updated
   createDashboards();
 }
 
 function playPauseTimeInterval() {
-	if (isVisibleRangeMoving()) {
-		pauseVisibleRange();
-  	document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
-		return;
-	}
+  if (isVisibleRangeMoving()) {
+    pauseVisibleRange();
+    document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
+    return;
+  }
 
   document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
   updateVisibleViewRange(true, 1, session.maxBreathNum);
@@ -578,21 +578,21 @@ function playPauseTimeInterval() {
 function rewindTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
-	rewindRange();
+  rewindRange();
   createDashboards();
 }
 
 function forwardTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
-	forwardRange();
+  forwardRange();
   createDashboards();
 }
 
 function fullTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
-	fullRange();
+  fullRange();
   createDashboards();
 }
 
@@ -610,7 +610,7 @@ function HandlePeriodicTasks() {
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkPauseButton();
     blinkFlowRate();
-		blinkSliderDiv();
+    blinkSliderDiv();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   let now = new Date();
@@ -646,22 +646,22 @@ function HandlePeriodicTasks() {
 
 var dashboardSessionClosed = false;
 function closeCurrentSession() {
-	// allow navigation and manipulation of current session views
-	dashboardSessionClosed = true;
+  // allow navigation and manipulation of current session views
+  dashboardSessionClosed = true;
 
-	// change sidebar to SESSION CLOSED
-	let elm = document.getElementById("dashboardSessionHeader");
-	elm.innerHTML = "<b>**SESSION CLOSED**</b>";
-	elm = document.getElementById("headerDiv");
-	elm.style.backgroundColor = palette.orange;
+  // change sidebar to SESSION CLOSED
+  let elm = document.getElementById("dashboardSessionHeader");
+  elm.innerHTML = "<b>**SESSION CLOSED**</b>";
+  elm = document.getElementById("headerDiv");
+  elm.style.backgroundColor = palette.orange;
 
-	// close any recording in progress
-	closeRecording();
+  // close any recording in progress
+  closeRecording();
 
-	// display and sound a warning
-	modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
-	enableWarningBeep();
-	startWarningBeep();
+  // display and sound a warning
+  modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
+  enableWarningBeep();
+  startWarningBeep();
 }
 
 setTimeout(function periodicCheck() {
@@ -680,37 +680,38 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
 
     let d = chirpQ.pop();
-		if (dashboardSessionClosed) {
-			return; // do not process any more chirps
-		}
+    if (dashboardSessionClosed) {
+      return; // do not process any more chirps
+    }
 
-		if (isUndefined(d["content"])) break; // empty chirp
+    if (isUndefined(d["content"])) break; // empty chirp
 
-		// check if a new session has started without current one being closed
+    // check if a new session has started without current one being closed
     if (!isUndefined(d.content["HWORLD"])) {
-			if (session.firstChirpDate) {
-				// A session was in progress but a new session started
-				// must close current session and inform user
-				closeCurrentSession();
-				return;
-			}
-		}
+      console.log("HELLO WORLD");
+      if (session.stateData.state !== null) {
+        // A session was in progress but a new session started
+        // must close current session and inform user
+        closeCurrentSession();
+        return;
+      }
+    }
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
-			if (bnumObj) {
-      	if (session.startSystemBreathNum == null) {
-        	session.startSystemBreathNum = bnumObj.bnum;
-        	let elm = document.getElementById("priorBreathNum");
-        	elm.innerHTML = String(bnumObj.bnum - 1);
-      	}
-        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
-        if (chirpBnum >	session.maxBreathNum) {
-      	  session.systemBreathNum = bnumObj.bnum;
-         	session.maxBreathNum = chirpBnum;
+      if (bnumObj) {
+        if (session.startSystemBreathNum == null) {
+          session.startSystemBreathNum = bnumObj.bnum;
+          let elm = document.getElementById("priorBreathNum");
+          elm.innerHTML = String(bnumObj.bnum - 1);
         }
-			}
+        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+        if (chirpBnum > session.maxBreathNum) {
+          session.systemBreathNum = bnumObj.bnum;
+          session.maxBreathNum = chirpBnum;
+        }
+      }
     }
     let dCopy; // a copy of the chirp
     dCopy = cloneObject(d);
@@ -727,7 +728,7 @@ function autoCloseDormantPopup() {
 }
 
 function showDormantPopup() {
-	if (dashboardSessionClosed) return;
+  if (dashboardSessionClosed) return;
   modalId = DORMANT_TITLE_STR;
   if (session.dontShowModals.includes(modalId)) {
     return;
@@ -781,7 +782,7 @@ setInterval(() => {
 }, 1000)
 
 setInterval(() => {
-	registerDashboardPing(inspireUid);
+  registerDashboardPing(inspireUid);
 }, PING_INTERVAL_IN_MS)
 
 
