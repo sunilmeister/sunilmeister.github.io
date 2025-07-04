@@ -206,7 +206,12 @@ class WaveBox {
       let strip = strips[i];
       //console.log("strip", strip);
       if (startVal < strip.startValue) {
-        breaks.push({startValue:startVal, endValue:(strip.startValue)});
+        let cb = {
+          startValue:startVal, 
+          endValue:(strip.startValue),
+          fillOpacity: 0, 
+        }
+        breaks.push(cb);
       }
       startVal = strip.endValue;
     }
