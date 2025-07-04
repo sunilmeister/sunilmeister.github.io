@@ -573,5 +573,7 @@ function createPlaybackRangeSlider() {
 }
 
 setInterval(function () {
- modalInfo("RECORDING IN DEBUG MODE", "System was not Production mode");
+  if ((session.productionMode !== null) && !session.productionMode) {
+    modalInfo("RECORDING IN DEBUG MODE", "System was not Production mode");
+  }
 }, 30000)
