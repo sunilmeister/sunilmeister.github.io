@@ -27,5 +27,6 @@ function updateChartRange() {
 }
 
 function updateChartRangeOnEntry() {
+  changeRangeSliderColors(session.charts.range.moving);
   if (session.charts.range.moving) movingChartRange();
 }

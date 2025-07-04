@@ -19,5 +19,6 @@ function updateSnapshotRange() {
 }
 
 function updateSnapshotRangeOnEntry() {
+  changeRangeSliderColors(session.snapshot.range.moving);
   if (session.snapshot.range.moving) movingSnapshotRange();
 }

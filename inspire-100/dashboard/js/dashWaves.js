@@ -40,5 +40,6 @@ function updateWaveRange() {
 }
 
 function updateWaveRangeOnEntry() {
+  changeRangeSliderColors(session.waves.range.moving);
   if (session.waves.range.moving) movingWaveRange();
 }

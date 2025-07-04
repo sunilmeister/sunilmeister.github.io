@@ -25,5 +25,6 @@ function updateAlertRange() {
 }
 
 function updateAlertRangeOnEntry() {
+  changeRangeSliderColors(session.alerts.range.moving);
   if (session.alerts.range.moving) movingAlertRange();
 }

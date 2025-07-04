@@ -25,5 +25,6 @@ function updateSearchRange() {
 }
 
 function updateSearchRangeOnEntry() {
+  changeRangeSliderColors(session.search.range.moving);
   if (session.search.range.moving) movingSearchRange();
 }

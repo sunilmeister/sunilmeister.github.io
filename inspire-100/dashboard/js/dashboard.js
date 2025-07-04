@@ -519,6 +519,29 @@ function createRangeSlider(div) {
   session.rangeSelector.rangeSlider.setChangeCallback(rangeSliderCallback);
 }
 
+function changeRangeSliderColors(moving) {
+  let connectColor, handleColor, cols;
+  if (moving) {
+    document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
+    connectColor = palette.brightgreen;
+    handleColor = palette.green;
+  } else {
+    document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
+    connectColor = palette.orange;
+    handleColor = palette.orange;
+  }
+
+  cols = document.getElementsByClassName('noUi-connect');
+  for(let i = 0; i < cols.length; i++) {
+    cols[i].style.backgroundColor = connectColor;
+  }
+
+  cols = document.getElementsByClassName('noUi-handle');
+  for(let i = 0; i < cols.length; i++) {
+    cols[i].style.backgroundColor = handleColor;
+  }
+}
+
 function rangeSliderCallback() {
   if (stopSliderCallback) return;
   let values = session.rangeSelector.rangeSlider.getSlider();
@@ -554,11 +577,11 @@ function autoRangeSliderChange() {
 function playPauseTimeInterval() {
   if (isVisibleRangeMoving()) {
     pauseVisibleRange();
-    document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
+    changeRangeSliderColors(false);
     return;
   }
 
-  document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
+  changeRangeSliderColors(true);
   updateVisibleViewRange(true, 1, session.maxBreathNum);
 
   stopSliderCallback = true;
@@ -579,6 +602,7 @@ function rewindTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
   rewindRange();
+  changeRangeSliderColors(false);
   createDashboards();
 }
 
@@ -586,6 +610,7 @@ function forwardTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
   forwardRange();
+  changeRangeSliderColors(false);
   createDashboards();
 }
 
@@ -593,11 +618,13 @@ function fullTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
 
   fullRange();
+  changeRangeSliderColors(false);
   createDashboards();
 }
 
 function editTimeInterval() {
   document.getElementById("btnPlayInterval").src = "../common/img/play.png";
+  changeRangeSliderColors(false);
   createDashboards();
 }
 
@@ -610,7 +637,7 @@ function HandlePeriodicTasks() {
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkPauseButton();
     blinkFlowRate();
-    blinkSliderDiv();
+    //blinkSliderDiv();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   let now = new Date();

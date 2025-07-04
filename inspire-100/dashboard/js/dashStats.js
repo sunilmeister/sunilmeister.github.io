@@ -25,5 +25,6 @@ function updateStatRange() {
 }
 
 function updateStatRangeOnEntry() {
+  changeRangeSliderColors(session.stats.range.moving);
   if (session.stats.range.moving) movingStatRange();
 }
