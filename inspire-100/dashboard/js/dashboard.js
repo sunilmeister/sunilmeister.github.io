@@ -102,27 +102,6 @@ function toggleAudio() {
   }
 }
 
-function blinkSliderDiv() {
-  let div = document.getElementById("rangeWindowDiv");
-  if (!isSomeViewVisible()) return;
-
-  if (!isVisibleRangeMoving()) {
-    if (sliderDivBackground == "NONE") {
-      document.getElementById("btnPlayInterval").src = "../common/img/playOrange.png";
-      div.style.backgroundColor = palette.orange;
-      sliderDivBackground = "ORANGE";
-    } else {
-      //document.getElementById("btnPlayInterval").src = "../common/img/play.png";
-      div.style. removeProperty("background-color")
-      sliderDivBackground = "NONE";
-    }
-  } else {
-    document.getElementById("btnPlayInterval").src = "../common/img/pause.png";
-    div.style. removeProperty("background-color")
-    sliderDivBackground = "NONE";
-  }
-}
-
 function blinkPauseButton() {
   if (dashboardSessionClosed) return;
 
@@ -637,7 +616,6 @@ function HandlePeriodicTasks() {
   if (blinkInterval >= BLINK_INTERVAL_IN_MS) {
     blinkPauseButton();
     blinkFlowRate();
-    //blinkSliderDiv();
     prevBlinkTimeInMs = invokeTimeInMs;
   }
   let now = new Date();

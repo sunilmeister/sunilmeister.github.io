@@ -40,7 +40,6 @@ var chirpIntervalCounter = 0;
 
 var finishedLoading = false;
 
-var sliderDivBackground = "NONE";
 var pauseButtonForeground = "MEDIUMBLUE";
 var recordButtonForeground = "MEDIUMBLUE";
 var recorderBackground = "MEDIUMBLUE";
