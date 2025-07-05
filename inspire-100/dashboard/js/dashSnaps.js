@@ -4,6 +4,7 @@
 
 function createDashboardSnapshots() {
 	rangeWindowDiv.style.display = "block";
+  changeRangeSliderColors(session.snapshot.range.moving);
 	refreshSnapshot();
 	updateVisiblePrevRange();
 }

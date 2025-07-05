@@ -4,6 +4,7 @@
 
 function createDashboardSearch() {
 	rangeWindowDiv.style.display = "block";
+  changeRangeSliderColors(session.search.range.moving);
 	if (isVisibleRangeChanged()) {
 		updateSearchResults();
 		updateVisiblePrevRange();

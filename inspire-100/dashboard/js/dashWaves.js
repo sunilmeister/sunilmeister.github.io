@@ -5,6 +5,7 @@
 var prevPwLen = 0;
 function createDashboardWaves() {
 	rangeWindowDiv.style.display = "block";
+  changeRangeSliderColors(session.waves.range.moving);
   let pwLen = session.waves.pwData.length;
   let forceDisplay = session.waves.range.moving && (prevPwLen != pwLen);
 	if (isVisibleRangeChanged() || forceDisplay) {

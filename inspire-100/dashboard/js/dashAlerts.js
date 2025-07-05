@@ -4,6 +4,7 @@
 
 function createDashboardAlerts() {
 	rangeWindowDiv.style.display = "block";
+  changeRangeSliderColors(session.alerts.range.moving);
 	if (isVisibleRangeChanged()) {
   	createAllAlerts();
 		updateVisiblePrevRange();

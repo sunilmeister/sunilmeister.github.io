@@ -4,6 +4,7 @@
 
 function createDashboardCharts() {
 	rangeWindowDiv.style.display = "block";
+  changeRangeSliderColors(session.charts.range.moving);
 	if (isVisibleRangeChanged()) {
   	createAllCharts();
 		updateVisiblePrevRange();

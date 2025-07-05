@@ -4,6 +4,7 @@
 
 function createDashboardStats() {
 	rangeWindowDiv.style.display = "block";
+  changeRangeSliderColors(session.stats.range.moving);
 	if (isVisibleRangeChanged()) {
   	createAllStats();
 		updateVisiblePrevRange();
