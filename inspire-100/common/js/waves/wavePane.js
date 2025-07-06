@@ -18,7 +18,7 @@
 class WavePane {
   constructor(chartTitle, xTitle, yMinMaxInterval, height, rangeX, menu, 
               paramName, paramColor, data) {
-    this.graphType = "splineArea";
+    this.graphType = "area";
     this.chartTitle = chartTitle;
     this.xTitle = xTitle;
     this.yInterval = yMinMaxInterval.interval;
