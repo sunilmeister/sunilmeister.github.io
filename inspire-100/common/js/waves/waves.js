@@ -143,6 +143,13 @@ function removeWaveContainerId(id) {
   delete session.waves.allWavesContainerInfo[id];
 }
 
+function removeAllWaveContainers(id) {
+  for (let id in session.waves.allWavesContainerInfo) {
+    removeWaveContainerId(id);
+  }
+  removeWaveEditMenu();
+}
+
 function waveTreeCheckboxClicked(cbox) {
   session.waves.boxTree.CheckboxClicked(cbox);
   waveMenuSubmit(cbox);

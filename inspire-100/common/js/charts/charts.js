@@ -142,6 +142,13 @@ function removeChartContainerId(id) {
   delete session.charts.allChartsContainerInfo[id];
 }
 
+function removeAllChartContainers(id) {
+  for (let id in session.waves.allChartsContainerInfo) {
+    removeChartContainerId(id);
+  }
+  removeChartEditMenu();
+}
+
 function chartTreeCheckboxClicked(cbox) {
   session.charts.boxTree.CheckboxClicked(cbox);
   chartMenuSubmit(cbox);

@@ -3,14 +3,15 @@
 // ////////////////////////////////////////////////////
 
 function initWaves() {
-  let allWaveDivs = [];
-  for (let id in session.waves.allWavesContainerInfo) {
-    allWaveDivs.push(id);
-  }
+  removeAllWaveContainers();
   session.waves.allWavesContainerInfo = {};
-  for (let i=0; i<allWaveDivs.length; i++) {
-    let id = allWaveDivs[i];
-    let node = document.getElementById(id);
-    node.remove();
+  let node = document.getElementById("wavesDiv");
+  let allChildNodes = node.childNodes;
+  for (let i=0; i<allChildNodes.length; i++) {
+    let child = allChildNodes[i];
+    let classes = child.classList;
+    if (!isUndefined(classes) && (classes !== null) && classes.length) {
+      if (classes[0] == "waveContainer") node.removeChild(child);
+    }
   }
 }

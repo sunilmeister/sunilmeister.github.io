@@ -3,57 +3,47 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 -->
-
 <!DOCTYPE html>
 <html>
-
   <head>
     <title>Inspire-100 WebAPPS</title>
     <meta charset="UTF-8" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="icon" type="image/png" href="../common/img/favicon.png" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />    <link rel="stylesheet" href="../common/css/colors.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="../common/css/colors.css" />
     <link rel="stylesheet" href="../common/css/common.css" />
     <link rel="stylesheet" href="../common/css/selectTableRow.css" />
     <link rel="stylesheet" href="css/sizes.css" />
     <link rel="stylesheet" href="css/main.css" />
-
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/download/download.min.js"></script>
-
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-
-  	<script src="../kernel/js/constants.js"></script>
-  	<script src="../kernel/js/hwPosts.js"></script>
-  	<script src="../kernel/js/sessionData.js"></script>
-  	<script src="../kernel/js/params.js"></script>
-
-   	<script src="../common/js/misc/palette.js"></script>
-  	<script src="../common/js/misc/uid.js"></script>
-  	<script src="../common/js/misc/common.js"></script>
-  	<script src="../common/js/misc/swalModals.js"></script>
-  	<script src="../common/js/misc/commonDivs.js"></script>
-  	<script src="../common/js/misc/resize.js"></script>
-  	<script src="../common/js/misc/modalPopup.js"></script>
-  	<script src="../common/js/misc/hidePopups.js"></script>
-  	<script src="../common/js/misc/checkboxTree.js"></script>
-  	<script src="../common/js/misc/queue.js"></script>
-  	<script src="../common/js/misc/circularGauge.js"></script>
-  	<script src="../common/js/misc/enterSubmit.js"></script>
-  	<script src="../common/js/misc/selectTableRow.js"></script>
-  	<script src="../common/js/misc/iconButton.js"></script>
-  	<script src="../common/js/misc/portal.js"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="../kernel/js/constants.js"></script>
+    <script src="../kernel/js/hwPosts.js"></script>
+    <script src="../kernel/js/sessionData.js"></script>
+    <script src="../kernel/js/params.js"></script>
+    <script src="../common/js/misc/palette.js"></script>
+    <script src="../common/js/misc/uid.js"></script>
+    <script src="../common/js/misc/common.js"></script>
+    <script src="../common/js/misc/swalModals.js"></script>
+    <script src="../common/js/misc/commonDivs.js"></script>
+    <script src="../common/js/misc/resize.js"></script>
+    <script src="../common/js/misc/modalPopup.js"></script>
+    <script src="../common/js/misc/hidePopups.js"></script>
+    <script src="../common/js/misc/checkboxTree.js"></script>
+    <script src="../common/js/misc/queue.js"></script>
+    <script src="../common/js/misc/circularGauge.js"></script>
+    <script src="../common/js/misc/enterSubmit.js"></script>
+    <script src="../common/js/misc/selectTableRow.js"></script>
+    <script src="../common/js/misc/iconButton.js"></script>
+    <script src="../common/js/misc/portal.js"></script>
     <script src="../common/js/firmware/fwReleases.js"></script>
     <script src="../common/js/firmware/appReleases.js"></script>
-
     <script src="js/main.js"></script>
   </head>
-
   <body style="font-family: verdana; overflow:auto;">
     <div id=exportDiv class=popupClassCenter style="width:25rem; height:18rem; display: none">
       <center>
@@ -69,11 +59,9 @@
           <button class=button style="background-color:var(--rsp_darkred); width:10rem;" onclick=cancelExport()>CANCEL</button>
           <br>
           <br>
-
         </div>
       </center>
     </div>
-
     <div id=importDiv class=popupClassCenter style="height:18rem; width:30rem; font-size:2rem; display: none">
       <center>
         <br>
@@ -89,12 +77,10 @@
         <br>
       </center>
     </div>
-
     <div id=addSystemDiv class=popupClassCenter style="width:25rem; height:20rem; font-size: 1.4rem; display: none">
       <center>
         <div>
-          <p style="font-size:1.8rem; margin-top:1.0rem; ">ADD new System
-            <br>
+          <p style="font-size:1.8rem; margin-top:1.0rem; ">ADD new System <br>
             <br>
             <label for="newSysUID" style="font-size:1.6rem;">System UID</label>
             <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; " />
@@ -108,13 +94,11 @@
         </div>
       </center>
     </div>
-
     <div id=addDetectedSystemDiv class=popupClassCenterPersistent style="width:45rem; height:18rem; font-size: 1.5rem;
     display: none">
       <center>
         <div>
-          <p style="font-size:2.5rem; margin-top:1.5rem;">ADD Detected System using OTP
-            <br>
+          <p style="font-size:2.5rem; margin-top:1.5rem;">ADD Detected System using OTP <br>
             <br>
             <label for="detectedSysOTP" style="font-size:1.75rem;">OTP from System Front Panel</label>
             <input id=detectedSysOTP style="width: 4rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
@@ -125,70 +109,66 @@
         </div>
       </center>
     </div>
-
     <div id=deleteHistoryDiv class=popupClassCenter style="width:25rem; height:14rem; font-size: 1.5rem; display: none">
-        <div style="padding-left:3rem;">
-          <br>
-          <input type="checkbox" style="width:1rem; height:1rem;" id="cookiesDelete"> Delete ALL Cookies
-          <br>
-          <input type="checkbox" style="width:1rem; height:1rem;" id="recordingsDelete"> Delete ALL Recordings
-          <br>
-          <input type="checkbox" style="width:1rem; height:1rem;" id="systemsDelete"> Delete ALL UID History
-          <br>
-          <br>
-      <center>
+      <div style="padding-left:3rem;">
+        <br>
+        <input type="checkbox" style="width:1rem; height:1rem;" id="cookiesDelete"> Delete ALL Cookies <br>
+        <input type="checkbox" style="width:1rem; height:1rem;" id="recordingsDelete"> Delete ALL Recordings <br>
+        <input type="checkbox" style="width:1rem; height:1rem;" id="systemsDelete"> Delete ALL UID History <br>
+        <br>
+        <center>
           <button class=button style="background-color:var(--rsp_darkblue); width:10rem; " onclick=deleteHistoryBtn()>DELETE</button>
           <button class=button style="background-color:var(--rsp_darkred); width:10rem; " onclick=cancelDeleteHistoryBtn()>CANCEL</button>
-        </div>
+      </div>
       </center>
     </div>
-
     <div id=wrapper class=wrapper>
-
       <div id=mainDiv style="display:block;">
         <div style="background-color:var(--rsp_mediumblue);">
           <center>
-            <img src="../common/img/Logo-horizontal.png" alt="Title"  style="margin-top: 0.2rem; margin-right:-0.4rem; margin-left:-0.4rem; width:20rem; height:6rem;" />
+            <img src="../common/img/Logo-horizontal.png" alt="Title" style="margin-top: 0.2rem; margin-right:-0.4rem; margin-left:-0.4rem; width:20rem; height:6rem;" />
           </center>
         </div>
         <center>
           <div style="background-color:var(--rsp_mediumblue); color:white; font-size:1.8rem;">
-            <p style="margin-top:0;margin-bottom:0.4rem;">&nbsp&nbsp<b>INSPIRE-100</b> <i>Web Applications</i>&nbsp&nbsp
+            <p style="margin-top:0;margin-bottom:0rem;">&nbsp&nbsp <b>INSPIRE-100</b>
+              <i>Web Applications</i>&nbsp&nbsp
           </div>
-          <div class=content style="font-size: 1.5rem;">
+          <br>
+          <div class=content style="background-color:var(--rsp_brightblue); color:var(--rsp_darkblue); font-size: 1.5rem;">
             <button class=lineButton onclick="mySystemInfo()">Manage Systems</button>
             <br>
             <button class=lineButton onclick="addSystemInfo()">Add System</button>
-						<hr>
-            <label style="margin-bottom:0; font-size:1.5rem;">Select System</label>
+          </div>
+          <br>
+          <div style="background-color:var(--rsp_blue); color:var(--rsp_darkblue); font-size: 1.5rem;">
             <br>
-            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 0.2rem; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" />
-            </select>
+            <label style="margin-bottom:0; font-size:1.6rem; font-weight: bold;">Select System</label>
             <br>
-            <button class=lineButton onclick="launchFullDashboard()">Launch Full Dashboard</button>
+            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 0.2rem; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" /></select>
             <br>
-            <button class=lineButton onclick="launchMiniDashboard()">Launch Mini Dashboard</button>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchFullDashboard()">Launch Full Dashboard</button>
             <br>
-            <button class=lineButton onclick="launchRecorder()">Launch Recorder</button>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchMiniDashboard()">Launch Mini Dashboard</button>
             <br>
-            <button class=lineButton onclick="launchPlayback()">Launch Playback</button>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchRecorder()">Launch Recorder</button>
             <br>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchPlayback()">Launch Playback</button>
+            <br>
+            <br>
+          </div>
+          <div style="background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); font-size: 1.5rem;">
             <hr>
-            <button class=lineButton onclick="multiSystemView()">Multi-system Display</button>
-						<hr>
-<!-- 
-            <button class=lineButton onclick="launchVideo()">View Instruction Videos</button>
-						<br>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="multiSystemView()">Multi-system Display</button>
+            <hr>
+            <!-- 
+            <button class=lineButton  style="color:var(--rsp_darkblue);" onclick="launchVideo()">View Instruction Videos</button><br>
 -->
-            <button class=lineButton onclick="launchDocs()">View PDF Documents</button>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchDocs()">View PDF Documents</button>
             <hr>
-            <button class=lineButton onclick="installFirmwareApp()">Firmware Installer</button>
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="installFirmwareApp()">Firmware Installer</button>
             <hr>
-            <button class=lineButton onclick="findElevation()">Deployment Site Elevation</button>
-<!-- 
-          <hr>
-            <button class=lineButton onclick="launchFiO2()">Calculate FiO<sub>2</sub> Settings</button>
--->
+            <button class=lineButton style="color:var(--rsp_darkblue);" onclick="findElevation()">Deployment Site Elevation</button>
             <hr>
           </div>
         </center>
@@ -199,24 +179,21 @@
           </center>
           <br>
         </div>
-
       </div>
-
       <div id=mySystems style="display:none; min-height:45rem;">
-        <div >
+        <div>
           <center>
             <div style="background-color:var(--rsp_mediumblue);">
               <img src="../common/img/systems-logo.png" alt="Title" style="margin-top: 0.2rem;  width:32rem; height:7rem;" />
             </div>
-            <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.5rem;margin-top:0.4rem;">
-              <img src="../common/img/back.png" class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Back to Main Menu'style="width:2rem; height:2rem;float:left; margin-left:1rem;">
-              <img src="../common/img/trash-bin.png" class=iconButton onClick="removeAllUidRows(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Delete All'style="width:2rem; height:2rem;float:right; margin-left:1rem;">
-              <img src="../common/img/plus.png" class=iconButton onClick="addSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Add System'style="width:2rem; height:2rem;float:right; margin-left:1rem;">
-              <img src="../common/img/import.png" class=iconButton onClick="importSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Import'style="width:2rem; height:2rem;float:right; margin-left:1rem;">
-              <img src="../common/img/export.png" class=iconButton onClick="exportSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Export'style="width:2rem; height:2rem;float:right; margin-left:1rem;">
+            <div style="background-color:var(--rsp_brightblue); color: white; font-size:1.5rem;margin-top:1rem; padding-bottom:0.4rem;">
+              <img src="../common/img/back.png" class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Back to Main Menu' style="width:2rem; height:2rem;float:left; margin-left:1rem;">
+              <img src="../common/img/trash-bin.png" class=iconButton onClick="removeAllUidRows(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Delete All' style="width:2rem; height:2rem;float:right; margin-left:1rem;">
+              <img src="../common/img/plus.png" class=iconButton onClick="addSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Add System' style="width:2rem; height:2rem;float:right; margin-left:1rem;">
+              <img src="../common/img/import.png" class=iconButton onClick="importSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Import' style="width:2rem; height:2rem;float:right; margin-left:1rem;">
+              <img src="../common/img/export.png" class=iconButton onClick="exportSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Export' style="width:2rem; height:2rem;float:right; margin-left:1rem;">
               <br>
             </div>
-
             <br>
             <table id=mySystemsTable style="border:solid; font-size:1.2rem;">
               <thead>
@@ -228,18 +205,14 @@
                   <th align="center" colspan="2" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 0.2rem 0.2rem; ">Actions</th>
                 </tr>
               </thead>
-              <tbody style="overflow: auto;">
-              </tbody>
+              <tbody style="overflow: auto;"></tbody>
             </table>
             </font>
             <br>
           </center>
         </div>
-
       </div>
       <br>
     </div>
-
   </body>
-
 </html>

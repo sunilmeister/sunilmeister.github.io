@@ -23,7 +23,7 @@
   height:2.5rem;
   width:22rem;
   margin-top:0;
-  background-color:var(--rsp_darkblue);
+  background-color:transparent;
   border-width:0;
   color:white; 
   cursor: pointer;
