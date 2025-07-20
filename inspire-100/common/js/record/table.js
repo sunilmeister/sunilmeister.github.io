@@ -125,6 +125,7 @@ function doDeleteDbRow(arg) {
   // remove from HTML table
   row.parentNode.removeChild(row);
   showAllDbs();
+  highlightDbRow(session.database.dbName);
 }
 
 function exportRowBtn(btn) {
