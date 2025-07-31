@@ -2,6 +2,37 @@
 
 This is a Node.js/Express backend application that manages firmware installation records with system UIDs and timestamps.
 
+## Build Scripts
+
+### Quick Build (Recommended)
+```bash
+# Windows
+build.bat
+
+# Linux/macOS
+chmod +x build.sh
+./build.sh
+
+# Or using npm
+npm run build
+```
+
+### Manual Build Steps
+```bash
+# Clean and setup
+npm run clean
+npm run setup
+
+# Install dependencies
+npm run install-deps
+
+# Security check
+npm run security-check
+
+# Build for production
+npm run build
+```
+
 ## Setup
 
 1. Create a MySQL database named `firmware_db`

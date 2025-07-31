@@ -56,9 +56,47 @@
     <div class="container">
       <p>Use the following endpoints:</p>
       <ul>
-        <li><strong>POST</strong> /api/firmware-installation</li>
-        <li><strong>GET</strong> /api/firmware-installation/:system_uid</li>
+        <li>
+          <strong>POST</strong> /api/firmware-installation - Record new firmware
+          installation
+        </li>
+        <li>
+          <strong>GET</strong> /api/firmware-installation/:system_uid - Get
+          installation history for a UID
+        </li>
+        <li>
+          <strong>POST</strong> /api/deprecate-uid - Deprecate previous UID
+          records
+        </li>
       </ul>
+
+      <div
+        style="
+          background: #e3f2fd;
+          padding: 15px;
+          border-radius: 5px;
+          margin: 20px 0;
+          text-align: left;
+        "
+      >
+        <h3 style="color: #1976d2; margin-top: 0">API Information</h3>
+        <p>
+          <strong>New Feature:</strong> The deprecate UID endpoint automatically
+          marks previous firmware records as deprecated when a new UID is
+          installed on the same device. This maintains historical data while
+          clearly indicating which records are currently active.
+        </p>
+        <p><strong>Status Meanings:</strong></p>
+        <ul style="text-align: left">
+          <li>
+            <strong>Active:</strong> Current, verified firmware installation
+          </li>
+          <li>
+            <strong>Deprecated:</strong> Previous UID that has been replaced
+          </li>
+        </ul>
+      </div>
+
       <a href="/view-installations" class="button">View Installations</a>
     </div>
   </body>

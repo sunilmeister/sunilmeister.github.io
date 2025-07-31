@@ -72,25 +72,93 @@ app.post("/api/firmware-installation", async (req, res) => {
 
   try {
     const connection = await pool.getConnection();
-    const [result] = await connection.query(
-      "INSERT INTO firmware_installations (system_uid, firmware_version, verification_status) VALUES (?, ?, ?)",
-      [system_uid, firmware_version, verification_status]
+
+    // Check if a record with the same system_uid already exists
+    const [existingRecords] = await connection.query(
+      "SELECT id FROM firmware_installations WHERE system_uid = ? ORDER BY installation_timestamp DESC LIMIT 1",
+      [system_uid]
     );
+
+    let result;
+    let installation;
+    let message;
+
+    if (existingRecords.length > 0) {
+      // Update existing record
+      const existingId = existingRecords[0].id;
+      await connection.query(
+        "UPDATE firmware_installations SET firmware_version = ?, verification_status = ?, installation_timestamp = CURRENT_TIMESTAMP WHERE id = ?",
+        [firmware_version, verification_status, existingId]
+      );
+
+      installation = {
+        id: existingId,
+        system_uid,
+        firmware_version,
+        verification_status
+      };
+
+      message = "Firmware installation updated successfully";
+    } else {
+      // Insert new record
+      const [insertResult] = await connection.query(
+        "INSERT INTO firmware_installations (system_uid, firmware_version, verification_status) VALUES (?, ?, ?)",
+        [system_uid, firmware_version, verification_status]
+      );
+
+      installation = {
+        id: insertResult.insertId,
+        system_uid,
+        firmware_version,
+        verification_status
+      };
+
+      message = "Firmware installation recorded successfully";
+    }
+
     connection.release();
 
-    const installation = {
-      id: result.insertId,
-      system_uid,
-      firmware_version,
-      verification_status
-    };
-
     res.status(201).json({
-      message: "Firmware installation recorded successfully",
+      message: message,
       data: installation
     });
   } catch (error) {
     console.error("Error recording firmware installation:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Deprecate previous UID records (set verification_status to false)
+app.post("/api/deprecate-uid", async (req, res) => {
+  const { old_system_uid, secret } = req.body;
+
+  // Validate required fields
+  if (!old_system_uid || !secret) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+
+  // Verify secret
+  if (!verifySecret(secret)) {
+    return res.status(401).json({ error: "Invalid secret" });
+  }
+
+  try {
+    const connection = await pool.getConnection();
+
+    // Update all records for the old UID to set verification_status to false
+    const [result] = await connection.query(
+      "UPDATE firmware_installations SET verification_status = FALSE WHERE system_uid = ? AND verification_status = TRUE",
+      [old_system_uid]
+    );
+
+    connection.release();
+
+    res.status(200).json({
+      message: `Successfully deprecated ${result.affectedRows} record(s) for UID: ${old_system_uid}`,
+      deprecated_records: result.affectedRows
+    });
+  } catch (error) {
+    console.error("Error deprecating UID records:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 });

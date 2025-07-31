@@ -12,7 +12,13 @@ from src.utils.utils import is_admin, find_port
 
 
 def download_and_install_driver(
-    driver_url, extract_path, installer_path, progress_bar, progress_label, log_text
+    driver_url,
+    extract_path,
+    installer_path,
+    progress_bar,
+    progress_label,
+    log_text,
+    user_role,
 ):
     # Start a thread for this operation
     download_thread = threading.Thread(
@@ -24,6 +30,7 @@ def download_and_install_driver(
             progress_bar,
             progress_label,
             log_text,
+            user_role,
         ),
     )
     download_thread.daemon = True
@@ -31,7 +38,13 @@ def download_and_install_driver(
 
 
 def download_and_install_driver_thread(
-    driver_url, extract_path, installer_path, progress_bar, progress_label, log_text
+    driver_url,
+    extract_path,
+    installer_path,
+    progress_bar,
+    progress_label,
+    log_text,
+    user_role,
 ):
     if not is_admin():
         root.after(
@@ -101,7 +114,10 @@ def download_and_install_driver_thread(
 
         # Continue with port detection after successful driver installation
         root.after(
-            0, lambda: find_port_delayed_node(progress_bar, progress_label, log_text)
+            0,
+            lambda: find_port_delayed_node(
+                progress_bar, progress_label, log_text, user_role
+            ),
         )
 
         return True
@@ -124,9 +140,9 @@ def update_esp8266_index(progress_label, log_text):
 
 def update_esp8266_index_thread(progress_label, log_text):
     try:
-        # Command to update the Arduino CLI index to include the ESP8266 package
+        # Command to update the Arduino CLI index to include the Slave package
         root.after(
-            0, lambda: progress_label.config(text=f"Progress: Updating ESP8266 Index")
+            0, lambda: progress_label.config(text=f"Progress: Updating Slave Index")
         )
         command_update_index = [
             "arduino-cli",
@@ -152,7 +168,7 @@ def update_esp8266_index_thread(progress_label, log_text):
                 0,
                 lambda: log_text.insert(
                     tk.END,
-                    "ESP8266 index updated and architecture installed successfully.\n",
+                    "Slave index updated and architecture installed successfully.\n",
                 ),
             )
             return True
@@ -160,25 +176,25 @@ def update_esp8266_index_thread(progress_label, log_text):
             root.after(
                 0,
                 lambda: log_text.insert(
-                    tk.END, f"Error updating ESP8266 index: {stderr}\n"
+                    tk.END, f"Error updating Slave index: {stderr}\n"
                 ),
             )
             return False
     except Exception as e:
         root.after(
             0,
-            lambda: log_text.insert(
-                tk.END, f"Error updating ESP8266 index: {str(e)}\n"
-            ),
+            lambda: log_text.insert(tk.END, f"Error updating Slave index: {str(e)}\n"),
         )
         return False
 
 
-def upload_bin_to_nodemcu(bin_file_path, port, progress_bar, progress_label, log_text):
+def upload_bin_to_nodemcu(
+    bin_file_path, port, progress_bar, progress_label, log_text, user_role="user"
+):
     # Start a thread for this operation
     upload_thread = threading.Thread(
         target=upload_bin_to_nodemcu_thread,
-        args=(bin_file_path, port, progress_bar, progress_label, log_text),
+        args=(bin_file_path, port, progress_bar, progress_label, log_text, user_role),
     )
     upload_thread.daemon = True
     upload_thread.start()
@@ -188,7 +204,7 @@ def upload_bin_to_nodemcu(bin_file_path, port, progress_bar, progress_label, log
 
 
 def upload_bin_to_nodemcu_thread(
-    bin_file_path, port, progress_bar, progress_label, log_text
+    bin_file_path, port, progress_bar, progress_label, log_text, user_role="user"
 ):
     # Update progress in main thread
     for i in range(70, 80):
@@ -196,7 +212,7 @@ def upload_bin_to_nodemcu_thread(
         root.after(0, lambda: root.update_idletasks())
         time.sleep(0.05)  # Reduced sleep time for better responsiveness
 
-    # Update ESP8266 index first (will run in its own thread)
+    # Update Slave index first (will run in its own thread)
     update_esp8266_index(progress_label, log_text)
 
     # Give some time for index update to start
@@ -255,7 +271,7 @@ def upload_bin_to_nodemcu_thread(
             root.after(
                 0,
                 lambda: on_upload_complete(
-                    False, progress_bar, progress_label, log_text
+                    False, progress_bar, progress_label, log_text, user_role
                 ),
             )
             return False
@@ -266,7 +282,7 @@ def upload_bin_to_nodemcu_thread(
             root.after(
                 0,
                 lambda: on_upload_complete(
-                    True, progress_bar, progress_label, log_text
+                    True, progress_bar, progress_label, log_text, user_role
                 ),
             )
             return True
@@ -280,7 +296,7 @@ def upload_bin_to_nodemcu_thread(
             root.after(
                 0,
                 lambda: on_upload_complete(
-                    False, progress_bar, progress_label, log_text
+                    False, progress_bar, progress_label, log_text, user_role
                 ),
             )
             return False
@@ -288,12 +304,17 @@ def upload_bin_to_nodemcu_thread(
     except Exception as e:
         root.after(0, lambda: log_text.insert(tk.END, f"ERROR uploading : {str(e)}\n"))
         root.after(
-            0, lambda: on_upload_complete(False, progress_bar, progress_label, log_text)
+            0,
+            lambda: on_upload_complete(
+                False, progress_bar, progress_label, log_text, user_role
+            ),
         )
         return False
 
 
-def on_upload_complete(success, progress_bar, progress_label, log_text):
+def on_upload_complete(
+    success, progress_bar, progress_label, log_text, user_role="user"
+):
     from src.ui.ui import show_connect_master_screen
 
     if success:
@@ -306,7 +327,7 @@ def on_upload_complete(success, progress_bar, progress_label, log_text):
                 progress_bar["value"] = i
                 root.update_idletasks()
                 time.sleep(0.02)  # Very short delay for smooth animation
-            show_connect_master_screen()
+            show_connect_master_screen(user_role)
 
         final_progress_thread = threading.Thread(target=update_final_progress)
         final_progress_thread.daemon = True
@@ -315,22 +336,34 @@ def on_upload_complete(success, progress_bar, progress_label, log_text):
         progress_label.config(text="ERROR")
         log_text.insert(tk.END, "ERROR: Node Firmware not updated\n")
 
+        error_message = "Slave firmware installation failed! Make sure no other program (Arduino IDE, serial monitor, etc.) is using the port. Try unplugging and replugging the device."
+        show_retry_installation_ui(
+            board="Slave",
+            user_role=user_role,
+            error_message=error_message,
+            retry_callback=lambda: startNode(
+                progress_bar, progress_label, log_text, user_role
+            ),
+        )
 
-def find_port_delayed_node(progress_bar, progress_label, log_text):
+
+def find_port_delayed_node(progress_bar, progress_label, log_text, user_role="user"):
     # Start port detection in a separate thread
     detection_thread = threading.Thread(
         target=find_port_delayed_node_thread,
-        args=(progress_bar, progress_label, log_text),
+        args=(progress_bar, progress_label, log_text, user_role),
     )
     detection_thread.daemon = True
     detection_thread.start()
 
     # Update UI immediately to show we're searching
-    root.after(0, lambda: progress_label.config(text="Progress: Finding NodeMCU"))
-    root.after(0, lambda: log_text.insert(tk.END, "Finding NodeMCU\n"))
+    root.after(0, lambda: progress_label.config(text="Progress: Finding Slave"))
+    root.after(0, lambda: log_text.insert(tk.END, "Finding Slave\n"))
 
 
-def find_port_delayed_node_thread(progress_bar, progress_label, log_text):
+def find_port_delayed_node_thread(
+    progress_bar, progress_label, log_text, user_role="user"
+):
     global port_node
 
     # Update progress in the main thread
@@ -346,7 +379,7 @@ def find_port_delayed_node_thread(progress_bar, progress_label, log_text):
         root.after(
             100,  # Reduced delay for better responsiveness
             lambda: upload_firmware_Node_delayed(
-                port_node, progress_bar, progress_label, log_text
+                port_node, progress_bar, progress_label, log_text, user_role
             ),
         )
     else:
@@ -354,7 +387,9 @@ def find_port_delayed_node_thread(progress_bar, progress_label, log_text):
         root.after(0, lambda: log_text.insert(tk.END, "Port Not Found. \n"))
 
 
-def upload_firmware_Node_delayed(port_node, progress_bar, progress_label, log_text):
+def upload_firmware_Node_delayed(
+    port_node, progress_bar, progress_label, log_text, user_role="user"
+):
     root.after(
         0, lambda: progress_label.config(text="Progress: Node Firmware Update Started")
     )
@@ -377,14 +412,14 @@ def upload_firmware_Node_delayed(port_node, progress_bar, progress_label, log_te
 
     # Start the upload process
     upload_bin_to_nodemcu(
-        sketch_path, port_node, progress_bar, progress_label, log_text
+        sketch_path, port_node, progress_bar, progress_label, log_text, user_role
     )
     # The rest is handled by on_upload_complete which is called from the upload thread
 
 
-def startNode(progress_bar, progress_label, log_text):
+def startNode(progress_bar, progress_label, log_text, user_role="user"):
     root.after(
-        0, lambda: progress_label.config(text="Starting the Installation Of NodeMCU")
+        0, lambda: progress_label.config(text="Starting the Installation Of Slave")
     )
 
     if os.name == "nt":
@@ -400,8 +435,43 @@ def startNode(progress_bar, progress_label, log_text):
             progress_bar,
             progress_label,
             log_text,
+            user_role,
         )
         # Further operations are handled by callbacks in the thread
     else:
         # On non-Windows, proceed directly to port detection
-        find_port_delayed_node(progress_bar, progress_label, log_text)
+        find_port_delayed_node(progress_bar, progress_label, log_text, user_role)
+
+
+def show_retry_installation_ui(board, user_role, error_message, retry_callback):
+    from src.config.config import root
+    from src.config.color import BACKGROUND_COLOR, TEXT_COLOR, ACCENT_COLOR
+    import tkinter as tk
+
+    for widget in root.winfo_children():
+        widget.destroy()
+    main_frame = tk.Frame(root, bg=BACKGROUND_COLOR)
+    main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+    error_label = tk.Label(
+        main_frame,
+        text=error_message,
+        bg=BACKGROUND_COLOR,
+        fg="red",
+        font=("Helvetica", 14, "bold"),
+        wraplength=400,
+        justify="center",
+    )
+    error_label.pack(pady=(0, 20))
+    try_again_button = tk.Button(
+        main_frame,
+        text="Try Again",
+        command=retry_callback,
+        bg=ACCENT_COLOR,
+        fg="white",
+        font=("Helvetica", 12, "bold"),
+        relief=tk.FLAT,
+        padx=30,
+        pady=8,
+        cursor="hand2",
+    )
+    try_again_button.pack(pady=10)

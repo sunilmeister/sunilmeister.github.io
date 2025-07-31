@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 from src.config.config import root
 from src.config.color import BACKGROUND_COLOR
 
+
 def load_and_resize_image(width=400):
     """
     Load and resize the logo image with a specified width.
@@ -15,7 +16,7 @@ def load_and_resize_image(width=400):
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     image_path = os.path.join(script_dir, "assets", "logo.png")
-    
+
     original_image = Image.open(image_path)
 
     # Calculate the new size while maintaining aspect ratio

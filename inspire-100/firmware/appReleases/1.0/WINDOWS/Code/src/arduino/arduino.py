@@ -11,6 +11,7 @@ from src.config.config import (
     root,
 )
 from src.utils.utils import find_port, is_admin
+from src.config.color import BACKGROUND_COLOR, TEXT_COLOR, ACCENT_COLOR
 
 
 def install_arduino_cli(log_text, progress_label, progress_bar):
@@ -435,9 +436,7 @@ void loop() {
         root.after(0, lambda: root.update_idletasks())
 
 
-def upload_Firmware_delayed(progress_bar, progress_label, log_text):
-    # from src.ui.connection_instructions import show_connection_instructions
-
+def upload_Firmware_delayed(progress_bar, progress_label, log_text, user_role="user"):
     # Use the firmware file that was downloaded for the selected version
     script_dir = os.path.dirname(os.path.abspath(__file__))
     sketch_path = os.path.join(
@@ -469,14 +468,26 @@ def upload_Firmware_delayed(progress_bar, progress_label, log_text):
     root.update_idletasks()
 
     # Start the firmware upload process
-    upload_firmware(sketch_path, port, log_text, board, progress_bar, progress_label)
+    upload_firmware(
+        sketch_path, port, log_text, board, progress_bar, progress_label, user_role
+    )
 
 
-def upload_firmware(hex_file_path, port, log_text, board, progress_bar, progress_label):
+def upload_firmware(
+    hex_file_path, port, log_text, board, progress_bar, progress_label, user_role="user"
+):
     # Start a thread for this operation
     upload_thread = threading.Thread(
         target=upload_firmware_thread,
-        args=(hex_file_path, port, log_text, board, progress_bar, progress_label),
+        args=(
+            hex_file_path,
+            port,
+            log_text,
+            board,
+            progress_bar,
+            progress_label,
+            user_role,
+        ),
     )
     upload_thread.daemon = True
     upload_thread.start()
@@ -486,7 +497,7 @@ def upload_firmware(hex_file_path, port, log_text, board, progress_bar, progress
 
 
 def upload_firmware_thread(
-    hex_file_path, port, log_text, board, progress_bar, progress_label
+    hex_file_path, port, log_text, board, progress_bar, progress_label, user_role="user"
 ):
     global firmware_upload_success
     firmware_upload_success = False
@@ -553,6 +564,7 @@ def upload_firmware_thread(
                 progress_bar=progress_bar,
                 progress_label=progress_label,
                 log_text=log_text,
+                user_role=user_role,
             ),
         )
 
@@ -570,11 +582,14 @@ def upload_firmware_thread(
                 progress_bar=progress_bar,
                 progress_label=progress_label,
                 log_text=log_text,
+                user_role=user_role,
             ),
         )
 
 
-def on_firmware_upload_complete(success, progress_label, log_text, progress_bar):
+def on_firmware_upload_complete(
+    success, progress_label, log_text, progress_bar, user_role="user"
+):
     from src.ui.run_installation import show_connection_instructions
 
     if success:
@@ -584,13 +599,50 @@ def on_firmware_upload_complete(success, progress_label, log_text, progress_bar)
             progress_bar["value"] = i
             time.sleep(0.01)  # Reduced sleep time for better responsiveness
             root.update_idletasks()
-        show_connection_instructions(board="Slave")
+        show_connection_instructions(board="Slave", user_role=user_role)
     else:
-        progress_label.config(text=f"ERROR")
-        log_text.insert(tk.END, f"ERROR: Arduino Firmware is not updated\n")
+        error_message = "Firmware installation failed! Make sure no other program (Arduino IDE, serial monitor, etc.) is using the port. Try unplugging and replugging the device."
+        show_retry_installation_ui(
+            board="Master",
+            user_role=user_role,
+            error_message=error_message,
+            retry_callback=lambda: startArduino(
+                progress_bar, progress_label, log_text, user_role
+            ),
+        )
 
 
-def startArduino(progress_bar, progress_label, log_text):
+def show_retry_installation_ui(board, user_role, error_message, retry_callback):
+    for widget in root.winfo_children():
+        widget.destroy()
+    main_frame = tk.Frame(root, bg=BACKGROUND_COLOR)
+    main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+    error_label = tk.Label(
+        main_frame,
+        text=error_message,
+        bg=BACKGROUND_COLOR,
+        fg="red",
+        font=("Helvetica", 14, "bold"),
+        wraplength=400,
+        justify="center",
+    )
+    error_label.pack(pady=(0, 20))
+    try_again_button = tk.Button(
+        main_frame,
+        text="Try Again",
+        command=retry_callback,
+        bg=ACCENT_COLOR,
+        fg="white",
+        font=("Helvetica", 12, "bold"),
+        relief=tk.FLAT,
+        padx=30,
+        pady=8,
+        cursor="hand2",
+    )
+    try_again_button.pack(pady=10)
+
+
+def startArduino(progress_bar, progress_label, log_text, user_role="user"):
     global installation_complete
     installation_complete = False
     progress_label.config(text=f"Starting the Installation")

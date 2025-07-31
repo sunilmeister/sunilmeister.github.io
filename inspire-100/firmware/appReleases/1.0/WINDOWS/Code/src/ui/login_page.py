@@ -40,31 +40,19 @@ class LoginPage:
         # Title
         title_label = tk.Label(
             main_frame,
-            text="Login",
+            text="Admin Login",
             bg=BACKGROUND_COLOR,
             fg=TEXT_COLOR,
             font=("Helvetica", 18, "bold"),
         )
         title_label.pack(pady=(0, 20))
 
-        # Email Entry
-        email_frame = tk.Frame(main_frame, bg=BACKGROUND_COLOR)
-        email_frame.pack(pady=10)
+        # Input fields frame
+        input_frame = tk.Frame(main_frame, bg=BACKGROUND_COLOR)
+        input_frame.pack(pady=10)
 
-        email_label = tk.Label(
-            email_frame,
-            text="Email:",
-            bg=BACKGROUND_COLOR,
-            fg=TEXT_COLOR,
-            font=("Helvetica", 12),
-        )
-        email_label.pack(side=tk.LEFT, padx=(0, 10))
-
-        self.email_entry = tk.Entry(email_frame, font=("Helvetica", 12), width=30)
-        self.email_entry.pack(side=tk.LEFT)
-
-        # Password Entry
-        password_frame = tk.Frame(main_frame, bg=BACKGROUND_COLOR)
+        # Password Entry only
+        password_frame = tk.Frame(input_frame, bg=BACKGROUND_COLOR)
         password_frame.pack(pady=10)
 
         password_label = tk.Label(
@@ -73,33 +61,68 @@ class LoginPage:
             bg=BACKGROUND_COLOR,
             fg=TEXT_COLOR,
             font=("Helvetica", 12),
+            width=10,
+            anchor="w",
         )
         password_label.pack(side=tk.LEFT, padx=(0, 10))
 
         self.password_entry = tk.Entry(
-            password_frame, show="*", font=("Helvetica", 12), width=30
+            password_frame,
+            show="*",
+            font=("Helvetica", 12),
+            width=30,
+            bd=1,
+            relief=tk.SOLID,
         )
         self.password_entry.pack(side=tk.LEFT)
+        self.password_entry.focus()  # Focus on password field
+
+        # Button frame for better organization
+        button_frame = tk.Frame(main_frame, bg=BACKGROUND_COLOR)
+        button_frame.pack(pady=10)
 
         # Login Button
         login_button = tk.Button(
-            main_frame,
+            button_frame,
             text="Login",
             command=self.validate_login,
             bg=ACCENT_COLOR,
             fg="white",
-            font=("Helvetica", 14, "bold"),
+            font=("Helvetica", 12, "bold"),
             relief=tk.FLAT,
             padx=30,
-            pady=10,
+            pady=8,
+            cursor="hand2",
+            activebackground="#0DD142",
+            activeforeground="white",
+        )
+        login_button.pack(side=tk.LEFT, padx=(0, 10))
+
+        # Continue without Login button
+        continue_button = tk.Button(
+            button_frame,
+            text="Continue without Login",
+            command=lambda: show_version_selection_page("user"),
+            bg=SECONDARY_COLOR,
+            fg=TEXT_COLOR,
+            font=("Helvetica", 12),
+            relief=tk.FLAT,
+            padx=20,
+            pady=8,
             cursor="hand2",
         )
-        login_button.pack(pady=20)
+        continue_button.pack(side=tk.LEFT)
+
+        # Bind Enter key to login
+        self.root.bind("<Return>", lambda event: self.validate_login())
 
     def validate_login(self):
-        """Validate user credentials."""
-        email = self.email_entry.get().strip()
+        """Validate user credentials using only password."""
         password = self.password_entry.get()
+
+        if not password:
+            messagebox.showerror("Error", "Please enter a password.")
+            return
 
         # Hash the password
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
@@ -115,17 +138,18 @@ class LoginPage:
             messagebox.showerror("Error", "Invalid users database.")
             return
 
-        # Find user
-        for user in users:
-            if user["email"] == email and user["password"] == hashed_password:
+        # Since we only have one admin account, check against the first (and only) user
+        if users and len(users) > 0:
+            admin_user = users[0]  # Get the first (admin) user
+            if admin_user["password"] == hashed_password:
                 # Successful login
-                show_message(f"Login successful! Welcome {user['name']}!")
-                # Pass user role to version selection
-                show_version_selection_page(user["role"])
+                show_message(f"Login successful! Welcome {admin_user['name']}!")
+                # Pass admin role to version selection
+                show_version_selection_page(admin_user["role"])
                 return
 
         # Login failed
-        show_message("Login Failed!")
+        show_message("Invalid password.")
 
 
 def show_message(message):

@@ -1,6 +1,5 @@
 from src.config.config import root
-from src.config.color import BACKGROUND_COLOR, TEXT_COLOR, ACCENT_COLOR
-from src.backend.api import register_firmware_completion  # Import your backend function
+from src.config.color import BACKGROUND_COLOR, TEXT_COLOR, ACCENT_COLOR, SECONDARY_COLOR
 
 import tkinter as tk
 from PIL import Image, ImageTk
@@ -42,10 +41,15 @@ def show_retry_ui(version_dropdown):
     retry_button.pack(pady=10)
 
 
-def show_completion_screen():
+def show_completion_screen(user_role="user"):
     """
     Display a completion screen after successful firmware installation.
+    Args:
+        user_role (str): Role of the logged-in user (default is 'user')
     """
+
+    from src.ui.version_selection_page import show_version_selection_page
+
     # Destroy all existing widgets
     for widget in root.winfo_children():
         widget.destroy()
@@ -96,27 +100,48 @@ def show_completion_screen():
     )
     instructions_label.pack(pady=(0, 20))
 
-    # Exit button
-    exit_button = tk.Button(
-        root,
-        text="Exit",
-        command=root.quit,
+    # Button frame for better organization
+    button_frame = tk.Frame(root, bg=BACKGROUND_COLOR)
+    button_frame.pack(pady=10)
+
+    # Return to version selection button
+    return_button = tk.Button(
+        button_frame,
+        text="Return to Version Selection",
+        command=lambda: show_version_selection_page(user_role),
         bg=ACCENT_COLOR,
         fg="white",
         font=("Helvetica", 12, "bold"),
-        activebackground="red",
+        activebackground="#0DD142",
         activeforeground="white",
         relief=tk.FLAT,
-        padx=30,
+        padx=20,
         pady=8,
         cursor="hand2",
     )
-    exit_button.pack(pady=10)
+    return_button.pack(side=tk.LEFT, padx=(0, 10))
+
+    # Exit button
+    exit_button = tk.Button(
+        button_frame,
+        text="Exit",
+        command=root.quit,
+        bg=SECONDARY_COLOR,
+        fg=TEXT_COLOR,
+        font=("Helvetica", 12),
+        relief=tk.FLAT,
+        padx=20,
+        pady=8,
+        cursor="hand2",
+    )
+    exit_button.pack(side=tk.LEFT)
 
 
-def show_registration_screen():
+def show_registration_screen(user_role="user"):
     """
     Display a screen to show the system UID and firmware version after registering the installation.
+    Args:
+        user_role (str): Role of the logged-in user (default is 'user')
     """
     from src.backend.api import register_firmware_completion  # Import the function
 
@@ -182,7 +207,9 @@ def show_registration_screen():
     continue_button = tk.Button(
         root,
         text="Continue",
-        command=show_completion_screen,  # Navigate to the completion screen
+        command=lambda: show_completion_screen(
+            user_role
+        ),  # Pass user_role to completion screen
         bg=ACCENT_COLOR,
         fg="white",
         font=("Helvetica", 12, "bold"),
@@ -196,9 +223,11 @@ def show_registration_screen():
     continue_button.pack(pady=(20, 10))
 
 
-def show_connect_master_screen():
+def show_connect_master_screen(user_role="user"):
     """
     Display a screen instructing the user to reconnect the master port before starting the registration process.
+    Args:
+        user_role (str): Role of the logged-in user (default is 'user')
     """
     # Destroy all existing widgets
     for widget in root.winfo_children():
@@ -220,7 +249,9 @@ def show_connect_master_screen():
     continue_button = tk.Button(
         root,
         text="Continue",
-        command=show_registration_screen,  # Navigate to the registration screen
+        command=lambda: show_registration_screen(
+            user_role
+        ),  # Pass user_role to registration screen
         bg=ACCENT_COLOR,
         fg="white",
         font=("Helvetica", 12, "bold"),

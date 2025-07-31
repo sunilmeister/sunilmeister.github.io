@@ -9,37 +9,145 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
     />
+    <style>
+      .deprecated-row {
+        background-color: #fff3cd !important;
+        opacity: 0.7;
+      }
+      .verification-status {
+        font-weight: bold;
+      }
+      .verified {
+        color: #198754;
+      }
+      .deprecated {
+        color: #dc3545;
+      }
+      .page-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0.5rem;
+      }
+      .stats-card {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
   </head>
   <body>
-    <div class="container mt-5">
-      <div class="d-flex justify-content-end">
-        <a href="/download-excel" class="btn btn-success">Download as Excel</a>
+    <div class="container mt-4">
+      <!-- Page Header -->
+      <div class="page-header text-center">
+        <h1>TekMedika Firmware Installation Records</h1>
+        <p class="mb-0">
+          Track and manage firmware installations across devices
+        </p>
       </div>
-      <h1 class="text-center">Firmware Installations</h1>
-      <table class="table table-striped mt-4">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>System UID</th>
-            <th>Firmware Version</th>
-            <th>Installation Timestamp</th>
-            <th>Verification Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% data.forEach(row => { %>
-          <tr>
-            <td><%= row.id %></td>
-            <td><%= row.system_uid %></td>
-            <td><%= row.firmware_version %></td>
-            <td><%= row.installation_timestamp %></td>
-            <td>
-              <%= row.verification_status ? 'Verified' : 'Not Verified' %>
-            </td>
-          </tr>
-          <% }); %>
-        </tbody>
-      </table>
+
+      <!-- Statistics Cards -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="stats-card text-center">
+            <h5 class="text-success">Active Records</h5>
+            <h3><%= data.filter(row => row.verification_status).length %></h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stats-card text-center">
+            <h5 class="text-warning">Deprecated Records</h5>
+            <h3><%= data.filter(row => !row.verification_status).length %></h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="stats-card text-center">
+            <h5 class="text-info">Total Records</h5>
+            <h3><%= data.length %></h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-flex justify-content-between mb-3">
+        <div>
+          <button class="btn btn-outline-primary" onclick="toggleDeprecated()">
+            <span id="toggleText">Hide Deprecated</span>
+          </button>
+        </div>
+        <a href="/download-excel" class="btn btn-success">
+          <i class="bi bi-download"></i> Download as Excel
+        </a>
+      </div>
+
+      <!-- Main Table -->
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>System UID</th>
+              <th>Firmware Version</th>
+              <th>Installation Timestamp</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% data.forEach(row => { %>
+            <tr
+              class="<%= !row.verification_status ? 'deprecated-row' : '' %>"
+              data-deprecated="<%= !row.verification_status %>"
+            >
+              <td><%= row.id %></td>
+              <td><code><%= row.system_uid %></code></td>
+              <td><%= row.firmware_version %></td>
+              <td>
+                <%= new Date(row.installation_timestamp).toLocaleString() %>
+              </td>
+              <td>
+                <span
+                  class="verification-status <%= row.verification_status ? 'verified' : 'deprecated' %>"
+                >
+                  <%= row.verification_status ? '✓ Active' : '⚠ Deprecated' %>
+                </span>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if (data.length === 0) { %>
+      <div class="text-center mt-5">
+        <h4 class="text-muted">No firmware installation records found</h4>
+        <p class="text-muted">
+          Records will appear here once firmware installations are registered.
+        </p>
+      </div>
+      <% } %>
     </div>
+
+    <script>
+      let showDeprecated = true;
+
+      function toggleDeprecated() {
+        showDeprecated = !showDeprecated;
+        const deprecatedRows = document.querySelectorAll(
+          '[data-deprecated="true"]'
+        );
+        const toggleButton = document.getElementById("toggleText");
+
+        deprecatedRows.forEach((row) => {
+          row.style.display = showDeprecated ? "" : "none";
+        });
+
+        toggleButton.textContent = showDeprecated
+          ? "Hide Deprecated"
+          : "Show Deprecated";
+      }
+    </script>
   </body>
 </html>

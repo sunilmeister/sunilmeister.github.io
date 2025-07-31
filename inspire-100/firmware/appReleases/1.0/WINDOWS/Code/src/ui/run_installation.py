@@ -9,12 +9,13 @@ from tkinter import ttk
 import time
 
 
-def show_connection_instructions(board):
+def show_connection_instructions(board, user_role):
     """
     Display connection instructions before proceeding with installation.
 
     Args:
         board (str): The board type (Master or Slave)
+        user_role (str): The role of the user (admin or user)
     """
     # Destroy all widgets
     for widget in root.winfo_children():
@@ -36,7 +37,9 @@ def show_connection_instructions(board):
     if board.lower() == "master":
         connection_message = "Connect the INSPIRE-100 system's master USB port to your laptop's USB port."
     elif board.lower() == "slave":
-        connection_message = "Connect the INSPIRE-100 system's slave USB port. to your laptop's USB port."
+        connection_message = (
+            "Connect the INSPIRE-100 system's slave USB port to your laptop's USB port."
+        )
     else:
         connection_message = "Unknown board type. Please check your connection."
 
@@ -51,6 +54,18 @@ def show_connection_instructions(board):
         justify="center",
     )
     new_label.pack(pady=(0, 20))
+
+    # Power warning - CRITICAL SAFETY MESSAGE
+    power_warning_label = tk.Label(
+        main_frame,
+        text="⚠️ IMPORTANT: Ensure the system is powered ON before connecting USB ports.",
+        bg=BACKGROUND_COLOR,
+        fg="orange",
+        font=("Helvetica", 12, "bold"),
+        wraplength=400,
+        justify="center",
+    )
+    power_warning_label.pack(pady=(0, 15))
 
     # Additional instruction: Only one board should be connected
     warning_label = tk.Label(
@@ -68,7 +83,7 @@ def show_connection_instructions(board):
     new_button = tk.Button(
         main_frame,
         text="Start Installation",
-        command=lambda: run_installation(board),
+        command=lambda: run_installation(board, user_role),
         bg=ACCENT_COLOR,
         fg="white",
         font=("Helvetica", 12, "bold"),
@@ -82,12 +97,13 @@ def show_connection_instructions(board):
     new_button.pack(pady=10)
 
 
-def run_installation(board):
+def run_installation(board, user_role):
     """
     Run the firmware installation process for a specific board.
 
     Args:
         board (str): The board type (Master or Slave)
+        user_role (str): The role of the user (admin or user)
     """
     progress_bar = None
     progress_label = None
@@ -167,9 +183,15 @@ def run_installation(board):
 
     if board == "Master":
         startArduino(
-            progress_bar=progress_bar, progress_label=progress_label, log_text=log_text
+            progress_bar=progress_bar,
+            progress_label=progress_label,
+            log_text=log_text,
+            user_role=user_role,
         )
     else:
         startNode(
-            progress_bar=progress_bar, progress_label=progress_label, log_text=log_text
+            progress_bar=progress_bar,
+            progress_label=progress_label,
+            log_text=log_text,
+            user_role=user_role,
         )

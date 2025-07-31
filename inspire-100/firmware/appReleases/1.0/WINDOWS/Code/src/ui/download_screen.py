@@ -10,13 +10,14 @@ import urllib.request
 import urllib.error
 
 
-def download_screen(board, version):
+def download_screen(board, version, user_role="user"):
     """
     Display a download screen with progress indicators for firmware files.
 
     Args:
         board (str): The board type (Master or Slave)
         version (str): The selected firmware version
+        user_role (str): Role of the logged-in user (default is 'user')
     """
     # Destroy all widgets
     for widget in root.winfo_children():
@@ -44,11 +45,11 @@ def download_screen(board, version):
     )
     title_label.pack(pady=(0, 25))
 
-    # Frame for Arduino download
+    # Frame for Master download
     arduino_frame = _create_download_frame(main_frame, "Master Port Firmware")
     arduino_progress, arduino_percent = arduino_frame
 
-    # Frame for NodeMCU download
+    # Frame for Slave download
     nodemcu_frame = _create_download_frame(main_frame, "Slave Port Firmware")
     nodemcu_progress, nodemcu_percent = nodemcu_frame
 
@@ -68,8 +69,10 @@ def download_screen(board, version):
     # Function to download with progress
     def download_with_progress():
         try:
-            # Create directories if they don't exist
+            # Define the script directory
             script_dir = os.path.dirname(os.path.abspath(__file__))
+            
+            # Create directories if they don't exist
             arduino_dir = os.path.join(
                 script_dir, "..", "arduino", "bin", "INSPIRE-100_master"
             )
@@ -84,16 +87,16 @@ def download_screen(board, version):
             arduino_url = f"https://raw.githubusercontent.com/sunilmeister/sunilmeister.github.io/refs/heads/main/inspire-100/firmware/fwReleases/{version}/INSPIRE-100_master.ino.mega.hex"
             nodemcu_url = f"https://raw.githubusercontent.com/sunilmeister/sunilmeister.github.io/refs/heads/main/inspire-100/firmware/fwReleases/{version}/INSPIRE-100_slave.ino.nodemcu.bin"
 
-            # Download Arduino firmware file
-            status_label.config(text="Downloading Arduino firmware...")
+            # Download Master firmware file
+            status_label.config(text="Downloading Master firmware...")
             arduino_dest = os.path.join(arduino_dir, "INSPIRE-100_master.hex")
 
             _download_file(
                 arduino_url, arduino_dest, arduino_progress, arduino_percent, root
             )
 
-            # Download NodeMCU firmware file
-            status_label.config(text="Downloading NodeMCU firmware...")
+            # Download Slave firmware file
+            status_label.config(text="Downloading Slave firmware...")
             nodemcu_dest = os.path.join(nodemcu_dir, "INSPIRE-100_slave.bin")
 
             _download_file(
@@ -103,30 +106,17 @@ def download_screen(board, version):
             status_label.config(text="Downloads completed successfully!")
 
             # Wait a moment before proceeding
-            root.after(1000, lambda: show_release_notes(board, version))
+            root.after(1000, lambda: show_release_notes(board, version, user_role))
             return True
 
         except Exception as e:
-            status_label.config(text=f"Error: {e}")
-
-            # Add a retry button
-            retry_button = tk.Button(
-                main_frame,
-                text="Retry Download",
-                command=lambda: download_screen(board, version),
-                bg=ACCENT_COLOR,
-                fg="white",
-                font=("Helvetica", 12, "bold"),
-                relief=tk.FLAT,
-                padx=20,
-                pady=8,
-                cursor="hand2",
-            )
-            retry_button.pack(pady=15)
+            status_label.config(text=f"Error: {str(e)}")
             return False
 
-    # Start the download process after a short delay
-    root.after(500, download_with_progress)
+    # Start download in a separate thread
+    import threading
+
+    threading.Thread(target=download_with_progress, daemon=True).start()
 
 
 def _create_download_frame(parent, label_text):
@@ -194,13 +184,14 @@ def _download_file(url, dest, progress_bar, percent_label, root):
     percent_label.config(text="100%")
 
 
-def show_release_notes(board, version):
+def show_release_notes(board, version, user_role="user"):
     """
     Display release notes for the selected version before proceeding with installation.
 
     Args:
         board (str): The board type (Master or Slave)
         version (str): The selected firmware version
+        user_role (str): Role of the logged-in user (default is 'user')
     """
     # Destroy all widgets
     for widget in root.winfo_children():
@@ -272,11 +263,15 @@ def show_release_notes(board, version):
     button_frame = tk.Frame(main_frame, bg=BACKGROUND_COLOR)
     button_frame.pack(pady=(15, 0), fill="x")
 
+    # Center the button frame
+    button_frame.pack_propagate(False)  # Prevent frame from shrinking
+    button_frame.configure(height=50)  # Set fixed height
+
     # Continue button
     continue_button = tk.Button(
         button_frame,
         text="Continue to Connection Instructions",
-        command=lambda: show_connection_instructions(board),
+        command=lambda: show_connection_instructions(board, user_role),
         bg=ACCENT_COLOR,
         fg="white",
         font=("Helvetica", 12, "bold"),
@@ -287,4 +282,4 @@ def show_release_notes(board, version):
         pady=8,
         cursor="hand2",
     )
-    continue_button.pack(side=tk.RIGHT)
+    continue_button.pack(expand=True)  # Center the button in the frame

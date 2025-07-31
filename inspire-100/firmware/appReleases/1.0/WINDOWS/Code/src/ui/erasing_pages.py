@@ -7,13 +7,14 @@ from tkinter import ttk
 from src.utils.utils import get_arduino_cli_command
 
 
-def show_erase_confirmation_page(board_type, erase_type):
+def show_erase_confirmation_page(board_type, erase_type, user_role="admin"):
     """
     Display confirmation page after successful erase operation.
 
     Args:
-        board_type (str): Type of board ('Arduino Mega 2560' or 'NodeMCU').
+        board_type (str): Type of board ('Master' or 'Slave').
         erase_type (str): Type of erase ('ROM' or 'EPROM').
+        user_role (str): Role of the logged-in user (default is 'admin' for erase operations)
     """
 
     from src.ui.version_selection_page import show_version_selection_page
@@ -39,7 +40,7 @@ def show_erase_confirmation_page(board_type, erase_type):
     # Description
     description_label = tk.Label(
         main_frame,
-        text=f"The {erase_type} for {board_type} has been successfully erased.\n",
+        text=f"The {erase_type} for {board_type} has been successfully erased.",
         bg=BACKGROUND_COLOR,
         fg=TEXT_COLOR,
         font=("Helvetica", 12),
@@ -48,28 +49,61 @@ def show_erase_confirmation_page(board_type, erase_type):
     )
     description_label.pack(pady=(0, 20))
 
-    # Continue Button
-    continue_button = tk.Button(
+    # Important firmware installation reminder
+    firmware_reminder_label = tk.Label(
         main_frame,
-        text="Continue",
+        text="⚠️ IMPORTANT: You must now install firmware for proper system functioning.\nWithout proper firmware, the system will not operate correctly.",
+        bg=BACKGROUND_COLOR,
+        fg="red",
+        font=("Helvetica", 12, "bold"),
+        wraplength=450,
+        justify="center",
+    )
+    firmware_reminder_label.pack(pady=(0, 30))
+
+    # Button frame for better organization
+    button_frame = tk.Frame(main_frame, bg=BACKGROUND_COLOR)
+    button_frame.pack(pady=10)
+
+    # Install Firmware Button (primary action)
+    install_firmware_button = tk.Button(
+        button_frame,
+        text="Install Firmware Now",
         bg=ACCENT_COLOR,
         fg="white",
         font=("Helvetica", 12, "bold"),
-        command=lambda: show_version_selection_page(user_role="admin"),
+        command=lambda: show_version_selection_page(user_role),
         relief=tk.FLAT,
         padx=20,
         pady=10,
+        cursor="hand2",
     )
-    continue_button.pack(pady=10)
+    install_firmware_button.pack(side=tk.LEFT, padx=(0, 10))
+
+    # Continue Button (secondary action)
+    continue_button = tk.Button(
+        button_frame,
+        text="Continue Later",
+        bg="gray",
+        fg="white",
+        font=("Helvetica", 12),
+        command=lambda: show_version_selection_page(user_role),
+        relief=tk.FLAT,
+        padx=20,
+        pady=10,
+        cursor="hand2",
+    )
+    continue_button.pack(side=tk.LEFT)
 
 
-def show_erase_page(board_type, erase_type):
+def show_erase_page(board_type, erase_type, user_role="admin"):
     """
     Display page for erasing ROM or EPROM.
 
     Args:
-        board_type (str): Type of board ('Arduino Mega 2560' or 'NodeMCU').
+        board_type (str): Type of board ('Master' or 'Slave').
         erase_type (str): Type of erase ('ROM' or 'EPROM').
+        user_role (str): Role of the logged-in user (default is 'admin' for erase operations)
     """
     from src.ui.version_selection_page import show_version_selection_page
     from src.utils.erasing import perform_erase
@@ -90,15 +124,29 @@ def show_erase_page(board_type, erase_type):
         fg=TEXT_COLOR,
         font=("Helvetica", 16, "bold"),
     )
-    title_label.pack(pady=(20, 30))
+    title_label.pack(pady=(20, 20))
 
-    # Description
+    # Power warning message
+    power_warning_label = tk.Label(
+        main_frame,
+        text="⚠️ IMPORTANT: Please ensure the system is powered ON before connecting USB ports.\nDo NOT power the system through USB as this may damage the device.",
+        bg=BACKGROUND_COLOR,
+        fg="orange",
+        font=("Helvetica", 11, "bold"),
+        wraplength=500,
+        justify="center",
+    )
+    power_warning_label.pack(pady=(0, 20))
+
+    # Erase warning
     description_label = tk.Label(
         main_frame,
-        text=f"Warning: This will permanently erase the {erase_type}.\n",
+        text=f"Warning: This will permanently erase the {erase_type}.\nThis operation may take several minutes to complete.",
         bg=BACKGROUND_COLOR,
         fg="red",
         font=("Helvetica", 12),
+        wraplength=500,
+        justify="center",
     )
     description_label.pack(pady=(0, 30))
 
@@ -112,7 +160,7 @@ def show_erase_page(board_type, erase_type):
         bg="red",
         fg="white",
         font=("Helvetica", 12, "bold"),
-        command=lambda: perform_erase(board_type, erase_type),
+        command=lambda: perform_erase(board_type, erase_type, user_role),
         relief=tk.FLAT,
         padx=20,
         pady=10,
@@ -126,7 +174,7 @@ def show_erase_page(board_type, erase_type):
         bg=SECONDARY_COLOR,
         fg=TEXT_COLOR,
         font=("Helvetica", 12),
-        command=lambda: show_version_selection_page(user_role="admin"),
+        command=lambda: show_version_selection_page(user_role),
         relief=tk.FLAT,
         padx=20,
         pady=10,
@@ -193,7 +241,7 @@ def run_arduino_cli_with_progress():
 
     # Create a progress window
     progress_window = tk.Toplevel(root)
-    progress_window.title("Running Arduino CLI")
+    progress_window.title("Running Master CLI")
     progress_window.geometry("400x150")
     progress_window.configure(bg=BACKGROUND_COLOR)
     progress_window.transient(root)
@@ -202,7 +250,7 @@ def run_arduino_cli_with_progress():
     # Add a progress message
     message_label = tk.Label(
         progress_window,
-        text="Running Arduino CLI command...",
+        text="Running Master CLI command...",
         bg=BACKGROUND_COLOR,
         fg=TEXT_COLOR,
         font=("Helvetica", 12),
@@ -224,7 +272,7 @@ def run_arduino_cli_with_progress():
             root.after(0, lambda: command_completed(progress_window, result))
         except Exception as e:
             # Handle exceptions in the main thread
-            root.after(0, lambda: show_error(f"Error executing Arduino CLI: {str(e)}"))
+            root.after(0, lambda: show_error(f"Error executing Master CLI: {str(e)}"))
             root.after(0, progress_window.destroy)
 
     # Function to handle completion

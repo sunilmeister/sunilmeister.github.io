@@ -5,7 +5,15 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "build": "node build-script.js",
+    "test-start": "node -e \"const server = require('./app.js'); setTimeout(() => process.exit(0), 3000);\"",
+    "clean": "rimraf node_modules package-lock.json build",
+    "install-deps": "npm install",
+    "security-check": "npm audit",
+    "security-fix": "npm audit fix",
+    "prod-install": "npm install --production",
+    "setup": "npm run clean && npm run install-deps && npm run security-check"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -17,6 +25,7 @@
     "mysql2": "^3.6.5"
   },
   "devDependencies": {
-    "nodemon": "^3.0.2"
+    "nodemon": "^3.0.2",
+    "rimraf": "^5.0.5"
   }
 }

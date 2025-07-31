@@ -5,6 +5,54 @@ import time  # Import the time module for delays
 from src.utils.utils import find_port  # Import the find_port function
 
 
+def deprecate_previous_uid(old_system_uid):
+    """
+    Deprecate previous UID records by setting verification_status to False.
+
+    Args:
+        old_system_uid (str): The old UID to deprecate
+
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        # Define the backend API endpoint
+        api_url = "http://3.111.22.212:5000/api/deprecate-uid"
+
+        # Generate the hashed secret key
+        secret_key = (
+            "801587F3C649A37E22782EEA77B2F3D9"  # Replace with the actual secret key
+        )
+        hashed_secret = hashlib.sha256(secret_key.encode()).hexdigest()
+
+        # Payload to send to the backend
+        payload = {
+            "old_system_uid": old_system_uid,
+            "secret": hashed_secret,
+        }
+
+        # Send a POST request to the backend
+        response = requests.post(api_url, json=payload)
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            result = response.json()
+            print(f"Successfully deprecated UID: {old_system_uid}")
+            print(f"Deprecated {result.get('deprecated_records', 0)} record(s)")
+            return True
+        else:
+            print(f"Failed to deprecate UID. Status code: {response.status_code}")
+            print(f"Response: {response.text}")
+            return False
+
+    except requests.RequestException as e:
+        print(f"Error while deprecating UID: {e}")
+        return False
+    except Exception as e:
+        print(f"An unexpected error occurred while deprecating UID: {e}")
+        return False
+
+
 def get_device_info():
     """
     Retrieve the system UID and firmware version from the connected Arduino Mega board.
@@ -128,7 +176,7 @@ def register_firmware_completion():
                 return None, None
 
             # Define the backend API endpoint
-            api_url = "http://localhost:5000/api/firmware-installation"  # Update with the actual backend URL if different
+            api_url = "http://3.111.22.212:5000/api/firmware-installation"  # Update with the actual backend URL if different
 
             # Generate the hashed secret key
             secret_key = (
@@ -159,6 +207,12 @@ def register_firmware_completion():
             except requests.RequestException as e:
                 print(f"Error while registering firmware completion: {e}")
                 return None, None
+
+            # Step 4: Send "X" to restart the system
+            ser.write(b"X")
+            time.sleep(
+                0.5
+            )  # Small delay to allow the system to process the restart command
 
             # Return the system UID and firmware version
             return system_uid, firmware_version

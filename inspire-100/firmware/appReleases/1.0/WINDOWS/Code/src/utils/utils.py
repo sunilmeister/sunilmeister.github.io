@@ -18,30 +18,30 @@ def find_port():
     """Find the connected board from a whitelist of common VID/PID combinations."""
     ports = serial.tools.list_ports.comports()
 
-    # Whitelist of common VID/PID combinations focusing on Mega 2560 and NodeMCU ESP8266
+    # Whitelist of common VID/PID combinations focusing on Master and Slave
     vid_pid_whitelist = [
         # CH340 chips (common in clones)
-        (0x1A86, 0x7523),  # CH340 (used in Mega clones & NodeMCU)
+        (0x1A86, 0x7523),  # CH340 (used in Master clones & Slave)
         (0x1A86, 0x5523),  # CH341
-        # Arduino Mega 2560 official and clones
-        (0x2341, 0x0010),  # Arduino Mega 2560
-        (0x2341, 0x0042),  # Arduino Mega 2560 R3
-        (0x2341, 0x0210),  # Arduino Mega 2560 (another variant)
-        (0x2A03, 0x0010),  # Arduino Mega 2560 (genuine Arduino)
-        (0x2A03, 0x0042),  # Arduino Mega 2560 R3 (genuine Arduino)
-        # ESP8266 NodeMCU and variants
-        (0x10C4, 0xEA60),  # Silicon Labs CP210x (ESP8266/NodeMCU)
-        (0x1A86, 0x7523),  # CH340G (NodeMCU)
-        (0x0403, 0x6001),  # FTDI (some NodeMCU variants)
-        (0x10C4, 0xEA60),  # CP2102 (some NodeMCU variants)
+        # Master official and clones
+        (0x2341, 0x0010),  # Master 2560
+        (0x2341, 0x0042),  # Master 2560 R3
+        (0x2341, 0x0210),  # Master 2560 (another variant)
+        (0x2A03, 0x0010),  # Master 2560 (genuine Arduino)
+        (0x2A03, 0x0042),  # Master 2560 R3 (genuine Arduino)
+        # Slave and variants
+        (0x10C4, 0xEA60),  # Silicon Labs CP210x (Slave)
+        (0x1A86, 0x7523),  # CH340G (Slave)
+        (0x0403, 0x6001),  # FTDI (some Slave variants)
+        (0x10C4, 0xEA60),  # CP2102 (some Slave variants)
         # Other common Arduino boards (for completeness)
         (0x2341, 0x0043),  # Arduino Uno R3
         (0x2341, 0x0001),  # Arduino Uno
         (0x2341, 0x0036),  # Arduino Leonardo
         (0x2341, 0x8036),  # Arduino Leonardo (boot)
-        # Other ESP8266/ESP32 variants
+        # Other Slave/ESP32 variants
         (0x10C4, 0xEA63),  # Silicon Labs CP210x (ESP32)
-        (0x1A86, 0x55D4),  # CH9102F (ESP32/ESP8266)
+        (0x1A86, 0x55D4),  # CH9102F (ESP32/Slave)
         (0x303A, 0x1001),  # Espressif ESP32-S2
         (0x303A, 0x0002),  # Espressif ESP32-S3
     ]
@@ -74,12 +74,12 @@ def find_port():
     if board_type:
         return detected_port
     else:
-        print(f"Assuming Mega2560 clone at {detected_port}")
+        print(f"Assuming Master clone at {detected_port}")
         return detected_port
 
 
 def verify_board_type(port_name):
-    """Check if the connected board is a NodeMCU by sending a command, else assume it's Mega."""
+    """Check if the connected board is a Slave by sending a command, else assume it's Master."""
     try:
         with serial.Serial(port_name, 115200, timeout=2) as ser:
             time.sleep(2)  # Allow board to initialize
@@ -88,14 +88,14 @@ def verify_board_type(port_name):
             response = ser.read(64).decode(errors="ignore").strip()
 
             if "OK" in response or response == "":
-                return "NodeMCU"
+                return "Slave"
             else:
-                return "Mega2560"
+                return "Master"
 
     except Exception as e:
         print(f"Could not verify board type: {e}")
 
-    return "Mega2560"
+    return "Master"
 
 
 def get_arduino_cli_command():
@@ -197,7 +197,7 @@ def get_arduino_cli_command():
     # Install required cores
     print("Installing required Arduino cores...")
 
-    # Install ESP8266 core
+    # Install Slave core
     try:
         subprocess.run(
             [
@@ -210,16 +210,16 @@ def get_arduino_cli_command():
             ],
             check=True,
         )
-        print("ESP8266 core installed successfully.")
+        print("Slave core installed successfully.")
     except subprocess.SubprocessError:
-        print("Warning: Failed to install ESP8266 core.")
+        print("Warning: Failed to install Slave core.")
 
-    # Install Arduino AVR core
+    # Install Master core
     try:
         subprocess.run(["arduino-cli", "core", "install", "arduino:avr"], check=True)
-        print("Arduino AVR core installed successfully.")
+        print("Master core installed successfully.")
     except subprocess.SubprocessError:
-        print("Warning: Failed to install Arduino AVR core.")
+        print("Warning: Failed to install Master core.")
 
     # Return the command list to invoke arduino-cli
     if isinstance(arduino_cli_path, list):

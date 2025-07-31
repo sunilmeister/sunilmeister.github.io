@@ -8,10 +8,11 @@ OutputBaseFilename=Inspire-100_Firmware_Utility_Setup
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=admin
+SetupIconFile=src\ui\assets\icon.ico
 
 [Files]
 ; Main Executable
-Source: "dist\main.exe"; DestDir: "{app}"
+Source: "dist\Inspire-100_Firmware_Utility_Setup.exe"; DestDir: "{app}"
 
 ; Configuration & Assets
 Source: "src\config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs
@@ -20,8 +21,8 @@ Source: "src\bin\*"; DestDir: "{app}\bin"; Flags: recursesubdirs createallsubdir
 Source: "src\utils\*"; DestDir: "{app}\utils"; Flags: recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{group}\Inspire-100 Firmware Utility"; Filename: "{app}\main.exe"
-Name: "{commondesktop}\Inspire-100 Firmware Utility"; Filename: "{app}\main.exe"
+Name: "{group}\Inspire-100 Firmware Utility"; Filename: "{app}\Inspire-100_Firmware_Utility_Setup.exe"
+Name: "{commondesktop}\Inspire-100 Firmware Utility"; Filename: "{app}\Inspire-100_Firmware_Utility_Setup.exe"
 
 [Run]
-Filename: "{app}\main.exe"; Description: "Launch Inspire-100 Firmware Utility"; Flags: nowait postinstall runascurrentuser
+Filename: "{app}\Inspire-100_Firmware_Utility_Setup.exe"; Description: "Launch Inspire-100 Firmware Utility"; Flags: nowait postinstall runascurrentuser

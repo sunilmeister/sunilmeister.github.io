@@ -10,73 +10,156 @@ from src.ui.erasing_pages import (
 )
 
 import tkinter as tk
+from tkinter import ttk
 import subprocess
 import threading
 import time
 import serial
 
 
-def perform_erase(board_type, erase_type):
+def perform_erase(board_type, erase_type, user_role="admin"):
     """
     Perform the actual erase operation using threading to prevent UI blocking.
 
     Args:
         board_type (str): Type of board ('Arduino Mega 2560' or 'NodeMCU').
         erase_type (str): Type of erase ('ROM' or 'EPROM').
+        user_role (str): Role of the logged-in user (default is 'admin').
     """
-    progress_frame = tk.Frame(root, bg=BACKGROUND_COLOR)
-    progress_frame.place(relx=0.5, rely=0.5, anchor="center", width=300, height=150)
+    # Check for connected port before starting the erase process
+    port = find_port()
+    if not port:
+        show_error(
+            "No compatible device found. Please connect the device and try again."
+        )
+        return
 
-    progress_label = tk.Label(
-        progress_frame,
-        text=f"Erasing {erase_type}...",
+    # Clear existing widgets and show progress screen
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Create main progress frame
+    progress_main_frame = tk.Frame(root, bg=BACKGROUND_COLOR)
+    progress_main_frame.pack(fill="both", expand=True, padx=20, pady=20)
+
+    # Title
+    title_label = tk.Label(
+        progress_main_frame,
+        text=f"Erasing {erase_type} - {board_type}",
         bg=BACKGROUND_COLOR,
         fg=TEXT_COLOR,
-        font=("Helvetica", 12, "bold"),
+        font=("Helvetica", 16, "bold"),
     )
-    progress_label.pack(pady=10)
+    title_label.pack(pady=(50, 30))
 
-    progress_bar = tk.Canvas(
-        progress_frame,
-        width=200,
-        height=20,
+    # Progress status label
+    progress_label = tk.Label(
+        progress_main_frame,
+        text="Initializing erase operation...",
         bg=BACKGROUND_COLOR,
-        highlightthickness=1,
-        highlightbackground=TEXT_COLOR,
+        fg=TEXT_COLOR,
+        font=("Helvetica", 12),
     )
-    progress_bar.pack(pady=10)
+    progress_label.pack(pady=(0, 20))
+
+    # Progress bar using ttk for better appearance
+    progress_bar = ttk.Progressbar(
+        progress_main_frame,
+        orient="horizontal",
+        length=400,
+        mode="determinate",
+        maximum=100,
+    )
+    progress_bar.pack(pady=(0, 20))
+    progress_bar["value"] = 0
+
+    # Percentage label
+    percentage_label = tk.Label(
+        progress_main_frame,
+        text="0%",
+        bg=BACKGROUND_COLOR,
+        fg=TEXT_COLOR,
+        font=("Helvetica", 11),
+    )
+    percentage_label.pack(pady=(0, 30))
+
+    # Warning message during operation
+    warning_label = tk.Label(
+        progress_main_frame,
+        text="⚠️ Do not disconnect the device during this operation",
+        bg=BACKGROUND_COLOR,
+        fg="orange",
+        font=("Helvetica", 10, "italic"),
+    )
+    warning_label.pack(pady=(0, 20))
 
     thread = threading.Thread(
-        target=erase_thread, args=(board_type, erase_type, progress_bar, progress_label)
+        target=erase_thread,
+        args=(
+            board_type,
+            erase_type,
+            progress_bar,
+            progress_label,
+            percentage_label,
+            user_role,
+        ),
     )
     thread.daemon = True
     thread.start()
 
 
-def erase_thread(board_type, erase_type, progress_bar, progress_label):
+def erase_thread(
+    board_type,
+    erase_type,
+    progress_bar,
+    progress_label,
+    percentage_label,
+    user_role="admin",
+):
     """
     Thread function for performing the erase operation.
 
     Args:
         board_type (str): Type of board ('Arduino Mega 2560' or 'NodeMCU').
         erase_type (str): Type of erase ('ROM' or 'EPROM').
-        progress_bar (tk.Canvas): Canvas widget for progress bar.
+        progress_bar (ttk.Progressbar): Progress bar widget.
         progress_label (tk.Label): Label widget for progress status.
+        percentage_label (tk.Label): Label widget for percentage display.
+        user_role (str): Role of the logged-in user (default is 'admin').
     """
     try:
-        for i in range(10):
-            width = (i + 1) * 20
+        # Double-check port availability in thread
+        port = find_port()
+        if not port:
+            root.after(
+                0, show_error, "Device disconnected. Please reconnect and try again."
+            )
+            return
+
+        # Update progress with detailed steps
+        steps = [
+            ("Preparing erase operation...", 10),
+            ("Checking device connection...", 20),
+            ("Creating temporary files...", 30),
+            ("Compiling empty sketch...", 50),
+            ("Uploading to device...", 80),
+            ("Finalizing erase...", 95),
+            ("Erase complete!", 100),
+        ]
+
+        for i, (step_text, progress_value) in enumerate(steps):
+            # Update progress bar and labels
             root.after(
                 0,
-                update_progress,
-                progress_bar,
-                width,
-                progress_label,
-                f"Erasing {erase_type}... {(i+1)*10}%",
+                lambda p=progress_value, t=step_text, pct=progress_value: [
+                    progress_bar.configure(value=p),
+                    progress_label.configure(text=t),
+                    percentage_label.configure(text=f"{pct}%"),
+                ],
             )
-            time.sleep(0.3)
 
-            if i == 5:
+            # Perform actual erase operation during the upload step
+            if i == 4:  # Upload step
                 if board_type == "Arduino Mega":
                     result = erase_arduino_mega_rom()
                 elif board_type == "NodeMCU":
@@ -91,7 +174,13 @@ def erase_thread(board_type, erase_type, progress_bar, progress_label):
                     )
                     return
 
-        root.after(0, show_erase_confirmation_page, board_type, erase_type)
+            # Wait between steps (except for the last step)
+            if i < len(steps) - 1:
+                time.sleep(1.5)
+
+        # Show completion page after a brief delay
+        time.sleep(1)
+        root.after(0, show_erase_confirmation_page, board_type, erase_type, user_role)
     except Exception as e:
         root.after(0, show_error, f"Error erasing {erase_type}: {str(e)}")
 
@@ -132,15 +221,17 @@ def erase_arduino_mega_rom():
 
         board = "arduino:avr:mega"  # Change to your board type
 
-        # First compile the sketch
+        # First compile the sketch with timeout
         compile_cmd = ["arduino-cli", "compile", "--fqbn", board, ino_file_path]
-        compile_result = subprocess.run(compile_cmd, capture_output=True, text=True)
+        compile_result = subprocess.run(
+            compile_cmd, capture_output=True, text=True, timeout=30
+        )
 
         if compile_result.returncode != 0:
             print(f"Error compiling Arduino Mega sketch: {compile_result.stderr}")
             return False
 
-        # Then upload the compiled sketch
+        # Then upload the compiled sketch with timeout
         upload_cmd = [
             "arduino-cli",
             "upload",
@@ -150,12 +241,17 @@ def erase_arduino_mega_rom():
             board,
             ino_file_path,
         ]
-        upload_result = subprocess.run(upload_cmd, capture_output=True, text=True)
+        upload_result = subprocess.run(
+            upload_cmd, capture_output=True, text=True, timeout=60
+        )
 
         success = upload_result.returncode == 0
         if not success:
             print(f"Error uploading to Arduino Mega: {upload_result.stderr}")
         return success
+    except subprocess.TimeoutExpired:
+        print("Arduino CLI operation timed out. Please check device connection.")
+        return False
     except Exception as e:
         print(f"Error erasing Arduino Mega ROM: {str(e)}")
         return False
@@ -197,15 +293,17 @@ def erase_nodemcu_rom():
         # Board FQBN for NodeMCU (ESP8266)
         board = "esp8266:esp8266:nodemcuv2"
 
-        # First compile the sketch
+        # First compile the sketch with timeout
         compile_cmd = ["arduino-cli", "compile", "--fqbn", board, ino_file_path]
-        compile_result = subprocess.run(compile_cmd, capture_output=True, text=True)
+        compile_result = subprocess.run(
+            compile_cmd, capture_output=True, text=True, timeout=30
+        )
 
         if compile_result.returncode != 0:
             print(f"Error compiling NodeMCU sketch: {compile_result.stderr}")
             return False
 
-        # Then upload the compiled sketch
+        # Then upload the compiled sketch with timeout
         upload_cmd = [
             "arduino-cli",
             "upload",
@@ -215,12 +313,17 @@ def erase_nodemcu_rom():
             board,
             ino_file_path,
         ]
-        upload_result = subprocess.run(upload_cmd, capture_output=True, text=True)
+        upload_result = subprocess.run(
+            upload_cmd, capture_output=True, text=True, timeout=60
+        )
 
         success = upload_result.returncode == 0
         if not success:
             print(f"Error uploading to NodeMCU: {upload_result.stderr}")
         return success
+    except subprocess.TimeoutExpired:
+        print("Arduino CLI operation timed out. Please check device connection.")
+        return False
     except Exception as e:
         print(f"Error erasing NodeMCU ROM: {str(e)}")
         return False

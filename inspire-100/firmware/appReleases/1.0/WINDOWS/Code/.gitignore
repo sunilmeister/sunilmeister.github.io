@@ -178,3 +178,5 @@ test/
 
 src/arduino/bin/
 src/nodemcu/bin/
+
+.vscode/
