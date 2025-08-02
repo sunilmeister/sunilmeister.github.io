@@ -4,6 +4,7 @@
 
 var exportRowDiv = null;
 var cumulativeChartBreaths = 0;
+const DEFAULT_PLAYBACK_RANGE_MAX = 8;
 
 if (!window.indexedDB) {
   modalAlert("IndexedDB not available in your browser", "Switch browsers");
@@ -455,10 +456,10 @@ function playbackGatherDoneCallback() {
 
 	updateLogDuration();
 
-  if (session.maxBreathNum < 20) {
+  if (session.maxBreathNum < DEFAULT_PLAYBACK_RANGE_MAX) {
 		updateAllRanges(false, 0, session.maxBreathNum);
   } else {
-		updateAllRanges(false, 0, 20);
+		updateAllRanges(false, 0, DEFAULT_PLAYBACK_RANGE_MAX);
   }
 
   enableAllButtons();
