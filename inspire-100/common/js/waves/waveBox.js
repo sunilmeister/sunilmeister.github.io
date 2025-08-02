@@ -246,7 +246,7 @@ class WaveBox {
       this.pressureChartDiv.offsetHeight,
       this.rangeX,
       this.options,
-			"Measured Pressure (mmH2O)",
+			"Lungs Pressure (mmH2O)",
 			"#AED6F1",
 			session.waves.pwData
     );

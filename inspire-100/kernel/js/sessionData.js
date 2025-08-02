@@ -188,6 +188,7 @@ var SessionDataTemplate = {
     labelFontSize: 10,
     legendFontSize: 12,
     titleFontSize: 30,
+    axisTitleFontSize: 14,
     stripLineFontSize: 20,
   },
 

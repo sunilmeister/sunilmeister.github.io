@@ -71,7 +71,8 @@ class WavePane {
 
 		let axisY = this.chartJson.axisY;
 		if (axisY) {
-    	axisY.labelFontSize = session.charts.labelFontSize;
+    	axisY.labelFontSize = session.waves.labelFontSize;
+    	axisY.titleFontSize = session.waves.axisTitleFontSize;
 		}
 	}
 
@@ -145,7 +146,7 @@ class WavePane {
   // Rest below are all private method
   // ////////////////////////////////////////////
 
-  // X axis is the same for all charts in our application
+  // X axis is the same for all waveforms in our application
   addXaxis() {
     let Xaxis = {};
    	Xaxis.title = this.xTitle;
@@ -330,9 +331,10 @@ class WavePane {
   createYaxis(title, color, minY, maxY) {
     let Yaxis = {};
     Yaxis.title = title;
+   	Yaxis.titleFontSize = session.waves.axisTitleFontSize;
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
-   	Yaxis.labelFontSize = session.charts.labelFontSize;
+   	Yaxis.labelFontSize = session.waves.labelFontSize;
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;

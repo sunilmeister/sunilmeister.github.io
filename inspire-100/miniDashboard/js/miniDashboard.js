@@ -69,6 +69,8 @@ function resizeWaves() {
 	
   session.waves.labelFontSize = 
 		convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
+  session.waves.axisTitleFontSize = 
+		convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
   session.waves.legendFontSize = 
 		convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
   session.waves.titleFontSize = 
