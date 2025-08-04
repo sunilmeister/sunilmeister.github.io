@@ -53,49 +53,49 @@ class WavePane {
   }
 
   // resize according to latest sessionData
- 	resizeFonts() {
-		this.chartJson.legend.fontSize = session.waves.legendFontSize;
-		if (this.chartJson.title) {
-			this.chartJson.title.fontSize = session.waves.titleFontSize;
-		}
-		let axisX = this.chartJson.axisX;
-		if (axisX) {
-    	axisX.labelFontSize = session.waves.labelFontSize;
-			if (axisX.stripLines) {
-				for (let i=0; i<axisX.stripLines.length; i++) {
-					let stripLine = axisX.stripLines[i];
-      		stripLine.labelFontSize = session.waves.stripLineFontSize;
-				}
-			}
-		}
+  resizeFonts() {
+    this.chartJson.legend.fontSize = session.waves.legendFontSize;
+    if (this.chartJson.title) {
+      this.chartJson.title.fontSize = session.waves.titleFontSize;
+    }
+    let axisX = this.chartJson.axisX;
+    if (axisX) {
+      axisX.labelFontSize = session.waves.labelFontSize;
+      if (axisX.stripLines) {
+        for (let i=0; i<axisX.stripLines.length; i++) {
+          let stripLine = axisX.stripLines[i];
+          stripLine.labelFontSize = session.waves.stripLineFontSize;
+        }
+      }
+    }
 
-		let axisY = this.chartJson.axisY;
-		if (axisY) {
-    	axisY.labelFontSize = session.waves.labelFontSize;
-    	axisY.titleFontSize = session.waves.axisTitleFontSize;
-		}
-	}
+    let axisY = this.chartJson.axisY;
+    if (axisY) {
+      axisY.labelFontSize = session.waves.labelFontSize;
+      axisY.titleFontSize = session.waves.axisTitleFontSize;
+    }
+  }
 
-	setCustomBreaks(customBreaks) {
+  setCustomBreaks(customBreaks) {
     //console.log("breaks", customBreaks);
-		let axisX = this.chartJson.axisX;
-		if (axisX) {
+    let axisX = this.chartJson.axisX;
+    if (axisX) {
       axisX.scaleBreaks = {type: "straight"}
-			axisX.scaleBreaks.customBreaks = customBreaks;
-		}
-	}
+      axisX.scaleBreaks.customBreaks = customBreaks;
+    }
+  }
 
-	getStripLines() {
+  getStripLines() {
     return this.stripLines;
-	}
+  }
 
-	setStripLines(stripLines) {
+  setStripLines(stripLines) {
     //console.log("strips", stripLines);
-		let axisX = this.chartJson.axisX;
-		if (axisX) {
-			axisX.stripLines = stripLines;
-		}
-	}
+    let axisX = this.chartJson.axisX;
+    if (axisX) {
+      axisX.stripLines = stripLines;
+    }
+  }
 
   addGraph() {
     this.numSelectedWaves = numSelectedWavesInRange(this.menu);
@@ -126,11 +126,11 @@ class WavePane {
         padding: 10,
         fontSize: session.waves.titleFontSize
       };
-		} else {
+    } else {
       this.chartJson.title= null;
-		}
-		this.chartJson.animationEnabled = false;
-		//this.chartJson.animationDuration = 150;
+    }
+    this.chartJson.animationEnabled = false;
+    //this.chartJson.animationDuration = 150;
     this.chart = new CanvasJS.Chart(containerDiv, this.chartJson);
     this.chart.render();
   }
@@ -149,10 +149,10 @@ class WavePane {
   // X axis is the same for all waveforms in our application
   addXaxis() {
     let Xaxis = {};
-   	Xaxis.title = this.xTitle;
+    Xaxis.title = this.xTitle;
     Xaxis.interval = this.calculateXaxisInterval();
     Xaxis.minimum = this.calculateXaxisMinimum();
-		Xaxis.labelFontSize = session.waves.labelFontSize;
+    Xaxis.labelFontSize = session.waves.labelFontSize;
     Xaxis.gridColor = "grey";
     Xaxis.gridThickness = 1;
     Xaxis.labelFormatter = breathTimeXaxisFormatter;
@@ -200,38 +200,38 @@ class WavePane {
   // Recursive Binary search for where to start searching
   // for waveforms to display given the starting breath number
   findSearchStartIndex(data, bnum, startIx, endIx) {
-		if (isUndefined(bnum) || (bnum === null)) return null;
+    if (isUndefined(bnum) || (bnum === null)) return null;
 
-  	if (isUndefined(startIx)) startIx = 0;
-  	if (isUndefined(endIx)) endIx = data.length - 1;
+    if (isUndefined(startIx)) startIx = 0;
+    if (isUndefined(endIx)) endIx = data.length - 1;
     //console.log("bnum", bnum, "startIx", startIx, "endIx", endIx);
 
-  	if (endIx < startIx) return null;
-  	if (startIx < 0) return null;
-  	if (endIx >= data.length) return null;
+    if (endIx < startIx) return null;
+    if (startIx < 0) return null;
+    if (endIx >= data.length) return null;
 
-  	if ((endIx-startIx) < 2) return startIx;
+    if ((endIx-startIx) < 2) return startIx;
 
-		let endBnum = data[endIx].systemBreathNum;
-		if (endBnum <= bnum) return null;
+    let endBnum = data[endIx].systemBreathNum;
+    if (endBnum <= bnum) return null;
 
-		let startBnum = data[startIx].systemBreathNum;
-		if (startBnum == bnum) return startIx;
-		if (startBnum > bnum) null;
+    let startBnum = data[startIx].systemBreathNum;
+    if (startBnum == bnum) return startIx;
+    if (startBnum > bnum) null;
 
     // find the middle index
     let midIx = Math.floor((startIx + endIx) / 2);
 
-		let midBnum = data[midIx].systemBreathNum;
+    let midBnum = data[midIx].systemBreathNum;
 
     if (midBnum == bnum) return midIx;
-		else if (midBnum < bnum) {
-			// look in the right half
-  		return this.findSearchStartIndex(data, bnum, midIx, endIx);
-		} else {
-			// look in the left half
-  		return this.findSearchStartIndex(data, bnum, startIx, midIx);
-		}
+    else if (midBnum < bnum) {
+      // look in the right half
+      return this.findSearchStartIndex(data, bnum, midIx, endIx);
+    } else {
+      // look in the left half
+      return this.findSearchStartIndex(data, bnum, startIx, midIx);
+    }
   }
 
   createXYPoints() {
@@ -252,7 +252,7 @@ class WavePane {
       if (isUndefined(this.data[i])) continue;
 
       let sysBreathNum = this.data[i].systemBreathNum;
-    	if (!checkIfLoggedValidBreath(sysBreathNum)) continue;
+      if (!checkIfLoggedValidBreath(sysBreathNum)) continue;
       
       let breathNum = sysBreathNum - session.startSystemBreathNum + 1;
       let sampleInterval = this.data[i].sampleInterval;
@@ -265,13 +265,13 @@ class WavePane {
       if (breathNum > maxBnum) break;
       if (!breathSelectedInMenu(breathInfo, this.menu)) continue;
 
-			let breath = session.loggedBreaths[breathNum];
-			if (isUndefined(breath)) {
-				console.error("sysBreathNum",sysBreathNum);
-				console.error("session.startSystemBreathNum",session.startSystemBreathNum);
-				console.error("breathNum",breathNum);
-				console.error("loggedBreaths",session.loggedBreaths);
-			}
+      let breath = session.loggedBreaths[breathNum];
+      if (isUndefined(breath)) {
+        console.error("sysBreathNum",sysBreathNum);
+        console.error("session.startSystemBreathNum",session.startSystemBreathNum);
+        console.error("breathNum",breathNum);
+        console.error("loggedBreaths",session.loggedBreaths);
+      }
       let xval = breath.time.getTime() - session.firstChirpDate.getTime();
       xyPoints.push({
         "x": (xval - 200) / 1000,
@@ -331,10 +331,11 @@ class WavePane {
   createYaxis(title, color, minY, maxY) {
     let Yaxis = {};
     Yaxis.title = title;
-   	Yaxis.titleFontSize = session.waves.axisTitleFontSize;
+    Yaxis.titleFontSize = session.waves.axisTitleFontSize;
+    Yaxis.labelPlacement = "inside";
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
-   	Yaxis.labelFontSize = session.waves.labelFontSize;
+    Yaxis.labelFontSize = session.waves.labelFontSize*1.5;
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;
@@ -363,11 +364,11 @@ class WavePane {
 
 
   calculateXaxisMinimum() {
-		/*
+    /*
     let minTime = this.rangeX.minTime;
     return (minTime.getTime() - session.firstChirpDate.getTime()) / 1000;
-		*/
-		return null; // auto mode
+    */
+    return null; // auto mode
   }
 
 };
