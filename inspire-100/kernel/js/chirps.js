@@ -239,31 +239,16 @@ function parseComplianceData(jsonStr) {
 
 function parseMiscData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr) {
+  if (!arr || (arr.length != 5)) {
     return null;
   }
 
-  let val;
-
-  // Older recordings do not send proction v/s debug mode info
-  if (arr.length == 4) {
-    val = {
-      tempC : arr[0],
-      altInFt : arr[1],
-      atmInCmH20 : arr[2],
-      atmO2Pct : arr[3],
-      productionMode : null,
-    }
-  } else if (arr.length == 5) {
-    val = {
-      tempC : arr[0],
-      altInFt : arr[1],
-      atmInCmH20 : arr[2],
-      atmO2Pct : arr[3],
-      productionMode : arr[4],
-    }
-  } else {
-    val = null;
+  let val = {
+    tempC : arr[0],
+    altInFt : arr[1],
+    atmInCmH20 : arr[2],
+    atmO2Pct : arr[3],
+    productionMode : arr[4],
   }
   return val;
 }
