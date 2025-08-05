@@ -335,7 +335,7 @@ class WavePane {
     Yaxis.labelPlacement = "inside";
     Yaxis.lineColor = color;
     Yaxis.tickColor = color;
-    Yaxis.labelFontSize = session.waves.labelFontSize*1.5;
+    Yaxis.labelFontSize = session.waves.labelFontSize;
     Yaxis.labelFontColor = color;
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;
