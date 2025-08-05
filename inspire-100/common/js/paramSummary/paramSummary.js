@@ -46,4 +46,13 @@ function gatherParamSummary(range) {
   return summary;
 }
 
-
+function changeAllParamSummaryId(paramSummaryNode, suffix) {
+  let allNodes = getAllNodeDescendants(paramSummaryNode);
+  for (let i=0; i<allNodes.length; i++) {
+    let node = allNodes[i];
+    let nodeId = node.id;
+    if (nodeId) {
+      node.id = nodeId + suffix;
+    }
+  }
+}

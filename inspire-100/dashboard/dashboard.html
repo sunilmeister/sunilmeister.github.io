@@ -71,6 +71,7 @@
 
   <script src="../common/js/firmware/fwReleases.js"></script>
 
+  <script src="../common/js/paramSummary/constants.js"></script>
   <script src="../common/js/paramSummary/paramSummary.js"></script>
 
   <script src="../common/js/charts/constants.js"></script>
@@ -1385,6 +1386,95 @@
       </div>
   </template>
 
+  <template id=paramSummaryTemplate>
+    <div class=paramSummary>
+      <div style="float:left;">
+        <div class=paramSummarySection>
+          Parameter Settings
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>MODE</p>
+          <p id=paramSummaryMode class=paramSummarySettingData>--</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p id=paramSummaryVtMvHeading class=paramSummarySettingHeading>VT</p>
+          <p id=paramSummaryVtMv class=paramSummarySettingData>--</p>
+          <p id=paramSummaryVtMvUnits class=paramSummarySettingUnits>(ml)</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>RR</p>
+          <p id=paramSummaryRr class=paramSummarySettingData>--</p>
+          <p class=paramSummarySettingUnits>(bpm)</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>I:E</p>
+          <p id=paramSummaryIe class=paramSummarySettingData>--</p>
+          <p class=paramSummarySettingUnits>(ratio)</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>PEEP</p>
+          <p id=paramSummaryIPeep class=paramSummarySettingData>--</p>
+          <p class=paramSummarySettingUnits>(cmH2O)</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>PS</p>
+          <p id=paramSummaryPs class=paramSummarySettingData>--</p>
+          <p class=paramSummarySettingUnits>(cmH2O)</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>TPS</p>
+          <p id=paramSummaryTps class=paramSummarySettingData>--</p>
+          <p class=paramSummarySettingUnits>(% peakFlow)</p>
+        </div>
+        <div class=paramSummarySetting>
+          <p class=paramSummarySettingHeading>FiO2</p>
+          <p id=paramSummaryFiO2 class=paramSummarySettingData>--</p>
+          <p class=paramSummarySettingUnits>(%)</p>
+        </div>
+      </div>
+      <div class=paramSummarySetting style="background-color:white">
+      </div>
+      <div style="float:left;">
+        <div class=paramSummarySection>
+          Measured Parameters
+        </div>
+        <div class=paramSummaryMeasured>
+          <p class=paramSummaryMeasuredHeading>MV</p>
+          <p id=paramSummaryMvdel class=paramSummaryMeasuredData>--</p>
+          <p class=paramSummaryMeasuredUnits>(ltr/min)</p>
+        </div>
+        <div class=paramSummaryMeasured>
+          <p class=paramSummaryMeasuredHeading>BPM</p>
+          <p id=paramSummaryBpm class=paramSummaryMeasuredData>--</p>
+          <p class=paramSummaryMeasuredUnits>(bpm)</p>
+        </div>
+        <div class=paramSummaryMeasured>
+          <p class=paramSummaryMeasuredHeading>VT</p>
+          <p id=paramSummaryVtdel class=paramSummaryMeasuredData>--</p>
+          <p class=paramSummaryMeasuredUnits>(ml)</p>
+        </div>
+        <div class=paramSummaryMeasured>
+          <p class=paramSummaryMeasuredHeading>PEAK</p>
+          <p id=paramSummaryPeak class=paramSummaryMeasuredData>--</p>
+          <p class=paramSummaryMeasuredUnits>(cmH2O)</p>
+        </div>
+        <div class=paramSummaryMeasured>
+          <p class=paramSummaryMeasuredHeading>PLAT</p>
+          <p id=paramSummaryPlat class=paramSummaryMeasuredData>--</p>
+          <p class=paramSummaryMeasuredUnits>(cmH2O)</p>
+        </div>
+        <div class=paramSummaryMeasured>
+          <p class=paramSummaryMeasuredHeading>PEEP</p>
+          <p id=paramSummaryMPeep class=paramSummaryMeasuredData>--</p>
+          <p class=paramSummaryMeasuredUnits>(cmH2O)</p>
+        </div>
+      </div>
+      <div style="clear:both;">
+        <br>
+      </div>
+    </div>
+  </template>
+ 
 </body>
 
 </html>

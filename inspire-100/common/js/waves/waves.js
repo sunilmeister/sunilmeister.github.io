@@ -260,4 +260,11 @@ function  numSelectedWavesInRange(selectOptions) {
   return n;
 }
 
-
+function installWavesParamSummary() {
+  let temp = document.getElementById(PARAM_SUMMARY_TEMPLATE_ID);
+  let template = findChildNodeByClass(temp.content, PARAM_SUMMARY_CLASS);
+  let node = template.cloneNode(true);
+  let allWaves = document.getElementById("wavesDiv");
+  allWaves.insertBefore(node, allWaves.firstElementChild);
+  changeAllParamSummaryId(node, "Wave");
+}

@@ -218,3 +218,12 @@ function chartTitleKeypressListener(event) {
     chartMenuSubmit(titleNode);
   }
 }
+
+function installChartsParamSummary() {
+  let temp = document.getElementById(PARAM_SUMMARY_TEMPLATE_ID);
+  let template = findChildNodeByClass(temp.content, PARAM_SUMMARY_CLASS);
+  let node = template.cloneNode(true);
+  let allCharts = document.getElementById("chartsDiv");
+  allCharts.insertBefore(node, allCharts.firstElementChild);
+  changeAllParamSummaryId(node, "Chart");
+}

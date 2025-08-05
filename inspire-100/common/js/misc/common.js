@@ -650,6 +650,24 @@ function findAncestorNodeByClassName(node, className) {
   return null;
 }
 
+function getAllNodeDescendants(node) {
+  const descendants = [];
+
+  // Helper function for recursive traversal
+  function traverse(currentNode) {
+    // Add all child elements of the current node
+    for (const child of currentNode.children) {
+      descendants.push(child);
+      // Recursively call traverse for each child
+      traverse(child);
+    }
+  }
+
+  // Start the traversal from the initial node
+  traverse(node);
+  return descendants;
+}
+
 // tooltips for canvasjs
 function toggleDataSeries(e) {
   if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
