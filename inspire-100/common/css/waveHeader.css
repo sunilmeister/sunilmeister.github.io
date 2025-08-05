@@ -1,0 +1,73 @@
+.waveHeaderSetting {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--rsp_mediumblue);
+  color: white;
+  float: left;
+}
+
+.waveHeaderMeasured {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--rsp_green);
+  color: white;
+  float: left;
+}
+
+.waveHeaderSettingHeading {
+  color: white;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-top: 0rem;
+  background-color: var(--rsp_darkblue);
+}
+
+.waveHeaderMeasuredHeading {
+  color: white;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-top: 0rem;
+  color: var(--rsp_brightgreen);
+  background-color: var(--rsp_darkgreen);
+}
+
+.waveHeaderSettingData {
+  color: white;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
+.waveHeaderMeasuredData {
+  color: var(--rsp_brightgreen);
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
+.waveHeaderMeasuredData {
+  color: var(--rsp_brightgreen);
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: -0.5rem;
+}
+
+.waveHeaderSettingUnits {
+  color: white;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: -0.7rem;
+  background-color: var(--rsp_darkblue);
+}
+
+.waveHeaderMeasuredUnits {
+  color: var(--rsp_brightgreen);
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: -0.7rem;
+  background-color: var(--rsp_darkgreen);
+}
