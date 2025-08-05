@@ -35,7 +35,7 @@ function switchToFrontPanel() {
 	undisplayAllViews();
 
   document.getElementById("frontPanelDiv").style.display = "block";
-  document.getElementById("waves-pane").style.display = "none";
+  document.getElementById("wavesDiv").style.display = "none";
 
 	session.snapshot.visible = true;
 
@@ -51,7 +51,7 @@ function switchToWaves() {
 	undisplayAllViews();
 
   document.getElementById("frontPanelDiv").style.display = "none";
-  document.getElementById("waves-pane").style.display = "block";
+  document.getElementById("wavesDiv").style.display = "block";
 
 	session.waves.visible = true;
 
@@ -238,11 +238,12 @@ function createMiniWaves() {
 
 function wavesRefresh() {
 	createAllWaves();
+  updateParamSummary("Wave", session.waves.range);
 }
 
 function undisplayAllViews() {
   document.getElementById("frontPanelDiv").style.display = "none";
-  document.getElementById("waves-pane").style.display = "none";
+  document.getElementById("wavesDiv").style.display = "none";
 
 	session.snapshot.visible = false;
 	session.waves.visible = false;
@@ -257,6 +258,8 @@ window.onload = function () {
 	appResizeFunction = appResize;
 	
 	disableAllBeeps();  
+
+  installWavesParamSummary();
 
   createNewSession();
   session.appId = MINI_DASHBOARD_APP_ID;

@@ -70,10 +70,12 @@ function updateParamSummaryNodeText(nodeId, nodeIdSuffix, value) {
 function updateParamSummary(nodeIdSuffix, range) {
   let summary = gatherParamSummary(range);
 
-  let sectionText = "Parameter Settings @ Breath #" + summary.breathNum;
+  let sectionText = "Parameter Settings";
+  if (summary.breathNum) sectionText += " @ Breath #" + summary.breathNum;
   updateParamSummaryNodeText("paramSummarySettingsSection", nodeIdSuffix, sectionText);
 
-  sectionText = "Measured Parameters @ Breath #" + summary.breathNum;
+  sectionText = "Measured Parameters";
+  if (summary.breathNum) sectionText += " @ Breath #" + summary.breathNum;
   updateParamSummaryNodeText("paramSummaryMeasureSection", nodeIdSuffix, sectionText);
 
   // Update mode
