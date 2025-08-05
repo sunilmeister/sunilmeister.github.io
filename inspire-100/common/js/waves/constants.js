@@ -20,6 +20,6 @@ const WAVE_BANNER_CLASS = "waveBanner";
 const WAVE_EDIT_WAVE_MENU_CLASS = "waveEditMenu";
 const WAVE_EDIT_WAVE_MENU_ID = "waveDropDownMenu";
 const WAVE_CONTAINER_CLASS = "waveContainer";
-const ALL_WAVES_ID = "wavesDiv";
+const ALL_WAVES_ID = "allWaveBoxes";
 const WAVE_CBOX_TREE_ROOT_ID = "waveCheckBoxTreeRoot";
 

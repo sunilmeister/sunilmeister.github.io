@@ -18,6 +18,6 @@ const CHART_BANNER_TEXT_CLASS = "sparseIntervalMsg";
 const CHART_EDIT_CHART_MENU_CLASS = "chartEditMenu";
 const CHART_EDIT_CHART_MENU_ID = "chartDropDownMenu";
 const CHART_CONTAINER_CLASS = "chartContainer";
-const ALL_CHARTS_ID = "chartsDiv";
+const ALL_CHARTS_ID = "allChartBoxes";
 const CHART_CBOX_TREE_ROOT_ID = "chartCheckBoxTreeRoot";
 

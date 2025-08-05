@@ -5,6 +5,6 @@
 function initCharts() {
   removeAllChartContainers();
   session.charts.allChartsContainerInfo = {};
-  let node = document.getElementById("chartsDiv");
+  let node = document.getElementById(ALL_CHARTS_ID);
   node.innerHTML = "";
 }

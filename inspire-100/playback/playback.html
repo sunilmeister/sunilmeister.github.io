@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../common/css/frontPanel.css" />
   <link rel="stylesheet" href="../common/css/searchExpr.css" />
   <link rel="stylesheet" href="../common/css/searchResults.css" />
+  <link rel="stylesheet" href="../common/css/paramSummary.css" />
   <link rel="stylesheet" href="css/sidebar.css" />
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -74,6 +75,8 @@
   <script src="../common/js/misc/rangeSlider.js"></script>
 
   <script src="../common/js/firmware/fwReleases.js"></script>
+
+  <script src="../common/js/paramSummary/paramSummary.js"></script>
 
   <script src="../common/js/charts/constants.js"></script>
   <script src="../common/js/charts/chartBox.js"></script>
@@ -1126,10 +1129,14 @@
     </div>
 
     <div id=chartsDiv style="display: none; margin-bottom:1.3rem; margin-top: 1.5rem;">
+      <div id=allChartBoxes style="clear:both;" >
+      </div>
     </div>
 
     <div id=wavesDiv style="display: none; margin-bottom:1.3rem; margin-top: 1.5rem;">
-      <div class=wavesLegendDiv>
+      <div id=allWaveBoxes style="clear:both;" >
+      </div>
+      <div class=wavesLegendDiv style="clear:both;">
         <div class=wavesLegendCategory>
           <center>
             <p style="margin:0;">Normal Breaths

@@ -1,4 +1,18 @@
-.waveHeaderSetting {
+.paramSummary {
+  margin-top: -1.5rem;
+}
+
+.paramSummarySection {
+  background-color: white;
+  color: var(--rsp_darkblue);
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top: -0.5rem;
+}
+
+.paramSummarySetting {
   width: 6rem;
   height: 6rem;
   margin-right: 0.5rem;
@@ -8,7 +22,7 @@
   float: left;
 }
 
-.waveHeaderMeasured {
+.paramSummaryMeasured {
   width: 6rem;
   height: 6rem;
   margin-right: 0.5rem;
@@ -18,7 +32,7 @@
   float: left;
 }
 
-.waveHeaderSettingHeading {
+.paramSummarySettingHeading {
   color: white;
   font-size: 1.3rem;
   text-align: center;
@@ -26,7 +40,7 @@
   background-color: var(--rsp_darkblue);
 }
 
-.waveHeaderMeasuredHeading {
+.paramSummaryMeasuredHeading {
   color: white;
   font-size: 1.3rem;
   text-align: center;
@@ -35,28 +49,28 @@
   background-color: var(--rsp_darkgreen);
 }
 
-.waveHeaderSettingData {
+.paramSummarySettingData {
   color: white;
   font-size: 1.6rem;
   text-align: center;
   margin-top: -0.5rem;
 }
 
-.waveHeaderMeasuredData {
+.paramSummaryMeasuredData {
   color: var(--rsp_brightgreen);
   font-size: 1.6rem;
   text-align: center;
   margin-top: -0.5rem;
 }
 
-.waveHeaderMeasuredData {
+.paramSummaryMeasuredData {
   color: var(--rsp_brightgreen);
   font-size: 1.6rem;
   text-align: center;
   margin-top: -0.5rem;
 }
 
-.waveHeaderSettingUnits {
+.paramSummarySettingUnits {
   color: white;
   font-size: 0.85rem;
   text-align: center;
@@ -64,7 +78,7 @@
   background-color: var(--rsp_darkblue);
 }
 
-.waveHeaderMeasuredUnits {
+.paramSummaryMeasuredUnits {
   color: var(--rsp_brightgreen);
   font-size: 0.85rem;
   text-align: center;
