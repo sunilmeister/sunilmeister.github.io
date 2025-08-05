@@ -4,14 +4,15 @@
 
 var prevPwLen = 0;
 function createDashboardWaves() {
-	rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
   changeRangeSliderColors(session.waves.range.moving);
   let pwLen = session.waves.pwData.length;
   let forceDisplay = session.waves.range.moving && (prevPwLen != pwLen);
-	if (isVisibleRangeChanged() || forceDisplay) {
-  	createAllWaves();
-		updateVisiblePrevRange();
-	}
+  if (isVisibleRangeChanged() || forceDisplay) {
+    createAllWaves();
+    updateVisiblePrevRange();
+    updateParamSummary("Wave", session.waves.range);
+  }
   prevPwLen = pwLen;
 }
 
@@ -30,13 +31,13 @@ function movingWaveRange() {
   }
   if (minBnum === null) minBnum = 1;
 
-	let range = createRangeBnum(true, minBnum, session.maxBreathNum);
-	updateVisibleViewRangeObject(range);
-	showRangeOnSlider(range);
+  let range = createRangeBnum(true, minBnum, session.maxBreathNum);
+  updateVisibleViewRangeObject(range);
+  showRangeOnSlider(range);
 }
 
 function updateWaveRange() {
-	updateRangeSliderWindow(session.waves.range);
+  updateRangeSliderWindow(session.waves.range);
   if (session.waves.range.moving) movingWaveRange();
 }
 

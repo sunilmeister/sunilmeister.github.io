@@ -367,6 +367,9 @@ window.onload = function () {
   installTempGauge();
   initCommonDivElements();
 
+  installWavesParamSummary();
+  installChartsParamSummary();
+	
   disableAllBeeps();  
 
   createNewSession();

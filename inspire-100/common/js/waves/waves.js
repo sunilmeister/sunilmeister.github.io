@@ -167,9 +167,7 @@ function resizeAllWaves() {
   for (let id in session.waves.allWavesContainerInfo) {
     let box = session.waves.allWavesContainerInfo[id];
     box.resizeFonts();
-}
-
-  //renderAllWaves();
+  }
 }
 
 var tooManyWavesWarningIssued = false;

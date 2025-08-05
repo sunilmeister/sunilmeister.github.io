@@ -3,27 +3,28 @@
 // ////////////////////////////////////////////////////
 
 function createDashboardCharts() {
-	rangeWindowDiv.style.display = "block";
+  rangeWindowDiv.style.display = "block";
   changeRangeSliderColors(session.charts.range.moving);
-	if (isVisibleRangeChanged()) {
-  	createAllCharts();
-		updateVisiblePrevRange();
-	}
+  if (isVisibleRangeChanged()) {
+    createAllCharts();
+    updateVisiblePrevRange();
+    updateParamSummary("Chart", session.charts.range);
+  }
 }
 
 ////////////////////////////////////////////////////////
 
 function movingChartRange() {
-	let numBreaths = session.loggedBreaths.length - 1;
+  let numBreaths = session.loggedBreaths.length - 1;
   let minBnum = numBreaths - CHART_NUM_ROLLING_BREATHS + 1;
   if (minBnum <= 0) minBnum = 1;
-	let range = createRangeBnum(true, minBnum, numBreaths);
-	updateVisibleViewRangeObject(range);
-	showRangeOnSlider(range);
+  let range = createRangeBnum(true, minBnum, numBreaths);
+  updateVisibleViewRangeObject(range);
+  showRangeOnSlider(range);
 }
 
 function updateChartRange() {
-	updateRangeSliderWindow(session.charts.range);
+  updateRangeSliderWindow(session.charts.range);
   if (session.charts.range.moving) movingChartRange();
 }
 

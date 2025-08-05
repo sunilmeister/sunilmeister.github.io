@@ -47,7 +47,7 @@ function checkDbReady() {
 
 function selectSession() {
   undisplayAllPanes();
-	session.select.visible = true;
+  session.select.visible = true;
 
   document.getElementById("selectorDiv").style.display = "block";
   enableAllButtons();
@@ -86,10 +86,10 @@ function selectExport() {
 
 function selectSnapshots() {
   undisplayAllPanes();
-	resumeSnapshotsTimer();
-	session.snapshot.visible = true;
-	showRangeOnSlider(session.snapshot.range);
-	
+  resumeSnapshotsTimer();
+  session.snapshot.visible = true;
+  showRangeOnSlider(session.snapshot.range);
+  
   document.getElementById("snapshotsDiv").style.display = "inline-grid";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
@@ -105,10 +105,10 @@ function selectStats() {
   if (!checkDbReady()) return;
 
   undisplayAllPanes();
-	session.stats.visible = true;
+  session.stats.visible = true;
   if (!checkValidPlaybackDuration()) return;
-	showRangeOnSlider(session.stats.range);
-	
+  showRangeOnSlider(session.stats.range);
+  
   document.getElementById("statsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
@@ -124,10 +124,10 @@ function selectAlerts() {
   if (!checkDbReady()) return;
 
   undisplayAllPanes();
-	session.alerts.visible = true;
+  session.alerts.visible = true;
   if (!checkValidPlaybackDuration()) return;
-	showRangeOnSlider(session.alerts.range);
-	
+  showRangeOnSlider(session.alerts.range);
+  
   document.getElementById("alertsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
@@ -143,10 +143,10 @@ function selectWaves() {
   if (!checkDbReady()) return;
 
   undisplayAllPanes();
-	session.waves.visible = true;
+  session.waves.visible = true;
   if (!checkValidPlaybackDuration()) return;
-	showRangeOnSlider(session.waves.range);
-	
+  showRangeOnSlider(session.waves.range);
+  
   document.getElementById("wavesDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
@@ -162,10 +162,10 @@ function selectCharts() {
   if (!checkDbReady()) return;
 
   undisplayAllPanes();
-	session.charts.visible = true;
+  session.charts.visible = true;
   if (!checkValidPlaybackDuration()) return;
-	showRangeOnSlider(session.charts.range);
-	
+  showRangeOnSlider(session.charts.range);
+  
   document.getElementById("chartsDiv").style.display = "block";
   document.getElementById("playbackWindowDiv").style.display = "block";
   let sessionInfo = document.getElementById("sliderCaption");
@@ -181,9 +181,9 @@ function selectRawData() {
   if (!checkDbReady()) return;
 
   undisplayAllPanes();
-	session.rawData.visible = true;
+  session.rawData.visible = true;
   if (!checkValidPlaybackDuration()) return;
-	
+  
   document.getElementById("rawDataDiv").style.display = "block";
   let sessionInfo = document.getElementById("sessionNameData");
   sessionInfo.innerHTML = recordingBannerHTML;
@@ -199,13 +199,13 @@ function selectSearch() {
   if (!checkDbReady()) return;
 
   undisplayAllPanes();
-	session.search.visible = true;
+  session.search.visible = true;
   if (!checkValidPlaybackDuration()) return;
-	showRangeOnSlider(session.search.range);
-	
-	if (!session.search.criteria) {
-		session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
-	}
+  showRangeOnSlider(session.search.range);
+  
+  if (!session.search.criteria) {
+    session.search.criteria = new searchExpr({}, "exprContainer", "exprString", "searchResults");
+  }
   document.getElementById("playbackWindowDiv").style.display = "block";
   document.getElementById("searchDiv").style.display = "block";
 
@@ -269,33 +269,33 @@ function resizeChartsWaves() {
   let style = getComputedStyle(document.body);
 
   session.waves.labelFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
   session.waves.axisTitleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
   session.waves.legendFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
   session.waves.titleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
   session.waves.stripLineFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
 
   session.charts.labelFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartLabelFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartLabelFontSize'));
   session.charts.legendFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartLegendFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartLegendFontSize'));
   session.charts.titleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartTitleFontSize'));
   session.charts.stripLineFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--chartStripLineFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--chartStripLineFontSize'));
 
-	resizeAllCharts();
+  resizeAllCharts();
   if (session.charts.visible) {
-  	renderAllCharts();
-	}
-	resizeAllWaves();
+    renderAllCharts();
+  }
+  resizeAllWaves();
   if (session.waves.visible) {
-  	renderAllWaves();
-	}
+    renderAllWaves();
+  }
 }
 
 function initGlobals() {
@@ -318,14 +318,14 @@ function resetPlaybackData() {
   initGlobals();
   initDbNames();
   if (session.snapshot.visible || session.charts.visible || session.waves.visible ||
-  		session.stats.visible || session.alerts.visible || session.search.visible) { 
+      session.stats.visible || session.alerts.visible || session.search.visible) { 
     document.getElementById("playbackWindowDiv").style.display = "block";
   }
 }
 
 function undisplayAllPanes() {
-	pauseSnapshotsTimer();
-	hideAllPopups();
+  pauseSnapshotsTimer();
+  hideAllPopups();
 
   document.getElementById("snapshotsDiv").style.display = "none";
   document.getElementById("statsDiv").style.display = "none";
@@ -339,15 +339,15 @@ function undisplayAllPanes() {
   document.getElementById("exportRecordingDiv").style.display = "none";
   document.getElementById("searchDiv").style.display = "none";
 
-	session.snapshot.visible = false;
-	session.charts.visible = false;
-	session.stats.visible = false;
-	session.alerts.visible = false;
-	session.record.visible = false;
-	session.waves.visible = false;
-	session.search.visible = false;
-	session.rawData.visible = false;
-	session.select.visible = false;
+  session.snapshot.visible = false;
+  session.charts.visible = false;
+  session.stats.visible = false;
+  session.alerts.visible = false;
+  session.record.visible = false;
+  session.waves.visible = false;
+  session.search.visible = false;
+  session.rawData.visible = false;
+  session.select.visible = false;
 }
 
 function checkValidPlaybackDuration() {
@@ -361,7 +361,7 @@ function checkValidPlaybackDuration() {
 
 function updateLogDuration() {
   let diff = session.lastChirpDate.getTime() - session.firstChirpDate.getTime();
-	session.sessionDurationInMs = diff;
+  session.sessionDurationInMs = diff;
   let elm = document.getElementById("logTimeDuration");
   if (diff >= 0) {
     elm.innerHTML = msToHHMMSS(diff);
@@ -370,9 +370,9 @@ function updateLogDuration() {
   }
 
   elm = document.getElementById("logStartDate");
-	elm.innerHTML = dateToDateStr(session.firstChirpDate);
+  elm.innerHTML = dateToDateStr(session.firstChirpDate);
   elm = document.getElementById("logStartTime");
-	elm.innerHTML = dateToTimeStr(session.firstChirpDate);
+  elm.innerHTML = dateToTimeStr(session.firstChirpDate);
 }
 
 function updateSelectedDuration() {
@@ -392,23 +392,25 @@ function updateSelectedDuration() {
 
 function refreshActivePane() {
   if (session.snapshot.visible) {
-		createSnapshots();
-		updateVisiblePrevRange();
-	} else if (session.stats.visible) {
+    createSnapshots();
+    updateVisiblePrevRange();
+  } else if (session.stats.visible) {
     createAllStats();
-		updateVisiblePrevRange();
-	} else if (session.charts.visible) {
+    updateVisiblePrevRange();
+  } else if (session.charts.visible) {
     createAllCharts();
-		updateVisiblePrevRange();
-	} else if (session.alerts.visible) {
+    updateVisiblePrevRange();
+    updateParamSummary("Chart", session.charts.range);
+  } else if (session.alerts.visible) {
     createAllAlerts();
-		updateVisiblePrevRange();
-	} else if (session.waves.visible) {
+    updateVisiblePrevRange();
+  } else if (session.waves.visible) {
     createAllWaves();
-		updateVisiblePrevRange();
-	} else if (session.search.visible) {
+    updateVisiblePrevRange();
+    updateParamSummary("Wave", session.waves.range);
+  } else if (session.search.visible) {
     updateSearchResults();
-		updateVisiblePrevRange();
+    updateVisiblePrevRange();
   }
 }
 
@@ -421,23 +423,23 @@ function playbackRangeSliderCallback() {
   let values = session.rangeSelector.rangeSlider.getSlider();
   let s = parseInt(values[0]);
   let e = parseInt(values[1]);
-	if (session.snapshot.visible) s = 0;
+  if (session.snapshot.visible) s = 0;
 
-	updateVisibleViewRange(false, s, e);
+  updateVisibleViewRange(false, s, e);
   updateSelectedDuration();
   refreshActivePane();
 }
 
 function forwardTimeInterval() {
-	forwardRange();
+  forwardRange();
 }
 
 function rewindTimeInterval() {
-	rewindRange();
+  rewindRange();
 }
 
 function fullTimeInterval() {
-	fullRange();
+  fullRange();
 }
 
 function editTimeInterval() {
@@ -450,18 +452,18 @@ function playbackGatherDoneCallback() {
   session.sessionDataValid = true;
   session.database.dbReady = true;
 
-	session.maxBreathNum = session.loggedBreaths.length - 1;
+  session.maxBreathNum = session.loggedBreaths.length - 1;
   if (session.maxBreathNum == 0) {
     modalAlert("No recorded breath for this session", "Select another session");
     return;
   }
 
-	updateLogDuration();
+  updateLogDuration();
 
   if (session.maxBreathNum < DEFAULT_PLAYBACK_RANGE_MAX) {
-		updateAllRanges(false, 0, session.maxBreathNum);
+    updateAllRanges(false, 0, session.maxBreathNum);
   } else {
-		updateAllRanges(false, 0, DEFAULT_PLAYBACK_RANGE_MAX);
+    updateAllRanges(false, 0, DEFAULT_PLAYBACK_RANGE_MAX);
   }
 
   enableAllButtons();
@@ -474,9 +476,11 @@ window.onload = function () {
   session.appId = PLAYBACK_APP_ID;
   session.launchDate = new Date();
 
-	initCommonDivElements();
-	
-	alignSidebar();
+  initCommonDivElements();
+  installWavesParamSummary();
+  installChartsParamSummary();
+  
+  alignSidebar();
 
   initGlobals();
   initDbNames();
@@ -490,11 +494,11 @@ window.onload = function () {
   let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 
-	setRootFontSize("fullPlayback", "fullPlayback");
+  setRootFontSize("fullPlayback", "fullPlayback");
 
   disableAllButtons();
-	appResize();
-	appResizeFunction = appResize;
+  appResize();
+  appResizeFunction = appResize;
 
   // All forms
   new KeypressEnterSubmit('exportRecordingFileName', 'exportRecordingFileBtn');
@@ -518,9 +522,9 @@ function alignSidebar() {
 }
 
 function appResize() {
-	alignSidebar();
-	resizeChartsWaves();
-	resizeSnapshots();
+  alignSidebar();
+  resizeChartsWaves();
+  resizeSnapshots();
 }
 
 function selectExit() {
@@ -543,7 +547,7 @@ function changePlaybackWindowButtonsColor(bgd) {
 }
 
 function updateRangeOnNewBreath(num) {
-	// empty in playback
+  // empty in playback
 }
 
 function createPlaybackRangeSlider() {

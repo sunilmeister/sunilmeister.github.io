@@ -56,3 +56,73 @@ function changeAllParamSummaryId(paramSummaryNode, suffix) {
     }
   }
 }
+
+function updateParamSummaryNodeValue(nodeId, nodeIdSuffix, value) {
+  let node = document.getElementById(nodeId + nodeIdSuffix);
+  updateDivValue(node, value);
+}
+
+function updateParamSummaryNodeText(nodeId, nodeIdSuffix, value) {
+  let node = document.getElementById(nodeId + nodeIdSuffix);
+  updateDivText(node, value);
+}
+
+function updateParamSummary(nodeIdSuffix, range) {
+  let summary = gatherParamSummary(range);
+
+  let sectionText = "Parameter Settings @ Breath #" + summary.breathNum;
+  updateParamSummaryNodeText("paramSummarySettingsSection", nodeIdSuffix, sectionText);
+
+  sectionText = "Measured Parameters @ Breath #" + summary.breathNum;
+  updateParamSummaryNodeText("paramSummaryMeasureSection", nodeIdSuffix, sectionText);
+
+  // Update mode
+	if (isValidValue(summary.mode)) {
+		let modeText =  MODE_DECODER[summary.mode];
+		if (summary.mode == 3) { // PSV
+			modeText = modeText + " (BiPAP)";
+		}
+    updateParamSummaryNodeText("paramSummaryMode", nodeIdSuffix, modeText);
+	}
+
+  // Switch between PSV and other modes
+  if (MODE_DECODER[summary.mode] == "PSV") {
+    updateParamSummaryNodeText("paramSummaryVtMvHeading", nodeIdSuffix, "MV");
+    updateParamSummaryNodeText("paramSummaryVtMvUnits", nodeIdSuffix, "(ltr/min)");
+    updateParamSummaryNodeValue("paramSummaryRr", nodeIdSuffix, null);
+    updateParamSummaryNodeValue("paramSummaryIe", nodeIdSuffix, null);
+		if (summary.mv) {
+      updateParamSummaryNodeValue("paramSummaryVtMv", nodeIdSuffix, summary.mv);
+		} else {
+      updateParamSummaryNodeValue("paramSummaryVtMv", nodeIdSuffix, null);
+		}
+  } else {
+    updateParamSummaryNodeText("paramSummaryVtMvHeading", nodeIdSuffix, "VT");
+    updateParamSummaryNodeText("paramSummaryVtMvUnits", nodeIdSuffix, "(ml)");
+    updateParamSummaryNodeValue("paramSummaryRr", nodeIdSuffix, summary.rr);
+    updateParamSummaryNodeValue("paramSummaryIe", nodeIdSuffix, summary.ie);
+    updateParamSummaryNodeValue("paramSummaryVtMv", nodeIdSuffix, summary.vt);
+  }
+
+  updateParamSummaryNodeValue("paramSummaryIPeep", nodeIdSuffix, summary.ipeep);
+  updateParamSummaryNodeValue("paramSummaryPs", nodeIdSuffix, summary.ps);
+  updateParamSummaryNodeValue("paramSummaryTps", nodeIdSuffix, summary.tps);
+  updateParamSummaryNodeValue("paramSummaryFiO2", nodeIdSuffix, summary.fiO2);
+
+  updateParamSummaryNodeValue("paramSummaryMvdel", nodeIdSuffix, summary.mvdel);
+  updateParamSummaryNodeValue("paramSummaryVtdel", nodeIdSuffix, summary.vtdel);
+  updateParamSummaryNodeValue("paramSummaryPeak", nodeIdSuffix, summary.peak);
+  updateParamSummaryNodeValue("paramSummaryPlat", nodeIdSuffix, summary.plat);
+  updateParamSummaryNodeValue("paramSummaryMPeep", nodeIdSuffix, summary.mpeep);
+
+  let bpm = 0;
+  if (isValidValue(summary.sbpm)) {
+    bpm += summary.sbpm;
+  }
+  if (isValidValue(summary.mbpm)) {
+    bpm += summary.mbpm;
+  }
+  if (bpm == 0) bpm = null;
+
+  updateParamSummaryNodeValue("paramSummaryBpm", nodeIdSuffix, bpm);
+}
