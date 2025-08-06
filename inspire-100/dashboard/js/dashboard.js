@@ -63,9 +63,17 @@ function createDashboards() {
   updateSidebar();
 
   if (session.snapshot.visible) createDashboardSnapshots();
-  if (session.charts.visible) createDashboardCharts();
+  if (session.charts.visible) {
+    // Since the state info is displayed in the charts and waveforms view
+    // that too needs updating
+    updateParamSummarySystem("Chart");
+    createDashboardCharts();
+  }
+  if (session.waves.visible) {
+    updateParamSummarySystem("Wave");
+    createDashboardWaves();
+  }
   if (session.stats.visible) createDashboardStats();
-  if (session.waves.visible) createDashboardWaves();
   if (session.alerts.visible) createDashboardAlerts();
   if (session.search.visible) createDashboardSearch();
   if (session.record.visible) {

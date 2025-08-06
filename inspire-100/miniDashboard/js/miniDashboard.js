@@ -224,7 +224,10 @@ function createDashboards(chirp) {
 		updateEntireFrontPanel();
   	fpRefresh();
 	}
-  if (session.waves.visible) wavesRefresh();
+  if (session.waves.visible) {
+    wavesRefresh();
+    updateParamSummarySystem("Wave");
+  }
 }
 
 function createMiniWaves() {

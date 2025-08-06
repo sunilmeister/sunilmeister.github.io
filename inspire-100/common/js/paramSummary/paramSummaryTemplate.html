@@ -1,6 +1,18 @@
   <template id=paramSummaryTemplate>
     <div class=paramSummary>
       <div style="float:left;">
+        <center>
+          <div id=paramSummarySystemSection class=paramSummarySection>
+            System
+          </div>
+          <img id=paramSummarySystemImg src="../common/img/BlankLED.png" alt="LED" style="width:7rem; height:7rem;">
+        </center>
+      </div>
+
+      <div class=paramSummarySpace>
+      </div>
+
+      <div style="float:left;">
         <div id=paramSummarySettingsSection class=paramSummarySection>
           Parameter Settings
         </div>
@@ -44,8 +56,10 @@
           <p class=paramSummarySettingUnits>(%)</p>
         </div>
       </div>
-      <div class=paramSummarySetting style="background-color:white">
+
+      <div class=paramSummarySpace>
       </div>
+
       <div style="float:left;">
         <div id=paramSummaryMeasureSection class=paramSummarySection>
           Measured Parameters
@@ -81,9 +95,11 @@
           <p class=paramSummaryMeasuredUnits>(cmH2O)</p>
         </div>
       </div>
+
       <div style="clear:both;">
         <br>
       </div>
+
     </div>
   </template>
  

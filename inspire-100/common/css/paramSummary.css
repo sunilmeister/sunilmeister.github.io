@@ -12,6 +12,14 @@
   margin-top: -0.5rem;
 }
 
+.paramSummaryState {
+  width: 6rem;
+  height: 6rem;
+  margin-right: 0.5rem;
+  color: white;
+  float: left;
+}
+
 .paramSummarySetting {
   width: 6rem;
   height: 6rem;
@@ -85,3 +93,12 @@
   margin-top: -0.7rem;
   background-color: var(--rsp_darkgreen);
 }
+
+.paramSummarySpace {
+  width: 1rem;
+  height: 6rem;
+  background-color: "white";
+  color: white;
+  float: left;
+}
+

@@ -68,6 +68,8 @@ function updateParamSummaryNodeText(nodeId, nodeIdSuffix, value) {
 }
 
 function updateParamSummary(nodeIdSuffix, range) {
+  updateParamSummarySystem(nodeIdSuffix);
+
   let summary = gatherParamSummary(range);
 
   let sectionText = "Parameter Settings";
@@ -128,3 +130,41 @@ function updateParamSummary(nodeIdSuffix, range) {
 
   updateParamSummaryNodeValue("paramSummaryBpm", nodeIdSuffix, bpm);
 }
+
+function updateParamSummarySystem(nodeIdSuffix) {
+  let imgDiv = document.getElementById("paramSummarySystemImg" + nodeIdSuffix);
+  if (!imgDiv) return;
+
+  let captionDiv = document.getElementById("paramSummarySystemSection" + nodeIdSuffix);
+
+  let state = session.params.state.LastChangeValue();
+  let attention = session.params.attention.LastChangeValue();
+  let errorTag = session.params.errorTag.LastChangeValue();
+  
+  if (session.appId == PLAYBACK_APP_ID) {
+    captionDiv.innerHTML = "Playback";
+    captionDiv.style.color = palette.darkblue;
+    imgDiv.src = "../common/img/playbackIcon.png";
+    return;
+  }
+
+
+  if ((state == ERROR_STATE) || (errorTag == true)) {
+    captionDiv.style.color = palette.darkred;
+    captionDiv.innerHTML = "ERROR";
+    imgDiv.src = "../common/img/Error.png";
+  } else if (attention) {
+    captionDiv.style.color = palette.orange;
+    captionDiv.innerHTML = "WARNING";
+    imgDiv.src = "../common/img/Warning.png";
+  } else if (state == STANDBY_STATE) {
+    captionDiv.style.color = palette.yellow;
+    captionDiv.innerHTML = "STANDBY";
+    imgDiv.src = "../common/img/StandbyLED.png";
+  } else {
+    captionDiv.style.color = palette.green;
+    captionDiv.innerHTML = "ACTIVE";
+    imgDiv.src = "../common/img/ActiveLED.png";
+  }
+}
+
