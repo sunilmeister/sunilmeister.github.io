@@ -154,11 +154,11 @@ function updateParamSummarySystem(nodeIdSuffix) {
     captionDiv.innerHTML = "ERROR";
     imgDiv.src = "../common/img/Error.png";
   } else if (attention) {
-    captionDiv.style.color = palette.orange;
+    captionDiv.style.color = palette.darkorange;
     captionDiv.innerHTML = "WARNING";
     imgDiv.src = "../common/img/Warning.png";
   } else if (state == STANDBY_STATE) {
-    captionDiv.style.color = palette.yellow;
+    captionDiv.style.color = palette.darkorange;
     captionDiv.innerHTML = "STANDBY";
     imgDiv.src = "../common/img/StandbyLED.png";
   } else {

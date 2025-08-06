@@ -3,31 +3,31 @@
 // ////////////////////////////////////////////////////
 
 var palette = {
-  darkblue:	    null,
-  mediumblue:	null,
-  blue:	        null,
-  lightblue:	null,
-  paleblue:	    null,
-  brightblue:	null,
-  darkgreen:	null,
-  green:	    null,
-  mediumgreen:	null,
-  lightgreen:	null,
-  brightgreen:	null,
-  yellow:	    null,
-  orange:	    null,
-  darkred:	    null,
-  modal:	    null,
+  darkblue:   null,
+  mediumblue: null,
+  blue:       null,
+  lightblue:  null,
+  paleblue:   null,
+  brightblue: null,
+  darkgreen:  null,
+  green:      null,
+  mediumgreen:null,
+  lightgreen: null,
+  brightgreen:null,
+  yellow:     null,
+  orange:     null,
+  darkorange: null,
+  darkred:    null,
+  modal:      null,
 
-  MandatoryVC:	        null,
-  SpontaneousVC:	    null,
-  SpontaneousPS:	    null,
-  MandatoryVCMaint:	    null,
-  SpontaneousVCMaint:	null,
-  SpontaneousPSMaint:	null,
-  Abnormal:	            null,
-  Error:	            null,
-
+  MandatoryVC:        null,
+  SpontaneousVC:      null,
+  SpontaneousPS:      null,
+  MandatoryVCMaint:   null,
+  SpontaneousVCMaint: null,
+  SpontaneousPSMaint: null,
+  Abnormal:           null,
+  Error:              null,
 };
 
 window.addEventListener("load", function() {
@@ -45,6 +45,7 @@ window.addEventListener("load", function() {
   palette.lightgreen = style.getPropertyValue('--rsp_lightgreen');
   palette.brightgreen = style.getPropertyValue('--rsp_brightgreen');
   palette.yellow = style.getPropertyValue('--rsp_yellow');
+  palette.darkorange = style.getPropertyValue('--rsp_darkorange');
   palette.orange = style.getPropertyValue('--rsp_orange');
   palette.darkred = style.getPropertyValue('--rsp_darkred');
   palette.modal = style.getPropertyValue('--rsp_modal');

@@ -87,7 +87,7 @@ function updatePendingIndividualSetting(blink, div, pendingParam) {
   if (snap.somePending) {
     if (pendParam && blink) {
       if (!pendingOrange) {
-        elm.style.backgroundColor = palette.orange;
+        elm.style.backgroundColor = palette.darkorange;
 				pendingOrange = true;
       } else {
         elm.style.backgroundColor = palette.mediumblue;
@@ -123,7 +123,7 @@ function updatePending(blink) {
     elm.innerHTML = "Pending Changes";
     if (pendingBackground != "ORANGE") {
       elm = document.getElementById("PendingDiv");
-      elm.style.backgroundColor = palette.orange;
+      elm.style.backgroundColor = palette.darkorange;
       pendingBackground = "ORANGE";
     } else if (blink) {
       elm = document.getElementById("PendingDiv");
@@ -168,7 +168,7 @@ function updateAlert(blink) {
     }
   } else if (snap.attention) {
     if (alertBackground != "ORANGE") {
-      elm.style.backgroundColor = palette.orange;
+      elm.style.backgroundColor = palette.darkorange;
       alertBackground = "ORANGE";
     } else if (blink) {
       elm.style.backgroundColor = palette.green;
