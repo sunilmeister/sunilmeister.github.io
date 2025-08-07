@@ -3,8 +3,8 @@
 // ////////////////////////////////////////////////////
 
 function updateFrontPanelRange() {
-	let range = createRangeBnum(true, 0, session.maxBreathNum);
-	session.snapshot.range = cloneObject(range);
+  let range = createRangeBnum(true, 0, session.maxBreathNum);
+  session.snapshot.range = cloneObject(range);
 }
 
 function updateWavePanelRange() {
@@ -21,8 +21,8 @@ function updateWavePanelRange() {
   }
   if (minBnum === null) minBnum = 1;
 
-	let range = createRangeBnum(true, minBnum, session.maxBreathNum);
-	session.waves.range = range;
+  let range = createRangeBnum(true, minBnum, session.maxBreathNum);
+  session.waves.range = range;
 }
 
 function updateRangeOnNewBreath() {
@@ -31,54 +31,56 @@ function updateRangeOnNewBreath() {
 }
 
 function switchToFrontPanel() {
-	if (session.snapshot.visible) return;
-	undisplayAllViews();
+  if (session.snapshot.visible) return;
+  undisplayAllViews();
 
   document.getElementById("frontPanelDiv").style.display = "block";
   document.getElementById("wavesDiv").style.display = "none";
+  setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
 
-	session.snapshot.visible = true;
+  session.snapshot.visible = true;
 
-	resumeSnapshotsTimer();
+  resumeSnapshotsTimer();
   updateFrontPanelRange();
-	gatherSnapshotData();
-	updateEntireFrontPanel();
+  gatherSnapshotData();
+  updateEntireFrontPanel();
   fpRefresh();
 }
 
 function switchToWaves() {
-	if (session.waves.visible) return;
-	undisplayAllViews();
+  if (session.waves.visible) return;
+  undisplayAllViews();
 
   document.getElementById("frontPanelDiv").style.display = "none";
   document.getElementById("wavesDiv").style.display = "block";
+  setRootFontSize("wavesDiv", "wavesDiv", 15, 5);
 
-	session.waves.visible = true;
+  session.waves.visible = true;
 
-	wavesRefresh();
+  wavesRefresh();
 }
 
 function appResize() {
-	if (isMobileLandscape()) switchToWaves();
-	else if (isMobileBrowser()) switchToFrontPanel();
-	resizeWaves();
+  if (isMobileLandscape()) switchToWaves();
+  else if (isMobileBrowser()) switchToFrontPanel();
+  resizeWaves();
 }
 
 function resizeWaves() {
   let style = getComputedStyle(document.body);
-	
+  
   session.waves.labelFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
   session.waves.axisTitleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
   session.waves.legendFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
   session.waves.titleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveTitleFontSize'));
   session.waves.stripLineFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveStripLineFontSize'));
 
-	resizeAllWaves();
+  resizeAllWaves();
   if (session.waves.visible) renderAllWaves();
 }
 
@@ -88,9 +90,9 @@ function waitForChirps() {
     dormantTimeInSec = 0;
     autoCloseDormantPopup();
 
-		// ignore old chirps
-		dashboardChirpCount++;
-		if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
+    // ignore old chirps
+    dashboardChirpCount++;
+    if ((dashboardChirpCount == 1) && (d.created < dashboardLaunchTime)) return;
 
     if (awaitingFirstChirp) {
       let millisStr = d.content["0"].MILLIS
@@ -142,13 +144,13 @@ function HandlePeriodicTasks() {
 
 var dashboardSessionClosed = false;
 function closeCurrentSession() {
-	// allow navigation and manipulation of current session views
-	dashboardSessionClosed = true;
+  // allow navigation and manipulation of current session views
+  dashboardSessionClosed = true;
 
-	// display and sound a warning
-	modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
-	enableWarningBeep();
-	startWarningBeep();
+  // display and sound a warning
+  modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
+  enableWarningBeep();
+  startWarningBeep();
 }
 
 setTimeout(function periodicCheck() {
@@ -166,38 +168,38 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
 
     let d = chirpQ.pop();
-		if (dashboardSessionClosed) {
-			return; // do not process any more chirps
-		}
+    if (dashboardSessionClosed) {
+      return; // do not process any more chirps
+    }
 
-		if (isUndefined(d["content"])) break; // empty chirp
+    if (isUndefined(d["content"])) break; // empty chirp
 
-		// check if a new session has started without current one being closed
+    // check if a new session has started without current one being closed
     if (!isUndefined(d.content["HWORLD"])) {
-			if (session.firstChirpDate) {
-				// A session was in progress but a new session started
-				// must close current session and inform user
-				closeCurrentSession();
-				return;
-			}
-		}
+      if (session.firstChirpDate) {
+        // A session was in progress but a new session started
+        // must close current session and inform user
+        closeCurrentSession();
+        return;
+      }
+    }
 
     if (!isUndefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
-			if (bnumObj) {
-      	session.systemBreathNum = bnumObj.bnum;
-      	if (session.startSystemBreathNum == null) {
-        	session.startSystemBreathNum = session.systemBreathNum;
-      	}
-        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
-        if (chirpBnum >	session.maxBreathNum) {
-      	  session.systemBreathNum = bnumObj.bnum;
-         	session.maxBreathNum = chirpBnum;
+      if (bnumObj) {
+        session.systemBreathNum = bnumObj.bnum;
+        if (session.startSystemBreathNum == null) {
+          session.startSystemBreathNum = session.systemBreathNum;
         }
-			} else {
-				console.error("BAD BNUM Parsing",bnumContent);
-			}
+        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+        if (chirpBnum > session.maxBreathNum) {
+          session.systemBreathNum = bnumObj.bnum;
+          session.maxBreathNum = chirpBnum;
+        }
+      } else {
+        console.error("BAD BNUM Parsing",bnumContent);
+      }
     }
     processDashboardChirp(cloneObject(d));
   }
@@ -207,23 +209,23 @@ function FetchAndExecuteFromQueue() {
 
 function processDashboardChirp(chirp) {
   let curDate = new Date(chirp.created);
-	let date = session.firstChirpDate;
-	if (date === null) date = new Date(chirp.created);
+  let date = session.firstChirpDate;
+  if (date === null) date = new Date(chirp.created);
   session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
 
   processJsonRecord(chirp);
   createDashboards(chirp);
-	createAlarmModals();
+  createAlarmModals();
 
   return chirp;
 }
 
 function createDashboards(chirp) {
   if (session.snapshot.visible) {
-		gatherSnapshotData();
-		updateEntireFrontPanel();
-  	fpRefresh();
-	}
+    gatherSnapshotData();
+    updateEntireFrontPanel();
+    fpRefresh();
+  }
   if (session.waves.visible) {
     wavesRefresh();
     updateParamSummarySystem("Wave");
@@ -231,16 +233,16 @@ function createDashboards(chirp) {
 }
 
 function createMiniWaves() {
-	let containerId = "miniWaves";
+  let containerId = "miniWaves";
   let container = document.getElementById(containerId);
   let body = findChildNodeByClass(container, WAVE_BODY_CLASS);
   let box = new WaveBox(body);
-	box.setMiniOptions();
+  box.setMiniOptions();
   session.waves.allWavesContainerInfo[containerId] = box;
 }
 
 function wavesRefresh() {
-	createAllWaves();
+  createAllWaves();
   updateParamSummary("Wave", session.waves.range);
 }
 
@@ -248,19 +250,19 @@ function undisplayAllViews() {
   document.getElementById("frontPanelDiv").style.display = "none";
   document.getElementById("wavesDiv").style.display = "none";
 
-	session.snapshot.visible = false;
-	session.waves.visible = false;
+  session.snapshot.visible = false;
+  session.waves.visible = false;
 
-	pauseSnapshotsTimer();
-	hideAllPopups();
+  pauseSnapshotsTimer();
+  hideAllPopups();
 }
 
 window.onload = function () {
-	dashboardLaunchTime = new Date();
+  dashboardLaunchTime = new Date();
   finishedLoading = false;
-	appResizeFunction = appResize;
-	
-	disableAllBeeps();  
+  appResizeFunction = appResize;
+  
+  disableAllBeeps();  
 
   installWavesParamSummary();
 
@@ -277,12 +279,11 @@ window.onload = function () {
   }
   updateDocumentTitle();  
 
-	createMiniWaves();
-	createFpDivs();
-	switchToFrontPanel();
-	setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
+  createMiniWaves();
+  createFpDivs();
+  switchToFrontPanel();
 
-	openAudioControl();
+  openAudioControl();
 
 
   // now wait for chirps and act accordingly
