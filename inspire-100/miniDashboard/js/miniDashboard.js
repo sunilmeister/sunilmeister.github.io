@@ -59,9 +59,9 @@ function switchToWaves() {
 }
 
 function appResize() {
-	resizeWaves();
 	if (isMobileLandscape()) switchToWaves();
 	else if (isMobileBrowser()) switchToFrontPanel();
+	resizeWaves();
 }
 
 function resizeWaves() {
