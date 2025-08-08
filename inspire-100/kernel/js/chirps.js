@@ -220,7 +220,7 @@ function parseBreathData(jsonStr) {
     mpeep : (arr[2] == -1) ? null : arr[2],
     vtdel : (arr[3] == -1) ? null : arr[3],
     iqdel : (arr[4] == -1) ? null : arr[4],
-    btype : (arr[5] == -1) ? null : arr[5],
+    binfo : (arr[5] == -1) ? null : arr[5],
   }
   return val;
 }
@@ -392,7 +392,7 @@ function processJsonRecord(jsonData) {
 }
 
 // ////////////////////////////////////////////////
-// All individual Pressure Waveform data handling below
+// All individual Waveform data handling below
 // ////////////////////////////////////////////////
 function waveCollectedSamples(slices) {
   num = 0;
@@ -817,28 +817,33 @@ function processBreathChirp(curTime, jsonStr) {
     return;
   }
 
-  if (session.stateData.error) obj.btype = MAINTENANCE_BREATH;
-
   saveOutputChange("peak", curTime, obj);
   saveOutputChange("plat", curTime, obj);
   saveOutputChange("mpeep", curTime, obj);
   saveOutputChange("vtdel", curTime, obj);
-  saveOutputChange("btype", curTime, obj);
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
   session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
 
-  // infer the breath control
-  let mode = session.params.mode.LastChangeValue();
-  if (obj.btype == SPONTANEOUS_BREATH) {
-    if ((MODE_DECODER[mode] == "SIMV") || (MODE_DECODER[mode] == "PSV")) {
-      session.params.bcontrol.AddTimeValue(curTime, PRESSURE_SUPPORT);
+  //console.log("binfo",obj.binfo);
+  if (obj.binfo !== null) {
+    let btype;
+    if (session.stateData.error) {
+      btype = MAINTENANCE_BREATH;
     } else {
-      session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
+      btype = obj.binfo & 0x1; // bit#0
+      if (btype != 0) btype = MANDATORY_BREATH;
+      else  btype = SPONTANEOUS_BREATH;
     }
-  } else {
-    session.params.bcontrol.AddTimeValue(curTime, VOLUME_CONTROL);
+    //console.log("btype",btype);
+    session.params.btype.AddTimeValue(curTime, btype);
+
+    let bcontrol = obj.binfo & 0x2; // bit#1
+    if (bcontrol != 0) bcontrol = VOLUME_CONTROL;
+    else  bcontrol = PRESSURE_SUPPORT;
+    //console.log("bcontrol",bcontrol);
+    session.params.bcontrol.AddTimeValue(curTime, bcontrol);
   }
 }
 
