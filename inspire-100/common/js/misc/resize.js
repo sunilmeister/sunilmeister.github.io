@@ -94,7 +94,7 @@ function isMobileLandscape() {
 	if (!isMobileBrowser()) return false;
 	let windowWidth = document.documentElement.clientWidth;
 	let windowHeight = document.documentElement.clientHeight;
-	console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
+	// console.log("windowWidth", windowWidth, "windowHeight", windowHeight);
 	return (windowWidth > windowHeight);
 }
 
