@@ -36,7 +36,6 @@ function switchToFrontPanel() {
 
   document.getElementById("frontPanelDiv").style.display = "block";
   document.getElementById("wavesDiv").style.display = "none";
-  setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
 
   session.snapshot.visible = true;
 
@@ -53,7 +52,6 @@ function switchToWaves() {
 
   document.getElementById("frontPanelDiv").style.display = "none";
   document.getElementById("wavesDiv").style.display = "block";
-  setRootFontSize("wavesDiv", "wavesDiv", 15, 5);
 
   session.waves.visible = true;
 
@@ -61,9 +59,9 @@ function switchToWaves() {
 }
 
 function appResize() {
+  resizeWaves();
   if (isMobileLandscape()) switchToWaves();
   else if (isMobileBrowser()) switchToFrontPanel();
-  resizeWaves();
 }
 
 function resizeWaves() {
@@ -87,7 +85,7 @@ function resizeWaves() {
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
-    console.log("chirp", d);
+    //console.log("chirp", d);
     dormantTimeInSec = 0;
     autoCloseDormantPopup();
 
@@ -282,6 +280,9 @@ window.onload = function () {
 
   createMiniWaves();
   createFpDivs();
+
+  switchToWaves();
+  setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
   switchToFrontPanel();
 
   openAudioControl();
