@@ -181,6 +181,8 @@ class WavePane {
     if (bInfo.isMaintenance) {
       if (bInfo.isMandatory && bInfo.isVC)
         return palette.MandatoryVCMaint;
+      if (bInfo.isMandatory && !bInfo.isVC)
+        return palette.MandatoryPS;
       if (!bInfo.isMandatory && bInfo.isVC)
         return palette.SpontaneousVCMaint;
       if (!bInfo.isMandatory && !bInfo.isVC)
@@ -188,6 +190,8 @@ class WavePane {
     } else {
       if (bInfo.isMandatory && bInfo.isVC)
         return palette.MandatoryVC;
+      if (bInfo.isMandatory && !bInfo.isVC)
+        return palette.MandatoryPS;
       if (!bInfo.isMandatory && bInfo.isVC)
         return palette.SpontaneousVC;
       if (!bInfo.isMandatory && !bInfo.isVC)

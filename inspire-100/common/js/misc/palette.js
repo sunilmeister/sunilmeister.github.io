@@ -21,6 +21,7 @@ var palette = {
   modal:      null,
 
   MandatoryVC:        null,
+  MandatoryPS:        null,
   SpontaneousVC:      null,
   SpontaneousPS:      null,
   MandatoryVCMaint:   null,
@@ -51,6 +52,7 @@ window.addEventListener("load", function() {
   palette.modal = style.getPropertyValue('--rsp_modal');
 
   palette.MandatoryVC = style.getPropertyValue('--colorMandatoryVC');
+  palette.MandatoryPS = style.getPropertyValue('--colorMandatoryPS');
   palette.SpontaneousVC = style.getPropertyValue('--colorSpontaneousVC');
   palette.SpontaneousPS = style.getPropertyValue('--colorSpontaneousPS');
   palette.MandatoryVCMaint = style.getPropertyValue('--colorMandatoryVCMaint');

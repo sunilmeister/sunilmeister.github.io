@@ -218,6 +218,9 @@ function breathSelectedInMenu(breathInfo, selectOptions) {
   if (selectOptions.MandatoryVC) {
     if (bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
   }
+  if (selectOptions.MandatoryPS) {
+    if (bInfo.isMandatory && !bInfo.isVC && !isExceptional) return true;
+  }
   if (selectOptions.SpontaneousVC) {
     if (!bInfo.isMandatory && bInfo.isVC && !isExceptional) return true;
   }

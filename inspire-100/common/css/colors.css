@@ -23,12 +23,13 @@
   --rsp_logogrey: 	#5B7C99;
   --rsp_modal: 	    #5B7C99;
 
-  --colorMandatoryVC:             #E4FDE1; 
-  --colorSpontaneousVC:           #C6EDC3; 
+  --colorMandatoryVC:             #ADD8E6; 
+  --colorMandatoryPS:             #899499; 
+  --colorSpontaneousVC:           #FFB6C1; 
   --colorSpontaneousPS:           #A7DCA5; 
   --colorMandatoryVCMaint:        #FFFDD0; 
-  --colorSpontaneousVCMaint:      #FFFF8F; 
+  --colorSpontaneousVCMaint:      #DEB887; 
   --colorSpontaneousPSMaint:      #FFEA00; 
-  --colorAbnormal:                #FFC370; 
+  --colorAbnormal:                #FF3131; 
   --colorError:                   #FD7272; 
 }

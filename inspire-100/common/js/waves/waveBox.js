@@ -50,6 +50,7 @@ class WaveBox {
 
   clearMenu(menuId) {
     document.getElementById("MandatoryVC").checked = false;
+    document.getElementById("MandatoryPS").checked = false;
     document.getElementById("SpontaneousVC").checked = false;
     document.getElementById("SpontaneousPS").checked = false;
     document.getElementById("MaintenanceB").checked = false;
@@ -65,6 +66,7 @@ class WaveBox {
     if (Object.keys(this.options).length == 0) return;
     if (!document.getElementById(menuId)) return;
     document.getElementById("MandatoryVC").checked = this.options.MandatoryVC;
+    document.getElementById("MandatoryPS").checked = this.options.MandatoryPS;
     document.getElementById("SpontaneousVC").checked = this.options.SpontaneousVC;
     document.getElementById("SpontaneousPS").checked = this.options.SpontaneousPS;
     document.getElementById("MaintenanceB").checked = this.options.MaintenanceB;
@@ -76,6 +78,7 @@ class WaveBox {
   // Options for mini dashboard waves
   setMiniOptions() {
     this.options.MandatoryVC = true;
+    this.options.MandatoryPS = true;
     this.options.SpontaneousVC = true;
     this.options.SpontaneousPS = true;
     this.options.MaintenanceB = true;
@@ -89,6 +92,7 @@ class WaveBox {
     if (!document.getElementById(menuId)) return;
 
     this.options.MandatoryVC = document.getElementById("MandatoryVC").checked;
+    this.options.MandatoryPS = document.getElementById("MandatoryPS").checked;
     this.options.SpontaneousVC = document.getElementById("SpontaneousVC").checked;
     this.options.SpontaneousPS = document.getElementById("SpontaneousPS").checked;
     this.options.MaintenanceB = document.getElementById("MaintenanceB").checked;
