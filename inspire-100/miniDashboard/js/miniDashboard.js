@@ -58,10 +58,29 @@ function switchToWaves() {
   wavesRefresh();
 }
 
+var mobileOrientationLandscape = null;
+function mobileOrientationChange() {
+  if (!isMobileBrowser()) return false;
+  var nowLandscape = isMobileLandscape();
+  if (mobileOrientationLandscape === null) {
+    mobileOrientationLandscape = nowLandscape;
+    return false;
+  }
+  let changed = (mobileOrientationLandscape != nowLandscape);
+  mobileOrientationLandscape = nowLandscape;
+  return changed;
+}
+
 function appResize() {
   resizeWaves();
-  if (isMobileLandscape()) switchToWaves();
+
+  if (mobileOrientationLandscape) switchToWaves();
   else if (isMobileBrowser()) switchToFrontPanel();
+
+  let orientationChanged = mobileOrientationChange();
+  if (orientationChanged) {
+    setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
+  }
 }
 
 function resizeWaves() {
