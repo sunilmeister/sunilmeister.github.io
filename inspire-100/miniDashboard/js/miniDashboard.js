@@ -87,6 +87,7 @@ function resizeWaves() {
 var dashboardChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
+    console.log("chirp", d);
     dormantTimeInSec = 0;
     autoCloseDormantPopup();
 
