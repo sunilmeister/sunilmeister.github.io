@@ -79,6 +79,7 @@ function appResize() {
 
   let orientationChanged = mobileOrientationChange();
   if (orientationChanged) {
+    Console.log("mobileOrientationLandscape",mobileOrientationLandscape);
     setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
   }
 }
