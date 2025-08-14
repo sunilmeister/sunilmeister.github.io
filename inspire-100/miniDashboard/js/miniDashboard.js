@@ -62,6 +62,7 @@ var mobileOrientationLandscape = null;
 function mobileOrientationChange() {
   if (!isMobileBrowser()) return false;
   var nowLandscape = isMobileLandscape();
+  console.log("nowLandscape",nowLandscape);
   if (mobileOrientationLandscape === null) {
     mobileOrientationLandscape = nowLandscape;
     return false;
@@ -79,7 +80,7 @@ function appResize() {
 
   let orientationChanged = mobileOrientationChange();
   if (orientationChanged) {
-    Console.log("mobileOrientationLandscape",mobileOrientationLandscape);
+    console.log("mobileOrientationLandscape",mobileOrientationLandscape);
     setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
   }
 }
