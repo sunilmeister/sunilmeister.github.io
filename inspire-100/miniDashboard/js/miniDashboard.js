@@ -75,16 +75,8 @@ function mobileOrientationChange() {
 function appResize() {
   resizeWaves();
 
-  if (mobileOrientationLandscape) switchToWaves();
+  if (isMobileLandscape()) switchToWaves();
   else if (isMobileBrowser()) switchToFrontPanel();
-
-  /* No need to re-set root font size as already adjusted in onload
-  let orientationChanged = mobileOrientationChange();
-  if (orientationChanged) {
-    console.log("mobileOrientationLandscape",mobileOrientationLandscape);
-    setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
-  }
-  */
 }
 
 function resizeWaves() {
