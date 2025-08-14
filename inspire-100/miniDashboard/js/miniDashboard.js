@@ -62,7 +62,7 @@ var mobileOrientationLandscape = null;
 function mobileOrientationChange() {
   if (!isMobileBrowser()) return false;
   var nowLandscape = isMobileLandscape();
-  console.log("nowLandscape",nowLandscape);
+  //console.log("nowLandscape",nowLandscape);
   if (mobileOrientationLandscape === null) {
     mobileOrientationLandscape = nowLandscape;
     return false;
@@ -78,11 +78,13 @@ function appResize() {
   if (mobileOrientationLandscape) switchToWaves();
   else if (isMobileBrowser()) switchToFrontPanel();
 
+  /* No need to re-set root font size as already adjusted in onload
   let orientationChanged = mobileOrientationChange();
   if (orientationChanged) {
     console.log("mobileOrientationLandscape",mobileOrientationLandscape);
     setRootFontSize("miniDashboard", "miniDashboard", 15, 5);
   }
+  */
 }
 
 function resizeWaves() {
