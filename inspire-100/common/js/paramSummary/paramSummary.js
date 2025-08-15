@@ -71,13 +71,14 @@ function updateParamSummary(nodeIdSuffix, range) {
   updateParamSummarySystem(nodeIdSuffix);
 
   let summary = gatherParamSummary(range);
+  let sessionBnum = summary.breathNum - session.startSystemBreathNum + 1;
 
   let sectionText = "Parameter Settings";
-  if (summary.breathNum) sectionText += " @ Breath #" + summary.breathNum;
+  if (summary.breathNum) sectionText += " @ Breath #" + sessionBnum;
   updateParamSummaryNodeText("paramSummarySettingsSection", nodeIdSuffix, sectionText);
 
   sectionText = "Measured Parameters";
-  if (summary.breathNum) sectionText += " @ Breath #" + summary.breathNum;
+  if (summary.breathNum) sectionText += " @ Breath #" + sessionBnum;
   updateParamSummaryNodeText("paramSummaryMeasureSection", nodeIdSuffix, sectionText);
 
   // Update mode

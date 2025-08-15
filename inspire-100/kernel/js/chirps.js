@@ -137,7 +137,16 @@ function parseFwVersion(jsonStr) {
   return val;
 }
 
-// from a pattern like "[number,0xHEX_NUMBER]"
+// [hi,lo]
+function parse64bitMs(hiLo) {
+  if (!hiLo || (hiLo.length != 2)) {
+    return null;
+  }
+
+  let ms = (Number(hiLo[0]) << 32) | Number(hiLo[1]);
+  return ms;
+}
+
 // returns null if badly formed
 function parseBnumData(jsonStr) {
   // console.log("BNUM",jsonStr);
@@ -146,16 +155,14 @@ function parseBnumData(jsonStr) {
     return null;
   }
   let hiLo = arr[1];
-  if (!hiLo || (hiLo.length != 2)) {
+  let btimeMs = parse64bitMs(hiLo);
+  if (!btimeMs) {
     return null;
   }
 
-  let btime = (Number(hiLo[0]) << 32) | Number(hiLo[1]);
-  // console.log("BTIME",hiLo);
-
   let val = {
     "bnum" : arr[0],
-    "btime" : btime
+    "btime" : btimeMs
   }
   return val;
 }
@@ -891,6 +898,15 @@ function saveSnapValueNull(paramName, parentName, curTime, newVal) {
   session[parentName][paramName] = value;
 }
 
+function convertBreathMsToBreathTime(chirpTime, bnumMs) {
+  if (!session.firstBreathBnumTime) {
+    session.firstBreathBnumTime = new Date(chirpTime);
+    session.firstBreathBnumMs = bnumMs;
+  }
+  let breathTime = addMsToDate(session.firstBreathBnumTime, bnumMs - session.firstBreathBnumMs);
+  return breathTime;
+}
+
 function processBnumChirp(curTime, value, jsonData) {
   // Parse for breath info
   let obj = parseBnumData(value);
@@ -932,7 +948,7 @@ function processBnumChirp(curTime, value, jsonData) {
     session.firstBreathBnumMs = bnumMs;
   }
 
-  let breathTime = addMsToDate(session.firstBreathBnumTime, bnumMs - session.firstBreathBnumMs);
+  let breathTime = convertBreathMsToBreathTime(chirpTime, bnumMs);
   //console.log("chirpTime",chirpTime);
   //console.log("breathTime",breathTime);
   if (breathsMissing) {
