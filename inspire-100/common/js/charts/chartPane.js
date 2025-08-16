@@ -289,7 +289,7 @@ class ChartPane {
 		let yval = null;
     let xyPoints = [];
 		for (let i=0; i<yvals.length - 1; i++) {
-			yval = yvals[i + 1];
+			yval = yvals[i];
 			let bnum = minBnum + (i * sparseInterval);
 			if (isUndefined(session.loggedBreaths[bnum])) continue;
       if (this.timeUnits) {
@@ -402,7 +402,7 @@ class ChartPane {
 		let yval = null;
     let xyPoints = [];
 		for (let i=0; i<yvals.length - 1; i++) {
-			yval = yvals[i + 1];
+			yval = yvals[i];
       if (yval != this.paramInfo.selectVal) continue;
 			let bnum = minBnum + (i * sparseInterval);
 			if (isUndefined(session.loggedBreaths[bnum])) continue;

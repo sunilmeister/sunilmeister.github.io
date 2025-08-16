@@ -216,11 +216,28 @@ function parseMinuteData(jsonStr) {
   return val;
 }
 
-function parseBreathData(jsonStr) {
+function parsePressureData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 6)) {
+  if (!arr || (arr.length != 3)) {
     return null;
   }
+
+  let val = {
+    peak :  (arr[0] == -1) ? null : arr[0],
+    plat :  (arr[1] == -1) ? null : arr[1],
+    mpeep : (arr[2] == -1) ? null : arr[2],
+  }
+  return val;
+}
+
+function parseBreathData(jsonStr) {
+  let arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 7)) {
+    return null;
+  }
+  let btimeMs = parse64bitMs(arr[6]);
+  if (!btimeMs) return null;
+
   let val = {
     peak :  (arr[0] == -1) ? null : arr[0],
     plat :  (arr[1] == -1) ? null : arr[1],
@@ -228,6 +245,7 @@ function parseBreathData(jsonStr) {
     vtdel : (arr[3] == -1) ? null : arr[3],
     iqdel : (arr[4] == -1) ? null : arr[4],
     binfo : (arr[5] == -1) ? null : arr[5],
+    btimeMs : btimeMs,
   }
   return val;
 }
@@ -369,6 +387,9 @@ function processJsonRecord(jsonData) {
         } else if (ckey == "BREATH") {
           //console.log("Found BREATH ",value);
           processBreathChirp(curTime, value);
+        } else if (ckey == "PPP") {
+          //console.log("Found PRESSURES ",value);
+          processPressureChirp(curTime, value);
         } else if (ckey == "COMP") {
           processComplianceChirp(curTime, value);
         } else if (ckey == "MISC") {
@@ -813,21 +834,30 @@ function processMinuteChirp(curTime, jsonStr) {
   saveOutputChange("mvdel", curTime, obj);
 }
 
+function processPressureChirp(curTime, jsonStr) {
+  let obj = parsePressureData(jsonStr);
+  if (!obj) return;
+
+  saveOutputChange("peak", curTime, obj);
+  saveOutputChange("plat", curTime, obj);
+  saveOutputChange("mpeep", curTime, obj);
+}
+
 function processBreathChirp(curTime, jsonStr) {
   let obj = parseBreathData(jsonStr);
   if (!obj) return;
 
   // Ignore any breath data received before BNUM received
-  // except PEEP
   if (!session.firstBreathBnumTime) {
-    saveOutputChange("mpeep", curTime, obj);
     return;
   }
 
-  saveOutputChange("peak", curTime, obj);
-  saveOutputChange("plat", curTime, obj);
-  saveOutputChange("mpeep", curTime, obj);
-  saveOutputChange("vtdel", curTime, obj);
+  let btime = convertBreathMsToBreathTime(curTime, obj.btimeMs);
+
+  saveOutputChange("peak", btime, obj);
+  saveOutputChange("plat", btime, obj);
+  saveOutputChange("mpeep", btime, obj);
+  saveOutputChange("vtdel", btime, obj);
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
@@ -844,13 +874,13 @@ function processBreathChirp(curTime, jsonStr) {
       else  btype = SPONTANEOUS_BREATH;
     }
     //console.log("btype",btype);
-    session.params.btype.AddTimeValue(curTime, btype);
+    session.params.btype.AddTimeValue(btime, btype);
 
     let bcontrol = obj.binfo & 0x2; // bit#1
     if (bcontrol != 0) bcontrol = VOLUME_CONTROL;
     else  bcontrol = PRESSURE_SUPPORT;
     //console.log("bcontrol",bcontrol);
-    session.params.bcontrol.AddTimeValue(curTime, bcontrol);
+    session.params.bcontrol.AddTimeValue(btime, bcontrol);
   }
 }
 
