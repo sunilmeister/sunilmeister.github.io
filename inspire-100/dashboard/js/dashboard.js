@@ -146,6 +146,7 @@ function blinkPauseButton() {
 function displaySelectiveButtons() {
   displayAllButtons();
 
+  /*
   // Now turn OFF selectively
   if (!session.firstChirpDate) {
     document.getElementById("btnStats").disabled = true;
@@ -157,6 +158,7 @@ function displaySelectiveButtons() {
     document.getElementById("btnWaves").disabled = true;
     document.getElementById("btnSearch").disabled = true;
   }
+  */
   if (session.snapshot.visible) {
     document.getElementById("btnSnapshots").disabled = true;
   }
@@ -401,7 +403,7 @@ window.onload = function () {
   updateDocumentTitle();  
 
   changeToSnapshotView();
-  undisplayAllButtons();
+  //undisplayAllButtons();
   initStats();
   initAlerts();
 
