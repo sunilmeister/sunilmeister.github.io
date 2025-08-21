@@ -17,6 +17,8 @@ function createDashboardWaves() {
 }
 
 function movingWaveRange() {
+  if (session.loggedBreaths.length <= 1) return;
+  
   let minBnum = null;
 
   // find starting wave number searching backwards
