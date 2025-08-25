@@ -881,6 +881,10 @@ function processBreathChirp(curTime, jsonStr) {
     else  bcontrol = PRESSURE_SUPPORT;
     //console.log("bcontrol",bcontrol);
     session.params.bcontrol.AddTimeValue(btime, bcontrol);
+
+    let bcmvSpont = (obj.binfo & 0x20) ? true : false; // bit#5
+    //console.log("bcmvSpont",bcmvSpont);
+    session.params.cmvSpont.AddTimeValue(btime, bcmvSpont);
   }
 }
 

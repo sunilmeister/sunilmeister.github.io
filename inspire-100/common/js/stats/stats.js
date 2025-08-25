@@ -68,22 +68,14 @@ function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
 
 function CountCmvSpontaneousBreathsInRange(minBnum, maxBnum) {
   if (session.loggedBreaths.length <= 1) return 0;
-  let modeObj = session.params["mode"];
-  let modeEnum = modeObj.Type().range;
-  let btypeObj = session.params["btype"];
-  let btypeEnum = btypeObj.Type().range;
-
+  let cmvSpont = session.params["cmvSpont"];
   let n = 0;
 
 	if (minBnum==0) minBnum = 1;
 	if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
-    if (session.loggedBreaths[i].missed) continue;
-    let mode = modeObj.ValueAtBnum(i);
-    if (mode != modeEnum["CMV"]) continue;
-    let btype = btypeObj.ValueAtBnum(i);
-    if (btype != btypeEnum["SPONTANEOUS"]) continue;
-    n++;
+    let spont = cmvSpont.ValueAtBnum(i);
+    if (spont) n++;
   }
   return n;
 }
