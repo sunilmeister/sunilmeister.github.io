@@ -170,6 +170,7 @@ class WavePane {
 
   getStripColor(breathInfo) {
     let bInfo = parseBreathInfo(breathInfo);
+    // console.log("bInfo",bInfo,"code",breathInfo);
 
     // The order below matters
     if (bInfo.isError)
