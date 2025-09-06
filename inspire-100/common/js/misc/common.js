@@ -202,40 +202,6 @@ function equalObjects(object1, object2) {
   return true;
 }
 
-// The return value is an object with following boolean fields
-// {isMaintenance,isAbnormal,isError,isVC,isMandatory}
-function parseBreathInfo(num) {
-  num = Number(num);
-  let obj = {};
-
-  for (i = 0; i < 5; i++) {
-    bit = num & 0x1;
-    num = num >> 1;
-
-    switch (i) {
-      case 0:
-        obj.isMandatory = bit ? true : false;
-        break;
-      case 1:
-        obj.isVC = bit ? true : false;
-        break;
-      case 2:
-        obj.isAbnormal = bit ? true : false;
-        break;
-      case 3:
-        obj.isError = bit ? true : false;
-        break;
-      case 4:
-        obj.isMaintenance = bit ? true : false;
-        break;
-      default:
-        break;
-    }
-  }
-
-  return obj;
-}
-
 function breathTimeXaxisFormatter(e) {
   iPart = Math.floor(e.value);
   if (Number(iPart) != Number(e.value)) return ""

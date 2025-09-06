@@ -22,8 +22,6 @@ const uidCookieName = "INSPIRE_UID_COOKIE";
 const tagCookieName = "INSPIRE_TAG_COOKIE";
 const localStorageDbName = "inspire_dbs";
 
-const FLOW_FILTER_WINDOW = 16;
-
 const NO_BREATH = 0;
 const MANDATORY_BREATH = 1;
 const SPONTANEOUS_BREATH = 2;

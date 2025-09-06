@@ -28,6 +28,40 @@ function parseMsgLines(jsonStr) {
   return obj;
 }
 
+// The return value is an object with following boolean fields
+// {isMaintenance,isAbnormal,isError,isVC,isMandatory}
+function parseBreathInfo(num) {
+  num = Number(num);
+  let obj = {};
+
+  for (i = 0; i < 5; i++) {
+    bit = num & 0x1;
+    num = num >> 1;
+
+    switch (i) {
+      case 0:
+        obj.isMandatory = bit ? true : false;
+        break;
+      case 1:
+        obj.isVC = bit ? true : false;
+        break;
+      case 2:
+        obj.isAbnormal = bit ? true : false;
+        break;
+      case 3:
+        obj.isError = bit ? true : false;
+        break;
+      case 4:
+        obj.isMaintenance = bit ? true : false;
+        break;
+      default:
+        break;
+    }
+  }
+
+  return obj;
+}
+
 function parseWaveData(jsonStr) {
   //console.log("parseWaveData", jsonStr);
   let arr = parseJSONSafely(jsonStr);
@@ -461,7 +495,7 @@ function findFlowChangePoints(samples) {
     if (sample > SAMPLE_FLOWQ_THRESHOLD) {
       inspIQ += (samples[ix] + samples[ix-1])/2;
       continue;
-    } else if (sample <= 0) {
+    } else if (sample < 0) {
       inspEnd = ix;
       break;
     }
@@ -474,7 +508,7 @@ function findFlowChangePoints(samples) {
   expEnd = samples.length - 1;
   for (let i=samples.length-1; i>ix; i--) {
     let sample = samples[i];
-    if (sample > 0) continue;
+    if (sample >= 0) continue;
     expEnd = i;
     break;
   }
@@ -513,9 +547,9 @@ function computeIntegral(samples, sampleInterval, fromIx, toIx) {
   return integral;
 }
 
-function convertQtoFlowLPM(samples, partial, sampleInterval) {
+function convertQtoFlowLPM(samples, partial, sampleInterval, fFilterWindow) {
   //console.log("samples", samples);
-  let filteredSamples = movingAverageFilter(samples, WAVE_FLOW_FILTER_WINDOW);
+  let filteredSamples = movingAverageFilter(samples, fFilterWindow);
   //console.log("filteredSamples", filteredSamples);
 
   let changes = findFlowChangePoints(filteredSamples);
@@ -595,6 +629,12 @@ function processPwaveChirp(curTime, jsonStr) {
   //console.log("PWAVE", jsonStr);
   let obj = parseWaveData(jsonStr);
   if (!obj) return;
+  let binfo = parseBreathInfo(obj.breathInfo);
+  if (!binfo) return;
+
+  // wave filters
+  let pFilterWindow = VC_WAVE_PRESSURE_FILTER_WINDOW;
+  if (!binfo.isVC) pFilterWindow = PS_WAVE_PRESSURE_FILTER_WINDOW;
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
@@ -602,7 +642,7 @@ function processPwaveChirp(curTime, jsonStr) {
   saveOutputChange("vtdel", curTime, obj);
 
   let lastSample = obj.waveData[obj.waveData.length-1];
-  let filteredSamples = movingAverageFilter(obj.waveData, WAVE_PRESSURE_FILTER_WINDOW);
+  let filteredSamples = movingAverageFilter(obj.waveData, pFilterWindow);
   obj.waveData = filteredSamples;
   obj.waveData[obj.waveData.length-1] = lastSample; // show spontaneous trigger if any
 
@@ -614,6 +654,12 @@ function processFwaveChirp(curTime, jsonStr) {
   //console.log("FWAVE", jsonStr);
   let obj = parseWaveData(jsonStr);
   if (!obj) return;
+  let binfo = parseBreathInfo(obj.breathInfo);
+  if (!binfo) return;
+
+  // wave filters
+  let fFilterWindow = VC_WAVE_FLOW_FILTER_WINDOW;
+  if (!binfo.isVC) fFilterWindow = PS_WAVE_FLOW_FILTER_WINDOW;
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
@@ -623,7 +669,7 @@ function processFwaveChirp(curTime, jsonStr) {
 
   //console.log("obj.waveData",obj.waveData);
   //console.log("obj.samplingIntervalMs",obj.samplingIntervalMs);
-  let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs);
+  let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs, fFilterWindow);
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
     fwData, session.waves.fwPartial, session.waves.fwData);
 

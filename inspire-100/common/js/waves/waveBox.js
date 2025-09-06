@@ -242,7 +242,7 @@ class WaveBox {
     // this.deleteUnmatchedWaveformData();
 
 		// Pressure Chart
-    let pressureYaxisTicks  = {min:0, max:null, interval: 50};
+    let pressureYaxisTicks  = {min:null, max:null, interval: 25};
     this.pChart = new WavePane(
       this.options.title,
       null,
@@ -257,7 +257,7 @@ class WaveBox {
     this.pChart.addGraph();
 
 		// Flow Chart
-    let flowYaxisTicks  = {min:null, max:null, interval: null};
+    let flowYaxisTicks  = {min:null, max:null, interval: 100};
     this.fChart = new WavePane(
       null,
       null,
