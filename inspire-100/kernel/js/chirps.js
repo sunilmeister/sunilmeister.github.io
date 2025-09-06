@@ -535,7 +535,7 @@ function convertQtoFlowLPM(samples, partial, sampleInterval) {
       } else if (i <= changes.expStart) {
         Q = 0;
       } else if (i <= changes.expEnd) {
-        if (Q < (-SAMPLE_FLOWQ_THRESHOLD)) Q = (Q * vtIqRatios.expVtIqRatio);
+        if (Q < 0) Q = (Q * vtIqRatios.expVtIqRatio);
         else Q = 0;
       } else {
         Q = 0;
