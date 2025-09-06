@@ -445,7 +445,7 @@ function findFlowChangePoints(samples) {
   let inspStart, inspEnd, expStart, expEnd;
   let inspIQ = 0;
   let expIQ = 0;
-  let ix = 0;
+  let ix = 1;
 
   // find start of +ve flow
   for (; ix < samples.length; ix++) {
@@ -461,7 +461,7 @@ function findFlowChangePoints(samples) {
     if (sample > SAMPLE_FLOWQ_THRESHOLD) {
       inspIQ += (samples[ix] + samples[ix-1])/2;
       continue;
-    } else if (sample <= -SAMPLE_FLOWQ_THRESHOLD) {
+    } else if (sample <= 0) {
       inspEnd = ix;
       break;
     }
@@ -474,7 +474,7 @@ function findFlowChangePoints(samples) {
   expEnd = samples.length - 1;
   for (let i=samples.length-1; i>ix; i--) {
     let sample = samples[i];
-    if (sample > -SAMPLE_FLOWQ_THRESHOLD) continue;
+    if (sample > 0) continue;
     expEnd = i;
     break;
   }
@@ -490,9 +490,10 @@ function findFlowChangePoints(samples) {
 function findVtIqRatios(samples, changes, sampleInterval) {
   let inspTime = (changes.inspEnd - changes.inspStart + 1) * sampleInterval;
   let expTime = (changes.expEnd - changes.expStart + 1) * sampleInterval;
-  //console.log("changes", changes);
-  //console.log("sampleInterval",sampleInterval);
-  //console.log("inspTime",inspTime);
+  // console.log("changes", changes);
+  // console.log("sampleInterval",sampleInterval);
+  // console.log("inspTime",inspTime);
+  // console.log("expTime",expTime);
 
   let inspVtIqRatio = session.breathData.vtIqRatio * 1000 / inspTime;
   let expVtIqRatio = session.breathData.vtIqRatio * 1000 / expTime * (changes.inspIQ / changes.expIQ);
