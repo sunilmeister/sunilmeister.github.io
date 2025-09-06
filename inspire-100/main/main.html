@@ -1,23 +1,23 @@
 <!-- 
-// ////////////////////////////////////////////////////
-// Author: Sunil Nanda
-// ////////////////////////////////////////////////////
--->
+  // ////////////////////////////////////////////////////
+  // Author: Sunil Nanda
+  // ////////////////////////////////////////////////////
+  -->
 <!DOCTYPE html>
 <html>
   <head>
     <title>Inspire-100 WebAPPS</title>
-    <meta charset="UTF-8" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="icon" type="image/png" href="../common/img/favicon.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="stylesheet" href="../common/css/colors.css" />
-    <link rel="stylesheet" href="../common/css/common.css" />
-    <link rel="stylesheet" href="../common/css/selectTableRow.css" />
-    <link rel="stylesheet" href="css/sizes.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <meta charset="UTF-8">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" type="image/png" href="../common/img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="../common/css/colors.css">
+    <link rel="stylesheet" href="../common/css/common.css">
+    <link rel="stylesheet" href="../common/css/selectTableRow.css">
+    <link rel="stylesheet" href="css/sizes.css">
+    <link rel="stylesheet" href="css/main.css">
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/download/download.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -52,7 +52,7 @@
           <label for="exportFileName">Export Systems File Name (.json)</label>
           <br>
           <br>
-          <input id=exportFileName style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem;" />
+          <input id=exportFileName style="width: 20rem; background-color:white; color:var(--rsp_darkblue); font-size:2rem;">
           <br>
           <br>
           <button id=exportFileBtn class=button style="background-color:var(--rsp_darkblue); width:10rem;" onclick=exportFile()>EXPORT</button>
@@ -68,7 +68,7 @@
         <label for="fileSelector">Systems File to Import</label>
         <br>
         <br>
-        <input type="file" id=fileSelector accept=".json" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;" />
+        <input type="file" id=fileSelector accept=".json" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.6rem;">
         <br>
         <br>
         <button class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=importFile()>IMPORT</button>
@@ -83,10 +83,10 @@
           <p style="font-size:1.8rem; margin-top:1.0rem; ">ADD new System <br>
             <br>
             <label for="newSysUID" style="font-size:1.6rem;">System UID</label>
-            <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; " />
+            <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; ">
             <br>
             <label for="newSysTAG" style="font-size:1.6rem;">System TAG</label>
-            <input id=newSysTAG style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; " />
+            <input id=newSysTAG style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; ">
             <br>
             <br>
             <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:10rem; " onclick=addNewSystemBtn()>ADD SYSTEM</button>
@@ -95,13 +95,13 @@
       </center>
     </div>
     <div id=addDetectedSystemDiv class=popupClassCenterPersistent style="width:45rem; height:18rem; font-size: 1.5rem;
-    display: none">
+      display: none">
       <center>
         <div>
           <p style="font-size:2.5rem; margin-top:1.5rem;">ADD Detected System using OTP <br>
             <br>
             <label for="detectedSysOTP" style="font-size:1.75rem;">OTP from System Front Panel</label>
-            <input id=detectedSysOTP style="width: 4rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; " />
+            <input id=detectedSysOTP style="width: 4rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.75rem; ">
             <br>
             <br>
             <button id=addDetectedSystemBtn class=button style="background-color:var(--rsp_darkblue); width:12.5rem; " onclick=addDetectedSystemBtn()>ENTER OTP</button>
@@ -126,7 +126,7 @@
       <div id=mainDiv style="display:block;">
         <div style="background-color:var(--rsp_mediumblue);">
           <center>
-            <img src="../common/img/Logo-horizontal.png" alt="Title" style="margin-top: 0.2rem; margin-right:-0.4rem; margin-left:-0.4rem; width:20rem; height:6rem;" />
+            <img src="../common/img/Logo-horizontal.png" alt="Title" style="margin-top: 0.2rem; margin-right:-0.4rem; margin-left:-0.4rem; width:20rem; height:6rem;">
           </center>
         </div>
         <center>
@@ -145,7 +145,7 @@
             <br>
             <label style="margin-bottom:0; font-size:1.6rem; font-weight: bold;">Select System</label>
             <br>
-            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 0.2rem; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);" /></select>
+            <select id=SYSTEM_NAME style="font-size: 1.5rem; padding: 0.2rem; width: 22rem; text-align: center; margin-top:0.625rem; margin-bottom:1rem;background-color:white; color:var(--rsp_darkblue);"></select>
             <br>
             <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchFullDashboard()">Launch Full Dashboard</button>
             <br>
@@ -161,8 +161,8 @@
             <button class=lineButton style="color:var(--rsp_darkblue);" onclick="multiSystemView()">Multi-system Display</button>
             <hr>
             <!-- 
-            <button class=lineButton  style="color:var(--rsp_darkblue);" onclick="launchVideo()">View Instruction Videos</button><br>
--->
+              <button class=lineButton  style="color:var(--rsp_darkblue);" onclick="launchVideo()">View Instruction Videos</button><br>
+              -->
             <button class=lineButton style="color:var(--rsp_darkblue);" onclick="launchDocs()">View PDF Documents</button>
             <hr>
             <button class=lineButton style="color:var(--rsp_darkblue);" onclick="installFirmwareApp()">Firmware Installer</button>
@@ -173,7 +173,7 @@
         <div style="margin-bottom:-1rem;">
           <center>
             <button class=lineButton onclick="deleteSelectedHistory()" style="font-size:1.3rem; height:1rem;
-            margin-top:0.625rem;">Delete History</button>
+              margin-top:0.625rem;">Delete History</button>
           </center>
           <br>
         </div>
@@ -182,7 +182,7 @@
         <div>
           <center>
             <div style="background-color:var(--rsp_mediumblue);">
-              <img src="../common/img/systems-logo.png" alt="Title" style="margin-top: 0.2rem;  width:32rem; height:7rem;" />
+              <img src="../common/img/systems-logo.png" alt="Title" style="margin-top: 0.2rem;  width:32rem; height:7rem;">
             </div>
             <div style="background-color:var(--rsp_brightblue); color: white; font-size:1.5rem;margin-top:1rem; padding-bottom:0.4rem;">
               <img src="../common/img/back.png" class=iconButton onClick="exitSystemInfo(this)" onmouseover=overIconBtn(this) onmouseout=outIconBtn(this) title='Back to Main Menu' style="width:2rem; height:2rem;float:left; margin-left:1rem;">
@@ -199,7 +199,7 @@
                   <th align="center" style="min-width:10rem; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue); padding: 0.2rem 0.2rem; font-size:1.3rem;">System Tag</th>
                   <th align="center" style="min-width:15rem; background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 0.2rem 0.2rem; font-size:1.3rem;">System UID</th>
                   <th align="center" style="min-width:5rem; background-color:var(--rsp_lightblue); color:
-                  var(--rsp_darkblue);  padding: 0.2rem 0.2rem; font-size:1.3rem;">Version</th>
+                    var(--rsp_darkblue);  padding: 0.2rem 0.2rem; font-size:1.3rem;">Version</th>
                   <th align="center" colspan="2" style="background-color:var(--rsp_lightblue); color: var(--rsp_darkblue);  padding: 0.2rem 0.2rem; ">Actions</th>
                 </tr>
               </thead>
