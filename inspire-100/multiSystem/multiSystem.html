@@ -1,145 +1,124 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <meta charset="UTF-8">
     <title>Inspire-100 Multi-system</title>
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link href="css/multiSystem.css" rel="stylesheet" />
-    <link href="../common/css/colors.css" rel="stylesheet" />
-    <link href="../common/css/common.css" rel="stylesheet" />
-    <link href="../common/css/iconButton.css" rel="stylesheet" />
-    <link href="../common/css/sidebarButton.css" rel="stylesheet" />
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-
+    <link href="css/multiSystem.css" rel="stylesheet">
+    <link href="../common/css/colors.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <link href="../common/css/iconButton.css" rel="stylesheet">
+    <link href="../common/css/sidebarButton.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script src="../external/hacktimer/HackTimer.min.js"></script>
     <script src="../external/nouislider/nouislider.min.js"></script>
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/canvasjs/canvasjs.min.js"></script>
     <script src="../external/pure-knob-master/pureknob.js"></script>
-
-  	<script src="../kernel/js/constants.js"></script>
-  	<script src="../kernel/js/sessionData.js"></script>
-  	<script src="../kernel/js/params.js"></script>
-  	<script src="../kernel/js/chirps.js"></script>
-  	<script src="../kernel/js/filters.js"></script>
-  	<script src="../kernel/js/hwPosts.js"></script>
-
-  	<script src="../common/js/misc/palette.js"></script>
-  	<script src="../common/js/misc/uid.js"></script>
-  	<script src="../common/js/misc/common.js"></script>
-  	<script src="../common/js/misc/swalModals.js"></script>
-  	<script src="../common/js/misc/commonDivs.js"></script>
-  	<script src="../common/js/misc/resize.js"></script>
-  	<script src="../common/js/misc/modalPopup.js"></script>
-  	<script src="../common/js/misc/hidePopups.js"></script>
-  	<script src="../common/js/misc/checkboxTree.js"></script>
-  	<script src="../common/js/misc/queue.js"></script>
-  	<script src="../common/js/misc/circularGauge.js"></script>
-  	<script src="../common/js/misc/enterSubmit.js"></script>
-  	<script src="../common/js/misc/selectTableRow.js"></script>
-  	<script src="../common/js/misc/iconButton.js"></script>
-
-  	<script src="../common/js/alerts/constants.js"></script>
-  	<script src="../common/js/alerts/audioAlerts.js"></script>
-
+    <script src="../kernel/js/constants.js"></script>
+    <script src="../kernel/js/sessionData.js"></script>
+    <script src="../kernel/js/params.js"></script>
+    <script src="../kernel/js/chirps.js"></script>
+    <script src="../kernel/js/filters.js"></script>
+    <script src="../kernel/js/hwPosts.js"></script>
+    <script src="../common/js/misc/palette.js"></script>
+    <script src="../common/js/misc/uid.js"></script>
+    <script src="../common/js/misc/common.js"></script>
+    <script src="../common/js/misc/swalModals.js"></script>
+    <script src="../common/js/misc/commonDivs.js"></script>
+    <script src="../common/js/misc/resize.js"></script>
+    <script src="../common/js/misc/modalPopup.js"></script>
+    <script src="../common/js/misc/hidePopups.js"></script>
+    <script src="../common/js/misc/checkboxTree.js"></script>
+    <script src="../common/js/misc/queue.js"></script>
+    <script src="../common/js/misc/circularGauge.js"></script>
+    <script src="../common/js/misc/enterSubmit.js"></script>
+    <script src="../common/js/misc/selectTableRow.js"></script>
+    <script src="../common/js/misc/iconButton.js"></script>
+    <script src="../common/js/alerts/constants.js"></script>
+    <script src="../common/js/alerts/audioAlerts.js"></script>
     <script src="js/colors.js"></script>
     <script src="js/multiSystem.js"></script>
     <script src="js/manage.js"></script>
   </head>
-
   <body style="overflow:auto;">
     <audio id="infoBeep">
       <source src="../common/mp3/infoBeep.mp3" type="audio/mp3">
     </audio>
-
     <audio id="warningBeep">
       <source src="../common/mp3/warningBeep.mp3" type="audio/mp3">
     </audio>
-
     <audio id="errorBeep">
       <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
     </audio>
-
-  	<div id=audioControlDiv class=popupClassCenter style="width:18rem; height:auto; display: none">
+    <div id=audioControlDiv class=popupClassCenter style="width:18rem; height:auto; display: none">
       <center>
         <div>
           <p style="font-size: 2rem;">Audio Alarms
-          <br>
+            <br>
           <p style="font-size: 1.4rem; ">Info
             <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
             <input type="range" id="infoVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeInfoVolume()'>
             <button class="button" id="infoPlay" onclick='playInfoSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.4rem;"> Play Sample </button>
-  
           <p style="font-size: 1.4rem; ">Warning
             <img id=btnWarningImg class=iconButton src="../common/img/audioOff.png" onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
             <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>
             <button class="button" id="warningPlay" onclick='playWarningSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.4rem;"> Play Sample </button>
-  
           <p style="font-size: 1.4rem; ">Error
             <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
             <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeErrorVolume()'>
             <button class="button" id="errorPlay" onclick='playErrorSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.4rem;"> Play Sample </button>
-  
-  					<div height:3rem> </div>
-  
-            <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.4rem;" onclick='dismissAudioControl()'>DISMISS</button>
-  
-  					<div height:2rem> </div>
-  					<br>
+          <div height:3rem> </div>
+          <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.4rem;" onclick='dismissAudioControl()'>DISMISS</button>
+          <div height:2rem> </div>
+          <br>
         </div>
       </center>
     </div>
-  
     <div class="wrapTiles" id=topTilesDiv style="width:90rem;">
       <div class=AudioControl>
         <div style="float:left;">
-           <span onclick=openAudioControl() style="cursor:pointer;">
+          <span onclick=openAudioControl() style="cursor:pointer;">
             <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:1rem; padding-bottom:0; font-size:1.5rem;">&nbsp<img id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" style="vertical-align:middle; width:1.5rem; height:1.5rem;">&nbspWarnings</p>
           </span>
-				</div>
-
+        </div>
         <div style="float:right;">
           <span onclick=openAudioControl() style="cursor:pointer;">
             <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:1rem; padding-bottom:0; font-size:1.5rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" style="vertical-align:middle; width:1.5rem; height:1.5rem;">&nbspErrors&nbsp&nbsp&nbsp</p>
           </span>
         </div>
-			</div>
+      </div>
     </div>
-		<div>
-
-		<div id=actualTiles>
-    	<div style="clear:both"> </div>
-			<hr>
-			<div id=activeTilesDiv class=activeTilesCls>
-    		<div id=dummyActiveTile style="clear:both"> </div>
-			</div>
-			<hr>
-			<div id=dormantTilesDiv class=dormantTilesCls>
-    		<div id=dummyDormantTile style="clear:both"> </div>
-			</div>
-		</div>
-
+    <div>
+    <div id=actualTiles>
+      <div style="clear:both"> </div>
+      <hr>
+      <div id=activeTilesDiv class=activeTilesCls>
+        <div id=dummyActiveTile style="clear:both"> </div>
+      </div>
+      <hr>
+      <div id=dormantTilesDiv class=dormantTilesCls>
+        <div id=dummyDormantTile style="clear:both"> </div>
+      </div>
+    </div>
     <!-- 
-// ////////////////////////////////////////////////////
-// Below are all templates only
-// ////////////////////////////////////////////////////
--->
+      // ////////////////////////////////////////////////////
+      // Below are all templates only
+      // ////////////////////////////////////////////////////
+      -->
     <template id=tileTemplate>
       <div class=tile>
         <center>
-					<div class="tileMenu">
-           	<img class=iconButton src="../common/img/dashboardIcon.png" onClick='tileDashboardClick(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2.5rem; height:2.5rem; margin:0.5rem;"></button>
-						<br>
-           	<img class=iconButton src="../common/img/recordIcon.png" onClick='tileRecordClick(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2.5rem; height:2.5rem; margin:0.5rem;"></button>
-					</div>
-
+          <div class="tileMenu">
+            <img class=iconButton src="../common/img/dashboardIcon.png" onClick='tileDashboardClick(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2.5rem; height:2.5rem; margin:0.5rem;"></button>
+            <br>
+            <img class=iconButton src="../common/img/recordIcon.png" onClick='tileRecordClick(this)' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2.5rem; height:2.5rem; margin:0.5rem;"></button>
+          </div>
           <div class=tileContent>
             <p class=tileName></p>
             <div class=StateContent>
@@ -158,9 +137,9 @@
                 <p class=duration>--</p>
               </div>
               <div class=inactive style="clear:both;">
-								&nbsp
+                &nbsp
                 <p>INACTIVE</p>
-							</div>
+              </div>
             </div>
             <div class=ParamContentNonPSV>
               <div class=ParamRow>
@@ -222,5 +201,4 @@
       </div>
     </template>
   </body>
-
 </html>

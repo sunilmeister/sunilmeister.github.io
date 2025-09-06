@@ -4,26 +4,23 @@
     <meta charset="UTF-8">
     <title>Inspire-100</title>
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../external/nouislider/nouislider.min.css" />
+    <link rel="stylesheet" href="../external/nouislider/nouislider.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
-    <link href="css/sizes.css" rel="stylesheet" />
-    <link href="../common/css/colors.css" rel="stylesheet" />
-    <link href="../common/css/common.css" rel="stylesheet" />
-    <link href="../common/css/iconButton.css" rel="stylesheet" />
-    <link href="../common/css/sidebarButton.css" rel="stylesheet" />
-    <link href="css/sidebar.css" rel="stylesheet" />
-
+    <link href="css/sizes.css" rel="stylesheet">
+    <link href="../common/css/colors.css" rel="stylesheet">
+    <link href="../common/css/common.css" rel="stylesheet">
+    <link href="../common/css/iconButton.css" rel="stylesheet">
+    <link href="../common/css/sidebarButton.css" rel="stylesheet">
+    <link href="css/sidebar.css" rel="stylesheet">
     <script src="../external/hacktimer/HackTimer.min.js"></script>
     <script src="../external/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../external/download/download.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-
     <script src="../kernel/js/hwPosts.js"></script>
     <script src="../kernel/js/constants.js"></script>
     <script src="../kernel/js/sessionData.js"></script>
@@ -31,7 +28,6 @@
     <script src="../kernel/js/chirps.js"></script>
     <script src="../kernel/js/chirpQ.js"></script>
     <script src="../kernel/js/filters.js"></script>
-
     <script src="../common/js/misc/palette.js"></script>
     <script src="../common/js/misc/uid.js"></script>
     <script src="../common/js/misc/common.js"></script>
@@ -46,7 +42,6 @@
     <script src="../common/js/misc/enterSubmit.js"></script>
     <script src="../common/js/misc/selectTableRow.js"></script>
     <script src="../common/js/misc/iconButton.js"></script>
-
     <script src="../common/js/record/constants.js"></script>
     <script src="../common/js/record/recording.js"></script>
     <script src="../common/js/record/table.js"></script>
@@ -61,7 +56,7 @@
           <label for="recordName">New Session Name</label>
           <br>
           <br>
-          <input id=recordName style="width: 25rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.5rem;" />
+          <input id=recordName style="width: 25rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.5rem;">
           <br>
           <br>
           <button id=acceptRecordNameBtn class=button style="background-color:var(--rsp_darkblue); padding:0.3rem; width:10rem; height:2rem;" onclick='acceptRecordingName()'>RECORD</button>
@@ -78,13 +73,13 @@
           <label for="fileSelector">Session Recording File to Import</label>
           <br>
           <br>
-          <input type="file" id=dbFileSelector accept=".json" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <input type="file" id=dbFileSelector accept=".json" style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; ">
           <br>
           <br>
           <label for="importSessionName">Recording Name to Create</label>
           <br>
           <br>
-          <input id=importSessionName style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; " />
+          <input id=importSessionName style="width: 30rem; background-color:white; color:var(--rsp_darkblue); font-size:1.8rem; ">
           <br>
           <br>
           <br>
@@ -102,7 +97,7 @@
           <label for="exportRecordingFileName">Session Export File Name (.json)</label>
           <br>
           <br>
-          <input id=exportRecordingFileName style="width: 25rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; " />
+          <input id=exportRecordingFileName style="width: 25rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
           <br>
           <br>
           <button id=exportRecordingFileBtn class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.5rem;" onclick='exportRecordingFile()'>EXPORT</button>
@@ -118,11 +113,11 @@
           <div id=curBreathDiv style="margin-top:0.4rem; margin-bottom:0.2rem; background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem;">
             <center>
               <p id=breathsHeading style="font-size:1rem;font-weight:
-              bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
-              ;padding-bottom:0.3rem;padding-top:0.3rem;">LOGGED BREATHS</p>
+                bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue);
+                ;padding-bottom:0.3rem;padding-top:0.3rem;">LOGGED BREATHS</p>
               <p id=breathNum style="margin-bottom:-0.3rem; font-size:2.5rem;font-weight:
-              bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);
-              color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
+                bold;margin-bottom:0;margin-top:0.6rem;margin-left:0.6rem;margin-right:0.6rem;background-color:var(--rsp_mediumgreen);
+                color: var(--rsp_darkblue); padding-bottom:0.3rem;">0</p>
             </center>
           </div>
           <br>
@@ -168,7 +163,7 @@
           <img id=RecordIndicator src="../common/img/BlankLED.png" alt="LED" style="float: left; width:2.5rem; height:2.5rem;">
           <center>
             <p class=shadowDiv5 id=recordSessionName style="background-color:var(--rsp_darkred);
-            color:white;font-size:1.7rem; margin-top:-1.2rem; padding:0.2rem;"> No Active Recording
+              color:white;font-size:1.7rem; margin-top:-1.2rem; padding:0.2rem;"> No Active Recording
             <div class=shadowDiv5 style="height:15rem; line-height:1.2rem; overflow-y:auto; overflow-x:auto; white-space: nowrap; margin-top:-1.2rem;padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-family: 'Cousine'">
               <p id=recordBox style="font-size:0.8rem; text-align: left">
             </div>
@@ -177,10 +172,10 @@
               <div class=shadowDiv5 style="height:30rem; line-height:0.9rem; padding:0.3rem; background-color:var(--rsp_darkblue); color:white; border:0.2rem var(--rsp_lightblue); font-size:1.4rem; ">
                 <div style="background-color:var(--rsp_darkblue); color: white; font-size:1.6rem;">
                   <button class=iconButton onClick="selectImportRecording(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:left" title="Import">
-                    <img src="../common/img/import.png" style="width:2rem; height:2rem;">
+                  <img src="../common/img/import.png" style="width:2rem; height:2rem;">
                   </button>
                   <button class=iconButton onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="float:right" title="Delete ALL">
-                    <img src="../common/img/trash-bin.png" style="width:2rem; height:2rem;">
+                  <img src="../common/img/trash-bin.png" style="width:2rem; height:2rem;">
                   </button>
                   <br>
                   <center>INSPIRE-100 Recordings</center>
