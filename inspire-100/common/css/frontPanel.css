@@ -47,6 +47,12 @@
 	height: auto;
 }
 
+.fpMuteCls {
+	width:4rem;
+	height: auto;
+	z-index: 2;
+}
+
 .fpUniMono {
   font-size: 0.71rem;
 	font-weight: bold;

@@ -298,7 +298,7 @@ function parseComplianceData(jsonStr) {
 
 function parseMiscData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 5)) {
+  if (!arr || (arr.length != 6)) {
     return null;
   }
 
@@ -308,6 +308,7 @@ function parseMiscData(jsonStr) {
     atmInCmH20 : arr[2],
     atmO2Pct : arr[3],
     productionMode : arr[4],
+    muted : arr[5] ? true : false,
   }
   return val;
 }
@@ -949,6 +950,10 @@ function processMiscChirp(curTime, jsonStr) {
   let obj = parseMiscData(jsonStr);
   if (!obj) return;
   session.productionMode = obj.productionMode;
+  if (session.muted != obj.muted) {
+    console.log("Muted", obj.muted);
+  }
+  session.muted = obj.muted;
   if ((session.productionMode !== null) && !session.productionMode) {
     // give a notification if app is dashboard
     if ((session.appId == DASHBOARD_APP_ID) || (session.appId == MINI_DASHBOARD_APP_ID)) {

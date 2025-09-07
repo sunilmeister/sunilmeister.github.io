@@ -11,6 +11,9 @@ const fpRemToPxScale = 16;
 const fpPanel = 
 	{name:'frontPanelDiv', X:0, Y:0, W:571.1875, H:787.125};
 
+const fpMuted = 
+	{name:'fpMutedDiv', 	 X:310, Y:0, W:50,  H:50};
+
 const fpLeds = [
 	{name:'fpInitialDiv', 	X:121, 	Y:145, W:20, H:20},
 	{name:'fpStandbyDiv', 	X:121, 	Y:236, W:20, H:20},
@@ -40,8 +43,40 @@ const fpNums = [
 	{name:'fpTpsDiv', 			X:496, Y:557, W:80,  H:58, D:2},
 ];
 
+function createMutedDiv(panelDiv) {
+		let mutedDivId = fpMuted.name;
+		let mutedImgDivId = "img_" + fpMuted.name;
+		let mutedClassName = "fpMutedCls";
+		let mutedImgClassName = "fpMutedImgCls";
+
+		let remX = (fpMuted.X - fpRemToPxScale) / fpRemToPxScale;
+		let remY = (fpMuted.Y - fpRemToPxScale) / fpRemToPxScale;
+		let remW = fpMuted.W / fpRemToPxScale;
+		let remH = fpMuted.H / fpRemToPxScale;
+
+		// create a LED div
+		let mutedDiv = document.createElement("div");
+		mutedDiv.id = mutedDivId;
+  	mutedDiv.classList.add(mutedClassName);
+		panelDiv.appendChild(mutedDiv);
+
+		// position the LED div
+		mutedDiv.style.left = String(remX) + "rem";
+		mutedDiv.style.top = String(remY) + "rem";
+		mutedDiv.style.width = String(remW) + "rem";
+		mutedDiv.style.height = String(remH) + "rem";
+
+		// create a LED img
+		let mutedImg = document.createElement("img");
+		mutedImg.id = mutedImgDivId;
+  	mutedImg.classList.add(mutedImgClassName);
+		mutedImg.src = "../common/img/audioOn.png";
+		mutedDiv.appendChild(mutedImg);
+}
+
 function createFpDivs() {
 	let panelDiv = document.getElementById('frontPanelDiv');
+  // createMutedDiv(panelDiv);
 
 	// create LED elements
 	for (let i=0; i<fpLeds.length; i++) {
