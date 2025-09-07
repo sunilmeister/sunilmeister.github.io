@@ -492,10 +492,10 @@ function findFlowChangePoints(samples) {
   // find end of +ve flow
   for (; ix < samples.length; ix++) {
     let sample = samples[ix];
-    if (sample > SAMPLE_FLOWQ_THRESHOLD) {
+    if (sample >= SAMPLE_FLOWQ_THRESHOLD) {
       inspIQ += (samples[ix] + samples[ix-1])/2;
       continue;
-    } else if (sample < 0) {
+    } else if (sample <= 0) {
       inspEnd = ix;
       break;
     }
@@ -508,7 +508,7 @@ function findFlowChangePoints(samples) {
   expEnd = samples.length - 1;
   for (let i=samples.length-1; i>ix; i--) {
     let sample = samples[i];
-    if (sample >= 0) continue;
+    if (sample > -(SAMPLE_FLOWQ_THRESHOLD)) continue;
     expEnd = i;
     break;
   }
