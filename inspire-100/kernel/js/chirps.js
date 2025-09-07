@@ -495,7 +495,7 @@ function findFlowChangePoints(samples) {
     if (sample >= SAMPLE_FLOWQ_THRESHOLD) {
       inspIQ += (samples[ix] + samples[ix-1])/2;
       continue;
-    } else if (sample <= 0) {
+    } else if (sample <= -(SAMPLE_FLOWQ_THRESHOLD)) {
       inspEnd = ix;
       break;
     }
@@ -508,7 +508,7 @@ function findFlowChangePoints(samples) {
   expEnd = samples.length - 1;
   for (let i=samples.length-1; i>ix; i--) {
     let sample = samples[i];
-    if (sample > -(SAMPLE_FLOWQ_THRESHOLD)) continue;
+    if (sample >= -(SAMPLE_FLOWQ_THRESHOLD)) continue;
     expEnd = i;
     break;
   }
