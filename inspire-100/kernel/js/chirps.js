@@ -298,7 +298,8 @@ function parseComplianceData(jsonStr) {
 
 function parseMiscData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || (arr.length != 6)) {
+  if (!arr) return null;
+  if (!((arr.length == 5) || (arr.length == 6))) {
     return null;
   }
 
@@ -308,8 +309,13 @@ function parseMiscData(jsonStr) {
     atmInCmH20 : arr[2],
     atmO2Pct : arr[3],
     productionMode : arr[4],
-    muted : arr[5] ? true : false,
   }
+  if (arr.length == 6) {
+    val.muted = arr[5] ? true : false;
+  } else {
+    val.muted = false;
+  }
+
   return val;
 }
 

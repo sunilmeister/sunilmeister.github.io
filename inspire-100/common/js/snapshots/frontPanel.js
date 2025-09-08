@@ -12,7 +12,7 @@ const fpPanel =
 	{name:'frontPanelDiv', X:0, Y:0, W:571.1875, H:787.125};
 
 const fpMuted = 
-	{name:'fpMutedDiv', 	 X:310, Y:0, W:50,  H:50};
+	{name:'fpMutedDiv', 	 X:315, Y:35, W:50,  H:50};
 
 const fpLeds = [
 	{name:'fpInitialDiv', 	X:121, 	Y:145, W:20, H:20},
@@ -70,13 +70,13 @@ function createMutedDiv(panelDiv) {
 		let mutedImg = document.createElement("img");
 		mutedImg.id = mutedImgDivId;
   	mutedImg.classList.add(mutedImgClassName);
-		mutedImg.src = "../common/img/audioOn.png";
+		mutedImg.src = "../common/img/audioOff.png";
 		mutedDiv.appendChild(mutedImg);
 }
 
 function createFpDivs() {
 	let panelDiv = document.getElementById('frontPanelDiv');
-  // createMutedDiv(panelDiv);
+  createMutedDiv(panelDiv);
 
 	// create LED elements
 	for (let i=0; i<fpLeds.length; i++) {
@@ -200,6 +200,18 @@ function fpRefresh() {
 	fpRefreshMessageLines();
 	fpRefreshUptime();
 	fpRefreshTotalBreaths();
+	fpRefreshMuted();
+}
+
+// ////////////////////////////////////////////////////////////////
+// Mute Status
+// ////////////////////////////////////////////////////////////////
+function fpRefreshMuted() {
+  if (session.muted) {
+	  document.getElementById('img_fpMutedDiv').style.display = "block";
+  } else {
+	  document.getElementById('img_fpMutedDiv').style.display = "none";
+  }
 }
 
 // ////////////////////////////////////////////////////////////////

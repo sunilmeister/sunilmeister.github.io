@@ -5,12 +5,13 @@
   -->
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="UTF-8">
     <title>Inspire-100 Playback</title>
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes" >
-    <meta name="viewport" content="width=device-width,initial-scale=1" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="icon" type="image/png" href="../common/img/favicon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cousine&family=Fira+Mono&display=swap" rel="stylesheet">
@@ -99,47 +100,48 @@
     <script src="js/playRawData.js"></script>
     <script src="js/playback.js"></script>
   </head>
+
   <body style="font-family:verdana; overflow:auto;">
     <div id=breathRangePopup class=popupClassCenter style="height:22rem; width:32rem; display:none;">
       <center>
         <p style="margin-bottom:-1rem;">Selected Breath Range
           <br>
           <br>
-        <table class=breathRangeTable>
-          <thead>
-            <tr>
-              <th rowspan=2></th>
-              <th rowspan=2 style="width:6rem;">Breath Number</th>
-              <th colspan=3>Wall Time</th>
-            </tr>
-            <tr>
-              <th>Day</th>
-              <th>Date</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="height:2rem;">
-              <th>From</th>
-              <td id=fromRangeBnum style="text-align:center;"></td>
-              <td id=fromRangeDay></td>
-              <td id=fromRangeDate></td>
-              <td id=fromRangeTime></td>
-            </tr>
-            <tr style="height:2rem;">
-              <th>Upto</th>
-              <td id=toRangeBnum style="text-align:center;"></td>
-              <td id=toRangeDay></td>
-              <td id=toRangeDate></td>
-              <td id=toRangeTime></td>
-            </tr>
-            <tr style="height:2rem;">
-              <th>SPAN</th>
-              <td id=spanRangeBnum style="text-align:center;"></td>
-              <td id=spanRangeBtime colspan=3 style="text-align:center;"></td>
-            </tr>
-          </tbody>
-        </table>
+          <table class=breathRangeTable>
+            <thead>
+              <tr>
+                <th rowspan=2></th>
+                <th rowspan=2 style="width:6rem;">Breath Number</th>
+                <th colspan=3>Wall Time</th>
+              </tr>
+              <tr>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="height:2rem;">
+                <th>From</th>
+                <td id=fromRangeBnum style="text-align:center;"></td>
+                <td id=fromRangeDay></td>
+                <td id=fromRangeDate></td>
+                <td id=fromRangeTime></td>
+              </tr>
+              <tr style="height:2rem;">
+                <th>Upto</th>
+                <td id=toRangeBnum style="text-align:center;"></td>
+                <td id=toRangeDay></td>
+                <td id=toRangeDate></td>
+                <td id=toRangeTime></td>
+              </tr>
+              <tr style="height:2rem;">
+                <th>SPAN</th>
+                <td id=spanRangeBnum style="text-align:center;"></td>
+                <td id=spanRangeBtime colspan=3 style="text-align:center;"></td>
+              </tr>
+            </tbody>
+          </table>
       </center>
     </div>
     <div id=exportSearchDiv class=popupClassCenter style="width:30rem; height:20rem; display: none">
@@ -220,60 +222,60 @@
     <div id=enterRangeDiv class=popupClassCenter style="width:34rem; height:26rem; display: none">
       <center>
         <p style="font-size:2rem;">Enter Breath Range
-        <div style="font-size:1.5rem;">
-          <hr>
-          <input type="radio" id=enterRangeBnum name="enterRangeType" value="BNUM" checked onclick='enterRangeBnum()'>
-          <label for=enterRangeBnum>Breath Numbers</label>
-          <input type="radio" id=enterRangeBtime name="enterRangeType" value="BTIME" onclick='enterRangeBtime()'>
-          <label for=enterRangeBtime>Breath Times</label>
-          <hr>
-        </div>
-        <div id=enterRangeBnumDiv style="font-size: 1.5rem; text-align: right; padding-right:4rem; display:block;">
-          <div id=spanBreathRange style="display:none;">
-            <br>
-            <label for=rangeFromBnum>From Breath Number</label>
-            <input id=rangeFromBnum style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
-            <br>
-            <br>
-            <label for=rangeNumBreaths>Number of Breaths</label>
-            <input id=rangeNumBreaths style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
-            <br>
+          <div style="font-size:1.5rem;">
+            <hr>
+            <input type="radio" id=enterRangeBnum name="enterRangeType" value="BNUM" checked onclick='enterRangeBnum()'>
+            <label for=enterRangeBnum>Breath Numbers</label>
+            <input type="radio" id=enterRangeBtime name="enterRangeType" value="BTIME" onclick='enterRangeBtime()'>
+            <label for=enterRangeBtime>Breath Times</label>
+            <hr>
           </div>
-          <div id=pointBreathNum style="display:none;">
-            <br>
-            <label for=singleBreathNum>Breath Number</label>
-            <input id=singleBreathNum style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
-            <br>
-            <br>
+          <div id=enterRangeBnumDiv style="font-size: 1.5rem; text-align: right; padding-right:4rem; display:block;">
+            <div id=spanBreathRange style="display:none;">
+              <br>
+              <label for=rangeFromBnum>From Breath Number</label>
+              <input id=rangeFromBnum style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
+              <br>
+              <br>
+              <label for=rangeNumBreaths>Number of Breaths</label>
+              <input id=rangeNumBreaths style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
+              <br>
+            </div>
+            <div id=pointBreathNum style="display:none;">
+              <br>
+              <label for=singleBreathNum>Breath Number</label>
+              <input id=singleBreathNum style="width: 8rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
+              <br>
+              <br>
+            </div>
           </div>
-        </div>
-        <div id=enterRangeBtimeDiv style="font-size: 1.5rem; text-align: right; padding-right:4rem; display:none;">
-          <div id=spanBreathTimeRange style="display:none;">
-            <br>
-            <label for=rangeFromBtime>From Time</label>
-            <input id=rangeFromBtime name=rangeFromBtime style="width: 15rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
-            <br>
-            <br>
-            <label for=rangeDuration>Duration</label>
-            <input id=rangeDuration type=time step=1 style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
-            <br>
+          <div id=enterRangeBtimeDiv style="font-size: 1.5rem; text-align: right; padding-right:4rem; display:none;">
+            <div id=spanBreathTimeRange style="display:none;">
+              <br>
+              <label for=rangeFromBtime>From Time</label>
+              <input id=rangeFromBtime name=rangeFromBtime style="width: 15rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
+              <br>
+              <br>
+              <label for=rangeDuration>Duration</label>
+              <input id=rangeDuration type=time step=1 style="width: 10rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
+              <br>
+            </div>
+            <div id=pointBreathTime style="display:none;">
+              <br>
+              <label for=singleBtime>Wall Time</label>
+              <input id=singleBtime name=rangeFromBtime style="width: 15rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
+              <br>
+              <br>
+            </div>
           </div>
-          <div id=pointBreathTime style="display:none;">
-            <br>
-            <label for=singleBtime>Wall Time</label>
-            <input id=singleBtime name=rangeFromBtime style="width: 15rem; background-color:white; color:var(--rsp_darkblue); font-size:1.5rem; ">
-            <br>
-            <br>
-          </div>
-        </div>
-        <div>
-          <hr>
-          <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:12rem;
+          <div>
+            <hr>
+            <button id=acceptRangeBtn class=button style="background-color:var(--rsp_darkblue); width:12rem;
             font-size:1.5rem;" onclick='acceptBreathRange()'>SUBMIT</button>
-          <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelBreathRange()'>CANCEL</button>
-          <br>
-          <br>
-        </div>
+            <button class=button style="background-color:var(--rsp_darkred); width:12rem; font-size:1.5rem;" onclick='cancelBreathRange()'>CANCEL</button>
+            <br>
+            <br>
+          </div>
       </center>
     </div>
     <div id=chartDropDownMenu class=popupClassCenter style="height:auto; width:46rem; background-color: var(--rsp_lightblue);">
@@ -643,7 +645,7 @@
           <div class=shadowDiv5 id=SYSDiv style="height:100%; width:30%; float:left; background-color:var(--rsp_darkblue); color:white;font-size:1.4rem;">
             <center>
               <p style="font-size:1.15rem; "><b>SYSTEM UID</b>
-              <p id='SysUid' style="font-size:1.1rem; ">
+                <p id='SysUid' style="font-size:1.1rem; ">
             </center>
           </div>
           <div class=shadowDiv5 id=logosDiv style="height:100%; margin-left:31%; background-color:var(--rsp_mediumblue);">
@@ -662,23 +664,23 @@
           <div id=fpLcdDiv class=fpLcdCls>
             <p id=lcdline1 class=fpLineCls style="margin-top:0.2rem; margin-bottom:0rem;">
               --
-            <p id=lcdline2 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;">
-              --
-            <p id=lcdline3 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;">
-              --
-            <p id=lcdline4 class=fpLineCls style="margin-top:-0.1rem;">
-              --
+              <p id=lcdline2 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;">
+                --
+                <p id=lcdline3 class=fpLineCls style="margin-top:-0.1rem; margin-bottom:0rem;">
+                  --
+                  <p id=lcdline4 class=fpLineCls style="margin-top:-0.1rem;">
+                    --
           </div>
         </div>
         <div id=MessagesDiv class=Messages>
           <p id=Mline1 style="margin-top:2.1rem; margin-bottom:0rem;">
             --
-          <p id=Mline2 style="margin-top:0.7rem; margin-bottom:0rem;">
-            --
-          <p id=Mline3 style="margin-top:0.7rem; margin-bottom:0rem;">
-            --
-          <p id=Mline4 style="margin-top:0.7rem; margin-bottom:1rem;">
-            --
+            <p id=Mline2 style="margin-top:0.7rem; margin-bottom:0rem;">
+              --
+              <p id=Mline3 style="margin-top:0.7rem; margin-bottom:0rem;">
+                --
+                <p id=Mline4 style="margin-top:0.7rem; margin-bottom:1rem;">
+                  --
         </div>
         <div id=AlertDiv class=Alert>
           <img id=AlertImg src="../common/img/OK.png" alt="Alarm" style="margin-top:1rem; height:4.5rem; width:4.5rem;">
@@ -690,12 +692,12 @@
         <div class=Patient>
           <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem;
             margin-bottom:0rem;background-color:var(--rsp_darkblue); color: white; font-size:1.4rem;"><b>Patient Information</b>
-          <p id=Pline1 style="font-size:1.4rem; padding-top:0.8rem;">
-            _____________
-          <p id=Pline2 style="font-size:1.2rem; padding-top:1.2rem;">
-            _____________
-          <p id=Pline3 style="font-size:1.1rem;">
-            _____________
+            <p id=Pline1 style="font-size:1.4rem; padding-top:0.8rem;">
+              _____________
+              <p id=Pline2 style="font-size:1.2rem; padding-top:1.2rem;">
+                _____________
+                <p id=Pline3 style="font-size:1.1rem;">
+                  _____________
         </div>
         <div class=Measurements>
           <p style="font-size:1.1rem;margin-top:0.125rem; margin-bottom:0.15rem;">Measured Patient Parameters
@@ -704,19 +706,19 @@
           <p class=pressureHeadingCls>
             <b>PEAK Pressure</b>
             <br>(cm H<sub>2</sub>O)
-          <div id=PeakGauge> </div>
+            <div id=PeakGauge> </div>
         </div>
         <div class=Plateau>
           <p class=pressureHeadingCls>
             <b>PLAT Pressure</b>
             <br>(cm H<sub>2</sub>O)
-          <div id=PlatGauge> </div>
+            <div id=PlatGauge> </div>
         </div>
         <div class=Peep>
           <p class=pressureHeadingCls>
             <b>PEEP Pressure</b>
             <br>(cm H<sub>2</sub>O)
-          <div id=PeepGauge></div>
+            <div id=PeepGauge></div>
         </div>
         <div class=Volume>
           <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1.1rem;">Delivered Volumes
@@ -724,18 +726,18 @@
         <div class=Tidal>
           <p class=measuredHeadingCls>
             Tidal Volume
-          <p id=VTDEL class=measuredValueCls>
-            __
-          <p class=measuredUnitsCls>
-            (ml)
+            <p id=VTDEL class=measuredValueCls>
+              __
+              <p class=measuredUnitsCls>
+                (ml)
         </div>
         <div class=Minute>
           <p class=measuredHeadingCls>
             Minute Vol.
-          <p id=MVDEL class=measuredValueCls>
-            __
-          <p class=measuredUnitsCls>
-            (l/min)
+            <p id=MVDEL class=measuredValueCls>
+              __
+              <p class=measuredUnitsCls>
+                (l/min)
         </div>
         <div class=MinuteVols>
           <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1.1rem;">Minute Volume Breakdown
@@ -743,18 +745,18 @@
         <div class=MinuteVol_M>
           <p class=measuredHeadingCls>
             Mandatory
-          <p id=MMVDEL class=measuredValueCls>
-            __
-          <p class=measuredUnitsCls>
-            (l/min)
+            <p id=MMVDEL class=measuredValueCls>
+              __
+              <p class=measuredUnitsCls>
+                (l/min)
         </div>
         <div class=MinuteVol_S>
           <p class=measuredHeadingCls>
             Spontaneous
-          <p id=SMVDEL class=measuredValueCls>
-            __
-          <p class=measuredUnitsCls>
-            (l/min)
+            <p id=SMVDEL class=measuredValueCls>
+              __
+              <p class=measuredUnitsCls>
+                (l/min)
         </div>
         <div class=BPM>
           <p style="margin-top:0.5rem; margin-bottom:0rem;font-size:1.1rem;">Breaths per Minute
@@ -762,18 +764,18 @@
         <div class=MBPM>
           <p class=measuredHeadingCls>
             Mandatory
-          <p id=MBPM class=measuredValueCls>
-            __
-          <p class=measuredUnitsCls>
-            (bpm)
+            <p id=MBPM class=measuredValueCls>
+              __
+              <p class=measuredUnitsCls>
+                (bpm)
         </div>
         <div class=SBPM>
           <p class=measuredHeadingCls>
             Spontaneous
-          <p id=SBPM class=measuredValueCls>
-            __
-          <p class=measuredUnitsCls>
-            (bpm)
+            <p id=SBPM class=measuredValueCls>
+              __
+              <p class=measuredUnitsCls>
+                (bpm)
         </div>
         <div class=FiO2Settings>
           <p style="font-size:1.1rem;margin-top:0.125rem; margin-bottom:0rem;">Miscellaneous
@@ -781,48 +783,48 @@
         <div id=externalFiO2 class=FiO2 style="display:none; background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); ">
           <center>
             <p style="font-size:1.1rem;margin-top:-0.5rem;padding-top:0.5rem;background-color:var(--rsp_darkblue); color:white;"><b>O<sub>2</sub> Blender</b>
-            <p style="font-size:1.1rem;margin-top:-1.1rem;background-color:var(--rsp_darkblue); color:white;"><b>Installed</b>
-              <br>
-              <img src="../common/img/OxygenBlender.png" alt="O2Blender" style="margin-top:1rem; padding-bottom:1rem; width:9rem height:12rem;">
-              <br>
-            <p style="font-size:1.1rem;margin-top:0rem;color:var(--rsp_darkgreen);"><b>External</b>
-            <p style="font-size:1.1rem;margin-top:-1.1rem;color:var(--rsp_darkgreen);"><b>FiO<sub>2</sub> Control</b>
+              <p style="font-size:1.1rem;margin-top:-1.1rem;background-color:var(--rsp_darkblue); color:white;"><b>Installed</b>
+                <br>
+                <img src="../common/img/OxygenBlender.png" alt="O2Blender" style="margin-top:1rem; padding-bottom:1rem; width:9rem height:12rem;">
+                <br>
+                <p style="font-size:1.1rem;margin-top:0rem;color:var(--rsp_darkgreen);"><b>External</b>
+                  <p style="font-size:1.1rem;margin-top:-1.1rem;color:var(--rsp_darkgreen);"><b>FiO<sub>2</sub> Control</b>
           </center>
         </div>
         <div id=reservoirFiO2 class=FiO2 style="display:block">
           <center>
             <p style="font-size:1.1rem;margin-top:0rem;padding-top:1rem; padding-bottom:1rem;background-color:var(--rsp_darkblue); color:white;"><b>FiO<sub>2</sub> Settings</b>
-            <div id=fiO2Calc style="background-color:var(--rsp_mediumblue); color:white;">
-              <div id=flowDiv style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); margin-top:-1.5rem;">
-                <p style="font-size:1.1rem; padding-top:0.25rem;"><b>Required O<sub>2</sub></b>
-                <p style="font-size:1.1rem; margin-top:-1.25rem;"><b>Flow Rate</b>
-                <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:0.1rem; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
-                <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-0.1rem; padding-bottom:0.5rem;">(litres/min)
+              <div id=fiO2Calc style="background-color:var(--rsp_mediumblue); color:white;">
+                <div id=flowDiv style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); margin-top:-1.5rem;">
+                  <p style="font-size:1.1rem; padding-top:0.25rem;"><b>Required O<sub>2</sub></b>
+                    <p style="font-size:1.1rem; margin-top:-1.25rem;"><b>Flow Rate</b>
+                      <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:0.1rem; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
+                        <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-0.1rem; padding-bottom:0.5rem;">(litres/min)
+                </div>
+                <div id=purityDiv style="background-color:var(--rsp_mediumblue); color:white;">
+                  <p style="font-size:1.1rem; margin-top:-0.5rem;background-color:var(--rsp_darkblue);">O<sub>2</sub> Purity
+                    <p id=o2PurityValue style="font-size:1.6rem; font-weight:bold; ">__
+                </div>
+                <div id=fiO2Div style="background-color:var(--rsp_mediumblue); color:white;margin-bottom:-1.6rem;">
+                  <p style="font-size:1.1rem; background-color:var(--rsp_darkblue);">Desired FiO<sub>2</sub>
+                    <p id=fiO2Value style="font-size:1.6rem; font-weight:bold; padding-bottom:1.5rem;">__
+                </div>
               </div>
-              <div id=purityDiv style="background-color:var(--rsp_mediumblue); color:white;">
-                <p style="font-size:1.1rem; margin-top:-0.5rem;background-color:var(--rsp_darkblue);">O<sub>2</sub> Purity
-                <p id=o2PurityValue style="font-size:1.6rem; font-weight:bold; ">__
-              </div>
-              <div id=fiO2Div style="background-color:var(--rsp_mediumblue); color:white;margin-bottom:-1.6rem;">
-                <p style="font-size:1.1rem; background-color:var(--rsp_darkblue);">Desired FiO<sub>2</sub>
-                <p id=fiO2Value style="font-size:1.6rem; font-weight:bold; padding-bottom:1.5rem;">__
-              </div>
-            </div>
           </center>
         </div>
         <div class=Compliance>
           <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue);
             font-size:1.1rem;padding-top:0.25rem; background-color:var(--rsp_darkblue);">
             <b>&#x394V/&#x394P</b>
-          <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue);
+            <p style="margin-top:0rem; margin-bottom:0rem; color:var(--rsp_paleblue);
             font-size:0.8rem;padding-top:0.25rem; padding-bottom:0.25rem; background-color:var(--rsp_darkblue);">
-            (ml/cmH<sub>2</sub>O)
-          <p style="margin-top:0.5rem; margin-bottom:-0.25rem; font-size:1.1rem;">Dynamic
-          <p id=DCOMP style="margin-top:0.25rem; margin-bottom:1rem; font-size:1.6rem; font-weight: bold;">
-            __
-          <p style="margin-top:-0.5rem; margin-bottom:-0.25rem; font-size:1.1rem;">Static
-          <p id=SCOMP style="margin-top:0.25rem; margin-bottom:-0.25rem; font-size:1.6rem; font-weight: bold;">
-            __
+              (ml/cmH<sub>2</sub>O)
+              <p style="margin-top:0.5rem; margin-bottom:-0.25rem; font-size:1.1rem;">Dynamic
+                <p id=DCOMP style="margin-top:0.25rem; margin-bottom:1rem; font-size:1.6rem; font-weight: bold;">
+                  __
+                  <p style="margin-top:-0.5rem; margin-bottom:-0.25rem; font-size:1.1rem;">Static
+                    <p id=SCOMP style="margin-top:0.25rem; margin-bottom:-0.25rem; font-size:1.6rem; font-weight: bold;">
+                      __
         </div>
         <div class=Parameters>
           <p style="font-size:1.1rem;margin-top:0.125rem; margin-bottom:0rem;">System Parameter Settings
@@ -830,64 +832,64 @@
         <div id=MODEDiv class=Mode>
           <p class=paramHeadingCls>
             Mode
-          <p id=MODE class=modeValueCls>
-            __
+            <p id=MODE class=modeValueCls>
+              __
         </div>
         <div id=VTDiv class=VT>
           <p id=VtMvTitle class=paramHeadingCls>
             Tidal Volume
-          <p id=VT class=paramValueCls>
-            __
-          <p id=VtMvUnits class=paramUnitsCls>
-            (ml)
+            <p id=VT class=paramValueCls>
+              __
+              <p id=VtMvUnits class=paramUnitsCls>
+                (ml)
         </div>
         <div id=RRDiv class=RR>
           <p class=paramHeadingCls>
             Respiration Rate
-          <p id=RR class=paramValueCls>
-            __
-          <p class=paramUnitsCls>
-            (bpm)
+            <p id=RR class=paramValueCls>
+              __
+              <p class=paramUnitsCls>
+                (bpm)
         </div>
         <div id=IEDiv class=IE>
           <p class=paramHeadingCls>
             I:E Ratio
-          <p id=IE class=paramValueCls>
-            __
-          <p class=paramUnitsCls>
-            (ratio)
+            <p id=IE class=paramValueCls>
+              __
+              <p class=paramUnitsCls>
+                (ratio)
         </div>
         <div id=IPEEPDiv class=IPeep>
           <p class=paramHeadingCls>
             PEEP Pressure
-          <p id=IPEEP class=paramValueCls>
-            __
-          <p class=paramUnitsCls>
-            (cm H<sub>2</sub>O)
+            <p id=IPEEP class=paramValueCls>
+              __
+              <p class=paramUnitsCls>
+                (cm H<sub>2</sub>O)
         </div>
         <div id=PMAXDiv class=PMAX>
           <p class=paramHeadingCls>
             Max Pressure
-          <p id=PMAX class=paramValueCls>
-            __
-          <p class=paramUnitsCls>
-            (cm H<sub>2</sub>O)
+            <p id=PMAX class=paramValueCls>
+              __
+              <p class=paramUnitsCls>
+                (cm H<sub>2</sub>O)
         </div>
         <div id=PSDiv class=PS>
           <p class=paramHeadingCls>
             Support Pressure
-          <p id=PS class=paramValueCls>
-            __
-          <p class=paramUnitsCls>
-            (cm H<sub>2</sub>O)
+            <p id=PS class=paramValueCls>
+              __
+              <p class=paramUnitsCls>
+                (cm H<sub>2</sub>O)
         </div>
         <div id=TPSDiv class=TPS>
           <p class=paramHeadingCls>
             Support End
-          <p id=TPS class=paramValueCls>
-            __
-          <p id=TPS_UNITS class=paramUnitsCls>
-            (% Peak FLow)
+            <p id=TPS class=paramValueCls>
+              __
+              <p id=TPS_UNITS class=paramUnitsCls>
+                (% Peak FLow)
         </div>
         <div id=PendingDiv class=Pending>
           <p id=Pending style="font-size:1.2rem; margin-top:0.625rem; margin-bottom:0rem;">No Pending Changes
@@ -895,14 +897,14 @@
         <div id=elapsedTimeId class=elapsedTimeCls>
           <center>
             <p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL DURATION
-            <p id=upTime style="font-weight:bold; font-size:2rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
-            <p style="font-size:1rem; margin-top:0.3rem; margin-bottom:0.6rem;">(Hrs:Mins)
+              <p id=upTime style="font-weight:bold; font-size:2rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
+                <p style="font-size:1rem; margin-top:0.3rem; margin-bottom:0.6rem;">(Hrs:Mins)
           </center>
         </div>
         <div id=elapsedBreathsId class=elapsedBreathCls>
           <center>
             <p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL BREATHS
-            <p id=elapsedBreaths style="font-weight:bold; font-size:2.2rem; margin-top:0.6rem; margin-bottom:0.3rem;">__
+              <p id=elapsedBreaths style="font-weight:bold; font-size:2.2rem; margin-top:0.6rem; margin-bottom:0.3rem;">__
           </center>
         </div>
       </div>
@@ -1033,7 +1035,7 @@
                         MODE
                       </th>
                       <th style="background-color:lightgray; font-size:1.2rem;">
-                        &nbspVT/MV&nbsp 
+                        &nbspVT/MV&nbsp
                       </th>
                       <th style="background-color:lightgray; font-size:1.2rem;">
                         &nbsp;RR&nbsp;
@@ -1089,21 +1091,21 @@
               <center>
                 <p class=waveLegendText style="background-color:var(--colorMandatoryVC);">Mandatory
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryVC);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryVC);">Volume Control
               </center>
             </div>
             <div class=waveLegend>
               <center>
                 <p class=waveLegendText style="background-color:var(--colorSpontaneousVC);">Spontaneous
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousVC);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousVC);">Volume Control
               </center>
             </div>
             <div class=waveLegend>
               <center>
                 <p class=waveLegendText style="background-color:var(--colorSpontaneousPS);">Spontaneous
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousPS);">Pressure Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousPS);">Pressure Control
               </center>
             </div>
           </div>
@@ -1115,28 +1117,28 @@
               <center>
                 <p class=waveLegendText style="background-color:var(--colorMandatoryVCMaint);">Mandatory
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryVCMaint);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryVCMaint);">Volume Control
               </center>
             </div>
             <div class=waveLegend>
               <center>
                 <p class=waveLegendText style="background-color:var(--colorMandatoryPS);">PSV Mode
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryPS);">Backup Breath
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorMandatoryPS);">Backup Breath
               </center>
             </div>
             <div class=waveLegend>
               <center>
                 <p class=waveLegendText style="background-color:var(--colorSpontaneousVCMaint);">Spontaneous
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousVCMaint);">Volume Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousVCMaint);">Volume Control
               </center>
             </div>
             <div class=waveLegend>
               <center>
                 <p class=waveLegendText style="background-color:var(--colorSpontaneousPSMaint);">Spontaneous
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousPSMaint);">Pressure Control
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorSpontaneousPSMaint);">Pressure Control
               </center>
             </div>
           </div>
@@ -1148,14 +1150,14 @@
               <center>
                 <p class=waveLegendText style="background-color:var(--colorAbnormal);">Abnormal
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorAbnormal);">Seeming Breath
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorAbnormal);">Seeming Breath
               </center>
             </div>
             <div class=waveLegend>
               <center>
                 <p class=waveLegendText style="background-color:var(--colorError);">Error
                   <br>
-                <p class=waveLegendText style="padding-top:0; background-color:var(--colorError);">Causing Breath
+                  <p class=waveLegendText style="padding-top:0; background-color:var(--colorError);">Causing Breath
               </center>
             </div>
           </div>
@@ -1346,4 +1348,5 @@
       </div>
     </template>
   </body>
+
 </html>
