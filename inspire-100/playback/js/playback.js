@@ -494,7 +494,7 @@ window.onload = function () {
   let sessionInfo = document.getElementById("sessionNameSelector");
   sessionInfo.innerHTML = 'No Selected Recording';
 
-  setRootFontSize("fullPlayback", "fullPlayback");
+  setRootFontSize("fullPlayback", "fullPlayback", 10, 10);
 
   disableAllButtons();
   appResize();
