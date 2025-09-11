@@ -648,6 +648,13 @@ function processPwaveChirp(curTime, jsonStr) {
   session.breathData.vtIqRatio = (obj.vtdel / obj.iqdel);
   saveOutputChange("vtdel", curTime, obj);
 
+  // cleanup
+  for (let i=0; i < obj.waveData.length; i++) {
+    if (obj.waveData[i] < 0) {
+      obj.waveData[i] = 0;
+    }
+  }
+
   let lastSample = obj.waveData[obj.waveData.length-1];
   let filteredSamples = movingAverageFilter(obj.waveData, pFilterWindow);
   obj.waveData = filteredSamples;
