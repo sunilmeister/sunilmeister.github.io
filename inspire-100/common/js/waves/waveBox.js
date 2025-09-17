@@ -239,7 +239,7 @@ class WaveBox {
   }
 
   createCharts() {
-    // this.deleteUnmatchedWaveformData();
+    this.deleteUnmatchedWaveformData();
 
 		// Pressure Chart
     let pressureYaxisTicks  = {min:null, max:null, interval: 25};
