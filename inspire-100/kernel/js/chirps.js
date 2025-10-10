@@ -318,9 +318,9 @@ function parseMiscData(jsonStr) {
     productionMode : arr[4],
   }
   if (arr.length == 6) {
-    val.muted = arr[5] ? true : false;
+    val.buzzerMuted = arr[5] ? true : false;
   } else {
-    val.muted = false;
+    val.buzzerMuted = false;
   }
 
   return val;
@@ -963,10 +963,10 @@ function processMiscChirp(curTime, jsonStr) {
   let obj = parseMiscData(jsonStr);
   if (!obj) return;
   session.productionMode = obj.productionMode;
-  if (session.muted != obj.muted) {
-    console.log("Muted", obj.muted);
-  }
-  session.muted = obj.muted;
+  // if (session.buzzerMuted != obj.buzzerMuted) {
+    // console.log("Muted", obj.buzzerMuted);
+  // }
+  session.buzzerMuted = obj.buzzerMuted;
   if ((session.productionMode !== null) && !session.productionMode) {
     // give a notification if app is dashboard
     if ((session.appId == DASHBOARD_APP_ID) || (session.appId == MINI_DASHBOARD_APP_ID)) {

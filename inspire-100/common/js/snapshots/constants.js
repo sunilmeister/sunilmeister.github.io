@@ -2,4 +2,5 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 const SNAPSHOT_NUM_ROLLING_BREATHS = 1;
+const BUZZER_CHECK_TIMEOUT_INTERVAL_IN_MS = 30000;
 

@@ -19,24 +19,24 @@ function disassembleAndQueueChirp(d) {
     let obj = parseMillis(millisStr);
     let millis = Number(obj.millis);
 
-		// ERROR detection
+    // ERROR detection
     if (millis == null) {
-			console.error("*** MILLIS checksum error");
-			continue // ignore this malformed chirp
-		} else if (maxMILLIS && (millis < maxMILLIS)) {
+      console.error("*** MILLIS checksum error");
+      continue // ignore this malformed chirp
+    } else if (maxMILLIS && (millis < maxMILLIS)) {
       let diff = maxMILLIS - millis;
-			// MILLIS should be monotonically increasing
-			// unless the chirps arrive out of order because of network buffering and latency
-      if (diff > 100) {
+      // MILLIS should be monotonically increasing
+      // unless the chirps arrive out of order because of network buffering and latency
+      // if (diff > 100) {
         // Up to 100ms can be caused by Arduino and NodeMcu crystal frequency drift
-			  console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
-      }
-		}
+        // console.log("*** Chirp out of order: Last MILLIS",maxMILLIS, " > New MILLIS",millis);
+      // }
+    }
 
-		// Reach here if all is good - no ERRORs
+    // Reach here if all is good - no ERRORs
     if (!startMillis) startMillis = millis;
     let date = null;
-		if (session.firstChirpDate === null) {
+    if (session.firstChirpDate === null) {
       session.firstChirpDate = new Date(d.created);
     }
     date = new Date(session.firstChirpDate);
@@ -45,8 +45,8 @@ function disassembleAndQueueChirp(d) {
     fragment.MILLIS = String(millis);
     chirpQ.push(cloneObject(fragment));
 
-		// For error checking the next round
-		if (!maxMILLIS || (maxMILLIS < millis)) maxMILLIS = millis;
+    // For error checking the next round
+    if (!maxMILLIS || (maxMILLIS < millis)) maxMILLIS = millis;
   }
 }
 

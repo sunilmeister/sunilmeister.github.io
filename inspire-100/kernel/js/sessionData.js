@@ -30,7 +30,7 @@ var SessionDataTemplate = {
   prevChirpResetStatus: RESET_NONE,
 
   productionMode: null,
-  muted: false,
+  buzzerMuted: false,
 
   firmwareVersion: {
     major: null,

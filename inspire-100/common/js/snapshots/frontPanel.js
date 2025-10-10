@@ -207,7 +207,7 @@ function fpRefresh() {
 // Mute Status
 // ////////////////////////////////////////////////////////////////
 function fpRefreshMuted() {
-  if (session.muted) {
+  if (session.buzzerMuted) {
 	  document.getElementById('img_fpMutedDiv').style.display = "block";
   } else {
 	  document.getElementById('img_fpMutedDiv').style.display = "none";
