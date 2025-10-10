@@ -14,7 +14,7 @@ const dontShowButtonHTML =
 function dontShowButton(modalId) {
   if (modalId) session.dontShowModals.push(modalId);
   Swal.close();
-  console.log("dontShowButton", modalId);
+  // console.log("dontShowButton", modalId);
 }
 
 function extractModalId(msg) {
