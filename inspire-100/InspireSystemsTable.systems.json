@@ -1,0 +1,28 @@
+[
+ {
+  "uid": "UID_28DBA879A201038B",
+  "tag": "BENGALURU",
+  "fw": [
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "uid": "UID_28705904000000EE",
+  "tag": "CLEARPACK",
+  "fw": [
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "uid": "UID_28B1A879A2010387",
+  "tag": "UDAIPUR"
+ },
+ {
+  "uid": "UID_28087A79A20103CB",
+  "tag": "YMPL"
+ }
+]
