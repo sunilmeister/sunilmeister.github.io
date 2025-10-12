@@ -975,6 +975,8 @@ function processMiscChirp(curTime, jsonStr) {
   }
 
   saveOutputChange("tempC", curTime, obj);
+  saveOutputChange("buzzerMuted", curTime, obj);
+
   saveMiscValue("altInFt", obj);
   saveMiscValue("atmInCmH20", obj);
   saveMiscValue("atmO2Pct", obj);

@@ -238,15 +238,30 @@ class WaveBox {
     }
   }
 
+  snapYaxisLimits(limits, min, max, interval) {
+    if (limits.yMin < min) {
+      limits.yMin = min;
+    } else {
+      let mult = Math.trunc((limits.yMin - interval + 1) / interval);
+      limits.yMin = mult * interval;
+    }
+    if (limits.yMax > max) {
+      limits.yMax = max;
+    } else {
+      let mult = Math.trunc((limits.yMax + interval - 1) / interval);
+      limits.yMax = mult * interval;
+    }
+    limits.yInterval = interval;
+    return limits;
+  }
+
   createCharts() {
     this.deleteUnmatchedWaveformData();
 
 		// Pressure Chart
-    let pressureYaxisTicks  = {min:null, max:null, interval: 25};
     this.pChart = new WavePane(
       this.options.title,
       null,
-      pressureYaxisTicks,
       this.pressureChartDiv.offsetHeight,
       this.rangeX,
       this.options,
@@ -255,13 +270,15 @@ class WaveBox {
 			session.waves.pwData
     );
     this.pChart.addGraph();
+    let pLimits = this.pChart.getYMinMax();
+    pLimits = this.snapYaxisLimits(pLimits, 0, 600, 25);
+    this.pChart.setYMinMax(pLimits);
+    // console.log("pLimits", pLimits);
 
 		// Flow Chart
-    let flowYaxisTicks  = {min:-150, max:null, interval: 50};
     this.fChart = new WavePane(
       null,
       null,
-      flowYaxisTicks,
       this.flowChartDiv.offsetHeight,
       this.rangeX,
       this.options,
@@ -270,13 +287,15 @@ class WaveBox {
 			session.waves.fwData
     );
     this.fChart.addGraph();
+    let fLimits = this.fChart.getYMinMax();
+    fLimits = this.snapYaxisLimits(fLimits, -150, 150, 50);
+    this.fChart.setYMinMax(fLimits);
+    // console.log("fLimits", fLimits);
 
 		// Volume Chart
-    let volumeYaxisTicks  = {min:0, max:null, interval: 100};
     this.vChart = new WavePane(
       null,
       "Elapsed Time (H:MM:SS)",
-      volumeYaxisTicks,
       this.volumeChartDiv.offsetHeight,
       this.rangeX,
       this.options,
@@ -285,6 +304,10 @@ class WaveBox {
 			session.waves.vwData
     );
     this.vChart.addGraph();
+    let vLimits = this.vChart.getYMinMax();
+    vLimits = this.snapYaxisLimits(vLimits, 0, 800, 100);
+    this.vChart.setYMinMax(vLimits);
+    // console.log("vLimits", vLimits);
 
 		// Make sure both charts have the same breaks and strip lines
     let pStrips = this.pChart.getStripLines();

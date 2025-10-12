@@ -10,20 +10,16 @@
 // 
 // The constructor inputs are
 // Title of chart
-// yMinMaxInterval  = {min: , max:, interval: }
 // rangeX = {moving:, 
 //           minBnum:Number, maxBnum:Number, 
 //           minTime:Date, maxTime:Date, 
 // //////////////////////////////////////////////////////
 class WavePane {
-  constructor(chartTitle, xTitle, yMinMaxInterval, height, rangeX, menu, 
+  constructor(chartTitle, xTitle, height, rangeX, menu, 
               paramName, paramColor, data) {
     this.graphType = "area";
     this.chartTitle = chartTitle;
     this.xTitle = xTitle;
-    this.yInterval = yMinMaxInterval.interval;
-    this.yMin = yMinMaxInterval.min;
-    this.yMax = yMinMaxInterval.max;
     this.rangeX = rangeX;
     this.chartJson = {
       zoomEnabled: true,
@@ -48,6 +44,7 @@ class WavePane {
     this.paramColor = paramColor;
     this.data = data;
     this.stripLines = [];
+    this.yMinMax = {yMin:null, yMax:null};
 
     this.addXaxis();
   }
@@ -74,6 +71,18 @@ class WavePane {
       axisY.labelFontSize = session.waves.labelFontSize;
       axisY.titleFontSize = session.waves.axisTitleFontSize;
     }
+  }
+
+  setYMinMax(limits) {
+    let axisY = this.chartJson.axisY[0];
+    axisY.interval = limits.yInterval;
+    axisY.minimum = limits.yMin;
+    axisY.maximum = limits.yMax;
+    // console.log("axisY",axisY);
+  }
+
+  getYMinMax() {
+    return this.yMinMax;
   }
 
   setCustomBreaks(customBreaks) {
@@ -293,6 +302,19 @@ class WavePane {
         if (samples[j] !== null) {
           lastY = samples[j];
           lastX = xval;
+
+          // Record min and max values
+          if (this.yMinMax.yMin === null) {
+            this.yMinMax.yMin = lastY;
+            this.yMinMax.yMax = lastY;
+          }
+          if (this.yMinMax.yMin > lastY) {
+            this.yMinMax.yMin = lastY;
+          }
+          if (this.yMinMax.yMax < lastY) {
+            this.yMinMax.yMax = lastY;
+          }
+
           if (partial) {
             xyPoints.push({
               "x": lastX / 1000,
@@ -345,11 +367,6 @@ class WavePane {
     Yaxis.titleFontColor = color;
     Yaxis.gridColor = WAVE_HORIZONTAL_GRID_COLOR;
     Yaxis.suffix = "";
-    Yaxis.interval = this.yInterval;
-    Yaxis.minimum = this.yMin;
-    Yaxis.maximum = this.yMax;
-    Yaxis.min = this.yMin;
-    Yaxis.max = this.yMax;
     return cloneObject(Yaxis);
   }
 

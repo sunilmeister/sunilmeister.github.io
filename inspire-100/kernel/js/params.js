@@ -666,6 +666,7 @@ function createAllParams() {
 	addParam("attention",		"ATTENTION", 			"BOOLEAN",	"");
 	addParam("errorTag", 		"ERROR_BREATH", 	"BOOLEAN",	"");
 	addParam("warningTag", 	"WARNING_BREATH", "BOOLEAN",	"");
+	addParam("buzzerMuted", "BUZZER_MUTED",   "BOOLEAN",	"");
 	addParam("cmvSpont",		"CMV_SPONTANEOUS","BOOLEAN",	"");
 	addParam("errors", 			"ERROR_NUMBER", 	"NUMBER", 	"",					[0, null, 1]);
 	addParam("warnings", 		"WARNING_NUMBER", "NUMBER", 	"",					[0, null, 1]);

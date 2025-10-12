@@ -805,4 +805,13 @@ setInterval(() => {
   registerDashboardPing(inspireUid);
 }, PING_INTERVAL_IN_MS)
 
+setTimeout(function checkBuzzerStatus() {
+  checkBuzzerDisabled();
+  setTimeout(checkBuzzerStatus, BUZZER_CHECK_TIMEOUT_INTERVAL_IN_MS);
+}, BUZZER_CHECK_TIMEOUT_INTERVAL_IN_MS)
+
+function checkBuzzerDisabled() {
+  if (!session.buzzerMuted) return;
+  modalInfo("BUZZER ALARMS DISABLED", "Buzzer has been permanently muted");
+}
 

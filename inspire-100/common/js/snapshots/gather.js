@@ -54,6 +54,9 @@ function gatherSnapshotData() {
 		snap.totalBreaths = session.startSystemBreathNum + session.maxBreathNum - 1;
 	}
 
+	// Buzzer Disabled
+	snap.buzzerMuted = params.buzzerMuted.ValueAtTime(snap.time);
+
 	// Message lines
 	snap.lcdLine1 = params.lcdLine1.ValueAtTime(snap.time);
 	snap.lcdLine2 = params.lcdLine2.ValueAtTime(snap.time);
