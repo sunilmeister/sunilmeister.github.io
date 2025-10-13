@@ -75,6 +75,16 @@ function initAlerts() {
   scrollbox.innerHTML = "";
 }
 
+function alertWithinRange(alertTime) {
+  if (!session.alerts.range.moving) {
+    if (alertTime.getTime() > session.alerts.range.maxTime.getTime()) return false;
+  }
+  if (session.maxBreathNum != 0) {
+    if (alertTime.getTime() < session.alerts.range.minTime.getTime()) return false;
+  }
+  return true;
+}
+
 function createAllAlerts() {
   if (!session.sessionDataValid) {
     modalAlert("Data Gathering in process", "Give us a second and try again");
@@ -85,8 +95,7 @@ function createAllAlerts() {
   scrollbox.innerHTML = "";
 	let errorChanges = session.params.errors.Changes();
   for (let i = 1; i < errorChanges.length; i++) {
-    if (errorChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
-    if (errorChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
+    if (!alertWithinRange(errorChanges[i].time)) continue;
 		let msg = lookupErrorMessage(errorChanges[i].time);
     let prefix = "ERROR#" + i + " ";
     displayJsonAlerts(prefix, scrollbox, msg, errorChanges[i].time);
@@ -96,8 +105,7 @@ function createAllAlerts() {
   scrollbox.innerHTML = "";
 	let warningChanges = session.params.warnings.Changes();
   for (let i = 1; i < warningChanges.length; i++) {
-    if (warningChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
-    if (warningChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
+    if (!alertWithinRange(warningChanges[i].time)) continue;
 		let msg = lookupWarningMessage(warningChanges[i].time);
     let prefix = "WARNING#" + i + " ";
     displayJsonAlerts(prefix, scrollbox, msg, warningChanges[i].time);
@@ -106,11 +114,9 @@ function createAllAlerts() {
   scrollbox = document.getElementById('infoDiv');
   scrollbox.innerHTML = "";
   for (let i = 0; i < session.infoMsgs.length; i++) {
-    if (session.infoMsgs[i].breathNum > session.alerts.range.maxBnum) continue;
-    if (session.infoMsgs[i].breathNum < session.alerts.range.minBnum) continue;
-
-    let prefix = "INFO#" + (i + 1) + " ";
-    displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i], session.infoMsgs[i].created);
+    if (!alertWithinRange(session.infoMsgs[i].time)) continue;
+    let prefix = "INFO#" + (i+1) + " ";
+    displayJsonAlerts(prefix, scrollbox, session.infoMsgs[i], session.infoMsgs[i].time);
   }
 
 }

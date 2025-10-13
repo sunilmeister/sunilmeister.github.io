@@ -748,8 +748,7 @@ function processWifiChirp(curTime, jsonStr) {
   session.params.wifiReconns.AddTimeValue(curTime, obj.reconnectAt);
 
   let msg = {
-    'created': curTime,
-    'breathNum': obj.reconnectAt,
+    'time': curTime,
     'L1': "Auto Recovered from",
     'L2': "Dropped WIFI or",
     'L3': "Server Disconnection",
@@ -965,7 +964,7 @@ function processBmuteChirp(curTime, jsonStr) {
   let bmute = (jsonStr == 1);
   if (!session.buzzerMuted && bmute) {
     let msg = {
-        'created': curTime,
+        'time': curTime,
         'L1': "Alarm Buzzer",
         'L2': "Disabled",
         'L3': "",
@@ -975,7 +974,7 @@ function processBmuteChirp(curTime, jsonStr) {
     session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
   } else if (session.buzzerMuted && !bmute) {
     let msg = {
-        'created': curTime,
+        'time': curTime,
         'L1': "Alarm Buzzer",
         'L2': "Re-enabled",
         'L3': "",

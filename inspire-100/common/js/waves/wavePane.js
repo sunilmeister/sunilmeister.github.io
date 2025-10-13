@@ -74,6 +74,8 @@ class WavePane {
   }
 
   setYMinMax(limits) {
+    if (limits === null) return;
+    if (this.chartJson.axisY.length == 0) return;
     let axisY = this.chartJson.axisY[0];
     axisY.interval = limits.yInterval;
     axisY.minimum = limits.yMin;
