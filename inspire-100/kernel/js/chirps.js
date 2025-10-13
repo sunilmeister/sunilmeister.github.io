@@ -414,6 +414,8 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM ",value);
           processBnumChirp(curTime, value, jsonData);
+        } else if (ckey == "BMUTE") {
+          processBmuteChirp(curTime, value);
         } else if (ckey == "RST") {
           processResetChirp(curTime, value);
         } else if (ckey == "ATT") {
@@ -959,20 +961,45 @@ function processComplianceChirp(curTime, jsonStr) {
   saveOutputChange("dcomp", curTime, obj);
 }
 
+function processBmuteChirp(curTime, jsonStr) {
+  let bmute = (jsonStr == 1);
+  if (!session.buzzerMuted && bmute) {
+    let msg = {
+        'created': curTime,
+        'L1': "Alarm Buzzer",
+        'L2': "Disabled",
+        'L3': "",
+        'L4': ""
+    };
+    session.infoMsgs.push(msg);
+    session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
+  } else if (session.buzzerMuted && !bmute) {
+    let msg = {
+        'created': curTime,
+        'L1': "Alarm Buzzer",
+        'L2': "Re-enabled",
+        'L3': "",
+        'L4': ""
+    };
+    session.infoMsgs.push(msg);
+    session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
+  }
+  session.buzzerMuted = bmute;
+}
+
 function processMiscChirp(curTime, jsonStr) {
   let obj = parseMiscData(jsonStr);
   if (!obj) return;
   session.productionMode = obj.productionMode;
-  // if (session.buzzerMuted != obj.buzzerMuted) {
-    // console.log("Muted", obj.buzzerMuted);
-  // }
-  session.buzzerMuted = obj.buzzerMuted;
+
   if ((session.productionMode !== null) && !session.productionMode) {
     // give a notification if app is dashboard
     if ((session.appId == DASHBOARD_APP_ID) || (session.appId == MINI_DASHBOARD_APP_ID)) {
 	    modalInfo("SYSTEM IN DEBUG MODE", "Not Production mode");
     }
   }
+
+  processBmuteChirp(curTime, obj.buzzerMuted);
 
   saveOutputChange("tempC", curTime, obj);
   saveOutputChange("buzzerMuted", curTime, obj);

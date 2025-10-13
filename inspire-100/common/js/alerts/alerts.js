@@ -84,7 +84,7 @@ function createAllAlerts() {
   let scrollbox = document.getElementById('errorDiv');
   scrollbox.innerHTML = "";
 	let errorChanges = session.params.errors.Changes();
-  for (let i = 0; i < errorChanges.length; i++) {
+  for (let i = 1; i < errorChanges.length; i++) {
     if (errorChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (errorChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupErrorMessage(errorChanges[i].time);
@@ -95,7 +95,7 @@ function createAllAlerts() {
   scrollbox = document.getElementById('warningDiv');
   scrollbox.innerHTML = "";
 	let warningChanges = session.params.warnings.Changes();
-  for (let i = 0; i < warningChanges.length; i++) {
+  for (let i = 1; i < warningChanges.length; i++) {
     if (warningChanges[i].time.getTime() > session.alerts.range.maxTime.getTime()) continue;
     if (warningChanges[i].time.getTime() < session.alerts.range.minTime.getTime()) continue;
 		let msg = lookupWarningMessage(warningChanges[i].time);
