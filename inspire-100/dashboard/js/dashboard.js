@@ -780,9 +780,11 @@ function showDormantPopup() {
     },
     didOpen: () => {
       const b = Swal.getHtmlContainer().querySelector('b');
-      dormantTimerInterval = setInterval(() => {
-        b.textContent = msToHHMMSS(1000*dormantTimeInSec);
-      }, 1000)
+      if (b) {
+        dormantTimerInterval = setInterval(() => {
+          b.textContent = msToHHMMSS(1000*dormantTimeInSec);
+        }, 1000)
+      }
     },
     willClose: () => {
       clearInterval(dormantTimerInterval)

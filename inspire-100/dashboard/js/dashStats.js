@@ -5,7 +5,7 @@
 function createDashboardStats() {
 	rangeWindowDiv.style.display = "block";
   changeRangeSliderColors(session.stats.range.moving);
-	if (isVisibleRangeChanged()) {
+	if (isVisibleRangeChanged() || session.stats.range.moving) {
   	createAllStats();
 		updateVisiblePrevRange();
 	}
