@@ -306,7 +306,7 @@ function parseComplianceData(jsonStr) {
 function parseMiscData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
   if (!arr) return null;
-  if (!((arr.length == 5) || (arr.length == 6))) {
+  if (arr.length != 5) {
     return null;
   }
 
@@ -316,11 +316,6 @@ function parseMiscData(jsonStr) {
     atmInCmH20 : arr[2],
     atmO2Pct : arr[3],
     productionMode : arr[4],
-  }
-  if (arr.length == 6) {
-    val.buzzerMuted = arr[5] ? true : false;
-  } else {
-    val.buzzerMuted = false;
   }
 
   return val;
@@ -984,6 +979,7 @@ function processBmuteChirp(curTime, jsonStr) {
     session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
   }
   session.buzzerMuted = bmute;
+  session.params.buzzerMuted.AddTimeValue(curTime,bmute);
 }
 
 function processMiscChirp(curTime, jsonStr) {
@@ -998,10 +994,7 @@ function processMiscChirp(curTime, jsonStr) {
     }
   }
 
-  processBmuteChirp(curTime, obj.buzzerMuted);
-
   saveOutputChange("tempC", curTime, obj);
-  saveOutputChange("buzzerMuted", curTime, obj);
 
   saveMiscValue("altInFt", obj);
   saveMiscValue("atmInCmH20", obj);
