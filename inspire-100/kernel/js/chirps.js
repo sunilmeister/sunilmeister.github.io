@@ -967,6 +967,9 @@ function processBmuteChirp(curTime, jsonStr) {
     };
     session.infoMsgs.push(msg);
     session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
+    if (!isUndefined(buzzerMuteUnmuteCallback)) {
+      buzzerMuteUnmuteCallback(bmute);
+    }
   } else if (session.buzzerMuted && !bmute) {
     let msg = {
         'time': curTime,
@@ -977,6 +980,9 @@ function processBmuteChirp(curTime, jsonStr) {
     };
     session.infoMsgs.push(msg);
     session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
+    if (!isUndefined(buzzerMuteUnmuteCallback)) {
+      buzzerMuteUnmuteCallback(bmute);
+    }
   }
   session.buzzerMuted = bmute;
   session.params.buzzerMuted.AddTimeValue(curTime,bmute);

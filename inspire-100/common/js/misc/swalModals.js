@@ -12,7 +12,9 @@ const dontShowButtonHTML =
 "<button class=dontShowButton onclick='dontShowButton(modalId)'>Dont show again</button>" ;
 
 function dontShowButton(modalId) {
-  if (modalId) session.dontShowModals.push(modalId);
+  if (modalId && !session.dontShowModals.includes(modalId)) {
+    session.dontShowModals.push(modalId);
+  }
   Swal.close();
   // console.log("dontShowButton", modalId);
 }
@@ -40,6 +42,8 @@ function modalWarning(title, msg) {
   })
 }
 
+const INFO_TIMER_INTERVAL = 10000;
+var infoTimerInterval;
 function modalInfo(title, msg) {
   let modalColor = palette.modal;
   modalId = extractModalId(msg);
@@ -65,6 +69,17 @@ function modalInfo(title, msg) {
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
     showCloseButton: true,
+    timer: INFO_TIMER_INTERVAL,
+    timerProgressBar: true,
+    showClass: {
+      popup: `animate__animated animate__fadeInDown`
+    },
+    hideClass: {
+      popup: `animate__animated animate__fadeOutUp`
+    },
+    willClose: () => {
+      clearInterval(infoTimerInterval);
+    }
   })
 }
 

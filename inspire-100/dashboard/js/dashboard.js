@@ -761,7 +761,7 @@ function showDormantPopup() {
   dormantPopupManualCloseTime = null;
   let modalColor = palette.modal;
   
-  let dormantTimerInterval;
+  let dormantTimerInterval = 3000;
   Swal.fire({
     icon: 'info',
     title: DORMANT_TITLE_STR,
@@ -814,6 +814,17 @@ setTimeout(function checkBuzzerStatus() {
 
 function checkBuzzerDisabled() {
   if (!session.buzzerMuted) return;
-  modalInfo("BUZZER ALARMS DISABLED", "Buzzer has been permanently muted");
+  buzzerMuteUnmuteCallback(true);
 }
 
+function buzzerMuteUnmuteCallback(muted) {
+  let caption, msg;
+  if (muted) {
+    caption = "Alarm Buzzer MUTED on Front Panel";
+    msg = "BUZZER DISABLED";
+  } else {
+    caption = "Alarm Buzzer UNMUTED on Front Panel";
+    msg = "BUZZER RE-ENABLED";
+  }
+  modalInfo(caption, msg);
+}
