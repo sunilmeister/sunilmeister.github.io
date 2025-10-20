@@ -141,6 +141,11 @@ function isUndefined(v) {
   return false;
 }
 
+function isDefined(v) {
+  if (typeof v != 'undefined') return true;
+  return false;
+}
+
 function isObject(object) {
   return object != null && typeof object === 'object';
 }  
@@ -404,7 +409,7 @@ function createOrOpenDb(name, timeStamp, successCallback) {
     session.database.db = event.target.result;
     session.database.dbReady = true;
     registerDbName(session.database.dbName);
-    if (!isUndefined(successCallback)) successCallback();
+    if (isDefined(successCallback)) successCallback();
   }
   // Fires when we can't open the database
   dbReq.onerror = function (event) {

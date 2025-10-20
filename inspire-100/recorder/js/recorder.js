@@ -11,9 +11,9 @@ var recorderLaunchTime = null;
 var recorderChirpCount = 0;
 function waitForChirps() {
   waitForHwPosts(inspireUid, function (d) {
-		// ignore old chirps
-		recorderChirpCount++;
-		if ((recorderChirpCount == 1) && (d.created < recorderLaunchTime)) return;
+    // ignore old chirps
+    recorderChirpCount++;
+    if ((recorderChirpCount == 1) && (d.created < recorderLaunchTime)) return;
 
     let now = new Date();
     let nowMs = now.getTime();
@@ -40,8 +40,8 @@ function waitForChirps() {
 
 function updateRecorderSummary(d) {
   curDate = new Date(d.created);
-	let date = session.firstChirpDate;
-	if (date === null) date = new Date(d.created);
+  let date = session.firstChirpDate;
+  if (date === null) date = new Date(d.created);
   session.sessionDurationInMs = Math.abs(curDate.getTime() - date.getTime());
   elm = document.getElementById("logTimeDuration");
   elm.innerHTML = msToHHMMSS(session.sessionDurationInMs);
@@ -53,7 +53,7 @@ function updateRecorderSummary(d) {
 }
 
 window.onload = function () {
-	recorderLaunchTime = new Date();
+  recorderLaunchTime = new Date();
   finishedLoading = false;
 
   createNewSession();
@@ -85,11 +85,11 @@ window.onload = function () {
   initChirpQ();
   waitForChirps();
 
-	sidebarAlign();
-	setRootFontSize("fullRecorder", "nonMenuArea");
+  sidebarAlign();
+  setRootFontSize("fullRecorder", "nonMenuArea");
 
-	appResize();
-	appResizeFunction = appResize;
+  appResize();
+  appResizeFunction = appResize;
   finishedLoading = true;
 }
 
@@ -103,7 +103,7 @@ function sidebarAlign() {
 }
 
 function appResize() {
-	sidebarAlign();
+  sidebarAlign();
 }
 
 window.onbeforeunload = function (e) {
@@ -135,37 +135,37 @@ function FetchAndExecuteFromQueue() {
     if (chirpQ.size() == 0) break;
 
     let d = chirpQ.pop();
-		if (recorderSessionClosed) {
-			return; // do not process any more chirps
-		}
+    if (recorderSessionClosed) {
+      return; // do not process any more chirps
+    }
 
-		if (isUndefined(d["content"])) break; // empty chirp
+    if (isUndefined(d["content"])) break; // empty chirp
 
-		// check if a new session has started without current one being closed
-    if (!isUndefined(d.content["HWORLD"])) {
-			if (session.firstChirpDate) {
-				// A session was in progress but a new session started
-				// must close current session and inform user
-				closeCurrentSession();
-				return;
-			}
-		}
+    // check if a new session has started without current one being closed
+    if (isDefined(d.content["HWORLD"])) {
+      if (session.firstChirpDate) {
+        // A session was in progress but a new session started
+        // must close current session and inform user
+        closeCurrentSession();
+        return;
+      }
+    }
 
-    if (!isUndefined(d.content["BNUM"])) {
+    if (isDefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
-			if (bnumObj) {
-      	if (session.startSystemBreathNum == null) {
-        	session.startSystemBreathNum = bnumObj.bnum;
-        	let elm = document.getElementById("priorBreathNum");
-        	elm.innerHTML = String(bnumObj.bnum - 1);
-      	}
-        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
-        if (chirpBnum >	session.maxBreathNum) {
-      	  session.systemBreathNum = bnumObj.bnum;
-         	session.maxBreathNum = chirpBnum;
+      if (bnumObj) {
+        if (session.startSystemBreathNum == null) {
+          session.startSystemBreathNum = bnumObj.bnum;
+          let elm = document.getElementById("priorBreathNum");
+          elm.innerHTML = String(bnumObj.bnum - 1);
         }
-			}
+        let chirpBnum = bnumObj.bnum - session.startSystemBreathNum + 1;
+        if (chirpBnum > session.maxBreathNum) {
+          session.systemBreathNum = bnumObj.bnum;
+          session.maxBreathNum = chirpBnum;
+        }
+      }
     }
     let dCopy = cloneObject(d);
     processRecordChirp(dCopy);
@@ -174,14 +174,14 @@ function FetchAndExecuteFromQueue() {
 
 var recorderSessionClosed = false;
 function closeCurrentSession() {
-	// allow navigation and manipulation of current session views
-	recorderSessionClosed = true;
+  // allow navigation and manipulation of current session views
+  recorderSessionClosed = true;
 
-	// close any recording in progress
-	closeRecording();
+  // close any recording in progress
+  closeRecording();
 
-	// display and sound a warning
-	modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
-	enableWarningBeep();
-	startWarningBeep();
+  // display and sound a warning
+  modalWarning("SESSION CLOSED", SESSION_CLOSED_MSG);
+  enableWarningBeep();
+  startWarningBeep();
 }

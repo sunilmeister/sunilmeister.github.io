@@ -352,7 +352,7 @@ function processAllJsonRecords(key, lastRecord, lastRecordCallback) {
       }
       processJsonRecord(jsonData);
       if (lastRecord) {
-        if (!isUndefined(lastRecordCallback)) lastRecordCallback();
+        if (isDefined(lastRecordCallback)) lastRecordCallback();
       }
     }
   }
@@ -394,7 +394,7 @@ function processJsonRecord(jsonData) {
       // Install the system's firmware version right up front
       // so the rest of the system can adjust if required
       if (session.firmwareVersion.major === null) {
-        if (!isUndefined(jsonData.content["FWVER"])) {
+        if (isDefined(jsonData.content["FWVER"])) {
           let value = jsonData.content["FWVER"];
           console.log("Found System Firmware Version",value);
           processFwChirp(curTime, value);
@@ -967,7 +967,7 @@ function processBmuteChirp(curTime, jsonStr) {
     };
     session.infoMsgs.push(msg);
     session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
-    if (!isUndefined(buzzerMuteUnmuteCallback)) {
+    if (isDefined(buzzerMuteUnmuteCallback)) {
       buzzerMuteUnmuteCallback(bmute);
     }
   } else if (session.buzzerMuted && !bmute) {
@@ -980,7 +980,7 @@ function processBmuteChirp(curTime, jsonStr) {
     };
     session.infoMsgs.push(msg);
     session.params.infos.AddTimeValue(curTime, ++session.alerts.infoNum);
-    if (!isUndefined(buzzerMuteUnmuteCallback)) {
+    if (isDefined(buzzerMuteUnmuteCallback)) {
       buzzerMuteUnmuteCallback(bmute);
     }
   }

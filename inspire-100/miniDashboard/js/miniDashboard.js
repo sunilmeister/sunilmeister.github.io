@@ -189,7 +189,7 @@ function FetchAndExecuteFromQueue() {
     if (isUndefined(d["content"])) break; // empty chirp
 
     // check if a new session has started without current one being closed
-    if (!isUndefined(d.content["HWORLD"])) {
+    if (isDefined(d.content["HWORLD"])) {
       if (session.firstChirpDate) {
         // A session was in progress but a new session started
         // must close current session and inform user
@@ -198,7 +198,7 @@ function FetchAndExecuteFromQueue() {
       }
     }
 
-    if (!isUndefined(d.content["BNUM"])) {
+    if (isDefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
       if (bnumObj) {

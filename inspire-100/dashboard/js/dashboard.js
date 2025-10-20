@@ -379,7 +379,7 @@ window.onload = function () {
 
   installWavesParamSummary();
   installChartsParamSummary();
-	
+  
   disableAllBeeps();  
 
   createNewSession();
@@ -459,7 +459,7 @@ function resizeChartsWaves() {
   session.waves.labelFontSize = 
     convertRemToPixelsInt(style.getPropertyValue('--waveLabelFontSize'));
   session.waves.axisTitleFontSize = 
-		convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
+    convertRemToPixelsInt(style.getPropertyValue('--waveAxisTitleFontSize'));
   session.waves.legendFontSize = 
     convertRemToPixelsInt(style.getPropertyValue('--waveLegendFontSize'));
   session.waves.titleFontSize = 
@@ -707,7 +707,7 @@ function FetchAndExecuteFromQueue() {
     if (isUndefined(d["content"])) break; // empty chirp
 
     // check if a new session has started without current one being closed
-    if (!isUndefined(d.content["HWORLD"])) {
+    if (isDefined(d.content["HWORLD"])) {
       console.log("HELLO WORLD");
       if (session.stateData.state !== null) {
         // A session was in progress but a new session started
@@ -717,7 +717,7 @@ function FetchAndExecuteFromQueue() {
       }
     }
 
-    if (!isUndefined(d.content["BNUM"])) {
+    if (isDefined(d.content["BNUM"])) {
       let bnumContent = d.content["BNUM"];
       let bnumObj = parseBnumData(bnumContent);
       if (bnumObj) {

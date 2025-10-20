@@ -19,15 +19,15 @@ function checkForUndefined(val) {
 
 function FindMissingBreathsInRange(minBnum, maxBnum) {
   let arr = [];
- 	if (session.loggedBreaths.length <= 1) return arr;
+  if (session.loggedBreaths.length <= 1) return arr;
 
-	if (minBnum==0) minBnum = 1;
-	if (maxBnum==0) maxBnum = 1;
+  if (minBnum==0) minBnum = 1;
+  if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
-  	if (session.loggedBreaths[i].missed) {
-			arr.push(cloneObject(session.loggedBreaths[i]));
-		}
-	}
+    if (session.loggedBreaths[i].missed) {
+      arr.push(cloneObject(session.loggedBreaths[i]));
+    }
+  }
   return arr;
 }
 
@@ -35,12 +35,12 @@ function CountMissingWavesInRange(minBnum, maxBnum) {
   if (session.loggedBreaths.length <= 1) return 0;
   let count = 0;
 
-	if (minBnum==0) minBnum = 1;
-	if (maxBnum==0) maxBnum = 1;
+  if (minBnum==0) minBnum = 1;
+  if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
-  	if ((session.waves.pwData[i] === null) ||
-  	    (session.waves.fwData[i] === null)) count++;
-	}
+    if ((session.waves.pwData[i] === null) ||
+        (session.waves.fwData[i] === null)) count++;
+  }
   return count;
 }
 
@@ -53,8 +53,8 @@ function CountPsvMandatoryBreathsInRange(minBnum, maxBnum) {
 
   let n = 0;
 
-	if (minBnum==0) minBnum = 1;
-	if (maxBnum==0) maxBnum = 1;
+  if (minBnum==0) minBnum = 1;
+  if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
     if (session.loggedBreaths[i].missed) continue;
     let mode = modeObj.ValueAtBnum(i);
@@ -71,8 +71,8 @@ function CountCmvSpontaneousBreathsInRange(minBnum, maxBnum) {
   let cmvSpont = session.params["cmvSpont"];
   let n = 0;
 
-	if (minBnum==0) minBnum = 1;
-	if (maxBnum==0) maxBnum = 1;
+  if (minBnum==0) minBnum = 1;
+  if (maxBnum==0) maxBnum = 1;
   for (let i = minBnum; i <= maxBnum; i++) {
     let spont = cmvSpont.ValueAtBnum(i);
     if (spont) n++;
@@ -81,55 +81,55 @@ function CountCmvSpontaneousBreathsInRange(minBnum, maxBnum) {
 }
 
 function GatherAllSettings(date) {
-	let settings = {};
-	settings.mode = session.params.mode.ValueAtTime(date);
-	settings.vt = session.params.vt.ValueAtTime(date);
-	settings.rr = session.params.rr.ValueAtTime(date);
-	settings.ie = session.params.ie.ValueAtTime(date);
-	settings.ipeep = session.params.ipeep.ValueAtTime(date);
-	settings.pmax = session.params.pmax.ValueAtTime(date);
-	settings.ps = session.params.ps.ValueAtTime(date);
-	settings.tps = session.params.tps.ValueAtTime(date);
-	settings.fiO2 = session.params.fiO2.ValueAtTime(date);
-	return cloneObject(settings);
+  let settings = {};
+  settings.mode = session.params.mode.ValueAtTime(date);
+  settings.vt = session.params.vt.ValueAtTime(date);
+  settings.rr = session.params.rr.ValueAtTime(date);
+  settings.ie = session.params.ie.ValueAtTime(date);
+  settings.ipeep = session.params.ipeep.ValueAtTime(date);
+  settings.pmax = session.params.pmax.ValueAtTime(date);
+  settings.ps = session.params.ps.ValueAtTime(date);
+  settings.tps = session.params.tps.ValueAtTime(date);
+  settings.fiO2 = session.params.fiO2.ValueAtTime(date);
+  return cloneObject(settings);
 }
 
 function FindUsedCombosInRange(minBnum, maxBnum) {
-	let combos = [];
-	if (minBnum == 0) minBnum = 1;
-	if (maxBnum < minBnum) return combos;
+  let combos = [];
+  if (minBnum == 0) minBnum = 1;
+  if (maxBnum < minBnum) return combos;
 
-	let minDate = session.loggedBreaths[minBnum].time;
-	let maxDate = session.loggedBreaths[maxBnum].time;
+  let minDate = session.loggedBreaths[minBnum].time;
+  let maxDate = session.loggedBreaths[maxBnum].time;
 
-	let prevCombo = GatherAllSettings(minDate);
-	let comboChanged = session.params.comboChanged.ChangeTimeLEQ(minDate);
-	combos.push({time:new Date(comboChanged), value:cloneObject(prevCombo)});
+  let prevCombo = GatherAllSettings(minDate);
+  let comboChanged = session.params.comboChanged.ChangeTimeLEQ(minDate);
+  combos.push({time:new Date(comboChanged), value:cloneObject(prevCombo)});
 
-	let comboChanges = session.params.comboChanged.Changes();
+  let comboChanges = session.params.comboChanged.Changes();
   for (let i = 0; i < comboChanges.length; i++) {
-		// no change
-		let change = comboChanges[i].value;
+    // no change
+    let change = comboChanges[i].value;
     if (comboChanges[i].value == false) continue;
 
     let tDate = new Date(comboChanges[i].time);
-		if (tDate === null) continue;
-		if (tDate.getTime() <= minDate.getTime()) continue;
-		if (tDate.getTime() > maxDate.getTime()) break;
+    if (tDate === null) continue;
+    if (tDate.getTime() <= minDate.getTime()) continue;
+    if (tDate.getTime() > maxDate.getTime()) break;
 
-		// yes change
-		let combo = cloneObject(GatherAllSettings(tDate));
-		let changeTime = session.params.comboChanged.ChangeTimeLEQ(tDate);
-		//console.log("change#",i,"combo", combo);
-		combos.push({time:new Date(changeTime), value:cloneObject(combo)});
+    // yes change
+    let combo = cloneObject(GatherAllSettings(tDate));
+    let changeTime = session.params.comboChanged.ChangeTimeLEQ(tDate);
+    //console.log("change#",i,"combo", combo);
+    combos.push({time:new Date(changeTime), value:cloneObject(combo)});
   }
   return cloneObject(combos);
 }
 
 function displayUsedCombos() {
-	statsComboTable.innerHTML = statsComboTableHTML;
+  statsComboTable.innerHTML = statsComboTableHTML;
   let table = statsComboTable;
-	let combos = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
+  let combos = FindUsedCombosInRange(session.stats.range.minBnum, session.stats.range.maxBnum);
 
   for (i = 0; i < combos.length; i++) {
     let combo = combos[i];
@@ -162,7 +162,7 @@ function displayUsedCombos() {
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
-		// bnum, date, time
+    // bnum, date, time
     cell = row.insertCell();
     cell.innerHTML = lookupBreathNum(combo.time);
     cell = row.insertCell();
@@ -262,24 +262,24 @@ function replaceDummyValue(value) {
 }
 
 function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, param) {
-	let minBnum = session.stats.range.minBnum;
-	let maxBnum = session.stats.range.maxBnum;
+  let minBnum = session.stats.range.minBnum;
+  let maxBnum = session.stats.range.maxBnum;
 
-	let stats = param.MinMaxAvg(minBnum, maxBnum);
+  let stats = param.MinMaxAvg(minBnum, maxBnum);
   document.getElementById(minDivId).innerHTML = replaceDummyValue(stats.min);
   document.getElementById(maxDivId).innerHTML = replaceDummyValue(stats.max);
-	if (!isUndefined(stats.avg) && (stats.avg !== null)) {
-  	document.getElementById(avgDivId).innerHTML = replaceDummyValue(stats.avg.toFixed(1));
-	} else {
-  	document.getElementById(avgDivId).innerHTML = replaceDummyValue(null);
-	}
+  if (isDefined(stats.avg) && (stats.avg !== null)) {
+    document.getElementById(avgDivId).innerHTML = replaceDummyValue(stats.avg.toFixed(1));
+  } else {
+    document.getElementById(avgDivId).innerHTML = replaceDummyValue(null);
+  }
 }
 
 function formUsedParamString(paramObj, enums) {
-	let minBnum = session.stats.range.minBnum;
-	let maxBnum = session.stats.range.maxBnum;
+  let minBnum = session.stats.range.minBnum;
+  let maxBnum = session.stats.range.maxBnum;
 
-	let stats = paramObj.DistinctValues(minBnum, maxBnum);
+  let stats = paramObj.DistinctValues(minBnum, maxBnum);
   if (!stats.length) {
     return "?";
   }
@@ -287,16 +287,16 @@ function formUsedParamString(paramObj, enums) {
   let str = "";
   for (i = 0; i < stats.length; i++) {
     let p = stats[i];
-		if (!isValidValue(p)) {
-		 	if (i==(stats.length-1)) {
-    		if (i == 0) str = "?";
-    		else str = str + "," + "?";
-			}
-			continue;
-		}
-		if (!isUndefined(enums)) {
-			p = enums[p];
-		}
+    if (!isValidValue(p)) {
+      if (i==(stats.length-1)) {
+        if (i == 0) str = "?";
+        else str = str + "," + "?";
+      }
+      continue;
+    }
+    if (isDefined(enums)) {
+      p = enums[p];
+    }
     if (str == "") str = p;
     else str = str + "," + p;
   }
@@ -304,13 +304,13 @@ function formUsedParamString(paramObj, enums) {
 }
 
 function displayBreathTypeInfo() {
-	let minBnum = session.stats.range.minBnum;
-	let maxBnum = session.stats.range.maxBnum;
-	let paramObj = session.params.btype;
+  let minBnum = session.stats.range.minBnum;
+  let maxBnum = session.stats.range.maxBnum;
+  let paramObj = session.params.btype;
 
-	let ns = paramObj.CountValueEqual(SPONTANEOUS_BREATH, minBnum, maxBnum);
-	let nm = paramObj.CountValueEqual(MANDATORY_BREATH, minBnum, maxBnum);
-	let ne = paramObj.CountValueEqual(MAINTENANCE_BREATH, minBnum, maxBnum);
+  let ns = paramObj.CountValueEqual(SPONTANEOUS_BREATH, minBnum, maxBnum);
+  let nm = paramObj.CountValueEqual(MANDATORY_BREATH, minBnum, maxBnum);
+  let ne = paramObj.CountValueEqual(MAINTENANCE_BREATH, minBnum, maxBnum);
 
   el = document.getElementById("numBreaths");
   el.innerHTML = replaceDummyValue(nm + ns + ne);
@@ -321,23 +321,23 @@ function displayBreathTypeInfo() {
   el = document.getElementById("numMaintenance");
   el.innerHTML = replaceDummyValue(ne);
 
-	let nDrops = session.params.wifiDrops.NumChanges(minBnum, maxBnum);
+  let nDrops = session.params.wifiDrops.NumChanges(minBnum, maxBnum);
   el = document.getElementById("numWifiDrops");
   el.innerHTML = replaceDummyValue(nDrops);
 
-	let arr = FindMissingBreathsInRange(minBnum, maxBnum);
+  let arr = FindMissingBreathsInRange(minBnum, maxBnum);
   el = document.getElementById("numMissingBreaths");
   el.innerHTML = replaceDummyValue(arr.length);
 
-	let nWaves = CountMissingWavesInRange(minBnum, maxBnum);
+  let nWaves = CountMissingWavesInRange(minBnum, maxBnum);
   el = document.getElementById("numMissingWaves");
   el.innerHTML = replaceDummyValue(nWaves);
 
-	let nSpont = CountCmvSpontaneousBreathsInRange(minBnum, maxBnum);
+  let nSpont = CountCmvSpontaneousBreathsInRange(minBnum, maxBnum);
   el = document.getElementById("numCmvSpont");
   el.innerHTML = replaceDummyValue(nSpont);
 
-	let nPsvMand = CountPsvMandatoryBreathsInRange(minBnum, maxBnum);
+  let nPsvMand = CountPsvMandatoryBreathsInRange(minBnum, maxBnum);
   el = document.getElementById("numPsvMand");
   el.innerHTML = replaceDummyValue(nPsvMand);
 }
@@ -430,8 +430,8 @@ function displayPatientInfo() {
 }
 
 function displayAlertsInfo() {
-	let minBnum = session.stats.range.minBnum;
-	let maxBnum = session.stats.range.maxBnum;
+  let minBnum = session.stats.range.minBnum;
+  let maxBnum = session.stats.range.maxBnum;
 
   let n = session.params.infos.NumChanges(minBnum, maxBnum);
   el = document.getElementById("numNotifications");
@@ -492,22 +492,22 @@ function createAllStats() {
 function initStats() {
   session.statTablesConstructed = false;
 
-	statsComboTable.innerHTML = statsComboTableHTML;
-	statsMinMaxTable.innerHTML = statsMinMaxTableHTML;
-	statsParamTable.innerHTML = statsParamTableHTML;
-	statsMiscTable.innerHTML = statsMiscTableHTML;
+  statsComboTable.innerHTML = statsComboTableHTML;
+  statsMinMaxTable.innerHTML = statsMinMaxTableHTML;
+  statsParamTable.innerHTML = statsParamTableHTML;
+  statsMiscTable.innerHTML = statsMiscTableHTML;
 }
 
 window.addEventListener("load", function() {
-	statsComboTable = document.getElementById("statsComboTable");
-	statsComboTableHTML = statsComboTable.innerHTML;
+  statsComboTable = document.getElementById("statsComboTable");
+  statsComboTableHTML = statsComboTable.innerHTML;
 
   statsMinMaxTable = document.getElementById("statsMinMaxTable");
-	statsMinMaxTableHTML = statsMinMaxTable.innerHTML;
+  statsMinMaxTableHTML = statsMinMaxTable.innerHTML;
 
   statsParamTable = document.getElementById("statsParamTable");
-	statsParamTableHTML = statsParamTable.innerHTML;
+  statsParamTableHTML = statsParamTable.innerHTML;
 
   statsMiscTable = document.getElementById("statsMiscTable");
-	statsMiscTableHTML = statsMiscTable.innerHTML;
+  statsMiscTableHTML = statsMiscTable.innerHTML;
 })

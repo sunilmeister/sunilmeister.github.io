@@ -227,8 +227,8 @@ class WaveBox {
     let maxBnum = this.rangeX.maxBnum;
 
     for (let i=minBnum; i<= maxBnum; i++) {
-      if (!isUndefined(session.waves.pwData[i]) && (session.waves.pwData[i] !== null)) {
-        if (!isUndefined(session.waves.fwData[i]) && (session.waves.fwData[i] !== null)) {
+      if (isDefined(session.waves.pwData[i]) && (session.waves.pwData[i] !== null)) {
+        if (isDefined(session.waves.fwData[i]) && (session.waves.fwData[i] !== null)) {
           continue;
         }
       }
