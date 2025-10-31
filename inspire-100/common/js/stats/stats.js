@@ -268,7 +268,7 @@ function fillMinMaxAvgRow(minDivId, maxDivId, avgDivId, param) {
   let stats = param.MinMaxAvg(minBnum, maxBnum);
   document.getElementById(minDivId).innerHTML = replaceDummyValue(stats.min);
   document.getElementById(maxDivId).innerHTML = replaceDummyValue(stats.max);
-  if (isDefined(stats.avg) && (stats.avg !== null)) {
+  if (isDefined(stats.avg) && !isNaN(stats.avg) && (stats.avg !== null)) {
     document.getElementById(avgDivId).innerHTML = replaceDummyValue(stats.avg.toFixed(1));
   } else {
     document.getElementById(avgDivId).innerHTML = replaceDummyValue(null);
