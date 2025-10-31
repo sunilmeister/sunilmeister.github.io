@@ -698,6 +698,7 @@ function createAllParams() {
   addParam("pmax",        "INPUT_PMAX",       "NUMBER",   "cmH2O",    [10, 60, 1]);
   addParam("ps",          "INPUT_PS",         "NUMBER",   "cmH2O",    [5, 40, 1]);
   addParam("tps",         "INPUT_TPS",        "TPS",      "%"         [20, 50, 10]);
+  addParam("psTrigger",   "INPUT_PS_TRIGGER", "NUMBER",   "mmH2O",    [10, 25, 1]);
   addParam("fiO2",        "INPUT_FIO2",       "NUMBER",   "%",        [0, 100, 1]);
   addParam("o2Purity",    "INPUT_O2_PURITY",  "NUMBER",   "%",        [21, 100, 1]);
 
