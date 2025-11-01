@@ -16,12 +16,12 @@ function dontShowButton(modalId) {
     session.dontShowModals.push(modalId);
   }
   Swal.close();
-  // console.log("dontShowButton", modalId);
+  //console.error("dontShowButton", modalId);
 }
 
 function extractModalId(msg) {
   const index = msg.indexOf("\n");
-  return index === -1 ? msg : msg.substring(0, index);
+  return (index === -1) ? msg : msg.substring(0, index);
 }
 
 function modalWarning(title, msg) {
