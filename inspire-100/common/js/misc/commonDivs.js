@@ -46,6 +46,7 @@ var vtValELM = null;
 var pmaxValELM = null;
 var ipeepValELM = null;
 var psValELM = null;
+var psTriggerValELM = null;
 var modeValELM = null;
 var tpsValELM = null;
 var ieValELM = null;
@@ -134,6 +135,7 @@ function initCommonDivElements() {
   pmaxValELM = document.getElementById("PMAX");
   ipeepValELM = document.getElementById("IPEEP");
   psValELM = document.getElementById("PS");
+  psTriggerValELM = document.getElementById("PsTriggerCm");
   modeValELM = document.getElementById("MODE");
   ieValELM = document.getElementById("IE");
   rrValELM = document.getElementById("RR");

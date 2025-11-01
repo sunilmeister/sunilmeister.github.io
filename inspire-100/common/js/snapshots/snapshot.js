@@ -319,6 +319,7 @@ function refreshInputSettings() {
   animateDivValue(pmaxValELM, snap.pmax);
   animateDivValue(ipeepValELM, snap.ipeep);
   animateDivValue(psValELM, snap.ps);
+  animateDivValue(psTriggerValELM, snap.psTrigger);
 	if (isValidValue(snap.mode)) {
 		let modeText =  MODE_DECODER[snap.mode];
 		if (snap.mode == 3) { // PSV
@@ -355,13 +356,6 @@ function updateFiO2Display(fiO2, o2Purity, o2Flow) {
   	elm.innerHTML = "--";
 	} else {
   	elm.innerHTML = String(fiO2) + '%';
-	}
-
-  elm = document.getElementById("o2PurityValue");
-	if ((o2Purity === null) || isUndefined(o2Purity)) {
-  	elm.innerHTML = "--";
-	} else {
-  	elm.innerHTML = String(o2Purity) + '%';
 	}
 
   elm = document.getElementById("o2FlowRate");

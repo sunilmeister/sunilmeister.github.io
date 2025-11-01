@@ -201,7 +201,16 @@
 }
 
 .FiO2 {
-  grid-area: 6 / 9 / 12 / 12;
+  grid-area: 6 / 9 / 10 / 12;
+  color: var(--rsp_paleblue);
+  font-size: 1.5rem;
+  background-color: var(--rsp_mediumblue);
+  -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+  box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
+}
+
+.PsTrigger {
+  grid-area: 10 / 9 / 12 / 12;
   color: var(--rsp_paleblue);
   font-size: 1.5rem;
   background-color: var(--rsp_mediumblue);
