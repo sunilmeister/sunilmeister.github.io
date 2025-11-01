@@ -256,7 +256,7 @@ class WaveBox {
   }
 
   createCharts() {
-    this.deleteUnmatchedWaveformData();
+    // this.deleteUnmatchedWaveformData();
 
 		// Pressure Chart
     this.pChart = new WavePane(
