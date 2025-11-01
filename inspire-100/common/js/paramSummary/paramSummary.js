@@ -24,6 +24,7 @@ function gatherParamSummary(range) {
   summary.pmax        = params.pmax.ValueAtTime(summary.time);
   summary.ps          = params.ps.ValueAtTime(summary.time);
   summary.tps         = params.tps.ValueAtTime(summary.time);
+  summary.psTrigger   = params.psTrigger.ValueAtTime(summary.time);
   summary.fiO2        = params.fiO2.ValueAtTime(summary.time);
 
   // measured parameters
@@ -112,6 +113,7 @@ function updateParamSummary(nodeIdSuffix, range) {
   updateParamSummaryNodeValue("paramSummaryIPeep", nodeIdSuffix, summary.ipeep);
   updateParamSummaryNodeValue("paramSummaryPs", nodeIdSuffix, summary.ps);
   updateParamSummaryNodeValue("paramSummaryTps", nodeIdSuffix, summary.tps);
+  updateParamSummaryNodeValue("paramSummaryPsTrig", nodeIdSuffix, summary.psTrigger);
   updateParamSummaryNodeValue("paramSummaryFiO2", nodeIdSuffix, summary.fiO2);
 
   updateParamSummaryNodeValue("paramSummaryMvdel", nodeIdSuffix, summary.mvdel);

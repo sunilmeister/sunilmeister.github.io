@@ -226,7 +226,7 @@ function parseParamData(jsonStr) {
     mv :        (arr[9] == -1) ? null : arr[9]/10,
   }
   if (arr.length == 11) {
-    val.psTrigger = arr[10];
+    val.psTrigger = arr[10]/10;
   } else {
     val.psTrigger = null;
   }
