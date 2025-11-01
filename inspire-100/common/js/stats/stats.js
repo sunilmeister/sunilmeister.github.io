@@ -90,6 +90,7 @@ function GatherAllSettings(date) {
   settings.pmax = session.params.pmax.ValueAtTime(date);
   settings.ps = session.params.ps.ValueAtTime(date);
   settings.tps = session.params.tps.ValueAtTime(date);
+  settings.psTrigger = session.params.psTrigger.ValueAtTime(date);
   settings.fiO2 = session.params.fiO2.ValueAtTime(date);
   return cloneObject(settings);
 }
@@ -159,6 +160,8 @@ function displayUsedCombos() {
     cell.innerHTML = checkForUndefined(combo.value.ps);
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.tps);
+    cell = row.insertCell();
+    cell.innerHTML = checkForUndefined(combo.value.psTrigger);
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(combo.value.fiO2);
 
@@ -235,7 +238,8 @@ function constructStatParamTable() {
   paramTableRow(table, "PEEP Pressure", "cmH20", "ipeep");
   paramTableRow(table, "Maximum Pressure", "cmH20", "pmax");
   paramTableRow(table, "Support Pressure", "cmH20", "ps");
-  paramTableRow(table, "Support Pressure Termination", "%flow,secs", "tps");
+  paramTableRow(table, "Support Pressure Termination", "%flow", "tps");
+  paramTableRow(table, "Spontaneous Breath Trigger", "cmH2O", "psTrigger");
   paramTableRow(table, "FIO2", "%", "fiO2");
 }
 
@@ -377,6 +381,8 @@ function displayParamUsage() {
   el.innerHTML = formUsedParamString(session.params.ps);
   el = document.getElementById("tps");
   el.innerHTML = formUsedParamString(session.params.tps);
+  el = document.getElementById("psTrigger");
+  el.innerHTML = formUsedParamString(session.params.psTrigger);
   el = document.getElementById("fiO2");
   el.innerHTML = formUsedParamString(session.params.fiO2);
 }
