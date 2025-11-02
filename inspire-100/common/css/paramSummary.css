@@ -22,7 +22,7 @@
 
 .paramSummarySetting {
   width: 5.5rem;
-  height: 5.5rem;
+  height: 6rem;
   margin-right: 0.5rem;
   padding: 0.5rem;
   background-color: var(--rsp_mediumblue);
@@ -32,7 +32,7 @@
 
 .paramSummaryMeasured {
   width: 5.5rem;
-  height: 5.5rem;
+  height: 6rem;
   margin-right: 0.5rem;
   padding: 0.5rem;
   background-color: var(--rsp_green);
