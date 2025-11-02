@@ -45,10 +45,17 @@ function disassembleAndProcessChirp(uid, d) {
 }
 
 function parseUptimeChirp(content, jsonData) {
+  let msg = jsonData.replaceAll("'", '"');
+  let arr = parseJSONSafely(msg);
+  if (!arr || (arr.length != 4)) {
+    return;
+  }
+  let l2str = arr[2];
+
   let matchStr = "(H:M:S)";
-  let pos = jsonData.search(matchStr);
+  let pos = l2str.search(matchStr);
   if (pos >= 0) {
-    let arr = jsonData.split(' ');
+    let arr = l2str.split(' ');
     let tstr = "";
     for (let i=0; i<arr.length; i++) {
       tstr = arr[i];
@@ -89,7 +96,7 @@ function parseAndUpdateUidContents(uid, jsonData) {
           }
         } else if (ckey == "FWVER") {
           content.firmware = value;
-        } else if (ckey == "L3") {
+        } else if (ckey == "IMSG") {
           parseUptimeChirp(content, value);
         } else if (ckey == "PARAM") {
           let obj = parseParamData(value);
