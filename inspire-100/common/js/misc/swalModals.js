@@ -30,11 +30,12 @@ function modalWarning(title, msg) {
   Swal.close();
   Swal.fire({
     icon: 'warning',
+    iconColor: 'white',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
     html: modalHtml,
     width: modalWidth,
     color: 'white',
-    background: '#4D5656',
+    background: palette.orange,
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
@@ -60,6 +61,7 @@ function modalInfo(title, msg) {
   Swal.close();
   Swal.fire({
     icon: 'info',
+    iconColor: 'white',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
     html: modalHtml,
     width: modalWidth,
@@ -89,11 +91,12 @@ function modalAlert(title, msg) {
   Swal.close();
   Swal.fire({
     icon: 'error',
+    iconColor: 'white',
     title: "<span style='font-size:var(--swalTitleFontSize);'>" + title + "</span>",
     html: modalHtml,
     width: modalWidth,
     color: 'white',
-    background: '#D35400',
+    background: palette.darkred,
     showConfirmButton: true,
     confirmButtonColor: '#0D3E51',
     confirmButtonText: 'DISMISS',
