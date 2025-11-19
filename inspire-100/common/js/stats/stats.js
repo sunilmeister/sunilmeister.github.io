@@ -84,6 +84,7 @@ function GatherAllSettings(date) {
   let settings = {};
   settings.mode = session.params.mode.ValueAtTime(date);
   settings.vt = session.params.vt.ValueAtTime(date);
+  settings.mv = session.params.mv.ValueAtTime(date);
   settings.rr = session.params.rr.ValueAtTime(date);
   settings.ie = session.params.ie.ValueAtTime(date);
   settings.ipeep = session.params.ipeep.ValueAtTime(date);
@@ -137,7 +138,7 @@ function displayUsedCombos() {
     let row = table.insertRow();
     cell = row.insertCell();
     cell.innerHTML = checkForUndefined(MODE_DECODER[(combo.value.mode)]);
-    if (combo.value.mode == "PSV") {
+    if (MODE_DECODER[combo.value.mode] == "PSV") {
       cell = row.insertCell();
       cell.innerHTML = checkForUndefined(combo.value.mv);
       cell = row.insertCell();
