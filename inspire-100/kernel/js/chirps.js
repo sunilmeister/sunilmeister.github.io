@@ -490,7 +490,7 @@ function checkIfLoggedValidBreath(sysBnum) {
   return !session.loggedBreaths[bnum].missed;
 }
 
-function findFlowChangePoints(samples) {
+function findFlowChangePoints(samples, thresholdQ) {
   //console.log("samples",samples);
   let inspStart, inspEnd, expStart, expEnd;
   let inspIQ = 0;
@@ -500,7 +500,7 @@ function findFlowChangePoints(samples) {
   // find start of +ve flow
   for (; ix < samples.length; ix++) {
     let sample = samples[ix];
-    if (sample <= SAMPLE_FLOWQ_THRESHOLD) continue;
+    if (sample <= thresholdQ) continue;
     inspStart = ix;
     break;
   }
@@ -508,10 +508,10 @@ function findFlowChangePoints(samples) {
   // find end of +ve flow
   for (; ix < samples.length; ix++) {
     let sample = samples[ix];
-    if (sample >= SAMPLE_FLOWQ_THRESHOLD) {
+    if (sample >= thresholdQ) {
       inspIQ += (samples[ix] + samples[ix-1])/2;
       continue;
-    } else if (sample <= -(SAMPLE_FLOWQ_THRESHOLD)) {
+    } else if (sample <= -(thresholdQ)) {
       inspEnd = ix;
       break;
     }
@@ -524,7 +524,7 @@ function findFlowChangePoints(samples) {
   expEnd = samples.length - 1;
   for (let i=samples.length-1; i>ix; i--) {
     let sample = samples[i];
-    if (sample >= -(SAMPLE_FLOWQ_THRESHOLD)) continue;
+    if (sample >= -(thresholdQ)) continue;
     expEnd = i;
     break;
   }
@@ -563,12 +563,12 @@ function computeIntegral(samples, sampleInterval, fromIx, toIx) {
   return integral;
 }
 
-function convertQtoFlowLPM(samples, partial, sampleInterval, fFilterWindow) {
+function convertQtoFlowLPM(samples, partial, sampleInterval, fFilterWindow, thresholdQ) {
   //console.log("samples", samples);
   let filteredSamples = movingAverageFilter(samples, fFilterWindow);
   //console.log("filteredSamples", filteredSamples);
 
-  let changes = findFlowChangePoints(filteredSamples);
+  let changes = findFlowChangePoints(filteredSamples, thresholdQ);
   // console.log("changes", changes);
   let vtIqRatios = findVtIqRatios(filteredSamples, changes, sampleInterval);
   //console.log("vtIqRatios", vtIqRatios);
@@ -675,7 +675,11 @@ function processFwaveChirp(curTime, jsonStr) {
 
   // wave filters
   let fFilterWindow = VC_WAVE_FLOW_FILTER_WINDOW;
-  if (!binfo.isVC) fFilterWindow = PS_WAVE_FLOW_FILTER_WINDOW;
+  let thresholdQ = VC_WAVE_FLOWQ_THRESHOLD;
+  if (!binfo.isVC) {
+    fFilterWindow = PS_WAVE_FLOW_FILTER_WINDOW;
+    thresholdQ = PS_WAVE_FLOWQ_THRESHOLD;
+  }
 
   session.breathData.iqdel = obj.iqdel;
   session.breathData.vtdel = obj.vtdel;
@@ -685,7 +689,7 @@ function processFwaveChirp(curTime, jsonStr) {
 
   //console.log("obj.waveData",obj.waveData);
   //console.log("obj.samplingIntervalMs",obj.samplingIntervalMs);
-  let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs, fFilterWindow);
+  let fwData = convertQtoFlowLPM(obj.waveData, obj.partial, obj.samplingIntervalMs, fFilterWindow, thresholdQ);
   processWaveChirp(obj.sysBreathNum, obj.partial, obj.breathInfo, obj.samplingIntervalMs, 
     fwData, session.waves.fwPartial, session.waves.fwData);
 
