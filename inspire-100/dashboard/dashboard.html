@@ -17,6 +17,7 @@
     <link href="../common/css/colors.css" rel="stylesheet">
     <link href="../common/css/common.css" rel="stylesheet">
     <link href="../common/css/noUi.css" rel="stylesheet">
+    <link href="../common/css/andon.css" rel="stylesheet">
     <link href="../common/css/iconButton.css" rel="stylesheet">
     <link href="../common/css/sidebarButton.css" rel="stylesheet">
     <link href="../common/css/chart.css" rel="stylesheet">
@@ -47,6 +48,7 @@
     <script src="../kernel/js/filters.js"></script>
     <script src="../kernel/js/range.js"></script>
     <script src="../kernel/js/keypressIdle.js"></script>
+    <script src="../common/js/andon/andon.js"></script>
     <script src="../common/js/misc/palette.js"></script>
     <script src="../common/js/misc/uid.js"></script>
     <script src="../common/js/misc/common.js"></script>
@@ -551,6 +553,11 @@
     <div id=fullDashboard style="width:142rem;min-height:60rem;">
       <div id=sideMenuBar class=sidebarColumn>
         <div class=sidebar>
+          <div id=andonDiv class=andonCls style="height:3rem;">
+            <center>
+            <p id=andonCaption style="margin-top:0rem;padding-top:0.5rem;font-size:1.5rem;font-weight: bold;">----</p>
+            </center>
+          </div>
           <div id=curBreathDiv style="margin-top:1rem;background-color:var(--rsp_mediumgreen);color:var(--rsp_darkblue); font-size:1rem; ">
             <center>
               <p id=breathsHeading style="font-size:1.3rem;font-weight:

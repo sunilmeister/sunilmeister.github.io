@@ -1,0 +1,10 @@
+/*
+// ////////////////////////////////////////////////////
+// Author: Sunil Nanda
+// ////////////////////////////////////////////////////
+*/
+
+.andonCls {
+  border-radius: 20px; /* Adjust for desired roundness */
+  box-shadow: 0 0 15px 5px grey; /* X-offset, Y-offset, blur-radius, spread-radius, color with opacity */
+}

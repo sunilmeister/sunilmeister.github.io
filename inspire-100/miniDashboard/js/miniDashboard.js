@@ -235,6 +235,7 @@ function processDashboardChirp(chirp) {
 }
 
 function createDashboards(chirp) {
+  updateAndon();
   if (session.snapshot.visible) {
     gatherSnapshotData();
     updateEntireFrontPanel();

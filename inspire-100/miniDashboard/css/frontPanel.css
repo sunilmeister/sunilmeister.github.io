@@ -47,6 +47,16 @@
 	height: auto;
 }
 
+.fpMutedCls {
+	position: absolute;
+	z-index: 2;
+}
+
+.fpMutedImgCls {
+	width:4.5rem;
+	height: auto;
+}
+
 .fpUniMono {
   font-size: 0.6rem;
 	font-weight: bold;

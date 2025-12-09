@@ -288,7 +288,7 @@ function updateFrontPanelStateLeds() {
     } else if (snap.state == INITIAL_STATE) {
       document.getElementById('img_fpInitialDiv').src = "../common/img/WhiteDot.png";
     } else if (snap.state == STANDBY_STATE) {
-      document.getElementById('img_fpStandbyDiv').src = "../common/img/YellowDot.png";
+      document.getElementById('img_fpStandbyDiv').src = "../common/img/CyanDot.png";
     } else if (snap.state == ACTIVE_STATE) {
       document.getElementById('img_fpActiveDiv').src = "../common/img/GreenDot.png";
     }

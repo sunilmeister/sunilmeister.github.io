@@ -31,6 +31,7 @@ var SessionDataTemplate = {
 
   productionMode: null,
   buzzerMuted: false,
+  andonState: 0,
 
   firmwareVersion: {
     major: null,

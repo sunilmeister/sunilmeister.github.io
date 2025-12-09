@@ -15,6 +15,7 @@ var palette = {
   lightgreen: null,
   brightgreen:null,
   yellow:     null,
+  darkyellow: null,
   orange:     null,
   darkorange: null,
   darkred:    null,
@@ -46,6 +47,7 @@ window.addEventListener("load", function() {
   palette.lightgreen = style.getPropertyValue('--rsp_lightgreen');
   palette.brightgreen = style.getPropertyValue('--rsp_brightgreen');
   palette.yellow = style.getPropertyValue('--rsp_yellow');
+  palette.darkyellow = style.getPropertyValue('--rsp_darkyellow');
   palette.darkorange = style.getPropertyValue('--rsp_darkorange');
   palette.orange = style.getPropertyValue('--rsp_orange');
   palette.darkred = style.getPropertyValue('--rsp_darkred');

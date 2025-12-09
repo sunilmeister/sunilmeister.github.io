@@ -62,6 +62,18 @@ function parseBreathInfo(num) {
   return obj;
 }
 
+function parseAlarmsData(jsonStr) {
+  //console.log("parseAlarmsData", jsonStr);
+  let arr = parseJSONSafely(jsonStr);
+  if (!arr || (arr.length != 2)) {
+    return null;
+  }
+  let obj = {};
+  obj.bmute = arr[0];
+  obj.andonState = arr[1];
+  return obj;
+}
+
 function parseWaveData(jsonStr) {
   //console.log("parseWaveData", jsonStr);
   let arr = parseJSONSafely(jsonStr);
@@ -414,8 +426,8 @@ function processJsonRecord(jsonData) {
         if (ckey == "BNUM") {
           //console.log("Found BNUM ",value);
           processBnumChirp(curTime, value, jsonData);
-        } else if (ckey == "BMUTE") {
-          processBmuteChirp(curTime, value);
+        } else if (ckey == "ALARMS") {
+          processAlarmsChirp(curTime, value);
         } else if (ckey == "RST") {
           processResetChirp(curTime, value);
         } else if (ckey == "ATT") {
@@ -965,8 +977,11 @@ function processComplianceChirp(curTime, jsonStr) {
   saveOutputChange("dcomp", curTime, obj);
 }
 
-function processBmuteChirp(curTime, jsonStr) {
-  let bmute = (jsonStr == 1);
+function processAlarmsChirp(curTime, jsonStr) {
+  let obj = parseAlarmsData(jsonStr);
+  if (!obj) return;
+  session.andonState = obj.andonState;
+  let bmute = obj.bmute;
   if (!session.buzzerMuted && bmute) {
     let msg = {
         'time': curTime,
