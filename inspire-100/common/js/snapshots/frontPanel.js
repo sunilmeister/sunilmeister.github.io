@@ -416,16 +416,25 @@ function updateFrontPanelOutputs() {
   let snap = session.snapshot.content;
 
   let val = snap.peak;
+  if (val >= 10) {
+    val = Math.round(val);
+  }
   if (isValidValue(val)) val = val.toString().padStart(2, 0);
   if (isValidValue(val)) document.getElementById('p_fpPeakDiv').innerHTML = val;
   else document.getElementById('p_fpPeakDiv').innerHTML = "--";
 
   val = snap.plat;
+  if (val >= 10) {
+    val = Math.round(val);
+  }
   if (isValidValue(val)) val = val.toString().padStart(2, 0);
   if (isValidValue(val)) document.getElementById('p_fpPlatDiv').innerHTML = val;
   else document.getElementById('p_fpPlatDiv').innerHTML = "--";
 
   val = snap.mpeep;
+  if (val >= 10) {
+    val = Math.round(val);
+  }
   if (isValidValue(val)) val = val.toString().padStart(2, 0);
   if (isValidValue(val)) document.getElementById('p_fpMpeepDiv').innerHTML = val;
   else document.getElementById('p_fpMpeepDiv').innerHTML = "--";

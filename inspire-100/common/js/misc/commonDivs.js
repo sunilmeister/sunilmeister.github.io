@@ -59,7 +59,7 @@ function installPeakGauge() {
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PeakGauge');
 	containerDiv.innerHTML = "";
-  peakGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
+  peakGauge = new CircularGauge(containerDiv, convertRemToPixels(8.5), fgColor, bgColor, 0, 70, true);
   peakGauge.setProperty('readonly', true);
 }
 
@@ -68,7 +68,7 @@ function installPlatGauge() {
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PlatGauge');
 	containerDiv.innerHTML = "";
-  platGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
+  platGauge = new CircularGauge(containerDiv, convertRemToPixels(8.5), fgColor, bgColor, 0, 70, true);
   platGauge.setProperty('readonly', true);
 }
 
@@ -77,7 +77,7 @@ function installPeepGauge() {
   let fgColor = palette.brightgreen;
   let containerDiv = document.getElementById('PeepGauge');
 	containerDiv.innerHTML = "";
-  peepGauge = new CircularGauge(containerDiv, convertRemToPixels(6.5), fgColor, bgColor, 0, 70);
+  peepGauge = new CircularGauge(containerDiv, convertRemToPixels(8.5), fgColor, bgColor, 0, 70, true);
   peepGauge.setProperty('readonly', true);
 }
 

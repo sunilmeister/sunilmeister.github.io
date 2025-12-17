@@ -373,9 +373,9 @@ function refreshMeasuredParameters() {
 	let snap = session.snapshot.content;
 
   animateDivToValue(vtdelValELM, snap.vtdel);
-  peakGauge.setValue(snap.peak);
-  platGauge.setValue(snap.plat);
-  peepGauge.setValue(snap.mpeep);
+  peakGauge.setValue(snap.peak*10);
+  platGauge.setValue(snap.plat*10);
+  peepGauge.setValue(snap.mpeep*10);
 
   updateDivValue(sbpmValELM, snap.sbpm);
   updateDivValue(mbpmValELM, snap.mbpm);

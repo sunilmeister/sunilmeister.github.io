@@ -281,10 +281,11 @@ function parsePressureData(jsonStr) {
   }
 
   let val = {
-    peak :  (arr[0] == -1) ? null : arr[0],
-    plat :  (arr[1] == -1) ? null : arr[1],
-    mpeep : (arr[2] == -1) ? null : arr[2],
+    peak :  (arr[0] == -1) ? null : arr[0]/10,
+    plat :  (arr[1] == -1) ? null : arr[1]/10,
+    mpeep : (arr[2] == -1) ? null : arr[2]/10,
   }
+  //console.log("mpeep", val.mpeep);
   return val;
 }
 
@@ -297,14 +298,15 @@ function parseBreathData(jsonStr) {
   if (!btimeMs) return null;
 
   let val = {
-    peak :  (arr[0] == -1) ? null : arr[0],
-    plat :  (arr[1] == -1) ? null : arr[1],
-    mpeep : (arr[2] == -1) ? null : arr[2],
+    peak :  (arr[0] == -1) ? null : arr[0]/10,
+    plat :  (arr[1] == -1) ? null : arr[1]/10,
+    mpeep : (arr[2] == -1) ? null : arr[2]/10,
     vtdel : (arr[3] == -1) ? null : arr[3],
     iqdel : (arr[4] == -1) ? null : arr[4],
     binfo : (arr[5] == -1) ? null : arr[5],
     btimeMs : btimeMs,
   }
+  //console.log("mpeep", val.mpeep);
   return val;
 }
 
