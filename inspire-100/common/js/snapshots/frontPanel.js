@@ -442,10 +442,12 @@ function updateFrontPanelOutputs() {
   // Also do the S/MBreath LEDs
   val = snap.btype;
   blankBreathTypeLEDs();
-  if ((isValidValue(val)) && (val == MANDATORY_BREATH)) {
-    document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
-  } else if (val == SPONTANEOUS_BREATH) {
-    document.getElementById('img_fpSbreathDiv').src = "../common/img/GreenDot.png";
+  if ((snap.state == ERROR_STATE) || (snap.state == ACTIVE_STATE)) {
+    if ((isValidValue(val)) && (val == MANDATORY_BREATH)) {
+      document.getElementById('img_fpMbreathDiv').src = "../common/img/YellowDot.png";
+    } else if (val == SPONTANEOUS_BREATH) {
+      document.getElementById('img_fpSbreathDiv').src = "../common/img/GreenDot.png";
+    }
   }
   setTimeout(blankBreathTypeLEDs, 1000)
 }
