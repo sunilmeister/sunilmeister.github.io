@@ -75,6 +75,15 @@ function updateDivValue(div, value) {
   div.innerHTML = txt;
 }
 
+function updateDscompDivValue(div, dcomp, scomp) {
+  let sc, dc;
+  if (!isValidValue(dcomp)) dc = "--";
+  else dc = dcomp;
+  if (!isValidValue(scomp)) sc = "--";
+  else sc = scomp;
+  div.innerHTML = String(dc) + "/" + String(sc);
+}
+
 // ////////////////////////////////////////////////////////////////
 // Pending change warning
 // ////////////////////////////////////////////////////////////////
@@ -320,6 +329,13 @@ function refreshInputSettings() {
   animateDivValue(ipeepValELM, snap.ipeep);
   animateDivValue(psValELM, snap.ps);
   animateDivValue(psTriggerValELM, snap.psTrigger);
+
+  let psRampText = "--";
+	if (isValidValue(snap.psRamp)) {
+    psRampText = PSRAMP_DECODER[snap.psRamp]
+  }
+	updateDivText(psRampValELM, psRampText);
+
 	if (isValidValue(snap.mode)) {
 		let modeText =  MODE_DECODER[snap.mode];
 		if (snap.mode == 3) { // PSV
@@ -382,8 +398,7 @@ function refreshMeasuredParameters() {
   updateDivValue(mvdelValELM, snap.mvdel);
   updateDivValue(mmvdelValELM, snap.mmvdel);
   updateDivValue(smvdelValELM, snap.smvdel);
-  updateDivValue(scompValELM, snap.scomp);
-  updateDivValue(dcompValELM, snap.dcomp);
+  updateDscompDivValue(dscompValELM, snap.dcomp, snap.scomp);
 }
 
 // ////////////////////////////////////////////////////////////////

@@ -77,6 +77,7 @@ function gatherSnapshotData() {
 	snap.ps 			= params.ps.ValueAtTime(snap.time);
 	snap.tps 			= params.tps.ValueAtTime(snap.time);
 	snap.psTrigger= params.psTrigger.ValueAtTime(snap.time);
+	snap.psRamp   = params.psRamp.ValueAtTime(snap.time);
 	snap.fiO2 		= params.fiO2.ValueAtTime(snap.time);
 	snap.o2Purity = params.o2Purity.ValueAtTime(snap.time);
 

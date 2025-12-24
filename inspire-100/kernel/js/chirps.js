@@ -222,7 +222,7 @@ function parseBnumData(jsonStr) {
 
 function parseParamData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || !((arr.length == 10) || (arr.length == 11))) {
+  if (!arr || !((arr.length == 10) || (arr.length == 11) || (arr.length == 12))) {
     return null;
   }
   let val = {
@@ -237,10 +237,15 @@ function parseParamData(jsonStr) {
     rr :        (arr[8] == -1) ? null : arr[8],
     mv :        (arr[9] == -1) ? null : arr[9]/10,
   }
-  if (arr.length == 11) {
+  if (arr.length >= 11) {
     val.psTrigger = arr[10]/10;
   } else {
     val.psTrigger = null;
+  }
+  if (arr.length == 12) {
+    val.psRamp = arr[11];
+  } else {
+    val.psRamp = 2;
   }
   return val;
 }
@@ -885,6 +890,7 @@ function processParamChirp(curTime, jsonStr) {
     saveInputChange("ie", curTime, obj);
     saveInputChange("rr", curTime, obj);
     saveInputChange("psTrigger", curTime, obj);
+    saveInputChange("psRamp", curTime, obj);
   }
 }
 

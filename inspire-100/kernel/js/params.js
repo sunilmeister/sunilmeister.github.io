@@ -601,6 +601,15 @@ const paramsType = {
                       range:{"1:1":1, "1:2":2, "1:3":3}
                     },
   TPS :             {type:"NUMBER", range:{}},
+  PSRAMP :          {type:"ENUM", 
+                      range:{
+                        "SLOWEST":0, 
+                        "SLOW":1, 
+                        "NORMAL":2, 
+                        "FAST":3,
+                        "FASTEST":4,
+                      }
+                    },
   RESET:            {type:"ENUM", 
                       range:{
                         "NONE":0, 
@@ -699,6 +708,7 @@ function createAllParams() {
   addParam("ps",          "INPUT_PS",         "NUMBER",   "cmH2O",    [5, 40, 1]);
   addParam("tps",         "INPUT_TPS",        "TPS",      "%"         [20, 50, 10]);
   addParam("psTrigger",   "INPUT_PS_TRIGGER", "NUMBER",   "cmH2O",    [1.0, 2.5, 0.1]);
+  addParam("psRamp",      "INPUT_PS_RAMP",    "PSRAMP",   "");
   addParam("fiO2",        "INPUT_FIO2",       "NUMBER",   "%",        [0, 100, 1]);
   addParam("o2Purity",    "INPUT_O2_PURITY",  "NUMBER",   "%",        [21, 100, 1]);
 

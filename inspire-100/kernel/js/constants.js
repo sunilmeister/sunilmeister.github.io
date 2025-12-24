@@ -67,6 +67,14 @@ const EI_DECODER = [
   "1:3",
 ];
 
+const PSRAMP_DECODER = [
+  "SLOWEST",
+  "SLOW",
+  "NORMAL",
+  "FAST",
+  "FASTEST",
+];
+
 const INITIAL_STATE = 0;
 const STANDBY_STATE = 1;
 const ACTIVE_STATE = 2;

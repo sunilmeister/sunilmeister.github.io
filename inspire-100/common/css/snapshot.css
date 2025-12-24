@@ -210,7 +210,7 @@
 }
 
 .PsTrigger {
-  grid-area: 10 / 9 / 12 / 12;
+  grid-area: 10 / 9 / 13 / 12;
   color: var(--rsp_paleblue);
   font-size: 1.5rem;
   background-color: var(--rsp_mediumblue);
@@ -219,7 +219,7 @@
 }
 
 .Compliance {
-  grid-area: 12 / 9 / 15 / 12;
+  grid-area: 13 / 9 / 15 / 12;
   color: var(--rsp_brightgreen);
   background-color: var(--rsp_green);
   font-size: 1rem;
