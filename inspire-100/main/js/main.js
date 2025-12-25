@@ -69,7 +69,8 @@ function launchPlayback() {
 }
 
 function findElevation() {
-  window.open("https://www.freemaptools.com/elevation-finder.htm");
+  //window.open("https://www.freemaptools.com/elevation-finder.htm");
+  window.open("https://mapscaping.com/worldwide-elevation-finder/");
 }
 
 function launchFiO2() {
