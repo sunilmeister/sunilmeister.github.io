@@ -20,6 +20,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="css/sizes.css">
     <link rel="stylesheet" href="css/playback.css">
+    <link rel="stylesheet" href="css/playSnapshot.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/playFrontPanel.css">
     <link rel="stylesheet" href="../common/css/colors.css">
     <link rel="stylesheet" href="../common/css/common.css">
     <link rel="stylesheet" href="../common/css/noUi.css">
@@ -29,12 +32,9 @@
     <link rel="stylesheet" href="../common/css/chart.css">
     <link rel="stylesheet" href="../common/css/wave.css">
     <link rel="stylesheet" href="../common/css/wavesLegend.css">
-    <link rel="stylesheet" href="../common/css/snapshot.css">
-    <link rel="stylesheet" href="../common/css/frontPanel.css">
     <link rel="stylesheet" href="../common/css/searchExpr.css">
     <link rel="stylesheet" href="../common/css/searchResults.css">
     <link rel="stylesheet" href="../common/css/paramSummary.css">
-    <link rel="stylesheet" href="css/sidebar.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -659,7 +659,7 @@
       <div id=snapshotsDiv class=Snapshot style="display:none;">
         <div class=Space1></div>
         <div class=Space2></div>
-        <div id=frontPanelDiv class=FrontPanel>
+        <div id=frontPanelDiv class=FrontPanel style="margin-top:-1.5rem; ">
           <img id=frontPanel class=fpImgCls src="../common/img/FrontPanelKnob.png">
           <div id=fpLcdDiv class=fpLcdCls>
             <p id=lcdline1 class=fpLineCls style="margin-top:0.2rem; margin-bottom:0rem;">
@@ -894,14 +894,14 @@
         <div id=PendingDiv class=Pending>
           <p id=Pending style="font-size:1.2rem; margin-top:0.625rem; margin-bottom:0rem;">No Pending Changes
         </div>
-        <div id=elapsedTimeId class=elapsedTimeCls>
+        <div id=elapsedTimeId class=elapsedTimeCls style="margin-top:1rem;">
           <center>
             <p style="background-color: var(--rsp_darkblue);font-size:1.4rem; margin-top:0rem; margin-bottom:0.3rem;">TOTAL DURATION
               <p id=upTime class=embossedTextCls style="font-weight:bold; font-size:2.5rem; margin-top:0.6rem; margin-bottom:0.3rem;">__:__
                 <p style="font-size:1rem; margin-top:0.3rem; margin-bottom:0.6rem;">(Hrs:Mins)
           </center>
         </div>
-        <div id=elapsedBreathsId class=elapsedBreathCls>
+        <div id=elapsedBreathsId class=elapsedBreathCls style="margin-top:1rem;">
           <center>
             <p style="background-color: var(--rsp_darkblue);font-size:1.4rem; margin-top:0rem; margin-bottom:0.3rem;">TOTAL BREATHS
               <p id=elapsedBreaths class=embossedTextCls style="font-weight:bold; font-size:2.5rem; margin-top:2rem; margin-bottom:0.3rem;">__

@@ -1,0 +1,68 @@
+/* ******************************************************
+// Author: Sunil Nanda
+********************************************************* */
+
+.fpLcdCls {
+	position: absolute;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--rsp_darkgreen);
+  background-color: yellow;
+	z-index: 2;
+}
+
+.fpLedCls {
+	position: absolute;
+	z-index: 2;
+}
+
+.fpLedImgCls {
+	width:1.7rem;
+	height: 1.7rem;
+}
+
+.fpNumCls {
+	position: absolute;
+  font-family: Arial;
+  color: var(--rsp_brightgreen);
+  background-color: dimgrey;
+	z-index: 2;
+  text-shadow: 1px 3px 3px #555;
+}
+
+.fpLineCls {
+}
+
+.fpTextCls {
+  font-size: 2.7rem;
+  font-style: oblique;
+	font-weight: bold;
+	margin-top: 0.3rem;
+	margin-bottom: 0.2rem;
+  color: var(--rsp_brightgreen);
+	z-index: 2;
+}
+
+.fpImgCls {
+	width:42rem;
+	height: auto;
+}
+
+.fpMutedCls {
+	position: absolute;
+	z-index: 2;
+}
+
+.fpMutedImgCls {
+	width:4.5rem;
+	height: auto;
+}
+
+.fpUniMono {
+  font-size: 0.71rem;
+	font-weight: bold;
+	vertical-align: middle;
+	color: black;
+}
+

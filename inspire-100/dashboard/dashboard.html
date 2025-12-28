@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../external/nouislider/nouislider.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
-    <link href="css/sizes.css" rel="stylesheet">
     <link href="../common/css/colors.css" rel="stylesheet">
     <link href="../common/css/common.css" rel="stylesheet">
     <link href="../common/css/noUi.css" rel="stylesheet">
@@ -23,13 +22,14 @@
     <link href="../common/css/chart.css" rel="stylesheet">
     <link href="../common/css/wave.css" rel="stylesheet">
     <link href="../common/css/wavesLegend.css" rel="stylesheet">
-    <link href="../common/css/snapshot.css" rel="stylesheet">
-    <link href="../common/css/frontPanel.css" rel="stylesheet">
     <link href="../common/css/searchExpr.css" rel="stylesheet">
     <link href="../common/css/searchResults.css" rel="stylesheet">
     <link rel="stylesheet" href="../common/css/paramSummary.css">
+    <link href="css/sizes.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/dashSnapshot.css" rel="stylesheet">
+    <link href="css/dashFrontPanel.css" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -975,7 +975,7 @@
         <div id=snapshot-pane class=Snapshot>
           <div class=Space1></div>
           <div class=Space2></div>
-          <div id=frontPanelDiv class=FrontPanel>
+          <div id=frontPanelDiv class=FrontPanel style="margin-top:3rem;">
             <img id=frontPanel class=fpImgCls src="../common/img/FrontPanelKnob.png">
             <div id=fpLcdDiv class=fpLcdCls>
               <p id=lcdline1 class=fpLineCls style="margin-top:0.2rem; margin-bottom:0rem;">
