@@ -20,10 +20,11 @@
 
 .docHrefCls {
   font-size:1.4rem;
+  background-color: var(--rsp_lightblue);
 }
 
 a:link { 
-	color: white;
+  color: var(--rsp_darkblue);
   text-decoration: none;
   font-weight: normal;
 	display: block;
@@ -37,17 +38,17 @@ a:visited {
 }
 
 a:active {
-	color:var(--rsp_blue);
+	color:var(--rsp_mediumblue);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: normal;
 	display: block;
   transform: translateY(0.2rem);
 }
 
 a:hover {
-	color:var(--rsp_blue);
+	color:var(--rsp_mediumblue);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: normal;
 	display: block;
   transform: translateY(-0.2rem);
 }

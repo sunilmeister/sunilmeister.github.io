@@ -47,7 +47,7 @@ body {
 
 .breathCaption {
 	font-weight: normal;
-	background-color: darkgray;
+  text-shadow: 1px 3px 3px grey;
 	color: white;
 }
 
@@ -67,6 +67,7 @@ body {
 	color: white;
 	font-weight: bold;
 	font-size: 1.8rem;
+  text-shadow: 1px 3px 3px grey;
 	margin-top:-0.5rem;
 	margin-bottom:-1rem;
 }
@@ -75,6 +76,7 @@ body {
 	color: white;
 	font-weight: bold;
 	font-size: 1.8rem;
+  text-shadow: 1px 3px 3px grey;
 	margin-top:-0.5rem;
 	margin-bottom:-1rem;
 }
@@ -134,12 +136,12 @@ body {
 .ParamName {
 	color: white;
 	background-color: gray;
-	font-size:1rem;
 	margin-top:0rem;
 }
 
 .ParamValue {
 	font-weight: bold;
+  text-shadow: 1px 3px 3px grey;
 	color: white;
 	font-size:1rem;
 }
@@ -148,6 +150,7 @@ body {
 	margin-top:-0.7rem;
 	margin-bottom:0.5rem;
 	font-weight: bold;
+  text-shadow: 1px 3px 3px grey;
 	color: white;
 	font-size:1rem;
 }
