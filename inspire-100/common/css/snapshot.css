@@ -365,8 +365,9 @@
 .paramValueCls {
   margin-top:0rem; 
   margin-bottom:0.315rem; 
-  font-size:2rem; 
+  font-size:2.2rem; 
   font-weight:bold;
+  text-shadow: 1px 3px 3px #555;
 }
 
 .modeValueCls {
@@ -374,13 +375,15 @@
   margin-bottom:0.315rem; 
   font-size:2rem; 
   font-weight:bold;
+  text-shadow: 1px 3px 3px #555;
 }
 
 .psvModeValueCls {
   margin-top:1rem; 
   margin-bottom:0.3rem; 
-  font-size:1.5rem; 
+  font-size:1.8rem; 
   font-weight:bold;
+  text-shadow: 1px 3px 3px #555;
 }
 
 .paramUnitsCls {
@@ -401,8 +404,9 @@
 .measuredValueCls {
   margin-top:1rem; 
   margin-bottom:0.625rem; 
-  font-size:2rem; 
+  font-size:2.2rem; 
   font-weight:bold;
+  text-shadow: 1px 3px 3px #555;
 }
 
 .measuredUnitsCls {
@@ -414,7 +418,7 @@
 .elapsedTimeCls {
   grid-area: 15 / 20 / 17 / 21;
   margin-left:1rem; 
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_mediumblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
@@ -422,10 +426,12 @@
 
 .elapsedBreathCls {
   grid-area: 15 / 21 / 17 / 22;
-  background-color: var(--rsp_darkblue);
+  background-color: var(--rsp_mediumblue);
   color: white;
   -webkit-box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
   box-shadow: 0.25rem 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.4);
 }
 
-
+.embossedTextCls {
+  text-shadow: 1px 3px 3px #555;
+}

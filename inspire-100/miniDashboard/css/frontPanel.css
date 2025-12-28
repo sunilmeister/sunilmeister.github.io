@@ -26,6 +26,7 @@
   font-family: Arial;
   color: var(--rsp_brightgreen);
   background-color: dimgrey;
+  text-shadow: 1px 3px 3px #555;
 	z-index: 2;
 }
 

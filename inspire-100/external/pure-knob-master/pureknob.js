@@ -560,7 +560,11 @@
 					/*
 					 * Draw the number.
 					 */
-					ctx.font = fontSizeString + 'px sans-serif';
+					ctx.font = 'bold ' + fontSizeString + 'px sans-serif';
+          ctx.shadowColor = "#555";
+          ctx.shadowOffsetX = 3;  
+          ctx.shadowOffsetY = 3; 
+          ctx.shadowBlur = 1;  
 					ctx.fillStyle = colorFilling;
 					ctx.textAlign = 'center';
 					ctx.textBaseline = 'middle';

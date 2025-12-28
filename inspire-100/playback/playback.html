@@ -795,15 +795,15 @@
           <center>
             <p style="font-size:1.1rem;margin-top:0rem;padding-top:1rem; padding-bottom:1rem;background-color:var(--rsp_darkblue); color:white;"><b>FiO<sub>2</sub> Settings</b>
               <div id=fiO2Calc style="background-color:var(--rsp_mediumblue); color:white;">
-                <div id=flowDiv style="background-color:var(--rsp_mediumgreen); color:var(--rsp_darkblue); margin-top:-1.5rem;">
-                  <p style="font-size:1.1rem; padding-top:0.25rem;"><b>Required O<sub>2</sub></b>
-                    <p style="font-size:1.1rem; margin-top:-1.25rem;"><b>Flow Rate</b>
-                      <p id=o2FlowRate style="font-size:1.75rem; font-weight: bold; margin-bottom:0.1rem; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
-                        <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-0.1rem; padding-bottom:0.5rem;">(litres/min)
+                <div id=flowDiv style="background-color:var(--rsp_green); color:var(--rsp_darkblue); margin-top:-1.5rem;">
+                  <p style="font-size:1.1rem; padding-top:0.25rem;color:white;"><b>Required O<sub>2</sub></b>
+                    <p style="font-size:1.1rem; margin-top:-1.25rem;color:white;"><b>Flow Rate</b>
+                      <p id=o2FlowRate class=embossedTextCls style="color:var(--rsp_brightgreen);font-size:2rem; font-weight: bold; margin-bottom:0.1rem; margin-top:-1rem;padding-top:0.25rem; padding-bottom:0.5rem;">0.0
+                        <p style="font-size:1rem; margin-bottom:0.3rem; margin-top:-0.1rem; padding-bottom:0.5rem;color:var(--rsp_brightgreen)">(l/min)
                 </div>
                 <div id=fiO2Div style="background-color:var(--rsp_mediumblue); color:white;margin-bottom:-1.6rem; margin-top:-1rem;">
                   <p style="font-size:1.1rem; background-color:var(--rsp_darkblue); ">Desired FiO<sub>2</sub>
-                    <p id=fiO2Value style="font-size:1.8rem; font-weight:bold; padding-bottom:1.5rem;margin-top:-0.5rem;">__
+                    <p id=fiO2Value class=embossedTextCls style="font-size:2rem; font-weight:bold; padding-bottom:1.5rem;margin-top:-0.5rem;">__
                 </div>
               </div>
           </center>
@@ -811,10 +811,10 @@
         <div class=PsTrigger>
           <p class=measuredHeadingCls>
             PS Trigger
-            <p id=PsTriggerCm class=measuredValueCls> __
+            <p id=PsTriggerCm class="measuredValueCls embossedTextCls"> __
             <p class=measuredUnitsCls> (cmH<sub>2</sub>O)
             <p style="font-size:1.1rem; background-color:var(--rsp_darkblue); ">PS Ramp
-            <p id=PsRamp class="measuredUnitsCls" style=" font-size: 1.5rem; margin-top: -0.5rem; font-weight: bold; "> NORMAL
+            <p id=PsRamp class="measuredUnitsCls embossedTextCls" style=" font-size: 1.5rem; margin-top: -0.5rem; font-weight: bold; "> NORMAL
         </div>
         <div class=Compliance>
           <p style="margin-top:-0.2rem; margin-bottom:0rem; color:var(--rsp_brightgreen);
@@ -822,7 +822,7 @@
             &#x394V/&#x394P
               
               <p style="margin-top:0.5rem; margin-bottom:-0.25rem; font-size:1.1rem;">Dynamic/Static
-              <p id=DSCOMP style="margin-top:0.25rem; margin-bottom:1rem; font-size:2rem; font-weight: bold;">
+              <p id=DSCOMP class=embossedTextCls style="margin-top:0.25rem; margin-bottom:1rem; font-size:2rem; font-weight: bold;">
                   __ / __
               <p class=measuredUnitsCls style="margin-top:-0.8rem;"> (ml/cmH<sub>2</sub>O)
         </div>
@@ -896,15 +896,15 @@
         </div>
         <div id=elapsedTimeId class=elapsedTimeCls>
           <center>
-            <p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL DURATION
-              <p id=upTime style="font-weight:bold; font-size:2rem; margin-top:0.3rem; margin-bottom:0.3rem;">__:__
+            <p style="background-color: var(--rsp_darkblue);font-size:1.4rem; margin-top:0rem; margin-bottom:0.3rem;">TOTAL DURATION
+              <p id=upTime class=embossedTextCls style="font-weight:bold; font-size:2.5rem; margin-top:0.6rem; margin-bottom:0.3rem;">__:__
                 <p style="font-size:1rem; margin-top:0.3rem; margin-bottom:0.6rem;">(Hrs:Mins)
           </center>
         </div>
         <div id=elapsedBreathsId class=elapsedBreathCls>
           <center>
-            <p style="font-size:1.4rem; margin-top:1rem; margin-bottom:0.3rem;">TOTAL BREATHS
-              <p id=elapsedBreaths style="font-weight:bold; font-size:2.2rem; margin-top:0.6rem; margin-bottom:0.3rem;">__
+            <p style="background-color: var(--rsp_darkblue);font-size:1.4rem; margin-top:0rem; margin-bottom:0.3rem;">TOTAL BREATHS
+              <p id=elapsedBreaths class=embossedTextCls style="font-weight:bold; font-size:2.5rem; margin-top:2rem; margin-bottom:0.3rem;">__
           </center>
         </div>
       </div>
@@ -947,7 +947,7 @@
         <div class=row style="width:100%; margin-top:-1rem;">
           <div id=measured-pane class=column style="font-size: 1.5rem;">
             <center>
-              <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+              <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;text-shadow:1px 4px 4px grey;">
                 Parameters Measured
               </h3>
             </center>
@@ -964,7 +964,7 @@
               </tr>
             </table>
             <center>
-              <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+              <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;text-shadow:1px 4px 4px grey;">
                 Miscellaneous Information
               </h3>
             </center>
@@ -980,7 +980,7 @@
           </div>
           <div id=stats-pane class=column style="font-size: 1.4rem">
             <center>
-              <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+              <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;text-shadow:1px 4px 4px grey;">
                 Static Information
               </h3>
             </center>
@@ -996,7 +996,7 @@
             <center>
               <div id=staticStats style="font-size: 1.5rem">
                 <center>
-                  <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                  <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;text-shadow:1px 4px 4px grey;">
                     Parameter Settings Used
                   </h3>
                 </center>
@@ -1016,7 +1016,7 @@
                   </table>
                 </center>
                 <center>
-                  <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;">
+                  <h3 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;text-shadow:1px 4px 4px grey;">
                     Sequence of Parameter Combinations
                   </h3>
                 </center>
@@ -1204,7 +1204,7 @@
         <div style="margin-bottom:1.3rem;;">
           <center>
             <p class=shadowDiv5 id=sessionNameData style="margin-top:-3rem; margin-bottom:0;
-              background-color:var(--rsp_green); color:brightgreen;font-size:2.2rem; "> No Selected Recording
+              background-color:var(--rsp_green); color:brightgreen;font-size:2.2rem; text-shadow:1px 3px 3px grey;"> No Selected Recording
           </center>
         </div>
         <center>
