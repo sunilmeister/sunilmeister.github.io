@@ -713,7 +713,7 @@
                     </button>
                     <br>
                     <center>INSPIRE-100 Recordings</center>
-                    <table id='dbTable' className="dbTableStyle" style="font-size:1.8rem; width:100%">
+                    <table id='dbTable' class="dbTableStyle" style="font-size:1.8rem; width:100%">
                       <thead>
                         <tr>
                           <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.8rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="1"><img src="../common/img/open.png" style="width:2rem; height:2rem;"></th>
@@ -768,7 +768,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;text-shadow:1px 4px 4px grey;">
       Parameters Measured</h2>
               </center>
-              <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.5rem; width:100%">
+              <table id='statsMinMaxTable' class="statsTableStyle" style="font-size:1.5rem; width:100%">
                 <tr>
                   <th align="left" style="background-color:lightgray;">
                     Parameter</th>
@@ -783,7 +783,7 @@
                 <h2 class=shadowDiv5 style="background-color:var(--rsp_mediumblue); color:white;font-size:2rem;text-shadow:1px 4px 4px grey;">
       Miscellaneous Information</h2>
               </center>
-              <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.5rem; width:100%">
+              <table id='statsMiscTable' class="statsTableStyle" style="font-size:1.5rem; width:100%">
                 <tr>
                   <th align="left" style="background-color:lightgray;">
                     Information</th>
@@ -813,7 +813,7 @@
       Parameter Settings Used</h2>
                   </center>
                   <center>
-                    <table id='statsParamTable' className="statsTableStyle" style="font-size:1.5rem; width:100%">
+                    <table id='statsParamTable' class="statsTableStyle" style="font-size:1.5rem; width:100%">
                       <tr>
                         <th align="left" style="background-color:lightgray;">
                           Parameter</th>
@@ -830,7 +830,7 @@
       Sequence of Parameter Combinations</h2>
                   </center>
                   <center>
-                    <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
+                    <table id='statsComboTable' class="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
                       <tr>
                         <th colspan=10 style="background-color:lightgray; font-size:1.5rem; border-right:0.1rem solid white;">
                           Parameter Combination</th>
@@ -1003,14 +1003,27 @@
             <p id=State style="margin-top:0.5rem; font-size:1rem;"><b>UNKNOWN</b>
           </div>
           <div class=Patient>
-            <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem;
-        margin-bottom:0rem;background-color:var(--rsp_darkblue); color: white; font-size:1.4rem;"><b>Patient Information</b>
-              <p id=Pline1 style="font-size:1.4rem; padding-top:0.8rem;">
-                _____________
-                <p id=Pline2 style="font-size:1.2rem; padding-top:1.75rem;">
-                  _____________
-                  <p id=Pline3 style="font-size:1.1rem;">
-                    _____________
+            <p style="font-size:1.5rem;background-color:var(--rsp_darkblue);margin-top:0rem;"><b>Patient Information</b>
+            <p id=PatientFirstName style="font-size:1.5rem; font-weight:bold;">_______
+            <p id=PatientLastName style="font-size:1.5rem;font-weight:bold;">_______
+            <table id=patientStats class=patientTableStyle>
+              <tr>
+                <th align="left">Gender</th>
+                <td id=PatientGender>------</td>
+              </tr>
+              <tr>
+                <th align="left" >Age (yrs)</th>
+                <td id=PatientAge>------</td>
+              </tr>
+              <tr>
+                <th align="left" >Height (cm)</th>
+                <td id=PatientHeight>------</td>
+              </tr>
+              <tr>
+                <th align="left" >Weight (kg)</th>
+                <td id=PatientWeight>------</td>
+              </tr>
+            </table>
           </div>
           <div class=Measurements>
             <p style="font-size:1.1rem;margin-top:0.125rem; margin-bottom:0.15rem;">Measured Patient Parameters
@@ -1116,7 +1129,7 @@
                   </div>
                   <div id=fiO2Div style="background-color:var(--rsp_mediumblue); color:white;margin-bottom:-1.6rem; margin-top:-1rem;">
                     <p style="font-size:1.1rem; background-color:var(--rsp_darkblue); ">Desired FiO<sub>2</sub>
-                      <p id=fiO2Value class=embossedTextCls style="font-size:2rem; font-weight:bold; padding-bottom:1.5rem;margin-top:-0.5rem;">__
+                      <p id=fiO2Value class=embossedTextCls style="font-size:2.5rem; font-weight:bold; margin-top:-0.3rem;">__
                   </div>
                 </div>
             </center>
@@ -1209,27 +1222,27 @@
           </div>
           <div class=SysUid style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
             <center>
-              <p style="font-size:1.5rem; margin-top:0.6rem; "><b>SYSTEM UID</b></p>
-              <p id='SysUid' style="font-size:1.2rem; margin-bottom:0.2rem; margin-top:-0.5rem;">
+              <p style="font-size:1.75rem; margin-top:0.6rem; "><b>SYSTEM UID</b></p>
+              <p id='SysUid' style="font-size:1.4rem; margin-bottom:0.2rem; margin-top:-0.5rem;">
             </center>
           </div>
           <div class=Indicators style="background-color:var(--rsp_darkblue); color:white; font-size:0.75rem;">
             <span onclick=openAudioControl() style="cursor:pointer;">
-      <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:0.5rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspWarning</p>
+      <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:0.5rem; padding-bottom:0; font-size:1.3rem;">&nbsp<img id=WarningActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspWarning</p>
       </span>
             <span onclick=openAudioControl() style="cursor:pointer;">
-      <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:0.5rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspError</p>
+      <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0.2rem; margin-left:0.5rem; padding-bottom:0; font-size:1.3rem;">&nbsp<img id=ErrorActiveImg src="../common/img/audioOff.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspError</p>
       </span>
             <span onclick=changeRecordingStatus() style="cursor:pointer;">
-      <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:0.5rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=RecordingActiveImg src="../common/img/BlankLED.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspRecording</p>
+      <p class=pButton align="left" style="margin-top:0.3rem; margin-bottom:0; margin-left:0.5rem; padding-bottom:0; font-size:1.3rem;">&nbsp<img id=RecordingActiveImg src="../common/img/BlankLED.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspRecording</p>
       </span>
             <span onclick=togglePause() style="cursor:pointer;">
-      <p class=pButton align="left" style="margin-top:0.2rem; margin-bottom:0; margin-left:0.5rem; padding-bottom:0; font-size:1.1rem;">&nbsp<img id=DashboardActiveImg src="../common/img/GreenDot.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspDashboard</p>
+      <p class=pButton align="left" style="margin-top:0.2rem; margin-bottom:0; margin-left:0.5rem; padding-bottom:0; font-size:1.3rem;">&nbsp<img id=DashboardActiveImg src="../common/img/GreenDot.png" alt="LED" style="width:1.1rem; height:1.1rem;">&nbsp&nbsp&nbsp&nbspDashboard</p>
       </span>
           </div>
           <div class=Logo>
             <center>
-              <img src="img/dashboard-title-logos.png" alt="Title" style="margin-top:0.6rem; margin-left:0rem; width:30rem; height:5.8rem;">
+              <img src="img/dashboard-title-logos.png" alt="Title" style="margin-top:0.6rem; margin-left:0rem; width:34rem; height:auto;">
             </center>
           </div>
           <div id=elapsedTimeId class=elapsedTimeCls>

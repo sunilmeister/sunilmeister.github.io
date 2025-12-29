@@ -623,7 +623,7 @@
             <img src="../common/img/trash-bin.png" class=iconButton title="Delete ALL" onClick="deleteAllDbs(this)" onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2rem; height:2rem; float:right;">
             <br>
             <center>INSPIRE-100 Recordings</center>
-            <table id='dbTable' className="dbTableStyle" style="font-size:1.8rem; width:100%">
+            <table id='dbTable' class="dbTableStyle" style="font-size:1.8rem; width:100%">
               <thead>
                 <tr>
                   <th align="center" style="padding: 0.5rem 0.5rem; font-size: 1.8rem; background-color:var(--rsp_lightblue); color:var(--rsp_darkblue); border: solid var(--rsp_darkblue);" colspan="1"><img src="../common/img/open.png" style="width:2rem; height:2rem;"></th>
@@ -690,14 +690,27 @@
           <p id=State style="margin-top:0.5rem; font-size:1rem;"><b>UNKNOWN</b>
         </div>
         <div class=Patient>
-          <p style="padding-top:0.7rem; padding-bottom:0.7rem; margin-top:0rem;
-            margin-bottom:0rem;background-color:var(--rsp_darkblue); color: white; font-size:1.4rem;"><b>Patient Information</b>
-            <p id=Pline1 style="font-size:1.4rem; padding-top:0.8rem;">
-              _____________
-              <p id=Pline2 style="font-size:1.2rem; padding-top:1.75rem;">
-                _____________
-                <p id=Pline3 style="font-size:1.1rem;">
-                  _____________
+          <p style="font-size:1.5rem;background-color:var(--rsp_darkblue);margin-top:0rem;"><b>Patient Information</b>
+          <p id=PatientFirstName style="font-size:1.5rem; font-weight:bold;">_______
+          <p id=PatientLastName style="font-size:1.5rem;font-weight:bold;">_______
+          <table id=patientStats class=patientTableStyle>
+            <tr>
+              <th align="left">Gender</th>
+              <td id=PatientGender>------</td>
+            </tr>
+            <tr>
+              <th align="left" >Age (yrs)</th>
+              <td id=PatientAge>------</td>
+            </tr>
+            <tr>
+              <th align="left" >Height (cm)</th>
+              <td id=PatientHeight>------</td>
+            </tr>
+            <tr>
+              <th align="left" >Weight (kg)</th>
+              <td id=PatientWeight>------</td>
+            </tr>
+          </table>
         </div>
         <div class=Measurements>
           <p style="font-size:1.1rem;margin-top:0.125rem; margin-bottom:0.15rem;">Measured Patient Parameters
@@ -951,7 +964,7 @@
                 Parameters Measured
               </h3>
             </center>
-            <table id='statsMinMaxTable' className="statsTableStyle" style="font-size:1.4rem; width:100%">
+            <table id='statsMinMaxTable' class="statsTableStyle" style="font-size:1.4rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Parameter
@@ -968,7 +981,7 @@
                 Miscellaneous Information
               </h3>
             </center>
-            <table id='statsMiscTable' className="statsTableStyle" style="font-size:1.4rem; width:100%">
+            <table id='statsMiscTable' class="statsTableStyle" style="font-size:1.4rem; width:100%">
               <tr>
                 <th align="left" style="background-color:lightgray; ">
                   Information
@@ -1001,7 +1014,7 @@
                   </h3>
                 </center>
                 <center>
-                  <table id='statsParamTable' className="statsTableStyle" style="font-size:1.4rem; width:100%">
+                  <table id='statsParamTable' class="statsTableStyle" style="font-size:1.4rem; width:100%">
                     <tr>
                       <th align="left" style="background-color:lightgray; ">
                         Parameter
@@ -1021,7 +1034,7 @@
                   </h3>
                 </center>
                 <center>
-                  <table id='statsComboTable' className="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
+                  <table id='statsComboTable' class="statsTableStyle" style="text-align:center; font-size:1.2rem; width:100%">
                     <tr>
                       <th colspan=10 style="background-color:lightgray; font-size:1.5rem; border-right:0.1rem solid white;">
                         Parameter Combination

@@ -343,7 +343,7 @@
 .paramValueCls {
   margin-top:0rem; 
   margin-bottom:0.315rem; 
-  font-size:2.2rem; 
+  font-size:2.5rem; 
   font-weight:bold;
   text-shadow: 1px 3px 3px #555;
 }
@@ -351,7 +351,7 @@
 .modeValueCls {
   margin-top:1.5rem; 
   margin-bottom:0.315rem; 
-  font-size:2rem; 
+  font-size:2.2rem; 
   font-weight:bold;
   text-shadow: 1px 3px 3px #555;
 }
@@ -382,7 +382,7 @@
 .measuredValueCls {
   margin-top:1rem; 
   margin-bottom:0.625rem; 
-  font-size:2.2rem; 
+  font-size:2.5rem; 
   font-weight:bold;
   text-shadow: 1px 3px 3px #555;
 }
@@ -413,3 +413,25 @@
 .embossedTextCls {
   text-shadow: 1px 3px 3px #555;
 }
+
+.patientTableStyle {
+  width: 100%;
+  margin-bottom: 0rem;
+}
+
+.patientTableStyle th {
+	border: 0.2rem solid white;
+	border-collapse: collapse;
+	font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.patientTableStyle td {
+	border: 0.2rem solid white;
+	border-collapse: collapse;
+	font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+}
+

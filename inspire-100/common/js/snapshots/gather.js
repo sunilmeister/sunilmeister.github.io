@@ -15,33 +15,6 @@ function gatherSnapshotData() {
 	}
 	if (snap.time === null) return;
 
-	// Patient info
-	snap.patientName = "--" ;
-	if (session.patientData.fname) snap.patientName = session.patientData.fname;
-	if (session.patientData.lname) snap.patientName += " " + session.patientData.lname;
-	snap.patientAge = "";
-	if (session.patientData.gender) {
-	  snap.patientAge = "Gender: " + session.patientData.gender;
-	} else {
-	  snap.patientAge = "Gender: ?";
-	}
-	if (session.patientData.age) {
-	  snap.patientAge += "&nbsp&nbspAge: " + session.patientData.age + "yr";
-	} else {
-	  snap.patientAge += "&nbsp&nbspAge: ?";
-	}
-	snap.patientStats = "";
-	if (session.patientData.weight) {
-	  snap.patientStats = "Weight: " + session.patientData.weight + "kg";
-	} else {
-	  snap.patientStats = "Weight: ?";
-	}
-	if (session.patientData.height) {
-	  snap.patientStats += "&nbsp&nbspHeight: " + session.patientData.height + "cm";
-	} else {
-	  snap.patientStats += "&nbsp&nbspHeight: ?";
-	}
-
 	// Breath number closest to the time
 	snap.breathNum = lookupBreathNum(snap.time);
 

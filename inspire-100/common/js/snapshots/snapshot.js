@@ -296,9 +296,30 @@ function refreshMessageLines() {
 // ////////////////////////////////////////////////////////////////
 function refreshPatientInfo() {
 	let snap = session.snapshot.content;
-  updateDivText(pline1DIV, snap.patientName);
-  updateDivText(pline2DIV, snap.patientAge);
-  updateDivText(pline3DIV, snap.patientStats);
+	if (session.patientData.fname) {
+    let elem = document.getElementById("PatientFirstName");
+    elem.innerHTML = session.patientData.fname;
+  }
+	if (session.patientData.lname) {
+    let elem = document.getElementById("PatientLastName");
+    elem.innerHTML = session.patientData.lname;
+  }
+	if (session.patientData.age) {
+    let elem = document.getElementById("PatientAge");
+    elem.innerHTML = session.patientData.age;
+  }
+	if (session.patientData.gender) {
+    let elem = document.getElementById("PatientGender");
+    elem.innerHTML = session.patientData.gender;
+  }
+	if (session.patientData.height) {
+    let elem = document.getElementById("PatientHeight");
+    elem.innerHTML = session.patientData.height;
+  }
+	if (session.patientData.weight) {
+    let elem = document.getElementById("PatientWeight");
+    elem.innerHTML = session.patientData.weight;
+  }
 }
 
 // ////////////////////////////////////////////////////////////////
