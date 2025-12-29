@@ -296,13 +296,17 @@ function refreshMessageLines() {
 // ////////////////////////////////////////////////////////////////
 function refreshPatientInfo() {
 	let snap = session.snapshot.content;
+  let patientName = "";
 	if (session.patientData.fname) {
-    let elem = document.getElementById("PatientFirstName");
-    elem.innerHTML = session.patientData.fname;
+    patientName = session.patientData.fname;
   }
 	if (session.patientData.lname) {
-    let elem = document.getElementById("PatientLastName");
-    elem.innerHTML = session.patientData.lname;
+    patientName += " " + session.patientData.lname;
+  }
+
+  if (patientName) {
+    let elem = document.getElementById("PatientName");
+    elem.innerHTML = patientName;
   }
 	if (session.patientData.age) {
     let elem = document.getElementById("PatientAge");
