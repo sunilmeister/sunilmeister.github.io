@@ -761,7 +761,7 @@ function showDormantPopup() {
   dormantPopupManualCloseTime = null;
   let modalColor = palette.modal;
   
-  let dormantTimerInterval = 3000;
+  let dormantTimerInterval = 6000;
   Swal.fire({
     icon: 'info',
     title: DORMANT_TITLE_STR,

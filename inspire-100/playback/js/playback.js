@@ -583,7 +583,7 @@ setInterval(function () {
   if ((session.productionMode !== null) && !session.productionMode) {
     modalInfo("RECORDING IN DEBUG MODE", "System was not Production mode");
   }
-}, 30000)
+}, 60000)
 
 function buzzerMuteUnmuteCallback(muted) {
 }

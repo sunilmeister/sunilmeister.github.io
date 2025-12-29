@@ -2,7 +2,7 @@
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
 
-const BUZZER_CHECK_TIMEOUT_INTERVAL_IN_MS = 30000;
+const BUZZER_CHECK_TIMEOUT_INTERVAL_IN_MS = 60000;
   
 setTimeout(function checkBuzzerStatus() {
   checkBuzzerDisabled();
