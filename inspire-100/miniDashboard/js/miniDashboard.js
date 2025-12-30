@@ -303,7 +303,6 @@ window.onload = function () {
 
   openAudioControl();
 
-
   // now wait for chirps and act accordingly
   initChirpQ();
   waitForChirps();
