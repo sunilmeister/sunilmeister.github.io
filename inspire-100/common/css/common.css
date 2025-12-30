@@ -230,8 +230,8 @@ tr {
 
 .audioSlider {
   -webkit-appearance: none;
-	width: 6rem;
-  height : 1rem;
+	width: 19rem;
+  height : 2rem;
 }
 
 /* --------------------------- webkit browsers */
@@ -239,7 +239,7 @@ tr {
   -webkit-appearance: none;
   background-color: var(--rsp_darkblue);
 	width: 1rem;
-  height : 1rem;
+  height : 2rem;
   overflow: visible;
   cursor: pointer;
 }
@@ -248,7 +248,7 @@ tr {
   -moz-appearance: none;
   background-color: var(--rsp_darkblue);
 	width: 1rem;
-  height : 1rem;
+  height : 2rem;
   overflow: visible;
   cursor: pointer;
 }
