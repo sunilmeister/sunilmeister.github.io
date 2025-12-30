@@ -56,26 +56,41 @@
     <audio id="errorBeep">
       <source src="../common/mp3/errorBeep.mp3" type="audio/mp3">
     </audio>
-    <div id=audioControlDiv class=popupClassCenter style="width:18rem; height:auto; display: none">
+    <div id=audioControlDiv class=popupClassCenter style="width:24rem; height:auto; display: none">
       <center>
         <div>
-          <p style="font-size: 2rem;">Audio Alarms
+          <p style="font-size: 2.5rem;">Audio Alarms 
+          <br>
+          <div style="background-color:var(--rsp_mediumblue); margin:0.5rem;font-size: 1.8rem;">
+            <p style="font-size: 2rem; ">Info 
             <br>
-          <p style="font-size: 1.4rem; ">Info
-            <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
-            <input type="range" id="infoVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeInfoVolume()'>
-            <button class="button" id="infoPlay" onclick='playInfoSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.4rem;"> Play Sample </button>
-          <p style="font-size: 1.4rem; ">Warning
-            <img id=btnWarningImg class=iconButton src="../common/img/audioOff.png" onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
-            <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeWarningVolume()'>
-            <button class="button" id="warningPlay" onclick='playWarningSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.4rem;"> Play Sample </button>
-          <p style="font-size: 1.4rem; ">Error
-            <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:1.2rem; height:1.2rem;">
-            <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);" onchange='changeErrorVolume()'>
-            <button class="button" id="errorPlay" onclick='playErrorSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.4rem;"> Play Sample </button>
-          <div height:3rem> </div>
-          <button class=button style="background-color:var(--rsp_darkblue); width:12rem; font-size:1.4rem;" onclick='dismissAudioControl()'>DISMISS</button>
-          <div height:2rem> </div>
+            <img id=btnInfoImg class=iconButton src="../common/img/audioOff.png" onClick='toggleInfoBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2rem; height:2rem;float:left;">
+            <input type="range" id="infoVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);float:right;" onchange='changeInfoVolume()'>
+            <div style="clear:both;">
+              <button class="button" id="infoPlay" onclick='playInfoSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
+            </div>
+          </div>
+          <div style="background-color:var(--rsp_yellow); color:var(--rsp_darkblue);margin:0.5rem;font-size: 1.8rem;">
+            <p style="font-size: 2rem; ">Warning 
+            <br>
+            <img id=btnWarningImg src="../common/img/audioOff.png" class=iconButton onClick='toggleWarningBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2rem; height:2rem;float:left;">
+            <input type="range" id="warningVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);float:right;" onchange='changeWarningVolume()'>
+            <div style="clear:both;">
+              <button class="button" id="warningPlay" onclick='playWarningSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
+            </div>
+          </div>
+          <div style="background-color:var(--rsp_darkred); margin:0.5rem; color:white;font-size: 1.8rem;">
+            <p style="font-size: 2rem; ">Error 
+            <br>
+            <img id=btnErrorImg class=iconButton src="../common/img/audioOff.png" onClick='toggleErrorBeep()' onmouseover='overIconBtn(this)' onmouseout='outIconBtn(this)' style="width:2rem; height:2rem; float:left;">
+            <input type="range" id="errorVolume" class=audioSlider value="50" style="accent-color:var(--rsp_brightgreen);float:right;" onchange='changeErrorVolume()'>
+            <div style="clear:both;">
+              <button class="button" id="errorPlay" onclick='playErrorSample()' style="background-color:var(--rsp_darkgreen);font-size: 1.8rem;"> Play Sample </button>
+            </div>
+          </div>
+          <br>
+          <button class=button style="background-color:var(--rsp_darkblue); width:14rem; font-size:1.8rem;" onclick='dismissAudioControl()'>DISMISS</button>
+          <br>
           <br>
         </div>
       </center>
