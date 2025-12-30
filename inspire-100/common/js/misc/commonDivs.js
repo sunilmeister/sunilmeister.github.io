@@ -92,9 +92,6 @@ function initCommonDivElements() {
 
 	// snapshot divs
 	stateDIV = document.getElementById("StateDiv");
-  pline1DIV = document.getElementById("Pline1");
-  pline2DIV = document.getElementById("Pline2");
-  pline3DIV = document.getElementById("Pline3");
   stateDIV = document.getElementById("State");
   sbpmDIV = document.getElementById("SBPM");
   mbpmDIV = document.getElementById("MBPM");
