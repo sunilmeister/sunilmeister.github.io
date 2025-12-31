@@ -26,6 +26,7 @@ class CircularGauge {
       this.gauge.setProperty('valMax', rangeMax*10);
       this.gauge.setProperty('fnValueToString', function(value) {
         if (isNaN(value)) return "__";
+        if (isUndefined(value)) return "__";
         if (value === null) return "__";
         const floatValue = value/10;
         return floatValue.toFixed(1);
