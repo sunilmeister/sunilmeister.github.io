@@ -80,14 +80,16 @@
     <div id=addSystemDiv class=popupClassCenter style="width:25rem; height:20rem; font-size: 1.4rem; display: none">
       <center>
         <div>
-          <p style="font-size:1.8rem; margin-top:1.0rem; ">ADD new System <br>
-            <br>
+          <p style="font-size:1.8rem; margin-top:1.0rem; ">ADD new System
+            <div style="background-color:var(--rsp_brightblue);">
             <label for="newSysUID" style="font-size:1.6rem;">System UID</label>
             <input id=newSysUID style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; ">
             <br>
             <label for="newSysTAG" style="font-size:1.6rem;">System TAG</label>
             <input id=newSysTAG style="width: 24rem; background-color:white; color:var(--rsp_darkblue);font-size: 1.6rem; ">
             <br>
+            <br>
+            </div>
             <br>
             <button id=addSystemBtn class=button style="background-color:var(--rsp_darkblue); width:10rem; " onclick=addNewSystemBtn()>ADD SYSTEM</button>
             <button class=button style="background-color:var(--rsp_darkred); width:10rem; " onclick=cancelNewSystemBtn()>CANCEL</button>
