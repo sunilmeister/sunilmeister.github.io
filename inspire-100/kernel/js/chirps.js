@@ -222,7 +222,7 @@ function parseBnumData(jsonStr) {
 
 function parseParamData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr || !((arr.length == 10) || (arr.length == 11) || (arr.length == 12))) {
+  if (!arr || (arr.length != 12)) {
     return null;
   }
   let val = {
@@ -236,16 +236,8 @@ function parseParamData(jsonStr) {
     ie :        (arr[7] == -1) ? null : arr[7],
     rr :        (arr[8] == -1) ? null : arr[8],
     mv :        (arr[9] == -1) ? null : arr[9]/10,
-  }
-  if (arr.length >= 11) {
-    val.psTrigger = arr[10]/10;
-  } else {
-    val.psTrigger = null;
-  }
-  if (arr.length == 12) {
-    val.psRamp = arr[11];
-  } else {
-    val.psRamp = 2;
+    psTrigger : arr[10]/10,
+    psRamp :    arr[11],
   }
   return val;
 }
@@ -329,10 +321,7 @@ function parseComplianceData(jsonStr) {
 
 function parseMiscData(jsonStr) {
   let arr = parseJSONSafely(jsonStr);
-  if (!arr) return null;
-  if (arr.length != 5) {
-    return null;
-  }
+  if (!arr || (arr.length != 5)) return null;
 
   let val = {
     tempC : arr[0],
