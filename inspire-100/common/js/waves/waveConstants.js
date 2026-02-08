@@ -1,8 +1,8 @@
 // ////////////////////////////////////////////////////
 // Author: Sunil Nanda
 // ////////////////////////////////////////////////////
-const WAVE_NUM_ROLLING_BREATHS = 8;
-const MINI_WAVE_NUM_ROLLING_BREATHS = 8;
+const WAVE_NUM_ROLLING_BREATHS = 6;
+const MINI_WAVE_NUM_ROLLING_BREATHS = 6;
 const WAVE_ALERT_THRESHOLD = 40;
 const WAVE_HORIZONTAL_GRID_COLOR = '#8F99FB';
 const VC_WAVE_PRESSURE_FILTER_WINDOW = 2;
